@@ -3,7 +3,7 @@
 
 
 @interface Project : NSObject {
-	NSString *_path;
+    NSString *_path;
 }
 
 - (id)initWithPath:(NSString *)path;

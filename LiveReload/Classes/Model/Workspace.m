@@ -36,8 +36,8 @@ static Workspace *sharedWorkspace;
 
 // just to make XDry happy; won't ever be deallocated
 - (void)dealloc {
-	[_projects release], _projects = nil;
-	[super dealloc];
+    [_projects release], _projects = nil;
+    [super dealloc];
 }
 
 
@@ -45,11 +45,11 @@ static Workspace *sharedWorkspace;
 #pragma mark Projects set KVC accessors
 
 - (void)addProjectsObject:(Project *)project {
-    
+
 }
 
 - (void)removeProjectsObject:(Project *)project {
-    
+
 }
 
 

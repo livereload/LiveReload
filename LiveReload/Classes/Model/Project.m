@@ -11,15 +11,15 @@
 #pragma mark Init/dealloc
 
 - (id)initWithPath:(NSString *)path {
-	if (self = [super init]) {
-		_path = [path copy];
-	}
-	return self;
+    if (self = [super init]) {
+        _path = [path copy];
+    }
+    return self;
 }
 
 - (void)dealloc {
-	[_path release], _path = nil;
-	[super dealloc];
+    [_path release], _path = nil;
+    [super dealloc];
 }
 
 @end
