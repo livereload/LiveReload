@@ -1,5 +1,6 @@
 
 #import "Workspace.h"
+#import "Project.h"
 
 
 static Workspace *sharedWorkspace;
@@ -50,6 +51,23 @@ static Workspace *sharedWorkspace;
 
 - (void)removeProjectsObject:(Project *)project {
 
+}
+
+
+#pragma mark -
+#pragma mark File System Monitoring
+
+- (BOOL)isMonitoringEnabled {
+    return _monitoringEnabled;
+}
+
+- (void)setMonitoringEnabled:(BOOL)shouldMonitor {
+    if (_monitoringEnabled != shouldMonitor) {
+        _monitoringEnabled = shouldMonitor;
+        for (Project *project in _projects) {
+
+        }
+    }
 }
 
 

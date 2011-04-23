@@ -2,19 +2,18 @@
 #import <Cocoa/Cocoa.h>
 
 
-@class FSMonitor;
-
-
-@interface Project : NSObject {
+@interface FSMonitor : NSObject {
     NSString *_path;
 
-    FSMonitor *_monitor;
+    BOOL _running;
+
+    FSEventStreamRef _streamRef;
 }
 
 - (id)initWithPath:(NSString *)path;
 
 @property(nonatomic, readonly, copy) NSString *path;
 
-@property(nonatomic, getter=isMonitoringEnabled) BOOL monitoringEnabled;
+@property(nonatomic, getter=isRunning) BOOL running;
 
 @end

@@ -11,6 +11,7 @@
 		439394041362CCBA00333781 /* LiveReloadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 439394031362CCBA00333781 /* LiveReloadAppDelegate.m */; };
 		439394081362CD0A00333781 /* Workspace.m in Sources */ = {isa = PBXBuildFile; fileRef = 439394071362CD0A00333781 /* Workspace.m */; };
 		4393940B1362CD6500333781 /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 4393940A1362CD6500333781 /* Project.m */; };
+		439394511362D62100333781 /* FSMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 439394501362D62100333781 /* FSMonitor.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -31,6 +32,8 @@
 		439394071362CD0A00333781 /* Workspace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Workspace.m; sourceTree = "<group>"; };
 		439394091362CD6500333781 /* Project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Project.h; sourceTree = "<group>"; };
 		4393940A1362CD6500333781 /* Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Project.m; sourceTree = "<group>"; };
+		4393944F1362D62100333781 /* FSMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSMonitor.h; sourceTree = "<group>"; };
+		439394501362D62100333781 /* FSMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSMonitor.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* LiveReload-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "LiveReload-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* LiveReload.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveReload.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -52,6 +55,7 @@
 			children = (
 				439394011362CCBA00333781 /* Application */,
 				439394051362CCF600333781 /* Model */,
+				4393944E1362D61A00333781 /* Monitoring */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -142,6 +146,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		4393944E1362D61A00333781 /* Monitoring */ = {
+			isa = PBXGroup;
+			children = (
+				4393944F1362D62100333781 /* FSMonitor.h */,
+				439394501362D62100333781 /* FSMonitor.m */,
+			);
+			path = Monitoring;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -208,6 +221,7 @@
 				439394041362CCBA00333781 /* LiveReloadAppDelegate.m in Sources */,
 				439394081362CD0A00333781 /* Workspace.m in Sources */,
 				4393940B1362CD6500333781 /* Project.m in Sources */,
+				439394511362D62100333781 /* FSMonitor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
