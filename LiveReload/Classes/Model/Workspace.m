@@ -46,11 +46,15 @@ static Workspace *sharedWorkspace;
 #pragma mark Projects set KVC accessors
 
 - (void)addProjectsObject:(Project *)project {
-
+    [_projects addObject:project];
 }
 
 - (void)removeProjectsObject:(Project *)project {
+    [_projects removeObject:project];
+}
 
+- (NSArray *)sortedProjects {
+    return [[self.projects allObjects] sortedArrayUsingSelector:@selector(path)];
 }
 
 

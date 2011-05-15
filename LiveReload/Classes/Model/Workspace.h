@@ -17,6 +17,8 @@
 - (void)addProjectsObject:(Project *)project;
 - (void)removeProjectsObject:(Project *)project;
 
+@property(nonatomic, readonly, copy) NSArray *sortedProjects;
+
 @property(nonatomic, getter=isMonitoringEnabled) BOOL monitoringEnabled;
 
 @end
