@@ -13,6 +13,9 @@
 		4393940B1362CD6500333781 /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 4393940A1362CD6500333781 /* Project.m */; };
 		439394511362D62100333781 /* FSMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 439394501362D62100333781 /* FSMonitor.m */; };
 		43DDDE39137F59F700206646 /* StatusItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DDDE38137F59F700206646 /* StatusItemController.m */; };
+		43E834AA137FA15A000248E2 /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E834A9137FA15A000248E2 /* MainWindowController.m */; };
+		43E834BA137FB5DB000248E2 /* MAAttachedWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E834B9137FB5DB000248E2 /* MAAttachedWindow.m */; };
+		43E834BE137FB607000248E2 /* StatusItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E834BD137FB607000248E2 /* StatusItemView.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -37,6 +40,12 @@
 		439394501362D62100333781 /* FSMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSMonitor.m; sourceTree = "<group>"; };
 		43DDDE37137F59F700206646 /* StatusItemController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusItemController.h; sourceTree = "<group>"; };
 		43DDDE38137F59F700206646 /* StatusItemController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusItemController.m; sourceTree = "<group>"; };
+		43E834A8137FA15A000248E2 /* MainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindowController.h; sourceTree = "<group>"; };
+		43E834A9137FA15A000248E2 /* MainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainWindowController.m; sourceTree = "<group>"; };
+		43E834B8137FB5DB000248E2 /* MAAttachedWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAAttachedWindow.h; sourceTree = "<group>"; };
+		43E834B9137FB5DB000248E2 /* MAAttachedWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MAAttachedWindow.m; sourceTree = "<group>"; };
+		43E834BC137FB607000248E2 /* StatusItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusItemView.h; sourceTree = "<group>"; };
+		43E834BD137FB607000248E2 /* StatusItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusItemView.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* LiveReload-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "LiveReload-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* LiveReload.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveReload.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -58,8 +67,10 @@
 			children = (
 				439394011362CCBA00333781 /* Application */,
 				43DDDE36137F59E100206646 /* Controllers */,
+				43E834BB137FB607000248E2 /* Views */,
 				439394051362CCF600333781 /* Model */,
 				4393944E1362D61A00333781 /* Monitoring */,
+				43E834B7137FB5DB000248E2 /* Utilities */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -164,9 +175,31 @@
 			children = (
 				43DDDE37137F59F700206646 /* StatusItemController.h */,
 				43DDDE38137F59F700206646 /* StatusItemController.m */,
+				43E834A8137FA15A000248E2 /* MainWindowController.h */,
+				43E834A9137FA15A000248E2 /* MainWindowController.m */,
 			);
 			name = Controllers;
 			path = ../../../../Projects/LiveReloadPaid/LiveReload/Classes/Controllers;
+			sourceTree = "<group>";
+		};
+		43E834B7137FB5DB000248E2 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				43E834B8137FB5DB000248E2 /* MAAttachedWindow.h */,
+				43E834B9137FB5DB000248E2 /* MAAttachedWindow.m */,
+			);
+			name = Utilities;
+			path = ../../../../Projects/LiveReloadPaid/LiveReload/Classes/Utilities;
+			sourceTree = "<group>";
+		};
+		43E834BB137FB607000248E2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				43E834BC137FB607000248E2 /* StatusItemView.h */,
+				43E834BD137FB607000248E2 /* StatusItemView.m */,
+			);
+			name = Views;
+			path = ../../../../Projects/LiveReloadPaid/LiveReload/Classes/Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -237,6 +270,9 @@
 				4393940B1362CD6500333781 /* Project.m in Sources */,
 				439394511362D62100333781 /* FSMonitor.m in Sources */,
 				43DDDE39137F59F700206646 /* StatusItemController.m in Sources */,
+				43E834AA137FA15A000248E2 /* MainWindowController.m in Sources */,
+				43E834BA137FB5DB000248E2 /* MAAttachedWindow.m in Sources */,
+				43E834BE137FB607000248E2 /* StatusItemView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
