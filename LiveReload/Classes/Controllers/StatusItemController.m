@@ -13,15 +13,12 @@
 
 @synthesize statusItem=_statusItem;
 
-- (id)init {
-    if ((self = [super init])) {
-        self.statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
-        [self.statusItem setTitle:@"LR"];
-        [self.statusItem setTarget:self];
-        [self.statusItem setAction:@selector(statusIconClicked)];
-        [self.statusItem setHighlightMode:YES];
-    }
-    return self;
+- (void)showStatusBarIcon {
+    self.statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
+    [self.statusItem setTitle:@"LR"];
+    [self.statusItem setTarget:self];
+    [self.statusItem setAction:@selector(statusIconClicked)];
+    [self.statusItem setHighlightMode:YES];
 }
 
 - (IBAction)statusIconClicked {

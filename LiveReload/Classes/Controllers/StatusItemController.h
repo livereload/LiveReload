@@ -5,4 +5,6 @@
     NSStatusItem *_statusItem;
 }
 
+- (void)showStatusBarIcon;
+
 @end

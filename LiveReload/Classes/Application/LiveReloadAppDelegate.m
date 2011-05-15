@@ -5,9 +5,6 @@
 
 
 @interface LiveReloadAppDelegate ()
-
-@property(nonatomic, retain) StatusItemController *statusItemController;
-
 @end
 
 
@@ -21,7 +18,7 @@
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    self.statusItemController = [[[StatusItemController alloc] init] autorelease];
+    [self.statusItemController showStatusBarIcon];
     [Workspace sharedWorkspace].monitoringEnabled = YES;
 }
 

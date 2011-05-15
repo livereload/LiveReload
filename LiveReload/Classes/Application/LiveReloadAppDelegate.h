@@ -6,6 +6,6 @@
 @interface LiveReloadAppDelegate : NSObject <NSApplicationDelegate> {
 }
 
-@property(nonatomic, retain, readonly) StatusItemController *statusItemController;
+@property(nonatomic, retain) IBOutlet StatusItemController *statusItemController;
 
 @end
