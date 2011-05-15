@@ -26,7 +26,7 @@ static Workspace *sharedWorkspace;
 #pragma mark Init/dealloc
 
 - (id)init {
-    if (self = [super init]) {
+    if ((self = [super init])) {
         _projects = [[NSMutableSet alloc] init];
 
         // temporary projects for debugging, until we implement persistence

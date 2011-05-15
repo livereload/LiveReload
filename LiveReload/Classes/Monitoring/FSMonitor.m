@@ -21,7 +21,7 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
 #pragma mark Init/dealloc
 
 - (id)initWithPath:(NSString *)path {
-    if (self = [super init]) {
+    if ((self = [super init])) {
         _path = [path copy];
     }
     return self;
