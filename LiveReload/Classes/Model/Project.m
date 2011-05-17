@@ -1,6 +1,11 @@
 
 #import "Project.h"
 #import "FSMonitor.h"
+#import "CommunicationController.h"
+
+
+@interface Project () <FSMonitorDelegate>
+@end
 
 
 @implementation Project
@@ -15,6 +20,7 @@
     if ((self = [super init])) {
         _path = [path copy];
         _monitor = [[FSMonitor alloc] initWithPath:_path];
+        _monitor.delegate = self;
     }
     return self;
 }
@@ -29,13 +35,16 @@
 #pragma mark -
 #pragma mark File System Monitoring
 
-
 - (BOOL)isMonitoringEnabled {
     return _monitor.running;
 }
 
 - (void)setMonitoringEnabled:(BOOL)shouldMonitor {
     _monitor.running = shouldMonitor;
+}
+
+- (void)fileSystemMonitor:(FSMonitor *)monitor detectedChangeAtPathes:(NSSet *)pathes {
+    [[CommunicationController sharedCommunicationController] broadcastChangedPathes:pathes inProject:self];
 }
 
 

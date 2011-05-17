@@ -15,6 +15,7 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
 @implementation FSMonitor
 
 @synthesize path=_path;
+@synthesize delegate=_delegate;
 
 
 #pragma mark -
@@ -29,6 +30,7 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
 
 - (void)dealloc {
     [_path release], _path = nil;
+    _delegate = nil;
     [super dealloc];
 }
 
@@ -93,6 +95,7 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
         flagsStr = [NSString stringWithFormat:@" [%@]", flagsStr];
     }
     NSLog(@"Change event at %@%@", path, flagsStr);
+    [self.delegate fileSystemMonitor:self detectedChangeAtPathes:[NSSet setWithObject:path]];
 }
 
 

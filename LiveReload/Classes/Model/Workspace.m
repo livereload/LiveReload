@@ -30,7 +30,7 @@ static Workspace *sharedWorkspace;
         _projects = [[NSMutableSet alloc] init];
 
         // temporary projects for debugging, until we implement persistence
-        [self addProjectsObject:[[[Project alloc] initWithPath:@"~/Dropbox"] autorelease]];
+        [self addProjectsObject:[[[Project alloc] initWithPath:@"/Users/andreyvit/Dropbox"] autorelease]];
     }
     return self;
 }
@@ -46,10 +46,16 @@ static Workspace *sharedWorkspace;
 #pragma mark Projects set KVC accessors
 
 - (void)addProjectsObject:(Project *)project {
+    NSParameterAssert(![_projects containsObject:project]);
     [_projects addObject:project];
+    if (_monitoringEnabled) {
+        project.monitoringEnabled = YES;
+    }
 }
 
 - (void)removeProjectsObject:(Project *)project {
+    NSParameterAssert([_projects containsObject:project]);
+    project.monitoringEnabled = NO;
     [_projects removeObject:project];
 }
 
@@ -69,7 +75,7 @@ static Workspace *sharedWorkspace;
     if (_monitoringEnabled != shouldMonitor) {
         _monitoringEnabled = shouldMonitor;
         for (Project *project in _projects) {
-
+            project.monitoringEnabled = _monitoringEnabled;
         }
     }
 }

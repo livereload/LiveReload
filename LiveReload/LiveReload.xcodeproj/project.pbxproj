@@ -12,6 +12,7 @@
 		439394081362CD0A00333781 /* Workspace.m in Sources */ = {isa = PBXBuildFile; fileRef = 439394071362CD0A00333781 /* Workspace.m */; };
 		4393940B1362CD6500333781 /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 4393940A1362CD6500333781 /* Project.m */; };
 		439394511362D62100333781 /* FSMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 439394501362D62100333781 /* FSMonitor.m */; };
+		43AB50251382ACB200669FC6 /* CommunicationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43AB50241382ACB200669FC6 /* CommunicationController.m */; };
 		43DDDE39137F59F700206646 /* StatusItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DDDE38137F59F700206646 /* StatusItemController.m */; };
 		43E834AA137FA15A000248E2 /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E834A9137FA15A000248E2 /* MainWindowController.m */; };
 		43E834BA137FB5DB000248E2 /* MAAttachedWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E834B9137FB5DB000248E2 /* MAAttachedWindow.m */; };
@@ -44,6 +45,8 @@
 		4393940A1362CD6500333781 /* Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Project.m; sourceTree = "<group>"; };
 		4393944F1362D62100333781 /* FSMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSMonitor.h; sourceTree = "<group>"; };
 		439394501362D62100333781 /* FSMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSMonitor.m; sourceTree = "<group>"; };
+		43AB50231382ACB200669FC6 /* CommunicationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommunicationController.h; sourceTree = "<group>"; };
+		43AB50241382ACB200669FC6 /* CommunicationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommunicationController.m; sourceTree = "<group>"; };
 		43DDDE37137F59F700206646 /* StatusItemController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusItemController.h; sourceTree = "<group>"; };
 		43DDDE38137F59F700206646 /* StatusItemController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusItemController.m; sourceTree = "<group>"; };
 		43E834A8137FA15A000248E2 /* MainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindowController.h; sourceTree = "<group>"; };
@@ -88,6 +91,7 @@
 			children = (
 				439394011362CCBA00333781 /* Application */,
 				43DDDE36137F59E100206646 /* Controllers */,
+				43AB50221382ACA200669FC6 /* Connectivity */,
 				43E834BB137FB607000248E2 /* Views */,
 				439394051362CCF600333781 /* Model */,
 				4393944E1362D61A00333781 /* Monitoring */,
@@ -190,6 +194,16 @@
 				439394501362D62100333781 /* FSMonitor.m */,
 			);
 			path = Monitoring;
+			sourceTree = "<group>";
+		};
+		43AB50221382ACA200669FC6 /* Connectivity */ = {
+			isa = PBXGroup;
+			children = (
+				43AB50231382ACB200669FC6 /* CommunicationController.h */,
+				43AB50241382ACB200669FC6 /* CommunicationController.m */,
+			);
+			name = Connectivity;
+			path = ../../../../Projects/LiveReloadPaid/LiveReload/Classes/Connectivity;
 			sourceTree = "<group>";
 		};
 		43DDDE36137F59E100206646 /* Controllers */ = {
@@ -324,6 +338,7 @@
 				43E834E91380387B000248E2 /* PXListView.m in Sources */,
 				43E834EA1380387B000248E2 /* PXListViewCell.m in Sources */,
 				43E834EF13803BB2000248E2 /* ProjectCell.m in Sources */,
+				43AB50251382ACB200669FC6 /* CommunicationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
