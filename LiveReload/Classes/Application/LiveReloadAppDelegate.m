@@ -3,6 +3,7 @@
 #import "Workspace.h"
 #import "StatusItemController.h"
 #import "MainWindowController.h"
+#import "CommunicationController.h"
 
 
 @interface LiveReloadAppDelegate ()
@@ -21,6 +22,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     [self.statusItemController showStatusBarIcon];
+    [[CommunicationController sharedCommunicationController] startServer];
     [Workspace sharedWorkspace].monitoringEnabled = YES;
 }
 

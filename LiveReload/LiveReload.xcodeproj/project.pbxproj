@@ -13,6 +13,25 @@
 		4393940B1362CD6500333781 /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 4393940A1362CD6500333781 /* Project.m */; };
 		439394511362D62100333781 /* FSMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 439394501362D62100333781 /* FSMonitor.m */; };
 		43AB50251382ACB200669FC6 /* CommunicationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43AB50241382ACB200669FC6 /* CommunicationController.m */; };
+		43AB50331382B75E00669FC6 /* base64-decode.c in Sources */ = {isa = PBXBuildFile; fileRef = 43AB50271382B75E00669FC6 /* base64-decode.c */; };
+		43AB50341382B75E00669FC6 /* client-handshake.c in Sources */ = {isa = PBXBuildFile; fileRef = 43AB50281382B75E00669FC6 /* client-handshake.c */; };
+		43AB50351382B75E00669FC6 /* extension-deflate-stream.c in Sources */ = {isa = PBXBuildFile; fileRef = 43AB50291382B75E00669FC6 /* extension-deflate-stream.c */; };
+		43AB50361382B75E00669FC6 /* extension.c in Sources */ = {isa = PBXBuildFile; fileRef = 43AB502B1382B75E00669FC6 /* extension.c */; };
+		43AB50371382B75E00669FC6 /* handshake.c in Sources */ = {isa = PBXBuildFile; fileRef = 43AB502C1382B75E00669FC6 /* handshake.c */; };
+		43AB50381382B75E00669FC6 /* libwebsockets.c in Sources */ = {isa = PBXBuildFile; fileRef = 43AB502D1382B75E00669FC6 /* libwebsockets.c */; };
+		43AB50391382B75E00669FC6 /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = 43AB502F1382B75E00669FC6 /* md5.c */; };
+		43AB503A1382B75E00669FC6 /* parsers.c in Sources */ = {isa = PBXBuildFile; fileRef = 43AB50301382B75E00669FC6 /* parsers.c */; };
+		43AB503B1382B75E00669FC6 /* sha-1.c in Sources */ = {isa = PBXBuildFile; fileRef = 43AB50321382B75E00669FC6 /* sha-1.c */; };
+		43AB503E1382B87E00669FC6 /* WebSocketServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43AB503D1382B87E00669FC6 /* WebSocketServer.m */; };
+		43AB50531382FC9E00669FC6 /* NSObject+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 43AB50421382FC9E00669FC6 /* NSObject+JSON.m */; };
+		43AB50541382FC9E00669FC6 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 43AB50441382FC9E00669FC6 /* SBJsonParser.m */; };
+		43AB50551382FC9E00669FC6 /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 43AB50461382FC9E00669FC6 /* SBJsonStreamParser.m */; };
+		43AB50561382FC9E00669FC6 /* SBJsonStreamParserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 43AB50481382FC9E00669FC6 /* SBJsonStreamParserAdapter.m */; };
+		43AB50571382FC9E00669FC6 /* SBJsonStreamParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = 43AB504A1382FC9E00669FC6 /* SBJsonStreamParserState.m */; };
+		43AB50581382FC9E00669FC6 /* SBJsonStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 43AB504C1382FC9E00669FC6 /* SBJsonStreamWriter.m */; };
+		43AB50591382FC9E00669FC6 /* SBJsonStreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = 43AB504E1382FC9E00669FC6 /* SBJsonStreamWriterState.m */; };
+		43AB505A1382FC9E00669FC6 /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = 43AB50501382FC9E00669FC6 /* SBJsonTokeniser.m */; };
+		43AB505B1382FC9E00669FC6 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 43AB50521382FC9E00669FC6 /* SBJsonWriter.m */; };
 		43DDDE39137F59F700206646 /* StatusItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DDDE38137F59F700206646 /* StatusItemController.m */; };
 		43E834AA137FA15A000248E2 /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E834A9137FA15A000248E2 /* MainWindowController.m */; };
 		43E834BA137FB5DB000248E2 /* MAAttachedWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E834B9137FB5DB000248E2 /* MAAttachedWindow.m */; };
@@ -47,6 +66,39 @@
 		439394501362D62100333781 /* FSMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSMonitor.m; sourceTree = "<group>"; };
 		43AB50231382ACB200669FC6 /* CommunicationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommunicationController.h; sourceTree = "<group>"; };
 		43AB50241382ACB200669FC6 /* CommunicationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommunicationController.m; sourceTree = "<group>"; };
+		43AB50271382B75E00669FC6 /* base64-decode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "base64-decode.c"; sourceTree = "<group>"; };
+		43AB50281382B75E00669FC6 /* client-handshake.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "client-handshake.c"; sourceTree = "<group>"; };
+		43AB50291382B75E00669FC6 /* extension-deflate-stream.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "extension-deflate-stream.c"; sourceTree = "<group>"; };
+		43AB502A1382B75E00669FC6 /* extension-deflate-stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "extension-deflate-stream.h"; sourceTree = "<group>"; };
+		43AB502B1382B75E00669FC6 /* extension.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = extension.c; sourceTree = "<group>"; };
+		43AB502C1382B75E00669FC6 /* handshake.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = handshake.c; sourceTree = "<group>"; };
+		43AB502D1382B75E00669FC6 /* libwebsockets.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = libwebsockets.c; sourceTree = "<group>"; };
+		43AB502E1382B75E00669FC6 /* libwebsockets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libwebsockets.h; sourceTree = "<group>"; };
+		43AB502F1382B75E00669FC6 /* md5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = md5.c; sourceTree = "<group>"; };
+		43AB50301382B75E00669FC6 /* parsers.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = parsers.c; sourceTree = "<group>"; };
+		43AB50311382B75E00669FC6 /* private-libwebsockets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "private-libwebsockets.h"; sourceTree = "<group>"; };
+		43AB50321382B75E00669FC6 /* sha-1.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "sha-1.c"; sourceTree = "<group>"; };
+		43AB503C1382B87E00669FC6 /* WebSocketServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebSocketServer.h; sourceTree = "<group>"; };
+		43AB503D1382B87E00669FC6 /* WebSocketServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebSocketServer.m; sourceTree = "<group>"; };
+		43AB50401382FC9E00669FC6 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
+		43AB50411382FC9E00669FC6 /* NSObject+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+JSON.h"; sourceTree = "<group>"; };
+		43AB50421382FC9E00669FC6 /* NSObject+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+JSON.m"; sourceTree = "<group>"; };
+		43AB50431382FC9E00669FC6 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
+		43AB50441382FC9E00669FC6 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
+		43AB50451382FC9E00669FC6 /* SBJsonStreamParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParser.h; sourceTree = "<group>"; };
+		43AB50461382FC9E00669FC6 /* SBJsonStreamParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParser.m; sourceTree = "<group>"; };
+		43AB50471382FC9E00669FC6 /* SBJsonStreamParserAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParserAdapter.h; sourceTree = "<group>"; };
+		43AB50481382FC9E00669FC6 /* SBJsonStreamParserAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParserAdapter.m; sourceTree = "<group>"; };
+		43AB50491382FC9E00669FC6 /* SBJsonStreamParserState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParserState.h; sourceTree = "<group>"; };
+		43AB504A1382FC9E00669FC6 /* SBJsonStreamParserState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParserState.m; sourceTree = "<group>"; };
+		43AB504B1382FC9E00669FC6 /* SBJsonStreamWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamWriter.h; sourceTree = "<group>"; };
+		43AB504C1382FC9E00669FC6 /* SBJsonStreamWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamWriter.m; sourceTree = "<group>"; };
+		43AB504D1382FC9E00669FC6 /* SBJsonStreamWriterState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamWriterState.h; sourceTree = "<group>"; };
+		43AB504E1382FC9E00669FC6 /* SBJsonStreamWriterState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamWriterState.m; sourceTree = "<group>"; };
+		43AB504F1382FC9E00669FC6 /* SBJsonTokeniser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonTokeniser.h; sourceTree = "<group>"; };
+		43AB50501382FC9E00669FC6 /* SBJsonTokeniser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonTokeniser.m; sourceTree = "<group>"; };
+		43AB50511382FC9E00669FC6 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
+		43AB50521382FC9E00669FC6 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
 		43DDDE37137F59F700206646 /* StatusItemController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusItemController.h; sourceTree = "<group>"; };
 		43DDDE38137F59F700206646 /* StatusItemController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusItemController.m; sourceTree = "<group>"; };
 		43E834A8137FA15A000248E2 /* MainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindowController.h; sourceTree = "<group>"; };
@@ -92,10 +144,12 @@
 				439394011362CCBA00333781 /* Application */,
 				43DDDE36137F59E100206646 /* Controllers */,
 				43AB50221382ACA200669FC6 /* Connectivity */,
+				43AB50261382B74300669FC6 /* WebSockets */,
 				43E834BB137FB607000248E2 /* Views */,
 				439394051362CCF600333781 /* Model */,
 				4393944E1362D61A00333781 /* Monitoring */,
 				43E834B7137FB5DB000248E2 /* Utilities */,
+				43AB503F1382FC9D00669FC6 /* JSON */,
 				43E834D71380387A000248E2 /* PXListView */,
 			);
 			path = Classes;
@@ -204,6 +258,55 @@
 			);
 			name = Connectivity;
 			path = ../../../../Projects/LiveReloadPaid/LiveReload/Classes/Connectivity;
+			sourceTree = "<group>";
+		};
+		43AB50261382B74300669FC6 /* WebSockets */ = {
+			isa = PBXGroup;
+			children = (
+				43AB50271382B75E00669FC6 /* base64-decode.c */,
+				43AB50281382B75E00669FC6 /* client-handshake.c */,
+				43AB50291382B75E00669FC6 /* extension-deflate-stream.c */,
+				43AB502A1382B75E00669FC6 /* extension-deflate-stream.h */,
+				43AB502B1382B75E00669FC6 /* extension.c */,
+				43AB502C1382B75E00669FC6 /* handshake.c */,
+				43AB502D1382B75E00669FC6 /* libwebsockets.c */,
+				43AB502E1382B75E00669FC6 /* libwebsockets.h */,
+				43AB502F1382B75E00669FC6 /* md5.c */,
+				43AB50301382B75E00669FC6 /* parsers.c */,
+				43AB50311382B75E00669FC6 /* private-libwebsockets.h */,
+				43AB50321382B75E00669FC6 /* sha-1.c */,
+				43AB503C1382B87E00669FC6 /* WebSocketServer.h */,
+				43AB503D1382B87E00669FC6 /* WebSocketServer.m */,
+			);
+			name = WebSockets;
+			path = ../../../../Projects/LiveReloadPaid/LiveReload/Classes/WebSockets;
+			sourceTree = "<group>";
+		};
+		43AB503F1382FC9D00669FC6 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				43AB50401382FC9E00669FC6 /* JSON.h */,
+				43AB50411382FC9E00669FC6 /* NSObject+JSON.h */,
+				43AB50421382FC9E00669FC6 /* NSObject+JSON.m */,
+				43AB50431382FC9E00669FC6 /* SBJsonParser.h */,
+				43AB50441382FC9E00669FC6 /* SBJsonParser.m */,
+				43AB50451382FC9E00669FC6 /* SBJsonStreamParser.h */,
+				43AB50461382FC9E00669FC6 /* SBJsonStreamParser.m */,
+				43AB50471382FC9E00669FC6 /* SBJsonStreamParserAdapter.h */,
+				43AB50481382FC9E00669FC6 /* SBJsonStreamParserAdapter.m */,
+				43AB50491382FC9E00669FC6 /* SBJsonStreamParserState.h */,
+				43AB504A1382FC9E00669FC6 /* SBJsonStreamParserState.m */,
+				43AB504B1382FC9E00669FC6 /* SBJsonStreamWriter.h */,
+				43AB504C1382FC9E00669FC6 /* SBJsonStreamWriter.m */,
+				43AB504D1382FC9E00669FC6 /* SBJsonStreamWriterState.h */,
+				43AB504E1382FC9E00669FC6 /* SBJsonStreamWriterState.m */,
+				43AB504F1382FC9E00669FC6 /* SBJsonTokeniser.h */,
+				43AB50501382FC9E00669FC6 /* SBJsonTokeniser.m */,
+				43AB50511382FC9E00669FC6 /* SBJsonWriter.h */,
+				43AB50521382FC9E00669FC6 /* SBJsonWriter.m */,
+			);
+			name = JSON;
+			path = ../../../../Projects/LiveReloadPaid/LiveReload/Classes/JSON;
 			sourceTree = "<group>";
 		};
 		43DDDE36137F59E100206646 /* Controllers */ = {
@@ -339,6 +442,25 @@
 				43E834EA1380387B000248E2 /* PXListViewCell.m in Sources */,
 				43E834EF13803BB2000248E2 /* ProjectCell.m in Sources */,
 				43AB50251382ACB200669FC6 /* CommunicationController.m in Sources */,
+				43AB50331382B75E00669FC6 /* base64-decode.c in Sources */,
+				43AB50341382B75E00669FC6 /* client-handshake.c in Sources */,
+				43AB50351382B75E00669FC6 /* extension-deflate-stream.c in Sources */,
+				43AB50361382B75E00669FC6 /* extension.c in Sources */,
+				43AB50371382B75E00669FC6 /* handshake.c in Sources */,
+				43AB50381382B75E00669FC6 /* libwebsockets.c in Sources */,
+				43AB50391382B75E00669FC6 /* md5.c in Sources */,
+				43AB503A1382B75E00669FC6 /* parsers.c in Sources */,
+				43AB503B1382B75E00669FC6 /* sha-1.c in Sources */,
+				43AB503E1382B87E00669FC6 /* WebSocketServer.m in Sources */,
+				43AB50531382FC9E00669FC6 /* NSObject+JSON.m in Sources */,
+				43AB50541382FC9E00669FC6 /* SBJsonParser.m in Sources */,
+				43AB50551382FC9E00669FC6 /* SBJsonStreamParser.m in Sources */,
+				43AB50561382FC9E00669FC6 /* SBJsonStreamParserAdapter.m in Sources */,
+				43AB50571382FC9E00669FC6 /* SBJsonStreamParserState.m in Sources */,
+				43AB50581382FC9E00669FC6 /* SBJsonStreamWriter.m in Sources */,
+				43AB50591382FC9E00669FC6 /* SBJsonStreamWriterState.m in Sources */,
+				43AB505A1382FC9E00669FC6 /* SBJsonTokeniser.m in Sources */,
+				43AB505B1382FC9E00669FC6 /* SBJsonWriter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -377,6 +499,7 @@
 				GCC_PREFIX_HEADER = LiveReload_Prefix.pch;
 				INFOPLIST_FILE = "LiveReload-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = LiveReload;
 			};
 			name = Debug;
@@ -391,6 +514,7 @@
 				GCC_PREFIX_HEADER = LiveReload_Prefix.pch;
 				INFOPLIST_FILE = "LiveReload-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = LiveReload;
 			};
 			name = Release;
