@@ -32,6 +32,7 @@
 		43AB50591382FC9E00669FC6 /* SBJsonStreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = 43AB504E1382FC9E00669FC6 /* SBJsonStreamWriterState.m */; };
 		43AB505A1382FC9E00669FC6 /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = 43AB50501382FC9E00669FC6 /* SBJsonTokeniser.m */; };
 		43AB505B1382FC9E00669FC6 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 43AB50521382FC9E00669FC6 /* SBJsonWriter.m */; };
+		43AB505E1383CA6200669FC6 /* ATFunctionalStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 43AB505D1383CA6200669FC6 /* ATFunctionalStyle.m */; };
 		43DDDE39137F59F700206646 /* StatusItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DDDE38137F59F700206646 /* StatusItemController.m */; };
 		43E834AA137FA15A000248E2 /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E834A9137FA15A000248E2 /* MainWindowController.m */; };
 		43E834BA137FB5DB000248E2 /* MAAttachedWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E834B9137FB5DB000248E2 /* MAAttachedWindow.m */; };
@@ -99,6 +100,8 @@
 		43AB50501382FC9E00669FC6 /* SBJsonTokeniser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonTokeniser.m; sourceTree = "<group>"; };
 		43AB50511382FC9E00669FC6 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		43AB50521382FC9E00669FC6 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		43AB505C1383CA6200669FC6 /* ATFunctionalStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATFunctionalStyle.h; sourceTree = "<group>"; };
+		43AB505D1383CA6200669FC6 /* ATFunctionalStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATFunctionalStyle.m; sourceTree = "<group>"; };
 		43DDDE37137F59F700206646 /* StatusItemController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusItemController.h; sourceTree = "<group>"; };
 		43DDDE38137F59F700206646 /* StatusItemController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusItemController.m; sourceTree = "<group>"; };
 		43E834A8137FA15A000248E2 /* MainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindowController.h; sourceTree = "<group>"; };
@@ -324,6 +327,8 @@
 		43E834B7137FB5DB000248E2 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				43AB505C1383CA6200669FC6 /* ATFunctionalStyle.h */,
+				43AB505D1383CA6200669FC6 /* ATFunctionalStyle.m */,
 				43E834B8137FB5DB000248E2 /* MAAttachedWindow.h */,
 				43E834B9137FB5DB000248E2 /* MAAttachedWindow.m */,
 			);
@@ -461,6 +466,7 @@
 				43AB50591382FC9E00669FC6 /* SBJsonStreamWriterState.m in Sources */,
 				43AB505A1382FC9E00669FC6 /* SBJsonTokeniser.m in Sources */,
 				43AB505B1382FC9E00669FC6 /* SBJsonWriter.m in Sources */,
+				43AB505E1383CA6200669FC6 /* ATFunctionalStyle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,9 +1,20 @@
 
 #import "Workspace.h"
 #import "Project.h"
+#import "ATFunctionalStyle.h"
+
+
+#define ProjectListKey @"projects"
 
 
 static Workspace *sharedWorkspace;
+
+
+@interface Workspace ()
+
+- (void)load;
+
+@end
 
 
 @implementation Workspace
@@ -28,9 +39,7 @@ static Workspace *sharedWorkspace;
 - (id)init {
     if ((self = [super init])) {
         _projects = [[NSMutableSet alloc] init];
-
-        // temporary projects for debugging, until we implement persistence
-        [self addProjectsObject:[[[Project alloc] initWithPath:@"/Users/andreyvit/Dropbox"] autorelease]];
+        [self load];
     }
     return self;
 }
@@ -43,6 +52,24 @@ static Workspace *sharedWorkspace;
 
 
 #pragma mark -
+#pragma mark Persistence
+
+- (void)save {
+    NSArray *projectMementos = [[_projects allObjects] arrayByMappingElementsToValueOfKeyPath:@"memento"];
+    [[NSUserDefaults standardUserDefaults] setObject:projectMementos forKey:ProjectListKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)load {
+    NSArray *projectMementos = [[NSUserDefaults standardUserDefaults] objectForKey:ProjectListKey];
+    [_projects removeAllObjects];
+    [_projects addObjectsFromArray:[projectMementos arrayByMappingElementsUsingBlock:^id(id value) {
+        return [[[Project alloc] initWithMemento:value] autorelease];
+    }]];
+}
+
+
+#pragma mark -
 #pragma mark Projects set KVC accessors
 
 - (void)addProjectsObject:(Project *)project {
@@ -51,12 +78,14 @@ static Workspace *sharedWorkspace;
     if (_monitoringEnabled) {
         project.monitoringEnabled = YES;
     }
+    [self save];
 }
 
 - (void)removeProjectsObject:(Project *)project {
     NSParameterAssert([_projects containsObject:project]);
     project.monitoringEnabled = NO;
     [_projects removeObject:project];
+    [self save];
 }
 
 - (NSArray *)sortedProjects {

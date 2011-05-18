@@ -4,6 +4,9 @@
 #import "CommunicationController.h"
 
 
+#define PathKey @"path"
+
+
 @interface Project () <FSMonitorDelegate>
 @end
 
@@ -16,11 +19,15 @@
 #pragma mark -
 #pragma mark Init/dealloc
 
+- (void)initializeMonitoring {
+    _monitor = [[FSMonitor alloc] initWithPath:_path];
+    _monitor.delegate = self;
+}
+
 - (id)initWithPath:(NSString *)path {
     if ((self = [super init])) {
         _path = [path copy];
-        _monitor = [[FSMonitor alloc] initWithPath:_path];
-        _monitor.delegate = self;
+        [self initializeMonitoring];
     }
     return self;
 }
@@ -29,6 +36,22 @@
     [_path release], _path = nil;
     [_monitor release], _monitor = nil;
     [super dealloc];
+}
+
+
+#pragma mark -
+#pragma mark Persistence
+
+- (id)initWithMemento:(NSDictionary *)memento {
+    if ((self = [super init])) {
+        _path = [[memento objectForKey:PathKey] copy];
+        [self initializeMonitoring];
+    }
+    return self;
+}
+
+- (NSDictionary *)memento {
+    return [NSDictionary dictionaryWithObjectsAndKeys:_path, PathKey, nil];
 }
 
 

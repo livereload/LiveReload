@@ -21,4 +21,6 @@
 
 @property(nonatomic, getter=isMonitoringEnabled) BOOL monitoringEnabled;
 
+- (void)save;
+
 @end
