@@ -23,7 +23,6 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     [self.statusItemController showStatusBarIcon];
     [[CommunicationController sharedCommunicationController] startServer];
-    [Workspace sharedWorkspace].monitoringEnabled = YES;
 }
 
 - (void)applicationDidResignActive:(NSNotification *)notification {

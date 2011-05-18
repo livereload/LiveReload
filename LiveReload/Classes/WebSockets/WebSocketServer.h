@@ -20,6 +20,8 @@
 
 - (void)broadcast:(NSString *)message;
 
+- (NSInteger)countOfConnections;
+
 @end
 
 

@@ -2,6 +2,7 @@
 #import "CommunicationController.h"
 #import "WebSocketServer.h"
 #import "Project.h"
+#import "Workspace.h"
 #import "JSON.h"
 
 
@@ -45,6 +46,9 @@ static CommunicationController *sharedCommunicationController;
     NSLog(@"Accepted connection.");
     connection.delegate = self;
     [connection send:@"!!ver:1.6"];
+    if (![Workspace sharedWorkspace].monitoringEnabled) {
+        [Workspace sharedWorkspace].monitoringEnabled = YES;
+    }
 }
 
 - (void)webSocketConnection:(WebSocketConnection *)connection didReceiveMessage:(NSString *)message {
@@ -53,6 +57,9 @@ static CommunicationController *sharedCommunicationController;
 
 - (void)webSocketConnectionDidClose:(WebSocketConnection *)connection {
     NSLog(@"Connection closed.");
+    if ([Workspace sharedWorkspace].monitoringEnabled && [connection.server countOfConnections] == 0) {
+        [Workspace sharedWorkspace].monitoringEnabled = NO;
+    }
 }
 
 @end

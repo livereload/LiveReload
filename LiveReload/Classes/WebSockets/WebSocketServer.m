@@ -1,6 +1,7 @@
 
 #import "WebSocketServer.h"
 #include "libwebsockets.h"
+#include "private-libwebsockets.h"
 
 
 @interface WebSocketServer ()
@@ -44,7 +45,7 @@ static int WebSocketServer_callback(struct libwebsocket_context * this,
 
         case LWS_CALLBACK_ESTABLISHED:
             pss->connection = [[WebSocketConnection alloc] initWithWebSocketServer:lastWebSocketServer socket:wsi];
-            [lastWebSocketServer connected:pss->connection];
+            [lastWebSocketServer performSelectorOnMainThread:@selector(connected:) withObject:pss->connection waitUntilDone:NO];
             break;
 
         case LWS_CALLBACK_BROADCAST:
@@ -137,6 +138,19 @@ static struct libwebsocket_protocols protocols[] = {
 
 - (void)connected:(WebSocketConnection *)connection {
     [self.delegate webSocketServer:self didAcceptConnection:connection];
+}
+
+- (NSInteger)countOfConnections {
+    NSInteger result = 0;
+    for (int n = 0; n < FD_HASHTABLE_MODULUS; n++) {
+        for (int m = 0; m < context->fd_hashtable[n].length; m++) {
+            struct libwebsocket *wsi = context->fd_hashtable[n].wsi[m];
+            if (wsi->mode != LWS_CONNMODE_WS_SERVING)
+                continue;
+            ++result;
+        }
+    }
+    return result;
 }
 
 - (void)runInBackgroundThread {
