@@ -10,6 +10,8 @@
 
 @property(nonatomic) BOOL windowVisible;
 
+- (void)updateButtonsState;
+
 @end
 
 
@@ -19,6 +21,8 @@
 @synthesize window=_window;
 @synthesize windowVisible=_windowVisible;
 @synthesize listView=_listView;
+@synthesize addProjectButton=_addProjectButton;
+@synthesize removeProjectButton=_removeProjectButton;
 
 - (void)toggleMainWindowAtPoint:(NSPoint)pt {
     [NSApp activateIgnoringOtherApps:YES];
@@ -31,6 +35,8 @@
         [self.window makeKeyAndOrderFront:self];
         self.windowVisible = YES;
         [self.listView reloadData];
+        [[Workspace sharedWorkspace] addObserver:self forKeyPath:@"projects" options:0 context:nil];
+        [self updateButtonsState];
     } else {
         [self.window orderOut:self];
         self.window = nil;
@@ -64,5 +70,46 @@
 
     return cell;
 }
+
+- (void)listViewSelectionDidChange:(NSNotification*)aNotification {
+
+}
+
+- (void)updateButtonsState {
+    NSUInteger row = self.listView.selectedRow;
+    [self.removeProjectButton setEnabled:(row != NSNotFound)];
+}
+
+- (IBAction)addProjectClicked:(id)sender {
+    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+    [openPanel setCanChooseDirectories:YES];
+    [openPanel setCanCreateDirectories:YES];
+    [openPanel setPrompt:@"Choose folder"];
+    [openPanel setCanChooseFiles:NO];
+    [openPanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
+        if (result == NSFileHandlingPanelOKButton) {
+            NSURL *url = [openPanel URL];
+            NSString *path = [url path];
+            Project *project = [[[Project alloc] initWithPath:path] autorelease];
+            [[Workspace sharedWorkspace] addProjectsObject:project];
+        }
+    }];
+}
+
+- (IBAction)removeProjectClicked:(id)sender {
+    NSUInteger row = self.listView.selectedRow;
+    if (row == NSNotFound)
+        return;
+    Project *project = [[Workspace sharedWorkspace].sortedProjects objectAtIndex:row];
+    [[Workspace sharedWorkspace] removeProjectsObject:project];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"projects"]) {
+        [self.listView reloadData];
+        [self updateButtonsState];
+    }
+}
+
 
 @end

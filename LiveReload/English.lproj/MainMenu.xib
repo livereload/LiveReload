@@ -1354,7 +1354,7 @@
 										<string key="NSFrameSize">{300, 436}</string>
 										<reference key="NSSuperview" ref="121106629"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="96481513"/>
+										<reference key="NSNextKeyView" ref="492844383"/>
 										<string key="NSClassName">PXListDocumentView</string>
 									</object>
 								</object>
@@ -1405,7 +1405,7 @@
 						<string key="NSFrame">{{10, 45}, {300, 233}}</string>
 						<reference key="NSSuperview" ref="228969981"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="492844383"/>
+						<reference key="NSNextKeyView" ref="121106629"/>
 						<int key="NSsFlags">720</int>
 						<reference key="NSVScroller" ref="96481513"/>
 						<reference key="NSHScroller" ref="492844383"/>
@@ -1417,7 +1417,6 @@
 						<string key="NSFrame">{{164, 18}, {50, 19}}</string>
 						<reference key="NSSuperview" ref="228969981"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="925777955">
 							<int key="NSCellFlags">-2080244224</int>
@@ -2214,6 +2213,38 @@
 						<reference key="destination" ref="689159509"/>
 					</object>
 					<int key="connectionID">586</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">addProjectClicked:</string>
+						<reference key="source" ref="508725981"/>
+						<reference key="destination" ref="8078701"/>
+					</object>
+					<int key="connectionID">587</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">removeProjectClicked:</string>
+						<reference key="source" ref="508725981"/>
+						<reference key="destination" ref="625552906"/>
+					</object>
+					<int key="connectionID">588</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">addProjectButton</string>
+						<reference key="source" ref="508725981"/>
+						<reference key="destination" ref="8078701"/>
+					</object>
+					<int key="connectionID">589</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">removeProjectButton</string>
+						<reference key="source" ref="508725981"/>
+						<reference key="destination" ref="625552906"/>
+					</object>
+					<int key="connectionID">590</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -3877,7 +3908,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">586</int>
+			<int key="maxID">590</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3923,30 +3954,80 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
+					<string key="className">MAAttachedWindow</string>
+					<string key="superclassName">NSWindow</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/MAAttachedWindow.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
 					<string key="className">MainWindowController</string>
 					<string key="superclassName">NSObject</string>
+					<object class="NSMutableDictionary" key="actions">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>addProjectClicked:</string>
+							<string>removeProjectClicked:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>addProjectClicked:</string>
+							<string>removeProjectClicked:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBActionInfo">
+								<string key="name">addProjectClicked:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">removeProjectClicked:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+						</object>
+					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>addProjectButton</string>
 							<string>listView</string>
 							<string>mainView</string>
+							<string>removeProjectButton</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>NSButton</string>
 							<string>PXListView</string>
 							<string>NSView</string>
+							<string>NSButton</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>addProjectButton</string>
 							<string>listView</string>
 							<string>mainView</string>
+							<string>removeProjectButton</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">addProjectButton</string>
+								<string key="candidateClassName">NSButton</string>
+							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">listView</string>
 								<string key="candidateClassName">PXListView</string>
@@ -3954,6 +4035,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">mainView</string>
 								<string key="candidateClassName">NSView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">removeProjectButton</string>
+								<string key="candidateClassName">NSButton</string>
 							</object>
 						</object>
 					</object>

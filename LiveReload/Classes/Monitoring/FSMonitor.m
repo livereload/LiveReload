@@ -29,6 +29,9 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
 }
 
 - (void)dealloc {
+    if (_running) {
+        [self stop];
+    }
     [_path release], _path = nil;
     _delegate = nil;
     [super dealloc];
@@ -77,6 +80,7 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
 - (void)stop {
     FSEventStreamStop(_streamRef);
     FSEventStreamRelease(_streamRef);
+    _streamRef = nil;
 }
 
 
