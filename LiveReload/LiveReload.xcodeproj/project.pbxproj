@@ -33,6 +33,8 @@
 		43AB505A1382FC9E00669FC6 /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = 43AB50501382FC9E00669FC6 /* SBJsonTokeniser.m */; };
 		43AB505B1382FC9E00669FC6 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 43AB50521382FC9E00669FC6 /* SBJsonWriter.m */; };
 		43AB505E1383CA6200669FC6 /* ATFunctionalStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 43AB505D1383CA6200669FC6 /* ATFunctionalStyle.m */; };
+		43AB50731383E18800669FC6 /* Icon-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 43AB50721383E18800669FC6 /* Icon-48.png */; };
+		43AB50751383E37C00669FC6 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 43AB50741383E37C00669FC6 /* settings.png */; };
 		43DDDE39137F59F700206646 /* StatusItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DDDE38137F59F700206646 /* StatusItemController.m */; };
 		43E834AA137FA15A000248E2 /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E834A9137FA15A000248E2 /* MainWindowController.m */; };
 		43E834BA137FB5DB000248E2 /* MAAttachedWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E834B9137FB5DB000248E2 /* MAAttachedWindow.m */; };
@@ -102,6 +104,8 @@
 		43AB50521382FC9E00669FC6 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
 		43AB505C1383CA6200669FC6 /* ATFunctionalStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATFunctionalStyle.h; sourceTree = "<group>"; };
 		43AB505D1383CA6200669FC6 /* ATFunctionalStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATFunctionalStyle.m; sourceTree = "<group>"; };
+		43AB50721383E18800669FC6 /* Icon-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-48.png"; sourceTree = "<group>"; };
+		43AB50741383E37C00669FC6 /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		43DDDE37137F59F700206646 /* StatusItemController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusItemController.h; sourceTree = "<group>"; };
 		43DDDE38137F59F700206646 /* StatusItemController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusItemController.m; sourceTree = "<group>"; };
 		43E834A8137FA15A000248E2 /* MainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindowController.h; sourceTree = "<group>"; };
@@ -208,6 +212,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				43AB50711383E18800669FC6 /* Images */,
 				8D1107310486CEB800E47090 /* LiveReload-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
@@ -310,6 +315,16 @@
 			);
 			name = JSON;
 			path = ../../../../Projects/LiveReloadPaid/LiveReload/Classes/JSON;
+			sourceTree = "<group>";
+		};
+		43AB50711383E18800669FC6 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				43AB50721383E18800669FC6 /* Icon-48.png */,
+				43AB50741383E37C00669FC6 /* settings.png */,
+			);
+			name = Images;
+			path = ../../../Projects/LiveReloadPaid/LiveReload/Images;
 			sourceTree = "<group>";
 		};
 		43DDDE36137F59E100206646 /* Controllers */ = {
@@ -422,6 +437,8 @@
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
 				43E834EC13803AC8000248E2 /* ProjectCell.xib in Resources */,
+				43AB50731383E18800669FC6 /* Icon-48.png in Resources */,
+				43AB50751383E37C00669FC6 /* settings.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

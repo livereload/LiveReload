@@ -17,12 +17,21 @@
 
 @implementation MainWindowController
 
+@synthesize startAtLoginCheckbox = _startAtLoginCheckbox;
+
 @synthesize mainView=_mainView;
+@synthesize settingsView=_settingsView;
+
 @synthesize window=_window;
 @synthesize windowVisible=_windowVisible;
 @synthesize listView=_listView;
 @synthesize addProjectButton=_addProjectButton;
 @synthesize removeProjectButton=_removeProjectButton;
+
+- (void)awakeFromNib {
+    [self.startAtLoginCheckbox setAttributedTitle:[[[NSAttributedString alloc] initWithString:[self.startAtLoginCheckbox title] attributes:[NSDictionary dictionaryWithObject:[NSColor whiteColor] forKey:NSForegroundColorAttributeName]] autorelease]];
+    [[Workspace sharedWorkspace] addObserver:self forKeyPath:@"projects" options:0 context:nil];
+}
 
 - (void)toggleMainWindowAtPoint:(NSPoint)pt {
     [NSApp activateIgnoringOtherApps:YES];
@@ -35,7 +44,6 @@
         [self.window makeKeyAndOrderFront:self];
         self.windowVisible = YES;
         [self.listView reloadData];
-        [[Workspace sharedWorkspace] addObserver:self forKeyPath:@"projects" options:0 context:nil];
         [self updateButtonsState];
     } else {
         [self.window orderOut:self];
@@ -104,12 +112,22 @@
     [[Workspace sharedWorkspace] removeProjectsObject:project];
 }
 
+- (IBAction)showSettings:(id)sender {
+    self.settingsView.frame = self.mainView.frame;
+    [[self.mainView superview] addSubview:self.settingsView];
+    [self.mainView removeFromSuperview];
+}
+
+- (IBAction)doneWithSettings:(id)sender {
+    [[self.settingsView superview] addSubview:self.mainView];
+    [self.settingsView removeFromSuperview];
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"projects"]) {
         [self.listView reloadData];
         [self updateButtonsState];
     }
 }
-
 
 @end
