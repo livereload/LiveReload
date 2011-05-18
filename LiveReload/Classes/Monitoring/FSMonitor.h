@@ -2,6 +2,8 @@
 #import <Cocoa/Cocoa.h>
 
 
+@class FSTreeDiffer;
+
 @protocol FSMonitorDelegate;
 
 
@@ -11,6 +13,7 @@
     BOOL _running;
 
     FSEventStreamRef _streamRef;
+    FSTreeDiffer *_treeDiffer;
 }
 
 - (id)initWithPath:(NSString *)path;

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
+		4310117E13845A69000B0843 /* FSTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 4310117D13845A69000B0843 /* FSTree.m */; };
+		4310118113845AA3000B0843 /* FSTreeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4310118013845AA3000B0843 /* FSTreeFilter.m */; };
+		436B09C313844BB0006BCE37 /* FSTreeDiffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 436B09C213844BAF006BCE37 /* FSTreeDiffer.m */; };
 		439394041362CCBA00333781 /* LiveReloadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 439394031362CCBA00333781 /* LiveReloadAppDelegate.m */; };
 		439394081362CD0A00333781 /* Workspace.m in Sources */ = {isa = PBXBuildFile; fileRef = 439394071362CD0A00333781 /* Workspace.m */; };
 		4393940B1362CD6500333781 /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 4393940A1362CD6500333781 /* Project.m */; };
@@ -59,6 +62,12 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		4310117C13845A69000B0843 /* FSTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FSTree.h; path = ../../../../../Projects/LiveReloadPaid/LiveReload/Classes/Monitoring/FSTree.h; sourceTree = "<group>"; };
+		4310117D13845A69000B0843 /* FSTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FSTree.m; path = ../../../../../Projects/LiveReloadPaid/LiveReload/Classes/Monitoring/FSTree.m; sourceTree = "<group>"; };
+		4310117F13845AA3000B0843 /* FSTreeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; name = FSTreeFilter.h; path = ../../../../../Projects/LiveReloadPaid/LiveReload/Classes/Monitoring/FSTreeFilter.h; sourceTree = "<group>"; };
+		4310118013845AA3000B0843 /* FSTreeFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FSTreeFilter.m; path = ../../../../../Projects/LiveReloadPaid/LiveReload/Classes/Monitoring/FSTreeFilter.m; sourceTree = "<group>"; };
+		436B09C113844BAF006BCE37 /* FSTreeDiffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FSTreeDiffer.h; path = ../../../../../Projects/LiveReloadPaid/LiveReload/Classes/Monitoring/FSTreeDiffer.h; sourceTree = "<group>"; };
+		436B09C213844BAF006BCE37 /* FSTreeDiffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FSTreeDiffer.m; path = ../../../../../Projects/LiveReloadPaid/LiveReload/Classes/Monitoring/FSTreeDiffer.m; sourceTree = "<group>"; };
 		439394021362CCBA00333781 /* LiveReloadAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveReloadAppDelegate.h; sourceTree = "<group>"; };
 		439394031362CCBA00333781 /* LiveReloadAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveReloadAppDelegate.m; sourceTree = "<group>"; };
 		439394061362CD0A00333781 /* Workspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Workspace.h; sourceTree = "<group>"; };
@@ -254,6 +263,12 @@
 			children = (
 				4393944F1362D62100333781 /* FSMonitor.h */,
 				439394501362D62100333781 /* FSMonitor.m */,
+				436B09C113844BAF006BCE37 /* FSTreeDiffer.h */,
+				436B09C213844BAF006BCE37 /* FSTreeDiffer.m */,
+				4310117C13845A69000B0843 /* FSTree.h */,
+				4310117D13845A69000B0843 /* FSTree.m */,
+				4310117F13845AA3000B0843 /* FSTreeFilter.h */,
+				4310118013845AA3000B0843 /* FSTreeFilter.m */,
 			);
 			path = Monitoring;
 			sourceTree = "<group>";
@@ -484,6 +499,9 @@
 				43AB505A1382FC9E00669FC6 /* SBJsonTokeniser.m in Sources */,
 				43AB505B1382FC9E00669FC6 /* SBJsonWriter.m in Sources */,
 				43AB505E1383CA6200669FC6 /* ATFunctionalStyle.m in Sources */,
+				436B09C313844BB0006BCE37 /* FSTreeDiffer.m in Sources */,
+				4310117E13845A69000B0843 /* FSTree.m in Sources */,
+				4310118113845AA3000B0843 /* FSTreeFilter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

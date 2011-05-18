@@ -1,5 +1,6 @@
 
 #import "FSMonitor.h"
+#import "FSTreeDiffer.h"
 
 
 static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMonitor *monitor, size_t numEvents, NSArray *eventPaths, const FSEventStreamEventFlags eventFlags[], const FSEventStreamEventId eventIds[]);
@@ -57,6 +58,7 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
 }
 
 - (void)start {
+    _treeDiffer = [[FSTreeDiffer alloc] initWithPath:_path];
     NSArray *paths = [NSArray arrayWithObject:_path];
 
     FSEventStreamContext context;
@@ -72,7 +74,7 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
                                      (CFArrayRef)paths,
                                      kFSEventStreamEventIdSinceNow,
                                      0.25,
-                                     kFSEventStreamCreateFlagUseCFTypes | kFSEventStreamCreateFlagWatchRoot);
+                                     kFSEventStreamCreateFlagUseCFTypes);
     FSEventStreamScheduleWithRunLoop(_streamRef, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
     FSEventStreamStart(_streamRef);
 }
@@ -81,6 +83,7 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
     FSEventStreamStop(_streamRef);
     FSEventStreamRelease(_streamRef);
     _streamRef = nil;
+    [_treeDiffer release], _treeDiffer = nil;
 }
 
 
@@ -99,7 +102,11 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
         flagsStr = [NSString stringWithFormat:@" [%@]", flagsStr];
     }
     NSLog(@"Change event at %@%@", path, flagsStr);
-    [self.delegate fileSystemMonitor:self detectedChangeAtPathes:[NSSet setWithObject:path]];
+
+    NSSet *changes = [_treeDiffer changedPathsByRescanningSubfolder:path];
+    if ([changes count] > 0) {
+        [self.delegate fileSystemMonitor:self detectedChangeAtPathes:changes];
+    }
 }
 
 
