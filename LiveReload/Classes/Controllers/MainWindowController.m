@@ -8,6 +8,9 @@
 #import "Project.h"
 
 
+#define PreferencesDoneKey @"PreferencesDone"
+
+
 @interface MainWindowController ()
 
 @property(nonatomic) BOOL windowVisible;
@@ -47,10 +50,15 @@
                                                 inWindow:nil
                                                   onSide:MAPositionBottom
                                               atDistance:0.0];
-        [self.window makeKeyAndOrderFront:self];
-        self.windowVisible = YES;
         [self.listView reloadData];
         [self updateButtonsState];
+
+        if (![[NSUserDefaults standardUserDefaults] boolForKey:PreferencesDoneKey]) {
+            [self showSettings:self];
+        }
+
+        [self.window makeKeyAndOrderFront:self];
+        self.windowVisible = YES;
     } else {
         [self.window orderOut:self];
         self.window = nil;
@@ -126,6 +134,9 @@
 }
 
 - (IBAction)doneWithSettings:(id)sender {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:PreferencesDoneKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
     [[self.settingsView superview] addSubview:self.mainView];
     [self.settingsView removeFromSuperview];
 }
