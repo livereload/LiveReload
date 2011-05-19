@@ -8,6 +8,9 @@
 
 @interface MainWindowController : NSObject <PXListViewDelegate> {
     NSButton *_startAtLoginCheckbox;
+    NSButton *_installSafariExtensionButton;
+    NSButton *_installChromeExtensionButton;
+    NSButton *_installFirefoxExtensionButton;
 }
 
 
@@ -36,5 +39,8 @@
 - (IBAction)doneWithSettings:(id)sender;
 
 @property (assign) IBOutlet NSButton *startAtLoginCheckbox;
+@property (assign) IBOutlet NSButton *installSafariExtensionButton;
+@property (assign) IBOutlet NSButton *installChromeExtensionButton;
+@property (assign) IBOutlet NSButton *installFirefoxExtensionButton;
 
 @end

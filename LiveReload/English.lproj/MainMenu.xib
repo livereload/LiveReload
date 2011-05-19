@@ -1336,7 +1336,7 @@
 			<object class="NSCustomObject" id="508725981">
 				<string key="NSClassName">MainWindowController</string>
 			</object>
-			<object class="NSCustomObject" id="956088340">
+			<object class="NSCustomObject" id="645915259">
 				<string key="NSClassName">ExtensionsController</string>
 			</object>
 			<object class="NSCustomView" id="228969981">
@@ -2596,10 +2596,34 @@
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">installSafariExtension:</string>
-						<reference key="source" ref="956088340"/>
+						<reference key="source" ref="645915259"/>
 						<reference key="destination" ref="944768097"/>
 					</object>
 					<int key="connectionID">647</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">installSafariExtensionButton</string>
+						<reference key="source" ref="508725981"/>
+						<reference key="destination" ref="944768097"/>
+					</object>
+					<int key="connectionID">648</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">installChromeExtensionButton</string>
+						<reference key="source" ref="508725981"/>
+						<reference key="destination" ref="749501337"/>
+					</object>
+					<int key="connectionID">649</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">installFirefoxExtensionButton</string>
+						<reference key="source" ref="508725981"/>
+						<reference key="destination" ref="273765454"/>
+					</object>
+					<int key="connectionID">650</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -3928,7 +3952,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">645</int>
-						<reference key="object" ref="956088340"/>
+						<reference key="object" ref="645915259"/>
 						<reference key="parent" ref="0"/>
 					</object>
 				</object>
@@ -4534,7 +4558,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">647</int>
+			<int key="maxID">650</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -4652,6 +4676,9 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>addProjectButton</string>
+							<string>installChromeExtensionButton</string>
+							<string>installFirefoxExtensionButton</string>
+							<string>installSafariExtensionButton</string>
 							<string>listView</string>
 							<string>mainView</string>
 							<string>removeProjectButton</string>
@@ -4660,6 +4687,9 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>NSButton</string>
+							<string>NSButton</string>
+							<string>NSButton</string>
 							<string>NSButton</string>
 							<string>PXListView</string>
 							<string>NSView</string>
@@ -4673,6 +4703,9 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>addProjectButton</string>
+							<string>installChromeExtensionButton</string>
+							<string>installFirefoxExtensionButton</string>
+							<string>installSafariExtensionButton</string>
 							<string>listView</string>
 							<string>mainView</string>
 							<string>removeProjectButton</string>
@@ -4683,6 +4716,18 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBToOneOutletInfo">
 								<string key="name">addProjectButton</string>
+								<string key="candidateClassName">NSButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">installChromeExtensionButton</string>
+								<string key="candidateClassName">NSButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">installFirefoxExtensionButton</string>
+								<string key="candidateClassName">NSButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">installSafariExtensionButton</string>
 								<string key="candidateClassName">NSButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">

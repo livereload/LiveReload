@@ -12,6 +12,9 @@
 		4310118113845AA3000B0843 /* FSTreeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4310118013845AA3000B0843 /* FSTreeFilter.m */; };
 		43685D481385A36600D17CB2 /* LiveReload.safariextz in Resources */ = {isa = PBXBuildFile; fileRef = 43685D471385A36600D17CB2 /* LiveReload.safariextz */; };
 		43685D4B1385A39F00D17CB2 /* ExtensionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43685D4A1385A39F00D17CB2 /* ExtensionsController.m */; };
+		43685D511385B4EE00D17CB2 /* MD5OfFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 43685D501385B4EE00D17CB2 /* MD5OfFile.m */; };
+		43685D531385B63100D17CB2 /* SafariExtVersions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 43685D521385B63100D17CB2 /* SafariExtVersions.plist */; };
+		43685D561385B78500D17CB2 /* VersionNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 43685D551385B78500D17CB2 /* VersionNumber.m */; };
 		436B09C313844BB0006BCE37 /* FSTreeDiffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 436B09C213844BAF006BCE37 /* FSTreeDiffer.m */; };
 		439394041362CCBA00333781 /* LiveReloadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 439394031362CCBA00333781 /* LiveReloadAppDelegate.m */; };
 		439394081362CD0A00333781 /* Workspace.m in Sources */ = {isa = PBXBuildFile; fileRef = 439394071362CD0A00333781 /* Workspace.m */; };
@@ -71,6 +74,11 @@
 		43685D471385A36600D17CB2 /* LiveReload.safariextz */ = {isa = PBXFileReference; lastKnownFileType = file; path = LiveReload.safariextz; sourceTree = "<group>"; };
 		43685D491385A39F00D17CB2 /* ExtensionsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtensionsController.h; sourceTree = "<group>"; };
 		43685D4A1385A39F00D17CB2 /* ExtensionsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExtensionsController.m; sourceTree = "<group>"; };
+		43685D4F1385B4EE00D17CB2 /* MD5OfFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MD5OfFile.h; sourceTree = "<group>"; };
+		43685D501385B4EE00D17CB2 /* MD5OfFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MD5OfFile.m; sourceTree = "<group>"; };
+		43685D521385B63100D17CB2 /* SafariExtVersions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SafariExtVersions.plist; sourceTree = "<group>"; };
+		43685D541385B78500D17CB2 /* VersionNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VersionNumber.h; sourceTree = "<group>"; };
+		43685D551385B78500D17CB2 /* VersionNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VersionNumber.m; sourceTree = "<group>"; };
 		436B09C113844BAF006BCE37 /* FSTreeDiffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FSTreeDiffer.h; path = ../../../../../Projects/LiveReloadPaid/LiveReload/Classes/Monitoring/FSTreeDiffer.h; sourceTree = "<group>"; };
 		436B09C213844BAF006BCE37 /* FSTreeDiffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FSTreeDiffer.m; path = ../../../../../Projects/LiveReloadPaid/LiveReload/Classes/Monitoring/FSTreeDiffer.m; sourceTree = "<group>"; };
 		439394021362CCBA00333781 /* LiveReloadAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveReloadAppDelegate.h; sourceTree = "<group>"; };
@@ -248,6 +256,7 @@
 			isa = PBXGroup;
 			children = (
 				43685D471385A36600D17CB2 /* LiveReload.safariextz */,
+				43685D521385B63100D17CB2 /* SafariExtVersions.plist */,
 			);
 			name = Extensions;
 			path = ../../../Projects/LiveReloadPaid/LiveReload/Extensions;
@@ -378,6 +387,10 @@
 				43AB505D1383CA6200669FC6 /* ATFunctionalStyle.m */,
 				43E834B8137FB5DB000248E2 /* MAAttachedWindow.h */,
 				43E834B9137FB5DB000248E2 /* MAAttachedWindow.m */,
+				43685D4F1385B4EE00D17CB2 /* MD5OfFile.h */,
+				43685D501385B4EE00D17CB2 /* MD5OfFile.m */,
+				43685D541385B78500D17CB2 /* VersionNumber.h */,
+				43685D551385B78500D17CB2 /* VersionNumber.m */,
 			);
 			name = Utilities;
 			path = ../../../../Projects/LiveReloadPaid/LiveReload/Classes/Utilities;
@@ -472,6 +485,7 @@
 				43AB50731383E18800669FC6 /* Icon-48.png in Resources */,
 				43AB50751383E37C00669FC6 /* settings.png in Resources */,
 				43685D481385A36600D17CB2 /* LiveReload.safariextz in Resources */,
+				43685D531385B63100D17CB2 /* SafariExtVersions.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -521,6 +535,8 @@
 				4310117E13845A69000B0843 /* FSTree.m in Sources */,
 				4310118113845AA3000B0843 /* FSTreeFilter.m in Sources */,
 				43685D4B1385A39F00D17CB2 /* ExtensionsController.m in Sources */,
+				43685D511385B4EE00D17CB2 /* MD5OfFile.m in Sources */,
+				43685D561385B78500D17CB2 /* VersionNumber.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

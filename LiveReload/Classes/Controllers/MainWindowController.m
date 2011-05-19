@@ -1,5 +1,7 @@
 
 #import "MainWindowController.h"
+#import "ExtensionsController.h"
+
 #import "MAAttachedWindow.h"
 #import "Workspace.h"
 #import "ProjectCell.h"
@@ -11,6 +13,7 @@
 @property(nonatomic) BOOL windowVisible;
 
 - (void)updateButtonsState;
+- (void)updateSettingsScreen;
 
 @end
 
@@ -18,6 +21,9 @@
 @implementation MainWindowController
 
 @synthesize startAtLoginCheckbox = _startAtLoginCheckbox;
+@synthesize installSafariExtensionButton = _installSafariExtensionButton;
+@synthesize installChromeExtensionButton = _installChromeExtensionButton;
+@synthesize installFirefoxExtensionButton = _installFirefoxExtensionButton;
 
 @synthesize mainView=_mainView;
 @synthesize settingsView=_settingsView;
@@ -113,6 +119,7 @@
 }
 
 - (IBAction)showSettings:(id)sender {
+    [self updateSettingsScreen];
     self.settingsView.frame = self.mainView.frame;
     [[self.mainView superview] addSubview:self.settingsView];
     [self.mainView removeFromSuperview];
@@ -127,6 +134,22 @@
     if ([keyPath isEqualToString:@"projects"]) {
         [self.listView reloadData];
         [self updateButtonsState];
+    }
+}
+
+- (void)updateSettingsScreen {
+    ExtensionsController *extensionsController = [ExtensionsController sharedExtensionsController];
+
+    NSInteger safariVersion = extensionsController.versionOfInstalledSafariExtension;
+    if (safariVersion == 0) {
+        [self.installSafariExtensionButton setTitle:@"Install"];
+        [self.installSafariExtensionButton setEnabled:YES];
+    } else if (safariVersion < extensionsController.latestSafariExtensionVersion) {
+        [self.installSafariExtensionButton setTitle:@"Update"];
+        [self.installSafariExtensionButton setEnabled:YES];
+    } else {
+        [self.installSafariExtensionButton setTitle:@"Installed"];
+        [self.installSafariExtensionButton setEnabled:NO];
     }
 }
 
