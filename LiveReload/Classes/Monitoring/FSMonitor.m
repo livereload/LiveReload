@@ -81,6 +81,7 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
 
 - (void)stop {
     FSEventStreamStop(_streamRef);
+    FSEventStreamInvalidate(_streamRef);
     FSEventStreamRelease(_streamRef);
     _streamRef = nil;
     [_treeDiffer release], _treeDiffer = nil;

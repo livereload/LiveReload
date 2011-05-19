@@ -10,6 +10,8 @@
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		4310117E13845A69000B0843 /* FSTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 4310117D13845A69000B0843 /* FSTree.m */; };
 		4310118113845AA3000B0843 /* FSTreeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4310118013845AA3000B0843 /* FSTreeFilter.m */; };
+		43685D481385A36600D17CB2 /* LiveReload.safariextz in Resources */ = {isa = PBXBuildFile; fileRef = 43685D471385A36600D17CB2 /* LiveReload.safariextz */; };
+		43685D4B1385A39F00D17CB2 /* ExtensionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43685D4A1385A39F00D17CB2 /* ExtensionsController.m */; };
 		436B09C313844BB0006BCE37 /* FSTreeDiffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 436B09C213844BAF006BCE37 /* FSTreeDiffer.m */; };
 		439394041362CCBA00333781 /* LiveReloadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 439394031362CCBA00333781 /* LiveReloadAppDelegate.m */; };
 		439394081362CD0A00333781 /* Workspace.m in Sources */ = {isa = PBXBuildFile; fileRef = 439394071362CD0A00333781 /* Workspace.m */; };
@@ -64,8 +66,11 @@
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		4310117C13845A69000B0843 /* FSTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FSTree.h; path = ../../../../../Projects/LiveReloadPaid/LiveReload/Classes/Monitoring/FSTree.h; sourceTree = "<group>"; };
 		4310117D13845A69000B0843 /* FSTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FSTree.m; path = ../../../../../Projects/LiveReloadPaid/LiveReload/Classes/Monitoring/FSTree.m; sourceTree = "<group>"; };
-		4310117F13845AA3000B0843 /* FSTreeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; name = FSTreeFilter.h; path = ../../../../../Projects/LiveReloadPaid/LiveReload/Classes/Monitoring/FSTreeFilter.h; sourceTree = "<group>"; };
+		4310117F13845AA3000B0843 /* FSTreeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FSTreeFilter.h; path = ../../../../../Projects/LiveReloadPaid/LiveReload/Classes/Monitoring/FSTreeFilter.h; sourceTree = "<group>"; };
 		4310118013845AA3000B0843 /* FSTreeFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FSTreeFilter.m; path = ../../../../../Projects/LiveReloadPaid/LiveReload/Classes/Monitoring/FSTreeFilter.m; sourceTree = "<group>"; };
+		43685D471385A36600D17CB2 /* LiveReload.safariextz */ = {isa = PBXFileReference; lastKnownFileType = file; path = LiveReload.safariextz; sourceTree = "<group>"; };
+		43685D491385A39F00D17CB2 /* ExtensionsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtensionsController.h; sourceTree = "<group>"; };
+		43685D4A1385A39F00D17CB2 /* ExtensionsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExtensionsController.m; sourceTree = "<group>"; };
 		436B09C113844BAF006BCE37 /* FSTreeDiffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FSTreeDiffer.h; path = ../../../../../Projects/LiveReloadPaid/LiveReload/Classes/Monitoring/FSTreeDiffer.h; sourceTree = "<group>"; };
 		436B09C213844BAF006BCE37 /* FSTreeDiffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FSTreeDiffer.m; path = ../../../../../Projects/LiveReloadPaid/LiveReload/Classes/Monitoring/FSTreeDiffer.m; sourceTree = "<group>"; };
 		439394021362CCBA00333781 /* LiveReloadAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveReloadAppDelegate.h; sourceTree = "<group>"; };
@@ -222,6 +227,7 @@
 			isa = PBXGroup;
 			children = (
 				43AB50711383E18800669FC6 /* Images */,
+				43685D461385A36600D17CB2 /* Extensions */,
 				8D1107310486CEB800E47090 /* LiveReload-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
@@ -236,6 +242,15 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		43685D461385A36600D17CB2 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				43685D471385A36600D17CB2 /* LiveReload.safariextz */,
+			);
+			name = Extensions;
+			path = ../../../Projects/LiveReloadPaid/LiveReload/Extensions;
 			sourceTree = "<group>";
 		};
 		439394011362CCBA00333781 /* Application */ = {
@@ -349,6 +364,8 @@
 				43DDDE38137F59F700206646 /* StatusItemController.m */,
 				43E834A8137FA15A000248E2 /* MainWindowController.h */,
 				43E834A9137FA15A000248E2 /* MainWindowController.m */,
+				43685D491385A39F00D17CB2 /* ExtensionsController.h */,
+				43685D4A1385A39F00D17CB2 /* ExtensionsController.m */,
 			);
 			name = Controllers;
 			path = ../../../../Projects/LiveReloadPaid/LiveReload/Classes/Controllers;
@@ -454,6 +471,7 @@
 				43E834EC13803AC8000248E2 /* ProjectCell.xib in Resources */,
 				43AB50731383E18800669FC6 /* Icon-48.png in Resources */,
 				43AB50751383E37C00669FC6 /* settings.png in Resources */,
+				43685D481385A36600D17CB2 /* LiveReload.safariextz in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -502,6 +520,7 @@
 				436B09C313844BB0006BCE37 /* FSTreeDiffer.m in Sources */,
 				4310117E13845A69000B0843 /* FSTree.m in Sources */,
 				4310118113845AA3000B0843 /* FSTreeFilter.m in Sources */,
+				43685D4B1385A39F00D17CB2 /* ExtensionsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
