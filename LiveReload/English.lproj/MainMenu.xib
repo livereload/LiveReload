@@ -1336,7 +1336,7 @@
 			<object class="NSCustomObject" id="508725981">
 				<string key="NSClassName">MainWindowController</string>
 			</object>
-			<object class="NSCustomObject" id="279432667">
+			<object class="NSCustomObject" id="858082622">
 				<string key="NSClassName">ExtensionsController</string>
 			</object>
 			<object class="NSCustomView" id="228969981">
@@ -1563,7 +1563,7 @@
 						<string key="NSFrame">{{236, 142}, {72, 25}}</string>
 						<reference key="NSSuperview" ref="1059270429"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
+						<reference key="NSNextKeyView" ref="652670859"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="897552518">
 							<int key="NSCellFlags">-2080244224</int>
@@ -1746,6 +1746,9 @@
 			</object>
 			<object class="NSUserDefaultsController" id="316075589">
 				<bool key="NSAppliesImmediately">YES</bool>
+			</object>
+			<object class="NSCustomObject" id="641365937">
+				<string key="NSClassName">LoginItemController</string>
 			</object>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
@@ -2538,7 +2541,7 @@
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">installSafariExtension:</string>
-						<reference key="source" ref="279432667"/>
+						<reference key="source" ref="858082622"/>
 						<reference key="destination" ref="944768097"/>
 					</object>
 					<int key="connectionID">647</int>
@@ -2562,10 +2565,26 @@
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">installChromeExtension:</string>
-						<reference key="source" ref="279432667"/>
+						<reference key="source" ref="858082622"/>
 						<reference key="destination" ref="749501337"/>
 					</object>
 					<int key="connectionID">651</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: loginItemEnabled</string>
+						<reference key="source" ref="652670859"/>
+						<reference key="destination" ref="641365937"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="652670859"/>
+							<reference key="NSDestination" ref="641365937"/>
+							<string key="NSLabel">value: loginItemEnabled</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">loginItemEnabled</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">655</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -3849,7 +3868,12 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">645</int>
-						<reference key="object" ref="279432667"/>
+						<reference key="object" ref="858082622"/>
+						<reference key="parent" ref="0"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">653</int>
+						<reference key="object" ref="641365937"/>
 						<reference key="parent" ref="0"/>
 					</object>
 				</object>
@@ -4116,6 +4140,7 @@
 					<string>642.IBPluginDependency</string>
 					<string>644.IBPluginDependency</string>
 					<string>645.IBPluginDependency</string>
+					<string>653.IBPluginDependency</string>
 					<string>72.IBPluginDependency</string>
 					<string>72.ImportedFromIB2</string>
 					<string>73.IBPluginDependency</string>
@@ -4404,6 +4429,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
@@ -4443,7 +4469,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">651</int>
+			<int key="maxID">655</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -4526,6 +4552,14 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/LiveReloadAppDelegate.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">LoginItemController</string>
+					<string key="superclassName">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/LoginItemController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
