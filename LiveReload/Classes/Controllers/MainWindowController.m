@@ -151,6 +151,18 @@
         [self.installSafariExtensionButton setTitle:@"Installed"];
         [self.installSafariExtensionButton setEnabled:NO];
     }
+
+    NSInteger chromeVersion = extensionsController.versionOfInstalledChromeExtension;
+    if (chromeVersion == 0) {
+        [self.installChromeExtensionButton setTitle:@"Install"];
+        [self.installChromeExtensionButton setEnabled:YES];
+    } else if (chromeVersion < extensionsController.latestChromeExtensionVersion) {
+        [self.installChromeExtensionButton setTitle:@"Update"];
+        [self.installChromeExtensionButton setEnabled:YES];
+    } else {
+        [self.installChromeExtensionButton setTitle:@"Installed"];
+        [self.installChromeExtensionButton setEnabled:NO];
+    }
 }
 
 @end
