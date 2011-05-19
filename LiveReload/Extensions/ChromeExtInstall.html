@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Install LiveReload</title>
+    <style>
+      * { margin: 0px; padding: 0px; }
+      p { position: absolute; bottom: 10px; left: 390px; font: 16px Helvetica; }
+      #arrow { font-size: 24px; position: relative; top: 2px; }
+    </style>
+  </head>
+  <body>
+    <p><span id="arrow">▾</span> Click to continue installing LiveReload extension</p>
+    <script>
+      window.location.href = 'LiveReload.crx';
+      var arrow = document.getElementById('arrow');
+      setInterval(function() {
+        if (arrow.style.visibility) {
+          arrow.style.visibility = '';
+        } else {
+          arrow.style.visibility = 'hidden';
+        }
+      }, 500);
+    </script>
+  </body>
+</html>

@@ -13,5 +13,6 @@
 @property(nonatomic, readonly) VersionNumber versionOfInstalledSafariExtension;
 
 - (IBAction)installSafariExtension:(id)sender;
+- (IBAction)installChromeExtension:(id)sender;
 
 @end

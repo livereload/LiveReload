@@ -22,6 +22,12 @@ static ExtensionsController *sharedExtensionsController;
     return path;
 }
 
+- (NSString *)bundledChromeExtensionInstallHtmlPath {
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"ChromeExtInstall.html" ofType:nil];
+    NSAssert(path != nil, @"Cannot find ChromeExtInstall.html");
+    return path;
+}
+
 - (VersionNumber)versionOfFileAtPath:(NSString *)filePath usingHashToVersionMapping:(NSString *)mappingFileName {
     NSDictionary *hashToVersion = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:mappingFileName ofType:@"plist"]];
     NSString *md5 = MD5OfFile(filePath);
@@ -73,6 +79,10 @@ static ExtensionsController *sharedExtensionsController;
 
 - (IBAction)installSafariExtension:(id)sender {
     [[NSWorkspace sharedWorkspace] openFile:[self bundledSafariExtensionPath]];
+}
+
+- (IBAction)installChromeExtension:(id)sender {
+    [[NSWorkspace sharedWorkspace] openFile:[self bundledChromeExtensionInstallHtmlPath] withApplication:@"Google Chrome"];
 }
 
 @end

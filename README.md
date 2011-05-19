@@ -1,6 +1,16 @@
 LiveReload (paid GUI version)
 =============================
 
+Hunting down the crx file from Chrome Web Store:
+
+* install the extension
+* open `~/Library/Caches/Google/Chrome/Default/Cache`
+* open a data file in TextMate
+* search for `crx`
+* download from the found URL, something like:
+
+      https://clients2.googleusercontent.com/crx/download/OQAAAP7LEOajd1v0yz2cqUXd8G_fJDnxSckZ9aB21rIRYJtibrBHokesrCY3MzgSZW4SiJF5ZfqTntmn-0wiquEpTXUAxlKa5e3hCDew-eg9pnQm55agMKl4xEzW/extension_1_6.crx
+
 Preferences store the model (=> synced between macs?)
 
   Repository
