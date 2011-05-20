@@ -8,6 +8,9 @@
 
 
 @interface LiveReloadAppDelegate ()
+
+- (void)pingServer;
+
 @end
 
 
@@ -41,12 +44,27 @@
         }
         [NSApp terminate:self];
     }
+
+    [self pingServer];
+    [NSTimer scheduledTimerWithTimeInterval:60*60*24 target:self selector:@selector(pingServer) userInfo:nil repeats:YES];
+
     [self.statusItemController showStatusBarIcon];
     [[CommunicationController sharedCommunicationController] startServer];
 }
 
 - (void)applicationDidResignActive:(NSNotification *)notification {
     [self.mainWindowController hideOnAppDeactivation];
+}
+
+- (void)pingServer {
+    [self performSelectorInBackground:@selector(pingServerInBackground) withObject:nil];
+}
+
+- (void)pingServerInBackground {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    [NSData dataWithContentsOfURL:[NSURL URLWithString:[@"http://livereload.mockko.com/ping.txt?v=" stringByAppendingString:version]]];
+    [pool drain];
 }
 
 @end

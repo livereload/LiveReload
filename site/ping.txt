@@ -1,0 +1,3 @@
+We use pings to measure the number of active LiveReload users.
+
+No data is sent over the wire, which means certainly no user-identifiable data.
