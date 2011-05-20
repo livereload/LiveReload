@@ -11,6 +11,7 @@
     NSButton *_installSafariExtensionButton;
     NSButton *_installChromeExtensionButton;
     NSButton *_installFirefoxExtensionButton;
+    BOOL _inSettingsMode;
 }
 
 

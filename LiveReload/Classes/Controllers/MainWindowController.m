@@ -53,6 +53,7 @@
         [self.listView reloadData];
         [self updateButtonsState];
 
+        _inSettingsMode = NO;
         if (![[NSUserDefaults standardUserDefaults] boolForKey:PreferencesDoneKey]) {
             [self showSettings:self];
         }
@@ -67,6 +68,8 @@
 }
 
 - (void)hideOnAppDeactivation {
+    if (_inSettingsMode)
+        return;
     [self.window orderOut:self];
     self.window = nil;
     self.windowVisible = NO;
@@ -127,6 +130,8 @@
 }
 
 - (IBAction)showSettings:(id)sender {
+    _inSettingsMode = YES;
+    [self.window setLevel:NSFloatingWindowLevel];
     [self updateSettingsScreen];
     self.settingsView.frame = self.mainView.frame;
     [[self.mainView superview] addSubview:self.settingsView];
@@ -134,6 +139,8 @@
 }
 
 - (IBAction)doneWithSettings:(id)sender {
+    _inSettingsMode = NO;
+    [self.window setLevel:NSNormalWindowLevel];
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:PreferencesDoneKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 
