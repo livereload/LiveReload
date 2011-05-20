@@ -1350,7 +1350,6 @@
 						<string key="NSFrame">{{388, 8}, {82, 25}}</string>
 						<reference key="NSSuperview" ref="228969981"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="211590385">
 							<int key="NSCellFlags">67239424</int>
@@ -1386,7 +1385,7 @@
 										<string key="NSFrame">{{0, 5}, {460, 436}}</string>
 										<reference key="NSSuperview" ref="121106629"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="96481513"/>
+										<reference key="NSNextKeyView" ref="492844383"/>
 										<string key="NSClassName">PXListDocumentView</string>
 									</object>
 								</object>
@@ -1438,7 +1437,7 @@
 						<string key="NSFrame">{{10, 40}, {460, 238}}</string>
 						<reference key="NSSuperview" ref="228969981"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="492844383"/>
+						<reference key="NSNextKeyView" ref="121106629"/>
 						<int key="NSsFlags">720</int>
 						<reference key="NSVScroller" ref="96481513"/>
 						<reference key="NSHScroller" ref="492844383"/>
@@ -1686,7 +1685,6 @@
 						<string key="NSFrame">{{153, 10}, {174, 25}}</string>
 						<reference key="NSSuperview" ref="1059270429"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="466029620">
 							<int key="NSCellFlags">-2080244224</int>
@@ -2634,6 +2632,14 @@
 						<reference key="destination" ref="838790426"/>
 					</object>
 					<int key="connectionID">659</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">statusItemController</string>
+						<reference key="source" ref="508725981"/>
+						<reference key="destination" ref="683432507"/>
+					</object>
+					<int key="connectionID">662</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -4556,7 +4562,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">661</int>
+			<int key="maxID">662</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -4718,6 +4724,7 @@
 							<string>removeProjectButton</string>
 							<string>settingsView</string>
 							<string>startAtLoginCheckbox</string>
+							<string>statusItemController</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -4730,6 +4737,7 @@
 							<string>NSButton</string>
 							<string>NSView</string>
 							<string>NSButton</string>
+							<string>StatusItemController</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -4745,6 +4753,7 @@
 							<string>removeProjectButton</string>
 							<string>settingsView</string>
 							<string>startAtLoginCheckbox</string>
+							<string>statusItemController</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -4783,6 +4792,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">startAtLoginCheckbox</string>
 								<string key="candidateClassName">NSButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">statusItemController</string>
+								<string key="candidateClassName">StatusItemController</string>
 							</object>
 						</object>
 					</object>

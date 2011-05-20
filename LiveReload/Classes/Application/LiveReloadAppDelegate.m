@@ -50,6 +50,7 @@
 
     [self.statusItemController showStatusBarIcon];
     [[CommunicationController sharedCommunicationController] startServer];
+    [self.mainWindowController performSelector:@selector(considerShowingOnAppStartup) withObject:nil afterDelay:0.15];
 }
 
 - (void)applicationDidResignActive:(NSNotification *)notification {

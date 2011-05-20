@@ -11,4 +11,6 @@
 
 - (void)showStatusBarIcon;
 
+@property(nonatomic, readonly) CGPoint statusItemPosition;
+
 @end

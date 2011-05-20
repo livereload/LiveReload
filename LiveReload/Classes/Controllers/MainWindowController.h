@@ -4,6 +4,7 @@
 
 
 @class MAAttachedWindow;
+@class StatusItemController;
 
 
 @interface MainWindowController : NSObject <PXListViewDelegate> {
@@ -16,6 +17,8 @@
 
 
 @property(nonatomic, retain) NSWindow *window;
+
+@property(nonatomic, retain) IBOutlet StatusItemController *statusItemController;
 
 @property(nonatomic, retain) IBOutlet NSView *mainView;
 
@@ -31,6 +34,7 @@
 
 - (void)toggleMainWindowAtPoint:(NSPoint)pt;
 
+- (void)considerShowingOnAppStartup;
 - (void)hideOnAppDeactivation;
 
 - (IBAction)addProjectClicked:(id)sender;

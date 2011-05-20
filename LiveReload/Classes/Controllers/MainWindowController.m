@@ -1,6 +1,7 @@
 
 #import "MainWindowController.h"
 #import "ExtensionsController.h"
+#import "StatusItemController.h"
 
 #import "MAAttachedWindow.h"
 #import "Workspace.h"
@@ -31,6 +32,7 @@
 @synthesize mainView=_mainView;
 @synthesize settingsView=_settingsView;
 
+@synthesize statusItemController=_statusItemController;
 @synthesize window=_window;
 @synthesize windowVisible=_windowVisible;
 @synthesize listView=_listView;
@@ -40,6 +42,12 @@
 - (void)awakeFromNib {
     [self.startAtLoginCheckbox setAttributedTitle:[[[NSAttributedString alloc] initWithString:[self.startAtLoginCheckbox title] attributes:[NSDictionary dictionaryWithObject:[NSColor whiteColor] forKey:NSForegroundColorAttributeName]] autorelease]];
     [[Workspace sharedWorkspace] addObserver:self forKeyPath:@"projects" options:0 context:nil];
+}
+
+- (void)considerShowingOnAppStartup {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:PreferencesDoneKey]) {
+        [self toggleMainWindowAtPoint:self.statusItemController.statusItemPosition];
+    }
 }
 
 - (void)toggleMainWindowAtPoint:(NSPoint)pt {
