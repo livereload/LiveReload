@@ -12,6 +12,7 @@
     NSButton *_installSafariExtensionButton;
     NSButton *_installChromeExtensionButton;
     NSButton *_installFirefoxExtensionButton;
+    NSTextField *_versionLabel;
     BOOL _inSettingsMode;
 }
 
@@ -49,5 +50,6 @@
 @property (assign) IBOutlet NSButton *installSafariExtensionButton;
 @property (assign) IBOutlet NSButton *installChromeExtensionButton;
 @property (assign) IBOutlet NSButton *installFirefoxExtensionButton;
+@property (assign) IBOutlet NSTextField *versionLabel;
 
 @end

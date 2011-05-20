@@ -28,6 +28,7 @@
 @synthesize installSafariExtensionButton = _installSafariExtensionButton;
 @synthesize installChromeExtensionButton = _installChromeExtensionButton;
 @synthesize installFirefoxExtensionButton = _installFirefoxExtensionButton;
+@synthesize versionLabel = _versionLabel;
 
 @synthesize mainView=_mainView;
 @synthesize settingsView=_settingsView;
@@ -42,6 +43,9 @@
 - (void)awakeFromNib {
     [self.startAtLoginCheckbox setAttributedTitle:[[[NSAttributedString alloc] initWithString:[self.startAtLoginCheckbox title] attributes:[NSDictionary dictionaryWithObject:[NSColor whiteColor] forKey:NSForegroundColorAttributeName]] autorelease]];
     [[Workspace sharedWorkspace] addObserver:self forKeyPath:@"projects" options:0 context:nil];
+
+    NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    [self.versionLabel setStringValue:[NSString stringWithFormat:@"v%@", version]];
 }
 
 - (void)considerShowingOnAppStartup {
