@@ -31,9 +31,9 @@
     [self.mainWindowController addObserver:self forKeyPath:@"windowVisible" options:0 context:nil];
 }
 
-- (CGPoint)statusItemPosition {
-    CGRect frame = [[self.statusItemView window] frame];
-    return CGPointMake(CGRectGetMidX(frame), CGRectGetMinY(frame));
+- (NSPoint)statusItemPosition {
+    NSRect frame = [[self.statusItemView window] frame];
+    return NSMakePoint(NSMidX(frame), NSMinY(frame));
 }
 
 

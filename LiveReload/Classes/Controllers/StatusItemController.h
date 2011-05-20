@@ -2,15 +2,18 @@
 #import <Cocoa/Cocoa.h>
 
 @class MainWindowController;
+@class StatusItemView;
 
 @interface StatusItemController : NSObject {
     NSStatusItem *_statusItem;
+    StatusItemView *_statusItemView;
+    MainWindowController *_mainWindowController;
 }
 
 @property(nonatomic, retain) IBOutlet MainWindowController *mainWindowController;
 
 - (void)showStatusBarIcon;
 
-@property(nonatomic, readonly) CGPoint statusItemPosition;
+@property(nonatomic, readonly) NSPoint statusItemPosition;
 
 @end

@@ -10,6 +10,8 @@
 
 @interface WebSocketServer : NSObject {
     struct libwebsocket_context *context;
+    NSUInteger port;
+    __weak id<WebSocketServerDelegate> delegate;
 }
 
 @property(nonatomic) NSUInteger port;
@@ -35,6 +37,7 @@
 @interface WebSocketConnection : NSObject {
     __weak WebSocketServer *server;
     struct libwebsocket *wsi;
+    __weak id<WebSocketConnectionDelegate> delegate;
 }
 
 @property(nonatomic, assign, readonly) __weak WebSocketServer *server;

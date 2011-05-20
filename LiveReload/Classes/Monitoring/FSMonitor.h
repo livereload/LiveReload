@@ -9,6 +9,7 @@
 
 @interface FSMonitor : NSObject {
     NSString *_path;
+    id<FSMonitorDelegate> _delegate;
 
     BOOL _running;
 

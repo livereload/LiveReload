@@ -6,7 +6,10 @@
 @protocol StatusItemViewDelegate;
 
 
-@interface StatusItemView : NSView
+@interface StatusItemView : NSView {
+    BOOL _selected;
+    __weak id<StatusItemViewDelegate> _delegate;
+}
 
 @property(nonatomic) BOOL selected;
 @property(nonatomic, assign) __weak id<StatusItemViewDelegate> delegate;

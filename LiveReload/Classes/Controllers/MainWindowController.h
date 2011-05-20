@@ -17,7 +17,16 @@
     NSButton *_backToMainWindowButton;
     NSTextField *_connectionStateLabel;
     BOOL _inSettingsMode;
+    BOOL _windowVisible;
     NSTextField *_clickToAddFolderLabel;
+
+    NSView *_mainView;
+    NSView *_settingsView;
+    PXListView *_listView;
+    StatusItemController *_statusItemController;
+    NSWindow *_window;
+    NSButton *_addProjectButton;
+    NSButton *_removeProjectButton;
 }
 
 

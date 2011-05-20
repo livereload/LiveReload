@@ -5,6 +5,8 @@
 @class MainWindowController;
 
 @interface LiveReloadAppDelegate : NSObject <NSApplicationDelegate> {
+    StatusItemController *_statusItemController;
+    MainWindowController *_mainWindowController;
 }
 
 @property(nonatomic, retain) IBOutlet StatusItemController *statusItemController;
