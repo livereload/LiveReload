@@ -2,6 +2,7 @@
 #import "MainWindowController.h"
 #import "ExtensionsController.h"
 #import "StatusItemController.h"
+#import "CommunicationController.h"
 
 #import "MAAttachedWindow.h"
 #import "Workspace.h"
@@ -16,7 +17,7 @@
 
 @property(nonatomic) BOOL windowVisible;
 
-- (void)updateButtonsState;
+- (void)updateMainScreen;
 - (void)updateSettingsScreen;
 
 @end
@@ -31,6 +32,7 @@
 @synthesize versionLabel = _versionLabel;
 @synthesize webSiteLabel = _webSiteLabel;
 @synthesize backToMainWindowButton = _backToMainWindowButton;
+@synthesize connectionStateLabel = _connectionStateLabel;
 
 @synthesize mainView=_mainView;
 @synthesize settingsView=_settingsView;
@@ -41,6 +43,7 @@
 @synthesize listView=_listView;
 @synthesize addProjectButton=_addProjectButton;
 @synthesize removeProjectButton=_removeProjectButton;
+@synthesize clickToAddFolderLabel = _clickToAddFolderLabel;
 
 - (void)awakeFromNib {
     [self.startAtLoginCheckbox setAttributedTitle:[[[NSAttributedString alloc] initWithString:[self.startAtLoginCheckbox title] attributes:[NSDictionary dictionaryWithObjectsAndKeys:[NSColor whiteColor],NSForegroundColorAttributeName, [NSFont systemFontOfSize:13], NSFontAttributeName, nil]] autorelease]];
@@ -54,6 +57,10 @@
     [self.webSiteLabel setSelectable:YES];
 
     [self.webSiteLabel setAttributedStringValue:[[[NSAttributedString alloc] initWithString:[self.webSiteLabel stringValue] attributes:[NSDictionary dictionaryWithObjectsAndKeys:[NSColor colorWithCalibratedRed:0.7 green:0.7 blue:1.0 alpha:1.0], NSForegroundColorAttributeName, [NSNumber numberWithInt:NSSingleUnderlineStyle], NSUnderlineStyleAttributeName, [NSURL URLWithString:[self.webSiteLabel stringValue]], NSLinkAttributeName, [NSFont systemFontOfSize:13], NSFontAttributeName, nil]] autorelease]];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateMainScreen) name:CommunicationStateChangedNotification object:nil];
+
+    [[CommunicationController sharedCommunicationController] addObserver:self forKeyPath:@"numberOfProcessedChanges" options:0 context:nil];
 }
 
 - (void)considerShowingOnAppStartup {
@@ -71,7 +78,7 @@
                                                   onSide:MAPositionBottom
                                               atDistance:0.0];
         [self.listView reloadData];
-        [self updateButtonsState];
+        [self updateMainScreen];
 
         _inSettingsMode = NO;
         if (![[NSUserDefaults standardUserDefaults] boolForKey:PreferencesDoneKey]) {
@@ -120,9 +127,21 @@
 
 }
 
-- (void)updateButtonsState {
+- (void)updateMainScreen {
     NSUInteger row = self.listView.selectedRow;
     [self.removeProjectButton setEnabled:(row != NSNotFound)];
+    [self.clickToAddFolderLabel setHidden:[[Workspace sharedWorkspace].projects count] > 0];
+
+    NSInteger n = [CommunicationController sharedCommunicationController].numberOfSessions;
+    if (n == 0 && [[Workspace sharedWorkspace].projects count] == 0) {
+        [self.connectionStateLabel setStringValue:@""];
+    } else if (n == 0) {
+        [self.connectionStateLabel setStringValue:@"Safari: right-click > “Enable LiveReload”. Chrome: click toolbar button."];
+    } else if (n == 1) {
+        [self.connectionStateLabel setStringValue:[NSString stringWithFormat:@"1 browser connected, %d changes detected so far.", [CommunicationController sharedCommunicationController].numberOfProcessedChanges]];
+    } else {
+        [self.connectionStateLabel setStringValue:[NSString stringWithFormat:@"%d browsers connected, %d changes detected so far.", n, [CommunicationController sharedCommunicationController].numberOfProcessedChanges]];
+    }
 }
 
 - (IBAction)addProjectClicked:(id)sender {
@@ -174,7 +193,9 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"projects"]) {
         [self.listView reloadData];
-        [self updateButtonsState];
+        [self updateMainScreen];
+    } else if ([keyPath isEqualToString:@"numberOfProcessedChanges"]) {
+        [self updateMainScreen];
     }
 }
 

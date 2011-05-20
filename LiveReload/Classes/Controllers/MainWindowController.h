@@ -15,7 +15,9 @@
     NSTextField *_versionLabel;
     NSTextField *_webSiteLabel;
     NSButton *_backToMainWindowButton;
+    NSTextField *_connectionStateLabel;
     BOOL _inSettingsMode;
+    NSTextField *_clickToAddFolderLabel;
 }
 
 
@@ -32,6 +34,7 @@
 @property(nonatomic, retain) IBOutlet NSButton *addProjectButton;
 
 @property(nonatomic, retain) IBOutlet NSButton *removeProjectButton;
+@property (assign) IBOutlet NSTextField *clickToAddFolderLabel;
 
 @property(nonatomic, readonly) BOOL windowVisible;
 
@@ -55,5 +58,6 @@
 @property (assign) IBOutlet NSTextField *versionLabel;
 @property (assign) IBOutlet NSTextField *webSiteLabel;
 @property (assign) IBOutlet NSButton *backToMainWindowButton;
+@property (assign) IBOutlet NSTextField *connectionStateLabel;
 
 @end
