@@ -14,6 +14,7 @@
     NSButton *_installFirefoxExtensionButton;
     NSTextField *_versionLabel;
     NSTextField *_webSiteLabel;
+    NSButton *_backToMainWindowButton;
     BOOL _inSettingsMode;
 }
 
@@ -53,5 +54,6 @@
 @property (assign) IBOutlet NSButton *installFirefoxExtensionButton;
 @property (assign) IBOutlet NSTextField *versionLabel;
 @property (assign) IBOutlet NSTextField *webSiteLabel;
+@property (assign) IBOutlet NSButton *backToMainWindowButton;
 
 @end

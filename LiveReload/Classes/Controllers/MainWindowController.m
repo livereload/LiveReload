@@ -30,6 +30,7 @@
 @synthesize installFirefoxExtensionButton = _installFirefoxExtensionButton;
 @synthesize versionLabel = _versionLabel;
 @synthesize webSiteLabel = _webSiteLabel;
+@synthesize backToMainWindowButton = _backToMainWindowButton;
 
 @synthesize mainView=_mainView;
 @synthesize settingsView=_settingsView;
@@ -151,6 +152,9 @@
 - (IBAction)showSettings:(id)sender {
     _inSettingsMode = YES;
     [self.window setLevel:NSFloatingWindowLevel];
+
+    [self.backToMainWindowButton setTitle:([[NSUserDefaults standardUserDefaults] boolForKey:PreferencesDoneKey] ? @"Back to LiveReload" : @"Start using LiveReload")];
+
     [self updateSettingsScreen];
     self.settingsView.frame = self.mainView.frame;
     [[self.mainView superview] addSubview:self.settingsView];
