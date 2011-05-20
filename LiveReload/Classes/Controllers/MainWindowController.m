@@ -29,6 +29,7 @@
 @synthesize installChromeExtensionButton = _installChromeExtensionButton;
 @synthesize installFirefoxExtensionButton = _installFirefoxExtensionButton;
 @synthesize versionLabel = _versionLabel;
+@synthesize webSiteLabel = _webSiteLabel;
 
 @synthesize mainView=_mainView;
 @synthesize settingsView=_settingsView;
@@ -41,11 +42,17 @@
 @synthesize removeProjectButton=_removeProjectButton;
 
 - (void)awakeFromNib {
-    [self.startAtLoginCheckbox setAttributedTitle:[[[NSAttributedString alloc] initWithString:[self.startAtLoginCheckbox title] attributes:[NSDictionary dictionaryWithObject:[NSColor whiteColor] forKey:NSForegroundColorAttributeName]] autorelease]];
+    [self.startAtLoginCheckbox setAttributedTitle:[[[NSAttributedString alloc] initWithString:[self.startAtLoginCheckbox title] attributes:[NSDictionary dictionaryWithObjectsAndKeys:[NSColor whiteColor],NSForegroundColorAttributeName, [NSFont systemFontOfSize:13], NSFontAttributeName, nil]] autorelease]];
     [[Workspace sharedWorkspace] addObserver:self forKeyPath:@"projects" options:0 context:nil];
 
     NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
     [self.versionLabel setStringValue:[NSString stringWithFormat:@"v%@", version]];
+
+    // both are needed, otherwise hyperlink won't accept mousedown
+    [self.webSiteLabel setAllowsEditingTextAttributes:YES];
+    [self.webSiteLabel setSelectable:YES];
+
+    [self.webSiteLabel setAttributedStringValue:[[[NSAttributedString alloc] initWithString:[self.webSiteLabel stringValue] attributes:[NSDictionary dictionaryWithObjectsAndKeys:[NSColor colorWithCalibratedRed:0.7 green:0.7 blue:1.0 alpha:1.0], NSForegroundColorAttributeName, [NSNumber numberWithInt:NSSingleUnderlineStyle], NSUnderlineStyleAttributeName, [NSURL URLWithString:[self.webSiteLabel stringValue]], NSLinkAttributeName, [NSFont systemFontOfSize:13], NSFontAttributeName, nil]] autorelease]];
 }
 
 - (void)considerShowingOnAppStartup {
