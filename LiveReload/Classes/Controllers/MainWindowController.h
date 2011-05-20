@@ -38,6 +38,8 @@
 - (IBAction)showSettings:(id)sender;
 - (IBAction)doneWithSettings:(id)sender;
 
+- (IBAction)quit:(id)sender;
+
 @property (assign) IBOutlet NSButton *startAtLoginCheckbox;
 @property (assign) IBOutlet NSButton *installSafariExtensionButton;
 @property (assign) IBOutlet NSButton *installChromeExtensionButton;

@@ -176,4 +176,8 @@
     }
 }
 
+- (IBAction)quit:(id)sender {
+    [NSApp terminate:sender];
+}
+
 @end
