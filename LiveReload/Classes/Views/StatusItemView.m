@@ -3,10 +3,35 @@
 #import "MainWindowController.h"
 
 
+typedef enum {
+    StatusItemStateInactive,
+    StatusItemStateActive,
+    StatusItemStateHighlighted,
+    StatusItemStateBlinking,
+    COUNT_StatusItemState
+} StatusItemState;
+
+static NSString *const iconNames[COUNT_StatusItemState] = {
+    @"StatusItemInactive",
+    @"StatusItemActive",
+    @"StatusItemHighlighted",
+    @"StatusItemBlinking",
+};
+
+
 @implementation StatusItemView
 
 @synthesize selected=_selected;
+@synthesize active=_active;
 @synthesize delegate=_delegate;
+
+- (NSImage *)iconForState:(StatusItemState)state {
+    NSImage *result = _icons[state];
+    if (result == nil) {
+        result = _icons[state] = [NSImage imageNamed:iconNames[state]];
+    }
+    return result;
+}
 
 - (void)drawRect:(NSRect)rect {
     if (_selected) {
@@ -14,31 +39,23 @@
         NSRectFill(rect);
     }
 
-    NSString *text = @"LR";
-
-    NSColor *textColor = [NSColor controlTextColor];
+    StatusItemState state;
     if (_selected) {
-        textColor = [NSColor selectedMenuItemTextColor];
+        state = StatusItemStateHighlighted;
+    } else if (_blinking) {
+        state = StatusItemStateBlinking;
+    } else if (_active) {
+        state = StatusItemStateActive;
+    } else {
+        state = StatusItemStateInactive;
     }
 
-    NSFont *msgFont = [NSFont menuBarFontOfSize:15.0];
-    NSMutableParagraphStyle *paraStyle = [[NSMutableParagraphStyle alloc] init];
-    [paraStyle setParagraphStyle:[NSParagraphStyle defaultParagraphStyle]];
-    [paraStyle setAlignment:NSCenterTextAlignment];
-    [paraStyle setLineBreakMode:NSLineBreakByTruncatingTail];
-    NSMutableDictionary *msgAttrs = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                     msgFont, NSFontAttributeName,
-                                     textColor, NSForegroundColorAttributeName,
-                                     paraStyle, NSParagraphStyleAttributeName,
-                                     nil];
-    [paraStyle release];
-
-    NSSize msgSize = [text sizeWithAttributes:msgAttrs];
-    NSRect msgRect = NSMakeRect(0, 0, msgSize.width, msgSize.height);
-    msgRect.origin.x = ([self frame].size.width - msgSize.width) / 2.0;
-    msgRect.origin.y = ([self frame].size.height - msgSize.height) / 2.0;
-
-    [text drawInRect:msgRect withAttributes:msgAttrs];
+    NSImage *icon = [self iconForState:state];
+    NSSize size = [icon size];
+    [icon drawInRect:CGRectMake(0, 1, size.width, size.height)
+            fromRect:CGRectMake(0, 0, size.width, size.height)
+           operation:NSCompositeSourceOver
+            fraction:1.0];
 }
 
 - (void)mouseDown:(NSEvent *)event {
@@ -50,6 +67,24 @@
 - (void)setSelected:(BOOL)selected {
     _selected = selected;
     [self setNeedsDisplay:YES];
+}
+
+- (void)setActive:(BOOL)active {
+    _active = active;
+    [self setNeedsDisplay:YES];
+}
+
+- (void)blink {
+    if (!_blinking) {
+        _blinking = YES;
+        [self display];
+        [self performSelector:@selector(_stopBlinking) withObject:nil afterDelay:0.1];
+    }
+}
+
+- (void)_stopBlinking {
+    _blinking = NO;
+    [self display];
 }
 
 @end

@@ -6,6 +6,9 @@
 
 #define PathKey @"path"
 
+NSString *ProjectDidDetectChangeNotification = @"ProjectDidDetectChangeNotification";
+
+
 
 @interface Project () <FSMonitorDelegate>
 @end
@@ -67,6 +70,7 @@
 }
 
 - (void)fileSystemMonitor:(FSMonitor *)monitor detectedChangeAtPathes:(NSSet *)pathes {
+    [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidDetectChangeNotification object:self];
     [[CommunicationController sharedCommunicationController] broadcastChangedPathes:pathes inProject:self];
 }
 

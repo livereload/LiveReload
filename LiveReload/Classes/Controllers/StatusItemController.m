@@ -2,12 +2,16 @@
 #import "StatusItemController.h"
 #import "MainWindowController.h"
 #import "StatusItemView.h"
+#import "Workspace.h"
+#import "Project.h"
 
 
 @interface StatusItemController () <StatusItemViewDelegate>
 
 @property(nonatomic, retain) NSStatusItem *statusItem;
 @property(nonatomic, retain) StatusItemView *statusItemView;
+
+- (void)updateStatusIconState;
 
 @end
 
@@ -19,7 +23,7 @@
 @synthesize mainWindowController=_mainWindowController;
 
 - (void)showStatusBarIcon {
-    float width = 30.0;
+    float width = 25.0;
     float height = [[NSStatusBar systemStatusBar] thickness];
     NSRect viewFrame = NSMakeRect(0, 0, width, height);
 
@@ -29,11 +33,24 @@
     [self.statusItem setView:self.statusItemView];
 
     [self.mainWindowController addObserver:self forKeyPath:@"windowVisible" options:0 context:nil];
+    [[Workspace sharedWorkspace] addObserver:self forKeyPath:@"monitoringEnabled" options:0 context:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didDetectChange) name:ProjectDidDetectChangeNotification object:nil];
+
+    [self updateStatusIconState];
 }
 
 - (NSPoint)statusItemPosition {
     NSRect frame = [[self.statusItemView window] frame];
     return NSMakePoint(NSMidX(frame), NSMinY(frame));
+}
+
+- (void)updateStatusIconState {
+    self.statusItemView.selected = self.mainWindowController.windowVisible;
+    self.statusItemView.active = [Workspace sharedWorkspace].monitoringEnabled;
+}
+
+- (void)didDetectChange {
+    [self.statusItemView blink];
 }
 
 
@@ -50,7 +67,9 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"windowVisible"]) {
-        self.statusItemView.selected = self.mainWindowController.windowVisible;
+        [self updateStatusIconState];
+    } else if ([keyPath isEqualToString:@"monitoringEnabled"]) {
+        [self updateStatusIconState];
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }

@@ -4,6 +4,8 @@
 
 @class FSMonitor;
 
+extern NSString *ProjectDidDetectChangeNotification;
+
 
 @interface Project : NSObject {
     NSString *_path;

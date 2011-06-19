@@ -7,12 +7,21 @@
 
 
 @interface StatusItemView : NSView {
-    BOOL _selected;
     __weak id<StatusItemViewDelegate> _delegate;
+
+    NSImage *_icons[4];
+
+    BOOL _selected;
+    BOOL _active;
+    BOOL _blinking;
 }
 
-@property(nonatomic) BOOL selected;
 @property(nonatomic, assign) __weak id<StatusItemViewDelegate> delegate;
+
+@property(nonatomic) BOOL selected;
+@property(nonatomic) BOOL active;
+
+- (void)blink;
 
 @end
 

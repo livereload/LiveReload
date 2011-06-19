@@ -23,6 +23,10 @@
 		439394081362CD0A00333781 /* Workspace.m in Sources */ = {isa = PBXBuildFile; fileRef = 439394071362CD0A00333781 /* Workspace.m */; };
 		4393940B1362CD6500333781 /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 4393940A1362CD6500333781 /* Project.m */; };
 		439394511362D62100333781 /* FSMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 439394501362D62100333781 /* FSMonitor.m */; };
+		439C092813AD939900119233 /* StatusItemActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 439C092413AD939900119233 /* StatusItemActive.png */; };
+		439C092913AD939900119233 /* StatusItemBlinking.png in Resources */ = {isa = PBXBuildFile; fileRef = 439C092513AD939900119233 /* StatusItemBlinking.png */; };
+		439C092A13AD939900119233 /* StatusItemHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 439C092613AD939900119233 /* StatusItemHighlighted.png */; };
+		439C092B13AD939900119233 /* StatusItemInactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 439C092713AD939900119233 /* StatusItemInactive.png */; };
 		43AB50251382ACB200669FC6 /* CommunicationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43AB50241382ACB200669FC6 /* CommunicationController.m */; };
 		43AB50331382B75E00669FC6 /* base64-decode.c in Sources */ = {isa = PBXBuildFile; fileRef = 43AB50271382B75E00669FC6 /* base64-decode.c */; };
 		43AB50341382B75E00669FC6 /* client-handshake.c in Sources */ = {isa = PBXBuildFile; fileRef = 43AB50281382B75E00669FC6 /* client-handshake.c */; };
@@ -96,6 +100,10 @@
 		4393940A1362CD6500333781 /* Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Project.m; sourceTree = "<group>"; };
 		4393944F1362D62100333781 /* FSMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSMonitor.h; sourceTree = "<group>"; };
 		439394501362D62100333781 /* FSMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSMonitor.m; sourceTree = "<group>"; };
+		439C092413AD939900119233 /* StatusItemActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemActive.png; sourceTree = "<group>"; };
+		439C092513AD939900119233 /* StatusItemBlinking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemBlinking.png; sourceTree = "<group>"; };
+		439C092613AD939900119233 /* StatusItemHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemHighlighted.png; sourceTree = "<group>"; };
+		439C092713AD939900119233 /* StatusItemInactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemInactive.png; sourceTree = "<group>"; };
 		43AB50231382ACB200669FC6 /* CommunicationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommunicationController.h; sourceTree = "<group>"; };
 		43AB50241382ACB200669FC6 /* CommunicationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommunicationController.m; sourceTree = "<group>"; };
 		43AB50271382B75E00669FC6 /* base64-decode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "base64-decode.c"; sourceTree = "<group>"; };
@@ -259,6 +267,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		434EA98F13A78B1100C49863 /* StatusItem */ = {
+			isa = PBXGroup;
+			children = (
+				439C092413AD939900119233 /* StatusItemActive.png */,
+				439C092513AD939900119233 /* StatusItemBlinking.png */,
+				439C092613AD939900119233 /* StatusItemHighlighted.png */,
+				439C092713AD939900119233 /* StatusItemInactive.png */,
+			);
+			path = StatusItem;
+			sourceTree = "<group>";
+		};
 		43685D461385A36600D17CB2 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -368,6 +387,7 @@
 		43AB50711383E18800669FC6 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				434EA98F13A78B1100C49863 /* StatusItem */,
 				43AB50721383E18800669FC6 /* Icon-48.png */,
 				43AB50741383E37C00669FC6 /* settings.png */,
 			);
@@ -499,6 +519,10 @@
 				43685D531385B63100D17CB2 /* SafariExtVersions.plist in Resources */,
 				43685D581385C5B300D17CB2 /* ChromeExtInstall.html in Resources */,
 				43685D5C1385C70600D17CB2 /* LiveReload.crx in Resources */,
+				439C092813AD939900119233 /* StatusItemActive.png in Resources */,
+				439C092913AD939900119233 /* StatusItemBlinking.png in Resources */,
+				439C092A13AD939900119233 /* StatusItemHighlighted.png in Resources */,
+				439C092B13AD939900119233 /* StatusItemInactive.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
