@@ -27,9 +27,9 @@
 - (void)drawRect:(NSRect)dirtyRect {
     if([self isSelected]) {
         [[NSColor selectedControlColor] set];
-    }
-    else {
-        [[NSColor whiteColor] set];
+    } else {
+        NSArray *colors = [NSColor controlAlternatingRowBackgroundColors];
+        [[colors objectAtIndex:self.row % [colors count]] set];
     }
     NSRectFill(self.bounds);
 }
