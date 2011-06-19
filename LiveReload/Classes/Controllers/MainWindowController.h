@@ -47,7 +47,8 @@
 
 @property(nonatomic, readonly) BOOL windowVisible;
 
-- (void)toggleMainWindowAtPoint:(NSPoint)pt;
+- (void)toggleMainWindow;
+- (void)showMainWindow;
 
 - (void)considerShowingOnAppStartup;
 - (void)hideOnAppDeactivation;

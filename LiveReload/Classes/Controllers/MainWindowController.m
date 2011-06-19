@@ -65,28 +65,34 @@
 
 - (void)considerShowingOnAppStartup {
     if (![[NSUserDefaults standardUserDefaults] boolForKey:PreferencesDoneKey]) {
-        [self toggleMainWindowAtPoint:self.statusItemController.statusItemPosition];
+        [self showMainWindow];
     }
 }
 
-- (void)toggleMainWindowAtPoint:(NSPoint)pt {
+- (void)showMainWindow {
+    if (self.window)
+        return;
     [NSApp activateIgnoringOtherApps:YES];
+    _window = [[MAAttachedWindow alloc] initWithView:self.mainView
+                                     attachedToPoint:self.statusItemController.statusItemPosition
+                                            inWindow:nil
+                                              onSide:MAPositionBottom
+                                          atDistance:0.0];
+    [self.listView reloadData];
+    [self updateMainScreen];
+
+    _inSettingsMode = NO;
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:PreferencesDoneKey]) {
+        [self showSettings:self];
+    }
+
+    [self.window makeKeyAndOrderFront:self];
+    self.windowVisible = YES;
+}
+
+- (void)toggleMainWindow {
     if (!self.window) {
-        _window = [[MAAttachedWindow alloc] initWithView:self.mainView
-                                         attachedToPoint:pt
-                                                inWindow:nil
-                                                  onSide:MAPositionBottom
-                                              atDistance:0.0];
-        [self.listView reloadData];
-        [self updateMainScreen];
-
-        _inSettingsMode = NO;
-        if (![[NSUserDefaults standardUserDefaults] boolForKey:PreferencesDoneKey]) {
-            [self showSettings:self];
-        }
-
-        [self.window makeKeyAndOrderFront:self];
-        self.windowVisible = YES;
+        [self showMainWindow];
     } else {
         [self.window orderOut:self];
         self.window = nil;

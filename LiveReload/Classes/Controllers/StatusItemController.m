@@ -58,7 +58,14 @@
 #pragma mark StatusItemViewDelegate methods
 
 - (void)statusItemView:(StatusItemView *)view clickedAtPoint:(NSPoint)pt {
-    [self.mainWindowController toggleMainWindowAtPoint:pt];
+    [self.mainWindowController toggleMainWindow];
+}
+
+- (void)statusItemView:(StatusItemView *)view acceptedDroppedDirectories:(NSArray *)pathes {
+    for (NSString *path in pathes) {
+        [[Workspace sharedWorkspace] addProjectsObject:[[[Project alloc] initWithPath:path] autorelease]];
+    }
+    [self.mainWindowController showMainWindow];
 }
 
 
