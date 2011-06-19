@@ -1,6 +1,90 @@
 
 #import "ATFunctionalStyle.h"
+#import <objc/runtime.h>
 
+
+#pragma mark - ATKeyValueObservingWithBlocks
+
+@implementation ATObserver
+
+- (id)initWithObject:(id)object handler:(void(^)())handler {
+    self = [super init];
+    if (self) {
+        _object = [object retain];
+        _handler = [handler copy];
+    }
+    return self;
+}
+
+- (void)invalidate {
+    [_object removeObserver:self];
+    [_object release], _object = nil;
+    [_handler release], _handler = nil;
+}
+
+- (void)dealloc {
+    [self invalidate];
+    [super dealloc];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    _handler();
+}
+
+@end
+
+@interface ATObserverCollection : NSObject {
+@private
+    NSMutableArray *_observers;
+}
+@end
+
+@implementation ATObserverCollection
+
+- (id)init {
+    self = [super init];
+    if (self) {
+        _observers = [[NSMutableArray alloc] init];
+    }
+    return self;
+}
+
+- (void)addObserver:(ATObserver *)observer {
+    [_observers addObject:observer];
+}
+
+- (void)dealloc {
+    [_observers release], _observers = nil;
+    [super dealloc];
+}
+
+@end
+
+@implementation NSObject (ATKeyValueObservingWithBlocks)
+
+- (ATObserverCollection *)AT_observerCollection {
+    ATObserverCollection *collection = objc_getAssociatedObject(self, _cmd);
+    if (collection == nil) {
+        collection = [[[ATObserverCollection alloc] init] autorelease];
+        objc_setAssociatedObject(self, _cmd, collection, OBJC_ASSOCIATION_RETAIN);
+    }
+    return collection;
+}
+
+- (ATObserver *)addObserverForKeyPath:(NSString *)keyPath owner:(id)owner block:(void(^)())block {
+    return [self addObserverForKeyPath:keyPath options:0 owner:owner block:block];
+}
+
+- (ATObserver *)addObserverForKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options owner:(id)owner block:(void(^)())block {
+    ATObserver *observer = [[[ATObserver alloc] initWithObject:self handler:block] autorelease];
+    [[owner AT_observerCollection] addObserver:observer];
+    return observer;
+}
+
+@end
+
+
+#pragma mark - ATFunctionalStyleAdditions
 
 @implementation NSArray (ATFunctionalStyleAdditions)
 
