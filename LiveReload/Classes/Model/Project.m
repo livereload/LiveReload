@@ -53,7 +53,9 @@ NSString *ProjectDidDetectChangeNotification = @"ProjectDidDetectChangeNotificat
 #pragma mark - Filtering
 
 - (void)updateFilter {
+    _monitor.filter.ignoreHiddenFiles = YES;
     _monitor.filter.enabledExtensions = [Preferences sharedPreferences].allExtensions;
+    _monitor.filter.excludedNames = [Preferences sharedPreferences].excludedNames;
     [_monitor filterUpdated];
 }
 

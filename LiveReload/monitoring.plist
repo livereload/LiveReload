@@ -2,6 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>excludedNames</key>
+	<array>
+		<string>CVS</string>
+		<string>.svn</string>
+		<string>.git</string>
+		<string>.hg</string>
+		<string>.DS_Store</string>
+	</array>
 	<key>extensions</key>
 	<array>
 		<string>html</string>

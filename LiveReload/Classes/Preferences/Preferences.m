@@ -16,6 +16,7 @@ NSString *PreferencesFilterSettingsChangedNotification = @"PreferencesFilterSett
 - (void)updateFilterPreferences;
 
 @property(nonatomic, copy) NSSet *allExtensions;
+@property(nonatomic, copy) NSSet *excludedNames;
 
 @end
 
@@ -23,6 +24,7 @@ NSString *PreferencesFilterSettingsChangedNotification = @"PreferencesFilterSett
 @implementation Preferences
 
 @synthesize allExtensions=_allExtensions;
+@synthesize excludedNames=_excludedNames;
 
 - (id)init {
     self = [super init];
@@ -57,6 +59,7 @@ NSString *PreferencesFilterSettingsChangedNotification = @"PreferencesFilterSett
     NSMutableSet *extensions = [NSMutableSet setWithArray:[_builtinMonitoringSettings objectForKey:@"extensions"]];
     [extensions unionSet:self.additionalExtensions];
     self.allExtensions = extensions;
+    self.excludedNames = [NSSet setWithArray:[_builtinMonitoringSettings objectForKey:@"excludedNames"]];
 }
 
 - (void)updateFilterPreferences {
