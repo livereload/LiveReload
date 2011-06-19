@@ -2,6 +2,7 @@
 #import "Project.h"
 #import "FSMonitor.h"
 #import "FSTreeFilter.h"
+#import "FSTree.h"
 #import "CommunicationController.h"
 #import "Preferences.h"
 
@@ -87,9 +88,30 @@ NSString *ProjectDidDetectChangeNotification = @"ProjectDidDetectChangeNotificat
     _monitor.running = shouldMonitor;
 }
 
+- (BOOL)containsDerivedFileForFile:(NSString *)path {
+    NSString *derivedExtension = [[Preferences sharedPreferences] possibleDerivedExtensionForExtension:[path pathExtension]];
+    if (derivedExtension) {
+        NSString *derivedName = [[[path lastPathComponent] stringByDeletingPathExtension] stringByAppendingPathExtension:derivedExtension];
+        if ([_monitor.tree containsFileNamed:derivedName]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 - (void)fileSystemMonitor:(FSMonitor *)monitor detectedChangeAtPathes:(NSSet *)pathes {
+    NSMutableSet *filtered = [NSMutableSet setWithCapacity:[pathes count]];
+    for (NSString *path in pathes) {
+        if (![self containsDerivedFileForFile:path]) {
+            [filtered addObject:path];
+        }
+    }
+    if ([filtered count] == 0) {
+        return;
+    }
+
     [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidDetectChangeNotification object:self];
-    [[CommunicationController sharedCommunicationController] broadcastChangedPathes:pathes inProject:self];
+    [[CommunicationController sharedCommunicationController] broadcastChangedPathes:filtered inProject:self];
 }
 
 

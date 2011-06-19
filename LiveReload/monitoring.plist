@@ -29,6 +29,7 @@
 		<string>par</string>
 		<string>css</string>
 		<string>scss</string>
+		<string>sass</string>
 		<string>less</string>
 		<string>js</string>
 		<string>coffee</string>
@@ -36,5 +37,16 @@
 		<string>png</string>
 		<string>gif</string>
 	</array>
+	<key>derived</key>
+	<dict>
+		<key>scss</key>
+		<string>css</string>
+		<key>sass</key>
+		<string>css</string>
+		<key>less</key>
+		<string>css</string>
+		<key>coffee</key>
+		<string>js</string>
+	</dict>
 </dict>
 </plist>

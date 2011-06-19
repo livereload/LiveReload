@@ -4,6 +4,7 @@
 
 @class FSTreeDiffer;
 @class FSTreeFilter;
+@class FSTree;
 
 @protocol FSMonitorDelegate;
 
@@ -28,6 +29,8 @@
 @property(nonatomic, assign) __weak id<FSMonitorDelegate> delegate;
 
 @property(nonatomic, getter=isRunning) BOOL running;
+
+@property(nonatomic, readonly, retain) FSTree *tree;
 
 - (void)filterUpdated;
 

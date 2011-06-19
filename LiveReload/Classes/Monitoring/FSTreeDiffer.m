@@ -39,4 +39,8 @@
     return changedPaths;
 }
 
+- (FSTree *)savedTree {
+    return _previousTree;
+}
+
 @end

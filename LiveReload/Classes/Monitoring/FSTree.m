@@ -150,4 +150,14 @@ struct FSTreeItem {
     return differences;
 }
 
+- (BOOL)containsFileNamed:(NSString *)fileName {
+    struct FSTreeItem *end = _items + _count;
+    for (struct FSTreeItem *cur = _items; cur < end; ++cur) {
+        if ([[cur->name lastPathComponent] isEqualToString:fileName]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 @end

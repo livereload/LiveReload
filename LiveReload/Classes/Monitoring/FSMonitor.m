@@ -2,6 +2,7 @@
 #import "FSMonitor.h"
 #import "FSTreeDiffer.h"
 #import "FSTreeFilter.h"
+#import "FSTree.h"
 
 
 static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMonitor *monitor, size_t numEvents, NSArray *eventPaths, const FSEventStreamEventFlags eventFlags[], const FSEventStreamEventId eventIds[]);
@@ -130,6 +131,13 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
     if ([changes count] > 0) {
         [self.delegate fileSystemMonitor:self detectedChangeAtPathes:changes];
     }
+}
+
+
+#pragma mark - Tree access
+
+- (FSTree *)tree {
+    return _treeDiffer.savedTree;
 }
 
 

@@ -67,4 +67,9 @@ NSString *PreferencesFilterSettingsChangedNotification = @"PreferencesFilterSett
     [[NSNotificationCenter defaultCenter] postNotificationName:PreferencesFilterSettingsChangedNotification object:self];
 }
 
+- (NSString *)possibleDerivedExtensionForExtension:(NSString *)extension {
+    NSDictionary *derived = [_builtinMonitoringSettings objectForKey:@"derived"];
+    return [derived objectForKey:extension];
+}
+
 @end
