@@ -7,6 +7,7 @@
 #import "MAAttachedWindow.h"
 #import "Workspace.h"
 #import "ProjectCell.h"
+#import "PXListView+UserInteraction.h"
 #import "Project.h"
 
 
@@ -51,6 +52,8 @@
 
     NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
     [self.versionLabel setStringValue:[NSString stringWithFormat:@"v%@", version]];
+
+    [self.listView registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
 
     // both are needed, otherwise hyperlink won't accept mousedown
     [self.webSiteLabel setAllowsEditingTextAttributes:YES];
@@ -236,5 +239,58 @@
 - (IBAction)quit:(id)sender {
     [NSApp terminate:sender];
 }
+
+
+#pragma mark - Drag'n'drop
+
+- (NSArray *)sanitizedPathsFrom:(NSPasteboard *)pboard {
+    if ([[pboard types] containsObject:NSFilenamesPboardType]) {
+        NSArray *files = [pboard propertyListForType:NSFilenamesPboardType];
+        NSFileManager *fm = [NSFileManager defaultManager];
+        for (NSString *path in files) {
+            BOOL dir;
+            if (![fm fileExistsAtPath:path isDirectory:&dir]) {
+                return nil;
+            } else if (!dir) {
+                return nil;
+            }
+        }
+        return files;
+    }
+    return nil;
+}
+
+- (NSDragOperation)listView:(PXListView*)aListView
+               validateDrop:(id <NSDraggingInfo>)sender
+                proposedRow:(NSUInteger)row
+      proposedDropHighlight:(PXListViewDropHighlight)dropHighlight
+{
+    BOOL genericSupported = (NSDragOperationGeneric & [sender draggingSourceOperationMask]) == NSDragOperationGeneric;
+    NSArray *files = [self sanitizedPathsFrom:[sender draggingPasteboard]];
+    if (genericSupported && [files count] > 0) {
+        [aListView setDropRow:row dropHighlight:PXListViewDropBelow];
+        return NSDragOperationGeneric;
+    } else {
+        return NSDragOperationNone;
+    }
+}
+
+- (BOOL)listView:(PXListView*)aListView
+      acceptDrop:(id <NSDraggingInfo>)sender
+             row:(NSUInteger)row
+   dropHighlight:(PXListViewDropHighlight)dropHighlight
+{
+    BOOL genericSupported = (NSDragOperationGeneric & [sender draggingSourceOperationMask]) == NSDragOperationGeneric;
+    NSArray *pathes = [self sanitizedPathsFrom:[sender draggingPasteboard]];
+    if (genericSupported && [pathes count] > 0) {
+        for (NSString *path in pathes) {
+            [[Workspace sharedWorkspace] addProjectsObject:[[[Project alloc] initWithPath:path] autorelease]];
+        }
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
 
 @end
