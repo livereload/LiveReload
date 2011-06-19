@@ -28,6 +28,8 @@
 		439C092A13AD939900119233 /* StatusItemHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 439C092613AD939900119233 /* StatusItemHighlighted.png */; };
 		439C092B13AD939900119233 /* StatusItemInactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 439C092713AD939900119233 /* StatusItemInactive.png */; };
 		439C092D13ADA72200119233 /* StatusItemDropTarget.png in Resources */ = {isa = PBXBuildFile; fileRef = 439C092C13ADA72200119233 /* StatusItemDropTarget.png */; };
+		439C093113ADC01900119233 /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 439C093013ADC01900119233 /* Preferences.m */; };
+		439C093313ADCBDD00119233 /* monitoring.plist in Resources */ = {isa = PBXBuildFile; fileRef = 439C093213ADCBDD00119233 /* monitoring.plist */; };
 		43AB50251382ACB200669FC6 /* CommunicationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43AB50241382ACB200669FC6 /* CommunicationController.m */; };
 		43AB50331382B75E00669FC6 /* base64-decode.c in Sources */ = {isa = PBXBuildFile; fileRef = 43AB50271382B75E00669FC6 /* base64-decode.c */; };
 		43AB50341382B75E00669FC6 /* client-handshake.c in Sources */ = {isa = PBXBuildFile; fileRef = 43AB50281382B75E00669FC6 /* client-handshake.c */; };
@@ -106,6 +108,9 @@
 		439C092613AD939900119233 /* StatusItemHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemHighlighted.png; sourceTree = "<group>"; };
 		439C092713AD939900119233 /* StatusItemInactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemInactive.png; sourceTree = "<group>"; };
 		439C092C13ADA72200119233 /* StatusItemDropTarget.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemDropTarget.png; sourceTree = "<group>"; };
+		439C092F13ADC01900119233 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
+		439C093013ADC01900119233 /* Preferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Preferences.m; sourceTree = "<group>"; };
+		439C093213ADCBDD00119233 /* monitoring.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = monitoring.plist; sourceTree = "<group>"; };
 		43AB50231382ACB200669FC6 /* CommunicationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommunicationController.h; sourceTree = "<group>"; };
 		43AB50241382ACB200669FC6 /* CommunicationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommunicationController.m; sourceTree = "<group>"; };
 		43AB50271382B75E00669FC6 /* base64-decode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "base64-decode.c"; sourceTree = "<group>"; };
@@ -193,6 +198,7 @@
 				43AB50261382B74300669FC6 /* WebSockets */,
 				43E834BB137FB607000248E2 /* Views */,
 				439394051362CCF600333781 /* Model */,
+				439C092E13ADC00300119233 /* Preferences */,
 				4393944E1362D61A00333781 /* Monitoring */,
 				43E834B7137FB5DB000248E2 /* Utilities */,
 				43AB503F1382FC9D00669FC6 /* JSON */,
@@ -256,6 +262,7 @@
 				8D1107310486CEB800E47090 /* LiveReload-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
+				439C093213ADCBDD00119233 /* monitoring.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -326,6 +333,15 @@
 				4310118013845AA3000B0843 /* FSTreeFilter.m */,
 			);
 			path = Monitoring;
+			sourceTree = "<group>";
+		};
+		439C092E13ADC00300119233 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				439C092F13ADC01900119233 /* Preferences.h */,
+				439C093013ADC01900119233 /* Preferences.m */,
+			);
+			path = Preferences;
 			sourceTree = "<group>";
 		};
 		43AB50221382ACA200669FC6 /* Connectivity */ = {
@@ -527,6 +543,7 @@
 				439C092A13AD939900119233 /* StatusItemHighlighted.png in Resources */,
 				439C092B13AD939900119233 /* StatusItemInactive.png in Resources */,
 				439C092D13ADA72200119233 /* StatusItemDropTarget.png in Resources */,
+				439C093313ADCBDD00119233 /* monitoring.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -579,6 +596,7 @@
 				43685D511385B4EE00D17CB2 /* MD5OfFile.m in Sources */,
 				43685D561385B78500D17CB2 /* VersionNumber.m in Sources */,
 				43685D5F1385DA0400D17CB2 /* LoginItemController.m in Sources */,
+				439C093113ADC01900119233 /* Preferences.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

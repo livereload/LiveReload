@@ -13,7 +13,7 @@
     FSTree *_previousTree;
 }
 
-- (id)initWithPath:(NSString *)path;
+- (id)initWithPath:(NSString *)path filter:(FSTreeFilter *)filter;
 
 - (NSSet *)changedPathsByRescanningSubfolder:(NSString *)subfolderPath;
 

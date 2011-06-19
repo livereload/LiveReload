@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>extensions</key>
+	<array>
+		<string>html</string>
+		<string>haml</string>
+		<string>php</string>
+		<string>php4</string>
+		<string>php5</string>
+		<string>inc</string>
+		<string>module</string>
+		<string>tpl</string>
+		<string>py</string>
+		<string>rb</string>
+		<string>erb</string>
+		<string>class</string>
+		<string>jar</string>
+		<string>war</string>
+		<string>par</string>
+		<string>css</string>
+		<string>scss</string>
+		<string>less</string>
+		<string>js</string>
+		<string>coffee</string>
+		<string>jpg</string>
+		<string>png</string>
+		<string>gif</string>
+	</array>
+</dict>
+</plist>

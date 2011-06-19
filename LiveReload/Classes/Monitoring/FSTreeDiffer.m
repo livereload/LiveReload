@@ -11,10 +11,10 @@
 
 @implementation FSTreeDiffer
 
-- (id)initWithPath:(NSString *)path {
+- (id)initWithPath:(NSString *)path filter:(FSTreeFilter *)filter {
     if ((self = [super init])) {
         _path = [path copy];
-        _filter = [[FSTreeFilter alloc] init];
+        _filter = [filter retain];
         _previousTree = [[FSTree alloc] initWithPath:_path filter:_filter];
     }
     return self;

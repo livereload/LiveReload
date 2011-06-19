@@ -3,6 +3,7 @@
 
 
 @class FSTreeDiffer;
+@class FSTreeFilter;
 
 @protocol FSMonitorDelegate;
 
@@ -10,6 +11,7 @@
 @interface FSMonitor : NSObject {
     NSString *_path;
     id<FSMonitorDelegate> _delegate;
+    FSTreeFilter *_filter;
 
     BOOL _running;
 
@@ -21,9 +23,13 @@
 
 @property(nonatomic, readonly, copy) NSString *path;
 
+@property(nonatomic, retain) FSTreeFilter *filter;
+
 @property(nonatomic, assign) __weak id<FSMonitorDelegate> delegate;
 
 @property(nonatomic, getter=isRunning) BOOL running;
+
+- (void)filterUpdated;
 
 @end
 

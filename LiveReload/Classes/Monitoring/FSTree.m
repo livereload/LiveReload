@@ -1,6 +1,7 @@
 
 #import <sys/stat.h>
 #import "FSTree.h"
+#import "FSTreeFilter.h"
 
 
 #define kMaxItems 100000
@@ -43,6 +44,8 @@ struct FSTreeItem {
                 if (item->st_mode == S_IFDIR) {
 //                    NSLog(@"Listing %@", item->name);
                     for (NSString *child in [[fm contentsOfDirectoryAtPath:item->name error:nil] sortedArrayUsingSelector:@selector(compare:)]) {
+                        if (![filter acceptsFileName:child])
+                            continue;
                         NSString *subpath = [item->name stringByAppendingPathComponent:child];
                         if (0 == lstat([subpath UTF8String], &st)) {
                             struct FSTreeItem *subitem = &_items[_count++];

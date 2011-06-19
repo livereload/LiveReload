@@ -1,7 +1,9 @@
 
 #import "Project.h"
 #import "FSMonitor.h"
+#import "FSTreeFilter.h"
 #import "CommunicationController.h"
+#import "Preferences.h"
 
 
 #define PathKey @"path"
@@ -11,6 +13,9 @@ NSString *ProjectDidDetectChangeNotification = @"ProjectDidDetectChangeNotificat
 
 
 @interface Project () <FSMonitorDelegate>
+
+- (void)updateFilter;
+
 @end
 
 
@@ -25,6 +30,8 @@ NSString *ProjectDidDetectChangeNotification = @"ProjectDidDetectChangeNotificat
 - (void)initializeMonitoring {
     _monitor = [[FSMonitor alloc] initWithPath:_path];
     _monitor.delegate = self;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFilter) name:PreferencesFilterSettingsChangedNotification object:nil];
+    [self updateFilter];
 }
 
 - (id)initWithPath:(NSString *)path {
@@ -36,9 +43,18 @@ NSString *ProjectDidDetectChangeNotification = @"ProjectDidDetectChangeNotificat
 }
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [_path release], _path = nil;
     [_monitor release], _monitor = nil;
     [super dealloc];
+}
+
+
+#pragma mark - Filtering
+
+- (void)updateFilter {
+    _monitor.filter.enabledExtensions = [Preferences sharedPreferences].allExtensions;
+    [_monitor filterUpdated];
 }
 
 
