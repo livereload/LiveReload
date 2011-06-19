@@ -53,11 +53,13 @@ NSString *CommunicationStateChangedNotification = @"CommunicationStateChangedNot
 }
 
 - (void)webSocketServer:(WebSocketServer *)server didAcceptConnection:(WebSocketConnection *)connection {
+    [self willChangeValueForKey:@"numberOfSessions"];
     if (++_numberOfSessions == 1) {
         [self willChangeValueForKey:@"numberOfProcessedChanges"];
         _numberOfProcessedChanges = 0;
         [self didChangeValueForKey:@"numberOfProcessedChanges"];
     }
+    [self didChangeValueForKey:@"numberOfSessions"];
     NSLog(@"Accepted connection.");
     connection.delegate = self;
     [connection send:@"!!ver:1.6"];
@@ -72,8 +74,12 @@ NSString *CommunicationStateChangedNotification = @"CommunicationStateChangedNot
 }
 
 - (void)webSocketConnectionDidClose:(WebSocketConnection *)connection {
-    --_numberOfSessions;
     NSLog(@"Connection closed.");
+
+    [self willChangeValueForKey:@"numberOfSessions"];
+    --_numberOfSessions;
+    [self didChangeValueForKey:@"numberOfSessions"];
+
     if ([Workspace sharedWorkspace].monitoringEnabled && [connection.server countOfConnections] == 0) {
         [Workspace sharedWorkspace].monitoringEnabled = NO;
     }
