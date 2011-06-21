@@ -2,6 +2,17 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>derived</key>
+	<dict>
+		<key>coffee</key>
+		<string>js</string>
+		<key>less</key>
+		<string>css</string>
+		<key>sass</key>
+		<string>css</string>
+		<key>scss</key>
+		<string>css</string>
+	</dict>
 	<key>excludedNames</key>
 	<array>
 		<string>CVS</string>
@@ -36,17 +47,9 @@
 		<string>jpg</string>
 		<string>png</string>
 		<string>gif</string>
+		<string>cfc</string>
+		<string>cfm</string>
+		<string>cfml</string>
 	</array>
-	<key>derived</key>
-	<dict>
-		<key>scss</key>
-		<string>css</string>
-		<key>sass</key>
-		<string>css</string>
-		<key>less</key>
-		<string>css</string>
-		<key>coffee</key>
-		<string>js</string>
-	</dict>
 </dict>
 </plist>
