@@ -27,6 +27,8 @@
     NSWindow *_window;
     NSButton *_addProjectButton;
     NSButton *_removeProjectButton;
+
+    NSInteger _sheetRow;
 }
 
 

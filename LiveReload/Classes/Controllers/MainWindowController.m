@@ -4,6 +4,8 @@
 #import "StatusItemController.h"
 #import "CommunicationController.h"
 
+#import "CoffeeOptionsSheetController.h"
+
 #import "MAAttachedWindow.h"
 #import "Workspace.h"
 #import "ProjectCell.h"
@@ -14,7 +16,7 @@
 #define PreferencesDoneKey @"PreferencesDone"
 
 
-@interface MainWindowController ()
+@interface MainWindowController () <ProjectCellDelegate, NSWindowDelegate>
 
 @property(nonatomic) BOOL windowVisible;
 
@@ -84,6 +86,7 @@
                                             inWindow:nil
                                               onSide:MAPositionBottom
                                           atDistance:0.0];
+    [_window setDelegate:self];
     [self.listView reloadData];
     [self updateMainScreen];
 
@@ -125,7 +128,9 @@
 - (PXListViewCell*)listView:(PXListView*)aListView cellForRow:(NSUInteger)row {
     ProjectCell *cell = (ProjectCell *) [aListView dequeueCellWithReusableIdentifier:@"Project"];
     if (cell == nil) {
+        NSLog(@"- cellForRow: %lu", row);
         cell = [ProjectCell cellLoadedFromNibNamed:@"ProjectCell" reusableIdentifier:@"Project"];
+        cell.delegate = self;
     }
 
     Project *project = [[Workspace sharedWorkspace].sortedProjects objectAtIndex:row];
@@ -293,6 +298,36 @@
     } else {
         return NO;
     }
+}
+
+
+#pragma mark - Project options
+
+- (void)checkboxClickedForLanguage:(NSString *)language inCell:(ProjectCell *)cell {
+    if ([cell.compileCoffeeScriptCheckbox state] == NSOnState) {
+        CoffeeOptionsSheetController *controller = [[CoffeeOptionsSheetController alloc] init];
+        NSWindow *sheet = [controller window];
+        _sheetRow = cell.row;
+        [NSApp beginSheet:sheet
+           modalForWindow:_window
+            modalDelegate:self
+           didEndSelector:@selector(didEndSheet:returnCode:contextInfo:)
+              contextInfo:nil];
+    }
+}
+
+- (void)didEndSheet:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
+{
+    [sheet orderOut:self];
+}
+
+- (NSRect)window:(NSWindow *)window willPositionSheet:(NSWindow *)sheet usingRect:(NSRect)rect {
+    NSLog(@"Proposed rect: %@", NSStringFromRect(rect));
+    NSView *cell = [_listView cellForRowAtIndex:_sheetRow];
+    NSRect frame = [cell frame];
+    frame = [[cell superview] convertRect:frame toView:_mainView];
+    frame.size.height = 0;
+    return frame;
 }
 
 
