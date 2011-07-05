@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>LRCompilers</key>
+	<array>
+		<dict>
+			<key>CommandLine</key>
+			<array>
+				<string>$(node)</string>
+				<string>$(plugin)/node_modules/jade/bin/jade</string>
+				<string>--out</string>
+				<string>$(dst_dir)</string>
+				<string>$(src_file)</string>
+			</array>
+			<key>DestinationExtension</key>
+			<string>html</string>
+			<key>Errors</key>
+			<array>
+				<string>\w+Error: ((file)):((line))\n(?:\s[^\n]*\n)*\s*\n((message))\n</string>
+				<string>\w+Error: ((message))\n</string>
+			</array>
+			<key>Extensions</key>
+			<array>
+				<string>jade</string>
+			</array>
+			<key>Name</key>
+			<string>Jade</string>
+		</dict>
+	</array>
+</dict>
+</plist>

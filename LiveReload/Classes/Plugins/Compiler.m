@@ -68,7 +68,7 @@
         _commandLine = [[info objectForKey:@"CommandLine"] copy];
         _extensions = [[info objectForKey:@"Extensions"] copy];
         _destinationExtension = [[info objectForKey:@"DestinationExtension"] copy];
-        _errorFormat = [[info objectForKey:@"ErrorFormat"] copy];
+        _errorFormats = [[info objectForKey:@"Errors"] copy];
     }
     return self;
 }
@@ -93,7 +93,7 @@
     NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:
                           [[NSBundle mainBundle] pathForResource:@"node" ofType:nil], @"$(node)",
                           _plugin.path, @"$(plugin)",
-                          sourcePath, @"$(src_file)",
+                          [sourcePath lastPathComponent], @"$(src_file)",
                           destinationPath, @"$(dst_file)",
                           [destinationPath stringByDeletingLastPathComponent], @"$(dst_dir)",
                           nil];
@@ -105,20 +105,29 @@
     arguments = [arguments subarrayWithRange:NSMakeRange(1, [arguments count] - 1)];
 
     NSError *error = nil;
+    NSString *pwd = [[NSFileManager defaultManager] currentDirectoryPath];
+    [[NSFileManager defaultManager] changeCurrentDirectoryPath:[sourcePath stringByDeletingLastPathComponent]];
     NSString *output = [NSTask stringByLaunchingPath:command
                                        withArguments:arguments
                                                error:&error];
+    [[NSFileManager defaultManager] changeCurrentDirectoryPath:pwd];
 
     if (error) {
-        NSLog(@"Error: %@", [error description]);
+        NSLog(@"Error: %@\nOutput:\n%@", [error description], output);
         if ([error code] == kNSTaskProcessOutputError) {
             NSDictionary *substitutions = [NSDictionary dictionaryWithObjectsAndKeys:
                                            @"[^\\n]+?", @"file",
                                            @"\\d+", @"line",
-                                           @"[^\\n]+?", @"message",
+                                           @"\\S[^\\n]+?", @"message",
                                            nil];
 
-            NSDictionary *data = [output dictionaryByMatchingWithRegexp:_errorFormat withSmartSubstitutions:substitutions options:0];
+            NSDictionary *data = nil;
+            for (NSString *regexp in _errorFormats) {
+                NSDictionary *match = [output dictionaryByMatchingWithRegexp:regexp withSmartSubstitutions:substitutions options:0];
+                if ([match count] > [data count]) {
+                    data = match;
+                }
+            }
 
             NSString *file = [data objectForKey:@"file"];
             NSString *line = [data objectForKey:@"line"];
@@ -138,6 +147,9 @@
                 }
             }
 
+            if (![file isAbsolutePath]) {
+                file = [[sourcePath stringByDeletingLastPathComponent] stringByAppendingPathComponent:file];
+            }
             NSString *fileName = [file lastPathComponent];
             NSString *dir = [[file stringByDeletingLastPathComponent] stringByAbbreviatingWithTildeInPath];
 

@@ -11,7 +11,7 @@
     NSArray          *_commandLine;
     NSArray          *_extensions;
     NSString         *_destinationExtension;
-    NSString         *_errorFormat;
+    NSArray          *_errorFormats;
 }
 
 - (id)initWithDictionary:(NSDictionary *)info plugin:(Plugin *)plugin;
