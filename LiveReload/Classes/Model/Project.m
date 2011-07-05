@@ -5,6 +5,8 @@
 #import "FSTree.h"
 #import "CommunicationController.h"
 #import "Preferences.h"
+#import "PluginManager.h"
+#import "Compiler.h"
 
 
 #define PathKey @"path"
@@ -88,21 +90,17 @@ NSString *ProjectDidDetectChangeNotification = @"ProjectDidDetectChangeNotificat
     _monitor.running = shouldMonitor;
 }
 
-- (BOOL)containsDerivedFileForFile:(NSString *)path {
-    NSString *derivedExtension = [[Preferences sharedPreferences] possibleDerivedExtensionForExtension:[path pathExtension]];
-    if (derivedExtension) {
-        NSString *derivedName = [[[path lastPathComponent] stringByDeletingPathExtension] stringByAppendingPathExtension:derivedExtension];
-        if ([_monitor.tree containsFileNamed:derivedName]) {
-            return YES;
-        }
-    }
-    return NO;
-}
-
 - (void)fileSystemMonitor:(FSMonitor *)monitor detectedChangeAtPathes:(NSSet *)pathes {
     NSMutableSet *filtered = [NSMutableSet setWithCapacity:[pathes count]];
     for (NSString *path in pathes) {
-        if (![self containsDerivedFileForFile:path]) {
+        Compiler *compiler = [[PluginManager sharedPluginManager] compilerForExtension:[path pathExtension]];
+        if (compiler) {
+            NSString *derivedName = [compiler derivedNameForFile:path];
+            NSString *derivedPath = [_monitor.tree pathOfFileNamed:derivedName];
+            if (derivedPath) {
+                [compiler compile:path into:derivedPath];
+            }
+        } else {
             [filtered addObject:path];
         }
     }

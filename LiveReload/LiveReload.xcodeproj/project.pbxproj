@@ -10,6 +10,13 @@
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		4310117E13845A69000B0843 /* FSTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 4310117D13845A69000B0843 /* FSTree.m */; };
 		4310118113845AA3000B0843 /* FSTreeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4310118013845AA3000B0843 /* FSTreeFilter.m */; };
+		43361AB013C2E0C900C0E589 /* node in Resources */ = {isa = PBXBuildFile; fileRef = 433617FF13C2E0C800C0E589 /* node */; };
+		43361D2F13C2E0E500C0E589 /* Stylus.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43361D2E13C2E0E500C0E589 /* Stylus.lrplugin */; };
+		43361D3F13C2ED9200C0E589 /* Compiler.m in Sources */ = {isa = PBXBuildFile; fileRef = 43361D3A13C2ED9200C0E589 /* Compiler.m */; };
+		43361D4013C2ED9200C0E589 /* Plugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 43361D3C13C2ED9200C0E589 /* Plugin.m */; };
+		43361D4113C2ED9200C0E589 /* PluginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 43361D3E13C2ED9200C0E589 /* PluginManager.m */; };
+		43361D4413C307FB00C0E589 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 43361D4313C307FB00C0E589 /* RegexKitLite.m */; };
+		43361D4613C30D1400C0E589 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43361D4513C30D1400C0E589 /* libicucore.dylib */; };
 		43685D481385A36600D17CB2 /* LiveReload.safariextz in Resources */ = {isa = PBXBuildFile; fileRef = 43685D471385A36600D17CB2 /* LiveReload.safariextz */; };
 		43685D4B1385A39F00D17CB2 /* ExtensionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43685D4A1385A39F00D17CB2 /* ExtensionsController.m */; };
 		43685D511385B4EE00D17CB2 /* MD5OfFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 43685D501385B4EE00D17CB2 /* MD5OfFile.m */; };
@@ -63,6 +70,9 @@
 		43E834EA1380387B000248E2 /* PXListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E834E31380387B000248E2 /* PXListViewCell.m */; };
 		43E834EC13803AC8000248E2 /* ProjectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43E834EB13803AC8000248E2 /* ProjectCell.xib */; };
 		43E834EF13803BB2000248E2 /* ProjectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E834EE13803BB2000248E2 /* ProjectCell.m */; };
+		43F0447213C2DAA700A561E9 /* NSString+SeparatingIntoComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F0446F13C2DAA700A561E9 /* NSString+SeparatingIntoComponents.m */; };
+		43F0447313C2DAA700A561E9 /* NSTask+OneLineTasksWithOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F0447113C2DAA700A561E9 /* NSTask+OneLineTasksWithOutput.m */; };
+		43F0447913C2DD6D00A561E9 /* NSArray+Substitutions.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F0447813C2DD6D00A561E9 /* NSArray+Substitutions.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -81,6 +91,17 @@
 		4310117D13845A69000B0843 /* FSTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FSTree.m; path = ../../../../../Projects/LiveReloadPaid/LiveReload/Classes/Monitoring/FSTree.m; sourceTree = "<group>"; };
 		4310117F13845AA3000B0843 /* FSTreeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FSTreeFilter.h; path = ../../../../../Projects/LiveReloadPaid/LiveReload/Classes/Monitoring/FSTreeFilter.h; sourceTree = "<group>"; };
 		4310118013845AA3000B0843 /* FSTreeFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FSTreeFilter.m; path = ../../../../../Projects/LiveReloadPaid/LiveReload/Classes/Monitoring/FSTreeFilter.m; sourceTree = "<group>"; };
+		433617FF13C2E0C800C0E589 /* node */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = node; sourceTree = "<group>"; };
+		43361D2E13C2E0E500C0E589 /* Stylus.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Stylus.lrplugin; path = Compilers/Stylus.lrplugin; sourceTree = SOURCE_ROOT; };
+		43361D3913C2ED9200C0E589 /* Compiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Compiler.h; sourceTree = "<group>"; };
+		43361D3A13C2ED9200C0E589 /* Compiler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Compiler.m; sourceTree = "<group>"; };
+		43361D3B13C2ED9200C0E589 /* Plugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Plugin.h; sourceTree = "<group>"; };
+		43361D3C13C2ED9200C0E589 /* Plugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Plugin.m; sourceTree = "<group>"; };
+		43361D3D13C2ED9200C0E589 /* PluginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PluginManager.h; sourceTree = "<group>"; };
+		43361D3E13C2ED9200C0E589 /* PluginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PluginManager.m; sourceTree = "<group>"; };
+		43361D4213C307FB00C0E589 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
+		43361D4313C307FB00C0E589 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
+		43361D4513C30D1400C0E589 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		43685D471385A36600D17CB2 /* LiveReload.safariextz */ = {isa = PBXFileReference; lastKnownFileType = file; path = LiveReload.safariextz; sourceTree = "<group>"; };
 		43685D491385A39F00D17CB2 /* ExtensionsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtensionsController.h; sourceTree = "<group>"; };
 		43685D4A1385A39F00D17CB2 /* ExtensionsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExtensionsController.m; sourceTree = "<group>"; };
@@ -173,6 +194,12 @@
 		43E834EB13803AC8000248E2 /* ProjectCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProjectCell.xib; sourceTree = "<group>"; };
 		43E834ED13803BB2000248E2 /* ProjectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectCell.h; sourceTree = "<group>"; };
 		43E834EE13803BB2000248E2 /* ProjectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectCell.m; sourceTree = "<group>"; };
+		43F0446E13C2DAA700A561E9 /* NSString+SeparatingIntoComponents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SeparatingIntoComponents.h"; sourceTree = "<group>"; };
+		43F0446F13C2DAA700A561E9 /* NSString+SeparatingIntoComponents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SeparatingIntoComponents.m"; sourceTree = "<group>"; };
+		43F0447013C2DAA700A561E9 /* NSTask+OneLineTasksWithOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTask+OneLineTasksWithOutput.h"; sourceTree = "<group>"; };
+		43F0447113C2DAA700A561E9 /* NSTask+OneLineTasksWithOutput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTask+OneLineTasksWithOutput.m"; sourceTree = "<group>"; };
+		43F0447713C2DD6D00A561E9 /* NSArray+Substitutions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Substitutions.h"; sourceTree = "<group>"; };
+		43F0447813C2DD6D00A561E9 /* NSArray+Substitutions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Substitutions.m"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* LiveReload-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "LiveReload-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* LiveReload.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveReload.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -182,6 +209,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43361D4613C30D1400C0E589 /* libicucore.dylib in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -197,6 +225,7 @@
 				43AB50221382ACA200669FC6 /* Connectivity */,
 				43AB50261382B74300669FC6 /* WebSockets */,
 				43E834BB137FB607000248E2 /* Views */,
+				43361D3813C2ED9200C0E589 /* Plugins */,
 				439394051362CCF600333781 /* Model */,
 				439C092E13ADC00300119233 /* Preferences */,
 				4393944E1362D61A00333781 /* Monitoring */,
@@ -236,6 +265,7 @@
 		29B97314FDCFA39411CA2CEA /* LiveReload */ = {
 			isa = PBXGroup;
 			children = (
+				43361D4513C30D1400C0E589 /* libicucore.dylib */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -259,6 +289,7 @@
 			children = (
 				43AB50711383E18800669FC6 /* Images */,
 				43685D461385A36600D17CB2 /* Extensions */,
+				433617FE13C2E0C800C0E589 /* Compilers */,
 				8D1107310486CEB800E47090 /* LiveReload-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
@@ -274,6 +305,29 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		433617FE13C2E0C800C0E589 /* Compilers */ = {
+			isa = PBXGroup;
+			children = (
+				433617FF13C2E0C800C0E589 /* node */,
+				43361D2E13C2E0E500C0E589 /* Stylus.lrplugin */,
+			);
+			name = Compilers;
+			path = Extensions/Compilers;
+			sourceTree = "<group>";
+		};
+		43361D3813C2ED9200C0E589 /* Plugins */ = {
+			isa = PBXGroup;
+			children = (
+				43361D3913C2ED9200C0E589 /* Compiler.h */,
+				43361D3A13C2ED9200C0E589 /* Compiler.m */,
+				43361D3B13C2ED9200C0E589 /* Plugin.h */,
+				43361D3C13C2ED9200C0E589 /* Plugin.m */,
+				43361D3D13C2ED9200C0E589 /* PluginManager.h */,
+				43361D3E13C2ED9200C0E589 /* PluginManager.m */,
+			);
+			path = Plugins;
 			sourceTree = "<group>";
 		};
 		434EA98F13A78B1100C49863 /* StatusItem */ = {
@@ -441,6 +495,14 @@
 				43685D551385B78500D17CB2 /* VersionNumber.m */,
 				43685D5D1385DA0400D17CB2 /* LoginItemController.h */,
 				43685D5E1385DA0400D17CB2 /* LoginItemController.m */,
+				43F0446E13C2DAA700A561E9 /* NSString+SeparatingIntoComponents.h */,
+				43F0446F13C2DAA700A561E9 /* NSString+SeparatingIntoComponents.m */,
+				43F0447013C2DAA700A561E9 /* NSTask+OneLineTasksWithOutput.h */,
+				43F0447113C2DAA700A561E9 /* NSTask+OneLineTasksWithOutput.m */,
+				43F0447713C2DD6D00A561E9 /* NSArray+Substitutions.h */,
+				43F0447813C2DD6D00A561E9 /* NSArray+Substitutions.m */,
+				43361D4213C307FB00C0E589 /* RegexKitLite.h */,
+				43361D4313C307FB00C0E589 /* RegexKitLite.m */,
 			);
 			name = Utilities;
 			path = ../../../../Projects/LiveReloadPaid/LiveReload/Classes/Utilities;
@@ -544,6 +606,8 @@
 				439C092B13AD939900119233 /* StatusItemInactive.png in Resources */,
 				439C092D13ADA72200119233 /* StatusItemDropTarget.png in Resources */,
 				439C093313ADCBDD00119233 /* monitoring.plist in Resources */,
+				43361AB013C2E0C900C0E589 /* node in Resources */,
+				43361D2F13C2E0E500C0E589 /* Stylus.lrplugin in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -597,6 +661,13 @@
 				43685D561385B78500D17CB2 /* VersionNumber.m in Sources */,
 				43685D5F1385DA0400D17CB2 /* LoginItemController.m in Sources */,
 				439C093113ADC01900119233 /* Preferences.m in Sources */,
+				43F0447213C2DAA700A561E9 /* NSString+SeparatingIntoComponents.m in Sources */,
+				43F0447313C2DAA700A561E9 /* NSTask+OneLineTasksWithOutput.m in Sources */,
+				43F0447913C2DD6D00A561E9 /* NSArray+Substitutions.m in Sources */,
+				43361D3F13C2ED9200C0E589 /* Compiler.m in Sources */,
+				43361D4013C2ED9200C0E589 /* Plugin.m in Sources */,
+				43361D4113C2ED9200C0E589 /* PluginManager.m in Sources */,
+				43361D4413C307FB00C0E589 /* RegexKitLite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

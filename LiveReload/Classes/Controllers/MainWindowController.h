@@ -47,6 +47,8 @@
 
 @property(nonatomic, readonly) BOOL windowVisible;
 
+- (void)startUp;
+
 - (void)toggleMainWindow;
 - (void)showMainWindow;
 

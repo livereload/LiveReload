@@ -48,18 +48,21 @@
 
 - (void)awakeFromNib {
     [self.startAtLoginCheckbox setAttributedTitle:[[[NSAttributedString alloc] initWithString:[self.startAtLoginCheckbox title] attributes:[NSDictionary dictionaryWithObjectsAndKeys:[NSColor whiteColor],NSForegroundColorAttributeName, [NSFont systemFontOfSize:13], NSFontAttributeName, nil]] autorelease]];
-    [[Workspace sharedWorkspace] addObserver:self forKeyPath:@"projects" options:0 context:nil];
 
     NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
     [self.versionLabel setStringValue:[NSString stringWithFormat:@"v%@", version]];
-
-    [self.listView registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
 
     // both are needed, otherwise hyperlink won't accept mousedown
     [self.webSiteLabel setAllowsEditingTextAttributes:YES];
     [self.webSiteLabel setSelectable:YES];
 
     [self.webSiteLabel setAttributedStringValue:[[[NSAttributedString alloc] initWithString:[self.webSiteLabel stringValue] attributes:[NSDictionary dictionaryWithObjectsAndKeys:[NSColor colorWithCalibratedRed:0.7 green:0.7 blue:1.0 alpha:1.0], NSForegroundColorAttributeName, [NSNumber numberWithInt:NSSingleUnderlineStyle], NSUnderlineStyleAttributeName, [NSURL URLWithString:[self.webSiteLabel stringValue]], NSLinkAttributeName, [NSFont systemFontOfSize:13], NSFontAttributeName, nil]] autorelease]];
+}
+
+- (void)startUp {
+    [[Workspace sharedWorkspace] addObserver:self forKeyPath:@"projects" options:0 context:nil];
+
+    [self.listView registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateMainScreen) name:CommunicationStateChangedNotification object:nil];
 

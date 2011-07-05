@@ -151,13 +151,17 @@ struct FSTreeItem {
 }
 
 - (BOOL)containsFileNamed:(NSString *)fileName {
+    return nil == [self pathOfFileNamed:fileName];
+}
+
+- (NSString *)pathOfFileNamed:(NSString *)fileName {
     struct FSTreeItem *end = _items + _count;
     for (struct FSTreeItem *cur = _items; cur < end; ++cur) {
         if ([[cur->name lastPathComponent] isEqualToString:fileName]) {
-            return YES;
+            return cur->name;
         }
     }
-    return NO;
+    return nil;
 }
 
 @end

@@ -16,5 +16,6 @@
 - (NSSet *)differenceFrom:(FSTree *)previous;
 
 - (BOOL)containsFileNamed:(NSString *)fileName;
+- (NSString *)pathOfFileNamed:(NSString *)fileName;
 
 @end

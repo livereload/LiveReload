@@ -14,8 +14,6 @@
 @property(nonatomic, retain) NSSet *additionalExtensions;
 @property(nonatomic, readonly, copy) NSSet *excludedNames;
 
-- (NSString *)possibleDerivedExtensionForExtension:(NSString *)extension;
-
 @end
 
 extern NSString *PreferencesFilterSettingsChangedNotification;

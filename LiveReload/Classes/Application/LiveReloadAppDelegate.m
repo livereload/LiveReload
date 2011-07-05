@@ -5,6 +5,7 @@
 #import "MainWindowController.h"
 #import "CommunicationController.h"
 #import "LoginItemController.h"
+#import "PluginManager.h"
 
 
 @interface LiveReloadAppDelegate ()
@@ -44,6 +45,9 @@
         }
         [NSApp terminate:self];
     }
+
+    [[PluginManager sharedPluginManager] reloadPlugins];
+    [self.mainWindowController startUp];
 
     [self pingServer];
     [NSTimer scheduledTimerWithTimeInterval:60*60*24 target:self selector:@selector(pingServer) userInfo:nil repeats:YES];

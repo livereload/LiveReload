@@ -1,5 +1,6 @@
 
 #import "Preferences.h"
+#import "PluginManager.h"
 
 
 #define AdditionalExtensionsKey @"additionalExtensions"
@@ -58,6 +59,7 @@ NSString *PreferencesFilterSettingsChangedNotification = @"PreferencesFilterSett
 - (void)updateFilterPreferencesSilently {
     NSMutableSet *extensions = [NSMutableSet setWithArray:[_builtinMonitoringSettings objectForKey:@"extensions"]];
     [extensions unionSet:self.additionalExtensions];
+    [extensions addObjectsFromArray:[PluginManager sharedPluginManager].compilerSourceExtensions];
     self.allExtensions = extensions;
     self.excludedNames = [NSSet setWithArray:[_builtinMonitoringSettings objectForKey:@"excludedNames"]];
 }
@@ -65,11 +67,6 @@ NSString *PreferencesFilterSettingsChangedNotification = @"PreferencesFilterSett
 - (void)updateFilterPreferences {
     [self updateFilterPreferencesSilently];
     [[NSNotificationCenter defaultCenter] postNotificationName:PreferencesFilterSettingsChangedNotification object:self];
-}
-
-- (NSString *)possibleDerivedExtensionForExtension:(NSString *)extension {
-    NSDictionary *derived = [_builtinMonitoringSettings objectForKey:@"derived"];
-    return [derived objectForKey:extension];
 }
 
 @end
