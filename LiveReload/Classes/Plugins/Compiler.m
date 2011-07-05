@@ -95,6 +95,7 @@
 
 - (void)compile:(NSString *)sourcePath into:(NSString *)destinationPath {
     NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:
+                          @"/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/bin/ruby", @"$(ruby)",
                           [[NSBundle mainBundle] pathForResource:@"node" ofType:nil], @"$(node)",
                           _plugin.path, @"$(plugin)",
                           [sourcePath lastPathComponent], @"$(src_file)",

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>LRCompilers</key>
+	<array>
+		<dict>
+			<key>CommandLine</key>
+			<array>
+				<string>$(ruby)</string>
+				<string>$(plugin)/lib/haml-3.1.2/bin/haml</string>
+				<string>$(src_file)</string>
+				<string>$(dst_file)</string>
+			</array>
+			<key>DestinationExtension</key>
+			<string>html</string>
+			<key>Errors</key>
+			<array>
+				<string>Syntax error on line ((line)): ((message))\n</string>
+				<string>Exception on line ((line)): ((message))\n</string>
+			</array>
+			<key>Extensions</key>
+			<array>
+				<string>haml</string>
+			</array>
+			<key>Name</key>
+			<string>HAML</string>
+		</dict>
+	</array>
+</dict>
+</plist>
