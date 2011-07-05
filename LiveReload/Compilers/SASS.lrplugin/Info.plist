@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>LRCompilers</key>
+	<array>
+		<dict>
+			<key>CommandLine</key>
+			<array>
+				<string>$(ruby)</string>
+				<string>$(plugin)/lib/sass-3.1.4/bin/sass</string>
+				<string>$(src_file)</string>
+				<string>$(dst_file)</string>
+			</array>
+			<key>DestinationExtension</key>
+			<string>css</string>
+			<key>Errors</key>
+			<array>
+				<string>Syntax error: ((message))\n\s+on line ((line)) of ((file))\n</string>
+				<string>Exception on line ((line)): ((message))\n</string>
+			</array>
+			<key>Extensions</key>
+			<array>
+				<string>sass</string>
+				<string>scss</string>
+			</array>
+			<key>Name</key>
+			<string>SASS</string>
+		</dict>
+	</array>
+</dict>
+</plist>
