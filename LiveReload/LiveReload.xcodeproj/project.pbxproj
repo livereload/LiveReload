@@ -12,13 +12,13 @@
 		4310118113845AA3000B0843 /* FSTreeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4310118013845AA3000B0843 /* FSTreeFilter.m */; };
 		432BE33513AE76EB00B76B68 /* CoffeeOptionsSheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 432BE33413AE76EB00B76B68 /* CoffeeOptionsSheetController.m */; };
 		432BE33713AE789E00B76B68 /* CoffeeOptionsSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 432BE33613AE789E00B76B68 /* CoffeeOptionsSheet.xib */; };
-		43361AB013C2E0C900C0E589 /* node in Resources */ = {isa = PBXBuildFile; fileRef = 433617FF13C2E0C800C0E589 /* node */; };
 		43361D2F13C2E0E500C0E589 /* Stylus.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43361D2E13C2E0E500C0E589 /* Stylus.lrplugin */; };
 		43361D3F13C2ED9200C0E589 /* Compiler.m in Sources */ = {isa = PBXBuildFile; fileRef = 43361D3A13C2ED9200C0E589 /* Compiler.m */; };
 		43361D4013C2ED9200C0E589 /* Plugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 43361D3C13C2ED9200C0E589 /* Plugin.m */; };
 		43361D4113C2ED9200C0E589 /* PluginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 43361D3E13C2ED9200C0E589 /* PluginManager.m */; };
 		43361D4413C307FB00C0E589 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 43361D4313C307FB00C0E589 /* RegexKitLite.m */; };
 		43361D4613C30D1400C0E589 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43361D4513C30D1400C0E589 /* libicucore.dylib */; };
+		43361D4813C3188900C0E589 /* node in Resources */ = {isa = PBXBuildFile; fileRef = 43361D4713C3188900C0E589 /* node */; };
 		43685D481385A36600D17CB2 /* LiveReload.safariextz in Resources */ = {isa = PBXBuildFile; fileRef = 43685D471385A36600D17CB2 /* LiveReload.safariextz */; };
 		43685D4B1385A39F00D17CB2 /* ExtensionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43685D4A1385A39F00D17CB2 /* ExtensionsController.m */; };
 		43685D511385B4EE00D17CB2 /* MD5OfFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 43685D501385B4EE00D17CB2 /* MD5OfFile.m */; };
@@ -96,7 +96,6 @@
 		432BE33313AE76EB00B76B68 /* CoffeeOptionsSheetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoffeeOptionsSheetController.h; sourceTree = "<group>"; };
 		432BE33413AE76EB00B76B68 /* CoffeeOptionsSheetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoffeeOptionsSheetController.m; sourceTree = "<group>"; };
 		432BE33613AE789E00B76B68 /* CoffeeOptionsSheet.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CoffeeOptionsSheet.xib; sourceTree = "<group>"; };
-		433617FF13C2E0C800C0E589 /* node */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = node; sourceTree = "<group>"; };
 		43361D2E13C2E0E500C0E589 /* Stylus.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Stylus.lrplugin; path = Compilers/Stylus.lrplugin; sourceTree = SOURCE_ROOT; };
 		43361D3913C2ED9200C0E589 /* Compiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Compiler.h; sourceTree = "<group>"; };
 		43361D3A13C2ED9200C0E589 /* Compiler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Compiler.m; sourceTree = "<group>"; };
@@ -107,6 +106,7 @@
 		43361D4213C307FB00C0E589 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
 		43361D4313C307FB00C0E589 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
 		43361D4513C30D1400C0E589 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		43361D4713C3188900C0E589 /* node */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = node; path = Compilers/node; sourceTree = SOURCE_ROOT; };
 		43685D471385A36600D17CB2 /* LiveReload.safariextz */ = {isa = PBXFileReference; lastKnownFileType = file; path = LiveReload.safariextz; sourceTree = "<group>"; };
 		43685D491385A39F00D17CB2 /* ExtensionsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtensionsController.h; sourceTree = "<group>"; };
 		43685D4A1385A39F00D17CB2 /* ExtensionsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExtensionsController.m; sourceTree = "<group>"; };
@@ -326,7 +326,7 @@
 		433617FE13C2E0C800C0E589 /* Compilers */ = {
 			isa = PBXGroup;
 			children = (
-				433617FF13C2E0C800C0E589 /* node */,
+				43361D4713C3188900C0E589 /* node */,
 				43361D2E13C2E0E500C0E589 /* Stylus.lrplugin */,
 			);
 			name = Compilers;
@@ -623,8 +623,8 @@
 				439C092D13ADA72200119233 /* StatusItemDropTarget.png in Resources */,
 				439C093313ADCBDD00119233 /* monitoring.plist in Resources */,
 				432BE33713AE789E00B76B68 /* CoffeeOptionsSheet.xib in Resources */,
-				43361AB013C2E0C900C0E589 /* node in Resources */,
 				43361D2F13C2E0E500C0E589 /* Stylus.lrplugin in Resources */,
+				43361D4813C3188900C0E589 /* node in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
