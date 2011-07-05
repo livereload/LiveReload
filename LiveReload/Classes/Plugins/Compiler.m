@@ -46,6 +46,10 @@
         }
     }
 
+    NSLog(@"Matching output against regexp: %@", regexp);
+    if ([self rangeOfRegex:regexp].length == 0) {
+        return nil;
+    }
     return [self dictionaryByMatchingRegex:regexp options:options range:NSMakeRange(0, [self length]) error:nil withKeys:captureNames forCaptures:captureIndexes count:captureCount];
 }
 
@@ -112,8 +116,9 @@
                                                error:&error];
     [[NSFileManager defaultManager] changeCurrentDirectoryPath:pwd];
 
+    NSString *strippedOutput = [output stringByReplacingOccurrencesOfRegex:@"(\\e\\[.*?m)+" withString:@"<ESC>"];
     if (error) {
-        NSLog(@"Error: %@\nOutput:\n%@", [error description], output);
+        NSLog(@"Error: %@\nOutput:\n%@", [error description], strippedOutput);
         if ([error code] == kNSTaskProcessOutputError) {
             NSDictionary *substitutions = [NSDictionary dictionaryWithObjectsAndKeys:
                                            @"[^\\n]+?", @"file",
@@ -123,7 +128,13 @@
 
             NSDictionary *data = nil;
             for (NSString *regexp in _errorFormats) {
-                NSDictionary *match = [output dictionaryByMatchingWithRegexp:regexp withSmartSubstitutions:substitutions options:0];
+                NSString *stripped;
+                if ([regexp rangeOfString:@"<ESC>"].length > 0) {
+                    stripped = [output stringByReplacingOccurrencesOfRegex:@"(\\e\\[.*?m)+" withString:@"<ESC>"];
+                } else {
+                    stripped = [output stringByReplacingOccurrencesOfRegex:@"(\\e\\[.*?m)+" withString:@""];
+                }
+                NSDictionary *match = [stripped dictionaryByMatchingWithRegexp:regexp withSmartSubstitutions:substitutions options:0];
                 if ([match count] > [data count]) {
                     data = match;
                 }
@@ -164,7 +175,7 @@
             }
         }
     } else {
-        NSLog(@"Output: [[[%@]]]", output);
+        NSLog(@"Output:\n%@", strippedOutput);
     }
 }
 

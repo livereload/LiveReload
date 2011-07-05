@@ -20,6 +20,7 @@
 		43361D4613C30D1400C0E589 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43361D4513C30D1400C0E589 /* libicucore.dylib */; };
 		43361D4813C3188900C0E589 /* node in Resources */ = {isa = PBXBuildFile; fileRef = 43361D4713C3188900C0E589 /* node */; };
 		43361D4A13C319FC00C0E589 /* Jade.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43361D4913C319FC00C0E589 /* Jade.lrplugin */; };
+		43361D4C13C3210200C0E589 /* LESS.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43361D4B13C3210200C0E589 /* LESS.lrplugin */; };
 		43685D481385A36600D17CB2 /* LiveReload.safariextz in Resources */ = {isa = PBXBuildFile; fileRef = 43685D471385A36600D17CB2 /* LiveReload.safariextz */; };
 		43685D4B1385A39F00D17CB2 /* ExtensionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43685D4A1385A39F00D17CB2 /* ExtensionsController.m */; };
 		43685D511385B4EE00D17CB2 /* MD5OfFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 43685D501385B4EE00D17CB2 /* MD5OfFile.m */; };
@@ -109,6 +110,7 @@
 		43361D4513C30D1400C0E589 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		43361D4713C3188900C0E589 /* node */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = node; path = Compilers/node; sourceTree = SOURCE_ROOT; };
 		43361D4913C319FC00C0E589 /* Jade.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Jade.lrplugin; path = Compilers/Jade.lrplugin; sourceTree = SOURCE_ROOT; };
+		43361D4B13C3210200C0E589 /* LESS.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = LESS.lrplugin; path = Compilers/LESS.lrplugin; sourceTree = SOURCE_ROOT; };
 		43685D471385A36600D17CB2 /* LiveReload.safariextz */ = {isa = PBXFileReference; lastKnownFileType = file; path = LiveReload.safariextz; sourceTree = "<group>"; };
 		43685D491385A39F00D17CB2 /* ExtensionsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtensionsController.h; sourceTree = "<group>"; };
 		43685D4A1385A39F00D17CB2 /* ExtensionsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExtensionsController.m; sourceTree = "<group>"; };
@@ -331,6 +333,7 @@
 				43361D4713C3188900C0E589 /* node */,
 				43361D2E13C2E0E500C0E589 /* Stylus.lrplugin */,
 				43361D4913C319FC00C0E589 /* Jade.lrplugin */,
+				43361D4B13C3210200C0E589 /* LESS.lrplugin */,
 			);
 			name = Compilers;
 			path = Extensions/Compilers;
@@ -629,6 +632,7 @@
 				43361D2F13C2E0E500C0E589 /* Stylus.lrplugin in Resources */,
 				43361D4813C3188900C0E589 /* node in Resources */,
 				43361D4A13C319FC00C0E589 /* Jade.lrplugin in Resources */,
+				43361D4C13C3210200C0E589 /* LESS.lrplugin in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

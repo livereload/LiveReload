@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>LRCompilers</key>
+	<array>
+		<dict>
+			<key>CommandLine</key>
+			<array>
+				<string>$(node)</string>
+				<string>$(plugin)/node_modules/less/bin/lessc</string>
+				<string>$(src_file)</string>
+				<string>$(dst_file)</string>
+			</array>
+			<key>DestinationExtension</key>
+			<string>css</string>
+			<key>Errors</key>
+			<array>
+				<string>&lt;ESC&gt;((message)) on line ((line))&lt;ESC&gt; in &lt;ESC&gt;((file))(?:&lt;ESC&gt;|\n)</string>
+				<string>(Missing ((message))$)</string>
+			</array>
+			<key>Extensions</key>
+			<array>
+				<string>less</string>
+			</array>
+			<key>Name</key>
+			<string>LESS</string>
+		</dict>
+	</array>
+</dict>
+</plist>
