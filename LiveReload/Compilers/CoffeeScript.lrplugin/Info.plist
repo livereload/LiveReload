@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>LRCompilers</key>
+	<array>
+		<dict>
+			<key>CommandLine</key>
+			<array>
+				<string>$(node)</string>
+				<string>$(plugin)/node_modules/coffee-script/bin/coffee</string>
+				<string>-o</string>
+				<string>$(dst_dir)</string>
+				<string>$(src_file)</string>
+			</array>
+			<key>DestinationExtension</key>
+			<string>js</string>
+			<key>Errors</key>
+			<array>
+				<string>Error: In ((file)), Parse error on line ((line)): ((message))\n</string>
+				<string>Error: In ((file)), ((message)) on line ((line))\n</string>
+			</array>
+			<key>Extensions</key>
+			<array>
+				<string>coffee</string>
+			</array>
+			<key>Name</key>
+			<string>CoffeeScript</string>
+		</dict>
+	</array>
+</dict>
+</plist>
