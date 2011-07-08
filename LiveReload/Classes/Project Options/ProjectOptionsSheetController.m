@@ -53,6 +53,7 @@ static NSString *kSelectionObservation = @"kSelectionObservation";
 - (void)windowDidLoad {
     [super windowDidLoad];
     [_servicesArrayController addObserver:self forKeyPath:@"selection" options:0 context:kSelectionObservation];
+    [self updateSelectedPane];
 }
 
 
