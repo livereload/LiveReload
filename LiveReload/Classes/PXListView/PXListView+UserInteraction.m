@@ -161,6 +161,7 @@ static PXIsDragStartResult PXIsDragStart( NSEvent *startEvent, NSTimeInterval th
     if([theEvent clickCount]>1) {
         if([[self delegate] respondsToSelector:@selector(listView:rowDoubleClicked:)]) {
             [[self delegate] listView:self rowDoubleClicked:[theCell row]];
+            return;
         }
     }
 
