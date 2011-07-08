@@ -23,6 +23,7 @@ extern NSString *ProjectDidDetectChangeNotification;
 - (NSDictionary *)memento;
 
 @property(nonatomic, readonly, copy) NSString *path;
+@property(nonatomic, readonly, copy) NSString *displayPath;
 
 @property(nonatomic, getter=isMonitoringEnabled) BOOL monitoringEnabled;
 

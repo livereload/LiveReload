@@ -56,6 +56,13 @@ NSString *ProjectDidDetectChangeNotification = @"ProjectDidDetectChangeNotificat
 }
 
 
+#pragma mark - Displaying
+
+- (NSString *)displayPath {
+    return [_path stringByAbbreviatingWithTildeInPath];
+}
+
+
 #pragma mark - Filtering
 
 - (void)updateFilter {

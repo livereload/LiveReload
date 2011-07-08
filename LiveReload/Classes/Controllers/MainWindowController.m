@@ -137,7 +137,7 @@
 
     Project *project = [[Workspace sharedWorkspace].sortedProjects objectAtIndex:row];
 
-    [cell.titleLabel setStringValue:project.path];
+    [cell.titleLabel setStringValue:project.displayPath];
 
     return cell;
 }
