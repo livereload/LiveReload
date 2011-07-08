@@ -68,7 +68,8 @@
 - (void)pingServerInBackground {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
-    [NSData dataWithContentsOfURL:[NSURL URLWithString:[@"http://livereload.mockko.com/ping.txt?v=" stringByAppendingString:version]]];
+    NSString *internalVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+    [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://livereload.com/ping.php?v=%@&iv=%@", [version stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], [internalVersion stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]]];
     [pool drain];
 }
 
