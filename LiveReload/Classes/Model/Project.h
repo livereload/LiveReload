@@ -3,6 +3,8 @@
 
 
 @class FSMonitor;
+@class Compiler;
+@class CompilationOptions;
 
 extern NSString *ProjectDidDetectChangeNotification;
 
@@ -11,6 +13,8 @@ extern NSString *ProjectDidDetectChangeNotification;
     NSString *_path;
 
     FSMonitor *_monitor;
+
+    NSMutableDictionary     *_compilerOptions;
 }
 
 - (id)initWithPath:(NSString *)path;
@@ -21,5 +25,7 @@ extern NSString *ProjectDidDetectChangeNotification;
 @property(nonatomic, readonly, copy) NSString *path;
 
 @property(nonatomic, getter=isMonitoringEnabled) BOOL monitoringEnabled;
+
+- (CompilationOptions *)optionsForCompiler:(Compiler *)compiler create:(BOOL)create;
 
 @end

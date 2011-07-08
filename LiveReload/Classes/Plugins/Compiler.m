@@ -58,6 +58,8 @@
 
 @implementation Compiler
 
+@synthesize uniqueId=_uniqueId;
+@synthesize name=_name;
 @synthesize extensions=_extensions;
 @synthesize destinationExtension=_destinationExtension;
 
@@ -73,6 +75,7 @@
         _extensions = [[info objectForKey:@"Extensions"] copy];
         _destinationExtension = [[info objectForKey:@"DestinationExtension"] copy];
         _errorFormats = [[info objectForKey:@"Errors"] copy];
+        _uniqueId = [[_name lowercaseString] retain];
     }
     return self;
 }

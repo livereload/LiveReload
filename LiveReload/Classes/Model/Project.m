@@ -7,6 +7,7 @@
 #import "Preferences.h"
 #import "PluginManager.h"
 #import "Compiler.h"
+#import "CompilationOptions.h"
 
 
 #define PathKey @"path"
@@ -35,6 +36,8 @@ NSString *ProjectDidDetectChangeNotification = @"ProjectDidDetectChangeNotificat
     _monitor.delegate = self;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFilter) name:PreferencesFilterSettingsChangedNotification object:nil];
     [self updateFilter];
+
+    _compilerOptions = [[NSMutableDictionary alloc] init];
 }
 
 - (id)initWithPath:(NSString *)path {
@@ -110,6 +113,16 @@ NSString *ProjectDidDetectChangeNotification = @"ProjectDidDetectChangeNotificat
 
     [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidDetectChangeNotification object:self];
     [[CommunicationController sharedCommunicationController] broadcastChangedPathes:filtered inProject:self];
+}
+
+- (CompilationOptions *)optionsForCompiler:(Compiler *)compiler create:(BOOL)create {
+    NSString *uniqueId = compiler.uniqueId;
+    CompilationOptions *options = [_compilerOptions objectForKey:uniqueId];
+    if (options == nil && create) {
+        options = [[CompilationOptions alloc] initWithCompiler:compiler dictionary:nil];
+        [_compilerOptions setObject:options forKey:uniqueId];
+    }
+    return options;
 }
 
 

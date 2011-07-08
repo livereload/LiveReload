@@ -5,6 +5,7 @@
 
 @class MAAttachedWindow;
 @class StatusItemController;
+@class ProjectOptionsSheetController;
 
 
 @interface MainWindowController : NSObject <PXListViewDelegate> {
@@ -17,9 +18,12 @@
     NSButton *_backToMainWindowButton;
     NSTextField *_connectionStateLabel;
     BOOL _inSettingsMode;
+    BOOL _inProjectEditorMode;
     BOOL _windowVisible;
     NSTextField *_clickToAddFolderLabel;
 
+    ProjectOptionsSheetController *projectEditorController;
+    
     NSView *_mainView;
     NSView *_settingsView;
     PXListView *_listView;

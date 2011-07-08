@@ -4,7 +4,7 @@
 #import "StatusItemController.h"
 #import "CommunicationController.h"
 
-#import "CoffeeOptionsSheetController.h"
+#import "ProjectOptionsSheetController.h"
 
 #import "MAAttachedWindow.h"
 #import "Workspace.h"
@@ -22,6 +22,7 @@
 
 - (void)updateMainScreen;
 - (void)updateSettingsScreen;
+- (void)openEditorForRow:(NSUInteger)rowIndex;
 
 @end
 
@@ -91,6 +92,7 @@
     [self updateMainScreen];
 
     _inSettingsMode = NO;
+    _inProjectEditorMode = NO;
     if (![[NSUserDefaults standardUserDefaults] boolForKey:PreferencesDoneKey]) {
         [self showSettings:self];
     }
@@ -110,7 +112,7 @@
 }
 
 - (void)hideOnAppDeactivation {
-    if (_inSettingsMode)
+    if (_inSettingsMode || _inProjectEditorMode)
         return;
     [self.window orderOut:self];
     self.window = nil;
@@ -122,7 +124,7 @@
 }
 
 - (CGFloat)listView:(PXListView*)aListView heightOfRow:(NSUInteger)row {
-    return 57;
+    return 30;
 }
 
 - (PXListViewCell*)listView:(PXListView*)aListView cellForRow:(NSUInteger)row {
@@ -138,6 +140,10 @@
     [cell.titleLabel setStringValue:project.path];
 
     return cell;
+}
+
+- (void)listView:(PXListView*)aListView rowDoubleClicked:(NSUInteger)rowIndex {
+    [self openEditorForRow:rowIndex];
 }
 
 - (void)listViewSelectionDidChange:(NSNotification*)aNotification {
@@ -303,22 +309,32 @@
 
 #pragma mark - Project options
 
+- (void)openEditorForRow:(NSUInteger)rowIndex {
+    Project *project = [[Workspace sharedWorkspace].sortedProjects objectAtIndex:rowIndex];
+    projectEditorController = [[ProjectOptionsSheetController alloc] initWithProject:project];
+    NSWindow *sheet = [projectEditorController window];
+    _sheetRow = rowIndex;
+    _inProjectEditorMode = YES;
+    //[self.window setLevel:NSFloatingWindowLevel];
+    //[sheet makeKeyWindow];
+    [NSApp beginSheet:sheet
+       modalForWindow:_window
+        modalDelegate:self
+       didEndSelector:@selector(didEndSheet:returnCode:contextInfo:)
+          contextInfo:nil];
+}
+
 - (void)checkboxClickedForLanguage:(NSString *)language inCell:(ProjectCell *)cell {
     if ([cell.compileCoffeeScriptCheckbox state] == NSOnState) {
-        CoffeeOptionsSheetController *controller = [[CoffeeOptionsSheetController alloc] init];
-        NSWindow *sheet = [controller window];
-        _sheetRow = cell.row;
-        [NSApp beginSheet:sheet
-           modalForWindow:_window
-            modalDelegate:self
-           didEndSelector:@selector(didEndSheet:returnCode:contextInfo:)
-              contextInfo:nil];
     }
 }
 
 - (void)didEndSheet:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
 {
     [sheet orderOut:self];
+    _inProjectEditorMode = NO;
+    [self.window setLevel:NSNormalWindowLevel];
+    [projectEditorController release], projectEditorController = nil;
 }
 
 - (NSRect)window:(NSWindow *)window willPositionSheet:(NSWindow *)sheet usingRect:(NSRect)rect {
