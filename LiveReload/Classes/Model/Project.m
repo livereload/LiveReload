@@ -19,6 +19,7 @@ NSString *ProjectDidDetectChangeNotification = @"ProjectDidDetectChangeNotificat
 @interface Project () <FSMonitorDelegate>
 
 - (void)updateFilter;
+- (void)reconsiderMonitoringNecessity;
 
 @end
 
@@ -38,6 +39,9 @@ NSString *ProjectDidDetectChangeNotification = @"ProjectDidDetectChangeNotificat
     [self updateFilter];
 
     _compilerOptions = [[NSMutableDictionary alloc] init];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reconsiderMonitoringNecessity) name:CompilationOptionsEnabledChangedNotification object:nil];
+    [self reconsiderMonitoringNecessity];
 }
 
 - (id)initWithPath:(NSString *)path {
@@ -92,12 +96,30 @@ NSString *ProjectDidDetectChangeNotification = @"ProjectDidDetectChangeNotificat
 #pragma mark -
 #pragma mark File System Monitoring
 
+- (BOOL)areAnyCompilersEnabled {
+    for (CompilationOptions *options in [_compilerOptions allValues]) {
+        if (options.enabled) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+- (void)reconsiderMonitoringNecessity {
+    BOOL necessary = _clientsConnected || [self areAnyCompilersEnabled];
+    if (necessary != _monitor.running) {
+        NSLog(@"Monitoring %@ for project %@", (necessary ? @"actived" : @"deactivated"), _path);
+        _monitor.running = necessary;
+    }
+}
+
 - (BOOL)isMonitoringEnabled {
-    return _monitor.running;
+    return _clientsConnected;
 }
 
 - (void)setMonitoringEnabled:(BOOL)shouldMonitor {
-    _monitor.running = shouldMonitor;
+    _clientsConnected = shouldMonitor;
+    [self reconsiderMonitoringNecessity];
 }
 
 - (void)fileSystemMonitor:(FSMonitor *)monitor detectedChangeAtPathes:(NSSet *)pathes {
@@ -121,6 +143,13 @@ NSString *ProjectDidDetectChangeNotification = @"ProjectDidDetectChangeNotificat
     [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidDetectChangeNotification object:self];
     [[CommunicationController sharedCommunicationController] broadcastChangedPathes:filtered inProject:self];
 }
+
+- (FSTree *)tree {
+    return _monitor.tree;
+}
+
+
+#pragma mark - Options
 
 - (CompilationOptions *)optionsForCompiler:(Compiler *)compiler create:(BOOL)create {
     NSString *uniqueId = compiler.uniqueId;

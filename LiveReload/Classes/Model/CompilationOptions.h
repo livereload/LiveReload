@@ -4,6 +4,10 @@
 
 @class Compiler;
 @class CompilerVersion;
+@class FileCompilationOptions;
+
+
+extern NSString *CompilationOptionsEnabledChangedNotification;
 
 
 @interface CompilationOptions : NSObject {
@@ -12,7 +16,7 @@
     BOOL                   _enabled;
     NSMutableDictionary   *_globalOptions;
     NSArray               *_includeDirectories;
-    NSDictionary          *_fileOptions; // dictionary of dictionaries
+    NSMutableDictionary   *_fileOptions; // NSString to FileCompilationOptions
 
     NSArray               *_availableVersions;
     CompilerVersion       *_version;
@@ -28,5 +32,7 @@
 @property(nonatomic, retain) CompilerVersion *version;
 
 @property(nonatomic, readonly) NSMutableDictionary *globalOptions;
+
+- (FileCompilationOptions *)optionsForFileAtPath:(NSString *)path create:(BOOL)create;
 
 @end

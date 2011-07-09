@@ -81,6 +81,7 @@ static NSString *kSelectionObservation = @"kSelectionObservation";
         [_selectedPaneViewController release];
 
         _selectedPaneViewController = [viewController retain];
+        [_selectedPaneViewController paneWillShow];
         NSView *newView = _selectedPaneViewController.view;
         if (newView) {
             NSLog(@"Switching to view for compiler %@", [[(id)_selectedPaneViewController compiler] name]);

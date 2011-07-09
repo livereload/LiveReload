@@ -11,6 +11,7 @@
 @private
     Compiler               *_compiler;
     CompilationOptions     *_options;
+    NSArray                *_fileOptions;
 
     NSObjectController     *_objectController;
 }
@@ -21,5 +22,7 @@
 @property (nonatomic, readonly) CompilationOptions *options;
 
 @property (assign) IBOutlet NSObjectController *objectController;
+
+@property (nonatomic, readonly) NSArray *fileOptions;
 
 @end

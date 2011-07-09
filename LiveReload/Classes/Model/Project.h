@@ -3,6 +3,7 @@
 
 
 @class FSMonitor;
+@class FSTree;
 @class Compiler;
 @class CompilationOptions;
 
@@ -15,6 +16,7 @@ extern NSString *ProjectDidDetectChangeNotification;
     FSMonitor *_monitor;
 
     NSMutableDictionary     *_compilerOptions;
+    BOOL _clientsConnected;
 }
 
 - (id)initWithPath:(NSString *)path;
@@ -24,6 +26,8 @@ extern NSString *ProjectDidDetectChangeNotification;
 
 @property(nonatomic, readonly, copy) NSString *path;
 @property(nonatomic, readonly, copy) NSString *displayPath;
+
+@property(nonatomic, readonly) FSTree *tree;
 
 @property(nonatomic, getter=isMonitoringEnabled) BOOL monitoringEnabled;
 

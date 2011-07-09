@@ -2,6 +2,7 @@
 #import "Compiler.h"
 #import "Plugin.h"
 
+#import "FSTree.h"
 #import "RegexKitLite.h"
 #import "NSTask+OneLineTasksWithOutput.h"
 #import "NSArray+Substitutions.h"
@@ -91,6 +92,13 @@
 
 - (NSString *)derivedNameForFile:(NSString *)path {
     return [[[path lastPathComponent] stringByDeletingPathExtension] stringByAppendingPathExtension:self.destinationExtension];
+}
+
+- (NSArray *)pathsOfSourceFilesInTree:(FSTree *)tree {
+    NSSet *validExtensions = [NSSet setWithArray:_extensions];
+    return [tree pathsOfFilesMatching:^BOOL(NSString *name) {
+        return [validExtensions containsObject:[name pathExtension]];
+    }];
 }
 
 

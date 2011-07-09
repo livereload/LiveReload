@@ -35,6 +35,9 @@
 
 #pragma mark - Pane lifecycle
 
+- (void)paneWillShow {
+}
+
 - (void)paneDidShow {
 }
 

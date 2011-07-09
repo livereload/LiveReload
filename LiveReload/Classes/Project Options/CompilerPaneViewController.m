@@ -4,12 +4,24 @@
 #import "Project.h"
 #import "Compiler.h"
 #import "CompilationOptions.h"
+#import "FileCompilationOptions.h"
+
+#import "FSTree.h"
+
+
+@interface CompilerPaneViewController ()
+
+- (void)updateFileOptions;
+
+@end
+
 
 
 @implementation CompilerPaneViewController
 
 @synthesize compiler=_compiler;
 @synthesize objectController = _objectController;
+@synthesize fileOptions=_fileOptions;
 
 
 #pragma mark - init/dealloc
@@ -45,6 +57,11 @@
 
 #pragma mark - Pane lifecycle
 
+- (void)paneWillShow {
+    [super paneWillShow];
+    [self updateFileOptions];
+}
+
 - (void)paneDidShow {
     [super paneDidShow];
 }
@@ -63,6 +80,26 @@
         _options = [[_project optionsForCompiler:_compiler create:YES] retain];
     }
     return _options;
+}
+
+- (void)updateFileOptions {
+    NSLog(@"updateFileOptions");
+    CompilationOptions *options = self.options;
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    for (NSString *sourcePath in [_compiler pathsOfSourceFilesInTree:_project.tree]) {
+        FileCompilationOptions *fileOptions = [options optionsForFileAtPath:sourcePath create:YES];
+        if (fileOptions.destinationDirectory == nil) {
+            NSString *derivedName = [_compiler derivedNameForFile:sourcePath];
+            NSString *guessedDestinationPath = [_project.tree pathOfFileNamed:derivedName];
+            if (guessedDestinationPath) {
+                fileOptions.destinationDirectory = [guessedDestinationPath stringByDeletingLastPathComponent];
+            }
+        }
+        [array addObject:fileOptions];
+    }
+    [self willChangeValueForKey:@"fileOptions"];
+    _fileOptions = [[NSArray alloc] initWithArray:array];
+    [self didChangeValueForKey:@"fileOptions"];
 }
 
 @end

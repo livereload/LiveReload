@@ -3,6 +3,7 @@
 
 
 @class Plugin;
+@class FSTree;
 
 @interface Compiler : NSObject {
 @private
@@ -25,5 +26,7 @@
 - (NSString *)derivedNameForFile:(NSString *)path;
 
 - (void)compile:(NSString *)sourcePath into:(NSString *)destinationPath;
+
+- (NSArray *)pathsOfSourceFilesInTree:(FSTree *)tree;
 
 @end

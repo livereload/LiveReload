@@ -23,6 +23,7 @@
 			<string>NSBox</string>
 			<string>NSTableView</string>
 			<string>NSTableHeaderView</string>
+			<string>NSArrayController</string>
 			<string>NSCustomObject</string>
 			<string>NSPopUpButtonCell</string>
 			<string>NSTableColumn</string>
@@ -140,7 +141,6 @@
 														</object>
 														<int key="NSResizingMask">3</int>
 														<bool key="NSIsResizeable">YES</bool>
-														<bool key="NSIsEditable">YES</bool>
 														<reference key="NSTableView" ref="389703843"/>
 													</object>
 													<object class="NSTableColumn" id="748292568">
@@ -314,7 +314,7 @@
 									<reference key="NSTextColor" ref="504157672"/>
 								</object>
 							</object>
-							<object class="NSTextField" id="28693680">
+							<object class="NSTextField" id="799695168">
 								<reference key="NSNextResponder" ref="355104748"/>
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{372, 374}, {135, 17}}</string>
@@ -322,12 +322,12 @@
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="549280000"/>
 								<bool key="NSEnabled">YES</bool>
-								<object class="NSTextFieldCell" key="NSCell" id="971192313">
+								<object class="NSTextFieldCell" key="NSCell" id="383752071">
 									<int key="NSCellFlags">68288064</int>
 									<int key="NSCellFlags2">71304192</int>
 									<string key="NSContents">NameHere</string>
 									<reference key="NSSupport" ref="33352996"/>
-									<reference key="NSControlView" ref="28693680"/>
+									<reference key="NSControlView" ref="799695168"/>
 									<reference key="NSBackgroundColor" ref="538550719"/>
 									<reference key="NSTextColor" ref="504157672"/>
 								</object>
@@ -338,7 +338,7 @@
 								<string key="NSFrame">{{250, 368}, {100, 26}}</string>
 								<reference key="NSSuperview" ref="355104748"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="28693680"/>
+								<reference key="NSNextKeyView" ref="799695168"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSPopUpButtonCell" key="NSCell" id="780485119">
 									<int key="NSCellFlags">-2076049856</int>
@@ -483,6 +483,15 @@
 				<bool key="NSEditable">YES</bool>
 				<object class="_NSManagedProxy" key="_NSManagedProxy"/>
 			</object>
+			<object class="NSArrayController" id="822394314">
+				<bool key="NSEditable">YES</bool>
+				<object class="_NSManagedProxy" key="_NSManagedProxy"/>
+				<bool key="NSAvoidsEmptySelection">YES</bool>
+				<bool key="NSPreservesSelection">YES</bool>
+				<bool key="NSSelectsInsertedObjects">YES</bool>
+				<bool key="NSFilterRestrictsInsertion">YES</bool>
+				<bool key="NSClearsFilterPredicateOnInsertion">YES</bool>
+			</object>
 			<object class="NSUserDefaultsController" id="604460311">
 				<bool key="NSSharedInstance">YES</bool>
 			</object>
@@ -611,10 +620,10 @@
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: compiler.name</string>
-						<reference key="source" ref="28693680"/>
+						<reference key="source" ref="799695168"/>
 						<reference key="destination" ref="1001"/>
 						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="28693680"/>
+							<reference key="NSSource" ref="799695168"/>
 							<reference key="NSDestination" ref="1001"/>
 							<string key="NSLabel">value: compiler.name</string>
 							<string key="NSBinding">value</string>
@@ -623,6 +632,122 @@
 						</object>
 					</object>
 					<int key="connectionID">56</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: active</string>
+						<reference key="source" ref="201678433"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="201678433"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">enabled: active</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">active</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">59</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: active</string>
+						<reference key="source" ref="140935332"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="140935332"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">enabled: active</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">active</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">62</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: active</string>
+						<reference key="source" ref="389703843"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="389703843"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">enabled: active</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">active</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">66</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: active</string>
+						<reference key="source" ref="979521487"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="979521487"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">enabled: active</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">active</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">69</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">contentArray: fileOptions</string>
+						<reference key="source" ref="822394314"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="822394314"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">contentArray: fileOptions</string>
+							<string key="NSBinding">contentArray</string>
+							<string key="NSKeyPath">fileOptions</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">73</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: arrangedObjects.destinationDirectory</string>
+						<reference key="source" ref="748292568"/>
+						<reference key="destination" ref="822394314"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="748292568"/>
+							<reference key="NSDestination" ref="822394314"/>
+							<string key="NSLabel">value: arrangedObjects.destinationDirectory</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">arrangedObjects.destinationDirectory</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">76</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: arrangedObjects.sourcePath</string>
+						<reference key="source" ref="113152359"/>
+						<reference key="destination" ref="822394314"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="113152359"/>
+							<reference key="NSDestination" ref="822394314"/>
+							<string key="NSLabel">value: arrangedObjects.sourcePath</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">arrangedObjects.sourcePath</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSConditionallySetsEditable</string>
+								<boolean value="YES" key="NS.object.0"/>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">77</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -662,7 +787,7 @@
 							<reference ref="549280000"/>
 							<reference ref="201678433"/>
 							<reference ref="597917323"/>
-							<reference ref="28693680"/>
+							<reference ref="799695168"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -839,16 +964,21 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">52</int>
-						<reference key="object" ref="28693680"/>
+						<reference key="object" ref="799695168"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="971192313"/>
+							<reference ref="383752071"/>
 						</array>
 						<reference key="parent" ref="517729988"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">53</int>
-						<reference key="object" ref="971192313"/>
-						<reference key="parent" ref="28693680"/>
+						<reference key="object" ref="383752071"/>
+						<reference key="parent" ref="799695168"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">70</int>
+						<reference key="object" ref="822394314"/>
+						<reference key="parent" ref="0"/>
 					</object>
 				</array>
 			</object>
@@ -875,6 +1005,7 @@
 				<string key="53.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="7.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="70.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="8.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="9.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 			</dictionary>
@@ -882,21 +1013,13 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">56</int>
+			<int key="maxID">77</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<object class="IBPartialClassDescription">
 					<string key="className">CompilerPaneViewController</string>
 					<string key="superclassName">PaneViewController</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/CompilerPaneViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">PaneViewController</string>
-					<string key="superclassName">NSViewController</string>
 					<object class="NSMutableDictionary" key="outlets">
 						<string key="NS.key.0">objectController</string>
 						<string key="NS.object.0">NSObjectController</string>
@@ -908,6 +1031,14 @@
 							<string key="candidateClassName">NSObjectController</string>
 						</object>
 					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/CompilerPaneViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">PaneViewController</string>
+					<string key="superclassName">NSViewController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/PaneViewController.h</string>

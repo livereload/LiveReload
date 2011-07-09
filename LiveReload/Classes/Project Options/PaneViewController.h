@@ -15,6 +15,7 @@
 @property(nonatomic, readonly) NSString *title;
 @property(nonatomic, getter=isActive) BOOL active;
 
+- (void)paneWillShow;
 - (void)paneDidShow;
 - (void)paneWillHide;
 

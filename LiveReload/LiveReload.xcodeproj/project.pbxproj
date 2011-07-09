@@ -36,6 +36,7 @@
 		43685D5F1385DA0400D17CB2 /* LoginItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43685D5E1385DA0400D17CB2 /* LoginItemController.m */; };
 		436B09C313844BB0006BCE37 /* FSTreeDiffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 436B09C213844BAF006BCE37 /* FSTreeDiffer.m */; };
 		43763FDF13C780940089D8C9 /* KeyWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 43763FDE13C780940089D8C9 /* KeyWindow.m */; };
+		43763FEA13C840860089D8C9 /* FileCompilationOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 43763FE913C840860089D8C9 /* FileCompilationOptions.m */; };
 		439394041362CCBA00333781 /* LiveReloadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 439394031362CCBA00333781 /* LiveReloadAppDelegate.m */; };
 		439394081362CD0A00333781 /* Workspace.m in Sources */ = {isa = PBXBuildFile; fileRef = 439394071362CD0A00333781 /* Workspace.m */; };
 		4393940B1362CD6500333781 /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 4393940A1362CD6500333781 /* Project.m */; };
@@ -143,6 +144,8 @@
 		436B09C213844BAF006BCE37 /* FSTreeDiffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FSTreeDiffer.m; path = ../../../../../Projects/LiveReloadPaid/LiveReload/Classes/Monitoring/FSTreeDiffer.m; sourceTree = "<group>"; };
 		43763FDD13C780940089D8C9 /* KeyWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyWindow.h; sourceTree = "<group>"; };
 		43763FDE13C780940089D8C9 /* KeyWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyWindow.m; sourceTree = "<group>"; };
+		43763FE813C840860089D8C9 /* FileCompilationOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileCompilationOptions.h; sourceTree = "<group>"; };
+		43763FE913C840860089D8C9 /* FileCompilationOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileCompilationOptions.m; sourceTree = "<group>"; };
 		439394021362CCBA00333781 /* LiveReloadAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveReloadAppDelegate.h; sourceTree = "<group>"; };
 		439394031362CCBA00333781 /* LiveReloadAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveReloadAppDelegate.m; sourceTree = "<group>"; };
 		439394061362CD0A00333781 /* Workspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Workspace.h; sourceTree = "<group>"; };
@@ -427,6 +430,8 @@
 				4393940A1362CD6500333781 /* Project.m */,
 				43E4BBE113C564FD00A75F81 /* CompilationOptions.h */,
 				43E4BBE213C564FD00A75F81 /* CompilationOptions.m */,
+				43763FE813C840860089D8C9 /* FileCompilationOptions.h */,
+				43763FE913C840860089D8C9 /* FileCompilationOptions.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -740,6 +745,7 @@
 				4353972F13C6E967007D3C0B /* PaneViewController.m in Sources */,
 				4353973413C6E9D7007D3C0B /* CompilerPaneViewController.m in Sources */,
 				43763FDF13C780940089D8C9 /* KeyWindow.m in Sources */,
+				43763FEA13C840860089D8C9 /* FileCompilationOptions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

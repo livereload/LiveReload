@@ -150,6 +150,9 @@ struct FSTreeItem {
     return differences;
 }
 
+
+#pragma mark - Querying
+
 - (BOOL)containsFileNamed:(NSString *)fileName {
     return nil == [self pathOfFileNamed:fileName];
 }
@@ -162,6 +165,17 @@ struct FSTreeItem {
         }
     }
     return nil;
+}
+
+- (NSArray *)pathsOfFilesMatching:(BOOL (^)(NSString *))filter {
+    NSMutableArray *result = [[NSMutableArray alloc] init];
+    struct FSTreeItem *end = _items + _count;
+    for (struct FSTreeItem *cur = _items; cur < end; ++cur) {
+        if (cur->st_mode == S_IFREG && filter(cur->name)) {
+            [result addObject:cur->name];
+        }
+    }
+    return result;
 }
 
 @end
