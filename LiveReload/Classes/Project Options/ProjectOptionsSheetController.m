@@ -75,7 +75,7 @@ static NSString *kSelectionObservation = @"kSelectionObservation";
 
 - (void)setSelectedPaneViewController:(PaneViewController *)viewController {
     if (_selectedPaneViewController != viewController) {
-        [_selectedPaneViewController.objectController commitEditing];
+        [_selectedPaneViewController paneWillHide];
         NSView *oldView = _selectedPaneViewController.view;
         [oldView removeFromSuperview];
         [_selectedPaneViewController release];
@@ -87,6 +87,7 @@ static NSString *kSelectionObservation = @"kSelectionObservation";
             [newView setFrame:[_placeholderBox frame]];
             [[[self window] contentView] addSubview:newView positioned:NSWindowAbove relativeTo:_placeholderBox];
             [_placeholderBox setHidden:YES];
+            [_selectedPaneViewController paneDidShow];
         } else {
             NSLog(@"Switching to nil view");
             [_placeholderBox setHidden:NO];

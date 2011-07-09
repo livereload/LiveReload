@@ -15,6 +15,7 @@
     self = [super init];
     if (self) {
         _compiler = [compiler retain];
+        _globalOptions = [[NSMutableDictionary alloc] init];
     }
     return self;
 }

@@ -4,7 +4,6 @@
 
 @implementation PaneViewController
 
-@synthesize objectController = _objectController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil project:(Project *)project {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -19,6 +18,9 @@
     [super dealloc];
 }
 
+
+#pragma mark - Pane options
+
 - (NSString *)title {
     return @"?";
 }
@@ -28,6 +30,15 @@
 }
 
 - (void)setActive:(BOOL)active {
+}
+
+
+#pragma mark - Pane lifecycle
+
+- (void)paneDidShow {
+}
+
+- (void)paneWillHide {
 }
 
 @end

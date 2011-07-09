@@ -9,6 +9,7 @@
 @implementation CompilerPaneViewController
 
 @synthesize compiler=_compiler;
+@synthesize objectController = _objectController;
 
 
 #pragma mark - init/dealloc
@@ -27,14 +28,7 @@
 }
 
 
-#pragma mark - Options
-
-- (CompilationOptions *)options {
-    if (_options == nil) {
-        _options = [[_project optionsForCompiler:_compiler create:YES] retain];
-    }
-    return _options;
-}
+#pragma mark - Pane options
 
 - (NSString *)title {
     return _compiler.name;
@@ -46,6 +40,29 @@
 
 - (void)setActive:(BOOL)active {
     self.options.enabled = active;
+}
+
+
+#pragma mark - Pane lifecycle
+
+- (void)paneDidShow {
+    [super paneDidShow];
+}
+
+- (void)paneWillHide {
+    NSLog(@"globalOptions = %@", [self.options.globalOptions description]);
+    [_objectController commitEditing];
+    [super paneWillHide];
+}
+
+
+#pragma mark - Compilation options
+
+- (CompilationOptions *)options {
+    if (_options == nil) {
+        _options = [[_project optionsForCompiler:_compiler create:YES] retain];
+    }
+    return _options;
 }
 
 @end
