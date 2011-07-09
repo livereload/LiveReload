@@ -4,7 +4,7 @@
 
 @interface KeyWindow : NSWindow {
 @private
-    
+
 }
 
 @end
