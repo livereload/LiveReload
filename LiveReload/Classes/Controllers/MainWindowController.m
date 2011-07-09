@@ -315,7 +315,7 @@
     NSWindow *sheet = [projectEditorController window];
     _sheetRow = rowIndex;
     _inProjectEditorMode = YES;
-    //[self.window setLevel:NSFloatingWindowLevel];
+    [self.window setLevel:NSFloatingWindowLevel];
     //[sheet makeKeyWindow];
     [NSApp beginSheet:sheet
        modalForWindow:_window
