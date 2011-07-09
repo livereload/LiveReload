@@ -23,7 +23,7 @@
     NSTextField *_clickToAddFolderLabel;
 
     ProjectOptionsSheetController *projectEditorController;
-    
+
     NSView *_mainView;
     NSView *_settingsView;
     PXListView *_listView;

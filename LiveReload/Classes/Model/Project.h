@@ -8,6 +8,7 @@
 @class CompilationOptions;
 
 extern NSString *ProjectDidDetectChangeNotification;
+extern NSString *ProjectMonitoringStateDidChangeNotification;
 
 
 @interface Project : NSObject {
@@ -17,6 +18,8 @@ extern NSString *ProjectDidDetectChangeNotification;
 
     NSMutableDictionary     *_compilerOptions;
     BOOL _clientsConnected;
+
+    NSMutableSet            *_monitoringRequests;
 }
 
 - (id)initWithPath:(NSString *)path;
@@ -29,8 +32,8 @@ extern NSString *ProjectDidDetectChangeNotification;
 
 @property(nonatomic, readonly) FSTree *tree;
 
-@property(nonatomic, getter=isMonitoringEnabled) BOOL monitoringEnabled;
-
 - (CompilationOptions *)optionsForCompiler:(Compiler *)compiler create:(BOOL)create;
+
+- (void)requestMonitoring:(BOOL)monitoringEnabled forKey:(NSString *)key;
 
 @end

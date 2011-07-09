@@ -5,6 +5,7 @@
 
 #import "PluginManager.h"
 #import "Compiler.h"
+#import "Project.h"
 
 
 static NSString *kSelectionObservation = @"kSelectionObservation";
@@ -32,6 +33,7 @@ static NSString *kSelectionObservation = @"kSelectionObservation";
 - (id)initWithProject:(Project *)project {
     self = [super initWithWindowNibName:@"ProjectOptionsSheet"];
     if (self) {
+        _project = [project retain];
         NSMutableArray *panes = [NSMutableArray array];
 //        [panes addObject:[[[Pane alloc] initWithProject:project name:@"Live JavaScript"] autorelease]];
 //        [panes addObject:[[[Pane alloc] initWithProject:project name:@"Exclusions"] autorelease]];
@@ -47,6 +49,10 @@ static NSString *kSelectionObservation = @"kSelectionObservation";
     [super dealloc];
 }
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"ProjectOptionsSheetController(%@)", [_project displayPath]];
+}
+
 
 #pragma mark - Lifecycle
 
@@ -60,7 +66,7 @@ static NSString *kSelectionObservation = @"kSelectionObservation";
 #pragma mark - Actions
 
 - (IBAction)dismiss:(id)sender {
-    NSLog(@"dismiss");
+    self.selectedPaneViewController = nil;
     [NSApp endSheet:[self window]];
 }
 
@@ -68,31 +74,33 @@ static NSString *kSelectionObservation = @"kSelectionObservation";
 #pragma mark - Pane selection
 
 - (void)updateSelectedPane {
-    NSLog(@"updateSelectedPane");
     NSArray *selection = [_servicesArrayController selectedObjects];
     self.selectedPaneViewController = ([selection count] > 0 ? [selection objectAtIndex:0] : nil);
 }
 
-- (void)setSelectedPaneViewController:(PaneViewController *)viewController {
-    if (_selectedPaneViewController != viewController) {
-        [_selectedPaneViewController paneWillHide];
-        NSView *oldView = _selectedPaneViewController.view;
-        [oldView removeFromSuperview];
-        [_selectedPaneViewController release];
+- (void)setSelectedPaneViewController:(PaneViewController *)newViewController {
+    if (_selectedPaneViewController != newViewController) {
+        PaneViewController *oldViewController = _selectedPaneViewController;
+        _selectedPaneViewController = [newViewController retain];
 
-        _selectedPaneViewController = [viewController retain];
-        [_selectedPaneViewController paneWillShow];
-        NSView *newView = _selectedPaneViewController.view;
+        [oldViewController paneWillHide];
+        [newViewController paneWillShow];
+
+        [oldViewController.view removeFromSuperview];
+
+        NSView *newView = newViewController.view;
         if (newView) {
-            NSLog(@"Switching to view for compiler %@", [[(id)_selectedPaneViewController compiler] name]);
             [newView setFrame:[_placeholderBox frame]];
             [[[self window] contentView] addSubview:newView positioned:NSWindowAbove relativeTo:_placeholderBox];
             [_placeholderBox setHidden:YES];
-            [_selectedPaneViewController paneDidShow];
         } else {
-            NSLog(@"Switching to nil view");
             [_placeholderBox setHidden:NO];
         }
+
+        [oldViewController paneDidHide];
+        [newViewController paneDidShow];
+
+        [oldViewController release];
     }
 }
 
@@ -100,7 +108,6 @@ static NSString *kSelectionObservation = @"kSelectionObservation";
 #pragma mark - KVO
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    NSLog(@"observeValueForKeyPath:", keyPath);
     if (context == kSelectionObservation) {
         [self updateSelectedPane];
     }

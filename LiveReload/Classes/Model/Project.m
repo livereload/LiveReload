@@ -13,13 +13,16 @@
 #define PathKey @"path"
 
 NSString *ProjectDidDetectChangeNotification = @"ProjectDidDetectChangeNotification";
+NSString *ProjectMonitoringStateDidChangeNotification = @"ProjectMonitoringStateDidChangeNotification";
+
+static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
 
 
 
 @interface Project () <FSMonitorDelegate>
 
 - (void)updateFilter;
-- (void)reconsiderMonitoringNecessity;
+- (void)handleCompilationOptionsEnablementChanged:(NSNotification *)notification;
 
 @end
 
@@ -39,9 +42,10 @@ NSString *ProjectDidDetectChangeNotification = @"ProjectDidDetectChangeNotificat
     [self updateFilter];
 
     _compilerOptions = [[NSMutableDictionary alloc] init];
+    _monitoringRequests = [[NSMutableSet alloc] init];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reconsiderMonitoringNecessity) name:CompilationOptionsEnabledChangedNotification object:nil];
-    [self reconsiderMonitoringNecessity];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleCompilationOptionsEnablementChanged:) name:CompilationOptionsEnabledChangedNotification object:nil];
+    [self handleCompilationOptionsEnablementChanged:nil];
 }
 
 - (id)initWithPath:(NSString *)path {
@@ -64,6 +68,10 @@ NSString *ProjectDidDetectChangeNotification = @"ProjectDidDetectChangeNotificat
 
 - (NSString *)displayPath {
     return [_path stringByAbbreviatingWithTildeInPath];
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Project(%@)", [self displayPath]];
 }
 
 
@@ -96,30 +104,27 @@ NSString *ProjectDidDetectChangeNotification = @"ProjectDidDetectChangeNotificat
 #pragma mark -
 #pragma mark File System Monitoring
 
-- (BOOL)areAnyCompilersEnabled {
-    for (CompilationOptions *options in [_compilerOptions allValues]) {
-        if (options.enabled) {
-            return YES;
+- (void)requestMonitoring:(BOOL)monitoringEnabled forKey:(NSString *)key {
+    if ([_monitoringRequests containsObject:key] != monitoringEnabled) {
+        if (monitoringEnabled) {
+//            NSLog(@"%@: requesting monitoring for %@", [self description], key);
+            [_monitoringRequests addObject:key];
+        } else {
+//            NSLog(@"%@: unrequesting monitoring for %@", [self description], key);
+            [_monitoringRequests removeObject:key];
+        }
+
+        BOOL shouldBeRunning = [_monitoringRequests count] > 0;
+        if (shouldBeRunning != _monitor.running) {
+            if (shouldBeRunning) {
+                NSLog(@"Activated monitoring for %@", [self displayPath]);
+            } else {
+                NSLog(@"Deactivated monitoring for %@", [self displayPath]);
+            }
+            _monitor.running = shouldBeRunning;
+            [[NSNotificationCenter defaultCenter] postNotificationName:ProjectMonitoringStateDidChangeNotification object:self];
         }
     }
-    return NO;
-}
-
-- (void)reconsiderMonitoringNecessity {
-    BOOL necessary = _clientsConnected || [self areAnyCompilersEnabled];
-    if (necessary != _monitor.running) {
-        NSLog(@"Monitoring %@ for project %@", (necessary ? @"actived" : @"deactivated"), _path);
-        _monitor.running = necessary;
-    }
-}
-
-- (BOOL)isMonitoringEnabled {
-    return _clientsConnected;
-}
-
-- (void)setMonitoringEnabled:(BOOL)shouldMonitor {
-    _clientsConnected = shouldMonitor;
-    [self reconsiderMonitoringNecessity];
 }
 
 - (void)fileSystemMonitor:(FSMonitor *)monitor detectedChangeAtPathes:(NSSet *)pathes {
@@ -151,6 +156,15 @@ NSString *ProjectDidDetectChangeNotification = @"ProjectDidDetectChangeNotificat
 
 #pragma mark - Options
 
+- (BOOL)areAnyCompilersEnabled {
+    for (CompilationOptions *options in [_compilerOptions allValues]) {
+        if (options.enabled) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 - (CompilationOptions *)optionsForCompiler:(Compiler *)compiler create:(BOOL)create {
     NSString *uniqueId = compiler.uniqueId;
     CompilationOptions *options = [_compilerOptions objectForKey:uniqueId];
@@ -159,6 +173,10 @@ NSString *ProjectDidDetectChangeNotification = @"ProjectDidDetectChangeNotificat
         [_compilerOptions setObject:options forKey:uniqueId];
     }
     return options;
+}
+
+- (void)handleCompilationOptionsEnablementChanged:(NSNotification *)notification {
+    [self requestMonitoring:[self areAnyCompilersEnabled] forKey:CompilersEnabledMonitoringKey];
 }
 
 

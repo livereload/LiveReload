@@ -15,6 +15,7 @@
 
 @interface ProjectOptionsSheetController : NSWindowController {
 @private
+    Project                     *_project;
     NSArray                     *_panes;
     NSArrayController           *_servicesArrayController;
     NSBox                       *_placeholderBox;

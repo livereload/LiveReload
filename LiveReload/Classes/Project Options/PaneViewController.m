@@ -44,4 +44,7 @@
 - (void)paneWillHide {
 }
 
+- (void)paneDidHide {
+}
+
 @end

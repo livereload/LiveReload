@@ -18,5 +18,6 @@
 - (void)paneWillShow;
 - (void)paneDidShow;
 - (void)paneWillHide;
+- (void)paneDidHide;
 
 @end

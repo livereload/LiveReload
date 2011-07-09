@@ -10,6 +10,8 @@
 
 static Workspace *sharedWorkspace;
 
+static NSString *ClientConnectedMonitoringKey = @"clientConnected";
+
 
 @interface Workspace ()
 
@@ -76,15 +78,13 @@ static Workspace *sharedWorkspace;
 - (void)addProjectsObject:(Project *)project {
     NSParameterAssert(![_projects containsObject:project]);
     [_projects addObject:project];
-    if (_monitoringEnabled) {
-        project.monitoringEnabled = YES;
-    }
+    [project requestMonitoring:_monitoringEnabled forKey:ClientConnectedMonitoringKey];
     [self save];
 }
 
 - (void)removeProjectsObject:(Project *)project {
     NSParameterAssert([_projects containsObject:project]);
-    project.monitoringEnabled = NO;
+    [project requestMonitoring:NO forKey:ClientConnectedMonitoringKey];
     [_projects removeObject:project];
     [self save];
 }
@@ -105,7 +105,7 @@ static Workspace *sharedWorkspace;
     if (_monitoringEnabled != shouldMonitor) {
         _monitoringEnabled = shouldMonitor;
         for (Project *project in _projects) {
-            project.monitoringEnabled = _monitoringEnabled;
+            [project requestMonitoring:shouldMonitor forKey:ClientConnectedMonitoringKey];
         }
     }
 }

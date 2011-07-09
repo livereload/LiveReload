@@ -12,6 +12,7 @@
 @interface CompilerPaneViewController ()
 
 - (void)updateFileOptions;
+- (void)handleProjectDidDetectChange:(NSNotification *)notification;
 
 @end
 
@@ -30,13 +31,20 @@
     self = [super initWithNibName:@"CompilerPaneViewController" bundle:nil project:project];
     if (self) {
         _compiler = [compiler retain];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleProjectDidDetectChange:) name:ProjectDidDetectChangeNotification object:nil];
     }
     return self;
 }
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [_compiler release], _compiler = nil;
     [super dealloc];
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"%@(%@, %@)", NSStringFromClass([self class]), _project.displayPath, _compiler.name];
 }
 
 
@@ -57,8 +65,13 @@
 
 #pragma mark - Pane lifecycle
 
+- (NSString *)monitoringKey {
+    return [NSString stringWithFormat:@"compilerOptionsOpen:%@", _compiler.uniqueId];
+}
+
 - (void)paneWillShow {
     [super paneWillShow];
+    [_project requestMonitoring:YES forKey:[self monitoringKey]];
     [self updateFileOptions];
 }
 
@@ -67,9 +80,12 @@
 }
 
 - (void)paneWillHide {
-    NSLog(@"globalOptions = %@", [self.options.globalOptions description]);
     [_objectController commitEditing];
     [super paneWillHide];
+}
+
+- (void)paneDidHide {
+    [_project requestMonitoring:NO forKey:[self monitoringKey]];
 }
 
 
@@ -83,7 +99,6 @@
 }
 
 - (void)updateFileOptions {
-    NSLog(@"updateFileOptions");
     CompilationOptions *options = self.options;
     NSMutableArray *array = [[NSMutableArray alloc] init];
     for (NSString *sourcePath in [_compiler pathsOfSourceFilesInTree:_project.tree]) {
@@ -100,6 +115,12 @@
     [self willChangeValueForKey:@"fileOptions"];
     _fileOptions = [[NSArray alloc] initWithArray:array];
     [self didChangeValueForKey:@"fileOptions"];
+}
+
+- (void)handleProjectDidDetectChange:(NSNotification *)notification {
+    if (notification.object == _project) {
+        [self updateFileOptions];
+    }
 }
 
 @end
