@@ -130,7 +130,6 @@
 - (PXListViewCell*)listView:(PXListView*)aListView cellForRow:(NSUInteger)row {
     ProjectCell *cell = (ProjectCell *) [aListView dequeueCellWithReusableIdentifier:@"Project"];
     if (cell == nil) {
-        NSLog(@"- cellForRow: %lu", row);
         cell = [ProjectCell cellLoadedFromNibNamed:@"ProjectCell" reusableIdentifier:@"Project"];
         cell.delegate = self;
     }
@@ -338,7 +337,6 @@
 }
 
 - (NSRect)window:(NSWindow *)window willPositionSheet:(NSWindow *)sheet usingRect:(NSRect)rect {
-    NSLog(@"Proposed rect: %@", NSStringFromRect(rect));
     NSView *cell = [_listView cellForRowAtIndex:_sheetRow];
     NSRect frame = [cell frame];
     frame = [[cell superview] convertRect:frame toView:_mainView];

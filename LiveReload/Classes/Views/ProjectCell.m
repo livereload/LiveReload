@@ -10,27 +10,6 @@
 #pragma mark -
 #pragma mark Init/dealloc
 
-- (id)initWithReusableIdentifier:(NSString*)identifier {
-    NSLog(@"- [ProjectCell initWithReusableIdentifier] at %p", self);
-    return [super initWithReusableIdentifier:identifier];
-}
-
-- (id)initWithCoder:(NSCoder *)aDecoder {
-    NSLog(@"- [ProjectCell initWithCoder] at %p", self);
-    return [super initWithCoder:aDecoder];
-}
-
-- (id)init {
-    NSLog(@"- [ProjectCell init] at %p", self);
-    self = [super init];
-    NSLog(@"- [ProjectCell init] after super call, self = %p", self);
-    return self;
-}
-
-- (void)awakeFromNib {
-    NSLog(@"- [ProjectCell awakeFromNib] at %p", self);
-}
-
 - (void)dealloc {
     [titleLabel release], titleLabel=nil;
 

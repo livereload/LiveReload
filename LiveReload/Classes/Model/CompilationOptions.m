@@ -21,7 +21,6 @@ NSString *CompilationOptionsEnabledChangedNotification = @"CompilationOptionsEna
 - (id)initWithCompiler:(Compiler *)compiler dictionary:(NSDictionary *)info {
     self = [super init];
     if (self) {
-        NSLog(@"CompilationOptions(%p) initWithCompiler:%@", self, compiler.name);
         _compiler = [compiler retain];
         _globalOptions = [[NSMutableDictionary alloc] init];
         _fileOptions = [[NSMutableDictionary alloc] init];
