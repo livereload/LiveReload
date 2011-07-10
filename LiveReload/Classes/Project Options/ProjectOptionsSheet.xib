@@ -89,7 +89,7 @@
 						</object>
 						<object class="NSScrollView" id="117334135">
 							<reference key="NSNextResponder" ref="197481763"/>
-							<int key="NSvFlags">268</int>
+							<int key="NSvFlags">276</int>
 							<object class="NSMutableArray" key="NSSubviews">
 								<bool key="EncodedWithXMLCoder">YES</bool>
 								<object class="NSClipView" id="726774491">
@@ -109,7 +109,6 @@
 												<nil key="NSNextResponder"/>
 												<int key="NSvFlags">-2147483392</int>
 												<string key="NSFrame">{{224, 0}, {16, 17}}</string>
-												<reference key="NSNextKeyView" ref="726774491"/>
 											</object>
 											<object class="NSMutableArray" key="NSTableColumns">
 												<bool key="EncodedWithXMLCoder">YES</bool>
@@ -255,7 +254,7 @@
 									<string key="NSFrame">{{-100, -100}, {128, 15}}</string>
 									<reference key="NSSuperview" ref="117334135"/>
 									<reference key="NSWindow"/>
-									<reference key="NSNextKeyView"/>
+									<reference key="NSNextKeyView" ref="726774491"/>
 									<int key="NSsFlags">1</int>
 									<reference key="NSTarget" ref="117334135"/>
 									<string key="NSAction">_doScroller:</string>
@@ -274,7 +273,7 @@
 						</object>
 						<object class="NSButton" id="402536380">
 							<reference key="NSNextResponder" ref="197481763"/>
-							<int key="NSvFlags">-2147483380</int>
+							<int key="NSvFlags">-2147483356</int>
 							<string key="NSFrame">{{20, 19}, {25, 23}}</string>
 							<reference key="NSSuperview" ref="197481763"/>
 							<reference key="NSWindow"/>
@@ -300,7 +299,7 @@
 						</object>
 						<object class="NSButton" id="1015007761">
 							<reference key="NSNextResponder" ref="197481763"/>
-							<int key="NSvFlags">-2147483380</int>
+							<int key="NSvFlags">-2147483356</int>
 							<string key="NSFrame">{{43, 19}, {25, 23}}</string>
 							<reference key="NSSuperview" ref="197481763"/>
 							<reference key="NSWindow"/>
@@ -326,7 +325,7 @@
 						</object>
 						<object class="NSBox" id="893751143">
 							<reference key="NSNextResponder" ref="197481763"/>
-							<int key="NSvFlags">12</int>
+							<int key="NSvFlags">18</int>
 							<object class="NSMutableArray" key="NSSubviews">
 								<bool key="EncodedWithXMLCoder">YES</bool>
 								<object class="NSView" id="405689061">
@@ -336,7 +335,7 @@
 										<bool key="EncodedWithXMLCoder">YES</bool>
 										<object class="NSTextField" id="249282875">
 											<reference key="NSNextResponder" ref="405689061"/>
-											<int key="NSvFlags">268</int>
+											<int key="NSvFlags">301</int>
 											<string key="NSFrame">{{135, 195}, {252, 17}}</string>
 											<reference key="NSSuperview" ref="405689061"/>
 											<reference key="NSWindow"/>
@@ -399,6 +398,7 @@
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1280, 778}}</string>
 				<string key="NSMaxSize">{1e+13, 1e+13}</string>
+				<string key="NSFrameAutosaveName">ProjectEditor</string>
 			</object>
 			<object class="NSArrayController" id="184761642">
 				<bool key="NSEditable">YES</bool>

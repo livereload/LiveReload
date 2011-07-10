@@ -46,7 +46,7 @@
 			</object>
 			<object class="NSBox" id="517729988">
 				<reference key="NSNextResponder"/>
-				<int key="NSvFlags">12</int>
+				<int key="NSvFlags">18</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="NSView" id="355104748">
 						<reference key="NSNextResponder" ref="517729988"/>
@@ -54,7 +54,7 @@
 						<array class="NSMutableArray" key="NSSubviews">
 							<object class="NSScrollView" id="389956779">
 								<reference key="NSNextResponder" ref="355104748"/>
-								<int key="NSvFlags">268</int>
+								<int key="NSvFlags">274</int>
 								<array class="NSMutableArray" key="NSSubviews">
 									<object class="NSClipView" id="89346688">
 										<reference key="NSNextResponder" ref="389956779"/>
@@ -186,10 +186,10 @@
 													</object>
 												</object>
 												<double key="NSRowHeight">17</double>
-												<int key="NSTvFlags">1388314624</int>
+												<int key="NSTvFlags">1388347392</int>
 												<reference key="NSDelegate"/>
 												<reference key="NSDataSource"/>
-												<int key="NSColumnAutoresizingStyle">4</int>
+												<int key="NSColumnAutoresizingStyle">1</int>
 												<int key="NSDraggingSourceMaskForLocal">15</int>
 												<int key="NSDraggingSourceMaskForNonLocal">0</int>
 												<bool key="NSAllowsTypeSelect">YES</bool>
@@ -316,7 +316,7 @@
 							</object>
 							<object class="NSTextField" id="799695168">
 								<reference key="NSNextResponder" ref="355104748"/>
-								<int key="NSvFlags">268</int>
+								<int key="NSvFlags">265</int>
 								<string key="NSFrame">{{372, 374}, {135, 17}}</string>
 								<reference key="NSSuperview" ref="355104748"/>
 								<reference key="NSWindow"/>
@@ -424,7 +424,7 @@
 							</object>
 							<object class="NSButton" id="979521487">
 								<reference key="NSNextResponder" ref="355104748"/>
-								<int key="NSvFlags">268</int>
+								<int key="NSvFlags">289</int>
 								<string key="NSFrame">{{316, 27}, {188, 23}}</string>
 								<reference key="NSSuperview" ref="355104748"/>
 								<reference key="NSWindow"/>

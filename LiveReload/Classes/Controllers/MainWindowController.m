@@ -334,6 +334,9 @@
     _inProjectEditorMode = NO;
     [self.window setLevel:NSNormalWindowLevel];
     [projectEditorController release], projectEditorController = nil;
+
+    // at least on OS X 10.6, the window position is only persisted on quit
+    [[NSUserDefaults standardUserDefaults] performSelector:@selector(synchronize) withObject:nil afterDelay:2.0];
 }
 
 - (NSRect)window:(NSWindow *)window willPositionSheet:(NSWindow *)sheet usingRect:(NSRect)rect {
