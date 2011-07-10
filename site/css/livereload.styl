@@ -1,0 +1,271 @@
+// solarized
+dark3 = #002b36
+dark2 = #073642
+dark1 = #586e75
+dark0 = #657b83
+lite0 = #839496
+lite1 = #93a1a1
+lite2 = #eee8d5
+lite3 = #fdf6e3
+yellow = #b58900
+orange = #cb4b16
+red = #dc322f
+magenta = #d33682
+violet = #6c71c4
+blue = #268bd2
+cyan = #2aa198
+green = #859900
+
+// page layout
+
+baseline = 28px
+
+html, input
+  font 16px/baseline 'Lora', 'Times New Roman', Times, serif
+  color dark2
+
+html
+  overflow-y: scroll
+  -webkit-tap-highlight-color: rgba(0,0,0,0)
+  -webkit-text-size-adjust: 100%
+  -ms-text-size-adjust: 100%
+
+body
+  background #fff
+  margin: 0 0
+  padding 0 0 80px
+
+a, a:visited
+  color blue
+a:hover
+  color red
+a:focus
+  outline: thin dotted
+a:hover, a:active
+  outline: 0
+  
+.content, section
+  width 950px
+  //background lite1
+  margin 0 auto
+.left
+  width 600px
+  float left
+  //background lite2
+
+.right
+  width 332px
+  float right
+  position relative
+  
+header
+  text-align center
+  background lite3
+  padding 40px 0 30px
+  height 373px
+
+  .right
+    height 373px
+    background url(../map.png) no-repeat 0% 0%
+    
+    a, a:visited
+      line-height 1
+      position absolute
+      width 150px
+      font-weight bold
+      text-decoration none
+    a::after
+      content: "•"
+      line-height 1
+      font-size 28px
+      position absolute
+      left 0px
+      width 150px
+      top -20px
+    .screencast-pin
+      left 160px
+      top 55px
+    .compilers-pin
+      left 90px
+      top 255px
+    .download-pin
+      left 30px
+      top 130px
+    .news-pin
+      left 60px
+      top 310px
+
+  .left
+    a
+      color dark2
+
+  p, h1, h2
+    margin 0 0
+
+  p
+    font-weight normal
+
+  h1
+    font-size 36px
+    line-height 36px
+    font-weight bold
+    margin-top 10px
+    color dark3
+
+  p.subtitle
+    margin-top 30px
+    margin-bottom 30px
+
+  h2
+    font-size 24px
+    line-height 24px
+    font-weight normal
+    margin-bottom 16px
+
+  p.citizenship
+    margin-top 30px
+
+section
+  padding-top 30px
+  overflow hidden
+  .left
+    h2
+      text-align center
+
+.what-is-livereload
+  .left
+    text-align center
+
+.download-section
+  .right
+    margin-top 19px
+    padding 10px 10px
+    width 302px
+    background lite2
+    color dark1
+    line-height 20px
+    color dark3
+    min-height 247px
+    
+    h2
+      margin 0 0
+      font-size 14px
+      font-weight normal
+      text-transform uppercase
+    p
+      margin 8px 0 0
+      padding 0
+      font-size 14px
+    input, textarea
+      -webkit-box-sizing content-box
+      padding 0 3px
+      color dark1
+      border 1px solid lite1
+      background lite3
+      font-size 14px
+      line-height 20px
+      width: 296px
+      margin: 0
+    .submit
+      padding 2px 3px
+      margin-top 5px
+      &:hover
+        background lite2
+        
+.greencard-sent
+  margin-top 90px
+  text-align center
+
+.compilers-section
+  .right
+    margin-top 69px
+    height 483px
+    background url(../screenshot-compilers.png)
+
+ul, ol
+  margin: 1em 0
+  padding: 0 0 0 25px
+
+span.expand
+  text-decoration underline
+
+// normalize
+
+button, input, select, textarea
+  font-family: sans-serif
+
+article, aside, details, figcaption, figure, footer, header, hgroup, nav, section
+  display: block
+
+audio[controls], canvas, video
+  display: inline-block
+  *display: inline
+  *zoom: 1
+
+b, strong
+  font-weight: bold
+
+blockquote
+  margin: 1em 40px
+
+pre, code
+  font-family: monospace, monospace
+  _font-family: 'courier new', monospace
+  font-size: 1em
+
+pre
+  white-space: pre-wrap
+  word-wrap: break-word
+
+nav ul, nav ol
+  list-style: none
+
+img
+  border: 0
+  -ms-interpolation-mode: bicubic
+
+figure
+  margin: 0
+
+form
+  margin: 0
+
+fieldset
+  margin: 0 2px
+  padding: 0.35em 0.625em 0.75em
+
+legend
+  border: 0
+  *margin-left: -7px
+
+button, input
+  line-height: normal
+  *overflow: visible
+
+button, input[type="button"], input[type="reset"], input[type="submit"]
+  cursor: pointer
+  -webkit-appearance: button
+
+input[type="checkbox"], input[type="radio"]
+  box-sizing: border-box
+
+input[type="search"]
+  -webkit-appearance: textfield
+  -moz-box-sizing: content-box
+  -webkit-box-sizing: content-box
+  box-sizing: content-box
+
+input[type="search"]::-webkit-search-decoration
+  -webkit-appearance: none
+
+button::-moz-focus-inner, input::-moz-focus-inner
+  border: 0
+  padding: 0
+
+textarea
+  overflow: auto
+  vertical-align: top
+
+table
+  border-collapse: collapse
+  border-spacing: 0

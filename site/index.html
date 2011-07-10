@@ -4,42 +4,335 @@
   <script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>LiveReload</title>
+  <link href='http://fonts.googleapis.com/css?family=Lora:regular,bold&v1' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Caudex:regular,bold&v1' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Droid+Serif:regular,bold&v1' rel='stylesheet' type='text/css'>
+  <!-- <link href='http://fonts.googleapis.com/css?family=Droid+Serif&v1' rel='stylesheet' type='text/css'> -->
+  <link rel="stylesheet" href="css/livereload.css" type="text/css" media="screen" title="main stylesheet" charset="utf-8">
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-24459554-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </script>
 </head>
 <body>
-  <h1>LiveReload 2</h1>
-  <p>
-    We don't have a real web site yet.
-  </p>
-  <p>
-    You can <a href="LiveReload.zip">download the latest beta version</a> of LiveReload 2.
-  </p>
+  <header>
+    <div class="content">
+      <div class="left">
+        <p>LiveReload 2 proudly presents…</p>
 
-  <h2>Questions & Answers</h2>
-  <dl>
-    <dt>
-      What is LiveReload 2?
-    </dt>
-    <dd>
-      LiveReload 2 is a commercial, GUI (graphical user interface) version of LiveReload for Mac and Windows.
-    </dd>
+        <h1>The Web Developer Wonderland</h1>
+    
+        <p class="subtitle">(a happy land where browsers don't need a Refresh button)</p>
+ 
+        <h2>CSS edits and image changes apply live.</h2>
 
-    <dt>
-      What's new in LiveReload 2?
-    </dt>
-    <dd>
-      LiveReload 2 has been rewritten from scratch — except for the browser extensions that are shared with LiveReload 1.x.
-    </dd>
+        <h2>CoffeeScript, SASS, LESS <a href="#compilers">and others</a> just work.</h2>
+    
+        <p class="citizenship">
+          Citizenship will be granted through the Mac App Store.<br>
+          Meanwhile, get yourself a <a href="#download">green beta tester card</a>.
+        </p>
+      </div>
 
-    <dt>
-      Does it mean LiveReload 1.x won't work now?
-    </dt>
-    <dd>
-      LiveReload 1.x will stay free and open-source command-line tool as usual. It will continue to work well.
-      However LiveReload 2 is a more convenient, and buying it is a great way to support the team behind LiveReload.
-    </dd>
-  </p>
-  <p>
-  </p>
+      <div class="right">
+        <!-- <a href="#screencast" class="screencast-pin">Screencastwood</a> -->
+        <a href="#download" class="download-pin">San Downloads</a>
+        <a href="#compilers" class="compilers-pin">Compilerton</a>
+        <a href="#news" class="news-pin">Newsville</a>
+      </div>
+    </div>
+  </header>
+  
+  <section class="what-is-livereload">
+    <div class="left">
+      <img src="screenshot.png" width="513" height="358">
+    </div>
+    <div class="right">
+      <h2>What does LiveReload do?</h2>
+      
+      <p>
+        LiveReload monitors changes in the file system.
+        As soon as you save a file, it is <a href="#compilers">preprocessed as needed</a>,
+        and the browser is&nbsp;refreshed.
+      </p>
+      
+      <p>
+        Even cooler, when you change a&nbsp;CSS file or an&nbsp;image,
+        the browser is updated instantly without reloading
+        the&nbsp;page.
+      </p>
+    </div>
+  </section>
+
+  <section class="download-section">
+    <a name="download"></a>
+    <div class="left">
+      <h2><a href="LiveReload-2.0a3.zip" class="download">Download LiveReload 2.0 α3 for Mac</a></h2>
+
+      <p>
+        Requires OS X 10.6 Snow Leopard or later.
+      </p>
+      
+      <p>
+        After you download and install LiveReload,
+        it will ask you to install its browser
+        extensions.
+      </p>
+      
+      <p>
+        I'm developing LiveReload 2 as we speak,
+        during those long long weekend nights.
+        The app is expected to work quite well,
+        but I might have borked a thing or two.
+        When you find something to complain about,
+        please drop me an email at
+        <a href="mailto:andreyvit@gmail.com">andreyvit@gmail.com</a>.
+      </p>
+      <p>
+        Also, please please PLEASE don't try to
+        add your whole home directory to LiveReload.
+        That kind of behavior won't make you happier.
+        Besides, it's the first rule of the wonderland.
+        You aren't going to break any rules here, are you?
+      </p>
+      <p>
+        Fill in the application form on the right
+        to be included into the beta testers emailing list.
+        Early beta testers will receive the full <del>version</del>
+        citizenship for free.
+      </p>
+    </div>
+    <div class="right">
+      <h2>Wonderland green card application</h2>
+
+      <div class="greencard-sent" style="display: none">
+        Thanks!
+      </div>
+      <form class="greencard">
+        <p>Tell the truth, or face the consequences!</p>
+        <p>
+          Your e-mail address:<br>
+          <input name="email" class="email">
+        </p>
+        <p>
+          Tell us about yourself (optional!)<br>
+          <textarea name="message" class="message" rows="4"></textarea>
+        </p>
+        <p>
+          <input type="submit" class="submit" value="Apply and subscribe to citizen news">
+        </p>
+      </form>
+    </div>
+  </section>
+
+  <!-- <section class="screencast-section">
+    <a name="screencast"></a>
+    <div class="left">
+      <h2>Screencastwood is closed.</h2>
+    </div>
+    <div class="right">
+      <p>
+        Sorry, our screencasts have run dry.
+        Until we can get a refill, no visitors will be admitted.
+        Please come back soon.
+      </p>
+    </div>
+  </section> -->
+
+  <section class="compilers-section">
+    <a name="compilers"></a>
+    <div class="left">
+      <h2>Compilers and preprocessors</h2>
+      
+      <p>
+        LiveReload 2 introduces first-class support for
+        CoffeeScript, SASS/SCSS, LESS, Stylus, HAML and Jade,
+        and is shipped with all of them included.
+      </p>
+
+      <p>
+        If you want LiveReload to compile your source files,
+        enable the desired items in the project options dialog
+        (the one you get when you double-click a project).
+      </p>
+      
+      <p>
+        After you add new source files, you might need to
+        go back to the options dialog and set the output directory.
+        LiveReload tries to guess where you want to put the
+        compiled files, however every once in a while its magic dust
+        runs dry and guessing fails.
+      </p>
+      
+      <p>
+        If compiling through LiveReload is not your thing,
+        keep the compilers disabled on the options page.
+        There are two other modes of operation that LR
+        activates automatically when a compiler is disabled.
+      </p>
+      
+      <p>
+        First, if you simply want to compile the source files yourself
+        (from the command line or using your own script),
+        LiveReload will step away and ignore the changes to your source files.
+        This mode (total ignorance) is activated when the compiled files
+        are present in the project.
+      </p>
+      
+      <p>
+        Second, if you are using some kind of server-side middleware
+        to serve the compiled files on the fly, LiveReload simulates a change
+        in a corresponding (non-existent) derived file when you change
+        a source file. FOR EXAMPLE, if you change think.less,
+        LiveReload will tell the browser that think.css has changed.
+        That will cause all CSS files to be reloaded by the browser
+        (unless your middleware actually serves the file as think.css,
+        in which case only that file will be reloaded).
+        This mode is activated if the corresponding compiled files
+        are NOT present in the project.
+      </p>
+      
+      <p>
+        If that last paragraph is giving you head aches, perhaps
+        you should forget it and just remember that server-side on-the-fly
+        compilation now works out of the box.
+      </p>
+    </div>
+    <div class="right">
+    </div>
+  </section>
+
+  <section class="news-section">
+    <a name="news"></a>
+    <div class="left">
+      <h2>What's new in LiveReload?</h2>
+      
+      <h3>2.0α3</h3>
+
+      <ol>
+        <li><p>Introduced <a href="#compilers">support for languages that compile into CSS/JS/HTML</a></p></li>
+        <li>Updated the web site to suck less. Go ahead, explore it and tell me what you think.</li>
+      </ol>
+
+      <p>
+        Perhaps you want to <a href="#download">download LR 2.0α3</a>?
+      </p>
+      
+      <h3>2.0α2</h3>
+      
+      <ol>
+
+        <li>
+          <p><b>Limits monitored extensions to a predefined list</b></p>
+
+          <p>
+            Includes: HTML/CSS/JS and their variants (Less, SASS, HAML, CoffeeScript), images,
+            various PHP extensions, Ruby, Python.
+          </p>
+
+          <p>
+            For now, you can view and/or customize this list in monitoring.plist inside the application bundle.
+            Please let me know if you had to make any customizations, so that I can add them to the default list.
+          </p>
+        </li>
+
+        <li>
+          <p><b>First step of handling Less/SASS/HAML/CoffeeScript</b></p>
+          <p>
+            If there is a corresponding css/js file for your less/sass/scss/coffee,
+            the changes to your less/sass/scss/coffee will be ignored
+            (because there is probably an external compiler that will update css/js soon).
+          </p>
+          <p>
+            Otherwise LR proceeds as usual, assuming that you are compiling those on the fly
+            in your server-side code or directly inside the browser.
+          </p>
+          <p>
+            LR will support compiling all those files soon.
+            Let me know about the compilation and minification options you would like to see added to LR.
+          </p>
+        </li>
+
+        <li>
+          <p><b>Menu bar icon update</b></p>
+
+          <p>
+            The menu bar icon now indicates the state of LiveReload: inactive (no browsers connected,
+            monitoring disabled), active (browser(s) connected, monitoring the file system),
+            change detected (blinks green).
+          </p>
+
+          <p>
+            You can also drag'n'drop folders onto the menu bar icon now.
+          </p>
+
+      </ol>
+
+      <h3>2.0α1</h3>
+
+      <ol>
+
+        <li>
+          Native Mac OS X Cocoa-based UI
+        </li>
+
+        <li>
+          File system monitoring via native FSEvents API
+        </li>
+
+        <li>
+          Does not depend on Ruby or any external libraries
+        </li>
+
+        <li>
+          Installs Safari & Chrome extensions (almost) automatically
+        </li>
+
+        <li>
+          Monitoring is only activated when a browser is connected — meaning zero resource usage while not in use
+        </li>
+
+      </ol>
+
+    </div>
+  </section>
+  
+  <section>
+    <div class="left">
+      <h2>Thanks for reading!</h2>
+
+      <p>
+        I know you're a busy person, so I really appreciate you
+        taking time to explore this little web site.
+      </p>
+
+      <p>
+        If you choose (or have already chosen) to <a href="#download">download</a>
+        LiveReload and give it a try, first, you're amazing and I love you,
+        second, please remember you can email me any time you have a question
+        or encounter a problem: <a href="mailto:andreyvit@gmail.com">andreyvit@gmail.com</a>.
+      </p>
+      
+      <p>
+        Cheers!
+      </p>
+      
+      <p>
+        Andrey Tarantsov.
+      </p>
+    </div>
+  </section>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
   <script type="text/javascript">
     (function() {
       var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
@@ -48,7 +341,7 @@
     })();
   </script>
   <script type="text/javascript">
-  var _sf_async_config={uid:23639,domain:"livereload.mockko.com"};
+  var _sf_async_config={uid:23639,domain:"livereload.com"};
   (function(){
     function loadChartbeat() {
       window._sf_endpt=(new Date()).getTime();
@@ -64,7 +357,32 @@
     window.onload = (typeof window.onload != 'function') ?
        loadChartbeat : function() { oldonload(); loadChartbeat(); };
   })();
-  </script>
 
+  </script>
+  <script type='text/javascript'> var mp_protocol = (('https:' == document.location.protocol) ? 'https://' : 'http://'); document.write(unescape('%3Cscript src="' + mp_protocol + 'api.mixpanel.com/site_media/js/api/mixpanel.js" type="text/javascript"%3E%3C/script%3E')); </script> <script type='text/javascript'> try {  var mpmetrics = new MixpanelLib('c172b6e3eb5bf1de17f8d0c590fa561e'); } catch(err) { null_fn = function () {}; var mpmetrics = {  track: null_fn,  track_funnel: null_fn,  register: null_fn,  register_once: null_fn, register_funnel: null_fn }; } </script>
+  <script>
+    mpmetrics.set_config({ track_links_timeout: 1000 });
+    mpmetrics.track('Load homepage');
+    mpmetrics.track_links('.download', 'Download', { where: 'Main' });
+    mpmetrics.track_links('.download-in-whatsnew', 'Download', { where: "What's New" });
+    mpmetrics.track_links('.oldver', 'Visit old site');
+    
+    $('.greencard').submit(function(e) {
+      e.preventDefault();
+      var email = $('.email', this).val();
+      if (email.length == 0 || !email.match(/@/)) {
+        alert("Please enter a valid email.");
+        $('.email', this).focus();
+        return;
+      }
+      
+      var message = $('.message', this).val();
+      $('.submit', this).val('Sending your application...');
+      $.post('subscribe.php', { email: email, message: message }, function() {
+        $('.greencard').hide();
+        $('.greencard-sent').show();
+      });
+    });
+  </script>
 </body>
 </html>
