@@ -98,6 +98,10 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
                                      kFSEventStreamEventIdSinceNow,
                                      0.25,
                                      kFSEventStreamCreateFlagUseCFTypes);
+    if (!_streamRef) {
+        NSLog(@"Failed to start monitoring of %@ (FSEventStreamCreate error)", _path);
+    }
+
     FSEventStreamScheduleWithRunLoop(_streamRef, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
     FSEventStreamStart(_streamRef);
 }

@@ -19,9 +19,12 @@ struct FSTreeItem {
 
 @implementation FSTree
 
-- (id)initWithPath:(NSString *)path filter:(FSTreeFilter *)filter {
+@synthesize rootPath=_rootPath;
+
+- (id)initWithPath:(NSString *)rootPath filter:(FSTreeFilter *)filter {
     if ((self = [super init])) {
         _filter = [filter retain];
+        _rootPath = [rootPath copy];
         _items = calloc(kMaxItems, sizeof(struct FSTreeItem));
 
         NSFileManager *fm = [NSFileManager defaultManager];
@@ -29,10 +32,10 @@ struct FSTreeItem {
         NSDate *start = [NSDate date];
 
         struct stat st;
-        if (0 == lstat([path UTF8String], &st)) {
+        if (0 == lstat([rootPath UTF8String], &st)) {
             {
                 struct FSTreeItem *item = &_items[_count++];
-                item->name = [path retain];
+                item->name = @"";
                 item->st_mode = st.st_mode & S_IFMT;
                 item->st_dev = st.st_dev;
                 item->st_ino = st.st_ino;
@@ -43,14 +46,15 @@ struct FSTreeItem {
                 struct FSTreeItem *item = &_items[next];
                 if (item->st_mode == S_IFDIR) {
 //                    NSLog(@"Listing %@", item->name);
-                    for (NSString *child in [[fm contentsOfDirectoryAtPath:item->name error:nil] sortedArrayUsingSelector:@selector(compare:)]) {
-                        NSString *subpath = [item->name stringByAppendingPathComponent:child];
+                    NSString *itemPath = [_rootPath stringByAppendingPathComponent:item->name];
+                    for (NSString *child in [[fm contentsOfDirectoryAtPath:itemPath error:nil] sortedArrayUsingSelector:@selector(compare:)]) {
+                        NSString *subpath = [itemPath stringByAppendingPathComponent:child];
                         if (0 == lstat([subpath UTF8String], &st)) {
                             if (![filter acceptsFileName:child isDirectory:(st.st_mode & S_IFMT) == S_IFDIR])
                                 continue;
                             struct FSTreeItem *subitem = &_items[_count++];
                             subitem->parent = next;
-                            subitem->name = [subpath retain];
+                            subitem->name = [([item->name length] > 0 ? [item->name stringByAppendingPathComponent:child] : child) retain];
                             subitem->st_mode = st.st_mode & S_IFMT;
                             subitem->st_dev = st.st_dev;
                             subitem->st_ino = st.st_ino;
@@ -62,7 +66,7 @@ struct FSTreeItem {
         }
 
         NSDate *end = [NSDate date];
-        NSLog(@"Scanned %d items in %.3lfs in directory %@", (int)_count, ([end timeIntervalSinceReferenceDate] - [start timeIntervalSinceReferenceDate]), path);
+        NSLog(@"Scanned %d items in %.3lfs in directory %@", (int)_count, ([end timeIntervalSinceReferenceDate] - [start timeIntervalSinceReferenceDate]), rootPath);
     }
     return self;
 }

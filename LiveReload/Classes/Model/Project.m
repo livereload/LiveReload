@@ -129,12 +129,15 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
 
 - (void)fileSystemMonitor:(FSMonitor *)monitor detectedChangeAtPathes:(NSSet *)pathes {
     NSMutableSet *filtered = [NSMutableSet setWithCapacity:[pathes count]];
+    NSString *rootPath = monitor.tree.rootPath;
     for (NSString *path in pathes) {
+        path = [rootPath stringByAppendingPathComponent:path];
         Compiler *compiler = [[PluginManager sharedPluginManager] compilerForExtension:[path pathExtension]];
         if (compiler) {
             NSString *derivedName = [compiler derivedNameForFile:path];
             NSString *derivedPath = [_monitor.tree pathOfFileNamed:derivedName];
             if (derivedPath) {
+                derivedPath = [rootPath stringByAppendingPathComponent:derivedPath];
                 [compiler compile:path into:derivedPath];
             }
         } else {

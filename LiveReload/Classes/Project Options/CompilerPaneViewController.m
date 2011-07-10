@@ -99,6 +99,8 @@
 }
 
 - (void)updateFileOptions {
+    NSLog(@"stringByAppendingPathComponent to empty: %@", [@"" stringByAppendingPathComponent:@"test"]);
+    NSLog(@"stringByDeletingLastPathComponent of single word: %@", [@"test" stringByDeletingLastPathComponent]);
     CompilationOptions *options = self.options;
     NSMutableArray *array = [[NSMutableArray alloc] init];
     for (NSString *sourcePath in [_compiler pathsOfSourceFilesInTree:_project.tree]) {
