@@ -22,6 +22,7 @@
 
 @synthesize compiler=_compiler;
 @synthesize objectController = _objectController;
+@synthesize fileOptionsArrayController = _fileOptionsArrayController;
 @synthesize fileOptions=_fileOptions;
 
 
@@ -81,6 +82,7 @@
 
 - (void)paneWillHide {
     [_objectController commitEditing];
+    [_fileOptionsArrayController commitEditing];
     [super paneWillHide];
 }
 
@@ -124,5 +126,39 @@
         [self updateFileOptions];
     }
 }
+
+
+#pragma mark - Actions
+
+- (IBAction)chooseOutputDirectory:(id)sender {
+    NSArray *selection = [_fileOptionsArrayController selectedObjects];
+    if ([selection count] == 0)
+        return;
+
+    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+    [openPanel setCanChooseDirectories:YES];
+    [openPanel setCanCreateDirectories:YES];
+    [openPanel setPrompt:@"Choose folder"];
+    [openPanel setCanChooseFiles:NO];
+    [openPanel setDirectoryURL:[NSURL fileURLWithPath:_project.path isDirectory:YES]];
+    NSInteger result;
+retry:
+    result = [openPanel runModal];
+    if (result == NSFileHandlingPanelOKButton) {
+        NSURL *url = [openPanel URL];
+        NSString *absolutePath = [url path];
+        NSString *relativePath = [_project relativePathForPath:absolutePath];
+        if (relativePath == nil) {
+            if ([[NSAlert alertWithMessageText:@"Subdirectory required" defaultButton:@"Retry" alternateButton:@"Cancel" otherButton:nil informativeTextWithFormat:@"Sorry, the path you have chosen in not a subdirectory of the project.\n\nChosen path:\n%@\n\nMust be a subdirectory of:\n%@", [absolutePath stringByAbbreviatingWithTildeInPath], [_project.path stringByAbbreviatingWithTildeInPath]] runModal] == NSAlertDefaultReturn) {
+                goto retry;
+            }
+            return;
+        }
+        for (FileCompilationOptions *options in selection) {
+            options.destinationDirectory = relativePath;
+        }
+    }
+}
+
 
 @end

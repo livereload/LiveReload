@@ -186,5 +186,25 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
     [self requestMonitoring:[self areAnyCompilersEnabled] forKey:CompilersEnabledMonitoringKey];
 }
 
+- (NSString *)relativePathForPath:(NSString *)path {
+    NSString *root = [_path stringByResolvingSymlinksInPath];
+    path = [path stringByResolvingSymlinksInPath];
+
+    if ([root isEqualToString:path]) {
+        return @"/";
+    }
+
+    NSArray *rootComponents = [root pathComponents];
+    NSArray *pathComponents = [path pathComponents];
+
+    NSInteger pathCount = [pathComponents count];
+    NSInteger rootCount = [rootComponents count];
+    if (pathCount > rootCount) {
+        if ([rootComponents isEqualToArray:[pathComponents subarrayWithRange:NSMakeRange(0, rootCount)]]) {
+            return [[pathComponents subarrayWithRange:NSMakeRange(rootCount, pathCount - rootCount)] componentsJoinedByString:@"/"];
+        }
+    }
+    return nil;
+}
 
 @end

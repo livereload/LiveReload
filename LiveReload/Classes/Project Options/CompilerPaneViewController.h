@@ -14,6 +14,7 @@
     NSArray                *_fileOptions;
 
     NSObjectController     *_objectController;
+    NSArrayController      *_fileOptionsArrayController;
 }
 
 - (id)initWithProject:(Project *)project compiler:(Compiler *)compiler;
@@ -22,6 +23,7 @@
 @property (nonatomic, readonly) CompilationOptions *options;
 
 @property (assign) IBOutlet NSObjectController *objectController;
+@property (assign) IBOutlet NSArrayController *fileOptionsArrayController;
 
 @property (nonatomic, readonly) NSArray *fileOptions;
 

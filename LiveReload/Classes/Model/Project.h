@@ -38,4 +38,6 @@ extern NSString *ProjectMonitoringStateDidChangeNotification;
 
 - (NSComparisonResult)compareByDisplayPath:(Project *)another;
 
+- (NSString *)relativePathForPath:(NSString *)path;
+
 @end
