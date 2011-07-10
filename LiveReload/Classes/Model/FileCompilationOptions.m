@@ -18,6 +18,8 @@
         _destinationDirectory = [memento objectForKey:@"output_dir"];
         if ([_destinationDirectory length] == 0) {
             _destinationDirectory = nil;
+        } else if ([_destinationDirectory isEqualToString:@"."]) {
+            _destinationDirectory = @"";
         }
         _additionalOptions = [[NSMutableDictionary alloc] init];
     }
@@ -35,7 +37,7 @@
 #pragma mark -
 
 - (NSDictionary *)memento {
-    return [NSDictionary dictionaryWithObjectsAndKeys:(_destinationDirectory ? _destinationDirectory : @""), @"output_dir", nil];
+    return [NSDictionary dictionaryWithObjectsAndKeys:(_destinationDirectory ? ([_destinationDirectory length] == 0 ? @"." : _destinationDirectory) : @""), @"output_dir", nil];
 }
 
 
