@@ -52,11 +52,20 @@
 }
 
 - (NSString *)destinationDirectoryForDisplay {
-    return ([_destinationDirectory length] > 0 ? _destinationDirectory : @".");
+    if (_destinationDirectory == nil)
+        return @"(not set)";
+    return ([_destinationDirectory length] > 0 ? _destinationDirectory : @"(root)");
 }
 
 - (void)setDestinationDirectoryForDisplay:(NSString *)destinationDirectoryForDisplay {
-    [self setDestinationDirectory:([destinationDirectoryForDisplay isEqualToString:@"."] ? @"" : destinationDirectoryForDisplay)];
+    destinationDirectoryForDisplay = [destinationDirectoryForDisplay stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if ([_destinationDirectory length] == 0 || [_destinationDirectory isEqualToString:@"(not set)"]) {
+        self.destinationDirectory = nil;
+    } else if ([destinationDirectoryForDisplay isEqualToString:@"."] || [destinationDirectoryForDisplay isEqualToString:@"(root)"]) {
+        self.destinationDirectory = @"";
+    } else {
+        self.destinationDirectory = destinationDirectoryForDisplay;
+    }
 }
 
 + (NSSet *)keyPathsForValuesAffectingDestinationDirectoryForDisplay {
