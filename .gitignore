@@ -1,3 +1,6 @@
 *.pbxuser
 *.perspectivev3
 xcuserdata
+/dist
+/logs
+/raw-logs
