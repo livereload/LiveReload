@@ -1,8 +1,9 @@
 
 #import "Workspace.h"
 #import "Project.h"
-#import "ATFunctionalStyle.h"
 #import "Preferences.h"
+
+#import "ATFunctionalStyle.h"
 
 
 #define ProjectListKey @"projects"
@@ -42,6 +43,7 @@ static NSString *ClientConnectedMonitoringKey = @"clientConnected";
 - (id)init {
     if ((self = [super init])) {
         _projects = [[NSMutableSet alloc] init];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSomethingChanged:) name:@"SomethingChanged" object:nil];
         [self load];
     }
     return self;
@@ -58,17 +60,31 @@ static NSString *ClientConnectedMonitoringKey = @"clientConnected";
 #pragma mark Persistence
 
 - (void)save {
-    NSArray *projectMementos = [[_projects allObjects] arrayByMappingElementsToValueOfKeyPath:@"memento"];
+    NSDictionary *projectMementos = [[[[_projects allObjects] dictionaryWithElementsGroupedByKeyPath:@"path"] dictionaryByMappingKeysToSelector:@selector(stringByAbbreviatingWithTildeInPath)] dictionaryByMappingValuesToSelector:@selector(memento)];
     [[NSUserDefaults standardUserDefaults] setObject:projectMementos forKey:ProjectListKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    _savingScheduled = NO;
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(save) object:nil];
+    NSLog(@"Workspace saved.");
+}
+
+- (void)setNeedsSaving {
+    if (_savingScheduled)
+        return;
+    _savingScheduled = YES;
+    [self performSelector:@selector(save) withObject:nil afterDelay:0.1];
 }
 
 - (void)load {
-    NSArray *projectMementos = [[NSUserDefaults standardUserDefaults] objectForKey:ProjectListKey];
+    NSDictionary *projectMementos = [[NSUserDefaults standardUserDefaults] objectForKey:ProjectListKey];
     [_projects removeAllObjects];
-    [_projects addObjectsFromArray:[projectMementos arrayByMappingElementsUsingBlock:^id(id value) {
-        return [[[Project alloc] initWithMemento:value] autorelease];
-    }]];
+    [projectMementos enumerateKeysAndObjectsUsingBlock:^(id path, id projectMemento, BOOL *stop) {
+        [_projects addObject:[[[Project alloc] initWithPath:[path stringByExpandingTildeInPath] memento:projectMemento] autorelease]];
+    }];
+}
+
+- (void)handleSomethingChanged:(NSNotification *)notification {
+    [self setNeedsSaving];
 }
 
 
@@ -79,14 +95,14 @@ static NSString *ClientConnectedMonitoringKey = @"clientConnected";
     NSParameterAssert(![_projects containsObject:project]);
     [_projects addObject:project];
     [project requestMonitoring:_monitoringEnabled forKey:ClientConnectedMonitoringKey];
-    [self save];
+    [self setNeedsSaving];
 }
 
 - (void)removeProjectsObject:(Project *)project {
     NSParameterAssert([_projects containsObject:project]);
     [project requestMonitoring:NO forKey:ClientConnectedMonitoringKey];
     [_projects removeObject:project];
-    [self save];
+    [self setNeedsSaving];
 }
 
 - (NSArray *)sortedProjects {

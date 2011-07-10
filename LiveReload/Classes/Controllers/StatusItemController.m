@@ -63,7 +63,7 @@
 
 - (void)statusItemView:(StatusItemView *)view acceptedDroppedDirectories:(NSArray *)pathes {
     for (NSString *path in pathes) {
-        [[Workspace sharedWorkspace] addProjectsObject:[[[Project alloc] initWithPath:path] autorelease]];
+        [[Workspace sharedWorkspace] addProjectsObject:[[[Project alloc] initWithPath:path memento:nil] autorelease]];
     }
     [self.mainWindowController showMainWindow];
 }

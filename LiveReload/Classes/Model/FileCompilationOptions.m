@@ -11,11 +11,14 @@
 
 #pragma mark - init/dealloc
 
-- (id)initWithFile:(NSString *)sourcePath {
+- (id)initWithFile:(NSString *)sourcePath memento:(NSDictionary *)memento {
     self = [super init];
     if (self) {
         _sourcePath = [sourcePath copy];
-        _destinationDirectory = nil;
+        _destinationDirectory = [memento objectForKey:@"output_dir"];
+        if ([_destinationDirectory length] == 0) {
+            _destinationDirectory = nil;
+        }
         _additionalOptions = [[NSMutableDictionary alloc] init];
     }
     return self;
@@ -27,6 +30,27 @@
     [_additionalOptions release], _additionalOptions = nil;
     [super dealloc];
 }
+
+
+#pragma mark -
+
+- (NSDictionary *)memento {
+    return [NSDictionary dictionaryWithObjectsAndKeys:(_destinationDirectory ? _destinationDirectory : @""), @"output_dir", nil];
+}
+
+
+#pragma mark -
+
+- (void)setDestinationDirectory:(NSString *)destinationDirectory {
+    if (_destinationDirectory != destinationDirectory) {
+        [_destinationDirectory release];
+        _destinationDirectory = [destinationDirectory retain];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+    }
+}
+
+
+#pragma mark -
 
 + (NSString *)commonOutputDirectoryFor:(NSArray *)fileOptions {
     NSString *commonOutputDirectory = nil;

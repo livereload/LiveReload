@@ -18,5 +18,6 @@
 @property(nonatomic, readonly) NSArray *compilerSourceExtensions;
 
 - (Compiler *)compilerForExtension:(NSString *)extension;
+- (Compiler *)compilerWithUniqueId:(NSString *)uniqueId;
 
 @end

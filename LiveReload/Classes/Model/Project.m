@@ -1,4 +1,6 @@
 
+#import "PluginManager.h"
+
 #import "Project.h"
 #import "FSMonitor.h"
 #import "FSTreeFilter.h"
@@ -9,11 +11,14 @@
 #import "Compiler.h"
 #import "CompilationOptions.h"
 
+#import "ATFunctionalStyle.h"
+
 
 #define PathKey @"path"
 
 NSString *ProjectDidDetectChangeNotification = @"ProjectDidDetectChangeNotification";
 NSString *ProjectMonitoringStateDidChangeNotification = @"ProjectMonitoringStateDidChangeNotification";
+NSString *ProjectNeedsSavingNotification = @"ProjectNeedsSavingNotification";
 
 static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
 
@@ -30,29 +35,42 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
 @implementation Project
 
 @synthesize path=_path;
+@synthesize dirty=_dirty;
 @synthesize lastSelectedPane=_lastSelectedPane;
 
 
 #pragma mark -
 #pragma mark Init/dealloc
 
-- (void)initializeMonitoring {
-    _monitor = [[FSMonitor alloc] initWithPath:_path];
-    _monitor.delegate = self;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFilter) name:PreferencesFilterSettingsChangedNotification object:nil];
-    [self updateFilter];
-
-    _compilerOptions = [[NSMutableDictionary alloc] init];
-    _monitoringRequests = [[NSMutableSet alloc] init];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleCompilationOptionsEnablementChanged:) name:CompilationOptionsEnabledChangedNotification object:nil];
-    [self handleCompilationOptionsEnablementChanged:nil];
-}
-
-- (id)initWithPath:(NSString *)path {
+- (id)initWithPath:(NSString *)path memento:(NSDictionary *)memento {
     if ((self = [super init])) {
         _path = [path copy];
-        [self initializeMonitoring];
+
+        _monitor = [[FSMonitor alloc] initWithPath:_path];
+        _monitor.delegate = self;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFilter) name:PreferencesFilterSettingsChangedNotification object:nil];
+        [self updateFilter];
+
+        _compilerOptions = [[NSMutableDictionary alloc] init];
+        _monitoringRequests = [[NSMutableSet alloc] init];
+
+        _lastSelectedPane = [[memento objectForKey:@"lastSelectedPane"] copy];
+
+        id raw = [memento objectForKey:@"compilers"];
+        if (raw) {
+            PluginManager *pluginManager = [PluginManager sharedPluginManager];
+            [raw enumerateKeysAndObjectsUsingBlock:^(id uniqueId, id compilerMemento, BOOL *stop) {
+                Compiler *compiler = [pluginManager compilerWithUniqueId:uniqueId];
+                if (compiler) {
+                    [_compilerOptions setObject:[[[CompilationOptions alloc] initWithCompiler:compiler memento:compilerMemento] autorelease] forKey:uniqueId];
+                } else {
+                    // TODO: save data for unknown compilers and re-add them when creating a memento
+                }
+            }];
+        }
+
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleCompilationOptionsEnablementChanged:) name:CompilationOptionsEnabledChangedNotification object:nil];
+        [self handleCompilationOptionsEnablementChanged:nil];
     }
     return self;
 }
@@ -62,6 +80,18 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
     [_path release], _path = nil;
     [_monitor release], _monitor = nil;
     [super dealloc];
+}
+
+
+#pragma mark -
+#pragma mark Persistence
+
+- (NSDictionary *)memento {
+    NSMutableDictionary *memento = [NSMutableDictionary dictionary];
+    [memento setObject:[_compilerOptions dictionaryByMappingValuesToSelector:@selector(memento)] forKey:@"compilers"];
+    if (_lastSelectedPane)
+        [memento setObject:_lastSelectedPane forKey:@"last_pane"];
+    return [NSDictionary dictionaryWithDictionary:memento];
 }
 
 
@@ -87,22 +117,6 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
     _monitor.filter.enabledExtensions = [Preferences sharedPreferences].allExtensions;
     _monitor.filter.excludedNames = [Preferences sharedPreferences].excludedNames;
     [_monitor filterUpdated];
-}
-
-
-#pragma mark -
-#pragma mark Persistence
-
-- (id)initWithMemento:(NSDictionary *)memento {
-    if ((self = [super init])) {
-        _path = [[memento objectForKey:PathKey] copy];
-        [self initializeMonitoring];
-    }
-    return self;
-}
-
-- (NSDictionary *)memento {
-    return [NSDictionary dictionaryWithObjectsAndKeys:_path, PathKey, nil];
 }
 
 
@@ -177,8 +191,9 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
     NSString *uniqueId = compiler.uniqueId;
     CompilationOptions *options = [_compilerOptions objectForKey:uniqueId];
     if (options == nil && create) {
-        options = [[CompilationOptions alloc] initWithCompiler:compiler dictionary:nil];
+        options = [[CompilationOptions alloc] initWithCompiler:compiler memento:nil];
         [_compilerOptions setObject:options forKey:uniqueId];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
     }
     return options;
 }

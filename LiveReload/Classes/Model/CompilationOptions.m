@@ -4,6 +4,9 @@
 #import "Compiler.h"
 #import "CompilerVersion.h"
 
+#import "Bag.h"
+#import "ATFunctionalStyle.h"
+
 
 NSString *CompilationOptionsEnabledChangedNotification = @"CompilationOptionsEnabledChangedNotification";
 
@@ -18,12 +21,26 @@ NSString *CompilationOptionsEnabledChangedNotification = @"CompilationOptionsEna
 
 #pragma mark init/dealloc
 
-- (id)initWithCompiler:(Compiler *)compiler dictionary:(NSDictionary *)info {
+- (id)initWithCompiler:(Compiler *)compiler memento:(NSDictionary *)memento {
     self = [super init];
     if (self) {
         _compiler = [compiler retain];
-        _globalOptions = [[NSMutableDictionary alloc] init];
+        _globalOptions = [[Bag alloc] init];
         _fileOptions = [[NSMutableDictionary alloc] init];
+        _enabled = [[memento objectForKey:@"enabled"] boolValue];
+
+        id raw;
+        raw = [memento objectForKey:@"global"];
+        if (raw) {
+            [_globalOptions addEntriesFromDictionary:raw];
+        }
+
+        raw = [memento objectForKey:@"files"];
+        if (raw) {
+            [raw enumerateKeysAndObjectsUsingBlock:^(id filePath, id fileMemento, BOOL *stop) {
+                [_fileOptions setObject:[[[FileCompilationOptions alloc] initWithFile:filePath memento:fileMemento] autorelease] forKey:filePath];
+            }];
+        }
     }
     return self;
 }
@@ -31,6 +48,13 @@ NSString *CompilationOptionsEnabledChangedNotification = @"CompilationOptionsEna
 - (void)dealloc {
     [_compiler release], _compiler = nil;
     [super dealloc];
+}
+
+
+#pragma mark - Persistence
+
+- (NSDictionary *)memento {
+    return [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:_enabled], @"enabled", _globalOptions.dictionary, @"global", [_fileOptions dictionaryByMappingValuesToSelector:@selector(memento)], @"files", nil];
 }
 
 
@@ -55,6 +79,14 @@ NSString *CompilationOptionsEnabledChangedNotification = @"CompilationOptionsEna
     return _version;
 }
 
+- (void)setVersion:(CompilerVersion *)version {
+    if (_version != version) {
+        [_version release];
+        _version = [version retain];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+    }
+}
+
 
 #pragma mark - Global options
 
@@ -62,6 +94,7 @@ NSString *CompilationOptionsEnabledChangedNotification = @"CompilationOptionsEna
     if (_enabled != enabled) {
         _enabled = enabled;
         [[NSNotificationCenter defaultCenter] postNotificationName:CompilationOptionsEnabledChangedNotification object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
     }
 }
 
@@ -71,8 +104,9 @@ NSString *CompilationOptionsEnabledChangedNotification = @"CompilationOptionsEna
 - (FileCompilationOptions *)optionsForFileAtPath:(NSString *)path create:(BOOL)create {
     FileCompilationOptions *result = [_fileOptions objectForKey:path];
     if (result == nil && create) {
-        result = [[FileCompilationOptions alloc] initWithFile:path];
+        result = [[FileCompilationOptions alloc] initWithFile:path memento:nil];
         [_fileOptions setObject:result forKey:path];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
     }
     return result;
 }

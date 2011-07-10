@@ -9,6 +9,7 @@
     NSMutableSet *_projects;
 
     BOOL _monitoringEnabled;
+    BOOL _savingScheduled;
 }
 
 + (Workspace *)sharedWorkspace;

@@ -71,6 +71,7 @@
 		43AB505E1383CA6200669FC6 /* ATFunctionalStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 43AB505D1383CA6200669FC6 /* ATFunctionalStyle.m */; };
 		43AB50731383E18800669FC6 /* Icon-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 43AB50721383E18800669FC6 /* Icon-48.png */; };
 		43AB50751383E37C00669FC6 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 43AB50741383E37C00669FC6 /* settings.png */; };
+		43C0368213C9D82800A01305 /* Bag.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C0368113C9D82700A01305 /* Bag.m */; };
 		43DDDE39137F59F700206646 /* StatusItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DDDE38137F59F700206646 /* StatusItemController.m */; };
 		43E4BBE313C564FD00A75F81 /* CompilationOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E4BBE213C564FD00A75F81 /* CompilationOptions.m */; };
 		43E4BBE813C5DA7900A75F81 /* CoffeeScript.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43E4BBE713C5DA7900A75F81 /* CoffeeScript.lrplugin */; };
@@ -201,6 +202,8 @@
 		43AB505D1383CA6200669FC6 /* ATFunctionalStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATFunctionalStyle.m; sourceTree = "<group>"; };
 		43AB50721383E18800669FC6 /* Icon-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-48.png"; sourceTree = "<group>"; };
 		43AB50741383E37C00669FC6 /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
+		43C0368013C9D82700A01305 /* Bag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bag.h; sourceTree = "<group>"; };
+		43C0368113C9D82700A01305 /* Bag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bag.m; sourceTree = "<group>"; };
 		43DDDE37137F59F700206646 /* StatusItemController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusItemController.h; sourceTree = "<group>"; };
 		43DDDE38137F59F700206646 /* StatusItemController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusItemController.m; sourceTree = "<group>"; };
 		43E4BBE113C564FD00A75F81 /* CompilationOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompilationOptions.h; sourceTree = "<group>"; };
@@ -432,6 +435,8 @@
 				43E4BBE213C564FD00A75F81 /* CompilationOptions.m */,
 				43763FE813C840860089D8C9 /* FileCompilationOptions.h */,
 				43763FE913C840860089D8C9 /* FileCompilationOptions.m */,
+				43C0368013C9D82700A01305 /* Bag.h */,
+				43C0368113C9D82700A01305 /* Bag.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -746,6 +751,7 @@
 				4353973413C6E9D7007D3C0B /* CompilerPaneViewController.m in Sources */,
 				43763FDF13C780940089D8C9 /* KeyWindow.m in Sources */,
 				43763FEA13C840860089D8C9 /* FileCompilationOptions.m in Sources */,
+				43C0368213C9D82800A01305 /* Bag.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,7 +9,9 @@
     NSMutableDictionary   *_additionalOptions;
 }
 
-- (id)initWithFile:(NSString *)sourcePath;
+- (id)initWithFile:(NSString *)sourcePath memento:(NSDictionary *)memento;
+
+- (NSDictionary *)memento;
 
 @property (nonatomic, readonly, copy) NSString *sourcePath;
 @property (nonatomic, copy) NSString *destinationDirectory;

@@ -38,3 +38,13 @@
 - (NSArray *)arrayByMappingElementsUsingBlock:(id(^)(id value))block;
 
 @end
+
+
+@interface NSDictionary (ATFunctionalStyleAdditions)
+
+- (NSDictionary *)dictionaryByMappingKeysToSelector:(SEL)selector;
+- (NSDictionary *)dictionaryByMappingValuesToSelector:(SEL)selector;
+- (NSDictionary *)dictionaryByMappingValuesToSelector:(SEL)selector withObject:(id)object;
+- (NSDictionary *)dictionaryByMappingValuesToKeyPath:(NSString *)valueKeyPath;
+
+@end

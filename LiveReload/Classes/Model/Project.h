@@ -9,6 +9,7 @@
 
 extern NSString *ProjectDidDetectChangeNotification;
 extern NSString *ProjectMonitoringStateDidChangeNotification;
+extern NSString *ProjectNeedsSavingNotification;
 
 
 @interface Project : NSObject {
@@ -16,17 +17,16 @@ extern NSString *ProjectMonitoringStateDidChangeNotification;
 
     FSMonitor *_monitor;
 
-    NSIndexSet              *_lastSelectedPanes;
     NSMutableDictionary     *_compilerOptions;
     BOOL _clientsConnected;
 
     NSMutableSet            *_monitoringRequests;
-    NSString                *_lastSelectedPane;
+
+    BOOL                     _dirty;
 }
 
-- (id)initWithPath:(NSString *)path;
+- (id)initWithPath:(NSString *)path memento:(NSDictionary *)memento;
 
-- (id)initWithMemento:(NSDictionary *)memento;
 - (NSDictionary *)memento;
 
 @property(nonatomic, readonly, copy) NSString *path;
@@ -43,5 +43,7 @@ extern NSString *ProjectMonitoringStateDidChangeNotification;
 - (NSString *)relativePathForPath:(NSString *)path;
 
 @property(nonatomic, copy) NSString *lastSelectedPane;
+
+@property(nonatomic, getter = isDirty) BOOL dirty;
 
 @end

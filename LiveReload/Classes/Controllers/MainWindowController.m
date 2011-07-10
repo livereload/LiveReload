@@ -176,7 +176,7 @@
         if (result == NSFileHandlingPanelOKButton) {
             NSURL *url = [openPanel URL];
             NSString *path = [url path];
-            Project *project = [[[Project alloc] initWithPath:path] autorelease];
+            Project *project = [[[Project alloc] initWithPath:path memento:nil] autorelease];
             [[Workspace sharedWorkspace] addProjectsObject:project];
         }
     }];
@@ -297,7 +297,7 @@
     NSArray *pathes = [self sanitizedPathsFrom:[sender draggingPasteboard]];
     if (genericSupported && [pathes count] > 0) {
         for (NSString *path in pathes) {
-            [[Workspace sharedWorkspace] addProjectsObject:[[[Project alloc] initWithPath:path] autorelease]];
+            [[Workspace sharedWorkspace] addProjectsObject:[[[Project alloc] initWithPath:path memento:nil] autorelease]];
         }
         return YES;
     } else {

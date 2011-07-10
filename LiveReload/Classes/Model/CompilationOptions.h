@@ -5,6 +5,7 @@
 @class Compiler;
 @class CompilerVersion;
 @class FileCompilationOptions;
+@class Bag;
 
 
 extern NSString *CompilationOptionsEnabledChangedNotification;
@@ -14,7 +15,7 @@ extern NSString *CompilationOptionsEnabledChangedNotification;
 @private
     Compiler              *_compiler;
     BOOL                   _enabled;
-    NSMutableDictionary   *_globalOptions;
+    Bag                   *_globalOptions;
     NSArray               *_includeDirectories;
     NSMutableDictionary   *_fileOptions; // NSString to FileCompilationOptions
 
@@ -22,16 +23,18 @@ extern NSString *CompilationOptionsEnabledChangedNotification;
     CompilerVersion       *_version;
 }
 
-- (id)initWithCompiler:(Compiler *)compiler dictionary:(NSDictionary *)info;
+- (id)initWithCompiler:(Compiler *)compiler memento:(NSDictionary *)memento;
 
 @property(nonatomic, readonly) Compiler *compiler;
+
+- (NSDictionary *)memento;
 
 @property(nonatomic) BOOL enabled;
 
 @property(nonatomic, readonly) NSArray *availableVersions;
 @property(nonatomic, retain) CompilerVersion *version;
 
-@property(nonatomic, readonly) NSMutableDictionary *globalOptions;
+@property(nonatomic, readonly) Bag *globalOptions;
 
 - (FileCompilationOptions *)optionsForFileAtPath:(NSString *)path create:(BOOL)create;
 

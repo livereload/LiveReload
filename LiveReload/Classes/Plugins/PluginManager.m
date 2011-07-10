@@ -60,4 +60,13 @@ static PluginManager *sharedPluginManager;
     return nil;
 }
 
+- (Compiler *)compilerWithUniqueId:(NSString *)uniqueId {
+    for (Compiler *compiler in self.compilers) {
+        if ([compiler.uniqueId isEqualToString:uniqueId]) {
+            return compiler;
+        }
+    }
+    return nil;
+}
+
 @end
