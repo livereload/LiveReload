@@ -6,6 +6,7 @@
 @class MAAttachedWindow;
 @class StatusItemController;
 @class ProjectOptionsSheetController;
+@class Project;
 
 
 @interface MainWindowController : NSObject <PXListViewDelegate> {
@@ -77,5 +78,7 @@
 @property (assign) IBOutlet NSTextField *webSiteLabel;
 @property (assign) IBOutlet NSButton *backToMainWindowButton;
 @property (assign) IBOutlet NSTextField *connectionStateLabel;
+
+- (void)projectAdded:(Project *)project;
 
 @end

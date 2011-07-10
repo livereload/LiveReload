@@ -62,10 +62,15 @@
 }
 
 - (void)statusItemView:(StatusItemView *)view acceptedDroppedDirectories:(NSArray *)pathes {
+    Project *newProject = nil;
     for (NSString *path in pathes) {
-        [[Workspace sharedWorkspace] addProjectsObject:[[[Project alloc] initWithPath:path memento:nil] autorelease]];
+        newProject = [[[Project alloc] initWithPath:path memento:nil] autorelease];
+        [[Workspace sharedWorkspace] addProjectsObject:newProject];
     }
     [self.mainWindowController showMainWindow];
+    if ([pathes count] == 1) {
+        [self.mainWindowController projectAdded:newProject];
+    }
 }
 
 

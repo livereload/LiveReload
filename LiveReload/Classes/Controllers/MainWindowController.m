@@ -24,6 +24,8 @@
 - (void)updateSettingsScreen;
 - (void)openEditorForRow:(NSUInteger)rowIndex;
 
+- (void)projectAdded:(Project *)project;
+
 @end
 
 
@@ -178,6 +180,7 @@
             NSString *path = [url path];
             Project *project = [[[Project alloc] initWithPath:path memento:nil] autorelease];
             [[Workspace sharedWorkspace] addProjectsObject:project];
+            [self performSelector:@selector(projectAdded:) withObject:project afterDelay:0.5];
         }
     }];
 }
@@ -297,12 +300,26 @@
     NSArray *pathes = [self sanitizedPathsFrom:[sender draggingPasteboard]];
     if (genericSupported && [pathes count] > 0) {
         for (NSString *path in pathes) {
-            [[Workspace sharedWorkspace] addProjectsObject:[[[Project alloc] initWithPath:path memento:nil] autorelease]];
+            Project *newProject = [[[Project alloc] initWithPath:path memento:nil] autorelease];
+            [[Workspace sharedWorkspace] addProjectsObject:newProject];
+            if ([pathes count] == 1) {
+                [self projectAdded:newProject];
+            }
         }
         return YES;
     } else {
         return NO;
     }
+}
+
+
+#pragma mark -
+
+- (void)projectAdded:(Project *)project {
+    NSInteger index = [[Workspace sharedWorkspace].sortedProjects indexOfObject:project];
+    if (index == NSNotFound)
+        return;
+    [self openEditorForRow:index];
 }
 
 
