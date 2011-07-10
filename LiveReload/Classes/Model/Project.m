@@ -55,7 +55,7 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
         _compilerOptions = [[NSMutableDictionary alloc] init];
         _monitoringRequests = [[NSMutableSet alloc] init];
 
-        _lastSelectedPane = [[memento objectForKey:@"lastSelectedPane"] copy];
+        _lastSelectedPane = [[memento objectForKey:@"last_pane"] copy];
 
         id raw = [memento objectForKey:@"compilers"];
         if (raw) {

@@ -75,6 +75,9 @@ static NSString *kSelectionObservation = @"kSelectionObservation";
     NSArray *selection = [_servicesArrayController selectedObjects];
     _project.lastSelectedPane = ([selection count] > 0 ? [[selection objectAtIndex:0] uniqueId] : nil);
     self.selectedPaneViewController = nil;
+
+    // at the very least, the last selected pane needs to be saved (and does not produce notifications of its own)
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
 }
 
 
