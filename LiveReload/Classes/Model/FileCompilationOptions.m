@@ -51,6 +51,18 @@
     }
 }
 
+- (NSString *)destinationDirectoryForDisplay {
+    return ([_destinationDirectory length] > 0 ? _destinationDirectory : @".");
+}
+
+- (void)setDestinationDirectoryForDisplay:(NSString *)destinationDirectoryForDisplay {
+    [self setDestinationDirectory:([destinationDirectoryForDisplay isEqualToString:@"."] ? @"" : destinationDirectoryForDisplay)];
+}
+
++ (NSSet *)keyPathsForValuesAffectingDestinationDirectoryForDisplay {
+    return [NSSet setWithObject:@"destinationDirectory"];
+}
+
 
 #pragma mark -
 

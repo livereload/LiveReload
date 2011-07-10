@@ -221,7 +221,7 @@
 										<string key="NSFrame">{{1, 118.892}, {222.761, 15}}</string>
 										<reference key="NSSuperview" ref="389956779"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="979521487"/>
+										<reference key="NSNextKeyView" ref="549280000"/>
 										<int key="NSsFlags">1</int>
 										<reference key="NSTarget" ref="389956779"/>
 										<string key="NSAction">_doScroller:</string>
@@ -284,7 +284,7 @@
 								<string key="NSFrame">{{15, 24}, {118, 17}}</string>
 								<reference key="NSSuperview" ref="355104748"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="140935332"/>
+								<reference key="NSNextKeyView" ref="979521487"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSTextFieldCell" key="NSCell" id="714942569">
 									<int key="NSCellFlags">68288064</int>
@@ -302,7 +302,7 @@
 								<string key="NSFrame">{{10, 374}, {135, 17}}</string>
 								<reference key="NSSuperview" ref="355104748"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="201678433"/>
+								<reference key="NSNextKeyView" ref="799695168"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSTextFieldCell" key="NSCell" id="842130307">
 									<int key="NSCellFlags">68288064</int>
@@ -320,7 +320,7 @@
 								<string key="NSFrame">{{15, 374}, {492, 17}}</string>
 								<reference key="NSSuperview" ref="355104748"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="549280000"/>
+								<reference key="NSNextKeyView" ref="201678433"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSTextFieldCell" key="NSCell" id="383752071">
 									<int key="NSCellFlags">68288064</int>
@@ -338,7 +338,7 @@
 								<string key="NSFrame">{{147, 368}, {100, 26}}</string>
 								<reference key="NSSuperview" ref="355104748"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="799695168"/>
+								<reference key="NSNextKeyView" ref="495009392"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSPopUpButtonCell" key="NSCell" id="780485119">
 									<int key="NSCellFlags">-2076049856</int>
@@ -399,7 +399,7 @@
 								<string key="NSFrame">{{26, 0}, {215, 18}}</string>
 								<reference key="NSSuperview" ref="355104748"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="495009392"/>
+								<reference key="NSNextKeyView"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSButtonCell" key="NSCell" id="320609424">
 									<int key="NSCellFlags">-2080244224</int>
@@ -428,7 +428,7 @@
 								<string key="NSFrame">{{316, 27}, {188, 23}}</string>
 								<reference key="NSSuperview" ref="355104748"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
+								<reference key="NSNextKeyView" ref="140935332"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSButtonCell" key="NSCell" id="1023790803">
 									<int key="NSCellFlags">-2080244224</int>
@@ -714,22 +714,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: arrangedObjects.destinationDirectory</string>
-						<reference key="source" ref="748292568"/>
-						<reference key="destination" ref="822394314"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="748292568"/>
-							<reference key="NSDestination" ref="822394314"/>
-							<string key="NSLabel">value: arrangedObjects.destinationDirectory</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">arrangedObjects.destinationDirectory</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">76</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: arrangedObjects.sourcePath</string>
 						<reference key="source" ref="113152359"/>
 						<reference key="destination" ref="822394314"/>
@@ -763,6 +747,22 @@
 						<reference key="destination" ref="822394314"/>
 					</object>
 					<int key="connectionID">79</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: arrangedObjects.destinationDirectoryForDisplay</string>
+						<reference key="source" ref="748292568"/>
+						<reference key="destination" ref="822394314"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="748292568"/>
+							<reference key="NSDestination" ref="822394314"/>
+							<string key="NSLabel">value: arrangedObjects.destinationDirectoryForDisplay</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">arrangedObjects.destinationDirectoryForDisplay</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">80</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1028,7 +1028,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">79</int>
+			<int key="maxID">80</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

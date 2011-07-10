@@ -15,6 +15,7 @@
 
 @property (nonatomic, readonly, copy) NSString *sourcePath;
 @property (nonatomic, copy) NSString *destinationDirectory;
+@property (nonatomic, copy) NSString *destinationDirectoryForDisplay;
 @property (nonatomic, readonly, retain) NSMutableDictionary *additionalOptions;
 
 + (NSString *)commonOutputDirectoryFor:(NSArray *)fileOptions;  // nil if files have different output directories, or no files configured
