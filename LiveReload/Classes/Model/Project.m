@@ -166,7 +166,15 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
                     NSLog(@"Ignoring %@ because destination directory is not set.", relativePath);
                 }
             } else {
-                NSLog(@"Ignoring %@ because %@ is not enabled.", relativePath, compiler.name);
+                NSString *derivedName = [compiler derivedNameForFile:path];
+                NSString *derivedPath = [self.tree pathOfFileNamed:derivedName];
+                if (derivedPath == nil) {
+                    // the file is probably compiled on the fly; broadcast a change
+                    [filtered addObject:derivedName];
+                    NSLog(@"NOT compiling %@ because %@ is not enabled. Broadcasting a fake change in %@ because no compiled file exists, so compilation probably happens on the fly.", relativePath, compiler.name, derivedName);
+                } else {
+                    NSLog(@"Ignoring %@ because %@ is not enabled, and (externally) compiled file %@ exists.", relativePath, compiler.name, derivedPath);
+                }
             }
         } else {
             [filtered addObject:path];
