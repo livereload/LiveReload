@@ -104,7 +104,7 @@ NSString *CompilationOptionsEnabledChangedNotification = @"CompilationOptionsEna
 - (FileCompilationOptions *)optionsForFileAtPath:(NSString *)path create:(BOOL)create {
     FileCompilationOptions *result = [_fileOptions objectForKey:path];
     if (result == nil && create) {
-        result = [[FileCompilationOptions alloc] initWithFile:path memento:nil];
+        result = [[[FileCompilationOptions alloc] initWithFile:path memento:nil] autorelease];
         [_fileOptions setObject:result forKey:path];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
     }

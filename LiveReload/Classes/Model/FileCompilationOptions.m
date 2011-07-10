@@ -15,7 +15,7 @@
     self = [super init];
     if (self) {
         _sourcePath = [sourcePath copy];
-        _destinationDirectory = [memento objectForKey:@"output_dir"];
+        _destinationDirectory = [[memento objectForKey:@"output_dir"] copy];
         if ([_destinationDirectory length] == 0) {
             _destinationDirectory = nil;
         } else if ([_destinationDirectory isEqualToString:@"."]) {

@@ -211,7 +211,7 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
     NSString *uniqueId = compiler.uniqueId;
     CompilationOptions *options = [_compilerOptions objectForKey:uniqueId];
     if (options == nil && create) {
-        options = [[CompilationOptions alloc] initWithCompiler:compiler memento:nil];
+        options = [[[CompilationOptions alloc] initWithCompiler:compiler memento:nil] autorelease];
         [_compilerOptions setObject:options forKey:uniqueId];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
     }
