@@ -150,12 +150,15 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
 - (void)fileSystemMonitor:(FSMonitor *)monitor detectedChangeAtPathes:(NSSet *)pathes {
     NSMutableSet *filtered = [NSMutableSet setWithCapacity:[pathes count]];
     NSString *rootPath = monitor.tree.rootPath;
+    NSFileManager *fm = [NSFileManager defaultManager];
     for (NSString *relativePath in pathes) {
         NSString *path = [rootPath stringByAppendingPathComponent:relativePath];
         Compiler *compiler = [[PluginManager sharedPluginManager] compilerForExtension:[path pathExtension]];
         if (compiler) {
             CompilationOptions *compilationOptions = [self optionsForCompiler:compiler create:NO];
             if (compilationOptions.enabled) {
+                if (![fm fileExistsAtPath:path])
+                    continue; // don't try to compile deleted files
                 FileCompilationOptions *fileOptions = [self optionsForFileAtPath:relativePath in:compilationOptions];
                 if (fileOptions.destinationDirectory != nil) {
                     NSString *derivedName = [compiler derivedNameForFile:path];
