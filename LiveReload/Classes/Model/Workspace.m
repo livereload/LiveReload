@@ -6,7 +6,7 @@
 #import "ATFunctionalStyle.h"
 
 
-#define ProjectListKey @"projects"
+#define ProjectListKey @"projects20a3"
 
 
 static Workspace *sharedWorkspace;
