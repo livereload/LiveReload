@@ -29,4 +29,6 @@
 @property (assign) IBOutlet NSArrayController *servicesArrayController;
 @property (assign) IBOutlet NSBox *placeholderBox;
 
+@property (nonatomic, readonly, retain) Project *project;
+
 @end

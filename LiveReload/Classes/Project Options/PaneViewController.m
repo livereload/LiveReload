@@ -21,6 +21,11 @@
 
 #pragma mark - Pane options
 
+- (NSString *)uniqueId {
+    [NSException raise:@"MustBeOverridden" format:@"uniqueId must be overridden"];
+    return @"?";
+}
+
 - (NSString *)title {
     return @"?";
 }

@@ -51,6 +51,10 @@
 
 #pragma mark - Pane options
 
+- (NSString *)uniqueId {
+    return _compiler.uniqueId;
+}
+
 - (NSString *)title {
     return _compiler.name;
 }

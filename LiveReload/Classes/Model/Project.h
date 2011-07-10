@@ -16,10 +16,12 @@ extern NSString *ProjectMonitoringStateDidChangeNotification;
 
     FSMonitor *_monitor;
 
+    NSIndexSet              *_lastSelectedPanes;
     NSMutableDictionary     *_compilerOptions;
     BOOL _clientsConnected;
 
     NSMutableSet            *_monitoringRequests;
+    NSString                *_lastSelectedPane;
 }
 
 - (id)initWithPath:(NSString *)path;
@@ -39,5 +41,7 @@ extern NSString *ProjectMonitoringStateDidChangeNotification;
 - (NSComparisonResult)compareByDisplayPath:(Project *)another;
 
 - (NSString *)relativePathForPath:(NSString *)path;
+
+@property(nonatomic, copy) NSString *lastSelectedPane;
 
 @end

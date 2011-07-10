@@ -23,6 +23,7 @@ static NSString *kSelectionObservation = @"kSelectionObservation";
 
 @implementation ProjectOptionsSheetController
 
+@synthesize project=_project;
 @synthesize servicesArrayController = _servicesArrayController;
 @synthesize selectedPaneViewController=_selectedPaneViewController;
 @synthesize placeholderBox = _placeholderBox;
@@ -60,13 +61,27 @@ static NSString *kSelectionObservation = @"kSelectionObservation";
     [super windowDidLoad];
     [_servicesArrayController addObserver:self forKeyPath:@"selection" options:0 context:kSelectionObservation];
     [self updateSelectedPane];
+    if (_project.lastSelectedPane) {
+        for (PaneViewController *pane in _panes) {
+            if ([_project.lastSelectedPane isEqualToString:pane.uniqueId]) {
+                [_servicesArrayController setSelectedObjects:[NSArray arrayWithObject:pane]];
+                break;
+            }
+        }
+    }
+}
+
+- (void)willDismiss {
+    NSArray *selection = [_servicesArrayController selectedObjects];
+    _project.lastSelectedPane = ([selection count] > 0 ? [[selection objectAtIndex:0] uniqueId] : nil);
+    self.selectedPaneViewController = nil;
 }
 
 
 #pragma mark - Actions
 
 - (IBAction)dismiss:(id)sender {
-    self.selectedPaneViewController = nil;
+    [self willDismiss];
     [NSApp endSheet:[self window]];
 }
 

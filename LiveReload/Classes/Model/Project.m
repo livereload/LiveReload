@@ -30,6 +30,7 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
 @implementation Project
 
 @synthesize path=_path;
+@synthesize lastSelectedPane=_lastSelectedPane;
 
 
 #pragma mark -
