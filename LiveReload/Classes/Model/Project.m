@@ -326,7 +326,7 @@ skipGuessing:
     path = [path stringByResolvingSymlinksInPath];
 
     if ([root isEqualToString:path]) {
-        return @"/";
+        return @"";
     }
 
     NSArray *rootComponents = [root pathComponents];
