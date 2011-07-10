@@ -155,7 +155,7 @@
         } else {
             NSAlert *alert = [[[NSAlert alloc] init] autorelease];
             [alert setMessageText:@"Change all files?"];
-            [alert setInformativeText:@"Files are currently configured with different output directories. Proceeding will set the SAME output directory for ALL files."];
+            [alert setInformativeText:@"Files are currently configured with different output directories. Proceeding will set the SAME output directory for ALL files.\n\nYou can configure individual files by selecting them first."];
             [[alert addButtonWithTitle:@"Proceed"] setKeyEquivalent:@""];
             [alert addButtonWithTitle:@"Cancel"];
             if ([alert runModal] != NSAlertFirstButtonReturn) {
