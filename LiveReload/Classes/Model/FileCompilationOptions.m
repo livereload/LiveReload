@@ -28,4 +28,16 @@
     [super dealloc];
 }
 
++ (NSString *)commonOutputDirectoryFor:(NSArray *)fileOptions {
+    NSString *commonOutputDirectory = nil;
+    for (FileCompilationOptions *options in fileOptions) {
+        if (commonOutputDirectory == nil) {
+            commonOutputDirectory = options.destinationDirectory;
+        } else if (![commonOutputDirectory isEqualToString:options.destinationDirectory]) {
+            return nil;
+        }
+    }
+    return commonOutputDirectory;
+}
+
 @end

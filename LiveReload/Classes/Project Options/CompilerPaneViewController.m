@@ -131,18 +131,63 @@
 #pragma mark - Actions
 
 - (IBAction)chooseOutputDirectory:(id)sender {
-    NSArray *selection = [_fileOptionsArrayController selectedObjects];
-    if ([selection count] == 0)
+    if ([self.options.allFileOptions count] == 0) {
+        NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+        [alert setMessageText:@"No files yet"];
+        [alert setInformativeText:@"Before configuring an output directory, please create some source files first."];
+        [alert addButtonWithTitle:@"OK"];
+        [alert runModal];
         return;
+    }
 
-    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+    NSString *initialPath = _project.path;
+    NSArray *selection = [_fileOptionsArrayController selectedObjects];
+    NSString *common;
+    if ([selection count] == 0) {
+        selection = self.options.allFileOptions;
+        NSString *common = [FileCompilationOptions commonOutputDirectoryFor:selection];
+        if (common != nil) {
+            initialPath = common;
+        } else {
+            NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+            [alert setMessageText:@"Change all files?"];
+            [alert setInformativeText:@"Files are currently configured with different output directories. Proceeding will set the SAME output directory for ALL files."];
+            [[alert addButtonWithTitle:@"Proceed"] setKeyEquivalent:@""];
+            [alert addButtonWithTitle:@"Cancel"];
+            if ([alert runModal] != NSAlertFirstButtonReturn) {
+                return;
+            }
+        }
+    } else if ([selection count] > 1) {
+        NSString *common = [FileCompilationOptions commonOutputDirectoryFor:selection];
+        if (common != nil) {
+            initialPath = common;
+        } else {
+            NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+            [alert setMessageText:@"Change all selected files?"];
+            [alert setInformativeText:@"Selected files are currently configured with different output directories. Proceeding will set the same output directory for all selected files."];
+            [[alert addButtonWithTitle:@"Proceed"] setKeyEquivalent:@""];
+            [alert addButtonWithTitle:@"Cancel"];
+            if ([alert runModal] != NSAlertFirstButtonReturn) {
+                return;
+            }
+        }
+    } else {
+        common = ((FileCompilationOptions *)[selection objectAtIndex:0]).destinationDirectory;
+        if (common != nil) {
+            initialPath = common;
+        }
+    }
+
+    NSOpenPanel *openPanel;
+    NSInteger result;
+retry:
+    openPanel = [NSOpenPanel openPanel];
     [openPanel setCanChooseDirectories:YES];
     [openPanel setCanCreateDirectories:YES];
     [openPanel setPrompt:@"Choose folder"];
     [openPanel setCanChooseFiles:NO];
-    [openPanel setDirectoryURL:[NSURL fileURLWithPath:_project.path isDirectory:YES]];
-    NSInteger result;
-retry:
+    [openPanel setDirectoryURL:[NSURL fileURLWithPath:initialPath isDirectory:YES]];
     result = [openPanel runModal];
     if (result == NSFileHandlingPanelOKButton) {
         NSURL *url = [openPanel URL];

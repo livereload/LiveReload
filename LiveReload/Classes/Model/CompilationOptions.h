@@ -35,4 +35,6 @@ extern NSString *CompilationOptionsEnabledChangedNotification;
 
 - (FileCompilationOptions *)optionsForFileAtPath:(NSString *)path create:(BOOL)create;
 
+@property(nonatomic, readonly) NSArray *allFileOptions;
+
 @end

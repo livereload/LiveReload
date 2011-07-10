@@ -77,5 +77,8 @@ NSString *CompilationOptionsEnabledChangedNotification = @"CompilationOptionsEna
     return result;
 }
 
+- (NSArray *)allFileOptions {
+    return [_fileOptions allValues];
+}
 
 @end
