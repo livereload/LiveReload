@@ -20,6 +20,12 @@
 				<string>\w+Error: ((file)):((line))\n(?:\s[^\n]*\n)*\s*\n((message))\n</string>
 				<string>\w+Error: ((message))\n</string>
 			</array>
+			<key>ExpectedOutputDirectories</key>
+			<array>
+				<string>html</string>
+				<string>view</string>
+				<string>views</string>
+			</array>
 			<key>Extensions</key>
 			<array>
 				<string>jade</string>

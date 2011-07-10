@@ -148,6 +148,15 @@
     return result;
 }
 
+- (NSArray *)filteredArrayUsingBlock:(BOOL(^)(id value))block {
+    NSMutableArray *result = [NSMutableArray arrayWithCapacity:[self count]];
+    for (id element in self) {
+        if (block(element))
+            [result addObject:element];
+    }
+    return result;
+}
+
 @end
 
 

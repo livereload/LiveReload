@@ -19,6 +19,12 @@
 				<string>Syntax error on line ((line)): ((message))\n</string>
 				<string>Exception on line ((line)): ((message))\n</string>
 			</array>
+			<key>ExpectedOutputDirectories</key>
+			<array>
+				<string>html</string>
+				<string>view</string>
+				<string>views</string>
+			</array>
 			<key>Extensions</key>
 			<array>
 				<string>haml</string>

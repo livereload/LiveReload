@@ -55,13 +55,15 @@
 + (NSString *)commonOutputDirectoryFor:(NSArray *)fileOptions {
     NSString *commonOutputDirectory = nil;
     for (FileCompilationOptions *options in fileOptions) {
+        if (options.destinationDirectory == nil)
+            continue;
         if (commonOutputDirectory == nil) {
             commonOutputDirectory = options.destinationDirectory;
         } else if (![commonOutputDirectory isEqualToString:options.destinationDirectory]) {
             return nil;
         }
     }
-    return commonOutputDirectory;
+    return (commonOutputDirectory ? commonOutputDirectory : @"__NONE_SET__");
 }
 
 @end

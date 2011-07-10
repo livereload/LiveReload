@@ -110,14 +110,7 @@
     CompilationOptions *options = self.options;
     NSMutableArray *array = [[NSMutableArray alloc] init];
     for (NSString *sourcePath in [_compiler pathsOfSourceFilesInTree:_project.tree]) {
-        FileCompilationOptions *fileOptions = [options optionsForFileAtPath:sourcePath create:YES];
-        if (fileOptions.destinationDirectory == nil) {
-            NSString *derivedName = [_compiler derivedNameForFile:sourcePath];
-            NSString *guessedDestinationPath = [_project.tree pathOfFileNamed:derivedName];
-            if (guessedDestinationPath) {
-                fileOptions.destinationDirectory = [guessedDestinationPath stringByDeletingLastPathComponent];
-            }
-        }
+        FileCompilationOptions *fileOptions = [_project optionsForFileAtPath:sourcePath in:options];
         [array addObject:fileOptions];
     }
     [self willChangeValueForKey:@"fileOptions"];
@@ -150,7 +143,9 @@
     if ([selection count] == 0) {
         selection = self.options.allFileOptions;
         NSString *common = [FileCompilationOptions commonOutputDirectoryFor:selection];
-        if (common != nil) {
+        if ([common isEqualToString:@"__NONE_SET__"]) {
+            // do nothing
+        } else if (common != nil) {
             initialPath = common;
         } else {
             NSAlert *alert = [[[NSAlert alloc] init] autorelease];
@@ -164,7 +159,9 @@
         }
     } else if ([selection count] > 1) {
         NSString *common = [FileCompilationOptions commonOutputDirectoryFor:selection];
-        if (common != nil) {
+        if ([common isEqualToString:@"__NONE_SET__"]) {
+            // do nothing
+        } else if (common != nil) {
             initialPath = common;
         } else {
             NSAlert *alert = [[[NSAlert alloc] init] autorelease];

@@ -26,6 +26,13 @@
 			</array>
 			<key>Name</key>
 			<string>Stylus</string>
+			<key>ExpectedOutputDirectories</key>
+			<array>
+				<string>css</string>
+				<string>styles</string>
+				<string>stylesheet</string>
+				<string>stylesheets</string>
+			</array>
 		</dict>
 	</array>
 </dict>

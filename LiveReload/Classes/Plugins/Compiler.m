@@ -1,6 +1,7 @@
 
 #import "Compiler.h"
 #import "Plugin.h"
+#import "CompilationOptions.h"
 
 #import "FSTree.h"
 #import "RegexKitLite.h"
@@ -63,6 +64,7 @@
 @synthesize name=_name;
 @synthesize extensions=_extensions;
 @synthesize destinationExtension=_destinationExtension;
+@synthesize expectedOutputDirectoryNames=_expectedOutputDirectoryNames;
 
 
 #pragma mark - init/dealloc
@@ -77,6 +79,9 @@
         _destinationExtension = [[info objectForKey:@"DestinationExtension"] copy];
         _errorFormats = [[info objectForKey:@"Errors"] copy];
         _uniqueId = [[_name lowercaseString] retain];
+        _expectedOutputDirectoryNames = [[info objectForKey:@"ExpectedOutputDirectories"] copy];
+        if (_expectedOutputDirectoryNames == nil)
+            _expectedOutputDirectoryNames = [[NSArray alloc] init];
     }
     return self;
 }
@@ -104,7 +109,7 @@
 
 #pragma mark - Compilation
 
-- (void)compile:(NSString *)sourcePath into:(NSString *)destinationPath {
+- (void)compile:(NSString *)sourcePath into:(NSString *)destinationPath with:(CompilationOptions *)options {
     NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:
                           @"/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/bin/ruby", @"$(ruby)",
                           [[NSBundle mainBundle] pathForResource:@"node" ofType:nil], @"$(node)",

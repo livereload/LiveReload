@@ -6,6 +6,7 @@
 @class FSTree;
 @class Compiler;
 @class CompilationOptions;
+@class FileCompilationOptions;
 
 extern NSString *ProjectDidDetectChangeNotification;
 extern NSString *ProjectMonitoringStateDidChangeNotification;
@@ -35,6 +36,8 @@ extern NSString *ProjectNeedsSavingNotification;
 @property(nonatomic, readonly) FSTree *tree;
 
 - (CompilationOptions *)optionsForCompiler:(Compiler *)compiler create:(BOOL)create;
+
+- (FileCompilationOptions *)optionsForFileAtPath:(NSString *)sourcePath in:(CompilationOptions *)compilationOptions;
 
 - (void)requestMonitoring:(BOOL)monitoringEnabled forKey:(NSString *)key;
 

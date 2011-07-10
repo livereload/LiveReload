@@ -26,6 +26,12 @@
 			</array>
 			<key>Name</key>
 			<string>CoffeeScript</string>
+			<key>ExpectedOutputDirectories</key>
+			<array>
+				<string>js</string>
+				<string>javascript</string>
+				<string>javascripts</string>
+			</array>
 		</dict>
 	</array>
 </dict>

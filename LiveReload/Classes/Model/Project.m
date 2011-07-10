@@ -10,6 +10,7 @@
 #import "PluginManager.h"
 #import "Compiler.h"
 #import "CompilationOptions.h"
+#import "FileCompilationOptions.h"
 
 #import "ATFunctionalStyle.h"
 
@@ -149,15 +150,23 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
 - (void)fileSystemMonitor:(FSMonitor *)monitor detectedChangeAtPathes:(NSSet *)pathes {
     NSMutableSet *filtered = [NSMutableSet setWithCapacity:[pathes count]];
     NSString *rootPath = monitor.tree.rootPath;
-    for (NSString *path in pathes) {
-        path = [rootPath stringByAppendingPathComponent:path];
+    for (NSString *relativePath in pathes) {
+        NSString *path = [rootPath stringByAppendingPathComponent:relativePath];
         Compiler *compiler = [[PluginManager sharedPluginManager] compilerForExtension:[path pathExtension]];
         if (compiler) {
-            NSString *derivedName = [compiler derivedNameForFile:path];
-            NSString *derivedPath = [_monitor.tree pathOfFileNamed:derivedName];
-            if (derivedPath) {
-                derivedPath = [rootPath stringByAppendingPathComponent:derivedPath];
-                [compiler compile:path into:derivedPath];
+            CompilationOptions *compilationOptions = [self optionsForCompiler:compiler create:NO];
+            if (compilationOptions.enabled) {
+                FileCompilationOptions *fileOptions = [self optionsForFileAtPath:relativePath in:compilationOptions];
+                if (fileOptions.destinationDirectory != nil) {
+                    NSString *derivedName = [compiler derivedNameForFile:path];
+                    NSString *derivedPath = [fileOptions.destinationDirectory stringByAppendingPathComponent:derivedName];
+                    derivedPath = [rootPath stringByAppendingPathComponent:derivedPath];
+                    [compiler compile:path into:derivedPath with:compilationOptions];
+                } else {
+                    NSLog(@"Ignoring %@ because destination directory is not set.", relativePath);
+                }
+            } else {
+                NSLog(@"Ignoring %@ because %@ is not enabled.", relativePath, compiler.name);
             }
         } else {
             [filtered addObject:path];
@@ -198,9 +207,108 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
     return options;
 }
 
+- (id)enumerateParentFoldersFromFolder:(NSString *)folder with:(id(^)(NSString *folder, NSString *relativePath, BOOL *stop))block {
+    BOOL stop = NO;
+    NSString *relativePath = @"";
+    id result;
+    if ((result = block(folder, relativePath, &stop)) != nil)
+        return result;
+    while (!stop && [[folder pathComponents] count] > 1) {
+        relativePath = [[folder lastPathComponent] stringByAppendingPathComponent:relativePath];
+        folder = [folder stringByDeletingLastPathComponent];
+        if ((result = block(folder, relativePath, &stop)) != nil)
+            return result;
+    }
+    return nil;
+}
+
+- (FileCompilationOptions *)optionsForFileAtPath:(NSString *)sourcePath in:(CompilationOptions *)compilationOptions {
+    FileCompilationOptions *fileOptions = [compilationOptions optionsForFileAtPath:sourcePath create:YES];
+    if (fileOptions.destinationDirectory == nil) {
+        // see if we can guess it
+        NSString *guessedDirectory = nil;
+
+        // 1) destination file already exists?
+        NSString *derivedName = [compilationOptions.compiler derivedNameForFile:sourcePath];
+        NSString *derivedPath = [self.tree pathOfFileNamed:derivedName];
+
+        if (derivedPath) {
+            guessedDirectory = [derivedPath stringByDeletingLastPathComponent];
+            NSLog(@"Guessed output directory for %@ by existing output file %@", sourcePath, derivedPath);
+        }
+
+        // 2) other files in the same folder have a common destination path?
+        if (guessedDirectory == nil) {
+            NSString *sourceDirectory = [sourcePath stringByDeletingLastPathComponent];
+            NSArray *otherFiles = [[compilationOptions.compiler pathsOfSourceFilesInTree:self.tree] filteredArrayUsingBlock:^BOOL(id value) {
+                return [sourceDirectory isEqualToString:[value stringByDeletingLastPathComponent]];
+            }];
+            if ([otherFiles count] > 0) {
+                NSArray *otherFileOptions = [otherFiles arrayByMappingElementsUsingBlock:^id(id otherFilePath) {
+                    return [compilationOptions optionsForFileAtPath:otherFilePath create:NO];
+                }];
+                NSString *common = [FileCompilationOptions commonOutputDirectoryFor:otherFileOptions];
+                if ([common isEqualToString:@"__NONE_SET__"]) {
+                    // nothing to figure it from
+                } else if (common == nil) {
+                    // different directories, something complicated is going on here;
+                    // don't try to be too smart and just give up
+                    NSLog(@"Refusing to guess output directory for %@ because other files in the same directory have varying output directories", sourcePath);
+                    goto skipGuessing;
+                } else {
+                    guessedDirectory = common;
+                    NSLog(@"Guessed output directory for %@ based on configuration of other files in the same directory", sourcePath);
+                }
+            }
+        }
+
+        // 3) are we in a subfolder with one of predefined 'output' names? (e.g. css/something.less)
+        if (guessedDirectory == nil) {
+            NSSet *magicNames = [NSSet setWithArray:compilationOptions.compiler.expectedOutputDirectoryNames];
+            guessedDirectory = [self enumerateParentFoldersFromFolder:[sourcePath stringByDeletingLastPathComponent] with:^(NSString *folder, NSString *relativePath, BOOL *stop) {
+                if ([magicNames containsObject:[folder lastPathComponent]]) {
+                    NSLog(@"Guessed output directory for %@ to be its own parent folder (%@) based on being located inside a folder with magical name %@", sourcePath, [sourcePath stringByDeletingLastPathComponent], folder);
+                    return (id)[sourcePath stringByDeletingLastPathComponent];
+                }
+                return (id)nil;
+            }];
+        }
+
+        // 4) is there a sibling directory with one of predefined 'output' names? (e.g. smt/css/ for smt/src/foo/file.styl)
+        if (guessedDirectory == nil) {
+            NSSet *magicNames = [NSSet setWithArray:compilationOptions.compiler.expectedOutputDirectoryNames];
+            guessedDirectory = [self enumerateParentFoldersFromFolder:[sourcePath stringByDeletingLastPathComponent] with:^(NSString *folder, NSString *relativePath, BOOL *stop) {
+                NSString *parent = [folder stringByDeletingLastPathComponent];
+                NSFileManager *fm = [NSFileManager defaultManager];
+                for (NSString *magicName in magicNames) {
+                    NSString *possibleDir = [parent stringByAppendingPathComponent:magicName];
+                    BOOL isDir = NO;
+                    if ([fm fileExistsAtPath:[_path stringByAppendingPathComponent:possibleDir] isDirectory:&isDir])
+                        if (isDir) {
+                            // TODO: decide whether or not to append relativePath based on existence of other files following the same convention
+                            NSString *guess = [possibleDir stringByAppendingPathComponent:relativePath];
+                            NSLog(@"Guessed output directory for %@ to be %@ based on a sibling folder with a magical name %@", sourcePath, guess, possibleDir);
+                            return (id)guess;
+                        }
+                }
+                return (id)nil;
+            }];
+        }
+
+        if (guessedDirectory) {
+            fileOptions.destinationDirectory = guessedDirectory;
+        }
+    }
+skipGuessing:
+    return fileOptions;
+}
+
 - (void)handleCompilationOptionsEnablementChanged:(NSNotification *)notification {
     [self requestMonitoring:[self areAnyCompilersEnabled] forKey:CompilersEnabledMonitoringKey];
 }
+
+
+#pragma mark - Paths
 
 - (NSString *)relativePathForPath:(NSString *)path {
     NSString *root = [_path stringByResolvingSymlinksInPath];
