@@ -23,6 +23,7 @@ extern NSString *ProjectNeedsSavingNotification;
 
     NSMutableSet            *_monitoringRequests;
 
+    NSString                *_lastSelectedPane;
     BOOL                     _dirty;
 }
 
