@@ -365,4 +365,11 @@
 }
 
 
+#pragma mark -
+
+- (IBAction)sendFeedback:(id)sender {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://livereload.uservoice.com/"]];
+}
+
+
 @end
