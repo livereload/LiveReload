@@ -90,7 +90,7 @@ static NSString *ClientConnectedMonitoringKey = @"clientConnected";
 }
 
 - (NSArray *)sortedProjects {
-    return [[self.projects allObjects] sortedArrayUsingSelector:@selector(path)];
+    return [[self.projects allObjects] sortedArrayUsingSelector:@selector(compareByDisplayPath:)];
 }
 
 

@@ -74,6 +74,10 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
     return [NSString stringWithFormat:@"Project(%@)", [self displayPath]];
 }
 
+- (NSComparisonResult)compareByDisplayPath:(Project *)another {
+    return [self.displayPath compare:another.displayPath];
+}
+
 
 #pragma mark - Filtering
 

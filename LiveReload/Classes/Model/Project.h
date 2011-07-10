@@ -36,4 +36,6 @@ extern NSString *ProjectMonitoringStateDidChangeNotification;
 
 - (void)requestMonitoring:(BOOL)monitoringEnabled forKey:(NSString *)key;
 
+- (NSComparisonResult)compareByDisplayPath:(Project *)another;
+
 @end
