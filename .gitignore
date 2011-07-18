@@ -4,3 +4,9 @@ xcuserdata
 /dist
 /logs
 /raw-logs
+/Supplementary
+site/css/livereload.css
+example/*.css
+example/*.js
+example/*.html
+example/.sass-cache
