@@ -17,7 +17,7 @@
 			<string>css</string>
 			<key>Errors</key>
 			<array>
-				<string>\w+Error: ((file)):((line))\n(?:\s[^\n]*\n)*\s*\n((message))\n</string>
+				<string>Error: ((file)):((line))\n(?:\s[^\n]*\n)*\s*\n((message))\n</string>
 				<string>\w+Error: ((message))\n</string>
 			</array>
 			<key>Extensions</key>
