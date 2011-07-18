@@ -42,7 +42,7 @@ function table($caption, $headers, $rows, $extra='') {
         }
         $tr[] = html_tag('tr', $e, $td);
     }
-    
+
     return html_tag('h1', $e, $caption) . $extra .
         html_tag('table', array('cellspacing' => '0'),
             html_tag('thead', $e, html_tag('tr', $e, $th)),

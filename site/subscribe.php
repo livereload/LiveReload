@@ -23,7 +23,7 @@ if (!empty($email)) {
         mysql_real_escape_string($agent));
 
     mysql_query($sql);
-    
+
     $msg = "Subscriber: $email\nIP: $ip\nUser Agent: $agent\n\nMessage:\n$message\n\n-- LiveReload";
     mail('andreyvit@me.com', "LiveReload subscription: $email", $msg, "From: notification@livereload.com\r\nReply-To: $email");
 
