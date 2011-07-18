@@ -123,15 +123,16 @@
     [openPanel setCanCreateDirectories:YES];
     [openPanel setPrompt:@"Choose folder"];
     [openPanel setCanChooseFiles:NO];
-    [openPanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
-        if (result == NSFileHandlingPanelOKButton) {
-            NSURL *url = [openPanel URL];
-            NSString *path = [url path];
-            Project *project = [[[Project alloc] initWithPath:path memento:nil] autorelease];
-            [[Workspace sharedWorkspace] addProjectsObject:project];
-            [self performSelector:@selector(projectAdded:) withObject:project afterDelay:0.5];
-        }
-    }];
+    NSInteger result = [openPanel runModal];
+//    [openPanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
+    if (result == NSFileHandlingPanelOKButton) {
+        NSURL *url = [openPanel URL];
+        NSString *path = [url path];
+        Project *project = [[[Project alloc] initWithPath:path memento:nil] autorelease];
+        [[Workspace sharedWorkspace] addProjectsObject:project];
+        [self performSelector:@selector(projectAdded:) withObject:project afterDelay:0.5];
+    }
+//    }];
 }
 
 - (IBAction)removeProjectClicked:(id)sender {
