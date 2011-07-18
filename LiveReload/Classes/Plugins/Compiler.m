@@ -96,7 +96,12 @@
 #pragma mark - Paths
 
 - (NSString *)derivedNameForFile:(NSString *)path {
-    return [[[path lastPathComponent] stringByDeletingPathExtension] stringByAppendingPathExtension:self.destinationExtension];
+    NSString *bareName = [[path lastPathComponent] stringByDeletingPathExtension];
+    if ([[bareName pathExtension] isEqualToString:self.destinationExtension]) {
+        // handle names like style.css.sass
+        return bareName;
+    }
+    return [bareName stringByAppendingPathExtension:self.destinationExtension];
 }
 
 - (NSArray *)pathsOfSourceFilesInTree:(FSTree *)tree {
