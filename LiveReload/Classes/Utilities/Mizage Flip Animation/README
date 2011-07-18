@@ -1,0 +1,18 @@
+This is a NSWindow extension that allows you to flip from one window to another along the vertical axis, much like what is standard on iOS.
+
+Usage:
+
+NSWindow* from = ...
+NSWindow* to = ...
+
+
+//To support performSelector:withObject:afterDelay:, use:
+
+FlipArguments* flipArgs = [[FlipArguments alloc] initWithToWindow:to flipDuration:2.5 shadowed:NO];
+
+//0.0 is used to fire this on the next runloop iteration. This makes it so a button will be in its "pressed" state if you use a button to do the flip.
+[from performSelector:@selector(flipWithArguments) withObject:flipArgs afterDelay:0.0]; 
+
+//To execute the flip immediately, use:
+
+[from flipToWindow:to withDuration:2.5 shadowed:NO];

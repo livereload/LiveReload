@@ -1,4 +1,6 @@
 
+#import "LiveReloadAppDelegate.h"
+
 #import "StatusItemController.h"
 #import "MainWindowController.h"
 #import "StatusItemView.h"
@@ -45,7 +47,7 @@
 }
 
 - (void)updateStatusIconState {
-    self.statusItemView.selected = self.mainWindowController.windowVisible;
+    self.statusItemView.selected = [[NSApp delegate] isWindowVisible];
     self.statusItemView.active = [Workspace sharedWorkspace].monitoringEnabled;
 }
 
@@ -58,7 +60,7 @@
 #pragma mark StatusItemViewDelegate methods
 
 - (void)statusItemView:(StatusItemView *)view clickedAtPoint:(NSPoint)pt {
-    [self.mainWindowController toggleMainWindow];
+    [[NSApp delegate] toggleWindow:nil];
 }
 
 - (void)statusItemView:(StatusItemView *)view acceptedDroppedDirectories:(NSArray *)pathes {
@@ -67,7 +69,7 @@
         newProject = [[[Project alloc] initWithPath:path memento:nil] autorelease];
         [[Workspace sharedWorkspace] addProjectsObject:newProject];
     }
-    [self.mainWindowController showMainWindow];
+    [[NSApp delegate] displayMainWindow:nil];
     if ([pathes count] == 1) {
         [self.mainWindowController projectAdded:newProject];
     }

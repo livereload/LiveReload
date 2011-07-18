@@ -3,13 +3,17 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		4310117E13845A69000B0843 /* FSTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 4310117D13845A69000B0843 /* FSTree.m */; };
 		4310118113845AA3000B0843 /* FSTreeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4310118013845AA3000B0843 /* FSTreeFilter.m */; };
+		432A1BE713D3B54D0098A4D9 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 432A1BE613D3B54D0098A4D9 /* background.png */; };
+		432A1C2913D3B90A0098A4D9 /* NSWindow+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 432A1C0F13D3B9090098A4D9 /* NSWindow+Additions.m */; };
+		432A1C2A13D3B90A0098A4D9 /* NSWindowFlipper.m in Sources */ = {isa = PBXBuildFile; fileRef = 432A1C1113D3B9090098A4D9 /* NSWindowFlipper.m */; };
+		432A1C2B13D3B90A0098A4D9 /* README in Resources */ = {isa = PBXBuildFile; fileRef = 432A1C1213D3B9090098A4D9 /* README */; };
 		432BE33513AE76EB00B76B68 /* ProjectOptionsSheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 432BE33413AE76EB00B76B68 /* ProjectOptionsSheetController.m */; };
 		432BE33713AE789E00B76B68 /* ProjectOptionsSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 432BE33613AE789E00B76B68 /* ProjectOptionsSheet.xib */; };
 		43361D2F13C2E0E500C0E589 /* Stylus.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43361D2E13C2E0E500C0E589 /* Stylus.lrplugin */; };
@@ -26,6 +30,8 @@
 		4353972F13C6E967007D3C0B /* PaneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353972D13C6E967007D3C0B /* PaneViewController.m */; };
 		4353973413C6E9D7007D3C0B /* CompilerPaneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353973213C6E9D7007D3C0B /* CompilerPaneViewController.m */; };
 		4353973513C6E9D7007D3C0B /* CompilerPaneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4353973313C6E9D7007D3C0B /* CompilerPaneViewController.xib */; };
+		43594AF413D3BB34004175B2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43594AF313D3BB34004175B2 /* QuartzCore.framework */; };
+		43594AF613D3BC30004175B2 /* MainWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43594AF513D3BC30004175B2 /* MainWindowController.xib */; };
 		43685D481385A36600D17CB2 /* LiveReload.safariextz in Resources */ = {isa = PBXBuildFile; fileRef = 43685D471385A36600D17CB2 /* LiveReload.safariextz */; };
 		43685D4B1385A39F00D17CB2 /* ExtensionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43685D4A1385A39F00D17CB2 /* ExtensionsController.m */; };
 		43685D511385B4EE00D17CB2 /* MD5OfFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 43685D501385B4EE00D17CB2 /* MD5OfFile.m */; };
@@ -48,6 +54,8 @@
 		439C092D13ADA72200119233 /* StatusItemDropTarget.png in Resources */ = {isa = PBXBuildFile; fileRef = 439C092C13ADA72200119233 /* StatusItemDropTarget.png */; };
 		439C093113ADC01900119233 /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 439C093013ADC01900119233 /* Preferences.m */; };
 		439C093313ADCBDD00119233 /* monitoring.plist in Resources */ = {isa = PBXBuildFile; fileRef = 439C093213ADCBDD00119233 /* monitoring.plist */; };
+		43A83B2613CEEAE1005EF239 /* PreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A83B2513CEEAE1005EF239 /* PreferencesWindowController.m */; };
+		43A83B2813CEEB14005EF239 /* PreferencesWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43A83B2713CEEB14005EF239 /* PreferencesWindowController.xib */; };
 		43AB50251382ACB200669FC6 /* CommunicationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43AB50241382ACB200669FC6 /* CommunicationController.m */; };
 		43AB50331382B75E00669FC6 /* base64-decode.c in Sources */ = {isa = PBXBuildFile; fileRef = 43AB50271382B75E00669FC6 /* base64-decode.c */; };
 		43AB50341382B75E00669FC6 /* client-handshake.c in Sources */ = {isa = PBXBuildFile; fileRef = 43AB50281382B75E00669FC6 /* client-handshake.c */; };
@@ -107,6 +115,12 @@
 		4310117D13845A69000B0843 /* FSTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FSTree.m; path = ../../../../../Projects/LiveReloadPaid/LiveReload/Classes/Monitoring/FSTree.m; sourceTree = "<group>"; };
 		4310117F13845AA3000B0843 /* FSTreeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FSTreeFilter.h; path = ../../../../../Projects/LiveReloadPaid/LiveReload/Classes/Monitoring/FSTreeFilter.h; sourceTree = "<group>"; };
 		4310118013845AA3000B0843 /* FSTreeFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FSTreeFilter.m; path = ../../../../../Projects/LiveReloadPaid/LiveReload/Classes/Monitoring/FSTreeFilter.m; sourceTree = "<group>"; };
+		432A1BE613D3B54D0098A4D9 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
+		432A1C0E13D3B9090098A4D9 /* NSWindow+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSWindow+Additions.h"; sourceTree = "<group>"; };
+		432A1C0F13D3B9090098A4D9 /* NSWindow+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSWindow+Additions.m"; sourceTree = "<group>"; };
+		432A1C1013D3B9090098A4D9 /* NSWindowFlipper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSWindowFlipper.h; sourceTree = "<group>"; };
+		432A1C1113D3B9090098A4D9 /* NSWindowFlipper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSWindowFlipper.m; sourceTree = "<group>"; };
+		432A1C1213D3B9090098A4D9 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		432BE33313AE76EB00B76B68 /* ProjectOptionsSheetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectOptionsSheetController.h; sourceTree = "<group>"; };
 		432BE33413AE76EB00B76B68 /* ProjectOptionsSheetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectOptionsSheetController.m; sourceTree = "<group>"; };
 		432BE33613AE789E00B76B68 /* ProjectOptionsSheet.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProjectOptionsSheet.xib; sourceTree = "<group>"; };
@@ -130,6 +144,8 @@
 		4353973113C6E9D7007D3C0B /* CompilerPaneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompilerPaneViewController.h; sourceTree = "<group>"; };
 		4353973213C6E9D7007D3C0B /* CompilerPaneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompilerPaneViewController.m; sourceTree = "<group>"; };
 		4353973313C6E9D7007D3C0B /* CompilerPaneViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompilerPaneViewController.xib; sourceTree = "<group>"; };
+		43594AF313D3BB34004175B2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		43594AF513D3BC30004175B2 /* MainWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindowController.xib; sourceTree = "<group>"; };
 		43685D471385A36600D17CB2 /* LiveReload.safariextz */ = {isa = PBXFileReference; lastKnownFileType = file; path = LiveReload.safariextz; sourceTree = "<group>"; };
 		43685D491385A39F00D17CB2 /* ExtensionsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtensionsController.h; sourceTree = "<group>"; };
 		43685D4A1385A39F00D17CB2 /* ExtensionsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExtensionsController.m; sourceTree = "<group>"; };
@@ -164,6 +180,9 @@
 		439C092F13ADC01900119233 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
 		439C093013ADC01900119233 /* Preferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Preferences.m; sourceTree = "<group>"; };
 		439C093213ADCBDD00119233 /* monitoring.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = monitoring.plist; sourceTree = "<group>"; };
+		43A83B2413CEEAE1005EF239 /* PreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesWindowController.h; sourceTree = "<group>"; };
+		43A83B2513CEEAE1005EF239 /* PreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesWindowController.m; sourceTree = "<group>"; };
+		43A83B2713CEEB14005EF239 /* PreferencesWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesWindowController.xib; sourceTree = "<group>"; };
 		43AB50231382ACB200669FC6 /* CommunicationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommunicationController.h; sourceTree = "<group>"; };
 		43AB50241382ACB200669FC6 /* CommunicationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommunicationController.m; sourceTree = "<group>"; };
 		43AB50271382B75E00669FC6 /* base64-decode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "base64-decode.c"; sourceTree = "<group>"; };
@@ -249,6 +268,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43594AF413D3BB34004175B2 /* QuartzCore.framework in Frameworks */,
 				43361D4613C30D1400C0E589 /* libicucore.dylib in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 			);
@@ -306,6 +326,7 @@
 		29B97314FDCFA39411CA2CEA /* LiveReload */ = {
 			isa = PBXGroup;
 			children = (
+				43594AF313D3BB34004175B2 /* QuartzCore.framework */,
 				43C0368513CA191C00A01305 /* LiveReload.icns */,
 				43361D4513C30D1400C0E589 /* libicucore.dylib */,
 				080E96DDFE201D6D7F000001 /* Classes */,
@@ -347,6 +368,18 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		432A1BE813D3B9090098A4D9 /* Mizage Flip Animation */ = {
+			isa = PBXGroup;
+			children = (
+				432A1C0E13D3B9090098A4D9 /* NSWindow+Additions.h */,
+				432A1C0F13D3B9090098A4D9 /* NSWindow+Additions.m */,
+				432A1C1013D3B9090098A4D9 /* NSWindowFlipper.h */,
+				432A1C1113D3B9090098A4D9 /* NSWindowFlipper.m */,
+				432A1C1213D3B9090098A4D9 /* README */,
+			);
+			path = "Mizage Flip Animation";
 			sourceTree = "<group>";
 		};
 		432BE32D13AE753500B76B68 /* Project Options */ = {
@@ -533,6 +566,7 @@
 				434EA98F13A78B1100C49863 /* StatusItem */,
 				43AB50721383E18800669FC6 /* Icon-48.png */,
 				43AB50741383E37C00669FC6 /* settings.png */,
+				432A1BE613D3B54D0098A4D9 /* background.png */,
 			);
 			name = Images;
 			path = ../../../Projects/LiveReloadPaid/LiveReload/Images;
@@ -545,8 +579,12 @@
 				43DDDE38137F59F700206646 /* StatusItemController.m */,
 				43E834A8137FA15A000248E2 /* MainWindowController.h */,
 				43E834A9137FA15A000248E2 /* MainWindowController.m */,
+				43594AF513D3BC30004175B2 /* MainWindowController.xib */,
 				43685D491385A39F00D17CB2 /* ExtensionsController.h */,
 				43685D4A1385A39F00D17CB2 /* ExtensionsController.m */,
+				43A83B2413CEEAE1005EF239 /* PreferencesWindowController.h */,
+				43A83B2513CEEAE1005EF239 /* PreferencesWindowController.m */,
+				43A83B2713CEEB14005EF239 /* PreferencesWindowController.xib */,
 			);
 			name = Controllers;
 			path = ../../../../Projects/LiveReloadPaid/LiveReload/Classes/Controllers;
@@ -573,6 +611,7 @@
 				43F0447813C2DD6D00A561E9 /* NSArray+Substitutions.m */,
 				43361D4213C307FB00C0E589 /* RegexKitLite.h */,
 				43361D4313C307FB00C0E589 /* RegexKitLite.m */,
+				432A1BE813D3B9090098A4D9 /* Mizage Flip Animation */,
 			);
 			name = Utilities;
 			path = ../../../../Projects/LiveReloadPaid/LiveReload/Classes/Utilities;
@@ -639,8 +678,11 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "LiveReload" */;
-			compatibilityVersion = "Xcode 3.1";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -688,6 +730,10 @@
 				43E4BBE813C5DA7900A75F81 /* CoffeeScript.lrplugin in Resources */,
 				4353973513C6E9D7007D3C0B /* CompilerPaneViewController.xib in Resources */,
 				43C0368613CA191D00A01305 /* LiveReload.icns in Resources */,
+				43A83B2813CEEB14005EF239 /* PreferencesWindowController.xib in Resources */,
+				432A1BE713D3B54D0098A4D9 /* background.png in Resources */,
+				432A1C2B13D3B90A0098A4D9 /* README in Resources */,
+				43594AF613D3BC30004175B2 /* MainWindowController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -756,6 +802,9 @@
 				43763FDF13C780940089D8C9 /* KeyWindow.m in Sources */,
 				43763FEA13C840860089D8C9 /* FileCompilationOptions.m in Sources */,
 				43C0368213C9D82800A01305 /* Bag.m in Sources */,
+				43A83B2613CEEAE1005EF239 /* PreferencesWindowController.m in Sources */,
+				432A1C2913D3B90A0098A4D9 /* NSWindow+Additions.m in Sources */,
+				432A1C2A13D3B90A0098A4D9 /* NSWindowFlipper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -787,7 +836,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -822,8 +870,8 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
-				PREBINDING = NO;
 				SDKROOT = macosx10.6;
 			};
 			name = Debug;
@@ -835,7 +883,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				PREBINDING = NO;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				SDKROOT = macosx10.6;
 			};
 			name = Release;
