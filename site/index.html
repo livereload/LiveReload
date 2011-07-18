@@ -106,9 +106,8 @@
       </p>
       <p>
         Fill in the application form on the right
-        to be included into the beta testers emailing list.
-        Early beta testers will receive the full <del>version</del>
-        citizenship for free.
+        to be included into the beta testers emailing list
+        and receive notifications about new builds.
       </p>
     </div>
     <div class="right">
@@ -332,14 +331,8 @@
     </div>
   </section>
 
+  <script src="https://livereload.tenderapp.com/tender_widget.js" type="text/javascript"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-  <script type="text/javascript">
-    (function() {
-      var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
-      uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/XXqrtO4h241Iqz7dNULbg.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
-    })();
-  </script>
   <script type="text/javascript">
   var _sf_async_config={uid:23639,domain:"livereload.com"};
   (function(){
@@ -363,9 +356,8 @@
   <script>
     mpmetrics.set_config({ track_links_timeout: 1000 });
     mpmetrics.track('Load homepage');
-    mpmetrics.track_links('.download', 'Download', { where: 'Main' });
-    mpmetrics.track_links('.download-in-whatsnew', 'Download', { where: "What's New" });
-    mpmetrics.track_links('.oldver', 'Visit old site');
+    mpmetrics.track_links('.download', 'Download');
+    // mpmetrics.track_links('.oldver', 'Visit old site');
     
     $('.greencard').submit(function(e) {
       e.preventDefault();
@@ -377,6 +369,7 @@
       }
       
       var message = $('.message', this).val();
+      mpmetrics.track('Subscribe');
       $('.submit', this).val('Sending your application...');
       $.post('subscribe.php', { email: email, message: message }, function() {
         $('.greencard').hide();
