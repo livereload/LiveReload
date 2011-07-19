@@ -2,6 +2,8 @@
 #import "PreferencesWindowController.h"
 #import "ExtensionsController.h"
 
+#import "NSWindowController+TextStyling.h"
+
 
 
 @interface PreferencesWindowController ()
@@ -18,6 +20,13 @@
 @synthesize versionLabel = _versionLabel;
 @synthesize webSiteLabel = _webSiteLabel;
 @synthesize backToMainWindowButton = _backToMainWindowButton;
+@synthesize usingWithoutExtensionsLabel = _usingWithoutExtensionsLabel;
+@synthesize titleLabel = _titleLabel;
+@synthesize installExtensionsHeaderLabel = _installExtensionsHeaderLabel;
+@synthesize expiryLabel = _expiryLabel;
+@synthesize expiryDateLabel = _expiryDateLabel;
+@synthesize safariLabel = _safariLabel;
+@synthesize chromeLabel = _chromeLabel;
 
 
 #pragma mark -
@@ -48,11 +57,20 @@
     NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
     [self.versionLabel setStringValue:[NSString stringWithFormat:@"v%@", version]];
 
-    // both are needed, otherwise hyperlink won't accept mousedown
-    [self.webSiteLabel setAllowsEditingTextAttributes:YES];
-    [self.webSiteLabel setSelectable:YES];
+    NSShadow *shadow = [self subtleWhiteShadow];
+    NSColor *color = [NSColor colorWithCalibratedRed:63.0/255 green:70.0/255 blue:98.0/255 alpha:1.0];
+    NSColor *linkColor = [NSColor colorWithCalibratedRed:109.0/255 green:118.0/255 blue:149.0/255 alpha:1.0];
 
-    [self.webSiteLabel setAttributedStringValue:[[[NSAttributedString alloc] initWithString:[self.webSiteLabel stringValue] attributes:[NSDictionary dictionaryWithObjectsAndKeys:[NSColor blueColor], NSForegroundColorAttributeName, [NSNumber numberWithInt:NSSingleUnderlineStyle], NSUnderlineStyleAttributeName, [NSURL URLWithString:[self.webSiteLabel stringValue]], NSLinkAttributeName, [NSFont systemFontOfSize:13], NSFontAttributeName, nil]] autorelease]];
+    [self styleButton:_startAtLoginCheckbox color:color shadow:shadow];
+    [self styleLabel:_titleLabel color:color shadow:shadow];
+    [self styleLabel:_versionLabel color:color shadow:shadow];
+    [self styleLabel:_expiryLabel color:color shadow:shadow];
+    [self styleLabel:_expiryDateLabel color:color shadow:shadow];
+    [self styleLabel:_installExtensionsHeaderLabel color:color shadow:shadow];
+    [self styleLabel:_safariLabel color:color shadow:shadow];
+    [self styleLabel:_chromeLabel color:color shadow:shadow];
+    [self styleHyperlink:self.webSiteLabel color:linkColor shadow:shadow];
+    [self styleHyperlink:self.usingWithoutExtensionsLabel to:[NSURL URLWithString:@"http://help.livereload.com/kb/general-use/using-livereload-without-browser-extensions"] color:linkColor shadow:shadow];
 }
 
 - (void)willShow {
@@ -82,7 +100,7 @@
         [self.installChromeExtensionButton setEnabled:NO];
     }
 
-    [self.backToMainWindowButton setTitle:([[NSUserDefaults standardUserDefaults] boolForKey:PreferencesDoneKey] ? @"Back to LiveReload" : @"Start using LiveReload")];
+    [self.backToMainWindowButton setTitle:([[NSUserDefaults standardUserDefaults] boolForKey:PreferencesDoneKey] ? @"Apply" : @"Continue")];
 }
 
 @end

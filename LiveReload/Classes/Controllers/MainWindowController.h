@@ -11,6 +11,7 @@
     NSTextField *_connectionStateLabel;
     BOOL _inProjectEditorMode;
     NSTextField *_clickToAddFolderLabel;
+    NSTextField *_folderListLabel;
 
     ProjectOptionsSheetController *projectEditorController;
 
@@ -28,6 +29,7 @@
 
 @property(nonatomic, retain) IBOutlet NSButton *removeProjectButton;
 @property (assign) IBOutlet NSTextField *clickToAddFolderLabel;
+@property (assign) IBOutlet NSTextField *folderListLabel;
 
 - (void)willShow;
 

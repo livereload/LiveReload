@@ -273,7 +273,7 @@
 								<object class="NSTextField" id="286512662">
 									<reference key="NSNextResponder" ref="558754423"/>
 									<int key="NSvFlags">292</int>
-									<string key="NSFrame">{{7, 10}, {466, 17}}</string>
+									<string key="NSFrame">{{7, 5}, {466, 17}}</string>
 									<reference key="NSSuperview" ref="558754423"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView"/>
@@ -282,7 +282,11 @@
 										<int key="NSCellFlags">68288064</int>
 										<int key="NSCellFlags2">138413056</int>
 										<string key="NSContents">Safari: right-click &gt; “Enable LiveReload”. Chrome: click toolbar button.</string>
-										<reference key="NSSupport" ref="710582751"/>
+										<object class="NSFont" key="NSSupport">
+											<string key="NSName">LucidaGrande</string>
+											<double key="NSSize">11</double>
+											<int key="NSfFlags">3100</int>
+										</object>
 										<reference key="NSControlView" ref="286512662"/>
 										<reference key="NSBackgroundColor" ref="396364851"/>
 										<object class="NSColor" key="NSTextColor" id="533931054">
@@ -448,6 +452,14 @@
 						<reference key="destination" ref="1001"/>
 					</object>
 					<int key="connectionID">88</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">folderListLabel</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="1039845426"/>
+					</object>
+					<int key="connectionID">89</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -734,7 +746,7 @@
 				<reference key="dict.values" ref="1002"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">88</int>
+			<int key="maxID">89</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -842,12 +854,14 @@
 							<string>addProjectButton</string>
 							<string>clickToAddFolderLabel</string>
 							<string>connectionStateLabel</string>
+							<string>folderListLabel</string>
 							<string>listView</string>
 							<string>removeProjectButton</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>NSButton</string>
+							<string>NSTextField</string>
 							<string>NSTextField</string>
 							<string>NSTextField</string>
 							<string>PXListView</string>
@@ -861,6 +875,7 @@
 							<string>addProjectButton</string>
 							<string>clickToAddFolderLabel</string>
 							<string>connectionStateLabel</string>
+							<string>folderListLabel</string>
 							<string>listView</string>
 							<string>removeProjectButton</string>
 						</object>
@@ -876,6 +891,10 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">connectionStateLabel</string>
+								<string key="candidateClassName">NSTextField</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">folderListLabel</string>
 								<string key="candidateClassName">NSTextField</string>
 							</object>
 							<object class="IBToOneOutletInfo">

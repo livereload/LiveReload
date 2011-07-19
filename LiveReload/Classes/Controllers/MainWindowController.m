@@ -10,6 +10,8 @@
 #import "PXListView+UserInteraction.h"
 #import "Project.h"
 
+#import "NSWindowController+TextStyling.h"
+
 
 @interface MainWindowController () <ProjectCellDelegate, NSWindowDelegate>
 
@@ -29,6 +31,7 @@
 @synthesize addProjectButton=_addProjectButton;
 @synthesize removeProjectButton=_removeProjectButton;
 @synthesize clickToAddFolderLabel = _clickToAddFolderLabel;
+@synthesize folderListLabel = _folderListLabel;
 
 
 #pragma mark -
@@ -58,6 +61,13 @@
     [[Workspace sharedWorkspace] addObserver:self forKeyPath:@"projects" options:0 context:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateMainScreen) name:CommunicationStateChangedNotification object:nil];
     [[CommunicationController sharedCommunicationController] addObserver:self forKeyPath:@"numberOfProcessedChanges" options:0 context:nil];
+
+    NSShadow *shadow = [self subtleWhiteShadow];
+    NSColor *color = [NSColor colorWithCalibratedRed:63.0/255 green:70.0/255 blue:98.0/255 alpha:1.0];
+//    NSColor *linkColor = [NSColor colorWithCalibratedRed:109.0/255 green:118.0/255 blue:149.0/255 alpha:1.0];
+
+    [self styleLabel:_folderListLabel color:color shadow:shadow];
+    [self styleLabel:_clickToAddFolderLabel color:color shadow:shadow];
 }
 
 - (void)willShow {
@@ -115,6 +125,7 @@
     } else {
         [self.connectionStateLabel setStringValue:[NSString stringWithFormat:@"%d browsers connected, %d changes detected so far.", n, [CommunicationController sharedCommunicationController].numberOfProcessedChanges]];
     }
+    [self styleLabel:self.connectionStateLabel color:[NSColor colorWithCalibratedRed:63.0/255 green:70.0/255 blue:98.0/255 alpha:1.0] shadow:[self subtleWhiteShadow]];
 }
 
 - (IBAction)addProjectClicked:(id)sender {
