@@ -314,7 +314,7 @@
 								<object class="NSTextField" id="978296815">
 									<reference key="NSNextResponder" ref="572680942"/>
 									<int key="NSvFlags">292</int>
-									<string key="NSFrame">{{15, 6}, {63, 14}}</string>
+									<string key="NSFrame">{{15, 6}, {52, 14}}</string>
 									<reference key="NSSuperview" ref="572680942"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="386460147"/>
@@ -322,7 +322,7 @@
 									<object class="NSTextFieldCell" key="NSCell" id="431995109">
 										<int key="NSCellFlags">67239488</int>
 										<int key="NSCellFlags2">4327424</int>
-										<string key="NSContents">v0.0ß3</string>
+										<string key="NSContents">v0.0 ß3</string>
 										<object class="NSFont" key="NSSupport" id="26">
 											<string key="NSName">LucidaGrande</string>
 											<double key="NSSize">11</double>
@@ -498,6 +498,8 @@
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1280, 800}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
+				<int key="NSWindowAnimationBehavior">2</int>
+				<int key="NSWindowCollectionBehavior">329</int>
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
 			<object class="NSCustomObject" id="703969968">
@@ -617,14 +619,6 @@
 					<int key="connectionID">81</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">terminate:</string>
-						<reference key="source" ref="1003"/>
-						<reference key="destination" ref="232298597"/>
-					</object>
-					<int key="connectionID">88</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">usingWithoutExtensionsLabel</string>
 						<reference key="source" ref="1001"/>
@@ -679,6 +673,14 @@
 						<reference key="destination" ref="160995235"/>
 					</object>
 					<int key="connectionID">96</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">sendFeedback:</string>
+						<reference key="source" ref="1003"/>
+						<reference key="destination" ref="232298597"/>
+					</object>
+					<int key="connectionID">97</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1052,7 +1054,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">96</int>
+			<int key="maxID">97</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

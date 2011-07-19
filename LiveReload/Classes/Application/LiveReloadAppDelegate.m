@@ -178,4 +178,11 @@
 }
 
 
+#pragma mark -
+
+- (IBAction)sendFeedback:(id)sender {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://help.livereload.com/discussion/new"]];
+}
+
+
 @end
