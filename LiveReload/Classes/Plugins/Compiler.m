@@ -2,6 +2,7 @@
 #import "Compiler.h"
 #import "Plugin.h"
 #import "CompilationOptions.h"
+#import "ToolError.h"
 
 #import "FSTree.h"
 #import "RegexKitLite.h"
@@ -114,7 +115,9 @@
 
 #pragma mark - Compilation
 
-- (void)compile:(NSString *)sourcePath into:(NSString *)destinationPath with:(CompilationOptions *)options {
+- (void)compile:(NSString *)sourcePath into:(NSString *)destinationPath with:(CompilationOptions *)options compilerError:(ToolError **)compilerError {
+    if (compilerError) *compilerError = nil;
+
     NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:
                           @"/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/bin/ruby", @"$(ruby)",
                           [[NSBundle mainBundle] pathForResource:@"node" ofType:nil], @"$(node)",
@@ -183,17 +186,10 @@
             if (![file isAbsolutePath]) {
                 file = [[sourcePath stringByDeletingLastPathComponent] stringByAppendingPathComponent:file];
             }
-            NSString *fileName = [file lastPathComponent];
-            NSString *dir = [[file stringByDeletingLastPathComponent] stringByAbbreviatingWithTildeInPath];
 
-            NSAlert *alert = [NSAlert alertWithMessageText:[NSString stringWithFormat:@"%@ error", _name]
-                                             defaultButton:@"Edit in TextMate"
-                                           alternateButton:@"Ignore"
-                                               otherButton:nil
-                                 informativeTextWithFormat:@"%@\n\nLine: %@\n\nFile: %@\n\nFolder: %@", message, (line ? line : @"?"), fileName, dir];
-            if ([alert runModal] == NSAlertDefaultReturn) {
-                NSString *url = [NSString stringWithFormat:@"txmt://open/?url=file://%@&line=%@", [file stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], line];
-                [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:url]];
+            if (compilerError) {
+                NSInteger lineNo = [line integerValue];
+                *compilerError = [[[ToolError alloc] initWithCompiler:self sourcePath:file line:lineNo message:message output:output] autorelease];
             }
         }
     } else {

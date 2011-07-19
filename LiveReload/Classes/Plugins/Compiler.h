@@ -5,6 +5,8 @@
 @class Plugin;
 @class CompilationOptions;
 @class FSTree;
+@class ToolError;
+
 
 @interface Compiler : NSObject {
 @private
@@ -28,7 +30,7 @@
 
 - (NSString *)derivedNameForFile:(NSString *)path;
 
-- (void)compile:(NSString *)sourcePath into:(NSString *)destinationPath with:(CompilationOptions *)options;
+- (void)compile:(NSString *)sourcePath into:(NSString *)destinationPath with:(CompilationOptions *)options compilerError:(ToolError **)compilerError;
 
 - (NSArray *)pathsOfSourceFilesInTree:(FSTree *)tree;
 

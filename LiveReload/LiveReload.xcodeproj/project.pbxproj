@@ -79,6 +79,10 @@
 		43AB505E1383CA6200669FC6 /* ATFunctionalStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 43AB505D1383CA6200669FC6 /* ATFunctionalStyle.m */; };
 		43AB50731383E18800669FC6 /* Icon-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 43AB50721383E18800669FC6 /* Icon-48.png */; };
 		43AB50751383E37C00669FC6 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 43AB50741383E37C00669FC6 /* settings.png */; };
+		43BB2A9413D4D2B400B59AF5 /* ToolErrorWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43BB2A9313D4D2B400B59AF5 /* ToolErrorWindowController.m */; };
+		43BB2A9613D4D2C600B59AF5 /* ToolErrorWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43BB2A9513D4D2C600B59AF5 /* ToolErrorWindowController.xib */; };
+		43BB2A9D13D4E71200B59AF5 /* ToolError.m in Sources */ = {isa = PBXBuildFile; fileRef = 43BB2A9C13D4E71200B59AF5 /* ToolError.m */; };
+		43BB2AA013D5097E00B59AF5 /* AuxWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 43BB2A9F13D5097D00B59AF5 /* AuxWindow.m */; };
 		43C0368213C9D82800A01305 /* Bag.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C0368113C9D82700A01305 /* Bag.m */; };
 		43C0368613CA191D00A01305 /* LiveReload.icns in Resources */ = {isa = PBXBuildFile; fileRef = 43C0368513CA191C00A01305 /* LiveReload.icns */; };
 		43DDDE39137F59F700206646 /* StatusItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DDDE38137F59F700206646 /* StatusItemController.m */; };
@@ -222,6 +226,13 @@
 		43AB505D1383CA6200669FC6 /* ATFunctionalStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATFunctionalStyle.m; sourceTree = "<group>"; };
 		43AB50721383E18800669FC6 /* Icon-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-48.png"; sourceTree = "<group>"; };
 		43AB50741383E37C00669FC6 /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
+		43BB2A9213D4D2B400B59AF5 /* ToolErrorWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolErrorWindowController.h; sourceTree = "<group>"; };
+		43BB2A9313D4D2B400B59AF5 /* ToolErrorWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolErrorWindowController.m; sourceTree = "<group>"; };
+		43BB2A9513D4D2C600B59AF5 /* ToolErrorWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ToolErrorWindowController.xib; sourceTree = "<group>"; };
+		43BB2A9B13D4E71200B59AF5 /* ToolError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolError.h; sourceTree = "<group>"; };
+		43BB2A9C13D4E71200B59AF5 /* ToolError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolError.m; sourceTree = "<group>"; };
+		43BB2A9E13D5097D00B59AF5 /* AuxWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuxWindow.h; sourceTree = "<group>"; };
+		43BB2A9F13D5097D00B59AF5 /* AuxWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuxWindow.m; sourceTree = "<group>"; };
 		43C0368013C9D82700A01305 /* Bag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bag.h; sourceTree = "<group>"; };
 		43C0368113C9D82700A01305 /* Bag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bag.m; sourceTree = "<group>"; };
 		43C0368513CA191C00A01305 /* LiveReload.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LiveReload.icns; sourceTree = "<group>"; };
@@ -423,6 +434,8 @@
 				43361D3E13C2ED9200C0E589 /* PluginManager.m */,
 				43E4BBE913C6ADBE00A75F81 /* CompilerVersion.h */,
 				43E4BBEA13C6ADBE00A75F81 /* CompilerVersion.m */,
+				43BB2A9B13D4E71200B59AF5 /* ToolError.h */,
+				43BB2A9C13D4E71200B59AF5 /* ToolError.m */,
 			);
 			path = Plugins;
 			sourceTree = "<group>";
@@ -585,6 +598,9 @@
 				43A83B2413CEEAE1005EF239 /* PreferencesWindowController.h */,
 				43A83B2513CEEAE1005EF239 /* PreferencesWindowController.m */,
 				43A83B2713CEEB14005EF239 /* PreferencesWindowController.xib */,
+				43BB2A9213D4D2B400B59AF5 /* ToolErrorWindowController.h */,
+				43BB2A9313D4D2B400B59AF5 /* ToolErrorWindowController.m */,
+				43BB2A9513D4D2C600B59AF5 /* ToolErrorWindowController.xib */,
 			);
 			name = Controllers;
 			path = ../../../../Projects/LiveReloadPaid/LiveReload/Classes/Controllers;
@@ -627,6 +643,8 @@
 				43E834EB13803AC8000248E2 /* ProjectCell.xib */,
 				43763FDD13C780940089D8C9 /* KeyWindow.h */,
 				43763FDE13C780940089D8C9 /* KeyWindow.m */,
+				43BB2A9E13D5097D00B59AF5 /* AuxWindow.h */,
+				43BB2A9F13D5097D00B59AF5 /* AuxWindow.m */,
 			);
 			name = Views;
 			path = ../../../../Projects/LiveReloadPaid/LiveReload/Classes/Views;
@@ -734,6 +752,7 @@
 				432A1BE713D3B54D0098A4D9 /* background.png in Resources */,
 				432A1C2B13D3B90A0098A4D9 /* README in Resources */,
 				43594AF613D3BC30004175B2 /* MainWindowController.xib in Resources */,
+				43BB2A9613D4D2C600B59AF5 /* ToolErrorWindowController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -805,6 +824,9 @@
 				43A83B2613CEEAE1005EF239 /* PreferencesWindowController.m in Sources */,
 				432A1C2913D3B90A0098A4D9 /* NSWindow+Additions.m in Sources */,
 				432A1C2A13D3B90A0098A4D9 /* NSWindowFlipper.m in Sources */,
+				43BB2A9413D4D2B400B59AF5 /* ToolErrorWindowController.m in Sources */,
+				43BB2A9D13D4E71200B59AF5 /* ToolError.m in Sources */,
+				43BB2AA013D5097E00B59AF5 /* AuxWindow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
