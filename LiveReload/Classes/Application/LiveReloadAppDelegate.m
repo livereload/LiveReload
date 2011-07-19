@@ -16,6 +16,9 @@
 - (void)pingServer;
 - (void)considerShowingWindowOnAppStartup;
 
+- (BOOL)isMainWindowVisible;
+- (void)hideMainWindow;
+
 @end
 
 
@@ -70,6 +73,9 @@
 }
 
 - (void)applicationDidResignActive:(NSNotification *)notification {
+    if ([self isMainWindowVisible]) {
+        [self hideMainWindow];
+    }
 }
 
 - (void)pingServer {
