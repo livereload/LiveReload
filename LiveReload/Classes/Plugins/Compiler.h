@@ -28,6 +28,9 @@
 @property(nonatomic, readonly) NSString *destinationExtension;
 @property(nonatomic, readonly) NSArray *expectedOutputDirectoryNames;
 
+@property(nonatomic, readonly) NSString *sourceExtensionsForDisplay;
+@property(nonatomic, readonly) NSString *destinationExtensionForDisplay;
+
 - (NSString *)derivedNameForFile:(NSString *)path;
 
 - (void)compile:(NSString *)sourcePath into:(NSString *)destinationPath with:(CompilationOptions *)options compilerError:(ToolError **)compilerError;

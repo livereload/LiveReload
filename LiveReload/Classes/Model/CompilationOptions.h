@@ -18,6 +18,7 @@ extern NSString *CompilationOptionsEnabledChangedNotification;
     Bag                   *_globalOptions;
     NSArray               *_includeDirectories;
     NSMutableDictionary   *_fileOptions; // NSString to FileCompilationOptions
+    NSString              *_additionalArguments;
 
     NSArray               *_availableVersions;
     CompilerVersion       *_version;
@@ -35,6 +36,7 @@ extern NSString *CompilationOptionsEnabledChangedNotification;
 @property(nonatomic, retain) CompilerVersion *version;
 
 @property(nonatomic, readonly) Bag *globalOptions;
+@property(nonatomic, copy) NSString *additionalArguments;
 
 - (FileCompilationOptions *)optionsForFileAtPath:(NSString *)path create:(BOOL)create;
 

@@ -9,6 +9,7 @@
 			<array>
 				<string>$(ruby)</string>
 				<string>$(plugin)/lib/sass-3.1.4/bin/sass</string>
+				<string>$(additional)</string>
 				<string>$(src_file)</string>
 				<string>$(dst_file)</string>
 			</array>

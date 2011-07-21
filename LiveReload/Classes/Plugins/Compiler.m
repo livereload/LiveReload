@@ -8,6 +8,7 @@
 #import "RegexKitLite.h"
 #import "NSTask+OneLineTasksWithOutput.h"
 #import "NSArray+Substitutions.h"
+#import "ATFunctionalStyle.h"
 
 @interface NSString (SmartRegexpCaptures)
 
@@ -94,6 +95,19 @@
 }
 
 
+#pragma mark - Computed properties
+
+- (NSString *)sourceExtensionsForDisplay {
+    return [[_extensions arrayByMappingElementsUsingBlock:^id(id value) {
+        return [NSString stringWithFormat:@".%@", value];
+    }] componentsJoinedByString:@"/"];
+}
+
+- (NSString *)destinationExtensionForDisplay {
+    return [NSString stringWithFormat:@".%@", _destinationExtension];
+}
+
+
 #pragma mark - Paths
 
 - (NSString *)derivedNameForFile:(NSString *)path {
@@ -118,14 +132,21 @@
 - (void)compile:(NSString *)sourcePath into:(NSString *)destinationPath with:(CompilationOptions *)options compilerError:(ToolError **)compilerError {
     if (compilerError) *compilerError = nil;
 
-    NSDictionary *info = [NSDictionary dictionaryWithObjectsAndKeys:
-                          @"/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/bin/ruby", @"$(ruby)",
-                          [[NSBundle mainBundle] pathForResource:@"node" ofType:nil], @"$(node)",
-                          _plugin.path, @"$(plugin)",
-                          [sourcePath lastPathComponent], @"$(src_file)",
-                          destinationPath, @"$(dst_file)",
-                          [destinationPath stringByDeletingLastPathComponent], @"$(dst_dir)",
-                          nil];
+    NSMutableDictionary *info = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                 @"/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/bin/ruby", @"$(ruby)",
+                                 [[NSBundle mainBundle] pathForResource:@"node" ofType:nil], @"$(node)",
+                                 _plugin.path, @"$(plugin)",
+                                 [sourcePath lastPathComponent], @"$(src_file)",
+                                 destinationPath, @"$(dst_file)",
+                                 [destinationPath stringByDeletingLastPathComponent], @"$(dst_dir)",
+                                 nil];
+
+    NSString *additionalArguments = [options.additionalArguments stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSArray *additionalArgumentsArray = [NSArray array];
+    if ([additionalArguments length]) {
+        additionalArgumentsArray = [[additionalArguments componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] arrayBySubstitutingValuesFromDictionary:info];
+    }
+    [info setObject:additionalArgumentsArray forKey:@"$(additional)"];
 
     NSArray *arguments = [_commandLine arrayBySubstitutingValuesFromDictionary:info];
     NSLog(@"Running compiler: %@", [arguments description]);

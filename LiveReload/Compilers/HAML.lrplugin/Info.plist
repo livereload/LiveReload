@@ -9,6 +9,7 @@
 			<array>
 				<string>$(ruby)</string>
 				<string>$(plugin)/lib/haml-3.1.2/bin/haml</string>
+				<string>$(additional)</string>
 				<string>$(src_file)</string>
 				<string>$(dst_file)</string>
 			</array>

@@ -17,6 +17,7 @@ NSString *CompilationOptionsEnabledChangedNotification = @"CompilationOptionsEna
 @synthesize enabled=_enabled;
 @synthesize version=_version;
 @synthesize globalOptions=_globalOptions;
+@synthesize additionalArguments=_additionalArguments;
 
 
 #pragma mark init/dealloc
@@ -41,12 +42,20 @@ NSString *CompilationOptionsEnabledChangedNotification = @"CompilationOptionsEna
                 [_fileOptions setObject:[[[FileCompilationOptions alloc] initWithFile:filePath memento:fileMemento] autorelease] forKey:filePath];
             }];
         }
+
+        raw = [memento objectForKey:@"additionalArguments"];
+        if (raw) {
+            _additionalArguments = [raw copy];
+        } else {
+            _additionalArguments = @"";
+        }
     }
     return self;
 }
 
 - (void)dealloc {
     [_compiler release], _compiler = nil;
+    [_additionalArguments release], _additionalArguments = nil;
     [super dealloc];
 }
 
@@ -54,7 +63,7 @@ NSString *CompilationOptionsEnabledChangedNotification = @"CompilationOptionsEna
 #pragma mark - Persistence
 
 - (NSDictionary *)memento {
-    return [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:_enabled], @"enabled", _globalOptions.dictionary, @"global", [_fileOptions dictionaryByMappingValuesToSelector:@selector(memento)], @"files", nil];
+    return [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:_enabled], @"enabled", _globalOptions.dictionary, @"global", [_fileOptions dictionaryByMappingValuesToSelector:@selector(memento)], @"files", _additionalArguments, @"additionalArguments", nil];
 }
 
 
@@ -94,6 +103,14 @@ NSString *CompilationOptionsEnabledChangedNotification = @"CompilationOptionsEna
     if (_enabled != enabled) {
         _enabled = enabled;
         [[NSNotificationCenter defaultCenter] postNotificationName:CompilationOptionsEnabledChangedNotification object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+    }
+}
+
+- (void)setAdditionalArguments:(NSString *)additionalArguments {
+    if (_additionalArguments != additionalArguments) {
+        [_additionalArguments release];
+        _additionalArguments = [additionalArguments retain];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
     }
 }
