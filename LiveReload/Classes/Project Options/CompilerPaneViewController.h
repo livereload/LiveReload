@@ -12,6 +12,8 @@
     Compiler               *_compiler;
     CompilationOptions     *_options;
     NSArray                *_fileOptions;
+    NSButtonCell *_compileModeButton;
+    NSButtonCell *_middlewareModeButton;
 
     NSObjectController     *_objectController;
     NSArrayController      *_fileOptionsArrayController;
@@ -26,5 +28,9 @@
 @property (assign) IBOutlet NSArrayController *fileOptionsArrayController;
 
 @property (nonatomic, readonly) NSArray *fileOptions;
+
+@property (assign) IBOutlet NSButtonCell *compileModeButton;
+@property (assign) IBOutlet NSButtonCell *middlewareModeButton;
+
 
 @end

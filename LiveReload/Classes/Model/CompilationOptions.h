@@ -11,14 +11,21 @@
 extern NSString *CompilationOptionsEnabledChangedNotification;
 
 
+typedef enum {
+    CompilationModeIgnore,
+    CompilationModeCompile,
+    CompilationModeMiddleware,
+} CompilationMode;
+
+
 @interface CompilationOptions : NSObject {
 @private
     Compiler              *_compiler;
-    BOOL                   _enabled;
     Bag                   *_globalOptions;
     NSArray               *_includeDirectories;
     NSMutableDictionary   *_fileOptions; // NSString to FileCompilationOptions
     NSString              *_additionalArguments;
+    CompilationMode        _mode;
 
     NSArray               *_availableVersions;
     CompilerVersion       *_version;
@@ -30,7 +37,9 @@ extern NSString *CompilationOptionsEnabledChangedNotification;
 
 - (NSDictionary *)memento;
 
-@property(nonatomic) BOOL enabled;
+@property(nonatomic) CompilationMode mode;
+@property(nonatomic, readonly) NSString *modeDisplayName;
+@property (nonatomic, readonly, getter = isCompileModeActive) BOOL compileModeActive;
 
 @property(nonatomic, readonly) NSArray *availableVersions;
 @property(nonatomic, retain) CompilerVersion *version;

@@ -159,7 +159,8 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
         Compiler *compiler = [[PluginManager sharedPluginManager] compilerForExtension:[path pathExtension]];
         if (compiler) {
             CompilationOptions *compilationOptions = [self optionsForCompiler:compiler create:NO];
-            if (compilationOptions.enabled) {
+            CompilationMode mode = compilationOptions.mode;
+            if (mode == CompilationModeCompile) {
                 if (![fm fileExistsAtPath:path])
                     continue; // don't try to compile deleted files
                 FileCompilationOptions *fileOptions = [self optionsForFileAtPath:relativePath in:compilationOptions];
@@ -180,16 +181,12 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
                 } else {
                     NSLog(@"Ignoring %@ because destination directory is not set.", relativePath);
                 }
-            } else {
+            } else if (mode == CompilationModeIgnore) {
+                NSLog(@"Ignoring %@ because %@ mode is IGNORE.", relativePath, compiler.name);
+            } else if (mode == CompilationModeMiddleware) {
                 NSString *derivedName = [compiler derivedNameForFile:path];
-                NSString *derivedPath = [self.tree pathOfFileNamed:derivedName];
-                if (derivedPath == nil) {
-                    // the file is probably compiled on the fly; broadcast a change
-                    [filtered addObject:derivedName];
-                    NSLog(@"NOT compiling %@ because %@ is not enabled. Broadcasting a fake change in %@ because no compiled file exists, so compilation probably happens on the fly.", relativePath, compiler.name, derivedName);
-                } else {
-                    NSLog(@"Ignoring %@ because %@ is not enabled, and (externally) compiled file %@ exists.", relativePath, compiler.name, derivedPath);
-                }
+                [filtered addObject:derivedName];
+                NSLog(@"Broadcasting a fake change in %@ instead of %@ because %@ mode is MIDDLEWARE (PRETEND).", derivedName, relativePath, compiler.name);
             }
         } else {
             [filtered addObject:path];
@@ -212,7 +209,7 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
 
 - (BOOL)areAnyCompilersEnabled {
     for (CompilationOptions *options in [_compilerOptions allValues]) {
-        if (options.enabled) {
+        if (options.mode == CompilationModeCompile) {
             return YES;
         }
     }

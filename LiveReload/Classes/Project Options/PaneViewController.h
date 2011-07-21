@@ -14,7 +14,8 @@
 
 @property(nonatomic, readonly) NSString *uniqueId;
 @property(nonatomic, readonly) NSString *title;
-@property(nonatomic, getter=isActive) BOOL active;
+@property(nonatomic, readonly) NSString *summary;
+@property(nonatomic, readonly, getter = isActive) BOOL active;
 
 - (void)paneWillShow;
 - (void)paneDidShow;

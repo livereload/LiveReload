@@ -30,11 +30,12 @@
     return @"?";
 }
 
-- (BOOL)isActive {
-    return NO;
+- (NSString *)summary {
+    return @"";
 }
 
-- (void)setActive:(BOOL)active {
+- (BOOL)isActive {
+    return NO;
 }
 
 

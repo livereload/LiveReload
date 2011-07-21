@@ -10,11 +10,15 @@
 
 NSString *CompilationOptionsEnabledChangedNotification = @"CompilationOptionsEnabledChangedNotification";
 
+NSString *APIModeNames[] = { @"ignore", @"compile", @"middleware" };
+
+NSString *DisplayModeNames[] = { @"ignore", @"compile", @"on-the-fly" };
+
 
 @implementation CompilationOptions
 
 @synthesize compiler=_compiler;
-@synthesize enabled=_enabled;
+@synthesize mode=_mode;
 @synthesize version=_version;
 @synthesize globalOptions=_globalOptions;
 @synthesize additionalArguments=_additionalArguments;
@@ -28,9 +32,28 @@ NSString *CompilationOptionsEnabledChangedNotification = @"CompilationOptionsEna
         _compiler = [compiler retain];
         _globalOptions = [[Bag alloc] init];
         _fileOptions = [[NSMutableDictionary alloc] init];
-        _enabled = [[memento objectForKey:@"enabled"] boolValue];
 
         id raw;
+
+        raw = [memento objectForKey:@"enabled"]; // old format, TODO deprecate well after 2.0 final release
+        if (raw) {
+            if ([raw boolValue])
+                _mode = CompilationModeCompile;
+            else
+                _mode = CompilationModeIgnore;
+        } else if ((raw = [memento objectForKey:@"mode"])) {
+            if ([raw isEqualToString:@"ignore"])
+                _mode = CompilationModeIgnore;
+            else if ([raw isEqualToString:@"compile"])
+                _mode = CompilationModeCompile;
+            else if ([raw isEqualToString:@"middleware"])
+                _mode = CompilationModeMiddleware;
+            else {
+                NSLog(@"Ignoring unknown value of mode: '%@'", raw);
+                _mode = CompilationModeIgnore;
+            }
+        }
+
         raw = [memento objectForKey:@"global"];
         if (raw) {
             [_globalOptions addEntriesFromDictionary:raw];
@@ -63,7 +86,7 @@ NSString *CompilationOptionsEnabledChangedNotification = @"CompilationOptionsEna
 #pragma mark - Persistence
 
 - (NSDictionary *)memento {
-    return [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:_enabled], @"enabled", _globalOptions.dictionary, @"global", [_fileOptions dictionaryByMappingValuesToSelector:@selector(memento)], @"files", _additionalArguments, @"additionalArguments", nil];
+    return [NSDictionary dictionaryWithObjectsAndKeys:APIModeNames[_mode], @"mode", _globalOptions.dictionary, @"global", [_fileOptions dictionaryByMappingValuesToSelector:@selector(memento)], @"files", _additionalArguments, @"additionalArguments", nil];
 }
 
 
@@ -99,9 +122,25 @@ NSString *CompilationOptionsEnabledChangedNotification = @"CompilationOptionsEna
 
 #pragma mark - Global options
 
-- (void)setEnabled:(BOOL)enabled {
-    if (_enabled != enabled) {
-        _enabled = enabled;
+- (NSString *)modeDisplayName {
+    return DisplayModeNames[_mode];
+}
+
++ (NSSet *)keyPathsForValuesAffectingModeDisplayName {
+    return [NSSet setWithObject:@"mode"];
+}
+
+- (BOOL)isCompileModeActive {
+    return _mode == CompilationModeCompile;
+}
+
++ (NSSet *)keyPathsForValuesAffectingCompileModeActive {
+    return [NSSet setWithObject:@"mode"];
+}
+
+- (void)setMode:(CompilationMode)mode {
+    if (_mode != mode) {
+        _mode = mode;
         [[NSNotificationCenter defaultCenter] postNotificationName:CompilationOptionsEnabledChangedNotification object:self];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
     }

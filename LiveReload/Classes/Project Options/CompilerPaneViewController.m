@@ -24,6 +24,8 @@
 @synthesize objectController = _objectController;
 @synthesize fileOptionsArrayController = _fileOptionsArrayController;
 @synthesize fileOptions=_fileOptions;
+@synthesize compileModeButton = _compileModeButton;
+@synthesize middlewareModeButton = _middlewareModeButton;
 
 
 #pragma mark - init/dealloc
@@ -59,16 +61,34 @@
     return _compiler.name;
 }
 
-- (BOOL)isActive {
-    return self.options.enabled;
+- (NSString *)summary {
+    return self.options.modeDisplayName;
 }
 
-- (void)setActive:(BOOL)active {
-    self.options.enabled = active;
++ (NSSet *)keyPathsForValuesAffectingSummary {
+    return [NSSet setWithObject:@"options.mode"];
+}
+
+- (BOOL)isActive {
+    return _options.mode != CompilationModeIgnore;
+}
+
++ (NSSet *)keyPathsForValuesAffectingActive {
+    return [NSSet setWithObject:@"options.mode"];
 }
 
 
 #pragma mark - Pane lifecycle
+
+- (NSString *)expand:(NSString *)caption {
+    return [[caption stringByReplacingOccurrencesOfString:@".dst" withString:_compiler.destinationExtensionForDisplay] stringByReplacingOccurrencesOfString:@"DST" withString:_compiler.name];
+}
+
+- (void)loadView {
+    [super loadView];
+    _compileModeButton.title = [self expand:_compileModeButton.title];
+    _middlewareModeButton.title = [self expand:_middlewareModeButton.title];
+}
 
 - (NSString *)monitoringKey {
     return [NSString stringWithFormat:@"compilerOptionsOpen:%@", _compiler.uniqueId];
