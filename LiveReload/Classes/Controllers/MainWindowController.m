@@ -271,5 +271,9 @@
     return frame;
 }
 
+- (BOOL)isProjectOptionsSheetVisible {
+    return _inProjectEditorMode;
+}
+
 
 @end

@@ -40,4 +40,6 @@
 
 - (void)projectAdded:(Project *)project;
 
+- (BOOL)isProjectOptionsSheetVisible;
+
 @end

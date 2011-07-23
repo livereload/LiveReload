@@ -73,7 +73,7 @@
 }
 
 - (void)applicationDidResignActive:(NSNotification *)notification {
-    if ([self isMainWindowVisible]) {
+    if ([self isMainWindowVisible] && ![self.mainWindowController isProjectOptionsSheetVisible]) {
         [self hideMainWindow];
     }
 }
