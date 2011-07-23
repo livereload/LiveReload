@@ -31,3 +31,21 @@
 }
 
 @end
+
+
+@implementation NSString (Substitutions)
+
+- (NSString *)stringBySubstitutingValuesFromDictionary:(NSDictionary *)info {
+    __block NSString *mutable = [self copy];
+    [info enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
+        if ([value isKindOfClass:[NSArray class]]) {
+        } else {
+            NSString *old = mutable;
+            mutable = [[mutable stringByReplacingOccurrencesOfString:key withString:value] copy];
+            [old release];
+        }
+    }];
+    return [NSString stringWithString:[mutable autorelease]];
+}
+
+@end

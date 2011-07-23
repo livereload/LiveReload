@@ -150,46 +150,57 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
     }
 }
 
-- (void)fileSystemMonitor:(FSMonitor *)monitor detectedChangeAtPathes:(NSSet *)pathes {
-    NSMutableSet *filtered = [NSMutableSet setWithCapacity:[pathes count]];
-    NSString *rootPath = monitor.tree.rootPath;
-    NSFileManager *fm = [NSFileManager defaultManager];
-    for (NSString *relativePath in pathes) {
-        NSString *path = [rootPath stringByAppendingPathComponent:relativePath];
-        Compiler *compiler = [[PluginManager sharedPluginManager] compilerForExtension:[path pathExtension]];
-        if (compiler) {
-            CompilationOptions *compilationOptions = [self optionsForCompiler:compiler create:NO];
-            CompilationMode mode = compilationOptions.mode;
-            if (mode == CompilationModeCompile) {
-                if (![fm fileExistsAtPath:path])
-                    continue; // don't try to compile deleted files
-                FileCompilationOptions *fileOptions = [self optionsForFileAtPath:relativePath in:compilationOptions];
-                if (fileOptions.destinationDirectory != nil) {
-                    NSString *derivedName = [compiler derivedNameForFile:path];
-                    NSString *derivedPath = [fileOptions.destinationDirectory stringByAppendingPathComponent:derivedName];
-                    derivedPath = [rootPath stringByAppendingPathComponent:derivedPath];
+- (void)compile:(NSString *)relativePath under:(NSString *)rootPath with:(Compiler *)compiler options:(CompilationOptions *)compilationOptions {
+    NSString *path = [rootPath stringByAppendingPathComponent:relativePath];
 
-                    ToolError *compilerError = nil;
-                    [compiler compile:path into:derivedPath with:compilationOptions compilerError:&compilerError];
-                    if (compilerError) {
-                        compilerError.project = self;
+    CompilationMode mode = compilationOptions.mode;
+    if (mode == CompilationModeCompile) {
+        if (![[NSFileManager defaultManager] fileExistsAtPath:path])
+            return; // don't try to compile deleted files
+        FileCompilationOptions *fileOptions = [self optionsForFileAtPath:relativePath in:compilationOptions];
+        if (fileOptions.destinationDirectory != nil) {
+            NSString *derivedName = [compiler derivedNameForFile:path];
+            NSString *derivedPath = [fileOptions.destinationDirectory stringByAppendingPathComponent:derivedName];
 
-                        [[[[ToolErrorWindowController alloc] initWithCompilerError:compilerError key:path] autorelease] show];
-                    } else {
-                        [ToolErrorWindowController hideErrorWindowWithKey:path];
-                    }
-                } else {
-                    NSLog(@"Ignoring %@ because destination directory is not set.", relativePath);
-                }
-            } else if (mode == CompilationModeIgnore) {
-                NSLog(@"Ignoring %@ because %@ mode is IGNORE.", relativePath, compiler.name);
-            } else if (mode == CompilationModeMiddleware) {
-                NSString *derivedName = [compiler derivedNameForFile:path];
-                [filtered addObject:derivedName];
-                NSLog(@"Broadcasting a fake change in %@ instead of %@ because %@ mode is MIDDLEWARE (PRETEND).", derivedName, relativePath, compiler.name);
+            ToolError *compilerError = nil;
+            [compiler compile:relativePath into:derivedPath under:rootPath with:compilationOptions compilerError:&compilerError];
+            if (compilerError) {
+                compilerError.project = self;
+
+                [[[[ToolErrorWindowController alloc] initWithCompilerError:compilerError key:path] autorelease] show];
+            } else {
+                [ToolErrorWindowController hideErrorWindowWithKey:path];
             }
         } else {
-            [filtered addObject:path];
+            NSLog(@"Ignoring %@ because destination directory is not set.", relativePath);
+        }
+    }
+}
+
+- (void)fileSystemMonitor:(FSMonitor *)monitor detectedChangeAtPathes:(NSSet *)pathes {
+    NSMutableSet *filtered = [NSMutableSet setWithCapacity:[pathes count]];
+    for (NSString *relativePath in pathes) {
+        NSString *extension = [relativePath pathExtension];
+
+        BOOL compilerFound = NO;
+        for (Compiler *compiler in [PluginManager sharedPluginManager].compilers) {
+            if ([compiler.extensions containsObject:extension]) {
+                compilerFound = YES;
+                CompilationOptions *compilationOptions = [self optionsForCompiler:compiler create:NO];
+                if (compilationOptions.mode == CompilationModeCompile) {
+                    [self compile:relativePath under:_path with:compiler options:compilationOptions];
+                    break;
+                } else if (compilationOptions.mode == CompilationModeMiddleware) {
+                    NSString *derivedName = [compiler derivedNameForFile:relativePath];
+                    [filtered addObject:derivedName];
+                    NSLog(@"Broadcasting a fake change in %@ instead of %@ because %@ mode is MIDDLEWARE (PRETEND).", derivedName, relativePath, compiler.name);
+                    break;
+                }
+            }
+        }
+
+        if (!compilerFound) {
+            [filtered addObject:[_path stringByAppendingPathComponent:relativePath]];
         }
     }
     if ([filtered count] == 0) {

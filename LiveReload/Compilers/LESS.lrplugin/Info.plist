@@ -10,8 +10,8 @@
 				<string>$(node)</string>
 				<string>$(plugin)/node_modules/less/bin/lessc</string>
 				<string>$(additional)</string>
-				<string>$(src_file)</string>
-				<string>$(dst_file)</string>
+				<string>$(src_path)</string>
+				<string>$(dst_path)</string>
 			</array>
 			<key>DestinationExtension</key>
 			<string>css</string>

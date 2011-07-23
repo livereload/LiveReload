@@ -285,7 +285,7 @@
 
     if (error)
     {
-        if ([errorString length] > 0)
+        if ([task terminationStatus] != 0)
         {
             *error =
                 [NSError

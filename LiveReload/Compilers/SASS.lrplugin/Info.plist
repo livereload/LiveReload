@@ -10,8 +10,8 @@
 				<string>$(ruby)</string>
 				<string>$(plugin)/lib/sass-3.1.4/bin/sass</string>
 				<string>$(additional)</string>
-				<string>$(src_file)</string>
-				<string>$(dst_file)</string>
+				<string>$(src_path)</string>
+				<string>$(dst_path)</string>
 			</array>
 			<key>DestinationExtension</key>
 			<string>css</string>
@@ -27,6 +27,47 @@
 			</array>
 			<key>Name</key>
 			<string>SASS</string>
+			<key>ExpectedOutputDirectories</key>
+			<array>
+				<string>css</string>
+				<string>styles</string>
+				<string>stylesheet</string>
+				<string>stylesheets</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CommandLine</key>
+			<array>
+				<string>$(ruby)</string>
+				<string>-I$(plugin)/lib/sass-3.1.4/lib</string>
+				<string>-I$(plugin)/lib/compass-0.11.5/lib</string>
+				<string>-I$(plugin)/lib/chunky_png-1.2.0/lib</string>
+				<string>$(plugin)/lib/compass-0.11.5/bin/compass</string>
+				<string>compile</string>
+				<string>-q</string>
+				<string>$(additional)</string>
+				<string>$(project_dir)</string>
+				<string>$(src_rel_path)</string>
+			</array>
+			<key>RunIn</key>
+			<string>$(project_dir)</string>
+			<key>DestinationExtension</key>
+			<string>css</string>
+			<key>NeedsOutputDirectory</key>
+			<false/>
+			<key>Errors</key>
+			<array>
+				<string>Syntax error: ((message))\n\s+on line ((line)) of ((file))\n</string>
+				<string>Exception on line ((line)): ((message))\n</string>
+				<string>error&lt;ESC&gt;\s*((file))\s*\(Line ((line)): ((message))\)</string>
+			</array>
+			<key>Extensions</key>
+			<array>
+				<string>sass</string>
+				<string>scss</string>
+			</array>
+			<key>Name</key>
+			<string>Compass</string>
 			<key>ExpectedOutputDirectories</key>
 			<array>
 				<string>css</string>

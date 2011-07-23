@@ -14,6 +14,8 @@
 				<string>$(dst_dir)</string>
 				<string>$(src_file)</string>
 			</array>
+			<key>RunIn</key>
+			<string>$(src_dir)</string>
 			<key>DestinationExtension</key>
 			<string>html</string>
 			<key>Errors</key>

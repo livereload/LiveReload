@@ -23,6 +23,7 @@
 
 @property (nonatomic, readonly) Compiler *compiler;
 @property (nonatomic, readonly) CompilationOptions *options;
+@property (nonatomic, readonly) BOOL hideOutputDirectoryControls;
 
 @property (assign) IBOutlet NSObjectController *objectController;
 @property (assign) IBOutlet NSArrayController *fileOptionsArrayController;

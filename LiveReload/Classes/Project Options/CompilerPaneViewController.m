@@ -77,6 +77,10 @@
     return [NSSet setWithObject:@"options.mode"];
 }
 
+- (BOOL)hideOutputDirectoryControls {
+    return !_compiler.needsOutputDirectory;
+}
+
 
 #pragma mark - Pane lifecycle
 

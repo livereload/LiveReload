@@ -12,7 +12,7 @@
 				<string>$(additional)</string>
 				<string>-o</string>
 				<string>$(dst_dir)</string>
-				<string>$(src_file)</string>
+				<string>$(src_path)</string>
 			</array>
 			<key>DestinationExtension</key>
 			<string>js</string>

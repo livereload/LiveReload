@@ -67,6 +67,7 @@
 @synthesize extensions=_extensions;
 @synthesize destinationExtension=_destinationExtension;
 @synthesize expectedOutputDirectoryNames=_expectedOutputDirectoryNames;
+@synthesize needsOutputDirectory=_needsOutputDirectory;
 
 
 #pragma mark - init/dealloc
@@ -74,11 +75,18 @@
 - (id)initWithDictionary:(NSDictionary *)info plugin:(Plugin *)plugin {
     self = [super init];
     if (self) {
+        id raw;
         _plugin = plugin;
         _name = [[info objectForKey:@"Name"] copy];
         _commandLine = [[info objectForKey:@"CommandLine"] copy];
+        _runDirectory = [[info objectForKey:@"RunIn"] copy];
         _extensions = [[info objectForKey:@"Extensions"] copy];
         _destinationExtension = [[info objectForKey:@"DestinationExtension"] copy];
+        if ((raw = [info objectForKey:@"NeedsOutputDirectory"])) {
+            _needsOutputDirectory = [raw boolValue];
+        } else {
+            _needsOutputDirectory = YES;
+        }
         _errorFormats = [[info objectForKey:@"Errors"] copy];
         _uniqueId = [[_name lowercaseString] retain];
         _expectedOutputDirectoryNames = [[info objectForKey:@"ExpectedOutputDirectories"] copy];
@@ -129,15 +137,26 @@
 
 #pragma mark - Compilation
 
-- (void)compile:(NSString *)sourcePath into:(NSString *)destinationPath with:(CompilationOptions *)options compilerError:(ToolError **)compilerError {
+- (void)compile:(NSString *)sourceRelPath into:(NSString *)destinationRelPath under:(NSString *)rootPath with:(CompilationOptions *)options compilerError:(ToolError **)compilerError {
     if (compilerError) *compilerError = nil;
+
+    NSString *sourcePath = [rootPath stringByAppendingPathComponent:sourceRelPath];
+    NSString *destinationPath = [rootPath stringByAppendingPathComponent:destinationRelPath];
 
     NSMutableDictionary *info = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                  @"/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/bin/ruby", @"$(ruby)",
                                  [[NSBundle mainBundle] pathForResource:@"node" ofType:nil], @"$(node)",
                                  _plugin.path, @"$(plugin)",
+                                 rootPath, @"$(project_dir)",
+
                                  [sourcePath lastPathComponent], @"$(src_file)",
-                                 destinationPath, @"$(dst_file)",
+                                 sourcePath, @"$(src_path)",
+                                 [sourcePath stringByDeletingLastPathComponent], @"$(src_dir)",
+                                 sourceRelPath, @"$(src_rel_path)",
+
+                                 [destinationPath lastPathComponent], @"$(dst_file)",
+                                 destinationPath, @"$(dst_path)",
+                                 destinationRelPath, @"$(dst_rel_path)",
                                  [destinationPath stringByDeletingLastPathComponent], @"$(dst_dir)",
                                  nil];
 
@@ -151,12 +170,19 @@
     NSArray *arguments = [_commandLine arrayBySubstitutingValuesFromDictionary:info];
     NSLog(@"Running compiler: %@", [arguments description]);
 
+    NSString *runDirectory;
+    if (_runDirectory) {
+        runDirectory = [_runDirectory stringBySubstitutingValuesFromDictionary:info];
+    } else {
+        runDirectory = NSTemporaryDirectory();
+    }
+
     NSString *command = [arguments objectAtIndex:0];
     arguments = [arguments subarrayWithRange:NSMakeRange(1, [arguments count] - 1)];
 
     NSError *error = nil;
     NSString *pwd = [[NSFileManager defaultManager] currentDirectoryPath];
-    [[NSFileManager defaultManager] changeCurrentDirectoryPath:[sourcePath stringByDeletingLastPathComponent]];
+    [[NSFileManager defaultManager] changeCurrentDirectoryPath:runDirectory];
     NSString *output = [NSTask stringByLaunchingPath:command
                                        withArguments:arguments
                                                error:&error];
@@ -192,6 +218,16 @@
 
             if (!file) {
                 file = sourcePath;
+            } else if (![file isAbsolutePath]) {
+                // used by Compass
+                NSString *candidate1 = [rootPath stringByAppendingPathComponent:file];
+                // used by everyone else
+                NSString *candidate2 = [[sourcePath stringByDeletingLastPathComponent] stringByAppendingPathComponent:file];
+                if ([[NSFileManager defaultManager] fileExistsAtPath:candidate2]) {
+                    file = candidate2;
+                } else if ([[NSFileManager defaultManager] fileExistsAtPath:candidate1]) {
+                    file = candidate1;
+                }
             }
             if (!message) {
                 if ([output length] < 200) {
@@ -202,10 +238,6 @@
                 if ([message length] == 0) {
                     message = @"Compilation failed with an empty output.";
                 }
-            }
-
-            if (![file isAbsolutePath]) {
-                file = [[sourcePath stringByDeletingLastPathComponent] stringByAppendingPathComponent:file];
             }
 
             if (compilerError) {
