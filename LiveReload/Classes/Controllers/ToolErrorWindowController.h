@@ -3,6 +3,7 @@
 
 
 @class ToolError;
+@class Editor;
 
 
 @interface ToolErrorWindowController : NSWindowController {
@@ -18,6 +19,8 @@
     ToolErrorWindowController *_previousWindowController;
     BOOL                   _appearing;
     BOOL                   _suicidal;
+
+    Editor                *_editor;
 }
 
 - (id)initWithCompilerError:(ToolError *)compilerError key:(NSString *)key;

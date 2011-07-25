@@ -10,6 +10,9 @@
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		4310117E13845A69000B0843 /* FSTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 4310117D13845A69000B0843 /* FSTree.m */; };
 		4310118113845AA3000B0843 /* FSTreeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4310118013845AA3000B0843 /* FSTreeFilter.m */; };
+		43149C1913DCC08C000D052A /* EditorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 43149C1813DCC08C000D052A /* EditorManager.m */; };
+		43149C1C13DCC09B000D052A /* Editor.m in Sources */ = {isa = PBXBuildFile; fileRef = 43149C1B13DCC09B000D052A /* Editor.m */; };
+		43149C1F13DCC61F000D052A /* TextMateEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 43149C1E13DCC61F000D052A /* TextMateEditor.m */; };
 		432A1BE713D3B54D0098A4D9 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 432A1BE613D3B54D0098A4D9 /* background.png */; };
 		432A1C2913D3B90A0098A4D9 /* NSWindow+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 432A1C0F13D3B9090098A4D9 /* NSWindow+Additions.m */; };
 		432A1C2A13D3B90A0098A4D9 /* NSWindowFlipper.m in Sources */ = {isa = PBXBuildFile; fileRef = 432A1C1113D3B9090098A4D9 /* NSWindowFlipper.m */; };
@@ -41,6 +44,7 @@
 		43685D5C1385C70600D17CB2 /* LiveReload.crx in Resources */ = {isa = PBXBuildFile; fileRef = 43685D5B1385C70600D17CB2 /* LiveReload.crx */; };
 		43685D5F1385DA0400D17CB2 /* LoginItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43685D5E1385DA0400D17CB2 /* LoginItemController.m */; };
 		436B09C313844BB0006BCE37 /* FSTreeDiffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 436B09C213844BAF006BCE37 /* FSTreeDiffer.m */; };
+		4371A29213DCCC6C00573FEF /* CodaEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4371A29113DCCC6C00573FEF /* CodaEditor.m */; };
 		43763FDF13C780940089D8C9 /* KeyWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 43763FDE13C780940089D8C9 /* KeyWindow.m */; };
 		43763FEA13C840860089D8C9 /* FileCompilationOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 43763FE913C840860089D8C9 /* FileCompilationOptions.m */; };
 		439394041362CCBA00333781 /* LiveReloadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 439394031362CCBA00333781 /* LiveReloadAppDelegate.m */; };
@@ -121,6 +125,12 @@
 		4310117D13845A69000B0843 /* FSTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FSTree.m; path = ../../../../../Projects/LiveReloadPaid/LiveReload/Classes/Monitoring/FSTree.m; sourceTree = "<group>"; };
 		4310117F13845AA3000B0843 /* FSTreeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FSTreeFilter.h; path = ../../../../../Projects/LiveReloadPaid/LiveReload/Classes/Monitoring/FSTreeFilter.h; sourceTree = "<group>"; };
 		4310118013845AA3000B0843 /* FSTreeFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FSTreeFilter.m; path = ../../../../../Projects/LiveReloadPaid/LiveReload/Classes/Monitoring/FSTreeFilter.m; sourceTree = "<group>"; };
+		43149C1713DCC08C000D052A /* EditorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditorManager.h; sourceTree = "<group>"; };
+		43149C1813DCC08C000D052A /* EditorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditorManager.m; sourceTree = "<group>"; };
+		43149C1A13DCC09B000D052A /* Editor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Editor.h; sourceTree = "<group>"; };
+		43149C1B13DCC09B000D052A /* Editor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Editor.m; sourceTree = "<group>"; };
+		43149C1D13DCC61F000D052A /* TextMateEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextMateEditor.h; sourceTree = "<group>"; };
+		43149C1E13DCC61F000D052A /* TextMateEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextMateEditor.m; sourceTree = "<group>"; };
 		432A1BE613D3B54D0098A4D9 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		432A1C0E13D3B9090098A4D9 /* NSWindow+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSWindow+Additions.h"; sourceTree = "<group>"; };
 		432A1C0F13D3B9090098A4D9 /* NSWindow+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSWindow+Additions.m"; sourceTree = "<group>"; };
@@ -166,6 +176,8 @@
 		43685D5E1385DA0400D17CB2 /* LoginItemController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginItemController.m; sourceTree = "<group>"; };
 		436B09C113844BAF006BCE37 /* FSTreeDiffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FSTreeDiffer.h; path = ../../../../../Projects/LiveReloadPaid/LiveReload/Classes/Monitoring/FSTreeDiffer.h; sourceTree = "<group>"; };
 		436B09C213844BAF006BCE37 /* FSTreeDiffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FSTreeDiffer.m; path = ../../../../../Projects/LiveReloadPaid/LiveReload/Classes/Monitoring/FSTreeDiffer.m; sourceTree = "<group>"; };
+		4371A29013DCCC6C00573FEF /* CodaEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodaEditor.h; sourceTree = "<group>"; };
+		4371A29113DCCC6C00573FEF /* CodaEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodaEditor.m; sourceTree = "<group>"; };
 		43763FDD13C780940089D8C9 /* KeyWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyWindow.h; sourceTree = "<group>"; };
 		43763FDE13C780940089D8C9 /* KeyWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyWindow.m; sourceTree = "<group>"; };
 		43763FE813C840860089D8C9 /* FileCompilationOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileCompilationOptions.h; sourceTree = "<group>"; };
@@ -186,6 +198,7 @@
 		439C092F13ADC01900119233 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
 		439C093013ADC01900119233 /* Preferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Preferences.m; sourceTree = "<group>"; };
 		439C093213ADCBDD00119233 /* monitoring.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = monitoring.plist; sourceTree = "<group>"; };
+		43A265E613DCEAE600704BF6 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		43A83B2413CEEAE1005EF239 /* PreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesWindowController.h; sourceTree = "<group>"; };
 		43A83B2513CEEAE1005EF239 /* PreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesWindowController.m; sourceTree = "<group>"; };
 		43A83B2713CEEB14005EF239 /* PreferencesWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesWindowController.xib; sourceTree = "<group>"; };
@@ -302,6 +315,7 @@
 				43AB50261382B74300669FC6 /* WebSockets */,
 				43E834BB137FB607000248E2 /* Views */,
 				43361D3813C2ED9200C0E589 /* Plugins */,
+				43149C1613DCC079000D052A /* Editors */,
 				439394051362CCF600333781 /* Model */,
 				432BE32D13AE753500B76B68 /* Project Options */,
 				439C092E13ADC00300119233 /* Preferences */,
@@ -342,6 +356,7 @@
 		29B97314FDCFA39411CA2CEA /* LiveReload */ = {
 			isa = PBXGroup;
 			children = (
+				43A265E613DCEAE600704BF6 /* Carbon.framework */,
 				43594AF313D3BB34004175B2 /* QuartzCore.framework */,
 				43C0368513CA191C00A01305 /* LiveReload.icns */,
 				43361D4513C30D1400C0E589 /* libicucore.dylib */,
@@ -384,6 +399,21 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		43149C1613DCC079000D052A /* Editors */ = {
+			isa = PBXGroup;
+			children = (
+				43149C1713DCC08C000D052A /* EditorManager.h */,
+				43149C1813DCC08C000D052A /* EditorManager.m */,
+				43149C1A13DCC09B000D052A /* Editor.h */,
+				43149C1B13DCC09B000D052A /* Editor.m */,
+				43149C1D13DCC61F000D052A /* TextMateEditor.h */,
+				43149C1E13DCC61F000D052A /* TextMateEditor.m */,
+				4371A29013DCCC6C00573FEF /* CodaEditor.h */,
+				4371A29113DCCC6C00573FEF /* CodaEditor.m */,
+			);
+			path = Editors;
 			sourceTree = "<group>";
 		};
 		432A1BE813D3B9090098A4D9 /* Mizage Flip Animation */ = {
@@ -837,6 +867,10 @@
 				43BB2A9D13D4E71200B59AF5 /* ToolError.m in Sources */,
 				43BB2AA013D5097E00B59AF5 /* AuxWindow.m in Sources */,
 				43F211BB13D52419006244A3 /* NSWindowController+TextStyling.m in Sources */,
+				43149C1913DCC08C000D052A /* EditorManager.m in Sources */,
+				43149C1C13DCC09B000D052A /* Editor.m in Sources */,
+				43149C1F13DCC61F000D052A /* TextMateEditor.m in Sources */,
+				4371A29213DCCC6C00573FEF /* CodaEditor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

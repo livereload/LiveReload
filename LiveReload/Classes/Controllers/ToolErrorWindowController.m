@@ -4,6 +4,9 @@
 #import "ToolError.h"
 #import "Project.h"
 
+#import "EditorManager.h"
+#import "Editor.h"
+
 
 static ToolErrorWindowController *lastErrorController = nil;
 
@@ -15,6 +18,8 @@ static ToolErrorWindowController *lastErrorController = nil;
 @property (nonatomic, readonly) NSString *key;
 
 - (void)hide:(BOOL)animated;
+
+- (void)updateJumpToErrorEditor;
 
 @end
 
@@ -91,6 +96,8 @@ static ToolErrorWindowController *lastErrorController = nil;
     [actionImage setSize:NSMakeSize(10,10)];
     [menuItem setImage:actionImage];
     [[_actionButton menu] insertItem:menuItem atIndex:0];
+
+    [self updateJumpToErrorEditor];
 }
 
 
@@ -181,13 +188,33 @@ static ToolErrorWindowController *lastErrorController = nil;
 
 #pragma mark -
 
+- (void)updateJumpToErrorEditor {
+    [_editor release], _editor = nil;
+    _editor = [[[EditorManager sharedEditorManager] activeEditor] retain];
+    if (_editor) {
+        [_jumpToErrorButton setEnabled:YES];
+        [_jumpToErrorButton setTitle:[NSString stringWithFormat:@"Edit in %@", _editor.name]];
+    } else {
+        [_jumpToErrorButton setEnabled:NO];
+        [_jumpToErrorButton setTitle:@"Edit"];
+    }
+}
+
 - (IBAction)jumpToError:(id)sender {
+    [self updateJumpToErrorEditor];
+    if (_editor == nil)
+        return;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.05 * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void){
-        NSString *url = [NSString stringWithFormat:@"txmt://open/?url=file://%@&line=%d", [_compilerError.sourcePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], _compilerError.line];
-        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:url]];
+        // TODO: check for success before hiding!
+        if (![_editor jumpToFile:_compilerError.sourcePath line:_compilerError.line]) {
+            NSLog(@"Failed to jump to the error position.");
+        }
     });
     [self hide:NO];
 }
+
+
+#pragma mark -
 
 - (IBAction)revealInFinder:(id)sender {
     NSString *root = nil;
