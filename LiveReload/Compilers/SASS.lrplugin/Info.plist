@@ -47,7 +47,6 @@
 				<string>-q</string>
 				<string>$(additional)</string>
 				<string>$(project_dir)</string>
-				<string>$(src_rel_path)</string>
 			</array>
 			<key>RunIn</key>
 			<string>$(project_dir)</string>
