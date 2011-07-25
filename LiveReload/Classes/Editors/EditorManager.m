@@ -2,6 +2,7 @@
 #import "EditorManager.h"
 
 #import "CodaEditor.h"
+#import "EspressoEditor.h"
 #import "SubEthaEditEditor.h"
 #import "TextMateEditor.h"
 
@@ -26,6 +27,7 @@ static EditorManager *sharedEditorManager = nil;
     if (self) {
         _editorClasses = [[NSMutableArray alloc] init];
         [_editorClasses addObject:[CodaEditor class]];
+        [_editorClasses addObject:[EspressoEditor class]];
         [_editorClasses addObject:[SubEthaEditEditor class]];
         [_editorClasses addObject:[TextMateEditor class]];
     }

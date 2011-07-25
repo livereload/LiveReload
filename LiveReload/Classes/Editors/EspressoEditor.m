@@ -1,5 +1,5 @@
 
-#import "CodaEditor.h"
+#import "EspressoEditor.h"
 #import <ApplicationServices/ApplicationServices.h>
 
 enum {
@@ -22,30 +22,28 @@ enum {
 static CGKeyCode DIGITS[] = { kVK_ANSI_0, kVK_ANSI_1, kVK_ANSI_2, kVK_ANSI_3, kVK_ANSI_4, kVK_ANSI_5, kVK_ANSI_6, kVK_ANSI_7, kVK_ANSI_8, kVK_ANSI_9 };
 
 
-
-@implementation CodaEditor
+@implementation EspressoEditor
 
 + (Editor *)detectEditor {
-    if ([[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.panic.Coda"] count] > 0) {
-        return [[[CodaEditor alloc] init] autorelease];
+    if ([[NSRunningApplication runningApplicationsWithBundleIdentifier:@"com.macrabbit.Espresso"] count] > 0) {
+        return [[[EspressoEditor alloc] init] autorelease];
     } else {
         return nil;
     }
 }
 
 + (NSString *)editorDisplayName {
-    return @"Coda";
+    return @"Espresso";
 }
 
-//#define CGEventPostToPSN(x, e) CGEventPost(kCGSessionEventTap, e)
-
 - (BOOL)jumpToFile:(NSString *)file line:(NSInteger)line {
-    if (![[NSWorkspace sharedWorkspace] openFile:file withApplication:@"Coda"])
+    if (![[NSWorkspace sharedWorkspace] openFile:file withApplication:@"Espresso"])
         return NO;
+
     if (line > 0) {
         void(^block)(void) = ^(void){
             NSDictionary *activeApp = [[NSWorkspace sharedWorkspace] activeApplication];
-            if ([[activeApp objectForKey:@"NSApplicationBundleIdentifier"] isEqualToString:@"com.panic.Coda"]) {
+            if ([[activeApp objectForKey:@"NSApplicationBundleIdentifier"] isEqualToString:@"com.macrabbit.Espresso"]) {
 
                 // workaround for a possible OS X bug, see http://stackoverflow.com/questions/2008126/cgeventpost-possible-bug-when-simulating-keyboard-events
                 // don't post key down for modifiers
@@ -54,18 +52,13 @@ static CGKeyCode DIGITS[] = { kVK_ANSI_0, kVK_ANSI_1, kVK_ANSI_2, kVK_ANSI_3, kV
                 ProcessSerialNumber psn = { [[activeApp objectForKey:@"NSApplicationProcessSerialNumberHigh"] unsignedIntValue], [[activeApp objectForKey:@"NSApplicationProcessSerialNumberLow"] unsignedIntValue] };
                 CGEventSourceRef source = CGEventSourceCreate(kCGEventSourceStateHIDSystemState);
                 CGEventRef event;
-//                event = CGEventCreateKeyboardEvent(source, kVK_Command, YES);
-//                CGEventPostToPSN(&psn, event);
-//                event = CGEventCreateKeyboardEvent(source, kVK_Shift, YES);
-//                CGEventPostToPSN(&psn, event);
+                //                event = CGEventCreateKeyboardEvent(source, kVK_Command, YES);
+                //                CGEventPostToPSN(&psn, event);
                 event = CGEventCreateKeyboardEvent(source, kVK_ANSI_L, YES);
-                CGEventSetFlags(event, kCGEventFlagMaskShift | kCGEventFlagMaskCommand);
+                CGEventSetFlags(event, kCGEventFlagMaskCommand);
                 CGEventPostToPSN(&psn, event);
                 CFRelease(event);
                 event = CGEventCreateKeyboardEvent(source, kVK_ANSI_L, NO);
-                CGEventPostToPSN(&psn, event);
-                CFRelease(event);
-                event = CGEventCreateKeyboardEvent(source, kVK_Shift, NO);
                 CGEventPostToPSN(&psn, event);
                 CFRelease(event);
                 event = CGEventCreateKeyboardEvent(source, kVK_Command, NO);
@@ -98,12 +91,7 @@ static CGKeyCode DIGITS[] = { kVK_ANSI_0, kVK_ANSI_1, kVK_ANSI_2, kVK_ANSI_3, kV
 
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.05 * NSEC_PER_SEC), dispatch_get_main_queue(), block);
     }
-//    NSString *url;
-//    if (line > 0)
-//        url = [NSString stringWithFormat:@"txmt://open/?url=file://%@&line=%d", [file stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], line];
-//    else
-//        url = [NSString stringWithFormat:@"txmt://open/?url=file://%@", [file stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-//    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:url]];
+
     return YES;
 }
 
