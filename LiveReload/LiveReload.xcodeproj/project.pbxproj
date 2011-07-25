@@ -60,6 +60,7 @@
 		439C093313ADCBDD00119233 /* monitoring.plist in Resources */ = {isa = PBXBuildFile; fileRef = 439C093213ADCBDD00119233 /* monitoring.plist */; };
 		43A265EA13DCFAD300704BF6 /* SubEthaEditEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A265E913DCFAD300704BF6 /* SubEthaEditEditor.m */; };
 		43A265F013DCFF7700704BF6 /* EspressoEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A265EF13DCFF7700704BF6 /* EspressoEditor.m */; };
+		43A265F313DD038100704BF6 /* CustomEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A265F213DD038100704BF6 /* CustomEditor.m */; };
 		43A83B2613CEEAE1005EF239 /* PreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A83B2513CEEAE1005EF239 /* PreferencesWindowController.m */; };
 		43A83B2813CEEB14005EF239 /* PreferencesWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43A83B2713CEEB14005EF239 /* PreferencesWindowController.xib */; };
 		43AB50251382ACB200669FC6 /* CommunicationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43AB50241382ACB200669FC6 /* CommunicationController.m */; };
@@ -205,6 +206,8 @@
 		43A265E913DCFAD300704BF6 /* SubEthaEditEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubEthaEditEditor.m; sourceTree = "<group>"; };
 		43A265EE13DCFF7700704BF6 /* EspressoEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EspressoEditor.h; sourceTree = "<group>"; };
 		43A265EF13DCFF7700704BF6 /* EspressoEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EspressoEditor.m; sourceTree = "<group>"; };
+		43A265F113DD038100704BF6 /* CustomEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomEditor.h; sourceTree = "<group>"; };
+		43A265F213DD038100704BF6 /* CustomEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomEditor.m; sourceTree = "<group>"; };
 		43A83B2413CEEAE1005EF239 /* PreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesWindowController.h; sourceTree = "<group>"; };
 		43A83B2513CEEAE1005EF239 /* PreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesWindowController.m; sourceTree = "<group>"; };
 		43A83B2713CEEB14005EF239 /* PreferencesWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesWindowController.xib; sourceTree = "<group>"; };
@@ -422,6 +425,8 @@
 				43A265E913DCFAD300704BF6 /* SubEthaEditEditor.m */,
 				43A265EE13DCFF7700704BF6 /* EspressoEditor.h */,
 				43A265EF13DCFF7700704BF6 /* EspressoEditor.m */,
+				43A265F113DD038100704BF6 /* CustomEditor.h */,
+				43A265F213DD038100704BF6 /* CustomEditor.m */,
 			);
 			path = Editors;
 			sourceTree = "<group>";
@@ -883,6 +888,7 @@
 				4371A29213DCCC6C00573FEF /* CodaEditor.m in Sources */,
 				43A265EA13DCFAD300704BF6 /* SubEthaEditEditor.m in Sources */,
 				43A265F013DCFF7700704BF6 /* EspressoEditor.m in Sources */,
+				43A265F313DD038100704BF6 /* CustomEditor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
