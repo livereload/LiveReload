@@ -198,6 +198,20 @@ static ToolErrorWindowController *lastErrorController = nil;
         [_jumpToErrorButton setEnabled:NO];
         [_jumpToErrorButton setTitle:@"Edit"];
     }
+
+    CGFloat defaultWidth = 106;
+    NSString *defaultText = @"Edit in TextMate";
+    NSSize defaultSize = [defaultText sizeWithAttributes:[NSDictionary dictionaryWithObject:[_jumpToErrorButton font] forKey:NSFontAttributeName]];
+    CGFloat padding = defaultWidth - defaultSize.width;
+
+    NSSize size = [[_jumpToErrorButton title] sizeWithAttributes:[NSDictionary dictionaryWithObject:[_jumpToErrorButton font] forKey:NSFontAttributeName]];
+    CGFloat width = size.width + padding;
+
+    NSRect frame = [_jumpToErrorButton frame];
+    CGFloat delta = width - frame.size.width;
+    frame.size.width += delta;
+    frame.origin.x -= delta;
+    [_jumpToErrorButton setFrame:frame];
 }
 
 - (IBAction)jumpToError:(id)sender {
