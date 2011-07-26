@@ -4,6 +4,7 @@
 #import "CustomEditor.h"
 #import "CodaEditor.h"
 #import "EspressoEditor.h"
+#import "SublimeText2Editor.h"
 #import "SubEthaEditEditor.h"
 #import "TextMateEditor.h"
 
@@ -30,6 +31,7 @@ static EditorManager *sharedEditorManager = nil;
         [_editorClasses addObject:[CustomEditor class]];
         [_editorClasses addObject:[CodaEditor class]];
         [_editorClasses addObject:[EspressoEditor class]];
+        [_editorClasses addObject:[SublimeText2Editor class]];
         [_editorClasses addObject:[SubEthaEditEditor class]];
         [_editorClasses addObject:[TextMateEditor class]];
     }

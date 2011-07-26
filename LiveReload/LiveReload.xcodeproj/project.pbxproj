@@ -30,6 +30,7 @@
 		43361D4C13C3210200C0E589 /* LESS.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43361D4B13C3210200C0E589 /* LESS.lrplugin */; };
 		43361D4E13C329CD00C0E589 /* HAML.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43361D4D13C329CD00C0E589 /* HAML.lrplugin */; };
 		43361D5013C32C3D00C0E589 /* SASS.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43361D4F13C32C3D00C0E589 /* SASS.lrplugin */; };
+		4351610113DEA5340088A3B7 /* SublimeText2Editor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4351610013DEA5340088A3B7 /* SublimeText2Editor.m */; };
 		4353972F13C6E967007D3C0B /* PaneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353972D13C6E967007D3C0B /* PaneViewController.m */; };
 		4353973413C6E9D7007D3C0B /* CompilerPaneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353973213C6E9D7007D3C0B /* CompilerPaneViewController.m */; };
 		4353973513C6E9D7007D3C0B /* CompilerPaneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4353973313C6E9D7007D3C0B /* CompilerPaneViewController.xib */; };
@@ -158,6 +159,8 @@
 		43361D4B13C3210200C0E589 /* LESS.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = LESS.lrplugin; path = Compilers/LESS.lrplugin; sourceTree = SOURCE_ROOT; };
 		43361D4D13C329CD00C0E589 /* HAML.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HAML.lrplugin; path = Compilers/HAML.lrplugin; sourceTree = SOURCE_ROOT; };
 		43361D4F13C32C3D00C0E589 /* SASS.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SASS.lrplugin; path = Compilers/SASS.lrplugin; sourceTree = SOURCE_ROOT; };
+		435160FF13DEA5340088A3B7 /* SublimeText2Editor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SublimeText2Editor.h; sourceTree = "<group>"; };
+		4351610013DEA5340088A3B7 /* SublimeText2Editor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SublimeText2Editor.m; sourceTree = "<group>"; };
 		4353972C13C6E967007D3C0B /* PaneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaneViewController.h; sourceTree = "<group>"; };
 		4353972D13C6E967007D3C0B /* PaneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaneViewController.m; sourceTree = "<group>"; };
 		4353973113C6E9D7007D3C0B /* CompilerPaneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompilerPaneViewController.h; sourceTree = "<group>"; };
@@ -427,6 +430,8 @@
 				43A265EF13DCFF7700704BF6 /* EspressoEditor.m */,
 				43A265F113DD038100704BF6 /* CustomEditor.h */,
 				43A265F213DD038100704BF6 /* CustomEditor.m */,
+				435160FF13DEA5340088A3B7 /* SublimeText2Editor.h */,
+				4351610013DEA5340088A3B7 /* SublimeText2Editor.m */,
 			);
 			path = Editors;
 			sourceTree = "<group>";
@@ -889,6 +894,7 @@
 				43A265EA13DCFAD300704BF6 /* SubEthaEditEditor.m in Sources */,
 				43A265F013DCFF7700704BF6 /* EspressoEditor.m in Sources */,
 				43A265F313DD038100704BF6 /* CustomEditor.m in Sources */,
+				4351610113DEA5340088A3B7 /* SublimeText2Editor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
