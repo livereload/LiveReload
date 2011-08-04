@@ -113,7 +113,12 @@
     return [self isMainWindowVisible] || [self isPreferencesWindowVisible];
 }
 
++ (NSSet *)keyPathsForValuesAffectingWindowVisible {
+    return [NSSet setWithObjects:@"mainWindowVisible", @"preferencesWindowVisible", nil];
+}
+
 - (IBAction)displayMainWindow:sender {
+    [self willChangeValueForKey:@"mainWindowVisible"];
     [self positionWindow:self.mainWindowController.window];
     [self.mainWindowController willShow];
     if ([self isPreferencesWindowVisible]) {
@@ -125,9 +130,11 @@
         [NSApp activateIgnoringOtherApps:YES];
         [self.mainWindowController.window makeKeyAndOrderFront:nil];
     }
+    [self didChangeValueForKey:@"mainWindowVisible"];
 }
 
 - (IBAction)displayPreferencesWindow:sender {
+    [self willChangeValueForKey:@"preferencesWindowVisible"];
     [self positionWindow:self.preferencesWindowController.window];
     [self.preferencesWindowController willShow];
     if ([self isMainWindowVisible]) {
@@ -136,14 +143,19 @@
         [NSApp activateIgnoringOtherApps:YES];
         [self.preferencesWindowController.window makeKeyAndOrderFront:nil];
     }
+    [self didChangeValueForKey:@"preferencesWindowVisible"];
 }
 
 - (void)hideMainWindow {
+    [self willChangeValueForKey:@"mainWindowVisible"];
     [self.mainWindowController.window orderOut:nil];
+    [self didChangeValueForKey:@"mainWindowVisible"];
 }
 
 - (void)hidePreferencesWindow {
+    [self willChangeValueForKey:@"preferencesWindowVisible"];
     [self.preferencesWindowController.window orderOut:nil];
+    [self didChangeValueForKey:@"preferencesWindowVisible"];
 }
 
 - (IBAction)toggleWindow:sender {

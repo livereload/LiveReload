@@ -34,7 +34,7 @@
     self.statusItemView.delegate = self;
     [self.statusItem setView:self.statusItemView];
 
-    [self.mainWindowController addObserver:self forKeyPath:@"windowVisible" options:0 context:nil];
+    [[NSApp delegate] addObserver:self forKeyPath:@"windowVisible" options:0 context:nil];
     [[Workspace sharedWorkspace] addObserver:self forKeyPath:@"monitoringEnabled" options:0 context:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didDetectChange) name:ProjectDidDetectChangeNotification object:nil];
 
