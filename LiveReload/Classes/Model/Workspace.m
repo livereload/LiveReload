@@ -100,7 +100,7 @@ static NSString *ClientConnectedMonitoringKey = @"clientConnected";
 
 - (void)removeProjectsObject:(Project *)project {
     NSParameterAssert([_projects containsObject:project]);
-    [project requestMonitoring:NO forKey:ClientConnectedMonitoringKey];
+    [project ceaseAllMonitoring];
     [_projects removeObject:project];
     [self setNeedsSaving];
 }

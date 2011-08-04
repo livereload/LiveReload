@@ -40,6 +40,7 @@ extern NSString *ProjectNeedsSavingNotification;
 
 - (FileCompilationOptions *)optionsForFileAtPath:(NSString *)sourcePath in:(CompilationOptions *)compilationOptions;
 
+- (void)ceaseAllMonitoring;
 - (void)requestMonitoring:(BOOL)monitoringEnabled forKey:(NSString *)key;
 
 - (NSComparisonResult)compareByDisplayPath:(Project *)another;

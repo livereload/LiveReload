@@ -127,6 +127,11 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
 #pragma mark -
 #pragma mark File System Monitoring
 
+- (void)ceaseAllMonitoring {
+    [_monitoringRequests removeAllObjects];
+    _monitor.running = NO;
+}
+
 - (void)requestMonitoring:(BOOL)monitoringEnabled forKey:(NSString *)key {
     if ([_monitoringRequests containsObject:key] != monitoringEnabled) {
         if (monitoringEnabled) {
