@@ -25,7 +25,7 @@
 @synthesize mainWindowController=_mainWindowController;
 
 - (void)showStatusBarIcon {
-    float width = 25.0;
+    float width = 24.0;
     float height = [[NSStatusBar systemStatusBar] thickness];
     NSRect viewFrame = NSMakeRect(0, 0, width, height);
 

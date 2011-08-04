@@ -65,7 +65,7 @@ static NSString *const iconNames[COUNT_StatusItemState] = {
 
     NSImage *icon = [self iconForState:state];
     NSSize size = [icon size];
-    [icon drawInRect:NSMakeRect(0, 1, size.width, size.height)
+    [icon drawInRect:NSMakeRect(2, 2, size.width, size.height)
             fromRect:NSMakeRect(0, 0, size.width, size.height)
            operation:NSCompositeSourceOver
             fraction:1.0];
