@@ -71,6 +71,17 @@ struct FSTreeItem {
     return self;
 }
 
+- (void)dealloc {
+    struct FSTreeItem *end = _items + _count;
+    for (struct FSTreeItem *cur = _items; cur < end; ++cur) {
+        [cur->name release];
+    }
+    [_rootPath release];
+    [_filter release];
+    free(_items);
+    [super dealloc];
+}
+
 - (NSSet *)differenceFrom:(FSTree *)previous {
     NSMutableSet *differences = [NSMutableSet set];
 

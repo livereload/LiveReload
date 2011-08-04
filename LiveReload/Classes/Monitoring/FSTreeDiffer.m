@@ -20,6 +20,13 @@
     return self;
 }
 
+- (void)dealloc {
+    [_path release], _path = nil;
+    [_filter release], _filter = nil;
+    [_previousTree release], _previousTree = nil;
+    [super dealloc];
+}
+
 - (NSSet *)allFiles {
     NSTimeInterval start = [[NSDate date] timeIntervalSinceReferenceDate];
     NSSet *result = [NSSet setWithArray:[[NSFileManager defaultManager] subpathsOfDirectoryAtPath:_path error:nil]];

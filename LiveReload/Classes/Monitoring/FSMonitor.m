@@ -38,6 +38,7 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
         [self stop];
     }
     [_path release], _path = nil;
+    [_filter release], _filter = nil;
     _delegate = nil;
     [super dealloc];
 }
