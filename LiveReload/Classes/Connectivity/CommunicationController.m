@@ -6,6 +6,9 @@
 #import "JSON.h"
 
 
+#define PORT_NUMBER 35729
+
+
 static CommunicationController *sharedCommunicationController;
 
 NSString *CommunicationStateChangedNotification = @"CommunicationStateChangedNotification";
@@ -32,7 +35,7 @@ NSString *CommunicationStateChangedNotification = @"CommunicationStateChangedNot
 - (void)startServer {
     _server = [[WebSocketServer alloc] init];
     _server.delegate = self;
-    _server.port = 35729;
+    _server.port = PORT_NUMBER;
     [_server connect];
 }
 
@@ -84,6 +87,14 @@ NSString *CommunicationStateChangedNotification = @"CommunicationStateChangedNot
         [Workspace sharedWorkspace].monitoringEnabled = NO;
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:CommunicationStateChangedNotification object:nil];
+}
+
+- (void)webSocketServerDidFailToInitialize:(WebSocketServer *)server {
+    NSInteger result = [[NSAlert alertWithMessageText:@"Failed to start: port occupied" defaultButton:@"Quit" alternateButton:nil otherButton:@"More Info" informativeTextWithFormat:@"LiveReload cannot listen on port %d. You probably have another copy of LiveReload 2.x, a command-line LiveReload 1.x or an alternative tool like guard-livereload running.\n\nPlease quit any other live reloaders and rerun LiveReload.", PORT_NUMBER] runModal];
+    if (result == NSAlertOtherReturn) {
+        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://help.livereload.com/kb/troubleshooting/failed-to-start-port-occupied"]];
+    }
+    [NSApp terminate:nil];
 }
 
 @end

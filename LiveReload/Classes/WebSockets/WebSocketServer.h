@@ -31,6 +31,10 @@
 
 - (void)webSocketServer:(WebSocketServer *)server didAcceptConnection:(WebSocketConnection *)connection;
 
+@optional
+
+- (void)webSocketServerDidFailToInitialize:(WebSocketServer *)server;
+
 @end
 
 
