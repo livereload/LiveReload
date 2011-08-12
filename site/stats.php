@@ -14,6 +14,22 @@
         padding: 2px 10px;
         border-bottom: 1px solid black;
     }
+    table.horizontal th {
+        text-align: left;
+    }
+    tr.active_user_count, tr.growth_fmt {
+        font-weight: bold;
+        background: #eee;
+    }
+    tr.growth_fmt td.positive {
+        color: green;
+    }
+    tr.growth_fmt td.negative {
+        color: red;
+    }
+    td.last {
+        color: #666 !important;
+    }
 </style>
 <?php
 
@@ -49,10 +65,160 @@ function table($caption, $headers, $rows, $extra='') {
             html_tag('tbody', $e, $tr));
 }
 
+function inv_table($caption, $headers, $rows, $extra='') {
+    $e = array();
+    $tr = array();
+    foreach ($headers as $key => $header) {
+      $td = array();
+      $td[] = html_tag('th', $e, $header);
+      foreach ($rows as $index => $row) {
+        if (is_object($row)) {
+            $v = $row->$key;
+        } else {
+            $v = $row[$key];
+        }
+        $classes = '';
+        if ((float) $v < 0)
+          $classes = 'negative';
+        else
+          $classes = 'positive';
+        if ($index == count($rows) - 1) {
+          $classes = "$classes last";
+        }
+        $td[] = html_tag('td', array('class' => $classes), "$v");
+      }
+      $tr[] = html_tag('tr', array('class' => $key), $td);
+    }
+
+    return html_tag('h1', $e, $caption) . $extra .
+        html_tag('table', array('cellspacing' => '0', 'class' => 'horizontal'),
+            html_tag('thead', $e, html_tag('tr', $e, $th)),
+            html_tag('tbody', $e, $tr));
+}
+
 function chart($data) {
-    $chart = "https://chart.googleapis.com/chart?chs=500x125&cht=ls&chco=0077CC&chxt=y&chxr=0,0,10&chds=0,10&chd=t:" . implode(',', $data);
+    $chart = "https://chart.googleapis.com/chart?chs=500x125&cht=ls&chco=0077CC&chxt=y&chxr=0,0,100&chds=0,100&chd=t:" . implode(',', $data);
     return div('', html_tag('img', array('src' => $chart)));
 }
+
+function stats_before($time) {
+  return query_rows(
+    "SELECT ip,
+          FROM_UNIXTIME(MIN(time)) start,
+          FROM_UNIXTIME(MAX(time)) end,
+          (MAX(time)-MIN(time))/(60*60*24) AS active_period,
+          ($time-MAX(time))/(60*60*24) AS inactive_period,
+          ($time-MIN(time))/(60*60*24) AS age
+      FROM `stats`
+      WHERE time <= $time
+      GROUP BY ip
+      ORDER BY active_period DESC");
+}
+
+function start_of_week($now) {
+  $info = (object) getdate($now);
+  $last_sun_start = mktime(0, 0, 0, $info->mon, $info->mday - $info->wday, $info->year);
+  return $last_sun_start + 24 * 60 * 60;
+}
+
+define('STATUS_TRIAL', 0);
+define('STATUS_ACTIVE', 1);
+define('STATUS_INACTIVE', 2);
+define('TRIAL_PERIOD', 7);
+define('INACTIVITY_CUTOFF', 14);
+define('STAT_WEEKS', 8);
+
+function weekly_stats() {
+  $week0 = start_of_week(time());
+  $weeks = array();
+  for ($i = STAT_WEEKS; $i >= 0; $i--) {
+    $week = new stdClass;
+    $week->start = $week0 - $i * 7 * 24 * 60 * 60;
+    $week->end = $week->start + 7 * 24 * 60 * 60;
+    $week->start_fmt = strftime('%b %d', $week->start);
+    $week->period_fmt = strftime('%b %d', $week->start) . ' – ' . strftime('%b %d', $week->end);
+    $week->stats = index_by_field('ip', stats_before($week->end));
+    foreach ($week->stats as $ip => &$row) {
+      if ($row->age < TRIAL_PERIOD)
+        $row->status = STATUS_TRIAL;
+      else if ($row->inactive_period > INACTIVITY_CUTOFF || $row->inactive_period > $row->active_period)
+        $row->status = STATUS_INACTIVE;
+      else
+        $row->status = STATUS_ACTIVE;
+    }
+    $weeks[] = $week;
+  }
+
+  foreach ($weeks as &$week) {
+    if (!empty($last_week)) {
+      $week->active_user_count = 0;
+      $week->new_users = array();
+      $week->gone_users = array();
+      $week->trial_users = array();
+
+      $week->users_this_week = 0;
+      foreach ($week->stats as $ip => $row) {
+        if ($row->inactive_period < 7) {
+          $week->users_this_week++;
+        }
+      }
+
+      foreach ($week->stats as $ip => $row) {
+        $prev_row = $last_week->stats[$ip];
+        if ($row->status == STATUS_ACTIVE) {
+          ++$week->active_user_count;
+          if (empty($prev_row) || $prev_row->status != STATUS_ACTIVE) {
+            $week->new_users[] = $ip;
+          }
+        }
+      }
+
+      foreach ($last_week->stats as $ip => $prev_row) {
+        $row = $week->stats[$ip];
+        if ($prev_row->status == STATUS_ACTIVE) {
+          if (empty($row) || $row->status != STATUS_ACTIVE) {
+            $week->gone_users[] = $ip;
+          }
+        }
+      }
+
+      $week->trial_fresh = 0;
+      $week->trial_good = 0;
+      $week->trial_bad = 0;
+      foreach ($week->stats as $ip => $row) {
+        if ($row->status == STATUS_TRIAL) {
+          $week->trial_users[] = $ip;
+          if ($row->age <= 3) {
+            $week->trial_fresh++;
+          } else if ($row->active_period > $row->inactive_period) {
+            $week->trial_good++;
+          } else {
+            $week->trial_bad++;
+          }
+        }
+      }
+      $week->trial_count = count($week->trial_users);
+
+      $week->new_user_count = count($week->new_users);
+      $week->gone_user_count = count($week->gone_users);
+
+      $week->growth = ($last_week->active_user_count > 0) ? (float) $week->active_user_count / $last_week->active_user_count - 1 : 0;
+      $week->growth_fmt = round($week->growth * 100) . '%';
+
+      $week->new_user_growth = ($last_week->new_user_count > 0) ? (float) $week->new_user_count / $last_week->new_user_count - 1 : 0;
+      $week->new_user_growth_fmt = round($week->new_user_growth * 100) . '%';
+
+      $week->churn = ($last_week->active_user_count > 0) ? (float) $week->gone_user_count / $last_week->active_user_count : 0;
+      $week->churn_fmt = round($week->churn * 100) . '%';
+    }
+    $last_week = $week;
+  }
+
+  array_shift($weeks);  // remove the first week, it was only used to compute futher stats
+  return $weeks;
+}
+
+
 
 $count = query_count('SELECT COUNT(DISTINCT ip) AS count FROM stats');
 $by_date = query_rows('SELECT date, COUNT(DISTINCT ip) AS count FROM stats GROUP BY date ORDER BY date');
@@ -72,6 +238,22 @@ foreach ($by_date as $row) {
 echo html_tag('h1', array(), "Total unique IPs: $count");
 
 echo html_tag('h1', array(), "Unique IPs by day, all time") . chart($data);
+
+$weeks = weekly_stats();
+echo inv_table("Weekly statistics", array(
+    'start_fmt' => '',
+    'users_this_week' => 'Total this week',
+    'active_user_count' => 'Active users',
+    'new_user_count' => 'New users',
+    'gone_user_count' => 'Previously active users gone',
+    'trial_count' => 'In trial (total)',
+    'trial_fresh' => 'In trial (≤ 3 days)',
+    'trial_good' => 'In trial (active)',
+    'trial_bad' => 'In trial (inactive)',
+    'growth_fmt' => '% increase in active users (growth)',
+    'new_user_growth_fmt' => '% increase in new users',
+    'churn_fmt' => '% previously active users gone (churn)'
+  ), $weeks);
 
 echo table('Unique IPs by version, last 30 days', array('version' => 'Version', 'count' => 'IPs'), $by_ver_30);
 echo table('Unique IPs by version, last 7 days', array('version' => 'Version', 'count' => 'IPs'), $by_ver_7);
