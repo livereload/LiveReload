@@ -117,7 +117,10 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
 #pragma mark - Filtering
 
 - (void)updateFilter {
-    _monitor.filter.ignoreHiddenFiles = YES;
+    // Cannot ignore hidden files, some guys are using files like .navigation.html as
+    // partials. Not sure about directories, but the usual offenders are already on
+    // the excludedNames list.
+    _monitor.filter.ignoreHiddenFiles = NO;
     _monitor.filter.enabledExtensions = [Preferences sharedPreferences].allExtensions;
     _monitor.filter.excludedNames = [Preferences sharedPreferences].excludedNames;
     [_monitor filterUpdated];
