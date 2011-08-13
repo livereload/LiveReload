@@ -6,8 +6,9 @@
 typedef enum {
     StatusItemStateInactive,
     StatusItemStateActive,
+    StatusItemStateRotation1,
+    StatusItemStateRotation2,
     StatusItemStateHighlighted,
-    StatusItemStateBlinking,
     StatusItemStateDroppable,
     COUNT_StatusItemState
 } StatusItemState;
@@ -15,10 +16,13 @@ typedef enum {
 static NSString *const iconNames[COUNT_StatusItemState] = {
     @"StatusItemInactive",
     @"StatusItemActive",
+    @"StatusItemStateRotation1",
+    @"StatusItemStateRotation2",
     @"StatusItemHighlighted",
-    @"StatusItemBlinking",
     @"StatusItemDropTarget",
 };
+
+enum { kAnimationStepCount = StatusItemStateRotation2 - StatusItemStateActive + 1 };
 
 
 @implementation StatusItemView
@@ -53,8 +57,8 @@ static NSString *const iconNames[COUNT_StatusItemState] = {
     StatusItemState state;
     if (_selected) {
         state = StatusItemStateHighlighted;
-    } else if (_blinking) {
-        state = StatusItemStateBlinking;
+    } else if (_animating) {
+        state = StatusItemStateActive + _animationStep;
     } else if (_droppable) {
         state = StatusItemStateDroppable;
     } else if (_active) {
@@ -92,17 +96,64 @@ static NSString *const iconNames[COUNT_StatusItemState] = {
     [self setNeedsDisplay:YES];
 }
 
-- (void)blink {
-    if (!_blinking) {
-        _blinking = YES;
-        [self display];
-        [self performSelector:@selector(_stopBlinking) withObject:nil afterDelay:0.1];
+
+#pragma mark - Animation
+
+- (void)_startAnimation {
+    _animating = YES;
+    _animationStep = 1;
+    _continueAnimationRequested = NO;
+    _animationTimer = [[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(_animate) userInfo:nil repeats:YES] retain];
+    [self display];
+}
+
+- (void)_endAnimation {
+    [_animationTimer invalidate];
+    [_animationTimer release], _animationTimer = nil;
+    _animating = NO;
+    [self display];
+}
+
+- (void)_maybeEndAnimation {
+    if (_animationRequests == 0 && !_continueAnimationRequested) {
+        [self _endAnimation];
     }
 }
 
-- (void)_stopBlinking {
-    _blinking = NO;
+- (void)animateOnce {
+    if (!_animating) {
+        [self _startAnimation];
+    } else {
+        _continueAnimationRequested = YES;
+    }
+}
+
+- (void)_animate {
+    if (++_animationStep == kAnimationStepCount) {
+        _animationStep = 0;
+    }
     [self display];
+    if (_animationStep == 0) {
+        [self _maybeEndAnimation];
+        _continueAnimationRequested = NO;
+    }
+}
+
+- (void)startAnimation {
+    ++_animationRequests;
+    if (!_animating) {
+        [self _startAnimation];
+    }
+}
+
+- (void)endAnimation {
+    --_animationRequests;
+    if (_animationStep == 0) {
+        // avoid another animation loop if the animation is no longer desired
+        [self _maybeEndAnimation];
+    } else {
+        // NOP; the animation will end when a loop is finished
+    }
 }
 
 

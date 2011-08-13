@@ -9,6 +9,8 @@
 @class FileCompilationOptions;
 
 extern NSString *ProjectDidDetectChangeNotification;
+extern NSString *ProjectWillBeginCompilationNotification;
+extern NSString *ProjectDidEndCompilationNotification;
 extern NSString *ProjectMonitoringStateDidChangeNotification;
 extern NSString *ProjectNeedsSavingNotification;
 

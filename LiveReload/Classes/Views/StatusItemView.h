@@ -13,8 +13,13 @@
 
     BOOL _selected;
     BOOL _active;
-    BOOL _blinking;
+    BOOL _animating;
+    BOOL _continueAnimationRequested;
     BOOL _droppable;
+
+    NSInteger              _animationRequests;
+    NSInteger              _animationStep;
+    NSTimer               *_animationTimer;
 }
 
 @property(nonatomic, assign) __weak id<StatusItemViewDelegate> delegate;
@@ -23,7 +28,9 @@
 @property(nonatomic) BOOL active;
 @property(nonatomic) BOOL droppable;
 
-- (void)blink;
+- (void)animateOnce;
+- (void)startAnimation;
+- (void)endAnimation;
 
 @end
 

@@ -37,6 +37,8 @@
     [[NSApp delegate] addObserver:self forKeyPath:@"windowVisible" options:0 context:nil];
     [[Workspace sharedWorkspace] addObserver:self forKeyPath:@"monitoringEnabled" options:0 context:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didDetectChange) name:ProjectDidDetectChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willBeginCompilation) name:ProjectWillBeginCompilationNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEndCompilation) name:ProjectDidEndCompilationNotification object:nil];
 
     [self updateStatusIconState];
 }
@@ -52,7 +54,15 @@
 }
 
 - (void)didDetectChange {
-    [self.statusItemView blink];
+    [self.statusItemView animateOnce];
+}
+
+- (void)willBeginCompilation {
+    [self.statusItemView startAnimation];
+}
+
+- (void)didEndCompilation {
+    [self.statusItemView endAnimation];
 }
 
 

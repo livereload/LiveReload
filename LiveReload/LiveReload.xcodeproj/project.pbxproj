@@ -30,6 +30,8 @@
 		43361D4C13C3210200C0E589 /* LESS.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43361D4B13C3210200C0E589 /* LESS.lrplugin */; };
 		43361D4E13C329CD00C0E589 /* HAML.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43361D4D13C329CD00C0E589 /* HAML.lrplugin */; };
 		43361D5013C32C3D00C0E589 /* SASS.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43361D4F13C32C3D00C0E589 /* SASS.lrplugin */; };
+		434F151913EB1DD2006F04BC /* StatusItemStateRotation1.png in Resources */ = {isa = PBXBuildFile; fileRef = 434F151713EB1DD2006F04BC /* StatusItemStateRotation1.png */; };
+		434F151A13EB1DD2006F04BC /* StatusItemStateRotation2.png in Resources */ = {isa = PBXBuildFile; fileRef = 434F151813EB1DD2006F04BC /* StatusItemStateRotation2.png */; };
 		4351610113DEA5340088A3B7 /* SublimeText2Editor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4351610013DEA5340088A3B7 /* SublimeText2Editor.m */; };
 		4353972F13C6E967007D3C0B /* PaneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353972D13C6E967007D3C0B /* PaneViewController.m */; };
 		4353973413C6E9D7007D3C0B /* CompilerPaneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353973213C6E9D7007D3C0B /* CompilerPaneViewController.m */; };
@@ -53,7 +55,6 @@
 		4393940B1362CD6500333781 /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 4393940A1362CD6500333781 /* Project.m */; };
 		439394511362D62100333781 /* FSMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 439394501362D62100333781 /* FSMonitor.m */; };
 		439C092813AD939900119233 /* StatusItemActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 439C092413AD939900119233 /* StatusItemActive.png */; };
-		439C092913AD939900119233 /* StatusItemBlinking.png in Resources */ = {isa = PBXBuildFile; fileRef = 439C092513AD939900119233 /* StatusItemBlinking.png */; };
 		439C092A13AD939900119233 /* StatusItemHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 439C092613AD939900119233 /* StatusItemHighlighted.png */; };
 		439C092B13AD939900119233 /* StatusItemInactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 439C092713AD939900119233 /* StatusItemInactive.png */; };
 		439C092D13ADA72200119233 /* StatusItemDropTarget.png in Resources */ = {isa = PBXBuildFile; fileRef = 439C092C13ADA72200119233 /* StatusItemDropTarget.png */; };
@@ -159,6 +160,8 @@
 		43361D4B13C3210200C0E589 /* LESS.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = LESS.lrplugin; path = Compilers/LESS.lrplugin; sourceTree = SOURCE_ROOT; };
 		43361D4D13C329CD00C0E589 /* HAML.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HAML.lrplugin; path = Compilers/HAML.lrplugin; sourceTree = SOURCE_ROOT; };
 		43361D4F13C32C3D00C0E589 /* SASS.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SASS.lrplugin; path = Compilers/SASS.lrplugin; sourceTree = SOURCE_ROOT; };
+		434F151713EB1DD2006F04BC /* StatusItemStateRotation1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemStateRotation1.png; sourceTree = "<group>"; };
+		434F151813EB1DD2006F04BC /* StatusItemStateRotation2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemStateRotation2.png; sourceTree = "<group>"; };
 		435160FF13DEA5340088A3B7 /* SublimeText2Editor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SublimeText2Editor.h; sourceTree = "<group>"; };
 		4351610013DEA5340088A3B7 /* SublimeText2Editor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SublimeText2Editor.m; sourceTree = "<group>"; };
 		4353972C13C6E967007D3C0B /* PaneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaneViewController.h; sourceTree = "<group>"; };
@@ -197,7 +200,6 @@
 		4393944F1362D62100333781 /* FSMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSMonitor.h; sourceTree = "<group>"; };
 		439394501362D62100333781 /* FSMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSMonitor.m; sourceTree = "<group>"; };
 		439C092413AD939900119233 /* StatusItemActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemActive.png; sourceTree = "<group>"; };
-		439C092513AD939900119233 /* StatusItemBlinking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemBlinking.png; sourceTree = "<group>"; };
 		439C092613AD939900119233 /* StatusItemHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemHighlighted.png; sourceTree = "<group>"; };
 		439C092713AD939900119233 /* StatusItemInactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemInactive.png; sourceTree = "<group>"; };
 		439C092C13ADA72200119233 /* StatusItemDropTarget.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemDropTarget.png; sourceTree = "<group>"; };
@@ -499,10 +501,11 @@
 			isa = PBXGroup;
 			children = (
 				439C092413AD939900119233 /* StatusItemActive.png */,
-				439C092513AD939900119233 /* StatusItemBlinking.png */,
 				439C092613AD939900119233 /* StatusItemHighlighted.png */,
 				439C092713AD939900119233 /* StatusItemInactive.png */,
 				439C092C13ADA72200119233 /* StatusItemDropTarget.png */,
+				434F151713EB1DD2006F04BC /* StatusItemStateRotation1.png */,
+				434F151813EB1DD2006F04BC /* StatusItemStateRotation2.png */,
 			);
 			path = StatusItem;
 			sourceTree = "<group>";
@@ -791,7 +794,6 @@
 				43685D581385C5B300D17CB2 /* ChromeExtInstall.html in Resources */,
 				43685D5C1385C70600D17CB2 /* LiveReload.crx in Resources */,
 				439C092813AD939900119233 /* StatusItemActive.png in Resources */,
-				439C092913AD939900119233 /* StatusItemBlinking.png in Resources */,
 				439C092A13AD939900119233 /* StatusItemHighlighted.png in Resources */,
 				439C092B13AD939900119233 /* StatusItemInactive.png in Resources */,
 				439C092D13ADA72200119233 /* StatusItemDropTarget.png in Resources */,
@@ -812,6 +814,8 @@
 				43594AF613D3BC30004175B2 /* MainWindowController.xib in Resources */,
 				43BB2A9613D4D2C600B59AF5 /* ToolErrorWindowController.xib in Resources */,
 				43BB2AA213D512C900B59AF5 /* preferences-box.png in Resources */,
+				434F151913EB1DD2006F04BC /* StatusItemStateRotation1.png in Resources */,
+				434F151A13EB1DD2006F04BC /* StatusItemStateRotation2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

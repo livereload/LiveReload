@@ -21,6 +21,8 @@
 #define PathKey @"path"
 
 NSString *ProjectDidDetectChangeNotification = @"ProjectDidDetectChangeNotification";
+NSString *ProjectWillBeginCompilationNotification = @"ProjectWillBeginCompilationNotification";
+NSString *ProjectDidEndCompilationNotification = @"ProjectDidEndCompilationNotification";
 NSString *ProjectMonitoringStateDidChangeNotification = @"ProjectMonitoringStateDidChangeNotification";
 NSString *ProjectNeedsSavingNotification = @"ProjectNeedsSavingNotification";
 
@@ -196,7 +198,9 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
                 compilerFound = YES;
                 CompilationOptions *compilationOptions = [self optionsForCompiler:compiler create:NO];
                 if (compilationOptions.mode == CompilationModeCompile) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:ProjectWillBeginCompilationNotification object:self];
                     [self compile:relativePath under:_path with:compiler options:compilationOptions];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidEndCompilationNotification object:self];
                     break;
                 } else if (compilationOptions.mode == CompilationModeMiddleware) {
                     NSString *derivedName = [compiler derivedNameForFile:relativePath];
