@@ -100,7 +100,7 @@
         but I might have borked a thing or two.
         When you find something to complain about,
         please drop me an email at
-        <a href="mailto:andreyvit@gmail.com">andreyvit@gmail.com</a>.
+        <a href="mailto:support@livereload.com">support@livereload.com</a>.
       </p>
       <p>
         Also, please please PLEASE don't try to
@@ -158,6 +158,50 @@
         and you might find <a href="http://firequery.binaryage.com/" class="binaryage-link-firequery">FireQuery</a>
         and <a href="http://www.binaryage.com/" class="binaryage-link-other">other free tools</a> useful too.
       </p>
+    </div>
+  </section>
+
+  <section class="support-section">
+    <a name="support"></a>
+    <div class="left">
+      <h2>Help &amp; Support</h2>
+
+      <p>
+        Popular articles from our <a class="go-kb-general" href="http://help.livereload.com/kb">knowledge base</a>:
+      </p>
+
+      <ul>
+        <li>
+          <a class="go-kb-popular" href="http://help.livereload.com/kb/general-use/using-livereload-without-browser-extensions">
+            Using LiveReload without browser extensions
+          </a>
+        </li>
+        <li>
+          <a class="go-kb-popular" href="http://help.livereload.com/kb/editor-support/list-of-supported-editors">
+            List of supported editors
+          </a>
+        </li>
+      </ul>
+
+      <p>
+        Question, problem or suggestion? Please <a class="go-support-new" href="http://help.livereload.com/discussion/new">contact support on the web</a>
+        or email <a href="mailto:support@livereload.com">support@livereload.com</a>.
+        You can also browse existing <a class="go-support-problems" href="http://help.livereload.com/discussions/problems">problems</a>
+        and <a class="go-support-questions" href="http://help.livereload.com/discussions/questions">questions</a>.
+      </p>
+    </div>
+
+    <div class="right">
+      <h2>&nbsp;</h2>
+
+      <p>
+        We're using Tender for our user manual and support system.
+        You can access it at:
+      </p>
+
+      <div style="text-align: center">
+        <a href="http://help.livereload.com/">help.livereload.com</a>
+      </div>
     </div>
   </section>
 
@@ -405,6 +449,11 @@
     mpmetrics.track_links('.binaryage-link-totalfinder', 'Go to BinaryAge', { link: 'TotalFinder' });
     mpmetrics.track_links('.binaryage-link-firequery', 'Go to BinaryAge', { link: 'FireQuery' });
     mpmetrics.track_links('.binaryage-link-other', 'Go to BinaryAge', { link: 'other' });
+    mpmetrics.track_links('.go-kb-general', 'Go to Tender', { link: 'kb-general' });
+    mpmetrics.track_links('.go-kb-popular', 'Go to Tender', { link: 'kb-popular' });
+    mpmetrics.track_links('.go-support-new', 'Go to Tender', { link: 'support-new' });
+    mpmetrics.track_links('.go-support-problems', 'Go to Tender', { link: 'support-problems' });
+    mpmetrics.track_links('.go-support-questions', 'Go to Tender', { link: 'support-questions' });
     // mpmetrics.track_links('.oldver', 'Visit old site');
 
     $('.download').click(function(e) {
