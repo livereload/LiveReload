@@ -133,6 +133,29 @@
     </div>
   </section>
 
+  <section class="friends-section">
+    <a name="friends"></a>
+
+    <div class="left">
+      <img src="images/binaryage/totalfinder-256.png" width="256" height="256" class="binaryage-icon" alt="">
+      <img src="images/binaryage/firequery-256.png" width="256" height="256" class="binaryage-icon" alt="">
+      <img src="images/binaryage/firerainbow-256.png" width="256" height="256" class="binaryage-icon" alt="">
+      <img src="images/binaryage/firelogger-256.png" width="256" height="256" class="binaryage-icon" alt="">
+    </div>
+
+    <div class="right">
+      <h2>Our friends at BinaryAge</h2>
+
+      <p>
+        LiveReload has been inspired by&nbsp;XRefresh,
+        an&nbsp;old Firebug plugin made by our friends at&nbsp;BinaryAge. The entire LiveReload
+        team is&nbsp;using their <a href="http://totalfinder.binaryage.com/" class="binaryage-link-totalfinder">TotalFinder</a>,
+        and you might find <a href="http://firequery.binaryage.com/" class="binaryage-link-firequery">FireQuery</a>
+        and <a href="http://www.binaryage.com/" class="binaryage-link-other">other free tools</a> useful too.
+      </p>
+    </div>
+  </section>
+
   <!-- <section class="screencast-section">
     <a name="screencast"></a>
     <div class="left">
@@ -365,6 +388,9 @@
     mpmetrics.set_config({ track_links_timeout: 1000 });
     mpmetrics.track('Load homepage');
     mpmetrics.track_links('.download', 'Download');
+    mpmetrics.track_links('.binaryage-link-totalfinder', 'Go to BinaryAge', { link: 'TotalFinder' });
+    mpmetrics.track_links('.binaryage-link-firequery', 'Go to BinaryAge', { link: 'FireQuery' });
+    mpmetrics.track_links('.binaryage-link-other', 'Go to BinaryAge', { link: 'other' });
     // mpmetrics.track_links('.oldver', 'Visit old site');
 
     $('.greencard').submit(function(e) {
