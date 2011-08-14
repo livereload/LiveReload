@@ -310,15 +310,11 @@
         <li>Now using a grey background, black no more.</li>
       </ol>
 
-      <p>
-        Perhaps you want to <a href="#download">download LR 2.0α4</a>?
-      </p>
-
       <h3>2.0α3</h3>
 
       <ol>
-        <li><p>Introduced <a href="#compilers">support for languages that compile into CSS/JS/HTML</a></p></li>
-        <li>Updated the web site to suck less. Go ahead, explore it and tell me what you think.</li>
+        <li>Introduced <a href="#compilers">support for languages that compile into CSS/JS/HTML</a></li>
+        <li>Updated the web site to suck less.</li>
       </ol>
 
       <h3>2.0α2</h3>
@@ -326,48 +322,24 @@
       <ol>
 
         <li>
-          <p><b>Limits monitored extensions to a predefined list</b></p>
-
-          <p>
-            Includes: HTML/CSS/JS and their variants (Less, SASS, HAML, CoffeeScript), images,
-            various PHP extensions, Ruby, Python.
-          </p>
-
-          <p>
-            For now, you can view and/or customize this list in monitoring.plist inside the application bundle.
-            Please let me know if you had to make any customizations, so that I can add them to the default list.
-          </p>
+          Limits monitored extensions to a predefined list.
+          Includes: HTML/CSS/JS and their variants (Less, SASS, HAML, CoffeeScript), images, various PHP extensions, Ruby, Python.
         </li>
 
         <li>
-          <p><b>First step of handling Less/SASS/HAML/CoffeeScript</b></p>
-          <p>
-            If there is a corresponding css/js file for your less/sass/scss/coffee,
-            the changes to your less/sass/scss/coffee will be ignored
-            (because there is probably an external compiler that will update css/js soon).
-          </p>
-          <p>
-            Otherwise LR proceeds as usual, assuming that you are compiling those on the fly
-            in your server-side code or directly inside the browser.
-          </p>
-          <p>
-            LR will support compiling all those files soon.
-            Let me know about the compilation and minification options you would like to see added to LR.
-          </p>
+          First step of handling <b>Less/SASS/HAML/CoffeeScript</b>.
+          If there is a corresponding css/js file for your less/sass/scss/coffee,
+          the changes to your less/sass/scss/coffee will be ignored
+          (because there is probably an external compiler that will update css/js soon).
+          Otherwise LR proceeds as usual.
         </li>
 
         <li>
-          <p><b>Menu bar icon update</b></p>
-
-          <p>
-            The menu bar icon now indicates the state of LiveReload: inactive (no browsers connected,
-            monitoring disabled), active (browser(s) connected, monitoring the file system),
-            change detected (blinks green).
-          </p>
-
-          <p>
-            You can also drag'n'drop folders onto the menu bar icon now.
-          </p>
+          The <b>menu bar icon</b> now indicates the state of LiveReload: inactive (no browsers connected,
+          monitoring disabled), active (browser(s) connected, monitoring the file system),
+          change detected (blinks green).
+          You can also drag'n'drop folders onto the menu bar icon.
+        </li>
 
       </ol>
 
