@@ -4,6 +4,7 @@
 
 
 #define AdditionalExtensionsKey @"additionalExtensions"
+#define AutoreloadJavascriptKey @"autoreloadJavascript"
 
 static Preferences *sharedPreferences = nil;
 
@@ -45,6 +46,12 @@ NSString *PreferencesFilterSettingsChangedNotification = @"PreferencesFilterSett
     return sharedPreferences;
 }
 
++ (void)initDefaults {
+    NSMutableDictionary * defaults = [NSMutableDictionary dictionaryWithObject: [[NSArray alloc] init] forKey: AdditionalExtensionsKey];
+    [defaults setObject:[NSNumber numberWithBool:NO] forKey: AutoreloadJavascriptKey];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
+}
+
 - (NSSet *)additionalExtensions {
     return [NSSet setWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:AdditionalExtensionsKey]];
 }
@@ -53,6 +60,13 @@ NSString *PreferencesFilterSettingsChangedNotification = @"PreferencesFilterSett
     [[NSUserDefaults standardUserDefaults] setObject:[additionalExtensions allObjects] forKey:AdditionalExtensionsKey];
 }
 
+- (BOOL)autoreloadJavascript {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:AutoreloadJavascriptKey];
+}
+
+- (void)setAutoreloadJavascript:(BOOL)autoreloadJavascript {
+    [[NSUserDefaults standardUserDefaults] setBool:autoreloadJavascript forKey:AutoreloadJavascriptKey];
+}
 
 #pragma mark - Filter preferences
 

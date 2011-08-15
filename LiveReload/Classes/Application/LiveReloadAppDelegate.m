@@ -9,7 +9,7 @@
 #import "PluginManager.h"
 
 #import "NSWindowFlipper.h"
-
+#import "Preferences.h"
 
 @interface LiveReloadAppDelegate ()
 
@@ -54,6 +54,7 @@
         [NSApp terminate:self];
     }
 
+    [Preferences initDefaults];
     [[PluginManager sharedPluginManager] reloadPlugins];
 
     _statusItemController = [[StatusItemController alloc] init];

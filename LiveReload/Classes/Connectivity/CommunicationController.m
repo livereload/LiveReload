@@ -4,7 +4,7 @@
 #import "Project.h"
 #import "Workspace.h"
 #import "JSON.h"
-
+#import "Preferences.h"
 
 #define PORT_NUMBER 35729
 
@@ -41,9 +41,10 @@ NSString *CommunicationStateChangedNotification = @"CommunicationStateChangedNot
 
 - (void)broadcastChangedPathes:(NSSet *)pathes inProject:(Project *)project {
     NSLog(@"Broadcasting change in %@: %@", project.path, [pathes description]);
+
     for (NSString *path in pathes) {
         NSDictionary *args = [NSDictionary dictionaryWithObjectsAndKeys:path, @"path",
-                              [NSNumber numberWithBool:NO], @"apply_js_live",
+                              [NSNumber numberWithBool:[[Preferences sharedPreferences] autoreloadJavascript]], @"apply_js_live",
                               [NSNumber numberWithBool:YES], @"apply_css_live",
                               nil];
         NSArray *command = [NSArray arrayWithObjects:@"refresh", args, nil];

@@ -10,8 +10,11 @@
 
 + (Preferences *)sharedPreferences;
 
++ (void)initDefaults;
+
 @property(nonatomic, readonly, copy) NSSet *allExtensions;
 @property(nonatomic, retain) NSSet *additionalExtensions;
+@property(nonatomic) BOOL autoreloadJavascript;
 @property(nonatomic, readonly, copy) NSSet *excludedNames;
 
 @end
