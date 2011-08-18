@@ -1,7 +1,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-
 @class ToolError;
 @class Editor;
 
@@ -12,7 +11,7 @@
 
     NSTextField           *_fileNameLabel;
     NSTextField           *_lineNumberLabel;
-    NSTextField           *_messageLabel;
+    NSTextView            *_messageView;
     NSPopUpButton         *_actionButton;
     NSButton              *_jumpToErrorButton;
 
@@ -27,7 +26,7 @@
 
 @property (assign) IBOutlet NSTextField *fileNameLabel;
 @property (assign) IBOutlet NSTextField *lineNumberLabel;
-@property (assign) IBOutlet NSTextField *messageLabel;
+@property (assign) IBOutlet NSTextView  *messageView;
 @property (assign) IBOutlet NSPopUpButton *actionButton;
 @property (assign) IBOutlet NSButton *jumpToErrorButton;
 

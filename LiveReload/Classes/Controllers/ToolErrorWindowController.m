@@ -30,7 +30,7 @@ static ToolErrorWindowController *lastErrorController = nil;
 @synthesize key=_key;
 @synthesize fileNameLabel=_fileNameLabel;
 @synthesize lineNumberLabel=_lineNumberLabel;
-@synthesize messageLabel=_messageLabel;
+@synthesize messageView=_messageView;
 @synthesize actionButton = _actionButton;
 @synthesize jumpToErrorButton = _jumpToErrorButton;
 
@@ -74,21 +74,21 @@ static ToolErrorWindowController *lastErrorController = nil;
 
     _fileNameLabel.stringValue = [_compilerError.sourcePath lastPathComponent];
     _lineNumberLabel.stringValue = (_compilerError.line ? [NSString stringWithFormat:@"%d", _compilerError.line] : @"");
-    _messageLabel.stringValue = _compilerError.message;
+    [_messageView setDrawsBackground:NO];
+    [_messageView setEditable:NO];
 
-    // resize
+    CGFloat oldHeight = _messageView.frame.size.height;
+    [_messageView setString:_compilerError.message];
+    NSLayoutManager * lm = [_messageView layoutManager];
+    NSTextContainer * tc = [_messageView textContainer];
+    [lm glyphRangeForTextContainer:tc]; // forces layout manager to relayout container
+    CGFloat heightDelta = _messageView.frame.size.height - oldHeight;
 
-    CGFloat oldHeight = _messageLabel.frame.size.height;
-    [_messageLabel sizeToFit];
-    CGFloat heightDelta = _messageLabel.frame.size.height - oldHeight;
-
-    NSRect messageFrame = _messageLabel.frame;
-    messageFrame.origin.y -= heightDelta;
-    _messageLabel.frame = messageFrame;
-
-    NSRect windowFrame = self.window.frame;
-    windowFrame.size.height += heightDelta;
-    [self.window setFrame:windowFrame display:YES];
+    if ( heightDelta > 0 ) {
+        NSRect windowFrame = self.window.frame;
+        windowFrame.size.height += heightDelta;
+        [self.window setFrame:windowFrame display:YES];
+    }
 
     // add the gears icon to the action button
     NSMenuItem *menuItem = [[[NSMenuItem alloc] initWithTitle:@"" action:nil keyEquivalent:@""] autorelease];
