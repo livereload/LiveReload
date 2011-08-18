@@ -89,7 +89,7 @@
 									<int key="NSColorSpace">6</int>
 									<string key="NSCatalogName">System</string>
 									<string key="NSColorName">controlTextColor</string>
-									<object class="NSColor" key="NSColor" id="1059585912">
+									<object class="NSColor" key="NSColor" id="452388616">
 										<int key="NSColorSpace">3</int>
 										<bytes key="NSWhite">MAA</bytes>
 									</object>
@@ -99,10 +99,10 @@
 						<object class="NSTextField" id="585376659">
 							<reference key="NSNextResponder" ref="1006"/>
 							<int key="NSvFlags">265</int>
-							<string key="NSFrame">{{266, 91}, {39, 14}}</string>
+							<string key="NSFrame">{{250, 91}, {55, 14}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="583179556"/>
+							<reference key="NSNextKeyView" ref="449602834"/>
 							<int key="NSViewLayerContentsRedrawPolicy">2</int>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="692982545">
@@ -142,13 +142,36 @@
 								<int key="NSPeriodicInterval">75</int>
 							</object>
 						</object>
+						<object class="NSButton" id="382657278">
+							<reference key="NSNextResponder" ref="1006"/>
+							<int key="NSvFlags">-2147483391</int>
+							<string key="NSFrame">{{83, 10}, {106, 23}}</string>
+							<reference key="NSSuperview" ref="1006"/>
+							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView" ref="559453887"/>
+							<int key="NSViewLayerContentsRedrawPolicy">2</int>
+							<bool key="NSEnabled">YES</bool>
+							<object class="NSButtonCell" key="NSCell" id="336437652">
+								<int key="NSCellFlags">-2080244224</int>
+								<int key="NSCellFlags2">134348800</int>
+								<string key="NSContents">Mail to server</string>
+								<reference key="NSSupport" ref="26"/>
+								<reference key="NSControlView" ref="382657278"/>
+								<int key="NSButtonFlags">-2033434369</int>
+								<int key="NSButtonFlags2">162</int>
+								<string key="NSAlternateContents"/>
+								<string key="NSKeyEquivalent"/>
+								<int key="NSPeriodicDelay">400</int>
+								<int key="NSPeriodicInterval">75</int>
+							</object>
+						</object>
 						<object class="NSPopUpButton" id="340100164">
 							<reference key="NSNextResponder" ref="1006"/>
 							<int key="NSvFlags">260</int>
 							<string key="NSFrame">{{12, 10}, {34, 23}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="559453887"/>
+							<reference key="NSNextKeyView" ref="382657278"/>
 							<int key="NSViewLayerContentsRedrawPolicy">2</int>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSPopUpButtonCell" key="NSCell" id="905537907">
@@ -227,7 +250,7 @@
 								<int key="NSArrowPosition">2</int>
 							</object>
 						</object>
-						<object class="NSCustomView" id="583179556">
+						<object class="NSCustomView" id="449602834">
 							<reference key="NSNextResponder" ref="1006"/>
 							<int key="NSvFlags">269</int>
 							<string key="NSFrame">{{12, 40}, {290, 43}}</string>
@@ -350,9 +373,17 @@
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">messageView</string>
 						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="583179556"/>
+						<reference key="destination" ref="449602834"/>
 					</object>
 					<int key="connectionID">76</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">mailToServerButton</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="382657278"/>
+					</object>
+					<int key="connectionID">84</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -402,7 +433,8 @@
 							<reference ref="585376659"/>
 							<reference ref="559453887"/>
 							<reference ref="340100164"/>
-							<reference ref="583179556"/>
+							<reference ref="449602834"/>
+							<reference ref="382657278"/>
 						</object>
 						<reference key="parent" ref="1005"/>
 					</object>
@@ -514,8 +546,22 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">75</int>
-						<reference key="object" ref="583179556"/>
+						<reference key="object" ref="449602834"/>
 						<reference key="parent" ref="1006"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">80</int>
+						<reference key="object" ref="382657278"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="336437652"/>
+						</object>
+						<reference key="parent" ref="1006"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">81</int>
+						<reference key="object" ref="336437652"/>
+						<reference key="parent" ref="382657278"/>
 					</object>
 				</object>
 			</object>
@@ -550,6 +596,8 @@
 					<string>75.IBViewIntegration.shadowColor</string>
 					<string>75.IBViewIntegration.shadowOffsetHeight</string>
 					<string>75.IBViewIntegration.shadowOffsetWidth</string>
+					<string>80.IBPluginDependency</string>
+					<string>81.IBPluginDependency</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -577,9 +625,11 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<real value="0.0"/>
-					<reference ref="1059585912"/>
+					<reference ref="452388616"/>
 					<real value="0.0"/>
 					<real value="0.0"/>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -594,7 +644,7 @@
 				<reference key="dict.values" ref="1002"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">76</int>
+			<int key="maxID">84</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -618,6 +668,7 @@
 							<string>fileNameLabel</string>
 							<string>jumpToErrorButton</string>
 							<string>lineNumberLabel</string>
+							<string>mailToServerButton</string>
 							<string>messageView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -626,6 +677,7 @@
 							<string>NSTextField</string>
 							<string>NSButton</string>
 							<string>NSTextField</string>
+							<string>NSButton</string>
 							<string>NSTextView</string>
 						</object>
 					</object>
@@ -637,6 +689,7 @@
 							<string>fileNameLabel</string>
 							<string>jumpToErrorButton</string>
 							<string>lineNumberLabel</string>
+							<string>mailToServerButton</string>
 							<string>messageView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -656,6 +709,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">lineNumberLabel</string>
 								<string key="candidateClassName">NSTextField</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">mailToServerButton</string>
+								<string key="candidateClassName">NSButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">messageView</string>

@@ -14,6 +14,7 @@
     NSTextView            *_messageView;
     NSPopUpButton         *_actionButton;
     NSButton              *_jumpToErrorButton;
+    NSButton              *_mailToServerButton;
 
     ToolErrorWindowController *_previousWindowController;
     BOOL                   _appearing;
@@ -29,6 +30,7 @@
 @property (assign) IBOutlet NSTextView  *messageView;
 @property (assign) IBOutlet NSPopUpButton *actionButton;
 @property (assign) IBOutlet NSButton *jumpToErrorButton;
+@property (assign) IBOutlet NSButton *mailToServerButton;
 
 - (void)show;
 

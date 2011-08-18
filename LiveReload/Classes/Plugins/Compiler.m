@@ -215,6 +215,7 @@
             NSString *file = [data objectForKey:@"file"];
             NSString *line = [data objectForKey:@"line"];
             NSString *message = [[data objectForKey:@"message"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            BOOL rawMessage = (data == nil ? true : false);
 
             if (!file) {
                 file = sourcePath;
@@ -230,7 +231,7 @@
                 }
             }
             if (!message) {
-                if ([output length] < 200) {
+                if ([output length] < 200 || rawMessage) {
                     message = output;
                 } else {
                     message = [output substringWithRange:[output rangeOfComposedCharacterSequencesForRange:NSMakeRange(0, 200)]];
@@ -242,7 +243,7 @@
 
             if (compilerError) {
                 NSInteger lineNo = [line integerValue];
-                *compilerError = [[[ToolError alloc] initWithCompiler:self sourcePath:file line:lineNo message:message output:output] autorelease];
+                *compilerError = [[[ToolError alloc] initWithCompiler:self sourcePath:file line:lineNo message:message output:output raw:rawMessage] autorelease];
             }
         }
     } else {

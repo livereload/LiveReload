@@ -33,6 +33,7 @@ static ToolErrorWindowController *lastErrorController = nil;
 @synthesize messageView=_messageView;
 @synthesize actionButton = _actionButton;
 @synthesize jumpToErrorButton = _jumpToErrorButton;
+@synthesize mailToServerButton = _mailToServerButton;
 
 
 #pragma mark -
@@ -73,9 +74,20 @@ static ToolErrorWindowController *lastErrorController = nil;
 //    self.window.backgroundColor = [NSColor colorWithCalibratedWhite:237.0/255 alpha:0.9];
 
     _fileNameLabel.stringValue = [_compilerError.sourcePath lastPathComponent];
-    _lineNumberLabel.stringValue = (_compilerError.line ? [NSString stringWithFormat:@"%d", _compilerError.line] : @"");
-    [_messageView setDrawsBackground:NO];
+
+    if (_compilerError.raw) {
+        [_mailToServerButton setHidden:NO];
+        _mailToServerButton.alphaValue = 0.7;
+
+        _lineNumberLabel.textColor = [NSColor redColor];
+        _lineNumberLabel.stringValue = @"Unparsed";
+    } else {
+        _lineNumberLabel.stringValue = (_compilerError.line ? [NSString stringWithFormat:@"%d", _compilerError.line] : @"");
+    }
+
     [_messageView setEditable:NO];
+    [_messageView setDrawsBackground:NO];
+
 
     CGFloat oldHeight = _messageView.frame.size.height;
     [_messageView setString:_compilerError.message];
