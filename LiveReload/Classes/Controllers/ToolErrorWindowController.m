@@ -7,33 +7,37 @@
 #import "EditorManager.h"
 #import "Editor.h"
 
+#import "Compiler.h"
+
 
 static ToolErrorWindowController *lastErrorController = nil;
 
-
-@interface ToolErrorWindowController () <NSAnimationDelegate>
+@interface ToolErrorWindowController () <NSAnimationDelegate, NSTextViewDelegate>
 
 + (void)setLastErrorController:(ToolErrorWindowController *)controller;
 
+@property (nonatomic, assign) enum UnparsedErrorState state;
 @property (nonatomic, readonly) NSString *key;
 
 - (void)hide:(BOOL)animated;
-
 - (void)updateJumpToErrorEditor;
+
+- (NSAttributedString *)prepareMessageForState:(enum UnparsedErrorState)state;
+- (NSURL *)errorReportURL;
+- (void)sendErrorReport;
 
 @end
 
-
-
 @implementation ToolErrorWindowController
 
-@synthesize key=_key;
-@synthesize fileNameLabel=_fileNameLabel;
-@synthesize lineNumberLabel=_lineNumberLabel;
-@synthesize messageView=_messageView;
+@synthesize key = _key;
+@synthesize state = _state;
+@synthesize fileNameLabel = _fileNameLabel;
+@synthesize lineNumberLabel = _lineNumberLabel;
+@synthesize unparsedView = _unparsedView;
+@synthesize messageView = _messageView;
 @synthesize actionButton = _actionButton;
 @synthesize jumpToErrorButton = _jumpToErrorButton;
-@synthesize mailToServerButton = _mailToServerButton;
 
 
 #pragma mark -
@@ -70,24 +74,11 @@ static ToolErrorWindowController *lastErrorController = nil;
     [super windowDidLoad];
 
     self.window.level = NSFloatingWindowLevel;
-//    [self.window setOpaque:NO];
-//    self.window.backgroundColor = [NSColor colorWithCalibratedWhite:237.0/255 alpha:0.9];
-
-    _fileNameLabel.stringValue = [_compilerError.sourcePath lastPathComponent];
-
-    if (_compilerError.raw) {
-        [_mailToServerButton setHidden:NO];
-        _mailToServerButton.alphaValue = 0.7;
-
-        _lineNumberLabel.textColor = [NSColor redColor];
-        _lineNumberLabel.stringValue = @"Unparsed";
-    } else {
-        _lineNumberLabel.stringValue = (_compilerError.line ? [NSString stringWithFormat:@"%d", _compilerError.line] : @"");
-    }
-
     [_messageView setEditable:NO];
     [_messageView setDrawsBackground:NO];
+    [_unparsedView setDelegate:self];
 
+    _fileNameLabel.stringValue = [_compilerError.sourcePath lastPathComponent];
 
     CGFloat oldHeight = _messageView.frame.size.height;
     [_messageView setString:_compilerError.message];
@@ -96,11 +87,19 @@ static ToolErrorWindowController *lastErrorController = nil;
     [lm glyphRangeForTextContainer:tc]; // forces layout manager to relayout container
     CGFloat heightDelta = _messageView.frame.size.height - oldHeight;
 
-    if ( heightDelta > 0 ) {
-        NSRect windowFrame = self.window.frame;
-        windowFrame.size.height += heightDelta;
-        [self.window setFrame:windowFrame display:YES];
+    if (_compilerError.raw) {
+        _lineNumberLabel.textColor = [NSColor redColor];
+        _lineNumberLabel.stringValue = @"Unparsed";
+        self.state = UnparsedErrorStateDefault;
+    } else {
+        _lineNumberLabel.stringValue = (_compilerError.line ? [NSString stringWithFormat:@"%d", _compilerError.line] : @"");
+        heightDelta -= _unparsedView.frame.size.height;
+        [_unparsedView setHidden:YES];
     }
+
+    NSRect windowFrame = self.window.frame;
+    windowFrame.size.height += heightDelta;
+    [self.window setFrame:windowFrame display:YES];
 
     // add the gears icon to the action button
     NSMenuItem *menuItem = [[[NSMenuItem alloc] initWithTitle:@"" action:nil keyEquivalent:@""] autorelease];
@@ -254,5 +253,87 @@ static ToolErrorWindowController *lastErrorController = nil;
     [self hide:NO];
 }
 
+#pragma mark -
 
+- (NSAttributedString *)prepareMessageForState:(enum UnparsedErrorState)state {
+    NSString * message;
+    NSMutableAttributedString * resultString;
+    NSRange range;
+    switch (state) {
+        case UnparsedErrorStateDefault:
+            message = @"LiveReload failed to parse this error message. Please submit the message to our server for analysis.";
+            range = [message rangeOfString:@"submit the message"];
+            resultString = [[[NSMutableAttributedString alloc] initWithString: message] autorelease];
+
+            [resultString beginEditing];
+            [resultString addAttribute:NSLinkAttributeName value:[[self errorReportURL] absoluteString] range:range];
+            [resultString endEditing];
+            break;
+
+        case UnparsedErrorStateConnecting :
+            message = @"Sending the error message to livereload.com…";
+            resultString = [[[NSMutableAttributedString alloc] initWithString:message] autorelease];
+            break;
+
+        case UnparsedErrorStateFail :
+            message = @"Failed to send the message to livereload.com. Retry";
+            range = [message rangeOfString:@"Retry"];
+            resultString = [[[NSMutableAttributedString alloc] initWithString: message] autorelease];
+
+            [resultString beginEditing];
+            [resultString addAttribute:NSLinkAttributeName value:[[self errorReportURL] absoluteString] range:range];
+            [resultString endEditing];
+            break;
+
+        case UnparsedErrorStateSuccess :
+            message = @"The error message has been sent for analysis. Thanks!";
+            resultString = [[[NSMutableAttributedString alloc] initWithString:message] autorelease];
+            break;
+
+        default: return nil;
+    }
+    return resultString;
+}
+
+- (NSURL *)errorReportURL {
+    NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    NSString *internalVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"http://livereload.com/api/submit-error-message.php?v=%@&iv=%@&compiler=%@",
+                                 [version stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
+                                 [internalVersion stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
+                                 _compilerError.compiler.name]];
+}
+
+- (void)sendErrorReport {
+    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:[self errorReportURL] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval: 60.0];
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:[_compilerError.message dataUsingEncoding:NSUTF8StringEncoding]];
+    [NSURLConnection connectionWithRequest:request delegate:self];
+}
+
+- (void)setState:(enum UnparsedErrorState)state {
+    _state = state;
+    [[_unparsedView textStorage] setAttributedString:[self prepareMessageForState:state]];
+}
+
+#pragma mark -
+#pragma mark NSTextViewDelegate
+- (BOOL)textView:(NSTextView *)textView clickedOnLink:(id)link {
+    if ( textView == _unparsedView ) {
+        self.state = UnparsedErrorStateConnecting;
+        [self sendErrorReport];
+        return YES;
+    }
+    return NO;
+}
+
+#pragma mark -
+#pragma mark NSURLConnectionDelegate
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+    self.state = UnparsedErrorStateSuccess;
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+    self.state = UnparsedErrorStateFail;
+}
 @end

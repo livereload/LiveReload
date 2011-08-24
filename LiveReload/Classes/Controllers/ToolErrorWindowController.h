@@ -1,20 +1,31 @@
 
 #import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
 @class ToolError;
 @class Editor;
 
 
+enum UnparsedErrorState {
+    UnparsedErrorStateNone,
+    UnparsedErrorStateDefault,
+    UnparsedErrorStateConnecting,
+    UnparsedErrorStateFail,
+    UnparsedErrorStateSuccess
+};
+
+
 @interface ToolErrorWindowController : NSWindowController {
     ToolError             *_compilerError;
     NSString              *_key;
+    enum UnparsedErrorState _state;
 
     NSTextField           *_fileNameLabel;
     NSTextField           *_lineNumberLabel;
+    NSTextView            *_unparsedView;
     NSTextView            *_messageView;
     NSPopUpButton         *_actionButton;
     NSButton              *_jumpToErrorButton;
-    NSButton              *_mailToServerButton;
 
     ToolErrorWindowController *_previousWindowController;
     BOOL                   _appearing;
@@ -27,10 +38,10 @@
 
 @property (assign) IBOutlet NSTextField *fileNameLabel;
 @property (assign) IBOutlet NSTextField *lineNumberLabel;
+@property (assign) IBOutlet NSTextView *unparsedView;
 @property (assign) IBOutlet NSTextView  *messageView;
 @property (assign) IBOutlet NSPopUpButton *actionButton;
 @property (assign) IBOutlet NSButton *jumpToErrorButton;
-@property (assign) IBOutlet NSButton *mailToServerButton;
 
 - (void)show;
 
