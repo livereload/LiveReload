@@ -19,6 +19,9 @@ static ToolOutputWindowController *lastOutputController = nil;
 @property (nonatomic, assign) enum UnparsedErrorState state;
 @property (nonatomic, readonly) NSString *key;
 
+- (void)loadMessageForOutputType:(enum ToolOutputType)type;
+- (void)hideUnparsedNotificationView;
+
 - (void)hide:(BOOL)animated;
 - (void)updateJumpToErrorEditor;
 
@@ -34,8 +37,9 @@ static ToolOutputWindowController *lastOutputController = nil;
 @synthesize state = _state;
 @synthesize fileNameLabel = _fileNameLabel;
 @synthesize lineNumberLabel = _lineNumberLabel;
-@synthesize unparsedView = _unparsedView;
+@synthesize unparsedNotificationView = _unparsedNotificationView;
 @synthesize messageView = _messageView;
+@synthesize messageScroller = _messageScroller;
 @synthesize actionButton = _actionButton;
 @synthesize jumpToErrorButton = _jumpToErrorButton;
 
@@ -74,32 +78,15 @@ static ToolOutputWindowController *lastOutputController = nil;
     [super windowDidLoad];
 
     self.window.level = NSFloatingWindowLevel;
-    [_messageView setEditable:NO];
-    [_messageView setDrawsBackground:NO];
-    [_unparsedView setDelegate:self];
+    [_unparsedNotificationView setEditable:NO];
+    [_unparsedNotificationView setDrawsBackground:NO];
+    [_unparsedNotificationView setDelegate:self];
 
-    _fileNameLabel.stringValue = [_compilerOutput.sourcePath lastPathComponent];
+    [_messageScroller setBorderType:NSNoBorder];
+    [_messageScroller setDrawsBackground:NO];
 
-    CGFloat oldHeight = _messageView.frame.size.height;
-    [_messageView setString:_compilerOutput.output];
-    NSLayoutManager * lm = [_messageView layoutManager];
-    NSTextContainer * tc = [_messageView textContainer];
-    [lm glyphRangeForTextContainer:tc]; // forces layout manager to relayout container
-    CGFloat heightDelta = _messageView.frame.size.height - oldHeight;
 
-    if (_compilerOutput.type == ToolOutputTypeErrorRaw) {
-        _lineNumberLabel.textColor = [NSColor redColor];
-        _lineNumberLabel.stringValue = @"Unparsed";
-        self.state = UnparsedErrorStateDefault;
-    } else {
-        _lineNumberLabel.stringValue = (_compilerOutput.line ? [NSString stringWithFormat:@"%d", _compilerOutput.line] : @"");
-        heightDelta -= _unparsedView.frame.size.height;
-        [_unparsedView setHidden:YES];
-    }
-
-    NSRect windowFrame = self.window.frame;
-    windowFrame.size.height += heightDelta;
-    [self.window setFrame:windowFrame display:YES];
+    [self loadMessageForOutputType:_compilerOutput.type];
 
     // add the gears icon to the action button
     NSMenuItem *menuItem = [[[NSMenuItem alloc] initWithTitle:@"" action:nil keyEquivalent:@""] autorelease];
@@ -195,7 +182,68 @@ static ToolOutputWindowController *lastOutputController = nil;
     }
     [self autorelease];
 }
+#pragma mark -
+- (void)loadMessageForOutputType:(enum ToolOutputType)type {
 
+    if (type != ToolOutputTypeErrorRaw) {
+        [self hideUnparsedNotificationView];
+    }
+
+    CGFloat maxHeight = [[[self window] screen] frame].size.height / 2;
+    CGFloat oldHeight = _messageView.frame.size.height;
+
+    switch (type) {
+        case ToolOutputTypeLog :
+            [_messageView setString:_compilerOutput.output];
+            _lineNumberLabel.stringValue = @"";
+            break;
+        case ToolOutputTypeError :
+            [_messageView setString:_compilerOutput.message];
+            _lineNumberLabel.textColor = [NSColor blackColor];
+            _lineNumberLabel.stringValue = (_compilerOutput.line ? [NSString stringWithFormat:@"%d", _compilerOutput.line] : @"");
+            break;
+        case ToolOutputTypeErrorRaw :
+            [_messageView setString:_compilerOutput.message];
+            _lineNumberLabel.textColor = [NSColor redColor];
+            _lineNumberLabel.stringValue = @"Unparsed";
+            self.state = UnparsedErrorStateDefault;
+            break;
+    }
+
+    _fileNameLabel.stringValue = [_compilerOutput.sourcePath lastPathComponent];
+
+    [[_messageView layoutManager] glyphRangeForTextContainer:[_messageView textContainer]]; // forces layout manager to relayout container
+    CGFloat windowHeightDelta = _messageView.frame.size.height - oldHeight;
+
+    NSRect windowFrame = self.window.frame;
+    CGFloat finalDelta = MIN(windowFrame.size.height + windowHeightDelta, maxHeight) - windowFrame.size.height;
+    windowFrame.size.height += finalDelta;
+    windowFrame.origin.y -= finalDelta;
+    [self.window setFrame:windowFrame display:YES];
+}
+
+- (void)hideUnparsedNotificationView {
+    if ([_unparsedNotificationView isHidden] == NO ) {
+        CGFloat scrollerHeightDelta = _unparsedNotificationView.frame.size.height + 10;
+
+        NSUInteger mask = self.messageScroller.autoresizingMask;
+        self.messageScroller.autoresizingMask = NSViewNotSizable;
+
+        NSRect scrollerFrame = self.messageScroller.frame;
+        scrollerFrame.size.height += scrollerHeightDelta;
+        scrollerFrame.origin.y -= scrollerHeightDelta;
+        self.messageScroller.frame = scrollerFrame;
+
+        [_unparsedNotificationView setHidden:YES];
+        self.messageScroller.autoresizingMask = mask;
+    }
+}
+
+#pragma mark -
+
+- (IBAction)showCompilationLog:(id)sender {
+    [self loadMessageForOutputType:ToolOutputTypeLog];
+}
 
 #pragma mark -
 
@@ -313,13 +361,13 @@ static ToolOutputWindowController *lastOutputController = nil;
 
 - (void)setState:(enum UnparsedErrorState)state {
     _state = state;
-    [[_unparsedView textStorage] setAttributedString:[self prepareMessageForState:state]];
+    [[_unparsedNotificationView textStorage] setAttributedString:[self prepareMessageForState:state]];
 }
 
 #pragma mark -
 #pragma mark NSTextViewDelegate
 - (BOOL)textView:(NSTextView *)textView clickedOnLink:(id)link {
-    if ( textView == _unparsedView ) {
+    if ( textView == _unparsedNotificationView ) {
         self.state = UnparsedErrorStateConnecting;
         [self sendErrorReport];
         return YES;

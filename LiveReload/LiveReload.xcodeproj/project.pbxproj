@@ -153,7 +153,7 @@
 		823DDE3C13F8DA3100529AD2 /* PreferencesWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesWindowController.xib; sourceTree = "<group>"; };
 		823DDE3D13F8DA3100529AD2 /* StatusItemController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusItemController.h; sourceTree = "<group>"; };
 		823DDE3E13F8DA3100529AD2 /* StatusItemController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusItemController.m; sourceTree = "<group>"; };
-		823DDE3F13F8DA3100529AD2 /* ToolOutputWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = ToolOutputWindowController.h; sourceTree = "<group>"; };
+		823DDE3F13F8DA3100529AD2 /* ToolOutputWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolOutputWindowController.h; sourceTree = "<group>"; };
 		823DDE4013F8DA3100529AD2 /* ToolOutputWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolOutputWindowController.m; sourceTree = "<group>"; };
 		823DDE4113F8DA3100529AD2 /* ToolOutputWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ToolOutputWindowController.xib; sourceTree = "<group>"; };
 		823DDE4313F8DA3100529AD2 /* CodaEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodaEditor.h; sourceTree = "<group>"; };

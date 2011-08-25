@@ -217,7 +217,7 @@
             NSString *file = [data objectForKey:@"file"];
             NSString *line = [data objectForKey:@"line"];
             NSString *message = [[data objectForKey:@"message"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-            enum ToolOutputType errorType = (data == nil ? ToolOutputTypeErrorRaw : ToolOutputTypeError);
+            enum ToolOutputType errorType = (message ? ToolOutputTypeError : ToolOutputTypeErrorRaw);
 
             if (!file) {
                 file = sourcePath;
@@ -232,12 +232,8 @@
                     file = candidate1;
                 }
             }
-            if (!message) {
-                if ([output length] < 200 || (errorType == ToolOutputTypeErrorRaw)) {
-                    message = output;
-                } else {
-                    message = [output substringWithRange:[output rangeOfComposedCharacterSequencesForRange:NSMakeRange(0, 200)]];
-                }
+            if (errorType == ToolOutputTypeErrorRaw) {
+                message = output;
                 if ([message length] == 0) {
                     message = @"Compilation failed with an empty output.";
                 }

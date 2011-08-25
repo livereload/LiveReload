@@ -22,8 +22,9 @@ enum UnparsedErrorState {
 
     NSTextField           *_fileNameLabel;
     NSTextField           *_lineNumberLabel;
-    NSTextView            *_unparsedView;
+    NSTextView            *_unparsedNotificationView;
     NSTextView            *_messageView;
+    NSScrollView          *_messageScroller;
     NSPopUpButton         *_actionButton;
     NSButton              *_jumpToErrorButton;
 
@@ -38,8 +39,9 @@ enum UnparsedErrorState {
 
 @property (assign) IBOutlet NSTextField *fileNameLabel;
 @property (assign) IBOutlet NSTextField *lineNumberLabel;
-@property (assign) IBOutlet NSTextView *unparsedView;
+@property (assign) IBOutlet NSTextView *unparsedNotificationView;
 @property (assign) IBOutlet NSTextView  *messageView;
+@property (assign) IBOutlet NSScrollView  *messageScroller;
 @property (assign) IBOutlet NSPopUpButton *actionButton;
 @property (assign) IBOutlet NSButton *jumpToErrorButton;
 
