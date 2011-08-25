@@ -5,7 +5,7 @@
 @class Plugin;
 @class CompilationOptions;
 @class FSTree;
-@class ToolError;
+@class ToolOutput;
 
 
 @interface Compiler : NSObject {
@@ -36,7 +36,7 @@
 
 - (NSString *)derivedNameForFile:(NSString *)path;
 
-- (void)compile:(NSString *)sourceRelPath into:(NSString *)destinationRelPath under:(NSString *)rootPath with:(CompilationOptions *)options compilerError:(ToolError **)compilerError;
+- (void)compile:(NSString *)sourceRelPath into:(NSString *)destinationRelPath under:(NSString *)rootPath with:(CompilationOptions *)options compilerOutput:(ToolOutput **)compilerOutput;
 
 - (NSArray *)pathsOfSourceFilesInTree:(FSTree *)tree;
 

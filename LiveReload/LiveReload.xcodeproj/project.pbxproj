@@ -27,8 +27,8 @@
 		823DDED813F8DA3100529AD2 /* PreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3B13F8DA3100529AD2 /* PreferencesWindowController.m */; };
 		823DDED913F8DA3100529AD2 /* PreferencesWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 823DDE3C13F8DA3100529AD2 /* PreferencesWindowController.xib */; };
 		823DDEDA13F8DA3100529AD2 /* StatusItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3E13F8DA3100529AD2 /* StatusItemController.m */; };
-		823DDEDB13F8DA3100529AD2 /* ToolErrorWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE4013F8DA3100529AD2 /* ToolErrorWindowController.m */; };
-		823DDEDC13F8DA3100529AD2 /* ToolErrorWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 823DDE4113F8DA3100529AD2 /* ToolErrorWindowController.xib */; };
+		823DDEDB13F8DA3100529AD2 /* ToolOutputWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE4013F8DA3100529AD2 /* ToolOutputWindowController.m */; };
+		823DDEDC13F8DA3100529AD2 /* ToolOutputWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 823DDE4113F8DA3100529AD2 /* ToolOutputWindowController.xib */; };
 		823DDEDD13F8DA3100529AD2 /* CodaEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE4413F8DA3100529AD2 /* CodaEditor.m */; };
 		823DDEDE13F8DA3100529AD2 /* CustomEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE4613F8DA3100529AD2 /* CustomEditor.m */; };
 		823DDEDF13F8DA3100529AD2 /* Editor.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE4813F8DA3100529AD2 /* Editor.m */; };
@@ -59,7 +59,7 @@
 		823DDEF813F8DA3100529AD2 /* CompilerVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE7F13F8DA3100529AD2 /* CompilerVersion.m */; };
 		823DDEF913F8DA3100529AD2 /* Plugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE8113F8DA3100529AD2 /* Plugin.m */; };
 		823DDEFA13F8DA3100529AD2 /* PluginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE8313F8DA3100529AD2 /* PluginManager.m */; };
-		823DDEFB13F8DA3100529AD2 /* ToolError.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE8513F8DA3100529AD2 /* ToolError.m */; };
+		823DDEFB13F8DA3100529AD2 /* ToolOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE8513F8DA3100529AD2 /* ToolOutput.m */; };
 		823DDEFC13F8DA3100529AD2 /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE8813F8DA3100529AD2 /* Preferences.m */; };
 		823DDEFD13F8DA3100529AD2 /* CompilerPaneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE8B13F8DA3100529AD2 /* CompilerPaneViewController.m */; };
 		823DDEFE13F8DA3100529AD2 /* CompilerPaneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 823DDE8C13F8DA3100529AD2 /* CompilerPaneViewController.xib */; };
@@ -153,9 +153,9 @@
 		823DDE3C13F8DA3100529AD2 /* PreferencesWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesWindowController.xib; sourceTree = "<group>"; };
 		823DDE3D13F8DA3100529AD2 /* StatusItemController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusItemController.h; sourceTree = "<group>"; };
 		823DDE3E13F8DA3100529AD2 /* StatusItemController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusItemController.m; sourceTree = "<group>"; };
-		823DDE3F13F8DA3100529AD2 /* ToolErrorWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolErrorWindowController.h; sourceTree = "<group>"; };
-		823DDE4013F8DA3100529AD2 /* ToolErrorWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolErrorWindowController.m; sourceTree = "<group>"; };
-		823DDE4113F8DA3100529AD2 /* ToolErrorWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ToolErrorWindowController.xib; sourceTree = "<group>"; };
+		823DDE3F13F8DA3100529AD2 /* ToolOutputWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = ToolOutputWindowController.h; sourceTree = "<group>"; };
+		823DDE4013F8DA3100529AD2 /* ToolOutputWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolOutputWindowController.m; sourceTree = "<group>"; };
+		823DDE4113F8DA3100529AD2 /* ToolOutputWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ToolOutputWindowController.xib; sourceTree = "<group>"; };
 		823DDE4313F8DA3100529AD2 /* CodaEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodaEditor.h; sourceTree = "<group>"; };
 		823DDE4413F8DA3100529AD2 /* CodaEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodaEditor.m; sourceTree = "<group>"; };
 		823DDE4513F8DA3100529AD2 /* CustomEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomEditor.h; sourceTree = "<group>"; };
@@ -217,8 +217,8 @@
 		823DDE8113F8DA3100529AD2 /* Plugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Plugin.m; sourceTree = "<group>"; };
 		823DDE8213F8DA3100529AD2 /* PluginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PluginManager.h; sourceTree = "<group>"; };
 		823DDE8313F8DA3100529AD2 /* PluginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PluginManager.m; sourceTree = "<group>"; };
-		823DDE8413F8DA3100529AD2 /* ToolError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolError.h; sourceTree = "<group>"; };
-		823DDE8513F8DA3100529AD2 /* ToolError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolError.m; sourceTree = "<group>"; };
+		823DDE8413F8DA3100529AD2 /* ToolOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; path = ToolOutput.h; sourceTree = "<group>"; };
+		823DDE8513F8DA3100529AD2 /* ToolOutput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolOutput.m; sourceTree = "<group>"; };
 		823DDE8713F8DA3100529AD2 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
 		823DDE8813F8DA3100529AD2 /* Preferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Preferences.m; sourceTree = "<group>"; };
 		823DDE8A13F8DA3100529AD2 /* CompilerPaneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompilerPaneViewController.h; sourceTree = "<group>"; };
@@ -463,9 +463,9 @@
 				823DDE3C13F8DA3100529AD2 /* PreferencesWindowController.xib */,
 				823DDE3D13F8DA3100529AD2 /* StatusItemController.h */,
 				823DDE3E13F8DA3100529AD2 /* StatusItemController.m */,
-				823DDE3F13F8DA3100529AD2 /* ToolErrorWindowController.h */,
-				823DDE4013F8DA3100529AD2 /* ToolErrorWindowController.m */,
-				823DDE4113F8DA3100529AD2 /* ToolErrorWindowController.xib */,
+				823DDE3F13F8DA3100529AD2 /* ToolOutputWindowController.h */,
+				823DDE4013F8DA3100529AD2 /* ToolOutputWindowController.m */,
+				823DDE4113F8DA3100529AD2 /* ToolOutputWindowController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -562,8 +562,8 @@
 				823DDE8113F8DA3100529AD2 /* Plugin.m */,
 				823DDE8213F8DA3100529AD2 /* PluginManager.h */,
 				823DDE8313F8DA3100529AD2 /* PluginManager.m */,
-				823DDE8413F8DA3100529AD2 /* ToolError.h */,
-				823DDE8513F8DA3100529AD2 /* ToolError.m */,
+				823DDE8413F8DA3100529AD2 /* ToolOutput.h */,
+				823DDE8513F8DA3100529AD2 /* ToolOutput.m */,
 			);
 			path = Plugins;
 			sourceTree = "<group>";
@@ -791,7 +791,7 @@
 				43C0368613CA191D00A01305 /* LiveReload.icns in Resources */,
 				823DDED713F8DA3100529AD2 /* MainWindowController.xib in Resources */,
 				823DDED913F8DA3100529AD2 /* PreferencesWindowController.xib in Resources */,
-				823DDEDC13F8DA3100529AD2 /* ToolErrorWindowController.xib in Resources */,
+				823DDEDC13F8DA3100529AD2 /* ToolOutputWindowController.xib in Resources */,
 				823DDEFE13F8DA3100529AD2 /* CompilerPaneViewController.xib in Resources */,
 				823DDF0013F8DA3100529AD2 /* ProjectOptionsSheet.xib in Resources */,
 				823DDF0C13F8DA3100529AD2 /* README in Resources */,
@@ -828,7 +828,7 @@
 				823DDED613F8DA3100529AD2 /* MainWindowController.m in Sources */,
 				823DDED813F8DA3100529AD2 /* PreferencesWindowController.m in Sources */,
 				823DDEDA13F8DA3100529AD2 /* StatusItemController.m in Sources */,
-				823DDEDB13F8DA3100529AD2 /* ToolErrorWindowController.m in Sources */,
+				823DDEDB13F8DA3100529AD2 /* ToolOutputWindowController.m in Sources */,
 				823DDEDD13F8DA3100529AD2 /* CodaEditor.m in Sources */,
 				823DDEDE13F8DA3100529AD2 /* CustomEditor.m in Sources */,
 				823DDEDF13F8DA3100529AD2 /* Editor.m in Sources */,
@@ -859,7 +859,7 @@
 				823DDEF813F8DA3100529AD2 /* CompilerVersion.m in Sources */,
 				823DDEF913F8DA3100529AD2 /* Plugin.m in Sources */,
 				823DDEFA13F8DA3100529AD2 /* PluginManager.m in Sources */,
-				823DDEFB13F8DA3100529AD2 /* ToolError.m in Sources */,
+				823DDEFB13F8DA3100529AD2 /* ToolOutput.m in Sources */,
 				823DDEFC13F8DA3100529AD2 /* Preferences.m in Sources */,
 				823DDEFD13F8DA3100529AD2 /* CompilerPaneViewController.m in Sources */,
 				823DDEFF13F8DA3100529AD2 /* PaneViewController.m in Sources */,

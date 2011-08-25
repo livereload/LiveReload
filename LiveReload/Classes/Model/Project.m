@@ -1,5 +1,5 @@
 
-#import "ToolErrorWindowController.h"
+#import "ToolOutputWindowController.h"
 
 #import "PluginManager.h"
 
@@ -13,7 +13,7 @@
 #import "Compiler.h"
 #import "CompilationOptions.h"
 #import "FileCompilationOptions.h"
-#import "ToolError.h"
+#import "ToolOutput.h"
 
 #import "ATFunctionalStyle.h"
 
@@ -172,14 +172,14 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
             NSString *derivedName = [compiler derivedNameForFile:path];
             NSString *derivedPath = [fileOptions.destinationDirectory stringByAppendingPathComponent:derivedName];
 
-            ToolError *compilerError = nil;
-            [compiler compile:relativePath into:derivedPath under:rootPath with:compilationOptions compilerError:&compilerError];
-            if (compilerError) {
-                compilerError.project = self;
+            ToolOutput *compilerOutput = nil;
+            [compiler compile:relativePath into:derivedPath under:rootPath with:compilationOptions compilerOutput:&compilerOutput];
+            if (compilerOutput) {
+                compilerOutput.project = self;
 
-                [[[[ToolErrorWindowController alloc] initWithCompilerError:compilerError key:path] autorelease] show];
+                [[[[ToolOutputWindowController alloc] initWithCompilerOutput:compilerOutput key:path] autorelease] show];
             } else {
-                [ToolErrorWindowController hideErrorWindowWithKey:path];
+                [ToolOutputWindowController hideOutputWindowWithKey:path];
             }
         } else {
             NSLog(@"Ignoring %@ because destination directory is not set.", relativePath);

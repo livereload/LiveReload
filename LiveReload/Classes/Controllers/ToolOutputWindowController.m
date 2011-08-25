@@ -1,7 +1,7 @@
 
-#import "ToolErrorWindowController.h"
+#import "ToolOutputWindowController.h"
 
-#import "ToolError.h"
+#import "ToolOutput.h"
 #import "Project.h"
 
 #import "EditorManager.h"
@@ -10,11 +10,11 @@
 #import "Compiler.h"
 
 
-static ToolErrorWindowController *lastErrorController = nil;
+static ToolOutputWindowController *lastOutputController = nil;
 
-@interface ToolErrorWindowController () <NSAnimationDelegate, NSTextViewDelegate>
+@interface ToolOutputWindowController () <NSAnimationDelegate, NSTextViewDelegate>
 
-+ (void)setLastErrorController:(ToolErrorWindowController *)controller;
++ (void)setLastOutputController:(ToolOutputWindowController *)controller;
 
 @property (nonatomic, assign) enum UnparsedErrorState state;
 @property (nonatomic, readonly) NSString *key;
@@ -28,7 +28,7 @@ static ToolErrorWindowController *lastErrorController = nil;
 
 @end
 
-@implementation ToolErrorWindowController
+@implementation ToolOutputWindowController
 
 @synthesize key = _key;
 @synthesize state = _state;
@@ -42,26 +42,26 @@ static ToolErrorWindowController *lastErrorController = nil;
 
 #pragma mark -
 
-+ (void)setLastErrorController:(ToolErrorWindowController *)controller {
-    if (lastErrorController != controller) {
-        [lastErrorController release];
-        lastErrorController = [controller retain];
++ (void)setLastOutputController:(ToolOutputWindowController *)controller {
+    if (lastOutputController != controller) {
+        [lastOutputController release];
+        lastOutputController = [controller retain];
     }
 }
 
-+ (void)hideErrorWindowWithKey:(NSString *)key {
-    if ([lastErrorController.key isEqualToString:key]) {
-        [lastErrorController hide:YES];
++ (void)hideOutputWindowWithKey:(NSString *)key {
+    if ([lastOutputController.key isEqualToString:key]) {
+        [lastOutputController hide:YES];
     }
 }
 
 
 #pragma mark -
 
-- (id)initWithCompilerError:(ToolError *)compilerError key:(NSString *)key {
-    self = [super initWithWindowNibName:@"ToolErrorWindowController"];
+- (id)initWithCompilerOutput:(ToolOutput *)compilerOutput key:(NSString *)key {
+    self = [super initWithWindowNibName:@"ToolOutputWindowController"];
     if (self) {
-        _compilerError = [compilerError retain];
+        _compilerOutput = [compilerOutput retain];
         _key = [key copy];
     }
     return self;
@@ -78,21 +78,21 @@ static ToolErrorWindowController *lastErrorController = nil;
     [_messageView setDrawsBackground:NO];
     [_unparsedView setDelegate:self];
 
-    _fileNameLabel.stringValue = [_compilerError.sourcePath lastPathComponent];
+    _fileNameLabel.stringValue = [_compilerOutput.sourcePath lastPathComponent];
 
     CGFloat oldHeight = _messageView.frame.size.height;
-    [_messageView setString:_compilerError.message];
+    [_messageView setString:_compilerOutput.output];
     NSLayoutManager * lm = [_messageView layoutManager];
     NSTextContainer * tc = [_messageView textContainer];
     [lm glyphRangeForTextContainer:tc]; // forces layout manager to relayout container
     CGFloat heightDelta = _messageView.frame.size.height - oldHeight;
 
-    if (_compilerError.raw) {
+    if (_compilerOutput.type == ToolOutputTypeErrorRaw) {
         _lineNumberLabel.textColor = [NSColor redColor];
         _lineNumberLabel.stringValue = @"Unparsed";
         self.state = UnparsedErrorStateDefault;
     } else {
-        _lineNumberLabel.stringValue = (_compilerError.line ? [NSString stringWithFormat:@"%d", _compilerError.line] : @"");
+        _lineNumberLabel.stringValue = (_compilerOutput.line ? [NSString stringWithFormat:@"%d", _compilerOutput.line] : @"");
         heightDelta -= _unparsedView.frame.size.height;
         [_unparsedView setHidden:YES];
     }
@@ -140,10 +140,10 @@ static ToolErrorWindowController *lastErrorController = nil;
 }
 
 - (void)show {
-    if (lastErrorController) {
-        _previousWindowController = [lastErrorController retain];
+    if (lastOutputController) {
+        _previousWindowController = [lastOutputController retain];
     }
-    [ToolErrorWindowController setLastErrorController:self];
+    [ToolOutputWindowController setLastOutputController:self];
 
     NSArray *animations;
     if (_previousWindowController) {
@@ -180,7 +180,7 @@ static ToolErrorWindowController *lastErrorController = nil;
             [self.window orderOut:nil];
         }
     }
-    [ToolErrorWindowController setLastErrorController:nil];
+    [ToolOutputWindowController setLastOutputController:nil];
 }
 
 - (void)animationDidEnd:(NSAnimation*)animation {
@@ -231,7 +231,7 @@ static ToolErrorWindowController *lastErrorController = nil;
         return;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.05 * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void){
         // TODO: check for success before hiding!
-        if (![_editor jumpToFile:_compilerError.sourcePath line:_compilerError.line]) {
+        if (![_editor jumpToFile:_compilerOutput.sourcePath line:_compilerOutput.line]) {
             NSLog(@"Failed to jump to the error position.");
         }
     });
@@ -243,10 +243,10 @@ static ToolErrorWindowController *lastErrorController = nil;
 
 - (IBAction)revealInFinder:(id)sender {
     NSString *root = nil;
-    if ([_compilerError.project relativePathForPath:_compilerError.sourcePath]) {
-        root = _compilerError.project.path;
+    if ([_compilerOutput.project relativePathForPath:_compilerOutput.sourcePath]) {
+        root = _compilerOutput.project.path;
     }
-    [[NSWorkspace sharedWorkspace] selectFile:_compilerError.sourcePath inFileViewerRootedAtPath:root];
+    [[NSWorkspace sharedWorkspace] selectFile:_compilerOutput.sourcePath inFileViewerRootedAtPath:root];
 }
 
 - (IBAction)ignore:(id)sender {
@@ -301,13 +301,13 @@ static ToolErrorWindowController *lastErrorController = nil;
     return [NSURL URLWithString:[NSString stringWithFormat:@"http://livereload.com/api/submit-error-message.php?v=%@&iv=%@&compiler=%@",
                                  [version stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
                                  [internalVersion stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
-                                 _compilerError.compiler.name]];
+                                 _compilerOutput.compiler.name]];
 }
 
 - (void)sendErrorReport {
     NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:[self errorReportURL] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval: 60.0];
     [request setHTTPMethod:@"POST"];
-    [request setHTTPBody:[_compilerError.message dataUsingEncoding:NSUTF8StringEncoding]];
+    [request setHTTPBody:[_compilerOutput.message dataUsingEncoding:NSUTF8StringEncoding]];
     [NSURLConnection connectionWithRequest:request delegate:self];
 }
 

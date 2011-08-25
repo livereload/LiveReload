@@ -2,7 +2,7 @@
 #import "Compiler.h"
 #import "Plugin.h"
 #import "CompilationOptions.h"
-#import "ToolError.h"
+#import "ToolOutput.h"
 
 #import "FSTree.h"
 #import "RegexKitLite.h"
@@ -137,8 +137,8 @@
 
 #pragma mark - Compilation
 
-- (void)compile:(NSString *)sourceRelPath into:(NSString *)destinationRelPath under:(NSString *)rootPath with:(CompilationOptions *)options compilerError:(ToolError **)compilerError {
-    if (compilerError) *compilerError = nil;
+- (void)compile:(NSString *)sourceRelPath into:(NSString *)destinationRelPath under:(NSString *)rootPath with:(CompilationOptions *)options compilerOutput:(ToolOutput **)compilerOutput {
+    if (compilerOutput) *compilerOutput = nil;
 
     NSString *sourcePath = [rootPath stringByAppendingPathComponent:sourceRelPath];
     NSString *destinationPath = [rootPath stringByAppendingPathComponent:destinationRelPath];
@@ -189,6 +189,8 @@
     [[NSFileManager defaultManager] changeCurrentDirectoryPath:pwd];
 
     NSString *strippedOutput = [output stringByReplacingOccurrencesOfRegex:@"(\\e\\[.*?m)+" withString:@"<ESC>"];
+    NSString *cleanOutput = [strippedOutput stringByReplacingOccurrencesOfRegex:@"<ESC>" withString:@""];
+
     if (error) {
         NSLog(@"Error: %@\nOutput:\n%@", [error description], strippedOutput);
         if ([error code] == kNSTaskProcessOutputError) {
@@ -202,7 +204,7 @@
             for (NSString *regexp in _errorFormats) {
                 NSString *stripped;
                 if ([regexp rangeOfString:@"<ESC>"].length > 0) {
-                    stripped = [output stringByReplacingOccurrencesOfRegex:@"(\\e\\[.*?m)+" withString:@"<ESC>"];
+                    stripped = strippedOutput;
                 } else {
                     stripped = [output stringByReplacingOccurrencesOfRegex:@"(\\e\\[.*?m)+" withString:@""];
                 }
@@ -215,7 +217,7 @@
             NSString *file = [data objectForKey:@"file"];
             NSString *line = [data objectForKey:@"line"];
             NSString *message = [[data objectForKey:@"message"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-            BOOL rawMessage = (data == nil ? true : false);
+            enum ToolOutputType errorType = (data == nil ? ToolOutputTypeErrorRaw : ToolOutputTypeError);
 
             if (!file) {
                 file = sourcePath;
@@ -231,7 +233,7 @@
                 }
             }
             if (!message) {
-                if ([output length] < 200 || rawMessage) {
+                if ([output length] < 200 || (errorType == ToolOutputTypeErrorRaw)) {
                     message = output;
                 } else {
                     message = [output substringWithRange:[output rangeOfComposedCharacterSequencesForRange:NSMakeRange(0, 200)]];
@@ -241,9 +243,9 @@
                 }
             }
 
-            if (compilerError) {
+            if (compilerOutput) {
                 NSInteger lineNo = [line integerValue];
-                *compilerError = [[[ToolError alloc] initWithCompiler:self sourcePath:file line:lineNo message:message output:output raw:rawMessage] autorelease];
+                *compilerOutput = [[[ToolOutput alloc] initWithCompiler:self type:errorType sourcePath:file line:lineNo message:message output:cleanOutput] autorelease];
             }
         }
     } else {

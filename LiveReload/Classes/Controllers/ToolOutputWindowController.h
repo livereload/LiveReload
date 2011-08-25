@@ -2,7 +2,7 @@
 #import <Cocoa/Cocoa.h>
 #import <Foundation/Foundation.h>
 
-@class ToolError;
+@class ToolOutput;
 @class Editor;
 
 
@@ -15,8 +15,8 @@ enum UnparsedErrorState {
 };
 
 
-@interface ToolErrorWindowController : NSWindowController {
-    ToolError             *_compilerError;
+@interface ToolOutputWindowController : NSWindowController {
+    ToolOutput            *_compilerOutput;
     NSString              *_key;
     enum UnparsedErrorState _state;
 
@@ -27,14 +27,14 @@ enum UnparsedErrorState {
     NSPopUpButton         *_actionButton;
     NSButton              *_jumpToErrorButton;
 
-    ToolErrorWindowController *_previousWindowController;
+    ToolOutputWindowController *_previousWindowController;
     BOOL                   _appearing;
     BOOL                   _suicidal;
 
     Editor                *_editor;
 }
 
-- (id)initWithCompilerError:(ToolError *)compilerError key:(NSString *)key;
+- (id)initWithCompilerOutput:(ToolOutput *)compilerOutput key:(NSString *)key;
 
 @property (assign) IBOutlet NSTextField *fileNameLabel;
 @property (assign) IBOutlet NSTextField *lineNumberLabel;
@@ -45,6 +45,6 @@ enum UnparsedErrorState {
 
 - (void)show;
 
-+ (void)hideErrorWindowWithKey:(NSString *)key;
++ (void)hideOutputWindowWithKey:(NSString *)key;
 
 @end
