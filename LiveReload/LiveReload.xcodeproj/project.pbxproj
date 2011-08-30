@@ -113,6 +113,7 @@
 		823DDF4013F8DA4500529AD2 /* LiveReload.crx in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF3C13F8DA4500529AD2 /* LiveReload.crx */; };
 		823DDF4113F8DA4500529AD2 /* LiveReload.safariextz in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF3D13F8DA4500529AD2 /* LiveReload.safariextz */; };
 		823DDF4213F8DA4500529AD2 /* SafariExtVersions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF3E13F8DA4500529AD2 /* SafariExtVersions.plist */; };
+		82B886AC1407D452001A94D6 /* extension-x-google-mux.c in Sources */ = {isa = PBXBuildFile; fileRef = 82B886AB1407D452001A94D6 /* extension-x-google-mux.c */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -217,7 +218,7 @@
 		823DDE8113F8DA3100529AD2 /* Plugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Plugin.m; sourceTree = "<group>"; };
 		823DDE8213F8DA3100529AD2 /* PluginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PluginManager.h; sourceTree = "<group>"; };
 		823DDE8313F8DA3100529AD2 /* PluginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PluginManager.m; sourceTree = "<group>"; };
-		823DDE8413F8DA3100529AD2 /* ToolOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; path = ToolOutput.h; sourceTree = "<group>"; };
+		823DDE8413F8DA3100529AD2 /* ToolOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolOutput.h; sourceTree = "<group>"; };
 		823DDE8513F8DA3100529AD2 /* ToolOutput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolOutput.m; sourceTree = "<group>"; };
 		823DDE8713F8DA3100529AD2 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
 		823DDE8813F8DA3100529AD2 /* Preferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Preferences.m; sourceTree = "<group>"; };
@@ -304,6 +305,8 @@
 		823DDF3C13F8DA4500529AD2 /* LiveReload.crx */ = {isa = PBXFileReference; lastKnownFileType = file; path = LiveReload.crx; sourceTree = "<group>"; };
 		823DDF3D13F8DA4500529AD2 /* LiveReload.safariextz */ = {isa = PBXFileReference; lastKnownFileType = file; path = LiveReload.safariextz; sourceTree = "<group>"; };
 		823DDF3E13F8DA4500529AD2 /* SafariExtVersions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SafariExtVersions.plist; sourceTree = "<group>"; };
+		82B886AA1407D452001A94D6 /* extension-x-google-mux.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "extension-x-google-mux.h"; sourceTree = "<group>"; };
+		82B886AB1407D452001A94D6 /* extension-x-google-mux.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "extension-x-google-mux.c"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* LiveReload-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "LiveReload-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* LiveReload.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveReload.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -670,6 +673,8 @@
 		823DDEC413F8DA3100529AD2 /* WebSockets */ = {
 			isa = PBXGroup;
 			children = (
+				82B886AA1407D452001A94D6 /* extension-x-google-mux.h */,
+				82B886AB1407D452001A94D6 /* extension-x-google-mux.c */,
 				823DDEC513F8DA3100529AD2 /* base64-decode.c */,
 				823DDEC613F8DA3100529AD2 /* client-handshake.c */,
 				823DDEC713F8DA3100529AD2 /* extension-deflate-stream.c */,
@@ -894,6 +899,7 @@
 				823DDF1F13F8DA3100529AD2 /* parsers.c in Sources */,
 				823DDF2013F8DA3100529AD2 /* sha-1.c in Sources */,
 				823DDF2113F8DA3100529AD2 /* WebSocketServer.m in Sources */,
+				82B886AC1407D452001A94D6 /* extension-x-google-mux.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

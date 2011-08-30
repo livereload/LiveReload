@@ -47,7 +47,7 @@ NSString *PreferencesFilterSettingsChangedNotification = @"PreferencesFilterSett
 }
 
 + (void)initDefaults {
-    NSMutableDictionary * defaults = [NSMutableDictionary dictionaryWithObject: [[NSArray alloc] init] forKey: AdditionalExtensionsKey];
+    NSMutableDictionary * defaults = [NSMutableDictionary dictionaryWithObject:[NSArray array] forKey: AdditionalExtensionsKey];
     [defaults setObject:[NSNumber numberWithBool:NO] forKey: AutoreloadJavascriptKey];
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
 }
