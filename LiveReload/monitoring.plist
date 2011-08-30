@@ -17,6 +17,7 @@
 		<string>php</string>
 		<string>php4</string>
 		<string>php5</string>
+		<string>phtml</string>
 		<string>inc</string>
 		<string>module</string>
 		<string>tpl</string>
@@ -39,6 +40,10 @@
 		<string>cfc</string>
 		<string>cfm</string>
 		<string>cfml</string>
+		<string>json</string>
+		<string>yml</string>
+		<string>yaml</string>
+		<string>tpl</string>
 	</array>
 </dict>
 </plist>
