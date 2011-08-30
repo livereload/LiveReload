@@ -120,7 +120,7 @@
 
 - (NSString *)derivedNameForFile:(NSString *)path {
     NSString *bareName = [[path lastPathComponent] stringByDeletingPathExtension];
-    if ([[bareName pathExtension] isEqualToString:self.destinationExtension]) {
+    if ([bareName pathExtension]) {
         // handle names like style.css.sass
         return bareName;
     }
