@@ -336,7 +336,7 @@
 								<object class="NSTextField" id="403262221">
 									<reference key="NSNextResponder" ref="572680942"/>
 									<int key="NSvFlags">292</int>
-									<string key="NSFrame">{{135, 6}, {68, 14}}</string>
+									<string key="NSFrame">{{135, 6}, {70, 14}}</string>
 									<reference key="NSSuperview" ref="572680942"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="177570905"/>
@@ -344,7 +344,7 @@
 									<object class="NSTextFieldCell" key="NSCell" id="935045742">
 										<int key="NSCellFlags">67239488</int>
 										<int key="NSCellFlags2">4327424</int>
-										<string key="NSContents">Oct 1, 2011</string>
+										<string key="NSContents">Dec 1, 2011</string>
 										<reference key="NSSupport" ref="26"/>
 										<reference key="NSControlView" ref="403262221"/>
 										<reference key="NSBackgroundColor" ref="189574457"/>
@@ -736,7 +736,6 @@
 							<reference ref="978296815"/>
 							<reference ref="41069952"/>
 							<reference ref="386460147"/>
-							<reference ref="403262221"/>
 							<reference ref="695001473"/>
 							<reference ref="82554571"/>
 							<reference ref="177570905"/>
@@ -746,6 +745,7 @@
 							<reference ref="374573910"/>
 							<reference ref="160995235"/>
 							<reference ref="840282339"/>
+							<reference ref="403262221"/>
 						</array>
 						<reference key="parent" ref="1006"/>
 					</object>

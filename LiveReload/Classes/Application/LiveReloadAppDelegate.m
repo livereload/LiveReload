@@ -37,7 +37,7 @@
     NSDate *now = [NSDate date];
     NSDateComponents *cutoff = [[[NSDateComponents alloc] init] autorelease];
     [cutoff setYear:2011];
-    [cutoff setMonth:10];
+    [cutoff setMonth:12];
     [cutoff setDay:1];
     if ([now compare:[[NSCalendar currentCalendar] dateFromComponents:cutoff]] == NSOrderedDescending) {
         // stop auto-login and show a message
