@@ -3,6 +3,10 @@
 
 @implementation AuxWindow
 
+- (BOOL)canBecomeKeyWindow {
+    return YES;
+}
+
 - (BOOL)canBecomeMainWindow {
     return NO;
 }
