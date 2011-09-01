@@ -355,7 +355,7 @@ static ToolOutputWindowController *lastOutputController = nil;
 - (void)sendErrorReport {
     NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:[self errorReportURL] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval: 60.0];
     [request setHTTPMethod:@"POST"];
-    [request setHTTPBody:[_compilerOutput.message dataUsingEncoding:NSUTF8StringEncoding]];
+    [request setHTTPBody:[_compilerOutput.output dataUsingEncoding:NSUTF8StringEncoding]];
     [NSURLConnection connectionWithRequest:request delegate:self];
 }
 
@@ -378,10 +378,31 @@ static ToolOutputWindowController *lastOutputController = nil;
 #pragma mark -
 #pragma mark NSURLConnectionDelegate
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    self.state = UnparsedErrorStateSuccess;
+    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+    _submissionResponseBody = [[NSMutableData alloc] init];
+    _submissionResponseCode = httpResponse.statusCode;
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+    [_submissionResponseBody appendData:data];
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    NSString *responseString = [[[NSString alloc] initWithData:_submissionResponseBody encoding:NSUTF8StringEncoding] autorelease];
+    if (_submissionResponseCode == 200 && [responseString isEqualToString:@"OK."]) {
+        NSLog(@"Unparsable log submittion succeeded!");
+        self.state = UnparsedErrorStateSuccess;
+    } else {
+        NSLog(@"Unparsable log submission failed with HTTP response code %ld, body:\n%@", (long)_submissionResponseCode, responseString);
+        self.state = UnparsedErrorStateFail;
+    }
+    [_submissionResponseBody release], _submissionResponseBody = nil;
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     self.state = UnparsedErrorStateFail;
+    NSLog(@"Unparsable log submission failed with error: %@", [error localizedDescription]);
+    [_submissionResponseBody release], _submissionResponseBody = nil;
 }
+
 @end

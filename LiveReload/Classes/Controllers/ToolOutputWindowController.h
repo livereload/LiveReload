@@ -33,6 +33,9 @@ enum UnparsedErrorState {
     BOOL                   _suicidal;
 
     Editor                *_editor;
+
+    NSInteger              _submissionResponseCode;
+    NSMutableData         *_submissionResponseBody;
 }
 
 - (id)initWithCompilerOutput:(ToolOutput *)compilerOutput key:(NSString *)key;
