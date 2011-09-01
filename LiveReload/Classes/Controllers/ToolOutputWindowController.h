@@ -28,6 +28,8 @@ enum UnparsedErrorState {
     NSPopUpButton         *_actionButton;
     NSButton              *_jumpToErrorButton;
 
+    NSMenuItem            *_showOutputMenuItem;
+
     ToolOutputWindowController *_previousWindowController;
     BOOL                   _appearing;
     BOOL                   _suicidal;
@@ -47,6 +49,7 @@ enum UnparsedErrorState {
 @property (assign) IBOutlet NSScrollView  *messageScroller;
 @property (assign) IBOutlet NSPopUpButton *actionButton;
 @property (assign) IBOutlet NSButton *jumpToErrorButton;
+@property (assign) IBOutlet NSMenuItem *showOutputMenuItem;
 
 - (void)show;
 

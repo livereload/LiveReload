@@ -42,7 +42,7 @@ static ToolOutputWindowController *lastOutputController = nil;
 @synthesize messageScroller = _messageScroller;
 @synthesize actionButton = _actionButton;
 @synthesize jumpToErrorButton = _jumpToErrorButton;
-
+@synthesize showOutputMenuItem = _showOutputMenuItem;
 
 #pragma mark -
 
@@ -190,7 +190,7 @@ static ToolOutputWindowController *lastOutputController = nil;
     }
 
     CGFloat maxHeight = [[[self window] screen] frame].size.height / 2;
-    CGFloat oldHeight = _messageView.frame.size.height;
+    CGFloat oldHeight = _messageScroller.frame.size.height;
 
     switch (type) {
         case ToolOutputTypeLog :
@@ -243,6 +243,7 @@ static ToolOutputWindowController *lastOutputController = nil;
 #pragma mark -
 
 - (IBAction)showCompilationLog:(id)sender {
+    [self.showOutputMenuItem setEnabled:NO];
     [self loadMessageForOutputType:ToolOutputTypeLog];
 }
 
