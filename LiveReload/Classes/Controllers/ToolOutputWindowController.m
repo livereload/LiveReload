@@ -195,7 +195,8 @@ static ToolOutputWindowController *lastOutputController = nil;
     switch (type) {
         case ToolOutputTypeLog :
             [_messageView setString:_compilerOutput.output];
-            _lineNumberLabel.stringValue = @"";
+            _lineNumberLabel.textColor = [NSColor blackColor];
+            _lineNumberLabel.stringValue = (_compilerOutput.line ? [NSString stringWithFormat:@"%d", _compilerOutput.line] : @"");
             break;
         case ToolOutputTypeError :
             [_messageView setString:_compilerOutput.message];
