@@ -28,7 +28,7 @@ struct FSTreeItem {
         _items = calloc(kMaxItems, sizeof(struct FSTreeItem));
 
         NSFileManager *fm = [NSFileManager defaultManager];
-
+        NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
         NSDate *start = [NSDate date];
 
         struct stat st;
@@ -65,8 +65,10 @@ struct FSTreeItem {
             }
         }
 
+
         NSDate *end = [NSDate date];
         NSLog(@"Scanned %d items in %.3lfs in directory %@", (int)_count, ([end timeIntervalSinceReferenceDate] - [start timeIntervalSinceReferenceDate]), rootPath);
+        [pool drain];
     }
     return self;
 }

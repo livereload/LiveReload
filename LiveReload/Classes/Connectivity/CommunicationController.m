@@ -41,7 +41,7 @@ NSString *CommunicationStateChangedNotification = @"CommunicationStateChangedNot
 
 - (void)broadcastChangedPathes:(NSSet *)pathes inProject:(Project *)project {
     NSLog(@"Broadcasting change in %@: %@", project.path, [pathes description]);
-
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     for (NSString *path in pathes) {
         NSDictionary *args = [NSDictionary dictionaryWithObjectsAndKeys:path, @"path",
                               [NSNumber numberWithBool:[[Preferences sharedPreferences] autoreloadJavascript]], @"apply_js_live",
@@ -51,6 +51,7 @@ NSString *CommunicationStateChangedNotification = @"CommunicationStateChangedNot
         [_server broadcast:[command JSONRepresentation]];
     }
 
+    [pool drain];
     [self willChangeValueForKey:@"numberOfProcessedChanges"];
     ++_numberOfProcessedChanges;
     [self didChangeValueForKey:@"numberOfProcessedChanges"];
