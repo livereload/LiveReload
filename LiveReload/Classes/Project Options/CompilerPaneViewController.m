@@ -136,6 +136,7 @@
         [array addObject:fileOptions];
     }
     [self willChangeValueForKey:@"fileOptions"];
+    [_fileOptions release];
     _fileOptions = [[NSArray alloc] initWithArray:array];
     [self didChangeValueForKey:@"fileOptions"];
 }

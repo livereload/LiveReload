@@ -44,6 +44,7 @@
 }
 
 - (void)dealloc {
+    [projectEditorController release], projectEditorController = nil;
     [super dealloc];
 }
 
@@ -234,7 +235,7 @@
 
 - (void)openEditorForRow:(NSUInteger)rowIndex {
     Project *project = [[Workspace sharedWorkspace].sortedProjects objectAtIndex:rowIndex];
-    projectEditorController = [[ProjectOptionsSheetController alloc] initWithProject:project];
+    [projectEditorController release], projectEditorController = [[ProjectOptionsSheetController alloc] initWithProject:project];
     NSWindow *sheet = [projectEditorController window];
     _sheetRow = rowIndex;
     _inProjectEditorMode = YES;

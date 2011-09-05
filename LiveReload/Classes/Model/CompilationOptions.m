@@ -79,6 +79,8 @@ NSString *DisplayModeNames[] = { @"ignore", @"compile", @"on-the-fly" };
 - (void)dealloc {
     [_compiler release], _compiler = nil;
     [_additionalArguments release], _additionalArguments = nil;
+    [_globalOptions release], _globalOptions = nil;
+    [_fileOptions release], _fileOptions = nil;
     [super dealloc];
 }
 

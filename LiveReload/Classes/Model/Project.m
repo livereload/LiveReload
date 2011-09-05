@@ -85,6 +85,8 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [_path release], _path = nil;
     [_monitor release], _monitor = nil;
+    [_compilerOptions release], _compilerOptions = nil;
+    [_monitoringRequests release], _monitoringRequests = nil;
     [super dealloc];
 }
 

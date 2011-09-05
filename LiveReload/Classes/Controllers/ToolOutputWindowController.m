@@ -71,6 +71,11 @@ static ToolOutputWindowController *lastOutputController = nil;
     return self;
 }
 
+- (void)dealloc {
+    [_compilerOutput release], _compilerOutput = nil;
+    [_editor release], _editor = nil;
+    [super dealloc];
+}
 
 #pragma mark -
 
