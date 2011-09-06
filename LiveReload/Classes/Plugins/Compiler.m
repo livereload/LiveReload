@@ -140,6 +140,8 @@
 - (void)compile:(NSString *)sourceRelPath into:(NSString *)destinationRelPath under:(NSString *)rootPath with:(CompilationOptions *)options compilerOutput:(ToolOutput **)compilerOutput {
     if (compilerOutput) *compilerOutput = nil;
 
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+
     NSString *sourcePath = [rootPath stringByAppendingPathComponent:sourceRelPath];
     NSString *destinationPath = [rootPath stringByAppendingPathComponent:destinationRelPath];
 
@@ -241,12 +243,16 @@
 
             if (compilerOutput) {
                 NSInteger lineNo = [line integerValue];
-                *compilerOutput = [[[ToolOutput alloc] initWithCompiler:self type:errorType sourcePath:file line:lineNo message:message output:cleanOutput] autorelease];
+                *compilerOutput = [[ToolOutput alloc] initWithCompiler:self type:errorType sourcePath:file line:lineNo message:message output:cleanOutput] ;
             }
         }
     } else {
         NSLog(@"Output:\n%@", strippedOutput);
     }
+    [pool drain];
+
+    //compilerOutput returned by reference and must be autoreleased, but not in local pool
+    [*compilerOutput autorelease];
 }
 
 @end

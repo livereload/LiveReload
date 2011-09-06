@@ -175,23 +175,28 @@ struct FSTreeItem {
 }
 
 - (NSString *)pathOfFileNamed:(NSString *)fileName {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     struct FSTreeItem *end = _items + _count;
     for (struct FSTreeItem *cur = _items; cur < end; ++cur) {
         if ([[cur->name lastPathComponent] isEqualToString:fileName]) {
+            [pool drain];
             return cur->name;
         }
     }
+    [pool drain];
     return nil;
 }
 
 - (NSArray *)pathsOfFilesMatching:(BOOL (^)(NSString *))filter {
     NSMutableArray *result = [NSMutableArray array];
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     struct FSTreeItem *end = _items + _count;
     for (struct FSTreeItem *cur = _items; cur < end; ++cur) {
         if (cur->st_mode == S_IFREG && filter(cur->name)) {
             [result addObject:cur->name];
         }
     }
+    [pool drain];
     return result;
 }
 

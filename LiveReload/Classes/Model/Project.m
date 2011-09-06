@@ -269,6 +269,8 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
 
 - (FileCompilationOptions *)optionsForFileAtPath:(NSString *)sourcePath in:(CompilationOptions *)compilationOptions {
     FileCompilationOptions *fileOptions = [compilationOptions optionsForFileAtPath:sourcePath create:YES];
+
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     if (fileOptions.destinationDirectory == nil) {
         // see if we can guess it
         NSString *guessedDirectory = nil;
@@ -345,6 +347,7 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
         }
     }
 skipGuessing:
+    [pool drain];
     return fileOptions;
 }
 

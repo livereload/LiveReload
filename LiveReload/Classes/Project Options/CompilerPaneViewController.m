@@ -100,8 +100,10 @@
 
 - (void)paneWillShow {
     [super paneWillShow];
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     [_project requestMonitoring:YES forKey:[self monitoringKey]];
     [self updateFileOptions];
+    [pool drain];
 }
 
 - (void)paneDidShow {
@@ -129,15 +131,18 @@
 }
 
 - (void)updateFileOptions {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     CompilationOptions *options = self.options;
     NSMutableArray *array = [NSMutableArray array];
     for (NSString *sourcePath in [_compiler pathsOfSourceFilesInTree:_project.tree]) {
         FileCompilationOptions *fileOptions = [_project optionsForFileAtPath:sourcePath in:options];
         [array addObject:fileOptions];
     }
+
     [self willChangeValueForKey:@"fileOptions"];
     [_fileOptions release];
     _fileOptions = [[NSArray alloc] initWithArray:array];
+    [pool release];
     [self didChangeValueForKey:@"fileOptions"];
 }
 
