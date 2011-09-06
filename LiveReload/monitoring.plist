@@ -44,6 +44,7 @@
 		<string>yml</string>
 		<string>yaml</string>
 		<string>tpl</string>
+		<string>ctp</string>
 	</array>
 </dict>
 </plist>
