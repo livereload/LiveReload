@@ -15,7 +15,7 @@
 
 - (id)initWithPath:(NSString *)path filter:(FSTreeFilter *)filter;
 
-- (NSSet *)changedPathsByRescanningSubfolder:(NSString *)subfolderPath;
+- (NSSet *)changedPathsByRescanningSubfolders:(NSSet *)subfolderPathes;
 
 @property(nonatomic, readonly, retain) FSTree *savedTree;
 

@@ -18,6 +18,9 @@
 
     FSEventStreamRef _streamRef;
     FSTreeDiffer *_treeDiffer;
+
+    NSMutableSet *_eventCache;
+    CGFloat      _cacheWaitingTime;
 }
 
 - (id)initWithPath:(NSString *)path;

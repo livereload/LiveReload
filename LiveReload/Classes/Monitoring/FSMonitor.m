@@ -12,6 +12,8 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
 - (void)start;
 - (void)stop;
 
+@property (nonatomic, readonly, retain) NSMutableSet * eventCache;
+@property (nonatomic, assign) CGFloat cacheWaitingTime;
 @end
 
 
@@ -21,12 +23,17 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
 @synthesize delegate=_delegate;
 @synthesize filter=_filter;
 
+@synthesize eventCache = _eventCache;
+@synthesize cacheWaitingTime = _cacheWaitingTime;
+
 
 #pragma mark -
 #pragma mark Init/dealloc
 
 - (id)initWithPath:(NSString *)path {
     if ((self = [super init])) {
+        _cacheWaitingTime = 0.1;
+        _eventCache = [[NSMutableSet alloc] init];
         _path = [path copy];
         _filter = [[FSTreeFilter alloc] init];
     }
@@ -39,6 +46,7 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
     }
     [_path release], _path = nil;
     [_filter release], _filter = nil;
+    [_eventCache release], _eventCache = nil;
     _delegate = nil;
     [super dealloc];
 }
@@ -97,7 +105,7 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
                                      &context,
                                      (CFArrayRef)paths,
                                      kFSEventStreamEventIdSinceNow,
-                                     0.25,
+                                     0.05,
                                      kFSEventStreamCreateFlagUseCFTypes);
     if (!_streamRef) {
         NSLog(@"Failed to start monitoring of %@ (FSEventStreamCreate error)", _path);
@@ -121,6 +129,20 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
 #pragma mark -
 #pragma mark Event Processing
 
+- (void)sendChangeEventsFromCache {
+    NSMutableSet * cachedPaths;
+
+    @synchronized(self){
+        cachedPaths = [[self.eventCache copy] autorelease];
+        [self.eventCache removeAllObjects];
+    }
+
+    NSSet *changes = [_treeDiffer changedPathsByRescanningSubfolders:cachedPaths];
+    if ([changes count] > 0) {
+        [self.delegate fileSystemMonitor:self detectedChangeAtPathes:changes];
+    }
+}
+
 - (void)sendChangeEventWithPath:(NSString *)path flags:(FSEventStreamEventFlags)flags {
     NSString *flagsStr = @"";
     if ((flags & kFSEventStreamEventFlagMustScanSubDirs)) {
@@ -134,12 +156,11 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
     }
     NSLog(@"Change event at %@%@", path, flagsStr);
 
-    NSSet *changes = [_treeDiffer changedPathsByRescanningSubfolder:path];
-    if ([changes count] > 0) {
-        [self.delegate fileSystemMonitor:self detectedChangeAtPathes:changes];
-    }
-}
+    [self.eventCache addObject:path];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    [self performSelector:@selector(sendChangeEventsFromCache) withObject:nil afterDelay:self.cacheWaitingTime];
 
+}
 
 #pragma mark - Tree access
 
@@ -153,8 +174,6 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
 
 static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMonitor *monitor, size_t numEvents, NSArray *eventPaths, const FSEventStreamEventFlags eventFlags[], const FSEventStreamEventId eventIds[]) {
     for (int i = 0; i < numEvents; i++) {
-        NSString *path = [eventPaths objectAtIndex:i];
-        FSEventStreamEventFlags flags = eventFlags[i];
-        [monitor sendChangeEventWithPath:path flags:flags];
+        [monitor sendChangeEventWithPath:[eventPaths objectAtIndex:i] flags:eventFlags[i]];
     }
 }

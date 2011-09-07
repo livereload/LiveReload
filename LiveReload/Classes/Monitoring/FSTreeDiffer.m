@@ -35,7 +35,7 @@
     return result;
 }
 
-- (NSSet *)changedPathsByRescanningSubfolder:(NSString *)subfolderPath {
+- (NSSet *)changedPathsByRescanningSubfolders:(NSSet *)subfolderPathes {
     FSTree *currentTree = [[FSTree alloc] initWithPath:_path filter:_filter];
 
     NSSet *changedPaths = [currentTree differenceFrom:_previousTree];
