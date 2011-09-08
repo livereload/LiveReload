@@ -10,3 +10,5 @@ example/naive_example/*.css
 example/naive_example/*.js
 example/naive_example/*.html
 example/naive_example/.sass-cache
+example/compass_example/.sass-cache
+example/compass_example/stylesheets/
