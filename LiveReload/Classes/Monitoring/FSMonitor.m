@@ -13,7 +13,7 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
 - (void)stop;
 
 @property (nonatomic, readonly, retain) NSMutableSet * eventCache;
-@property (nonatomic, assign) CGFloat cacheWaitingTime;
+@property (nonatomic, assign) NSTimeInterval cacheWaitingTime;
 @end
 
 
@@ -135,6 +135,8 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
     @synchronized(self){
         cachedPaths = [[self.eventCache copy] autorelease];
         [self.eventCache removeAllObjects];
+        NSTimeInterval lastRebuildTime = _treeDiffer.savedTree.buildTime;
+        _cacheWaitingTime = (lastRebuildTime == 0 ? 0.1 : lastRebuildTime);
     }
 
     NSSet *changes = [_treeDiffer changedPathsByRescanningSubfolders:cachedPaths];

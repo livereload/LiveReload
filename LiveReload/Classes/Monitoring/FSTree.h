@@ -10,11 +10,13 @@
     FSTreeFilter *_filter;
     struct FSTreeItem *_items;
     NSInteger _count;
+    NSTimeInterval _buildTime;
 }
 
 - (id)initWithPath:(NSString *)path filter:(FSTreeFilter *)filter;
 
 @property (nonatomic, readonly, copy) NSString *rootPath;
+@property (nonatomic, readonly) NSTimeInterval buildTime;
 
 - (NSSet *)differenceFrom:(FSTree *)previous;
 

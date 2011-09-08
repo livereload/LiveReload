@@ -19,7 +19,8 @@ struct FSTreeItem {
 
 @implementation FSTree
 
-@synthesize rootPath=_rootPath;
+@synthesize rootPath = _rootPath;
+@synthesize buildTime = _buildTime;
 
 - (id)initWithPath:(NSString *)rootPath filter:(FSTreeFilter *)filter {
     if ((self = [super init])) {
@@ -67,7 +68,8 @@ struct FSTreeItem {
 
 
         NSDate *end = [NSDate date];
-        NSLog(@"Scanned %d items in %.3lfs in directory %@", (int)_count, ([end timeIntervalSinceReferenceDate] - [start timeIntervalSinceReferenceDate]), rootPath);
+        _buildTime = [end timeIntervalSinceReferenceDate] - [start timeIntervalSinceReferenceDate];
+        NSLog(@"Scanned %d items in %.3lfs in directory %@", (int)_count, _buildTime, rootPath);
         [pool drain];
     }
     return self;

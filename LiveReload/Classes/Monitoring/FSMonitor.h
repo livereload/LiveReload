@@ -20,7 +20,7 @@
     FSTreeDiffer *_treeDiffer;
 
     NSMutableSet *_eventCache;
-    CGFloat      _cacheWaitingTime;
+    NSTimeInterval _cacheWaitingTime;
 }
 
 - (id)initWithPath:(NSString *)path;
