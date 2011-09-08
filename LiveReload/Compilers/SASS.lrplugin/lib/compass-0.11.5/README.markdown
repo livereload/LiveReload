@@ -53,4 +53,4 @@ Released under a [slightly modified MIT License][license].
 [caring.com]: http://www.caring.com/ "Senior Care Resources"
 [license]: http://github.com/chriseppstein/compass/tree/master/LICENSE.markdown
 [susy_website]: http://www.oddbird.net/susy/
-[susy_wiki]: http://github.com/chriseppstein/compass/wikis/susy-documentation 
+[susy_wiki]: http://github.com/chriseppstein/compass/wikis/susy-documentation

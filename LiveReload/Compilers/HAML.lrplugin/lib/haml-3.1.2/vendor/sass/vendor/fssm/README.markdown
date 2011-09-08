@@ -26,12 +26,12 @@ This form watches one or more paths, and enters the run loop automatically. The 
 	FSSM.monitor do
 	  path '/some/directory/' do
 	    glob '**/*.yml'
-   
+
 	    update {|base, relative|}
 	    delete {|base, relative|}
 	    create {|base, relative|}
 	  end
- 
+
 	  path '/some/other/directory/' do
 	    update {|base, relative|}
 	    delete {|base, relative|}

@@ -29,11 +29,11 @@ if (!empty($version) && !empty($iversion) && !empty($compiler)) {
       header("500 Server Error\r\n");
       die("Internal error, saving failed: " . mysql_error());
     }
-    
+
     $id = mysql_insert_id();
     $msg = "Unparsable log record $id for compiler $compiler.\n\nIP: $ip\nUser Agent: $agent\n\nLog:\n$body\n\n-- LiveReload";
     mail('andreyvit@me.com', "[LiveReload] Unparsable log for $compiler", $msg, "From: notification@livereload.com\r\nReply-To: andreyvit@me.com");
-    
+
     die("OK.");
 } else {
   header("400 Bad Request\r\n");
