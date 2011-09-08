@@ -6,7 +6,7 @@ xcuserdata
 /raw-logs
 /Supplementary
 site/css/livereload.css
-example/*.css
-example/*.js
-example/*.html
-example/.sass-cache
+example/naive_example/*.css
+example/naive_example/*.js
+example/naive_example/*.html
+example/naive_example/.sass-cache
