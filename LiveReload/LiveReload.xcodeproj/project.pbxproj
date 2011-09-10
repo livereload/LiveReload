@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
+		43191846141A0D1C008457FF /* Eco.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43191845141A0D1C008457FF /* Eco.lrplugin */; };
 		43361D2F13C2E0E500C0E589 /* Stylus.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43361D2E13C2E0E500C0E589 /* Stylus.lrplugin */; };
 		43361D4613C30D1400C0E589 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43361D4513C30D1400C0E589 /* libicucore.dylib */; };
 		43361D4813C3188900C0E589 /* node in Resources */ = {isa = PBXBuildFile; fileRef = 43361D4713C3188900C0E589 /* node */; };
@@ -127,6 +128,7 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		43191845141A0D1C008457FF /* Eco.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Eco.lrplugin; path = Compilers/Eco.lrplugin; sourceTree = SOURCE_ROOT; };
 		43361D2E13C2E0E500C0E589 /* Stylus.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Stylus.lrplugin; path = Compilers/Stylus.lrplugin; sourceTree = SOURCE_ROOT; };
 		43361D4513C30D1400C0E589 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		43361D4713C3188900C0E589 /* node */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = node; path = Compilers/node; sourceTree = SOURCE_ROOT; };
@@ -407,6 +409,7 @@
 				43361D4D13C329CD00C0E589 /* HAML.lrplugin */,
 				43361D4F13C32C3D00C0E589 /* SASS.lrplugin */,
 				43E4BBE713C5DA7900A75F81 /* CoffeeScript.lrplugin */,
+				43191845141A0D1C008457FF /* Eco.lrplugin */,
 			);
 			name = Compilers;
 			path = Extensions/Compilers;
@@ -812,6 +815,7 @@
 				823DDF4013F8DA4500529AD2 /* LiveReload.crx in Resources */,
 				823DDF4113F8DA4500529AD2 /* LiveReload.safariextz in Resources */,
 				823DDF4213F8DA4500529AD2 /* SafariExtVersions.plist in Resources */,
+				43191846141A0D1C008457FF /* Eco.lrplugin in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
