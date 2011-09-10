@@ -123,15 +123,15 @@
       <div class="greencard-sent" style="display: none">
         Thanks!
       </div>
-      <form class="greencard">
+      <form action="http://andreytarantsov.createsend.com/t/r/s/fjkujj/" method="post" class="greencard">
         <p>Tell the truth, or face the consequences!</p>
         <p>
-          Your e-mail address:<br>
-          <input name="email" class="email">
+          <label for="fjkujj-fjkujj">Your e-mail address:</label><br>
+          <input name="cm-fjkujj-fjkujj" id="fjkujj-fjkujj" class="email">
         </p>
         <p>
-          Tell us about yourself (optional!)<br>
-          <textarea name="message" class="message" rows="4"></textarea>
+          <label for="About">Tell us about yourself (optional!)</label><br>
+          <textarea name="cm-f-pyuhyi" id="About" class="message" rows="4"></textarea>
         </p>
         <p>
           <input type="submit" class="submit" value="Apply and subscribe to citizen news">
@@ -556,23 +556,23 @@
       }
     });
 
-    $('.greencard').submit(function(e) {
-      e.preventDefault();
-      var email = $('.email', this).val();
-      if (email.length == 0 || !email.match(/@/)) {
-        alert("Please enter a valid email.");
-        $('.email', this).focus();
-        return;
-      }
-
-      var message = $('.message', this).val();
-      mpmetrics.track('Subscribe');
-      $('.submit', this).val('Sending your application...');
-      $.post('subscribe.php', { email: email, message: message }, function() {
-        $('.greencard').hide();
-        $('.greencard-sent').show();
-      });
-    });
+    // $('.greencard').submit(function(e) {
+    //   e.preventDefault();
+    //   var email = $('.email', this).val();
+    //   if (email.length == 0 || !email.match(/@/)) {
+    //     alert("Please enter a valid email.");
+    //     $('.email', this).focus();
+    //     return;
+    //   }
+    //
+    //   var message = $('.message', this).val();
+    //   mpmetrics.track('Subscribe');
+    //   $('.submit', this).val('Sending your application...');
+    //   $.post('subscribe.php', { email: email, message: message }, function() {
+    //     $('.greencard').hide();
+    //     $('.greencard-sent').show();
+    //   });
+    // });
   </script>
 </body>
 </html>
