@@ -139,7 +139,7 @@ namespace :build do
     cp zip_path, zip_path_in_builds
 
     sh 'open', '-R', zip_path_in_builds
-    
+
     Rake::Task['build:upload'].invoke(suffix)
 
     sh 'git', 'tag'
