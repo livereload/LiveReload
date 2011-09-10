@@ -4,6 +4,7 @@
 #import "CommunicationController.h"
 
 #import "ProjectOptionsSheetController.h"
+#import "NewMainWindowController.h"
 
 #import "Workspace.h"
 #import "ProjectCell.h"
@@ -79,6 +80,10 @@
 //    if (![[NSUserDefaults standardUserDefaults] boolForKey:PreferencesDoneKey]) {
 //        [self showSettings:self];
 //    }
+}
+
+- (IBAction)showNewMainWindow:(id)sender {
+    [[[NewMainWindowController alloc] init] showWindow:nil];
 }
 
 - (NSUInteger)numberOfRowsInListView:(PXListView*)aListView {

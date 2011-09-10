@@ -17,6 +17,8 @@
 		43361D4E13C329CD00C0E589 /* HAML.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43361D4D13C329CD00C0E589 /* HAML.lrplugin */; };
 		43361D5013C32C3D00C0E589 /* SASS.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43361D4F13C32C3D00C0E589 /* SASS.lrplugin */; };
 		43594AF413D3BB34004175B2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43594AF313D3BB34004175B2 /* QuartzCore.framework */; };
+		435BE042141B72A60008FF77 /* NewMainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 435BE041141B72A60008FF77 /* NewMainWindow.xib */; };
+		435BE045141B87920008FF77 /* NewMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 435BE044141B87920008FF77 /* NewMainWindowController.m */; };
 		439C093313ADCBDD00119233 /* monitoring.plist in Resources */ = {isa = PBXBuildFile; fileRef = 439C093213ADCBDD00119233 /* monitoring.plist */; };
 		43C0368613CA191D00A01305 /* LiveReload.icns in Resources */ = {isa = PBXBuildFile; fileRef = 43C0368513CA191C00A01305 /* LiveReload.icns */; };
 		43E4BBE813C5DA7900A75F81 /* CoffeeScript.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43E4BBE713C5DA7900A75F81 /* CoffeeScript.lrplugin */; };
@@ -137,6 +139,9 @@
 		43361D4D13C329CD00C0E589 /* HAML.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HAML.lrplugin; path = Compilers/HAML.lrplugin; sourceTree = SOURCE_ROOT; };
 		43361D4F13C32C3D00C0E589 /* SASS.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SASS.lrplugin; path = Compilers/SASS.lrplugin; sourceTree = SOURCE_ROOT; };
 		43594AF313D3BB34004175B2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		435BE041141B72A60008FF77 /* NewMainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewMainWindow.xib; sourceTree = "<group>"; };
+		435BE043141B87920008FF77 /* NewMainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewMainWindowController.h; sourceTree = "<group>"; };
+		435BE044141B87920008FF77 /* NewMainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewMainWindowController.m; sourceTree = "<group>"; };
 		439C093213ADCBDD00119233 /* monitoring.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = monitoring.plist; sourceTree = "<group>"; };
 		43A265E613DCEAE600704BF6 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		43C0368513CA191C00A01305 /* LiveReload.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LiveReload.icns; sourceTree = "<group>"; };
@@ -470,6 +475,9 @@
 				823DDE3F13F8DA3100529AD2 /* ToolOutputWindowController.h */,
 				823DDE4013F8DA3100529AD2 /* ToolOutputWindowController.m */,
 				823DDE4113F8DA3100529AD2 /* ToolOutputWindowController.xib */,
+				435BE041141B72A60008FF77 /* NewMainWindow.xib */,
+				435BE043141B87920008FF77 /* NewMainWindowController.h */,
+				435BE044141B87920008FF77 /* NewMainWindowController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -816,6 +824,7 @@
 				823DDF4113F8DA4500529AD2 /* LiveReload.safariextz in Resources */,
 				823DDF4213F8DA4500529AD2 /* SafariExtVersions.plist in Resources */,
 				43191846141A0D1C008457FF /* Eco.lrplugin in Resources */,
+				435BE042141B72A60008FF77 /* NewMainWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -900,6 +909,7 @@
 				823DDF2013F8DA3100529AD2 /* sha-1.c in Sources */,
 				823DDF2113F8DA3100529AD2 /* WebSocketServer.m in Sources */,
 				82B886AC1407D452001A94D6 /* extension-x-google-mux.c in Sources */,
+				435BE045141B87920008FF77 /* NewMainWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

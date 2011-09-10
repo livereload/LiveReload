@@ -22,6 +22,7 @@ extern NSString *ProjectNeedsSavingNotification;
 
     NSMutableDictionary     *_compilerOptions;
     BOOL _clientsConnected;
+    BOOL                    _enabled;
 
     NSMutableSet            *_monitoringRequests;
 
@@ -35,6 +36,9 @@ extern NSString *ProjectNeedsSavingNotification;
 
 @property(nonatomic, readonly, copy) NSString *path;
 @property(nonatomic, readonly, copy) NSString *displayPath;
+@property(nonatomic, readonly, copy) NSString *safeDisplayPath;
+
+@property(nonatomic) BOOL enabled;
 
 @property(nonatomic, readonly) FSTree *tree;
 

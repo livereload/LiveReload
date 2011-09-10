@@ -15,6 +15,7 @@
 #import "FileCompilationOptions.h"
 #import "ToolOutput.h"
 
+#import "RegexKitLite.h"
 #import "ATFunctionalStyle.h"
 
 
@@ -43,6 +44,7 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
 @synthesize path=_path;
 @synthesize dirty=_dirty;
 @synthesize lastSelectedPane=_lastSelectedPane;
+@synthesize enabled=_enabled;
 
 
 #pragma mark -
@@ -51,6 +53,7 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
 - (id)initWithPath:(NSString *)path memento:(NSDictionary *)memento {
     if ((self = [super init])) {
         _path = [path copy];
+        _enabled = YES;
 
         _monitor = [[FSMonitor alloc] initWithPath:_path];
         _monitor.delegate = self;
@@ -377,6 +380,14 @@ skipGuessing:
         }
     }
     return nil;
+}
+
+- (NSString *)safeDisplayPath {
+    NSString *src = [self displayPath];
+    return [src stringByReplacingOccurrencesOfRegex:@"\\w" usingBlock:^NSString *(NSInteger captureCount, NSString *const *capturedStrings, const NSRange *capturedRanges, volatile BOOL *const stop) {
+        unichar ch = 'a' + (rand() % ('z' - 'a' + 1));
+        return [NSString stringWithCharacters:&ch length:1];
+    }];
 }
 
 @end
