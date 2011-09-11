@@ -17,7 +17,7 @@ LivereloadBackground.prototype = {
 
     // localhost does not work on Linux b/c of http://code.google.com/p/chromium/issues/detail?id=36652,
     // 0.0.0.0 does not work on Windows
-    host: (navigator.appVersion.indexOf('Linux') >= 0 ? '0.0.0.0' : 'localhost'),
+    host: location.host.split(':')[0],
 
     port: 35729,
 
@@ -753,3 +753,5 @@ livereload.background = new LivereloadBackground(function reloadDocument(doc, da
 livereload.run = function() {
     livereload.background.enablePage(document);
 };
+
+livereload.run();

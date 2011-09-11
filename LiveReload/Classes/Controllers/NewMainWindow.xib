@@ -644,7 +644,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<object class="NSTextFieldCell" key="NSCell" id="887575948">
 								<int key="NSCellFlags">-2072904127</int>
 								<int key="NSCellFlags2">272630784</int>
-								<string key="NSContents">&lt;script src="http://localhost:35729/livereload.js"&gt;&lt;/script&gt;</string>
+								<string key="NSContents">&lt;script&gt;document.write('&lt;script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js"&gt;&lt;/' + 'script&gt;')&lt;/script&gt;</string>
 								<reference key="NSSupport" ref="119607318"/>
 								<string key="NSCellIdentifier">_NS:247</string>
 								<reference key="NSControlView" ref="257515463"/>
