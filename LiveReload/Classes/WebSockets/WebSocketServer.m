@@ -3,6 +3,12 @@
 #include "private-libwebsockets.h"
 
 
+enum {
+    PROTOCOL_HTTP = 0,
+    PROTOCOL_WEB_SOCKET = 1
+};
+
+
 @interface WebSocketServer ()
 
 - (void)connected:(WebSocketConnection *)connection;
@@ -28,9 +34,71 @@ int count_pollfds = 0;
 static WebSocketServer *lastWebSocketServer;
 
 
+struct WebSocketServer_http_per_session_data {
+    WebSocketConnection *connection;
+};
+
 struct WebSocketServer_per_session_data {
     WebSocketConnection *connection;
 };
+
+static int WebSocketServer_http_callback(struct libwebsocket_context * this,
+                                    struct libwebsocket *wsi,
+                                    enum libwebsocket_callback_reasons reason,
+                                    void *user, void *in, size_t len) {
+    //struct WebSocketServer_http_per_session_data *pss = user;
+    char client_name[128];
+    char client_ip[128];
+    NSString *path;
+
+    switch (reason) {
+        case LWS_CALLBACK_HTTP:
+            fprintf(stderr, "serving HTTP URI %s\n", (char *)in);
+
+            if (in && strcmp(in, "/livereload.js") == 0) {
+                path = [[NSBundle mainBundle] pathForResource:@"livereload.js" ofType:nil];
+                NSCAssert(path != nil, @"File 'livereload.js' not found inside the bundle");
+                libwebsockets_serve_http_file(wsi, [path fileSystemRepresentation], "text/plain");
+                break;
+            }
+
+            if (in && strcmp(in, "/favicon.ico") == 0) {
+//                if (libwebsockets_serve_http_file(wsi,
+//                                                  LOCAL_RESOURCE_PATH"/favicon.ico", "image/x-icon"))
+//                    fprintf(stderr, "Failed to send favicon\n");
+                break;
+            }
+
+            /* send the script... when it runs it'll start websockets */
+
+            fprintf(stderr, "Failed to send HTTP file\n");
+            break;
+
+            /*
+             * callback for confirming to continue with client IP appear in
+             * protocol 0 callback since no websocket protocol has been agreed
+             * yet.  You can just ignore this if you won't filter on client IP
+             * since the default uhandled callback return is 0 meaning let the
+             * connection continue.
+             */
+
+        case LWS_CALLBACK_FILTER_NETWORK_CONNECTION:
+
+            libwebsockets_get_peer_addresses((int)(long)user, client_name,
+                                             sizeof(client_name), client_ip, sizeof(client_ip));
+
+            fprintf(stderr, "Received network connect from %s (%s)\n",
+                    client_name, client_ip);
+
+            /* if we returned non-zero from here, we kill the connection */
+            break;
+
+        default:
+            break;
+    }
+
+    return 0;
+}
 
 static int WebSocketServer_callback(struct libwebsocket_context * this,
                                     struct libwebsocket *wsi,
@@ -103,6 +171,12 @@ static int WebSocketServer_callback(struct libwebsocket_context * this,
 
 
 static struct libwebsocket_protocols protocols[] = {
+    // my understanding is that protocol 0 is always used for HTTP;
+    // the "http-only" string is designed to never match any incoming
+    // web socket extension/procotol ID (the terminology is still beyond me),
+    // so that this protocol is never used for web sockets
+    { "http-only", WebSocketServer_http_callback, sizeof(struct WebSocketServer_http_per_session_data) },
+    // my understanding is that NULL here means this entry matches any web sockets request
     { NULL, WebSocketServer_callback, sizeof(struct WebSocketServer_per_session_data) },
     { NULL, NULL, 0 }
 };
@@ -130,7 +204,7 @@ static struct libwebsocket_protocols protocols[] = {
     [message getBytes:buf maxLength:cb usedLength:&len encoding:NSUTF8StringEncoding options:0 range:NSMakeRange(0, [message length]) remainingRange:NULL];
 
     // NOTE: this call is a multithreaded race condition, but we cross our fingers and hope for the best :P
-    libwebsockets_broadcast(&protocols[0], buf, len);
+    libwebsockets_broadcast(&protocols[PROTOCOL_WEB_SOCKET], buf, len);
 
     free(data);
 }
