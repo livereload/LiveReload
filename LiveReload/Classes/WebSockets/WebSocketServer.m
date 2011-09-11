@@ -58,7 +58,7 @@ static int WebSocketServer_http_callback(struct libwebsocket_context * this,
             if (in && strcmp(in, "/livereload.js") == 0) {
                 path = [[NSBundle mainBundle] pathForResource:@"livereload.js" ofType:nil];
                 NSCAssert(path != nil, @"File 'livereload.js' not found inside the bundle");
-                libwebsockets_serve_http_file(wsi, [path fileSystemRepresentation], "text/plain");
+                libwebsockets_serve_http_file(wsi, [path fileSystemRepresentation], "text/javascript");
                 break;
             }
 
