@@ -199,8 +199,14 @@ enum { kAnimationStepCount = StatusItemStateRotation2 - StatusItemStateActive + 
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)sender {
     BOOL genericSupported = (NSDragOperationGeneric & [sender draggingSourceOperationMask]) == NSDragOperationGeneric;
     NSArray *pathes = [self sanitizedPathsFrom:[sender draggingPasteboard]];
+
     if (genericSupported && [pathes count] > 0) {
-        [_delegate statusItemView:self acceptedDroppedDirectories:pathes];
+        NSMutableArray * resolvedPaths = [NSMutableArray arrayWithCapacity:[pathes count]];
+        for( NSString * str in pathes ) {
+            [resolvedPaths addObject:[str stringByResolvingSymlinksInPath]];
+        }
+
+        [_delegate statusItemView:self acceptedDroppedDirectories:resolvedPaths];
         return YES;
     } else {
         self.droppable = NO;
