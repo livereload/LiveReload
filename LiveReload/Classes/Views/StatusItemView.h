@@ -9,7 +9,7 @@
 @interface StatusItemView : NSView {
     __weak id<StatusItemViewDelegate> _delegate;
 
-    NSImage *_icons[5];
+    NSImage *_icons[6];
 
     BOOL _selected;
     BOOL _active;
