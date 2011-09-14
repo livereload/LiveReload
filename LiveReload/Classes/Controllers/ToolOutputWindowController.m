@@ -256,6 +256,9 @@ static ToolOutputWindowController *lastOutputController = nil;
 
 - (void)updateJumpToErrorEditor {
     [_editor release], _editor = nil;
+    CGFloat defaultWidth = _jumpToErrorButton.frame.size.width;
+    NSString *defaultText = _jumpToErrorButton.title;
+
     _editor = [[[EditorManager sharedEditorManager] activeEditor] retain];
     if (_editor) {
         [_jumpToErrorButton setEnabled:YES];
@@ -265,13 +268,11 @@ static ToolOutputWindowController *lastOutputController = nil;
         [_jumpToErrorButton setTitle:@"Edit"];
     }
 
-    CGFloat defaultWidth = 106;
-    NSString *defaultText = @"Edit in TextMate";
     NSSize defaultSize = [defaultText sizeWithAttributes:[NSDictionary dictionaryWithObject:[_jumpToErrorButton font] forKey:NSFontAttributeName]];
     CGFloat padding = defaultWidth - defaultSize.width;
 
     NSSize size = [[_jumpToErrorButton title] sizeWithAttributes:[NSDictionary dictionaryWithObject:[_jumpToErrorButton font] forKey:NSFontAttributeName]];
-    CGFloat width = size.width + padding;
+    CGFloat width = ceil(size.width + padding);
 
     NSRect frame = [_jumpToErrorButton frame];
     CGFloat delta = width - frame.size.width;
