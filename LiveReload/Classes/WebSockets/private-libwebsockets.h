@@ -20,7 +20,6 @@
  */
 
 #define LWS_NO_FORK //To run on Max OS X 10.6
-#define DEBUG
 
 #include <unistd.h>
 #include <stdio.h>
