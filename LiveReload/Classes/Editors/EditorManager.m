@@ -7,6 +7,7 @@
 #import "SublimeText2Editor.h"
 #import "SubEthaEditEditor.h"
 #import "TextMateEditor.h"
+#import "BBEditEditor.h"
 
 
 @interface EditorManager ()
@@ -34,6 +35,7 @@ static EditorManager *sharedEditorManager = nil;
         [_editorClasses addObject:[SublimeText2Editor class]];
         [_editorClasses addObject:[SubEthaEditEditor class]];
         [_editorClasses addObject:[TextMateEditor class]];
+        [_editorClasses addObject:[BBEditEditor class]];
     }
     return self;
 }

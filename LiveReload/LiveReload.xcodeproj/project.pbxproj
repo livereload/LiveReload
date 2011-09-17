@@ -23,6 +23,7 @@
 		439C093313ADCBDD00119233 /* monitoring.plist in Resources */ = {isa = PBXBuildFile; fileRef = 439C093213ADCBDD00119233 /* monitoring.plist */; };
 		43C0368613CA191D00A01305 /* LiveReload.icns in Resources */ = {isa = PBXBuildFile; fileRef = 43C0368513CA191C00A01305 /* LiveReload.icns */; };
 		43E4BBE813C5DA7900A75F81 /* CoffeeScript.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43E4BBE713C5DA7900A75F81 /* CoffeeScript.lrplugin */; };
+		821AFF0014270B5200B61760 /* BBEditEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 821AFEFF14270B5200B61760 /* BBEditEditor.m */; };
 		823DDED313F8DA3100529AD2 /* LiveReloadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3013F8DA3100529AD2 /* LiveReloadAppDelegate.m */; };
 		823DDED413F8DA3100529AD2 /* CommunicationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3313F8DA3100529AD2 /* CommunicationController.m */; };
 		823DDED513F8DA3100529AD2 /* ExtensionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3613F8DA3100529AD2 /* ExtensionsController.m */; };
@@ -148,6 +149,8 @@
 		43A265E613DCEAE600704BF6 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		43C0368513CA191C00A01305 /* LiveReload.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LiveReload.icns; sourceTree = "<group>"; };
 		43E4BBE713C5DA7900A75F81 /* CoffeeScript.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = CoffeeScript.lrplugin; path = Compilers/CoffeeScript.lrplugin; sourceTree = SOURCE_ROOT; };
+		821AFEFE14270B5200B61760 /* BBEditEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBEditEditor.h; sourceTree = "<group>"; };
+		821AFEFF14270B5200B61760 /* BBEditEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBEditEditor.m; sourceTree = "<group>"; };
 		823DDE2F13F8DA3100529AD2 /* LiveReloadAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveReloadAppDelegate.h; sourceTree = "<group>"; };
 		823DDE3013F8DA3100529AD2 /* LiveReloadAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveReloadAppDelegate.m; sourceTree = "<group>"; };
 		823DDE3213F8DA3100529AD2 /* CommunicationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommunicationController.h; sourceTree = "<group>"; };
@@ -504,6 +507,8 @@
 				823DDE5013F8DA3100529AD2 /* SublimeText2Editor.m */,
 				823DDE5113F8DA3100529AD2 /* TextMateEditor.h */,
 				823DDE5213F8DA3100529AD2 /* TextMateEditor.m */,
+				821AFEFE14270B5200B61760 /* BBEditEditor.h */,
+				821AFEFF14270B5200B61760 /* BBEditEditor.m */,
 			);
 			path = Editors;
 			sourceTree = "<group>";
@@ -914,6 +919,7 @@
 				823DDF2113F8DA3100529AD2 /* WebSocketServer.m in Sources */,
 				82B886AC1407D452001A94D6 /* extension-x-google-mux.c in Sources */,
 				435BE045141B87920008FF77 /* NewMainWindowController.m in Sources */,
+				821AFF0014270B5200B61760 /* BBEditEditor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
