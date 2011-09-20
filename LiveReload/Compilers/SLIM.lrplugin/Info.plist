@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>LRCompilers</key>
+	<array>
+		<dict>
+			<key>CommandLine</key>
+			<array>
+				<string>$(ruby)</string>
+				<string>$(plugin)/lib/slim-1.0.2/bin/slimrb</string>
+				<string>$(additional)</string>
+				<string>$(src_path)</string>
+				<string>$(dst_path)</string>
+			</array>
+			<key>DestinationExtension</key>
+			<string>html</string>
+			<key>Errors</key>
+			<array>
+			</array>
+			<key>ExpectedOutputDirectories</key>
+			<array>
+				<string>html</string>
+				<string>view</string>
+				<string>views</string>
+			</array>
+			<key>Extensions</key>
+			<array>
+				<string>slim</string>
+			</array>
+			<key>Name</key>
+			<string>Slim</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -117,6 +117,7 @@
 		823DDF4013F8DA4500529AD2 /* LiveReload.crx in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF3C13F8DA4500529AD2 /* LiveReload.crx */; };
 		823DDF4113F8DA4500529AD2 /* LiveReload.safariextz in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF3D13F8DA4500529AD2 /* LiveReload.safariextz */; };
 		823DDF4213F8DA4500529AD2 /* SafariExtVersions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF3E13F8DA4500529AD2 /* SafariExtVersions.plist */; };
+		825235321428769E001C3486 /* SLIM.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 825235311428769E001C3486 /* SLIM.lrplugin */; };
 		82B886AC1407D452001A94D6 /* extension-x-google-mux.c in Sources */ = {isa = PBXBuildFile; fileRef = 82B886AB1407D452001A94D6 /* extension-x-google-mux.c */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
@@ -315,6 +316,7 @@
 		823DDF3C13F8DA4500529AD2 /* LiveReload.crx */ = {isa = PBXFileReference; lastKnownFileType = file; path = LiveReload.crx; sourceTree = "<group>"; };
 		823DDF3D13F8DA4500529AD2 /* LiveReload.safariextz */ = {isa = PBXFileReference; lastKnownFileType = file; path = LiveReload.safariextz; sourceTree = "<group>"; };
 		823DDF3E13F8DA4500529AD2 /* SafariExtVersions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SafariExtVersions.plist; sourceTree = "<group>"; };
+		825235311428769E001C3486 /* SLIM.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SLIM.lrplugin; path = Compilers/SLIM.lrplugin; sourceTree = SOURCE_ROOT; };
 		82B886AA1407D452001A94D6 /* extension-x-google-mux.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "extension-x-google-mux.h"; sourceTree = "<group>"; };
 		82B886AB1407D452001A94D6 /* extension-x-google-mux.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "extension-x-google-mux.c"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* LiveReload-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "LiveReload-Info.plist"; sourceTree = "<group>"; };
@@ -421,6 +423,7 @@
 				43361D4F13C32C3D00C0E589 /* SASS.lrplugin */,
 				43E4BBE713C5DA7900A75F81 /* CoffeeScript.lrplugin */,
 				43191845141A0D1C008457FF /* Eco.lrplugin */,
+				825235311428769E001C3486 /* SLIM.lrplugin */,
 			);
 			name = Compilers;
 			path = Extensions/Compilers;
@@ -834,6 +837,7 @@
 				823DDF4213F8DA4500529AD2 /* SafariExtVersions.plist in Resources */,
 				43191846141A0D1C008457FF /* Eco.lrplugin in Resources */,
 				435BE042141B72A60008FF77 /* NewMainWindow.xib in Resources */,
+				825235321428769E001C3486 /* SLIM.lrplugin in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
