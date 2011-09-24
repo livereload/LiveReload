@@ -45,6 +45,8 @@
 		<string>yaml</string>
 		<string>tpl</string>
 		<string>ctp</string>
+		<string>md</string>
+		<string>markdown</string>
 	</array>
 </dict>
 </plist>
