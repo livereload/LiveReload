@@ -52,9 +52,6 @@ NSString *const kMASPreferencesWindowControllerDidChangeViewNotification = @"MAS
 
 - (void)windowDidLoad
 {
-    // Watch for resigning and closing to commit editing
-    [[self window] setDelegate:self];
-    
     if ([self.title length] > 0)
         [[self window] setTitle:self.title];
     [self selectControllerAtIndex:0 withAnimation:NO];
