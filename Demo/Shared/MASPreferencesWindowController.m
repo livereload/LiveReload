@@ -50,10 +50,8 @@ NSString *const kMASPreferencesWindowControllerDidChangeViewNotification = @"MAS
 
 #pragma mark -
 
-- (void)awakeFromNib
+- (void)windowDidLoad
 {
-    [super awakeFromNib];
-    
     // Watch for resigning and closing to commit editing
     [[self window] setDelegate:self];
     
