@@ -3,7 +3,6 @@
 //  Copyright 2011 Shpakovski. All rights reserved.
 //
 
-#import "MASPreferencesViewController.h"
 #import "MASPreferencesWindowController.h"
 
 NSString *const kMASPreferencesWindowControllerDidChangeViewNotification = @"MASPreferencesWindowControllerDidChangeViewNotification";
@@ -19,6 +18,8 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
 @interface MASPreferencesWindowController () // Private
 
 - (void)updateViewControllerWithAnimation:(BOOL)animate;
+
+@property (readonly) NSArray *toolbarItemIdentifiers;
 
 @end
 
@@ -109,7 +110,7 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
 {
     NSViewController <MASPreferencesViewController> *viewController = self.selectedViewController;
     if(viewController)
-        [[NSUserDefaults standardUserDefaults] setObject:NSStringFromRect([viewController.view bounds]) forKey:PreferencesKeyForViewBounds(viewController.toolbarItemIdentifier)];
+        [[NSUserDefaults standardUserDefaults] setObject:NSStringFromRect([viewController.view bounds]) forKey:PreferencesKeyForViewBounds(viewController.identifier)];
 }
 
 #pragma mark -
@@ -117,7 +118,7 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
 
 - (NSArray *)toolbarItemIdentifiers
 {
-    NSArray *identifiers = [_viewControllers valueForKey:@"toolbarItemIdentifier"];
+    NSArray *identifiers = [_viewControllers valueForKey:@"identifier"];
     return identifiers;
 }
 
@@ -216,7 +217,7 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
     NSUInteger controllerIndex = [identifiers indexOfObject:itemIdentifier];
     if (controllerIndex == NSNotFound) return;
     NSViewController <MASPreferencesViewController> *controller = [_viewControllers objectAtIndex:controllerIndex];
-    [[NSUserDefaults standardUserDefaults] setObject:controller.toolbarItemIdentifier forKey:kMASPreferencesSelectedViewKey];
+    [[NSUserDefaults standardUserDefaults] setObject:controller.identifier forKey:kMASPreferencesSelectedViewKey];
     
     // Retrieve the new window tile from the controller view
     if ([self.title length] == 0)
@@ -229,10 +230,10 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
     NSView *controllerView = controller.view;
     
     // Retrieve current and minimum frame size for the view
-    NSString *oldViewRectString = [[NSUserDefaults standardUserDefaults] stringForKey:PreferencesKeyForViewBounds(controller.toolbarItemIdentifier)];
-    NSString *minViewRectString = [_minimumViewRects objectForKey:controller.toolbarItemIdentifier];
+    NSString *oldViewRectString = [[NSUserDefaults standardUserDefaults] stringForKey:PreferencesKeyForViewBounds(controller.identifier)];
+    NSString *minViewRectString = [_minimumViewRects objectForKey:controller.identifier];
     if(!minViewRectString)
-        [_minimumViewRects setObject:NSStringFromRect(controllerView.bounds) forKey:controller.toolbarItemIdentifier];
+        [_minimumViewRects setObject:NSStringFromRect(controllerView.bounds) forKey:controller.identifier];
     NSRect oldViewRect = oldViewRectString ? NSRectFromString(oldViewRectString) : controllerView.bounds;
     NSRect minViewRect = minViewRectString ? NSRectFromString(minViewRectString) : controllerView.bounds;
     oldViewRect.size.width  = NSWidth(oldViewRect)  < NSWidth(minViewRect)  ? NSWidth(minViewRect)  : NSWidth(oldViewRect);
@@ -312,7 +313,7 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
         return;
 
     NSViewController <MASPreferencesViewController> *controller = [_viewControllers objectAtIndex:controllerIndex];
-    NSString *newItemIdentifier = controller.toolbarItemIdentifier;
+    NSString *newItemIdentifier = controller.identifier;
     self.window.toolbar.selectedItemIdentifier = newItemIdentifier;
     [self updateViewControllerWithAnimation:animate];
 }

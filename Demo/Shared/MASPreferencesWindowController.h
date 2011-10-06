@@ -3,6 +3,8 @@
 //  Copyright 2011 Shpakovski. All rights reserved.
 //
 
+#import "MASPreferencesViewController.h"
+
 extern NSString *const kMASPreferencesWindowControllerDidChangeViewNotification;
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5

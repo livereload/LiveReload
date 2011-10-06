@@ -15,7 +15,7 @@
 #pragma mark -
 #pragma mark MASPreferencesViewController
 
-- (NSString *)toolbarItemIdentifier
+- (NSString *)identifier
 {
     return @"GeneralPreferences";
 }

@@ -12,7 +12,7 @@
 
 @required
 
-@property (nonatomic, readonly) NSString *toolbarItemIdentifier;
+@property (nonatomic, readonly) NSString *identifier;
 @property (nonatomic, readonly) NSImage *toolbarItemImage;
 @property (nonatomic, readonly) NSString *toolbarItemLabel;
 
