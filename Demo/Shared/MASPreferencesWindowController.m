@@ -8,6 +8,8 @@
 
 NSString *const kMASPreferencesWindowControllerDidChangeViewNotification = @"MASPreferencesWindowControllerDidChangeViewNotification";
 
+static NSString *const kMASPreferencesSelectedViewKey = @"MASPreferences Selected Identifier View";
+
 @interface MASPreferencesWindowController () // Private
 
 - (void)updateViewControllerWithAnimation:(BOOL)animate;
@@ -54,7 +56,9 @@ NSString *const kMASPreferencesWindowControllerDidChangeViewNotification = @"MAS
 {
     if ([self.title length] > 0)
         [[self window] setTitle:self.title];
-    [self selectControllerAtIndex:0 withAnimation:NO];
+
+    NSUInteger lastSelectedIndex = [self.toolbarItemIdentifiers indexOfObject:[[NSUserDefaults standardUserDefaults] stringForKey:kMASPreferencesSelectedViewKey]];
+    [self selectControllerAtIndex:(lastSelectedIndex == NSNotFound ? 0 : lastSelectedIndex)  withAnimation:NO];
 }
 
 #pragma mark -
@@ -184,6 +188,7 @@ NSString *const kMASPreferencesWindowControllerDidChangeViewNotification = @"MAS
     NSUInteger controllerIndex = [identifiers indexOfObject:itemIdentifier];
     if (controllerIndex == NSNotFound) return;
     NSViewController <MASPreferencesViewController> *controller = [_viewControllers objectAtIndex:controllerIndex];
+    [[NSUserDefaults standardUserDefaults] setObject:controller.toolbarItemIdentifier forKey:kMASPreferencesSelectedViewKey];
     
     // Retrieve the new window tile from the controller view
     if ([self.title length] == 0)
