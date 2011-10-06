@@ -11,6 +11,11 @@ NSString *const kMASPreferencesWindowControllerDidChangeViewNotification = @"MAS
 static NSString *const kMASPreferencesFrameTopLeftKey = @"MASPreferences Frame Top Left";
 static NSString *const kMASPreferencesSelectedViewKey = @"MASPreferences Selected Identifier View";
 
+static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
+{
+    return [NSString stringWithFormat:@"MASPreferences %@ Frame", identifier];
+}
+
 @interface MASPreferencesWindowController () // Private
 
 - (void)updateViewControllerWithAnimation:(BOOL)animate;
@@ -36,6 +41,7 @@ static NSString *const kMASPreferencesSelectedViewKey = @"MASPreferences Selecte
     if ((self = [super initWithWindowNibName:@"MASPreferencesWindow"]))
     {
         _viewControllers = [viewControllers retain];
+        _minimumViewRects = [[NSMutableDictionary alloc] init];
         _title = [title copy];
     }
     return self;
@@ -47,6 +53,7 @@ static NSString *const kMASPreferencesSelectedViewKey = @"MASPreferences Selecte
     [[self window] setDelegate:nil];
     
     [_viewControllers release];
+    [_minimumViewRects release];
     [_title release];
     
     [super dealloc];
@@ -67,6 +74,7 @@ static NSString *const kMASPreferencesSelectedViewKey = @"MASPreferences Selecte
         [self.window setFrameTopLeftPoint:NSPointFromString(origin)];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidMove:)   name:NSWindowDidMoveNotification object:self.window];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidResize:) name:NSWindowDidResizeNotification object:self.window];
 }
 
 #pragma mark -
@@ -95,6 +103,13 @@ static NSString *const kMASPreferencesSelectedViewKey = @"MASPreferences Selecte
 - (void)windowDidMove:(NSNotification*)aNotification
 {
     [[NSUserDefaults standardUserDefaults] setObject:NSStringFromPoint(NSMakePoint(NSMinX([self.window frame]), NSMaxY([self.window frame]))) forKey:kMASPreferencesFrameTopLeftKey];
+}
+
+- (void)windowDidResize:(NSNotification*)aNotification
+{
+    NSViewController <MASPreferencesViewController> *viewController = self.selectedViewController;
+    if(viewController)
+        [[NSUserDefaults standardUserDefaults] setObject:NSStringFromRect([viewController.view bounds]) forKey:PreferencesKeyForViewBounds(viewController.toolbarItemIdentifier)];
 }
 
 #pragma mark -
@@ -213,16 +228,27 @@ static NSString *const kMASPreferencesSelectedViewKey = @"MASPreferences Selecte
     // Retrieve the view to place into window
     NSView *controllerView = controller.view;
     
+    // Retrieve current and minimum frame size for the view
+    NSString *oldViewRectString = [[NSUserDefaults standardUserDefaults] stringForKey:PreferencesKeyForViewBounds(controller.toolbarItemIdentifier)];
+    NSString *minViewRectString = [_minimumViewRects objectForKey:controller.toolbarItemIdentifier];
+    if(!minViewRectString)
+        [_minimumViewRects setObject:NSStringFromRect(controllerView.bounds) forKey:controller.toolbarItemIdentifier];
+    NSRect oldViewRect = oldViewRectString ? NSRectFromString(oldViewRectString) : controllerView.bounds;
+    NSRect minViewRect = minViewRectString ? NSRectFromString(minViewRectString) : controllerView.bounds;
+    oldViewRect.size.width  = NSWidth(oldViewRect)  < NSWidth(minViewRect)  ? NSWidth(minViewRect)  : NSWidth(oldViewRect);
+    oldViewRect.size.height = NSHeight(oldViewRect) < NSHeight(minViewRect) ? NSHeight(minViewRect) : NSHeight(oldViewRect);
+    [controllerView setFrame:oldViewRect];
+
     // Calculate new window size and position
     NSRect oldFrame = [self.window frame];
-    NSRect newFrame = [self.window frameRectForContentRect:controllerView.bounds];
+    NSRect newFrame = [self.window frameRectForContentRect:oldViewRect];
     newFrame = NSOffsetRect(newFrame, NSMinX(oldFrame), NSMaxY(oldFrame) - NSMaxY(newFrame));
 
     // Setup min/max sizes and show/hide resize indicator
     BOOL sizableWidth  = [controllerView autoresizingMask] & NSViewWidthSizable;
     BOOL sizableHeight = [controllerView autoresizingMask] & NSViewHeightSizable;
-    [self.window setContentMinSize:NSMakeSize(sizableWidth ?         200 : NSWidth(controllerView.bounds), sizableHeight ?         200 : NSHeight(controllerView.bounds))];
-    [self.window setContentMaxSize:NSMakeSize(sizableWidth ? CGFLOAT_MAX : NSWidth(controllerView.bounds), sizableHeight ? CGFLOAT_MAX : NSHeight(controllerView.bounds))];
+    [self.window setContentMinSize:minViewRect.size];
+    [self.window setContentMaxSize:NSMakeSize(sizableWidth ? CGFLOAT_MAX : NSWidth(oldViewRect), sizableHeight ? CGFLOAT_MAX : NSHeight(oldViewRect))];
     [self.window setShowsResizeIndicator:sizableWidth || sizableHeight];
     
     // Place the view into window and perform reposition

@@ -13,6 +13,7 @@ extern NSString *const kMASPreferencesWindowControllerDidChangeViewNotification;
 {
 @private
     NSArray *_viewControllers;
+    NSMutableDictionary *_minimumViewRects;
     NSString *_title;
     id _lastSelectedController;
 }
