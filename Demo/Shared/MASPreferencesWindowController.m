@@ -8,6 +8,7 @@
 
 NSString *const kMASPreferencesWindowControllerDidChangeViewNotification = @"MASPreferencesWindowControllerDidChangeViewNotification";
 
+static NSString *const kMASPreferencesFrameTopLeftKey = @"MASPreferences Frame Top Left";
 static NSString *const kMASPreferencesSelectedViewKey = @"MASPreferences Selected Identifier View";
 
 @interface MASPreferencesWindowController () // Private
@@ -42,6 +43,7 @@ static NSString *const kMASPreferencesSelectedViewKey = @"MASPreferences Selecte
 
 - (void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[self window] setDelegate:nil];
     
     [_viewControllers release];
@@ -59,6 +61,12 @@ static NSString *const kMASPreferencesSelectedViewKey = @"MASPreferences Selecte
 
     NSUInteger lastSelectedIndex = [self.toolbarItemIdentifiers indexOfObject:[[NSUserDefaults standardUserDefaults] stringForKey:kMASPreferencesSelectedViewKey]];
     [self selectControllerAtIndex:(lastSelectedIndex == NSNotFound ? 0 : lastSelectedIndex)  withAnimation:NO];
+
+    NSString *origin = [[NSUserDefaults standardUserDefaults] stringForKey:kMASPreferencesFrameTopLeftKey];
+    if(origin)
+        [self.window setFrameTopLeftPoint:NSPointFromString(origin)];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidMove:)   name:NSWindowDidMoveNotification object:self.window];
 }
 
 #pragma mark -
@@ -82,6 +90,11 @@ static NSString *const kMASPreferencesSelectedViewKey = @"MASPreferences Selecte
 - (void)windowDidBecomeKey:(NSNotification *)notification
 {
     [self resetFirstResponderInView:[[self window] contentView]];
+}
+
+- (void)windowDidMove:(NSNotification*)aNotification
+{
+    [[NSUserDefaults standardUserDefaults] setObject:NSStringFromPoint(NSMakePoint(NSMinX([self.window frame]), NSMaxY([self.window frame]))) forKey:kMASPreferencesFrameTopLeftKey];
 }
 
 #pragma mark -
