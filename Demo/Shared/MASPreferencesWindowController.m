@@ -195,25 +195,25 @@ NSString *const kMASPreferencesWindowControllerDidChangeViewNotification = @"MAS
     // Retrieve the view to place into window
     NSView *controllerView = controller.view;
     
-    // Calculate changes for window size and position
-    NSSize controllerViewSize = controllerView.bounds.size;
-    NSView *contentView = self.window.contentView;
-    NSSize contentSize = contentView.bounds.size;
-    CGFloat widthChange = contentSize.width - controllerViewSize.width;
-    CGFloat heightChange = contentSize.height - controllerViewSize.height;
-    
     // Calculate new window size and position
-    NSRect windowFrame = self.window.frame;
-    windowFrame.size.width -= widthChange;
-    windowFrame.size.height -= heightChange;
-    windowFrame.origin.y += heightChange;
+    NSRect oldFrame = [self.window frame];
+    NSRect newFrame = [self.window frameRectForContentRect:controllerView.bounds];
+    newFrame = NSOffsetRect(newFrame, NSMinX(oldFrame), NSMaxY(oldFrame) - NSMaxY(newFrame));
+
+    // Setup min/max sizes and show/hide resize indicator
+    BOOL sizableWidth  = [controllerView autoresizingMask] & NSViewWidthSizable;
+    BOOL sizableHeight = [controllerView autoresizingMask] & NSViewHeightSizable;
+    [self.window setContentMinSize:NSMakeSize(sizableWidth ?         200 : NSWidth(controllerView.bounds), sizableHeight ?         200 : NSHeight(controllerView.bounds))];
+    [self.window setContentMaxSize:NSMakeSize(sizableWidth ? CGFLOAT_MAX : NSWidth(controllerView.bounds), sizableHeight ? CGFLOAT_MAX : NSHeight(controllerView.bounds))];
+    [self.window setShowsResizeIndicator:sizableWidth || sizableHeight];
     
     // Place the view into window and perform reposition
+    NSView *contentView = self.window.contentView;
     NSArray *subviews = [contentView.subviews retain];
     for (NSView *subview in contentView.subviews)
         [subview removeFromSuperviewWithoutNeedingDisplay];
     [subviews release];
-    [self.window setFrame:windowFrame display:YES animate:animate];
+    [self.window setFrame:newFrame display:YES animate:animate];
     
     if ([_lastSelectedController respondsToSelector:@selector(viewDidDisappear)])
         [_lastSelectedController viewDidDisappear];
