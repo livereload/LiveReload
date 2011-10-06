@@ -99,12 +99,12 @@ NSString *const kMASPreferencesWindowControllerDidChangeViewNotification = @"MAS
     return selectedIndex;
 }
 
-- (NSViewController *)selectedViewController
+- (NSViewController <MASPreferencesViewController> *)selectedViewController
 {
     NSString *selectedIdentifier = self.window.toolbar.selectedItemIdentifier;
     NSArray *identifiers = self.toolbarItemIdentifiers;
     NSUInteger selectedIndex = [identifiers indexOfObject:selectedIdentifier];
-    NSViewController *selectedController = nil;
+    NSViewController <MASPreferencesViewController> *selectedController = nil;
     if (NSLocationInRange(selectedIndex, NSMakeRange(0, self.viewControllers.count)))
         selectedController = [self.viewControllers objectAtIndex:selectedIndex];
     return selectedController;

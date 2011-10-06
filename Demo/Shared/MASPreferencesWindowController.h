@@ -19,7 +19,7 @@ extern NSString *const kMASPreferencesWindowControllerDidChangeViewNotification;
 
 @property (nonatomic, readonly) NSArray *viewControllers;
 @property (nonatomic, readonly) NSUInteger indexOfSelectedController;
-@property (nonatomic, readonly) NSViewController *selectedViewController;
+@property (nonatomic, readonly) NSViewController <MASPreferencesViewController> *selectedViewController;
 @property (nonatomic, readonly) NSString *title;
 
 - (id)initWithViewControllers:(NSArray *)viewControllers;
