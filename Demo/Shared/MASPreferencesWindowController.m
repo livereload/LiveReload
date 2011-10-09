@@ -92,11 +92,6 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
     [self commitPreferences];
 }
 
-- (void)windowDidBecomeKey:(NSNotification *)notification
-{
-    [self resetFirstResponderInView:[[self window] contentView]];
-}
-
 - (void)windowDidMove:(NSNotification*)aNotification
 {
     [[NSUserDefaults standardUserDefaults] setObject:NSStringFromPoint(NSMakePoint(NSMinX([self.window frame]), NSMaxY([self.window frame]))) forKey:kMASPreferencesFrameTopLeftKey];
