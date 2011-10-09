@@ -262,11 +262,7 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
         [controller viewWillAppear];
     _lastSelectedController = controller;
     
-    // Add controller view only after animation is ended to avoid blinking
-    if (animate)
-        [self performSelector:@selector(setContentView:) withObject:controllerView afterDelay:0.0];
-    else
-        [self performSelector:@selector(setContentView:) withObject:controllerView];
+    [self setContentView:controllerView];
     
     // Insert view controller into responder chain
     [self patchResponderChain];
