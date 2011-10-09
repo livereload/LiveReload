@@ -292,8 +292,11 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
 
 - (void)toolbarItemDidClick:(id)sender
 {
-    [self updateViewControllerWithAnimation:YES];
+    // When selecting toolbar items via keyboard the toolbar doesn’t select the “clicked” item.
+    if([sender respondsToSelector:@selector(itemIdentifier)])
+        [[self.window toolbar] setSelectedItemIdentifier:[sender itemIdentifier]];
 
+    [self updateViewControllerWithAnimation:YES];
     [[NSNotificationCenter defaultCenter] postNotificationName:kMASPreferencesWindowControllerDidChangeViewNotification object:self];
 }
 
