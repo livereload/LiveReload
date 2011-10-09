@@ -263,6 +263,7 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
     _lastSelectedController = controller;
     
     [self setContentView:controllerView];
+    [self.window recalculateKeyViewLoop];
     
     // Insert view controller into responder chain
     [self patchResponderChain];
