@@ -243,12 +243,9 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
     [self.window setContentMaxSize:NSMakeSize(sizableWidth ? CGFLOAT_MAX : NSWidth(oldViewRect), sizableHeight ? CGFLOAT_MAX : NSHeight(oldViewRect))];
     [self.window setShowsResizeIndicator:sizableWidth || sizableHeight];
     
-    // Place the view into window and perform reposition
-    NSView *contentView = self.window.contentView;
-    NSArray *subviews = [contentView.subviews retain];
-    for (NSView *subview in contentView.subviews)
-        [subview removeFromSuperviewWithoutNeedingDisplay];
-    [subviews release];
+    // Replace previous content view with empty view
+    if(animate)
+        [self.window setContentView:[[[NSView alloc] init] autorelease]];
     [self.window setFrame:newFrame display:YES animate:animate];
     
     if ([_lastSelectedController respondsToSelector:@selector(viewDidDisappear)])
@@ -257,8 +254,9 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
         [controller viewWillAppear];
     _lastSelectedController = controller;
     
-    [self setContentView:controllerView];
+    [self.window setContentView:controllerView];
     [self.window recalculateKeyViewLoop];
+    [self resetFirstResponderInView:self.window.contentView];
     
     // Insert view controller into responder chain
     [self patchResponderChain];
@@ -277,12 +275,6 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
         for (NSView *subview in view.subviews)
             [self resetFirstResponderInView:subview];
     }
-}
-
-- (void)setContentView:(NSView *)view
-{
-    [self.window.contentView addSubview:view];
-    [self resetFirstResponderInView:self.window.contentView];
 }
 
 - (void)toolbarItemDidClick:(id)sender
