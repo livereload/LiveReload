@@ -21,12 +21,12 @@ extern NSString *const kMASPreferencesWindowControllerDidChangeViewNotification;
     NSArray *_viewControllers;
     NSMutableDictionary *_minimumViewRects;
     NSString *_title;
-    id _lastSelectedController;
+    NSViewController <MASPreferencesViewController> *_selectedViewController;
 }
 
 @property (nonatomic, readonly) NSArray *viewControllers;
 @property (nonatomic, readonly) NSUInteger indexOfSelectedController;
-@property (nonatomic, readonly) NSViewController <MASPreferencesViewController> *selectedViewController;
+@property (nonatomic, readonly, retain) NSViewController <MASPreferencesViewController> *selectedViewController;
 @property (nonatomic, readonly) NSString *title;
 
 - (id)initWithViewControllers:(NSArray *)viewControllers;
