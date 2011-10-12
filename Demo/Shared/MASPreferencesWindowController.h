@@ -32,7 +32,7 @@ extern NSString *const kMASPreferencesWindowControllerDidChangeViewNotification;
 - (id)initWithViewControllers:(NSArray *)viewControllers;
 - (id)initWithViewControllers:(NSArray *)viewControllers title:(NSString *)title;
 
-- (void)selectControllerAtIndex:(NSUInteger)controllerIndex withAnimation:(BOOL)animate;
+- (void)selectControllerAtIndex:(NSUInteger)controllerIndex;
 
 - (IBAction)goNextTab:(id)sender;
 - (IBAction)goPreviousTab:(id)sender;

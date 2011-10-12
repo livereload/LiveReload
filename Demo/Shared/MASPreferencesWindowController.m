@@ -279,7 +279,7 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
 #pragma mark -
 #pragma mark Public methods
 
-- (void)selectControllerAtIndex:(NSUInteger)controllerIndex withAnimation:(BOOL)animate
+- (void)selectControllerAtIndex:(NSUInteger)controllerIndex
 {
     if (NSLocationInRange(controllerIndex, NSMakeRange(0, _viewControllers.count)))
         self.selectedViewController = [self.viewControllers objectAtIndex:controllerIndex];
@@ -293,7 +293,7 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
     NSUInteger selectedIndex = self.indexOfSelectedController;
     NSUInteger numberOfControllers = [_viewControllers count];
     selectedIndex = (selectedIndex + 1) % numberOfControllers;
-    [self selectControllerAtIndex:selectedIndex withAnimation:YES];
+    [self selectControllerAtIndex:selectedIndex];
 }
 
 - (IBAction)goPreviousTab:(id)sender
@@ -301,7 +301,7 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
     NSUInteger selectedIndex = self.indexOfSelectedController;
     NSUInteger numberOfControllers = [_viewControllers count];
     selectedIndex = (selectedIndex + numberOfControllers - 1) % numberOfControllers;
-    [self selectControllerAtIndex:selectedIndex withAnimation:YES];
+    [self selectControllerAtIndex:selectedIndex];
 }
 
 @end
