@@ -8,6 +8,7 @@
 
 - (void)viewWillAppear;
 - (void)viewDidDisappear;
+- (NSView*)initialKeyView;
 
 @required
 

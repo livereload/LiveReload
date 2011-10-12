@@ -262,7 +262,16 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
     [self.window setContentView:controllerView];
     [self.window recalculateKeyViewLoop];
     if ([self.window firstResponder] == self.window)
-        [self.window selectKeyViewFollowingView:controllerView];
+    {
+        if ([controller respondsToSelector:@selector(initialKeyView)])
+        {
+            [self.window makeFirstResponder:[controller initialKeyView]];
+        }
+        else
+        {
+            [self.window selectKeyViewFollowingView:controllerView];
+        }
+    }
     
     // Insert view controller into responder chain
     [self patchResponderChain];
