@@ -70,7 +70,7 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
         self.selectedViewController = [self viewControllerForIdentifier:[[NSUserDefaults standardUserDefaults] stringForKey:kMASPreferencesSelectedViewKey]] ?: [self.viewControllers objectAtIndex:0];
 
     NSString *origin = [[NSUserDefaults standardUserDefaults] stringForKey:kMASPreferencesFrameTopLeftKey];
-    if(origin)
+    if (origin)
         [self.window setFrameTopLeftPoint:NSPointFromString(origin)];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidMove:)   name:NSWindowDidMoveNotification object:self.window];
@@ -180,9 +180,9 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
 
 - (NSViewController <MASPreferencesViewController> *)viewControllerForIdentifier:(NSString *)identifier
 {
-    for(NSViewController <MASPreferencesViewController>* viewController in self.viewControllers)
+    for (NSViewController <MASPreferencesViewController>* viewController in self.viewControllers)
     {
-        if([viewController.identifier isEqualToString:identifier])
+        if ([viewController.identifier isEqualToString:identifier])
             return viewController;
     }
     return nil;
@@ -232,7 +232,7 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
     // Retrieve current and minimum frame size for the view
     NSString *oldViewRectString = [[NSUserDefaults standardUserDefaults] stringForKey:PreferencesKeyForViewBounds(controller.identifier)];
     NSString *minViewRectString = [_minimumViewRects objectForKey:controller.identifier];
-    if(!minViewRectString)
+    if (!minViewRectString)
         [_minimumViewRects setObject:NSStringFromRect(controllerView.bounds) forKey:controller.identifier];
     BOOL sizableWidth  = [controllerView autoresizingMask] & NSViewWidthSizable;
     BOOL sizableHeight = [controllerView autoresizingMask] & NSViewHeightSizable;
@@ -261,7 +261,7 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
     
     [self.window setContentView:controllerView];
     [self.window recalculateKeyViewLoop];
-    if([self.window firstResponder] == self.window)
+    if ([self.window firstResponder] == self.window)
         [self.window selectKeyViewFollowingView:controllerView];
     
     // Insert view controller into responder chain
