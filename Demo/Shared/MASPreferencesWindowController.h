@@ -37,6 +37,4 @@ extern NSString *const kMASPreferencesWindowControllerDidChangeViewNotification;
 - (IBAction)goNextTab:(id)sender;
 - (IBAction)goPreviousTab:(id)sender;
 
-- (void)resetFirstResponderInView:(NSView *)view;
-
 @end

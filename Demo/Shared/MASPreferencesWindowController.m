@@ -261,27 +261,13 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
     
     [self.window setContentView:controllerView];
     [self.window recalculateKeyViewLoop];
-    [self resetFirstResponderInView:controllerView];
+    if([self.window firstResponder] == self.window)
+        [self.window selectKeyViewFollowingView:controllerView];
     
     // Insert view controller into responder chain
     [self patchResponderChain];
 
     [[NSNotificationCenter defaultCenter] postNotificationName:kMASPreferencesWindowControllerDidChangeViewNotification object:self];
-}
-
-- (void)resetFirstResponderInView:(NSView *)view
-{
-    BOOL isNotButton = ![view isKindOfClass:[NSButton class]];
-    BOOL canBecomeKey = view.canBecomeKeyView;
-    if (isNotButton && canBecomeKey)
-    {
-        [self.window makeFirstResponder:view];
-    }
-    else
-    {
-        for (NSView *subview in view.subviews)
-            [self resetFirstResponderInView:subview];
-    }
 }
 
 - (void)toolbarItemDidClick:(id)sender
