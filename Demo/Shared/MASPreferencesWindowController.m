@@ -70,7 +70,7 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
         self.selectedViewController = [self viewControllerForIdentifier:[[NSUserDefaults standardUserDefaults] stringForKey:kMASPreferencesSelectedViewKey]] ?: [self.viewControllers objectAtIndex:0];
 
     NSString *origin = [[NSUserDefaults standardUserDefaults] stringForKey:kMASPreferencesFrameTopLeftKey];
-    if(origin)
+    if (origin)
         [self.window setFrameTopLeftPoint:NSPointFromString(origin)];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidMove:)   name:NSWindowDidMoveNotification object:self.window];
@@ -180,9 +180,9 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
 
 - (NSViewController <MASPreferencesViewController> *)viewControllerForIdentifier:(NSString *)identifier
 {
-    for(NSViewController <MASPreferencesViewController>* viewController in self.viewControllers)
+    for (NSViewController <MASPreferencesViewController>* viewController in self.viewControllers)
     {
-        if([viewController.identifier isEqualToString:identifier])
+        if ([viewController.identifier isEqualToString:identifier])
             return viewController;
     }
     return nil;
@@ -232,7 +232,7 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
     // Retrieve current and minimum frame size for the view
     NSString *oldViewRectString = [[NSUserDefaults standardUserDefaults] stringForKey:PreferencesKeyForViewBounds(controller.identifier)];
     NSString *minViewRectString = [_minimumViewRects objectForKey:controller.identifier];
-    if(!minViewRectString)
+    if (!minViewRectString)
         [_minimumViewRects setObject:NSStringFromRect(controllerView.bounds) forKey:controller.identifier];
     BOOL sizableWidth  = [controllerView autoresizingMask] & NSViewWidthSizable;
     BOOL sizableHeight = [controllerView autoresizingMask] & NSViewHeightSizable;
@@ -261,27 +261,22 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
     
     [self.window setContentView:controllerView];
     [self.window recalculateKeyViewLoop];
-    [self resetFirstResponderInView:controllerView];
+    if ([self.window firstResponder] == self.window)
+    {
+        if ([controller respondsToSelector:@selector(initialKeyView)])
+        {
+            [self.window makeFirstResponder:[controller initialKeyView]];
+        }
+        else
+        {
+            [self.window selectKeyViewFollowingView:controllerView];
+        }
+    }
     
     // Insert view controller into responder chain
     [self patchResponderChain];
 
     [[NSNotificationCenter defaultCenter] postNotificationName:kMASPreferencesWindowControllerDidChangeViewNotification object:self];
-}
-
-- (void)resetFirstResponderInView:(NSView *)view
-{
-    BOOL isNotButton = ![view isKindOfClass:[NSButton class]];
-    BOOL canBecomeKey = view.canBecomeKeyView;
-    if (isNotButton && canBecomeKey)
-    {
-        [self.window makeFirstResponder:view];
-    }
-    else
-    {
-        for (NSView *subview in view.subviews)
-            [self resetFirstResponderInView:subview];
-    }
 }
 
 - (void)toolbarItemDidClick:(id)sender
@@ -293,7 +288,7 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
 #pragma mark -
 #pragma mark Public methods
 
-- (void)selectControllerAtIndex:(NSUInteger)controllerIndex withAnimation:(BOOL)animate
+- (void)selectControllerAtIndex:(NSUInteger)controllerIndex
 {
     if (NSLocationInRange(controllerIndex, NSMakeRange(0, _viewControllers.count)))
         self.selectedViewController = [self.viewControllers objectAtIndex:controllerIndex];
@@ -307,7 +302,7 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
     NSUInteger selectedIndex = self.indexOfSelectedController;
     NSUInteger numberOfControllers = [_viewControllers count];
     selectedIndex = (selectedIndex + 1) % numberOfControllers;
-    [self selectControllerAtIndex:selectedIndex withAnimation:YES];
+    [self selectControllerAtIndex:selectedIndex];
 }
 
 - (IBAction)goPreviousTab:(id)sender
@@ -315,7 +310,7 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
     NSUInteger selectedIndex = self.indexOfSelectedController;
     NSUInteger numberOfControllers = [_viewControllers count];
     selectedIndex = (selectedIndex + numberOfControllers - 1) % numberOfControllers;
-    [self selectControllerAtIndex:selectedIndex withAnimation:YES];
+    [self selectControllerAtIndex:selectedIndex];
 }
 
 @end
