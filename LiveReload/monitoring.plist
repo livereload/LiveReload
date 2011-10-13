@@ -9,6 +9,7 @@
 		<string>.git</string>
 		<string>.hg</string>
 		<string>.DS_Store</string>
+		<string>node_modules</string>
 	</array>
 	<key>extensions</key>
 	<array>
