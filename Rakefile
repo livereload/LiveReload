@@ -165,3 +165,11 @@ namespace :build do
   end
 
 end
+
+
+file 'LiveReload/livereload.js' => ['js/dist/livereload.js'] do |t|
+  cp t.prerequisites.first, t.name
+end
+
+desc "Update LiveReload.js from js/dist/"
+task :js => ['LiveReload/livereload.js']

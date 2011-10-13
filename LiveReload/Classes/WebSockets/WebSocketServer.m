@@ -49,6 +49,7 @@ static int WebSocketServer_http_callback(struct libwebsocket_context * this,
     //struct WebSocketServer_http_per_session_data *pss = user;
     char client_name[128];
     char client_ip[128];
+    char buf[1024];
     NSString *path;
 
     switch (reason) {
@@ -59,19 +60,11 @@ static int WebSocketServer_http_callback(struct libwebsocket_context * this,
                 path = [[NSBundle mainBundle] pathForResource:@"livereload.js" ofType:nil];
                 NSCAssert(path != nil, @"File 'livereload.js' not found inside the bundle");
                 libwebsockets_serve_http_file(wsi, [path fileSystemRepresentation], "text/javascript");
-                break;
+            } else {
+                sprintf(buf, "HTTP/1.0 404 Not Found\x0d\x0aContent-Length: 0\x0d\x0a\x0d\x0a");
+                libwebsocket_write(wsi, (unsigned char *)buf, strlen(buf), LWS_WRITE_HTTP);
             }
-
-            if (in && strcmp(in, "/favicon.ico") == 0) {
-//                if (libwebsockets_serve_http_file(wsi,
-//                                                  LOCAL_RESOURCE_PATH"/favicon.ico", "image/x-icon"))
-//                    fprintf(stderr, "Failed to send favicon\n");
-                break;
-            }
-
-            /* send the script... when it runs it'll start websockets */
-
-            fprintf(stderr, "Failed to send HTTP file\n");
+            shutdown(wsi->sock, SHUT_RDWR);
             break;
 
             /*
