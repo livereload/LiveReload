@@ -16,7 +16,12 @@
 #import "ToolOutput.h"
 
 #import "RegexKitLite.h"
+#import "NSArray+Substitutions.h"
+#import "NSTask+OneLineTasksWithOutput.h"
 #import "ATFunctionalStyle.h"
+
+
+#define kPostProcessingSafeInterval 0.5l
 
 
 #define PathKey @"path"
@@ -45,6 +50,7 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
 @synthesize dirty=_dirty;
 @synthesize lastSelectedPane=_lastSelectedPane;
 @synthesize enabled=_enabled;
+@synthesize postProcessingCommand=_postProcessingCommand;
 
 
 #pragma mark -
@@ -78,6 +84,8 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
             }];
         }
 
+        _postProcessingCommand = [[memento objectForKey:@"postproc"] copy];
+
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleCompilationOptionsEnablementChanged:) name:CompilationOptionsEnabledChangedNotification object:nil];
         [self handleCompilationOptionsEnablementChanged:nil];
     }
@@ -90,6 +98,7 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
     [_monitor release], _monitor = nil;
     [_compilerOptions release], _compilerOptions = nil;
     [_monitoringRequests release], _monitoringRequests = nil;
+    [_postProcessingCommand release], _postProcessingCommand = nil;
     [super dealloc];
 }
 
@@ -102,6 +111,8 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
     [memento setObject:[_compilerOptions dictionaryByMappingValuesToSelector:@selector(memento)] forKey:@"compilers"];
     if (_lastSelectedPane)
         [memento setObject:_lastSelectedPane forKey:@"last_pane"];
+    if ([_postProcessingCommand length] > 0)
+        [memento setObject:_postProcessingCommand forKey:@"postproc"];
     return [NSDictionary dictionaryWithDictionary:memento];
 }
 
@@ -224,6 +235,40 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
         return;
     }
 
+    if ([_postProcessingCommand length] > 0) {
+        NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
+        if (_lastPostProcessingRunDate == 0 || (now - _lastPostProcessingRunDate >= kPostProcessingSafeInterval)) {
+            _lastPostProcessingRunDate = now;
+
+            NSMutableDictionary *info = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                         @"/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/bin/ruby", @"$(ruby)",
+                                         [[NSBundle mainBundle] pathForResource:@"node" ofType:nil], @"$(node)",
+                                         _path, @"$(project_dir)",
+                                         nil];
+
+            NSString *command = [_postProcessingCommand stringBySubstitutingValuesFromDictionary:info];
+            NSLog(@"Running post-processing command: %@", command);
+
+            NSString *runDirectory = _path;
+            NSArray *shArgs = [NSArray arrayWithObjects:@"-c", command, nil];
+
+            NSError *error = nil;
+            NSString *pwd = [[NSFileManager defaultManager] currentDirectoryPath];
+            [[NSFileManager defaultManager] changeCurrentDirectoryPath:runDirectory];
+            NSString *output = [NSTask stringByLaunchingPath:@"/bin/sh"
+                                               withArguments:shArgs
+                                                       error:&error];
+            [[NSFileManager defaultManager] changeCurrentDirectoryPath:pwd];
+
+            if ([output length] > 0) {
+                NSLog(@"Post-processing output:\n%@\n", output);
+            }
+            if (error) {
+                NSLog(@"Error: %@", [error description]);
+            }
+        }
+    }
+
     [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidDetectChangeNotification object:self];
     [[CommunicationController sharedCommunicationController] broadcastChangedPathes:filtered inProject:self];
 }
@@ -242,6 +287,14 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
         }
     }
     return NO;
+}
+
+- (void)setPostProcessingCommand:(NSString *)postProcessingCommand {
+    if (postProcessingCommand != _postProcessingCommand) {
+        [_postProcessingCommand release];
+        _postProcessingCommand = [postProcessingCommand copy];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+    }
 }
 
 - (CompilationOptions *)optionsForCompiler:(Compiler *)compiler create:(BOOL)create {

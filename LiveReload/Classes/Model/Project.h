@@ -28,6 +28,9 @@ extern NSString *ProjectNeedsSavingNotification;
 
     NSString                *_lastSelectedPane;
     BOOL                     _dirty;
+
+    NSString                *_postProcessingCommand;
+    NSTimeInterval           _lastPostProcessingRunDate;
 }
 
 - (id)initWithPath:(NSString *)path memento:(NSDictionary *)memento;
@@ -56,5 +59,7 @@ extern NSString *ProjectNeedsSavingNotification;
 @property(nonatomic, copy) NSString *lastSelectedPane;
 
 @property(nonatomic, getter = isDirty) BOOL dirty;
+
+@property(nonatomic, retain) NSString *postProcessingCommand;
 
 @end

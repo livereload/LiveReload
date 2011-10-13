@@ -16,6 +16,8 @@
 		43361D4C13C3210200C0E589 /* LESS.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43361D4B13C3210200C0E589 /* LESS.lrplugin */; };
 		43361D4E13C329CD00C0E589 /* HAML.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43361D4D13C329CD00C0E589 /* HAML.lrplugin */; };
 		43361D5013C32C3D00C0E589 /* SASS.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43361D4F13C32C3D00C0E589 /* SASS.lrplugin */; };
+		43468AAF14476B2400A06E21 /* ScriptPaneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43468AAE14476B2400A06E21 /* ScriptPaneViewController.m */; };
+		43468AB114476B3A00A06E21 /* ScriptPaneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43468AB014476B3A00A06E21 /* ScriptPaneViewController.xib */; };
 		43594AF413D3BB34004175B2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43594AF313D3BB34004175B2 /* QuartzCore.framework */; };
 		435BE042141B72A60008FF77 /* NewMainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 435BE041141B72A60008FF77 /* NewMainWindow.xib */; };
 		435BE045141B87920008FF77 /* NewMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 435BE044141B87920008FF77 /* NewMainWindowController.m */; };
@@ -141,6 +143,9 @@
 		43361D4B13C3210200C0E589 /* LESS.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = LESS.lrplugin; path = Compilers/LESS.lrplugin; sourceTree = SOURCE_ROOT; };
 		43361D4D13C329CD00C0E589 /* HAML.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HAML.lrplugin; path = Compilers/HAML.lrplugin; sourceTree = SOURCE_ROOT; };
 		43361D4F13C32C3D00C0E589 /* SASS.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SASS.lrplugin; path = Compilers/SASS.lrplugin; sourceTree = SOURCE_ROOT; };
+		43468AAD14476B2400A06E21 /* ScriptPaneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScriptPaneViewController.h; sourceTree = "<group>"; };
+		43468AAE14476B2400A06E21 /* ScriptPaneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScriptPaneViewController.m; sourceTree = "<group>"; };
+		43468AB014476B3A00A06E21 /* ScriptPaneViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScriptPaneViewController.xib; sourceTree = "<group>"; };
 		43594AF313D3BB34004175B2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		435BE041141B72A60008FF77 /* NewMainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewMainWindow.xib; sourceTree = "<group>"; };
 		435BE043141B87920008FF77 /* NewMainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewMainWindowController.h; sourceTree = "<group>"; };
@@ -611,6 +616,9 @@
 				823DDE8F13F8DA3100529AD2 /* ProjectOptionsSheet.xib */,
 				823DDE9013F8DA3100529AD2 /* ProjectOptionsSheetController.h */,
 				823DDE9113F8DA3100529AD2 /* ProjectOptionsSheetController.m */,
+				43468AAD14476B2400A06E21 /* ScriptPaneViewController.h */,
+				43468AAE14476B2400A06E21 /* ScriptPaneViewController.m */,
+				43468AB014476B3A00A06E21 /* ScriptPaneViewController.xib */,
 			);
 			path = "Project Options";
 			sourceTree = "<group>";
@@ -838,6 +846,7 @@
 				43191846141A0D1C008457FF /* Eco.lrplugin in Resources */,
 				435BE042141B72A60008FF77 /* NewMainWindow.xib in Resources */,
 				825235321428769E001C3486 /* SLIM.lrplugin in Resources */,
+				43468AB114476B3A00A06E21 /* ScriptPaneViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -924,6 +933,7 @@
 				82B886AC1407D452001A94D6 /* extension-x-google-mux.c in Sources */,
 				435BE045141B87920008FF77 /* NewMainWindowController.m in Sources */,
 				821AFF0014270B5200B61760 /* BBEditEditor.m in Sources */,
+				43468AAF14476B2400A06E21 /* ScriptPaneViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

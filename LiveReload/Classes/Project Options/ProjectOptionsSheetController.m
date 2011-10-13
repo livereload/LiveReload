@@ -2,6 +2,7 @@
 #import "ProjectOptionsSheetController.h"
 #import "PaneViewController.h"
 #import "CompilerPaneViewController.h"
+#import "ScriptPaneViewController.h"
 
 #import "PluginManager.h"
 #import "Compiler.h"
@@ -41,6 +42,7 @@ static NSString *kSelectionObservation = @"kSelectionObservation";
         for (Compiler *compiler in [PluginManager sharedPluginManager].compilers) {
             [panes addObject:[[[CompilerPaneViewController alloc] initWithProject:project compiler:compiler] autorelease]];
         }
+        [panes addObject:[[[ScriptPaneViewController alloc] initWithProject:project] autorelease]];
         _panes = [panes copy];
     }
     return self;
