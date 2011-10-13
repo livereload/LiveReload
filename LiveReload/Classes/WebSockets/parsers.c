@@ -1344,7 +1344,7 @@ libwebsocket_0405_frame_mask_generate(struct libwebsocket *wsi)
 	 */
 
 	memcpy(buf, wsi->frame_masking_nonce_04, 4);
-	
+
 	memcpy(buf + 4, wsi->masking_key_04, 20);
 
 	/* concatenate the nonce with the connection key then hash it */
@@ -1366,7 +1366,7 @@ void lws_stderr_hexdump(unsigned char *buf, size_t len)
 		start = n;
 
 		fprintf(stderr, "%04X: ", start);
-		
+
 		for (m = 0; m < 16 && n < len; m++)
 			fprintf(stderr, "%02X ", buf[n++]);
 		while (m++ < 16)
@@ -1657,7 +1657,7 @@ int libwebsocket_write(struct libwebsocket *wsi, unsigned char *buf,
 			 * v5 mandates the first byte of close packet
 			 * in both client and server directions
 			 */
-			
+
 			switch (wsi->ietf_spec_revision) {
 			case 0:
 			case 4:
@@ -1667,7 +1667,7 @@ int libwebsocket_write(struct libwebsocket *wsi, unsigned char *buf,
 
 				if (len < 1)
 					len = 1;
-				
+
 				switch (wsi->mode) {
 				case LWS_CONNMODE_WS_SERVING:
 					/*

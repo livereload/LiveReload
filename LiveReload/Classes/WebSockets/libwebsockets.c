@@ -127,7 +127,7 @@ interface_to_sa(const char* ifname, struct sockaddr_in *addr, size_t addrlen)
 		if (sin->sin_family != AF_INET)
 			continue;
 		memcpy(addr, sin, addrlen);
-		rc = 0; 
+		rc = 0;
 	}
 
 	freeifaddrs(ifr);
@@ -428,7 +428,7 @@ libwebsockets_get_peer_addresses(int fd, char *name, int name_len,
 		perror("getpeername");
 		return;
 	}
-		
+
 	host = gethostbyaddr((char *) &sin.sin_addr, sizeof sin.sin_addr,
 								       AF_INET);
 	if (host == NULL) {
@@ -489,13 +489,13 @@ libwebsockets_SHA1(const unsigned char *d, size_t n, unsigned char *md)
 void libwebsockets_00_spaceout(char *key, int spaces, int seed)
 {
 	char *p;
-	
+
 	key++;
 	while (spaces--) {
 		if (*key && (seed & 1))
 			key++;
 		seed >>= 1;
-		
+
 		p = key + strlen(key);
 		while (p >= key) {
 			p[1] = p[0];
@@ -511,7 +511,7 @@ void libwebsockets_00_spam(char *key, int count, int seed)
 
 	key++;
 	while (count--) {
-		
+
 		if (*key && (seed & 1))
 			key++;
 		seed >>= 1;
@@ -693,7 +693,7 @@ libwebsocket_service_timeout_check(struct libwebsocket_context *context,
 
 	if (!wsi->pending_timeout)
 		return;
-			  
+
 	/*
 	 * if we went beyond the allowed time, kill the
 	 * connection
@@ -1566,7 +1566,7 @@ libwebsocket_service_fd(struct libwebsocket_context *context,
 				free(new_wsi);
 				break;
 			}
-			
+
 			debug("accepted new SSL conn  "
 			      "port %u on fd=%d SSL ver %s\n",
 				ntohs(cli_addr.sin_port), accept_fd,
@@ -1599,7 +1599,7 @@ libwebsocket_service_fd(struct libwebsocket_context *context,
 	case LWS_CONNMODE_BROADCAST_PROXY_LISTENER:
 
 		/* as we are listening, POLLIN means accept() is needed */
-	
+
 		if (!pollfd->revents & POLLIN)
 			break;
 
@@ -2369,7 +2369,7 @@ OpenSSL_verify_callback(int preverify_ok, X509_STORE_CTX *x509_ctx)
 	 * static
 	 */
 	context = SSL_get_ex_data(ssl, openssl_websocket_private_data_index);
-	
+
 	n = context->protocols[0].callback(NULL, NULL,
 		LWS_CALLBACK_OPENSSL_PERFORM_CLIENT_CERT_VERIFICATION,
 						   x509_ctx, ssl, preverify_ok);
@@ -2622,7 +2622,7 @@ libwebsocket_create_context(int port, const char *interf,
 	if (options & LWS_SERVER_OPTION_REQUIRE_VALID_OPENSSL_CLIENT_CERT) {
 
 		/* absolutely require the client cert */
-		
+
 		SSL_CTX_set_verify(context->ssl_ctx,
 		       SSL_VERIFY_PEER | SSL_VERIFY_FAIL_IF_NO_PEER_CERT,
 						       OpenSSL_verify_callback);
@@ -2724,7 +2724,7 @@ libwebsocket_create_context(int port, const char *interf,
 		fprintf(stderr, " Listening on port %d\n", port);
 
 		/* list in the internal poll array */
-		
+
 		context->fds[context->fds_count].fd = sockfd;
 		context->fds[context->fds_count++].events = POLLIN;
 

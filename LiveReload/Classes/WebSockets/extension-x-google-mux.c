@@ -160,7 +160,7 @@ lws_extension_x_google_mux_parser(struct libwebsocket_context *context,
 	 * [ <Channel ID b12.. b8> <Mux Opcode b2..b0> ]
 	 * [ <Channel ID b7.. b0> ]
 	 */
-	
+
 	switch (conn->state) {
 
 	case LWS_EXT_XGM_STATE__MUX_BLOCK_1:
@@ -192,7 +192,7 @@ interpret:
 		 */
 
 		/* act on the muxing opcode */
-		
+
 		switch (conn->block_subopcode) {
 		case LWS_EXT_XGM_OPC__DATA:
 			conn->state = LWS_EXT_XGM_STATE__DATA;
@@ -306,7 +306,7 @@ interpret:
 		switch (wsi->mode) {
 
 		/* client: parse accepted headers returned by server */
-			
+
 		case LWS_CONNMODE_WS_CLIENT_WAITING_PROXY_REPLY:
 		case LWS_CONNMODE_WS_CLIENT_ISSUE_HANDSHAKE:
 		case LWS_CONNMODE_WS_CLIENT_WAITING_SERVER_REPLY:
@@ -556,7 +556,7 @@ bail2:
 		switch (wsi_child->mode) {
 
 		/* client receives something */
-			
+
 		case LWS_CONNMODE_WS_CLIENT_WAITING_PROXY_REPLY:
 		case LWS_CONNMODE_WS_CLIENT_ISSUE_HANDSHAKE:
 		case LWS_CONNMODE_WS_CLIENT_WAITING_SERVER_REPLY:
@@ -936,7 +936,7 @@ handle_additions:
 		 * if we have any candidate children let's try to attach them
 		 * as mux subchannel real children
 		 */
-		
+
 		wsi_child = wsi->candidate_children_list;
 		n = 0;
 		while (wsi_child) {
@@ -959,7 +959,7 @@ handle_additions:
 			}
 
 			muxdebug("  using mux addchannel action for candidate child\n");
-			
+
 			/* pile the children on the parent */
 			lws_ext_x_google_mux__send_addchannel(context, wsi,
 					conn, wsi_child,

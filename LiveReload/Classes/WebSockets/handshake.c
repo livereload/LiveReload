@@ -424,7 +424,7 @@ handshake_0405(struct libwebsocket_context *context, struct libwebsocket *wsi)
 				}
 
 				/* apply it */
-				
+
 				if (ext_count)
 					*p++ = ',';
 				p += sprintf(p, "%s", ext_name);
@@ -438,7 +438,7 @@ handshake_0405(struct libwebsocket_context *context, struct libwebsocket *wsi)
 				memset(wsi->active_extensions_user[
 					wsi->count_active_extensions], 0,
 						    ext->per_session_data_size);
-							
+
 				wsi->active_extensions[
 					  wsi->count_active_extensions] = ext;
 
@@ -594,7 +594,7 @@ libwebsocket_read(struct libwebsocket_context *context, struct libwebsocket *wsi
 		default:
 			break;
 		}
-		
+
 		/* LWS_CONNMODE_WS_SERVING */
 
 		for (n = 0; n < len; n++)
