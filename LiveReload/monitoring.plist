@@ -47,6 +47,8 @@
 		<string>ctp</string>
 		<string>md</string>
 		<string>markdown</string>
+		<string>as</string>
+		<string>swf</string>
 	</array>
 </dict>
 </plist>
