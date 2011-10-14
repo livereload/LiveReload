@@ -223,6 +223,9 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
                     [filtered addObject:derivedName];
                     NSLog(@"Broadcasting a fake change in %@ instead of %@ because %@ mode is MIDDLEWARE (PRETEND).", derivedName, relativePath, compiler.name);
                     break;
+                } else if (compilationOptions.mode == CompilationModeDisabled) {
+                    compilerFound = NO;
+                    break;
                 }
             }
         }

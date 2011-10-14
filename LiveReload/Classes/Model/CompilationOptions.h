@@ -15,6 +15,7 @@ typedef enum {
     CompilationModeIgnore,
     CompilationModeCompile,
     CompilationModeMiddleware,
+    CompilationModeDisabled,
 } CompilationMode;
 
 

@@ -10,9 +10,9 @@
 
 NSString *CompilationOptionsEnabledChangedNotification = @"CompilationOptionsEnabledChangedNotification";
 
-NSString *APIModeNames[] = { @"ignore", @"compile", @"middleware" };
+NSString *APIModeNames[] = { @"ignore", @"compile", @"middleware", @"disabled" };
 
-NSString *DisplayModeNames[] = { @"ignore", @"compile", @"on-the-fly" };
+NSString *DisplayModeNames[] = { @"ignore", @"compile", @"on-the-fly", @"disabled" };
 
 
 @implementation CompilationOptions
@@ -48,6 +48,8 @@ NSString *DisplayModeNames[] = { @"ignore", @"compile", @"on-the-fly" };
                 _mode = CompilationModeCompile;
             else if ([raw isEqualToString:@"middleware"])
                 _mode = CompilationModeMiddleware;
+            else if ([raw isEqualToString:@"disabled"])
+                _mode = CompilationModeDisabled;
             else {
                 NSLog(@"Ignoring unknown value of mode: '%@'", raw);
                 _mode = CompilationModeIgnore;
