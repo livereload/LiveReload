@@ -230,6 +230,9 @@ var __protocol = {}, __connector = {}, __timer = {}, __options = {}, __reloader 
     };
     return Timer;
   })();
+  Timer.start = function(timeout, func) {
+    return setTimeout(func, timeout);
+  };
 }).call(this);
 
 // options
@@ -285,7 +288,8 @@ var __protocol = {}, __connector = {}, __timer = {}, __options = {}, __reloader 
 
 // reloader
 (function() {
-  var Reloader, numberOfMatchingSegments, pathFromUrl, pickBestMatch, splitUrl;
+  var IMAGE_STYLES, Reloader, numberOfMatchingSegments, pathFromUrl, pathsMatch, pickBestMatch, splitUrl;
+  var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
   splitUrl = function(url) {
     var hash, index, params;
     if ((index = url.indexOf('#')) >= 0) {
@@ -351,9 +355,20 @@ var __protocol = {}, __connector = {}, __timer = {}, __options = {}, __reloader 
     while (eqCount < len && comps1[eqCount] === comps2[eqCount]) {
       ++eqCount;
     }
-    console.log("numberOfMatchingSegments('" + path1 + "', '" + path2 + "') == " + eqCount);
     return eqCount;
   };
+  pathsMatch = function(path1, path2) {
+    return numberOfMatchingSegments(path1, path2) > 0;
+  };
+  IMAGE_STYLES = [
+    {
+      selector: 'background',
+      styleNames: ['backgroundImage']
+    }, {
+      selector: 'border',
+      styleNames: ['borderImage', 'webkitBorderImage', 'MozBorderImage']
+    }
+  ];
   __reloader.Reloader = Reloader = (function() {
     function Reloader(window, console, Timer) {
       this.window = window;
@@ -361,13 +376,24 @@ var __protocol = {}, __connector = {}, __timer = {}, __options = {}, __reloader 
       this.Timer = Timer;
       this.document = this.window.document;
       this.stylesheetGracePeriod = 200;
+      this.importCacheWaitPeriod = 200;
     }
-    Reloader.prototype.reload = function(path, liveCSS) {
-      if (liveCSS) {
+    Reloader.prototype.reload = function(path, options) {
+      if (options.liveCSS) {
         if (path.match(/\.css$/i)) {
           if (this.reloadStylesheet(path)) {
             return;
           }
+        }
+        if (path.match(/\.less$/i) && this.window.less && this.window.less.refresh) {
+          this.window.less.refresh(true);
+          return;
+        }
+      }
+      if (options.liveImg) {
+        if (path.match(/\.(jpe?g|png|gif)$/i)) {
+          this.reloadImages(path);
+          return;
         }
       }
       return this.reloadPage();
@@ -375,35 +401,149 @@ var __protocol = {}, __connector = {}, __timer = {}, __options = {}, __reloader 
     Reloader.prototype.reloadPage = function() {
       return this.window.document.location.reload();
     };
+    Reloader.prototype.reloadImages = function(path) {
+      var expando, img, selector, styleNames, styleSheet, _i, _j, _k, _l, _len, _len2, _len3, _len4, _ref, _ref2, _ref3, _ref4, _results;
+      expando = this.generateUniqueString();
+      _ref = this.document.images;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        img = _ref[_i];
+        if (pathsMatch(path, pathFromUrl(img.src))) {
+          img.src = this.generateCacheBustUrl(img.src, expando);
+        }
+      }
+      if (this.document.querySelectorAll) {
+        for (_j = 0, _len2 = IMAGE_STYLES.length; _j < _len2; _j++) {
+          _ref2 = IMAGE_STYLES[_j], selector = _ref2.selector, styleNames = _ref2.styleNames;
+          _ref3 = this.document.querySelectorAll("[style*=" + selector + "]");
+          for (_k = 0, _len3 = _ref3.length; _k < _len3; _k++) {
+            img = _ref3[_k];
+            this.reloadStyleImages(img.style, styleNames, path, expando);
+          }
+        }
+      }
+      if (this.document.styleSheets) {
+        _ref4 = this.document.styleSheets;
+        _results = [];
+        for (_l = 0, _len4 = _ref4.length; _l < _len4; _l++) {
+          styleSheet = _ref4[_l];
+          _results.push(this.reloadStylesheetImages(styleSheet, path, expando));
+        }
+        return _results;
+      }
+    };
+    Reloader.prototype.reloadStylesheetImages = function(styleSheet, path, expando) {
+      var rule, rules, styleNames, _i, _j, _len, _len2;
+      try {
+        rules = styleSheet != null ? styleSheet.cssRules : void 0;
+      } catch (e) {
+
+      }
+      if (!rules) {
+        return;
+      }
+      for (_i = 0, _len = rules.length; _i < _len; _i++) {
+        rule = rules[_i];
+        switch (rule.type) {
+          case CSSRule.IMPORT_RULE:
+            this.reloadStylesheetImages(rule.styleSheet, path, expando);
+            break;
+          case CSSRule.STYLE_RULE:
+            for (_j = 0, _len2 = IMAGE_STYLES.length; _j < _len2; _j++) {
+              styleNames = IMAGE_STYLES[_j].styleNames;
+              this.reloadStyleImages(rule.style, styleNames, path, expando);
+            }
+            break;
+          case CSSRule.MEDIA_RULE:
+            this.reloadStylesheetImages(rule, path, expando);
+        }
+      }
+    };
+    Reloader.prototype.reloadStyleImages = function(style, styleNames, path, expando) {
+      var newValue, styleName, value, _i, _len;
+      for (_i = 0, _len = styleNames.length; _i < _len; _i++) {
+        styleName = styleNames[_i];
+        value = style[styleName];
+        if (typeof value === 'string') {
+          newValue = value.replace(/\burl\s*\(([^)]*)\)/, __bind(function(match, src) {
+            if (pathsMatch(path, pathFromUrl(src))) {
+              return "url(" + (this.generateCacheBustUrl(src, expando)) + ")";
+            } else {
+              return match;
+            }
+          }, this));
+          if (newValue !== value) {
+            style[styleName] = newValue;
+          }
+        }
+      }
+    };
     Reloader.prototype.reloadStylesheet = function(path) {
-      var link, links, match, _i, _len;
+      var imported, link, links, match, _i, _j, _len, _len2;
       links = (function() {
         var _i, _len, _ref, _results;
         _ref = this.document.getElementsByTagName('link');
         _results = [];
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           link = _ref[_i];
-          if (link.rel === 'stylesheet') {
+          if (link.rel === 'stylesheet' && !link.__LiveReload_pendingRemoval) {
             _results.push(link);
           }
         }
         return _results;
       }).call(this);
-      console.log("Found " + links.length + " stylesheets");
-      match = pickBestMatch(path, links, function(l) {
+      imported = [];
+      for (_i = 0, _len = links.length; _i < _len; _i++) {
+        link = links[_i];
+        this.collectImportedStylesheets(link, link.sheet, imported);
+      }
+      this.console.log("LiveReload found " + links.length + " LINKed stylesheets, " + imported.length + " @imported stylesheets");
+      match = pickBestMatch(path, links.concat(imported), function(l) {
         return pathFromUrl(l.href);
       });
       if (match) {
-        this.console.log("LiveReload is reloading stylesheet: " + match.object.href);
-        this.reattachStylesheetLink(match.object);
+        if (match.object.rule) {
+          this.console.log("LiveReload is reloading imported stylesheet: " + match.object.href);
+          this.reattachImportedRule(match.object);
+        } else {
+          this.console.log("LiveReload is reloading stylesheet: " + match.object.href);
+          this.reattachStylesheetLink(match.object);
+        }
       } else {
         this.console.log("LiveReload will reload all stylesheets because path '" + path + "' did not match any specific one");
-        for (_i = 0, _len = links.length; _i < _len; _i++) {
-          link = links[_i];
+        for (_j = 0, _len2 = links.length; _j < _len2; _j++) {
+          link = links[_j];
           this.reattachStylesheetLink(link);
         }
       }
       return true;
+    };
+    Reloader.prototype.collectImportedStylesheets = function(link, styleSheet, result) {
+      var index, rule, rules, _len;
+      try {
+        rules = styleSheet != null ? styleSheet.cssRules : void 0;
+      } catch (e) {
+
+      }
+      if (rules && rules.length) {
+        for (index = 0, _len = rules.length; index < _len; index++) {
+          rule = rules[index];
+          switch (rule.type) {
+            case CSSRule.CHARSET_RULE:
+              continue;
+            case CSSRule.IMPORT_RULE:
+              result.push({
+                link: link,
+                rule: rule,
+                index: index,
+                href: rule.href
+              });
+              this.collectImportedStylesheets(link, rule.styleSheet, result);
+              break;
+            default:
+              break;
+          }
+        }
+      }
     };
     Reloader.prototype.reattachStylesheetLink = function(link) {
       var clone, parent, timer;
@@ -426,12 +566,49 @@ var __protocol = {}, __connector = {}, __timer = {}, __options = {}, __reloader 
       });
       return timer.start(this.stylesheetGracePeriod);
     };
+    Reloader.prototype.reattachImportedRule = function(_arg) {
+      var href, index, link, media, newRule, parent, rule, tempLink;
+      rule = _arg.rule, index = _arg.index, link = _arg.link;
+      parent = rule.parentStyleSheet;
+      href = this.generateCacheBustUrl(rule.href);
+      media = rule.media.length ? [].join.call(rule.media, ', ') : '';
+      newRule = "@import url(\"" + href + "\") " + media + ";";
+      rule.__LiveReload_newHref = href;
+      tempLink = this.document.createElement("link");
+      tempLink.rel = 'stylesheet';
+      tempLink.href = href;
+      tempLink.__LiveReload_pendingRemoval = true;
+      if (link.parentNode) {
+        link.parentNode.insertBefore(tempLink, link);
+      }
+      return this.Timer.start(this.importCacheWaitPeriod, __bind(function() {
+        if (tempLink.parentNode) {
+          tempLink.parentNode.removeChild(tempLink);
+        }
+        if (rule.__LiveReload_newHref !== href) {
+          return;
+        }
+        parent.insertRule(newRule, index);
+        parent.deleteRule(index + 1);
+        rule = parent.cssRules[index];
+        rule.__LiveReload_newHref = href;
+        return this.Timer.start(this.importCacheWaitPeriod, __bind(function() {
+          if (rule.__LiveReload_newHref !== href) {
+            return;
+          }
+          parent.insertRule(newRule, index);
+          return parent.deleteRule(index + 1);
+        }, this));
+      }, this));
+    };
     Reloader.prototype.generateUniqueString = function() {
       return 'livereload=' + Date.now();
     };
-    Reloader.prototype.generateCacheBustUrl = function(url) {
-      var expando, hash, oldParams, params, _ref;
-      expando = this.generateUniqueString();
+    Reloader.prototype.generateCacheBustUrl = function(url, expando) {
+      var hash, oldParams, params, _ref;
+      if (expando == null) {
+        expando = this.generateUniqueString();
+      }
       _ref = splitUrl(url), url = _ref.url, hash = _ref.hash, oldParams = _ref.params;
       params = oldParams.replace(/(\?|&)livereload=(\d+)/, function(match, sep) {
         return "" + sep + expando;
@@ -518,9 +695,12 @@ var __protocol = {}, __connector = {}, __timer = {}, __options = {}, __reloader 
       return this.console.log("" + message);
     };
     LiveReload.prototype.performReload = function(message) {
-      var _ref;
+      var _ref, _ref2;
       this.log("LiveReload received reload request for " + message.path + ".");
-      return this.reloader.reload(message.path, (_ref = message.liveCSS) != null ? _ref : true);
+      return this.reloader.reload(message.path, {
+        liveCSS: (_ref = message.liveCSS) != null ? _ref : true,
+        liveImg: (_ref2 = message.liveImg) != null ? _ref2 : true
+      });
     };
     LiveReload.prototype.performAlert = function(message) {
       return alert(message.message);
