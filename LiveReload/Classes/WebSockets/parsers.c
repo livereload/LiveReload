@@ -318,6 +318,7 @@ libwebsocket_rx_sm(struct libwebsocket *wsi, unsigned char c)
 			break;
 		case 7:
         case 8:
+        case 13:
 			/*
 			 * no prepended frame key any more
 			 */
@@ -1618,6 +1619,7 @@ int libwebsocket_write(struct libwebsocket *wsi, unsigned char *buf,
 
 	case 7:
     case 8:
+    case 13:
 		if (masked7) {
 			pre += 4;
 			dropmask = &buf[0 - pre];
