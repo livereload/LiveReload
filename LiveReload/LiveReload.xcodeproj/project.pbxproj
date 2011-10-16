@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
+		4304FC2D144B2BEB00D650DF /* NSDictionaryAndArray+SafeAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 4304FC2C144B2BEB00D650DF /* NSDictionaryAndArray+SafeAccess.m */; };
 		43191846141A0D1C008457FF /* Eco.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43191845141A0D1C008457FF /* Eco.lrplugin */; };
 		43361D2F13C2E0E500C0E589 /* Stylus.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43361D2E13C2E0E500C0E589 /* Stylus.lrplugin */; };
 		43361D4613C30D1400C0E589 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43361D4513C30D1400C0E589 /* libicucore.dylib */; };
@@ -135,6 +136,8 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		4304FC2B144B2BEB00D650DF /* NSDictionaryAndArray+SafeAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionaryAndArray+SafeAccess.h"; sourceTree = "<group>"; };
+		4304FC2C144B2BEB00D650DF /* NSDictionaryAndArray+SafeAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionaryAndArray+SafeAccess.m"; sourceTree = "<group>"; };
 		43191845141A0D1C008457FF /* Eco.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Eco.lrplugin; path = Compilers/Eco.lrplugin; sourceTree = SOURCE_ROOT; };
 		43361D2E13C2E0E500C0E589 /* Stylus.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Stylus.lrplugin; path = Compilers/Stylus.lrplugin; sourceTree = SOURCE_ROOT; };
 		43361D4513C30D1400C0E589 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
@@ -666,6 +669,8 @@
 				823DDEB713F8DA3100529AD2 /* RegexKitLite.m */,
 				823DDEB813F8DA3100529AD2 /* VersionNumber.h */,
 				823DDEB913F8DA3100529AD2 /* VersionNumber.m */,
+				4304FC2B144B2BEB00D650DF /* NSDictionaryAndArray+SafeAccess.h */,
+				4304FC2C144B2BEB00D650DF /* NSDictionaryAndArray+SafeAccess.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -934,6 +939,7 @@
 				435BE045141B87920008FF77 /* NewMainWindowController.m in Sources */,
 				821AFF0014270B5200B61760 /* BBEditEditor.m in Sources */,
 				43468AAF14476B2400A06E21 /* ScriptPaneViewController.m in Sources */,
+				4304FC2D144B2BEB00D650DF /* NSDictionaryAndArray+SafeAccess.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
