@@ -1,5 +1,42 @@
 (function() {
-var __protocol = {}, __connector = {}, __timer = {}, __options = {}, __reloader = {}, __livereload = {}, __startup = {};
+var __customevents = {}, __protocol = {}, __connector = {}, __timer = {}, __options = {}, __reloader = {}, __livereload = {}, __startup = {};
+
+// customevents
+(function() {
+  var CustomEvents;
+  CustomEvents = {
+    bind: function(element, eventName, handler) {
+      if (element.addEventListener) {
+        return element.addEventListener(eventName, handler, false);
+      } else if (element.attachEvent) {
+        element[eventName] = 1;
+        return element.attachEvent('onpropertychange', function(event) {
+          if (event.propertyName === eventName) {
+            return handler();
+          }
+        });
+      } else {
+        throw new Error("Attempt to attach custom event " + eventName + " to something which isn't a DOMElement");
+      }
+    },
+    fire: function(element, eventName) {
+      var event;
+      if (element.addEventListener) {
+        event = document.createEvent('HTMLEvents');
+        event.initEvent(eventName, true, true);
+        return document.dispatchEvent(event);
+      } else if (element.attachEvent) {
+        if (element[eventName]) {
+          return element[eventName]++;
+        }
+      } else {
+        throw new Error("Attempt to fire custom event " + eventName + " on something which isn't a DOMElement");
+      }
+    }
+  };
+  __customevents.bind = CustomEvents.bind;
+  __customevents.fire = CustomEvents.fire;
+}).call(this);
 
 // protocol
 (function() {
@@ -10,8 +47,8 @@ var __protocol = {}, __connector = {}, __timer = {}, __options = {}, __reloader 
     }
     return -1;
   };
-  __protocol.PROTOCOL_6 = PROTOCOL_6 = 'http://livereload.com/protocols/official/6';
-  __protocol.PROTOCOL_7 = PROTOCOL_7 = 'http://livereload.com/protocols/official/7';
+  __protocol.PROTOCOL_6 = PROTOCOL_6 = 'http://livereload.com/protocols/official-6';
+  __protocol.PROTOCOL_7 = PROTOCOL_7 = 'http://livereload.com/protocols/official-7';
   __protocol.ProtocolError = ProtocolError = (function() {
     function ProtocolError(reason, data) {
       this.message = "LiveReload protocol error (" + reason + ") after receiving data: \"" + data + "\".";
@@ -102,6 +139,7 @@ var __protocol = {}, __connector = {}, __timer = {}, __options = {}, __reloader 
       this.handlers = handlers;
       this._uri = "ws://" + this.options.host + ":" + this.options.port + "/livereload";
       this._nextDelay = this.options.mindelay;
+      this._connectionDesired = false;
       this.protocolParser = new Parser({
         connected: __bind(function(protocol) {
           this._handshakeTimeout.stop();
@@ -125,6 +163,9 @@ var __protocol = {}, __connector = {}, __timer = {}, __options = {}, __reloader 
         return this.socket.close();
       }, this));
       this._reconnectTimer = new Timer(__bind(function() {
+        if (!this._connectionDesired) {
+          return;
+        }
         return this.connect();
       }, this));
       this.connect();
@@ -133,6 +174,7 @@ var __protocol = {}, __connector = {}, __timer = {}, __options = {}, __reloader 
       return this.socket && this.socket.readyState === this.WebSocket.OPEN;
     };
     Connector.prototype.connect = function() {
+      this._connectionDesired = true;
       if (this._isSocketConnected()) {
         return;
       }
@@ -156,7 +198,19 @@ var __protocol = {}, __connector = {}, __timer = {}, __options = {}, __reloader 
         return this._onerror(e);
       }, this);
     };
+    Connector.prototype.disconnect = function() {
+      this._connectionDesired = false;
+      this._reconnectTimer.stop();
+      if (!this._isSocketConnected()) {
+        return;
+      }
+      this._disconnectionReason = 'manual';
+      return this.socket.close();
+    };
     Connector.prototype._scheduleReconnection = function() {
+      if (!this._connectionDesired) {
+        return;
+      }
       if (!this._reconnectTimer.running) {
         this._reconnectTimer.start(this._nextDelay);
         return this._nextDelay = Math.min(this.options.maxdelay, this._nextDelay * 2);
@@ -187,9 +241,7 @@ var __protocol = {}, __connector = {}, __timer = {}, __options = {}, __reloader 
     };
     Connector.prototype._onclose = function(e) {
       this.handlers.disconnected(this._disconnectionReason, this._nextDelay);
-      if (this._disconnectionReason !== 'manual') {
-        return this._scheduleReconnection();
-      }
+      return this._scheduleReconnection();
     };
     Connector.prototype._onerror = function(e) {};
     Connector.prototype._onmessage = function(e) {
@@ -241,7 +293,7 @@ var __protocol = {}, __connector = {}, __timer = {}, __options = {}, __reloader 
   __options.Options = Options = (function() {
     function Options() {
       this.host = null;
-      this.port = null;
+      this.port = 35729;
       this.snipver = null;
       this.ext = null;
       this.extver = null;
@@ -262,16 +314,20 @@ var __protocol = {}, __connector = {}, __timer = {}, __options = {}, __reloader 
     return Options;
   })();
   Options.extract = function(document) {
-    var element, keyAndValue, m, options, pair, src, _i, _j, _len, _len2, _ref, _ref2;
+    var element, keyAndValue, m, mm, options, pair, src, _i, _j, _len, _len2, _ref, _ref2;
     _ref = document.getElementsByTagName('script');
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       element = _ref[_i];
-      if ((src = element.src) && (m = src.match(/^https?:\/\/([^\/:]+):(\d+)\/z?livereload\.js(?:\?(.*))?$/))) {
+      if ((src = element.src) && (m = src.match(/^[^:]+:\/\/(.*)\/z?livereload\.js(?:\?(.*))?$/))) {
         options = new Options();
-        options.host = m[1];
-        options.port = parseInt(m[2], 10);
-        if (m[3]) {
-          _ref2 = m[3].split('&');
+        if (mm = m[1].match(/^([^\/:]+)(?::(\d+))?$/)) {
+          options.host = mm[1];
+          if (mm[2]) {
+            options.port = parseInt(mm[2], 10);
+          }
+        }
+        if (m[2]) {
+          _ref2 = m[2].split('&');
           for (_j = 0, _len2 = _ref2.length; _j < _len2; _j++) {
             pair = _ref2[_j];
             if ((keyAndValue = pair.split('=')).length > 1) {
@@ -637,6 +693,7 @@ var __protocol = {}, __connector = {}, __timer = {}, __options = {}, __reloader 
   __livereload.LiveReload = LiveReload = (function() {
     function LiveReload(window) {
       this.window = window;
+      this.listeners = {};
       this.console = this.window.console && this.window.console.log && this.window.console.error ? this.window.console : {
         log: function() {},
         error: function() {}
@@ -654,6 +711,10 @@ var __protocol = {}, __connector = {}, __timer = {}, __options = {}, __reloader 
         connecting: __bind(function() {}, this),
         socketConnected: __bind(function() {}, this),
         connected: __bind(function(protocol) {
+          var _base;
+          if (typeof (_base = this.listeners).connect === "function") {
+            _base.connect();
+          }
           return this.log("LiveReload is connected to " + this.options.host + ":" + this.options.port + " (protocol v" + protocol + ").");
         }, this),
         error: __bind(function(e) {
@@ -664,6 +725,10 @@ var __protocol = {}, __connector = {}, __timer = {}, __options = {}, __reloader 
           }
         }, this),
         disconnected: __bind(function(reason, nextDelay) {
+          var _base;
+          if (typeof (_base = this.listeners).disconnect === "function") {
+            _base.disconnect();
+          }
           switch (reason) {
             case 'cannot-connect':
               return this.log("LiveReload cannot connect to " + this.options.host + ":" + this.options.port + ", will retry in " + nextDelay + " sec.");
@@ -691,6 +756,9 @@ var __protocol = {}, __connector = {}, __timer = {}, __options = {}, __reloader 
         }, this)
       });
     }
+    LiveReload.prototype.on = function(eventName, handler) {
+      return this.listeners[eventName] = handler;
+    };
     LiveReload.prototype.log = function(message) {
       return this.console.log("" + message);
     };
@@ -705,12 +773,32 @@ var __protocol = {}, __connector = {}, __timer = {}, __options = {}, __reloader 
     LiveReload.prototype.performAlert = function(message) {
       return alert(message.message);
     };
+    LiveReload.prototype.shutDown = function() {
+      var _base;
+      this.connector.disconnect();
+      this.log("LiveReload disconnected.");
+      return typeof (_base = this.listeners).shutdown === "function" ? _base.shutdown() : void 0;
+    };
     return LiveReload;
   })();
 }).call(this);
 
 // startup
 (function() {
-  window.LiveReload = new (__livereload.LiveReload)(window);
+  var CustomEvents, LiveReload;
+  CustomEvents = __customevents;
+  LiveReload = window.LiveReload = new (__livereload.LiveReload)(window);
+  LiveReload.on('shutdown', function() {
+    return delete window.LiveReload;
+  });
+  LiveReload.on('connect', function() {
+    return CustomEvents.fire(document, 'LiveReloadConnect');
+  });
+  LiveReload.on('disconnect', function() {
+    return CustomEvents.fire(document, 'LiveReloadDisconnect');
+  });
+  CustomEvents.bind(document, 'LiveReloadShutDown', function() {
+    return LiveReload.shutDown();
+  });
 }).call(this);
 })();
