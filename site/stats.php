@@ -27,9 +27,6 @@
     tr.growth_fmt td.negative {
         color: red;
     }
-    td.last {
-        color: #666 !important;
-    }
 </style>
 <?php
 
@@ -97,7 +94,7 @@ function inv_table($caption, $headers, $rows, $extra='') {
 }
 
 function chart($data) {
-    $chart = "https://chart.googleapis.com/chart?chs=500x125&cht=ls&chco=0077CC&chxt=y&chxr=0,0,100&chds=0,100&chd=t:" . implode(',', $data);
+    $chart = "https://chart.googleapis.com/chart?chs=300x125&chg=0,25&cht=ls&chco=0077CC&chxt=y&chxr=0,0,400&chds=0,400&chd=t:" . implode(',', $data);
     return div('', html_tag('img', array('src' => $chart)));
 }
 
@@ -121,23 +118,57 @@ function start_of_week($now) {
   return $last_sun_start + 24 * 60 * 60;
 }
 
+function start_of_month($now) {
+  $info = (object) getdate($now);
+  return mktime(0, 0, 0, $info->mon, 1, $info->year);
+}
+
+function advance_week($start_of_week, $delta) {
+  return $start_of_week + $delta * 7 * 24 * 60 * 60;
+}
+
+function advance_month($start_of_month, $delta) {
+  $info = (object) getdate($start_of_month);
+  return mktime(0, 0, 0, $info->mon + $delta, 1, $info->year);
+}
+
+
+define('PERIOD_WEEK', 7);
+define('PERIOD_MONTH', 30);
+
+function start_of_period($period_length, $time) {
+  if ($period_length == PERIOD_WEEK) {
+    return start_of_week($time);
+  } else {
+    return start_of_month($time);
+  }
+}
+
+function advance_period($period_length, $start_of_period, $delta) {
+  if ($period_length == PERIOD_WEEK) {
+    return advance_week($start_of_period, $delta);
+  } else {
+    return advance_month($start_of_period, $delta);
+  }
+}
+
 define('STATUS_TRIAL', 0);
 define('STATUS_ACTIVE', 1);
 define('STATUS_INACTIVE', 2);
 define('TRIAL_PERIOD', 7);
 define('INACTIVITY_CUTOFF', 14);
-define('STAT_WEEKS', 8);
 
-function weekly_stats() {
-  $week0 = start_of_week(time());
+function grouped_stats($period_length, $period_count) {
+  $now = time();
+  $week0 = start_of_week($now);
   $weeks = array();
-  for ($i = STAT_WEEKS; $i >= 0; $i--) {
+  for ($i = $period_count; $i >= 0; $i--) {
     $week = new stdClass;
-    $week->start = $week0 - $i * 7 * 24 * 60 * 60;
-    $week->end = $week->start + 7 * 24 * 60 * 60;
+    $week->start = advance_period($period_length, $week0, -$i);
+    $week->end = advance_period($period_length, $week->start, 1); // + $period_length * 24 * 60 * 60;
     $week->start_fmt = strftime('%b %d', $week->start);
     $week->period_fmt = strftime('%b %d', $week->start) . ' – ' . strftime('%b %d', $week->end);
-    $week->stats = index_by_field('ip', stats_before($week->end));
+    $week->stats = index_by_field('ip', stats_before(min($now, $week->end)));
     foreach ($week->stats as $ip => &$row) {
       if ($row->age < TRIAL_PERIOD)
         $row->status = STATUS_TRIAL;
@@ -158,7 +189,7 @@ function weekly_stats() {
 
       $week->users_this_week = 0;
       foreach ($week->stats as $ip => $row) {
-        if ($row->inactive_period < 7) {
+        if ($row->inactive_period < $period_length) {
           $week->users_this_week++;
         }
       }
@@ -205,6 +236,8 @@ function weekly_stats() {
       $week->growth = ($last_week->active_user_count > 0) ? (float) $week->active_user_count / $last_week->active_user_count - 1 : 0;
       $week->growth_fmt = round($week->growth * 100) . '%';
 
+      $week->delta = ($week->active_user_count - $last_week->active_user_count);
+
       $week->new_user_growth = ($last_week->new_user_count > 0) ? (float) $week->new_user_count / $last_week->new_user_count - 1 : 0;
       $week->new_user_growth_fmt = round($week->new_user_growth * 100) . '%';
 
@@ -216,6 +249,21 @@ function weekly_stats() {
 
   array_shift($weeks);  // remove the first week, it was only used to compute futher stats
   return $weeks;
+}
+
+function format_grouped_stats($period_length, $period_count, $name, $title) {
+  $weeks = grouped_stats($period_length, $period_count);
+  return inv_table($title, array(
+      'start_fmt' => '',
+      'users_this_week' => "Total this $name",
+      'active_user_count' => 'Active users',
+      'new_user_count' => 'New active users',
+      'gone_user_count' => 'Previously active users gone',
+      'growth_fmt' => '% increase in active users (growth)',
+      'delta' => '∆ active users',
+      'new_user_growth_fmt' => '% increase in new users',
+      'churn_fmt' => '% previously active users gone (churn)'
+    ), $weeks);
 }
 
 
@@ -234,26 +282,14 @@ $data = array();
 foreach ($by_date as $row) {
     $data[] = $row->count;
 }
+$data = array_slice($data, -7*10);
 
 echo html_tag('h1', array(), "Total unique IPs: $count");
 
 echo html_tag('h1', array(), "Unique IPs by day, all time") . chart($data);
 
-$weeks = weekly_stats();
-echo inv_table("Weekly statistics", array(
-    'start_fmt' => '',
-    'users_this_week' => 'Total this week',
-    'active_user_count' => 'Active users',
-    'new_user_count' => 'New users',
-    'gone_user_count' => 'Previously active users gone',
-    'trial_count' => 'In trial (total)',
-    'trial_fresh' => 'In trial (≤ 3 days)',
-    'trial_good' => 'In trial (active)',
-    'trial_bad' => 'In trial (inactive)',
-    'growth_fmt' => '% increase in active users (growth)',
-    'new_user_growth_fmt' => '% increase in new users',
-    'churn_fmt' => '% previously active users gone (churn)'
-  ), $weeks);
+echo format_grouped_stats(PERIOD_WEEK, 8, "week", "Weekly statistics");
+echo format_grouped_stats(PERIOD_MONTH, 8, "month", "Monthly statistics");
 
 echo table('Unique IPs by version, last 30 days', array('version' => 'Version', 'count' => 'IPs'), $by_ver_30);
 echo table('Unique IPs by version, last 7 days', array('version' => 'Version', 'count' => 'IPs'), $by_ver_7);
