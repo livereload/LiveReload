@@ -371,7 +371,7 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
         if (guessedDirectory == nil) {
             NSString *sourceDirectory = [sourcePath stringByDeletingLastPathComponent];
             NSArray *otherFiles = [[compilationOptions.compiler pathsOfSourceFilesInTree:self.tree] filteredArrayUsingBlock:^BOOL(id value) {
-                return [sourceDirectory isEqualToString:[value stringByDeletingLastPathComponent]];
+                return ![sourcePath isEqualToString:value] && [sourceDirectory isEqualToString:[value stringByDeletingLastPathComponent]];
             }];
             if ([otherFiles count] > 0) {
                 NSArray *otherFileOptions = [otherFiles arrayByMappingElementsUsingBlock:^id(id otherFilePath) {
@@ -423,6 +423,11 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
                 }
                 return (id)nil;
             }];
+        }
+
+        // 5) if still nothing, put the result in the same folder
+        if (guessedDirectory == nil) {
+            guessedDirectory = [sourcePath stringByDeletingLastPathComponent];
         }
 
         if (guessedDirectory) {
