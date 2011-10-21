@@ -16,6 +16,7 @@
 #import "ImportGraph.h"
 #import "ToolOutput.h"
 
+#import "Stats.h"
 #import "RegexKitLite.h"
 #import "NSArray+Substitutions.h"
 #import "NSTask+OneLineTasksWithOutput.h"
@@ -145,10 +146,13 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
     // Cannot ignore hidden files, some guys are using files like .navigation.html as
     // partials. Not sure about directories, but the usual offenders are already on
     // the excludedNames list.
-    _monitor.filter.ignoreHiddenFiles = NO;
-    _monitor.filter.enabledExtensions = [Preferences sharedPreferences].allExtensions;
-    _monitor.filter.excludedNames = [Preferences sharedPreferences].excludedNames;
-    [_monitor filterUpdated];
+    FSTreeFilter *filter = _monitor.filter;
+    if (filter.ignoreHiddenFiles != NO || ![filter.enabledExtensions isEqualToSet:[Preferences sharedPreferences].allExtensions] || ![filter.excludedNames isEqualToSet:[Preferences sharedPreferences].excludedNames]) {
+        filter.ignoreHiddenFiles = NO;
+        filter.enabledExtensions = [Preferences sharedPreferences].allExtensions;
+        filter.excludedNames = [Preferences sharedPreferences].excludedNames;
+        [_monitor filterUpdated];
+    }
 }
 
 
@@ -224,11 +228,14 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
                 [[NSNotificationCenter defaultCenter] postNotificationName:ProjectWillBeginCompilationNotification object:self];
                 [self compile:relativePath under:_path with:compiler options:compilationOptions];
                 [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidEndCompilationNotification object:self];
+                StatGroupIncrement(CompilerChangeCountStatGroup, compiler.uniqueId, 1);
+                StatGroupIncrement(CompilerChangeCountEnabledStatGroup, compiler.uniqueId, 1);
                 break;
             } else if (compilationOptions.mode == CompilationModeMiddleware) {
                 NSString *derivedName = [compiler derivedNameForFile:relativePath];
                 [filtered addObject:derivedName];
                 NSLog(@"Broadcasting a fake change in %@ instead of %@ because %@ mode is MIDDLEWARE (PRETEND).", derivedName, relativePath, compiler.name);
+                StatGroupIncrement(CompilerChangeCountStatGroup, compiler.uniqueId, 1);
                 break;
             } else if (compilationOptions.mode == CompilationModeDisabled) {
                 compilerFound = NO;
@@ -311,6 +318,8 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
 
     [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidDetectChangeNotification object:self];
     [[CommunicationController sharedCommunicationController] broadcastChangedPathes:filtered inProject:self];
+
+    StatIncrement(BrowserRefreshCountStat, 1);
 }
 
 - (FSTree *)tree {

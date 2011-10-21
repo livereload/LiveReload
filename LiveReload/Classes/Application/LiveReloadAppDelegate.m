@@ -8,6 +8,7 @@
 #import "LoginItemController.h"
 #import "PluginManager.h"
 
+#import "Stats.h"
 #import "NSWindowFlipper.h"
 #import "Preferences.h"
 
@@ -87,7 +88,21 @@
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
     NSString *internalVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
-    [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://livereload.com/ping.php?v=%@&iv=%@", [version stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding], [internalVersion stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]]];
+
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setObject:version forKey:@"v"];
+    [params setObject:internalVersion forKey:@"iv"];
+
+    StatAllToParams(params);
+
+    NSMutableString *qs = [NSMutableString string];
+    [params enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        if ([qs length] > 0)
+            [qs appendString:@"&"];
+        [qs appendFormat:@"%@=%@", key, [obj stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    }];
+
+    [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://livereload.com/ping.php?%@", qs]]];
     [pool drain];
 }
 
