@@ -19,6 +19,7 @@
 		43361D5013C32C3D00C0E589 /* SASS.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43361D4F13C32C3D00C0E589 /* SASS.lrplugin */; };
 		43468AAF14476B2400A06E21 /* ScriptPaneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43468AAE14476B2400A06E21 /* ScriptPaneViewController.m */; };
 		43468AB114476B3A00A06E21 /* ScriptPaneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43468AB014476B3A00A06E21 /* ScriptPaneViewController.xib */; };
+		4346F3A91450D8AD00B133F2 /* ImportGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 4346F3A81450D8AD00B133F2 /* ImportGraph.m */; };
 		43594AF413D3BB34004175B2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43594AF313D3BB34004175B2 /* QuartzCore.framework */; };
 		435BE042141B72A60008FF77 /* NewMainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 435BE041141B72A60008FF77 /* NewMainWindow.xib */; };
 		435BE045141B87920008FF77 /* NewMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 435BE044141B87920008FF77 /* NewMainWindowController.m */; };
@@ -149,6 +150,8 @@
 		43468AAD14476B2400A06E21 /* ScriptPaneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScriptPaneViewController.h; sourceTree = "<group>"; };
 		43468AAE14476B2400A06E21 /* ScriptPaneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScriptPaneViewController.m; sourceTree = "<group>"; };
 		43468AB014476B3A00A06E21 /* ScriptPaneViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScriptPaneViewController.xib; sourceTree = "<group>"; };
+		4346F3A71450D8AD00B133F2 /* ImportGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImportGraph.h; sourceTree = "<group>"; };
+		4346F3A81450D8AD00B133F2 /* ImportGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImportGraph.m; sourceTree = "<group>"; };
 		43594AF313D3BB34004175B2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		435BE041141B72A60008FF77 /* NewMainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewMainWindow.xib; sourceTree = "<group>"; };
 		435BE043141B87920008FF77 /* NewMainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewMainWindowController.h; sourceTree = "<group>"; };
@@ -563,6 +566,8 @@
 				823DDE6F13F8DA3100529AD2 /* Project.m */,
 				823DDE7013F8DA3100529AD2 /* Workspace.h */,
 				823DDE7113F8DA3100529AD2 /* Workspace.m */,
+				4346F3A71450D8AD00B133F2 /* ImportGraph.h */,
+				4346F3A81450D8AD00B133F2 /* ImportGraph.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -940,6 +945,7 @@
 				821AFF0014270B5200B61760 /* BBEditEditor.m in Sources */,
 				43468AAF14476B2400A06E21 /* ScriptPaneViewController.m in Sources */,
 				4304FC2D144B2BEB00D650DF /* NSDictionaryAndArray+SafeAccess.m in Sources */,
+				4346F3A91450D8AD00B133F2 /* ImportGraph.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

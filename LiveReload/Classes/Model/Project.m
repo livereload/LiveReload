@@ -13,6 +13,7 @@
 #import "Compiler.h"
 #import "CompilationOptions.h"
 #import "FileCompilationOptions.h"
+#import "ImportGraph.h"
 #import "ToolOutput.h"
 
 #import "RegexKitLite.h"
@@ -40,6 +41,9 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
 
 - (void)updateFilter;
 - (void)handleCompilationOptionsEnablementChanged:(NSNotification *)notification;
+
+- (void)updateImportGraphForPaths:(NSSet *)paths;
+- (void)rebuildImportGraph;
 
 @end
 
@@ -86,6 +90,8 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
 
         _postProcessingCommand = [[memento objectForKey:@"postproc"] copy];
 
+        _importGraph = [[ImportGraph alloc] init];
+
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleCompilationOptionsEnablementChanged:) name:CompilationOptionsEnabledChangedNotification object:nil];
         [self handleCompilationOptionsEnablementChanged:nil];
     }
@@ -99,6 +105,7 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
     [_compilerOptions release], _compilerOptions = nil;
     [_monitoringRequests release], _monitoringRequests = nil;
     [_postProcessingCommand release], _postProcessingCommand = nil;
+    [_importGraph release], _importGraph = nil;
     [super dealloc];
 }
 
@@ -171,6 +178,8 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
                 NSLog(@"Deactivated monitoring for %@", [self displayPath]);
             }
             _monitor.running = shouldBeRunning;
+            if (shouldBeRunning)
+                [self rebuildImportGraph];
             [[NSNotificationCenter defaultCenter] postNotificationName:ProjectMonitoringStateDidChangeNotification object:self];
         }
     }
@@ -203,36 +212,51 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
     }
 }
 
-- (void)fileSystemMonitor:(FSMonitor *)monitor detectedChangeAtPathes:(NSSet *)pathes {
-    NSMutableSet *filtered = [NSMutableSet setWithCapacity:[pathes count]];
-    for (NSString *relativePath in pathes) {
-        NSString *extension = [relativePath pathExtension];
+- (void)processChangeAtPath:(NSString *)relativePath addingPathsToNotifyInto:(NSMutableSet *)filtered {
+    NSString *extension = [relativePath pathExtension];
 
-        BOOL compilerFound = NO;
-        for (Compiler *compiler in [PluginManager sharedPluginManager].compilers) {
-            if ([compiler.extensions containsObject:extension]) {
-                compilerFound = YES;
-                CompilationOptions *compilationOptions = [self optionsForCompiler:compiler create:NO];
-                if (compilationOptions.mode == CompilationModeCompile) {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:ProjectWillBeginCompilationNotification object:self];
-                    [self compile:relativePath under:_path with:compiler options:compilationOptions];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidEndCompilationNotification object:self];
-                    break;
-                } else if (compilationOptions.mode == CompilationModeMiddleware) {
-                    NSString *derivedName = [compiler derivedNameForFile:relativePath];
-                    [filtered addObject:derivedName];
-                    NSLog(@"Broadcasting a fake change in %@ instead of %@ because %@ mode is MIDDLEWARE (PRETEND).", derivedName, relativePath, compiler.name);
-                    break;
-                } else if (compilationOptions.mode == CompilationModeDisabled) {
-                    compilerFound = NO;
-                    break;
-                }
+    BOOL compilerFound = NO;
+    for (Compiler *compiler in [PluginManager sharedPluginManager].compilers) {
+        if ([compiler.extensions containsObject:extension]) {
+            compilerFound = YES;
+            CompilationOptions *compilationOptions = [self optionsForCompiler:compiler create:NO];
+            if (compilationOptions.mode == CompilationModeCompile) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:ProjectWillBeginCompilationNotification object:self];
+                [self compile:relativePath under:_path with:compiler options:compilationOptions];
+                [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidEndCompilationNotification object:self];
+                break;
+            } else if (compilationOptions.mode == CompilationModeMiddleware) {
+                NSString *derivedName = [compiler derivedNameForFile:relativePath];
+                [filtered addObject:derivedName];
+                NSLog(@"Broadcasting a fake change in %@ instead of %@ because %@ mode is MIDDLEWARE (PRETEND).", derivedName, relativePath, compiler.name);
+                break;
+            } else if (compilationOptions.mode == CompilationModeDisabled) {
+                compilerFound = NO;
+                break;
             }
         }
+    }
 
-        if (!compilerFound) {
-            [filtered addObject:[_path stringByAppendingPathComponent:relativePath]];
+    if (!compilerFound) {
+        [filtered addObject:[_path stringByAppendingPathComponent:relativePath]];
+    }
+}
+
+- (void)fileSystemMonitor:(FSMonitor *)monitor detectedChangeAtPathes:(NSSet *)pathes {
+    [self updateImportGraphForPaths:pathes];
+
+    NSMutableSet *filtered = [NSMutableSet setWithCapacity:[pathes count]];
+    for (NSString *relativePath in pathes) {
+        NSSet *realPaths = [_importGraph rootReferencingPathsForPath:relativePath];
+        if ([realPaths count] > 0) {
+            NSLog(@"Instead of imported file %@, processing changes in %@", relativePath, [[realPaths allObjects] componentsJoinedByString:@", "]);
+            for (NSString *path in realPaths) {
+                [self processChangeAtPath:path addingPathsToNotifyInto:filtered];
+            }
+        } else {
+            [self processChangeAtPath:relativePath addingPathsToNotifyInto:filtered];
         }
+
     }
     if ([filtered count] == 0) {
         return;
@@ -444,6 +468,75 @@ skipGuessing:
         unichar ch = 'a' + (rand() % ('z' - 'a' + 1));
         return [NSString stringWithCharacters:&ch length:1];
     }];
+}
+
+
+#pragma mark - Import Support
+
+- (void)updateImportGraphForPath:(NSString *)relativePath compiler:(Compiler *)compiler {
+    NSSet *referencedPathFragments = [compiler referencedPathFragmentsForPath:[_path stringByAppendingPathComponent:relativePath]];
+
+    NSMutableSet *referencedPaths = [NSMutableSet set];
+    for (NSString *pathFragment in referencedPathFragments) {
+        // TODO match fragments
+        NSString *name = [pathFragment lastPathComponent];
+        NSString *path = [_monitor.tree pathOfFileNamed:name];
+        if (path) {
+            [referencedPaths addObject:path];
+        }
+    }
+
+    [_importGraph setRereferencedPaths:referencedPaths forPath:relativePath];
+}
+
+- (void)updateImportGraphForPath:(NSString *)relativePath {
+    NSString *fullPath = [_path stringByAppendingPathComponent:relativePath];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:fullPath]) {
+        [_importGraph removePath:relativePath collectingPathsToRecomputeInto:nil];
+        return;
+    }
+
+    NSString *extension = [relativePath pathExtension];
+
+    for (Compiler *compiler in [PluginManager sharedPluginManager].compilers) {
+        if ([compiler.extensions containsObject:extension]) {
+            CompilationOptions *compilationOptions = [self optionsForCompiler:compiler create:NO];
+            CompilationMode mode = compilationOptions.mode;
+            if (mode == CompilationModeCompile || mode == CompilationModeMiddleware) {
+                [self updateImportGraphForPath:relativePath compiler:compiler];
+                return;
+            }
+        }
+    }
+}
+
+- (void)updateImportGraphForPaths:(NSSet *)paths {
+    for (NSString *path in paths) {
+        [self updateImportGraphForPath:path];
+    }
+    NSLog(@"Incremental import graph update finished. %@", _importGraph);
+}
+
+- (void)rebuildImportGraph {
+    [_importGraph removeAllPaths];
+    NSArray *paths = [_monitor.tree pathsOfFilesMatching:^BOOL(NSString *name) {
+        NSString *extension = [name pathExtension];
+
+        for (Compiler *compiler in [PluginManager sharedPluginManager].compilers) {
+            if ([compiler.extensions containsObject:extension]) {
+                CompilationOptions *compilationOptions = [self optionsForCompiler:compiler create:NO];
+                CompilationMode mode = compilationOptions.mode;
+                if (mode == CompilationModeCompile || mode == CompilationModeMiddleware) {
+                    return YES;
+                }
+            }
+        }
+        return NO;
+    }];
+    for (NSString *path in paths) {
+        [self updateImportGraphForPath:path];
+    }
+    NSLog(@"Full import graph rebuild finished. %@", _importGraph);
 }
 
 @end

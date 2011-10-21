@@ -7,6 +7,7 @@
 @class Compiler;
 @class CompilationOptions;
 @class FileCompilationOptions;
+@class ImportGraph;
 
 extern NSString *ProjectDidDetectChangeNotification;
 extern NSString *ProjectWillBeginCompilationNotification;
@@ -31,6 +32,8 @@ extern NSString *ProjectNeedsSavingNotification;
 
     NSString                *_postProcessingCommand;
     NSTimeInterval           _lastPostProcessingRunDate;
+
+    ImportGraph             *_importGraph;
 }
 
 - (id)initWithPath:(NSString *)path memento:(NSDictionary *)memento;

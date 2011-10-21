@@ -33,6 +33,18 @@
 				<string>stylesheet</string>
 				<string>stylesheets</string>
 			</array>
+			<key>ImportRegExps</key>
+			<array>
+				<string>@import &quot;([^&quot;]+)&quot;</string>
+				<string>@import &apos;([^&apos;]+)&apos;</string>
+				<string>@import ([\w./]+)</string>
+			</array>
+			<key>DefaultImportedExt</key>
+			<string>less</string>
+			<key>NonImportedExts</key>
+			<array>
+				<string>css</string>
+			</array>
 		</dict>
 	</array>
 </dict>

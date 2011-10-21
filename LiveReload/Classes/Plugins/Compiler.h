@@ -20,6 +20,10 @@
     NSString         *_destinationExtension;
     NSArray          *_errorFormats;
     NSArray          *_expectedOutputDirectoryNames;
+
+    NSArray          *_importRegExps;
+    NSString         *_defaultImportedExt;
+    NSArray          *_nonImportedExts;
 }
 
 - (id)initWithDictionary:(NSDictionary *)info plugin:(Plugin *)plugin;
@@ -39,5 +43,7 @@
 - (void)compile:(NSString *)sourceRelPath into:(NSString *)destinationRelPath under:(NSString *)rootPath with:(CompilationOptions *)options compilerOutput:(ToolOutput **)compilerOutput;
 
 - (NSArray *)pathsOfSourceFilesInTree:(FSTree *)tree;
+
+- (NSSet *)referencedPathFragmentsForPath:(NSString *)path;
 
 @end

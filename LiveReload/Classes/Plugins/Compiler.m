@@ -92,6 +92,13 @@
         _expectedOutputDirectoryNames = [[info objectForKey:@"ExpectedOutputDirectories"] copy];
         if (_expectedOutputDirectoryNames == nil)
             _expectedOutputDirectoryNames = [[NSArray alloc] init];
+        _importRegExps = [[info objectForKey:@"ImportRegExps"] copy];
+        if (!_importRegExps)
+            _importRegExps = [[NSArray alloc] init];
+        _defaultImportedExt = [[info objectForKey:@"DefaultImportedExt"] copy];
+        _nonImportedExts = [[info objectForKey:@"NonImportedExts"] copy];
+        if (!_nonImportedExts)
+            _nonImportedExts = [NSArray array];
     }
     return self;
 }
@@ -253,6 +260,40 @@
 
     //compilerOutput returned by reference and must be autoreleased, but not in local pool
     [*compilerOutput autorelease];
+}
+
+
+#pragma mark - Import Support
+
+- (NSSet *)referencedPathFragmentsForPath:(NSString *)path {
+    if ([_importRegExps count] == 0)
+        return [NSSet set];
+
+    NSError *error = nil;
+    NSString *text = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&error];
+    if (!text) {
+        NSLog(@"Failed to read '%@' for determining imports. Error: %@", path, [error localizedDescription]);
+        return [NSSet set];
+    }
+
+    NSMutableSet *result = [NSMutableSet set];
+    for (NSString *regexp in _importRegExps) {
+        [text enumerateStringsMatchedByRegex:regexp usingBlock:^(NSInteger captureCount, NSString *const *capturedStrings, const NSRange *capturedRanges, volatile BOOL *const stop) {
+            if (captureCount != 2) {
+                NSLog(@"Skipping import regexp '%@' for compiler %@ because the regexp does not have exactly one capture group.", regexp, _name);
+                return;
+            }
+            NSString *path = capturedStrings[1];
+            if ([_defaultImportedExt length] > 0 && [[path pathExtension] length] == 0) {
+                path = [path stringByAppendingFormat:@".%@", _defaultImportedExt];
+            } else if ([[path pathExtension] length] > 0 && [_nonImportedExts containsObject:[path pathExtension]]) {
+                // e.g. @import "foo.css" in LESS does not actually import the file
+                return;
+            }
+            [result addObject:path];
+        }];
+    }
+    return result;
 }
 
 @end
