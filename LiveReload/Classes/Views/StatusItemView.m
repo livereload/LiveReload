@@ -8,6 +8,7 @@ typedef enum {
     StatusItemStateActive,
     StatusItemStateRotation1,
     StatusItemStateRotation2,
+    StatusItemStateRotation3,
     StatusItemStateHighlighted,
     StatusItemStateDroppable,
     COUNT_StatusItemState
@@ -18,11 +19,12 @@ static NSString *const iconNames[COUNT_StatusItemState] = {
     @"StatusItemActive",
     @"StatusItemStateRotation1",
     @"StatusItemStateRotation2",
+    @"StatusItemStateRotation3",
     @"StatusItemHighlighted",
     @"StatusItemDropTarget",
 };
 
-enum { kAnimationStepCount = StatusItemStateRotation2 - StatusItemStateActive + 1 };
+enum { kAnimationStepCount = StatusItemStateRotation3 - StatusItemStateActive + 1 };
 
 
 @implementation StatusItemView
