@@ -1,6 +1,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define EventProcessingDelayKey @"EventProcessingDelay"
+
 
 @interface Preferences : NSObject {
     NSDictionary *_builtinMonitoringSettings;

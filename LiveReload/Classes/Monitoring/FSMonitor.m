@@ -4,6 +4,8 @@
 #import "FSTreeFilter.h"
 #import "FSTree.h"
 
+#import "Preferences.h"
+
 
 static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMonitor *monitor, size_t numEvents, NSArray *eventPaths, const FSEventStreamEventFlags eventFlags[], const FSEventStreamEventId eventIds[]);
 
@@ -136,7 +138,9 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
         cachedPaths = [[self.eventCache copy] autorelease];
         [self.eventCache removeAllObjects];
         NSTimeInterval lastRebuildTime = _treeDiffer.savedTree.buildTime;
-        _cacheWaitingTime = (lastRebuildTime == 0 ? 0.1 : lastRebuildTime);
+
+        NSTimeInterval minDelay = [[NSUserDefaults standardUserDefaults] integerForKey:EventProcessingDelayKey] / 1000.0;
+        _cacheWaitingTime = MAX(lastRebuildTime, minDelay);
     }
 
     NSSet *changes = [_treeDiffer changedPathsByRescanningSubfolders:cachedPaths];
