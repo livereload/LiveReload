@@ -14,6 +14,8 @@ struct FSTreeItem {
     dev_t st_dev;
     ino_t st_ino;
     struct timespec st_mtimespec;
+    struct timespec st_ctimespec;
+    off_t st_size;
 };
 
 
@@ -41,6 +43,8 @@ struct FSTreeItem {
                 item->st_dev = st.st_dev;
                 item->st_ino = st.st_ino;
                 item->st_mtimespec = st.st_mtimespec;
+                item->st_ctimespec = st.st_ctimespec;
+                item->st_size = st.st_size;
             }
 
             for (NSInteger next = 0; next < _count; ++next) {
@@ -60,6 +64,8 @@ struct FSTreeItem {
                             subitem->st_dev = st.st_dev;
                             subitem->st_ino = st.st_ino;
                             subitem->st_mtimespec = st.st_mtimespec;
+                            subitem->st_ctimespec = st.st_ctimespec;
+                            subitem->st_size = st.st_size;
                         }
                     }
                 }
@@ -119,7 +125,7 @@ struct FSTreeItem {
             NSComparisonResult r = [_items[i].name compare:previtems[j].name];
             if (r == 0) {
                 // same item! compare mod times
-                if (_items[i].st_mode == previtems[j].st_mode && _items[i].st_dev == previtems[j].st_dev && _items[i].st_ino == previtems[j].st_ino && _items[i].st_mtimespec.tv_sec == previtems[j].st_mtimespec.tv_sec && _items[i].st_mtimespec.tv_nsec == previtems[j].st_mtimespec.tv_nsec) {
+                if (_items[i].st_mode == previtems[j].st_mode && _items[i].st_dev == previtems[j].st_dev && _items[i].st_ino == previtems[j].st_ino && _items[i].st_mtimespec.tv_sec == previtems[j].st_mtimespec.tv_sec && _items[i].st_mtimespec.tv_nsec == previtems[j].st_mtimespec.tv_nsec && _items[i].st_ctimespec.tv_sec == previtems[j].st_ctimespec.tv_sec && _items[i].st_ctimespec.tv_nsec == previtems[j].st_ctimespec.tv_nsec && _items[i].st_size == previtems[j].st_size) {
                     // unchanged
 //                    NSLog(@"%@ is unchanged item", _items[i].name);
                 } else {
