@@ -39,8 +39,10 @@
 				<string>@import &apos;([^&apos;]+)&apos;</string>
 				<string>@import ([\w./]+)</string>
 			</array>
-			<key>DefaultImportedExt</key>
-			<string>less</string>
+			<key>DefaultImportedExts</key>
+			<array>
+				<string>less</string>
+			</array>
 			<key>NonImportedExts</key>
 			<array>
 				<string>css</string>

@@ -34,6 +34,26 @@
 				<string>stylesheet</string>
 				<string>stylesheets</string>
 			</array>
+			<key>ImportRegExps</key>
+			<array>
+				<string>@import &quot;([^&quot;]+)&quot;</string>
+				<string>@import &apos;([^&apos;]+)&apos;</string>
+				<string>@import ([\w./]+)</string>
+			</array>
+			<key>DefaultImportedExts</key>
+			<array>
+				<string>sass</string>
+				<string>scss</string>
+			</array>
+			<key>ImportToFileMappings</key>
+			<array>
+				<string>$(file)</string>
+				<string>_$(file)</string>
+			</array>
+			<key>NonImportedExts</key>
+			<array>
+				<string>css</string>
+			</array>
 		</dict>
 		<dict>
 			<key>CommandLine</key>

@@ -22,8 +22,9 @@
     NSArray          *_expectedOutputDirectoryNames;
 
     NSArray          *_importRegExps;
-    NSString         *_defaultImportedExt;
+    NSArray          *_defaultImportedExts;
     NSArray          *_nonImportedExts;
+    NSArray          *_importToFileMappings;
 }
 
 - (id)initWithDictionary:(NSDictionary *)info plugin:(Plugin *)plugin;

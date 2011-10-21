@@ -95,10 +95,15 @@
         _importRegExps = [[info objectForKey:@"ImportRegExps"] copy];
         if (!_importRegExps)
             _importRegExps = [[NSArray alloc] init];
-        _defaultImportedExt = [[info objectForKey:@"DefaultImportedExt"] copy];
+        _defaultImportedExts = [[info objectForKey:@"DefaultImportedExts"] copy];
+        if (!_defaultImportedExts)
+            _defaultImportedExts = [NSArray array];
         _nonImportedExts = [[info objectForKey:@"NonImportedExts"] copy];
         if (!_nonImportedExts)
             _nonImportedExts = [NSArray array];
+        _importToFileMappings = [[info objectForKey:@"ImportToFileMappings"] copy];
+        if (!_importToFileMappings)
+            _importToFileMappings = [NSArray arrayWithObject:@"$(file)"];
     }
     return self;
 }
@@ -284,13 +289,20 @@
                 return;
             }
             NSString *path = capturedStrings[1];
-            if ([_defaultImportedExt length] > 0 && [[path pathExtension] length] == 0) {
-                path = [path stringByAppendingFormat:@".%@", _defaultImportedExt];
+            if ([_defaultImportedExts count] > 0 && [[path pathExtension] length] == 0) {
+                for (NSString *ext in _defaultImportedExts) {
+                    NSString *newPath = [path stringByAppendingFormat:@".%@", ext];
+                    for (NSString *mapping in _importToFileMappings) {
+                        [result addObject:[mapping stringByReplacingOccurrencesOfString:@"$(file)" withString:newPath]];
+                    }
+                }
             } else if ([[path pathExtension] length] > 0 && [_nonImportedExts containsObject:[path pathExtension]]) {
-                // e.g. @import "foo.css" in LESS does not actually import the file
-                return;
+                // do nothing; e.g. @import "foo.css" in LESS does not actually import the file
+            } else {
+                for (NSString *mapping in _importToFileMappings) {
+                    [result addObject:[mapping stringByReplacingOccurrencesOfString:@"$(file)" withString:path]];
+                }
             }
-            [result addObject:path];
         }];
     }
     return result;
