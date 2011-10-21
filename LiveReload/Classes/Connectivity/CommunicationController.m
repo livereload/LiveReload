@@ -31,6 +31,8 @@ NSString *CommunicationStateChangedNotification = @"CommunicationStateChangedNot
 - (id)initWithConnection:(WebSocketConnection *)connection;
 - (void)didFinishHandshake;
 
+- (void)sendChangedPath:(NSString *)path inProject:(Project *)project;
+
 @end
 
 
@@ -66,12 +68,10 @@ NSString *CommunicationStateChangedNotification = @"CommunicationStateChangedNot
     NSLog(@"Broadcasting change in %@: %@", project.path, [pathes description]);
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     for (NSString *path in pathes) {
-        NSDictionary *command = [NSDictionary dictionaryWithObjectsAndKeys:@"reload", @"command",
-                              path, @"path",
-//                              [NSNumber numberWithBool:[[Preferences sharedPreferences] autoreloadJavascript]], @"liveJS",
-                              [NSNumber numberWithBool:YES], @"liveCSS",
-                              nil];
-        [_server broadcast:[command JSONRepresentation]];
+        for (LiveReloadConnection *connection in _connections) {
+            [connection sendChangedPath:path inProject:project];
+        }
+//        [_server broadcast:[command JSONRepresentation]];
     }
 
     [pool drain];
@@ -151,6 +151,10 @@ NSString *CommunicationStateChangedNotification = @"CommunicationStateChangedNot
 
 - (void)sendCommand:(NSDictionary *)command {
     [_connection send:[command JSONRepresentation]];
+}
+
+- (void)sendOldCommand:(NSString *)name data:(NSDictionary *)data {
+    [_connection send:[[NSArray arrayWithObjects:name, data, nil] JSONRepresentation]];
 }
 
 - (void)handshakeTimeout {
@@ -233,6 +237,26 @@ NSString *CommunicationStateChangedNotification = @"CommunicationStateChangedNot
 - (void)webSocketConnectionDidClose:(WebSocketConnection *)connection {
     NSLog(@"Connection closed.");
     [_delegate connectionDidClose:self];
+}
+
+ - (void)sendChangedPath:(NSString *)path inProject:(Project *)project {
+    if (_monitoring) {
+        if (_monitoringProtocolVersion < 7) {
+            NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
+                                     path, @"path",
+                                     //                              [NSNumber numberWithBool:[[Preferences sharedPreferences] autoreloadJavascript]], @"apply_js_live",
+                                     [NSNumber numberWithBool:YES], @"apply_css_live",
+                                     nil];
+            [self sendOldCommand:@"refresh" data:data];
+        } else {
+            NSDictionary *command = [NSDictionary dictionaryWithObjectsAndKeys:@"reload", @"command",
+                                     path, @"path",
+                                     //                              [NSNumber numberWithBool:[[Preferences sharedPreferences] autoreloadJavascript]], @"liveJS",
+                                     [NSNumber numberWithBool:YES], @"liveCSS",
+                                     nil];
+            [self sendCommand:command];
+        }
+    }
 }
 
 @end
