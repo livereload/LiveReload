@@ -37,6 +37,8 @@
 
 - (void)filterUpdated;
 
+- (void)rescan;
+
 @end
 
 

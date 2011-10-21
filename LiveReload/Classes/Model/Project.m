@@ -242,8 +242,21 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
     }
 }
 
+// I don't think this will ever be needed, but not throwing the code away yet
+#ifdef AUTORESCAN_WORKAROUND_ENABLED
+- (void)rescanRecentlyChangedPaths {
+    NSLog(@"Rescanning %@ again in case some compiler was slow to write the changes.", _path);
+    [_monitor rescan];
+}
+#endif
+
 - (void)fileSystemMonitor:(FSMonitor *)monitor detectedChangeAtPathes:(NSSet *)pathes {
     [self updateImportGraphForPaths:pathes];
+
+#ifdef AUTORESCAN_WORKAROUND_ENABLED
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(rescanRecentlyChangedPaths) object:nil];
+    [self performSelector:@selector(rescanRecentlyChangedPaths) withObject:nil afterDelay:1.0];
+#endif
 
     NSMutableSet *filtered = [NSMutableSet setWithCapacity:[pathes count]];
     for (NSString *relativePath in pathes) {

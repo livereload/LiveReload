@@ -168,6 +168,16 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
 
 }
 
+- (void)rescan {
+    @synchronized(self) {
+        [_eventCache addObject:@"/"];
+    }
+
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    [self sendChangeEventsFromCache];
+}
+
+
 #pragma mark - Tree access
 
 - (FSTree *)tree {
