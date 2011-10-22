@@ -74,31 +74,31 @@
 }
 
 - (void)willShow {
-    ExtensionsController *extensionsController = [ExtensionsController sharedExtensionsController];
-
-    NSInteger safariVersion = extensionsController.versionOfInstalledSafariExtension;
-    if (safariVersion == 0) {
-        [self.installSafariExtensionButton setTitle:@"Install"];
-        [self.installSafariExtensionButton setEnabled:YES];
-    } else if (safariVersion < extensionsController.latestSafariExtensionVersion) {
-        [self.installSafariExtensionButton setTitle:@"Update"];
-        [self.installSafariExtensionButton setEnabled:YES];
-    } else {
-        [self.installSafariExtensionButton setTitle:@"Installed"];
-        [self.installSafariExtensionButton setEnabled:NO];
-    }
-
-    NSInteger chromeVersion = extensionsController.versionOfInstalledChromeExtension;
-    if (chromeVersion == 0) {
-        [self.installChromeExtensionButton setTitle:@"Install"];
-        [self.installChromeExtensionButton setEnabled:YES];
-    } else if (chromeVersion < extensionsController.latestChromeExtensionVersion) {
-        [self.installChromeExtensionButton setTitle:@"Update"];
-        [self.installChromeExtensionButton setEnabled:YES];
-    } else {
-        [self.installChromeExtensionButton setTitle:@"Installed"];
-        [self.installChromeExtensionButton setEnabled:NO];
-    }
+//    ExtensionsController *extensionsController = [ExtensionsController sharedExtensionsController];
+//
+//    NSInteger safariVersion = extensionsController.versionOfInstalledSafariExtension;
+//    if (safariVersion == 0) {
+//        [self.installSafariExtensionButton setTitle:@"Install"];
+//        [self.installSafariExtensionButton setEnabled:YES];
+//    } else if (safariVersion < extensionsController.latestSafariExtensionVersion) {
+//        [self.installSafariExtensionButton setTitle:@"Update"];
+//        [self.installSafariExtensionButton setEnabled:YES];
+//    } else {
+//        [self.installSafariExtensionButton setTitle:@"Installed"];
+//        [self.installSafariExtensionButton setEnabled:NO];
+//    }
+//
+//    NSInteger chromeVersion = extensionsController.versionOfInstalledChromeExtension;
+//    if (chromeVersion == 0) {
+//        [self.installChromeExtensionButton setTitle:@"Install"];
+//        [self.installChromeExtensionButton setEnabled:YES];
+//    } else if (chromeVersion < extensionsController.latestChromeExtensionVersion) {
+//        [self.installChromeExtensionButton setTitle:@"Update"];
+//        [self.installChromeExtensionButton setEnabled:YES];
+//    } else {
+//        [self.installChromeExtensionButton setTitle:@"Installed"];
+//        [self.installChromeExtensionButton setEnabled:NO];
+//    }
 
     [self.backToMainWindowButton setTitle:([[NSUserDefaults standardUserDefaults] boolForKey:PreferencesDoneKey] ? @"Apply" : @"Continue")];
 }
