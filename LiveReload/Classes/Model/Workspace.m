@@ -110,6 +110,22 @@ static NSString *ClientConnectedMonitoringKey = @"clientConnected";
     return [[self.projects allObjects] sortedArrayUsingSelector:@selector(compareByDisplayPath:)];
 }
 
+- (Project *)projectWithPath:(NSString *)path create:(BOOL)create {
+    path = [[[path stringByExpandingTildeInPath] stringByStandardizingPath] stringByResolvingSymlinksInPath];
+    for (Project *project in _projects) {
+        if ([[[project.path stringByStandardizingPath] stringByResolvingSymlinksInPath] isEqualToString:path]) {
+            return project;
+        }
+    }
+    if (create) {
+        Project *project = [[[Project alloc] initWithPath:path memento:nil] autorelease];
+        [self addProjectsObject:project];
+        return project;
+    } else {
+        return nil;
+    }
+}
+
 
 #pragma mark -
 #pragma mark File System Monitoring

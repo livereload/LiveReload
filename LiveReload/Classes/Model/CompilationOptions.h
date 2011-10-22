@@ -18,6 +18,8 @@ typedef enum {
     CompilationModeMiddleware,
 } CompilationMode;
 
+CompilationMode CompilationModeFromNSString(NSString *string);
+
 
 @interface CompilationOptions : NSObject {
 @private

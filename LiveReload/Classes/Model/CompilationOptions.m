@@ -14,6 +14,19 @@ NSString *APIModeNames[] = { @"disabled", @"compile", @"middleware" };
 
 NSString *DisplayModeNames[] = { @"disabled", @"compile", @"on-the-fly" };
 
+CompilationMode CompilationModeFromNSString(NSString *raw) {
+    if ([raw isEqualToString:@"compile"])
+        return CompilationModeCompile;
+    else if ([raw isEqualToString:@"middleware"])
+        return CompilationModeMiddleware;
+    else if ([raw isEqualToString:@"disabled"] || [raw isEqualToString:@"ignore"])
+        return CompilationModeDisabled;
+    else {
+        NSLog(@"Ignoring unknown value of mode: '%@'", raw);
+        return CompilationModeDisabled;
+    }
+}
+
 
 @implementation CompilationOptions
 
@@ -42,16 +55,7 @@ NSString *DisplayModeNames[] = { @"disabled", @"compile", @"on-the-fly" };
             else
                 _mode = CompilationModeDisabled;
         } else if ((raw = [memento objectForKey:@"mode"])) {
-            if ([raw isEqualToString:@"compile"])
-                _mode = CompilationModeCompile;
-            else if ([raw isEqualToString:@"middleware"])
-                _mode = CompilationModeMiddleware;
-            else if ([raw isEqualToString:@"disabled"] || [raw isEqualToString:@"ignore"])
-                _mode = CompilationModeDisabled;
-            else {
-                NSLog(@"Ignoring unknown value of mode: '%@'", raw);
-                _mode = CompilationModeDisabled;
-            }
+            _mode = CompilationModeFromNSString(raw);
         } else {
             _mode = CompilationModeDisabled;
         }

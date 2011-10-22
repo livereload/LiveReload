@@ -1,6 +1,8 @@
 
 #import "LiveReloadAppDelegate.h"
+#import "Project.h"
 #import "Workspace.h"
+#import "CompilationOptions.h"
 #import "StatusItemController.h"
 #import "MainWindowController.h"
 #import "PreferencesWindowController.h"
@@ -28,6 +30,10 @@
 @synthesize statusItemController=_statusItemController;
 @synthesize mainWindowController=_mainWindowController;
 @synthesize preferencesWindowController = _preferencesWindowController;
+
+- (void)awakeFromNib {
+    [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(handleURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
+}
 
 // just to make XDry happy; won't ever be deallocated
 - (void)dealloc {
@@ -212,5 +218,81 @@
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://help.livereload.com/discussion/new"]];
 }
 
+
+#pragma mark -
+
+- (void)handleCommand:(NSString *)command params:(NSDictionary *)params {
+    NSLog(@"Received command %@ with params %@", command, params);
+    if ([command isEqualToString:@"add"]) {
+        NSString *path = [[[params objectForKey:@"path"] stringByExpandingTildeInPath] stringByStandardizingPath];
+        BOOL isDir = NO;
+        if (path && [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir] && isDir) {
+            Project *project = [[Workspace sharedWorkspace] projectWithPath:path create:YES];
+
+            NSMutableSet *compilerIds = [NSMutableSet set];
+            [params enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+                NSString *prefix = @"compiler-";
+                if ([key length] > [prefix length] && [[key substringToIndex:[prefix length]] isEqualToString:prefix]) {
+                    NSString *compilerId = [key substringFromIndex:[prefix length]];
+                    NSRange r = [compilerId rangeOfString:@"-" options:NSBackwardsSearch];
+                    if (r.length > 0) {
+                        compilerId = [compilerId substringToIndex:r.location];
+                        [compilerIds addObject:compilerId];
+                    }
+                }
+            }];
+
+            for (NSString *compilerId in compilerIds) {
+                Compiler *compiler = [[PluginManager sharedPluginManager] compilerWithUniqueId:compilerId];
+                if (compiler) {
+                    NSString *mode = [params objectForKey:[NSString stringWithFormat:@"compiler-%@-mode", compilerId]];
+                    if ([mode length] > 0) {
+                        CompilationOptions *options = [project optionsForCompiler:compiler create:YES];
+                        options.mode = CompilationModeFromNSString(mode);
+                    }
+                } else {
+                    NSLog(@"Ignoring options for unknown compiler: '%@'", compilerId);
+                }
+            }
+        } else {
+            NSLog(@"Refusing to add '%@' -- the directory does not exist.", path);
+        }
+    } else if ([command isEqualToString:@"remove"]) {
+        NSString *path = [[[params objectForKey:@"path"] stringByExpandingTildeInPath] stringByStandardizingPath];
+        Project *project = [[Workspace sharedWorkspace] projectWithPath:path create:NO];
+        if (project) {
+            [[Workspace sharedWorkspace] removeProjectsObject:project];
+        } else {
+            NSLog(@"Could not find an existing project at '%@'", path);
+        }
+    }
+}
+
+- (void)handleURLEvent:(NSAppleEventDescriptor*)event withReplyEvent:(NSAppleEventDescriptor*)replyEvent {
+    NSString *url = [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
+    NSString *prefix = @"livereload:";
+    if ([url length] < [prefix length] || ![[url substringToIndex:[prefix length]] isEqualToString:prefix])
+        return;
+    url = [url substringFromIndex:[prefix length]];
+
+    NSRange range = [url rangeOfString:@"?"];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    NSString *command;
+    if (range.length > 0) {
+        command = [url substringToIndex:range.location];
+        NSString *query = [url substringFromIndex:range.location+1];
+        [[query componentsSeparatedByString:@"&"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            NSRange eq = [obj rangeOfString:@"="];
+            if (eq.length > 0) {
+                NSString *key = [obj substringToIndex:eq.location];
+                NSString *value = [[obj substringFromIndex:eq.location + 1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                [params setObject:value forKey:key];
+            }
+        }];
+    } else {
+        command = url;
+    }
+    [self handleCommand:command params:params];
+}
 
 @end
