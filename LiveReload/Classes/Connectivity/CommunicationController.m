@@ -1,11 +1,13 @@
 
 #import "CommunicationController.h"
+#import "ExtensionsController.h"
 #import "WebSocketServer.h"
 #import "Project.h"
 #import "Workspace.h"
 #import "JSON.h"
 #import "Preferences.h"
 
+#import "VersionNumber.h"
 #import "NSDictionaryAndArray+SafeAccess.h"
 
 #define PORT_NUMBER 35729
@@ -160,18 +162,47 @@ NSString *CommunicationStateChangedNotification = @"CommunicationStateChangedNot
 - (void)handshakeTimeout {
     _monitoring = YES;
     _monitoringProtocolVersion = 6;
+    [self didFinishHandshake];
+}
 
+- (void)displayProtocol6UpgradePrompt {
     static BOOL warningDisplayed = NO;
     if (!warningDisplayed) {
         warningDisplayed = YES;
 
-        NSInteger reply = [[NSAlert alertWithMessageText:@"Update browser extensions" defaultButton:@"Update Now" alternateButton:@"Ignore" otherButton:nil informativeTextWithFormat:@"Update your browser extensions to version 2.0 to get advantage of many bug fixes, automatic reconnection, @import support, in-browser LESS.js support and more.\n\nBest part is: most of future improvements will NOT require you to update your extensions, so it's just this one time.\n\nThis prompt will appear once every time you launch LiveReload, until you upgrade."] runModal];
+        NSInteger reply = [[NSAlert alertWithMessageText:@"Update browser extensions" defaultButton:@"Update Now" alternateButton:@"Ignore" otherButton:nil informativeTextWithFormat:@"Update your browser extensions to version 2.0 to get advantage of many bug fixes, automatic reconnection, @import support, in-browser LESS.js support and more."] runModal];
         if (reply == NSAlertDefaultReturn) {
-            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://help.livereload.com/kb/general-use/browser-extensions"]];
+            [[ExtensionsController sharedExtensionsController] installExtension:self];
         }
     }
+}
 
-    [self didFinishHandshake];
+- (void)displayUpgradePromptForBrowser:(NSString *)browser extVersion:(NSString *)version {
+    static NSMutableDictionary *promptsDisplayed = nil;
+
+    if ([promptsDisplayed objectForKey:browser])
+        return;
+
+    NSDictionary *latestVersions = [NSDictionary dictionaryWithObjectsAndKeys:@"2.0.2", @"safari", @"2.0.2", @"chrome", @"2.0.2", @"firefox", nil];
+    NSString *latestVersion = [latestVersions objectForKey:[browser lowercaseString]];
+    if (VersionNumberFromNSString(version) < VersionNumberFromNSString(latestVersion)) {
+        if (promptsDisplayed == nil)
+            promptsDisplayed = [[NSMutableDictionary alloc] init];
+        [promptsDisplayed setObject:latestVersion forKey:browser];
+
+        NSInteger reply = [[NSAlert alertWithMessageText:@"Update browser extension" defaultButton:@"Update Now" alternateButton:@"Ignore" otherButton:nil informativeTextWithFormat:@"The latest version of %@ extension is %@, you currently have version %@. Please consider installing the new version.", browser, latestVersion, version] runModal];
+        if (reply == NSAlertDefaultReturn) {
+            ExtensionsController *ec = [ExtensionsController sharedExtensionsController];
+            if ([browser isEqualToString:@"Safari"])
+                [ec installSafariExtension:self];
+            else if ([browser isEqualToString:@"Chrome"])
+                [ec installChromeExtension:self];
+            else if ([browser isEqualToString:@"Firefox"])
+                [ec installFirefoxExtension:self];
+            else
+                [ec installExtension:self];
+        }
+    }
 }
 
 - (void)didFinishHandshake {
@@ -191,6 +222,12 @@ NSString *CommunicationStateChangedNotification = @"CommunicationStateChangedNot
         NSLog(@"Successfully negotiated a non-monitoring protocol");
     }
     [_delegate connectionDidFinishHandshake:self];
+
+    if (_monitoringProtocolVersion == 6) {
+        [self displayProtocol6UpgradePrompt];
+    } else if (_extensionName && _extensionVersion) {
+        [self displayUpgradePromptForBrowser:_extensionName extVersion:_extensionVersion];
+    }
 }
 
 - (void)processCommandNamed:(NSString *)command data:(NSDictionary *)data {
@@ -204,6 +241,11 @@ NSString *CommunicationStateChangedNotification = @"CommunicationStateChangedNot
                 _monitoring = YES;
                 _monitoringProtocolVersion = 7;
                 accepted = YES;
+
+                _extensionName = [[data safeStringForKey:@"ext"] copy];
+                _extensionVersion = [[data safeStringForKey:@"extver"] copy];
+                _snippetVersion = [[data safeStringForKey:@"snipver"] copy];
+                _livereloadJsVersion = [[data safeStringForKey:@"ver"] copy];
             }
             if ([protocols containsObject:PROTOCOL_CONNTEST_1]) {
                 accepted = YES;

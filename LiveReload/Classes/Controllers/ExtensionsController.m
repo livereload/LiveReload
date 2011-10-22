@@ -18,7 +18,7 @@ static ExtensionsController *sharedExtensionsController;
 
 - (void)installExtensionWithAppId:(NSString *)appId {
     NSURL *url = [NSURL URLWithString:@"http://help.livereload.com/kb/general-use/browser-extensions"];
-    if (![[NSWorkspace sharedWorkspace] openURLs:[NSArray arrayWithObject:url] withAppBundleIdentifier:appId options:NSWorkspaceLaunchDefault additionalEventParamDescriptor:NULL launchIdentifiers:NULL]) {
+    if (!appId || ![[NSWorkspace sharedWorkspace] openURLs:[NSArray arrayWithObject:url] withAppBundleIdentifier:appId options:NSWorkspaceLaunchDefault additionalEventParamDescriptor:NULL launchIdentifiers:NULL]) {
         [[NSWorkspace sharedWorkspace] openURL:url];
     }
 }
@@ -33,6 +33,10 @@ static ExtensionsController *sharedExtensionsController;
 
 - (IBAction)installFirefoxExtension:(id)sender {
     [self installExtensionWithAppId:@"org.mozilla.firefox"];
+}
+
+- (IBAction)installExtension:(id)sender {
+    [self installExtensionWithAppId:nil];
 }
 
 @end

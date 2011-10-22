@@ -37,6 +37,12 @@ extern NSString *CommunicationStateChangedNotification;
     BOOL                   _handshakeDone;
     BOOL                   _monitoring;
     NSInteger              _monitoringProtocolVersion;
+
+    NSString              *_extensionName;
+    NSString              *_extensionVersion;
+    NSString              *_snippetVersion;
+    NSString              *_livereloadJsVersion;
+
     __weak id<LiveReloadConnectionDelegate> _delegate;
 }
 
