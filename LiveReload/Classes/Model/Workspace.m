@@ -95,6 +95,7 @@ static NSString *ClientConnectedMonitoringKey = @"clientConnected";
     NSParameterAssert(![_projects containsObject:project]);
     [_projects addObject:project];
     [project requestMonitoring:_monitoringEnabled forKey:ClientConnectedMonitoringKey];
+    [project checkBrokenPaths]; // in case we don't have monitoring enabled
     [self setNeedsSaving];
 }
 

@@ -34,6 +34,8 @@ extern NSString *ProjectNeedsSavingNotification;
     NSTimeInterval           _lastPostProcessingRunDate;
 
     ImportGraph             *_importGraph;
+
+    BOOL                     _brokenPathReported;
 }
 
 - (id)initWithPath:(NSString *)path memento:(NSDictionary *)memento;
@@ -64,5 +66,7 @@ extern NSString *ProjectNeedsSavingNotification;
 @property(nonatomic, getter = isDirty) BOOL dirty;
 
 @property(nonatomic, retain) NSString *postProcessingCommand;
+
+- (void)checkBrokenPaths;
 
 @end

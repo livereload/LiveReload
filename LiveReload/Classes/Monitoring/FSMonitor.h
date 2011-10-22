@@ -35,6 +35,8 @@
 
 @property(nonatomic, readonly, retain) FSTree *tree;
 
+- (FSTree *)obtainTree;
+
 - (void)filterUpdated;
 
 - (void)rescan;

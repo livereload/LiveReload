@@ -184,6 +184,12 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
     return _treeDiffer.savedTree;
 }
 
+- (FSTree *)obtainTree {
+    if (_treeDiffer)
+        return _treeDiffer.savedTree;
+    else
+        return [[[FSTree alloc] initWithPath:_path filter:_filter] autorelease];
+}
 
 @end
 

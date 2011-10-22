@@ -19,6 +19,41 @@ struct FSTreeItem {
 };
 
 
+static BOOL IsBrokenFolder(NSString *path) {
+    FSRef fsref;
+    AliasHandle itemAlias;
+    HFSUniStr255 targetName;
+    HFSUniStr255 volumeName;
+    CFStringRef pathString;
+    FSAliasInfoBitmap returnedInInfo;
+    FSAliasInfo info;
+
+    char path_buf[1024 * 100];
+    char real_path_buf[1024 * 100];
+
+    strcpy(path_buf, [path fileSystemRepresentation]);
+
+    if (strstr(path_buf, "_!LR_BROKEN!_"))
+        return YES; // for testing
+
+    realpath(path_buf, real_path_buf);
+    if (0 != strcmp(path_buf, real_path_buf)) {
+        return YES;
+    }
+
+    FSPathMakeRefWithOptions((unsigned char *)path_buf, kFSPathMakeRefDoNotFollowLeafSymlink, &fsref, NULL);
+    FSNewAlias(NULL, &fsref, &itemAlias);
+    FSCopyAliasInfo(itemAlias, &targetName, &volumeName, &pathString, &returnedInInfo, &info);
+    CFStringGetCString(pathString, real_path_buf, sizeof(real_path_buf), kCFStringEncodingUTF8);
+    CFRelease(pathString);
+    if (0 != strcmp(path_buf, real_path_buf)) {
+        return YES;
+    }
+
+    return NO;
+}
+
+
 @implementation FSTree
 
 @synthesize rootPath = _rootPath;
@@ -202,6 +237,28 @@ struct FSTreeItem {
     for (struct FSTreeItem *cur = _items; cur < end; ++cur) {
         if (cur->st_mode == S_IFREG && filter(cur->name)) {
             [result addObject:cur->name];
+        }
+    }
+    [pool drain];
+    return result;
+}
+
+- (NSArray *)brokenPaths {
+    NSMutableArray *result = [NSMutableArray array];
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    struct FSTreeItem *end = _items + _count;
+    for (struct FSTreeItem *cur = _items; cur < end; ++cur) {
+        if (cur->st_mode == S_IFDIR) {
+            if (IsBrokenFolder([_rootPath stringByAppendingPathComponent:cur->name])) {
+                // ignore children of already reported folders
+                for (NSString *peer in result) {
+                    if ([cur->name length] > [peer length] && [cur->name characterAtIndex:[peer length]] == '/' && [[cur->name substringToIndex:[peer length]] isEqualToString:peer]) {
+                        goto skip;
+                    }
+                }
+                [result addObject:cur->name];
+            skip: ;
+            }
         }
     }
     [pool drain];
