@@ -12,10 +12,10 @@ extern NSString *CompilationOptionsEnabledChangedNotification;
 
 
 typedef enum {
-    CompilationModeIgnore,
+//    CompilationModeIgnore,
+    CompilationModeDisabled,
     CompilationModeCompile,
     CompilationModeMiddleware,
-    CompilationModeDisabled,
 } CompilationMode;
 
 

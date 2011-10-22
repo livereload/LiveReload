@@ -70,7 +70,7 @@
 }
 
 - (BOOL)isActive {
-    return _options.mode != CompilationModeIgnore;
+    return _options.mode != CompilationModeDisabled;
 }
 
 + (NSSet *)keyPathsForValuesAffectingActive {

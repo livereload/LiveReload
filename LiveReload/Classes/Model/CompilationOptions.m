@@ -40,20 +40,20 @@ NSString *DisplayModeNames[] = { @"ignore", @"compile", @"on-the-fly", @"disable
             if ([raw boolValue])
                 _mode = CompilationModeCompile;
             else
-                _mode = CompilationModeIgnore;
+                _mode = CompilationModeDisabled;
         } else if ((raw = [memento objectForKey:@"mode"])) {
-            if ([raw isEqualToString:@"ignore"])
-                _mode = CompilationModeIgnore;
-            else if ([raw isEqualToString:@"compile"])
+            if ([raw isEqualToString:@"compile"])
                 _mode = CompilationModeCompile;
             else if ([raw isEqualToString:@"middleware"])
                 _mode = CompilationModeMiddleware;
-            else if ([raw isEqualToString:@"disabled"])
+            else if ([raw isEqualToString:@"disabled"] || [raw isEqualToString:@"ignore"])
                 _mode = CompilationModeDisabled;
             else {
                 NSLog(@"Ignoring unknown value of mode: '%@'", raw);
-                _mode = CompilationModeIgnore;
+                _mode = CompilationModeDisabled;
             }
+        } else {
+            _mode = CompilationModeDisabled;
         }
 
         raw = [memento objectForKey:@"global"];

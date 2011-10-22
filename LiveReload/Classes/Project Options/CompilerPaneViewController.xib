@@ -60,7 +60,7 @@
 											<object class="NSTableView" id="389703843">
 												<reference key="NSNextResponder" ref="89346688"/>
 												<int key="NSvFlags">256</int>
-												<string key="NSFrameSize">{484, 137}</string>
+												<string key="NSFrameSize">{484, 157}</string>
 												<reference key="NSSuperview" ref="89346688"/>
 												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="348016245"/>
@@ -192,7 +192,7 @@
 												<int key="NSTableViewGroupRowStyle">1</int>
 											</object>
 										</array>
-										<string key="NSFrame">{{1, 17}, {484, 137}}</string>
+										<string key="NSFrame">{{1, 17}, {484, 157}}</string>
 										<reference key="NSSuperview" ref="389956779"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="389703843"/>
@@ -238,7 +238,7 @@
 										<int key="NScvFlags">4</int>
 									</object>
 								</array>
-								<string key="NSFrame">{{18, 98}, {486, 155}}</string>
+								<string key="NSFrame">{{18, 98}, {486, 175}}</string>
 								<reference key="NSSuperview" ref="355104748"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="1068108444"/>
@@ -252,7 +252,7 @@
 							<object class="NSTextField" id="495009392">
 								<reference key="NSNextResponder" ref="355104748"/>
 								<int key="NSvFlags">268</int>
-								<string key="NSFrame">{{15, 261}, {193, 17}}</string>
+								<string key="NSFrame">{{15, 281}, {193, 17}}</string>
 								<reference key="NSSuperview" ref="355104748"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="389956779"/>
@@ -365,19 +365,19 @@
 							<object class="NSMatrix" id="237638649">
 								<reference key="NSNextResponder" ref="355104748"/>
 								<int key="NSvFlags">266</int>
-								<string key="NSFrame">{{30, 286}, {474, 78}}</string>
+								<string key="NSFrame">{{30, 306}, {474, 58}}</string>
 								<reference key="NSSuperview" ref="355104748"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="495009392"/>
 								<string key="NSReuseIdentifierKey">_NS:265</string>
 								<bool key="NSEnabled">YES</bool>
-								<int key="NSNumRows">4</int>
+								<int key="NSNumRows">3</int>
 								<int key="NSNumCols">1</int>
 								<array class="NSMutableArray" key="NSCells">
 									<object class="NSButtonCell" id="533158092">
 										<int key="NSCellFlags">-2080244224</int>
 										<int key="NSCellFlags2">0</int>
-										<string key="NSContents">Ignore</string>
+										<string key="NSContents">No special treatment (reload entire page)</string>
 										<reference key="NSSupport" ref="33352996"/>
 										<reference key="NSControlView" ref="237638649"/>
 										<int key="NSButtonFlags">1211912703</int>
@@ -448,23 +448,10 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 									<object class="NSButtonCell" id="551328532">
 										<int key="NSCellFlags">67239424</int>
 										<int key="NSCellFlags2">0</int>
-										<string key="NSContents">Pretend .dst was modified instead (on-the-fly compilation support)</string>
+										<string key="NSContents">Support live refresh for external compilers</string>
 										<reference key="NSSupport" ref="33352996"/>
 										<reference key="NSControlView" ref="237638649"/>
 										<int key="NSTag">2</int>
-										<int key="NSButtonFlags">1211912703</int>
-										<int key="NSButtonFlags2">0</int>
-										<reference key="NSAlternateImage" ref="455025384"/>
-										<int key="NSPeriodicDelay">400</int>
-										<int key="NSPeriodicInterval">75</int>
-									</object>
-									<object class="NSButtonCell" id="294600523">
-										<int key="NSCellFlags">67239424</int>
-										<int key="NSCellFlags2">0</int>
-										<string key="NSContents">No special treatment (reload entire page or compile LESS.js in browser)</string>
-										<reference key="NSSupport" ref="33352996"/>
-										<reference key="NSControlView" ref="237638649"/>
-										<int key="NSTag">3</int>
 										<int key="NSButtonFlags">1211912703</int>
 										<int key="NSButtonFlags2">0</int>
 										<reference key="NSAlternateImage" ref="455025384"/>
@@ -883,8 +870,8 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<reference ref="549280000"/>
 							<reference ref="979521487"/>
 							<reference ref="389956779"/>
-							<reference ref="237638649"/>
 							<reference ref="305289677"/>
+							<reference ref="237638649"/>
 							<reference ref="495009392"/>
 						</array>
 						<reference key="parent" ref="0"/>
@@ -1038,7 +1025,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<reference ref="533158092"/>
 							<reference ref="170924436"/>
 							<reference ref="551328532"/>
-							<reference ref="294600523"/>
 						</array>
 						<reference key="parent" ref="517729988"/>
 					</object>
@@ -1062,11 +1048,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<reference key="object" ref="551328532"/>
 						<reference key="parent" ref="237638649"/>
 					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">145</int>
-						<reference key="object" ref="294600523"/>
-						<reference key="parent" ref="237638649"/>
-					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -1076,7 +1057,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				<string key="10.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="100.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="11.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="145.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="16.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="18.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="19.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
