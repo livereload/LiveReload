@@ -10,9 +10,9 @@
 
 NSString *CompilationOptionsEnabledChangedNotification = @"CompilationOptionsEnabledChangedNotification";
 
-NSString *APIModeNames[] = { @"ignore", @"compile", @"middleware", @"disabled" };
+NSString *APIModeNames[] = { @"disabled", @"compile", @"middleware" };
 
-NSString *DisplayModeNames[] = { @"ignore", @"compile", @"on-the-fly", @"disabled" };
+NSString *DisplayModeNames[] = { @"disabled", @"compile", @"on-the-fly" };
 
 
 @implementation CompilationOptions
