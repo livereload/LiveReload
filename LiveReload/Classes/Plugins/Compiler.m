@@ -97,13 +97,13 @@
             _importRegExps = [[NSArray alloc] init];
         _defaultImportedExts = [[info objectForKey:@"DefaultImportedExts"] copy];
         if (!_defaultImportedExts)
-            _defaultImportedExts = [NSArray array];
+            _defaultImportedExts = [[NSArray alloc] init];
         _nonImportedExts = [[info objectForKey:@"NonImportedExts"] copy];
         if (!_nonImportedExts)
-            _nonImportedExts = [NSArray array];
+            _nonImportedExts = [[NSArray alloc] init];
         _importToFileMappings = [[info objectForKey:@"ImportToFileMappings"] copy];
         if (!_importToFileMappings)
-            _importToFileMappings = [NSArray arrayWithObject:@"$(file)"];
+            _importToFileMappings = [[NSArray alloc] initWithObjects:@"$(file)", nil];
     }
     return self;
 }
