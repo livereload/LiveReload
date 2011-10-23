@@ -76,7 +76,7 @@
   <section class="download-section">
     <a name="download"></a>
     <div class="left">
-      <h2><a href="http://download.livereload.com/LiveReload-2.0a7.zip" class="download">Download LiveReload 2.0 α7 for Mac</a></h2>
+      <h2><a href="http://download.livereload.com/LiveReload-2.0a8.zip" class="download">Download LiveReload 2.0 α8 for Mac</a></h2>
 
       <p class="after-download" style="display: none">
         Thanks! Please also sign up for our newsletter to receive new build
@@ -90,7 +90,9 @@
       <p>
         After you download and install LiveReload,
         it will ask you to install its browser
-        extensions.
+        extensions. That's optional, you can also
+        <a href="http://help.livereload.com/kb/general-use/using-livereload-without-browser-extensions">
+        insert a short JavaScript snippet into your code</a>.
       </p>
 
       <p>
@@ -99,8 +101,8 @@
         The app is expected to work quite well,
         but I might have borked a thing or two.
         When you find something to complain about,
-        please drop me an email at
-        <a href="mailto:support@livereload.com">support@livereload.com</a>.
+        please <a href="http://help.livereload.com/discussion/new">
+        start a support topic</a>.
       </p>
       <p>
         Also, please please PLEASE don't try to
@@ -286,6 +288,73 @@
     <a name="news"></a>
     <div class="left">
       <h2>What's new in LiveReload?</h2>
+
+      <h3>2.0α8</h3>
+
+      <p>Bigger changes:</p>
+
+      <ol>
+        <li>
+          Completely rewritten <a href="http://help.livereload.com/kb/general-use/browser-extensions">browser extensions v2.0</a>. Browser-side code has been split into two parts: livereload.js, which handles all the meaty logic (and <a href="http://help.livereload.com/kb/general-use/using-livereload-without-browser-extensions">can be used stand-alone</a>), and optional browser extensions that merely insert a SCRIPT tag to include livereload.js.
+        </li>
+
+        <li>
+          The new livereload.js now supports <a href="http://help.livereload.com/kb/features/css-import-support">CSS @import</a> and <a href="http://help.livereload.com/kb/languages/less">in-browser LESS compiler</a>, also reconnects automatically.
+        </li>
+
+        <li>
+          <a href="http://help.livereload.com/kb/general-use/imported-files-partials-support">Server-side @import support</a> for LESS, SASS, Stylus.
+        </li>
+
+        <li>
+          <a href="http://help.livereload.com/kb/general-use/custom-post-processing">Simple support for custom post-processing</a>.
+        </li>
+
+        <li>
+          Compiler modes adjusted: new default is a zero-suprise “disabled” mode, the old “ignored” mode has been removed.
+        </li>
+
+        <li>
+          For your scripting pleasure, an <a href="http://help.livereload.com/kb/ecosystem/livereload-url-api">API based on livereload: URL scheme</a>.
+        </li>
+      </ol>
+
+      <p>Smaller changes:</p>
+
+      <ul>
+
+        <li>
+          a <a href="http://help.livereload.com/kb/troubleshooting/os-x-fsevents-bug-may-prevent-monitoring-of-certain-folders">rare FSEvents bug that breaks file change monitoring</a> is now automatically detected
+        </li>
+
+        <li>
+          for those experiencing 'unstyled content after editing CSS' problem, it's now much better (unstyled content flashes instead of staying permanently), and <a href="http://help.livereload.com/kb/troubleshooting/flash-of-unstyled-content-when-editing-css-files">there's a hidden preference to hopefully get rid of it altogether</a>
+        </li>
+
+        <li>
+          documented <a href="http://help.livereload.com/kb/settings/hidden-preferences">another hidden preference to specify additional file extensions to monitor</a>
+        </li>
+
+        <li>
+          fixed output path computation for newly added compilable files; will now always default to the source file's parent folder when in doubt.
+        </li>
+
+        <li>
+          fixed multiple selection in compiler's file list to change output directories in bulk
+        </li>
+
+        <li>added .as and .swf to monitored extensions</li>
+
+        <li>added node_modules to excluded folders (mainly to avoid compiling LESS/CoffeeScript/whatever inside those folders, even if you enable compilation for the main project)</li>
+
+        <li>added Slim compiler</li>
+
+        <li>added support for BBEdit</li>
+
+        <li>new menu bar icons and smooth animation, kindly provided by Pete Schaffner</li>
+
+        <li><a href="http://help.livereload.com/kb/about-us/usage-statistics-privacy-policy">more usage statistics and privacy policy for those</a></li>
+      </ul>
 
       <h3>2.0α7</h3>
 
