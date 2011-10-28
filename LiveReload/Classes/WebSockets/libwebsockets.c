@@ -21,8 +21,12 @@
 
 #include "private-libwebsockets.h"
 
+#ifdef WIN32
+
+#else
 #include <ifaddrs.h>
 #include <sys/un.h>
+#endif
 
 #ifdef LWS_OPENSSL_SUPPORT
 int openssl_websocket_private_data_index;
@@ -113,6 +117,9 @@ static int
 interface_to_sa(const char* ifname, struct sockaddr_in *addr, size_t addrlen)
 {
 	int rc = -1;
+#ifdef WIN32
+	// TODO
+#else
 	struct ifaddrs *ifr;
 	struct ifaddrs *ifc;
 	struct sockaddr_in *sin;
@@ -131,6 +138,7 @@ interface_to_sa(const char* ifname, struct sockaddr_in *addr, size_t addrlen)
 	}
 
 	freeifaddrs(ifr);
+#endif
 	return rc;
 }
 
@@ -357,13 +365,22 @@ just_kill_connection:
 	if (wsi->ssl) {
 		n = SSL_get_fd(wsi->ssl);
 		SSL_shutdown(wsi->ssl);
+#ifdef WIN32
+		closesocket(n);
+#else
 		close(n);
+#endif
 		SSL_free(wsi->ssl);
 	} else {
 #endif
 		shutdown(wsi->sock, SHUT_RDWR);
+#ifdef WIN32
+		if (wsi->sock)
+			closesocket(wsi->sock);
+#else
 		if (wsi->sock)
 			close(wsi->sock);
+#endif
 #ifdef LWS_OPENSSL_SUPPORT
 	}
 #endif
@@ -475,7 +492,13 @@ int libwebsockets_get_random(struct libwebsocket_context *context,
 {
 	int n;
 	char *p = buf;
+
+#ifdef WIN32
+	for (n = 0; n < len; n++)
+		p[n] = (unsigned char)rand();
+#else
 	n = read(context->fd_random, p, len);
+#endif
 
 	return n;
 }
@@ -1489,6 +1512,11 @@ libwebsocket_service_fd(struct libwebsocket_context *context,
 		if (!pollfd->revents & POLLIN)
 			break;
 
+		if (context->fds_count >= MAX_CLIENTS) {
+			fprintf(stderr, "too busy to accept new client\n");
+			break;
+		}
+
 		/* listen socket got an unencrypted connection... */
 
 		clilen = sizeof(cli_addr);
@@ -1501,14 +1529,8 @@ libwebsocket_service_fd(struct libwebsocket_context *context,
 
 		/* Disable Nagle */
 		opt = 1;
-		setsockopt(accept_fd, IPPROTO_TCP, TCP_NODELAY, &opt,
+        setsockopt(accept_fd, IPPROTO_TCP, TCP_NODELAY, (const void *)&opt,
 				sizeof(opt));
-
-		if (context->fds_count >= MAX_CLIENTS) {
-			fprintf(stderr, "too busy to accept new client\n");
-			close(accept_fd);
-			break;
-		}
 
 		/*
 		 * look at who we connected to and give user code a chance
@@ -1520,7 +1542,11 @@ libwebsocket_service_fd(struct libwebsocket_context *context,
 				LWS_CALLBACK_FILTER_NETWORK_CONNECTION,
 					     (void*)(long)accept_fd, NULL, 0)) {
 			fprintf(stderr, "Callback denied network connection\n");
+#ifdef WIN32
+			closesocket(accept_fd);
+#else
 			close(accept_fd);
+#endif
 			break;
 		}
 
@@ -1616,7 +1642,11 @@ libwebsocket_service_fd(struct libwebsocket_context *context,
 		if (context->fds_count >= MAX_CLIENTS) {
 			fprintf(stderr, "too busy to accept new broadcast "
 							      "proxy client\n");
+#ifdef WIN32
+			closesocket(accept_fd);
+#else
 			close(accept_fd);
+#endif
 			break;
 		}
 
@@ -2043,7 +2073,10 @@ libwebsocket_context_destroy(struct libwebsocket_context *context)
 		ext++;
 	}
 
+#ifdef WIN32
+#else
 	close(context->fd_random);
+#endif
 
 #ifdef LWS_OPENSSL_SUPPORT
 	if (context->ssl_ctx)
@@ -2054,6 +2087,9 @@ libwebsocket_context_destroy(struct libwebsocket_context *context)
 
 	free(context);
 
+#ifdef WIN32
+	WSACleanup();
+#endif
 }
 
 /**
@@ -2460,6 +2496,38 @@ libwebsocket_create_context(int port, const char *interf,
 	char ssl_err_buf[512];
 #endif
 
+#ifdef _WIN32
+	{
+		WORD wVersionRequested;
+		WSADATA wsaData;
+		int err;
+        HMODULE wsdll;
+
+		/* Use the MAKEWORD(lowbyte, highbyte) macro from Windef.h */
+		wVersionRequested = MAKEWORD(2, 2);
+
+		err = WSAStartup(wVersionRequested, &wsaData);
+		if (err != 0) {
+			/* Tell the user that we could not find a usable */
+			/* Winsock DLL.                                  */
+			fprintf(stderr, "WSAStartup failed with error: %d\n",
+									   err);
+			return NULL;
+		}
+
+        wsdll = GetModuleHandle("Ws2_32.dll");
+        if (wsdll)
+        {
+            poll = (PFNWSAPOLL)GetProcAddress(wsdll, "WSAPoll");
+        }
+
+        if (!poll)
+        {
+            poll = emulated_poll;
+        }
+	}
+#endif
+
 
 	context = malloc(sizeof(struct libwebsocket_context));
 	if (!context) {
@@ -2474,12 +2542,16 @@ libwebsocket_create_context(int port, const char *interf,
 	context->fds_count = 0;
 	context->extensions = extensions;
 
+#ifdef WIN32
+	context->fd_random = 0;
+#else
 	context->fd_random = open(SYSTEM_RANDOM_FILEPATH, O_RDONLY);
 	if (context->fd_random < 0) {
 		fprintf(stderr, "Unable to open random device %s %d\n",
 				    SYSTEM_RANDOM_FILEPATH, context->fd_random);
 		return NULL;
 	}
+#endif
 
 #ifdef LWS_OPENSSL_SUPPORT
 	context->use_ssl = 0;
@@ -2547,7 +2619,10 @@ libwebsocket_create_context(int port, const char *interf,
 	}
 
 	/* ignore SIGPIPE */
+#ifdef WIN32
+#else
 	signal(SIGPIPE, sigpipe_handler);
+#endif
 
 
 #ifdef LWS_OPENSSL_SUPPORT
@@ -2689,12 +2764,12 @@ libwebsocket_create_context(int port, const char *interf,
 		}
 
 		/* allow us to restart even if old sockets in TIME_WAIT */
-		setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
+		setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, (const void *)&opt, sizeof(opt));
 
 
 		/* Disable Nagle */
 		opt = 1;
-		setsockopt(sockfd, IPPROTO_TCP, TCP_NODELAY, &opt, sizeof(opt));
+		setsockopt(sockfd, IPPROTO_TCP, TCP_NODELAY, (const void *)&opt, sizeof(opt));
 
 		bzero((char *) &serv_addr, sizeof(serv_addr));
 		serv_addr.sin_family = AF_INET;
@@ -2736,12 +2811,15 @@ libwebsocket_create_context(int port, const char *interf,
 	}
 
 	/* drop any root privs for this process */
+#ifdef WIN32
+#else
 	if (gid != -1)
 		if (setgid(gid))
 			fprintf(stderr, "setgid: %s\n", strerror(errno));
 	if (uid != -1)
 		if (setuid(uid))
 			fprintf(stderr, "setuid: %s\n", strerror(errno));
+#endif
 
 	/* set up our internal broadcast trigger sockets per-protocol */
 
@@ -2762,7 +2840,7 @@ libwebsocket_create_context(int port, const char *interf,
 		}
 
 		/* allow us to restart even if old sockets in TIME_WAIT */
-		setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
+		setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, (const void *)&opt, sizeof(opt));
 
 		bzero((char *) &serv_addr, sizeof(serv_addr));
 		serv_addr.sin_family = AF_INET;

@@ -371,6 +371,7 @@ handshake_0405(struct libwebsocket_context *context, struct libwebsocket *wsi)
 		wsi->count_active_extensions = 0;
 		n = 0;
 		while (more) {
+
 			if (*c && (*c != ',' && *c != ' ' && *c != '\t')) {
 				ext_name[n] = *c++;
 				if (n < sizeof(ext_name) - 1)
@@ -698,8 +699,8 @@ libwebsocket_read(struct libwebsocket_context *context, struct libwebsocket *wsi
 		case 5:
 		case 6:
 		case 7:
-        case 8:
-        case 13:
+		case 8:
+		case 13:
 			wsi->xor_mask = xor_mask_05;
 			debug("libwebsocket_parse calling handshake_04\n");
 			if (handshake_0405(context, wsi))

@@ -14,6 +14,9 @@ struct libwebsocket * __libwebsocket_client_connect_2(
 	int plen = 0;
 	char pkt[512];
 	int opt = 1;
+#if defined(__APPLE__)
+    struct protoent* tcp_proto;
+#endif
 
 	fprintf(stderr, "__libwebsocket_client_connect_2\n");
 
@@ -62,7 +65,12 @@ struct libwebsocket * __libwebsocket_client_connect_2(
 	bzero(&server_addr.sin_zero, 8);
 
 	/* Disable Nagle */
-	setsockopt(wsi->sock, 6, TCP_NODELAY, &opt, sizeof(opt)); //6 is SOL_TCP
+#if !defined(__APPLE__)
+	setsockopt(wsi->sock, SOL_TCP, TCP_NODELAY, (const void *)&opt, sizeof(opt));
+#else
+    tcp_proto = getprotobyname("TCP");
+    setsockopt(wsi->sock, tcp_proto->p_proto, TCP_NODELAY, &opt, sizeof(opt));
+#endif
 
 	/* Set receiving timeout */
 	tv.tv_sec = 0;
@@ -98,7 +106,11 @@ struct libwebsocket * __libwebsocket_client_connect_2(
 
 		n = send(wsi->sock, pkt, plen, 0);
 		if (n < 0) {
+#ifdef WIN32
+			closesocket(wsi->sock);
+#else
 			close(wsi->sock);
+#endif
 			fprintf(stderr, "ERROR writing to proxy socket\n");
 			goto bail1;
 		}
@@ -248,7 +260,8 @@ libwebsocket_client_connect(struct libwebsocket_context *context,
 	case 5:
 	case 6:
 	case 7:
-    case 8:
+	case 8:
+	case 13:
 		wsi->xor_mask = xor_mask_05;
 		break;
 	default:

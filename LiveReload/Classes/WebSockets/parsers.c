@@ -179,7 +179,7 @@ int libwebsocket_parse(struct libwebsocket *wsi, unsigned char c)
 		for (n = 0; n < WSI_TOKEN_COUNT; n++) {
 			if (wsi->name_buffer_pos != lws_tokens[n].token_len)
 				continue;
-			if (strcmp(lws_tokens[n].token, wsi->name_buffer))
+			if (strcasecmp(lws_tokens[n].token, wsi->name_buffer))
 				continue;
 			debug("known hdr '%s'\n", wsi->name_buffer);
 			wsi->parser_state = WSI_TOKEN_GET_URI + n;
@@ -297,7 +297,7 @@ libwebsocket_rx_sm(struct libwebsocket *wsi, unsigned char c)
 	case LWS_RXPS_NEW:
 
 		switch (wsi->ietf_spec_revision) {
-		/* Firefox 4.0b6 likes this as of 30 Oct */
+		/* Firefox 4.0b6 likes this as of 30 Oct 2010 */
 		case 0:
 			if (c == 0xff)
 				wsi->lws_rx_parse_state = LWS_RXPS_SEEN_76_FF;
@@ -317,8 +317,8 @@ libwebsocket_rx_sm(struct libwebsocket *wsi, unsigned char c)
 			wsi->lws_rx_parse_state = LWS_RXPS_04_MASK_NONCE_1;
 			break;
 		case 7:
-        case 8:
-        case 13:
+		case 8:
+		case 13:
 			/*
 			 * no prepended frame key any more
 			 */
@@ -443,12 +443,9 @@ handle_first:
 		if (wsi->ietf_spec_revision < 7)
 			c = wsi->xor_mask(wsi, c);
 
-		if (c & 0x70) {
+		if (c & 0x70)
 			fprintf(stderr,
-				      "Frame has extensions set illegally 1 %02X\n", c);
-			/* kill the connection */
-			return -1;
-		}
+			    "Frame has unknown extension bits set 1 %02X\n", c);
 
 		/* translate all incoming opcodes into v7+ map */
 		if (wsi->ietf_spec_revision < 7)
@@ -498,7 +495,7 @@ handle_first:
 
 		wsi->this_frame_masked = !!(c & 0x80);
 
-		switch (c) {
+		switch (c & 0x7f) {
 		case 126:
 			/* control frames are not allowed to have big lengths */
 			if (wsi->opcode & 8)
@@ -782,12 +779,9 @@ spill:
 					handled = 1;
 			}
 
-			if (!handled) {
-				/* kill the connection */
+			if (!handled)
 				fprintf(stderr, "Unhandled extended opcode "
-							 "0x%x\n", wsi->opcode);
-				return -1;
-			}
+					"0x%x - ignoring frame\n", wsi->opcode);
 
 			wsi->rx_user_buffer_head = 0;
 			return 0;
@@ -855,7 +849,8 @@ int libwebsocket_client_rx_sm(struct libwebsocket *wsi, unsigned char c)
 		case 5:
 		case 6:
 		case 7:
-        case 8:
+		case 8:
+		case 13:
 	/*
 	 *  04 logical framing from the spec (all this is masked when
 	 *  incoming and has to be unmasked)
@@ -907,12 +902,9 @@ int libwebsocket_client_rx_sm(struct libwebsocket *wsi, unsigned char c)
 		 *		FIN (b7)
 		 */
 
-			if (c & 0x70) {
-				fprintf(stderr, "Frame has extensions set "
-				   "illegally on first framing byte %02X\n", c);
-				/* kill the connection */
-				return -1;
-			}
+			if (c & 0x70)
+				fprintf(stderr, "Frame has unknown extension "
+				    "bits set on first framing byte %02X\n", c);
 
 			if (wsi->ietf_spec_revision < 7)
 				switch (c & 0xf) {
@@ -967,7 +959,7 @@ int libwebsocket_client_rx_sm(struct libwebsocket *wsi, unsigned char c)
 
 		wsi->this_frame_masked = !!(c & 0x80);
 
-		switch (c) {
+		switch (c & 0x7f) {
 		case 126:
 			/* control frames are not allowed to have big lengths */
 			if (wsi->opcode & 8)
@@ -1251,10 +1243,11 @@ spill:
 			}
 
 			if (!handled) {
-				/* kill the connection */
 				fprintf(stderr, "Unhandled extended opcode "
-							 "0x%x\n", wsi->opcode);
-				return -1;
+					"0x%x - ignoring frame\n", wsi->opcode);
+				wsi->rx_user_buffer_head = 0;
+
+				return 0;
 			}
 
 			break;
@@ -1584,8 +1577,8 @@ int libwebsocket_write(struct libwebsocket *wsi, unsigned char *buf,
 		return -1;
 
 	switch (wsi->ietf_spec_revision) {
-	/* chrome likes this as of 30 Oct */
-	/* Firefox 4.0b6 likes this as of 30 Oct */
+	/* chrome likes this as of 30 Oct 2010 */
+	/* Firefox 4.0b6 likes this as of 30 Oct 2010 */
 	case 0:
 		if ((protocol & 0xf) == LWS_WRITE_BINARY) {
 			/* in binary mode we send 7-bit used length blocks */
@@ -1618,8 +1611,8 @@ int libwebsocket_write(struct libwebsocket *wsi, unsigned char *buf,
 		break;
 
 	case 7:
-    case 8:
-    case 13:
+	case 8:
+	case 13:
 		if (masked7) {
 			pre += 4;
 			dropmask = &buf[0 - pre];
@@ -1887,7 +1880,11 @@ int libwebsockets_serve_http_file(struct libwebsocket *wsi, const char *file,
 	char *p = buf;
 	int n;
 
+#ifdef WIN32
+	fd = open(file, O_RDONLY | _O_BINARY);
+#else
 	fd = open(file, O_RDONLY);
+#endif
 	if (fd < 1) {
 		p += sprintf(p, "HTTP/1.0 400 Bad\x0d\x0a"
 			"Server: libwebsockets\x0d\x0a"
