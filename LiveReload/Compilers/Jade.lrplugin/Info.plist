@@ -8,11 +8,10 @@
 			<key>CommandLine</key>
 			<array>
 				<string>$(node)</string>
-				<string>$(plugin)/node_modules/jade/bin/jade</string>
+				<string>$(plugin)/jade_compiler.js</string>
 				<string>$(additional)</string>
-				<string>--out</string>
-				<string>$(dst_dir)</string>
 				<string>$(src_file)</string>
+				<string>$(dst_file)</string>
 			</array>
 			<key>RunIn</key>
 			<string>$(src_dir)</string>
