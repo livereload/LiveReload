@@ -93,8 +93,9 @@ function inv_table($caption, $headers, $rows, $extra='') {
             html_tag('tbody', $e, $tr));
 }
 
-function chart($data) {
-    $chart = "https://chart.googleapis.com/chart?chs=300x125&chg=0,25&cht=ls&chco=0077CC&chxt=y&chxr=0,0,400&chds=0,400&chd=t:" . implode(',', $data);
+function chart($data, $max) {
+    $grid_density = 100 / ceil($max / 100);
+    $chart = "https://chart.googleapis.com/chart?chs=500x175&chg=0,{$grid_density}&cht=ls&chco=0077CC&chxt=y&chxr=0,0,{$max}&chds=0,{$max}&chd=t:" . implode(',', $data);
     return div('', html_tag('img', array('src' => $chart)));
 }
 
@@ -282,11 +283,12 @@ $data = array();
 foreach ($by_date as $row) {
     $data[] = $row->count;
 }
-$data = array_slice($data, -7*10);
+$data = array_slice($data, -30*3);
+array_pop($data);
 
 echo html_tag('h1', array(), "Total unique IPs: $count");
 
-echo html_tag('h1', array(), "Unique IPs by day, all time") . chart($data);
+echo html_tag('h1', array(), "Unique IPs by day, all time") . chart($data, 800);
 
 echo format_grouped_stats(PERIOD_WEEK, 8, "week", "Weekly statistics");
 echo format_grouped_stats(PERIOD_MONTH, 8, "month", "Monthly statistics");
