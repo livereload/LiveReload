@@ -255,7 +255,6 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
                 break;
             } else if (compilationOptions.mode == CompilationModeDisabled) {
                 compilerFound = NO;
-                break;
             }
         }
     }
