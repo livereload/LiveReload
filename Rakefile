@@ -183,3 +183,10 @@ end
 
 desc "Update LiveReload.js from js/dist/"
 task :js => ['LiveReload/livereload.js', 'extensions/LiveReload.safariextension/livereload.js', 'extensions/Chrome/LiveReload/livereload.js', 'extensions/Firefox/content/livereload.js']
+
+
+namespace :site do
+  task :publish do
+    sh 'rsync', '-avz', 'site/', 'andreyvit_livereload@ssh.phx.nearlyfreespeech.net:/home/public/'
+  end
+end
