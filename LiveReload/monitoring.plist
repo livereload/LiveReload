@@ -10,6 +10,7 @@
 		<string>.hg</string>
 		<string>.DS_Store</string>
 		<string>node_modules</string>
+		<string>.sass-cache</string>
 	</array>
 	<key>extensions</key>
 	<array>
