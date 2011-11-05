@@ -3,6 +3,8 @@
 #import "FSTree.h"
 #import "FSTreeFilter.h"
 
+#import "ShitHappens.h"
+
 
 #define kMaxItems 100000
 
@@ -135,6 +137,16 @@ static BOOL IsBrokenFolder(NSString *path) {
 
     NSInteger *corresponding = malloc(_count * sizeof(NSInteger));
     NSInteger *rcorresponding = malloc(prevcount * sizeof(NSInteger));
+
+    if (corresponding == NULL) {
+        ShitHappened(@"malloc of corresponding[] returned NULL, count=%ld, prevcount=%ld, previous=%p, previtems=%p", _count, prevcount, previous, previtems);
+        return [NSSet set];
+    }
+    if (rcorresponding == NULL) {
+        ShitHappened(@"malloc of rcorresponding[] returned NULL, count=%ld, prevcount=%ld, previous=%p, previtems=%p", _count, prevcount, previous, previtems);
+        return [NSSet set];
+    }
+
     memset(corresponding, -1, _count * sizeof(NSInteger));
     memset(rcorresponding, -1, prevcount * sizeof(NSInteger));
 
