@@ -29,6 +29,7 @@
 		439C093313ADCBDD00119233 /* monitoring.plist in Resources */ = {isa = PBXBuildFile; fileRef = 439C093213ADCBDD00119233 /* monitoring.plist */; };
 		43C0368613CA191D00A01305 /* LiveReload.icns in Resources */ = {isa = PBXBuildFile; fileRef = 43C0368513CA191C00A01305 /* LiveReload.icns */; };
 		43E4BBE813C5DA7900A75F81 /* CoffeeScript.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43E4BBE713C5DA7900A75F81 /* CoffeeScript.lrplugin */; };
+		43E5DF621462829B0016CDA0 /* ImageAndTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E5DF611462829B0016CDA0 /* ImageAndTextCell.m */; };
 		821AFF0014270B5200B61760 /* BBEditEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 821AFEFF14270B5200B61760 /* BBEditEditor.m */; };
 		823DDED313F8DA3100529AD2 /* LiveReloadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3013F8DA3100529AD2 /* LiveReloadAppDelegate.m */; };
 		823DDED413F8DA3100529AD2 /* CommunicationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3313F8DA3100529AD2 /* CommunicationController.m */; };
@@ -162,6 +163,8 @@
 		43A265E613DCEAE600704BF6 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		43C0368513CA191C00A01305 /* LiveReload.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LiveReload.icns; sourceTree = "<group>"; };
 		43E4BBE713C5DA7900A75F81 /* CoffeeScript.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = CoffeeScript.lrplugin; path = Compilers/CoffeeScript.lrplugin; sourceTree = SOURCE_ROOT; };
+		43E5DF601462829B0016CDA0 /* ImageAndTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageAndTextCell.h; sourceTree = "<group>"; };
+		43E5DF611462829B0016CDA0 /* ImageAndTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageAndTextCell.m; sourceTree = "<group>"; };
 		821AFEFE14270B5200B61760 /* BBEditEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBEditEditor.h; sourceTree = "<group>"; };
 		821AFEFF14270B5200B61760 /* BBEditEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBEditEditor.m; sourceTree = "<group>"; };
 		823DDE2F13F8DA3100529AD2 /* LiveReloadAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveReloadAppDelegate.h; sourceTree = "<group>"; };
@@ -702,6 +705,8 @@
 				823DDEC113F8DA3100529AD2 /* ProjectCell.xib */,
 				823DDEC213F8DA3100529AD2 /* StatusItemView.h */,
 				823DDEC313F8DA3100529AD2 /* StatusItemView.m */,
+				43E5DF601462829B0016CDA0 /* ImageAndTextCell.h */,
+				43E5DF611462829B0016CDA0 /* ImageAndTextCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -932,6 +937,7 @@
 				4304FC2D144B2BEB00D650DF /* NSDictionaryAndArray+SafeAccess.m in Sources */,
 				4346F3A91450D8AD00B133F2 /* ImportGraph.m in Sources */,
 				435729171452267C00947B2E /* Stats.m in Sources */,
+				43E5DF621462829B0016CDA0 /* ImageAndTextCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
