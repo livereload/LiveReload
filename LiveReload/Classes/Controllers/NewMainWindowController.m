@@ -40,6 +40,9 @@
     NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
     self.window.title = [NSString stringWithFormat:@"LiveReload %@", version];
 
+    [_projectOutlineView registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
+    [_projectOutlineView setDraggingSourceOperationMask:NSDragOperationCopy|NSDragOperationLink forLocal:NO];
+
     NSTableColumn *tableColumn = [_projectOutlineView tableColumnWithIdentifier:@"Name"];
     ImageAndTextCell *imageAndTextCell = [[[ImageAndTextCell alloc] init] autorelease];
     [imageAndTextCell setEditable:YES];
@@ -142,10 +145,6 @@
     }
 }
 
-//- (NSDragOperation)outlineView:(NSOutlineView *)outlineView validateDrop:(id <NSDraggingInfo>)info proposedItem:(id)item proposedChildIndex:(NSInteger)index;
-
-//- (BOOL)outlineView:(NSOutlineView *)outlineView acceptDrop:(id <NSDraggingInfo>)info item:(id)item childIndex:(NSInteger)index;
-
 //- (BOOL)selectionShouldChangeInOutlineView:(NSOutlineView *)outlineView;
 
 
@@ -200,6 +199,7 @@
     }
 }
 
+
 #pragma mark - Model change handling
 
 - (void)projectAdded:(Project *)project {
@@ -207,5 +207,65 @@
     NSInteger row = [_projectOutlineView rowForItem:project];
     [_projectOutlineView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
 }
+
+
+#pragma mark - Drag'n'drop
+
+- (NSArray *)sanitizedPathsFrom:(NSPasteboard *)pboard {
+    NSLog(@"Got types: %@", [pboard types]);
+    if ([[pboard types] containsObject:NSFilenamesPboardType]) {
+        NSArray *files = [pboard propertyListForType:NSFilenamesPboardType];
+        NSFileManager *fm = [NSFileManager defaultManager];
+        for (NSString *path in files) {
+            BOOL dir;
+            if (![fm fileExistsAtPath:path isDirectory:&dir]) {
+                return nil;
+            } else if (!dir) {
+                return nil;
+            }
+        }
+        return files;
+    }
+    return nil;
+}
+
+- (BOOL)outlineView:(NSOutlineView *)outlineView writeItems:(NSArray *)items toPasteboard:(NSPasteboard *)pasteboard {
+    NSMutableArray *files = [NSMutableArray arrayWithCapacity:items.count];
+    for (id item in items) {
+        if ([item isKindOfClass:[Project class]]) {
+            Project *project = item;
+            [files addObject:project.path];
+        }
+    }
+    if (files.count > 0) {
+        [pasteboard declareTypes:[NSArray arrayWithObject:NSFilenamesPboardType] owner:self];
+        [pasteboard setPropertyList:[NSArray arrayWithArray:files] forType:NSFilenamesPboardType];
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+- (NSDragOperation)outlineView:(NSOutlineView *)outlineView validateDrop:(id <NSDraggingInfo>)info proposedItem:(id)item proposedChildIndex:(NSInteger)index {
+    BOOL genericSupported = (NSDragOperationGeneric & [info draggingSourceOperationMask]) == NSDragOperationGeneric;
+    NSArray *files = [self sanitizedPathsFrom:[info draggingPasteboard]];
+    if (genericSupported && [files count] > 0) {
+        [outlineView setDropItem:nil dropChildIndex:-1];
+        return NSDragOperationGeneric;
+    }
+    return NSDragOperationNone;
+}
+
+- (BOOL)outlineView:(NSOutlineView *)outlineView acceptDrop:(id <NSDraggingInfo>)info item:(id)item childIndex:(NSInteger)index {
+    BOOL genericSupported = (NSDragOperationGeneric & [info draggingSourceOperationMask]) == NSDragOperationGeneric;
+    NSArray *paths = [self sanitizedPathsFrom:[info draggingPasteboard]];
+    if (genericSupported && [paths count] > 0) {
+        [[NSApp delegate] addProjectsAtPaths:paths];
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
 
 @end

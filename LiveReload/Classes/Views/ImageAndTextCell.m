@@ -221,31 +221,6 @@
     return cellSize;
 }
 
-// -------------------------------------------------------------------------------
-//    hitTestForEvent:
-//
-//    In 10.5, we need you to implement this method for blocking drag and drop of a given cell.
-//    So NSCell hit testing will determine if a row can be dragged or not.
-//
-//    NSTableView calls this cell method when starting a drag, if the hit cell returns
-//    NSCellHitTrackableArea, the particular row will be tracked instead of dragged.
-//
-// -------------------------------------------------------------------------------
-- (NSUInteger)hitTestForEvent:(NSEvent *)event inRect:(NSRect)cellFrame ofView:(NSView *)controlView
-{
-    NSInteger result = NSCellHitContentArea;
-
-    NSOutlineView* hostingOutlineView = (NSOutlineView*)[self controlView];
-    if (hostingOutlineView)
-    {
-//        NSInteger selectedRow = [hostingOutlineView selectedRow];
-//        BaseNode* node = [[hostingOutlineView itemAtRow:selectedRow] representedObject];
-//        if (![node isDraggable])    // is the node isDraggable (i.e. non-file system based objects)
-        result = NSCellHitTrackableArea;
-    }
-
-    return result;
-}
 
 @end
 
