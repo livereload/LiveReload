@@ -1,5 +1,7 @@
 
 #import "NewMainWindowController.h"
+
+#import "CompilationSettingsWindowController.h"
 #import "PostProcessingSettingsWindowController.h"
 
 #import "LiveReloadAppDelegate.h"
@@ -23,6 +25,8 @@ enum { PANE_COUNT = PaneProject+1 };
 - (void)updateProjectList;
 - (void)restoreSelection;
 - (void)selectedProjectDidChange;
+
+- (void)showProjectSettingsSheet:(Class)klass;
 
 @end
 
@@ -363,25 +367,11 @@ enum { PANE_COUNT = PaneProject+1 };
 }
 
 
-#pragma mark - Project settings
+#pragma mark - Project settings (general)
 
-- (IBAction)showMonitoringOptions:(id)sender {
-}
-
-- (IBAction)showCompilationOptions:(id)sender {
-}
-
-- (IBAction)togglePostProcessingCheckboxClicked:(NSButton *)sender {
-    if (sender.state == NSOnState && _selectedProject.postProcessingCommand.length == 0) {
-        [self showPostProcessingOptions:nil];
-    } else {
-        _selectedProject.postProcessingEnabled = (sender.state == NSOnState);
-    }
-}
-
-- (IBAction)showPostProcessingOptions:(id)sender {
-    PostProcessingSettingsWindowController *controller = [[PostProcessingSettingsWindowController alloc] initWithProject:_selectedProject];
-    _projectSettingsSheetController = controller;
+- (void)showProjectSettingsSheet:(Class)klass {
+    NSWindowController *controller = [[[klass alloc] initWithProject:_selectedProject] autorelease];
+    _projectSettingsSheetController = [controller retain];
     [NSApp beginSheet:_projectSettingsSheetController.window
        modalForWindow:self.window
         modalDelegate:self
@@ -398,6 +388,34 @@ enum { PANE_COUNT = PaneProject+1 };
     [_projectSettingsSheetController release], _projectSettingsSheetController = nil;
 
     [self updateProjectPane];
+}
+
+
+#pragma mark - Project settings (monitoring)
+
+- (IBAction)showMonitoringOptions:(id)sender {
+}
+
+
+#pragma mark - Project settings (compilation)
+
+- (IBAction)showCompilationOptions:(id)sender {
+    [self showProjectSettingsSheet:[CompilationSettingsWindowController class]];
+}
+
+
+#pragma mark - Project settings (post-processing)
+
+- (IBAction)togglePostProcessingCheckboxClicked:(NSButton *)sender {
+    if (sender.state == NSOnState && _selectedProject.postProcessingCommand.length == 0) {
+        [self showPostProcessingOptions:nil];
+    } else {
+        _selectedProject.postProcessingEnabled = (sender.state == NSOnState);
+    }
+}
+
+- (IBAction)showPostProcessingOptions:(id)sender {
+    [self showProjectSettingsSheet:[PostProcessingSettingsWindowController class]];
 }
 
 

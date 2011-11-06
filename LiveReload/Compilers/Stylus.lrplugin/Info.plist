@@ -48,6 +48,25 @@
 			<array>
 				<string>css</string>
 			</array>
+			<key>Options</key>
+			<array>
+				<dict>
+					<key>Type</key>
+					<string>checkbox</string>
+					<key>Title</key>
+					<string>Emit debug info for FireStylus (--firebug)</string>
+					<key>OnArgument</key>
+					<string>--firebug</string>
+				</dict>
+				<dict>
+					<key>Type</key>
+					<string>checkbox</string>
+					<key>Title</key>
+					<string>Emit line numbers debug info (--line-numbers)</string>
+					<key>OnArgument</key>
+					<string>--line-numbers</string>
+				</dict>
+			</array>
 		</dict>
 	</array>
 </dict>

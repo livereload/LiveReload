@@ -38,6 +38,19 @@
 			</array>
 			<key>Name</key>
 			<string>Eco</string>
+			<key>Options</key>
+			<array>
+				<dict>
+					<key>Type</key>
+					<string>edit</string>
+					<key>Label</key>
+					<string>Eco object name:</string>
+					<key>Placeholder</key>
+					<string>JST</string>
+					<key>Argument</key>
+					<string>--identifier $(value)</string>
+				</dict>
+			</array>
 		</dict>
 	</array>
 </dict>

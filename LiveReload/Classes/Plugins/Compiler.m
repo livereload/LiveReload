@@ -68,6 +68,7 @@
 @synthesize destinationExtension=_destinationExtension;
 @synthesize expectedOutputDirectoryNames=_expectedOutputDirectoryNames;
 @synthesize needsOutputDirectory=_needsOutputDirectory;
+@synthesize options=_options;
 
 
 #pragma mark - init/dealloc
@@ -104,6 +105,9 @@
         _importToFileMappings = [[info objectForKey:@"ImportToFileMappings"] copy];
         if (!_importToFileMappings)
             _importToFileMappings = [[NSArray alloc] initWithObjects:@"$(file)", nil];
+        _options = [[info objectForKey:@"Options"] copy];
+        if (!_options)
+            _options = [[NSArray alloc] init];
     }
     return self;
 }

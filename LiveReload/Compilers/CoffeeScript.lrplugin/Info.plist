@@ -33,6 +33,17 @@
 				<string>javascript</string>
 				<string>javascripts</string>
 			</array>
+			<key>Options</key>
+			<array>
+				<dict>
+					<key>Type</key>
+					<string>checkbox</string>
+					<key>Title</key>
+					<string>No wrapper (--bare)</string>
+					<key>OnArgument</key>
+					<string>--bare</string>
+				</dict>
+			</array>
 		</dict>
 	</array>
 </dict>

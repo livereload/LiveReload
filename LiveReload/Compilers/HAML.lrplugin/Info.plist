@@ -32,6 +32,82 @@
 			</array>
 			<key>Name</key>
 			<string>HAML</string>
+			<key>Options</key>
+			<array>
+				<dict>
+					<key>Type</key>
+					<string>checkbox</string>
+					<key>Title</key>
+					<string>Escape HTML characters (like ampersands and angle brackets)</string>
+					<key>OnArgument</key>
+					<string>--escape-html</string>
+				</dict>
+				<dict>
+					<key>Type</key>
+					<string>checkbox</string>
+					<key>Title</key>
+					<string>Don&apos;t escape HTML characters in attributes</string>
+					<key>OnArgument</key>
+					<string>--no-escape-attrs</string>
+				</dict>
+				<dict>
+					<key>Type</key>
+					<string>select</string>
+					<key>Items</key>
+					<array>
+						<dict>
+							<key>Title</key>
+							<string>Use single quotes for attributes</string>
+						</dict>
+						<dict>
+							<key>Title</key>
+							<string>Use double quotes for attributes</string>
+							<key>Argument</key>
+							<string>--double-quote-attributes</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>Type</key>
+					<string>select</string>
+					<key>Items</key>
+					<array>
+						<dict>
+							<key>Title</key>
+							<string>Indented output style</string>
+						</dict>
+						<dict>
+							<key>Title</key>
+							<string>Ugly ouput style</string>
+							<key>Argument</key>
+							<string>--style ugly</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>Type</key>
+					<string>select</string>
+					<key>Items</key>
+					<array>
+						<dict>
+							<key>Title</key>
+							<string>XHTML output format</string>
+						</dict>
+						<dict>
+							<key>Title</key>
+							<string>HTML4 output format</string>
+							<key>Argument</key>
+							<string>--format html4</string>
+						</dict>
+						<dict>
+							<key>Title</key>
+							<string>HTML5 output format</string>
+							<key>Argument</key>
+							<string>--format html5</string>
+						</dict>
+					</array>
+				</dict>
+			</array>
 		</dict>
 	</array>
 </dict>

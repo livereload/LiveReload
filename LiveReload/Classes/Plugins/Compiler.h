@@ -25,6 +25,8 @@
     NSArray          *_defaultImportedExts;
     NSArray          *_nonImportedExts;
     NSArray          *_importToFileMappings;
+
+    NSArray          *_options;
 }
 
 - (id)initWithDictionary:(NSDictionary *)info plugin:(Plugin *)plugin;
@@ -38,6 +40,8 @@
 
 @property(nonatomic, readonly) NSString *sourceExtensionsForDisplay;
 @property(nonatomic, readonly) NSString *destinationExtensionForDisplay;
+
+@property(nonatomic, readonly) NSArray *options;
 
 - (NSString *)derivedNameForFile:(NSString *)path;
 
