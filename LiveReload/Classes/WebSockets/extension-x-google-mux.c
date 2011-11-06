@@ -42,7 +42,7 @@ lws_mux_subcommand_header(int cmd, int channel, unsigned char *pb, int len)
 
     if (channel == 0) {
         fprintf(stderr, "lws_mux_subcommand_header: given ch 0\n");
-        *((int *)0) = 0;
+        abort();
     }
 
     if (channel < 31)
@@ -92,7 +92,7 @@ static int lws_ext_x_google_mux__send_addchannel(
 
     if (channel == 0) {
         fprintf(stderr, "lws_ext_x_google_mux__send_addchannel: given ch 0\n");
-        *((int *)0) = 0;
+        abort();
     }
 
     wsi_child->ietf_spec_revision = wsi->ietf_spec_revision;

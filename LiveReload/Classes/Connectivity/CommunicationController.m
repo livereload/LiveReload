@@ -217,7 +217,7 @@ NSString *CommunicationStateChangedNotification = @"CommunicationStateChangedNot
 
     _handshakeDone = YES;
     if (_monitoring) {
-        NSLog(@"Successfully negotiated a monitoring protocol version %d", _monitoringProtocolVersion);
+        NSLog(@"Successfully negotiated a monitoring protocol version %ld", _monitoringProtocolVersion);
     } else {
         NSLog(@"Successfully negotiated a non-monitoring protocol");
     }
