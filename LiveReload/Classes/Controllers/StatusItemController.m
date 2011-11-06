@@ -49,7 +49,6 @@
 }
 
 - (void)updateStatusIconState {
-    self.statusItemView.selected = [[NSApp delegate] isWindowVisible];
     self.statusItemView.active = [Workspace sharedWorkspace].monitoringEnabled;
 }
 
@@ -69,8 +68,8 @@
 #pragma mark -
 #pragma mark StatusItemViewDelegate methods
 
-- (void)statusItemView:(StatusItemView *)view clickedAtPoint:(NSPoint)pt {
-    [[NSApp delegate] toggleWindow:nil];
+- (void)statusItemViewClicked:(StatusItemView *)view {
+    [[NSApp delegate] performSelector:@selector(toggleMainWindow:) withObject:nil afterDelay:0.01];
 }
 
 - (void)statusItemView:(StatusItemView *)view acceptedDroppedDirectories:(NSArray *)pathes {

@@ -2,9 +2,6 @@
 #import <Cocoa/Cocoa.h>
 
 
-#define PreferencesDoneKey @"PreferencesDone"
-
-
 @interface PreferencesWindowController : NSWindowController {
 @private
     NSButton *_startAtLoginCheckbox;

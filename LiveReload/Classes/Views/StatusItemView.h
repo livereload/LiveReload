@@ -37,7 +37,7 @@
 
 @protocol StatusItemViewDelegate <NSObject>
 
-- (void)statusItemView:(StatusItemView *)view clickedAtPoint:(NSPoint)pt;
+- (void)statusItemViewClicked:(StatusItemView *)view;
 - (void)statusItemView:(StatusItemView *)view acceptedDroppedDirectories:(NSArray *)pathes;
 
 @end

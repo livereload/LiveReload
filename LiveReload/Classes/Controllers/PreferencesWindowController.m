@@ -99,8 +99,6 @@
 //        [self.installChromeExtensionButton setTitle:@"Installed"];
 //        [self.installChromeExtensionButton setEnabled:NO];
 //    }
-
-    [self.backToMainWindowButton setTitle:([[NSUserDefaults standardUserDefaults] boolForKey:PreferencesDoneKey] ? @"Apply" : @"Continue")];
 }
 
 @end

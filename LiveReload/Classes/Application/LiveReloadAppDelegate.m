@@ -4,7 +4,7 @@
 #import "Workspace.h"
 #import "CompilationOptions.h"
 #import "StatusItemController.h"
-#import "MainWindowController.h"
+#import "NewMainWindowController.h"
 #import "PreferencesWindowController.h"
 #import "CommunicationController.h"
 #import "LoginItemController.h"
@@ -67,9 +67,10 @@
     _statusItemController = [[StatusItemController alloc] init];
     [self.statusItemController showStatusBarIcon];
 
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-        _mainWindowController = [[MainWindowController alloc] init];
-        _preferencesWindowController = [[PreferencesWindowController alloc] init];
+    _mainWindowController = [[NewMainWindowController alloc] init];
+    _preferencesWindowController = [[PreferencesWindowController alloc] init];
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
 
         [[CommunicationController sharedCommunicationController] startServer];
 
@@ -81,9 +82,6 @@
 }
 
 - (void)applicationDidResignActive:(NSNotification *)notification {
-    if ([self isMainWindowVisible] && ![self.mainWindowController isProjectOptionsSheetVisible]) {
-        [self hideMainWindow];
-    }
 }
 
 - (void)pingServer {
@@ -115,24 +113,12 @@
 
 #pragma mark -
 
-- (void)positionWindow:(NSWindow *)window {
-    NSRect frame = window.frame;
-    NSPoint itemPos = self.statusItemController.statusItemPosition;
-    frame.origin.x = itemPos.x - frame.size.width / 2;
-    frame.origin.y = itemPos.y - frame.size.height;
-    [window setFrame:frame display:YES];
-}
-
 - (BOOL)isMainWindowVisible {
-    return [self.mainWindowController.window isVisible];
+    return [NSApp isActive] && [_mainWindowController isWindowLoaded] && [_mainWindowController.window isVisible];
 }
 
 - (BOOL)isPreferencesWindowVisible {
     return [self.preferencesWindowController.window isVisible];
-}
-
-- (BOOL)isWindowVisible {
-    return [self isMainWindowVisible] || [self isPreferencesWindowVisible];
 }
 
 + (NSSet *)keyPathsForValuesAffectingWindowVisible {
@@ -141,23 +127,15 @@
 
 - (IBAction)displayMainWindow:sender {
     [self willChangeValueForKey:@"mainWindowVisible"];
-    [self positionWindow:self.mainWindowController.window];
-    [self.mainWindowController willShow];
-    if ([self isPreferencesWindowVisible]) {
-        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:PreferencesDoneKey];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-
-        [self.preferencesWindowController.window flipToWindow:self.mainWindowController.window withDuration:0.5 shadowed:NO];
-    } else {
-        [NSApp activateIgnoringOtherApps:YES];
-        [self.mainWindowController.window makeKeyAndOrderFront:nil];
-    }
+//    [self.mainWindowController willShow];
+    [NSApp activateIgnoringOtherApps:YES];
+    [_mainWindowController showWindow:nil];
+    [_mainWindowController.window makeKeyAndOrderFront:nil];
     [self didChangeValueForKey:@"mainWindowVisible"];
 }
 
 - (IBAction)displayPreferencesWindow:sender {
     [self willChangeValueForKey:@"preferencesWindowVisible"];
-    [self positionWindow:self.preferencesWindowController.window];
     [self.preferencesWindowController willShow];
     if ([self isMainWindowVisible]) {
         [self.mainWindowController.window flipToWindow:self.preferencesWindowController.window withDuration:0.5 shadowed:NO];
@@ -180,35 +158,18 @@
     [self didChangeValueForKey:@"preferencesWindowVisible"];
 }
 
-- (IBAction)toggleWindow:sender {
-    if ([self isWindowVisible])
-        [self hideWindow:sender];
-    else
-        [self displayWindow:sender];
-}
-
-- (IBAction)displayWindow:sender {
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:PreferencesDoneKey]) {
-        [self displayPreferencesWindow:sender];
-    } else {
-        [self displayMainWindow:sender];
-    }
-}
-
-- (IBAction)hideWindow:sender {
+- (IBAction)toggleMainWindow:sender {
     if ([self isMainWindowVisible])
         [self hideMainWindow];
-    if ([self isPreferencesWindowVisible])
-        [self hidePreferencesWindow];
+    else
+        [self displayMainWindow:sender];
 }
+
 
 
 #pragma mark -
 
 - (void)considerShowingWindowOnAppStartup {
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:PreferencesDoneKey]) {
-        [self displayPreferencesWindow:nil];
-    }
 }
 
 

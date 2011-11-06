@@ -79,8 +79,12 @@ enum { kAnimationStepCount = StatusItemStateRotation3 - StatusItemStateActive + 
 
 - (void)mouseDown:(NSEvent *)event {
     NSRect frame = [[self window] frame];
-    NSPoint pt = NSMakePoint(NSMidX(frame), NSMinY(frame));
-    [_delegate statusItemView:self clickedAtPoint:pt];
+    [_delegate statusItemViewClicked:self];
+    [self setSelected:YES];
+}
+
+- (void)mouseUp:(NSEvent *)event {
+    [self setSelected:NO];
 }
 
 - (void)setSelected:(BOOL)selected {
