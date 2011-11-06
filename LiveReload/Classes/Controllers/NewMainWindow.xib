@@ -965,6 +965,7 @@ ZGQgdG9vbGJhciBidXR0b24pLg</string>
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{20, 320}, {488, 39}}</string>
 						<reference key="NSSuperview" ref="189526605"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="408214862"/>
 						<string key="NSReuseIdentifierKey">_NS:354</string>
 						<string key="NSAntiCompressionPriority">{250, 750}</string>
@@ -991,6 +992,7 @@ ZGQgdG9vbGJhciBidXR0b24pLg</string>
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{17, 247}, {490, 14}}</string>
 						<reference key="NSSuperview" ref="189526605"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="185624904"/>
 						<string key="NSReuseIdentifierKey">_NS:3935</string>
 						<bool key="NSEnabled">YES</bool>
@@ -1010,6 +1012,7 @@ ZGQgdG9vbGJhciBidXR0b24pLg</string>
 						<int key="NSvFlags">12</int>
 						<string key="NSFrame">{{20, 278}, {484, 5}}</string>
 						<reference key="NSSuperview" ref="189526605"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="538826823"/>
 						<string key="NSReuseIdentifierKey">_NS:2411</string>
 						<string key="NSOffsets">{0, 0}</string>
@@ -1034,6 +1037,7 @@ ZGQgdG9vbGJhciBidXR0b24pLg</string>
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{264, 209}, {246, 32}}</string>
 						<reference key="NSSuperview" ref="189526605"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="905030483"/>
 						<string key="NSReuseIdentifierKey">_NS:161</string>
 						<bool key="NSEnabled">YES</bool>
@@ -1057,6 +1061,7 @@ ZGQgdG9vbGJhciBidXR0b24pLg</string>
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{264, 56}, {246, 32}}</string>
 						<reference key="NSSuperview" ref="189526605"/>
+						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:161</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="829092174">
@@ -1079,6 +1084,7 @@ ZGQgdG9vbGJhciBidXR0b24pLg</string>
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{264, 131}, {246, 32}}</string>
 						<reference key="NSSuperview" ref="189526605"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="435022390"/>
 						<string key="NSReuseIdentifierKey">_NS:161</string>
 						<bool key="NSEnabled">YES</bool>
@@ -1102,6 +1108,7 @@ ZGQgdG9vbGJhciBidXR0b24pLg</string>
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{18, 89}, {337, 18}}</string>
 						<reference key="NSSuperview" ref="189526605"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="856042048"/>
 						<string key="NSReuseIdentifierKey">_NS:238</string>
 						<bool key="NSEnabled">YES</bool>
@@ -1132,6 +1139,7 @@ ZGQgdG9vbGJhciBidXR0b24pLg</string>
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{18, 164}, {346, 18}}</string>
 						<reference key="NSSuperview" ref="189526605"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="349973560"/>
 						<string key="NSReuseIdentifierKey">_NS:238</string>
 						<bool key="NSEnabled">YES</bool>
@@ -1157,6 +1165,7 @@ ZGQgdG9vbGJhciBidXR0b24pLg</string>
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{17, 360}, {490, 17}}</string>
 						<reference key="NSSuperview" ref="189526605"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="600227993"/>
 						<string key="NSReuseIdentifierKey">_NS:3935</string>
 						<bool key="NSEnabled">YES</bool>
@@ -1176,6 +1185,7 @@ ZGQgdG9vbGJhciBidXR0b24pLg</string>
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{17, 390}, {490, 17}}</string>
 						<reference key="NSSuperview" ref="189526605"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="324288680"/>
 						<string key="NSReuseIdentifierKey">_NS:3935</string>
 						<bool key="NSEnabled">YES</bool>
@@ -1193,6 +1203,7 @@ ZGQgdG9vbGJhciBidXR0b24pLg</string>
 				</object>
 				<string key="NSFrameSize">{522, 427}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<string key="NSReuseIdentifierKey">_NS:1192</string>
 				<string key="NSClassName">NSView</string>
 			</object>
@@ -1319,6 +1330,14 @@ ZGQgdG9vbGJhciBidXR0b24pLg</string>
 						<reference key="destination" ref="612342000"/>
 					</object>
 					<int key="connectionID">499</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">togglePostProcessingCheckboxClicked:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="435022390"/>
+					</object>
+					<int key="connectionID">500</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -2119,7 +2138,7 @@ ZGQgdG9vbGJhciBidXR0b24pLg</string>
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">499</int>
+			<int key="maxID">500</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2135,6 +2154,17 @@ ZGQgdG9vbGJhciBidXR0b24pLg</string>
 				<object class="IBPartialClassDescription">
 					<string key="className">NewMainWindowController</string>
 					<string key="superclassName">NSWindowController</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">showPostProcessingOptions:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">showPostProcessingOptions:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">showPostProcessingOptions:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">

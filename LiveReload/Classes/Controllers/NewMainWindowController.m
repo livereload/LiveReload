@@ -1,5 +1,7 @@
 
 #import "NewMainWindowController.h"
+#import "PostProcessingSettingsWindowController.h"
+
 #import "LiveReloadAppDelegate.h"
 
 #import "ImageAndTextCell.h"
@@ -86,6 +88,7 @@ enum { PANE_COUNT = PaneProject+1 };
     if (_currentPane != PaneProject)
         return;
     _pathTextField.stringValue = _selectedProject.displayPath;
+    [_postProcessingEnabledCheckBox setState:_selectedProject.postProcessingEnabled ? NSOnState : NSOffState];
 }
 
 - (void)setVisibility:(BOOL)visible forPaneView:(NSView *)paneView {
@@ -218,15 +221,6 @@ enum { PANE_COUNT = PaneProject+1 };
 
 #pragma mark - Actions
 
-- (IBAction)showMonitoringOptions:(id)sender {
-}
-
-- (IBAction)showCompilationOptions:(id)sender {
-}
-
-- (IBAction)showPostProcessingOptions:(id)sender {
-}
-
 - (void)addProjectClicked {
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     [openPanel setCanChooseDirectories:YES];
@@ -333,6 +327,45 @@ enum { PANE_COUNT = PaneProject+1 };
         return NO;
     }
 }
+
+
+#pragma mark - Project settings
+
+- (IBAction)showMonitoringOptions:(id)sender {
+}
+
+- (IBAction)showCompilationOptions:(id)sender {
+}
+
+- (IBAction)togglePostProcessingCheckboxClicked:(NSButton *)sender {
+    if (sender.state == NSOnState && _selectedProject.postProcessingCommand.length == 0) {
+        [self showPostProcessingOptions:nil];
+    } else {
+        _selectedProject.postProcessingEnabled = (sender.state == NSOnState);
+    }
+}
+
+- (IBAction)showPostProcessingOptions:(id)sender {
+    PostProcessingSettingsWindowController *controller = [[PostProcessingSettingsWindowController alloc] initWithProject:_selectedProject];
+    _projectSettingsSheetController = controller;
+    [NSApp beginSheet:_projectSettingsSheetController.window
+       modalForWindow:self.window
+        modalDelegate:self
+       didEndSelector:@selector(didEndProjectSettingsSheet:returnCode:contextInfo:)
+          contextInfo:nil];
+}
+
+- (void)didEndProjectSettingsSheet:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+    [sheet orderOut:self];
+
+    // at least on OS X 10.6, the window position is only persisted on quit
+    [[NSUserDefaults standardUserDefaults] performSelector:@selector(synchronize) withObject:nil afterDelay:2.0];
+
+    [_projectSettingsSheetController release], _projectSettingsSheetController = nil;
+
+    [self updateProjectPane];
+}
+
 
 
 @end

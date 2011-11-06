@@ -14,6 +14,8 @@
 
     NSArray               *_panes;
     NSInteger              _currentPane;
+
+    NSWindowController    *_projectSettingsSheetController;
 }
 
 @property (assign) IBOutlet NSBox *paneBorderBox;
@@ -32,5 +34,8 @@
 
 
 - (void)projectAdded:(Project *)project;
+
+
+- (IBAction)showPostProcessingOptions:(id)sender;
 
 @end

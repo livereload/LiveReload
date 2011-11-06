@@ -33,6 +33,8 @@
 		43C0368613CA191D00A01305 /* LiveReload.icns in Resources */ = {isa = PBXBuildFile; fileRef = 43C0368513CA191C00A01305 /* LiveReload.icns */; };
 		43E4BBE813C5DA7900A75F81 /* CoffeeScript.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43E4BBE713C5DA7900A75F81 /* CoffeeScript.lrplugin */; };
 		43E5DF621462829B0016CDA0 /* ImageAndTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E5DF611462829B0016CDA0 /* ImageAndTextCell.m */; };
+		43F50BF71466F7A1004FD951 /* PostProcessingSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F50BF61466F7A1004FD951 /* PostProcessingSettingsWindowController.m */; };
+		43F50BF91466FAB7004FD951 /* PostProcessingSettingsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43F50BF81466FAB7004FD951 /* PostProcessingSettingsWindowController.xib */; };
 		821AFF0014270B5200B61760 /* BBEditEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 821AFEFF14270B5200B61760 /* BBEditEditor.m */; };
 		823DDED313F8DA3100529AD2 /* LiveReloadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3013F8DA3100529AD2 /* LiveReloadAppDelegate.m */; };
 		823DDED413F8DA3100529AD2 /* CommunicationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3313F8DA3100529AD2 /* CommunicationController.m */; };
@@ -164,6 +166,9 @@
 		43E4BBE713C5DA7900A75F81 /* CoffeeScript.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = CoffeeScript.lrplugin; path = Compilers/CoffeeScript.lrplugin; sourceTree = SOURCE_ROOT; };
 		43E5DF601462829B0016CDA0 /* ImageAndTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageAndTextCell.h; sourceTree = "<group>"; };
 		43E5DF611462829B0016CDA0 /* ImageAndTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageAndTextCell.m; sourceTree = "<group>"; };
+		43F50BF51466F7A1004FD951 /* PostProcessingSettingsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostProcessingSettingsWindowController.h; sourceTree = "<group>"; };
+		43F50BF61466F7A1004FD951 /* PostProcessingSettingsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostProcessingSettingsWindowController.m; sourceTree = "<group>"; };
+		43F50BF81466FAB7004FD951 /* PostProcessingSettingsWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostProcessingSettingsWindowController.xib; sourceTree = "<group>"; };
 		821AFEFE14270B5200B61760 /* BBEditEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBEditEditor.h; sourceTree = "<group>"; };
 		821AFEFF14270B5200B61760 /* BBEditEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBEditEditor.m; sourceTree = "<group>"; };
 		823DDE2F13F8DA3100529AD2 /* LiveReloadAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveReloadAppDelegate.h; sourceTree = "<group>"; };
@@ -478,6 +483,9 @@
 				435BE041141B72A60008FF77 /* NewMainWindow.xib */,
 				435BE043141B87920008FF77 /* NewMainWindowController.h */,
 				435BE044141B87920008FF77 /* NewMainWindowController.m */,
+				43F50BF51466F7A1004FD951 /* PostProcessingSettingsWindowController.h */,
+				43F50BF61466F7A1004FD951 /* PostProcessingSettingsWindowController.m */,
+				43F50BF81466FAB7004FD951 /* PostProcessingSettingsWindowController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -806,6 +814,7 @@
 				4346F3AB1451012A00B133F2 /* StatusItemStateRotation3.png in Resources */,
 				4353197214668E7D005FA59F /* LRHelpTemplate.png in Resources */,
 				4353197314668E7D005FA59F /* LRSupportTemplate.png in Resources */,
+				43F50BF91466FAB7004FD951 /* PostProcessingSettingsWindowController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -892,6 +901,7 @@
 				435729171452267C00947B2E /* Stats.m in Sources */,
 				43E5DF621462829B0016CDA0 /* ImageAndTextCell.m in Sources */,
 				4353196F1465B52D005FA59F /* ShitHappens.m in Sources */,
+				43F50BF71466F7A1004FD951 /* PostProcessingSettingsWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

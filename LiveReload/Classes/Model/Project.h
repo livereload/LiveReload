@@ -31,6 +31,7 @@ extern NSString *ProjectNeedsSavingNotification;
     BOOL                     _dirty;
 
     NSString                *_postProcessingCommand;
+    BOOL                     _postProcessingEnabled;
     NSTimeInterval           _lastPostProcessingRunDate;
 
     ImportGraph             *_importGraph;
@@ -66,6 +67,7 @@ extern NSString *ProjectNeedsSavingNotification;
 @property(nonatomic, getter = isDirty) BOOL dirty;
 
 @property(nonatomic, retain) NSString *postProcessingCommand;
+@property(nonatomic) BOOL postProcessingEnabled;
 
 - (void)checkBrokenPaths;
 

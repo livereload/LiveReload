@@ -6,6 +6,8 @@
 
 void TenderStartDiscussion(NSString *subject, NSString *body);
 
+void TenderShowArticle(NSString *url);
+
 void TenderDisplayHelp();
 
 void _ShitHappened(NSString *subject, NSString *message, ...) NS_FORMAT_FUNCTION(2,3);

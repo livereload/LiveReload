@@ -8,6 +8,11 @@ void TenderDisplayHelp() {
     [[NSWorkspace sharedWorkspace] openURL:url];
 }
 
+void TenderShowArticle(NSString *urlSuffix) {
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://help.livereload.com/kb/%@", urlSuffix]];
+    [[NSWorkspace sharedWorkspace] openURL:url];
+}
+
 void TenderStartDiscussion(NSString *subject, NSString *body) {
     NSString *internalVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
     body = [body stringByAppendingFormat:@"\n\nI'm using LiveReload v%@.\n", internalVersion];

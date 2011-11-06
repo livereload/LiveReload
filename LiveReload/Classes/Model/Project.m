@@ -56,6 +56,7 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
 @synthesize lastSelectedPane=_lastSelectedPane;
 @synthesize enabled=_enabled;
 @synthesize postProcessingCommand=_postProcessingCommand;
+@synthesize postProcessingEnabled=_postProcessingEnabled;
 
 
 #pragma mark -
@@ -90,6 +91,11 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
         }
 
         _postProcessingCommand = [[memento objectForKey:@"postproc"] copy];
+        if ([memento objectForKey:@"postprocEnabled"]) {
+            _postProcessingEnabled = [[memento objectForKey:@"postprocEnabled"] boolValue];
+        } else {
+            _postProcessingEnabled = [_postProcessingCommand length] > 0;
+        }
 
         _importGraph = [[ImportGraph alloc] init];
 
@@ -119,8 +125,10 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
     [memento setObject:[_compilerOptions dictionaryByMappingValuesToSelector:@selector(memento)] forKey:@"compilers"];
     if (_lastSelectedPane)
         [memento setObject:_lastSelectedPane forKey:@"last_pane"];
-    if ([_postProcessingCommand length] > 0)
+    if ([_postProcessingCommand length] > 0) {
         [memento setObject:_postProcessingCommand forKey:@"postproc"];
+        [memento setObject:[NSNumber numberWithBool:_postProcessingEnabled] forKey:@"postprocEnabled"];
+    }
     return [NSDictionary dictionaryWithDictionary:memento];
 }
 
@@ -297,7 +305,7 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
         return;
     }
 
-    if ([_postProcessingCommand length] > 0) {
+    if ([_postProcessingCommand length] > 0 && _postProcessingEnabled) {
         NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
         if (_lastPostProcessingRunDate == 0 || (now - _lastPostProcessingRunDate >= kPostProcessingSafeInterval)) {
             _lastPostProcessingRunDate = now;
@@ -351,14 +359,6 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
         }
     }
     return NO;
-}
-
-- (void)setPostProcessingCommand:(NSString *)postProcessingCommand {
-    if (postProcessingCommand != _postProcessingCommand) {
-        [_postProcessingCommand release];
-        _postProcessingCommand = [postProcessingCommand copy];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
-    }
 }
 
 - (CompilationOptions *)optionsForCompiler:(Compiler *)compiler create:(BOOL)create {
@@ -580,5 +580,37 @@ skipGuessing:
     }
     NSLog(@"Full import graph rebuild finished. %@", _importGraph);
 }
+
+
+#pragma mark - Post-processing
+
+- (NSString *)postProcessingCommand {
+    return _postProcessingCommand ?: @"";
+}
+
+- (void)setPostProcessingCommand:(NSString *)postProcessingCommand {
+    if (postProcessingCommand != _postProcessingCommand) {
+        BOOL wasEmpty = (_postProcessingCommand.length == 0);
+        [_postProcessingCommand release];
+        _postProcessingCommand = [postProcessingCommand copy];
+        if ([_postProcessingCommand length] > 0 && wasEmpty && !_postProcessingEnabled) {
+            [self setPostProcessingEnabled:YES];
+        } else if ([_postProcessingCommand length] == 0 && _postProcessingEnabled) {
+            _postProcessingEnabled = NO;
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+    }
+}
+
+- (void)setPostProcessingEnabled:(BOOL)postProcessingEnabled {
+    if ([_postProcessingCommand length] == 0 && postProcessingEnabled) {
+        return;
+    }
+    if (postProcessingEnabled != _postProcessingEnabled) {
+        _postProcessingEnabled = postProcessingEnabled;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+    }
+}
+
 
 @end
