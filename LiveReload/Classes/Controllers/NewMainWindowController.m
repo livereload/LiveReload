@@ -21,6 +21,7 @@ enum { PANE_COUNT = PaneProject+1 };
 
 - (void)updatePanes;
 - (void)updateProjectList;
+- (void)restoreSelection;
 - (void)selectedProjectDidChange;
 
 @end
@@ -70,6 +71,7 @@ enum { PANE_COUNT = PaneProject+1 };
     [_projectOutlineView setSelectionHighlightStyle:NSTableViewSelectionHighlightStyleSourceList];
 
     [_projectOutlineView expandItem:_projectsItem];
+    [self restoreSelection];
 
     _panes = [[NSArray alloc] initWithObjects:_welcomePane, _projectPane, nil];
 
@@ -127,6 +129,32 @@ enum { PANE_COUNT = PaneProject+1 };
 - (void)updateProjectList {
     _projects = [[Workspace sharedWorkspace].sortedProjects copy];
     [_projectOutlineView reloadData];
+    [self restoreSelection];
+}
+
+- (void)restoreSelection {
+    NSString *pathToSelect = [[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedProjectPath"];
+
+    Project *projectToSelect = nil;
+    if (pathToSelect.length > 0) {
+        for (Project *project in _projects) {
+            if ([project.path isEqualToString:pathToSelect]) {
+                projectToSelect = project;
+                break;
+            }
+        }
+    }
+
+    NSInteger rowToSelect = -1;
+    if (projectToSelect) {
+        rowToSelect = [_projectOutlineView rowForItem:projectToSelect];
+    }
+
+    if (rowToSelect >= 0) {
+        [_projectOutlineView selectRowIndexes:[NSIndexSet indexSetWithIndex:rowToSelect] byExtendingSelection:NO];
+    } else {
+        [_projectOutlineView deselectAll:nil];
+    }
 }
 
 - (void)selectedProjectDidChange {
@@ -139,6 +167,12 @@ enum { PANE_COUNT = PaneProject+1 };
             _selectedProject = [item retain];
         }
     }
+
+    if (_selectedProject)
+        [[NSUserDefaults standardUserDefaults] setObject:_selectedProject.path forKey:@"SelectedProjectPath"];
+    else
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"SelectedProjectPath"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 
     [self updatePanes];
 }
