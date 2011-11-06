@@ -171,8 +171,12 @@
 
 #pragma mark - Help and support
 
-- (IBAction)sendFeedback:(id)sender {
+- (IBAction)openSupport:(id)sender {
     TenderStartDiscussion(@"", @"");
+}
+
+- (IBAction)openHelp:(id)sender {
+    TenderDisplayHelp();
 }
 
 

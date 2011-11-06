@@ -22,6 +22,8 @@
 		4346F3A91450D8AD00B133F2 /* ImportGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 4346F3A81450D8AD00B133F2 /* ImportGraph.m */; };
 		4346F3AB1451012A00B133F2 /* StatusItemStateRotation3.png in Resources */ = {isa = PBXBuildFile; fileRef = 4346F3AA1451012A00B133F2 /* StatusItemStateRotation3.png */; };
 		4353196F1465B52D005FA59F /* ShitHappens.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353196E1465B52D005FA59F /* ShitHappens.m */; };
+		4353197214668E7D005FA59F /* LRHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4353197014668E7D005FA59F /* LRHelpTemplate.png */; };
+		4353197314668E7D005FA59F /* LRSupportTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4353197114668E7D005FA59F /* LRSupportTemplate.png */; };
 		435729171452267C00947B2E /* Stats.m in Sources */ = {isa = PBXBuildFile; fileRef = 435729161452267C00947B2E /* Stats.m */; };
 		43594AF413D3BB34004175B2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43594AF313D3BB34004175B2 /* QuartzCore.framework */; };
 		435BE042141B72A60008FF77 /* NewMainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 435BE041141B72A60008FF77 /* NewMainWindow.xib */; };
@@ -153,6 +155,8 @@
 		4346F3AA1451012A00B133F2 /* StatusItemStateRotation3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemStateRotation3.png; sourceTree = "<group>"; };
 		4353196D1465B52D005FA59F /* ShitHappens.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShitHappens.h; sourceTree = "<group>"; };
 		4353196E1465B52D005FA59F /* ShitHappens.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShitHappens.m; sourceTree = "<group>"; };
+		4353197014668E7D005FA59F /* LRHelpTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRHelpTemplate.png; sourceTree = "<group>"; };
+		4353197114668E7D005FA59F /* LRSupportTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRSupportTemplate.png; sourceTree = "<group>"; };
 		435729151452267C00947B2E /* Stats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stats.h; sourceTree = "<group>"; };
 		435729161452267C00947B2E /* Stats.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stats.m; sourceTree = "<group>"; };
 		43594AF313D3BB34004175B2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -734,6 +738,8 @@
 		823DDF2213F8DA3F00529AD2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				4353197014668E7D005FA59F /* LRHelpTemplate.png */,
+				4353197114668E7D005FA59F /* LRSupportTemplate.png */,
 				823DDF2313F8DA3F00529AD2 /* background.png */,
 				823DDF2413F8DA3F00529AD2 /* Icon-48.png */,
 				823DDF2613F8DA3F00529AD2 /* preferences-box.png */,
@@ -843,6 +849,8 @@
 				825235321428769E001C3486 /* SLIM.lrplugin in Resources */,
 				43468AB114476B3A00A06E21 /* ScriptPaneViewController.xib in Resources */,
 				4346F3AB1451012A00B133F2 /* StatusItemStateRotation3.png in Resources */,
+				4353197214668E7D005FA59F /* LRHelpTemplate.png in Resources */,
+				4353197314668E7D005FA59F /* LRSupportTemplate.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

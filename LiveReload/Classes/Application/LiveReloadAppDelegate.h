@@ -21,4 +21,9 @@
 
 - (void)addProjectsAtPaths:(NSArray *)paths;
 
+// help and support
+- (IBAction)openSupport:(id)sender;
+- (IBAction)openHelp:(id)sender;
+
+
 @end

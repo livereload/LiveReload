@@ -1,5 +1,6 @@
 
 #import "NewMainWindowController.h"
+#import "LiveReloadAppDelegate.h"
 
 #import "ImageAndTextCell.h"
 
@@ -132,6 +133,16 @@
 - (IBAction)showPostProcessingOptions:(id)sender {
 }
 
+- (IBAction)addRemoveClicked:(NSSegmentedControl *)sender {
+}
+
+- (IBAction)helpSupportClicked:(NSSegmentedControl *)sender {
+    if (sender.selectedSegment == 0) {
+        [[NSApp delegate] openHelp:self];
+    } else {
+        [[NSApp delegate] openSupport:self];
+    }
+}
 
 #pragma mark - Model change handling
 

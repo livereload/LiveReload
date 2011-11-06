@@ -3,6 +3,11 @@
 
 #import "ShitHappens.h"
 
+void TenderDisplayHelp() {
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://help.livereload.com/kb/"]];
+    [[NSWorkspace sharedWorkspace] openURL:url];
+}
+
 void TenderStartDiscussion(NSString *subject, NSString *body) {
     NSString *internalVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
     body = [body stringByAppendingFormat:@"\n\nI'm using LiveReload v%@.\n", internalVersion];
