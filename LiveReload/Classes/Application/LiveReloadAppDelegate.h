@@ -20,6 +20,7 @@
 - (IBAction)toggleMainWindow:sender;
 
 - (void)addProjectsAtPaths:(NSArray *)paths;
+- (void)addProjectAtPath:(NSString *)path;
 
 // help and support
 - (IBAction)openSupport:(id)sender;

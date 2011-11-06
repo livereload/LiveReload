@@ -7,8 +7,19 @@
 #import "Workspace.h"
 #import "Project.h"
 
+
+@interface NewMainWindowController ()
+
+@property(nonatomic, readonly) Project *selectedProject;
+
+- (void)updateProjectList;
+
+@end
+
+
 @implementation NewMainWindowController
-@synthesize projectOutlineView;
+
+@synthesize projectOutlineView = _projectOutlineView;
 @synthesize pathTextField = _pathTextField;
 @synthesize compilerEnabledCheckBox = _compilerEnabledCheckBox;
 @synthesize postProcessingEnabledCheckBox = _postProcessingEnabledCheckBox;
@@ -29,21 +40,38 @@
     NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
     self.window.title = [NSString stringWithFormat:@"LiveReload %@", version];
 
-    NSTableColumn *tableColumn = [projectOutlineView tableColumnWithIdentifier:@"Name"];
+    NSTableColumn *tableColumn = [_projectOutlineView tableColumnWithIdentifier:@"Name"];
     ImageAndTextCell *imageAndTextCell = [[[ImageAndTextCell alloc] init] autorelease];
     [imageAndTextCell setEditable:YES];
     [tableColumn setDataCell:imageAndTextCell];
 
-    // scroll to the top in case the outline contents is very long
-    [[[projectOutlineView enclosingScrollView] verticalScroller] setFloatValue:0.0];
-    [[[projectOutlineView enclosingScrollView] contentView] scrollToPoint:NSMakePoint(0,0)];
-    [projectOutlineView setSelectionHighlightStyle:NSTableViewSelectionHighlightStyleSourceList];
+    [self updateProjectList];
 
-    [projectOutlineView expandItem:_projectsItem];
+    // scroll to the top in case the outline contents is very long
+    [[[_projectOutlineView enclosingScrollView] verticalScroller] setFloatValue:0.0];
+    [[[_projectOutlineView enclosingScrollView] contentView] scrollToPoint:NSMakePoint(0,0)];
+    [_projectOutlineView setSelectionHighlightStyle:NSTableViewSelectionHighlightStyleSourceList];
+
+    [_projectOutlineView expandItem:_projectsItem];
 }
 
-- (NSArray *)projects {
-    return [Workspace sharedWorkspace].sortedProjects;
+
+#pragma mark - NSOutlineView management
+
+- (void)updateProjectList {
+    _projects = [[Workspace sharedWorkspace].sortedProjects copy];
+    [_projectOutlineView reloadData];
+}
+
+- (Project *)selectedProject {
+    NSInteger row = _projectOutlineView.selectedRow;
+    if (row >= 0) {
+        id item = [_projectOutlineView itemAtRow:row];
+        if ([item isKindOfClass:[Project class]]) {
+            return item;
+        }
+    }
+    return nil;
 }
 
 
@@ -61,7 +89,7 @@
     if (item == nil)
         return _projectsItem;
     if (item == _projectsItem)
-        return [self.projects objectAtIndex:index];
+        return [_projects objectAtIndex:index];
     assert(0);
 }
 
@@ -77,7 +105,7 @@
     if (item == nil)
         return 1;
     if (item == _projectsItem)
-        return [self.projects count];
+        return [_projects count];
     return 0;
 }
 
@@ -133,7 +161,35 @@
 - (IBAction)showPostProcessingOptions:(id)sender {
 }
 
+- (void)addProjectClicked {
+    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+    [openPanel setCanChooseDirectories:YES];
+    [openPanel setCanCreateDirectories:YES];
+    [openPanel setPrompt:@"Choose folder"];
+    [openPanel setCanChooseFiles:NO];
+    [openPanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
+        if (result == NSFileHandlingPanelOKButton) {
+            NSURL *url = [openPanel URL];
+            NSString *path = [url path];
+            [[NSApp delegate] addProjectAtPath:path];
+        }
+    }];
+}
+
+- (void)removeProjectClicked {
+    Project *project = self.selectedProject;
+    if (project) {
+        [[Workspace sharedWorkspace] removeProjectsObject:project];
+        [self updateProjectList];
+        [_projectOutlineView deselectAll:nil];
+    }
+}
+
 - (IBAction)addRemoveClicked:(NSSegmentedControl *)sender {
+    if (sender.selectedSegment == 0)
+        [self addProjectClicked];
+    else
+        [self removeProjectClicked];
 }
 
 - (IBAction)helpSupportClicked:(NSSegmentedControl *)sender {
@@ -147,7 +203,9 @@
 #pragma mark - Model change handling
 
 - (void)projectAdded:(Project *)project {
-
+    [self updateProjectList];
+    NSInteger row = [_projectOutlineView rowForItem:project];
+    [_projectOutlineView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
 }
 
 @end

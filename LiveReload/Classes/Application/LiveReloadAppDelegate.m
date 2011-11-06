@@ -142,6 +142,10 @@
 
 #pragma mark - Model
 
+- (void)addProjectAtPath:(NSString *)path {
+    [self addProjectsAtPaths:[NSArray arrayWithObject:path]];
+}
+
 - (void)addProjectsAtPaths:(NSArray *)paths {
     Project *newProject = nil;
     for (NSString *path in paths) {

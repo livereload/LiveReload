@@ -8,9 +8,9 @@
 @interface NewMainWindowController : NSWindowController {
     NSObject              *_projectsItem;
     NSImage               *_folderImage;
-}
 
-@property (nonatomic, readonly) NSArray *projects;
+    NSArray               *_projects;
+}
 
 @property (assign) IBOutlet NSOutlineView *projectOutlineView;
 
