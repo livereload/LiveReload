@@ -8,17 +8,29 @@
 #import "Project.h"
 
 
+typedef enum {
+    PaneWelcome,
+    PaneProject,
+} Pane;
+enum { PANE_COUNT = PaneProject+1 };
+
+
 @interface NewMainWindowController ()
 
-@property(nonatomic, readonly) Project *selectedProject;
-
+- (void)updatePanes;
 - (void)updateProjectList;
+- (void)selectedProjectDidChange;
 
 @end
 
 
 @implementation NewMainWindowController
 
+@synthesize welcomePane = _welcomePane;
+@synthesize welcomeMessageField = _welcomeMessageField;
+@synthesize paneBorderBox = _paneBorderBox;
+@synthesize panePlaceholder = _panePlaceholder;
+@synthesize projectPane = _projectPane;
 @synthesize projectOutlineView = _projectOutlineView;
 @synthesize pathTextField = _pathTextField;
 @synthesize compilerEnabledCheckBox = _compilerEnabledCheckBox;
@@ -56,6 +68,54 @@
     [_projectOutlineView setSelectionHighlightStyle:NSTableViewSelectionHighlightStyleSourceList];
 
     [_projectOutlineView expandItem:_projectsItem];
+
+    _panes = [[NSArray alloc] initWithObjects:_welcomePane, _projectPane, nil];
+
+    [self selectedProjectDidChange];
+}
+
+
+#pragma mark - Panes
+
+- (void)updateWelcomePane {
+    if (_currentPane != PaneWelcome)
+        return;
+}
+
+- (void)updateProjectPane {
+    if (_currentPane != PaneProject)
+        return;
+    _pathTextField.stringValue = _selectedProject.displayPath;
+}
+
+- (void)setVisibility:(BOOL)visible forPaneView:(NSView *)paneView {
+    if (paneView.superview) {
+        if (!visible)
+            [paneView removeFromSuperview];
+    } else {
+        if (visible) {
+            [self.window.contentView addSubview:paneView];
+            paneView.frame = _panePlaceholder.frame;
+        }
+    }
+}
+
+- (Pane)choosePane {
+    if (_selectedProject != nil)
+        return PaneProject;
+    else
+        return PaneWelcome;
+}
+
+- (void)updatePanes {
+    _currentPane = [self choosePane];
+
+    for (Pane pane = 0; pane < PANE_COUNT; ++pane) {
+        [self setVisibility:(pane == _currentPane) forPaneView:[_panes objectAtIndex:pane]];
+    }
+
+    [self updateWelcomePane];
+    [self updateProjectPane];
 }
 
 
@@ -66,19 +126,26 @@
     [_projectOutlineView reloadData];
 }
 
-- (Project *)selectedProject {
+- (void)selectedProjectDidChange {
+    [_selectedProject release], _selectedProject = nil;
+
     NSInteger row = _projectOutlineView.selectedRow;
     if (row >= 0) {
         id item = [_projectOutlineView itemAtRow:row];
         if ([item isKindOfClass:[Project class]]) {
-            return item;
+            _selectedProject = [item retain];
         }
     }
-    return nil;
+
+    [self updatePanes];
 }
 
 
 #pragma mark - NSOutlineView data source and delegate
+
+- (void)outlineViewSelectionDidChange:(NSNotification *)notification {
+    [self selectedProjectDidChange];
+}
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView shouldSelectItem:(id)item {
     return (item != nil && item != _projectsItem);
@@ -176,7 +243,7 @@
 }
 
 - (void)removeProjectClicked {
-    Project *project = self.selectedProject;
+    Project *project = _selectedProject;
     if (project) {
         [[Workspace sharedWorkspace] removeProjectsObject:project];
         [self updateProjectList];
