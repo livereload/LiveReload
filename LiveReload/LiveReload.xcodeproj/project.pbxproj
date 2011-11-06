@@ -79,10 +79,6 @@
 		823DDEFF13F8DA3100529AD2 /* PaneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE8E13F8DA3100529AD2 /* PaneViewController.m */; };
 		823DDF0013F8DA3100529AD2 /* ProjectOptionsSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 823DDE8F13F8DA3100529AD2 /* ProjectOptionsSheet.xib */; };
 		823DDF0113F8DA3100529AD2 /* ProjectOptionsSheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE9113F8DA3100529AD2 /* ProjectOptionsSheetController.m */; };
-		823DDF0213F8DA3100529AD2 /* PXListDocumentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE9413F8DA3100529AD2 /* PXListDocumentView.m */; };
-		823DDF0313F8DA3100529AD2 /* PXListView+UserInteraction.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE9713F8DA3100529AD2 /* PXListView+UserInteraction.m */; };
-		823DDF0413F8DA3100529AD2 /* PXListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE9913F8DA3100529AD2 /* PXListView.m */; };
-		823DDF0513F8DA3100529AD2 /* PXListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE9C13F8DA3100529AD2 /* PXListViewCell.m */; };
 		823DDF0613F8DA3100529AD2 /* ATFunctionalStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEA113F8DA3100529AD2 /* ATFunctionalStyle.m */; };
 		823DDF0713F8DA3100529AD2 /* LoginItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEA313F8DA3100529AD2 /* LoginItemController.m */; };
 		823DDF0813F8DA3100529AD2 /* MAAttachedWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEA513F8DA3100529AD2 /* MAAttachedWindow.m */; };
@@ -98,8 +94,6 @@
 		823DDF1213F8DA3100529AD2 /* VersionNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEB913F8DA3100529AD2 /* VersionNumber.m */; };
 		823DDF1313F8DA3100529AD2 /* AuxWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEBC13F8DA3100529AD2 /* AuxWindow.m */; };
 		823DDF1413F8DA3100529AD2 /* KeyWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEBE13F8DA3100529AD2 /* KeyWindow.m */; };
-		823DDF1513F8DA3100529AD2 /* ProjectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEC013F8DA3100529AD2 /* ProjectCell.m */; };
-		823DDF1613F8DA3100529AD2 /* ProjectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 823DDEC113F8DA3100529AD2 /* ProjectCell.xib */; };
 		823DDF1713F8DA3100529AD2 /* StatusItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEC313F8DA3100529AD2 /* StatusItemView.m */; };
 		823DDF1813F8DA3100529AD2 /* base64-decode.c in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEC513F8DA3100529AD2 /* base64-decode.c */; };
 		823DDF1913F8DA3100529AD2 /* client-handshake.c in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEC613F8DA3100529AD2 /* client-handshake.c */; };
@@ -259,18 +253,6 @@
 		823DDE8F13F8DA3100529AD2 /* ProjectOptionsSheet.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProjectOptionsSheet.xib; sourceTree = "<group>"; };
 		823DDE9013F8DA3100529AD2 /* ProjectOptionsSheetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectOptionsSheetController.h; sourceTree = "<group>"; };
 		823DDE9113F8DA3100529AD2 /* ProjectOptionsSheetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectOptionsSheetController.m; sourceTree = "<group>"; };
-		823DDE9313F8DA3100529AD2 /* PXListDocumentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXListDocumentView.h; sourceTree = "<group>"; };
-		823DDE9413F8DA3100529AD2 /* PXListDocumentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXListDocumentView.m; sourceTree = "<group>"; };
-		823DDE9513F8DA3100529AD2 /* PXListView+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PXListView+Private.h"; sourceTree = "<group>"; };
-		823DDE9613F8DA3100529AD2 /* PXListView+UserInteraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PXListView+UserInteraction.h"; sourceTree = "<group>"; };
-		823DDE9713F8DA3100529AD2 /* PXListView+UserInteraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PXListView+UserInteraction.m"; sourceTree = "<group>"; };
-		823DDE9813F8DA3100529AD2 /* PXListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXListView.h; sourceTree = "<group>"; };
-		823DDE9913F8DA3100529AD2 /* PXListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXListView.m; sourceTree = "<group>"; };
-		823DDE9A13F8DA3100529AD2 /* PXListViewCell+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PXListViewCell+Private.h"; sourceTree = "<group>"; };
-		823DDE9B13F8DA3100529AD2 /* PXListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXListViewCell.h; sourceTree = "<group>"; };
-		823DDE9C13F8DA3100529AD2 /* PXListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXListViewCell.m; sourceTree = "<group>"; };
-		823DDE9D13F8DA3100529AD2 /* PXListViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXListViewDelegate.h; sourceTree = "<group>"; };
-		823DDE9E13F8DA3100529AD2 /* PXListViewDropHighlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXListViewDropHighlight.h; sourceTree = "<group>"; };
 		823DDEA013F8DA3100529AD2 /* ATFunctionalStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATFunctionalStyle.h; sourceTree = "<group>"; };
 		823DDEA113F8DA3100529AD2 /* ATFunctionalStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATFunctionalStyle.m; sourceTree = "<group>"; };
 		823DDEA213F8DA3100529AD2 /* LoginItemController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginItemController.h; sourceTree = "<group>"; };
@@ -300,9 +282,6 @@
 		823DDEBC13F8DA3100529AD2 /* AuxWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuxWindow.m; sourceTree = "<group>"; };
 		823DDEBD13F8DA3100529AD2 /* KeyWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyWindow.h; sourceTree = "<group>"; };
 		823DDEBE13F8DA3100529AD2 /* KeyWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyWindow.m; sourceTree = "<group>"; };
-		823DDEBF13F8DA3100529AD2 /* ProjectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectCell.h; sourceTree = "<group>"; };
-		823DDEC013F8DA3100529AD2 /* ProjectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectCell.m; sourceTree = "<group>"; };
-		823DDEC113F8DA3100529AD2 /* ProjectCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProjectCell.xib; sourceTree = "<group>"; };
 		823DDEC213F8DA3100529AD2 /* StatusItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusItemView.h; sourceTree = "<group>"; };
 		823DDEC313F8DA3100529AD2 /* StatusItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusItemView.m; sourceTree = "<group>"; };
 		823DDEC513F8DA3100529AD2 /* base64-decode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "base64-decode.c"; sourceTree = "<group>"; };
@@ -454,7 +433,6 @@
 				823DDE7B13F8DA3100529AD2 /* Plugins */,
 				823DDE8613F8DA3100529AD2 /* Preferences */,
 				823DDE8913F8DA3100529AD2 /* Project Options */,
-				823DDE9213F8DA3100529AD2 /* PXListView */,
 				823DDE9F13F8DA3100529AD2 /* Utilities */,
 				823DDEBA13F8DA3100529AD2 /* Views */,
 				823DDEC413F8DA3100529AD2 /* WebSockets */,
@@ -633,25 +611,6 @@
 			path = "Project Options";
 			sourceTree = "<group>";
 		};
-		823DDE9213F8DA3100529AD2 /* PXListView */ = {
-			isa = PBXGroup;
-			children = (
-				823DDE9313F8DA3100529AD2 /* PXListDocumentView.h */,
-				823DDE9413F8DA3100529AD2 /* PXListDocumentView.m */,
-				823DDE9513F8DA3100529AD2 /* PXListView+Private.h */,
-				823DDE9613F8DA3100529AD2 /* PXListView+UserInteraction.h */,
-				823DDE9713F8DA3100529AD2 /* PXListView+UserInteraction.m */,
-				823DDE9813F8DA3100529AD2 /* PXListView.h */,
-				823DDE9913F8DA3100529AD2 /* PXListView.m */,
-				823DDE9A13F8DA3100529AD2 /* PXListViewCell+Private.h */,
-				823DDE9B13F8DA3100529AD2 /* PXListViewCell.h */,
-				823DDE9C13F8DA3100529AD2 /* PXListViewCell.m */,
-				823DDE9D13F8DA3100529AD2 /* PXListViewDelegate.h */,
-				823DDE9E13F8DA3100529AD2 /* PXListViewDropHighlight.h */,
-			);
-			path = PXListView;
-			sourceTree = "<group>";
-		};
 		823DDE9F13F8DA3100529AD2 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -701,9 +660,6 @@
 				823DDEBC13F8DA3100529AD2 /* AuxWindow.m */,
 				823DDEBD13F8DA3100529AD2 /* KeyWindow.h */,
 				823DDEBE13F8DA3100529AD2 /* KeyWindow.m */,
-				823DDEBF13F8DA3100529AD2 /* ProjectCell.h */,
-				823DDEC013F8DA3100529AD2 /* ProjectCell.m */,
-				823DDEC113F8DA3100529AD2 /* ProjectCell.xib */,
 				823DDEC213F8DA3100529AD2 /* StatusItemView.h */,
 				823DDEC313F8DA3100529AD2 /* StatusItemView.m */,
 				43E5DF601462829B0016CDA0 /* ImageAndTextCell.h */,
@@ -833,7 +789,6 @@
 				823DDEFE13F8DA3100529AD2 /* CompilerPaneViewController.xib in Resources */,
 				823DDF0013F8DA3100529AD2 /* ProjectOptionsSheet.xib in Resources */,
 				823DDF0C13F8DA3100529AD2 /* README in Resources */,
-				823DDF1613F8DA3100529AD2 /* ProjectCell.xib in Resources */,
 				823DDF2F13F8DA3F00529AD2 /* background.png in Resources */,
 				823DDF3013F8DA3F00529AD2 /* Icon-48.png in Resources */,
 				823DDF3213F8DA3F00529AD2 /* preferences-box.png in Resources */,
@@ -903,10 +858,6 @@
 				823DDEFD13F8DA3100529AD2 /* CompilerPaneViewController.m in Sources */,
 				823DDEFF13F8DA3100529AD2 /* PaneViewController.m in Sources */,
 				823DDF0113F8DA3100529AD2 /* ProjectOptionsSheetController.m in Sources */,
-				823DDF0213F8DA3100529AD2 /* PXListDocumentView.m in Sources */,
-				823DDF0313F8DA3100529AD2 /* PXListView+UserInteraction.m in Sources */,
-				823DDF0413F8DA3100529AD2 /* PXListView.m in Sources */,
-				823DDF0513F8DA3100529AD2 /* PXListViewCell.m in Sources */,
 				823DDF0613F8DA3100529AD2 /* ATFunctionalStyle.m in Sources */,
 				823DDF0713F8DA3100529AD2 /* LoginItemController.m in Sources */,
 				823DDF0813F8DA3100529AD2 /* MAAttachedWindow.m in Sources */,
@@ -921,7 +872,6 @@
 				823DDF1213F8DA3100529AD2 /* VersionNumber.m in Sources */,
 				823DDF1313F8DA3100529AD2 /* AuxWindow.m in Sources */,
 				823DDF1413F8DA3100529AD2 /* KeyWindow.m in Sources */,
-				823DDF1513F8DA3100529AD2 /* ProjectCell.m in Sources */,
 				823DDF1713F8DA3100529AD2 /* StatusItemView.m in Sources */,
 				823DDF1813F8DA3100529AD2 /* base64-decode.c in Sources */,
 				823DDF1913F8DA3100529AD2 /* client-handshake.c in Sources */,
