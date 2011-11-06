@@ -12,3 +12,5 @@ example/naive_example/*.html
 example/naive_example/.sass-cache
 example/compass_example/.sass-cache
 example/compass_example/stylesheets/
+example/import_example/*.css
+example/import_example_sass/*.css
