@@ -35,8 +35,6 @@
 		823DDED313F8DA3100529AD2 /* LiveReloadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3013F8DA3100529AD2 /* LiveReloadAppDelegate.m */; };
 		823DDED413F8DA3100529AD2 /* CommunicationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3313F8DA3100529AD2 /* CommunicationController.m */; };
 		823DDED513F8DA3100529AD2 /* ExtensionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3613F8DA3100529AD2 /* ExtensionsController.m */; };
-		823DDED613F8DA3100529AD2 /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3813F8DA3100529AD2 /* MainWindowController.m */; };
-		823DDED713F8DA3100529AD2 /* MainWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 823DDE3913F8DA3100529AD2 /* MainWindowController.xib */; };
 		823DDED813F8DA3100529AD2 /* PreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3B13F8DA3100529AD2 /* PreferencesWindowController.m */; };
 		823DDED913F8DA3100529AD2 /* PreferencesWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 823DDE3C13F8DA3100529AD2 /* PreferencesWindowController.xib */; };
 		823DDEDA13F8DA3100529AD2 /* StatusItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3E13F8DA3100529AD2 /* StatusItemController.m */; };
@@ -176,9 +174,6 @@
 		823DDE3313F8DA3100529AD2 /* CommunicationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommunicationController.m; sourceTree = "<group>"; };
 		823DDE3513F8DA3100529AD2 /* ExtensionsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtensionsController.h; sourceTree = "<group>"; };
 		823DDE3613F8DA3100529AD2 /* ExtensionsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExtensionsController.m; sourceTree = "<group>"; };
-		823DDE3713F8DA3100529AD2 /* MainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindowController.h; sourceTree = "<group>"; };
-		823DDE3813F8DA3100529AD2 /* MainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainWindowController.m; sourceTree = "<group>"; };
-		823DDE3913F8DA3100529AD2 /* MainWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindowController.xib; sourceTree = "<group>"; };
 		823DDE3A13F8DA3100529AD2 /* PreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesWindowController.h; sourceTree = "<group>"; };
 		823DDE3B13F8DA3100529AD2 /* PreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesWindowController.m; sourceTree = "<group>"; };
 		823DDE3C13F8DA3100529AD2 /* PreferencesWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesWindowController.xib; sourceTree = "<group>"; };
@@ -490,9 +485,6 @@
 			children = (
 				823DDE3513F8DA3100529AD2 /* ExtensionsController.h */,
 				823DDE3613F8DA3100529AD2 /* ExtensionsController.m */,
-				823DDE3713F8DA3100529AD2 /* MainWindowController.h */,
-				823DDE3813F8DA3100529AD2 /* MainWindowController.m */,
-				823DDE3913F8DA3100529AD2 /* MainWindowController.xib */,
 				823DDE3A13F8DA3100529AD2 /* PreferencesWindowController.h */,
 				823DDE3B13F8DA3100529AD2 /* PreferencesWindowController.m */,
 				823DDE3C13F8DA3100529AD2 /* PreferencesWindowController.xib */,
@@ -830,7 +822,6 @@
 				43361D5013C32C3D00C0E589 /* SASS.lrplugin in Resources */,
 				43E4BBE813C5DA7900A75F81 /* CoffeeScript.lrplugin in Resources */,
 				43C0368613CA191D00A01305 /* LiveReload.icns in Resources */,
-				823DDED713F8DA3100529AD2 /* MainWindowController.xib in Resources */,
 				823DDED913F8DA3100529AD2 /* PreferencesWindowController.xib in Resources */,
 				823DDEDC13F8DA3100529AD2 /* ToolOutputWindowController.xib in Resources */,
 				823DDEFE13F8DA3100529AD2 /* CompilerPaneViewController.xib in Resources */,
@@ -866,7 +857,6 @@
 				823DDED313F8DA3100529AD2 /* LiveReloadAppDelegate.m in Sources */,
 				823DDED413F8DA3100529AD2 /* CommunicationController.m in Sources */,
 				823DDED513F8DA3100529AD2 /* ExtensionsController.m in Sources */,
-				823DDED613F8DA3100529AD2 /* MainWindowController.m in Sources */,
 				823DDED813F8DA3100529AD2 /* PreferencesWindowController.m in Sources */,
 				823DDEDA13F8DA3100529AD2 /* StatusItemController.m in Sources */,
 				823DDEDB13F8DA3100529AD2 /* ToolOutputWindowController.m in Sources */,

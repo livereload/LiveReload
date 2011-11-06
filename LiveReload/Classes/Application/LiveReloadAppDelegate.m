@@ -14,6 +14,9 @@
 #import "NSWindowFlipper.h"
 #import "Preferences.h"
 
+#import "ShitHappens.h"
+
+
 @interface LiveReloadAppDelegate ()
 
 - (void)pingServer;
@@ -31,13 +34,11 @@
 @synthesize mainWindowController=_mainWindowController;
 @synthesize preferencesWindowController = _preferencesWindowController;
 
+
+#pragma mark - Launching
+
 - (void)awakeFromNib {
     [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(handleURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
-}
-
-// just to make XDry happy; won't ever be deallocated
-- (void)dealloc {
-    [super dealloc];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
@@ -81,8 +82,8 @@
     });
 }
 
-- (void)applicationDidResignActive:(NSNotification *)notification {
-}
+
+#pragma mark - Pinging server
 
 - (void)pingServer {
     [self performSelectorInBackground:@selector(pingServerInBackground) withObject:nil];
@@ -111,51 +112,20 @@
 }
 
 
-#pragma mark -
+#pragma mark - Main window
 
 - (BOOL)isMainWindowVisible {
     return [NSApp isActive] && [_mainWindowController isWindowLoaded] && [_mainWindowController.window isVisible];
 }
 
-- (BOOL)isPreferencesWindowVisible {
-    return [self.preferencesWindowController.window isVisible];
-}
-
-+ (NSSet *)keyPathsForValuesAffectingWindowVisible {
-    return [NSSet setWithObjects:@"mainWindowVisible", @"preferencesWindowVisible", nil];
-}
-
 - (IBAction)displayMainWindow:sender {
-    [self willChangeValueForKey:@"mainWindowVisible"];
-//    [self.mainWindowController willShow];
     [NSApp activateIgnoringOtherApps:YES];
     [_mainWindowController showWindow:nil];
     [_mainWindowController.window makeKeyAndOrderFront:nil];
-    [self didChangeValueForKey:@"mainWindowVisible"];
-}
-
-- (IBAction)displayPreferencesWindow:sender {
-    [self willChangeValueForKey:@"preferencesWindowVisible"];
-    [self.preferencesWindowController willShow];
-    if ([self isMainWindowVisible]) {
-        [self.mainWindowController.window flipToWindow:self.preferencesWindowController.window withDuration:0.5 shadowed:NO];
-    } else {
-        [NSApp activateIgnoringOtherApps:YES];
-        [self.preferencesWindowController.window makeKeyAndOrderFront:nil];
-    }
-    [self didChangeValueForKey:@"preferencesWindowVisible"];
 }
 
 - (void)hideMainWindow {
-    [self willChangeValueForKey:@"mainWindowVisible"];
     [self.mainWindowController.window orderOut:nil];
-    [self didChangeValueForKey:@"mainWindowVisible"];
-}
-
-- (void)hidePreferencesWindow {
-    [self willChangeValueForKey:@"preferencesWindowVisible"];
-    [self.preferencesWindowController.window orderOut:nil];
-    [self didChangeValueForKey:@"preferencesWindowVisible"];
 }
 
 - (IBAction)toggleMainWindow:sender {
@@ -165,22 +135,48 @@
         [self displayMainWindow:sender];
 }
 
-
-
-#pragma mark -
-
 - (void)considerShowingWindowOnAppStartup {
+    // TODO: show the window on first launch, and restore window visibility on subsequent launches
 }
 
 
-#pragma mark -
+#pragma mark - Model
+
+- (void)addProjectsAtPaths:(NSArray *)paths {
+    Project *newProject = nil;
+    for (NSString *path in paths) {
+        newProject = [[[Project alloc] initWithPath:path memento:nil] autorelease];
+        [[Workspace sharedWorkspace] addProjectsObject:newProject];
+    }
+    [[NSApp delegate] displayMainWindow:nil];
+    if ([paths count] == 1) {
+        [self.mainWindowController projectAdded:newProject];
+    }
+}
+
+
+#pragma mark - Preferences
+
+
+- (IBAction)displayPreferencesWindow:sender {
+    [self.preferencesWindowController willShow];
+    if ([self isMainWindowVisible]) {
+        [self.mainWindowController.window flipToWindow:self.preferencesWindowController.window withDuration:0.5 shadowed:NO];
+    } else {
+        [NSApp activateIgnoringOtherApps:YES];
+        [self.preferencesWindowController.window makeKeyAndOrderFront:nil];
+    }
+}
+
+
+#pragma mark - Help and support
 
 - (IBAction)sendFeedback:(id)sender {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://help.livereload.com/discussion/new"]];
+    TenderStartDiscussion(@"", @"");
 }
 
 
-#pragma mark -
+#pragma mark - URL API
 
 - (void)handleCommand:(NSString *)command params:(NSDictionary *)params {
     NSLog(@"Received command %@ with params %@", command, params);

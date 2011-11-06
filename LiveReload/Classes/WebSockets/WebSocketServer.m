@@ -226,7 +226,7 @@ static struct libwebsocket_protocols protocols[] = {
     if (context == NULL) {
         NSLog(@"libwebsocket init failed");
         if ([delegate respondsToSelector:@selector(webSocketServerDidFailToInitialize:)]) {
-            [delegate performSelectorOnMainThread:@selector(webSocketServerDidFailToInitialize:) withObject:self waitUntilDone:NO];
+            [(id)delegate performSelectorOnMainThread:@selector(webSocketServerDidFailToInitialize:) withObject:self waitUntilDone:NO];
         }
         return;
     }

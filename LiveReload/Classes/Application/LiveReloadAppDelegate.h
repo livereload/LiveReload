@@ -19,4 +19,6 @@
 - (IBAction)displayPreferencesWindow:sender;
 - (IBAction)toggleMainWindow:sender;
 
+- (void)addProjectsAtPaths:(NSArray *)paths;
+
 @end

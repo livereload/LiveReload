@@ -132,4 +132,11 @@
 - (IBAction)showPostProcessingOptions:(id)sender {
 }
 
+
+#pragma mark - Model change handling
+
+- (void)projectAdded:(Project *)project {
+
+}
+
 @end

@@ -1,6 +1,5 @@
 
 #import "StatusItemView.h"
-#import "MainWindowController.h"
 
 
 typedef enum {
@@ -78,7 +77,6 @@ enum { kAnimationStepCount = StatusItemStateRotation3 - StatusItemStateActive + 
 }
 
 - (void)mouseDown:(NSEvent *)event {
-    NSRect frame = [[self window] frame];
     [_delegate statusItemViewClicked:self];
     [self setSelected:YES];
 }

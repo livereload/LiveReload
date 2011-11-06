@@ -2,7 +2,6 @@
 #import "LiveReloadAppDelegate.h"
 
 #import "StatusItemController.h"
-#import "MainWindowController.h"
 #import "StatusItemView.h"
 #import "Workspace.h"
 #import "Project.h"
@@ -34,7 +33,6 @@
     self.statusItemView.delegate = self;
     [self.statusItem setView:self.statusItemView];
 
-    [[NSApp delegate] addObserver:self forKeyPath:@"windowVisible" options:0 context:nil];
     [[Workspace sharedWorkspace] addObserver:self forKeyPath:@"monitoringEnabled" options:0 context:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didDetectChange) name:ProjectDidDetectChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willBeginCompilation) name:ProjectWillBeginCompilationNotification object:nil];
@@ -73,15 +71,7 @@
 }
 
 - (void)statusItemView:(StatusItemView *)view acceptedDroppedDirectories:(NSArray *)pathes {
-    Project *newProject = nil;
-    for (NSString *path in pathes) {
-        newProject = [[[Project alloc] initWithPath:path memento:nil] autorelease];
-        [[Workspace sharedWorkspace] addProjectsObject:newProject];
-    }
-    [[NSApp delegate] displayMainWindow:nil];
-    if ([pathes count] == 1) {
-        [self.mainWindowController projectAdded:newProject];
-    }
+    [[NSApp delegate] addProjectsAtPaths:pathes];
 }
 
 
@@ -89,9 +79,7 @@
 #pragma mark KVO
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"windowVisible"]) {
-        [self updateStatusIconState];
-    } else if ([keyPath isEqualToString:@"monitoringEnabled"]) {
+    if ([keyPath isEqualToString:@"monitoringEnabled"]) {
         [self updateStatusIconState];
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
