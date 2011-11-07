@@ -9,8 +9,10 @@ typedef enum {
     ControlTypeCheckBox,
     ControlTypePopUp,
     ControlTypeEdit,
+    ControlTypeFullWidthLabel,
+    ControlTypeRightLabel,
 } ControlType;
-enum { ControlTypeCount = 4 };
+enum { ControlTypeCount = 6 };
 
 
 @interface CompilationSettingsWindowController : BaseProjectSettingsWindowController {

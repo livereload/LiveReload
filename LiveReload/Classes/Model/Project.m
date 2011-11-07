@@ -350,6 +350,17 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
 }
 
 
+#pragma mark - Compilation
+
+- (NSArray *)compilersInUse {
+    FSTree *tree = [_monitor obtainTree];
+    return [[PluginManager sharedPluginManager].compilers filteredArrayUsingBlock:^BOOL(id value) {
+        Compiler *compiler = value;
+        return [compiler pathsOfSourceFilesInTree:tree].count > 0;
+    }];
+}
+
+
 #pragma mark - Options
 
 - (BOOL)areAnyCompilersEnabled {

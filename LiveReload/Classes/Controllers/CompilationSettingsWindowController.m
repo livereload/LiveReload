@@ -18,8 +18,11 @@
 #define kLabelX 17
 #define kLabelWidth 131
 #define kLabelHeight 17
-#define kWindowTopMargin 18
-#define kWindowBottomMargin 59
+#define kFullWidthLabelWidth (kCheckBoxX + kCheckBoxWidth - kLabelX)
+#define kRightLabelX 150
+#define kRightLabelWidth (kCheckBoxX + kCheckBoxWidth - kRightLabelX)
+#define kWindowTopMargin 118
+#define kWindowBottomMargin 100
 
 
 
@@ -43,6 +46,8 @@ static ControlTypeInfo CONTROL_TYPE_INFO[] = {
             [ControlTypeCheckBox] = 20 - kCheckBoxHeight,
             [ControlTypePopUp] = 30 - kPopUpControlHeight,
             [ControlTypeEdit] = 28 - kEditHeight,
+            [ControlTypeFullWidthLabel] = 0,
+            [ControlTypeRightLabel] = 0,
         },
     },
     {
@@ -53,6 +58,8 @@ static ControlTypeInfo CONTROL_TYPE_INFO[] = {
             [ControlTypeCheckBox] = 22 - kCheckBoxHeight,
             [ControlTypePopUp] = 26 - kPopUpControlHeight,
             [ControlTypeEdit] = 27 - kEditHeight,
+            [ControlTypeFullWidthLabel] = 0,
+            [ControlTypeRightLabel] = 0,
         },
     },
     {
@@ -63,6 +70,32 @@ static ControlTypeInfo CONTROL_TYPE_INFO[] = {
             [ControlTypeCheckBox] = 24 - kCheckBoxHeight,
             [ControlTypePopUp] = 32 - kPopUpControlHeight,
             [ControlTypeEdit] = 32 - kEditHeight,
+            [ControlTypeFullWidthLabel] = 0,
+            [ControlTypeRightLabel] = 0,
+        },
+    },
+    {
+        .type = ControlTypeFullWidthLabel,
+        .labelOffset = 0,
+        .bottomMargins = {
+            [ControlTypeNone] = 0,
+            [ControlTypeCheckBox] = 0,
+            [ControlTypePopUp] = 0,
+            [ControlTypeEdit] = 0,
+            [ControlTypeFullWidthLabel] = 0,
+            [ControlTypeRightLabel] = 0,
+        },
+    },
+    {
+        .type = ControlTypeRightLabel,
+        .labelOffset = 0,
+        .bottomMargins = {
+            [ControlTypeNone] = 0,
+            [ControlTypeCheckBox] = 0,
+            [ControlTypePopUp] = 0,
+            [ControlTypeEdit] = 0,
+            [ControlTypeFullWidthLabel] = 0,
+            [ControlTypeRightLabel] = 0,
         },
     },
 };
@@ -140,7 +173,6 @@ static ControlTypeInfo CONTROL_TYPE_INFO[] = {
     return control;
 }
 
-
 - (NSTextField *)addLabel:(NSString *)label {
     NSTextField *control = [[[NSTextField alloc] initWithFrame:NSMakeRect(kLabelX, _lastControlY + LAST.labelOffset, kLabelWidth, kLabelHeight)] autorelease];
     control.drawsBackground = control.selectable = control.editable = control.bezeled = NO;
@@ -152,8 +184,27 @@ static ControlTypeInfo CONTROL_TYPE_INFO[] = {
     return control;
 }
 
+- (NSTextField *)addFullWidthLabel:(NSString *)label {
+    NSTextField *control = [[[NSTextField alloc] initWithFrame:NSMakeRect(kLabelX, 0, kFullWidthLabelWidth, kLabelHeight)] autorelease];
+    control.drawsBackground = control.selectable = control.editable = control.bezeled = NO;
+    control.alignment = NSCenterTextAlignment;
+    control.stringValue = label;
+    [self addControl:control ofType:ControlTypeFullWidthLabel];
+    _labelAdded = YES;
+    return control;
+}
+
+- (NSTextField *)addRightLabel:(NSString *)label {
+    NSTextField *control = [[[NSTextField alloc] initWithFrame:NSMakeRect(kRightLabelX, 0, kRightLabelWidth, kLabelHeight)] autorelease];
+    control.drawsBackground = control.selectable = control.editable = control.bezeled = NO;
+    control.alignment = NSLeftTextAlignment;
+    control.stringValue = label;
+    [self addControl:control ofType:ControlTypeRightLabel];
+    return control;
+}
+
 - (void)addVisualBreak {
-    _nextY -= 15;
+    _nextY -= 10;
 }
 
 
@@ -179,11 +230,10 @@ static ControlTypeInfo CONTROL_TYPE_INFO[] = {
     }
 }
 
-- (void)renderSettingsForCompiler:(Compiler *)compiler {
-    if (compiler.options.count == 0)
-        return;
-
-    [self addVisualBreak];
+- (void)renderSettingsForCompiler:(Compiler *)compiler isFirst:(BOOL *)isFirstCompiler {
+    if (!*isFirstCompiler)
+        [self addVisualBreak];
+    *isFirstCompiler = NO;
 
     BOOL isFirst = YES;
     for (NSDictionary *option in compiler.options) {
@@ -208,29 +258,27 @@ static ControlTypeInfo CONTROL_TYPE_INFO[] = {
         }
         isFirst = NO;
     }
+
+    if (isFirst) {
+        [self addRightLabel:@"No options for this compiler"];
+        [self addLabel:[NSString stringWithFormat:@"%@:", compiler.name]];
+    }
 }
 
 
 #pragma mark - Model sync
 
 - (void)render {
-    NSArray *compilers = [PluginManager sharedPluginManager].compilers;
+    NSArray *compilers = _project.compilersInUse;
+
     [self buildUI:^{
-        NSPopUpButton *nodejs = [self addPopUpButton];
-        [self addLabel:@"Node.js to use:"];
-        [nodejs addItemWithTitle:@"Bundled with LiveReload"];
-        [nodejs addItemWithTitle:@"System Node.js"];
-        [nodejs addItemWithTitle:@"NVM Node.js 0.4.3"];
-        [nodejs addItemWithTitle:@"NVM Node.js 0.6.0"];
-
-        NSPopUpButton *rubies = [self addPopUpButton];
-        [self addLabel:@"Ruby to use:"];
-        [rubies addItemWithTitle:@"System Ruby"];
-        [rubies addItemWithTitle:@"RVM Ruby 1.8.7"];
-        [rubies addItemWithTitle:@"RVM Ruby 1.9.2"];
-
-        for (Compiler *compiler in compilers) {
-            [self renderSettingsForCompiler:compiler];
+        if (compilers.count > 0) {
+            BOOL isFirst = YES;
+            for (Compiler *compiler in compilers) {
+                [self renderSettingsForCompiler:compiler isFirst:&isFirst];
+            }
+        } else {
+            [self addFullWidthLabel:@"No compilable files found in this folder."];
         }
     }];
 }

@@ -51,6 +51,8 @@ extern NSString *ProjectNeedsSavingNotification;
 
 @property(nonatomic, readonly) FSTree *tree;
 
+@property(nonatomic, readonly) NSArray *compilersInUse;
+
 - (CompilationOptions *)optionsForCompiler:(Compiler *)compiler create:(BOOL)create;
 
 - (FileCompilationOptions *)optionsForFileAtPath:(NSString *)sourcePath in:(CompilationOptions *)compilationOptions;
