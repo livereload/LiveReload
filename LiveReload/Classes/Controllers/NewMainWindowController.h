@@ -31,6 +31,7 @@
 @property (assign) IBOutlet NSTextField *pathTextField;
 @property (assign) IBOutlet NSButton *compilerEnabledCheckBox;
 @property (assign) IBOutlet NSButton *postProcessingEnabledCheckBox;
+@property (assign) IBOutlet NSTextField *availableCompilersLabel;
 
 
 - (void)projectAdded:(Project *)project;

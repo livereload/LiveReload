@@ -5,6 +5,8 @@
 #import "PostProcessingSettingsWindowController.h"
 
 #import "LiveReloadAppDelegate.h"
+#import "PluginManager.h"
+#import "Compiler.h"
 
 #import "ImageAndTextCell.h"
 
@@ -42,6 +44,7 @@ enum { PANE_COUNT = PaneProject+1 };
 @synthesize pathTextField = _pathTextField;
 @synthesize compilerEnabledCheckBox = _compilerEnabledCheckBox;
 @synthesize postProcessingEnabledCheckBox = _postProcessingEnabledCheckBox;
+@synthesize availableCompilersLabel = _availableCompilersLabel;
 
 - (id)init {
     self = [super initWithWindowNibName:@"NewMainWindow"];
@@ -95,6 +98,8 @@ enum { PANE_COUNT = PaneProject+1 };
         return;
     _pathTextField.stringValue = _selectedProject.displayPath;
     [_postProcessingEnabledCheckBox setState:_selectedProject.postProcessingEnabled ? NSOnState : NSOffState];
+
+    _availableCompilersLabel.stringValue = [NSString stringWithFormat:@"Available compilers: %@.", [[[PluginManager sharedPluginManager].compilers valueForKeyPath:@"name"] componentsJoinedByString:@", "]];
 }
 
 - (void)setVisibility:(BOOL)visible forPaneView:(NSView *)paneView {
