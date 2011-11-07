@@ -122,7 +122,7 @@ static int WebSocketServer_callback(struct libwebsocket_context * this,
             break;
 
         case LWS_CALLBACK_CLOSED:
-            [pss->connection closed];
+            [pss->connection performSelectorOnMainThread:@selector(closed) withObject:nil waitUntilDone:NO];
             [pss->connection release];
             pss->connection = nil;
 
