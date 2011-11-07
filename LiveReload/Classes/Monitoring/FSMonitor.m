@@ -43,6 +43,7 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
 }
 
 - (void)dealloc {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
     if (_running) {
         [self stop];
     }
