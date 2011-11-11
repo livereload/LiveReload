@@ -43,6 +43,7 @@
 @property(nonatomic, readonly) NSString *destinationExtensionForDisplay;
 
 @property(nonatomic, readonly) NSArray *options;
+- (NSArray *)optionsForProject:(Project *)project;
 
 - (NSString *)derivedNameForFile:(NSString *)path;
 

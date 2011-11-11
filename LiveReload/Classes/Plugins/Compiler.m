@@ -5,6 +5,7 @@
 #import "ToolOutput.h"
 #import "Project.h"
 #import "RubyVersion.h"
+#import "ToolOptions.h"
 
 #import "FSTree.h"
 #import "RegexKitLite.h"
@@ -323,5 +324,22 @@
     }
     return result;
 }
+
+
+#pragma mark - Options
+
+- (NSArray *)optionsForProject:(Project *)project {
+    NSMutableArray *result = [NSMutableArray arrayWithCapacity:_options.count];
+    for (NSDictionary *optionInfo in _options) {
+        ToolOption *option = [ToolOption toolOptionWithCompiler:self project:project optionInfo:optionInfo];
+        if (option) {
+            [result addObject:option];
+        } else {
+            NSLog(@"Unrecognized option type %@ for compiler %@", [optionInfo objectForKey:@"Type"], self.uniqueId);
+        }
+    }
+    return [NSArray arrayWithArray:result];
+}
+
 
 @end

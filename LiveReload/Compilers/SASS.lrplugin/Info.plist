@@ -58,6 +58,8 @@
 			<key>Options</key>
 			<array>
 				<dict>
+					<key>Id</key>
+					<string>debug-info</string>
 					<key>Type</key>
 					<string>checkbox</string>
 					<key>Title</key>
@@ -66,27 +68,37 @@
 					<string>--debug-info</string>
 				</dict>
 				<dict>
+					<key>Id</key>
+					<string>output-style</string>
 					<key>Type</key>
 					<string>select</string>
 					<key>Items</key>
 					<array>
 						<dict>
+							<key>Id</key>
+							<string>nested</string>
 							<key>Title</key>
 							<string>Nested output style</string>
 						</dict>
 						<dict>
+							<key>Id</key>
+							<string>compact</string>
 							<key>Title</key>
 							<string>Compact output style</string>
 							<key>Argument</key>
 							<string>--style compact</string>
 						</dict>
 						<dict>
+							<key>Id</key>
+							<string>compressed</string>
 							<key>Title</key>
 							<string>Compressed output style</string>
 							<key>Argument</key>
 							<string>--style compressed</string>
 						</dict>
 						<dict>
+							<key>Id</key>
+							<string>expanded</string>
 							<key>Title</key>
 							<string>Expanded output style</string>
 							<key>Argument</key>
