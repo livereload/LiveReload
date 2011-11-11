@@ -100,6 +100,8 @@
 
     StatAllToParams(params);
 
+    [params setObject:[[Preferences sharedPreferences].additionalExtensions componentsJoinedByString:@","] forKey:@"exts"];
+
     NSMutableString *qs = [NSMutableString string];
     [params enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         if ([qs length] > 0)
