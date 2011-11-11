@@ -37,6 +37,7 @@ extern NSString *ProjectNeedsSavingNotification;
     BOOL                     _compilationEnabled;
 
     ImportGraph             *_importGraph;
+    BOOL                     _compassDetected;
 
     BOOL                     _disableLiveRefresh;
     NSTimeInterval           _fullPageReloadDelay;

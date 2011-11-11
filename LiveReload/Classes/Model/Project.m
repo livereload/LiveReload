@@ -246,9 +246,9 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
     if (![[NSFileManager defaultManager] fileExistsAtPath:path])
         return; // don't try to compile deleted files
     FileCompilationOptions *fileOptions = [self optionsForFileAtPath:relativePath in:compilationOptions];
-    if (fileOptions.destinationDirectory != nil) {
+    if (fileOptions.destinationDirectory != nil || !compiler.needsOutputDirectory) {
         NSString *derivedName = [compiler derivedNameForFile:path];
-        NSString *derivedPath = [fileOptions.destinationDirectory stringByAppendingPathComponent:derivedName];
+        NSString *derivedPath = (compiler.needsOutputDirectory ? [fileOptions.destinationDirectory stringByAppendingPathComponent:derivedName] : [[path stringByDeletingLastPathComponent] stringByAppendingPathComponent:derivedName]);
 
         ToolOutput *compilerOutput = nil;
         [compiler compile:relativePath into:derivedPath under:rootPath with:compilationOptions compilerOutput:&compilerOutput];
@@ -282,6 +282,10 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
 
     BOOL compilerFound = NO;
     for (Compiler *compiler in [PluginManager sharedPluginManager].compilers) {
+        if (_compassDetected && [compiler.uniqueId isEqualToString:@"sass"])
+            continue;
+        else if (!_compassDetected && [compiler.uniqueId isEqualToString:@"compass"])
+            continue;
         if ([compiler.extensions containsObject:extension]) {
             compilerFound = YES;
             CompilationOptions *compilationOptions = [self optionsForCompiler:compiler create:NO];
@@ -408,6 +412,10 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
     FSTree *tree = [_monitor obtainTree];
     return [[PluginManager sharedPluginManager].compilers filteredArrayUsingBlock:^BOOL(id value) {
         Compiler *compiler = value;
+        if (_compassDetected && [compiler.uniqueId isEqualToString:@"sass"])
+            return NO;
+        else if (!_compassDetected && [compiler.uniqueId isEqualToString:@"compass"])
+            return NO;
         return [compiler pathsOfSourceFilesInTree:tree].count > 0;
     }];
 }
@@ -596,6 +604,10 @@ skipGuessing:
 
     NSMutableSet *referencedPaths = [NSMutableSet set];
     for (NSString *pathFragment in referencedPathFragments) {
+        if ([pathFragment rangeOfString:@"compass/"].location == 0) {
+            _compassDetected = YES;
+        }
+
         // TODO match fragments
         NSString *name = [pathFragment lastPathComponent];
         NSString *path = [_monitor.tree pathOfFileNamed:name];
@@ -633,6 +645,7 @@ skipGuessing:
 }
 
 - (void)rebuildImportGraph {
+    _compassDetected = NO;
     [_importGraph removeAllPaths];
     NSArray *paths = [_monitor.tree pathsOfFilesMatching:^BOOL(NSString *name) {
         NSString *extension = [name pathExtension];
