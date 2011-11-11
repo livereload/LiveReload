@@ -58,6 +58,8 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
 @synthesize compilationEnabled=_compilationEnabled;
 @synthesize postProcessingCommand=_postProcessingCommand;
 @synthesize postProcessingEnabled=_postProcessingEnabled;
+@synthesize disableLiveRefresh=_disableLiveRefresh;
+@synthesize fullPageReloadDelay=_fullPageReloadDelay;
 
 
 #pragma mark -
@@ -67,6 +69,7 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
     if ((self = [super init])) {
         _path = [path copy];
         _enabled = YES;
+        _changesToBroadcast = [[NSMutableSet alloc] init];
 
         _monitor = [[FSMonitor alloc] initWithPath:_path];
         _monitor.delegate = self;
@@ -102,6 +105,13 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
             }];
         }
 
+        _disableLiveRefresh = [[memento objectForKey:@"disableLiveRefresh"] boolValue];
+
+        if ([memento objectForKey:@"fullPageReloadDelay"])
+            _fullPageReloadDelay = [[memento objectForKey:@"fullPageReloadDelay"] doubleValue];
+        else
+            _fullPageReloadDelay = 0.0;
+
         _postProcessingCommand = [[memento objectForKey:@"postproc"] copy];
         if ([memento objectForKey:@"postprocEnabled"]) {
             _postProcessingEnabled = [[memento objectForKey:@"postprocEnabled"] boolValue];
@@ -117,6 +127,7 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
 }
 
 - (void)dealloc {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(broadcastPendingChanges) object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [_path release], _path = nil;
     [_monitor release], _monitor = nil;
@@ -139,6 +150,10 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
     if ([_postProcessingCommand length] > 0) {
         [memento setObject:_postProcessingCommand forKey:@"postproc"];
         [memento setObject:[NSNumber numberWithBool:_postProcessingEnabled] forKey:@"postprocEnabled"];
+    }
+    [memento setObject:[NSNumber numberWithBool:_disableLiveRefresh] forKey:@"disableLiveRefresh"];
+    if (_fullPageReloadDelay > 0.001) {
+        [memento setObject:[NSNumber numberWithDouble:_fullPageReloadDelay] forKey:@"fullPageReloadDelay"];
     }
     [memento setObject:[NSNumber numberWithBool:_compilationEnabled ] forKey:@"compilationEnabled"];
     return [NSDictionary dictionaryWithDictionary:memento];
@@ -249,6 +264,19 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
     }
 }
 
+- (BOOL)canRefreshLive:(NSString *)file {
+    NSString *ext = [file pathExtension];
+    NSString *liveExtensions = @",css,png,jpg,gif,";
+    return ([liveExtensions rangeOfString:[NSString stringWithFormat:@",%@,", ext]].length > 0);
+}
+
+- (void)broadcastPendingChanges {
+    [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidDetectChangeNotification object:self];
+    [[CommunicationController sharedCommunicationController] broadcastChangedPathes:_changesToBroadcast inProject:self];
+    StatIncrement(BrowserRefreshCountStat, 1);
+    [_changesToBroadcast removeAllObjects];
+}
+
 - (void)processChangeAtPath:(NSString *)relativePath addingPathsToNotifyInto:(NSMutableSet *)filtered {
     NSString *extension = [relativePath pathExtension];
 
@@ -348,10 +376,25 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
         }
     }
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidDetectChangeNotification object:self];
-    [[CommunicationController sharedCommunicationController] broadcastChangedPathes:filtered inProject:self];
+    BOOL isFullReload = NO;
+    if (_disableLiveRefresh) {
+        isFullReload = YES;
+    } else {
+        for (NSString *path in filtered) {
+            if (![self canRefreshLive:path]) {
+                isFullReload = YES;
+                break;
+            }
+        }
+    }
 
-    StatIncrement(BrowserRefreshCountStat, 1);
+    [_changesToBroadcast unionSet:filtered];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(broadcastPendingChanges) object:nil];
+    if (isFullReload && _fullPageReloadDelay > 0.001) {
+        [self performSelector:@selector(broadcastPendingChanges) withObject:nil afterDelay:_fullPageReloadDelay];
+    } else {
+        [self broadcastPendingChanges];
+    }
 }
 
 - (FSTree *)tree {
@@ -495,6 +538,20 @@ skipGuessing:
     if (_compilationEnabled != compilationEnabled) {
         _compilationEnabled = compilationEnabled;
         [self handleCompilationOptionsEnablementChanged];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+    }
+}
+
+- (void)setDisableLiveRefresh:(BOOL)disableLiveRefresh {
+    if (_disableLiveRefresh != disableLiveRefresh) {
+        _disableLiveRefresh = disableLiveRefresh;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+    }
+}
+
+- (void)setFullPageReloadDelay:(NSTimeInterval)fullPageReloadDelay {
+    if (_fullPageReloadDelay != fullPageReloadDelay) {
+        _fullPageReloadDelay = fullPageReloadDelay;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
     }
 }

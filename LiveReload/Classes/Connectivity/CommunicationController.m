@@ -287,14 +287,14 @@ NSString *CommunicationStateChangedNotification = @"CommunicationStateChangedNot
             NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
                                      path, @"path",
                                      //                              [NSNumber numberWithBool:[[Preferences sharedPreferences] autoreloadJavascript]], @"apply_js_live",
-                                     [NSNumber numberWithBool:YES], @"apply_css_live",
+                                     [NSNumber numberWithBool:!project.disableLiveRefresh], @"apply_css_live",
                                      nil];
             [self sendOldCommand:@"refresh" data:data];
         } else {
             NSDictionary *command = [NSDictionary dictionaryWithObjectsAndKeys:@"reload", @"command",
                                      path, @"path",
                                      //                              [NSNumber numberWithBool:[[Preferences sharedPreferences] autoreloadJavascript]], @"liveJS",
-                                     [NSNumber numberWithBool:YES], @"liveCSS",
+                                     [NSNumber numberWithBool:!project.disableLiveRefresh], @"liveCSS",
                                      nil];
             [self sendCommand:command];
         }

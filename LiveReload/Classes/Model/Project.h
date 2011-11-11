@@ -38,6 +38,10 @@ extern NSString *ProjectNeedsSavingNotification;
 
     ImportGraph             *_importGraph;
 
+    BOOL                     _disableLiveRefresh;
+    NSTimeInterval           _fullPageReloadDelay;
+    NSMutableSet            *_changesToBroadcast;
+
     BOOL                     _brokenPathReported;
 }
 
@@ -51,6 +55,9 @@ extern NSString *ProjectNeedsSavingNotification;
 
 @property(nonatomic) BOOL enabled;
 @property(nonatomic) BOOL compilationEnabled;
+
+@property(nonatomic) BOOL disableLiveRefresh;
+@property(nonatomic) NSTimeInterval fullPageReloadDelay;
 
 @property(nonatomic, readonly) FSTree *tree;
 
