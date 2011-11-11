@@ -125,8 +125,6 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [_rubyVersions release], _rubyVersions = version;
 
-            [_rubyVersionsPopUpButton removeAllItems];
-
             // find the selected item
             NSInteger selectedIndex = -1, index = 0;
             for (RubyVersion *version in _rubyVersions) {
@@ -143,9 +141,11 @@
                 selectedIndex = 0;
             }
 
-            for (RubyVersion *version in _rubyVersions) {
-                [_rubyVersionsPopUpButton addItemWithTitle:version.displayTitle];
-            }
+            // might involve invocation of Rubies, so do this before removeAllItems to avoid flicker
+            NSArray *titles = [_rubyVersions valueForKeyPath:@"displayTitle"];
+
+            [_rubyVersionsPopUpButton removeAllItems];
+            [_rubyVersionsPopUpButton addItemsWithTitles:titles];
             [_rubyVersionsPopUpButton setEnabled:YES];
             [_rubyVersionsPopUpButton selectItemAtIndex:selectedIndex];
 
