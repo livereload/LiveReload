@@ -1,6 +1,7 @@
 
 #import "NewMainWindowController.h"
 
+#import "MonitoringSettingsWindowController.h"
 #import "CompilationSettingsWindowController.h"
 #import "PostProcessingSettingsWindowController.h"
 #import "CommunicationController.h"
@@ -13,6 +14,7 @@
 
 #import "Workspace.h"
 #import "Project.h"
+#import "Preferences.h"
 
 
 typedef enum {
@@ -54,6 +56,7 @@ enum { PANE_COUNT = PaneProject+1 };
 @synthesize nameTextField = _nameTextField;
 @synthesize pathTextField = _pathTextField;
 @synthesize snippetLabelField = _snippetLabelField;
+@synthesize monitoringSummaryLabelField = _monitoringSummaryLabelField;
 @synthesize compilerEnabledCheckBox = _compilerEnabledCheckBox;
 @synthesize postProcessingEnabledCheckBox = _postProcessingEnabledCheckBox;
 @synthesize availableCompilersLabel = _availableCompilersLabel;
@@ -184,6 +187,7 @@ enum { PANE_COUNT = PaneProject+1 };
     _nameTextField.stringValue = [_selectedProject.displayPath lastPathComponent];
     _pathTextField.stringValue = [_selectedProject.displayPath stringByDeletingLastPathComponent];
 //    [self styleLabel:_pathTextField color:[self headerLabelColor] shadow:[self subtleWhiteShadow] text:[_selectedProject.displayPath stringByDeletingLastPathComponent]];
+    _monitoringSummaryLabelField.stringValue = [NSString stringWithFormat:@"Monitoring %d file extensions.", [Preferences sharedPreferences].allExtensions.count];
     [_compilerEnabledCheckBox setState:_selectedProject.compilationEnabled ? NSOnState : NSOffState];
     [_postProcessingEnabledCheckBox setState:_selectedProject.postProcessingEnabled ? NSOnState : NSOffState];
 
@@ -481,6 +485,7 @@ enum { PANE_COUNT = PaneProject+1 };
 #pragma mark - Project settings (monitoring)
 
 - (IBAction)showMonitoringOptions:(id)sender {
+    [self showProjectSettingsSheet:[MonitoringSettingsWindowController class]];
 }
 
 

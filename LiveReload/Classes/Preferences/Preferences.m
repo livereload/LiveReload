@@ -26,6 +26,7 @@ NSString *PreferencesFilterSettingsChangedNotification = @"PreferencesFilterSett
 @implementation Preferences
 
 @synthesize allExtensions=_allExtensions;
+@synthesize builtInExtensions=_builtInExtensions;
 @synthesize excludedNames=_excludedNames;
 
 - (id)init {
@@ -53,12 +54,13 @@ NSString *PreferencesFilterSettingsChangedNotification = @"PreferencesFilterSett
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
 }
 
-- (NSSet *)additionalExtensions {
-    return [NSSet setWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:AdditionalExtensionsKey]];
+- (NSArray *)additionalExtensions {
+    return [[NSUserDefaults standardUserDefaults] arrayForKey:AdditionalExtensionsKey];
 }
 
-- (void)setAdditionalExtensions:(NSSet *)additionalExtensions {
-    [[NSUserDefaults standardUserDefaults] setObject:[additionalExtensions allObjects] forKey:AdditionalExtensionsKey];
+- (void)setAdditionalExtensions:(NSArray *)additionalExtensions {
+    [[NSUserDefaults standardUserDefaults] setObject:additionalExtensions forKey:AdditionalExtensionsKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (BOOL)autoreloadJavascript {
@@ -72,8 +74,9 @@ NSString *PreferencesFilterSettingsChangedNotification = @"PreferencesFilterSett
 #pragma mark - Filter preferences
 
 - (void)updateFilterPreferencesSilently {
-    NSMutableSet *extensions = [NSMutableSet setWithArray:[_builtinMonitoringSettings objectForKey:@"extensions"]];
-    [extensions unionSet:self.additionalExtensions];
+    [_builtInExtensions release], _builtInExtensions = [[_builtinMonitoringSettings objectForKey:@"extensions"] retain];
+    NSMutableSet *extensions = [NSMutableSet setWithArray:_builtInExtensions];
+    [extensions unionSet:[NSSet setWithArray:self.additionalExtensions]];
     [extensions addObjectsFromArray:[PluginManager sharedPluginManager].compilerSourceExtensions];
     self.allExtensions = extensions;
     self.excludedNames = [NSSet setWithArray:[_builtinMonitoringSettings objectForKey:@"excludedNames"]];

@@ -32,6 +32,8 @@
 		4353196F1465B52D005FA59F /* ShitHappens.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353196E1465B52D005FA59F /* ShitHappens.m */; };
 		4353197214668E7D005FA59F /* LRHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4353197014668E7D005FA59F /* LRHelpTemplate.png */; };
 		4353197314668E7D005FA59F /* LRSupportTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4353197114668E7D005FA59F /* LRSupportTemplate.png */; };
+		4353403A146CC7E600DD66B0 /* MonitoringSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43534039146CC7E600DD66B0 /* MonitoringSettingsWindowController.m */; };
+		4353403C146CC8A400DD66B0 /* MonitoringSettingsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4353403B146CC8A400DD66B0 /* MonitoringSettingsWindowController.xib */; };
 		435729171452267C00947B2E /* Stats.m in Sources */ = {isa = PBXBuildFile; fileRef = 435729161452267C00947B2E /* Stats.m */; };
 		43594AF413D3BB34004175B2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43594AF313D3BB34004175B2 /* QuartzCore.framework */; };
 		435BE042141B72A60008FF77 /* NewMainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 435BE041141B72A60008FF77 /* NewMainWindow.xib */; };
@@ -174,6 +176,9 @@
 		4353196E1465B52D005FA59F /* ShitHappens.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShitHappens.m; sourceTree = "<group>"; };
 		4353197014668E7D005FA59F /* LRHelpTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRHelpTemplate.png; sourceTree = "<group>"; };
 		4353197114668E7D005FA59F /* LRSupportTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRSupportTemplate.png; sourceTree = "<group>"; };
+		43534038146CC7E600DD66B0 /* MonitoringSettingsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonitoringSettingsWindowController.h; sourceTree = "<group>"; };
+		43534039146CC7E600DD66B0 /* MonitoringSettingsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonitoringSettingsWindowController.m; sourceTree = "<group>"; };
+		4353403B146CC8A400DD66B0 /* MonitoringSettingsWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MonitoringSettingsWindowController.xib; sourceTree = "<group>"; };
 		435729151452267C00947B2E /* Stats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stats.h; sourceTree = "<group>"; };
 		435729161452267C00947B2E /* Stats.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stats.m; sourceTree = "<group>"; };
 		43594AF313D3BB34004175B2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -517,6 +522,9 @@
 				43F50BFD14670A9F004FD951 /* CompilationSettingsWindowController.h */,
 				43F50BFE14670A9F004FD951 /* CompilationSettingsWindowController.m */,
 				43F50C0014670AAF004FD951 /* CompilationSettingsWindowController.xib */,
+				43534038146CC7E600DD66B0 /* MonitoringSettingsWindowController.h */,
+				43534039146CC7E600DD66B0 /* MonitoringSettingsWindowController.m */,
+				4353403B146CC8A400DD66B0 /* MonitoringSettingsWindowController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -863,6 +871,7 @@
 				431466A0146C9C0B00DC075A /* AddTemplate.png in Resources */,
 				431466A1146C9C0B00DC075A /* RemoveTemplate.png in Resources */,
 				431466A3146CA23F00DC075A /* PlaceholderTemplate.png in Resources */,
+				4353403C146CC8A400DD66B0 /* MonitoringSettingsWindowController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -954,6 +963,7 @@
 				43F50BFF14670A9F004FD951 /* CompilationSettingsWindowController.m in Sources */,
 				431466A6146CA68500DC075A /* PassThruView.m in Sources */,
 				431466A9146CA82200DC075A /* PassThruImageView.m in Sources */,
+				4353403A146CC7E600DD66B0 /* MonitoringSettingsWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
