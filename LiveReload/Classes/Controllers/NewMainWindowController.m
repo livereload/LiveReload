@@ -37,11 +37,17 @@ enum { PANE_COUNT = PaneProject+1 };
 
 @synthesize welcomePane = _welcomePane;
 @synthesize welcomeMessageField = _welcomeMessageField;
+@synthesize statusTextField = _statusTextField;
 @synthesize paneBorderBox = _paneBorderBox;
 @synthesize panePlaceholder = _panePlaceholder;
 @synthesize projectPane = _projectPane;
 @synthesize projectOutlineView = _projectOutlineView;
+@synthesize addProjectButton = _addProjectButton;
+@synthesize removeProjectButton = _removeProjectButton;
+@synthesize iconView = _iconView;
+@synthesize nameTextField = _nameTextField;
 @synthesize pathTextField = _pathTextField;
+@synthesize snippetLabelField = _snippetLabelField;
 @synthesize compilerEnabledCheckBox = _compilerEnabledCheckBox;
 @synthesize postProcessingEnabledCheckBox = _postProcessingEnabledCheckBox;
 @synthesize availableCompilersLabel = _availableCompilersLabel;
@@ -57,6 +63,65 @@ enum { PANE_COUNT = PaneProject+1 };
     return self;
 }
 
+- (NSShadow *)subtleWhiteShadow {
+    static NSShadow *shadow = nil;
+    if (shadow == nil) {
+        shadow = [[NSShadow alloc] init];
+        [shadow setShadowOffset:NSMakeSize(0, -1)];
+        [shadow setShadowColor:[NSColor colorWithCalibratedWhite:1.0 alpha:0.33]];
+    }
+    return shadow;
+}
+
+- (NSColor *)headerLabelColor {
+    return [NSColor colorWithCalibratedRed:58.0/255 green:61.0/255 blue:64.0/255 alpha:1.0];
+}
+
+- (NSParagraphStyle *)paragraphStyleForLabel:(NSControl *)label {
+    NSMutableParagraphStyle *style = [[[NSMutableParagraphStyle alloc] init] autorelease];
+    [style setAlignment:label.alignment];
+    return style;
+}
+
+- (void)styleLabel:(NSControl *)label color:(NSColor *)color shadow:(NSShadow *)shadow text:(NSString *)text {
+    [label setAttributedStringValue:[[[NSAttributedString alloc] initWithString:text attributes:[NSDictionary dictionaryWithObjectsAndKeys:color, NSForegroundColorAttributeName, shadow, NSShadowAttributeName, [self paragraphStyleForLabel:label], NSParagraphStyleAttributeName, label.font, NSFontAttributeName, nil]] autorelease]];
+}
+
+- (void)styleLabel:(NSControl *)label color:(NSColor *)color shadow:(NSShadow *)shadow {
+    [self styleLabel:label color:color shadow:shadow text:label.stringValue];
+}
+
+- (void)stylePartialHyperlink:(NSTextField *)label to:(NSURL *)url color:(NSColor *)color linkColor:(NSColor *)linkColor shadow:(NSShadow *)shadow {
+    // both are needed, otherwise hyperlink won't accept mousedown
+    [label setAllowsEditingTextAttributes:YES];
+    [label setSelectable:YES];
+
+    NSString *string = label.stringValue;
+    NSRange range = [string rangeOfString:@"_["];
+    NSAssert(range.length > 0, @"Partial hyperlink must contain _[ marker");
+    NSString *prefix = [string substringToIndex:range.location];
+    string = [string substringFromIndex:range.location + range.length];
+
+    range = [string rangeOfString:@"]_"];
+    NSAssert(range.length > 0, @"Partial hyperlink must contain ]_ marker");
+    NSString *link = [string substringToIndex:range.location];
+    NSString *suffix = [string substringFromIndex:range.location + range.length];
+
+    NSMutableAttributedString *as = [[[NSMutableAttributedString alloc] init] autorelease];
+
+    if (shadow == nil) {
+        shadow = [[[NSShadow alloc] init] autorelease];
+    }
+
+    [as appendAttributedString:[[[NSAttributedString alloc] initWithString:prefix attributes:[NSDictionary dictionaryWithObjectsAndKeys:color, NSForegroundColorAttributeName, shadow, NSShadowAttributeName, [self paragraphStyleForLabel:label], NSParagraphStyleAttributeName, label.font, NSFontAttributeName, nil]] autorelease]];
+
+    [as appendAttributedString:[[[NSAttributedString alloc] initWithString:link attributes:[NSDictionary dictionaryWithObjectsAndKeys:linkColor, NSForegroundColorAttributeName, [NSNumber numberWithInt:NSSingleUnderlineStyle], NSUnderlineStyleAttributeName, url, NSLinkAttributeName, label.font, NSFontAttributeName, shadow, NSShadowAttributeName, [self paragraphStyleForLabel:label], NSParagraphStyleAttributeName, nil]] autorelease]];
+
+    [as appendAttributedString:[[[NSAttributedString alloc] initWithString:suffix attributes:[NSDictionary dictionaryWithObjectsAndKeys:color, NSForegroundColorAttributeName, shadow, NSShadowAttributeName, [self paragraphStyleForLabel:label], NSParagraphStyleAttributeName, label.font, NSFontAttributeName, nil]] autorelease]];
+
+    label.attributedStringValue = as;
+}
+
 - (void)windowDidLoad {
     [super windowDidLoad];
     NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
@@ -64,6 +129,14 @@ enum { PANE_COUNT = PaneProject+1 };
 
     [_projectOutlineView registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
     [_projectOutlineView setDraggingSourceOperationMask:NSDragOperationCopy|NSDragOperationLink forLocal:NO];
+
+    [_nameTextField.cell setBackgroundStyle:NSBackgroundStyleRaised];
+    [_pathTextField.cell setBackgroundStyle:NSBackgroundStyleRaised];
+    [_statusTextField.cell setBackgroundStyle:NSBackgroundStyleRaised];
+    [_addProjectButton.cell setBackgroundStyle:NSBackgroundStyleRaised];
+    [_removeProjectButton.cell setBackgroundStyle:NSBackgroundStyleRaised];
+
+    [self stylePartialHyperlink:_snippetLabelField to:[NSURL URLWithString:@"http://help.livereload.com/kb/general-use/browser-extensions"] color:[NSColor blackColor] linkColor:[NSColor colorWithCalibratedRed:0 green:10/255.0 blue:137/255.0 alpha:1.0] shadow:nil];;
 
     NSTableColumn *tableColumn = [_projectOutlineView tableColumnWithIdentifier:@"Name"];
     ImageAndTextCell *imageAndTextCell = [[[ImageAndTextCell alloc] init] autorelease];
@@ -96,7 +169,10 @@ enum { PANE_COUNT = PaneProject+1 };
 - (void)updateProjectPane {
     if (_currentPane != PaneProject)
         return;
-    _pathTextField.stringValue = _selectedProject.displayPath;
+//    [self styleLabel:_nameTextField color:[self headerLabelColor] shadow:[self subtleWhiteShadow] text:[_selectedProject.displayPath lastPathComponent]];
+    _nameTextField.stringValue = [_selectedProject.displayPath lastPathComponent];
+    _pathTextField.stringValue = [_selectedProject.displayPath stringByDeletingLastPathComponent];
+//    [self styleLabel:_pathTextField color:[self headerLabelColor] shadow:[self subtleWhiteShadow] text:[_selectedProject.displayPath stringByDeletingLastPathComponent]];
     [_postProcessingEnabledCheckBox setState:_selectedProject.postProcessingEnabled ? NSOnState : NSOffState];
 
     _availableCompilersLabel.stringValue = [NSString stringWithFormat:@"Available compilers: %@.", [[[PluginManager sharedPluginManager].compilers valueForKeyPath:@"name"] componentsJoinedByString:@", "]];
@@ -264,7 +340,7 @@ enum { PANE_COUNT = PaneProject+1 };
 
 #pragma mark - Actions
 
-- (void)addProjectClicked {
+- (IBAction)addProjectClicked:(id)sender {
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     [openPanel setCanChooseDirectories:YES];
     [openPanel setCanCreateDirectories:YES];
@@ -279,20 +355,13 @@ enum { PANE_COUNT = PaneProject+1 };
     }];
 }
 
-- (void)removeProjectClicked {
+- (IBAction)removeProjectClicked:(id)sender {
     Project *project = _selectedProject;
     if (project) {
         [[Workspace sharedWorkspace] removeProjectsObject:project];
         [self updateProjectList];
         [_projectOutlineView deselectAll:nil];
     }
-}
-
-- (IBAction)addRemoveClicked:(NSSegmentedControl *)sender {
-    if (sender.selectedSegment == 0)
-        [self addProjectClicked];
-    else
-        [self removeProjectClicked];
 }
 
 - (IBAction)helpSupportClicked:(NSSegmentedControl *)sender {

@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		4304FC2D144B2BEB00D650DF /* NSDictionaryAndArray+SafeAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 4304FC2C144B2BEB00D650DF /* NSDictionaryAndArray+SafeAccess.m */; };
+		43146699146C5D2100DC075A /* ProjectPaneBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 43146698146C5D2100DC075A /* ProjectPaneBackground.png */; };
+		4314669B146C689500DC075A /* FolderIcon64.png in Resources */ = {isa = PBXBuildFile; fileRef = 4314669A146C689500DC075A /* FolderIcon64.png */; };
+		4314669D146C884800DC075A /* WelcomePaneBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 4314669C146C884800DC075A /* WelcomePaneBackground.png */; };
+		431466A0146C9C0B00DC075A /* AddTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4314669E146C9C0B00DC075A /* AddTemplate.png */; };
+		431466A1146C9C0B00DC075A /* RemoveTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4314669F146C9C0B00DC075A /* RemoveTemplate.png */; };
 		43191846141A0D1C008457FF /* Eco.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43191845141A0D1C008457FF /* Eco.lrplugin */; };
 		43361D2F13C2E0E500C0E589 /* Stylus.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43361D2E13C2E0E500C0E589 /* Stylus.lrplugin */; };
 		43361D4613C30D1400C0E589 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43361D4513C30D1400C0E589 /* libicucore.dylib */; };
@@ -138,6 +143,11 @@
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		4304FC2B144B2BEB00D650DF /* NSDictionaryAndArray+SafeAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionaryAndArray+SafeAccess.h"; sourceTree = "<group>"; };
 		4304FC2C144B2BEB00D650DF /* NSDictionaryAndArray+SafeAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionaryAndArray+SafeAccess.m"; sourceTree = "<group>"; };
+		43146698146C5D2100DC075A /* ProjectPaneBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ProjectPaneBackground.png; sourceTree = "<group>"; };
+		4314669A146C689500DC075A /* FolderIcon64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FolderIcon64.png; sourceTree = "<group>"; };
+		4314669C146C884800DC075A /* WelcomePaneBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WelcomePaneBackground.png; sourceTree = "<group>"; };
+		4314669E146C9C0B00DC075A /* AddTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddTemplate.png; sourceTree = "<group>"; };
+		4314669F146C9C0B00DC075A /* RemoveTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RemoveTemplate.png; sourceTree = "<group>"; };
 		43191845141A0D1C008457FF /* Eco.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Eco.lrplugin; path = Compilers/Eco.lrplugin; sourceTree = SOURCE_ROOT; };
 		43361D2E13C2E0E500C0E589 /* Stylus.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Stylus.lrplugin; path = Compilers/Stylus.lrplugin; sourceTree = SOURCE_ROOT; };
 		43361D4513C30D1400C0E589 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
@@ -715,6 +725,11 @@
 		823DDF2213F8DA3F00529AD2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				43146698146C5D2100DC075A /* ProjectPaneBackground.png */,
+				4314669C146C884800DC075A /* WelcomePaneBackground.png */,
+				4314669E146C9C0B00DC075A /* AddTemplate.png */,
+				4314669F146C9C0B00DC075A /* RemoveTemplate.png */,
+				4314669A146C689500DC075A /* FolderIcon64.png */,
 				4353197014668E7D005FA59F /* LRHelpTemplate.png */,
 				4353197114668E7D005FA59F /* LRSupportTemplate.png */,
 				823DDF2313F8DA3F00529AD2 /* background.png */,
@@ -829,6 +844,11 @@
 				4353197314668E7D005FA59F /* LRSupportTemplate.png in Resources */,
 				43F50BF91466FAB7004FD951 /* PostProcessingSettingsWindowController.xib in Resources */,
 				43F50C0114670AAF004FD951 /* CompilationSettingsWindowController.xib in Resources */,
+				43146699146C5D2100DC075A /* ProjectPaneBackground.png in Resources */,
+				4314669B146C689500DC075A /* FolderIcon64.png in Resources */,
+				4314669D146C884800DC075A /* WelcomePaneBackground.png in Resources */,
+				431466A0146C9C0B00DC075A /* AddTemplate.png in Resources */,
+				431466A1146C9C0B00DC075A /* RemoveTemplate.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
