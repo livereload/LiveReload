@@ -41,10 +41,12 @@
 			<key>Options</key>
 			<array>
 				<dict>
+					<key>Id</key>
+					<string>identifier</string>
 					<key>Type</key>
 					<string>edit</string>
 					<key>Label</key>
-					<string>Eco object name:</string>
+					<string>Eco object identifier:</string>
 					<key>Placeholder</key>
 					<string>JST</string>
 					<key>Argument</key>

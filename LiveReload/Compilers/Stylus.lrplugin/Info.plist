@@ -51,6 +51,8 @@
 			<key>Options</key>
 			<array>
 				<dict>
+					<key>Id</key>
+					<string>debug-info</string>
 					<key>Type</key>
 					<string>checkbox</string>
 					<key>Title</key>
@@ -59,6 +61,8 @@
 					<string>--firebug</string>
 				</dict>
 				<dict>
+					<key>Id</key>
+					<string>line-numbers</string>
 					<key>Type</key>
 					<string>checkbox</string>
 					<key>Title</key>

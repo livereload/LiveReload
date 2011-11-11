@@ -35,6 +35,8 @@
 			<key>Options</key>
 			<array>
 				<dict>
+					<key>Id</key>
+					<string>escape-html</string>
 					<key>Type</key>
 					<string>checkbox</string>
 					<key>Title</key>
@@ -43,6 +45,8 @@
 					<string>--escape-html</string>
 				</dict>
 				<dict>
+					<key>Id</key>
+					<string>no-escape-attrs</string>
 					<key>Type</key>
 					<string>checkbox</string>
 					<key>Title</key>
@@ -51,15 +55,21 @@
 					<string>--no-escape-attrs</string>
 				</dict>
 				<dict>
+					<key>Id</key>
+					<string>quotes-type</string>
 					<key>Type</key>
 					<string>select</string>
 					<key>Items</key>
 					<array>
 						<dict>
+							<key>Id</key>
+							<string>single</string>
 							<key>Title</key>
 							<string>Use single quotes for attributes</string>
 						</dict>
 						<dict>
+							<key>Id</key>
+							<string>double</string>
 							<key>Title</key>
 							<string>Use double quotes for attributes</string>
 							<key>Argument</key>
@@ -68,15 +78,21 @@
 					</array>
 				</dict>
 				<dict>
+					<key>Id</key>
+					<string>output-style</string>
 					<key>Type</key>
 					<string>select</string>
 					<key>Items</key>
 					<array>
 						<dict>
+							<key>Id</key>
+							<string>indented</string>
 							<key>Title</key>
 							<string>Indented output style</string>
 						</dict>
 						<dict>
+							<key>Id</key>
+							<string>ugly</string>
 							<key>Title</key>
 							<string>Ugly ouput style</string>
 							<key>Argument</key>
@@ -85,21 +101,29 @@
 					</array>
 				</dict>
 				<dict>
+					<key>Id</key>
+					<string>output-format</string>
 					<key>Type</key>
 					<string>select</string>
 					<key>Items</key>
 					<array>
 						<dict>
+							<key>Id</key>
+							<string>xhtml</string>
 							<key>Title</key>
 							<string>XHTML output format</string>
 						</dict>
 						<dict>
+							<key>Id</key>
+							<string>html4</string>
 							<key>Title</key>
 							<string>HTML4 output format</string>
 							<key>Argument</key>
 							<string>--format html4</string>
 						</dict>
 						<dict>
+							<key>Id</key>
+							<string>html5</string>
 							<key>Title</key>
 							<string>HTML5 output format</string>
 							<key>Argument</key>

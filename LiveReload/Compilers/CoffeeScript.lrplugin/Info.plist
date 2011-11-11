@@ -36,6 +36,8 @@
 			<key>Options</key>
 			<array>
 				<dict>
+					<key>Id</key>
+					<string>no-wrapper</string>
 					<key>Type</key>
 					<string>checkbox</string>
 					<key>Title</key>
