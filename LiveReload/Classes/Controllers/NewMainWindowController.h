@@ -21,6 +21,9 @@
 @property (assign) IBOutlet NSOutlineView *projectOutlineView;
 @property (assign) IBOutlet NSButton *addProjectButton;
 @property (assign) IBOutlet NSButton *removeProjectButton;
+@property (assign) IBOutlet NSView *gettingStartedView;
+@property (assign) IBOutlet NSImageView *gettingStartedIconView;
+@property (assign) IBOutlet NSTextField *gettingStartedLabelField;
 
 @property (assign) IBOutlet NSTextField *statusTextField;
 

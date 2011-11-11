@@ -3,6 +3,7 @@
 
 #import "CompilationSettingsWindowController.h"
 #import "PostProcessingSettingsWindowController.h"
+#import "CommunicationController.h"
 
 #import "LiveReloadAppDelegate.h"
 #import "PluginManager.h"
@@ -30,6 +31,8 @@ enum { PANE_COUNT = PaneProject+1 };
 
 - (void)showProjectSettingsSheet:(Class)klass;
 
+- (void)updateStatus;
+
 @end
 
 
@@ -44,6 +47,9 @@ enum { PANE_COUNT = PaneProject+1 };
 @synthesize projectOutlineView = _projectOutlineView;
 @synthesize addProjectButton = _addProjectButton;
 @synthesize removeProjectButton = _removeProjectButton;
+@synthesize gettingStartedView = _gettingStartedView;
+@synthesize gettingStartedIconView = _gettingStartedIconView;
+@synthesize gettingStartedLabelField = _gettingStartedLabelField;
 @synthesize iconView = _iconView;
 @synthesize nameTextField = _nameTextField;
 @synthesize pathTextField = _pathTextField;
@@ -135,6 +141,8 @@ enum { PANE_COUNT = PaneProject+1 };
     [_statusTextField.cell setBackgroundStyle:NSBackgroundStyleRaised];
     [_addProjectButton.cell setBackgroundStyle:NSBackgroundStyleRaised];
     [_removeProjectButton.cell setBackgroundStyle:NSBackgroundStyleRaised];
+    [_gettingStartedIconView.cell setBackgroundStyle:NSBackgroundStyleRaised];
+    [_gettingStartedLabelField.cell setBackgroundStyle:NSBackgroundStyleRaised];
 
     [self stylePartialHyperlink:_snippetLabelField to:[NSURL URLWithString:@"http://help.livereload.com/kb/general-use/browser-extensions"] color:[NSColor blackColor] linkColor:[NSColor colorWithCalibratedRed:0 green:10/255.0 blue:137/255.0 alpha:1.0] shadow:nil];;
 
@@ -156,6 +164,9 @@ enum { PANE_COUNT = PaneProject+1 };
     _panes = [[NSArray alloc] initWithObjects:_welcomePane, _projectPane, nil];
 
     [self selectedProjectDidChange];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(communicationStateChanged:) name:CommunicationStateChangedNotification object:nil];
+    [[CommunicationController sharedCommunicationController] addObserver:self forKeyPath:@"numberOfProcessedChanges" options:0 context:nil];
 }
 
 
@@ -213,6 +224,7 @@ enum { PANE_COUNT = PaneProject+1 };
 
 - (void)updateProjectList {
     _projects = [[Workspace sharedWorkspace].sortedProjects copy];
+    [self updateStatus];
     [_projectOutlineView reloadData];
     [self restoreSelection];
 }
@@ -304,7 +316,7 @@ enum { PANE_COUNT = PaneProject+1 };
 - (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item {
     NSParameterAssert(item != nil);
     if (item == _projectsItem)
-        return @"MONITORED FOLDERS";
+        return (_projects.count > 0 ? @"MONITORED FOLDERS" : @"");
     return [((Project *)item).path lastPathComponent];
 }
 
@@ -492,6 +504,42 @@ enum { PANE_COUNT = PaneProject+1 };
     [self showProjectSettingsSheet:[PostProcessingSettingsWindowController class]];
 }
 
+
+#pragma mark - Status
+
+- (void)updateStatus {
+    NSString *text;
+    if (_projects.count == 0) {
+        text = @"";
+        [_gettingStartedView setHidden:NO];
+    } else {
+        [_gettingStartedView setHidden:YES];
+        NSInteger n = [CommunicationController sharedCommunicationController].numberOfSessions;
+        if (n == 0) {
+            text = @"Waiting for a browser to connect.";
+        } else if (n == 1) {
+            text = [NSString stringWithFormat:@"1 browser connected, %d changes detected so far.", [CommunicationController sharedCommunicationController].numberOfProcessedChanges];
+        } else {
+            text = [NSString stringWithFormat:@"%d browsers connected, %d changes detected so far.", n, [CommunicationController sharedCommunicationController].numberOfProcessedChanges];
+        }
+    }
+    _statusTextField.stringValue = text;
+}
+
+- (void)communicationStateChanged:(NSNotification *)notification {
+    [self updateStatus];
+}
+
+
+#pragma mark - KVO
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"projects"]) {
+        [self updateProjectList];
+    } else if ([keyPath isEqualToString:@"numberOfProcessedChanges"]) {
+        [self updateStatus];
+    }
+}
 
 
 @end

@@ -14,6 +14,9 @@
 		4314669D146C884800DC075A /* WelcomePaneBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 4314669C146C884800DC075A /* WelcomePaneBackground.png */; };
 		431466A0146C9C0B00DC075A /* AddTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4314669E146C9C0B00DC075A /* AddTemplate.png */; };
 		431466A1146C9C0B00DC075A /* RemoveTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4314669F146C9C0B00DC075A /* RemoveTemplate.png */; };
+		431466A3146CA23F00DC075A /* PlaceholderTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 431466A2146CA23F00DC075A /* PlaceholderTemplate.png */; };
+		431466A6146CA68500DC075A /* PassThruView.m in Sources */ = {isa = PBXBuildFile; fileRef = 431466A5146CA68500DC075A /* PassThruView.m */; };
+		431466A9146CA82200DC075A /* PassThruImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 431466A8146CA82200DC075A /* PassThruImageView.m */; };
 		43191846141A0D1C008457FF /* Eco.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43191845141A0D1C008457FF /* Eco.lrplugin */; };
 		43361D2F13C2E0E500C0E589 /* Stylus.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43361D2E13C2E0E500C0E589 /* Stylus.lrplugin */; };
 		43361D4613C30D1400C0E589 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43361D4513C30D1400C0E589 /* libicucore.dylib */; };
@@ -148,6 +151,11 @@
 		4314669C146C884800DC075A /* WelcomePaneBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WelcomePaneBackground.png; sourceTree = "<group>"; };
 		4314669E146C9C0B00DC075A /* AddTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddTemplate.png; sourceTree = "<group>"; };
 		4314669F146C9C0B00DC075A /* RemoveTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RemoveTemplate.png; sourceTree = "<group>"; };
+		431466A2146CA23F00DC075A /* PlaceholderTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlaceholderTemplate.png; sourceTree = "<group>"; };
+		431466A4146CA68500DC075A /* PassThruView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassThruView.h; sourceTree = "<group>"; };
+		431466A5146CA68500DC075A /* PassThruView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassThruView.m; sourceTree = "<group>"; };
+		431466A7146CA82200DC075A /* PassThruImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassThruImageView.h; sourceTree = "<group>"; };
+		431466A8146CA82200DC075A /* PassThruImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassThruImageView.m; sourceTree = "<group>"; };
 		43191845141A0D1C008457FF /* Eco.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Eco.lrplugin; path = Compilers/Eco.lrplugin; sourceTree = SOURCE_ROOT; };
 		43361D2E13C2E0E500C0E589 /* Stylus.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Stylus.lrplugin; path = Compilers/Stylus.lrplugin; sourceTree = SOURCE_ROOT; };
 		43361D4513C30D1400C0E589 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
@@ -695,6 +703,10 @@
 				823DDEC313F8DA3100529AD2 /* StatusItemView.m */,
 				43E5DF601462829B0016CDA0 /* ImageAndTextCell.h */,
 				43E5DF611462829B0016CDA0 /* ImageAndTextCell.m */,
+				431466A4146CA68500DC075A /* PassThruView.h */,
+				431466A5146CA68500DC075A /* PassThruView.m */,
+				431466A7146CA82200DC075A /* PassThruImageView.h */,
+				431466A8146CA82200DC075A /* PassThruImageView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -727,6 +739,7 @@
 			children = (
 				43146698146C5D2100DC075A /* ProjectPaneBackground.png */,
 				4314669C146C884800DC075A /* WelcomePaneBackground.png */,
+				431466A2146CA23F00DC075A /* PlaceholderTemplate.png */,
 				4314669E146C9C0B00DC075A /* AddTemplate.png */,
 				4314669F146C9C0B00DC075A /* RemoveTemplate.png */,
 				4314669A146C689500DC075A /* FolderIcon64.png */,
@@ -849,6 +862,7 @@
 				4314669D146C884800DC075A /* WelcomePaneBackground.png in Resources */,
 				431466A0146C9C0B00DC075A /* AddTemplate.png in Resources */,
 				431466A1146C9C0B00DC075A /* RemoveTemplate.png in Resources */,
+				431466A3146CA23F00DC075A /* PlaceholderTemplate.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -938,6 +952,8 @@
 				43F50BF71466F7A1004FD951 /* PostProcessingSettingsWindowController.m in Sources */,
 				43F50BFC146706B0004FD951 /* BaseProjectSettingsWindowController.m in Sources */,
 				43F50BFF14670A9F004FD951 /* CompilationSettingsWindowController.m in Sources */,
+				431466A6146CA68500DC075A /* PassThruView.m in Sources */,
+				431466A9146CA82200DC075A /* PassThruImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
