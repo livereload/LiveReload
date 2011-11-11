@@ -85,11 +85,7 @@ NSString *CommunicationStateChangedNotification = @"CommunicationStateChangedNot
 - (void)connectionDidFinishHandshake:(LiveReloadConnection *)connection {
     if (connection.monitoring) {
         [self willChangeValueForKey:@"numberOfSessions"];
-        if (++_numberOfSessions == 1) {
-            [self willChangeValueForKey:@"numberOfProcessedChanges"];
-            _numberOfProcessedChanges = 0;
-            [self didChangeValueForKey:@"numberOfProcessedChanges"];
-        }
+        ++_numberOfSessions;
         [self didChangeValueForKey:@"numberOfSessions"];
         if (![Workspace sharedWorkspace].monitoringEnabled) {
             [Workspace sharedWorkspace].monitoringEnabled = YES;
