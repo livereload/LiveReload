@@ -15,6 +15,7 @@
 #import "Preferences.h"
 
 #import "ShitHappens.h"
+#import "FixUnixPath.h"
 
 
 @interface LiveReloadAppDelegate ()
@@ -80,6 +81,8 @@
         [self pingServer];
         [NSTimer scheduledTimerWithTimeInterval:60*60*24 target:self selector:@selector(pingServer) userInfo:nil repeats:YES];
     });
+
+    FixUnixPath();
 }
 
 
