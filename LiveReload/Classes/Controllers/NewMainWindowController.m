@@ -184,6 +184,7 @@ enum { PANE_COUNT = PaneProject+1 };
     _nameTextField.stringValue = [_selectedProject.displayPath lastPathComponent];
     _pathTextField.stringValue = [_selectedProject.displayPath stringByDeletingLastPathComponent];
 //    [self styleLabel:_pathTextField color:[self headerLabelColor] shadow:[self subtleWhiteShadow] text:[_selectedProject.displayPath stringByDeletingLastPathComponent]];
+    [_compilerEnabledCheckBox setState:_selectedProject.compilationEnabled ? NSOnState : NSOffState];
     [_postProcessingEnabledCheckBox setState:_selectedProject.postProcessingEnabled ? NSOnState : NSOffState];
 
     _availableCompilersLabel.stringValue = [NSString stringWithFormat:@"Available compilers: %@.", [[[PluginManager sharedPluginManager].compilers valueForKeyPath:@"name"] componentsJoinedByString:@", "]];
@@ -487,6 +488,10 @@ enum { PANE_COUNT = PaneProject+1 };
 
 - (IBAction)showCompilationOptions:(id)sender {
     [self showProjectSettingsSheet:[CompilationSettingsWindowController class]];
+}
+
+- (IBAction)toggleCompilationEnabledCheckboxClicked:(NSButton *)sender {
+    _selectedProject.compilationEnabled = !_selectedProject.compilationEnabled;
 }
 
 

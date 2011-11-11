@@ -41,7 +41,7 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
 @interface Project () <FSMonitorDelegate>
 
 - (void)updateFilter;
-- (void)handleCompilationOptionsEnablementChanged:(NSNotification *)notification;
+- (void)handleCompilationOptionsEnablementChanged;
 
 - (void)updateImportGraphForPaths:(NSSet *)paths;
 - (void)rebuildImportGraph;
@@ -55,6 +55,7 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
 @synthesize dirty=_dirty;
 @synthesize lastSelectedPane=_lastSelectedPane;
 @synthesize enabled=_enabled;
+@synthesize compilationEnabled=_compilationEnabled;
 @synthesize postProcessingCommand=_postProcessingCommand;
 @synthesize postProcessingEnabled=_postProcessingEnabled;
 
@@ -90,6 +91,17 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
             }];
         }
 
+        if ([memento objectForKey:@"compilationEnabled"]) {
+            _compilationEnabled = [[memento objectForKey:@"compilationEnabled"] boolValue];
+        } else {
+            _compilationEnabled = NO;
+            [[memento objectForKey:@"compilers"] enumerateKeysAndObjectsUsingBlock:^(id uniqueId, id compilerMemento, BOOL *stop) {
+                if ([[compilerMemento objectForKey:@"mode"] isEqualToString:@"compile"]) {
+                    _compilationEnabled = YES;
+                }
+            }];
+        }
+
         _postProcessingCommand = [[memento objectForKey:@"postproc"] copy];
         if ([memento objectForKey:@"postprocEnabled"]) {
             _postProcessingEnabled = [[memento objectForKey:@"postprocEnabled"] boolValue];
@@ -99,8 +111,7 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
 
         _importGraph = [[ImportGraph alloc] init];
 
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleCompilationOptionsEnablementChanged:) name:CompilationOptionsEnabledChangedNotification object:nil];
-        [self handleCompilationOptionsEnablementChanged:nil];
+        [self handleCompilationOptionsEnablementChanged];
     }
     return self;
 }
@@ -129,6 +140,7 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
         [memento setObject:_postProcessingCommand forKey:@"postproc"];
         [memento setObject:[NSNumber numberWithBool:_postProcessingEnabled] forKey:@"postprocEnabled"];
     }
+    [memento setObject:[NSNumber numberWithBool:_compilationEnabled ] forKey:@"compilationEnabled"];
     return [NSDictionary dictionaryWithDictionary:memento];
 }
 
@@ -216,27 +228,24 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
 - (void)compile:(NSString *)relativePath under:(NSString *)rootPath with:(Compiler *)compiler options:(CompilationOptions *)compilationOptions {
     NSString *path = [rootPath stringByAppendingPathComponent:relativePath];
 
-    CompilationMode mode = compilationOptions.mode;
-    if (mode == CompilationModeCompile) {
-        if (![[NSFileManager defaultManager] fileExistsAtPath:path])
-            return; // don't try to compile deleted files
-        FileCompilationOptions *fileOptions = [self optionsForFileAtPath:relativePath in:compilationOptions];
-        if (fileOptions.destinationDirectory != nil) {
-            NSString *derivedName = [compiler derivedNameForFile:path];
-            NSString *derivedPath = [fileOptions.destinationDirectory stringByAppendingPathComponent:derivedName];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:path])
+        return; // don't try to compile deleted files
+    FileCompilationOptions *fileOptions = [self optionsForFileAtPath:relativePath in:compilationOptions];
+    if (fileOptions.destinationDirectory != nil) {
+        NSString *derivedName = [compiler derivedNameForFile:path];
+        NSString *derivedPath = [fileOptions.destinationDirectory stringByAppendingPathComponent:derivedName];
 
-            ToolOutput *compilerOutput = nil;
-            [compiler compile:relativePath into:derivedPath under:rootPath with:compilationOptions compilerOutput:&compilerOutput];
-            if (compilerOutput) {
-                compilerOutput.project = self;
+        ToolOutput *compilerOutput = nil;
+        [compiler compile:relativePath into:derivedPath under:rootPath with:compilationOptions compilerOutput:&compilerOutput];
+        if (compilerOutput) {
+            compilerOutput.project = self;
 
-                [[[[ToolOutputWindowController alloc] initWithCompilerOutput:compilerOutput key:path] autorelease] show];
-            } else {
-                [ToolOutputWindowController hideOutputWindowWithKey:path];
-            }
+            [[[[ToolOutputWindowController alloc] initWithCompilerOutput:compilerOutput key:path] autorelease] show];
         } else {
-            NSLog(@"Ignoring %@ because destination directory is not set.", relativePath);
+            [ToolOutputWindowController hideOutputWindowWithKey:path];
         }
+    } else {
+        NSLog(@"Ignoring %@ because destination directory is not set.", relativePath);
     }
 }
 
@@ -248,21 +257,21 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
         if ([compiler.extensions containsObject:extension]) {
             compilerFound = YES;
             CompilationOptions *compilationOptions = [self optionsForCompiler:compiler create:NO];
-            if (compilationOptions.mode == CompilationModeCompile) {
+            if (_compilationEnabled) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:ProjectWillBeginCompilationNotification object:self];
                 [self compile:relativePath under:_path with:compiler options:compilationOptions];
                 [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidEndCompilationNotification object:self];
                 StatGroupIncrement(CompilerChangeCountStatGroup, compiler.uniqueId, 1);
                 StatGroupIncrement(CompilerChangeCountEnabledStatGroup, compiler.uniqueId, 1);
                 break;
-            } else if (compilationOptions.mode == CompilationModeMiddleware) {
+            } else {
                 NSString *derivedName = [compiler derivedNameForFile:relativePath];
                 [filtered addObject:derivedName];
-                NSLog(@"Broadcasting a fake change in %@ instead of %@ because %@ mode is MIDDLEWARE (PRETEND).", derivedName, relativePath, compiler.name);
+                NSLog(@"Broadcasting a fake change in %@ instead of %@ (compiler %@).", derivedName, relativePath, compiler.name);
                 StatGroupIncrement(CompilerChangeCountStatGroup, compiler.uniqueId, 1);
                 break;
-            } else if (compilationOptions.mode == CompilationModeDisabled) {
-                compilerFound = NO;
+//            } else if (compilationOptions.mode == CompilationModeDisabled) {
+//                compilerFound = NO;
             }
         }
     }
@@ -362,15 +371,6 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
 
 
 #pragma mark - Options
-
-- (BOOL)areAnyCompilersEnabled {
-    for (CompilationOptions *options in [_compilerOptions allValues]) {
-        if (options.mode == CompilationModeCompile) {
-            return YES;
-        }
-    }
-    return NO;
-}
 
 - (CompilationOptions *)optionsForCompiler:(Compiler *)compiler create:(BOOL)create {
     NSString *uniqueId = compiler.uniqueId;
@@ -487,8 +487,16 @@ skipGuessing:
     return fileOptions;
 }
 
-- (void)handleCompilationOptionsEnablementChanged:(NSNotification *)notification {
-    [self requestMonitoring:[self areAnyCompilersEnabled] forKey:CompilersEnabledMonitoringKey];
+- (void)handleCompilationOptionsEnablementChanged {
+    [self requestMonitoring:_compilationEnabled forKey:CompilersEnabledMonitoringKey];
+}
+
+- (void)setCompilationEnabled:(BOOL)compilationEnabled {
+    if (_compilationEnabled != compilationEnabled) {
+        _compilationEnabled = compilationEnabled;
+        [self handleCompilationOptionsEnablementChanged];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+    }
 }
 
 
@@ -553,12 +561,9 @@ skipGuessing:
 
     for (Compiler *compiler in [PluginManager sharedPluginManager].compilers) {
         if ([compiler.extensions containsObject:extension]) {
-            CompilationOptions *compilationOptions = [self optionsForCompiler:compiler create:NO];
-            CompilationMode mode = compilationOptions.mode;
-            if (mode == CompilationModeCompile || mode == CompilationModeMiddleware) {
-                [self updateImportGraphForPath:relativePath compiler:compiler];
-                return;
-            }
+//            CompilationOptions *compilationOptions = [self optionsForCompiler:compiler create:NO];
+            [self updateImportGraphForPath:relativePath compiler:compiler];
+            return;
         }
     }
 }
@@ -577,9 +582,9 @@ skipGuessing:
 
         for (Compiler *compiler in [PluginManager sharedPluginManager].compilers) {
             if ([compiler.extensions containsObject:extension]) {
-                CompilationOptions *compilationOptions = [self optionsForCompiler:compiler create:NO];
-                CompilationMode mode = compilationOptions.mode;
-                if (mode == CompilationModeCompile || mode == CompilationModeMiddleware) {
+//                CompilationOptions *compilationOptions = [self optionsForCompiler:compiler create:NO];
+//                CompilationMode mode = compilationOptions.mode;
+                if (YES) { //mode == CompilationModeCompile || mode == CompilationModeMiddleware) {
                     return YES;
                 }
             }

@@ -192,7 +192,7 @@
         NSString *path = [[[params objectForKey:@"path"] stringByExpandingTildeInPath] stringByStandardizingPath];
         BOOL isDir = NO;
         if (path && [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir] && isDir) {
-            Project *project = [[Workspace sharedWorkspace] projectWithPath:path create:YES];
+//            Project *project = [[Workspace sharedWorkspace] projectWithPath:path create:YES];
 
             NSMutableSet *compilerIds = [NSMutableSet set];
             [params enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
@@ -212,8 +212,8 @@
                 if (compiler) {
                     NSString *mode = [params objectForKey:[NSString stringWithFormat:@"compiler-%@-mode", compilerId]];
                     if ([mode length] > 0) {
-                        CompilationOptions *options = [project optionsForCompiler:compiler create:YES];
-                        options.mode = CompilationModeFromNSString(mode);
+//                        CompilationOptions *options = [project optionsForCompiler:compiler create:YES];
+//                        options.mode = CompilationModeFromNSString(mode);
                     }
                 } else {
                     NSLog(@"Ignoring options for unknown compiler: '%@'", compilerId);

@@ -62,7 +62,7 @@
 }
 
 - (NSString *)summary {
-    return self.options.modeDisplayName;
+    return @""; // self.options.modeDisplayName;
 }
 
 + (NSSet *)keyPathsForValuesAffectingSummary {
@@ -70,7 +70,7 @@
 }
 
 - (BOOL)isActive {
-    return _options.mode != CompilationModeDisabled;
+    return NO; // _options.mode != CompilationModeDisabled;
 }
 
 + (NSSet *)keyPathsForValuesAffectingActive {

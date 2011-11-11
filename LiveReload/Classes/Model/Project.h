@@ -21,7 +21,6 @@ extern NSString *ProjectNeedsSavingNotification;
 
     FSMonitor *_monitor;
 
-    NSMutableDictionary     *_compilerOptions;
     BOOL _clientsConnected;
     BOOL                    _enabled;
 
@@ -33,6 +32,9 @@ extern NSString *ProjectNeedsSavingNotification;
     NSString                *_postProcessingCommand;
     BOOL                     _postProcessingEnabled;
     NSTimeInterval           _lastPostProcessingRunDate;
+
+    NSMutableDictionary     *_compilerOptions;
+    BOOL                     _compilationEnabled;
 
     ImportGraph             *_importGraph;
 
@@ -48,6 +50,7 @@ extern NSString *ProjectNeedsSavingNotification;
 @property(nonatomic, readonly, copy) NSString *safeDisplayPath;
 
 @property(nonatomic) BOOL enabled;
+@property(nonatomic) BOOL compilationEnabled;
 
 @property(nonatomic, readonly) FSTree *tree;
 

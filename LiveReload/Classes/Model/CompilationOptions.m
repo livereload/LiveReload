@@ -8,30 +8,9 @@
 #import "ATFunctionalStyle.h"
 
 
-NSString *CompilationOptionsEnabledChangedNotification = @"CompilationOptionsEnabledChangedNotification";
-
-NSString *APIModeNames[] = { @"disabled", @"compile", @"middleware" };
-
-NSString *DisplayModeNames[] = { @"disabled", @"compile", @"on-the-fly" };
-
-CompilationMode CompilationModeFromNSString(NSString *raw) {
-    if ([raw isEqualToString:@"compile"])
-        return CompilationModeCompile;
-    else if ([raw isEqualToString:@"middleware"])
-        return CompilationModeMiddleware;
-    else if ([raw isEqualToString:@"disabled"] || [raw isEqualToString:@"ignore"])
-        return CompilationModeDisabled;
-    else {
-        NSLog(@"Ignoring unknown value of mode: '%@'", raw);
-        return CompilationModeDisabled;
-    }
-}
-
-
 @implementation CompilationOptions
 
 @synthesize compiler=_compiler;
-@synthesize mode=_mode;
 @synthesize version=_version;
 @synthesize globalOptions=_globalOptions;
 @synthesize additionalArguments=_additionalArguments;
@@ -46,21 +25,7 @@ CompilationMode CompilationModeFromNSString(NSString *raw) {
         _globalOptions = [[Bag alloc] init];
         _fileOptions = [[NSMutableDictionary alloc] init];
 
-        id raw;
-
-        raw = [memento objectForKey:@"enabled"]; // old format, TODO deprecate well after 2.0 final release
-        if (raw) {
-            if ([raw boolValue])
-                _mode = CompilationModeCompile;
-            else
-                _mode = CompilationModeDisabled;
-        } else if ((raw = [memento objectForKey:@"mode"])) {
-            _mode = CompilationModeFromNSString(raw);
-        } else {
-            _mode = CompilationModeDisabled;
-        }
-
-        raw = [memento objectForKey:@"global"];
+        id raw = [memento objectForKey:@"global"];
         if (raw) {
             [_globalOptions addEntriesFromDictionary:raw];
         }
@@ -94,7 +59,7 @@ CompilationMode CompilationModeFromNSString(NSString *raw) {
 #pragma mark - Persistence
 
 - (NSDictionary *)memento {
-    return [NSDictionary dictionaryWithObjectsAndKeys:APIModeNames[_mode], @"mode", _globalOptions.dictionary, @"global", [_fileOptions dictionaryByMappingValuesToSelector:@selector(memento)], @"files", _additionalArguments, @"additionalArguments", nil];
+    return [NSDictionary dictionaryWithObjectsAndKeys:_globalOptions.dictionary, @"global", [_fileOptions dictionaryByMappingValuesToSelector:@selector(memento)], @"files", _additionalArguments, @"additionalArguments", nil];
 }
 
 
@@ -129,30 +94,6 @@ CompilationMode CompilationModeFromNSString(NSString *raw) {
 
 
 #pragma mark - Global options
-
-- (NSString *)modeDisplayName {
-    return DisplayModeNames[_mode];
-}
-
-+ (NSSet *)keyPathsForValuesAffectingModeDisplayName {
-    return [NSSet setWithObject:@"mode"];
-}
-
-- (BOOL)isCompileModeActive {
-    return _mode == CompilationModeCompile;
-}
-
-+ (NSSet *)keyPathsForValuesAffectingCompileModeActive {
-    return [NSSet setWithObject:@"mode"];
-}
-
-- (void)setMode:(CompilationMode)mode {
-    if (_mode != mode) {
-        _mode = mode;
-        [[NSNotificationCenter defaultCenter] postNotificationName:CompilationOptionsEnabledChangedNotification object:self];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
-    }
-}
 
 - (void)setAdditionalArguments:(NSString *)additionalArguments {
     if (_additionalArguments != additionalArguments) {
