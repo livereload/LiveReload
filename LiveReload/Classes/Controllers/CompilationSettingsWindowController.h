@@ -15,12 +15,10 @@ typedef enum {
 enum { ControlTypeCount = 6 };
 
 
-@interface CompilationSettingsWindowController : BaseProjectSettingsWindowController {
-    CGFloat                _nextY;
-    CGFloat                _lastControlY;
-    ControlType            _lastControlType;
-    BOOL                   _labelAdded;
-    NSMutableArray        *_controls;
-}
+@interface CompilationSettingsWindowController : BaseProjectSettingsWindowController
+
+@property (assign) IBOutlet NSPopUpButton *nodeVersionsPopUpButton;
+
+@property (assign) IBOutlet NSPopUpButton *rubyVersionsPopUpButton;
 
 @end

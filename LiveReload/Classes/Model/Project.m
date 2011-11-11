@@ -60,6 +60,7 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
 @synthesize postProcessingEnabled=_postProcessingEnabled;
 @synthesize disableLiveRefresh=_disableLiveRefresh;
 @synthesize fullPageReloadDelay=_fullPageReloadDelay;
+@synthesize rubyVersionIdentifier=_rubyVersionIdentifier;
 
 
 #pragma mark -
@@ -119,6 +120,11 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
             _postProcessingEnabled = [_postProcessingCommand length] > 0;
         }
 
+        if ([memento objectForKey:@"rubyVersion"])
+            _rubyVersionIdentifier = [[memento objectForKey:@"rubyVersion"] copy];
+        else
+            _rubyVersionIdentifier = @"system";
+
         _importGraph = [[ImportGraph alloc] init];
 
         [self handleCompilationOptionsEnablementChanged];
@@ -135,6 +141,7 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
     [_monitoringRequests release], _monitoringRequests = nil;
     [_postProcessingCommand release], _postProcessingCommand = nil;
     [_importGraph release], _importGraph = nil;
+    [_rubyVersionIdentifier release], _rubyVersionIdentifier = nil;
     [super dealloc];
 }
 
@@ -155,6 +162,7 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
     if (_fullPageReloadDelay > 0.001) {
         [memento setObject:[NSNumber numberWithDouble:_fullPageReloadDelay] forKey:@"fullPageReloadDelay"];
     }
+    [memento setObject:_rubyVersionIdentifier forKey:@"rubyVersion"];
     [memento setObject:[NSNumber numberWithBool:_compilationEnabled ] forKey:@"compilationEnabled"];
     return [NSDictionary dictionaryWithDictionary:memento];
 }
@@ -251,7 +259,7 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
         NSString *derivedPath = (compiler.needsOutputDirectory ? [fileOptions.destinationDirectory stringByAppendingPathComponent:derivedName] : [[path stringByDeletingLastPathComponent] stringByAppendingPathComponent:derivedName]);
 
         ToolOutput *compilerOutput = nil;
-        [compiler compile:relativePath into:derivedPath under:rootPath with:compilationOptions compilerOutput:&compilerOutput];
+        [compiler compile:relativePath into:derivedPath under:rootPath inProject:self with:compilationOptions compilerOutput:&compilerOutput];
         if (compilerOutput) {
             compilerOutput.project = self;
 
@@ -560,6 +568,13 @@ skipGuessing:
 - (void)setFullPageReloadDelay:(NSTimeInterval)fullPageReloadDelay {
     if (_fullPageReloadDelay != fullPageReloadDelay) {
         _fullPageReloadDelay = fullPageReloadDelay;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+    }
+}
+
+- (void)setRubyVersionIdentifier:(NSString *)rubyVersionIdentifier {
+    if (_rubyVersionIdentifier != rubyVersionIdentifier) {
+        [_rubyVersionIdentifier release], _rubyVersionIdentifier = [rubyVersionIdentifier copy];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
     }
 }

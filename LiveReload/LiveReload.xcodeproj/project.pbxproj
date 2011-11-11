@@ -35,6 +35,7 @@
 		4353403A146CC7E600DD66B0 /* MonitoringSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43534039146CC7E600DD66B0 /* MonitoringSettingsWindowController.m */; };
 		4353403C146CC8A400DD66B0 /* MonitoringSettingsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4353403B146CC8A400DD66B0 /* MonitoringSettingsWindowController.xib */; };
 		4353403F146D0A1100DD66B0 /* FixUnixPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353403E146D0A1100DD66B0 /* FixUnixPath.m */; };
+		43534042146D161900DD66B0 /* RubyVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 43534041146D161900DD66B0 /* RubyVersion.m */; };
 		435729171452267C00947B2E /* Stats.m in Sources */ = {isa = PBXBuildFile; fileRef = 435729161452267C00947B2E /* Stats.m */; };
 		43594AF413D3BB34004175B2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43594AF313D3BB34004175B2 /* QuartzCore.framework */; };
 		435BE042141B72A60008FF77 /* NewMainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 435BE041141B72A60008FF77 /* NewMainWindow.xib */; };
@@ -182,6 +183,8 @@
 		4353403B146CC8A400DD66B0 /* MonitoringSettingsWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MonitoringSettingsWindowController.xib; sourceTree = "<group>"; };
 		4353403D146D0A1100DD66B0 /* FixUnixPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixUnixPath.h; sourceTree = "<group>"; };
 		4353403E146D0A1100DD66B0 /* FixUnixPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FixUnixPath.m; sourceTree = "<group>"; };
+		43534040146D161900DD66B0 /* RubyVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RubyVersion.h; sourceTree = "<group>"; };
+		43534041146D161900DD66B0 /* RubyVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RubyVersion.m; sourceTree = "<group>"; };
 		435729151452267C00947B2E /* Stats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stats.h; sourceTree = "<group>"; };
 		435729161452267C00947B2E /* Stats.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stats.m; sourceTree = "<group>"; };
 		43594AF313D3BB34004175B2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -630,6 +633,8 @@
 				823DDE8313F8DA3100529AD2 /* PluginManager.m */,
 				823DDE8413F8DA3100529AD2 /* ToolOutput.h */,
 				823DDE8513F8DA3100529AD2 /* ToolOutput.m */,
+				43534040146D161900DD66B0 /* RubyVersion.h */,
+				43534041146D161900DD66B0 /* RubyVersion.m */,
 			);
 			path = Plugins;
 			sourceTree = "<group>";
@@ -970,6 +975,7 @@
 				431466A9146CA82200DC075A /* PassThruImageView.m in Sources */,
 				4353403A146CC7E600DD66B0 /* MonitoringSettingsWindowController.m in Sources */,
 				4353403F146D0A1100DD66B0 /* FixUnixPath.m in Sources */,
+				43534042146D161900DD66B0 /* RubyVersion.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

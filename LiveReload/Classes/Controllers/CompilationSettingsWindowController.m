@@ -3,6 +3,7 @@
 
 #import "PluginManager.h"
 #import "Compiler.h"
+#import "RubyVersion.h"
 
 
 
@@ -104,7 +105,28 @@ static ControlTypeInfo CONTROL_TYPE_INFO[] = {
 #define LAST CONTROL_TYPE_INFO[_lastControlType]
 
 
+
+@interface CompilationSettingsWindowController () {
+    CGFloat                _nextY;
+    CGFloat                _lastControlY;
+    ControlType            _lastControlType;
+    BOOL                   _labelAdded;
+    NSMutableArray        *_controls;
+
+    BOOL                   _populatingRubyVersions;
+    NSArray               *_rubyVersions;
+}
+
+- (void)populateToolVersions;
+
+@end
+
+
+
 @implementation CompilationSettingsWindowController
+
+@synthesize nodeVersionsPopUpButton = _nodeVersionsPopUpButton;
+@synthesize rubyVersionsPopUpButton = _rubyVersionsPopUpButton;
 
 
 #pragma mark - Actions
@@ -281,9 +303,75 @@ static ControlTypeInfo CONTROL_TYPE_INFO[] = {
             [self addFullWidthLabel:@"No compilable files found in this folder."];
         }
     }];
+
+    [self populateToolVersions];
 }
 
 - (void)save {
+}
+
+
+#pragma mark - Tool Versions
+
+- (void)populateRubyVersions {
+    if (_populatingRubyVersions)
+        return;
+    _populatingRubyVersions = YES;
+
+    if (_rubyVersionsPopUpButton.tag != 0x101) {
+        _rubyVersionsPopUpButton.tag = 0x101;
+        [_rubyVersionsPopUpButton removeAllItems];
+        [_rubyVersionsPopUpButton addItemWithTitle:@"Loading…"];
+        [_rubyVersionsPopUpButton setEnabled:NO];
+    }
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+        NSArray *version = [[RubyVersion availableRubyVersions] retain];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [_rubyVersions release], _rubyVersions = version;
+
+            [_rubyVersionsPopUpButton removeAllItems];
+
+            // find the selected item
+            NSInteger selectedIndex = -1, index = 0;
+            for (RubyVersion *version in _rubyVersions) {
+                if ([_project.rubyVersionIdentifier isEqualToString:version.identifier])
+                    selectedIndex = index;
+                ++index;
+            }
+
+            // add if not found
+            if (selectedIndex < 0) {
+                RubyVersion *version = [RubyVersion rubyVersionWithIdentifier:_project.rubyVersionIdentifier];
+                [_rubyVersions autorelease];
+                _rubyVersions = [[[NSArray arrayWithObject:version] arrayByAddingObjectsFromArray:_rubyVersions] retain];
+                selectedIndex = 0;
+            }
+
+            for (RubyVersion *version in _rubyVersions) {
+                [_rubyVersionsPopUpButton addItemWithTitle:version.displayTitle];
+            }
+            [_rubyVersionsPopUpButton setEnabled:YES];
+            [_rubyVersionsPopUpButton selectItemAtIndex:selectedIndex];
+
+            _populatingRubyVersions = NO;
+        });
+    });
+}
+
+- (void)populateToolVersions {
+    [self populateRubyVersions];
+}
+
+- (IBAction)nodeVersionsPopUpValueDidChange:(id)sender {
+}
+
+- (IBAction)rubyVersionsPopUpValueDidChange:(id)sender {
+    NSInteger index = [_rubyVersionsPopUpButton indexOfSelectedItem];
+    if (index < 0)
+        return;
+    RubyVersion *version = [_rubyVersions objectAtIndex:index];
+    _project.rubyVersionIdentifier = version.identifier;
 }
 
 

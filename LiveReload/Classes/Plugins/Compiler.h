@@ -6,6 +6,7 @@
 @class CompilationOptions;
 @class FSTree;
 @class ToolOutput;
+@class Project;
 
 
 @interface Compiler : NSObject {
@@ -45,7 +46,7 @@
 
 - (NSString *)derivedNameForFile:(NSString *)path;
 
-- (void)compile:(NSString *)sourceRelPath into:(NSString *)destinationRelPath under:(NSString *)rootPath with:(CompilationOptions *)options compilerOutput:(ToolOutput **)compilerOutput;
+- (void)compile:(NSString *)sourceRelPath into:(NSString *)destinationRelPath under:(NSString *)rootPath inProject:(Project *)project with:(CompilationOptions *)options compilerOutput:(ToolOutput **)compilerOutput;
 
 - (NSArray *)pathsOfSourceFilesInTree:(FSTree *)tree;
 

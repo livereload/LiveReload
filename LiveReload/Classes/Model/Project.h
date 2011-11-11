@@ -33,6 +33,8 @@ extern NSString *ProjectNeedsSavingNotification;
     BOOL                     _postProcessingEnabled;
     NSTimeInterval           _lastPostProcessingRunDate;
 
+    NSString                *_rubyVersionIdentifier;
+
     NSMutableDictionary     *_compilerOptions;
     BOOL                     _compilationEnabled;
 
@@ -81,6 +83,8 @@ extern NSString *ProjectNeedsSavingNotification;
 
 @property(nonatomic, retain) NSString *postProcessingCommand;
 @property(nonatomic) BOOL postProcessingEnabled;
+
+@property(nonatomic, copy) NSString *rubyVersionIdentifier;
 
 - (void)checkBrokenPaths;
 

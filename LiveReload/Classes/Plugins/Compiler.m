@@ -3,6 +3,8 @@
 #import "Plugin.h"
 #import "CompilationOptions.h"
 #import "ToolOutput.h"
+#import "Project.h"
+#import "RubyVersion.h"
 
 #import "FSTree.h"
 #import "RegexKitLite.h"
@@ -153,7 +155,7 @@
 
 #pragma mark - Compilation
 
-- (void)compile:(NSString *)sourceRelPath into:(NSString *)destinationRelPath under:(NSString *)rootPath with:(CompilationOptions *)options compilerOutput:(ToolOutput **)compilerOutput {
+- (void)compile:(NSString *)sourceRelPath into:(NSString *)destinationRelPath under:(NSString *)rootPath inProject:(Project *)project with:(CompilationOptions *)options compilerOutput:(ToolOutput **)compilerOutput {
     if (compilerOutput) *compilerOutput = nil;
 
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -161,8 +163,11 @@
     NSString *sourcePath = [rootPath stringByAppendingPathComponent:sourceRelPath];
     NSString *destinationPath = [rootPath stringByAppendingPathComponent:destinationRelPath];
 
+    RubyVersion *rubyVersion = [RubyVersion rubyVersionWithIdentifier:project.rubyVersionIdentifier];
+    NSString *rubyPath = (rubyVersion.valid ? rubyVersion.executablePath : @"__!RUBY_NOT_FOUND!__");
+
     NSMutableDictionary *info = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                 @"/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/bin/ruby", @"$(ruby)",
+                                 rubyPath, @"$(ruby)",
                                  [[NSBundle mainBundle] pathForResource:@"node" ofType:nil], @"$(node)",
                                  _plugin.path, @"$(plugin)",
                                  rootPath, @"$(project_dir)",
@@ -193,6 +198,13 @@
         runDirectory = [_runDirectory stringBySubstitutingValuesFromDictionary:info];
     } else {
         runDirectory = NSTemporaryDirectory();
+    }
+
+    BOOL rubyInUse = [[arguments componentsJoinedByString:@" "] rangeOfString:rubyPath].length > 0;
+    if (rubyInUse && !rubyVersion.valid) {
+        NSLog(@"Ruby version '%@' does not exist, refusing to run.", project.rubyVersionIdentifier);
+        *compilerOutput = [[ToolOutput alloc] initWithCompiler:self type:ToolOutputTypeError sourcePath:sourcePath line:0 message:@"Ruby not found. Please visit this project's compiler settings and choose another Ruby interpreter" output:@""];
+        return;
     }
 
     NSString *command = [arguments objectAtIndex:0];
