@@ -48,7 +48,7 @@
 					<key>Label</key>
 					<string>Eco object identifier:</string>
 					<key>Placeholder</key>
-					<string>JST</string>
+					<string>ecoTemplates</string>
 					<key>Argument</key>
 					<string>--identifier $(value)</string>
 					<key>SkipIfEmpty</key>
