@@ -94,7 +94,7 @@ function inv_table($caption, $headers, $rows, $extra='') {
 }
 
 function chart($data, $max) {
-    $grid_density = 100 / ceil($max / 100);
+    $grid_density = 100 / ceil($max / 500);
     $chart = "https://chart.googleapis.com/chart?chs=500x175&chg=0,{$grid_density}&cht=ls&chco=0077CC&chxt=y&chxr=0,0,{$max}&chds=0,{$max}&chd=t:" . implode(',', $data);
     return div('', html_tag('img', array('src' => $chart)));
 }
@@ -288,10 +288,9 @@ array_pop($data);
 
 echo html_tag('h1', array(), "Total unique IPs: $count");
 
-echo html_tag('h1', array(), "Unique IPs by day, all time") . chart($data, 800);
+echo html_tag('h1', array(), "Unique IPs by day, all time") . chart($data, 2500);
 
-echo format_grouped_stats(PERIOD_WEEK, 8, "week", "Weekly statistics");
-echo format_grouped_stats(PERIOD_MONTH, 8, "month", "Monthly statistics");
+echo format_grouped_stats(PERIOD_WEEK, 3, "week", "Weekly statistics");
 
 echo table('Unique IPs by version, last 30 days', array('version' => 'Version', 'count' => 'IPs'), $by_ver_30);
 echo table('Unique IPs by version, last 7 days', array('version' => 'Version', 'count' => 'IPs'), $by_ver_7);
@@ -300,3 +299,5 @@ echo table('Unique IPs by version, last 2 days', array('version' => 'Version', '
 echo table('Last 10 pings', array('time_fmt' => 'Date', 'version' => 'Version', 'agent' => 'User Agent'), $latest);
 
 echo table('Unique IPs by day, all time', array('date' => 'Date', 'count' => 'Pings'), array_reverse($by_date));
+
+// echo format_grouped_stats(PERIOD_MONTH, 8, "month", "Monthly statistics");
