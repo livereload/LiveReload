@@ -185,11 +185,16 @@
                                  nil];
 
     NSString *additionalArguments = [options.additionalArguments stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    NSArray *additionalArgumentsArray = [NSArray array];
-    if ([additionalArguments length]) {
-        additionalArgumentsArray = [[additionalArguments componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] arrayBySubstitutingValuesFromDictionary:info];
+    NSMutableArray *additionalArgumentsArray = [NSMutableArray array];
+
+    for (ToolOption *toolOption in [self optionsForProject:project]) {
+        [additionalArgumentsArray addObjectsFromArray:toolOption.currentCompilerArguments];
     }
-    [info setObject:additionalArgumentsArray forKey:@"$(additional)"];
+
+    if ([additionalArguments length]) {
+        [additionalArgumentsArray addObjectsFromArray:[additionalArguments componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
+    }
+    [info setObject:[additionalArgumentsArray arrayBySubstitutingValuesFromDictionary:info] forKey:@"$(additional)"];
 
     NSArray *arguments = [_commandLine arrayBySubstitutingValuesFromDictionary:info];
     NSLog(@"Running compiler: %@", [arguments description]);

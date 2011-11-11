@@ -51,6 +51,8 @@
 					<string>JST</string>
 					<key>Argument</key>
 					<string>--identifier $(value)</string>
+					<key>SkipIfEmpty</key>
+					<true/>
 				</dict>
 			</array>
 		</dict>

@@ -6,6 +6,8 @@
 #import "CompilationOptions.h"
 #import "UIBuilder.h"
 
+#import "NSArray+Substitutions.h"
+
 
 
 @interface ToolOption() {
@@ -85,7 +87,7 @@ Class ToolOptionClassByType(NSString *type) {
         _project = [project retain];
         _info = [optionInfo copy];
 
-        _identifier = [optionInfo objectForKey:@"Id"];
+        _identifier = [[optionInfo objectForKey:@"Id"] copy];
 
         [self parse];
     }
@@ -155,6 +157,10 @@ Class ToolOptionClassByType(NSString *type) {
     [self updateNewValue];
 }
 
+- (NSArray *)currentCompilerArguments {
+    return [NSArray array];
+}
+
 @end
 
 
@@ -194,6 +200,21 @@ Class ToolOptionClassByType(NSString *type) {
 
 - (IBAction)checkBoxClicked:(id)sender {
     [self updateNewValue];
+}
+
+- (NSArray *)currentCompilerArguments {
+    id arg = nil;
+    if ([self.currentValue boolValue]) {
+        arg = [_info objectForKey:@"OnArgument"];
+    } else {
+        arg = [_info objectForKey:@"OffArgument"];
+    }
+    if ([arg isKindOfClass:[NSArray class]])
+        return arg;
+    else if ([arg isKindOfClass:[NSString class]])
+        return [arg componentsSeparatedByString:@" "];
+    else
+        return [NSArray array];
 }
 
 @end
@@ -246,6 +267,20 @@ Class ToolOptionClassByType(NSString *type) {
     [_view selectItemAtIndex:[self indexOfItemWithIdentifier:self.currentValue]];
 }
 
+- (NSArray *)currentCompilerArguments {
+    NSInteger index = [self indexOfItemWithIdentifier:self.currentValue];
+    id arg = nil;
+    if (index >= 0) {
+        arg = [[_items objectAtIndex:index] objectForKey:@"Argument"];
+    }
+    if ([arg isKindOfClass:[NSArray class]])
+        return arg;
+    else if ([arg isKindOfClass:[NSString class]])
+        return [arg componentsSeparatedByString:@" "];
+    else
+        return [NSArray array];
+}
+
 @end
 
 
@@ -273,7 +308,7 @@ Class ToolOptionClassByType(NSString *type) {
 }
 
 - (id)newValue {
-    return  _view.stringValue;
+    return _view.stringValue;
 }
 
 - (void)renderControlWithBuilder:(UIBuilder *)builder {
@@ -282,6 +317,20 @@ Class ToolOptionClassByType(NSString *type) {
         [_view.cell setPlaceholderString:_placeholder];
     }
     _view.stringValue = self.currentValue;
+}
+
+- (NSArray *)currentCompilerArguments {
+    if ([[_info objectForKey:@"SkipIfEmpty"] boolValue] && [self.currentValue length] == 0)
+        return [NSArray array];
+
+    NSDictionary *data = [NSDictionary dictionaryWithObject:self.currentValue forKey:@"$(value)"];
+    id arg = [_info objectForKey:@"Argument"];
+    if ([arg isKindOfClass:[NSArray class]])
+        return [arg arrayBySubstitutingValuesFromDictionary:data];
+    else if ([arg isKindOfClass:[NSString class]])
+        return [[arg componentsSeparatedByString:@" "] arrayBySubstitutingValuesFromDictionary:data];
+    else
+        return [NSArray array];
 }
 
 @end

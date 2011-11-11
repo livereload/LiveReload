@@ -13,6 +13,8 @@
 
 @property(nonatomic, readonly) NSString *identifier;
 
+@property(nonatomic, readonly) NSArray *currentCompilerArguments;
+
 - (void)renderWithBuilder:(UIBuilder *)builder;
 
 - (void)save;
