@@ -4,7 +4,6 @@
 #import "Compiler.h"
 #import "CompilerVersion.h"
 
-#import "Bag.h"
 #import "ATFunctionalStyle.h"
 
 
@@ -12,7 +11,6 @@
 
 @synthesize compiler=_compiler;
 @synthesize version=_version;
-@synthesize globalOptions=_globalOptions;
 @synthesize additionalArguments=_additionalArguments;
 
 
@@ -22,12 +20,12 @@
     self = [super init];
     if (self) {
         _compiler = [compiler retain];
-        _globalOptions = [[Bag alloc] init];
+        _globalOptions = [[NSMutableDictionary alloc] init];
         _fileOptions = [[NSMutableDictionary alloc] init];
 
-        id raw = [memento objectForKey:@"global"];
+        id raw = [memento objectForKey:@"options"];
         if (raw) {
-            [_globalOptions addEntriesFromDictionary:raw];
+            [_globalOptions setValuesForKeysWithDictionary:raw];
         }
 
         raw = [memento objectForKey:@"files"];
@@ -59,7 +57,7 @@
 #pragma mark - Persistence
 
 - (NSDictionary *)memento {
-    return [NSDictionary dictionaryWithObjectsAndKeys:_globalOptions.dictionary, @"global", [_fileOptions dictionaryByMappingValuesToSelector:@selector(memento)], @"files", _additionalArguments, @"additionalArguments", nil];
+    return [NSDictionary dictionaryWithObjectsAndKeys:_globalOptions, @"options", [_fileOptions dictionaryByMappingValuesToSelector:@selector(memento)], @"files", _additionalArguments, @"additionalArguments", nil];
 }
 
 
@@ -102,6 +100,16 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
     }
 }
+
+- (id)valueForOptionIdentifier:(NSString *)optionIdentifier {
+    return [_globalOptions objectForKey:optionIdentifier];
+}
+
+- (void)setValue:(id)value forOptionIdentifier:(NSString *)optionIdentifier {
+    [_globalOptions setObject:value forKey:optionIdentifier];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+}
+
 
 
 #pragma mark - File options

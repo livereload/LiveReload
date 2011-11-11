@@ -3,6 +3,7 @@
 
 #import "Compiler.h"
 #import "Project.h"
+#import "CompilationOptions.h"
 #import "UIBuilder.h"
 
 
@@ -19,6 +20,13 @@
 - (id)initWithCompiler:(Compiler *)compiler project:(Project *)project optionInfo:(NSDictionary *)optionInfo;
 
 - (void)parse;
+
+@property(nonatomic, retain) id storedValue;
+@property(nonatomic, readonly) id currentValue;
+
+- (id)defaultValue; // subclasses must override
+- (id)newValue;     // subclasses must override
+- (void)updateNewValue;
 
 @end
 
@@ -93,6 +101,37 @@ Class ToolOptionClassByType(NSString *type) {
 }
 
 
+#pragma mark - Values
+
+- (id)storedValue {
+    CompilationOptions *options = [_project optionsForCompiler:_compiler create:NO];
+    return [options valueForOptionIdentifier:_identifier];
+}
+
+- (void)setStoredValue:(id)value {
+    CompilationOptions *options = [_project optionsForCompiler:_compiler create:YES];
+    [options setValue:value forOptionIdentifier:_identifier];
+}
+
+- (id)currentValue {
+    return self.storedValue ?: self.defaultValue;
+}
+
+- (id)defaultValue {
+    NSAssert(NO, @"Must implement defaultValue");
+    return nil;
+}
+
+- (id)newValue {
+    NSAssert(NO, @"Must implement newValue");
+    return nil;
+}
+
+- (void)updateNewValue {
+    [self setStoredValue:[self newValue]];
+}
+
+
 #pragma mark - Rendering
 
 - (void)renderControlWithBuilder:(UIBuilder *)builder {
@@ -113,11 +152,14 @@ Class ToolOptionClassByType(NSString *type) {
 }
 
 - (void)save {
+    [self updateNewValue];
 }
 
 @end
 
 
+
+#pragma mark - Check Box
 
 @implementation CheckBoxToolOption {
     NSString              *_title;
@@ -135,16 +177,30 @@ Class ToolOptionClassByType(NSString *type) {
     [super dealloc];
 }
 
-- (void)renderControlWithBuilder:(UIBuilder *)builder {
-    _view = [[builder addCheckboxWithTitle:_title] retain];
+- (id)defaultValue {
+    return [NSNumber numberWithBool:NO];
 }
 
-- (void)save {
+- (id)newValue {
+    return [NSNumber numberWithBool:_view.state == NSOnState];
+}
+
+- (void)renderControlWithBuilder:(UIBuilder *)builder {
+    _view = [[builder addCheckboxWithTitle:_title] retain];
+    [_view setTarget:self];
+    [_view setAction:@selector(checkBoxClicked:)];
+    _view.state = [self.currentValue boolValue] ? NSOnState : NSOffState;
+}
+
+- (IBAction)checkBoxClicked:(id)sender {
+    [self updateNewValue];
 }
 
 @end
 
 
+
+#pragma mark - Select
 
 @implementation SelectToolOption {
     NSArray               *_items;
@@ -162,18 +218,39 @@ Class ToolOptionClassByType(NSString *type) {
     [super dealloc];
 }
 
+- (id)defaultValue {
+    return [[_items objectAtIndex:0] objectForKey:@"Id"];
+}
+
+- (id)newValue {
+    NSInteger index = [_view indexOfSelectedItem];
+    if (index == -1)
+        return self.defaultValue;
+    return [[_items objectAtIndex:index] objectForKey:@"Id"];
+}
+
+- (NSInteger)indexOfItemWithIdentifier:(NSString *)itemIdentifier {
+    NSInteger index = 0;
+    for (NSDictionary *itemInfo in _items) {
+        if ([[itemInfo objectForKey:@"Id"] isEqualToString:itemIdentifier]) {
+            return index;
+        }
+        ++index;
+    }
+    return -1;
+}
+
 - (void)renderControlWithBuilder:(UIBuilder *)builder {
     _view = [[builder addPopUpButton] retain];
     [_view addItemsWithTitles:[_items valueForKeyPath:@"Title"]];
+    [_view selectItemAtIndex:[self indexOfItemWithIdentifier:self.currentValue]];
 }
-
-- (void)save {
-}
-
 
 @end
 
 
+
+#pragma mark - Edit
 
 @implementation EditToolOption {
     NSString              *_placeholder;
@@ -191,14 +268,20 @@ Class ToolOptionClassByType(NSString *type) {
     [super dealloc];
 }
 
+- (id)defaultValue {
+    return @"";
+}
+
+- (id)newValue {
+    return  _view.stringValue;
+}
+
 - (void)renderControlWithBuilder:(UIBuilder *)builder {
     _view = [[builder addTextField] retain];
     if (_placeholder.length > 0) {
         [_view.cell setPlaceholderString:_placeholder];
     }
-}
-
-- (void)save {
+    _view.stringValue = self.currentValue;
 }
 
 @end

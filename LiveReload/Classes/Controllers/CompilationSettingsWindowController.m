@@ -15,7 +15,7 @@
 
 
 @interface CompilationSettingsWindowController () {
-
+    NSArray               *_compilerOptions;
     BOOL                   _populatingRubyVersions;
     NSArray               *_rubyVersions;
 }
@@ -31,6 +31,12 @@
 @synthesize nodeVersionsPopUpButton = _nodeVersionsPopUpButton;
 @synthesize rubyVersionsPopUpButton = _rubyVersionsPopUpButton;
 
+- (void)dealloc {
+    [_compilerOptions release], _compilerOptions = nil;
+    [_rubyVersions release], _rubyVersions = nil;
+    [super dealloc];
+}
+
 
 #pragma mark - Actions
 
@@ -41,12 +47,10 @@
 
 #pragma mark - Compiler settings
 
-- (void)renderSettingsForCompiler:(Compiler *)compiler withBuilder:(UIBuilder *)builder isFirst:(BOOL *)isFirstCompiler {
+- (void)renderOptions:(NSArray *)options forCompiler:(Compiler *)compiler withBuilder:(UIBuilder *)builder isFirst:(BOOL *)isFirstCompiler {
     if (!*isFirstCompiler)
         [builder addVisualBreak];
     *isFirstCompiler = NO;
-
-    NSArray *options = [compiler optionsForProject:_project];
 
     BOOL isFirst = YES;
     for (ToolOption *option in options) {
@@ -67,15 +71,18 @@
 
 #pragma mark - Model sync
 
-- (void)render {
+- (void)renderCompilerOptions {
     NSArray *compilers = _project.compilersInUse;
+    NSMutableArray *allOptions = [[NSMutableArray alloc] init];
 
     UIBuilder *builder = [[UIBuilder alloc] initWithWindow:self.window];
     [builder buildUIWithTopInset:kWindowTopMargin bottomInset:kWindowBottomMargin block:^{
         if (compilers.count > 0) {
             BOOL isFirst = YES;
             for (Compiler *compiler in compilers) {
-                [self renderSettingsForCompiler:compiler withBuilder:builder isFirst:&isFirst];
+                NSArray *options = [compiler optionsForProject:_project];
+                [self renderOptions:options forCompiler:compiler withBuilder:builder isFirst:&isFirst];
+                [allOptions addObjectsFromArray:options];
             }
         } else {
             [builder addFullWidthLabel:@"No compilable files found in this folder."];
@@ -83,10 +90,19 @@
     }];
     [builder release];
 
+    _compilerOptions = [[NSArray alloc] initWithArray:allOptions];
+    [allOptions release];
+}
+
+- (void)render {
+    [self renderCompilerOptions];
     [self populateToolVersions];
 }
 
 - (void)save {
+    for (ToolOption *option in _compilerOptions) {
+        [option save];
+    }
 }
 
 
