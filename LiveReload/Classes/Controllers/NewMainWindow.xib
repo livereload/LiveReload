@@ -58,7 +58,7 @@
 				<string key="NSWindowRect">{{196, 168}, {738, 492}}</string>
 				<int key="NSWTFlags">1618477056</int>
 				<string key="NSWindowTitle">LiveReload</string>
-				<string key="NSWindowClass">NSWindow</string>
+				<string key="NSWindowClass">MainWindow</string>
 				<nil key="NSViewClass"/>
 				<nil key="NSUserInterfaceItemIdentifier"/>
 				<object class="NSView" key="NSWindowView" id="1006">
@@ -242,6 +242,7 @@
 							<string key="NSFrame">{{199, 4}, {542, 14}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:3935</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="316763873">
@@ -475,6 +476,7 @@
 						<string key="NSFrameSize">{536, 470}</string>
 						<reference key="NSSuperview" ref="434293622"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSImageCell" key="NSCell" id="828375185">
 							<int key="NSCellFlags">130560</int>
@@ -566,7 +568,7 @@
 						<string key="NSFrame">{{39, 279}, {453, 39}}</string>
 						<reference key="NSSuperview" ref="189526605"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="538826823"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:354</string>
 						<string key="NSAntiCompressionPriority">{250, 750}</string>
 						<bool key="NSEnabled">YES</bool>
@@ -637,6 +639,7 @@
 						<string key="NSFrame">{{395, 62}, {103, 32}}</string>
 						<reference key="NSSuperview" ref="189526605"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:161</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="829092174">
@@ -948,6 +951,7 @@
 						<string key="NSFrame">{{17, -1}, {28, 18}}</string>
 						<reference key="NSSuperview" ref="1042802533"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:868</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSPopUpButtonCell" key="NSCell" id="712679320">
@@ -1384,6 +1388,22 @@
 						<reference key="destination" ref="348907901"/>
 					</object>
 					<int key="connectionID">627</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">snippetBodyTextField</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="600227993"/>
+					</object>
+					<int key="connectionID">628</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">delegate</string>
+						<reference key="source" ref="1005"/>
+						<reference key="destination" ref="1001"/>
+					</object>
+					<int key="connectionID">629</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -2164,7 +2184,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">627</int>
+			<int key="maxID">631</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2175,6 +2195,14 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/ImageAndTextCell.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">MainWindow</string>
+					<string key="superclassName">NSWindow</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/MainWindow.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -2212,6 +2240,7 @@
 							<string>projectOutlineView</string>
 							<string>projectPane</string>
 							<string>removeProjectButton</string>
+							<string>snippetBodyTextField</string>
 							<string>snippetLabelField</string>
 							<string>statusTextField</string>
 							<string>titleBarSideView</string>
@@ -2238,6 +2267,7 @@
 							<string>NSOutlineView</string>
 							<string>NSView</string>
 							<string>NSButton</string>
+							<string>NSTextField</string>
 							<string>NSTextField</string>
 							<string>NSTextField</string>
 							<string>NSView</string>
@@ -2267,6 +2297,7 @@
 							<string>projectOutlineView</string>
 							<string>projectPane</string>
 							<string>removeProjectButton</string>
+							<string>snippetBodyTextField</string>
 							<string>snippetLabelField</string>
 							<string>statusTextField</string>
 							<string>titleBarSideView</string>
@@ -2343,6 +2374,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">removeProjectButton</string>
 								<string key="candidateClassName">NSButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">snippetBodyTextField</string>
+								<string key="candidateClassName">NSTextField</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">snippetLabelField</string>

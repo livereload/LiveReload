@@ -44,6 +44,7 @@
 @property (assign) IBOutlet NSTextField *nameTextField;
 @property (assign) IBOutlet NSTextField *pathTextField;
 @property (assign) IBOutlet NSTextField *snippetLabelField;
+@property (assign) IBOutlet NSTextField *snippetBodyTextField;
 @property (assign) IBOutlet NSTextField *monitoringSummaryLabelField;
 @property (assign) IBOutlet NSButton *compilerEnabledCheckBox;
 @property (assign) IBOutlet NSButton *postProcessingEnabledCheckBox;

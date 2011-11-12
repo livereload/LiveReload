@@ -48,6 +48,7 @@
 		43C0368613CA191D00A01305 /* LiveReload.icns in Resources */ = {isa = PBXBuildFile; fileRef = 43C0368513CA191C00A01305 /* LiveReload.icns */; };
 		43E4BBE813C5DA7900A75F81 /* CoffeeScript.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43E4BBE713C5DA7900A75F81 /* CoffeeScript.lrplugin */; };
 		43E5DF621462829B0016CDA0 /* ImageAndTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E5DF611462829B0016CDA0 /* ImageAndTextCell.m */; };
+		43F002CF146EC97B005D48A4 /* MainWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F002CE146EC97B005D48A4 /* MainWindow.m */; };
 		43F50BF71466F7A1004FD951 /* PostProcessingSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F50BF61466F7A1004FD951 /* PostProcessingSettingsWindowController.m */; };
 		43F50BF91466FAB7004FD951 /* PostProcessingSettingsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43F50BF81466FAB7004FD951 /* PostProcessingSettingsWindowController.xib */; };
 		43F50BFC146706B0004FD951 /* BaseProjectSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F50BFB146706B0004FD951 /* BaseProjectSettingsWindowController.m */; };
@@ -206,6 +207,8 @@
 		43E4BBE713C5DA7900A75F81 /* CoffeeScript.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = CoffeeScript.lrplugin; path = Compilers/CoffeeScript.lrplugin; sourceTree = SOURCE_ROOT; };
 		43E5DF601462829B0016CDA0 /* ImageAndTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageAndTextCell.h; sourceTree = "<group>"; };
 		43E5DF611462829B0016CDA0 /* ImageAndTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageAndTextCell.m; sourceTree = "<group>"; };
+		43F002CD146EC97B005D48A4 /* MainWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindow.h; sourceTree = "<group>"; };
+		43F002CE146EC97B005D48A4 /* MainWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainWindow.m; sourceTree = "<group>"; };
 		43F50BF51466F7A1004FD951 /* PostProcessingSettingsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostProcessingSettingsWindowController.h; sourceTree = "<group>"; };
 		43F50BF61466F7A1004FD951 /* PostProcessingSettingsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostProcessingSettingsWindowController.m; sourceTree = "<group>"; };
 		43F50BF81466FAB7004FD951 /* PostProcessingSettingsWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostProcessingSettingsWindowController.xib; sourceTree = "<group>"; };
@@ -525,6 +528,8 @@
 				823DDE3F13F8DA3100529AD2 /* ToolOutputWindowController.h */,
 				823DDE4013F8DA3100529AD2 /* ToolOutputWindowController.m */,
 				823DDE4113F8DA3100529AD2 /* ToolOutputWindowController.xib */,
+				43F002CD146EC97B005D48A4 /* MainWindow.h */,
+				43F002CE146EC97B005D48A4 /* MainWindow.m */,
 				435BE041141B72A60008FF77 /* NewMainWindow.xib */,
 				435BE043141B87920008FF77 /* NewMainWindowController.h */,
 				435BE044141B87920008FF77 /* NewMainWindowController.m */,
@@ -992,6 +997,7 @@
 				43534042146D161900DD66B0 /* RubyVersion.m in Sources */,
 				4310DE3D146DB588003091D1 /* ToolOptions.m in Sources */,
 				4310DE40146DB6A0003091D1 /* UIBuilder.m in Sources */,
+				43F002CF146EC97B005D48A4 /* MainWindow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

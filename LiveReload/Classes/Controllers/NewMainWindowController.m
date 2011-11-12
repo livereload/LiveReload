@@ -64,6 +64,7 @@ enum { PANE_COUNT = PaneProject+1 };
 @synthesize nameTextField = _nameTextField;
 @synthesize pathTextField = _pathTextField;
 @synthesize snippetLabelField = _snippetLabelField;
+@synthesize snippetBodyTextField = _snippetBodyTextField;
 @synthesize monitoringSummaryLabelField = _monitoringSummaryLabelField;
 @synthesize compilerEnabledCheckBox = _compilerEnabledCheckBox;
 @synthesize postProcessingEnabledCheckBox = _postProcessingEnabledCheckBox;
@@ -237,6 +238,20 @@ enum { PANE_COUNT = PaneProject+1 };
 
     [self updateWelcomePane];
     [self updateProjectPane];
+}
+
+
+#pragma mark - Project Pane
+
+- (void)window:(NSWindow *)window didChangeFirstResponder:(NSResponder *)responder {
+    if (responder == _snippetBodyTextField) {
+        // doing this immediately does not work because NSTextField needs time to make its field editor the first responder
+        // http://stackoverflow.com/questions/2195704/selecttext-of-nstextfield-on-focus
+        [_snippetBodyTextField performSelector:@selector(selectText:) withObject:nil afterDelay:0.0];
+
+        // not trying to copy automatically because this will require a stupid UI ("copied!" label),
+        // and I physically miss pressing Command-C anyway
+    }
 }
 
 
