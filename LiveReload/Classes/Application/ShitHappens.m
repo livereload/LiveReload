@@ -13,6 +13,11 @@ void TenderShowArticle(NSString *urlSuffix) {
     [[NSWorkspace sharedWorkspace] openURL:url];
 }
 
+void TenderStartDiscussionIn(NSString *category) {
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://help.livereload.com/discussions/%@#new_topic_form", category]];
+    [[NSWorkspace sharedWorkspace] openURL:url];
+}
+
 void TenderStartDiscussion(NSString *subject, NSString *body) {
     NSString *internalVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
     body = [body stringByAppendingFormat:@"\n\nI'm using LiveReload v%@.\n", internalVersion];

@@ -42,6 +42,7 @@
 		43594AF413D3BB34004175B2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43594AF313D3BB34004175B2 /* QuartzCore.framework */; };
 		435BE042141B72A60008FF77 /* NewMainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 435BE041141B72A60008FF77 /* NewMainWindow.xib */; };
 		435BE045141B87920008FF77 /* NewMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 435BE044141B87920008FF77 /* NewMainWindowController.m */; };
+		4376A0E2146DF1C800338AD4 /* TitleBarHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */; };
 		4379ADCB141D1060008C836F /* livereload.js in Resources */ = {isa = PBXBuildFile; fileRef = 4379ADC9141D00CE008C836F /* livereload.js */; };
 		439C093313ADCBDD00119233 /* monitoring.plist in Resources */ = {isa = PBXBuildFile; fileRef = 439C093213ADCBDD00119233 /* monitoring.plist */; };
 		43C0368613CA191D00A01305 /* LiveReload.icns in Resources */ = {isa = PBXBuildFile; fileRef = 43C0368513CA191C00A01305 /* LiveReload.icns */; };
@@ -197,6 +198,7 @@
 		435BE041141B72A60008FF77 /* NewMainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewMainWindow.xib; sourceTree = "<group>"; };
 		435BE043141B87920008FF77 /* NewMainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewMainWindowController.h; sourceTree = "<group>"; };
 		435BE044141B87920008FF77 /* NewMainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewMainWindowController.m; sourceTree = "<group>"; };
+		4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TitleBarHelpTemplate.png; sourceTree = "<group>"; };
 		4379ADC9141D00CE008C836F /* livereload.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = livereload.js; sourceTree = "<group>"; };
 		439C093213ADCBDD00119233 /* monitoring.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = monitoring.plist; sourceTree = "<group>"; };
 		43A265E613DCEAE600704BF6 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
@@ -770,6 +772,7 @@
 				431466A2146CA23F00DC075A /* PlaceholderTemplate.png */,
 				4314669E146C9C0B00DC075A /* AddTemplate.png */,
 				4314669F146C9C0B00DC075A /* RemoveTemplate.png */,
+				4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */,
 				4314669A146C689500DC075A /* FolderIcon64.png */,
 				4353197014668E7D005FA59F /* LRHelpTemplate.png */,
 				4353197114668E7D005FA59F /* LRSupportTemplate.png */,
@@ -892,6 +895,7 @@
 				431466A1146C9C0B00DC075A /* RemoveTemplate.png in Resources */,
 				431466A3146CA23F00DC075A /* PlaceholderTemplate.png in Resources */,
 				4353403C146CC8A400DD66B0 /* MonitoringSettingsWindowController.xib in Resources */,
+				4376A0E2146DF1C800338AD4 /* TitleBarHelpTemplate.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -18,6 +18,10 @@
     NSWindowController    *_projectSettingsSheetController;
 }
 
+@property (assign) IBOutlet NSView *titleBarSideView;
+@property (assign) IBOutlet NSMenuItem *versionMenuItem;
+@property (assign) IBOutlet NSMenuItem *openAtLoginMenuItem;
+
 @property (assign) IBOutlet NSOutlineView *projectOutlineView;
 @property (assign) IBOutlet NSButton *addProjectButton;
 @property (assign) IBOutlet NSButton *removeProjectButton;

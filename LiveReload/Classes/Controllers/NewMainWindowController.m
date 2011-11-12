@@ -16,6 +16,9 @@
 #import "Project.h"
 #import "Preferences.h"
 
+#import "ShitHappens.h"
+#import "LoginItemController.h"
+
 
 typedef enum {
     PaneWelcome,
@@ -35,6 +38,8 @@ enum { PANE_COUNT = PaneProject+1 };
 
 - (void)updateStatus;
 
+- (void)updateOpenAtLoginState;
+
 @end
 
 
@@ -46,6 +51,9 @@ enum { PANE_COUNT = PaneProject+1 };
 @synthesize paneBorderBox = _paneBorderBox;
 @synthesize panePlaceholder = _panePlaceholder;
 @synthesize projectPane = _projectPane;
+@synthesize titleBarSideView = _titleBarSideView;
+@synthesize versionMenuItem = _versionMenuItem;
+@synthesize openAtLoginMenuItem = _openAtLoginMenuItem;
 @synthesize projectOutlineView = _projectOutlineView;
 @synthesize addProjectButton = _addProjectButton;
 @synthesize removeProjectButton = _removeProjectButton;
@@ -134,7 +142,13 @@ enum { PANE_COUNT = PaneProject+1 };
 - (void)windowDidLoad {
     [super windowDidLoad];
     NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
-    self.window.title = [NSString stringWithFormat:@"LiveReload %@", version];
+    _versionMenuItem.title = [NSString stringWithFormat:@"LiveReload %@", version];
+
+    // add frame controls
+    NSView *themeFrame = [self.window.contentView superview];
+    CGFloat titleBarHeight = [self.window frame].size.height - [self.window contentRectForFrameRect:[self.window frame]].size.height - 2;
+    _titleBarSideView.frame = NSMakeRect(themeFrame.frame.size.width - _titleBarSideView.frame.size.width - 16, themeFrame.frame.size.height - titleBarHeight + (titleBarHeight - _titleBarSideView.frame.size.height) / 2, _titleBarSideView.frame.size.width, _titleBarSideView.frame.size.height);
+    [themeFrame addSubview:_titleBarSideView];
 
     [_projectOutlineView registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
     [_projectOutlineView setDraggingSourceOperationMask:NSDragOperationCopy|NSDragOperationLink forLocal:NO];
@@ -167,6 +181,7 @@ enum { PANE_COUNT = PaneProject+1 };
     _panes = [[NSArray alloc] initWithObjects:_welcomePane, _projectPane, nil];
 
     [self selectedProjectDidChange];
+    [self updateOpenAtLoginState];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(communicationStateChanged:) name:CommunicationStateChangedNotification object:nil];
     [[CommunicationController sharedCommunicationController] addObserver:self forKeyPath:@"numberOfProcessedChanges" options:0 context:nil];
@@ -380,6 +395,40 @@ enum { PANE_COUNT = PaneProject+1 };
         [_projectOutlineView deselectAll:nil];
     }
 }
+
+- (IBAction)performHelp:(id)sender {
+    TenderDisplayHelp();
+}
+
+- (IBAction)performWebSite:(id)sender {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://livereload.com/"]];
+}
+
+- (IBAction)performReportProblem:(id)sender {
+    TenderStartDiscussionIn(@"problems");
+}
+
+- (IBAction)performAskQuestion:(id)sender {
+    TenderStartDiscussionIn(@"questions");
+}
+
+- (IBAction)performSuggest:(id)sender {
+    TenderStartDiscussionIn(@"suggestions");
+}
+
+- (void)updateOpenAtLoginState {
+    _openAtLoginMenuItem.state = ([LoginItemController sharedController].loginItemEnabled ? NSOnState : NSOffState);
+}
+
+- (IBAction)toggleOpenAtLogin:(id)sender {
+    [LoginItemController sharedController].loginItemEnabled = ![LoginItemController sharedController].loginItemEnabled;
+    [self updateOpenAtLoginState];
+}
+
+- (IBAction)performQuit:(id)sender {
+    [NSApp terminate:self];
+}
+
 
 - (IBAction)helpSupportClicked:(NSSegmentedControl *)sender {
     if (sender.selectedSegment == 0) {
