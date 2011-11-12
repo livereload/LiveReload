@@ -54,7 +54,7 @@
                                          defaultButton:@"Visit our site"
                                        alternateButton:@"Quit LiveReload"
                                            otherButton:nil
-                             informativeTextWithFormat:@"Sorry, this beta version of LiveReload has expired and cannot be launched.\n\nPlease visit http://livereload.mockko.com/ to get an updated version."] runModal];
+                             informativeTextWithFormat:@"Sorry, this beta version of LiveReload has expired and cannot be launched.\n\nPlease visit http://livereload.com/ to get an updated version."] runModal];
         if (ans == NSAlertDefaultReturn) {
             [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://livereload.com/"]];
         } else {
