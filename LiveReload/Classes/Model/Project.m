@@ -296,7 +296,7 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
             continue;
         if ([compiler.extensions containsObject:extension]) {
             compilerFound = YES;
-            CompilationOptions *compilationOptions = [self optionsForCompiler:compiler create:NO];
+            CompilationOptions *compilationOptions = [self optionsForCompiler:compiler create:_compilationEnabled];
             if (_compilationEnabled) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:ProjectWillBeginCompilationNotification object:self];
                 [self compile:relativePath under:_path with:compiler options:compilationOptions];
