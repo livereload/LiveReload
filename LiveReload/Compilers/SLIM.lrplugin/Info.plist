@@ -8,7 +8,7 @@
 			<key>CommandLine</key>
 			<array>
 				<string>$(ruby)</string>
-				<string>$(plugin)/lib/slim-1.0.2/bin/slimrb</string>
+				<string>$(plugin)/lib/slim/bin/slimrb</string>
 				<string>$(additional)</string>
 				<string>$(src_path)</string>
 				<string>$(dst_path)</string>
@@ -16,8 +16,7 @@
 			<key>DestinationExtension</key>
 			<string>html</string>
 			<key>Errors</key>
-			<array>
-			</array>
+			<array/>
 			<key>ExpectedOutputDirectories</key>
 			<array>
 				<string>html</string>

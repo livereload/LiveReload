@@ -9,7 +9,7 @@
 			<array>
 				<string>$(ruby)</string>
 				<string>-rubygems</string>
-				<string>$(plugin)/lib/sass-3.1.4/bin/sass</string>
+				<string>$(plugin)/lib/sass/bin/sass</string>
 				<string>$(additional)</string>
 				<string>$(src_path)</string>
 				<string>$(dst_path)</string>
@@ -113,10 +113,10 @@
 			<array>
 				<string>$(ruby)</string>
 				<string>-rubygems</string>
-				<string>-I$(plugin)/lib/sass-3.1.4/lib</string>
-				<string>-I$(plugin)/lib/compass-0.11.5/lib</string>
-				<string>-I$(plugin)/lib/chunky_png-1.2.0/lib</string>
-				<string>$(plugin)/lib/compass-0.11.5/bin/compass</string>
+				<string>-I$(plugin)/lib/sass/lib</string>
+				<string>-I$(plugin)/lib/compass/lib</string>
+				<string>-I$(plugin)/lib/chunky_png/lib</string>
+				<string>$(plugin)/lib/compass/bin/compass</string>
 				<string>compile</string>
 				<string>-q</string>
 				<string>$(additional)</string>
