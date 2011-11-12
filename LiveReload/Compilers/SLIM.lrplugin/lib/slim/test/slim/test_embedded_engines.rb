@@ -1,26 +1,6 @@
 require 'helper'
-begin
-  require('creole/template')
-rescue LoadError
-end
 
 class TestSlimEmbeddedEngines < TestSlim
-  def test_render_with_haml
-    source = %q{
-p
-  - text = 'haml'
-  haml:
-    - passed_from_haml = 'from haml'
-    %b Hello from #{text.upcase}!
-    Second Line!
-    - if true
-      = true
-  = passed_from_haml
-}
-
-    assert_html "<p><b>Hello from HAML!</b>\nSecond Line!\ntrue\nfrom haml</p>", source
-  end
-
   def test_render_with_erb
     source = %q{
 p
@@ -40,13 +20,19 @@ p
 markdown:
   #Header
   Hello from #{"Markdown!"}
-
+  
   #{1+2}
-
+  
   * one
   * two
 }
-    assert_html "<h1>Header</h1>\n\n<p>Hello from Markdown!</p>\n\n<p>3</p>\n\n<ul>\n<li>one</li>\n<li>two</li>\n</ul>\n\n", source
+    assert_html "<h1 id=\"header\">Header</h1>\n<p>Hello from Markdown!</p>\n\n<p>3</p>\n\n<ul>\n  <li>one</li>\n  <li>two</li>\n</ul>\n", source
+
+    Slim::EmbeddedEngine.default_options[:markdown] = {:auto_ids => false}
+    assert_html "<h1>Header</h1>\n<p>Hello from Markdown!</p>\n\n<p>3</p>\n\n<ul>\n  <li>one</li>\n  <li>two</li>\n</ul>\n", source
+    Slim::EmbeddedEngine.default_options[:markdown] = nil
+
+    assert_html "<h1 id=\"header\">Header</h1>\n<p>Hello from Markdown!</p>\n\n<p>3</p>\n\n<ul>\n  <li>one</li>\n  <li>two</li>\n</ul>\n", source
   end
 
   def test_render_with_creole
@@ -58,10 +44,29 @@ creole:
     assert_html "<h1>head1</h1><h2>head2</h2>", source
   end
 
+  def test_render_with_builder
+    source = %q{
+builder:
+  xml.p(:id => 'test') {
+    xml.text!('Hello')
+  }
+}
+    assert_html "<p id=\"test\">\nHello</p>\n", source
+  end
+
+  def test_render_with_wiki
+    source = %q{
+wiki:
+  = head1
+  == head2
+}
+    assert_html "<h1>head1</h1><h2>head2</h2>", source
+  end
+
   def test_render_with_javascript
     # Keep the trailing space behind "javascript:   "!
     source = %q{
-javascript:
+javascript:   
   $(function() {});
 
 
@@ -71,11 +76,17 @@ p Hi
     assert_html %{<script type="text/javascript">$(function() {});\n\n\nalert('hello')</script><p>Hi</p>}, source
   end
 
+  def test_render_with_javascript_with_tabs
+    # Keep the trailing space behind "javascript:   "!
+    source = "javascript:\n\t$(function() {});\n\talert('hello')\np Hi"
+    assert_html "<script type=\"text/javascript\">$(function() {});\nalert('hello')</script><p>Hi</p>", source
+  end
+
   def test_render_with_javascript_including_variable
     # Keep the trailing space behind "javascript:   "!
     source = %q{
 - func = "alert('hello');"
-javascript:
+javascript:   
   $(function() { #{func} });
 }
     assert_html %q|<script type="text/javascript">$(function() { alert('hello'); });</script>|, source
@@ -89,16 +100,6 @@ ruby:
 = variable
 }
     assert_html '3', source
-  end
-
-  def test_render_with_liquid
-    source = %q{
-p
-  - text = 'before liquid block'
-  liquid:
-    <span>{{text}}</span>
-}
-    assert_html "<p><span>before liquid block</span></p>", source
   end
 
   def test_render_with_scss

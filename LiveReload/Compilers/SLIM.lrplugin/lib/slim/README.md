@@ -141,7 +141,7 @@ Here's a quick example to demonstrate what a Slim template looks like:
 #### If your ruby code needs to use multiple lines, append a `\` at the end of the lines, for example:
     = javascript_include_tag \
        "jquery", \
-       "application"`
+       "application"
 
 ### Wrap attributes with delimiters
 
@@ -303,18 +303,21 @@ Here's a quick example to demonstrate what a Slim template looks like:
     (1) slim          4.330000   0.020000   4.350000 (  4.495633)
     (1) haml          4.680000   0.020000   4.700000 (  4.747019)
     (1) haml ugly     4.530000   0.020000   4.550000 (  4.592425)
+    
     (2) erb           0.240000   0.000000   0.240000 (  0.235896)
     (2) erubis        0.180000   0.000000   0.180000 (  0.185349)
     (2) fast erubis   0.150000   0.000000   0.150000 (  0.154970)
     (2) slim          0.050000   0.000000   0.050000 (  0.046685)
     (2) haml          0.490000   0.000000   0.490000 (  0.497864)
     (2) haml ugly     0.420000   0.000000   0.420000 (  0.428596)
+    
     (3) erb           0.030000   0.000000   0.030000 (  0.033979)
     (3) erubis        0.030000   0.000000   0.030000 (  0.030705)
     (3) fast erubis   0.040000   0.000000   0.040000 (  0.035229)
     (3) slim          0.040000   0.000000   0.040000 (  0.036249)
     (3) haml          0.160000   0.000000   0.160000 (  0.165024)
     (3) haml ugly     0.150000   0.000000   0.150000 (  0.146130)
+    
     (4) erb           0.060000   0.000000   0.060000 (  0.059847)
     (4) erubis        0.040000   0.000000   0.040000 (  0.040770)
     (4) slim          0.040000   0.000000   0.040000 (  0.047389)
@@ -345,12 +348,14 @@ with 'rake test' and the rails integration tests with 'rake test:rails'.
 
 Travis-CI is used for continous integration testing: http://travis-ci.org/#!/stonean/slim
 
-Slim is working well on the following ruby implementations:
+Slim is working well on all major Ruby implementations:
 
 * Ruby 1.8.7
 * Ruby 1.9.2
+* Ruby 1.9.3
 * Ruby EE
 * JRuby
+* Rubinius 2.0
 
 ## License
 

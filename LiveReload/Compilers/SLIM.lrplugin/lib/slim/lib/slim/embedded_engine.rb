@@ -79,25 +79,20 @@ module Slim
     end
 
     def on_slim_embedded(name, body)
-      new_engine(name).on_slim_embedded(name, body)
-    end
-
-    protected
-
-    def new_engine(name)
       name = name.to_s
       raise "Embedded engine #{name} is disabled" if (options[:enable_engines] && !options[:enable_engines].include?(name)) ||
                                                      (options[:disable_engines] && options[:disable_engines].include?(name))
       engine, option_filter, local_options = self.class.engines[name] || raise("Embedded engine #{name} not found")
       filtered_options = Hash[*option_filter.select {|k| options.include?(k) }.map {|k| [k, options[k]] }.flatten]
-      engine.new(Temple::ImmutableHash.new(local_options, filtered_options))
+      engine.new(Temple::ImmutableHash.new(local_options, filtered_options)).on_slim_embedded(name, body)
     end
 
     # Basic tilt engine
-    class TiltEngine < Filter
+    class TiltEngine < EmbeddedEngine
       def on_slim_embedded(engine, body)
-        engine = Tilt[engine] || raise("Tilt engine #{engine} is not available.")
-        [:multi, render(engine, collect_text(body)), CollectNewlines.new.call(body)]
+        tilt_engine = Tilt[engine] || raise("Tilt engine #{engine} is not available.")
+        tilt_options = options[engine.to_sym] || {}
+        [:multi, tilt_render(tilt_engine, tilt_options, collect_text(body)), CollectNewlines.new.call(body)]
       end
 
       protected
@@ -111,8 +106,8 @@ module Slim
     class StaticTiltEngine < TiltEngine
       protected
 
-      def render(engine, text)
-        [:static, engine.new { text }.render]
+      def tilt_render(tilt_engine, tilt_options, text)
+        [:static, tilt_engine.new(tilt_options) { text }.render]
       end
     end
 
@@ -120,22 +115,11 @@ module Slim
     class SassEngine < TiltEngine
       protected
 
-      def render(engine, text)
-        text = engine.new(:style => (options[:pretty] ? :expanded : :compressed), :cache => false) { text }.render
+      def tilt_render(tilt_engine, tilt_options, text)
+        text = tilt_engine.new(tilt_options.merge(
+          :style => (options[:pretty] ? :expanded : :compressed), :cache => false)) { text }.render
         text.chomp!
         [:static, options[:pretty] ? "\n#{text}\n" : text]
-      end
-    end
-
-    # Tilt-based engine which is fully dynamically evaluated during runtime (Slow and uncached)
-    class DynamicTiltEngine < TiltEngine
-      protected
-
-      # Code to collect local variables
-      COLLECT_LOCALS = %q{eval('{' + local_variables.select {|v| v[0] != ?_ }.map {|v| ":#{v}=>#{v}" }.join(',') + '}')}
-
-      def render(engine, text)
-        [:dynamic, "#{engine.name}.new { #{text.inspect} }.render(self, #{COLLECT_LOCALS})"]
       end
     end
 
@@ -143,9 +127,9 @@ module Slim
     class PrecompiledTiltEngine < TiltEngine
       protected
 
-      def render(engine, text)
+      def tilt_render(tilt_engine, tilt_options, text)
         # WARNING: This is a bit of a hack. Tilt::Engine#precompiled is protected
-        [:dynamic, engine.new { text }.send(:precompiled, {}).first]
+        [:dynamic, tilt_engine.new(tilt_options) { text }.send(:precompiled, {}).first]
       end
     end
 
@@ -161,13 +145,13 @@ module Slim
         @protect.call(text)
       end
 
-      def render(engine, text)
-        @protect.unprotect(engine.new { text }.render)
+      def tilt_render(tilt_engine, tilt_options, text)
+        @protect.unprotect(tilt_engine.new(tilt_options) { text }.render)
       end
     end
 
     # ERB engine (uses the Temple ERB implementation)
-    class ERBEngine < Filter
+    class ERBEngine < EmbeddedEngine
       def on_slim_embedded(engine, body)
         Temple::ERB::Parser.new.call(CollectText.new.call(body))
       end
@@ -175,17 +159,17 @@ module Slim
 
     # Tag wrapper engine
     # Generates a html tag and wraps another engine (specified via :engine option)
-    class TagEngine < Filter
+    class TagEngine < EmbeddedEngine
       def on_slim_embedded(engine, body)
-        content = options[:engine] ? options[:engine].new(options).on_slim_embedded(engine, body) : [:multi, body]
+        content = options[:engine] ? options[:engine].new(options).on_slim_embedded(engine, body) : body
         [:html, :tag, options[:tag], [:html, :attrs, *options[:attributes].map {|k, v| [:html, :attr, k, [:static, v]] }], content]
       end
     end
 
     # Embeds ruby code
-    class RubyEngine < Filter
+    class RubyEngine < EmbeddedEngine
       def on_slim_embedded(engine, body)
-        [:code, "\n" + CollectText.new.call(body)]
+        [:code, CollectText.new.call(body) + "\n"]
       end
     end
 
@@ -194,6 +178,7 @@ module Slim
     register :textile,    InterpolateTiltEngine
     register :rdoc,       InterpolateTiltEngine
     register :creole,     InterpolateTiltEngine
+    register :wiki,       InterpolateTiltEngine
 
     # These engines are executed at compile time
     register :coffee,     TagEngine,  :tag => :script, :attributes => { :type => 'text/javascript' },  :engine => StaticTiltEngine
@@ -203,14 +188,8 @@ module Slim
 
     # These engines are precompiled, code is embedded
     register :erb,        ERBEngine
-    register :haml,       PrecompiledTiltEngine
     register :nokogiri,   PrecompiledTiltEngine
     register :builder,    PrecompiledTiltEngine
-
-    # These engines are completely executed at runtime (Usage not recommended, no caching!)
-    register :liquid,     DynamicTiltEngine
-    register :radius,     DynamicTiltEngine
-    register :markaby,    DynamicTiltEngine
 
     # Embedded javascript/css
     register :javascript, TagEngine,  :tag => :script, :attributes => { :type => 'text/javascript' }

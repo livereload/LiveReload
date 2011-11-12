@@ -27,7 +27,7 @@ module Slim
     # Boolean     | :sections          | false                         | Enable sections mode (logic-less)
     # String      | :dictionary        | "self"                        | Name of dictionary variable in sections mode
     # Symbol      | :dictionary_access | :wrapped                      | Access mode of dictionary variable (:wrapped, :symbol, :string)
-    # Boolean     | :disable_capture   | false (true in Rails)         | Disable capturing in blocks (blocks write to the default buffer
+    # Boolean     | :disable_capture   | false (true in Rails)         | Disable capturing in blocks (blocks write to the default buffer 
     # Boolean     | :disable_escape    | false                         | Disable automatic escaping of strings
     # Boolean     | :use_html_safe     | false (true in Rails)         | Use String#html_safe? from ActiveSupport (Works together with :disable_escape)
     # Symbol      | :format            | :xhtml                        | HTML output format

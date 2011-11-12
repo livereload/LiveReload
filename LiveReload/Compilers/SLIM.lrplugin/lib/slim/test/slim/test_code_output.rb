@@ -19,6 +19,14 @@ p
     assert_html '<p>Hello World from @env </p>', source
   end
 
+  def test_render_with_trailing_whitespace_after_tag
+    source = %q{
+p=' hello_world
+}
+
+    assert_html '<p>Hello World from @env</p> ', source
+  end
+
   def test_no_escape_render_with_trailing_whitespace
     source = %q{
 p
@@ -26,6 +34,14 @@ p
 }
 
     assert_html '<p>Hello World from @env </p>', source
+  end
+
+  def test_no_escape_render_with_trailing_whitespace_after_tag
+    source = %q{
+p==' hello_world
+}
+
+    assert_html '<p>Hello World from @env</p> ', source
   end
 
   def test_render_with_conditional_call
@@ -120,8 +136,8 @@ p(id="test")==hello_world
   def test_render_with_backslash_end
 # Keep trailing spaces!
     source = %q{
-p = \
-"Hello" + \
+p = \  
+"Hello" + \  
 " Ruby!"
 - variable = 1 + \
       2 + \
