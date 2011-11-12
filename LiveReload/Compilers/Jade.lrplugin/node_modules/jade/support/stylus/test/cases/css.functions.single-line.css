@@ -1,9 +1,0 @@
-body {
-  foo: false;
-  foo: true;
-}
-body {
-  foo: false;
-  foo: true;
-  foo: ;
-}
