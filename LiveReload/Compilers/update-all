@@ -1,0 +1,59 @@
+#! /bin/bash
+
+GEMS_DIR=/Library/Ruby/Gems/1.8/gems
+
+stage_and_commit() {
+    echo Committing $1...
+    git add -A .
+    git commit -m "Update $1" && git log -1
+}
+
+update_npm() {
+    prev=$(pwd)
+    echo Updating $1...
+    cd $1.lrplugin
+    rm -rf node_modules
+    npm install $2
+    cd node_modules
+    stage_and_commit $1
+    cd $prev
+}
+
+update_gem() {
+    prev=$(pwd)
+    compiler=$1
+    echo Updating $compiler...
+    cd $compiler.lrplugin
+    rm -rf lib
+    mkdir lib
+    cd lib
+    touch .keepwhitespace
+
+    while test -n "$2"; do
+        echo "sudo gem install $2"
+        sudo gem install $2
+
+        export cur_gem=$2
+        latest_ver=$(ls -1 $GEMS_DIR | ruby -ne 'puts "#{sprintf("%03d.%03d.%03d", $3, $4, $5)} #{$2}" if /^(\w+)-((\d+)\.(\d+)\.(\d+))\s*$/ && $1 == ENV["cur_gem"]' | sort | tail -1 | awk '{ print $2 }')
+        if test -n "$latest_ver"; then
+            echo "cp -r $2-$latest_ver"
+            cp -r $GEMS_DIR/$cur_gem-$latest_ver ./$cur_gem
+        else
+            echo "Gem $2 not found."
+            exit 1
+        fi
+
+        shift
+    done
+    stage_and_commit $compiler
+    cd $prev
+}
+
+update_npm  CoffeeScript   coffee-script
+update_npm  LESS           less
+update_npm  Stylus         stylus
+update_npm  Jade           jade
+
+update_gem  SASS  sass compass chunky_png
+update_gem  SLIM  slim temple tilt
+update_gem  HAML  haml
