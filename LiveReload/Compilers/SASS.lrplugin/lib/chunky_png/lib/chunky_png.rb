@@ -7,7 +7,7 @@ require 'enumerator'
 # ChunkyPNG - the pure ruby library to access PNG files.
 #
 # The ChunkyPNG module defines some constants that are used in the
-# PNG specification, specifies some exception classes, and serves as
+# PNG specification, specifies some exception classes, and serves as 
 # a namespace for all the other modules and classes in this library.
 #
 # {ChunkyPNG::Image}::      class to represent PNG images, including metadata.
@@ -23,35 +23,35 @@ require 'enumerator'
 # @author Willem van Bergen
 module ChunkyPNG
 
-  # The current version of ChunkyPNG. This value will be updated
+  # The current version of ChunkyPNG. This value will be updated 
   # automatically by them <tt>gem:release</tt> rake task.
-  VERSION = "1.2.0"
+  VERSION = "1.2.5"
 
   ###################################################
   # PNG international standard defined constants
   ###################################################
 
-  # Indicates that the PNG image uses grayscale colors, i.e. only a
+  # Indicates that the PNG image uses grayscale colors, i.e. only a 
   # single teint channel.
   # @private
   COLOR_GRAYSCALE       = 0
-
+  
   # Indicates that the PNG image uses true color, composed of a red
   # green and blue channel.
   # @private
   COLOR_TRUECOLOR       = 2
-
+  
   # Indicates that the PNG image uses indexed colors, where the values
   # point to colors defined on a palette.
   # @private
   COLOR_INDEXED         = 3
-
+  
   # Indicates that the PNG image uses grayscale colors with opacity, i.e.
   # a teint channel with an alpha channel.
   # @private
   COLOR_GRAYSCALE_ALPHA = 4
-
-  # Indicates that the PNG image uses true color with opacity, composed of
+  
+  # Indicates that the PNG image uses true color with opacity, composed of 
   # a red, green and blue channel, and an alpha value.
   # @private
   COLOR_TRUECOLOR_ALPHA = 6
@@ -64,9 +64,9 @@ module ChunkyPNG
   # Indicates that the image does not use interlacing.
   # @private
   INTERLACING_NONE      = 0
-
+  
   # Indicates that the image uses Adam7 interlacing.
-  # @private
+  # @private  
   INTERLACING_ADAM7     = 1
 
   ### Filter method constants
@@ -79,19 +79,19 @@ module ChunkyPNG
   # Indicates that no filtering is used for the scanline.
   # @private
   FILTER_NONE           = 0
-
+  
   # Indicates that SUB filtering is used for the scanline.
   # @private
   FILTER_SUB            = 1
-
+  
   # Indicates that UP filtering is used for the scanline.
   # @private
   FILTER_UP             = 2
-
+  
   # Indicates that AVERAGE filtering is used for the scanline.
   # @private
   FILTER_AVERAGE        = 3
-
+  
   # Indicates that PAETH filtering is used for the scanline.
   # @private
   FILTER_PAETH          = 4
@@ -108,7 +108,7 @@ module ChunkyPNG
   class NotSupported < ChunkyPNG::Exception
   end
 
-  # Exception that is raised if the PNG signature is not encountered at the
+  # Exception that is raised if the PNG signature is not encountered at the 
   # beginning of the file.
   class SignatureMismatch < ChunkyPNG::Exception
   end
@@ -124,7 +124,7 @@ module ChunkyPNG
   # Exception that is raised if an expectation fails.
   class OutOfBounds < ChunkyPNG::ExpectationFailed
   end
-
+  
   # Empty byte array. This basically is an empty string, but with the encoding
   # set correctly to ASCII-8BIT (binary) in Ruby 1.9.
   # @return [String] An empty string, with encoding set to binary in Ruby 1.9
@@ -132,7 +132,7 @@ module ChunkyPNG
   EMPTY_BYTEARRAY = String.method_defined?(:force_encoding) ? "".force_encoding('ASCII-8BIT').freeze : "".freeze
 
   # Null-byte, with the encoding set correctly to ASCII-8BIT (binary) in Ruby 1.9.
-  # @return [String] A binary string, consisting of one NULL-byte.
+  # @return [String] A binary string, consisting of one NULL-byte. 
   # @private
   EXTRA_BYTE = String.method_defined?(:force_encoding) ? "\0".force_encoding('ASCII-8BIT') : "\0"
 end

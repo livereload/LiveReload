@@ -13,7 +13,7 @@ module Compass
         self.working_path = working_path.to_s
         self.options = options
       end
-
+      
       def execute
         perform
       end

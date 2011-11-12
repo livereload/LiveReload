@@ -1,6 +1,6 @@
 module ChunkyPNG
   class Canvas
-
+    
     # Methods for decoding and encoding Adam7 interlacing.
     #
     # Adam7 interlacing extracts 7 pass images out of a single image, that can be encoded to a
@@ -8,7 +8,7 @@ module ChunkyPNG
     # ChunkyPNG canvas and is used to extract the pass images from the original image, or to
     # reconstruct an original image from separate pass images.
     module Adam7Interlacing
-
+      
       # Returns an array with the x-shift, x-offset, y-shift and y-offset for the requested pass.
       # @param [Integer] pass The pass number, should be in 0..6.
       def adam7_multiplier_offset(pass)
@@ -25,7 +25,7 @@ module ChunkyPNG
         [ (original_width  - x_offset + (1 << x_shift) - 1) >> x_shift,
           (original_height - y_offset + (1 << y_shift) - 1) >> y_shift]
       end
-
+      
       # Returns an array of the dimension of all the pass images.
       # @param [Integer] original_width The width of the original image.
       # @param [Integer] original_height The height of the original image.
@@ -49,7 +49,7 @@ module ChunkyPNG
           end
         end
       end
-
+      
       # Extracts a pass from a complete image
       # @param [Integer] pass The pass number, should be in 0..6.
       # @param [ChunkyPNG::Canvas] canvas The image that is being deconstructed.
@@ -57,13 +57,13 @@ module ChunkyPNG
       def adam7_extract_pass(pass, canvas)
         x_shift, x_offset, y_shift, y_offset = adam7_multiplier_offset(pass)
         sm_pixels = []
-
+        
         y_offset.step(canvas.height - 1, 1 << y_shift) do |y|
           x_offset.step(canvas.width - 1, 1 << x_shift) do |x|
             sm_pixels << canvas[x, y]
           end
         end
-
+        
         new_canvas_args = adam7_pass_size(pass, canvas.width, canvas.height) + [sm_pixels]
         ChunkyPNG::Canvas.new(*new_canvas_args)
       end

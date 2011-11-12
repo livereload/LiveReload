@@ -25,7 +25,7 @@ module ChunkyPNG
       def to_rgb_stream
         pixels.pack('NX' * pixels.length)
       end
-
+      
       # Creates a stream of the alpha channel of this canvas.
       #
       # @return [String] The 0-255 alpha values of all pixels packed as string

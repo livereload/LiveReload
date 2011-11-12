@@ -96,7 +96,7 @@ module ChunkyPNG
     def black_and_white?
       entries == [ChunkyPNG::Color::BLACK, ChunkyPNG::Color::WHITE]
     end
-
+    
     # Returns a palette with all the opaque variants of the colors in this palette.
     # @return [ChunkyPNG::Palette] A new Palette instance with only opaque colors.
     # @see ChunkyPNG::Color#opaque!
@@ -192,7 +192,7 @@ module ChunkyPNG
         [ChunkyPNG::COLOR_TRUECOLOR_ALPHA, 8]
       end
     end
-
+    
     # Determines the minimal bit depth required for an indexed image
     # @return [Integer] Number of bits per pixel, i.e. 1, 2, 4 or 8, or nil if this
     #    image cannot be saved as an indexed image.

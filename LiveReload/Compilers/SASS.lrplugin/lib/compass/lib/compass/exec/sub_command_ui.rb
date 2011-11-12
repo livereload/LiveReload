@@ -23,9 +23,9 @@ module Compass::Exec
         return 1
       end
     end
-
+    
     protected
-
+    
     def perform!
       $command = args.shift
       command_class = Compass::Commands[$command]
@@ -46,6 +46,6 @@ module Compass::Exec
       puts "Error: #{e.message}"
       puts command_class.usage if command_class.respond_to?(:usage)
     end
-
+    
   end
 end

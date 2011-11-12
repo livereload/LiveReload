@@ -22,7 +22,7 @@ module Compass::SassExtensions::Functions::Sprites
   def sprite_map(glob, kwargs = {})
     kwargs.extend VariableReader
     Compass::SassExtensions::Sprites::SpriteMap.from_uri(glob, self, kwargs)
-  end
+  end 
   Sass::Script::Functions.declare :sprite_map, [:glob], :var_kwargs => true
 
   # Returns the image and background position for use in a single shorthand property:
@@ -75,7 +75,7 @@ module Compass::SassExtensions::Functions::Sprites
     verify_sprite sprite
     Sass::Script::Bool.new map.image_for(sprite.value).parent.nil?
   end
-
+  
   Sass::Script::Functions.declare :sprite_does_not_have_parent, [:map, :sprite]
 
   # Returns boolean if sprite has the selector
@@ -88,7 +88,7 @@ module Compass::SassExtensions::Functions::Sprites
     end
     Sass::Script::Bool.new map.send(:"has_#{selector.value}?", sprite)
   end
-
+  
   Sass::Script::Functions.declare :sprite_has_selector, [:map, :sprite, :selector]
 
 

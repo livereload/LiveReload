@@ -22,7 +22,7 @@ module Compass
       end
     end
     class Default < Base
-
+      
       class << self
         def option_parser(arguments)
           parser = Compass::Exec::CommandOptionParser.new(arguments)

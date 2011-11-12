@@ -15,7 +15,7 @@ def fetch(uri_str, limit = 10)
      puts "getting #{url.path}"
      http.request_get(url.path)
   end
-
+  
   case response
   when Net::HTTPSuccess     then response
   when Net::HTTPRedirection then fetch(response['location'], limit - 1)
@@ -27,7 +27,7 @@ end
 def install_from_github(user, project, ext_name, branch = "master", working_directory = Dir.pwd)
   download_link = "http://github.com/#{user}/#{project}/zipball/#{branch}"
   extdir = File.join(working_directory,'extensions')
-
+  
   if !File.exists?("#{extdir}/#{ext_name}")
     begin
       puts "Downloading the #{ext_name} plugin into #{extdir}."

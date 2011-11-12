@@ -15,9 +15,9 @@ help %Q{
 To install the link_icons plugin:
   compass init --using blueprint/link_icons
 
-The link_icons.sass file is just a recommendation to show you how to use the link mixins.
+The link_icons.sass file is just a recommendation to show you how to use the link mixins.  
 }
 
 welcome_message %Q{
-The link_icons.sass file is just a recommendation to show you how to use the link mixins.
+The link_icons.sass file is just a recommendation to show you how to use the link mixins.  
 }

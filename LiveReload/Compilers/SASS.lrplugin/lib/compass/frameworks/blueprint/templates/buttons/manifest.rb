@@ -9,9 +9,9 @@ help %Q{
 To install the button plugin:
   compass init --using blueprint/buttons
 
-The buttons.sass file is just a recommendation to show you how to use the button mixins.
+The buttons.sass file is just a recommendation to show you how to use the button mixins.  
 }
 
 welcome_message %Q{
-The buttons.sass file is just a recommendation to show you how to use the button mixins.
+The buttons.sass file is just a recommendation to show you how to use the button mixins.  
 }

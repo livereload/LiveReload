@@ -9,10 +9,10 @@ module ChunkyPNG
     # The minimum size of bytes the value of a metadata field should be before compression
     # is enabled for the chunk.
     METADATA_COMPRESSION_TRESHOLD = 300
-
+    
     # @return [Hash] The hash of metadata fields for this PNG image.
     attr_accessor :metadata
-
+    
     # Initializes a new ChunkyPNG::Image instance.
     # @param [Integer] width The width of the new image.
     # @param [Integer] height The height of the new image.
@@ -23,7 +23,7 @@ module ChunkyPNG
       super(width, height, bg_color)
       @metadata = metadata
     end
-
+    
     # Initializes a copy of another ChunkyPNG::Image instance.
     #
     # @param [ChunkyPNG::Image] other The other image to copy.
@@ -31,7 +31,7 @@ module ChunkyPNG
       super(other)
       @metadata = other.metadata
     end
-
+    
     # Returns the metadata for this image as PNG chunks.
     #
     # Chunks will either be of the {ChunkyPNG::Chunk::Text} type for small
@@ -49,7 +49,7 @@ module ChunkyPNG
         end
       end
     end
-
+    
     # Encodes the image to a PNG datastream for saving to disk or writing to an IO stream.
     #
     # Besides encoding the canvas, it will also encode the metadata fields to text chunks.
@@ -63,7 +63,7 @@ module ChunkyPNG
       ds.other_chunks += metadata_chunks
       return ds
     end
-
+    
     # Reads a ChunkyPNG::Image instance from a data stream.
     #
     # Besides decoding the canvas, this will also read the metadata fields

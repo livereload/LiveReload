@@ -46,19 +46,19 @@ describe ChunkyPNG::Canvas::Adam7Interlacing do
     it "should get the multiplier and offset values for pass 1 correctly" do
       adam7_multiplier_offset(0).should == [3, 0, 3, 0]
     end
-
+    
     it "should get the multiplier and offset values for pass 2 correctly" do
       adam7_multiplier_offset(1).should == [3, 4, 3, 0]
     end
-
+    
     it "should get the multiplier and offset values for pass 3 correctly" do
       adam7_multiplier_offset(2).should == [2, 0, 3, 4]
     end
-
+    
     it "should get the multiplier and offset values for pass 4 correctly" do
       adam7_multiplier_offset(3).should == [2, 2, 2, 0]
     end
-
+    
     it "should get the multiplier and offset values for pass 5 correctly" do
       adam7_multiplier_offset(4).should == [1, 0, 2, 2]
     end
@@ -66,7 +66,7 @@ describe ChunkyPNG::Canvas::Adam7Interlacing do
     it "should get the multiplier and offset values for pass 6 correctly" do
       adam7_multiplier_offset(5).should == [1, 1, 1, 0]
     end
-
+    
     it "should get the multiplier and offset values for pass 7 correctly" do
       adam7_multiplier_offset(6).should == [0, 0, 1, 1]
     end
@@ -83,7 +83,7 @@ describe ChunkyPNG::Canvas::Adam7Interlacing do
         ChunkyPNG::Canvas.new(4, 4, 1023344895), # r = 60
         ChunkyPNG::Canvas.new(8, 4, 1175063295), # r = 70
       ]
-
+      
       canvas = ChunkyPNG::Image.new(8,8)
       submatrices.each_with_index { |m, pass| adam7_merge_pass(pass, canvas, m) }
       canvas.should == reference_image('adam7')

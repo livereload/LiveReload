@@ -66,7 +66,7 @@ module Sass::Script
     include HasSimpleCrossBrowserFunctionSupport
 
     if method_defined? :to_literal
-      alias sass_to_literal to_literal
+      alias sass_to_literal to_literal 
     else
       def sass_to_literal
         Script::String.new("#{name}(#{args.join(', ')})")

@@ -2,13 +2,13 @@ require 'test_helper'
 require 'fileutils'
 
 class CompassPngTest < Test::Unit::TestCase
-
-  def test_class_crc_table
-    assert_equal 256, Compass::PNG::CRC_TABLE.length
-    {0 => 0, 1 => 1996959894, 22 => 4107580753, 133 => 2647816111, 255 => 755167117}.each do |i, crc|
+  
+  def test_class_crc_table  
+    assert_equal 256, Compass::PNG::CRC_TABLE.length 
+    {0 => 0, 1 => 1996959894, 22 => 4107580753, 133 => 2647816111, 255 => 755167117}.each do |i, crc| 
       assert_equal crc, Compass::PNG::CRC_TABLE[i]
     end
-  end
+  end                  
 
   def test_class_crc
     assert_equal 2666930069, Compass::PNG.crc('foobar')
@@ -36,11 +36,11 @@ class CompassPngTest < Test::Unit::TestCase
   def test_to_blob
     png = Compass::PNG.new(5,10, [255,255,255])
     blob = 'iVBORw0KGgoAAAANSUhEUgAAAAUAAAAKCAIAAADzWwNnAAAAD0lEQVR4nGP4jwoYBhkfALRylWv4Dj0LAAAAAElFTkSuQmCC'.unpack('m*').first
-    assert_equal blob, png.to_blob
-
+    assert_equal blob, png.to_blob  
+    
     png = Compass::PNG.new(10,5, [32,64,128])
     blob = 'iVBORw0KGgoAAAANSUhEUgAAAAoAAAAFCAIAAADzBuo/AAAAEUlEQVR4nGNQcGjAgxgGUBoALT4rwRTA0gkAAAAASUVORK5CYII='.unpack('m*').first
-    assert_equal blob, png.to_blob
+    assert_equal blob, png.to_blob  
   end
-
+  
 end

@@ -6,7 +6,7 @@ require 'pathname'
 require 'rubygems'
 require 'ruby-prof'
 
-$test_path = "#{Pathname.new('..').expand_path}"
+$test_path  = "#{Pathname.new('..').expand_path}"
 $iterations = 90000
 
 class Pathname
@@ -32,15 +32,15 @@ $iterations.times do |num|
   puts "FSSM::Pathname iteration #{iteration}"
 
   RubyProf.resume
-  p = FSSM::Pathname.new($test_path)
+  p        = FSSM::Pathname.new($test_path)
   segments = p.segments
   RubyProf.pause
 end
 
 puts "\nFSSM Pathname profile finished\n\n"
 
-result = RubyProf.stop
-output = File.new('prof-fssm-pathname.html', 'w+')
+result  = RubyProf.stop
+output  = File.new('prof-fssm-pathname.html', 'w+')
 
 printer = RubyProf::GraphHtmlPrinter.new(result)
 printer.print(output, :min_percent => 1)
@@ -54,15 +54,15 @@ $iterations.times do |num|
   puts "::Pathname iteration #{iteration}"
 
   RubyProf.resume
-  p = ::Pathname.new($test_path)
+  p        = ::Pathname.new($test_path)
   segments = p.segments
   RubyProf.pause
 end
 
 puts "\nruby Pathname profile finished\n\n"
 
-result = RubyProf.stop
-output = File.new('prof-plain-pathname.html', 'w+')
+result  = RubyProf.stop
+output  = File.new('prof-plain-pathname.html', 'w+')
 
 printer = RubyProf::GraphHtmlPrinter.new(result)
 printer.print(output, :min_percent => 1)

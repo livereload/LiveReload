@@ -84,12 +84,12 @@ begin
   require 'cucumber/rake/task'
   require 'rcov/rcovtask'
   namespace :rcov do
-    Cucumber::Rake::Task.new(:cucumber) do |t|
+    Cucumber::Rake::Task.new(:cucumber) do |t|    
       t.rcov = true
       t.rcov_opts = %w{--exclude osx\/objc,gems\/,spec\/,features\/ --aggregate coverage.data}
       t.rcov_opts << %[-o "coverage"]
     end
-
+    
     Rcov::RcovTask.new(:units) do |rcov|
       rcov.libs << 'lib'
       test_files = FileList['test/**/*_test.rb']
@@ -100,8 +100,8 @@ begin
       rcov.rcov_opts = %w{--exclude osx\/objc,gems\/,spec\/,features\/ --aggregate coverage.data}
       rcov.rcov_opts << %[-o "coverage" --sort coverage]
     end
-
-
+    
+    
     desc "Run both specs and features to generate aggregated coverage"
     task :all do |t|
       rm "coverage.data" if File.exist?("coverage.data")

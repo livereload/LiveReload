@@ -105,7 +105,7 @@ module Compass
         @watches ||= []
         @watches << [glob, block]
       end
-
+      
       def watches
         if defined?(@watches)
           @watches

@@ -10,7 +10,7 @@ module FSSM::Backends
     def add_handler(handler, preload=true)
       @handlers[handler.path.to_s] = handler
 
-      fsevent = Rucola::FSEvents.new(handler.path.to_s, {:latency => 0.5}) do |events|
+      fsevent                      = Rucola::FSEvents.new(handler.path.to_s, {:latency => 0.5}) do |events|
         events.each do |event|
           handler.refresh(event.path)
         end

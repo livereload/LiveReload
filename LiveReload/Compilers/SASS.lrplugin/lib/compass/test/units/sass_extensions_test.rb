@@ -23,7 +23,7 @@ class SassExtensionsTest < Test::Unit::TestCase
   def test_enumerate
     assert_equal ".grid-1, .grid-2, .grid-3", evaluate(%Q{enumerate(".grid", 1, 3, "-")})
   end
-
+  
   def test_append_selector
     assert_equal "div.bar", evaluate(%Q{append_selector("div", ".bar")})
     assert_equal ".foo1.bar1, .foo1.bar2, .foo2.bar1, .foo2.bar2", evaluate(%Q{append_selector(".foo1, .foo2", ".bar1, .bar2")})

@@ -33,5 +33,5 @@ class Test::Unit::TestCase
   include Compass::TestCaseHelper
   include Compass::IoHelper
   extend Compass::TestCaseHelper::ClassMethods
-
-end
+  
+end 

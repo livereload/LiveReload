@@ -1,19 +1,19 @@
 require 'spec_helper'
 
 describe ChunkyPNG::Point do
-
+  
   subject { ChunkyPNG::Point.new(1, 2) }
-
+  
   it { should respond_to(:x) }
   it { should respond_to(:y) }
-
+  
   describe '#within_bounds?' do
     it { should     be_within_bounds(2, 3)  }
     it { should_not be_within_bounds('1x3') }
     it { should_not be_within_bounds(2, 2) }
     it { should_not be_within_bounds('[1 2]') }
   end
-
+  
   describe '#<=>' do
     it "should return 0 if the coordinates are identical" do
       (subject <=> ChunkyPNG::Point.new(1, 2)).should == 0
@@ -43,17 +43,17 @@ end
 
 describe 'ChunkyPNG.Point' do
   subject { ChunkyPNG::Point.new(1, 2) }
-
+  
   it "should create a point from a 2-item array" do
     ChunkyPNG::Point([1, 2]).should     == subject
     ChunkyPNG::Point(['1', '2']).should == subject
   end
-
+  
   it "should create a point from a hash with x and y keys" do
     ChunkyPNG::Point(:x => 1, :y => 2).should       == subject
     ChunkyPNG::Point('x' => '1', 'y' => '2').should == subject
   end
-
+  
   it "should create a point from a point-like string" do
     [
       ChunkyPNG::Point('1,2'),
@@ -63,12 +63,12 @@ describe 'ChunkyPNG.Point' do
       ChunkyPNG::Point("[1 2}"),
     ].all? { |point| point == subject }
   end
-
+  
   it "should create a point from an object that responds to x and y" do
     mock_object = mock('Some object with x and y', :x => 1, :y => 2)
     ChunkyPNG::Point(mock_object).should == subject
   end
-
+  
   it "should raise an exception if the input is not understood" do
     lambda { ChunkyPNG::Point(Object.new) }.should raise_error(ArgumentError)
     lambda { ChunkyPNG::Point(1, 2, 3) }.should raise_error(ArgumentError)

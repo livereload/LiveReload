@@ -1,12 +1,12 @@
 # To configure Merb to use compass do the following:
-#
+# 
 # Add dependencies to config/dependencies.rb
-#
-# dependency "haml", ">=2.2.0"
+# 
+# dependency "haml", ">=2.2.0" 
 # dependency "merb-haml", merb_gems_version
 # dependency "chriseppstein-compass", :require_as => 'compass'
-#
-#
+# 
+# 
 # To use a different sass stylesheets locations as is recommended by compass
 # add this configuration to your configuration block:
 #
@@ -16,7 +16,7 @@
 #     :compiled_stylesheets => "public/stylesheets/compiled"
 #   }
 # end
-#
+# 
 module Compass
   def self.setup_template_location
     # default the compass configuration if they didn't set it up yet.
@@ -50,12 +50,12 @@ end
 Merb::BootLoader.after_app_loads do
   #set up sass if haml load didn't do it -- this happens when using a non-default stylesheet location.
   unless defined?(Sass::Plugin)
-    require "sass/plugin"
+    require "sass/plugin" 
     if Merb::Plugins.config[:sass]
-      Sass::Plugin.options = Merb::Plugins.config[:sass]
+      Sass::Plugin.options = Merb::Plugins.config[:sass] 
     # support old (deprecatd Merb::Config[:sass] option)
-    elsif Merb::Config[:sass]
-      Sass::Plugin.options = Merb::Config[:sass]
+    elsif Merb::Config[:sass] 
+      Sass::Plugin.options = Merb::Config[:sass] 
     end
   end
 

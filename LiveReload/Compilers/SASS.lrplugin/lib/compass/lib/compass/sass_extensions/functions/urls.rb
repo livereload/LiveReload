@@ -144,7 +144,7 @@ module Compass::SassExtensions::Functions::Urls
     else
       path = cache_buster[:path] if cache_buster[:path]
     end
-
+    
     if cache_buster[:query]
       "%s?%s" % [path, cache_buster[:query]]
     else

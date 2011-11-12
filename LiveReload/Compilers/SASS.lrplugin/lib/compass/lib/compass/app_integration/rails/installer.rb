@@ -7,7 +7,7 @@ module Compass
   end
 
   module AppIntegration
-    module Rails
+    module Rails    
       class Installer < Compass::Installers::ManifestInstaller
 
         def completed_configuration

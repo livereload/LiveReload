@@ -20,24 +20,24 @@ module Compass
               while x < width do
                 begin
                   canvas.replace! input_png, x, image.top
-                  x += image.width
+                  x += image.width 
                 rescue ChunkyPNG::OutOfBounds
                   break;
                 end
               end
             end
           end
-        end
-
+        end    
+        
         def save(filename)
           if canvas.nil?
             construct_sprite
           end
-
+          
           canvas.save(filename,  Compass.configuration.chunky_png_options)
         end
-
+        
       end
     end
   end
-end
+end  

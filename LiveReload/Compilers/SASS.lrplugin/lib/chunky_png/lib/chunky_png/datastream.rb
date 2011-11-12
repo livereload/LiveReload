@@ -131,7 +131,7 @@ module ChunkyPNG
     def chunks
       enum_for(:each_chunk)
     end
-
+    
     # Returns all the textual metadata key/value pairs as hash.
     # @return [Hash] A hash containing metadata fields and their values.
     def metadata
@@ -141,7 +141,7 @@ module ChunkyPNG
       end
       metadata
     end
-
+   
     # Returns the uncompressed image data, combined from all the IDAT chunks
     # @return [String] The uncompressed image data for this datastream
     def imagedata

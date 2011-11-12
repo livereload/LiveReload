@@ -9,15 +9,15 @@ module Compass
       output = ""
       diffs = ::Diff::LCS.diff(data_old, data_new)
       return output if diffs.empty?
-      oldhunk = hunk = nil
+      oldhunk = hunk = nil  
       file_length_difference = 0
       diffs.each do |piece|
         begin
           hunk = ::Diff::LCS::Hunk.new(
             data_old, data_new, piece, context_lines, file_length_difference
           )
-          file_length_difference = hunk.file_length_difference
-          next unless oldhunk
+          file_length_difference = hunk.file_length_difference      
+          next unless oldhunk      
           # Hunks may overlap, which is why we need to be careful when our
           # diff includes lines of context. Otherwise, we might print
           # redundant lines.
@@ -30,11 +30,11 @@ module Compass
           oldhunk = hunk
           output << "\n"
         end
-      end
+      end  
       #Handle the last remaining hunk
       output << oldhunk.diff(format) << "\n"
     end
-
+  
     protected
 
       def format
@@ -44,6 +44,6 @@ module Compass
       def context_lines
         3
       end
-
+  
   end
 end

@@ -6,7 +6,7 @@ module Compass
       def initialize(working_path, options)
         super
       end
-
+  
       def execute
         print ::Compass::Frameworks::ALL.map{|f|
                   "-I #{f.stylesheets_directory}"

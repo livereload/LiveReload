@@ -73,7 +73,7 @@ Options:
       def initialize(working_path, options)
         self.options = options
       end
-
+  
       def execute
         if options[:custom]
           version = ""

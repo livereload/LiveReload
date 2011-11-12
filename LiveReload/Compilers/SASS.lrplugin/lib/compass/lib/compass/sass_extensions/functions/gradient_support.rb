@@ -98,12 +98,12 @@ module Compass::SassExtensions::Functions::GradientSupport
       s << color_stops.to_s(options)
       s << ")"
     end
-
+    
     standardized_prefix :webkit
     standardized_prefix :moz
     standardized_prefix :o
     standardized_prefix :ms
-
+    
     def to_owg(options = self.options)
       args = [
         grad_point(position || _center_position),
@@ -159,7 +159,7 @@ module Compass::SassExtensions::Functions::GradientSupport
     standardized_prefix :moz
     standardized_prefix :o
     standardized_prefix :ms
-
+    
     # Output the original webkit gradient syntax
     def to_owg(options = self.options)
       args = []
@@ -459,7 +459,7 @@ module Compass::SassExtensions::Functions::GradientSupport
         arg.all?{|a| color_stop?(a)} ? arg : nil
       end
     end
-
+    
     def linear_svg(color_stops, x1, y1, x2, y2)
       transform = ''
       if angle?(position_or_angle)

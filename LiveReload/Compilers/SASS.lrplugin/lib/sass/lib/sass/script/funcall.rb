@@ -57,6 +57,14 @@ module Sass
         @args + @keywords.values
       end
 
+      # @see Node#deep_copy
+      def deep_copy
+        node = dup
+        node.instance_variable_set('@args', args.map {|a| a.deep_copy})
+        node.instance_variable_set('@keywords', Hash[keywords.map {|k, v| [k, v.deep_copy]}])
+        node
+      end
+
       protected
 
       # Evaluates the function call.
@@ -108,7 +116,7 @@ module Sass
           raise Sass::SyntaxError.new(
             "#{args[signature.args.size].inspect} is not a keyword argument for `#{name}'")
         elsif keywords.empty?
-          return args
+          return args 
         end
 
         args = args + signature.args[args.size..-1].map do |argname|

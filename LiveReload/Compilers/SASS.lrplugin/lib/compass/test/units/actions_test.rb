@@ -11,7 +11,7 @@ class ActionsTest < Test::Unit::TestCase
       "/tmp"
     end
   end
-
+  
   # When log4r is included, it sometimes breaks the Actions
   def test_quiet_option
     b = BaseActionExtender.new

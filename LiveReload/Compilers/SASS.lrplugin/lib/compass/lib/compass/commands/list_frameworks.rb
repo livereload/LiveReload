@@ -6,7 +6,7 @@ module Compass
       def initialize(working_path, options)
         super
       end
-
+  
       def execute
         if options[:quiet]
           Compass::Frameworks::ALL.each do |framework|

@@ -54,7 +54,7 @@ module Compass
           end
         end
 
-        private
+        private 
 
         def modulize
           @modulize ||= Compass::configuration.sprite_engine.to_s.scan(/([^_.]+)/).flatten.map {|chunk| "#{chunk[0].chr.upcase}#{chunk[1..-1]}" }.join

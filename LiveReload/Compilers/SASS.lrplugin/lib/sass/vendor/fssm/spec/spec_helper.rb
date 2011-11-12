@@ -1,14 +1,14 @@
 $LOAD_PATH.unshift(File.dirname(__FILE__))
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
+$LOAD_PATH.unshift(File.expand_path('../lib', File.dirname(__FILE__)))
 
-require 'pathname'
+require 'rubygems'
+require 'bundler/setup'
 require 'fssm'
 
-require 'spec'
-require 'spec/autorun'
+require 'rspec'
 
-Spec::Runner.configure do |config|
+RSpec.configure do |config|
   config.before :all do
-    @watch_root = Pathname.new(__FILE__).dirname.join('root').expand_path
+    @watch_root = FSSM::Pathname.new(__FILE__).dirname.join('root').expand_path
   end
 end

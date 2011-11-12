@@ -17,12 +17,12 @@ class SpritesImageTest < Test::Unit::TestCase
   let(:sprite_filename) { 'squares/ten-by-ten.png' }
   let(:sprite_path) { File.join(@images_src_path, sprite_filename) }
   let(:sprite_name) { File.basename(sprite_filename, '.png') }
-
+  
   def parent
     importer = Compass::SpriteImporter.new(:uri => "selectors/*.png", :options => options)
     @parent ||= Compass::SassExtensions::Sprites::SpriteMap.new(importer.sprite_names.map{|n| "selectors/#{n}.png"}, importer.path, importer.name, importer.sass_engine, importer.options)
   end
-
+  
   let(:options) do
     options = {:offset => @offset}
     options.stubs(:get_var).with(anything).returns(nil)
@@ -32,9 +32,9 @@ class SpritesImageTest < Test::Unit::TestCase
     options.stubs(:get_var).with("#{sprite_name}-position").returns(::OpenStruct.new(:value => @position))
     options
   end
+  
 
-
-
+  
   let(:digest) { Digest::MD5.file(sprite_path).hexdigest }
 
 
@@ -64,12 +64,12 @@ class SpritesImageTest < Test::Unit::TestCase
     assert_nil image.repeat
   end
 
-
+  
   test 'image type is "global"' do
     @repeat = 'global'
     assert_equal @repeat, image.repeat
   end
-
+  
   test 'image type is "no-repeat"' do
     assert_equal 'no-repeat', image.repeat
   end
@@ -82,7 +82,7 @@ class SpritesImageTest < Test::Unit::TestCase
     @spacing = 10
     assert_equal @spacing, image.spacing
   end
-
+  
   test 'offset' do
     assert_equal @offset, image.offset
   end

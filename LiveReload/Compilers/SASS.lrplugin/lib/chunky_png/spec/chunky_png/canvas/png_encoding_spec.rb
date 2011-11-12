@@ -9,13 +9,13 @@ describe ChunkyPNG::Canvas::PNGEncoding do
         canvas = ChunkyPNG::Canvas.new(10, 10, ChunkyPNG::Color.rgb(100, 100, 100))
         color_mode = ChunkyPNG.const_get("COLOR_#{color_mode_name.to_s.upcase}")
         blob = canvas.to_blob(:color_mode => color_mode)
-
+        
         ds = ChunkyPNG::Datastream.from_blob(blob)
         ds.header_chunk.color.should == color_mode
         ChunkyPNG::Canvas.from_datastream(ds).should == ChunkyPNG::Canvas.new(10, 10, ChunkyPNG::Color.rgb(100, 100, 100))
       end
     end
-
+    
     it "should encode an image with 2 colors using 1-bit indexed color mode" do
       @canvas = ChunkyPNG::Canvas.from_file(png_suite_file('basic', 'basn3p01.png'))
       ds = ChunkyPNG::Datastream.from_blob(@canvas.to_blob)
@@ -23,7 +23,7 @@ describe ChunkyPNG::Canvas::PNGEncoding do
       ds.header_chunk.depth.should == 1
       @canvas.should == ChunkyPNG::Canvas.from_datastream(ds)
     end
-
+    
     it "should encode an image with 4 colors using 2-bit indexed color mode" do
       @canvas = ChunkyPNG::Canvas.from_file(png_suite_file('basic', 'basn3p02.png'))
       ds = ChunkyPNG::Datastream.from_blob(@canvas.to_blob)
@@ -31,7 +31,7 @@ describe ChunkyPNG::Canvas::PNGEncoding do
       ds.header_chunk.depth.should == 2
       @canvas.should == ChunkyPNG::Canvas.from_datastream(ds)
     end
-
+    
     it "should encode an image with 16 colors using 4-bit indexed color mode" do
       @canvas = ChunkyPNG::Canvas.from_file(png_suite_file('basic', 'basn3p04.png'))
       ds = ChunkyPNG::Datastream.from_blob(@canvas.to_blob)
@@ -39,7 +39,7 @@ describe ChunkyPNG::Canvas::PNGEncoding do
       ds.header_chunk.depth.should == 4
       @canvas.should == ChunkyPNG::Canvas.from_datastream(ds)
     end
-
+    
     it "should encode an image with 256 colors using 8-bit indexed color mode" do
       @canvas = ChunkyPNG::Canvas.from_file(png_suite_file('basic', 'basn3p08.png'))
       ds = ChunkyPNG::Datastream.from_blob(@canvas.to_blob)
@@ -47,7 +47,7 @@ describe ChunkyPNG::Canvas::PNGEncoding do
       ds.header_chunk.depth.should == 8
       @canvas.should == ChunkyPNG::Canvas.from_datastream(ds)
     end
-
+    
     it "should use a higher bit depth than necessary if requested" do
       @canvas = ChunkyPNG::Canvas.from_file(png_suite_file('basic', 'basn3p01.png'))
       ds = ChunkyPNG::Datastream.from_blob(@canvas.to_blob(:bit_depth => 4))
@@ -55,11 +55,11 @@ describe ChunkyPNG::Canvas::PNGEncoding do
       ds.header_chunk.depth.should == 4
       @canvas.should == ChunkyPNG::Canvas.from_datastream(ds)
     end
-
+    
     it "should encode an image with interlacing correctly" do
       input_canvas = ChunkyPNG::Canvas.from_file(resource_file('operations.png'))
       blob = input_canvas.to_blob(:interlace => true)
-
+      
       ds = ChunkyPNG::Datastream.from_blob(blob)
       ds.header_chunk.interlace.should == ChunkyPNG::INTERLACING_ADAM7
       ChunkyPNG::Canvas.from_datastream(ds).should == input_canvas
@@ -99,7 +99,7 @@ describe ChunkyPNG::Canvas::PNGEncoding do
       Zlib::Deflate.should_receive(:deflate).with(anything, Zlib::BEST_COMPRESSION).and_return('')
       canvas.to_blob(:best_compression)
     end
-
+    
     it "should save an image with black and white only if requested" do
       ds = ChunkyPNG::Datastream.from_blob(reference_canvas('lines').to_blob(:black_and_white))
       ds.header_chunk.color.should == ChunkyPNG::COLOR_GRAYSCALE
@@ -108,14 +108,14 @@ describe ChunkyPNG::Canvas::PNGEncoding do
   end
 
   describe 'different color modes and bit depths' do
-    before do
+    before do 
       @canvas = ChunkyPNG::Canvas.new(2, 2)
-
+      
       @canvas[0, 0] = ChunkyPNG::Color.rgba(  1,   2,   3,   4)
       @canvas[1, 0] = ChunkyPNG::Color.rgba(252, 253, 254, 255)
       @canvas[0, 1] = ChunkyPNG::Color.rgba(255, 254, 253, 252)
       @canvas[1, 1] = ChunkyPNG::Color.rgba(  4,   3,   2,   1)
-
+            
       @canvas.encoding_palette = @canvas.palette
       @canvas.encoding_palette.to_plte_chunk
     end
@@ -155,23 +155,23 @@ describe ChunkyPNG::Canvas::PNGEncoding do
         @canvas.encode_png_pixelstream(ChunkyPNG::COLOR_INDEXED, 1, ChunkyPNG::INTERLACING_NONE, ChunkyPNG::FILTER_NONE)
       }.should raise_error(ChunkyPNG::ExpectationFailed)
     end
-
+    
     it "should encode using 2-bit indexed mode correctly" do
       stream = @canvas.encode_png_pixelstream(ChunkyPNG::COLOR_INDEXED, 2, ChunkyPNG::INTERLACING_NONE, ChunkyPNG::FILTER_NONE)
       stream.should == "\0\x20\0\xD0"
     end
-
+    
     it "should encode using 4-bit indexed mode correctly" do
       stream = @canvas.encode_png_pixelstream(ChunkyPNG::COLOR_INDEXED, 4, ChunkyPNG::INTERLACING_NONE, ChunkyPNG::FILTER_NONE)
       stream.should == "\0\x02\0\x31"
     end
-
+    
     it "should encode using 8-bit indexed mode correctly" do
       stream = @canvas.encode_png_pixelstream(ChunkyPNG::COLOR_INDEXED, 8, ChunkyPNG::INTERLACING_NONE, ChunkyPNG::FILTER_NONE)
       stream.should == "\0\x00\x02\0\x03\x01"
     end
   end
-
+  
   describe 'different filter methods' do
 
     it "should encode a scanline without filtering correctly" do
@@ -205,7 +205,7 @@ describe ChunkyPNG::Canvas::PNGEncoding do
       encode_png_str_scanline_up(stream, 0, nil, 9, 3)
       stream.unpack('@0C10').should == [ChunkyPNG::FILTER_UP, 255, 255, 255, 255, 255, 255, 255, 255, 255]
     end
-
+    
     it "should encode a scanline with average filtering correctly" do
       stream = [ChunkyPNG::FILTER_NONE, 10, 20, 30, 40, 50, 60, 70, 80,   80, 100, 110, 120,
                 ChunkyPNG::FILTER_NONE,  5, 10, 25, 45, 45, 55, 80, 125, 105, 150, 114, 165].pack('C*')
@@ -218,7 +218,7 @@ describe ChunkyPNG::Canvas::PNGEncoding do
       encode_png_str_scanline_average(stream, 0, nil, 12, 3)
       stream.unpack('@0C13').should == [ChunkyPNG::FILTER_AVERAGE, 10, 20, 30, 35, 40, 45, 50, 55, 50, 65, 70, 80]
     end
-
+    
     it "should encode a scanline with paeth filtering correctly" do
       stream = [ChunkyPNG::FILTER_NONE, 10, 20, 30, 40, 50, 60, 70,  80, 80, 100, 110, 120,
                 ChunkyPNG::FILTER_NONE, 10, 20, 40, 60, 60, 60, 70, 120, 90, 120,  54, 120].pack('C*')

@@ -6,7 +6,7 @@ require 'sass/plugin'
 
 
 class SpritesTest < Test::Unit::TestCase
-
+  
   def setup
     Compass.reset_configuration!
     @images_src_path = File.join(File.dirname(__FILE__), '..', 'fixtures', 'sprites', 'public', 'images')
@@ -26,7 +26,7 @@ class SpritesTest < Test::Unit::TestCase
   def map_location(file)
     map_files(file).first
   end
-
+  
   def map_files(glob)
     Dir.glob(File.join(@images_tmp_path, glob))
   end
@@ -51,7 +51,7 @@ class SpritesTest < Test::Unit::TestCase
     # reformat to fit result of heredoc:
     "      #{css.gsub('@charset "UTF-8";', '').gsub(/\n/, "\n      ").strip}\n"
   end
-
+  
   it "should generate sprite classes" do
     css = render <<-SCSS
       @import "squares/*.png";
@@ -61,11 +61,11 @@ class SpritesTest < Test::Unit::TestCase
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
         background: url('/squares-s161c60ad78.png') no-repeat;
       }
-
+      
       .squares-ten-by-ten {
         background-position: 0 0;
       }
-
+      
       .squares-twenty-by-twenty {
         background-position: 0 -10px;
       }
@@ -84,13 +84,13 @@ class SpritesTest < Test::Unit::TestCase
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
         background: url('/squares-s161c60ad78.png') no-repeat;
       }
-
+      
       .squares-ten-by-ten {
         background-position: 0 0;
         height: 10px;
         width: 10px;
       }
-
+      
       .squares-twenty-by-twenty {
         background-position: 0 -10px;
         height: 20px;
@@ -116,11 +116,11 @@ class SpritesTest < Test::Unit::TestCase
       .squares-sprite, .cubicle, .large-cube {
         background: url('/squares-s161c60ad78.png') no-repeat;
       }
-
+      
       .cubicle {
         background-position: 0 0;
       }
-
+      
       .large-cube {
         background-position: 0 -10px;
         height: 20px;
@@ -155,11 +155,11 @@ class SpritesTest < Test::Unit::TestCase
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
         background: url('/squares-s89450808af.png') no-repeat;
       }
-
+      
       .squares-ten-by-ten {
         background-position: 0 0;
       }
-
+      
       .squares-twenty-by-twenty {
         background-position: 0 -43px;
       }
@@ -177,11 +177,11 @@ class SpritesTest < Test::Unit::TestCase
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
         background: url('/squares-s673837183a.png') no-repeat;
       }
-
+      
       .squares-ten-by-ten {
         background-position: 0 0;
       }
-
+      
       .squares-twenty-by-twenty {
         background-position: 0 -43px;
       }
@@ -200,11 +200,11 @@ class SpritesTest < Test::Unit::TestCase
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
         background: url('/squares-s1cd84c9068.png') no-repeat;
       }
-
+      
       .squares-ten-by-ten {
         background-position: 0 0;
       }
-
+      
       .squares-twenty-by-twenty {
         background-position: 0 -54px;
       }
@@ -223,11 +223,11 @@ class SpritesTest < Test::Unit::TestCase
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
         background: url('/squares-sf25b7090ca.png') no-repeat;
       }
-
+      
       .squares-ten-by-ten {
         background-position: 0 0;
       }
-
+      
       .squares-twenty-by-twenty {
         background-position: 0 -54px;
       }
@@ -245,11 +245,11 @@ class SpritesTest < Test::Unit::TestCase
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
         background: url('/squares-sd66bf24bab.png') no-repeat;
       }
-
+      
       .squares-ten-by-ten {
         background-position: 0 0;
       }
-
+      
       .squares-twenty-by-twenty {
         background-position: 0 -32px;
       }
@@ -280,15 +280,15 @@ class SpritesTest < Test::Unit::TestCase
       .squares-sprite {
         background: url('/squares-s8e490168dd.png') no-repeat;
       }
-
+      
       .adjusted-percentage {
         background-position: 100% 0;
       }
-
+      
       .adjusted-px-1 {
         background-position: -6px 0;
       }
-
+      
       .adjusted-px-2 {
         background-position: -3px -8px;
       }
@@ -318,15 +318,15 @@ class SpritesTest < Test::Unit::TestCase
       .squares-sprite, .adjusted-percentage, .adjusted-px-1, .adjusted-px-2 {
         background: url('/squares-s8e490168dd.png') no-repeat;
       }
-
+      
       .adjusted-percentage {
         background-position: 100% 0;
       }
-
+      
       .adjusted-px-1 {
         background-position: -6px 0;
       }
-
+      
       .adjusted-px-2 {
         background-position: -3px -8px;
       }
@@ -345,11 +345,11 @@ class SpritesTest < Test::Unit::TestCase
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
         background: url('/squares-sa5550fd132.png') no-repeat;
       }
-
+      
       .squares-ten-by-ten {
         background-position: 0 0;
       }
-
+      
       .squares-twenty-by-twenty {
         background-position: 0 -10px;
       }
@@ -369,11 +369,11 @@ class SpritesTest < Test::Unit::TestCase
       .squares-sprite, .squares-ten-by-ten, .squares-twenty-by-twenty {
         background: url('/squares-s89a274044e.png') no-repeat;
       }
-
+      
       .squares-ten-by-ten {
         background-position: -10px 0;
       }
-
+      
       .squares-twenty-by-twenty {
         background-position: -10px -10px;
       }
@@ -420,7 +420,7 @@ class SpritesTest < Test::Unit::TestCase
       }
     CSS
   end
-
+  
   it "should calculate corret sprite demsions when givin spacing via issue#253" do
     css = render <<-SCSS
       $squares-spacing: 10px;
@@ -437,11 +437,11 @@ class SpritesTest < Test::Unit::TestCase
       .squares-sprite {
         background: url('/squares-se3c68372d9.png') no-repeat;
       }
-
+      
       .foo {
         background-position: 0 -20px;
       }
-
+      
       .bar {
         background-position: 0 0;
       }
@@ -457,7 +457,7 @@ class SpritesTest < Test::Unit::TestCase
       .selectors-sprite, .selectors-ten-by-ten {
         background: url('/selectors-sedfef809e2.png') no-repeat;
       }
-
+      
       .selectors-ten-by-ten {
         background-position: 0 0;
       }
@@ -484,7 +484,7 @@ class SpritesTest < Test::Unit::TestCase
       .selectors-sprite, a {
         background: url('/selectors-sedfef809e2.png') no-repeat;
       }
-
+      
       a {
         background-position: 0 0;
       }
@@ -499,7 +499,7 @@ class SpritesTest < Test::Unit::TestCase
       }
     CSS
   end
-
+  
   it "should not render corret sprite with css selectors via magic mixin" do
     css = render <<-SCSS
       @import "selectors/*.png";
@@ -512,13 +512,13 @@ class SpritesTest < Test::Unit::TestCase
       .selectors-sprite, a {
         background: url('/selectors-sedfef809e2.png') no-repeat;
       }
-
+      
       a {
         background-position: 0 0;
       }
     CSS
   end
-
+  
   it "should raise error on filenames that are not valid sass syntax" do
     assert_raise(Compass::Error) do
       css = render <<-SCSS
@@ -540,17 +540,17 @@ class SpritesTest < Test::Unit::TestCase
       .ko-sprite, .ko-default_background, .ko-starbg26x27 {
         background: url('/ko-scc3f80660d.png') no-repeat;
       }
-
+      
       .ko-default_background {
         background-position: 0 0;
       }
-
+      
       .ko-starbg26x27 {
         background-position: 0 -128px;
       }
     CSS
   end
-
+  
   it "should generate a sprite and remove the old file" do
     FileUtils.touch File.join(@images_tmp_path, "selectors-scc8834Fdd.png")
     assert_equal 1, map_files('selectors-s*.png').size
@@ -563,7 +563,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_equal 1, map_files('selectors-s*.png').size, "File was not removed"
   end
-
+  
   it "should generate a sprite and NOT remove the old file" do
     FileUtils.touch File.join(@images_tmp_path, "selectors-scc8834Ftest.png")
     assert_equal 1, map_files('selectors-s*.png').size
@@ -577,7 +577,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert_equal 2, map_files('selectors-s*.png').size, "File was removed"
   end
-
+  
   it "should generate a sprite if the sprite is a colorname" do
     css = render <<-SCSS
       @import "colors/*.png";
@@ -587,7 +587,7 @@ class SpritesTest < Test::Unit::TestCase
     SCSS
     assert !css.empty?
   end
-
+  
   it "should generate a sprite from nested folders" do
     css = render <<-SCSS
       @import "nested/**/*.png";
@@ -597,7 +597,7 @@ class SpritesTest < Test::Unit::TestCase
       .nested-sprite, .nested-ten-by-ten {
         background: url('/nested-s55a8935544.png') no-repeat;
       }
-
+      
       .nested-ten-by-ten {
         background-position: 0 0;
       }

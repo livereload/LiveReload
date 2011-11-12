@@ -3,6 +3,8 @@ require 'chunky_png/canvas/png_decoding'
 require 'chunky_png/canvas/adam7_interlacing'
 require 'chunky_png/canvas/stream_exporting'
 require 'chunky_png/canvas/stream_importing'
+require 'chunky_png/canvas/data_url_exporting'
+require 'chunky_png/canvas/data_url_importing'
 require 'chunky_png/canvas/operations'
 require 'chunky_png/canvas/drawing'
 require 'chunky_png/canvas/resampling'
@@ -38,6 +40,9 @@ module ChunkyPNG
     include StreamExporting
     extend  StreamImporting
 
+    include DataUrlExporting
+    extend  DataUrlImporting
+
     include Operations
     include Drawing
     include Resampling
@@ -69,7 +74,7 @@ module ChunkyPNG
     # @overload initialize(width, height, initial)
     #   @param [Integer] width The width in pixels of this canvas
     #   @param [Integer] height The height in pixels of this canvas
-    #   @param [Array<Integer>] initial The initial pizel values. Must be an array with
+    #   @param [Array<Integer>] initial The initial pizel values. Must be an array with 
     #     <tt>width * height</tt> elements.
     def initialize(width, height, initial = ChunkyPNG::Color::TRANSPARENT)
 
@@ -82,7 +87,7 @@ module ChunkyPNG
         @pixels = Array.new(width * height, ChunkyPNG::Color.parse(initial))
       end
     end
-
+    
     # Initializes a new Canvas instances when being cloned.
     # @param [ChunkyPNG::Canvas] other The canvas to duplicate
     # @return [void]
@@ -109,7 +114,7 @@ module ChunkyPNG
     def dimension
       ChunkyPNG::Dimension.new(width, height)
     end
-
+    
     # Returns the area of this canvas in number of pixels.
     # @return [Integer] The number of pixels in this canvas
     def area
@@ -120,7 +125,7 @@ module ChunkyPNG
     # @param [Integer] x The x-coordinate of the pixel (column)
     # @param [Integer] y The y-coordinate of the pixel (row)
     # @param [Integer] color The new color for the provided coordinates.
-    # @return [Integer] The new color value for this pixel, i.e. <tt>color</tt>.
+    # @return [Integer] The new color value for this pixel, i.e. <tt>color</tt>. 
     # @raise [ChunkyPNG::OutOfBounds] when the coordinates are outside of the image's dimensions.
     # @see #set_pixel
     def []=(x, y, color)
@@ -130,24 +135,24 @@ module ChunkyPNG
 
     # Replaces a single pixel in this canvas, without bounds checking.
     #
-    # This method return value and effects are undefined for coordinates
+    # This method return value and effects are undefined for coordinates 
     # out of bounds of the canvas.
     #
     # @param [Integer] x The x-coordinate of the pixel (column)
     # @param [Integer] y The y-coordinate of the pixel (row)
     # @param [Integer] pixel The new color for the provided coordinates.
-    # @return [Integer] The new color value for this pixel, i.e. <tt>color</tt>.
+    # @return [Integer] The new color value for this pixel, i.e. <tt>color</tt>. 
     def set_pixel(x, y, color)
       @pixels[y * width + x] = color
     end
-
+   
     # Replaces a single pixel in this canvas, with bounds checking. It will do
     # noting if the provided coordinates are out of bounds.
     #
     # @param [Integer] x The x-coordinate of the pixel (column)
     # @param [Integer] y The y-coordinate of the pixel (row)
     # @param [Integer] pixel The new color value for the provided coordinates.
-    # @return [Integer] The new color value for this pixel, i.e. <tt>color</tt>, or
+    # @return [Integer] The new color value for this pixel, i.e. <tt>color</tt>, or 
     #    <tt>nil</tt> if the coordinates are out of bounds.
     def set_pixel_if_within_bounds(x, y, color)
       return unless include_xy?(x, y)
@@ -211,15 +216,15 @@ module ChunkyPNG
 
     # Checks whether the given coordinates are in the range of the canvas
     # @param [ChunkyPNG::Point, Array, Hash, String] point_like The point to check.
-    # @return [true, false] True if the x and y coordinates of the point are
+    # @return [true, false] True if the x and y coordinates of the point are  
     #    within the limits of this canvas.
     # @see ChunkyPNG.Point
     def include_point?(*point_like)
       dimension.include?(ChunkyPNG::Point(*point_like))
     end
-
+    
     alias_method :include?,    :include_point?
-
+    
     # Checks whether the given x- and y-coordinate are in the range of the canvas
     # @param [Integer] x The x-coordinate of the pixel (column)
     # @param [Integer] y The y-coordinate of the pixel (row)
@@ -227,7 +232,7 @@ module ChunkyPNG
     def include_xy?(x, y)
       y >= 0 && y < height && x >= 0 && x < width
     end
-
+    
     # Checks whether the given y-coordinate is in the range of the canvas
     # @param [Integer] y The y-coordinate of the pixel (row)
     # @return [true, false] True if the y-coordinate is in the range of this canvas.
@@ -269,7 +274,7 @@ module ChunkyPNG
     def to_image
       ChunkyPNG::Image.from_canvas(self)
     end
-
+    
     # Alternative implementation of the inspect method.
     # @return [String] A nicely formatted string representation of this canvas.
     # @private
@@ -280,28 +285,28 @@ module ChunkyPNG
       end
       inspected << "\n]>"
     end
-
+    
     protected
-
+    
     # Replaces the image, given a new width, new height, and a new pixel array.
     def replace_canvas!(new_width, new_height, new_pixels)
       raise ArgumentError, "The provided pixel array should have #{new_width * new_height} items" unless new_pixels.length == new_width * new_height
       @width, @height, @pixels = new_width, new_height, new_pixels
       return self
     end
-
+    
     # Throws an exception if the x-coordinate is out of bounds.
     def assert_x!(x)
       raise ChunkyPNG::OutOfBounds, "Column index #{x} out of bounds!" unless include_x?(x)
       return true
     end
-
+    
     # Throws an exception if the y-coordinate is out of bounds.
     def assert_y!(y)
       raise ChunkyPNG::OutOfBounds, "Row index #{y} out of bounds!" unless include_y?(y)
       return true
     end
-
+    
     # Throws an exception if the x- or y-coordinate is out of bounds.
     def assert_xy!(x, y)
       raise ChunkyPNG::OutOfBounds, "Coordinates (#{x},#{y}) out of bounds!" unless include_xy?(x, y)

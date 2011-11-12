@@ -7,15 +7,15 @@ module Compass
           @width, @height, @images = width, height, images
           @canvas = nil
         end
-
+        
         def construct_sprite
           raise ::Compass::Error, "You must impliment construct_sprite"
         end
-
+        
         def save(filename)
           raise ::Compass::Error, "You must impliment save(filename)"
         end
-
+        
       end
     end
   end

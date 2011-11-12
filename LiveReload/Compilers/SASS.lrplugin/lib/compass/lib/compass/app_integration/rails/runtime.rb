@@ -17,7 +17,7 @@ unless defined?(Compass::RAILS_LOADED)
   rescue NameError => e
     $stderr.puts "Compass could not access the rails environment."
   end
-
+  
   # Wierd that this has to be re-included to pick up sub-modules. Ruby bug?
   class Sass::Script::Functions::EvaluationContext
     include Sass::Script::Functions

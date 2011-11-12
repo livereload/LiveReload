@@ -34,8 +34,8 @@ module FSSM::Tree
     def each(prefix=nil, &block)
       @children.each do |segment, node|
         cprefix = prefix ?
-                FSSM::Pathname.for(prefix).join(segment) :
-                FSSM::Pathname.for(segment)
+            FSSM::Pathname.for(prefix).join(segment) :
+            FSSM::Pathname.for(segment)
         block.call([cprefix, node])
         node.each(cprefix, &block)
       end
@@ -54,7 +54,7 @@ module FSSM::Tree
       end
 
       segment = key.pop
-      node = descendant(key)
+      node    = descendant(key)
 
       return unless node
 
@@ -84,12 +84,12 @@ module FSSM::Tree
     end
 
     def recurse(key, create=false)
-      key = key_segments(key)
+      key  = key_segments(key)
       node = self
 
       until key.empty?
         segment = key.shift
-        node = create ? node.child!(segment) : node.child(segment)
+        node    = create ? node.child!(segment) : node.child(segment)
         return nil unless node
       end
 
@@ -127,7 +127,7 @@ module FSSM::Tree
     end
 
     def from_path(path)
-      path = FSSM::Pathname.for(path)
+      path   = FSSM::Pathname.for(path)
       @ftype = path.ftype
       # this handles bad symlinks without failing. why handle bad symlinks at
       # all? well, we could still be interested in their creation and deletion.

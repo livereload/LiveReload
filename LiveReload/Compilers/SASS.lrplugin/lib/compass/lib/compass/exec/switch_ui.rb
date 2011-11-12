@@ -27,9 +27,9 @@ module Compass::Exec
       end
       return 0
     end
-
+    
     protected
-
+    
     def perform!
       if options[:command]
         do_command(options[:command])
@@ -37,10 +37,10 @@ module Compass::Exec
         puts self.opts
       end
     end
-
+    
     def parse!
       self.opts = OptionParser.new(&method(:set_opts))
-      self.opts.parse!(self.args)
+      self.opts.parse!(self.args)    
       if self.args.size > 0
         self.options[:project_name] = trim_trailing_separator(self.args.shift)
       end
@@ -168,7 +168,7 @@ END
       end
 
     end
-
+    
     def do_command(command)
       command_class_name = command.to_s.split(/_/).map{|p| p.capitalize}.join('')
       command_class = eval("::Compass::Commands::#{command_class_name}")

@@ -1,5 +1,5 @@
 module ChunkyPNG
-
+  
   # A PNG datastream consists of multiple chunks. This module, and the classes
   # contained within, help with handling these chunks. It supports both
   # reading and writing chunks.
@@ -27,7 +27,7 @@ module ChunkyPNG
 
       CHUNK_TYPES.fetch(type, Generic).read(type, content)
     end
-
+    
     # Verifies the CRC of a chunk.
     # @param [String] type The chunk's type.
     # @param [String] content The chunk's content.
@@ -47,7 +47,7 @@ module ChunkyPNG
     #
     # @abstract
     class Base
-
+      
       # The four-character type indicator for the chunk. This field is used to
       # find the correct class for a chunk when it is loaded from a PNG stream.
       # @return [String]
@@ -80,15 +80,15 @@ module ChunkyPNG
       end
     end
 
-    # The Generic chunk type will read the content from the chunk as it,
+    # The Generic chunk type will read the content from the chunk as it, 
     # and will write it back as it was read.
     class Generic < Base
 
-      # The attribute to store the content from the chunk, which gets
+      # The attribute to store the content from the chunk, which gets 
       # written by the +write+ method.
       attr_accessor :content
 
-
+      
       def initialize(type, content = '')
         super(type, :content => content)
       end
@@ -102,8 +102,8 @@ module ChunkyPNG
       end
     end
 
-    # The header (IHDR) chunk is the first chunk of every PNG image, and
-    # contains information about the image: i.e. its width, height, color
+    # The header (IHDR) chunk is the first chunk of every PNG image, and 
+    # contains information about the image: i.e. its width, height, color 
     # depth, color mode, compression method, filtering method and interlace
     # method.
     #
@@ -128,7 +128,7 @@ module ChunkyPNG
       # Reads the 13 bytes of content from the header chunk to set the image attributes.
       # @param [String] type The four character chunk type indicator (= "IHDR").
       # @param [String] content The 13 bytes of content read from the chunk.
-      # @return [ChunkyPNG::Chunk::End] The new Header chunk instance with the
+      # @return [ChunkyPNG::Chunk::End] The new Header chunk instance with the 
       #    variables set to the values according to the content.
       def self.read(type, content)
         fields = content.unpack('NNC5')
@@ -147,11 +147,11 @@ module ChunkyPNG
     # The End (IEND) chunk indicates the last chunk of a PNG stream. It does not
     # contain any data.
     class End < Base
-
+      
       def initialize
         super('IEND')
       end
-
+      
       # Reads the END chunk. It will check if the content is empty.
       # @param [String] type The four character chunk type indicator (= "IEND").
       # @param [String] content The content read from the chunk. Should be empty.
@@ -173,7 +173,7 @@ module ChunkyPNG
     # 8-bit RGB colors this image is using.
     #
     # @see ChunkyPNG::Chunk::Transparency
-    # @see ChunkyPNG::Palette
+    # @see ChunkyPNG::Palette 
     class Palette < Generic
     end
 
@@ -188,7 +188,7 @@ module ChunkyPNG
     # @see ChunkyPNG::Chunk::Palette
     # @see ChunkyPNG::Palette
     class Transparency < Generic
-
+      
       # Returns the alpha channel for the palette of an indexed image.
       #
       # This method should only be used for images having color mode ChunkyPNG::COLOR_INDEXED (3).
@@ -197,7 +197,7 @@ module ChunkyPNG
       def palette_alpha_channel
         content.unpack('C*')
       end
-
+      
       # Returns the truecolor entry to be replaced by transparent pixels,
       #
       # This method should only be used for images having color mode ChunkyPNG::COLOR_TRUECOLOR (2).
@@ -212,7 +212,7 @@ module ChunkyPNG
       #
       # This method should only be used for images having color mode ChunkyPNG::COLOR_GRAYSCALE (0).
       #
-      # @return [Integer] The (grayscale) color to replace with fully transparent pixels.
+      # @return [Integer] The (grayscale) color to replace with fully transparent pixels.      
       def grayscale_entry(bit_depth)
         value = ChunkyPNG::Canvas.send(:"decode_png_resample_#{bit_depth}bit_value", content.unpack('n')[0])
         ChunkyPNG::Color.grayscale(value)
@@ -220,16 +220,16 @@ module ChunkyPNG
     end
 
     class ImageData < Generic
-
+      
       def self.read(type, content)
         raise ExpectationFailed, 'The IDAT chunk should not be empty!' if content.bytesize == 0
         super
       end
-
+      
       def self.combine_chunks(data_chunks)
         Zlib::Inflate.inflate(data_chunks.map { |c| c.content }.join(''))
       end
-
+      
       def self.split_in_chunks(data, level = Zlib::DEFAULT_COMPRESSION, chunk_size = 2147483647)
         streamdata = Zlib::Deflate.deflate(data, level)
         # TODO: Split long streamdata over multiple chunks
@@ -240,7 +240,7 @@ module ChunkyPNG
     # The Text (tEXt) chunk contains keyword/value metadata about the PNG stream.
     # In this chunk, the value is stored uncompressed.
     #
-    # The tEXt chunk only supports Latin-1 encoded textual data. If you need UTF-8
+    # The tEXt chunk only supports Latin-1 encoded textual data. If you need UTF-8 
     # support, check out the InternationalText chunk type.
     #
     # @see ChunkyPNG::Chunk::CompressedText
@@ -268,7 +268,7 @@ module ChunkyPNG
       end
     end
 
-    # The CompressedText (zTXt) chunk contains keyword/value metadata about
+    # The CompressedText (zTXt) chunk contains keyword/value metadata about 
     # the PNG stream. In this chunk, the value is compressed using Deflate
     # compression.
     #
@@ -303,14 +303,14 @@ module ChunkyPNG
     # it is possible to define the language of the metadata, and give a translation
     # of the keyword name. Finally, it supports bot compressed and uncompressed
     # values.
-    #
-    # @todo This chunk is currently not implemented, but merely read and written
+    # 
+    # @todo This chunk is currently not implemented, but merely read and written 
     #    back intact.
     #
     # @see ChunkyPNG::Chunk::Text
     # @see ChunkyPNG::Chunk::CompressedText
     class InternationalText < Generic
-
+      
       # TODO
     end
 

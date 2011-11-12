@@ -1,3 +1,5 @@
+# FSSM ![project status](http://stillmaintained.com/ttilley/fssm.png) #
+
 Monitor API
 ===========
 
@@ -53,3 +55,29 @@ This form doesn't enter the run loop automatically.
     end
 
     monitor.run
+
+Monitoring directories
+----------------------
+
+By default, FSSM monitors changes in files only. To enable monitoring of files and directories, pass option `directories => true` in a hash to the monitor. Please note that this may not work as expected in all backends. For example:
+
+    FSSM::Monitor.new(:directories => true)
+    FSSM.monitor(dir, file_glob, :directories => true)
+
+When directories are monitored, there's an additional third argument to the callbacks. Instead of
+
+    FSSM.monitor('/some/directory/', '**/*') do
+      update {|base, relative|}
+      delete {|base, relative|}
+      create {|base, relative|}
+    end
+
+you get this:
+
+    FSSM.monitor('/some/directory/', '**/*', :directories => true) do
+      update {|base, relative, type|}
+      delete {|base, relative, type|}
+      create {|base, relative, type|}
+    end
+
+The value of `type` argument is either `:file` or `:directory`.

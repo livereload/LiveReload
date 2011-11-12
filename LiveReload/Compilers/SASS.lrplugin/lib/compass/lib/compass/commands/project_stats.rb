@@ -82,7 +82,7 @@ module Compass
 
       def sorted_sass_files(compiler)
         sass_files = compiler.sass_files(:exclude_partials => false)
-        sass_files.map! do |s|
+        sass_files.map! do |s| 
           filename = Compass.deprojectize(s, File.join(Compass.configuration.project_path, Compass.configuration.sass_dir))
           [s, File.dirname(filename), File.basename(filename)]
         end

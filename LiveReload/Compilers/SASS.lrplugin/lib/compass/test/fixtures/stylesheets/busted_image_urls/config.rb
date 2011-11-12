@@ -11,7 +11,7 @@ line_comments = false
 
 asset_cache_buster do |path, file|
   pathname = Pathname.new(path)
-
+  
   case pathname.basename(pathname.extname).to_s
   when "grid"
     new_path = "%s/%s-BUSTED%s" % [pathname.dirname, pathname.basename(pathname.extname), pathname.extname]

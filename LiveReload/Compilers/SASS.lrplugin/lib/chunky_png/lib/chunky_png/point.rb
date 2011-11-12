@@ -1,11 +1,11 @@
 module ChunkyPNG
-
+  
   # Factory method to create {ChunkyPNG::Point} instances.
-  #
-  # This method tries to be as flexible as possible with regards to the given input: besides
+  # 
+  # This method tries to be as flexible as possible with regards to the given input: besides 
   # explicit coordinates, this method also accepts arrays, hashes, strings, {ChunkyPNG::Dimension}
   # instances and anything that responds to <tt>:x</tt> and <tt>:y</tt>.
-  #
+  # 
   # @overload Point(x, y)
   #   @param [Integer, :to_i] x The x-coordinate
   #   @param [Integer, :to_i] y The y-coordinate
@@ -37,7 +37,7 @@ module ChunkyPNG
           when Array; ChunkyPNG::Point.new(source[0], source[1])
           when Hash; ChunkyPNG::Point.new(source[:x] || source['x'], source[:y] || source['y'])
           when ChunkyPNG::Point::POINT_REGEXP; ChunkyPNG::Point.new($1.to_i, $2.to_i)
-          else
+          else 
             if source.respond_to?(:x) && source.respond_to?(:y)
               ChunkyPNG::Point.new(source.x, source.y)
             else
@@ -47,7 +47,7 @@ module ChunkyPNG
       else raise ArgumentError, "Don't know how to construct a point from #{args.inspect}!"
     end
   end
-
+  
   # Simple class that represents a point on a canvas using an x and y coordinate.
   #
   # This class implements some basic methods to handle comparison, the splat operator and
@@ -55,7 +55,7 @@ module ChunkyPNG
   #
   # @see ChunkyPNG.Point
   class Point
-
+    
     # @return [Regexp] The regexp to parse points from a string.
     # @private
     POINT_REGEXP = /^[\(\[\{]?(\d+)\s*[,]?\s*(\d+)[\)\]\}]?$/
@@ -65,22 +65,22 @@ module ChunkyPNG
 
     # @return [Integer] The y-coordinate of the point.
     attr_accessor :y
-
+    
     # Initializes a new point instance.
     # @param [Integer, :to_i] x The x-coordinate.
     # @param [Integer, :to_i] y The y-coordinate.
     def initialize(x, y)
       @x, @y = x.to_i, y.to_i
     end
-
+    
     # Checks whether 2 points are identical.
     # @return [true, false] <tt>true</tt> iff the x and y coordinates match
     def eql?(other)
       other.x == x && other.y == y
     end
-
+    
     alias_method :==, :eql?
-
+    
     # Compares 2 points.
     #
     # It will first compare the y coordinate, and it only takes the x-coordinate into
@@ -94,19 +94,19 @@ module ChunkyPNG
     def <=>(other)
       ((y <=> other.y) == 0) ? x <=> other.x : y <=> other.y
     end
-
+    
     # Converts the point instance to an array.
     # @return [Array] A 2-element array, i.e. <tt>[x, y]</tt>.
     def to_a
       [x, y]
     end
-
+    
     alias_method :to_ary, :to_a
-
+    
     # Checks whether the point falls into a dimension
-    # @param [ChunkyPNG::Dimension, ...] dimension_like The dimension of which the bounds
+    # @param [ChunkyPNG::Dimension, ...] dimension_like The dimension of which the bounds 
     #   should be taken for the check.
-    # @return [true, false] <tt>true</tt> iff the x and y coordinate fall width the width
+    # @return [true, false] <tt>true</tt> iff the x and y coordinate fall width the width 
     #   and height of the dimension.
     def within_bounds?(*dimension_like)
       ChunkyPNG::Dimension(*dimension_like).include?(self)

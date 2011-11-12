@@ -23,5 +23,5 @@ The ellipsis.sass file is just an example for how to use this plugin,
 feel free to delete it.
 
 For more information see:
-  http://mattsnider.com/css/css-string-truncation-with-ellipsis/
+  http://mattsnider.com/css/css-string-truncation-with-ellipsis/  
 }

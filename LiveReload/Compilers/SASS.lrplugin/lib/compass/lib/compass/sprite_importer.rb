@@ -17,50 +17,50 @@ module Compass
       klass.uri, klass.options = uri, options
       klass
     end
-
+    
     def initialize(options ={})
       @uri, @options = '', {}
       options.each do |key, value|
         send("#{key}=", value)
       end
     end
-
+    
     def find(uri, options)
       @uri, @options = uri, options
       if uri =~ SPRITE_IMPORTER_REGEX
         return sass_engine
       end
     end
-
+    
     def find_relative(uri, base, options)
       @uri, @options = uri, options
       find(File.join(base, uri), options)
     end
-
+    
     def to_s
       self.class.name
     end
-
+    
     def hash
       self.class.name.hash
     end
-
+	
     def eql?(other)
       other.class == self.class
     end
-
+    
     def mtime(uri, options)
       @uri, @options = uri, options
       files.sort.inject(Time.at(0)) do |max_time, file|
         (t = File.mtime(file)) > max_time ? t : max_time
       end
     end
-
+    
     def key(uri, options={})
       @uri, @options = uri, options
       [self.class.name + ":" + File.dirname(File.expand_path(uri)), File.basename(uri)]
     end
-
+    
     def self.path_and_name(uri)
       if uri =~ SPRITE_IMPORTER_REGEX
         [$1, $3]
@@ -80,7 +80,7 @@ module Compass
       ensure_path_and_name!
       @path
     end
-
+    
     # Returns the Glob of image files for this sprite
     def files
       Dir[File.join(Compass.configuration.images_path, uri)].sort
@@ -96,7 +96,7 @@ module Compass
         filename
       end
     end
-
+    
     def validate_sprites!
       files.each do |file|
         unless VALID_EXTENSIONS.include? File.extname(file)
@@ -104,21 +104,21 @@ module Compass
         end
       end
     end
-
+    
     # Returns the sass options for this sprite
     def sass_options
       options.merge(:filename => name, :syntax => :scss, :importer => self)
     end
-
+    
     # Returns a Sass::Engine for this sprite object
     def sass_engine
       validate_sprites!
       Sass::Engine.new(content_for_images, sass_options)
     end
-
+    
     def ensure_path_and_name!
       @path, @name = self.class.path_and_name(uri)
-    end
+    end 
 
     # Generates the Sass for this sprite file
     def content_for_images(skip_overrides = false)
@@ -171,7 +171,7 @@ $#{name}-clean-up: true !default;
 }
 SCSS
     end
-
+    
     # Generates the override defaults for this Sprite
     # <tt>$#{name}-#{sprite_name}-position </tt>
     # <tt> $#{name}-#{sprite_name}-spacing </tt>
@@ -181,7 +181,7 @@ SCSS
 // These variables control the generated sprite output
 // You can override them selectively before you import this file.
       TXT
-      sprite_names.map do |sprite_name|
+      sprite_names.map do |sprite_name| 
         content += <<-SCSS
 $#{name}-#{sprite_name}-position: $#{name}-position !default;
 $#{name}-#{sprite_name}-spacing: $#{name}-spacing !default;
@@ -190,7 +190,7 @@ $#{name}-#{sprite_name}-repeat: $#{name}-repeat !default;
       end.join
 
       content += "\n$#{name}-sprites: sprite-map(\"#{uri}\", \n$cleanup: $#{name}-clean-up,\n"
-      content += sprite_names.map do |sprite_name|
+      content += sprite_names.map do |sprite_name| 
 %Q{  $#{sprite_name}-position: $#{name}-#{sprite_name}-position,
   $#{sprite_name}-spacing: $#{name}-#{sprite_name}-spacing,
   $#{sprite_name}-repeat: $#{name}-#{sprite_name}-repeat}

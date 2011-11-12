@@ -1,6 +1,6 @@
 module ChunkyPNG
   class Canvas
-
+    
     # The ChunkyPNG::Canvas::Masking module defines methods to perform masking
     # and theming operations on a {ChunkyPNG::Canvas}. The module is included into the Canvas class so all
     # these methods are available on every canvas.
@@ -20,9 +20,9 @@ module ChunkyPNG
       #
       # @param [Integer] old_theme_color The original theme color in this image.
       # @param [Integer] new_theme_color The color to replace the old theme color with.
-      # @param [Integer] The background color on which the theme colored pixels are placed.
-      # @param [Integer] tolerance The tolerance level to use when extracting the mask image. Five is
-      #    the default; increase this if the masked image does not extract all the required pixels,
+      # @param [Integer] bg_color The background color on which the theme colored pixels are placed.
+      # @param [Integer] tolerance The tolerance level to use when extracting the mask image. Five is 
+      #    the default; increase this if the masked image does not extract all the required pixels, 
       #    decrease it if too many pixels get extracted.
       # @return [ChunkyPNG::Canvas] Returns itself, but with the theme colored pixels changed.
       # @see #change_theme_color!
@@ -32,7 +32,7 @@ module ChunkyPNG
         mask.change_mask_color!(new_theme_color)
         self.replace!(base.compose!(mask))
       end
-
+      
       # Creates a base image and a mask image from an original image that has a particular theme color.
       # This can be used to easily change a theme color in an image.
       #
@@ -40,16 +40,16 @@ module ChunkyPNG
       # these in a mask image. All the other pixels will be stored in a base image. Both images will be
       # of the exact same size as the original image. The original image will be left untouched.
       #
-      # The color of the mask image can be changed with {#change_mask_color!}. This new mask image can
-      # then be composed upon the base image to create an image with a new theme color. A call to
+      # The color of the mask image can be changed with {#change_mask_color!}. This new mask image can 
+      # then be composed upon the base image to create an image with a new theme color. A call to 
       # {#change_theme_color!} will perform this in one go.
       #
       # @param [Integer] mask_color The current theme color.
       # @param [Integer] bg_color The background color on which the theme colored pixels are applied.
-      # @param [Integer] tolerance The tolerance level to use when extracting the mask image. Five is
-      #    the default; increase this if the masked image does not extract all the required pixels,
+      # @param [Integer] tolerance The tolerance level to use when extracting the mask image. Five is 
+      #    the default; increase this if the masked image does not extract all the required pixels, 
       #    decrease it if too many pixels get extracted.
-      # @return [Array<ChunkyPNG::Canvas, ChunkyPNG::Canvas>] An array with the base canvas and the mask
+      # @return [Array<ChunkyPNG::Canvas, ChunkyPNG::Canvas>] An array with the base canvas and the mask 
       #    canvas as elements.
       # @see #change_theme_color!
       # @see #change_mask_color!
@@ -66,10 +66,10 @@ module ChunkyPNG
             base_pixels << pixel
           end
         end
-
+        
         [ self.class.new(width, height, base_pixels), self.class.new(width, height, mask_pixels) ]
       end
-
+      
       # Changes the color of a mask image.
       #
       # This method works on a canvas extracted out of another image using the {#extract_mask} method.

@@ -61,7 +61,7 @@ module Compass
           inherited_writer(*attributes)
         end
 
-
+        
       end
 
       module InstanceMethods

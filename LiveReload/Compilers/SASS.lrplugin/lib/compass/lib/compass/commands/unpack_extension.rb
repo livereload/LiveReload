@@ -13,9 +13,9 @@ module Compass
             This makes it easier to peruse the source in unfamiliar projects. It is not recommended
             that you change other extensions' source -- this makes it hard to take updates from
             the original author. The following extensions are available:
-
+            
           FRAMEWORKS
-
+            
           Options:
         }.strip.split("\n").map{|l| l.gsub(/^ {0,10}/,'')}.join("\n")
         opts.banner.gsub!(/FRAMEWORKS/,Compass::Frameworks.pretty_print(true))

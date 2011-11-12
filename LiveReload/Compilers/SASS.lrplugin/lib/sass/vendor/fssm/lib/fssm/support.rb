@@ -2,15 +2,34 @@ require 'rbconfig'
 
 module FSSM::Support
   class << self
-    def backend
-      @@backend ||= case
-        when mac? && !jruby? && carbon_core?
-          'FSEvents'
-        when linux? && rb_inotify?
-          'Inotify'
-        else
-          'Polling'
+    def usable_backend
+      choice = case
+                 when mac? && !lion? && !jruby? && carbon_core?
+                   'FSEvents'
+                 when mac? && rb_fsevent?
+                   'RBFSEvent'
+                 when linux? && rb_inotify?
+                   'Inotify'
+                 else
+                   'Polling'
+               end
+
+      if (mac? || linux?) && choice == 'Polling'
+        optimal = case
+                    when mac?
+                      'rb-fsevent'
+                    when linux?
+                      'rb-inotify'
+                  end
+        FSSM.dbg("An optimized backend is available for this platform!")
+        FSSM.dbg("    gem install #{optimal}")
       end
+
+      choice
+    end
+
+    def backend
+      @@backend ||= usable_backend
     end
 
     def jruby?
@@ -19,6 +38,10 @@ module FSSM::Support
 
     def mac?
       Config::CONFIG['target_os'] =~ /darwin/i
+    end
+
+    def lion?
+      Config::CONFIG['target_os'] =~ /darwin11/i
     end
 
     def linux?
@@ -31,13 +54,21 @@ module FSSM::Support
         OSX.require_framework '/System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework'
         true
       rescue LoadError
-        STDERR.puts("Warning: Unable to load CarbonCore. FSEvents will be unavailable.")
+        false
+      end
+    end
+
+    def rb_fsevent?
+      begin
+        require 'rb-fsevent'
+        defined?(FSEvent::VERSION) ? FSEvent::VERSION.to_f >= 0.4 : false
+      rescue LoadError
         false
       end
     end
 
     def rb_inotify?
-      found = begin
+      begin
         require 'rb-inotify'
         if defined?(INotify::VERSION)
           version = INotify::VERSION
@@ -46,8 +77,6 @@ module FSSM::Support
       rescue LoadError
         false
       end
-      STDERR.puts("Warning: Unable to load rb-inotify >= 0.5.1. Inotify will be unavailable.") unless found
-      found
     end
 
     def use_block(context, block)

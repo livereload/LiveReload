@@ -10,7 +10,7 @@ module Compass
 
           Description:
             Compile project at the path specified or the current
-            directory if not specified and then validate the
+            directory if not specified and then validate the 
             generated CSS.
 
           Options:

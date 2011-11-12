@@ -149,5 +149,5 @@ module Compass
   end
 
   extend Configuration::Helpers
-
+  
 end

@@ -15,7 +15,7 @@ module Compass::SassExtensions::Functions::Trig
   def tan(number)
     trig(:tan, number)
   end
-
+  
   private
   def trig(operation, number)
     if number.numerator_units == ["deg"] && number.denominator_units == []

@@ -2,7 +2,7 @@ require 'test_helper'
 
 class SpriteCommandTest < Test::Unit::TestCase
   attr_reader :test_dir
-
+  
   def setup
     @images_src_path = File.join(File.dirname(__FILE__), '..', '..', 'fixtures', 'sprites', 'public', 'images')
     @images_tmp_path = File.join(File.dirname(__FILE__), '..', '..', 'fixtures', 'sprites', 'public', 'images-tmp')
@@ -13,7 +13,7 @@ class SpriteCommandTest < Test::Unit::TestCase
       f << config_data
     end
   end
-
+  
   def create_sprite_temp
     ::FileUtils.cp_r @images_src_path, @images_tmp_path
   end
@@ -21,7 +21,7 @@ class SpriteCommandTest < Test::Unit::TestCase
   def clean_up_sprites
     ::FileUtils.rm_r @images_tmp_path
   end
-
+  
   def config_data
     return <<-CONFIG
       images_path = #{@images_tmp_path.inspect}
