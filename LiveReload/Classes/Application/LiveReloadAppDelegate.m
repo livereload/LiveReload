@@ -147,6 +147,10 @@
 
 #pragma mark - Model
 
+- (void)projectAdded:(Project *)project {
+    [self.mainWindowController projectAdded:project];
+}
+
 - (void)addProjectAtPath:(NSString *)path {
     [self addProjectsAtPaths:[NSArray arrayWithObject:path]];
 }
@@ -158,7 +162,7 @@
     }
     [[NSApp delegate] displayMainWindow:nil];
     if ([paths count] == 1) {
-        [self.mainWindowController projectAdded:newProject];
+        [self projectAdded:newProject];
     }
 }
 
@@ -196,7 +200,7 @@
         NSString *path = [[[params objectForKey:@"path"] stringByExpandingTildeInPath] stringByStandardizingPath];
         BOOL isDir = NO;
         if (path && [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir] && isDir) {
-//            Project *project = [[Workspace sharedWorkspace] projectWithPath:path create:YES];
+            Project *project = [[Workspace sharedWorkspace] projectWithPath:path create:YES];
 
             NSMutableSet *compilerIds = [NSMutableSet set];
             [params enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
@@ -223,6 +227,8 @@
                     NSLog(@"Ignoring options for unknown compiler: '%@'", compilerId);
                 }
             }
+
+            [self projectAdded:project];
         } else {
             NSLog(@"Refusing to add '%@' -- the directory does not exist.", path);
         }

@@ -184,6 +184,7 @@ enum { PANE_COUNT = PaneProject+1 };
     [self selectedProjectDidChange];
     [self updateOpenAtLoginState];
 
+    [[Workspace sharedWorkspace] addObserver:self forKeyPath:@"projects" options:0 context:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(communicationStateChanged:) name:CommunicationStateChangedNotification object:nil];
     [[CommunicationController sharedCommunicationController] addObserver:self forKeyPath:@"numberOfProcessedChanges" options:0 context:nil];
 }
@@ -457,9 +458,18 @@ enum { PANE_COUNT = PaneProject+1 };
 #pragma mark - Model change handling
 
 - (void)projectAdded:(Project *)project {
-    [self updateProjectList];
-    NSInteger row = [_projectOutlineView rowForItem:project];
-    [_projectOutlineView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
+    if ([self isWindowLoaded]) {
+        [self updateProjectList];
+        NSInteger row = [_projectOutlineView rowForItem:project];
+        [_projectOutlineView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
+    }
+}
+
+- (void)projectListDidChange {
+    if ([self isWindowLoaded]) {
+        [self updateProjectList];
+        [self restoreSelection];
+    }
 }
 
 
@@ -609,7 +619,7 @@ enum { PANE_COUNT = PaneProject+1 };
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"projects"]) {
-        [self updateProjectList];
+        [self projectListDidChange];
     } else if ([keyPath isEqualToString:@"numberOfProcessedChanges"]) {
         [self updateStatus];
     }
