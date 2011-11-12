@@ -571,7 +571,7 @@
 						<string key="NSAntiCompressionPriority">{250, 750}</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="86322442">
-							<int key="NSCellFlags">-1805517311</int>
+							<int key="NSCellFlags">-2073952767</int>
 							<int key="NSCellFlags2">272629760</int>
 							<string key="NSContents">&lt;script&gt;document.write('&lt;script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"&gt;&lt;/' + 'script&gt;')&lt;/script&gt;</string>
 							<reference key="NSSupport" ref="26"/>
