@@ -1,4 +1,6 @@
 # Require any additional compass plugins here.
+require 'html5-boilerplate'
+require 'fancy-buttons'
 
 # Set this to the root of your project when deployed:
 http_path = "/"
