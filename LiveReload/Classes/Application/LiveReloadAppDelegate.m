@@ -154,8 +154,7 @@
 - (void)addProjectsAtPaths:(NSArray *)paths {
     Project *newProject = nil;
     for (NSString *path in paths) {
-        newProject = [[[Project alloc] initWithPath:path memento:nil] autorelease];
-        [[Workspace sharedWorkspace] addProjectsObject:newProject];
+        newProject = [[Workspace sharedWorkspace] projectWithPath:path create:YES];
     }
     [[NSApp delegate] displayMainWindow:nil];
     if ([paths count] == 1) {
