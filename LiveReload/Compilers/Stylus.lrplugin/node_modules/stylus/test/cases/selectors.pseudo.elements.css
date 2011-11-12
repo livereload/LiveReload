@@ -1,0 +1,26 @@
+input::selection,
+input::focus-inner {
+  border: 0;
+  padding: 0;
+}
+input::-moz-selection {
+  border: 0;
+}
+p,
+::selection {
+  background: #000;
+}
+::selection {
+  background: #000;
+}
+p::selection,
+a::selection {
+  background: #000;
+}
+p::selection {
+  color: #fff;
+  background: #000;
+}
+body ::selection {
+  color: #fff;
+}

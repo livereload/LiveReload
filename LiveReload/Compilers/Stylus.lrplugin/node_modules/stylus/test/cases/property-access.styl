@@ -1,0 +1,62 @@
+#logo
+  position: absolute
+  top: 50%
+  left: 50%
+  width: 150px
+  height: 80px
+  margin-left: -(@width / 2)
+  margin-top: -(@height / 2)
+  unknown: @something == null
+
+multiple
+  foo: bar baz raz
+  bar: @foo
+
+no-props
+  foo: @bar
+
+foo
+  border: 1px solid red + 5
+  border-color: @border
+
+position()
+  position: arguments
+  z-index: 1 unless @z-index
+
+#logo
+  z-index: 20
+  position: absolute
+
+#logo2
+  position: absolute
+
+min-dimensions()
+  min-width: @width
+  min-height: @height
+
+#foo
+  width: 200px
+  height: 100px
+  min-dimensions()
+
+
+body
+  foo: 'bar'
+  if true
+    bar: @foo
+
+mixin()
+  foo: 'bar'
+  if true
+    bar: @foo
+
+body
+  mixin()
+
+mixin2()
+  if true
+    bar: @foo
+
+body
+  foo: 'bar'
+  mixin2()

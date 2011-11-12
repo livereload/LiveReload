@@ -1,0 +1,14 @@
+body {
+  foo: #808080;
+  foo: #fff;
+}
+body {
+  foo: #808080;
+  foo: #c0c0c0;
+}
+body {
+  foo: #ababab;
+  foo: #dfdfdf;
+  foo: #ababab;
+  foo: #d5d5d5;
+}

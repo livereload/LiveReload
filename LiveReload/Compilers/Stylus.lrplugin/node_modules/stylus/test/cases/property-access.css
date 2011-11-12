@@ -1,0 +1,48 @@
+#logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150px;
+  height: 80px;
+  margin-left: -75px;
+  margin-top: -40px;
+  unknown: true;
+}
+multiple {
+  foo: bar baz raz;
+  bar: bar baz raz;
+}
+no-props {
+  foo: ;
+}
+foo {
+  border: 1px solid #ff0505;
+  border-color: 1px solid #ff0505;
+}
+#logo {
+  z-index: 20;
+  position: absolute;
+}
+#logo2 {
+  position: absolute;
+  z-index: 1;
+}
+#foo {
+  width: 200px;
+  height: 100px;
+  min-width: 200px;
+  min-height: 100px;
+}
+body {
+  foo: 'bar';
+  bar: 'bar';
+}
+body {
+  foo: 'bar';
+  bar: 'bar';
+}
+body {
+  foo: 'bar';
+  bar: 'bar';
+}
+
