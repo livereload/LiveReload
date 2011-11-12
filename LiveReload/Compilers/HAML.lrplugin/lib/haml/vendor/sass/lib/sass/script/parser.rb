@@ -197,7 +197,7 @@ RUBY
             def unary_#{op}
               return #{sub} unless tok = try_tok(:#{op})
               interp = try_op_before_interp(tok) and return interp
-              line = @lexer.line
+              line = @lexer.line 
               op = UnaryOperation.new(assert_expr(:unary_#{op}), :#{op})
               op.line = line
               op

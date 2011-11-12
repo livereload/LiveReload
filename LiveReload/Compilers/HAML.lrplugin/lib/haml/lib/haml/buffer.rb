@@ -157,7 +157,7 @@ module Haml
         return result
       <% else %>
 
-        has_newline = result.include?("\\n")
+        has_newline = result.include?("\\n") 
         <% if in_tag && !nuke_inner_whitespace %>
           <% unless preserve_tag %> if !has_newline <% end %>
           @real_tabs -= 1

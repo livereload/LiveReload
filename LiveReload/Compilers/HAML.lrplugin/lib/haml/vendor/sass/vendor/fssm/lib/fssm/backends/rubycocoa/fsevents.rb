@@ -42,7 +42,7 @@ module Rucola
     #   Rucola::FSEvents.start_watching('/tmp') do |events|
     #     events.each { |event| log.debug("#{event.files.inspect} were changed.") }
     #   end
-    #
+    #   
     #   Rucola::FSEvents.start_watching('/var/log/system.log', '/var/log/secure.log', :since => last_id, :latency => 5) do
     #     Growl.notify("Something was added to your log files!")
     #   end
@@ -77,7 +77,7 @@ module Rucola
     #     end
     #   end
     #
-    # *:since: The service will report events that have happened after the supplied event ID. Never use 0 because that
+    # *:since: The service will report events that have happened after the supplied event ID. Never use 0 because that 
     #   will cause every fsevent since the "beginning of time" to be reported. Use OSX::KFSEventStreamEventIdSinceNow
     #   if you want to receive events that have happened after this call. (Default: OSX::KFSEventStreamEventIdSinceNow).
     #   You can find the ID's passed with :since in the events passed to your block.

@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 require File.dirname(__FILE__) + '/test_helper'
 
 class ImporterTest < Test::Unit::TestCase
-
+  
   class FruitImporter < Sass::Importers::Base
     def find(name, context = nil)
       if name =~ %r{fruits/(\w+)(\.s[ac]ss)?}

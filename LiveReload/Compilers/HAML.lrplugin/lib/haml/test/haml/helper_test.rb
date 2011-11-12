@@ -30,7 +30,7 @@ class HelperTest < Test::Unit::TestCase
       on(name) || []
     end
   end
-
+  
   def setup
     @base = ActionView::Base.new
     @base.controller = ActionController::Base.new
@@ -110,14 +110,14 @@ HAML
       ActionView::Base.new.render(:inline => "<%= concat('foo') %>")
     rescue ArgumentError, NameError
       proper_behavior = true
-    end
+    end    
     assert(proper_behavior)
   end
-
+  
   def test_action_view_included
     assert(Haml::Helpers.action_view?)
   end
-
+  
   def test_form_tag
     # This is usually provided by ActionController::Base.
     def @base.protect_against_forgery?; false; end
@@ -138,12 +138,12 @@ HAML
                  render('= text_area_tag "body", "Foo\nBar\n Baz\n   Boom"', :action_view))
 
     assert_equal(%(<textarea cols="40" id="post_body" name="post[body]" rows="20">Foo bar&#x000A;baz</textarea>\n),
-                 render('= text_area :post, :body', :action_view))
+                 render('= text_area :post, :body', :action_view))    
 
     assert_equal(%(<pre>Foo bar&#x000A;   baz</pre>\n),
-                 render('= content_tag "pre", "Foo bar\n   baz"', :action_view))
+                 render('= content_tag "pre", "Foo bar\n   baz"', :action_view))    
   end
-
+  
   def test_capture_haml
     assert_equal(<<HTML, render(<<HAML))
 "<p>13</p>\\n"
@@ -346,7 +346,7 @@ HAML
   end
 
   def test_capture_deals_properly_with_collections
-    Haml::Helpers.module_eval do
+    Haml::Helpers.module_eval do 
       def trc(collection, &block)
         collection.each do |record|
           haml_concat capture_haml(record, &block)
