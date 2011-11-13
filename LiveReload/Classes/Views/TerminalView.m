@@ -1,4 +1,7 @@
 
+#include "eventbus.h"
+#include "console.h"
+
 #import "TerminalView.h"
 
 
@@ -42,6 +45,15 @@ void MyDrawNinePartImage(CGRect frame, NSImage *image, CGFloat topSlice, CGFloat
 
 
 
+@interface TerminalView ()
+
+- (void)update;
+
+@end
+
+
+
+
 @implementation TerminalStripeView {
     NSImage               *_stripeImage;
 }
@@ -69,6 +81,11 @@ void MyDrawNinePartImage(CGRect frame, NSImage *image, CGFloat topSlice, CGFloat
 
 @end
 
+
+
+static void on_console_message_added(event_name_t event, const char *message, TerminalView *view) {
+    [view update];
+}
 
 
 @implementation TerminalView {
@@ -109,7 +126,7 @@ void MyDrawNinePartImage(CGRect frame, NSImage *image, CGFloat topSlice, CGFloat
         [_textView setDrawsBackground:NO];
         [_textView setTextColor:[NSColor whiteColor]];
         [_textView setFont:[NSFont fontWithName:@"Monaco" size:13]];
-        [_textView setString:@"Hello! I’m a terminal message.\rI’ve been displayed by LiveReload.\rsomestyle.sass(15): Invalid syntax near\rsome weird token FOO_BAR.\r1234567890123456789012345678901234567890\rHow cool is this?\rI believe it’s very cool.\rThe final line."];
+        [_textView setString:[NSString stringWithUTF8String:console_get()]];
 
         [scrollView setDocumentView:_textView];
 
@@ -121,11 +138,15 @@ void MyDrawNinePartImage(CGRect frame, NSImage *image, CGFloat topSlice, CGFloat
 
         _backgroundImage = [[NSImage imageNamed:@"TerminalBackgroundSquare.png"] retain];
         _glareImage = [[NSImage imageNamed:@"TerminalGlare.png"] retain];
+
+        eventbus_subscribe(console_message_added_event, (event_handler_t)on_console_message_added, self);
+        [self update];
     }
     return self;
 }
 
 - (void)dealloc {
+    eventbus_unsubscribe(console_message_added_event, (event_handler_t)on_console_message_added, self);
     [_backgroundImage release], _backgroundImage = nil;
     [_glareImage release], _glareImage = nil;
     [super dealloc];
@@ -143,6 +164,11 @@ void MyDrawNinePartImage(CGRect frame, NSImage *image, CGFloat topSlice, CGFloat
     [_glareImage drawInRect:textBounds fromRect:NSMakeRect(0, 0, glareSize.width, glareSize.height) operation:NSCompositeSourceOver fraction:0.8];
 
     [[NSGraphicsContext currentContext] restoreGraphicsState];
+}
+
+- (void)update {
+    [_textView setString:[NSString stringWithUTF8String:console_get()]];
+    [_textView scrollToEndOfDocument:nil];
 }
 
 @end

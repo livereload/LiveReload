@@ -1,4 +1,7 @@
 
+#include "console.h"
+#include "stringutil.h"
+
 #import "Compiler.h"
 #import "Plugin.h"
 #import "CompilationOptions.h"
@@ -213,6 +216,7 @@
         return;
     }
 
+    NSString *commandLine = [arguments componentsJoinedByString:@" "]; // stringByReplacingOccurrencesOfString:[[NSBundle mainBundle] resourcePath] withString:@"$LiveReloadResources"] stringByReplacingOccurrencesOfString:[@"~" stringByExpandingTildeInPath] withString:@"~"];
     NSString *command = [arguments objectAtIndex:0];
     arguments = [arguments subarrayWithRange:NSMakeRange(1, [arguments count] - 1)];
 
@@ -225,7 +229,12 @@
     [[NSFileManager defaultManager] changeCurrentDirectoryPath:pwd];
 
     NSString *strippedOutput = [output stringByReplacingOccurrencesOfRegex:@"(\\e\\[.*?m)+" withString:@"<ESC>"];
-    NSString *cleanOutput = [strippedOutput stringByReplacingOccurrencesOfRegex:@"<ESC>" withString:@""];
+    NSString *cleanOutput = [[strippedOutput stringByReplacingOccurrencesOfRegex:@"<ESC>" withString:@""] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+
+    if (cleanOutput.length > 0) {
+        const char *project_path = [project.path UTF8String];
+        console_printf("\n%s compiler:\n%s\n\n%s\n\n", [self.name UTF8String], str_collapse_paths([commandLine UTF8String], project_path), str_collapse_paths([cleanOutput UTF8String], project_path));
+    }
 
     if (error) {
         NSLog(@"Error: %@\nOutput:\n%@", [error description], strippedOutput);
@@ -273,6 +282,13 @@
                 if ([message length] == 0) {
                     message = @"Compilation failed with an empty output.";
                 }
+                console_printf("%s: compilation failed.", [[sourcePath lastPathComponent] UTF8String]);
+            } else {
+                if (line.length > 0) {
+                    console_printf("%s(%s): %s", [[sourcePath lastPathComponent] UTF8String], [line UTF8String], [message UTF8String]);
+                } else {
+                    console_printf("%s: %s", [[sourcePath lastPathComponent] UTF8String], [message UTF8String]);
+                }
             }
 
             if (compilerOutput) {
@@ -282,6 +298,7 @@
         }
     } else {
         NSLog(@"Output:\n%@", strippedOutput);
+        console_printf("%s compiled.", [[sourcePath lastPathComponent] UTF8String]);
     }
     [pool drain];
 

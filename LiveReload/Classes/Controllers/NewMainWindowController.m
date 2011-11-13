@@ -179,10 +179,11 @@ enum { PANE_COUNT = PaneProject+1 };
     [[[_projectOutlineView enclosingScrollView] contentView] scrollToPoint:NSMakePoint(0,0)];
     [_projectOutlineView setSelectionHighlightStyle:NSTableViewSelectionHighlightStyleSourceList];
 
+    _panes = [[NSArray alloc] initWithObjects:_welcomePane, _projectPane, nil];
+
+    // MUST be done after initializing _panes
     [_projectOutlineView expandItem:_projectsItem];
     [self restoreSelection];
-
-    _panes = [[NSArray alloc] initWithObjects:_welcomePane, _projectPane, nil];
 
     [self selectedProjectDidChange];
     [self updateOpenAtLoginState];

@@ -46,6 +46,11 @@
 		4379ADCB141D1060008C836F /* livereload.js in Resources */ = {isa = PBXBuildFile; fileRef = 4379ADC9141D00CE008C836F /* livereload.js */; };
 		439C093313ADCBDD00119233 /* monitoring.plist in Resources */ = {isa = PBXBuildFile; fileRef = 439C093213ADCBDD00119233 /* monitoring.plist */; };
 		43C0368613CA191D00A01305 /* LiveReload.icns in Resources */ = {isa = PBXBuildFile; fileRef = 43C0368513CA191C00A01305 /* LiveReload.icns */; };
+		43E34F9B14705125001641AA /* console.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E34F9714705125001641AA /* console.c */; };
+		43E34F9C14705125001641AA /* eventbus.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E34F9914705125001641AA /* eventbus.c */; };
+		43E34F9F14706D9B001641AA /* osdep.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E34F9E14706D9B001641AA /* osdep.m */; };
+		43E34FA21470701C001641AA /* autorelease.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E34FA11470701C001641AA /* autorelease.c */; };
+		43E34FA5147071E9001641AA /* stringutil.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E34FA4147071E8001641AA /* stringutil.c */; };
 		43E4BBE813C5DA7900A75F81 /* CoffeeScript.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43E4BBE713C5DA7900A75F81 /* CoffeeScript.lrplugin */; };
 		43E5DF621462829B0016CDA0 /* ImageAndTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E5DF611462829B0016CDA0 /* ImageAndTextCell.m */; };
 		43F002CF146EC97B005D48A4 /* MainWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F002CE146EC97B005D48A4 /* MainWindow.m */; };
@@ -215,6 +220,16 @@
 		439C093213ADCBDD00119233 /* monitoring.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = monitoring.plist; sourceTree = "<group>"; };
 		43A265E613DCEAE600704BF6 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		43C0368513CA191C00A01305 /* LiveReload.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LiveReload.icns; sourceTree = "<group>"; };
+		43E34F9714705125001641AA /* console.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = console.c; sourceTree = "<group>"; };
+		43E34F9814705125001641AA /* console.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = console.h; sourceTree = "<group>"; };
+		43E34F9914705125001641AA /* eventbus.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eventbus.c; sourceTree = "<group>"; };
+		43E34F9A14705125001641AA /* eventbus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eventbus.h; sourceTree = "<group>"; };
+		43E34F9D14706D90001641AA /* osdep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = osdep.h; sourceTree = "<group>"; };
+		43E34F9E14706D9B001641AA /* osdep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = osdep.m; sourceTree = "<group>"; };
+		43E34FA014706FB3001641AA /* autorelease.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = autorelease.h; sourceTree = "<group>"; };
+		43E34FA11470701C001641AA /* autorelease.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = autorelease.c; sourceTree = "<group>"; };
+		43E34FA3147071E2001641AA /* stringutil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stringutil.h; sourceTree = "<group>"; };
+		43E34FA4147071E8001641AA /* stringutil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stringutil.c; sourceTree = "<group>"; };
 		43E4BBE713C5DA7900A75F81 /* CoffeeScript.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = CoffeeScript.lrplugin; path = Compilers/CoffeeScript.lrplugin; sourceTree = SOURCE_ROOT; };
 		43E5DF601462829B0016CDA0 /* ImageAndTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageAndTextCell.h; sourceTree = "<group>"; };
 		43E5DF611462829B0016CDA0 /* ImageAndTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageAndTextCell.m; sourceTree = "<group>"; };
@@ -497,9 +512,26 @@
 			path = Extensions/Compilers;
 			sourceTree = "<group>";
 		};
+		43E34F9614705125001641AA /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				43E34F9714705125001641AA /* console.c */,
+				43E34F9814705125001641AA /* console.h */,
+				43E34F9914705125001641AA /* eventbus.c */,
+				43E34F9A14705125001641AA /* eventbus.h */,
+				43E34FA014706FB3001641AA /* autorelease.h */,
+				43E34FA11470701C001641AA /* autorelease.c */,
+				43E34FA3147071E2001641AA /* stringutil.h */,
+				43E34FA4147071E8001641AA /* stringutil.c */,
+			);
+			name = Shared;
+			path = ../../Shared;
+			sourceTree = "<group>";
+		};
 		823DDE2D13F8DA3100529AD2 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				43E34F9614705125001641AA /* Shared */,
 				823DDE2E13F8DA3100529AD2 /* Application */,
 				823DDE3113F8DA3100529AD2 /* Connectivity */,
 				823DDE3413F8DA3100529AD2 /* Controllers */,
@@ -526,6 +558,8 @@
 				435729161452267C00947B2E /* Stats.m */,
 				4353196D1465B52D005FA59F /* ShitHappens.h */,
 				4353196E1465B52D005FA59F /* ShitHappens.m */,
+				43E34F9D14706D90001641AA /* osdep.h */,
+				43E34F9E14706D9B001641AA /* osdep.m */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -1046,6 +1080,11 @@
 				43F002CF146EC97B005D48A4 /* MainWindow.m in Sources */,
 				43F002D2146F4135005D48A4 /* TerminalView.m in Sources */,
 				43F002F8146FF584005D48A4 /* TerminalViewController.m in Sources */,
+				43E34F9B14705125001641AA /* console.c in Sources */,
+				43E34F9C14705125001641AA /* eventbus.c in Sources */,
+				43E34F9F14706D9B001641AA /* osdep.m in Sources */,
+				43E34FA21470701C001641AA /* autorelease.c in Sources */,
+				43E34FA5147071E9001641AA /* stringutil.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

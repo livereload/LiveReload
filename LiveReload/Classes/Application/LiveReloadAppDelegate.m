@@ -1,4 +1,7 @@
 
+#include "osdep.h"
+#include "console.h"
+
 #import "LiveReloadAppDelegate.h"
 #import "Project.h"
 #import "Workspace.h"
@@ -71,6 +74,9 @@
 
     _mainWindowController = [[NewMainWindowController alloc] init];
     _preferencesWindowController = [[PreferencesWindowController alloc] init];
+
+    os_init();
+    console_init();
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
 

@@ -1,4 +1,7 @@
 
+#include "console.h"
+#include "stringutil.h"
+
 #import "ToolOutputWindowController.h"
 
 #import "PluginManager.h"
@@ -330,6 +333,12 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
 #endif
 
 - (void)fileSystemMonitor:(FSMonitor *)monitor detectedChangeAtPathes:(NSSet *)pathes {
+    switch (pathes.count) {
+        case 0:  break;
+        case 1:  console_printf("Changed: %s", [[pathes anyObject] UTF8String]); break;
+        default: console_printf("Changed: %s and %d others", [[pathes anyObject] UTF8String], pathes.count - 1); break;
+    }
+
     [self updateImportGraphForPaths:pathes];
 
 #ifdef AUTORESCAN_WORKAROUND_ENABLED
@@ -374,17 +383,23 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
             NSError *error = nil;
             NSString *pwd = [[NSFileManager defaultManager] currentDirectoryPath];
             [[NSFileManager defaultManager] changeCurrentDirectoryPath:runDirectory];
+            const char *project_path = [self.path UTF8String];
+            console_printf("Post-proc exec: /bin/sh -c \"%s\"", str_collapse_paths([[[shArgs subarrayWithRange:NSMakeRange(1, shArgs.count - 1)] componentsJoinedByString:@" "] UTF8String], project_path));
             NSString *output = [NSTask stringByLaunchingPath:@"/bin/sh"
                                                withArguments:shArgs
                                                        error:&error];
             [[NSFileManager defaultManager] changeCurrentDirectoryPath:pwd];
 
             if ([output length] > 0) {
+                console_printf("\n%s\n\n", str_collapse_paths([output UTF8String], project_path));
                 NSLog(@"Post-processing output:\n%@\n", output);
             }
             if (error) {
+                console_printf("Post-processor failed.");
                 NSLog(@"Error: %@", [error description]);
             }
+        } else {
+            console_printf("Skipping post-processing (only %.1fs since last run)", now - _lastPostProcessingRunDate);
         }
     }
 
