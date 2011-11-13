@@ -3,6 +3,7 @@
 
 
 @class Project;
+@class TerminalViewController;
 
 
 @interface NewMainWindowController : NSWindowController {
@@ -16,6 +17,8 @@
     NSInteger              _currentPane;
 
     NSWindowController    *_projectSettingsSheetController;
+
+    TerminalViewController *_terminalViewController;
 }
 
 @property (assign) IBOutlet NSView *titleBarSideView;
@@ -30,6 +33,7 @@
 @property (assign) IBOutlet NSTextField *gettingStartedLabelField;
 
 @property (assign) IBOutlet NSTextField *statusTextField;
+@property (assign) IBOutlet NSButton *terminalButton;
 
 @property (assign) IBOutlet NSBox *paneBorderBox;
 @property (assign) IBOutlet NSView *panePlaceholder;

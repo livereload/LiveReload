@@ -49,6 +49,17 @@
 		43E4BBE813C5DA7900A75F81 /* CoffeeScript.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43E4BBE713C5DA7900A75F81 /* CoffeeScript.lrplugin */; };
 		43E5DF621462829B0016CDA0 /* ImageAndTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E5DF611462829B0016CDA0 /* ImageAndTextCell.m */; };
 		43F002CF146EC97B005D48A4 /* MainWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F002CE146EC97B005D48A4 /* MainWindow.m */; };
+		43F002D2146F4135005D48A4 /* TerminalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F002D1146F4135005D48A4 /* TerminalView.m */; };
+		43F002D4146F4144005D48A4 /* TerminalStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F002D3146F4144005D48A4 /* TerminalStripes.png */; };
+		43F002E8146F4877005D48A4 /* TerminalBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F002E7146F4877005D48A4 /* TerminalBackground.png */; };
+		43F002EA146F5382005D48A4 /* TerminalGlare.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F002E9146F5382005D48A4 /* TerminalGlare.png */; };
+		43F002EC146F5D57005D48A4 /* TerminalBackgroundSquare.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F002EB146F5D57005D48A4 /* TerminalBackgroundSquare.png */; };
+		43F002F8146FF584005D48A4 /* TerminalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F002F6146FF584005D48A4 /* TerminalViewController.m */; };
+		43F002F9146FF584005D48A4 /* TerminalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43F002F7146FF584005D48A4 /* TerminalViewController.xib */; };
+		43F0030414700C96005D48A4 /* LRTerminalButtonOff.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F0030014700C96005D48A4 /* LRTerminalButtonOff.png */; };
+		43F0030514700C96005D48A4 /* LRTerminalButtonOffHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F0030114700C96005D48A4 /* LRTerminalButtonOffHighlight.png */; };
+		43F0030614700C96005D48A4 /* LRTerminalButtonOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F0030214700C96005D48A4 /* LRTerminalButtonOn.png */; };
+		43F0030714700C96005D48A4 /* LRTerminalButtonOnHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F0030314700C96005D48A4 /* LRTerminalButtonOnHighlight.png */; };
 		43F50BF71466F7A1004FD951 /* PostProcessingSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F50BF61466F7A1004FD951 /* PostProcessingSettingsWindowController.m */; };
 		43F50BF91466FAB7004FD951 /* PostProcessingSettingsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43F50BF81466FAB7004FD951 /* PostProcessingSettingsWindowController.xib */; };
 		43F50BFC146706B0004FD951 /* BaseProjectSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F50BFB146706B0004FD951 /* BaseProjectSettingsWindowController.m */; };
@@ -209,6 +220,19 @@
 		43E5DF611462829B0016CDA0 /* ImageAndTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageAndTextCell.m; sourceTree = "<group>"; };
 		43F002CD146EC97B005D48A4 /* MainWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindow.h; sourceTree = "<group>"; };
 		43F002CE146EC97B005D48A4 /* MainWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainWindow.m; sourceTree = "<group>"; };
+		43F002D0146F4135005D48A4 /* TerminalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TerminalView.h; sourceTree = "<group>"; };
+		43F002D1146F4135005D48A4 /* TerminalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TerminalView.m; sourceTree = "<group>"; };
+		43F002D3146F4144005D48A4 /* TerminalStripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TerminalStripes.png; sourceTree = "<group>"; };
+		43F002E7146F4877005D48A4 /* TerminalBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TerminalBackground.png; sourceTree = "<group>"; };
+		43F002E9146F5382005D48A4 /* TerminalGlare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TerminalGlare.png; sourceTree = "<group>"; };
+		43F002EB146F5D57005D48A4 /* TerminalBackgroundSquare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TerminalBackgroundSquare.png; sourceTree = "<group>"; };
+		43F002F5146FF584005D48A4 /* TerminalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TerminalViewController.h; sourceTree = "<group>"; };
+		43F002F6146FF584005D48A4 /* TerminalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TerminalViewController.m; sourceTree = "<group>"; };
+		43F002F7146FF584005D48A4 /* TerminalViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TerminalViewController.xib; sourceTree = "<group>"; };
+		43F0030014700C96005D48A4 /* LRTerminalButtonOff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRTerminalButtonOff.png; sourceTree = "<group>"; };
+		43F0030114700C96005D48A4 /* LRTerminalButtonOffHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRTerminalButtonOffHighlight.png; sourceTree = "<group>"; };
+		43F0030214700C96005D48A4 /* LRTerminalButtonOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRTerminalButtonOn.png; sourceTree = "<group>"; };
+		43F0030314700C96005D48A4 /* LRTerminalButtonOnHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRTerminalButtonOnHighlight.png; sourceTree = "<group>"; };
 		43F50BF51466F7A1004FD951 /* PostProcessingSettingsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostProcessingSettingsWindowController.h; sourceTree = "<group>"; };
 		43F50BF61466F7A1004FD951 /* PostProcessingSettingsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostProcessingSettingsWindowController.m; sourceTree = "<group>"; };
 		43F50BF81466FAB7004FD951 /* PostProcessingSettingsWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostProcessingSettingsWindowController.xib; sourceTree = "<group>"; };
@@ -544,6 +568,9 @@
 				43534038146CC7E600DD66B0 /* MonitoringSettingsWindowController.h */,
 				43534039146CC7E600DD66B0 /* MonitoringSettingsWindowController.m */,
 				4353403B146CC8A400DD66B0 /* MonitoringSettingsWindowController.xib */,
+				43F002F5146FF584005D48A4 /* TerminalViewController.h */,
+				43F002F6146FF584005D48A4 /* TerminalViewController.m */,
+				43F002F7146FF584005D48A4 /* TerminalViewController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -742,6 +769,8 @@
 				431466A5146CA68500DC075A /* PassThruView.m */,
 				431466A7146CA82200DC075A /* PassThruImageView.h */,
 				431466A8146CA82200DC075A /* PassThruImageView.m */,
+				43F002D0146F4135005D48A4 /* TerminalView.h */,
+				43F002D1146F4135005D48A4 /* TerminalView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -785,6 +814,14 @@
 				823DDF2413F8DA3F00529AD2 /* Icon-48.png */,
 				823DDF2613F8DA3F00529AD2 /* preferences-box.png */,
 				823DDF2713F8DA3F00529AD2 /* settings.png */,
+				43F0030014700C96005D48A4 /* LRTerminalButtonOff.png */,
+				43F0030114700C96005D48A4 /* LRTerminalButtonOffHighlight.png */,
+				43F0030214700C96005D48A4 /* LRTerminalButtonOn.png */,
+				43F0030314700C96005D48A4 /* LRTerminalButtonOnHighlight.png */,
+				43F002D3146F4144005D48A4 /* TerminalStripes.png */,
+				43F002E9146F5382005D48A4 /* TerminalGlare.png */,
+				43F002E7146F4877005D48A4 /* TerminalBackground.png */,
+				43F002EB146F5D57005D48A4 /* TerminalBackgroundSquare.png */,
 				823DDF2813F8DA3F00529AD2 /* StatusItem */,
 			);
 			path = Images;
@@ -901,6 +938,15 @@
 				431466A3146CA23F00DC075A /* PlaceholderTemplate.png in Resources */,
 				4353403C146CC8A400DD66B0 /* MonitoringSettingsWindowController.xib in Resources */,
 				4376A0E2146DF1C800338AD4 /* TitleBarHelpTemplate.png in Resources */,
+				43F002D4146F4144005D48A4 /* TerminalStripes.png in Resources */,
+				43F002E8146F4877005D48A4 /* TerminalBackground.png in Resources */,
+				43F002EA146F5382005D48A4 /* TerminalGlare.png in Resources */,
+				43F002EC146F5D57005D48A4 /* TerminalBackgroundSquare.png in Resources */,
+				43F002F9146FF584005D48A4 /* TerminalViewController.xib in Resources */,
+				43F0030414700C96005D48A4 /* LRTerminalButtonOff.png in Resources */,
+				43F0030514700C96005D48A4 /* LRTerminalButtonOffHighlight.png in Resources */,
+				43F0030614700C96005D48A4 /* LRTerminalButtonOn.png in Resources */,
+				43F0030714700C96005D48A4 /* LRTerminalButtonOnHighlight.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -998,6 +1044,8 @@
 				4310DE3D146DB588003091D1 /* ToolOptions.m in Sources */,
 				4310DE40146DB6A0003091D1 /* UIBuilder.m in Sources */,
 				43F002CF146EC97B005D48A4 /* MainWindow.m in Sources */,
+				43F002D2146F4135005D48A4 /* TerminalView.m in Sources */,
+				43F002F8146FF584005D48A4 /* TerminalViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

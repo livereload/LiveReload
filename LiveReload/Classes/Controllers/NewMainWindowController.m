@@ -4,6 +4,7 @@
 #import "MonitoringSettingsWindowController.h"
 #import "CompilationSettingsWindowController.h"
 #import "PostProcessingSettingsWindowController.h"
+#import "TerminalViewController.h"
 #import "CommunicationController.h"
 
 #import "LiveReloadAppDelegate.h"
@@ -27,7 +28,7 @@ typedef enum {
 enum { PANE_COUNT = PaneProject+1 };
 
 
-@interface NewMainWindowController ()
+@interface NewMainWindowController () <NSAnimationDelegate>
 
 - (void)updatePanes;
 - (void)updateProjectList;
@@ -48,6 +49,7 @@ enum { PANE_COUNT = PaneProject+1 };
 @synthesize welcomePane = _welcomePane;
 @synthesize welcomeMessageField = _welcomeMessageField;
 @synthesize statusTextField = _statusTextField;
+@synthesize terminalButton = _terminalButton;
 @synthesize paneBorderBox = _paneBorderBox;
 @synthesize panePlaceholder = _panePlaceholder;
 @synthesize projectPane = _projectPane;
@@ -161,6 +163,7 @@ enum { PANE_COUNT = PaneProject+1 };
     [_removeProjectButton.cell setBackgroundStyle:NSBackgroundStyleRaised];
     [_gettingStartedIconView.cell setBackgroundStyle:NSBackgroundStyleRaised];
     [_gettingStartedLabelField.cell setBackgroundStyle:NSBackgroundStyleRaised];
+    [_terminalButton.cell setBackgroundStyle:NSBackgroundStyleRaised];
 
     [self stylePartialHyperlink:_snippetLabelField to:[NSURL URLWithString:@"http://help.livereload.com/kb/general-use/browser-extensions"] color:[NSColor blackColor] linkColor:[NSColor colorWithCalibratedRed:0 green:10/255.0 blue:137/255.0 alpha:1.0] shadow:nil];;
 
@@ -217,7 +220,7 @@ enum { PANE_COUNT = PaneProject+1 };
             [paneView removeFromSuperview];
     } else {
         if (visible) {
-            [self.window.contentView addSubview:paneView];
+            [self.window.contentView addSubview:paneView positioned:NSWindowBelow relativeTo:_panePlaceholder];
             paneView.frame = _panePlaceholder.frame;
         }
     }
@@ -254,6 +257,67 @@ enum { PANE_COUNT = PaneProject+1 };
         // and I physically miss pressing Command-C anyway
     }
 }
+
+
+#pragma mark - Terminal Mode
+
+- (BOOL)isShowingTerminal {
+    return _terminalViewController != nil;
+}
+
+- (void)showTerminal {
+    if (![self isShowingTerminal]) {
+        if (_terminalViewController == nil) {
+            _terminalViewController = [[TerminalViewController alloc] init];
+        }
+        [self.window.contentView addSubview:_terminalViewController.view positioned:NSWindowBelow relativeTo:_terminalButton];
+
+        [_terminalButton setImage:[NSImage imageNamed:@"LRTerminalButtonOn"]];
+        [_terminalButton setAlternateImage:[NSImage imageNamed:@"LRTerminalButtonOnHighlight"]];
+
+        CGRect bounds = [self.window.contentView bounds];
+        CGRect startingBounds = bounds;
+        startingBounds.origin.y -= startingBounds.size.height;
+        _terminalViewController.view.frame = startingBounds;
+
+        NSDictionary *effect = [NSDictionary dictionaryWithObjectsAndKeys:_terminalViewController.view, NSViewAnimationTargetKey, [NSValue valueWithRect:startingBounds], NSViewAnimationStartFrameKey, [NSValue valueWithRect:bounds], NSViewAnimationEndFrameKey, nil];
+        NSViewAnimation *animation = [[[NSViewAnimation alloc] initWithViewAnimations:[NSArray arrayWithObject:effect]] autorelease];
+        [animation setAnimationCurve:NSAnimationEaseIn];
+        [animation setDuration:0.25];
+        [animation startAnimation];
+    }
+}
+
+- (void)hideTerminal {
+    if ([self isShowingTerminal]) {
+        [_terminalButton setImage:[NSImage imageNamed:@"LRTerminalButtonOff"]];
+        [_terminalButton setAlternateImage:[NSImage imageNamed:@"LRTerminalButtonOffHighlight"]];
+
+        CGRect bounds = [self.window.contentView bounds];
+        CGRect finalBounds = bounds;
+        finalBounds.origin.y -= finalBounds.size.height;
+
+        NSDictionary *effect = [NSDictionary dictionaryWithObjectsAndKeys:_terminalViewController.view, NSViewAnimationTargetKey, [NSValue valueWithRect:bounds], NSViewAnimationStartFrameKey, [NSValue valueWithRect:finalBounds], NSViewAnimationEndFrameKey, nil];
+        NSViewAnimation *animation = [[[NSViewAnimation alloc] initWithViewAnimations:[NSArray arrayWithObject:effect]] autorelease];
+        [animation setDuration:0.25];
+        [animation setDelegate:self];
+        [animation startAnimation];
+    }
+}
+
+- (void)animationDidEnd:(NSAnimation*)animation {
+    [_terminalViewController.view removeFromSuperview];
+    [_terminalViewController release], _terminalViewController = nil;
+}
+
+- (IBAction)toggleTerminal:(id)sender {
+    if ([self isShowingTerminal]) {
+        [self hideTerminal];
+    } else {
+        [self showTerminal];
+    }
+}
+
 
 
 #pragma mark - NSOutlineView management
