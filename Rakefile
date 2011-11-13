@@ -143,6 +143,9 @@ namespace :build do
     Rake::Task['build:upload'].invoke(suffix)
 
     sh 'git', 'tag'
+
+    puts "http://download.livereload.com.s3.amazonaws.com/LiveReload-#{suffix}.zip"
+    puts "http://download.livereload.com/LiveReload-#{suffix}.zip"
   end
 
   desc "Tag, build and zip using the current version number"
@@ -160,8 +163,6 @@ namespace :build do
   task :dev do |t, args|
     suffix = TheApp.find_unused_suffix("#{TheApp.short_version}-dev-#{Time.now.strftime('%b%d').downcase}", '-')
     Rake::Task['build:custom'].invoke(suffix)
-    puts "http://download.livereload.com.s3.amazonaws.com/LiveReload-#{suffix}.zip"
-    puts "http://download.livereload.com/LiveReload-#{suffix}.zip"
   end
 
 end
