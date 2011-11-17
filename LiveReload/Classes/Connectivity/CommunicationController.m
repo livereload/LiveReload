@@ -90,7 +90,14 @@ NSString *CommunicationStateChangedNotification = @"CommunicationStateChangedNot
         if (![Workspace sharedWorkspace].monitoringEnabled) {
             [Workspace sharedWorkspace].monitoringEnabled = YES;
         }
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(considerStoppingMonitoring) object:nil];
         [[NSNotificationCenter defaultCenter] postNotificationName:CommunicationStateChangedNotification object:nil];
+    }
+}
+
+- (void)considerStoppingMonitoring {
+    if ([Workspace sharedWorkspace].monitoringEnabled && _numberOfSessions == 0) {
+        [Workspace sharedWorkspace].monitoringEnabled = NO;
     }
 }
 
@@ -102,9 +109,8 @@ NSString *CommunicationStateChangedNotification = @"CommunicationStateChangedNot
         --_numberOfSessions;
         [self didChangeValueForKey:@"numberOfSessions"];
 
-        if ([Workspace sharedWorkspace].monitoringEnabled && _numberOfSessions == 0) {
-            [Workspace sharedWorkspace].monitoringEnabled = NO;
-        }
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(considerStoppingMonitoring) object:nil];
+        [self performSelector:@selector(considerStoppingMonitoring) withObject:nil afterDelay:5.0];
         [[NSNotificationCenter defaultCenter] postNotificationName:CommunicationStateChangedNotification object:nil];
     }
 }
