@@ -12,6 +12,7 @@
 @synthesize compiler=_compiler;
 @synthesize version=_version;
 @synthesize additionalArguments=_additionalArguments;
+@synthesize enabled=_enabled;
 
 
 #pragma mark init/dealloc
@@ -126,6 +127,20 @@
 
 - (NSArray *)allFileOptions {
     return [_fileOptions allValues];
+}
+
+
+#pragma mark - Enabled
+
+- (void)setEnabled:(BOOL)enabled {
+    if (enabled != _enabled) {
+        _enabled = enabled;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+    }
+}
+
+- (BOOL)isActive {
+    return _enabled || !_compiler.optional;
 }
 
 @end

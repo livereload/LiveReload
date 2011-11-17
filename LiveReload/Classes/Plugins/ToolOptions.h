@@ -11,6 +11,8 @@
 
 + (ToolOption *)toolOptionWithCompiler:(Compiler *)compiler project:(Project *)project optionInfo:(NSDictionary *)optionInfo;
 
+- (id)initWithCompiler:(Compiler *)compiler project:(Project *)project optionInfo:(NSDictionary *)optionInfo;
+
 @property(nonatomic, readonly) NSString *identifier;
 
 @property(nonatomic, readonly) NSArray *currentCompilerArguments;
@@ -19,4 +21,9 @@
 
 - (void)save;
 
+@end
+
+
+
+@interface EnabledToolOption : ToolOption
 @end

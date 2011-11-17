@@ -221,6 +221,38 @@ Class ToolOptionClassByType(NSString *type) {
 
 
 
+#pragma mark - Enabled
+
+@implementation EnabledToolOption {
+    NSButton              *_view;
+}
+
+- (void)dealloc {
+    [_view release], _view = nil;
+    [super dealloc];
+}
+
+- (void)renderControlWithBuilder:(UIBuilder *)builder {
+    CompilationOptions *options = [_project optionsForCompiler:_compiler create:NO];
+    _view = [[builder addCheckboxWithTitle:@"Enabled"] retain];
+    [_view setTarget:self];
+    [_view setAction:@selector(checkBoxClicked:)];
+    _view.state = options.enabled ? NSOnState : NSOffState;
+}
+
+- (IBAction)checkBoxClicked:(id)sender {
+    [self save];
+}
+
+- (void)save {
+    CompilationOptions *options = [_project optionsForCompiler:_compiler create:YES];
+    options.enabled = (_view.state == NSOnState);
+}
+
+@end
+
+
+
 #pragma mark - Select
 
 @implementation SelectToolOption {

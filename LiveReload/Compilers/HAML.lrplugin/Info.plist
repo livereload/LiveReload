@@ -5,6 +5,8 @@
 	<key>LRCompilers</key>
 	<array>
 		<dict>
+			<key>Optional</key>
+			<true/>
 			<key>CommandLine</key>
 			<array>
 				<string>$(ruby)</string>

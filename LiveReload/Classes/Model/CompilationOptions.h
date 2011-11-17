@@ -14,6 +14,7 @@
     NSArray               *_includeDirectories;
     NSMutableDictionary   *_fileOptions; // NSString to FileCompilationOptions
     NSString              *_additionalArguments;
+    BOOL                   _enabled;
 
     NSArray               *_availableVersions;
     CompilerVersion       *_version;
@@ -27,6 +28,9 @@
 
 @property(nonatomic, readonly) NSArray *availableVersions;
 @property(nonatomic, retain) CompilerVersion *version;
+
+@property(nonatomic, getter=isEnabled) BOOL enabled;
+@property(nonatomic, readonly, getter=isActive) BOOL active; // YES if enabled or not optional
 
 @property(nonatomic, copy) NSString *additionalArguments;
 

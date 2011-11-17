@@ -17,6 +17,8 @@
 			<string>$(src_dir)</string>
 			<key>DestinationExtension</key>
 			<string>html</string>
+			<key>Optional</key>
+			<true/>
 			<key>Errors</key>
 			<array>
 				<string>\w+Error: ((file)):((line))\n(?:\s[^\n]*\n)*\s*\n((message))\n</string>

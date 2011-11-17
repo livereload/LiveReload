@@ -75,6 +75,7 @@
 @synthesize expectedOutputDirectoryNames=_expectedOutputDirectoryNames;
 @synthesize needsOutputDirectory=_needsOutputDirectory;
 @synthesize options=_options;
+@synthesize optional=_optional;
 
 
 #pragma mark - init/dealloc
@@ -114,6 +115,7 @@
         _options = [[info objectForKey:@"Options"] copy];
         if (!_options)
             _options = [[NSArray alloc] init];
+        _optional = [[info objectForKey:@"Optional"] boolValue];
     }
     return self;
 }

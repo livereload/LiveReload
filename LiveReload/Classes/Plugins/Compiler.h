@@ -17,6 +17,7 @@
     NSArray          *_commandLine;
     NSString         *_runDirectory;
     BOOL              _needsOutputDirectory;
+    BOOL              _optional;
     NSArray          *_extensions;
     NSString         *_destinationExtension;
     NSArray          *_errorFormats;
@@ -38,6 +39,7 @@
 @property(nonatomic, readonly) NSString *destinationExtension;
 @property(nonatomic, readonly) NSArray *expectedOutputDirectoryNames;
 @property(nonatomic, readonly) BOOL needsOutputDirectory;
+@property(nonatomic, readonly, getter=isOptional) BOOL optional;
 
 @property(nonatomic, readonly) NSString *sourceExtensionsForDisplay;
 @property(nonatomic, readonly) NSString *destinationExtensionForDisplay;
