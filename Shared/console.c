@@ -54,7 +54,7 @@ void console_init() {
 }
 
 void console_put(const char *text) {
-    // if larger 
+    // if larger
     size_t required = strlen(text);
     size_t max_allowed = ConsoleBufSize - 1 /* zero byte */ - 1 /* possible additional \n */;
     if (required > max_allowed) {
@@ -66,7 +66,7 @@ void console_put(const char *text) {
     bool needs_linefeed = (text[required-1] != '\n');
     if (needs_linefeed)
         required += 1;
-    
+
     size_t available = (buffer_end - buffer_ptr);
     if (available < required) {
         expunge_old_lines(required - available);

@@ -1,5 +1,5 @@
 
-#include "EventBus.h" 
+#include "EventBus.h"
 
 #include <stddef.h>
 #include <assert.h>

@@ -28,7 +28,7 @@ char *str_replace(const char *string, const char *what, const char *replacement)
         start = next + what_len;
     }
     strcat(result, start);
-    
+
     return AU(result);
 }
 
@@ -36,7 +36,7 @@ char *str_replace(const char *string, const char *what, const char *replacement)
 const char *str_collapse_paths(const char *text_with_paths, const char *current_project_path) {
     // order is important here! LiveReload could be inside $HOME
     text_with_paths = str_replace(text_with_paths, os_bundled_resources_path(), "$LiveReloadResources");
-    
+
     const char *home = getenv("HOME");
     if (home) {
         text_with_paths = str_replace(text_with_paths, home, "~");
@@ -44,10 +44,10 @@ const char *str_collapse_paths(const char *text_with_paths, const char *current_
             current_project_path = str_replace(current_project_path, home, "~");
         }
     }
-    
+
     if (current_project_path) {
         text_with_paths = str_replace(text_with_paths, current_project_path, ".");
     }
-    
+
     return text_with_paths;
 }
