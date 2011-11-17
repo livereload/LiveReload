@@ -32,6 +32,15 @@
 			<array>
 				<string>jade</string>
 			</array>
+			<key>ImportRegExps</key>
+			<array>
+				<string>include ([\w./]+)</string>
+				<string>extends ([\w./]+)</string>
+			</array>
+			<key>DefaultImportedExts</key>
+			<array>
+				<string>jade</string>
+			</array>
 			<key>Name</key>
 			<string>Jade</string>
 		</dict>

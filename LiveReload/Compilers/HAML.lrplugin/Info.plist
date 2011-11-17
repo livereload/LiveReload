@@ -132,6 +132,15 @@
 					</array>
 				</dict>
 			</array>
+			<key>ImportRegExps</key>
+			<array>
+				<string>partial\s*=&gt;\s*&quot;([^&quot;]+)&quot;</string>
+				<string>partial\s*=&gt;\s*&apos;([^&apos;]+)&apos;</string>
+			</array>
+			<key>DefaultImportedExts</key>
+			<array>
+				<string>haml</string>
+			</array>
 		</dict>
 	</array>
 </dict>
