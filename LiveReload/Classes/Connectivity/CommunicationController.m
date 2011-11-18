@@ -17,6 +17,9 @@
 
 #define HANDSHAKE_TIMEOUT 1.0
 
+#include "communication.h"
+#include "sglib.h"
+
 
 static CommunicationController *sharedCommunicationController;
 
@@ -33,7 +36,7 @@ NSString *CommunicationStateChangedNotification = @"CommunicationStateChangedNot
 - (id)initWithConnection:(WebSocketConnection *)connection;
 - (void)didFinishHandshake;
 
-- (void)sendChangedPath:(NSString *)path inProject:(Project *)project;
+- (void)sendRequest:(reload_request_t *)request inProject:(Project *)project;
 
 @end
 
@@ -66,15 +69,17 @@ NSString *CommunicationStateChangedNotification = @"CommunicationStateChangedNot
     [_server connect];
 }
 
-- (void)broadcastChangedPathes:(NSSet *)pathes inProject:(Project *)project {
-    NSLog(@"Broadcasting change in %@: %@", project.path, [pathes description]);
+- (void)broadcast:(reload_session_t *)session {
+    Project *project = (Project *)session->project;
+
+    NSLog(@"Broadcasting change in %@", project.path);
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    for (NSString *path in pathes) {
+
+    SGLIB_SORTED_LIST_MAP_ON_ELEMENTS(reload_request_t, session->first, request, next, {
         for (LiveReloadConnection *connection in _connections) {
-            [connection sendChangedPath:path inProject:project];
+            [connection sendRequest:request inProject:project];
         }
-//        [_server broadcast:[command JSONRepresentation]];
-    }
+    });
 
     [pool drain];
     [self willChangeValueForKey:@"numberOfProcessedChanges"];
@@ -283,8 +288,11 @@ NSString *CommunicationStateChangedNotification = @"CommunicationStateChangedNot
     [_delegate connectionDidClose:self];
 }
 
- - (void)sendChangedPath:(NSString *)path inProject:(Project *)project {
+ - (void)sendRequest:(reload_request_t *)request inProject:(Project *)project {
     if (_monitoring) {
+        NSString *path = [NSString stringWithUTF8String:request->path];
+        NSString *originalPath = (request->original_path ? [NSString stringWithUTF8String:request->original_path] : @"");
+
         if (_monitoringProtocolVersion < 7) {
             NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
                                      path, @"path",
@@ -295,6 +303,7 @@ NSString *CommunicationStateChangedNotification = @"CommunicationStateChangedNot
         } else {
             NSDictionary *command = [NSDictionary dictionaryWithObjectsAndKeys:@"reload", @"command",
                                      path, @"path",
+                                     originalPath, @"originalPath",
                                      //                              [NSNumber numberWithBool:[[Preferences sharedPreferences] autoreloadJavascript]], @"liveJS",
                                      [NSNumber numberWithBool:!project.disableLiveRefresh], @"liveCSS",
                                      nil];
@@ -304,3 +313,7 @@ NSString *CommunicationStateChangedNotification = @"CommunicationStateChangedNot
 }
 
 @end
+
+void comm_broadcast_reload_requests(reload_session_t *session) {
+    [[CommunicationController sharedCommunicationController] broadcast:session];
+}

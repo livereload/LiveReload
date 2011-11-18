@@ -1,7 +1,4 @@
 
-#include "console.h"
-#include "stringutil.h"
-
 #import "ToolOutputWindowController.h"
 
 #import "PluginManager.h"
@@ -24,6 +21,14 @@
 #import "NSArray+Substitutions.h"
 #import "NSTask+OneLineTasksWithOutput.h"
 #import "ATFunctionalStyle.h"
+
+#include <stdbool.h>
+#include "common.h"
+#include "sglib.h"
+#include "console.h"
+#include "stringutil.h"
+#include "reload_request.h"
+#include "communication.h"
 
 
 #define kPostProcessingSafeInterval 0.5l
@@ -73,7 +78,7 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
     if ((self = [super init])) {
         _path = [path copy];
         _enabled = YES;
-        _changesToBroadcast = [[NSMutableSet alloc] init];
+        _session = reload_session_create(self);
 
         _monitor = [[FSMonitor alloc] initWithPath:_path];
         _monitor.delegate = self;
@@ -275,20 +280,14 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
     }
 }
 
-- (BOOL)canRefreshLive:(NSString *)file {
-    NSString *ext = [file pathExtension];
-    NSString *liveExtensions = @",css,png,jpg,gif,";
-    return ([liveExtensions rangeOfString:[NSString stringWithFormat:@",%@,", ext]].length > 0);
-}
-
 - (void)broadcastPendingChanges {
     [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidDetectChangeNotification object:self];
-    [[CommunicationController sharedCommunicationController] broadcastChangedPathes:_changesToBroadcast inProject:self];
+    comm_broadcast_reload_requests(_session);
+    reload_session_clear(_session);
     StatIncrement(BrowserRefreshCountStat, 1);
-    [_changesToBroadcast removeAllObjects];
 }
 
-- (void)processChangeAtPath:(NSString *)relativePath addingPathsToNotifyInto:(NSMutableSet *)filtered {
+- (void)processChangeAtPath:(NSString *)relativePath {
     NSString *extension = [relativePath pathExtension];
 
     BOOL compilerFound = NO;
@@ -309,7 +308,7 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
                 break;
             } else {
                 NSString *derivedName = [compiler derivedNameForFile:relativePath];
-                [filtered addObject:derivedName];
+                reload_session_add(_session, reload_request_create([derivedName UTF8String], [[_path stringByAppendingPathComponent:relativePath] UTF8String]));
                 NSLog(@"Broadcasting a fake change in %@ instead of %@ (compiler %@).", derivedName, relativePath, compiler.name);
                 StatGroupIncrement(CompilerChangeCountStatGroup, compiler.uniqueId, 1);
                 break;
@@ -320,7 +319,7 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
     }
 
     if (!compilerFound) {
-        [filtered addObject:[_path stringByAppendingPathComponent:relativePath]];
+        reload_session_add(_session, reload_request_create([[_path stringByAppendingPathComponent:relativePath] UTF8String], NULL));
     }
 }
 
@@ -346,21 +345,20 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
     [self performSelector:@selector(rescanRecentlyChangedPaths) withObject:nil afterDelay:1.0];
 #endif
 
-    NSMutableSet *filtered = [NSMutableSet setWithCapacity:[pathes count]];
     for (NSString *relativePath in pathes) {
         NSSet *realPaths = [_importGraph rootReferencingPathsForPath:relativePath];
         if ([realPaths count] > 0) {
             NSLog(@"Instead of imported file %@, processing changes in %@", relativePath, [[realPaths allObjects] componentsJoinedByString:@", "]);
             for (NSString *path in realPaths) {
-                [self processChangeAtPath:path addingPathsToNotifyInto:filtered];
+                [self processChangeAtPath:path];
             }
         } else {
-            [self processChangeAtPath:relativePath addingPathsToNotifyInto:filtered];
+            [self processChangeAtPath:relativePath];
         }
 
     }
-    if ([filtered count] == 0) {
-        return;
+    if (reload_session_empty(_session)) {
+        goto fin;
     }
 
     if ([_postProcessingCommand length] > 0 && _postProcessingEnabled) {
@@ -407,21 +405,18 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
     if (_disableLiveRefresh) {
         isFullReload = YES;
     } else {
-        for (NSString *path in filtered) {
-            if (![self canRefreshLive:path]) {
-                isFullReload = YES;
-                break;
-            }
-        }
+        isFullReload = !reload_session_can_refresh_live(_session);
     }
 
-    [_changesToBroadcast unionSet:filtered];
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(broadcastPendingChanges) object:nil];
     if (isFullReload && _fullPageReloadDelay > 0.001) {
         [self performSelector:@selector(broadcastPendingChanges) withObject:nil afterDelay:_fullPageReloadDelay];
     } else {
         [self broadcastPendingChanges];
     }
+
+fin:
+    ;
 }
 
 - (FSTree *)tree {

@@ -20,6 +20,8 @@
 		431466A6146CA68500DC075A /* PassThruView.m in Sources */ = {isa = PBXBuildFile; fileRef = 431466A5146CA68500DC075A /* PassThruView.m */; };
 		431466A9146CA82200DC075A /* PassThruImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 431466A8146CA82200DC075A /* PassThruImageView.m */; };
 		43191846141A0D1C008457FF /* Eco.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43191845141A0D1C008457FF /* Eco.lrplugin */; };
+		432A6D961476269C00144F97 /* reload_request.c in Sources */ = {isa = PBXBuildFile; fileRef = 432A6D951476269C00144F97 /* reload_request.c */; };
+		432A6D99147627F800144F97 /* communication.c in Sources */ = {isa = PBXBuildFile; fileRef = 432A6D98147627F800144F97 /* communication.c */; };
 		43361D2F13C2E0E500C0E589 /* Stylus.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43361D2E13C2E0E500C0E589 /* Stylus.lrplugin */; };
 		43361D4613C30D1400C0E589 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43361D4513C30D1400C0E589 /* libicucore.dylib */; };
 		43361D4813C3188900C0E589 /* node in Resources */ = {isa = PBXBuildFile; fileRef = 43361D4713C3188900C0E589 /* node */; };
@@ -185,6 +187,12 @@
 		431466A7146CA82200DC075A /* PassThruImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassThruImageView.h; sourceTree = "<group>"; };
 		431466A8146CA82200DC075A /* PassThruImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassThruImageView.m; sourceTree = "<group>"; };
 		43191845141A0D1C008457FF /* Eco.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Eco.lrplugin; path = Compilers/Eco.lrplugin; sourceTree = SOURCE_ROOT; };
+		432A6D921476192300144F97 /* sglib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sglib.h; sourceTree = "<group>"; };
+		432A6D93147622A600144F97 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
+		432A6D941476269400144F97 /* reload_request.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = reload_request.h; sourceTree = "<group>"; };
+		432A6D951476269C00144F97 /* reload_request.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = reload_request.c; sourceTree = "<group>"; };
+		432A6D97147627F000144F97 /* communication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = communication.h; sourceTree = "<group>"; };
+		432A6D98147627F800144F97 /* communication.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = communication.c; sourceTree = "<group>"; };
 		43361D2E13C2E0E500C0E589 /* Stylus.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Stylus.lrplugin; path = Compilers/Stylus.lrplugin; sourceTree = SOURCE_ROOT; };
 		43361D4513C30D1400C0E589 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		43361D4713C3188900C0E589 /* node */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = node; path = Compilers/node; sourceTree = SOURCE_ROOT; };
@@ -515,6 +523,7 @@
 		43E34F9614705125001641AA /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				432A6D93147622A600144F97 /* common.h */,
 				43E34F9714705125001641AA /* console.c */,
 				43E34F9814705125001641AA /* console.h */,
 				43E34F9914705125001641AA /* eventbus.c */,
@@ -523,6 +532,11 @@
 				43E34FA11470701C001641AA /* autorelease.c */,
 				43E34FA3147071E2001641AA /* stringutil.h */,
 				43E34FA4147071E8001641AA /* stringutil.c */,
+				432A6D921476192300144F97 /* sglib.h */,
+				432A6D941476269400144F97 /* reload_request.h */,
+				432A6D951476269C00144F97 /* reload_request.c */,
+				432A6D97147627F000144F97 /* communication.h */,
+				432A6D98147627F800144F97 /* communication.c */,
 			);
 			name = Shared;
 			path = ../../Shared;
@@ -1085,6 +1099,8 @@
 				43E34F9F14706D9B001641AA /* osdep.m in Sources */,
 				43E34FA21470701C001641AA /* autorelease.c in Sources */,
 				43E34FA5147071E9001641AA /* stringutil.c in Sources */,
+				432A6D961476269C00144F97 /* reload_request.c in Sources */,
+				432A6D99147627F800144F97 /* communication.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

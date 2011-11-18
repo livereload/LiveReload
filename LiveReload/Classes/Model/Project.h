@@ -43,7 +43,7 @@ extern NSString *ProjectNeedsSavingNotification;
 
     BOOL                     _disableLiveRefresh;
     NSTimeInterval           _fullPageReloadDelay;
-    NSMutableSet            *_changesToBroadcast;
+    struct reload_session_t *_session;
 
     BOOL                     _brokenPathReported;
 }

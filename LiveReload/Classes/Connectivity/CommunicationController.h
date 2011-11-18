@@ -26,8 +26,6 @@ extern NSString *CommunicationStateChangedNotification;
 
 - (void)startServer;
 
-- (void)broadcastChangedPathes:(NSSet *)pathes inProject:(Project *)project;
-
 @end
 
 
