@@ -562,7 +562,7 @@ skipGuessing:
 }
 
 - (void)handleCompilationOptionsEnablementChanged {
-    [self requestMonitoring:_compilationEnabled forKey:CompilersEnabledMonitoringKey];
+    [self requestMonitoring:_compilationEnabled || _postProcessingEnabled forKey:CompilersEnabledMonitoringKey];
 }
 
 - (void)setCompilationEnabled:(BOOL)compilationEnabled {
@@ -714,6 +714,7 @@ skipGuessing:
         } else if ([_postProcessingCommand length] == 0 && _postProcessingEnabled) {
             _postProcessingEnabled = NO;
         }
+        [self handleCompilationOptionsEnablementChanged];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
     }
 }
@@ -724,6 +725,7 @@ skipGuessing:
     }
     if (postProcessingEnabled != _postProcessingEnabled) {
         _postProcessingEnabled = postProcessingEnabled;
+        [self handleCompilationOptionsEnablementChanged];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
     }
 }
