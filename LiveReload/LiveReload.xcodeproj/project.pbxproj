@@ -219,7 +219,6 @@
 		432A6DA8147636F700144F97 /* utf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utf.c; sourceTree = "<group>"; };
 		432A6DA9147636F700144F97 /* utf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utf.h; sourceTree = "<group>"; };
 		432A6DAA147636F700144F97 /* value.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = value.c; sourceTree = "<group>"; };
-		432A6DB6147643F600144F97 /* project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = project.h; sourceTree = "<group>"; };
 		43361D2E13C2E0E500C0E589 /* Stylus.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Stylus.lrplugin; path = Compilers/Stylus.lrplugin; sourceTree = SOURCE_ROOT; };
 		43361D4513C30D1400C0E589 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		43361D4713C3188900C0E589 /* node */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = node; path = Compilers/node; sourceTree = SOURCE_ROOT; };
@@ -553,14 +552,6 @@
 			path = jansson;
 			sourceTree = "<group>";
 		};
-		432A6DB51476431000144F97 /* model */ = {
-			isa = PBXGroup;
-			children = (
-				432A6DB6147643F600144F97 /* project.h */,
-			);
-			path = model;
-			sourceTree = "<group>";
-		};
 		433617FE13C2E0C800C0E589 /* Compilers */ = {
 			isa = PBXGroup;
 			children = (
@@ -595,7 +586,6 @@
 				432A6D951476269C00144F97 /* reload_request.c */,
 				432A6D97147627F000144F97 /* communication.h */,
 				432A6D98147627F800144F97 /* communication.c */,
-				432A6DB51476431000144F97 /* model */,
 				432A6D9A147636F700144F97 /* jansson */,
 			);
 			name = Shared;
