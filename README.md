@@ -1,6 +1,49 @@
 LiveReload (paid GUI version)
 =============================
 
+Project Structure
+-----------------
+
+
+External libs:
+
+* /Shared/libwebsockets
+* /Shared/jansson
+
+
+Cross-platform code (can of course use #ifdef to handle OS differences):
+
+* /Shared/monitoring/fstree.{h,c} - fstree_t, port of FSTree
+* /Shared/monitoring/fstreediffer.{h,c} - optional, may be merged with fsmonitor
+* /Shared/monitoring/fsmonitor.{h,c} - fsmonitor_t, port of FSTree
+
+* /Shared/model/project.{h,c} - project_t
+* /Shared/model/model.{h,c} - project list; save/load code; port of Workspace.m; contains: model_init (loads the model from file), model_project_count(), model_project_at(index); .c listens for model change events and handles saving
+
+* /Shared/app/communication.{h,c} -- handles web socket communcation; a merge of WebSocketServer.m and CommunicationController.m (we no longer need an OO wrapper around libwebsockets, so can simply use libwebsockets directly)
+
+
+Windows-specific:
+
+/Windows/app/main.c -- WinMain
+/Windows/ui/trayitem.{h,c} -- port of StatusItemController + StatusItemView
+/Windows/ui/mainwindow.{h,c} -- main_window_init(), main_window_toggle(), etc; MainWindowProc and all window handling code
+
+
+Functions required by cross-platform code with highly OS-specific implementations:
+
+* /Shared/app/osdep.h
+* /Windows/app/osdep.c
+* /Mac/app/osdep.m
+
+Functions we need in osdep: preferences API (NSUserDefaults on OS X, registry on Windows), osdep_model_json_file_path()
+
+
+
+Old Shit
+--------
+
+
 Hunting down the crx file from Chrome Web Store:
 
 * install the extension
