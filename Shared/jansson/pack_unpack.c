@@ -410,7 +410,7 @@ static int unpack(scanner_t *s, json_t *root, va_list *ap)
             }
 
             if(!(s->flags & JSON_VALIDATE_ONLY))
-                *va_arg(*ap, int*) = json_integer_value(root);
+                *va_arg(*ap, int*) = (int) json_integer_value(root);
 
             return 0;
 

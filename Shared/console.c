@@ -1,11 +1,11 @@
 
 #include "eventbus.h"
 #include "console.h"
+#include "common.h"
 
 #include <stdio.h>
 #include <stdarg.h>
 #include <string.h>
-#include <dispatch/dispatch.h>
 
 EVENTBUS_DEFINE_EVENT(console_message_added_event);
 

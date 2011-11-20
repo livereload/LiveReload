@@ -4,6 +4,7 @@
 
 #ifdef _MSC_VER
 #define __typeof decltype
+char *stpcpy(char *dest, const char *source);
 #endif
 
 #define ARRAY_FOREACH(type, array, iterVar, code) {\

@@ -11,7 +11,42 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Shared\autorelease.c" />
+    <ClCompile Include="..\Shared\common.c" />
+    <ClCompile Include="..\Shared\communication.c" />
+    <ClCompile Include="..\Shared\console.c" />
+    <ClCompile Include="..\Shared\eventbus.c" />
+    <ClCompile Include="..\Shared\jansson\error.c" />
+    <ClCompile Include="..\Shared\jansson\hashtable.c" />
+    <ClCompile Include="..\Shared\jansson\load.c" />
+    <ClCompile Include="..\Shared\jansson\memory.c" />
+    <ClCompile Include="..\Shared\jansson\pack_unpack.c" />
+    <ClCompile Include="..\Shared\jansson\strbuffer.c" />
+    <ClCompile Include="..\Shared\jansson\strconv.c" />
+    <ClCompile Include="..\Shared\jansson\utf.c" />
+    <ClCompile Include="..\Shared\jansson\value.c" />
+    <ClCompile Include="..\Shared\reload_request.c" />
+    <ClCompile Include="..\Shared\stringutil.c" />
     <ClCompile Include="app\main.c" />
+    <ClCompile Include="osdep.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Shared\autorelease.h" />
+    <ClInclude Include="..\Shared\common.h" />
+    <ClInclude Include="..\Shared\communication.h" />
+    <ClInclude Include="..\Shared\console.h" />
+    <ClInclude Include="..\Shared\eventbus.h" />
+    <ClInclude Include="..\Shared\jansson\hashtable.h" />
+    <ClInclude Include="..\Shared\jansson\jansson.h" />
+    <ClInclude Include="..\Shared\jansson\jansson_config.h" />
+    <ClInclude Include="..\Shared\jansson\jansson_private.h" />
+    <ClInclude Include="..\Shared\jansson\strbuffer.h" />
+    <ClInclude Include="..\Shared\jansson\utf.h" />
+    <ClInclude Include="..\Shared\model\project.h" />
+    <ClInclude Include="..\Shared\osdep.h" />
+    <ClInclude Include="..\Shared\reload_request.h" />
+    <ClInclude Include="..\Shared\sglib.h" />
+    <ClInclude Include="..\Shared\stringutil.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{6CB892AD-0192-4352-8FD3-E32E25B6B5D0}</ProjectGuid>
@@ -53,6 +88,9 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(MSBuildProjectDirectory)\..\shared;$(MSBuildProjectDirectory)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <AdditionalOptions>/wd4996  /Dsnprintf=_snprintf %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

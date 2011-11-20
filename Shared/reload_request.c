@@ -10,7 +10,7 @@
 
 
 reload_request_t *reload_request_create(const char *path, const char *original_path) {
-    reload_request_t *request = malloc(sizeof(reload_request_t));
+    reload_request_t *request = (reload_request_t *) malloc(sizeof(reload_request_t));
     request->path = strdup(path);
     request->original_path = (original_path ? strdup(original_path) : 0);
     request->next = NULL;
@@ -38,7 +38,7 @@ bool project_can_refresh_live(void *project, const char *path) {
 }
 
 reload_session_t *reload_session_create(void *project) {
-    reload_session_t *session = malloc(sizeof(reload_session_t));
+    reload_session_t *session = (reload_session_t *) malloc(sizeof(reload_session_t));
     session->first = NULL;
     session->project = project;
     return session;

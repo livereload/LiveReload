@@ -9,7 +9,16 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Файлы ресурсов">
+    <Filter Include="Shared">
+      <UniqueIdentifier>{4194265d-f5b2-4627-970b-b1e305720dcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared\model">
+      <UniqueIdentifier>{3d1df982-2456-4e15-974e-a5406be6e7d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shared\jansson">
+      <UniqueIdentifier>{b4772492-caad-470b-934b-fac1ffd85f2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы исходного кода\Файлы ресурсов">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
@@ -18,5 +27,106 @@
     <ClCompile Include="app\main.c">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
+    <ClCompile Include="..\Shared\autorelease.c">
+      <Filter>Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shared\communication.c">
+      <Filter>Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shared\console.c">
+      <Filter>Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shared\eventbus.c">
+      <Filter>Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shared\reload_request.c">
+      <Filter>Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shared\stringutil.c">
+      <Filter>Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shared\jansson\error.c">
+      <Filter>Shared\jansson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shared\jansson\hashtable.c">
+      <Filter>Shared\jansson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shared\jansson\load.c">
+      <Filter>Shared\jansson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shared\jansson\memory.c">
+      <Filter>Shared\jansson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shared\jansson\pack_unpack.c">
+      <Filter>Shared\jansson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shared\jansson\strbuffer.c">
+      <Filter>Shared\jansson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shared\jansson\strconv.c">
+      <Filter>Shared\jansson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shared\jansson\utf.c">
+      <Filter>Shared\jansson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shared\jansson\value.c">
+      <Filter>Shared\jansson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shared\common.c">
+      <Filter>Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="osdep.c">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Shared\autorelease.h">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shared\common.h">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shared\communication.h">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shared\console.h">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shared\eventbus.h">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shared\reload_request.h">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shared\sglib.h">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shared\stringutil.h">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shared\jansson\hashtable.h">
+      <Filter>Shared\jansson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shared\jansson\jansson.h">
+      <Filter>Shared\jansson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shared\jansson\jansson_config.h">
+      <Filter>Shared\jansson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shared\jansson\jansson_private.h">
+      <Filter>Shared\jansson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shared\jansson\strbuffer.h">
+      <Filter>Shared\jansson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shared\jansson\utf.h">
+      <Filter>Shared\jansson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shared\model\project.h">
+      <Filter>Shared\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shared\osdep.h">
+      <Filter>Shared</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -159,7 +159,7 @@ static int hashtable_do_rehash(hashtable_t *hashtable)
     hashtable->num_buckets++;
     new_size = num_buckets(hashtable);
 
-    hashtable->buckets = jsonp_malloc(new_size * sizeof(bucket_t));
+    hashtable->buckets = (hashtable_bucket *) jsonp_malloc(new_size * sizeof(bucket_t));
     if(!hashtable->buckets)
         return -1;
 
@@ -186,7 +186,7 @@ static int hashtable_do_rehash(hashtable_t *hashtable)
 hashtable_t *hashtable_create(key_hash_fn hash_key, key_cmp_fn cmp_keys,
                               free_fn free_key, free_fn free_value)
 {
-    hashtable_t *hashtable = jsonp_malloc(sizeof(hashtable_t));
+    hashtable_t *hashtable = (hashtable_t *) jsonp_malloc(sizeof(hashtable_t));
     if(!hashtable)
         return NULL;
 
@@ -213,7 +213,7 @@ int hashtable_init(hashtable_t *hashtable,
 
     hashtable->size = 0;
     hashtable->num_buckets = 0;  /* index to primes[] */
-    hashtable->buckets = jsonp_malloc(num_buckets(hashtable) * sizeof(bucket_t));
+    hashtable->buckets = (hashtable_bucket *) jsonp_malloc(num_buckets(hashtable) * sizeof(bucket_t));
     if(!hashtable->buckets)
         return -1;
 
@@ -265,7 +265,7 @@ int hashtable_set(hashtable_t *hashtable, void *key, void *value)
     }
     else
     {
-        pair = jsonp_malloc(sizeof(pair_t));
+        pair = (pair_t *) jsonp_malloc(sizeof(pair_t));
         if(!pair)
             return -1;
 

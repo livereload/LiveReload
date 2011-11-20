@@ -29,7 +29,7 @@
 
 /* If your compiler supports the `long long` type,
    JSON_INTEGER_IS_LONG_LONG is defined to 1, otherwise to 0. */
-#define JSON_INTEGER_IS_LONG_LONG 1
+#define JSON_INTEGER_IS_LONG_LONG 0
 
 /* If locale.h and localeconv() are available, define to 1,
    otherwise to 0. */

@@ -18,7 +18,7 @@ char *str_replace(const char *string, const char *what, const char *replacement)
     }
 
     int len = strlen(string) + occurrences * (strlen(replacement) - what_len);
-    char *result = malloc(len + 1);
+    char *result = (char *) malloc(len + 1);
     *result = 0;
 
     const char *start = string;
