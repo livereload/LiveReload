@@ -8,7 +8,6 @@
 #import "CompilationOptions.h"
 #import "StatusItemController.h"
 #import "NewMainWindowController.h"
-#import "PreferencesWindowController.h"
 #import "CommunicationController.h"
 #import "LoginItemController.h"
 #import "PluginManager.h"
@@ -36,7 +35,6 @@
 
 @synthesize statusItemController=_statusItemController;
 @synthesize mainWindowController=_mainWindowController;
-@synthesize preferencesWindowController = _preferencesWindowController;
 
 
 #pragma mark - Launching
@@ -73,7 +71,6 @@
     [self.statusItemController showStatusBarIcon];
 
     _mainWindowController = [[NewMainWindowController alloc] init];
-    _preferencesWindowController = [[PreferencesWindowController alloc] init];
 
     os_init();
     console_init();
@@ -169,20 +166,6 @@
     [[NSApp delegate] displayMainWindow:nil];
     if ([paths count] == 1) {
         [self projectAdded:newProject];
-    }
-}
-
-
-#pragma mark - Preferences
-
-
-- (IBAction)displayPreferencesWindow:sender {
-    [self.preferencesWindowController willShow];
-    if ([self isMainWindowVisible]) {
-        [self.mainWindowController.window flipToWindow:self.preferencesWindowController.window withDuration:0.5 shadowed:NO];
-    } else {
-        [NSApp activateIgnoringOtherApps:YES];
-        [self.preferencesWindowController.window makeKeyAndOrderFront:nil];
     }
 }
 
