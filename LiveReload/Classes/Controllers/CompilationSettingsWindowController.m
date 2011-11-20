@@ -378,7 +378,7 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
         if ([common isEqualToString:@"__NONE_SET__"]) {
             // do nothing
         } else if (common != nil) {
-            initialPath = common;
+            initialPath = [_project.path stringByAppendingPathComponent:common];
         } else {
             NSAlert *alert = [[[NSAlert alloc] init] autorelease];
             [alert setMessageText:@"Change all files?"];
@@ -394,7 +394,7 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
         if ([common isEqualToString:@"__NONE_SET__"]) {
             // do nothing
         } else if (common != nil) {
-            initialPath = common;
+            initialPath = [_project.path stringByAppendingPathComponent:common];
         } else {
             NSAlert *alert = [[[NSAlert alloc] init] autorelease];
             [alert setMessageText:@"Change all selected files?"];
@@ -408,7 +408,7 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
     } else {
         common = ((FileCompilationOptions *)[selection objectAtIndex:0]).destinationDirectory;
         if (common != nil) {
-            initialPath = common;
+            initialPath = [_project.path stringByAppendingPathComponent:common];
         }
     }
 
