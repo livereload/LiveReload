@@ -3,9 +3,7 @@
 #define LiveReload_project_h
 
 #include "jansson.h"
-#include "fsmonitor.h"
 #include "eventbus.h"
-#include "reload_request.h"
 
 #include <stdbool.h>
 

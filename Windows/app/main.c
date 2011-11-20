@@ -1,7 +1,7 @@
 #include "autorelease.h"
 #include "project.h"
+#include "common.h"
 
-#define STRICT
 #include <windows.h>
 #include <windowsx.h>
 #include <ole2.h>
@@ -32,12 +32,6 @@ void LayoutSubviews() {
 void OnSize(HWND hwnd, UINT state, int cx, int cy) {
     LayoutSubviews();
 }
-
-inline WCHAR *_u2w(WCHAR *buf, int cch, char *utf) {
-    MultiByteToWideChar(CP_UTF8, 0, utf, -1, buf, cch);
-    return buf;
-}
-#define U2W(str) _u2w((WCHAR *)_alloca(sizeof(WCHAR) * (strlen(str) + 1)), sizeof(WCHAR) * (strlen(str) + 1), str)
 
 BOOL OnCreate(HWND hwnd, LPCREATESTRUCT lpcs) {
     g_hMainWindow = hwnd;
@@ -146,6 +140,12 @@ BOOL InitApp(void) {
     return TRUE;
 }
 
+DWORD g_dwMainThreadId;
+enum { AM_INVOKE = WM_APP + 1 };
+void invoke_on_main_thread(INVOKE_LATER_FUNC func, void *context) {
+  PostThreadMessage(g_dwMainThreadId, AM_INVOKE, (WPARAM)func, (LPARAM) context);
+}
+
 int WINAPI WinMain(HINSTANCE hinst, HINSTANCE hinstPrev,
                    LPSTR lpCmdLine, int nShowCmd)
 {
@@ -153,8 +153,15 @@ int WINAPI WinMain(HINSTANCE hinst, HINSTANCE hinstPrev,
     HWND hwnd;
 
     g_hinst = hinst;
+    g_dwMainThreadId = GetCurrentThreadId();
+
+    // create message queue
+    PeekMessage(&msg, NULL, WM_USER, WM_USER, PM_NOREMOVE);
 
     if (!InitApp()) return 0;
+
+    AllocConsole();
+    freopen("CONOUT$", "wb", stdout);
 
     project_add_new("c:\\Dropbox\\GitHub\\LiveReload2");
     project_add_new("c:\\Dropbox\\GitHub\\keymapper_tip");
@@ -173,8 +180,14 @@ int WINAPI WinMain(HINSTANCE hinst, HINSTANCE hinstPrev,
     ShowWindow(hwnd, nShowCmd);
 
     while (GetMessage(&msg, NULL, 0, 0)) {
-        TranslateMessage(&msg);
-        DispatchMessage(&msg);
+        if (msg.message == AM_INVOKE && msg.hwnd == NULL) {
+          INVOKE_LATER_FUNC func = (INVOKE_LATER_FUNC)msg.wParam;
+          void *context = (void *)msg.lParam;
+          func(context);
+        } else {
+          TranslateMessage(&msg);
+          DispatchMessage(&msg);
+        }
         autorelease_cleanup();
     }
 

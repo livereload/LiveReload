@@ -1,6 +1,8 @@
 
 #include "project.h"
 #include "kvec.h"
+#include "reload_request.h"
+#include "fsmonitor.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -28,6 +30,7 @@ project_t *project_get(int index) {
 
 void project_add_new(const char *path) {
   project_t *project = project_create(path,  NULL);
+  project->monitor = fsmonitor_create(path);
   kv_push(project_t *, projects, project);
 }
 

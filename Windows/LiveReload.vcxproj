@@ -26,6 +26,7 @@
     <ClCompile Include="..\Shared\jansson\utf.c" />
     <ClCompile Include="..\Shared\jansson\value.c" />
     <ClCompile Include="..\Shared\model\fsmonitor.c" />
+    <ClCompile Include="..\Shared\model\fstree.c" />
     <ClCompile Include="..\Shared\model\project.c" />
     <ClCompile Include="..\Shared\reload_request.c" />
     <ClCompile Include="..\Shared\stringutil.c" />
@@ -46,6 +47,7 @@
     <ClInclude Include="..\Shared\jansson\utf.h" />
     <ClInclude Include="..\Shared\libs\kvec.h" />
     <ClInclude Include="..\Shared\model\fsmonitor.h" />
+    <ClInclude Include="..\Shared\model\fstree.h" />
     <ClInclude Include="..\Shared\model\project.h" />
     <ClInclude Include="..\Shared\osdep.h" />
     <ClInclude Include="..\Shared\reload_request.h" />
