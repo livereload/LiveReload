@@ -229,6 +229,11 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
     }
 }
 
+- (BOOL)isFileImported:(NSString *)path {
+    return [_importGraph hasReferencingPathsForPath:path];
+}
+
+
 - (void)requestMonitoring:(BOOL)monitoringEnabled forKey:(NSString *)key {
     if ([_monitoringRequests containsObject:key] != monitoringEnabled) {
         if (monitoringEnabled) {

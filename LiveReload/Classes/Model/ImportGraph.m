@@ -96,6 +96,12 @@
     return result;
 }
 
+- (BOOL)hasReferencingPathsForPath:(NSString *)path {
+    ImportGraphNode *node = [_filesToNodes objectForKey:path];
+    return node && [node->_referencingPaths count] > 0;
+}
+
+
 - (NSString *)description {
     NSMutableString *result = [NSMutableString string];
     [result appendString:@"Forward graph:\n"];

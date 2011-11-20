@@ -10,6 +10,7 @@
 - (void)removeAllPaths;
 
 - (NSSet *)rootReferencingPathsForPath:(NSString *)path;
+- (BOOL)hasReferencingPathsForPath:(NSString *)path;
 
 @end
 

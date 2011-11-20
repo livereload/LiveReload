@@ -88,4 +88,6 @@ extern NSString *ProjectNeedsSavingNotification;
 
 - (void)checkBrokenPaths;
 
+- (BOOL)isFileImported:(NSString *)path;
+
 @end
