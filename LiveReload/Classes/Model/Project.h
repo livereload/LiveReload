@@ -1,5 +1,6 @@
 
 #import <Cocoa/Cocoa.h>
+#import "eventbus.h"
 
 
 @class FSMonitor;
@@ -14,6 +15,9 @@ extern NSString *ProjectWillBeginCompilationNotification;
 extern NSString *ProjectDidEndCompilationNotification;
 extern NSString *ProjectMonitoringStateDidChangeNotification;
 extern NSString *ProjectNeedsSavingNotification;
+
+
+EVENTBUS_DECLARE_EVENT(project_fs_change_event);
 
 
 @interface Project : NSObject {
