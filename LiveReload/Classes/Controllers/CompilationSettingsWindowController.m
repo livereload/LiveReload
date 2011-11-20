@@ -59,10 +59,12 @@ void compilable_file_free(compilable_file_t *file) {
 - (void)populateToolVersions;
 - (void)updateOutputPathsTabData;
 - (void)resizeWindowForTab:(NSTabViewItem *)item animated:(BOOL)animated;
+- (void)didDetectChange;
 
 @end
 
 
+EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_event, didDetectChange)
 
 @implementation CompilationSettingsWindowController
 
@@ -77,13 +79,23 @@ void compilable_file_free(compilable_file_t *file) {
     [_compilerOptions release], _compilerOptions = nil;
     [_rubyVersions release], _rubyVersions = nil;
     kv_each(compilable_file_t *, _fileList, file, compilable_file_free(file));
+    kv_init(_fileList);
     [super dealloc];
 }
 
 - (void)windowDidLoad {
     _outputPathsWindowHeight = _tabView.frame.size.height;
+    [_project requestMonitoring:YES forKey:@"compilationSettings"];
+    EVENTBUS_OBJC_SUBSCRIBE(CompilationSettingsWindowController, project_fs_change_event);
     [super windowDidLoad];
 }
+
+- (IBAction)dismiss:(id)sender {
+    [_project requestMonitoring:NO forKey:@"compilationSettings"];
+    EVENTBUS_OBJC_UNSUBSCRIBE(CompilationSettingsWindowController, project_fs_change_event);
+    [super dismiss:sender];
+}
+
 
 
 #pragma mark - Actions
@@ -247,10 +259,19 @@ void compilable_file_free(compilable_file_t *file) {
     [self.window setFrame:rect display:YES animate:YES];
 }
 
+- (void)didDetectChange {
+    [self updateOutputPathsTabData];
+    [_pathTableView reloadData];
+}
+
+
 
 #pragma mark - Output Paths Tab
 
 - (void)updateOutputPathsTabData {
+    kv_each(compilable_file_t *, _fileList, file, compilable_file_free(file));
+    kv_init(_fileList);
+
     FSTree *tree = _project.tree;
     for (Compiler *compiler in _project.compilersInUse) {
         CompilationOptions *options = [_project optionsForCompiler:compiler create:YES];

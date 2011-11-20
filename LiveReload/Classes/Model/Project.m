@@ -29,6 +29,7 @@
 #include "stringutil.h"
 #include "reload_request.h"
 #include "communication.h"
+#include "eventbus.h"
 
 
 #define kPostProcessingSafeInterval 0.5l
@@ -41,6 +42,7 @@ NSString *ProjectWillBeginCompilationNotification = @"ProjectWillBeginCompilatio
 NSString *ProjectDidEndCompilationNotification = @"ProjectDidEndCompilationNotification";
 NSString *ProjectMonitoringStateDidChangeNotification = @"ProjectMonitoringStateDidChangeNotification";
 NSString *ProjectNeedsSavingNotification = @"ProjectNeedsSavingNotification";
+EVENTBUS_DEFINE_EVENT(project_fs_change_event);
 
 static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
 
@@ -287,6 +289,7 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
 
 - (void)broadcastPendingChanges {
     [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidDetectChangeNotification object:self];
+    eventbus_post(project_fs_change_event, NULL);
     comm_broadcast_reload_requests(_session);
     reload_session_clear(_session);
     StatIncrement(BrowserRefreshCountStat, 1);
