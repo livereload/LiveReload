@@ -39,8 +39,6 @@
 		43361D4C13C3210200C0E589 /* LESS.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43361D4B13C3210200C0E589 /* LESS.lrplugin */; };
 		43361D4E13C329CD00C0E589 /* HAML.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43361D4D13C329CD00C0E589 /* HAML.lrplugin */; };
 		43361D5013C32C3D00C0E589 /* SASS.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43361D4F13C32C3D00C0E589 /* SASS.lrplugin */; };
-		43468AAF14476B2400A06E21 /* ScriptPaneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43468AAE14476B2400A06E21 /* ScriptPaneViewController.m */; };
-		43468AB114476B3A00A06E21 /* ScriptPaneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43468AB014476B3A00A06E21 /* ScriptPaneViewController.xib */; };
 		4346F3A91450D8AD00B133F2 /* ImportGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 4346F3A81450D8AD00B133F2 /* ImportGraph.m */; };
 		4346F3AB1451012A00B133F2 /* StatusItemStateRotation3.png in Resources */ = {isa = PBXBuildFile; fileRef = 4346F3AA1451012A00B133F2 /* StatusItemStateRotation3.png */; };
 		4353196F1465B52D005FA59F /* ShitHappens.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353196E1465B52D005FA59F /* ShitHappens.m */; };
@@ -86,8 +84,6 @@
 		823DDED313F8DA3100529AD2 /* LiveReloadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3013F8DA3100529AD2 /* LiveReloadAppDelegate.m */; };
 		823DDED413F8DA3100529AD2 /* CommunicationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3313F8DA3100529AD2 /* CommunicationController.m */; };
 		823DDED513F8DA3100529AD2 /* ExtensionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3613F8DA3100529AD2 /* ExtensionsController.m */; };
-		823DDED813F8DA3100529AD2 /* PreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3B13F8DA3100529AD2 /* PreferencesWindowController.m */; };
-		823DDED913F8DA3100529AD2 /* PreferencesWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 823DDE3C13F8DA3100529AD2 /* PreferencesWindowController.xib */; };
 		823DDEDA13F8DA3100529AD2 /* StatusItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3E13F8DA3100529AD2 /* StatusItemController.m */; };
 		823DDEDB13F8DA3100529AD2 /* ToolOutputWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE4013F8DA3100529AD2 /* ToolOutputWindowController.m */; };
 		823DDEDC13F8DA3100529AD2 /* ToolOutputWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 823DDE4113F8DA3100529AD2 /* ToolOutputWindowController.xib */; };
@@ -123,11 +119,6 @@
 		823DDEFA13F8DA3100529AD2 /* PluginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE8313F8DA3100529AD2 /* PluginManager.m */; };
 		823DDEFB13F8DA3100529AD2 /* ToolOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE8513F8DA3100529AD2 /* ToolOutput.m */; };
 		823DDEFC13F8DA3100529AD2 /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE8813F8DA3100529AD2 /* Preferences.m */; };
-		823DDEFD13F8DA3100529AD2 /* CompilerPaneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE8B13F8DA3100529AD2 /* CompilerPaneViewController.m */; };
-		823DDEFE13F8DA3100529AD2 /* CompilerPaneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 823DDE8C13F8DA3100529AD2 /* CompilerPaneViewController.xib */; };
-		823DDEFF13F8DA3100529AD2 /* PaneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE8E13F8DA3100529AD2 /* PaneViewController.m */; };
-		823DDF0013F8DA3100529AD2 /* ProjectOptionsSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 823DDE8F13F8DA3100529AD2 /* ProjectOptionsSheet.xib */; };
-		823DDF0113F8DA3100529AD2 /* ProjectOptionsSheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE9113F8DA3100529AD2 /* ProjectOptionsSheetController.m */; };
 		823DDF0613F8DA3100529AD2 /* ATFunctionalStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEA113F8DA3100529AD2 /* ATFunctionalStyle.m */; };
 		823DDF0713F8DA3100529AD2 /* LoginItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEA313F8DA3100529AD2 /* LoginItemController.m */; };
 		823DDF0813F8DA3100529AD2 /* MAAttachedWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEA513F8DA3100529AD2 /* MAAttachedWindow.m */; };
@@ -227,9 +218,6 @@
 		43361D4B13C3210200C0E589 /* LESS.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = LESS.lrplugin; path = Compilers/LESS.lrplugin; sourceTree = SOURCE_ROOT; };
 		43361D4D13C329CD00C0E589 /* HAML.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HAML.lrplugin; path = Compilers/HAML.lrplugin; sourceTree = SOURCE_ROOT; };
 		43361D4F13C32C3D00C0E589 /* SASS.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SASS.lrplugin; path = Compilers/SASS.lrplugin; sourceTree = SOURCE_ROOT; };
-		43468AAD14476B2400A06E21 /* ScriptPaneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScriptPaneViewController.h; sourceTree = "<group>"; };
-		43468AAE14476B2400A06E21 /* ScriptPaneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScriptPaneViewController.m; sourceTree = "<group>"; };
-		43468AB014476B3A00A06E21 /* ScriptPaneViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScriptPaneViewController.xib; sourceTree = "<group>"; };
 		4346F3A71450D8AD00B133F2 /* ImportGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImportGraph.h; sourceTree = "<group>"; };
 		4346F3A81450D8AD00B133F2 /* ImportGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImportGraph.m; sourceTree = "<group>"; };
 		4346F3AA1451012A00B133F2 /* StatusItemStateRotation3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemStateRotation3.png; sourceTree = "<group>"; };
@@ -300,9 +288,6 @@
 		823DDE3313F8DA3100529AD2 /* CommunicationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommunicationController.m; sourceTree = "<group>"; };
 		823DDE3513F8DA3100529AD2 /* ExtensionsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtensionsController.h; sourceTree = "<group>"; };
 		823DDE3613F8DA3100529AD2 /* ExtensionsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExtensionsController.m; sourceTree = "<group>"; };
-		823DDE3A13F8DA3100529AD2 /* PreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesWindowController.h; sourceTree = "<group>"; };
-		823DDE3B13F8DA3100529AD2 /* PreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesWindowController.m; sourceTree = "<group>"; };
-		823DDE3C13F8DA3100529AD2 /* PreferencesWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferencesWindowController.xib; sourceTree = "<group>"; };
 		823DDE3D13F8DA3100529AD2 /* StatusItemController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusItemController.h; sourceTree = "<group>"; };
 		823DDE3E13F8DA3100529AD2 /* StatusItemController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusItemController.m; sourceTree = "<group>"; };
 		823DDE3F13F8DA3100529AD2 /* ToolOutputWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolOutputWindowController.h; sourceTree = "<group>"; };
@@ -373,14 +358,6 @@
 		823DDE8513F8DA3100529AD2 /* ToolOutput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolOutput.m; sourceTree = "<group>"; };
 		823DDE8713F8DA3100529AD2 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
 		823DDE8813F8DA3100529AD2 /* Preferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Preferences.m; sourceTree = "<group>"; };
-		823DDE8A13F8DA3100529AD2 /* CompilerPaneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompilerPaneViewController.h; sourceTree = "<group>"; };
-		823DDE8B13F8DA3100529AD2 /* CompilerPaneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompilerPaneViewController.m; sourceTree = "<group>"; };
-		823DDE8C13F8DA3100529AD2 /* CompilerPaneViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompilerPaneViewController.xib; sourceTree = "<group>"; };
-		823DDE8D13F8DA3100529AD2 /* PaneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaneViewController.h; sourceTree = "<group>"; };
-		823DDE8E13F8DA3100529AD2 /* PaneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaneViewController.m; sourceTree = "<group>"; };
-		823DDE8F13F8DA3100529AD2 /* ProjectOptionsSheet.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProjectOptionsSheet.xib; sourceTree = "<group>"; };
-		823DDE9013F8DA3100529AD2 /* ProjectOptionsSheetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectOptionsSheetController.h; sourceTree = "<group>"; };
-		823DDE9113F8DA3100529AD2 /* ProjectOptionsSheetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectOptionsSheetController.m; sourceTree = "<group>"; };
 		823DDEA013F8DA3100529AD2 /* ATFunctionalStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATFunctionalStyle.h; sourceTree = "<group>"; };
 		823DDEA113F8DA3100529AD2 /* ATFunctionalStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATFunctionalStyle.m; sourceTree = "<group>"; };
 		823DDEA213F8DA3100529AD2 /* LoginItemController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginItemController.h; sourceTree = "<group>"; };
@@ -618,7 +595,6 @@
 				823DDE7213F8DA3100529AD2 /* Monitoring */,
 				823DDE7B13F8DA3100529AD2 /* Plugins */,
 				823DDE8613F8DA3100529AD2 /* Preferences */,
-				823DDE8913F8DA3100529AD2 /* Project Options */,
 				823DDE9F13F8DA3100529AD2 /* Utilities */,
 				823DDEBA13F8DA3100529AD2 /* Views */,
 				823DDEC413F8DA3100529AD2 /* WebSockets */,
@@ -655,9 +631,6 @@
 			children = (
 				823DDE3513F8DA3100529AD2 /* ExtensionsController.h */,
 				823DDE3613F8DA3100529AD2 /* ExtensionsController.m */,
-				823DDE3A13F8DA3100529AD2 /* PreferencesWindowController.h */,
-				823DDE3B13F8DA3100529AD2 /* PreferencesWindowController.m */,
-				823DDE3C13F8DA3100529AD2 /* PreferencesWindowController.xib */,
 				823DDE3D13F8DA3100529AD2 /* StatusItemController.h */,
 				823DDE3E13F8DA3100529AD2 /* StatusItemController.m */,
 				823DDE3F13F8DA3100529AD2 /* ToolOutputWindowController.h */,
@@ -799,24 +772,6 @@
 				823DDE8813F8DA3100529AD2 /* Preferences.m */,
 			);
 			path = Preferences;
-			sourceTree = "<group>";
-		};
-		823DDE8913F8DA3100529AD2 /* Project Options */ = {
-			isa = PBXGroup;
-			children = (
-				823DDE8A13F8DA3100529AD2 /* CompilerPaneViewController.h */,
-				823DDE8B13F8DA3100529AD2 /* CompilerPaneViewController.m */,
-				823DDE8C13F8DA3100529AD2 /* CompilerPaneViewController.xib */,
-				823DDE8D13F8DA3100529AD2 /* PaneViewController.h */,
-				823DDE8E13F8DA3100529AD2 /* PaneViewController.m */,
-				823DDE8F13F8DA3100529AD2 /* ProjectOptionsSheet.xib */,
-				823DDE9013F8DA3100529AD2 /* ProjectOptionsSheetController.h */,
-				823DDE9113F8DA3100529AD2 /* ProjectOptionsSheetController.m */,
-				43468AAD14476B2400A06E21 /* ScriptPaneViewController.h */,
-				43468AAE14476B2400A06E21 /* ScriptPaneViewController.m */,
-				43468AB014476B3A00A06E21 /* ScriptPaneViewController.xib */,
-			);
-			path = "Project Options";
 			sourceTree = "<group>";
 		};
 		823DDE9F13F8DA3100529AD2 /* Utilities */ = {
@@ -1019,10 +974,7 @@
 				43361D5013C32C3D00C0E589 /* SASS.lrplugin in Resources */,
 				43E4BBE813C5DA7900A75F81 /* CoffeeScript.lrplugin in Resources */,
 				43C0368613CA191D00A01305 /* LiveReload.icns in Resources */,
-				823DDED913F8DA3100529AD2 /* PreferencesWindowController.xib in Resources */,
 				823DDEDC13F8DA3100529AD2 /* ToolOutputWindowController.xib in Resources */,
-				823DDEFE13F8DA3100529AD2 /* CompilerPaneViewController.xib in Resources */,
-				823DDF0013F8DA3100529AD2 /* ProjectOptionsSheet.xib in Resources */,
 				823DDF0C13F8DA3100529AD2 /* README in Resources */,
 				823DDF2F13F8DA3F00529AD2 /* background.png in Resources */,
 				823DDF3013F8DA3F00529AD2 /* Icon-48.png in Resources */,
@@ -1037,7 +989,6 @@
 				43191846141A0D1C008457FF /* Eco.lrplugin in Resources */,
 				435BE042141B72A60008FF77 /* NewMainWindow.xib in Resources */,
 				825235321428769E001C3486 /* SLIM.lrplugin in Resources */,
-				43468AB114476B3A00A06E21 /* ScriptPaneViewController.xib in Resources */,
 				4346F3AB1451012A00B133F2 /* StatusItemStateRotation3.png in Resources */,
 				4353197214668E7D005FA59F /* LRHelpTemplate.png in Resources */,
 				4353197314668E7D005FA59F /* LRSupportTemplate.png in Resources */,
@@ -1074,7 +1025,6 @@
 				823DDED313F8DA3100529AD2 /* LiveReloadAppDelegate.m in Sources */,
 				823DDED413F8DA3100529AD2 /* CommunicationController.m in Sources */,
 				823DDED513F8DA3100529AD2 /* ExtensionsController.m in Sources */,
-				823DDED813F8DA3100529AD2 /* PreferencesWindowController.m in Sources */,
 				823DDEDA13F8DA3100529AD2 /* StatusItemController.m in Sources */,
 				823DDEDB13F8DA3100529AD2 /* ToolOutputWindowController.m in Sources */,
 				823DDEDD13F8DA3100529AD2 /* CodaEditor.m in Sources */,
@@ -1109,9 +1059,6 @@
 				823DDEFA13F8DA3100529AD2 /* PluginManager.m in Sources */,
 				823DDEFB13F8DA3100529AD2 /* ToolOutput.m in Sources */,
 				823DDEFC13F8DA3100529AD2 /* Preferences.m in Sources */,
-				823DDEFD13F8DA3100529AD2 /* CompilerPaneViewController.m in Sources */,
-				823DDEFF13F8DA3100529AD2 /* PaneViewController.m in Sources */,
-				823DDF0113F8DA3100529AD2 /* ProjectOptionsSheetController.m in Sources */,
 				823DDF0613F8DA3100529AD2 /* ATFunctionalStyle.m in Sources */,
 				823DDF0713F8DA3100529AD2 /* LoginItemController.m in Sources */,
 				823DDF0813F8DA3100529AD2 /* MAAttachedWindow.m in Sources */,
@@ -1140,7 +1087,6 @@
 				82B886AC1407D452001A94D6 /* extension-x-google-mux.c in Sources */,
 				435BE045141B87920008FF77 /* NewMainWindowController.m in Sources */,
 				821AFF0014270B5200B61760 /* BBEditEditor.m in Sources */,
-				43468AAF14476B2400A06E21 /* ScriptPaneViewController.m in Sources */,
 				4304FC2D144B2BEB00D650DF /* NSDictionaryAndArray+SafeAccess.m in Sources */,
 				4346F3A91450D8AD00B133F2 /* ImportGraph.m in Sources */,
 				435729171452267C00947B2E /* Stats.m in Sources */,
