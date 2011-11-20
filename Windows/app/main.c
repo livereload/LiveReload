@@ -1,76 +1,95 @@
+#include "autorelease.h"
+
 #define STRICT
 #include <windows.h>
 #include <windowsx.h>
 #include <ole2.h>
 #include <commctrl.h>
+#include <ShellAPI.h>
 #include <shlwapi.h>
 
-HINSTANCE g_hinst;                          /* This application's HINSTANCE */
-HWND g_hwndChild;                           /* Optional child window */
+#include <assert.h>
 
-/*
- *  OnSize
- *      If we have an inner child, resize it to fit.
- */
-void
-OnSize(HWND hwnd, UINT state, int cx, int cy)
-{
-    if (g_hwndChild) {
-        MoveWindow(g_hwndChild, 0, 0, cx, cy, TRUE);
-    }
+HINSTANCE g_hinst;
+HWND g_hMainWindow;
+HWND g_hwndChild;
+HWND g_hwndProjectListView;
+HIMAGELIST g_hSmallImageList;
+
+enum {
+    ID_PROJECT_LIST_VIEW,
+};
+
+void LayoutSubviews() {
+    RECT client;
+    GetClientRect(g_hMainWindow, &client);
+    int width = client.right, height = client.bottom;
+    MoveWindow(g_hwndProjectListView, 0, 0, 200, height, TRUE);
 }
 
-/*
- *  OnCreate
- *      Applications will typically override this and maybe even
- *      create a child window.
- */
-BOOL
-OnCreate(HWND hwnd, LPCREATESTRUCT lpcs)
-{
+void OnSize(HWND hwnd, UINT state, int cx, int cy) {
+    LayoutSubviews();
+}
+
+BOOL OnCreate(HWND hwnd, LPCREATESTRUCT lpcs) {
+    g_hMainWindow = hwnd;
+    g_hwndProjectListView = CreateWindow(WC_LISTVIEW, L"", WS_VISIBLE | WS_CHILD | WS_BORDER | LVS_LIST | LVS_SINGLESEL,
+        0, 0, 100, 200, hwnd, (HMENU) ID_PROJECT_LIST_VIEW, g_hinst, NULL);
+    g_hSmallImageList = ImageList_Create(16, 16, ILC_MASK | ILC_COLOR32, 3, 0);
+
+    WCHAR buf[MAX_PATH];
+    GetWindowsDirectory(buf, sizeof(buf)/sizeof(buf[0]));
+
+    SHFILEINFO file_info;
+    DWORD_PTR result = SHGetFileInfo(buf, 0, &file_info, sizeof(file_info), SHGFI_ICON | SHGFI_SMALLICON);
+    assert(result);
+
+    ImageList_AddIcon(g_hSmallImageList, file_info.hIcon);
+    //DestroyIcon(file_info.hIcon);
+
+    assert(ImageList_GetImageCount(g_hSmallImageList) == 1);
+
+    ListView_SetImageList(g_hwndProjectListView, g_hSmallImageList, LVSIL_SMALL);
+
+    LVCOLUMN col;
+    col.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT;
+    col.fmt = LVCFMT_LEFT;
+    col.cx = 75;
+    col.pszText = L"Folder";
+    ListView_InsertColumn(g_hwndProjectListView, 0, &col);
+
+    LV_ITEM item;
+    item.mask = LVIF_TEXT | LVIF_IMAGE | LVIF_STATE;
+    item.pszText = L"Hello world";
+    item.iImage = 0;
+    item.state = 0;
+    item.stateMask = 0;
+    item.iItem = 0;
+    item.iSubItem = 0;
+    item.cchTextMax = 255;
+    result = ListView_InsertItem(g_hwndProjectListView, &item);
+    assert(result >= 0);
+
+    LayoutSubviews();
+
     return TRUE;
 }
 
-/*
- *  OnDestroy
- *      Post a quit message because our application is over when the
- *      user closes this window.
- */
-void
-OnDestroy(HWND hwnd)
-{
+void OnDestroy(HWND hwnd) {
     PostQuitMessage(0);
 }
 
-/*
- *  PaintContent
- *      Interesting things will be painted here eventually.
- */
-void
-PaintContent(HWND hwnd, PAINTSTRUCT *pps)
-{
+void PaintContent(HWND hwnd, PAINTSTRUCT *pps) {
 }
 
-/*
- *  OnPaint
- *      Paint the content as part of the paint cycle.
- */
-void
-OnPaint(HWND hwnd)
-{
+void OnPaint(HWND hwnd) {
     PAINTSTRUCT ps;
     BeginPaint(hwnd, &ps);
     PaintContent(hwnd, &ps);
     EndPaint(hwnd, &ps);
 }
 
-/*
- *  OnPrintClient
- *      Paint the content as requested by USER.
- */
-void
-OnPrintClient(HWND hwnd, HDC hdc)
-{
+void OnPrintClient(HWND hwnd, HDC hdc) {
     PAINTSTRUCT ps;
     ps.hdc = hdc;
     GetClientRect(hwnd, &ps.rcPaint);
@@ -78,14 +97,8 @@ OnPrintClient(HWND hwnd, HDC hdc)
 
 }
 
-/*
- *  Window procedure
- */
-LRESULT CALLBACK
-WndProc(HWND hwnd, UINT uiMsg, WPARAM wParam, LPARAM lParam)
-{
+LRESULT CALLBACK WndProc(HWND hwnd, UINT uiMsg, WPARAM wParam, LPARAM lParam) {
     switch (uiMsg) {
-
     HANDLE_MSG(hwnd, WM_CREATE, OnCreate);
     HANDLE_MSG(hwnd, WM_SIZE, OnSize);
     HANDLE_MSG(hwnd, WM_DESTROY, OnDestroy);
@@ -96,9 +109,7 @@ WndProc(HWND hwnd, UINT uiMsg, WPARAM wParam, LPARAM lParam)
     return DefWindowProc(hwnd, uiMsg, wParam, lParam);
 }
 
-BOOL
-InitApp(void)
-{
+BOOL InitApp(void) {
     WNDCLASS wc;
 
     wc.style = 0;
@@ -110,11 +121,14 @@ InitApp(void)
     wc.hCursor = LoadCursor(NULL, IDC_ARROW);
     wc.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
     wc.lpszMenuName = NULL;
-    wc.lpszClassName = L"Scratch";
+    wc.lpszClassName = L"LiveReload";
 
     if (!RegisterClass(&wc)) return FALSE;
 
-    InitCommonControls();              /* In case we use a common control */
+    INITCOMMONCONTROLSEX sex;
+    sex.dwSize = sizeof(sex);
+    sex.dwICC = ICC_WIN95_CLASSES | ICC_LINK_CLASS;
+    InitCommonControlsEx(&sex);
 
     return TRUE;
 }
@@ -129,27 +143,23 @@ int WINAPI WinMain(HINSTANCE hinst, HINSTANCE hinstPrev,
 
     if (!InitApp()) return 0;
 
-    if (SUCCEEDED(CoInitialize(NULL))) {/* In case we use COM */
+    hwnd = CreateWindow(
+        L"LiveReload",
+        L"LiveReload",
+        WS_OVERLAPPEDWINDOW,
+        CW_USEDEFAULT, CW_USEDEFAULT,
+        CW_USEDEFAULT, CW_USEDEFAULT,
+        NULL,
+        NULL,
+        hinst,
+        0);
 
-        hwnd = CreateWindow(
-            L"Scratch",                     /* Class Name */
-            L"LiveReload",                  /* Title */
-            WS_OVERLAPPEDWINDOW,            /* Style */
-            CW_USEDEFAULT, CW_USEDEFAULT,   /* Position */
-            CW_USEDEFAULT, CW_USEDEFAULT,   /* Size */
-            NULL,                           /* Parent */
-            NULL,                           /* No menu */
-            hinst,                          /* Instance */
-            0);                             /* No special parameters */
+    ShowWindow(hwnd, nShowCmd);
 
-        ShowWindow(hwnd, nShowCmd);
-
-        while (GetMessage(&msg, NULL, 0, 0)) {
-            TranslateMessage(&msg);
-            DispatchMessage(&msg);
-        }
-
-        CoUninitialize();
+    while (GetMessage(&msg, NULL, 0, 0)) {
+        TranslateMessage(&msg);
+        DispatchMessage(&msg);
+        autorelease_cleanup();
     }
 
     return 0;
