@@ -5,22 +5,59 @@
 #import "Compiler.h"
 #import "RubyVersion.h"
 #import "ToolOptions.h"
+#import "CompilationOptions.h"
+#import "FileCompilationOptions.h"
 
 #import "UIBuilder.h"
+#import "sglib.h"
+#include "kvec.h"
+#include "stringutil.h"
+#include "jansson.h"
 
 
-#define kWindowTopMargin 118
-#define kWindowBottomMargin 100
+
+typedef enum {
+    compilation_settings_tab_options,
+    compilation_settings_tab_paths,
+} compilation_settings_tab_t;
+
+typedef enum {
+    output_paths_table_column_enable,
+    output_paths_table_column_source,
+    output_paths_table_column_output,
+} output_paths_table_column_t;
+
+const char *output_paths_table_column_ids[] = { "on", "source", "output" };
+
+typedef struct compilable_file_t {
+    char *source_path;
+    Compiler *compiler;
+    FileCompilationOptions *file_options;
+    struct compilable_file_t *next;
+} compilable_file_t;
+
+void compilable_file_free(compilable_file_t *file) {
+  free(file->source_path);
+  [file->file_options release];
+  free(file);
+}
 
 
 
-@interface CompilationSettingsWindowController () {
+@interface CompilationSettingsWindowController () <NSTabViewDelegate, NSTableViewDataSource, NSTableViewDelegate> {
     NSArray               *_compilerOptions;
     BOOL                   _populatingRubyVersions;
     NSArray               *_rubyVersions;
+
+    CGFloat                _compilerSettingsWindowHeight;
+    CGFloat                _outputPathsWindowHeight;
+
+    kvec_t(compilable_file_t *) _fileList;
 }
 
 - (void)populateToolVersions;
+- (void)updateOutputPathsTabData;
+- (void)resizeWindowForTab:(NSTabViewItem *)item animated:(BOOL)animated;
 
 @end
 
@@ -30,11 +67,21 @@
 
 @synthesize nodeVersionsPopUpButton = _nodeVersionsPopUpButton;
 @synthesize rubyVersionsPopUpButton = _rubyVersionsPopUpButton;
+@synthesize tabView = _tabView;
+@synthesize compilerSettingsTabView = _compilerSettingsTabView;
+@synthesize pathTableView = _pathTableView;
+@synthesize chooseFolderButton = _chooseFolderButton;
 
 - (void)dealloc {
     [_compilerOptions release], _compilerOptions = nil;
     [_rubyVersions release], _rubyVersions = nil;
+    kv_each(compilable_file_t *, _fileList, file, compilable_file_free(file));
     [super dealloc];
+}
+
+- (void)windowDidLoad {
+    _outputPathsWindowHeight = _tabView.frame.size.height;
+    [super windowDidLoad];
 }
 
 
@@ -75,8 +122,8 @@
     NSArray *compilers = _project.compilersInUse;
     NSMutableArray *allOptions = [[NSMutableArray alloc] init];
 
-    UIBuilder *builder = [[UIBuilder alloc] initWithWindow:self.window];
-    [builder buildUIWithTopInset:kWindowTopMargin bottomInset:kWindowBottomMargin block:^{
+    UIBuilder *builder = [[UIBuilder alloc] initWithView:_compilerSettingsTabView];
+    CGFloat heightDelta = [builder buildUIWithTopInset:8 bottomInset:12 block:^{
         if (compilers.count > 0) {
             BOOL isFirst = YES;
             for (Compiler *compiler in compilers) {
@@ -96,6 +143,8 @@
     }];
     [builder release];
 
+    _compilerSettingsWindowHeight = _outputPathsWindowHeight + heightDelta;
+
     _compilerOptions = [[NSArray alloc] initWithArray:allOptions];
     [allOptions release];
 }
@@ -103,6 +152,8 @@
 - (void)render {
     [self renderCompilerOptions];
     [self populateToolVersions];
+    [self updateOutputPathsTabData];
+    [self resizeWindowForTab:[_tabView selectedTabViewItem] animated:NO];
 }
 
 - (void)save {
@@ -173,6 +224,170 @@
         return;
     RubyVersion *version = [_rubyVersions objectAtIndex:index];
     _project.rubyVersionIdentifier = version.identifier;
+}
+
+
+#pragma mark - Tabs
+
+- (void)tabView:(NSTabView *)tabView willSelectTabViewItem:(NSTabViewItem *)tabViewItem {
+}
+
+- (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem {
+    [self resizeWindowForTab:tabViewItem animated:YES];
+}
+
+
+- (void)resizeWindowForTab:(NSTabViewItem *)item animated:(BOOL)animated {
+    compilation_settings_tab_t tab = ([[item identifier] isEqualToString:@"options"] ? compilation_settings_tab_options : compilation_settings_tab_paths);
+    CGFloat desiredHeight = (tab == compilation_settings_tab_options ? _compilerSettingsWindowHeight : _outputPathsWindowHeight);
+
+    NSRect rect = self.window.frame;
+    rect.size.height += (desiredHeight - _tabView.frame.size.height);
+    [self.window setFrame:rect display:YES animate:YES];
+}
+
+
+#pragma mark - Output Paths Tab
+
+- (void)updateOutputPathsTabData {
+    FSTree *tree = _project.tree;
+    for (Compiler *compiler in _project.compilersInUse) {
+        CompilationOptions *options = [_project optionsForCompiler:compiler create:YES];
+
+        for (NSString *path in [compiler pathsOfSourceFilesInTree:tree]) {
+            FileCompilationOptions *fileOptions = [_project optionsForFileAtPath
+              :path in:options];
+
+            compilable_file_t *file = malloc(sizeof(compilable_file_t));
+            file->next = NULL;
+            file->compiler = compiler;
+            file->source_path = strdup([path UTF8String]);
+            file->file_options = [fileOptions retain];
+            kv_push(compilable_file_t *, _fileList, file);
+        }
+
+    }
+}
+
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
+    return kv_size(_fileList);
+}
+
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    compilable_file_t *file = kv_A(_fileList, row);
+    output_paths_table_column_t column = str_static_array_index(output_paths_table_column_ids, [[tableColumn identifier] UTF8String]);
+    if (column == output_paths_table_column_enable) {
+        return [NSNumber numberWithBool:file->file_options.enabled];
+    } else if (column == output_paths_table_column_source) {
+        return [NSString stringWithUTF8String:file->source_path];
+    } else if (column == output_paths_table_column_output) {
+        return file->file_options.destinationDirectoryForDisplay;
+    } else {
+        return nil;
+    }
+}
+
+/* Optional - Editing Support
+ */
+- (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    compilable_file_t *file = kv_A(_fileList, row);
+    output_paths_table_column_t column = str_static_array_index(output_paths_table_column_ids, [[tableColumn identifier] UTF8String]);
+    if (column == output_paths_table_column_enable) {
+        file->file_options.enabled = [object boolValue];
+    } else if (column == output_paths_table_column_source) {
+    } else if (column == output_paths_table_column_output) {
+        file->file_options.destinationDirectory = [object stringByExpandingTildeInPath];
+    } else {
+    }
+}
+
+
+#pragma mark -
+
+- (IBAction)chooseOutputDirectory:(id)sender {
+    if (kv_size(_fileList) == 0) {
+        NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+        [alert setMessageText:@"No files yet"];
+        [alert setInformativeText:@"Before configuring an output directory, please create some source files first."];
+        [alert addButtonWithTitle:@"OK"];
+        [alert runModal];
+        return;
+    }
+
+    NSIndexSet *indexSet = [_pathTableView selectedRowIndexes];
+    NSMutableArray *selection = [NSMutableArray array];
+    for (NSUInteger currentIndex = [indexSet firstIndex]; currentIndex != NSNotFound; currentIndex = [indexSet indexGreaterThanIndex:currentIndex]) {
+        compilable_file_t *file = kv_A(_fileList, currentIndex);
+        [selection addObject:file->file_options];
+    }
+
+    NSString *initialPath = _project.path;
+    NSString *common;
+    if ([selection count] == 0) {
+        kv_each(compilable_file_t *, _fileList, file, [selection addObject:file->file_options]);
+
+        NSString *common = [FileCompilationOptions commonOutputDirectoryFor:selection];
+        if ([common isEqualToString:@"__NONE_SET__"]) {
+            // do nothing
+        } else if (common != nil) {
+            initialPath = common;
+        } else {
+            NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+            [alert setMessageText:@"Change all files?"];
+            [alert setInformativeText:@"Files are currently configured with different output directories. Proceeding will set the SAME output directory for ALL files.\n\nYou can configure individual files by selecting them first."];
+            [[alert addButtonWithTitle:@"Proceed"] setKeyEquivalent:@""];
+            [alert addButtonWithTitle:@"Cancel"];
+            if ([alert runModal] != NSAlertFirstButtonReturn) {
+                return;
+            }
+        }
+    } else if ([selection count] > 1) {
+        NSString *common = [FileCompilationOptions commonOutputDirectoryFor:selection];
+        if ([common isEqualToString:@"__NONE_SET__"]) {
+            // do nothing
+        } else if (common != nil) {
+            initialPath = common;
+        } else {
+            NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+            [alert setMessageText:@"Change all selected files?"];
+            [alert setInformativeText:@"Selected files are currently configured with different output directories. Proceeding will set the same output directory for all selected files."];
+            [[alert addButtonWithTitle:@"Proceed"] setKeyEquivalent:@""];
+            [alert addButtonWithTitle:@"Cancel"];
+            if ([alert runModal] != NSAlertFirstButtonReturn) {
+                return;
+            }
+        }
+    } else {
+        common = ((FileCompilationOptions *)[selection objectAtIndex:0]).destinationDirectory;
+        if (common != nil) {
+            initialPath = common;
+        }
+    }
+
+    NSOpenPanel *openPanel;
+    NSInteger result;
+retry:
+    openPanel = [NSOpenPanel openPanel];
+    [openPanel setCanChooseDirectories:YES];
+    [openPanel setCanCreateDirectories:YES];
+    [openPanel setPrompt:@"Choose folder"];
+    [openPanel setCanChooseFiles:NO];
+    [openPanel setDirectoryURL:[NSURL fileURLWithPath:initialPath isDirectory:YES]];
+    result = [openPanel runModal];
+    if (result == NSFileHandlingPanelOKButton) {
+        NSURL *url = [openPanel URL];
+        NSString *absolutePath = [url path];
+        NSString *relativePath = [_project relativePathForPath:absolutePath];
+        if (relativePath == nil) {
+            if ([[NSAlert alertWithMessageText:@"Subdirectory required" defaultButton:@"Retry" alternateButton:@"Cancel" otherButton:nil informativeTextWithFormat:@"Sorry, the path you have chosen in not a subdirectory of the project.\n\nChosen path:\n%@\n\nMust be a subdirectory of:\n%@", [absolutePath stringByAbbreviatingWithTildeInPath], [_project.path stringByAbbreviatingWithTildeInPath]] runModal] == NSAlertDefaultReturn) {
+                goto retry;
+            }
+            return;
+        }
+        for (FileCompilationOptions *options in selection) {
+            options.destinationDirectory = relativePath;
+        }
+    }
 }
 
 

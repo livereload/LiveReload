@@ -282,6 +282,7 @@
 		43F0030114700C96005D48A4 /* LRTerminalButtonOffHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRTerminalButtonOffHighlight.png; sourceTree = "<group>"; };
 		43F0030214700C96005D48A4 /* LRTerminalButtonOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRTerminalButtonOn.png; sourceTree = "<group>"; };
 		43F0030314700C96005D48A4 /* LRTerminalButtonOnHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRTerminalButtonOnHighlight.png; sourceTree = "<group>"; };
+		43F301D61477A67D0072F324 /* kvec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kvec.h; sourceTree = "<group>"; };
 		43F50BF51466F7A1004FD951 /* PostProcessingSettingsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostProcessingSettingsWindowController.h; sourceTree = "<group>"; };
 		43F50BF61466F7A1004FD951 /* PostProcessingSettingsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostProcessingSettingsWindowController.m; sourceTree = "<group>"; };
 		43F50BF81466FAB7004FD951 /* PostProcessingSettingsWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostProcessingSettingsWindowController.xib; sourceTree = "<group>"; };
@@ -586,10 +587,19 @@
 				432A6D951476269C00144F97 /* reload_request.c */,
 				432A6D97147627F000144F97 /* communication.h */,
 				432A6D98147627F800144F97 /* communication.c */,
+				43F301D51477A67D0072F324 /* libs */,
 				432A6D9A147636F700144F97 /* jansson */,
 			);
 			name = Shared;
 			path = ../../Shared;
+			sourceTree = "<group>";
+		};
+		43F301D51477A67D0072F324 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				43F301D61477A67D0072F324 /* kvec.h */,
+			);
+			path = libs;
 			sourceTree = "<group>";
 		};
 		823DDE2D13F8DA3100529AD2 /* Classes */ = {
