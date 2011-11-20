@@ -5,9 +5,9 @@
 @interface UIBuilder : NSObject
 
 
-- (id)initWithWindow:(NSWindow *)window;
+- (id)initWithView:(NSView *)view;
 
-- (void)buildUIWithTopInset:(CGFloat)topInset bottomInset:(CGFloat)bottomInset block:(void(^)())block;
+- (CGFloat)buildUIWithTopInset:(CGFloat)topInset bottomInset:(CGFloat)bottomInset block:(void(^)())block;
 
 
 @property(nonatomic, readonly) BOOL labelAdded;

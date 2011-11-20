@@ -4,6 +4,7 @@
 
 @implementation FileCompilationOptions
 
+@synthesize enabled=_enabled;
 @synthesize sourcePath=_sourcePath;
 @synthesize destinationDirectory=_destinationDirectory;
 @synthesize additionalOptions=_additionalOptions;
@@ -15,6 +16,10 @@
     self = [super init];
     if (self) {
         _sourcePath = [sourcePath copy];
+        if ([memento objectForKey:@"enabled"])
+            _enabled = [[memento objectForKey:@"enabled"] boolValue];
+        else
+            _enabled = YES;
         _destinationDirectory = [[memento objectForKey:@"output_dir"] copy];
         if ([_destinationDirectory length] == 0) {
             _destinationDirectory = nil;
@@ -37,11 +42,18 @@
 #pragma mark -
 
 - (NSDictionary *)memento {
-    return [NSDictionary dictionaryWithObjectsAndKeys:(_destinationDirectory ? ([_destinationDirectory length] == 0 ? @"." : _destinationDirectory) : @""), @"output_dir", nil];
+    return [NSDictionary dictionaryWithObjectsAndKeys:(_destinationDirectory ? ([_destinationDirectory length] == 0 ? @"." : _destinationDirectory) : @""), @"output_dir", [NSNumber numberWithBool:_enabled], @"enabled", nil];
 }
 
 
 #pragma mark -
+
+- (void)setEnabled:(BOOL)enabled {
+    if (_enabled != enabled) {
+        _enabled = enabled;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+    }
+}
 
 - (void)setDestinationDirectory:(NSString *)destinationDirectory {
     if (_destinationDirectory != destinationDirectory) {

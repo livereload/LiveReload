@@ -10,4 +10,8 @@ const char *str_collapse_paths(const char *text_with_paths, const char *current_
 
 bool str_ends_with(const char *string, const char *suffix);
 
+int str_array_index(const char **array, int items, const char *string);
+
+#define str_static_array_index(array, string) str_array_index((array), sizeof(array)/sizeof((array)[0]), string)
+
 #endif

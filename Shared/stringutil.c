@@ -56,3 +56,10 @@ bool str_ends_with(const char *string, const char *suffix) {
     int len = strlen(string), suflen = strlen(suffix);
     return len >= suflen && 0 == strcmp(string + len - suflen, suffix);
 }
+
+int str_array_index(const char **array, int items, const char *string) {
+    for (int i = 0; i < items; ++i)
+        if (0 == strcmp(array[i], string))
+            return i;
+    return -1;
+}

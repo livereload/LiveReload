@@ -114,7 +114,7 @@ static ControlTypeInfo CONTROL_TYPE_INFO[] = {
 
 
 @interface UIBuilder () {
-    NSWindow              *_window;
+    NSView                *_view;
 
     CGFloat                _nextY;
     CGFloat                _lastControlY;
@@ -136,23 +136,23 @@ static ControlTypeInfo CONTROL_TYPE_INFO[] = {
 
 #pragma mark - Init/dealloc
 
-- (id)initWithWindow:(NSWindow *)window {
+- (id)initWithView:(NSView *)view {
     self = [super init];
     if (self) {
-        _window = [window retain];
+        _view = [view retain];
     }
     return self;
 }
 
 - (void)dealloc {
-    [_window release], _window = nil;
+    [_view release], _view = nil;
     [super dealloc];
 }
 
 
 #pragma mark - Public methods
 
-- (void)buildUIWithTopInset:(CGFloat)topInset bottomInset:(CGFloat)bottomInset block:(void(^)())block {
+- (CGFloat)buildUIWithTopInset:(CGFloat)topInset bottomInset:(CGFloat)bottomInset block:(void(^)())block {
     _nextY = 0.0;
     _controls = [[NSMutableArray alloc] init];
     _lastControlType = ControlTypeNone;
@@ -168,11 +168,9 @@ static ControlTypeInfo CONTROL_TYPE_INFO[] = {
         control.frame = frame;
     }
 
-    NSRect frame = [_window contentRectForFrameRect:_window.frame];
-    frame.size.height = controlsHeight + topInset + bottomInset;
-    [_window setFrame:[_window frameRectForContentRect:frame] display:YES];
-
     [_controls release], _controls = nil;
+
+    return (controlsHeight + topInset + bottomInset) - _view.frame.size.height;
 }
 
 - (NSPopUpButton *)addPopUpButton {
@@ -200,7 +198,7 @@ static ControlTypeInfo CONTROL_TYPE_INFO[] = {
     control.drawsBackground = control.selectable = control.editable = control.bezeled = NO;
     control.alignment = NSRightTextAlignment;
     control.stringValue = label;
-    [_window.contentView addSubview:control];
+    [_view addSubview:control];
     [_controls addObject:control];
     _labelAdded = YES;
     return control;
@@ -233,7 +231,7 @@ static ControlTypeInfo CONTROL_TYPE_INFO[] = {
 #pragma mark - Internal methods
 
 - (void)addControl:(NSView *)control ofType:(ControlType)type {
-    [_window.contentView addSubview:control];
+    [_view addSubview:control];
     [_controls addObject:control];
 
     NSRect frame = control.frame;
