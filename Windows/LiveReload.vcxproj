@@ -25,6 +25,8 @@
     <ClCompile Include="..\Shared\jansson\strconv.c" />
     <ClCompile Include="..\Shared\jansson\utf.c" />
     <ClCompile Include="..\Shared\jansson\value.c" />
+    <ClCompile Include="..\Shared\model\fsmonitor.c" />
+    <ClCompile Include="..\Shared\model\project.c" />
     <ClCompile Include="..\Shared\reload_request.c" />
     <ClCompile Include="..\Shared\stringutil.c" />
     <ClCompile Include="app\main.c" />
@@ -42,6 +44,8 @@
     <ClInclude Include="..\Shared\jansson\jansson_private.h" />
     <ClInclude Include="..\Shared\jansson\strbuffer.h" />
     <ClInclude Include="..\Shared\jansson\utf.h" />
+    <ClInclude Include="..\Shared\libs\kvec.h" />
+    <ClInclude Include="..\Shared\model\fsmonitor.h" />
     <ClInclude Include="..\Shared\model\project.h" />
     <ClInclude Include="..\Shared\osdep.h" />
     <ClInclude Include="..\Shared\reload_request.h" />
@@ -88,7 +92,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(MSBuildProjectDirectory)\..\shared;$(MSBuildProjectDirectory)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(MSBuildProjectDirectory)\..\shared\libs;$(MSBuildProjectDirectory)\..\shared\model;$(MSBuildProjectDirectory)\..\shared\jansson;$(MSBuildProjectDirectory)\..\shared;$(MSBuildProjectDirectory)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <AdditionalOptions>/wd4996  /Dsnprintf=_snprintf %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>

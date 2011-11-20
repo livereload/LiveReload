@@ -1,6 +1,7 @@
 *.pbxuser
 *.perspectivev3
 *.sublime-*
+*.swp
 xcuserdata
 /dist
 /logs

@@ -16,16 +16,15 @@ EVENTBUS_DECLARE_EVENT(project_did_detect_change_event);
 typedef enum {
     project_monitoring_reason_browser_connected,
     project_monitoring_reason_compilation_enabled,
-    struct reload_session_t *_session;
 } project_monitoring_reason;
 
 
-typedef struct {
-    char *path;
-    bool compilation_enabled;
-    bool live_refresh_enabled;
-    fsmonitor_t *monitor;
-} project_t;
+typedef struct project_t project_t;
+
+
+int project_count();
+project_t *project_get(int index);
+void project_add_new(const char *path);
 
 
 project_t *project_create(const char *path, json_t *memento);

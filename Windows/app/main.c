@@ -1,4 +1,5 @@
 #include "autorelease.h"
+#include "project.h"
 
 #define STRICT
 #include <windows.h>
@@ -7,6 +8,7 @@
 #include <commctrl.h>
 #include <ShellAPI.h>
 #include <shlwapi.h>
+#include <malloc.h>
 
 #include <assert.h>
 
@@ -30,6 +32,12 @@ void LayoutSubviews() {
 void OnSize(HWND hwnd, UINT state, int cx, int cy) {
     LayoutSubviews();
 }
+
+inline WCHAR *_u2w(WCHAR *buf, int cch, char *utf) {
+    MultiByteToWideChar(CP_UTF8, 0, utf, -1, buf, cch);
+    return buf;
+}
+#define U2W(str) _u2w((WCHAR *)_alloca(sizeof(WCHAR) * (strlen(str) + 1)), sizeof(WCHAR) * (strlen(str) + 1), str)
 
 BOOL OnCreate(HWND hwnd, LPCREATESTRUCT lpcs) {
     g_hMainWindow = hwnd;
@@ -60,15 +68,20 @@ BOOL OnCreate(HWND hwnd, LPCREATESTRUCT lpcs) {
 
     LV_ITEM item;
     item.mask = LVIF_TEXT | LVIF_IMAGE | LVIF_STATE;
-    item.pszText = L"Hello world";
     item.iImage = 0;
     item.state = 0;
     item.stateMask = 0;
-    item.iItem = 0;
     item.iSubItem = 0;
     item.cchTextMax = 255;
-    result = ListView_InsertItem(g_hwndProjectListView, &item);
-    assert(result >= 0);
+
+    int count = project_count();
+    for (int i = 0; i < count; i++) {
+        project_t *project = project_get(i);
+        item.iItem = i;
+        item.pszText = U2W(project_display_path(project));
+        result = ListView_InsertItem(g_hwndProjectListView, &item);
+        assert(result >= 0);
+    }
 
     LayoutSubviews();
 
@@ -142,6 +155,9 @@ int WINAPI WinMain(HINSTANCE hinst, HINSTANCE hinstPrev,
     g_hinst = hinst;
 
     if (!InitApp()) return 0;
+
+    project_add_new("c:\\Dropbox\\GitHub\\LiveReload2");
+    project_add_new("c:\\Dropbox\\GitHub\\keymapper_tip");
 
     hwnd = CreateWindow(
         L"LiveReload",

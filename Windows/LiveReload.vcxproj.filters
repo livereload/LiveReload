@@ -22,6 +22,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Shared\libs">
+      <UniqueIdentifier>{c040b490-0460-4c43-a3e9-f41c7cdac5c1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="app\main.c">
@@ -78,6 +81,12 @@
     <ClCompile Include="osdep.c">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
+    <ClCompile Include="..\Shared\model\project.c">
+      <Filter>Shared\model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shared\model\fsmonitor.c">
+      <Filter>Shared\model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Shared\autorelease.h">
@@ -127,6 +136,12 @@
     </ClInclude>
     <ClInclude Include="..\Shared\osdep.h">
       <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shared\libs\kvec.h">
+      <Filter>Shared\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shared\model\fsmonitor.h">
+      <Filter>Shared\model</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
