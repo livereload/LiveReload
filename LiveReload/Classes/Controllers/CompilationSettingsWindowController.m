@@ -7,6 +7,7 @@
 #import "ToolOptions.h"
 #import "CompilationOptions.h"
 #import "FileCompilationOptions.h"
+#import "Project.h"
 
 #import "UIBuilder.h"
 #import "sglib.h"
@@ -276,19 +277,22 @@ void compilable_file_free(compilable_file_t *file) {
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     compilable_file_t *file = kv_A(_fileList, row);
     output_paths_table_column_t column = str_static_array_index(output_paths_table_column_ids, [[tableColumn identifier] UTF8String]);
+    BOOL imported = [_project isFileImported:[NSString stringWithUTF8String:file->source_path]];
     if (column == output_paths_table_column_enable) {
+        if (imported)
+            return [NSNumber numberWithBool:NO];
         return [NSNumber numberWithBool:file->file_options.enabled];
     } else if (column == output_paths_table_column_source) {
         return [NSString stringWithUTF8String:file->source_path];
     } else if (column == output_paths_table_column_output) {
+        if (imported)
+            return @"(imported)";
         return file->file_options.destinationDirectoryForDisplay;
     } else {
         return nil;
     }
 }
 
-/* Optional - Editing Support
- */
 - (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     compilable_file_t *file = kv_A(_fileList, row);
     output_paths_table_column_t column = str_static_array_index(output_paths_table_column_ids, [[tableColumn identifier] UTF8String]);
@@ -301,6 +305,29 @@ void compilable_file_free(compilable_file_t *file) {
     }
 }
 
+- (BOOL)tableView:(NSTableView *)tableView shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    compilable_file_t *file = kv_A(_fileList, row);
+    output_paths_table_column_t column = str_static_array_index(output_paths_table_column_ids, [[tableColumn identifier] UTF8String]);
+    if (column == output_paths_table_column_enable || column == output_paths_table_column_output) {
+        BOOL imported = [_project isFileImported:[NSString stringWithUTF8String:file->source_path]];
+        return !imported;
+    }
+    return YES;
+}
+
+
+- (void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    compilable_file_t *file = kv_A(_fileList, row);
+    output_paths_table_column_t column = str_static_array_index(output_paths_table_column_ids, [[tableColumn identifier] UTF8String]);
+    BOOL imported = [_project isFileImported:[NSString stringWithUTF8String:file->source_path]];
+    if (column == output_paths_table_column_enable) {
+        NSButtonCell *theCell = cell;
+        [theCell setEnabled:!imported];
+    } else if (column == output_paths_table_column_output) {
+        NSTextFieldCell *theCell = cell;
+        [theCell setEnabled:!imported];
+    }
+}
 
 #pragma mark -
 

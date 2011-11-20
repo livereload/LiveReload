@@ -636,6 +636,7 @@
 												<string key="NSFrame">{{335, 8}, {136, 23}}</string>
 												<reference key="NSSuperview" ref="313562599"/>
 												<reference key="NSWindow"/>
+												<reference key="NSNextKeyView" ref="703466347"/>
 												<string key="NSReuseIdentifierKey">_NS:2466</string>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSButtonCell" key="NSCell" id="475219743">
@@ -1271,7 +1272,9 @@
 					<string>2.IBPluginDependency</string>
 					<string>20.IBPluginDependency</string>
 					<string>200.IBPluginDependency</string>
+					<string>201.CustomClassName</string>
 					<string>201.IBPluginDependency</string>
+					<string>202.CustomClassName</string>
 					<string>202.IBPluginDependency</string>
 					<string>21.IBPluginDependency</string>
 					<string>69.IBPluginDependency</string>
@@ -1324,7 +1327,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>RSVerticallyCenteredTextFieldCell</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>RSVerticallyCenteredTextFieldCell</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1453,6 +1458,14 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/CompilationSettingsWindowController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">RSVerticallyCenteredTextFieldCell</string>
+					<string key="superclassName">NSTextFieldCell</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/RSVerticallyCenteredTextFieldCell.h</string>
 					</object>
 				</object>
 			</object>
