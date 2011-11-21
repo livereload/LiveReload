@@ -31,10 +31,10 @@ end
 def marketing_for_internal_version version, greek=true
   a, b, c, d = version.split('.').collect { |x| x.to_i }
   x = case d
-        when  0 .. 19 then "α#{d}"
-        when 20 .. 49 then "β#{d-30}"
-        when 40 .. 59 then "rc#{d-60}"
-        when 60 .. 79 then ""
+        when  0 .. 29 then "α#{d}"
+        when 30 .. 49 then "β#{d-30}"
+        when 50 .. 69 then "rc#{d-60}"
+        when 70 .. 89 then ""
         else               "unk#{d}"
       end
 
