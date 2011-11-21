@@ -290,7 +290,7 @@ echo html_tag('h1', array(), "Total unique IPs: $count");
 
 echo html_tag('h1', array(), "Unique IPs by day, all time") . chart($data, 2500);
 
-echo format_grouped_stats(PERIOD_WEEK, 3, "week", "Weekly statistics");
+echo format_grouped_stats(PERIOD_WEEK, 2, "week", "Weekly statistics");
 
 echo table('Unique IPs by version, last 30 days', array('version' => 'Version', 'count' => 'IPs'), $by_ver_30);
 echo table('Unique IPs by version, last 7 days', array('version' => 'Version', 'count' => 'IPs'), $by_ver_7);
