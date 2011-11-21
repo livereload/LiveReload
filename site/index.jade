@@ -1,0 +1,455 @@
+!!! 5
+html
+  head
+    script(type='text/javascript')
+      var _sf_startpt=(new Date()).getTime()
+    meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+    title LiveReload
+    link(href='http://fonts.googleapis.com/css?family=Lora:regular,bold&v1', rel='stylesheet', type='text/css')
+    link(href='http://fonts.googleapis.com/css?family=Caudex:regular,bold&v1', rel='stylesheet', type='text/css')
+    link(href='http://fonts.googleapis.com/css?family=Droid+Serif:regular,bold&v1', rel='stylesheet', type='text/css')
+    // <link href='http://fonts.googleapis.com/css?family=Droid+Serif&v1' rel='stylesheet' type='text/css'> 
+    link(rel='stylesheet', href='css/livereload.css', type='text/css', media='screen', title='main stylesheet', charset='utf-8')
+    script(type='text/javascript')
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-24459554-1']);
+          _gaq.push(['_trackPageview']);
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        
+  body
+    header
+      .content
+        .left
+          p LiveReload 2 proudly presents…
+          h1 The Web Developer Wonderland
+          p.subtitle (a happy land where browsers don't need a Refresh button)
+          h2 CSS edits and image changes apply live.
+          h2
+            | CoffeeScript, SASS, LESS
+            a(href='#compilers') and others
+            | just work.
+          p.citizenship
+            | Citizenship will be granted through the Mac App Store.
+            br
+            | Meanwhile, get yourself a
+            a(href='#download') green beta tester card
+            | .
+        .right
+          // <a href="#screencast" class="screencast-pin">Screencastwood</a> 
+          a.download-pin(href='#download') San Downloads
+          a.compilers-pin(href='#compilers') Compilerton
+          a.news-pin(href='#news') Newsville
+    section.what-is-livereload
+      .left
+        img(src='screenshot.png', width='508', height='355')
+      .right
+        h2 What does LiveReload do?
+        p
+          | LiveReload monitors changes in the file system.
+          | As soon as you save a file, it is
+          a(href='#compilers') preprocessed as needed
+          | ,
+          | and the browser is refreshed.
+        p
+          | Even cooler, when you change a CSS file or an image,
+          | the browser is updated instantly without reloading
+          | the page.
+    section.download-section
+      a(name='download')
+      .left
+        h2
+          a.download(href='http://download.livereload.com/LiveReload-2.0a11.zip') Download LiveReload 2.0 α11 for Mac
+        p.after-download(style='display: none')
+          | Thanks! Please also sign up for our newsletter to receive new build
+          | notifications and useful updates.
+        p
+          | Requires OS X 10.6 Snow Leopard or later.
+        p
+          | After you download and install LiveReload,
+          | it will ask you to install its browser
+          | extensions. That's optional, you can also
+          a(href='http://help.livereload.com/kb/general-use/using-livereload-without-browser-extensions')
+            | insert a short JavaScript snippet into your code
+          | .
+        p
+          | I'm developing LiveReload 2 as we speak,
+          | during those long long weekend nights.
+          | The app is expected to work quite well,
+          | but I might have borked a thing or two.
+          | When you find something to complain about,
+          | please
+          a(href='http://help.livereload.com/discussion/new')
+            | start a support topic
+          | .
+        p
+          | Also, please please PLEASE don't try to
+          | add your whole home directory to LiveReload.
+          | That kind of behavior won't make you happier.
+          | Besides, it's the first rule of the wonderland.
+          | You aren't going to break any rules here, are you?
+        p
+          | Fill in the application form on the right
+          | to subscribe to our newsletter
+          | and receive notifications about new builds.
+      .right
+        h2 Wonderland green card application
+        .greencard-sent(style='display: none')
+          | Thanks!
+        form.greencard(action='http://andreytarantsov.createsend.com/t/r/s/fjkujj/', method='post')
+          p Tell the truth, or face the consequences!
+          p
+            label(for='fjkujj-fjkujj') Your e-mail address:
+            br
+            input#fjkujj-fjkujj.email(name='cm-fjkujj-fjkujj')
+          p
+            label(for='About') Tell us about yourself (optional!)
+            br
+            textarea#About.message(name='cm-f-pyuhyi', rows='4')
+          p
+            input.submit(type='submit', value='Apply and subscribe to citizen news')
+    section.friends-section
+      a(name='friends')
+      .left
+        img.binaryage-icon(src='images/binaryage/totalfinder-256.png', width='256', height='256', alt='')
+        img.binaryage-icon(src='images/binaryage/firequery-256.png', width='256', height='256', alt='')
+        img.binaryage-icon(src='images/binaryage/firerainbow-256.png', width='256', height='256', alt='')
+        img.binaryage-icon(src='images/binaryage/firelogger-256.png', width='256', height='256', alt='')
+      .right
+        h2 Our friends at BinaryAge
+        p
+          | LiveReload has been inspired by XRefresh,
+          | an old Firebug plugin made by our friends at BinaryAge. The entire LiveReload
+          | team is using their
+          a.binaryage-link-totalfinder(href='http://totalfinder.binaryage.com/') TotalFinder
+          | ,
+          | and you might find
+          a.binaryage-link-firequery(href='http://firequery.binaryage.com/') FireQuery
+          | and
+          a.binaryage-link-other(href='http://www.binaryage.com/') other free tools
+          | useful too.
+    section.support-section
+      a(name='support')
+      .left
+        h2 Help & Support
+        p
+          | Popular articles from our
+          a.go-kb-general(href='http://help.livereload.com/kb') knowledge base
+          | :
+        ul
+          li
+            a.go-kb-popular(href='http://help.livereload.com/kb/general-use/using-livereload-without-browser-extensions')
+              | Using LiveReload without browser extensions
+          li
+            a.go-kb-popular(href='http://help.livereload.com/kb/editor-support/list-of-supported-editors')
+              | List of supported editors
+        p
+          | Question, problem or suggestion? Please
+          a.go-support-new(href='http://help.livereload.com/discussion/new') contact support on the web
+          | or email
+          a(href='mailto:support@livereload.com') support@livereload.com
+          | .
+          | You can also browse existing
+          a.go-support-problems(href='http://help.livereload.com/discussions/problems') problems
+          | and
+          a.go-support-questions(href='http://help.livereload.com/discussions/questions') questions
+          | .
+      .right
+        h2  
+        p
+          | We're using Tender for our user manual and support system.
+          | You can access it at:
+        div(style='text-align: center')
+          a(href='http://help.livereload.com/') help.livereload.com
+    // <section class="screencast-section"><a name="screencast"></a>
+    section.compilers-section
+      a(name='compilers')
+      .left
+        h2 Compilers and preprocessors
+        p
+          | LiveReload 2 introduces first-class support for
+          | CoffeeScript, SASS/SCSS, LESS, Stylus, HAML and Jade,
+          | and is shipped with all of them included.
+        p
+          | If you want LiveReload to compile your source files,
+          | enable the desired items in the project options dialog
+          | (the one you get when you double-click a project).
+        p
+          | After you add new source files, you might need to
+          | go back to the options dialog and set the output directory.
+          | LiveReload tries to guess where you want to put the
+          | compiled files, however every once in a while its magic dust
+          | runs dry and guessing fails.
+        p
+          | If compiling through LiveReload is not your thing,
+          | keep the compilers disabled on the options page.
+          | There are two other modes of operation that LR
+          | activates automatically when a compiler is disabled.
+        p
+          | First, if you simply want to compile the source files yourself
+          | (from the command line or using your own script),
+          | LiveReload will step away and ignore the changes to your source files.
+          | This mode (total ignorance) is activated when the compiled files
+          | are present in the project.
+        p
+          | Second, if you are using some kind of server-side middleware
+          | to serve the compiled files on the fly, LiveReload simulates a change
+          | in a corresponding (non-existent) derived file when you change
+          | a source file. FOR EXAMPLE, if you change think.less,
+          | LiveReload will tell the browser that think.css has changed.
+          | That will cause all CSS files to be reloaded by the browser
+          | (unless your middleware actually serves the file as think.css,
+          | in which case only that file will be reloaded).
+          | This mode is activated if the corresponding compiled files
+          | are NOT present in the project.
+        p
+          | If that last paragraph is giving you head aches, perhaps
+          | you should forget it and just remember that server-side on-the-fly
+          | compilation now works out of the box.
+      .right
+    section.news-section
+      a(name='news')
+      .left
+        h2 What's new in LiveReload?
+        h3 2.0α11
+        ol
+          li
+            | UI rewritten from scratch. Massive UI simplification.
+          li
+            | Full support for Compass. SASS/Compass is now detected automatically. Compass
+            | plugins are supported. You can now choose which Ruby to use (which matters if you
+            | have Compass plugin gems installed in one of them.)
+          li
+            | The list of monitored file extension is now configurable.
+          li
+            | Added some advanced monitoring options for rare use cases.
+          li
+            | Compiler options are now configurable using a convenient UI.
+          li
+            | All bundled compilers updated to latest versions.
+        h3 2.0α10
+        p
+          | Fixed Compass support (which has been broken in α8–α9) and a crashing bug on web
+          | socket disconnection.
+        h3 2.0α9
+        p Fixed a web socket protocol bug that caused handshake failures for many users.
+        h3 2.0α8
+        p Bigger changes:
+        ol
+          li
+            | Completely rewritten
+            a(href='http://help.livereload.com/kb/general-use/browser-extensions') browser extensions v2.0
+            | . Browser-side code has been split into two parts: livereload.js, which handles
+            | all the meaty logic (and
+            a(href='http://help.livereload.com/kb/general-use/using-livereload-without-browser-extensions') can be used stand-alone
+            | ), and optional browser extensions that merely insert a SCRIPT tag to include
+            | livereload.js.
+          li
+            | The new livereload.js now supports
+            a(href='http://help.livereload.com/kb/features/css-import-support') CSS @import
+            | and
+            a(href='http://help.livereload.com/kb/languages/less') in-browser LESS compiler
+            | , also reconnects automatically.
+          li
+            a(href='http://help.livereload.com/kb/general-use/imported-files-partials-support') Server-side @import support
+            | for LESS, SASS, Stylus.
+          li
+            a(href='http://help.livereload.com/kb/general-use/custom-post-processing') Simple support for custom post-processing
+            | .
+          li
+            | Compiler modes adjusted: new default is a zero-suprise “disabled” mode, the old
+            | “ignored” mode has been removed.
+          li
+            | For your scripting pleasure, an
+            a(href='http://help.livereload.com/kb/ecosystem/livereload-url-api') API based on livereload: URL scheme
+            | .
+        p Smaller changes:
+        ul
+          li
+            | a
+            a(href='http://help.livereload.com/kb/troubleshooting/os-x-fsevents-bug-may-prevent-monitoring-of-certain-folders') rare FSEvents bug that breaks file change monitoring
+            | is now automatically detected
+          li
+            | for those experiencing 'unstyled content after editing CSS' problem, it's now
+            | much better (unstyled content flashes instead of staying permanently), and
+            a(href='http://help.livereload.com/kb/troubleshooting/flash-of-unstyled-content-when-editing-css-files') there's a hidden preference to hopefully get rid of it altogether
+          li
+            | documented
+            a(href='http://help.livereload.com/kb/settings/hidden-preferences') another hidden preference to specify additional file extensions to monitor
+          li
+            | fixed output path computation for newly added compilable files; will now always
+            | default to the source file's parent folder when in doubt.
+          li
+            | fixed multiple selection in compiler's file list to change output directories in
+            | bulk
+          li added .as and .swf to monitored extensions
+          li
+            | added node_modules to excluded folders (mainly to avoid compiling
+            | LESS/CoffeeScript/whatever inside those folders, even if you enable compilation
+            | for the main project)
+          li added Slim compiler
+          li added support for BBEdit
+          li new menu bar icons and smooth animation, kindly provided by Pete Schaffner
+          li
+            a(href='http://help.livereload.com/kb/about-us/usage-statistics-privacy-policy') more usage statistics and privacy policy for those
+        h3 2.0α7
+        ol
+          li Fixes memory leaks and CPU utilization issues.
+          li Adds Eco compiler plugin.
+          li Adds monitoring for .ctp extension (CakePHP templates!).
+          li Some minor changes for the compilation error window.
+        h3 2.0α6
+        ol
+          li
+            | Should be able to connect to the latest Chrome and Firefox (implements WebSockets
+            | protocol version 8).
+          li Fixes some bugs and memory leaks.
+          li Includes a new icon artwork.
+          li
+            | Full output log can now be displayed for error messages (gears menu » Show
+            | Complete Output), displayed automatically when the error message cannot be
+            | parsed.
+          li
+            | Files and folders starting with a dot (.something.html) are no longer excluded
+            | from monitoring (there still is an exclusion list of usual offenders like .git,
+            | .svn, CVS and others), per request from ExpressionEngine users.
+          li
+            | Any double file extensions are supported now: foo.bar.haml will be compiled into
+            | foo.bar.
+          li Monitors more file extensions: phtml, json, yaml, tpl.
+          li LiveReload is now declared an official successor of XRefresh!
+        p
+          | Perhaps you want to
+          a(href='#download') download LR 2.0α6
+          | ?
+        h3 2.0α5
+        ol
+          li Experimental Compass support.
+          li Experimental new compilation error notifications.
+          li
+            | Jump to Error works with TextMate, SubEthaEdit, Sublime Text 2, Coda, Espresso or
+            a(href='http://help.livereload.com/kb/editor-support/using-custom-scripts-to-support-other-editors') any custom editor if you can write a script
+            | .
+        h3 2.0α4
+        ol
+          li Correctly handles file names like style.css.sass and script.js.coffee.
+          li Compatible with OS X 10.7 Lion.
+          li Now using a grey background, black no more.
+        h3 2.0α3
+        ol
+          li
+            | Introduced
+            a(href='#compilers') support for languages that compile into CSS/JS/HTML
+          li Updated the web site to suck less.
+        h3 2.0α2
+        ol
+          li
+            | Limits monitored extensions to a predefined list.
+            | Includes: HTML/CSS/JS and their variants (Less, SASS, HAML, CoffeeScript),
+            | images, various PHP extensions, Ruby, Python.
+          li
+            | First step of handling
+            b Less/SASS/HAML/CoffeeScript
+            | .
+            | If there is a corresponding css/js file for your less/sass/scss/coffee,
+            | the changes to your less/sass/scss/coffee will be ignored
+            | (because there is probably an external compiler that will update css/js soon).
+            | Otherwise LR proceeds as usual.
+          li
+            | The
+            b menu bar icon
+            | now indicates the state of LiveReload: inactive (no browsers connected,
+            | monitoring disabled), active (browser(s) connected, monitoring the file system),
+            | change detected (blinks green).
+            | You can also drag'n'drop folders onto the menu bar icon.
+        h3 2.0α1
+        ol
+          li
+            | Native Mac OS X Cocoa-based UI
+          li
+            | File system monitoring via native FSEvents API
+          li
+            | Does not depend on Ruby or any external libraries
+          li
+            | Installs Safari & Chrome extensions (almost) automatically
+          li
+            | Monitoring is only activated when a browser is connected — meaning zero resource
+            | usage while not in use
+    section
+      .left
+        h2 Who are we?
+        p
+          | LiveReload 2.x is mainly developed by Andrey Tarantsov.
+          | Occasionally he gets some help from a long-time LR 1.x contributor Nikita
+          | Vasiliev.
+        p
+          | You can read
+          a(href='http://tarantsov.com/blog/2011/07/the-story-of-livereload-the-first-anniversary/')
+            | the whole story of LiveReload here
+          | .
+        p
+          | Cheers!
+
+    script(src='https://livereload.tenderapp.com/tender_widget.js', type='text/javascript')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js')
+    script(type='text/javascript')
+      var _sf_async_config={uid:23639,domain:"livereload.com"};
+      (function(){
+        function loadChartbeat() {
+          window._sf_endpt=(new Date()).getTime();
+          var e = document.createElement('script');
+          e.setAttribute('language', 'javascript');
+          e.setAttribute('type', 'text/javascript');
+          e.setAttribute('src',
+             (("https:" == document.location.protocol) ? "https://a248.e.akamai.net/chartbeat.download.akamai.com/102508/" : "http://static.chartbeat.com/") +
+             "js/chartbeat.js");
+          document.body.appendChild(e);
+        }
+        var oldonload = window.onload;
+        window.onload = (typeof window.onload != 'function') ?
+           loadChartbeat : function() { oldonload(); loadChartbeat(); };
+      })();
+        
+    script(type='text/javascript')
+     var mp_protocol = (('https:' == document.location.protocol) ? 'https://' : 'http://'); document.write(unescape('%3Cscript src="' + mp_protocol + 'api.mixpanel.com/site_media/js/api/mixpanel.js" type="text/javascript"%3E%3C/script%3E')); 
+    script(type='text/javascript')
+     try {  var mpmetrics = new MixpanelLib('c172b6e3eb5bf1de17f8d0c590fa561e'); } catch(err) { null_fn = function () {}; var mpmetrics = {  track: null_fn,  track_funnel: null_fn,  register: null_fn,  register_once: null_fn, register_funnel: null_fn }; } 
+    script
+      mpmetrics.set_config({ track_links_timeout: 1000 });
+      mpmetrics.track('Load homepage');
+      mpmetrics.track_links('.download', 'Download');
+      mpmetrics.track_links('.binaryage-link-totalfinder', 'Go to BinaryAge', { link: 'TotalFinder' });
+      mpmetrics.track_links('.binaryage-link-firequery', 'Go to BinaryAge', { link: 'FireQuery' });
+      mpmetrics.track_links('.binaryage-link-other', 'Go to BinaryAge', { link: 'other' });
+      mpmetrics.track_links('.go-kb-general', 'Go to Tender', { link: 'kb-general' });
+      mpmetrics.track_links('.go-kb-popular', 'Go to Tender', { link: 'kb-popular' });
+      mpmetrics.track_links('.go-support-new', 'Go to Tender', { link: 'support-new' });
+      mpmetrics.track_links('.go-support-problems', 'Go to Tender', { link: 'support-problems' });
+      mpmetrics.track_links('.go-support-questions', 'Go to Tender', { link: 'support-questions' });
+      // mpmetrics.track_links('.oldver', 'Visit old site');
+      $('.download').click(function(e) {
+        if (!$('.after-download').is(':visible')) {
+          $('.after-download').slideDown();
+        }
+      });
+      // $('.greencard').submit(function(e) {
+      //   e.preventDefault();
+      //   var email = $('.email', this).val();
+      //   if (email.length == 0 || !email.match(/@/)) {
+      //     alert("Please enter a valid email.");
+      //     $('.email', this).focus();
+      //     return;
+      //   }
+      //
+      //   var message = $('.message', this).val();
+      //   mpmetrics.track('Subscribe');
+      //   $('.submit', this).val('Sending your application...');
+      //   $.post('subscribe.php', { email: email, message: message }, function() {
+      //     $('.greencard').hide();
+      //     $('.greencard-sent').show();
+      //   });
+      // });
+    
