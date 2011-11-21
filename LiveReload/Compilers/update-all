@@ -52,7 +52,7 @@ update_gem() {
 update_npm  CoffeeScript   coffee-script
 update_npm  LESS           less
 update_npm  Stylus         stylus
-update_npm  Jade           jade
+update_npm  Jade           jade markdown
 
 update_gem  SASS  sass compass chunky_png
 update_gem  SLIM  slim temple tilt
