@@ -62,39 +62,23 @@ html
       a(name='download')
       .left
         h2
-          a.download(href='http://download.livereload.com/LiveReload-2.0a11.zip') Download LiveReload 2.0 α11 for Mac
+          a.download(href='http://download.livereload.com/LiveReload-2.0b1.zip') Download LiveReload 2.0 β1 for Mac
         p.after-download(style='display: none')
           | Thanks! Please also sign up for our newsletter to receive new build
           | notifications and useful updates.
-        p
-          | Requires OS X 10.6 Snow Leopard or later.
-        p
-          | After you download and install LiveReload,
-          | it will ask you to install its browser
-          | extensions. That's optional, you can also
-          a(href='http://help.livereload.com/kb/general-use/using-livereload-without-browser-extensions')
-            | insert a short JavaScript snippet into your code
-          | .
-        p
-          | I'm developing LiveReload 2 as we speak,
-          | during those long long weekend nights.
-          | The app is expected to work quite well,
-          | but I might have borked a thing or two.
-          | When you find something to complain about,
-          | please
-          a(href='http://help.livereload.com/discussion/new')
-            | start a support topic
-          | .
-        p
-          | Also, please please PLEASE don't try to
-          | add your whole home directory to LiveReload.
-          | That kind of behavior won't make you happier.
-          | Besides, it's the first rule of the wonderland.
-          | You aren't going to break any rules here, are you?
-        p
-          | Fill in the application form on the right
-          | to subscribe to our newsletter
-          | and receive notifications about new builds.
+        :markdown
+          Requires OS X 10.6 Snow Leopard or later. 64-bit only: if your MacBook does not support Lion, it also cannot run LiveReload.
+
+          Windows version is under development. Really.
+
+          After you download and install LiveReload, it will quietly live in your menu bar. There are two great ways to use LiveReload: [insert a SCRIPT tag before </body>](http://help.livereload.com/kb/general-use/using-livereload-without-browser-extensions) or [install browser extensions](http://help.livereload.com/kb/general-use/browser-extensions).
+
+          A rule of thumb: each directory you add to LiveReload should be a separate web site project. Do not add your whole home directory or something like that.
+
+          If you encounter a problem, please be sure to [start a support discussion](http://help.livereload.com/discussion/new).
+
+          Fill in the application form on the right to subscribe to our newsletter and receive notifications about new builds.
+
       .right
         h2 Wonderland green card application
         .greencard-sent(style='display: none')
@@ -214,22 +198,18 @@ html
       a(name='news')
       .left
         h2 What's new in LiveReload?
-        h3 2.0α11
-        ol
-          li
-            | UI rewritten from scratch. Massive UI simplification.
-          li
-            | Full support for Compass. SASS/Compass is now detected automatically. Compass
-            | plugins are supported. You can now choose which Ruby to use (which matters if you
-            | have Compass plugin gems installed in one of them.)
-          li
-            | The list of monitored file extension is now configurable.
-          li
-            | Added some advanced monitoring options for rare use cases.
-          li
-            | Compiler options are now configurable using a convenient UI.
-          li
-            | All bundled compilers updated to latest versions.
+        h3 2.0β1
+        :markdown
+          * New, completely redesigned and rewritten UI.
+          * Full support for Compass. SASS/Compass is detected automatically. Compass plugins are supported (you may need to configure LiveReload to use a correct instance of Ruby, or simply install any plugins into the system Ruby).
+          * Compilation modes have been removed; now it's just a big on/off switch (HTML compilers like HAML, Jade and Slim still have to be enabled individually)
+          * All bundled compilers updated to latest versions.
+          * Individual compiler options are now configurable.
+          * Jade partials are supported.
+          * Cache busting for in-browser LESS.js compiler.
+          * The list of monitored file extension is now configurable.
+          * Some more monitoring options for rare use cases.
+
         h3 2.0α10
         p
           | Fixed Compass support (which has been broken in α8–α9) and a crashing bug on web
