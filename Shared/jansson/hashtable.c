@@ -159,7 +159,7 @@ static int hashtable_do_rehash(hashtable_t *hashtable)
     hashtable->num_buckets++;
     new_size = num_buckets(hashtable);
 
-    hashtable->buckets = (hashtable_bucket *) jsonp_malloc(new_size * sizeof(bucket_t));
+    hashtable->buckets = (struct hashtable_bucket *) jsonp_malloc(new_size * sizeof(bucket_t));
     if(!hashtable->buckets)
         return -1;
 
@@ -213,7 +213,7 @@ int hashtable_init(hashtable_t *hashtable,
 
     hashtable->size = 0;
     hashtable->num_buckets = 0;  /* index to primes[] */
-    hashtable->buckets = (hashtable_bucket *) jsonp_malloc(num_buckets(hashtable) * sizeof(bucket_t));
+    hashtable->buckets = (struct hashtable_bucket *) jsonp_malloc(num_buckets(hashtable) * sizeof(bucket_t));
     if(!hashtable->buckets)
         return -1;
 
