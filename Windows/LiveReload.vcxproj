@@ -53,6 +53,10 @@
     <ClInclude Include="..\Shared\reload_request.h" />
     <ClInclude Include="..\Shared\sglib.h" />
     <ClInclude Include="..\Shared\stringutil.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="LiveReload.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{6CB892AD-0192-4352-8FD3-E32E25B6B5D0}</ProjectGuid>
@@ -94,7 +98,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(MSBuildProjectDirectory)\..\shared\libs;$(MSBuildProjectDirectory)\..\shared\model;$(MSBuildProjectDirectory)\..\shared\jansson;$(MSBuildProjectDirectory)\..\shared;$(MSBuildProjectDirectory)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(MSBuildProjectDirectory)\..\shared\libs;$(MSBuildProjectDirectory)\..\shared\model;$(MSBuildProjectDirectory)\..\shared\jansson;$(MSBuildProjectDirectory)\..\shared;$(MSBuildProjectDirectory)\include;$(MSBuildProjectDirectory);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <AdditionalOptions>/wd4996  /Dsnprintf=_snprintf %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>

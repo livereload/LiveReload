@@ -149,5 +149,13 @@
     <ClInclude Include="..\Shared\model\fstree.h">
       <Filter>Shared\model</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Файлы исходного кода</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="LiveReload.rc">
+      <Filter>Файлы исходного кода</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

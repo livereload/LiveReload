@@ -1,6 +1,7 @@
 #include "autorelease.h"
 #include "project.h"
 #include "common.h"
+#include "resource.h"
 
 #include <windows.h>
 #include <windowsx.h>
@@ -13,6 +14,7 @@
 #include <assert.h>
 
 HINSTANCE g_hinst;
+HBITMAP g_hMainWindowBgBitmap;
 HWND g_hMainWindow;
 HWND g_hwndChild;
 HWND g_hwndProjectListView;
@@ -26,7 +28,7 @@ void LayoutSubviews() {
     RECT client;
     GetClientRect(g_hMainWindow, &client);
     int width = client.right, height = client.bottom;
-    MoveWindow(g_hwndProjectListView, 0, 0, 200, height, TRUE);
+    MoveWindow(g_hwndProjectListView, 0, 22, 202, 470, TRUE);
 }
 
 void OnSize(HWND hwnd, UINT state, int cx, int cy) {
@@ -35,7 +37,7 @@ void OnSize(HWND hwnd, UINT state, int cx, int cy) {
 
 BOOL OnCreate(HWND hwnd, LPCREATESTRUCT lpcs) {
     g_hMainWindow = hwnd;
-    g_hwndProjectListView = CreateWindow(WC_LISTVIEW, L"", WS_VISIBLE | WS_CHILD | WS_BORDER | LVS_LIST | LVS_SINGLESEL,
+    g_hwndProjectListView = CreateWindow(WC_LISTVIEW, L"", WS_VISIBLE | WS_CHILD | LVS_LIST | LVS_SINGLESEL,
         0, 0, 100, 200, hwnd, (HMENU) ID_PROJECT_LIST_VIEW, g_hinst, NULL);
     g_hSmallImageList = ImageList_Create(16, 16, ILC_MASK | ILC_COLOR32, 3, 0);
 
@@ -87,6 +89,8 @@ void OnDestroy(HWND hwnd) {
 }
 
 void PaintContent(HWND hwnd, PAINTSTRUCT *pps) {
+    HDC hDC = pps->hdc;
+    DrawState(hDC, NULL, NULL, (LPARAM)g_hMainWindowBgBitmap, 0, 0, 0, 0, 0, DST_BITMAP);
 }
 
 void OnPaint(HWND hwnd) {
@@ -166,12 +170,32 @@ int WINAPI WinMain(HINSTANCE hinst, HINSTANCE hinstPrev,
     project_add_new("c:\\Dropbox\\GitHub\\LiveReload2");
     project_add_new("c:\\Dropbox\\GitHub\\keymapper_tip");
 
+    g_hMainWindowBgBitmap = (HBITMAP) LoadImage(g_hinst, MAKEINTRESOURCE(IDB_MAIN_WINDOW_BG), IMAGE_BITMAP, 0, 0, LR_DEFAULTCOLOR);
+
+
+    DWORD dwStyle = WS_POPUP;
+
+    RECT rect = {0, 0, 0, 0};
+    rect.right = 738;
+    rect.bottom = 514;
+    AdjustWindowRectEx(&rect, dwStyle, FALSE, 0);
+
+    int height = rect.bottom - rect.top, width = rect.right - rect.left;
+
+    MONITORINFO mi;
+    mi.cbSize = sizeof(mi);
+    GetMonitorInfo(MonitorFromWindow(NULL, MONITOR_DEFAULTTOPRIMARY), &mi);
+    RECT rcToCenterIn = mi.rcWork;
+
+    int left = (rcToCenterIn.right  + rcToCenterIn.left) / 2 - width / 2;
+    int top  = (rcToCenterIn.bottom + rcToCenterIn.top) / 2  - height / 2;
+
     hwnd = CreateWindow(
         L"LiveReload",
         L"LiveReload",
-        WS_OVERLAPPEDWINDOW,
-        CW_USEDEFAULT, CW_USEDEFAULT,
-        CW_USEDEFAULT, CW_USEDEFAULT,
+        dwStyle,
+        left, top,
+        width, height,
         NULL,
         NULL,
         hinst,

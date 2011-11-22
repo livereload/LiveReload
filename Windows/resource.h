@@ -1,0 +1,4 @@
+#define IDI_APP 100
+#define IDI_FOLDER 101
+
+#define IDB_MAIN_WINDOW_BG 202

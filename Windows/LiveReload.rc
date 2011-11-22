@@ -1,0 +1,7 @@
+#include <windows.h>
+#include "resource.h"
+
+IDI_APP ICON "images\\livereload.ico"
+IDI_FOLDER ICON "images\\folder.ico"
+
+IDB_MAIN_WINDOW_BG BITMAP "images\\MainWindowBg.bmp"
