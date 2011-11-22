@@ -6,3 +6,4 @@ IDI_FOLDER ICON "images\\folder.ico"
 
 IDB_MAIN_WINDOW_BG BITMAP "images\\MainWindowBg.bmp"
 IDB_LISTBOX_SELECTION_BG BITMAP "images\\ListBoxSelectionBg.bmp"
+IDB_MAINWND_PROJECT_PANE_BG BITMAP "images\\ProjectPaneBg.bmp"

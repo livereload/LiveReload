@@ -25,7 +25,14 @@ HWND g_hProjectListView;
 HICON g_hProjectIcon;
 HBITMAP g_hListBoxSelectionBgBitmap;
 
+HBITMAP g_hProjectPaneBgBitmap;
+
+
 #define kListBoxItemHeight 20
+#define kProjectPaneX 202
+#define kProjectPaneY 22
+#define kProjectPaneW 536
+#define kProjectPaneH 470
 
 enum {
     ID_PROJECT_LIST_VIEW,
@@ -73,6 +80,7 @@ void OnDestroy(HWND hwnd) {
 
 void MainWnd_PaintContent(HWND hwnd, HDC hDC, RECT *prcPaint) {
     DrawState(hDC, NULL, NULL, (LPARAM)g_hMainWindowBgBitmap, 0, 0, 0, 0, 0, DST_BITMAP);
+    DrawState(hDC, NULL, NULL, (LPARAM)g_hProjectPaneBgBitmap, 0, kProjectPaneX, kProjectPaneY, 0, 0, DST_BITMAP);
 }
 
 void OnPaint(HWND hwnd) {
@@ -220,6 +228,8 @@ int WINAPI WinMain(HINSTANCE hinst, HINSTANCE hinstPrev,
 
     g_hMainWindowBgBitmap = (HBITMAP) LoadImage(g_hinst, MAKEINTRESOURCE(IDB_MAIN_WINDOW_BG), IMAGE_BITMAP, 0, 0, LR_DEFAULTCOLOR);
     g_hListBoxSelectionBgBitmap = (HBITMAP) LoadImage(g_hinst, MAKEINTRESOURCE(IDB_LISTBOX_SELECTION_BG), IMAGE_BITMAP, 0, 0, LR_DEFAULTCOLOR);
+    g_hProjectPaneBgBitmap = (HBITMAP) LoadImage(g_hinst, MAKEINTRESOURCE(IDB_MAINWND_PROJECT_PANE_BG), IMAGE_BITMAP, 0, 0, LR_DEFAULTCOLOR);
+
     g_hProjectIcon = (HICON) LoadImage(g_hinst, MAKEINTRESOURCE(IDI_FOLDER), IMAGE_ICON, 16, 16, LR_DEFAULTCOLOR);
 
     g_hNormalFont12 = CreateFont(-12, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS,
