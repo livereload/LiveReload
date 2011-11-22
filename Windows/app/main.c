@@ -108,12 +108,29 @@ void OnPrintClient(HWND hwnd, HDC hdc) {
 
 }
 
+DWORD OnNCHitTest(HWND hwnd, int x, int y) {
+    RECT rect;
+    GetWindowRect(hwnd, &rect);
+    x -= rect.left;
+    y -= rect.top;
+
+    if (y <= 21) {
+        if (x >= 15 && x <= 25)
+            return HTSYSMENU;
+        if (x >= 700)
+            return HTCLOSE;
+        return HTCAPTION;
+    }
+    return HTCLIENT;
+}
+
 LRESULT CALLBACK WndProc(HWND hwnd, UINT uiMsg, WPARAM wParam, LPARAM lParam) {
     switch (uiMsg) {
     HANDLE_MSG(hwnd, WM_CREATE, OnCreate);
     HANDLE_MSG(hwnd, WM_SIZE, OnSize);
     HANDLE_MSG(hwnd, WM_DESTROY, OnDestroy);
     HANDLE_MSG(hwnd, WM_PAINT, OnPaint);
+    HANDLE_MSG(hwnd, WM_NCHITTEST, OnNCHitTest);
     case WM_PRINTCLIENT: OnPrintClient(hwnd, (HDC)wParam); return 0;
     }
 
