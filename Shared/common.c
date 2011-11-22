@@ -16,4 +16,21 @@ char *w2u(WCHAR *string) {
   return result;
 }
 
+const char *basename(const char *path) {
+    if (!*path)
+        return path;
+
+    const char *p1 = strrchr(path, '\\');
+    const char *p2 = strrchr(path, '/');
+    if (p1 && p2) {
+        return (p1 > p2 ? p1 : p2) + 1;
+    } else if (p1) {
+        return p1 + 1;
+    } else if (p2) {
+        return p2 + 1;
+    } else {
+        return path;
+    }
+}
+
 #endif

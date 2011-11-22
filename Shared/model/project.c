@@ -1,4 +1,5 @@
 
+#include "common.h"
 #include "project.h"
 #include "kvec.h"
 #include "reload_request.h"
@@ -44,6 +45,10 @@ project_t *project_create(const char *path, json_t *memento) {
 void project_free(project_t *project) {
   free(project->path);
   free(project);
+}
+
+const char *project_name(project_t *project) {
+    return basename(project->path);
 }
 
 char *project_display_path(project_t *project) {

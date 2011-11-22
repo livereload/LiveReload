@@ -10,6 +10,8 @@
 #define __typeof decltype
 char *stpcpy(char *dest, const char *source);
 
+const char *basename(const char *path);
+
 static inline WCHAR *_u2w(WCHAR *buf, int cch, const char *utf) {
     MultiByteToWideChar(CP_UTF8, 0, utf, -1, buf, cch);
     return buf;

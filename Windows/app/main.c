@@ -13,17 +13,19 @@
 
 #include <assert.h>
 
-LRESULT CALLBACK ListViewWndProc(HWND hwnd, UINT uiMsg, WPARAM wParam, LPARAM lParam);
-
 HINSTANCE g_hinst;
 HBITMAP g_hMainWindowBgBitmap;
 HWND g_hMainWindow;
 HWND g_hwndChild;
 
-WNDPROC g_originalListViewWndProc;
-HWND g_hwndProjectListView;
+HFONT g_hNormalFont12;
 
-HIMAGELIST g_hSmallImageList;
+WNDPROC g_originalListViewWndProc;
+HWND g_hProjectListView;
+HICON g_hProjectIcon;
+HBITMAP g_hListBoxSelectionBgBitmap;
+
+#define kListBoxItemHeight 20
 
 enum {
     ID_PROJECT_LIST_VIEW,
@@ -33,7 +35,7 @@ void LayoutSubviews() {
     RECT client;
     GetClientRect(g_hMainWindow, &client);
     int width = client.right, height = client.bottom;
-    MoveWindow(g_hwndProjectListView, 0, 22, 202, 470, TRUE);
+    MoveWindow(g_hProjectListView, 0, 22, 202, 470, TRUE);
 }
 
 void OnSize(HWND hwnd, UINT state, int cx, int cy) {
@@ -42,52 +44,23 @@ void OnSize(HWND hwnd, UINT state, int cx, int cy) {
 
 BOOL OnCreate(HWND hwnd, LPCREATESTRUCT lpcs) {
     g_hMainWindow = hwnd;
+
     // see http://blogs.msdn.com/b/oldnewthing/archive/2011/10/28/10230811.aspx about WS_EX_TRANSPARENT
-    g_hwndProjectListView = CreateWindowEx(WS_EX_TRANSPARENT, WC_LISTVIEW, L"", WS_VISIBLE | WS_CHILD | LVS_LIST | LVS_SINGLESEL,
+    g_hProjectListView = CreateWindowEx(WS_EX_TRANSPARENT, WC_LISTBOX, L"",
+        WS_VISIBLE | WS_CHILD |    LBS_NOINTEGRALHEIGHT | LBS_NOTIFY | LBS_OWNERDRAWVARIABLE,
         0, 0, 100, 200, hwnd, (HMENU) ID_PROJECT_LIST_VIEW, g_hinst, NULL);
-    g_hSmallImageList = ImageList_Create(16, 16, ILC_MASK | ILC_COLOR32, 3, 0);
-
-    // subclass to make background trasparent
-    g_originalListViewWndProc = (WNDPROC) GetWindowLongPtr(g_hwndProjectListView, GWLP_WNDPROC);
-    SetWindowLongPtr(g_hwndProjectListView, GWLP_WNDPROC, (LONG_PTR)ListViewWndProc);
-
-    WCHAR buf[MAX_PATH];
-    GetWindowsDirectory(buf, sizeof(buf)/sizeof(buf[0]));
-
-    SHFILEINFO file_info;
-    DWORD_PTR result = SHGetFileInfo(buf, 0, &file_info, sizeof(file_info), SHGFI_ICON | SHGFI_SMALLICON);
-    assert(result);
-
-    ImageList_AddIcon(g_hSmallImageList, file_info.hIcon);
-    //DestroyIcon(file_info.hIcon);
-
-    assert(ImageList_GetImageCount(g_hSmallImageList) == 1);
-
-    ListView_SetImageList(g_hwndProjectListView, g_hSmallImageList, LVSIL_SMALL);
-
-    LVCOLUMN col;
-    col.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT;
-    col.fmt = LVCFMT_LEFT;
-    col.cx = 75;
-    col.pszText = L"Folder";
-    ListView_InsertColumn(g_hwndProjectListView, 0, &col);
-
-    LV_ITEM item;
-    item.mask = LVIF_TEXT | LVIF_IMAGE | LVIF_STATE;
-    item.iImage = 0;
-    item.state = 0;
-    item.stateMask = 0;
-    item.iSubItem = 0;
-    item.cchTextMax = 255;
 
     int count = project_count();
     for (int i = 0; i < count; i++) {
         project_t *project = project_get(i);
-        item.iItem = i;
-        item.pszText = U2W(project_display_path(project));
-        result = ListView_InsertItem(g_hwndProjectListView, &item);
-        assert(result >= 0);
+        ListBox_AddItemData(g_hProjectListView, project);
+//        item.iItem = i;
+//        item.pszText = U2W(project_display_path(project));
+//        result = ListView_InsertItem(g_hwndProjectListView, &item);
+//        assert(result >= 0);
     }
+
+    ListBox_SetCurSel(g_hProjectListView, 0);
 
     LayoutSubviews();
 
@@ -98,24 +71,21 @@ void OnDestroy(HWND hwnd) {
     PostQuitMessage(0);
 }
 
-void PaintContent(HWND hwnd, PAINTSTRUCT *pps) {
-    HDC hDC = pps->hdc;
+void MainWnd_PaintContent(HWND hwnd, HDC hDC, RECT *prcPaint) {
     DrawState(hDC, NULL, NULL, (LPARAM)g_hMainWindowBgBitmap, 0, 0, 0, 0, 0, DST_BITMAP);
 }
 
 void OnPaint(HWND hwnd) {
     PAINTSTRUCT ps;
     BeginPaint(hwnd, &ps);
-    PaintContent(hwnd, &ps);
+    MainWnd_PaintContent(hwnd, ps.hdc, &ps.rcPaint);
     EndPaint(hwnd, &ps);
 }
 
 void OnPrintClient(HWND hwnd, HDC hdc) {
-    PAINTSTRUCT ps;
-    ps.hdc = hdc;
-    GetClientRect(hwnd, &ps.rcPaint);
-    PaintContent(hwnd, &ps);
-
+    RECT rect;
+    GetClientRect(hwnd, &rect);
+    MainWnd_PaintContent(hwnd, hdc, &rect);
 }
 
 DWORD OnNCHitTest(HWND hwnd, int x, int y) {
@@ -134,9 +104,51 @@ DWORD OnNCHitTest(HWND hwnd, int x, int y) {
     return HTCLIENT;
 }
 
-HBRUSH OnCtlColorStatic(HWND hwnd, HDC hDC, HWND hChildWnd, DWORD dwType) {
+HBRUSH OnCtlColor(HWND hwnd, HDC hDC, HWND hChildWnd, DWORD dwType) {
     SetBkMode(hDC, TRANSPARENT);
     return (HBRUSH) GetStockObject(NULL_BRUSH);
+}
+
+void MainWnd_OnMeasureItem(HWND hwnd, MEASUREITEMSTRUCT * lpMeasureItem) {
+    lpMeasureItem->itemHeight = kListBoxItemHeight;
+}
+
+void MainWnd_OnDrawItem(HWND hwnd, const DRAWITEMSTRUCT * lpDrawItem) {
+    if (lpDrawItem->itemID == -1)
+        return;
+    RECT rect = lpDrawItem->rcItem;
+    project_t *project = project_get(lpDrawItem->itemID);
+    WCHAR *name = U2W(project_name(project));
+    HFONT hOldFont;
+
+    // http://www.codeproject.com/KB/combobox/TransListBox.aspx
+    switch (lpDrawItem->itemAction) {
+        case ODA_SELECT:
+        case ODA_DRAWENTIRE:
+            if (lpDrawItem->itemState & ODS_SELECTED) {
+                DrawState(lpDrawItem->hDC, NULL, NULL, (LPARAM)g_hListBoxSelectionBgBitmap, 0, rect.left, rect.top, 0, 0, DST_BITMAP);
+            } else {
+                RECT parentRect = rect;
+                MapWindowPoints(g_hProjectListView, g_hMainWindow, (LPPOINT)&parentRect, 2);
+
+                HDC hBitmapDC = CreateCompatibleDC(lpDrawItem->hDC);
+                HBITMAP hOldBitmap = SelectBitmap(hBitmapDC, g_hMainWindowBgBitmap);
+                BitBlt(lpDrawItem->hDC, rect.left, rect.top, rect.right-rect.left, rect.bottom-rect.top,
+                    hBitmapDC, parentRect.left, parentRect.top, SRCCOPY);
+                SelectBitmap(hBitmapDC, hOldBitmap);
+                DeleteDC(hBitmapDC);
+            }
+            DrawState(lpDrawItem->hDC, NULL, NULL, (LPARAM)g_hProjectIcon, 0, rect.left + 18, rect.top + 2, 0, 0, DST_ICON);
+            SetTextAlign(lpDrawItem->hDC, TA_TOP | TA_LEFT);
+            hOldFont = SelectFont(lpDrawItem->hDC, g_hNormalFont12);
+            if (lpDrawItem->itemState & ODS_SELECTED) {
+                SetTextColor(lpDrawItem->hDC, RGB(0xFF, 0xFF, 0xFF));
+            } else {
+                SetTextColor(lpDrawItem->hDC, RGB(0x00, 0x00, 0x00));
+            }
+            TextOut(lpDrawItem->hDC, rect.left + 39, rect.top + 1, name, wcslen(name));
+            SelectFont(lpDrawItem->hDC, hOldFont);
+    }
 }
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT uiMsg, WPARAM wParam, LPARAM lParam) {
@@ -145,23 +157,15 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uiMsg, WPARAM wParam, LPARAM lParam) {
     HANDLE_MSG(hwnd, WM_SIZE, OnSize);
     HANDLE_MSG(hwnd, WM_DESTROY, OnDestroy);
     HANDLE_MSG(hwnd, WM_PAINT, OnPaint);
-    HANDLE_MSG(hwnd, WM_CTLCOLORSTATIC, OnCtlColorStatic);
+    HANDLE_MSG(hwnd, WM_CTLCOLORLISTBOX, OnCtlColor);
+    HANDLE_MSG(hwnd, WM_CTLCOLORSTATIC, OnCtlColor);
     HANDLE_MSG(hwnd, WM_NCHITTEST, OnNCHitTest);
+    HANDLE_MSG(hwnd, WM_MEASUREITEM, MainWnd_OnMeasureItem);
+    HANDLE_MSG(hwnd, WM_DRAWITEM, MainWnd_OnDrawItem);
     case WM_PRINTCLIENT: OnPrintClient(hwnd, (HDC)wParam); return 0;
     }
 
     return DefWindowProc(hwnd, uiMsg, wParam, lParam);
-}
-
-BOOL ListViewOnEraseBkgnd(HWND hwnd, HDC hDC) {
-    return TRUE;
-}
-
-LRESULT CALLBACK ListViewWndProc(HWND hwnd, UINT uiMsg, WPARAM wParam, LPARAM lParam) {
-    switch (uiMsg) {
-    HANDLE_MSG(hwnd, WM_ERASEBKGND, ListViewOnEraseBkgnd);
-    }
-    return CallWindowProc(g_originalListViewWndProc, hwnd, uiMsg, wParam, lParam);
 }
 
 BOOL InitApp(void) {
@@ -215,7 +219,11 @@ int WINAPI WinMain(HINSTANCE hinst, HINSTANCE hinstPrev,
     project_add_new("c:\\Dropbox\\GitHub\\keymapper_tip");
 
     g_hMainWindowBgBitmap = (HBITMAP) LoadImage(g_hinst, MAKEINTRESOURCE(IDB_MAIN_WINDOW_BG), IMAGE_BITMAP, 0, 0, LR_DEFAULTCOLOR);
+    g_hListBoxSelectionBgBitmap = (HBITMAP) LoadImage(g_hinst, MAKEINTRESOURCE(IDB_LISTBOX_SELECTION_BG), IMAGE_BITMAP, 0, 0, LR_DEFAULTCOLOR);
+    g_hProjectIcon = (HICON) LoadImage(g_hinst, MAKEINTRESOURCE(IDI_FOLDER), IMAGE_ICON, 16, 16, LR_DEFAULTCOLOR);
 
+    g_hNormalFont12 = CreateFont(-12, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS,
+        CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Lucida Sans Unicode");
 
     DWORD dwStyle = WS_POPUP;
 

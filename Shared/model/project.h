@@ -30,6 +30,7 @@ void project_free(project_t *project);
 
 json_t *project_memento(project_t *project);
 
+const char *project_name(project_t *project);
 char *project_display_path(project_t *project);
 
 void project_set_live_refresh_enabled(project_t *project, bool enabled);
