@@ -13,11 +13,16 @@
 
 #include <assert.h>
 
+LRESULT CALLBACK ListViewWndProc(HWND hwnd, UINT uiMsg, WPARAM wParam, LPARAM lParam);
+
 HINSTANCE g_hinst;
 HBITMAP g_hMainWindowBgBitmap;
 HWND g_hMainWindow;
 HWND g_hwndChild;
+
+WNDPROC g_originalListViewWndProc;
 HWND g_hwndProjectListView;
+
 HIMAGELIST g_hSmallImageList;
 
 enum {
@@ -37,9 +42,14 @@ void OnSize(HWND hwnd, UINT state, int cx, int cy) {
 
 BOOL OnCreate(HWND hwnd, LPCREATESTRUCT lpcs) {
     g_hMainWindow = hwnd;
-    g_hwndProjectListView = CreateWindow(WC_LISTVIEW, L"", WS_VISIBLE | WS_CHILD | LVS_LIST | LVS_SINGLESEL,
+    // see http://blogs.msdn.com/b/oldnewthing/archive/2011/10/28/10230811.aspx about WS_EX_TRANSPARENT
+    g_hwndProjectListView = CreateWindowEx(WS_EX_TRANSPARENT, WC_LISTVIEW, L"", WS_VISIBLE | WS_CHILD | LVS_LIST | LVS_SINGLESEL,
         0, 0, 100, 200, hwnd, (HMENU) ID_PROJECT_LIST_VIEW, g_hinst, NULL);
     g_hSmallImageList = ImageList_Create(16, 16, ILC_MASK | ILC_COLOR32, 3, 0);
+
+    // subclass to make background trasparent
+    g_originalListViewWndProc = (WNDPROC) GetWindowLongPtr(g_hwndProjectListView, GWLP_WNDPROC);
+    SetWindowLongPtr(g_hwndProjectListView, GWLP_WNDPROC, (LONG_PTR)ListViewWndProc);
 
     WCHAR buf[MAX_PATH];
     GetWindowsDirectory(buf, sizeof(buf)/sizeof(buf[0]));
@@ -124,17 +134,34 @@ DWORD OnNCHitTest(HWND hwnd, int x, int y) {
     return HTCLIENT;
 }
 
+HBRUSH OnCtlColorStatic(HWND hwnd, HDC hDC, HWND hChildWnd, DWORD dwType) {
+    SetBkMode(hDC, TRANSPARENT);
+    return (HBRUSH) GetStockObject(NULL_BRUSH);
+}
+
 LRESULT CALLBACK WndProc(HWND hwnd, UINT uiMsg, WPARAM wParam, LPARAM lParam) {
     switch (uiMsg) {
     HANDLE_MSG(hwnd, WM_CREATE, OnCreate);
     HANDLE_MSG(hwnd, WM_SIZE, OnSize);
     HANDLE_MSG(hwnd, WM_DESTROY, OnDestroy);
     HANDLE_MSG(hwnd, WM_PAINT, OnPaint);
+    HANDLE_MSG(hwnd, WM_CTLCOLORSTATIC, OnCtlColorStatic);
     HANDLE_MSG(hwnd, WM_NCHITTEST, OnNCHitTest);
     case WM_PRINTCLIENT: OnPrintClient(hwnd, (HDC)wParam); return 0;
     }
 
     return DefWindowProc(hwnd, uiMsg, wParam, lParam);
+}
+
+BOOL ListViewOnEraseBkgnd(HWND hwnd, HDC hDC) {
+    return TRUE;
+}
+
+LRESULT CALLBACK ListViewWndProc(HWND hwnd, UINT uiMsg, WPARAM wParam, LPARAM lParam) {
+    switch (uiMsg) {
+    HANDLE_MSG(hwnd, WM_ERASEBKGND, ListViewOnEraseBkgnd);
+    }
+    return CallWindowProc(g_originalListViewWndProc, hwnd, uiMsg, wParam, lParam);
 }
 
 BOOL InitApp(void) {
