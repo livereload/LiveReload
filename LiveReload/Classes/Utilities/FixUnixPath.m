@@ -21,7 +21,7 @@ void FixUnixPath() {
             NSLog(@"Shell %@ is not in /etc/shells, won't continue.", userShell);
             return;
         }
-        NSString *userPath = [[NSTask stringByLaunchingPath:userShell withArguments:[NSArray arrayWithObjects:@"-c", @"echo $PATH", nil] error:nil] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        NSString *userPath = [[NSTask stringByLaunchingPath:userShell withArguments:[NSArray arrayWithObjects:@"--login", @"-c", @"echo $PATH", nil] error:nil] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         if (userPath.length > 0 && [userPath rangeOfString:@":"].length > 0 && [userPath rangeOfString:@"/usr/bin"].length > 0) {
             // BINGO!
             NSLog(@"User's PATH as reported by %@ is %@", userShell, userPath);
