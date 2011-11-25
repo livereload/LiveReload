@@ -129,6 +129,7 @@ namespace :build do
     zip_path_in_builds = File.join(BUILDS_DIR, zip_name)
 
     Dir.chdir MAC_SRC do
+      sh 'xcodebuild clean'
       sh 'xcodebuild'
     end
     Dir.chdir XCODE_RELEASE_DIR do
