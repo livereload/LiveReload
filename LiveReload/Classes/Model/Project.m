@@ -373,7 +373,6 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
     if ([_postProcessingCommand length] > 0 && _postProcessingEnabled) {
         NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
         if (_lastPostProcessingRunDate == 0 || (now - _lastPostProcessingRunDate >= kPostProcessingSafeInterval)) {
-            _lastPostProcessingRunDate = now;
 
             NSMutableDictionary *info = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                          @"/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/bin/ruby", @"$(ruby)",
@@ -407,6 +406,8 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
                 console_printf("Post-processor failed.");
                 NSLog(@"Error: %@", [error description]);
             }
+
+            _lastPostProcessingRunDate = [NSDate timeIntervalSinceReferenceDate];
         } else {
             console_printf("Skipping post-processing (only %.1fs since last run)", now - _lastPostProcessingRunDate);
         }
