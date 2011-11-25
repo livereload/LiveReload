@@ -21,6 +21,7 @@
 #import "NSArray+Substitutions.h"
 #import "NSTask+OneLineTasksWithOutput.h"
 #import "ATFunctionalStyle.h"
+#import "FixUnixPath.h"
 
 #include <stdbool.h>
 #include "common.h"
@@ -381,17 +382,19 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
                                          nil];
 
             NSString *command = [_postProcessingCommand stringBySubstitutingValuesFromDictionary:info];
+            NSString *shell = DetermineShell();
             NSLog(@"Running post-processing command: %@", command);
 
             NSString *runDirectory = _path;
-            NSArray *shArgs = [NSArray arrayWithObjects:@"-c", command, nil];
+            NSString *prefix = @"which rvm >/dev/null || source \"$HOME/.rvm/scripts/rvm\"; ";
+            NSArray *shArgs = [NSArray arrayWithObjects:@"--login",@"-i",@"-c", [prefix stringByAppendingString:command], nil];
 
             NSError *error = nil;
             NSString *pwd = [[NSFileManager defaultManager] currentDirectoryPath];
             [[NSFileManager defaultManager] changeCurrentDirectoryPath:runDirectory];
             const char *project_path = [self.path UTF8String];
-            console_printf("Post-proc exec: /bin/sh -c \"%s\"", str_collapse_paths([[[shArgs subarrayWithRange:NSMakeRange(1, shArgs.count - 1)] componentsJoinedByString:@" "] UTF8String], project_path));
-            NSString *output = [NSTask stringByLaunchingPath:@"/bin/sh"
+            console_printf("Post-proc exec: %s --login -c \"%s\"", [shell UTF8String], str_collapse_paths([command UTF8String], project_path));
+            NSString *output = [NSTask stringByLaunchingPath:shell
                                                withArguments:shArgs
                                                        error:&error];
             [[NSFileManager defaultManager] changeCurrentDirectoryPath:pwd];
