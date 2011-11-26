@@ -48,7 +48,7 @@
     NSDateComponents *cutoff = [[[NSDateComponents alloc] init] autorelease];
     [cutoff setYear:2011];
     [cutoff setMonth:12];
-    [cutoff setDay:1];
+    [cutoff setDay:15];
     if ([now compare:[[NSCalendar currentCalendar] dateFromComponents:cutoff]] == NSOrderedDescending) {
         // stop auto-login and show a message
         NSInteger ans = [[NSAlert alertWithMessageText:@"LiveReload 2 beta has expired"
