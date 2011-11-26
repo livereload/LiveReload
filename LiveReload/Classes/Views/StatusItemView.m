@@ -33,10 +33,16 @@ enum { kAnimationStepCount = StatusItemStateRotation3 - StatusItemStateActive + 
 @synthesize droppable=_droppable;
 @synthesize delegate=_delegate;
 
+- (void)registerMe {
+    [self registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
+}
+
 - (id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        [self registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
+        // calling with delay to safeguard against:
+        // http://www.cocoabuilder.com/archive/cocoa/205889-draggingentered-never-gets-called.html
+        [self performSelector:@selector(registerMe) withObject:nil afterDelay:0.05];
     }
     return self;
 }
@@ -190,6 +196,10 @@ enum { kAnimationStepCount = StatusItemStateRotation3 - StatusItemStateActive + 
         self.droppable = NO;
         return NSDragOperationNone;
     }
+}
+
+- (NSDragOperation)draggingUpdated:(id <NSDraggingInfo>)sender {
+    return [self draggingEntered:sender];
 }
 
 - (void)draggingExited:(id <NSDraggingInfo>)sender {
