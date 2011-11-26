@@ -481,6 +481,10 @@ enum { PANE_COUNT = PaneProject+1 };
     TenderDisplayHelp();
 }
 
+- (IBAction)performKeyboardHelp:(id)sender {
+    TenderShowArticle(@"general-use/keyboard-shortcuts");
+}
+
 - (IBAction)performWebSite:(id)sender {
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://livereload.com/"]];
 }
