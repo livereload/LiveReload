@@ -126,7 +126,7 @@ __protocol.Parser = Parser = (function() {
 var Connector, PROTOCOL_6, PROTOCOL_7, Parser, Version, _ref;
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 _ref = __protocol, Parser = _ref.Parser, PROTOCOL_6 = _ref.PROTOCOL_6, PROTOCOL_7 = _ref.PROTOCOL_7;
-Version = '2.0.2';
+Version = '2.0.3';
 __connector.Connector = Connector = (function() {
   function Connector(options, WebSocket, Timer, handlers) {
     this.options = options;
@@ -550,7 +550,7 @@ __reloader.Reloader = Reloader = (function() {
     }
   };
   Reloader.prototype.reloadStylesheet = function(path) {
-    var imported, link, links, match, _i, _j, _len, _len2;
+    var imported, link, links, match, style, _i, _j, _k, _len, _len2, _len3, _ref;
     links = (function() {
       var _i, _len, _ref, _results;
       _ref = this.document.getElementsByTagName('link');
@@ -564,8 +564,15 @@ __reloader.Reloader = Reloader = (function() {
       return _results;
     }).call(this);
     imported = [];
-    for (_i = 0, _len = links.length; _i < _len; _i++) {
-      link = links[_i];
+    _ref = this.document.getElementsByTagName('style');
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      style = _ref[_i];
+      if (style.sheet) {
+        this.collectImportedStylesheets(style, style.sheet, imported);
+      }
+    }
+    for (_j = 0, _len2 = links.length; _j < _len2; _j++) {
+      link = links[_j];
       this.collectImportedStylesheets(link, link.sheet, imported);
     }
     this.console.log("LiveReload found " + links.length + " LINKed stylesheets, " + imported.length + " @imported stylesheets");
@@ -582,8 +589,8 @@ __reloader.Reloader = Reloader = (function() {
       }
     } else {
       this.console.log("LiveReload will reload all stylesheets because path '" + path + "' did not match any specific one");
-      for (_j = 0, _len2 = links.length; _j < _len2; _j++) {
-        link = links[_j];
+      for (_k = 0, _len3 = links.length; _k < _len3; _k++) {
+        link = links[_k];
         this.reattachStylesheetLink(link);
       }
     }
