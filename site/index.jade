@@ -62,7 +62,7 @@ html
       a(name='download')
       .left
         h2
-          a.download(href='http://download.livereload.com/LiveReload-2.0b2.zip') Download LiveReload 2.0 β2 for Mac
+          a.download(href='http://download.livereload.com/LiveReload-2.0b3.zip') Download LiveReload 2.0 β3 for Mac
         p.after-download(style='display: none')
           | Thanks! Please also sign up for our newsletter to receive new build
           | notifications and useful updates.
@@ -211,6 +211,14 @@ html
     section.news-section
       a(name='news')
       .left
+        h2 What's new in LiveReload?
+        h3 2.0β3
+        :markdown
+          * Added [keyboard shortcuts](http://help.livereload.com/kb/general-use/keyboard-shortcuts)
+          * Fixes for PATH, shell and rvm handling in post-processing code
+          * Fix for @import handling to make LR fully compatible with Drupal 7
+          * (Hopefully) fixed a bug with status item not accepting drag'n'drop occasionally
+
         h2 What's new in LiveReload?
         h3 2.0β1
         :markdown
