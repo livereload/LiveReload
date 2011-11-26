@@ -166,6 +166,11 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
     [self renderCompilerOptions];
     [self populateToolVersions];
     [self updateOutputPathsTabData];
+    NSString *tabIdentifier = [[NSUserDefaults standardUserDefaults] objectForKey:@"compilationOptionsTab"];
+    if (tabIdentifier) {
+        [_tabView selectTabViewItemWithIdentifier:tabIdentifier];
+    }
+
     [self resizeWindowForTab:[_tabView selectedTabViewItem] animated:NO];
 }
 
@@ -246,6 +251,8 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
 }
 
 - (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem {
+    [[NSUserDefaults standardUserDefaults] setObject:tabViewItem.identifier forKey:@"compilationOptionsTab"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     [self resizeWindowForTab:tabViewItem animated:YES];
 }
 
