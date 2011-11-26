@@ -52,6 +52,11 @@ const char *str_collapse_paths(const char *text_with_paths, const char *current_
     return text_with_paths;
 }
 
+bool str_starts_with(const char *string, const char *suffix) {
+    int len = strlen(string), suflen = strlen(suffix);
+    return len >= suflen && 0 == strncmp(string, suffix, suflen);
+}
+
 bool str_ends_with(const char *string, const char *suffix) {
     int len = strlen(string), suflen = strlen(suffix);
     return len >= suflen && 0 == strcmp(string + len - suflen, suffix);
