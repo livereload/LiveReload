@@ -100,7 +100,8 @@ span.hlq
 baseline = 28px
 
 html, input
-  font 16px/baseline 'Lora', 'Times New Roman', Times, serif
+  font 16px/baseline etica, sans-serif
+  font-weight 300
   color dark2
 
 html
@@ -128,6 +129,8 @@ p
   margin: 0 0 12px
 h2
   margin: 0 0 16px
+  color #333
+  font-weight 400
 
 section
   width pagewidth
@@ -146,6 +149,8 @@ header
 .intro-section .content
   columns 8
   padding-left: colsg(4)
+  h2
+    font-weight 600
 
   img
     left colsg(1)
@@ -167,6 +172,7 @@ header
   .testimonials
     columns 4
     line-height 24px
+    font-weight 200
 
     p
       margin-bottom 20px
@@ -215,6 +221,9 @@ header
     h2
       margin-top: 0
 
+  .mac, .windows
+    font-weight 200
+
   .mac
     img
       margin-top 5px
@@ -223,11 +232,15 @@ header
     margin-right: 0
 
   .linux
-    margin-top: 32px
+    visibility: hidden
+    font-weight 200
+    font-size 14px
+    margin-top: 38px
     columns 7
     clear: both
 
   .newsletter-info
+    margin-top 40px
     columns 7
     clear: both
 
@@ -235,20 +248,19 @@ header
   newsletter-width = (cols(4) - 20px)
   newsletter-wide-field-width = (newsletter-width - 6px)
   float: right
-  width: (cols(4) - 20px)
+  width: (cols(4) - 10px)
   border-radius 5px
+  margin-top -2px
 
-  margin-top 19px
   padding 10px 10px
-  background #f8c800
+  // background #f8c800
   line-height 20px
-  color black
   min-height 247px
 
   h2
-    margin 0 0
+    margin 0 -10px 12px 0
     font-size 14px
-    font-weight normal
+    font-weight 600
     text-transform uppercase
   p
     margin 8px 0 0
@@ -257,7 +269,6 @@ header
   input, textarea
     -webkit-box-sizing content-box
     padding 0 3px
-    color black
     border 1px solid lite1
     background lite3
     font-size 14px

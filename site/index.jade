@@ -25,7 +25,8 @@ html
             ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
           })();
-        
+    script(src="http://use.typekit.com/qhi8dto.js")
+    script try{Typekit.load();}catch(e){}
   body
     header
     section.intro-section
@@ -46,6 +47,7 @@ html
           p
             span.hlq “
             = testimonial.text
+            | ”
             author
               | —
               a(href=testimonial.link, target='_new')= testimonial.author
@@ -67,17 +69,15 @@ html
             span.big Coming soon
             span (Jan-Feb 2012)
 
-        .platform.linux
-          :markdown
-            Linux user or looking for an open-source tool?
-            Try [guard-livereload](https://github.com/guard/guard-livereload).
-        
-        .platform &nbsp;
-
         .platform.newsletter-info
           h2 Newsletter & Early Access
           :markdown
             Fill in the form on the right to receive LiveReload news and optionally gain access to pre-release builds.
+
+        .platform.linux
+          :markdown
+            Linux user or looking for an open-source tool?
+            Try [guard-livereload](https://github.com/guard/guard-livereload).
         
       .newsletter
         h2 Wonderland Greencard Application
