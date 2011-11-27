@@ -16,6 +16,85 @@ blue = #268bd2
 cyan = #2aa198
 green = #859900
 
+
+// helpers
+
+
+border-radius(radius, corners = (top-left top-right bottom-left bottom-right))
+  push(corners, top, bottom)               if all in corners
+  push(corners, top-left, top-right)       if top in corners
+  push(corners, bottom-left, bottom-right) if bottom in corners
+  push(corners, top-left, bottom-left)     if left in corners
+  push(corners, top-right, bottom-right)   if right in corners
+
+  if top-left in corners and top-right in corners and bottom-left in corners and bottom-right in corners
+    -webkit-border-radius radius if webkit in vendors
+    -moz-border-radius radius    if moz in vendors
+    border-radius radius         if css3 in vendors or ms in vendors or o in vendors
+  else
+    // workaround for a possible bug:
+    // if specs start out empty, the first pushed element is flattened
+    specs = (foo)
+    push(specs, (top left))     if top-left in corners
+    push(specs, (top right))    if top-right in corners
+    push(specs, (bottom left))  if bottom-left in corners
+    push(specs, (bottom right)) if bottom-right in corners
+    specs = specs[1..10]
+
+    p specs
+    for spec in specs
+      -webkit-border-{spec[0]}-{spec[1]}-radius radius if webkit in vendors
+      -moz-border-radius-{spec[0]}{spec[1]} radius if webkit in vendors
+      border-{spec[0]}-{spec[1]}-radius radius if css3 in vendors or ms in vendors or o in vendors
+
+  -webkit-background-clip padding-box if webkit in vendors
+
+clearfix-full()
+  display: inline-block
+  display: block
+
+  &:after
+      content: " "
+      display: block
+      height: 0
+      clear: both
+      overflow: hidden
+      visibility: hidden
+
+
+clearfix-overflow()
+    overflow:  hidden
+    _overflow: visible
+    _zoom: 1
+
+
+// grid system
+
+colwidth = 70px
+colgap = 10px
+ncol = 12
+pagewidth = (colwidth * ncol + colgap * (ncol - 1))
+
+cols(n, addgap=false)
+  unit(n * colwidth + (addgap ? n : n - 1) * colgap, 'px')
+colsg(n)
+  cols(n, true)
+
+columns(n)
+  width: cols(n)
+
+
+for i in 1 .. ncol
+  .col{i}
+    columns i
+    margin-right colgap
+
+
+// hanging punctuation
+
+span.hlq
+  margin-left: -0.4em
+
 // page layout
 
 baseline = 28px
@@ -32,6 +111,7 @@ html
 
 body
   background #fff
+  min-width  pagewidth
   margin: 0 0
   padding 0 0 80px
 
@@ -44,138 +124,156 @@ a:focus
 a:hover, a:active
   outline: 0
 
-.content, section
-  width 950px
-  //background lite1
-  margin 0 auto
-.left
-  width 600px
-  float left
-  //background lite2
+p
+  margin: 0 0 12px
+h2
+  margin: 0 0 16px
 
-.right
-  width 332px
-  float right
+section
+  width pagewidth
+  //background lite1
+  margin 0 auto 70px
   position relative
+  //background #eee
 
 header
   text-align center
-  background lite3
-  padding 40px 0 30px
-  height 373px
+  background url(../images/header-background.png) no-repeat 50% 0%
+  padding 0 //40px 0 30px
+  height 569px
+  margin-bottom 50px
 
-  .right
-    height 373px
-    background url(../map.png) no-repeat 0% 0%
+.intro-section .content
+  columns 8
+  padding-left: colsg(4)
 
-    a, a:visited
-      line-height 1
-      position absolute
-      width 150px
-      font-weight bold
-      text-decoration none
-    a::after
-      content: "•"
-      line-height 1
-      font-size 28px
-      position absolute
-      left 0px
-      width 150px
-      top -20px
-    .screencast-pin
-      left 160px
-      top 55px
-    .compilers-pin
-      left 90px
-      top 255px
-    .download-pin
-      left 30px
-      top 130px
-    .news-pin
-      left 60px
-      top 310px
+  img
+    left colsg(1)
+    top  -10px
+    position absolute
 
-  .left
-    a
-      color dark2
+.screenshot-section
+  clearfix-full()
+  margin-top 100px
 
-  p, h1, h2
-    margin 0 0
+  img
+    float: right
 
-  p
-    font-weight normal
+    // offset the shadow
+    position: relative
+    top:  -11px
+    left: 13px
 
-  h1
-    font-size 36px
-    line-height 36px
-    font-weight bold
-    margin-top 10px
-    color dark3
+  .testimonials
+    columns 4
+    line-height 24px
 
-  p.subtitle
-    margin-top 30px
-    margin-bottom 30px
+    p
+      margin-bottom 20px
+
+    author
+      display block
+      text-align right
+      font-size 14px
+      font-style italic
+
+.download-and-newsletter-section
+  clearfix-overflow()
+
+  .download
+    float: left
+    columns 8
+  
+  .download-button
+    font-family Verdana, Arial, sans-serif
+    display block
+    text-decoration none
+    border-radius 5px
+    background #008dd3 url(../images/download.png) no-repeat 90% 50%
+    line-height 26px
+    padding 10px 20px
+    margin  0px 0px 8px
+
+    &, &:visited
+      color white
+
+    span
+      display  block
+    span.big
+      font-size 20px
+
+    &.disabled
+      background-color: white
+      border: 1px dashed #777
+      color: #777
+
+  .platform
+    columns 3
+    margin-right colsg(1)
+    float: left
+
+    h2
+      margin-top: 0
+
+  .mac
+    img
+      margin-top 5px
+
+  .windows
+    margin-right: 0
+
+  .linux
+    margin-top: 32px
+    columns 7
+    clear: both
+
+  .newsletter-info
+    columns 7
+    clear: both
+
+.newsletter
+  newsletter-width = (cols(4) - 20px)
+  newsletter-wide-field-width = (newsletter-width - 6px)
+  float: right
+  width: (cols(4) - 20px)
+  border-radius 5px
+
+  margin-top 19px
+  padding 10px 10px
+  background #f8c800
+  line-height 20px
+  color black
+  min-height 247px
 
   h2
-    font-size 24px
-    line-height 24px
+    margin 0 0
+    font-size 14px
     font-weight normal
-    margin-bottom 16px
-
-  p.citizenship
-    margin-top 30px
-
-section
-  padding-top 30px
-  overflow hidden
-  .left
-    h2
-      text-align center
-
-.what-is-livereload
-  .left
-    text-align center
-
-.download-section
-  .right
-    margin-top 19px
-    padding 10px 10px
-    width 302px
-    background lite2
-    color dark1
+    text-transform uppercase
+  p
+    margin 8px 0 0
+    padding 0
+    font-size 14px
+  input, textarea
+    -webkit-box-sizing content-box
+    padding 0 3px
+    color black
+    border 1px solid lite1
+    background lite3
+    font-size 14px
     line-height 20px
-    color dark3
-    min-height 247px
-
-    h2
-      margin 0 0
-      font-size 14px
-      font-weight normal
-      text-transform uppercase
-    p
-      margin 8px 0 0
-      padding 0
-      font-size 14px
-    input, textarea
-      -webkit-box-sizing content-box
-      padding 0 3px
-      color dark1
-      border 1px solid lite1
-      background lite3
-      font-size 14px
-      line-height 20px
-      width: 296px
-      margin: 0
-    input.checkbox
-      width: auto
-    label.checkbox
-      padding-left: 4px
-      padding-right: 12px
-    .submit
-      padding 2px 3px
-      margin-top 5px
-      &:hover
-        background lite2
+    width: newsletter-wide-field-width
+    margin: 0
+  input.checkbox
+    width: auto
+  label.checkbox
+    padding-left: 4px
+    padding-right: 12px
+  .submit
+    padding 2px 3px
+    margin-top 5px
+    &:hover
+      background lite2
 
 .greencard-sent
   margin-top 90px

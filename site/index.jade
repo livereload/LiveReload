@@ -1,3 +1,9 @@
+- testimonials = []
+- testimonials.push({ text: "LiveReload: every web developer should use this tool", author: "@KuraFire", link: "https://twitter.com/#!/KuraFire/status/111923078543572992" })
+- testimonials.push({ text: "Livereload has increased my productivity by about a zillion percent", author: "@Jayphen", link: "https://twitter.com/#!/Jayphen/status/131699214429323265" })
+- testimonials.push({ text: "livereload - in hindsight, I'm not sure how I ever got anything done without it", author: "@josscrowcroft", link: "https://twitter.com/#!/josscrowcroft/status/138884744388685825" })
+- testimonials.push({ text: "I started using LiveReload today, and my only question is why I didn’t do so earlier", author: "@peterhellberg", link: "https://twitter.com/#!/peterhellberg/status/139122004300275712" })
+// - testimonials.push({ text: "", author: "@", link: "" })
 !!! 5
 html
   head
@@ -22,65 +28,59 @@ html
         
   body
     header
+    section.intro-section
       .content
-        .left
-          p LiveReload 2 proudly presents…
-          h1 The Web Developer Wonderland
-          p.subtitle (a happy land where browsers don't need a Refresh button)
-          h2 CSS edits and image changes apply live.
-          h2
-            :markdown
-              CoffeeScript, SASS, LESS [and others](#compilers) just work.
+        img(src='images/livereload-logo.png', width='192', height='200')
 
-          p.citizenship
-            | Citizenship will be granted through the Mac App Store.
-            br
-            | Meanwhile, get yourself a
-            a(href='#download') green beta tester card
-            | .
-        .right
-          // <a href="#screencast" class="screencast-pin">Screencastwood</a> 
-          a.download-pin(href='#download') San Downloads
-          a.compilers-pin(href='#compilers') Compilerton
-          a.news-pin(href='#news') Newsville
-    section.what-is-livereload
-      .left
-        img(src='screenshot.png', width='508', height='355')
-      .right
-        h2 What does LiveReload do?
-        p
-          | LiveReload monitors changes in the file system.
-          | As soon as you save a file, it is
-          a(href='#compilers') preprocessed as needed
-          | ,
-          | and the browser is refreshed.
-        p
-          | Even cooler, when you change a CSS file or an image,
-          | the browser is updated instantly without reloading
-          | the page.
-    section.download-section
-      a(name='download')
-      .left
-        h2
-          a.download(href='http://download.livereload.com/LiveReload-2.0b3.zip') Download LiveReload 2.0 β3 for Mac
-        p.after-download(style='display: none')
-          | Thanks! Please also sign up for our newsletter to receive new build
-          | notifications and useful updates.
+        h2 Introducing LiveReload.
         :markdown
-          Requires OS X 10.6 Snow Leopard or later. 64-bit only: if your MacBook does not support Lion, it also cannot run LiveReload.
+          LiveReload 2 monitors changes in the file system. As soon as you save a file, it is preprocessed as needed, and the browser is refreshed.
 
-          Windows version is under development. [Sign up for early access](http://livereload.com/early-access.html).
+          Even cooler, when you change a stylesheet or an image, the browser is updated instantly without reloading the page.
 
-          After you download and install LiveReload, it will quietly live in your menu bar. There are two great ways to use LiveReload: [insert a SCRIPT tag before </body>](http://help.livereload.com/kb/general-use/using-livereload-without-browser-extensions) or [install browser extensions](http://help.livereload.com/kb/general-use/browser-extensions).
+    section.screenshot-section
+      img(src='images/livereload-screenshot.png', width='600', height='425')
 
-          A rule of thumb: each directory you add to LiveReload should be a separate web site project. Do not add your whole home directory or something like that.
+      .testimonials
+        - for testimonial in testimonials
+          p
+            span.hlq “
+            = testimonial.text
+            author
+              | —
+              a(href=testimonial.link, target='_new')= testimonial.author
 
-          If you encounter a problem, please be sure to [start a support discussion](http://help.livereload.com/discussion/new).
+    section.download-and-newsletter-section
+      .download
+        .platform.mac
+          h2 Mac
+          //img(src='images/mac-app-store.png', width='234', height='71')
+          a.download-button(href='http://download.livereload.com/LiveReload-2.0b3.zip')
+            span.big Download
+            span Version 2.0 β3
 
-          Fill in the application form on the right to subscribe to our newsletter and receive notifications about new builds.
+          p Requires 10.6+, 64-bit only.
 
-      .right
-        h2 Wonderland green card application
+        .platform.windows
+          h2 Windows
+          .download-button.disabled
+            span.big Coming soon
+            span (Jan-Feb 2012)
+
+        .platform.linux
+          :markdown
+            Linux user or looking for an open-source tool?
+            Try [guard-livereload](https://github.com/guard/guard-livereload).
+        
+        .platform &nbsp;
+
+        .platform.newsletter-info
+          h2 Newsletter & Early Access
+          :markdown
+            Fill in the form on the right to receive LiveReload news and optionally gain access to pre-release builds.
+        
+      .newsletter
+        h2 Wonderland Greencard Application
         .greencard-sent(style='display: none')
           | Thanks!
         form.greencard(action='http://andreytarantsov.createsend.com/t/r/s/fjkujj/', method='post')
@@ -109,26 +109,18 @@ html
             label.checkbox(for="cm2467775") I want early access to (and receive news about) prerelease builds
           p
             input.submit(type='submit', value='Apply and subscribe to citizen news')
-    section.friends-section
-      a(name='friends')
-      .left
-        img.binaryage-icon(src='images/binaryage/totalfinder-256.png', width='256', height='256', alt='')
-        img.binaryage-icon(src='images/binaryage/firequery-256.png', width='256', height='256', alt='')
-        img.binaryage-icon(src='images/binaryage/firerainbow-256.png', width='256', height='256', alt='')
-        img.binaryage-icon(src='images/binaryage/firelogger-256.png', width='256', height='256', alt='')
-      .right
-        h2 Our friends at BinaryAge
-        p
-          | LiveReload has been inspired by XRefresh,
-          | an old Firebug plugin made by our friends at BinaryAge. The entire LiveReload
-          | team is using their
-          a.binaryage-link-totalfinder(href='http://totalfinder.binaryage.com/') TotalFinder
-          | ,
-          | and you might find
-          a.binaryage-link-firequery(href='http://firequery.binaryage.com/') FireQuery
-          |  and
-          a.binaryage-link-other(href='http://www.binaryage.com/') other free tools
-          |  useful too.
+
+    section
+      :markdown
+        LiveReload has been inspired by XRefresh by [BinaryAge](http://www.binaryage.com/). Check out their [TotalFinder](http://totalfinder.binaryage.com/) and [FireQuery](http://firequery.binaryage.com/).
+
+    section
+      h2 Learn more
+
+      :markdown
+        Works great with
+
+//
     section.support-section
       a(name='support')
       .left
@@ -162,7 +154,7 @@ html
           | You can access it at:
         div(style='text-align: center')
           a(href='http://help.livereload.com/') help.livereload.com
-    // <section class="screencast-section"><a name="screencast"></a>
+
     section.compilers-section
       a(name='compilers')
       .left
@@ -455,3 +447,4 @@ html
       //   });
       // });
     
+
