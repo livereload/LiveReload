@@ -56,7 +56,7 @@ html
       .download
         .platform.mac
           h2 Mac
-          //img(src='images/mac-app-store.png', width='234', height='71')
+          // img(src='images/mac-app-store.png', width='234', height='71')
           a.download-button(href='http://download.livereload.com/LiveReload-2.0b3.zip')
             span.big Download
             span Version 2.0 β3
@@ -69,15 +69,14 @@ html
             span.big Coming soon
             span (Jan-Feb 2012)
 
+        .platform.linux
+          :markdown
+            Linux? See [command-line alternatives](#ecosystem).
+
         .platform.newsletter-info
           h2 Newsletter & Early Access
           :markdown
             Fill in the form on the right to receive LiveReload news and optionally gain access to pre-release builds.
-
-        .platform.linux
-          :markdown
-            Linux user or looking for an open-source tool?
-            Try [guard-livereload](https://github.com/guard/guard-livereload).
         
       .newsletter
         h2 Wonderland Greencard Application
@@ -111,14 +110,20 @@ html
             input.submit(type='submit', value='Apply and subscribe to citizen news')
 
     section
+      h2#ecosystem Ecosystem
+
       :markdown
-        LiveReload has been inspired by XRefresh by [BinaryAge](http://www.binaryage.com/). Check out their [TotalFinder](http://totalfinder.binaryage.com/) and [FireQuery](http://firequery.binaryage.com/).
+        Linux user or looking for a command-line tool?
+            Try [guard-livereload](https://github.com/guard/guard-livereload).
+
+        LiveReload has been inspired by XRefresh, a now-deprecated tool made by [BinaryAge](http://www.binaryage.com/). Check out their [TotalFinder](http://totalfinder.binaryage.com/) and [FireQuery](http://firequery.binaryage.com/).
+
 
     section
-      h2 Learn more
+      h2 Help topics
 
       :markdown
-        Works great with
+        Framework-specific integration help: [Rails](http://help.livereload.com/kb/frameworks-and-toolchains/rails), [Sprockets](http://help.livereload.com/kb/frameworks-and-toolchains/sprockets), [WordPress](http://help.livereload.com/kb/frameworks-and-toolchains/wordpress), [Drupal](http://help.livereload.com/kb/frameworks-and-toolchains/drupal), [Joomla](http://help.livereload.com/kb/frameworks-and-toolchains/joomla), [ExpressionEngine](http://help.livereload.com/kb/frameworks-and-toolchains/expressionengine).
 
 //
     section.support-section

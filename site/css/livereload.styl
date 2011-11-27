@@ -223,24 +223,33 @@ header
 
   .mac, .windows
     font-weight 200
-
-  .mac
-    img
-      margin-top 5px
+    p
+      color: #666
+      display none
+      font-weight 200
+      font-size 14px
+      color: #888
 
   .windows
     margin-right: 0
 
   .linux
-    visibility: hidden
+    // visibility: hidden
     font-weight 200
     font-size 14px
-    margin-top: 38px
+    color: #888
+    // text-align center
+    margin-top: 6px
     columns 7
     clear: both
 
+    a
+      color: #888
+      &:hover
+        color: blue
+
   .newsletter-info
-    margin-top 40px
+    margin-top 50px
     columns 7
     clear: both
 
