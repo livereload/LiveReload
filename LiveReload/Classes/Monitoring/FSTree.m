@@ -256,6 +256,17 @@ static BOOL IsBrokenFolder(NSString *path) {
 }
 
 - (NSArray *)brokenPaths {
+    if (IsBrokenFolder(_rootPath)) {
+        NSString *topmostBrokenFolder = _rootPath;
+        while ([[topmostBrokenFolder pathComponents] count] > 1) {
+            NSString *nextFolderToTry = [topmostBrokenFolder stringByDeletingLastPathComponent];
+            if (!IsBrokenFolder(nextFolderToTry))
+                break;
+            topmostBrokenFolder = nextFolderToTry;
+        }
+        return [NSArray arrayWithObject:topmostBrokenFolder];
+    }
+
     NSMutableArray *result = [NSMutableArray array];
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
