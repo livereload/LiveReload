@@ -126,7 +126,7 @@ __protocol.Parser = Parser = (function() {
 var Connector, PROTOCOL_6, PROTOCOL_7, Parser, Version, _ref;
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 _ref = __protocol, Parser = _ref.Parser, PROTOCOL_6 = _ref.PROTOCOL_6, PROTOCOL_7 = _ref.PROTOCOL_7;
-Version = '2.0.3';
+Version = '2.0.4';
 __connector.Connector = Connector = (function() {
   function Connector(options, WebSocket, Timer, handlers) {
     this.options = options;
@@ -901,13 +901,12 @@ __less = LessPlugin = (function() {
 })();
 
 // startup
-var CustomEvents, LiveReload, k, v;
+var CustomEvents, LiveReload, k;
 CustomEvents = __customevents;
 LiveReload = window.LiveReload = new (__livereload.LiveReload)(window);
 for (k in window) {
-  v = window[k];
   if (k.match(/^LiveReloadPlugin/)) {
-    LiveReload.addPlugin(v);
+    LiveReload.addPlugin(window[k]);
   }
 }
 LiveReload.addPlugin(__less);
