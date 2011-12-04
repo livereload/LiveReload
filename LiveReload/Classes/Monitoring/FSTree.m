@@ -258,6 +258,7 @@ static BOOL IsBrokenFolder(NSString *path) {
 - (NSArray *)brokenPaths {
     NSMutableArray *result = [NSMutableArray array];
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+
     struct FSTreeItem *end = _items + _count;
     for (struct FSTreeItem *cur = _items; cur < end; ++cur) {
         if (cur->st_mode == S_IFDIR) {
@@ -273,6 +274,15 @@ static BOOL IsBrokenFolder(NSString *path) {
             }
         }
     }
+
+    // make the paths absolute
+    NSString *root = [_rootPath stringByAbbreviatingWithTildeInPath];
+    NSInteger count = [result count];
+    for (NSInteger index = 0; index < count; ++index) {
+        NSString *item = [result objectAtIndex:index];
+        [result replaceObjectAtIndex:index withObject:[root stringByAppendingPathComponent:item]];
+    }
+
     [pool drain];
     return result;
 }
