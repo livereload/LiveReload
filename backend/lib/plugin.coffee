@@ -14,8 +14,10 @@ class Plugin
     @compilers = {}
 
     plist.parseFile "#{@folder}/Info.plist", (err, obj) =>
+      return callback(err) if err
+
       @manifest = obj[0]
-      console.log "Loaded manifest at #{@folder} with #{@manifest.LRCompilers.length} compilers"
+      # console.log "Loaded manifest at #{@folder} with #{@manifest.LRCompilers.length} compilers"
 
       for compilerManifest in @manifest.LRCompilers
         compiler = new Compiler(this, compilerManifest)

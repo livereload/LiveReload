@@ -19,5 +19,7 @@
     "sugar"  : ">=1.1.1"
   },
   "devDependencies" : {
+    "mocha"       : ">=0.3.1",
+    "memorystream": ">=0.0.4"
   }
 }
