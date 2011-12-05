@@ -179,7 +179,7 @@ restart_node:
 
         if (FD_ISSET(node_stdout_fd, &read_fds)) {
             int cb = read(node_stdout_fd, buf, sizeof(buf));
-            if (cb < 0) {
+            if (cb <= 0) {
                 break;
             }
             strncat(node_buf, buf, cb);
