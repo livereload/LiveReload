@@ -5,6 +5,8 @@
 
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
+#include <stdarg.h>
 
 
 char *str_replace(const char *string, const char *what, const char *replacement) {
@@ -35,7 +37,7 @@ char *str_replace(const char *string, const char *what, const char *replacement)
 
 const char *str_collapse_paths(const char *text_with_paths, const char *current_project_path) {
     // order is important here! LiveReload could be inside $HOME
-    text_with_paths = str_replace(text_with_paths, os_bundled_resources_path(), "$LiveReloadResources");
+    text_with_paths = str_replace(text_with_paths, os_bundled_resources_path, "$LiveReloadResources");
 
     const char *home = getenv("HOME");
     if (home) {
@@ -67,4 +69,42 @@ int str_array_index(const char **array, int items, const char *string) {
         if (0 == strcmp(array[i], string))
             return i;
     return -1;
+}
+
+#ifdef WIN32
+int vasprintf(char **sptr, char *fmt, va_list argv) {
+    *sptr = NULL;
+    int wanted = vsnprintf(NULL, 0, fmt, argv );
+    if ((wanted > 0) && ((*sptr = malloc(1 + wanted)) != NULL))
+        return vsprintf( *sptr, fmt, argv );
+    return -1;
+}
+
+int asprintf(char **sptr, char *fmt, ... ) {
+    va_list va;
+    va_start(va, fmt);
+    int retval = vasprintf(sptr, fmt, va);
+    va_end(va);
+    return retval;
+}
+#endif
+
+char *str_printf(const char *fmt, ...) {
+    char *buf;
+    va_list va;
+    va_start(va, fmt);
+    vasprintf(&buf, fmt, va);
+    va_end(va);
+
+    return buf;
+}
+
+char *str_printf_au(const char *fmt, ...) {
+    char *buf;
+    va_list va;
+    va_start(va, fmt);
+    vasprintf(&buf, fmt, va);
+    va_end(va);
+
+    return AU(buf);
 }

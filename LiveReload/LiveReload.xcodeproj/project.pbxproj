@@ -54,6 +54,8 @@
 		435BE045141B87920008FF77 /* NewMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 435BE044141B87920008FF77 /* NewMainWindowController.m */; };
 		4376A0E2146DF1C800338AD4 /* TitleBarHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */; };
 		4379ADCB141D1060008C836F /* livereload.js in Resources */ = {isa = PBXBuildFile; fileRef = 4379ADC9141D00CE008C836F /* livereload.js */; };
+		437F7550148C2FE000E93252 /* backend in Resources */ = {isa = PBXBuildFile; fileRef = 437F754F148C2FE000E93252 /* backend */; };
+		4389B280148C3F7B000FBA00 /* nodeapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 4389B27F148C3F7B000FBA00 /* nodeapi.c */; };
 		439C093313ADCBDD00119233 /* monitoring.plist in Resources */ = {isa = PBXBuildFile; fileRef = 439C093213ADCBDD00119233 /* monitoring.plist */; };
 		43C0368613CA191D00A01305 /* LiveReload.icns in Resources */ = {isa = PBXBuildFile; fileRef = 43C0368513CA191C00A01305 /* LiveReload.icns */; };
 		43E34F9B14705125001641AA /* console.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E34F9714705125001641AA /* console.c */; };
@@ -240,6 +242,9 @@
 		435BE044141B87920008FF77 /* NewMainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewMainWindowController.m; sourceTree = "<group>"; };
 		4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TitleBarHelpTemplate.png; sourceTree = "<group>"; };
 		4379ADC9141D00CE008C836F /* livereload.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = livereload.js; sourceTree = "<group>"; };
+		437F754F148C2FE000E93252 /* backend */ = {isa = PBXFileReference; lastKnownFileType = folder; name = backend; path = ../backend; sourceTree = "<group>"; };
+		4389B27E148C3F50000FBA00 /* nodeapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nodeapi.h; sourceTree = "<group>"; };
+		4389B27F148C3F7B000FBA00 /* nodeapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = nodeapi.c; sourceTree = "<group>"; };
 		439C093213ADCBDD00119233 /* monitoring.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = monitoring.plist; sourceTree = "<group>"; };
 		43A265E613DCEAE600704BF6 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		43C0368513CA191C00A01305 /* LiveReload.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LiveReload.icns; sourceTree = "<group>"; };
@@ -493,6 +498,7 @@
 				4379ADC9141D00CE008C836F /* livereload.js */,
 				823DDF2213F8DA3F00529AD2 /* Images */,
 				433617FE13C2E0C800C0E589 /* Compilers */,
+				437F754F148C2FE000E93252 /* backend */,
 				8D1107310486CEB800E47090 /* LiveReload-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
@@ -569,6 +575,8 @@
 				432A6D98147627F800144F97 /* communication.c */,
 				43F301D51477A67D0072F324 /* libs */,
 				432A6D9A147636F700144F97 /* jansson */,
+				4389B27E148C3F50000FBA00 /* nodeapi.h */,
+				4389B27F148C3F7B000FBA00 /* nodeapi.c */,
 			);
 			name = Shared;
 			path = ../../Shared;
@@ -1011,6 +1019,7 @@
 				43F0030514700C96005D48A4 /* LRTerminalButtonOffHighlight.png in Resources */,
 				43F0030614700C96005D48A4 /* LRTerminalButtonOn.png in Resources */,
 				43F0030714700C96005D48A4 /* LRTerminalButtonOnHighlight.png in Resources */,
+				437F7550148C2FE000E93252 /* backend in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1123,6 +1132,7 @@
 				432A6DB3147636F700144F97 /* utf.c in Sources */,
 				432A6DB4147636F700144F97 /* value.c in Sources */,
 				C01FCF5008A954540054247E /* RSVerticallyCenteredTextFieldCell.m in Sources */,
+				4389B280148C3F7B000FBA00 /* nodeapi.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

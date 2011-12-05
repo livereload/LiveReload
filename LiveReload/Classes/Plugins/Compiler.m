@@ -1,6 +1,7 @@
 
 #include "console.h"
 #include "stringutil.h"
+#include "nodeapi.h"
 
 #import "Compiler.h"
 #import "Plugin.h"
@@ -235,7 +236,7 @@
 
     if (cleanOutput.length > 0) {
         const char *project_path = [project.path UTF8String];
-        console_printf("\n%s compiler:\n%s\n\n%s\n\n", [self.name UTF8String], str_collapse_paths([commandLine UTF8String], project_path), str_collapse_paths([cleanOutput UTF8String], project_path));
+        console_printf("\n%s compiler:\n%s\n\n%s\n\n", [self.name UTF8String], str_collapse_paths([commandLine UTF8String], project_path), str_collapse_paths([strippedOutput UTF8String], project_path));
     }
 
     if (error) {

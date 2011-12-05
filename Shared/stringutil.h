@@ -16,4 +16,7 @@ int str_array_index(const char **array, int items, const char *string);
 
 #define str_static_array_index(array, string) str_array_index((array), sizeof(array)/sizeof((array)[0]), string)
 
+char *str_printf(const char *fmt, ...);
+char *str_printf_au(const char *fmt, ...);
+
 #endif

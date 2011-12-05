@@ -1,0 +1,23 @@
+{
+  "author": "Andrey Tarantsov <andreyvit@me.com>",
+  "name": "livereload-backend",
+  "description": "LiveReload Back-end",
+  "version": "0.0.0",
+  "homepage": "http://livereload.com/",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/andreyvit/LiveReload2.git"
+  },
+  "engines": {
+    "node": "~0.5.5"
+  },
+  "dependencies": {
+    "async"  : ">=0.1.15",
+    "js-yaml": ">=0.3.1",
+    "plist"  : ">=0.2.1",
+    "sha1"   : ">=0.0.1",
+    "sugar"  : ">=1.1.1"
+  },
+  "devDependencies" : {
+  }
+}

@@ -3,6 +3,8 @@
 #define LiveReload_osdep_h
 
 void os_init();
-const char *os_bundled_resources_path();
+
+extern const char *os_bundled_resources_path;
+extern const char *os_bundled_node_path;
 
 #endif

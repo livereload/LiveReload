@@ -1,6 +1,7 @@
 
 #include "osdep.h"
 #include "console.h"
+#include "nodeapi.h"
 
 #import "LiveReloadAppDelegate.h"
 #import "Project.h"
@@ -74,6 +75,7 @@
 
     os_init();
     console_init();
+    node_init();
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
 
