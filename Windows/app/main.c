@@ -62,29 +62,29 @@ void LayoutSubviews() {
     int width = client.right, height = client.bottom;
     MoveWindow(g_hProjectListView, kProjectListX, kProjectListY, kProjectListW, kProjectListH, TRUE);
 
-	HDC hdcScreen = GetDC(NULL);
-	HDC hDC = CreateCompatibleDC(hdcScreen);
-	HBITMAP hBmp = CreateCompatibleBitmap(hdcScreen, width, height);
-	HBITMAP hBmpOld = (HBITMAP)SelectObject(hDC, hBmp);
+    HDC hdcScreen = GetDC(NULL);
+    HDC hDC = CreateCompatibleDC(hdcScreen);
+    HBITMAP hBmp = CreateCompatibleBitmap(hdcScreen, width, height);
+    HBITMAP hBmpOld = (HBITMAP)SelectObject(hDC, hBmp);
 
-	HDC hDC2 = CreateCompatibleDC(hdcScreen);
-	HBITMAP hBmpOld2 = (HBITMAP)SelectObject(hDC2, g_hMainWindowBgBitmap);
+    HDC hDC2 = CreateCompatibleDC(hdcScreen);
+    HBITMAP hBmpOld2 = (HBITMAP)SelectObject(hDC2, g_hMainWindowBgBitmap);
 
 
-	// Call UpdateLayeredWindow
-	BLENDFUNCTION blend = {0};
-	blend.BlendOp = AC_SRC_OVER;
-	blend.SourceConstantAlpha = 255;
-	blend.AlphaFormat = AC_SRC_ALPHA;
-	POINT ptPos = {0, 0};
-	SIZE sizeWnd = {width, height};
-	POINT ptSrc = {0, 0};
-	UpdateLayeredWindow(g_hMainWindow, hdcScreen, NULL, NULL, hDC, &ptSrc, 0, &blend, ULW_ALPHA);
+    // Call UpdateLayeredWindow
+    BLENDFUNCTION blend = {0};
+    blend.BlendOp = AC_SRC_OVER;
+    blend.SourceConstantAlpha = 255;
+    blend.AlphaFormat = AC_SRC_ALPHA;
+    POINT ptPos = {0, 0};
+    SIZE sizeWnd = {width, height};
+    POINT ptSrc = {0, 0};
+    UpdateLayeredWindow(g_hMainWindow, hdcScreen, NULL, NULL, hDC, &ptSrc, 0, &blend, ULW_ALPHA);
 
-	SelectObject(hDC, hBmpOld);
-	DeleteObject(hBmp);
-	DeleteDC(hDC);
-	ReleaseDC(NULL, hdcScreen);
+    SelectObject(hDC, hBmpOld);
+    DeleteObject(hBmp);
+    DeleteDC(hDC);
+    ReleaseDC(NULL, hdcScreen);
 }
 
 void OnSize(HWND hWnd, UINT state, int cx, int cy) {
@@ -271,14 +271,14 @@ int WINAPI WinMain(HINSTANCE hinst, HINSTANCE hinstPrev,
     g_hMainWindowBgBitmap = (HBITMAP) LoadImage(g_hinst, MAKEINTRESOURCE(IDB_MAIN_WINDOW_BG), IMAGE_BITMAP, 0, 0, LR_DEFAULTCOLOR);
     g_hListBoxSelectionBgBitmap = (HBITMAP) LoadImage(g_hinst, MAKEINTRESOURCE(IDB_LISTBOX_SELECTION_BG), IMAGE_BITMAP, 0, 0, LR_DEFAULTCOLOR);
     g_hProjectPaneBgBitmap = (HBITMAP) LoadImage(g_hinst, MAKEINTRESOURCE(IDB_MAINWND_PROJECT_PANE_BG), IMAGE_BITMAP, 0, 0, LR_DEFAULTCOLOR);
-	
+
     g_hProjectIcon = (HICON) LoadImage(g_hinst, MAKEINTRESOURCE(IDI_FOLDER), IMAGE_ICON, 16, 16, LR_DEFAULTCOLOR);
 
     g_hNormalFont12 = CreateFont(-12, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS,
         CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Lucida Sans Unicode");
 
     int width  = kWindowWidth + kOuterShadowLeft + kOuterShadowRight;
-	int height = kWindowHeight + kOuterShadowTop + kOuterShadowBottom;
+    int height = kWindowHeight + kOuterShadowTop + kOuterShadowBottom;
 
     MONITORINFO mi;
     mi.cbSize = sizeof(mi);
