@@ -15,6 +15,7 @@
 	<key>extensions</key>
 	<array>
 		<string>html</string>
+		<string>htm</string>
 		<string>haml</string>
 		<string>php</string>
 		<string>php4</string>
