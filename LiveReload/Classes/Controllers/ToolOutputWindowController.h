@@ -38,6 +38,8 @@ enum UnparsedErrorState {
 
     NSInteger              _submissionResponseCode;
     NSMutableData         *_submissionResponseBody;
+
+    NSURL                 *_specialMessageURL;
 }
 
 - (id)initWithCompilerOutput:(ToolOutput *)compilerOutput key:(NSString *)key;

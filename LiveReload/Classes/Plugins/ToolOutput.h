@@ -17,11 +17,11 @@ enum ToolOutputType {
 
 @property (nonatomic, readonly, retain) Compiler *compiler;
 @property (nonatomic, retain) Project *project;
-@property (nonatomic, readonly, copy) NSString *sourcePath;
-@property (nonatomic, readonly) NSInteger line;
-@property (nonatomic, readonly, copy) NSString *message;
-@property (nonatomic, readonly, copy) NSString *output;
+@property (nonatomic, copy) NSString *sourcePath;
+@property (nonatomic) NSInteger line;
+@property (nonatomic, copy) NSString *message;
+@property (nonatomic, copy) NSString *output;
 
-@property (nonatomic, readonly) enum ToolOutputType type;
+@property (nonatomic) enum ToolOutputType type;
 
 @end

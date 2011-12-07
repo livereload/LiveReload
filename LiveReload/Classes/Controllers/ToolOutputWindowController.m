@@ -25,6 +25,7 @@ static ToolOutputWindowController *lastOutputController = nil;
 - (void)hide:(BOOL)animated;
 - (void)updateJumpToErrorEditor;
 
+- (NSAttributedString *)prepareSpecialMessage:(NSString *)message url:(NSURL *)url;
 - (NSAttributedString *)prepareMessageForState:(enum UnparsedErrorState)state;
 - (NSURL *)errorReportURL;
 - (void)sendErrorReport;
@@ -189,8 +190,15 @@ static ToolOutputWindowController *lastOutputController = nil;
 }
 #pragma mark -
 - (void)loadMessageForOutputType:(enum ToolOutputType)type {
+    if ([_compilerOutput.output rangeOfString:@"Nothing to compile. If you're trying to start a new project, you have left off the directory argument"].location != NSNotFound) {
+        NSString *message = @"LiveReload knowledge base _[has an article about this error]_.";
+        NSURL *url = [NSURL URLWithString:@"http://help.livereload.com/kb/troubleshooting/compass-nothing-to-compile"];
+        [_unparsedNotificationView textStorage].attributedString = [self prepareSpecialMessage:message url:url];
 
-    if (type != ToolOutputTypeErrorRaw) {
+        if (type == ToolOutputTypeErrorRaw)
+            type = ToolOutputTypeError;
+        _specialMessageURL = [url retain];
+    } else if (type != ToolOutputTypeErrorRaw) {
         [self hideUnparsedNotificationView];
     }
 
@@ -311,6 +319,29 @@ static ToolOutputWindowController *lastOutputController = nil;
 
 #pragma mark -
 
+- (NSAttributedString *)prepareSpecialMessage:(NSString *)message url:(NSURL *)url {
+    NSString *string = message;
+    NSRange range = [string rangeOfString:@"_["];
+    NSAssert(range.length > 0, @"Partial hyperlink must contain _[ marker");
+    NSString *prefix = [string substringToIndex:range.location];
+    string = [string substringFromIndex:range.location + range.length];
+
+    range = [string rangeOfString:@"]_"];
+    NSAssert(range.length > 0, @"Partial hyperlink must contain ]_ marker");
+    NSString *link = [string substringToIndex:range.location];
+    NSString *suffix = [string substringFromIndex:range.location + range.length];
+
+    NSMutableAttributedString *as = [[[NSMutableAttributedString alloc] init] autorelease];
+
+    [as appendAttributedString:[[[NSAttributedString alloc] initWithString:prefix] autorelease]];
+
+    [as appendAttributedString:[[[NSAttributedString alloc] initWithString:link attributes:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:NSSingleUnderlineStyle], NSUnderlineStyleAttributeName, url, NSLinkAttributeName, nil]] autorelease]];
+
+    [as appendAttributedString:[[[NSAttributedString alloc] initWithString:suffix] autorelease]];
+
+    return as;
+}
+
 - (NSAttributedString *)prepareMessageForState:(enum UnparsedErrorState)state {
     NSString * message;
     NSMutableAttributedString * resultString;
@@ -375,6 +406,8 @@ static ToolOutputWindowController *lastOutputController = nil;
 #pragma mark -
 #pragma mark NSTextViewDelegate
 - (BOOL)textView:(NSTextView *)textView clickedOnLink:(id)link {
+    if (_specialMessageURL)
+        return NO;
     if ( textView == _unparsedNotificationView ) {
         self.state = UnparsedErrorStateConnecting;
         [self sendErrorReport];
