@@ -20,6 +20,13 @@
 			<array>
 				<string>Syntax error: ((message))\n\s+on line ((line)) of ((file))\n</string>
 				<string>Exception on line ((line)): ((message))\n</string>
+				<string>Syntax error: ((message))\n\s+Load path:.*\n\s+on line ((line)) of ((file))\n</string>
+				<string>Errno::ENOENT: ((message)) - ((file))</string>
+				<string>ZeroDivisionError: ((message))</string>
+			</array>
+			<key>Warnings</key>
+			<array>
+				<string>WARNING on line ((line)) of ((file)):\n((message))\n</string>
 			</array>
 			<key>Extensions</key>
 			<array>
@@ -132,6 +139,9 @@
 			<array>
 				<string>Syntax error: ((message))\n\s+on line ((line)) of ((file))\n</string>
 				<string>Exception on line ((line)): ((message))\n</string>
+				<string>Syntax error: ((message))\n\s+Load path:.*\n\s+on line ((line)) of ((file))\n</string>
+				<string>Errno::ENOENT: ((message)) - ((file))</string>
+				<string>ZeroDivisionError: ((message))</string>
 				<string>error&lt;ESC&gt;\s*((file))\s*\(Line ((line)): ((message))\)</string>
 			</array>
 			<key>Extensions</key>
