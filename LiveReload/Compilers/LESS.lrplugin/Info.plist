@@ -19,8 +19,15 @@
 			<array>
 				<string>&lt;ESC&gt;((message)) on line ((line))&lt;ESC&gt; in &lt;ESC&gt;((file))(?:&lt;ESC&gt;|\n)</string>
 				<string>(Missing ((message))$)</string>
+				<string>((message:Syntax Error)) on line ((line))</string>
+				<string>((message:color functions take numbers as parameters))</string>
+				<string>((message:variable .*? is undefined))</string>
+				<string>((message:FATAL ERROR: ***))\n</string>
 				<string>((file)):((line))\n[^\n]*\n\s*\^\nError: ((message))\n</string>
+				<string>^Error: EBADF, ((message)) '((file))'</string>
 				<string>&lt;ESC&gt;((message)) in ((file))</string>
+				<string>^TypeError: ((message-override:Internal LESS compiler error))</string>
+				<string>^((message:file '.*?' wasn't found.))</string>
 			</array>
 			<key>Extensions</key>
 			<array>
