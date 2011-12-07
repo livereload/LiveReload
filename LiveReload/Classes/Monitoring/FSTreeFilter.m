@@ -6,6 +6,7 @@
 
 @synthesize enabledExtensions=_enabledExtensions;
 @synthesize excludedNames=_excludedNames;
+@synthesize excludedPaths=_excludedPaths;
 @synthesize ignoreHiddenFiles=_ignoreHiddenFiles;
 
 - (void)dealloc {
@@ -39,6 +40,12 @@
     if ([_excludedNames containsObject:name]) {
         return NO;
     }
+    return YES;
+}
+
+- (BOOL)acceptsFile:(NSString *)relativePath isDirectory:(BOOL)isDirectory {
+    if ([_excludedPaths containsObject:relativePath])
+        return NO;
     return YES;
 }
 

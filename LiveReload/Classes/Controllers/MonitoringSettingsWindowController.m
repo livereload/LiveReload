@@ -5,6 +5,11 @@
 #import "RegexKitLite.h"
 
 
+@interface MonitoringSettingsWindowController () <NSTableViewDataSource, NSTableViewDelegate>
+@end
+
+
+
 @implementation MonitoringSettingsWindowController
 
 @synthesize builtInExtensionsLabelField=_builtInExtensionsLabelField;
@@ -12,6 +17,7 @@
 @synthesize disableLiveRefreshCheckBox = _disableLiveRefreshCheckBox;
 @synthesize delayFullRefreshCheckBox = _delayFullRefreshCheckBox;
 @synthesize fullRefreshDelayTextField = _fullRefreshDelayTextField;
+@synthesize excludedPathsTableView = _excludedPathsTableView;
 
 - (void)windowDidLoad {
     [super windowDidLoad];
@@ -62,5 +68,56 @@
     [self renderFullPageRefreshDelay];
 }
 
+
+#pragma mark - Excluded paths
+
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
+    return _project.excludedPaths.count;
+}
+
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    return [_project.excludedPaths objectAtIndex:row];
+}
+
+- (IBAction)addExcludedPathClicked:(id)sender {
+    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+    [openPanel setCanChooseDirectories:YES];
+    [openPanel setCanCreateDirectories:YES];
+    [openPanel setPrompt:@"Choose a subfolder"];
+    [openPanel setCanChooseFiles:NO];
+    [openPanel setDirectoryURL:[NSURL fileURLWithPath:_project.path isDirectory:YES]];
+    [openPanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
+        if (result == NSFileHandlingPanelOKButton) {
+            NSURL *url = [openPanel URL];
+            NSString *path = [url path];
+            NSString *relativePath = [_project relativePathForPath:path];
+            if (relativePath == nil) {
+                [[NSAlert alertWithMessageText:@"Subfolder required" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"Excluded folder must be a subfolder of the project."] runModal];
+                return;
+            }
+            if (relativePath.length == 0) {
+                [[NSAlert alertWithMessageText:@"Subfolder required" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"Sorry, but excluding the project's root folder does not make sense."] runModal];
+                return;
+            }
+            [_project addExcludedPath:relativePath];
+            [_excludedPathsTableView reloadData];
+        }
+    }];
+}
+
+- (IBAction)removeExcludedPathClicked:(id)sender {
+    NSInteger row = _excludedPathsTableView.selectedRow;
+    if (row < 0)
+        return;
+
+    if (row >= _project.excludedPaths.count)
+        return;
+
+    NSString *path = [_project.excludedPaths objectAtIndex:row];
+    [_project removeExcludedPath:path];
+    [_excludedPathsTableView reloadData];
+
+    [_excludedPathsTableView deselectAll:nil];
+}
 
 @end

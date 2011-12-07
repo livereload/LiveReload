@@ -92,11 +92,15 @@ static BOOL IsBrokenFolder(NSString *path) {
                     for (NSString *child in [[fm contentsOfDirectoryAtPath:itemPath error:nil] sortedArrayUsingSelector:@selector(compare:)]) {
                         NSString *subpath = [itemPath stringByAppendingPathComponent:child];
                         if (0 == lstat([subpath UTF8String], &st)) {
-                            if (![filter acceptsFileName:child isDirectory:(st.st_mode & S_IFMT) == S_IFDIR])
+                            BOOL isDir = (st.st_mode & S_IFMT) == S_IFDIR;
+                            if (![filter acceptsFileName:child isDirectory:isDir])
+                                continue;
+                            NSString *relativeChildPath = ([item->name length] > 0 ? [item->name stringByAppendingPathComponent:child] : child);
+                            if (![filter acceptsFile:relativeChildPath isDirectory:isDir])
                                 continue;
                             struct FSTreeItem *subitem = &_items[_count++];
                             subitem->parent = next;
-                            subitem->name = [([item->name length] > 0 ? [item->name stringByAppendingPathComponent:child] : child) retain];
+                            subitem->name = [relativeChildPath retain];
                             subitem->st_mode = st.st_mode & S_IFMT;
                             subitem->st_dev = st.st_dev;
                             subitem->st_ino = st.st_ino;

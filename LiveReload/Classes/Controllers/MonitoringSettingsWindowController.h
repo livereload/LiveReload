@@ -12,4 +12,6 @@
 @property (assign) IBOutlet NSButton *delayFullRefreshCheckBox;
 @property (assign) IBOutlet NSTextField *fullRefreshDelayTextField;
 
+@property (assign) IBOutlet NSTableView *excludedPathsTableView;
+
 @end

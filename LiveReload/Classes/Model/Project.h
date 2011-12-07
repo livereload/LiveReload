@@ -50,6 +50,8 @@ EVENTBUS_DECLARE_EVENT(project_fs_change_event);
     struct reload_session_t *_session;
 
     BOOL                     _brokenPathReported;
+
+    NSMutableArray          *_excludedFolderPaths;
 }
 
 - (id)initWithPath:(NSString *)path memento:(NSDictionary *)memento;
@@ -93,5 +95,10 @@ EVENTBUS_DECLARE_EVENT(project_fs_change_event);
 - (void)checkBrokenPaths;
 
 - (BOOL)isFileImported:(NSString *)path;
+
+@property(nonatomic, readonly) NSArray *excludedPaths;
+
+- (void)addExcludedPath:(NSString *)path;
+- (void)removeExcludedPath:(NSString *)path;
 
 @end

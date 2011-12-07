@@ -138,6 +138,11 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
 
         _importGraph = [[ImportGraph alloc] init];
 
+        NSArray *excludedPaths = [memento objectForKey:@"excludedPaths"];
+        if (excludedPaths == nil)
+            excludedPaths = [NSArray array];
+        _excludedFolderPaths = [[NSMutableArray alloc] initWithArray:excludedPaths];
+
         [self handleCompilationOptionsEnablementChanged];
     }
     return self;
@@ -173,6 +178,9 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
     if (_fullPageReloadDelay > 0.001) {
         [memento setObject:[NSNumber numberWithDouble:_fullPageReloadDelay] forKey:@"fullPageReloadDelay"];
     }
+    if ([_excludedFolderPaths count] > 0) {
+        [memento setObject:_excludedFolderPaths forKey:@"excludedPaths"];
+    }
     [memento setObject:_rubyVersionIdentifier forKey:@"rubyVersion"];
     [memento setObject:[NSNumber numberWithBool:_compilationEnabled ] forKey:@"compilationEnabled"];
     return [NSDictionary dictionaryWithDictionary:memento];
@@ -201,10 +209,12 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
     // partials. Not sure about directories, but the usual offenders are already on
     // the excludedNames list.
     FSTreeFilter *filter = _monitor.filter;
-    if (filter.ignoreHiddenFiles != NO || ![filter.enabledExtensions isEqualToSet:[Preferences sharedPreferences].allExtensions] || ![filter.excludedNames isEqualToSet:[Preferences sharedPreferences].excludedNames]) {
+    NSSet *excludedPaths = [NSSet setWithArray:_excludedFolderPaths];
+    if (filter.ignoreHiddenFiles != NO || ![filter.enabledExtensions isEqualToSet:[Preferences sharedPreferences].allExtensions] || ![filter.excludedNames isEqualToSet:[Preferences sharedPreferences].excludedNames] || ![filter.excludedPaths isEqualToSet:excludedPaths]) {
         filter.ignoreHiddenFiles = NO;
         filter.enabledExtensions = [Preferences sharedPreferences].allExtensions;
         filter.excludedNames = [Preferences sharedPreferences].excludedNames;
+        filter.excludedPaths = excludedPaths;
         [_monitor filterUpdated];
     }
 }
@@ -734,6 +744,33 @@ skipGuessing:
         _postProcessingEnabled = postProcessingEnabled;
         [self handleCompilationOptionsEnablementChanged];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+    }
+}
+
+
+#pragma mark - Excluded paths
+
+- (NSArray *)excludedPaths {
+    return _excludedFolderPaths;
+}
+
+- (void)addExcludedPath:(NSString *)path {
+    if (![_excludedFolderPaths containsObject:path]) {
+        [self willChangeValueForKey:@"excludedPaths"];
+        [_excludedFolderPaths addObject:path];
+        [self didChangeValueForKey:@"excludedPaths"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+        [self updateFilter];
+    }
+}
+
+- (void)removeExcludedPath:(NSString *)path {
+    if ([_excludedFolderPaths containsObject:path]) {
+        [self willChangeValueForKey:@"excludedPaths"];
+        [_excludedFolderPaths removeObject:path];
+        [self didChangeValueForKey:@"excludedPaths"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+        [self updateFilter];
     }
 }
 
