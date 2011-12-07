@@ -1,0 +1,4 @@
+--langmap=ObjectiveC:.h.m,C:.c
+--languages=ObjectiveC,C
+-R
+
