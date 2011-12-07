@@ -34,26 +34,6 @@
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    NSDate *now = [NSDate date];
-    NSDateComponents *cutoff = [[[NSDateComponents alloc] init] autorelease];
-    [cutoff setYear:2011];
-    [cutoff setMonth:12];
-    [cutoff setDay:1];
-    if ([now compare:[[NSCalendar currentCalendar] dateFromComponents:cutoff]] == NSOrderedDescending) {
-        // stop auto-login and show a message
-        NSInteger ans = [[NSAlert alertWithMessageText:@"LiveReload 2 beta has expired"
-                                         defaultButton:@"Visit our site"
-                                       alternateButton:@"Quit LiveReload"
-                                           otherButton:nil
-                             informativeTextWithFormat:@"Sorry, this beta version of LiveReload has expired and cannot be launched.\n\nPlease visit http://livereload.mockko.com/ to get an updated version."] runModal];
-        if (ans == NSAlertDefaultReturn) {
-            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://livereload.mockko.com/"]];
-        } else {
-            [LoginItemController sharedController].loginItemEnabled = NO;
-        }
-        [NSApp terminate:self];
-    }
-
     [Preferences initDefaults];
     [[PluginManager sharedPluginManager] reloadPlugins];
 
