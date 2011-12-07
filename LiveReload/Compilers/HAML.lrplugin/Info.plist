@@ -21,6 +21,7 @@
 			<array>
 				<string>Syntax error on line ((line)): ((message))\n</string>
 				<string>Exception on line ((line)): ((message))\n</string>
+				<string>Haml error on line ((line)): ((message))\n</string>
 			</array>
 			<key>ExpectedOutputDirectories</key>
 			<array>
