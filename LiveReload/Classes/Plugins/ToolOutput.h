@@ -11,7 +11,15 @@ enum ToolOutputType {
     ToolOutputTypeErrorRaw
 };
 
-@interface ToolOutput : NSObject
+@interface ToolOutput : NSObject {
+    Compiler              *_compiler;
+    Project               *_project;
+    enum ToolOutputType    _type;
+    NSInteger              _line;
+    NSString              *_message;
+    NSString              *_output;
+    NSString              *_sourcePath;
+}
 
 - (id)initWithCompiler:(Compiler *)compiler type:(enum ToolOutputType)type sourcePath:(NSString *)sourcePath line:(NSInteger)line message:(NSString *)message output:(NSString *)output;
 
