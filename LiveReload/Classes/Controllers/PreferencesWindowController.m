@@ -65,12 +65,10 @@
     [self styleLabel:_titleLabel color:color shadow:shadow];
     [self styleLabel:_versionLabel color:color shadow:shadow];
     [self styleLabel:_expiryLabel color:color shadow:shadow];
-    [self styleLabel:_expiryDateLabel color:color shadow:shadow];
     [self styleLabel:_installExtensionsHeaderLabel color:color shadow:shadow];
-    [self styleLabel:_safariLabel color:color shadow:shadow];
-    [self styleLabel:_chromeLabel color:color shadow:shadow];
     [self styleHyperlink:self.webSiteLabel color:linkColor shadow:shadow];
     [self styleHyperlink:self.usingWithoutExtensionsLabel to:[NSURL URLWithString:@"http://help.livereload.com/kb/general-use/using-livereload-without-browser-extensions"] color:linkColor shadow:shadow];
+    [self styleHyperlink:_chromeLabel to:[NSURL URLWithString:@"http://help.livereload.com/kb/general-use/browser-extensions"] color:linkColor shadow:shadow];
 }
 
 - (void)willShow {
