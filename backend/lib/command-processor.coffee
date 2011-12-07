@@ -1,4 +1,7 @@
 
+{ PluginManager } = require './plugin'
+
+
 class exports.CommandProcessor
 
   constructor: (@send) ->
@@ -8,3 +11,7 @@ class exports.CommandProcessor
     @pluginManager = new PluginManager(data.pluginFolders)
     @pluginManager.rescan (err) ->
       callback(err, command: "init.ok")
+
+  'tool.output.parse': (data, callback) ->
+    parsed = @pluginManager.compilers[data.compiler].parser.parse(data.text)
+    @send 'tool.output.result', parsed.toJSON(), callback
