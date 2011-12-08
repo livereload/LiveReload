@@ -8,6 +8,7 @@
 
 
 #define AppNewsKitDebugKey               @"AppNewsKitDebug"
+#define AppNewsKitRandomValueKey         @"AppNewsKitRandomValue"
 #define AppNewsKitLastPingTimeKey        @"AppNewsKitLastPingTime"
 #define AppNewsKitLastDeliveryTimeKey    @"AppNewsKitLastDeliveryTime"
 #define AppNewsKitQueuedMessageKey       @"AppNewsKitQueuedMessage"
@@ -26,6 +27,7 @@
 #define AppNewsKitDefaultDelayIfNaggedWithin (3*24*60*60)
 
 
+static NSInteger                 AppNewsKitRandomValue;
 static BOOL                      AppNewsKitDebug;
 static BOOL                      AppNewsKitMessageDeliveryQueued;
 static NSString                 *AppNewsKitPingURL;
@@ -198,6 +200,15 @@ static time_t appnewskit_time_interval_value(json_t *json, time_t default_val) {
         assert(!"Invalid time interval value type");
         return default_val;
     }
+}
+
+static int AppNewsKitMessageIdHash(NSString *messageId) {
+    int hash = 0x1234;
+    for (const char *s = [messageId UTF8String]; *s; ++s) {
+        hash = hash * 7 + (unsigned)*s;
+    }
+    hash = hash * 7;
+    return (hash & 0xFF) ^ ((hash >> 8) & 0xFF);
 }
 
 
@@ -472,6 +483,24 @@ static BOOL AppNewsKitMessageSatisfiesQueueingConditions(json_t *message_json) {
         }
     }
 
+    if (!!(item = json_object_get(message_json, "random_percentage"))) {
+        if (!json_is_integer(item)) {
+            if (AppNewsKitDebug)
+                NSLog(@"AppNewsKit: Message %@ key 'random_percentage' is invalid.", messageId);
+            return NO;
+        }
+
+        int hash = (AppNewsKitRandomValue + AppNewsKitMessageIdHash(messageId)) % 100;
+        if (hash > json_integer_value(item)) {
+            if (AppNewsKitDebug)
+                NSLog(@"AppNewsKit: Message %@ is not considered because the user is not included into this randomized trial (hash %d).", messageId, hash);
+            return NO;
+        } else {
+            if (AppNewsKitDebug)
+                NSLog(@"AppNewsKit: Message %@ is included into this randomized trial (hash %d).", messageId, hash);
+        }
+    }
+
     if (!!(item = json_object_get(message_json, "stats"))) {
         if (!AppNewsKitMessageSatisfiesConditionsOnStatistics(messageId, @"stats", item, YES))
             return NO;
@@ -645,6 +674,7 @@ static void AppNewsKitDoPingServer(BOOL scheduled) {
     [params setObject:version forKey:@"v"];
     [params setObject:internalVersion forKey:@"iv"];
     [params setObject:(scheduled ? @"1" : @"0") forKey:@"scheduled"];
+    [params setObject:[NSString stringWithFormat:@"%d", AppNewsKitRandomValue] forKey:@"random"];
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if ([defaults boolForKey:AppNewsKitFailedRecentlyKey])
@@ -721,6 +751,14 @@ void AppNewsKitStartup(NSString *pingURL, AppNewsKitParamBlock_t pingParamBlock)
     AppNewsKitPingURL    = [pingURL copy];
     AppNewsKitParamBlock = [pingParamBlock copy];
     AppNewsKitDebug      = [[NSUserDefaults standardUserDefaults] boolForKey:AppNewsKitDebugKey];
+
+    srandomdev();
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:AppNewsKitRandomValueKey])
+        AppNewsKitRandomValue = [[NSUserDefaults standardUserDefaults] integerForKey:AppNewsKitRandomValueKey];
+    else {
+        AppNewsKitRandomValue = random() % 100000;
+        [[NSUserDefaults standardUserDefaults] setInteger:AppNewsKitRandomValue forKey:AppNewsKitRandomValueKey];
+    }
 
     StatIncrement(@"stat.launch", 1);
 
