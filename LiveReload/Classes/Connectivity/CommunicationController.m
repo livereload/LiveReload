@@ -6,6 +6,7 @@
 #import "Workspace.h"
 #import "JSON.h"
 #import "Preferences.h"
+#import "Stats.h"
 
 #import "VersionNumber.h"
 #import "NSDictionaryAndArray+SafeAccess.h"
@@ -71,6 +72,10 @@ NSString *CommunicationStateChangedNotification = @"CommunicationStateChangedNot
 
 - (void)broadcast:(reload_session_t *)session {
     Project *project = (Project *)session->project;
+
+    if (_connections.count > 0) {
+        AppNewsKitGoodTimeToDeliverMessages();
+    }
 
     NSLog(@"Broadcasting change in %@", project.path);
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];

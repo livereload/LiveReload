@@ -91,6 +91,14 @@
     FixUnixPath();
 }
 
+- (void)applicationDidBecomeActive:(NSNotification *)notification {
+    AppNewsKitGoodTimeToDeliverMessages();
+}
+
+- (void)applicationDidResignActive:(NSNotification *)notification {
+    AppNewsKitGoodTimeToDeliverMessages();
+}
+
 
 #pragma mark - Pinging server
 
@@ -133,6 +141,7 @@
     [NSApp activateIgnoringOtherApps:YES];
     [_mainWindowController showWindow:nil];
     [_mainWindowController.window makeKeyAndOrderFront:nil];
+    AppNewsKitGoodTimeToDeliverMessages();
 }
 
 - (void)hideMainWindow {

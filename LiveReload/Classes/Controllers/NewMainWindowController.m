@@ -17,6 +17,7 @@
 #import "Project.h"
 #import "Preferences.h"
 
+#import "Stats.h"
 #import "ShitHappens.h"
 #import "LoginItemController.h"
 

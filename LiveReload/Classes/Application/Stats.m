@@ -21,6 +21,9 @@
 #define AppNewsKitCheckInterval          (30*60)
 #define AppNewsKitDebugPingInterval      (60)
 #define AppNewsKitDebugCheckInterval     (10)
+#define AppNewsKitGoodMomentDuration     (2*60)
+#define AppNewsKitDefaultRemindLaterIn       (5*24*60*60)
+#define AppNewsKitDefaultDelayIfNaggedWithin (3*24*60*60)
 
 
 static BOOL                      AppNewsKitDebug;
@@ -28,9 +31,10 @@ static BOOL                      AppNewsKitMessageDeliveryQueued;
 static NSString                 *AppNewsKitPingURL;
 static AppNewsKitParamBlock_t    AppNewsKitParamBlock;
 static dispatch_source_t         AppNewsKitTimerSource;
+static time_t                    AppNewsKitLastGoodTimeToDeliver;
 
 
-static void AppNewsKitQueueMessageDelivery();
+static void AppNewsKitQueueMessageDelivery(BOOL good_time);
 
 
 #pragma mark - Version matching utilities
@@ -133,6 +137,70 @@ static void appnewskit_match_version_self_test() {
 }
 
 
+#pragma mark - Other utilities
+
+static time_t appnewskit_unix_time_from_string(const char *value, time_t default_val) {
+    if (!value)
+        return default_val;
+
+    int year, month, day, hour = 0, minute = 0, second = 0;
+    int result = sscanf(value, "%d-%d-%d %d:%d", &year, &month, &day, &hour, &minute);
+    if (result < 3) {
+        if (AppNewsKitDebug)
+            NSLog(@"AppNewsKit: Invalid date format: %@.", value);
+        return default_val;
+    }
+
+    struct tm tm;
+    memset(&tm, 0, sizeof(tm));
+    tm.tm_year = year - 1900; tm.tm_mon = month - 1; tm.tm_mday = day;
+    tm.tm_hour = hour; tm.tm_min = minute; tm.tm_sec = second;
+    return timegm(&tm);
+}
+
+static time_t appnewskit_unix_time_value(json_t *value, time_t default_val) {
+    return appnewskit_unix_time_from_string(json_string_value(value), default_val);
+}
+
+static time_t appnewskit_time_interval_from_string(const char *value, time_t default_val) {
+    if (!value)
+        return default_val;
+    char *end = NULL;
+    long sec = strtol(value, (char **)&end, 10);
+    if (!(end && *end)) {
+        if (AppNewsKitDebug)
+            assert(!"Missing time interval specifier");
+        return default_val;
+    }
+    switch (*end) {
+        case 'y': sec *= 365 * 24 * 60 * 60; break;
+        case 'M': sec *= 30 * 24 * 60 * 60; break;
+        case 'w': sec *= 7;
+        case 'd': sec *= 24;
+        case 'h': sec *= 60;
+        case 'm': sec *= 60;
+        case 's': break;
+        default:
+            if (AppNewsKitDebug)
+                assert(!"Invalid time interval specifier");
+            return default_val;
+    }
+    return sec;
+}
+
+static time_t appnewskit_time_interval_value(json_t *json, time_t default_val) {
+    if (!json)
+        return default_val;
+    const char *string = json_string_value(json);
+    if (string)
+        return appnewskit_time_interval_from_string(string, default_val);
+    else {
+        assert(!"Invalid time interval value type");
+        return default_val;
+    }
+}
+
+
 #pragma mark - Statistics
 
 NSString *StatItemKey(NSString *name, NSString *item) {
@@ -142,8 +210,11 @@ NSString *StatItemKey(NSString *name, NSString *item) {
 void StatIncrement(NSString *name, NSInteger delta) {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setInteger:[defaults integerForKey:name] + delta forKey:name];
+    if (![defaults objectForKey:[name stringByAppendingString:@".first"]])
+        [defaults setInteger:(NSInteger)time(NULL) forKey:[name stringByAppendingString:@".first"]];
+    [defaults setInteger:(NSInteger)time(NULL) forKey:[name stringByAppendingString:@".last"]];
     [defaults synchronize];
-    AppNewsKitQueueMessageDelivery();
+    AppNewsKitQueueMessageDelivery(NO);
 }
 
 void StatGroupIncrement(NSString *name, NSString *item, NSInteger delta) {
@@ -220,12 +291,122 @@ static void AppNewsKitAddMessageToSet(NSString *messageId, NSString *key) {
     [[NSUserDefaults standardUserDefaults] setObject:[items componentsJoinedByString:@","] forKey:key];
 }
 
-static BOOL AppNewsKitMessageSatisfiesQueueingConditions(json_t *message_json, const char **error_key) {
+static BOOL AppNewsKitMessageSatisfiesConditionsOnStatistics(NSString *messageId, NSString *statKey, json_t *item, BOOL requireAll) {
+    NSString *context = [NSString stringWithFormat:@"Message %@ key '%@'", messageId, statKey];
+
+    if (!json_is_object(item)) {
+        if (AppNewsKitDebug)
+            NSLog(@"AppNewsKit: %@ is invalid.", context);
+        return NO;
+    }
+
+    for (void *iter = json_object_iter(item); iter; iter = json_object_iter_next(item, iter)) {
+        const char *key = json_object_iter_key(iter);
+        json_int_t value = (json_int_t) StatGet([NSString stringWithUTF8String:key]);
+        json_t *rule = json_object_iter_value(iter);
+
+        BOOL satisfied = YES;
+
+        if (0 == strcmp(key, "or") || 0 == strncmp(key, "or.", 3)) {
+            satisfied = AppNewsKitMessageSatisfiesConditionsOnStatistics(messageId, [NSString stringWithFormat:@"%@.%s", statKey, key], rule, NO);
+        } else if (0 == strcmp(key, "and") || 0 == strncmp(key, "and.", 4)) {
+            satisfied = AppNewsKitMessageSatisfiesConditionsOnStatistics(messageId, [NSString stringWithFormat:@"%@.%s", statKey, key], rule, YES);
+        } else {
+            if (!json_is_object(rule)) {
+                if (AppNewsKitDebug)
+                    NSLog(@"AppNewsKit: %@, rule for stat '%s' is invalid.", context, key);
+                return NO;
+            }
+
+            json_t *limit_json = json_object_get(rule, "min");
+            if (limit_json) {
+                if (!json_is_integer(limit_json)) {
+                    if (AppNewsKitDebug)
+                        NSLog(@"AppNewsKit: %@, rule for stat '%s' has invalid 'min'.", context, key);
+                    return NO;
+                }
+                json_int_t limit = json_integer_value(limit_json);
+                if (value < limit) {
+                    if (AppNewsKitDebug && requireAll)
+                        NSLog(@"AppNewsKit: Message %@ is not considered because the current value %d of stat %s is less than %d.", messageId, (int)value, key, (int)limit);
+                    satisfied = NO;
+                }
+            }
+
+            limit_json = json_object_get(rule, "max");
+            if (limit_json) {
+                if (!json_is_integer(limit_json)) {
+                    if (AppNewsKitDebug)
+                        NSLog(@"AppNewsKit: %@, rule for stat '%s' has invalid 'max'.", context, key);
+                    return NO;
+                }
+                json_int_t limit = json_integer_value(limit_json);
+                if (value > limit) {
+                    if (AppNewsKitDebug && requireAll)
+                        NSLog(@"AppNewsKit: Message %@ is not considered because the current value %d of stat %s is greater than %d.", messageId, (int)value, key, (int)limit);
+                    satisfied = NO;
+                }
+            }
+
+            limit_json = json_object_get(rule, "after");
+            if (limit_json) {
+                time_t limit = appnewskit_unix_time_value(limit_json, 0);
+                if (limit == 0 || value == 0 || value < limit) {
+                    if (AppNewsKitDebug && requireAll)
+                        NSLog(@"AppNewsKit: Message %@ is not considered because the current value %d of stat %s is less than %d.", messageId, (int)value, key, (int)limit);
+                    satisfied = NO;
+                }
+            }
+
+            limit_json = json_object_get(rule, "before");
+            if (limit_json) {
+                time_t limit = appnewskit_unix_time_value(limit_json, 0);
+                if (limit == 0 || value == 0 || value > limit) {
+                    if (AppNewsKitDebug && requireAll)
+                        NSLog(@"AppNewsKit: Message %@ is not considered because the current value %d of stat %s is greater than %d.", messageId, (int)value, key, (int)limit);
+                    satisfied = NO;
+                }
+            }
+
+            limit_json = json_object_get(rule, "within");
+            if (limit_json) {
+                json_int_t limit = appnewskit_time_interval_value(limit_json, -1);
+                if (limit == -1 || value == 0 || value < (json_int_t)time(NULL) - limit) {
+                    if (AppNewsKitDebug && requireAll)
+                        NSLog(@"AppNewsKit: Message %@ is not considered because the current value %d of stat %s is not within %d seconds of the current time.", messageId, (int)value, key, (int)limit);
+                    satisfied = NO;
+                }
+            }
+
+            limit_json = json_object_get(rule, "notwithin");
+            if (limit_json) {
+                json_int_t limit = appnewskit_time_interval_value(limit_json, -1);
+                if (limit == -1 || value == 0 || value >= (json_int_t)time(NULL) - limit) {
+                    if (AppNewsKitDebug && requireAll)
+                        NSLog(@"AppNewsKit: Message %@ is not considered because the current value %d of stat %s is within %d seconds of the current time.", messageId, (int)value, key, (int)limit);
+                    satisfied = NO;
+                }
+            }
+        }
+
+        if (requireAll && !satisfied)
+            return NO;
+        if (!requireAll && satisfied)
+            return YES;
+    }
+
+    return requireAll;
+}
+
+static BOOL AppNewsKitMessageSatisfiesQueueingConditions(json_t *message_json) {
     json_t *item;
 
     item = json_object_get(message_json, "id");
-    if (!json_is_string(item))
-        return (*error_key = "id"), NO;
+    if (!json_is_string(item)) {
+        if (AppNewsKitDebug)
+            NSLog(@"AppNewsKit: Message is missing id.");
+        return NO;
+    }
     NSString *messageId = [NSString stringWithUTF8String:json_string_value(item)];
 
     if (AppNewsKitMessageBelongsToSet(messageId, AppNewsKitIgnoredMessageIdsKey)) {
@@ -240,8 +421,11 @@ static BOOL AppNewsKitMessageSatisfiesQueueingConditions(json_t *message_json, c
     }
 
     if (!!(item = json_object_get(message_json, "version"))) {
-        if (!json_is_array(item))
-            return (*error_key = "version"), NO;
+        if (!json_is_array(item)) {
+            if (AppNewsKitDebug)
+                NSLog(@"AppNewsKit: Message %@ key 'version' is invalid.", messageId);
+            return NO;
+        }
 
         BOOL found = NO;
         size_t count = json_array_size(item);
@@ -263,8 +447,11 @@ static BOOL AppNewsKitMessageSatisfiesQueueingConditions(json_t *message_json, c
     }
 
     if (!!(item = json_object_get(message_json, "status"))) {
-        if (!json_is_array(item))
-            return (*error_key = "status"), NO;
+        if (!json_is_array(item)) {
+            if (AppNewsKitDebug)
+                NSLog(@"AppNewsKit: Message %@ key 'status' is invalid.", messageId);
+            return NO;
+        }
 
         const char *status = "unregistered";
         BOOL found = NO;
@@ -286,41 +473,8 @@ static BOOL AppNewsKitMessageSatisfiesQueueingConditions(json_t *message_json, c
     }
 
     if (!!(item = json_object_get(message_json, "stats"))) {
-        if (!json_is_object(item))
-            return (*error_key = "stats"), NO;
-
-        for (void *iter = json_object_iter(item); iter; iter = json_object_iter_next(item, iter)) {
-            const char *key = json_object_iter_key(iter);
-            json_int_t value = (json_int_t) StatGet([NSString stringWithUTF8String:key]);
-
-            json_t *rule = json_object_iter_value(iter);
-            if (!json_is_object(rule))
-                return (*error_key = "stats"), NO;
-
-            json_t *min_rule = json_object_get(rule, "min");
-            if (min_rule) {
-                if (!json_is_integer(min_rule))
-                    return (*error_key = "stats"), NO;
-                json_int_t min_val = json_integer_value(min_rule);
-                if (value < min_val) {
-                    if (AppNewsKitDebug)
-                        NSLog(@"AppNewsKit: Message %@ is not considered because the current value %d of stat %s is less than %d.", messageId, (int)value, key, (int)min_val);
-                    return NO;
-                }
-            }
-
-            json_t *max_rule = json_object_get(rule, "max");
-            if (max_rule) {
-                if (!json_is_integer(max_rule))
-                    return (*error_key = "stats"), NO;
-                json_int_t max_val = json_integer_value(max_rule);
-                if (value > max_val) {
-                    if (AppNewsKitDebug)
-                        NSLog(@"AppNewsKit: Message %@ is not considered because the current value %d of stat %s is greater than %d.", messageId, (int)value, key, (int)max_val);
-                    return NO;
-                }
-            }
-        }
+        if (!AppNewsKitMessageSatisfiesConditionsOnStatistics(messageId, @"stats", item, YES))
+            return NO;
     }
 
     return YES;
@@ -329,26 +483,11 @@ static BOOL AppNewsKitMessageSatisfiesQueueingConditions(json_t *message_json, c
 static BOOL AppNewsKitMessageSatisfiesDeliveryConditions(json_t *message_json) {
     NSString *messageId = [NSString stringWithUTF8String:json_string_value(json_object_get(message_json, "id"))];
 
-    const char *dummy_error_key = NULL;
-    if (!AppNewsKitMessageSatisfiesQueueingConditions(message_json, &dummy_error_key))
+    if (!AppNewsKitMessageSatisfiesQueueingConditions(message_json))
         return NO;
 
-    const char *deliver_after_fmt = json_string_value(json_object_get(message_json, "deliver_after"));
-    if (deliver_after_fmt) {
-        int year, month, day, hour = 0, minute = 0, second = 0;
-        int result = sscanf(deliver_after_fmt, "%d-%d-%d %d:%d", &year, &month, &day, &hour, &minute);
-        if (result < 3) {
-            if (AppNewsKitDebug)
-                NSLog(@"AppNewsKit: Invalid date format for deliver_after of %@.", messageId);
-            return NO;
-        }
-
-        struct tm tm;
-        memset(&tm, 0, sizeof(tm));
-        tm.tm_year = year - 1900; tm.tm_mon = month - 1; tm.tm_mday = day;
-        tm.tm_hour = hour; tm.tm_min = minute; tm.tm_sec = second;
-        tm.tm_isdst = -1;
-        time_t deliver_after = timegm(&tm);
+    time_t deliver_after = appnewskit_unix_time_value(json_object_get(message_json, "deliver_after"), 0);
+    if (deliver_after) {
         if (deliver_after > time(NULL)) {
             if (AppNewsKitDebug)
                 NSLog(@"AppNewsKit: Not delivering yet because deliver_after date hasn't been reached: %@.", messageId);
@@ -358,26 +497,38 @@ static BOOL AppNewsKitMessageSatisfiesDeliveryConditions(json_t *message_json) {
 
     NSInteger postponed_at = [[NSUserDefaults standardUserDefaults] integerForKey:[NSString stringWithFormat:AppNewsKitRemindLaterClickTimeKeyFmt, messageId]];
     if (postponed_at > 0) {
-        json_t *json = json_object_get(message_json, "remind_later_in_days");
-        int days = (json_is_integer(json) ? json_integer_value(json) : 5);
-        if (time(NULL) < postponed_at + 24 * 60 * 60 * days) {
+        time_t seconds = appnewskit_time_interval_value(json_object_get(message_json, "remind_later_in"), AppNewsKitDefaultRemindLaterIn);
+        if (time(NULL) < postponed_at + seconds) {
             if (AppNewsKitDebug)
-                NSLog(@"AppNewsKit: Not delivering yet because remind_later_in_days haven't passed yet: %@.", messageId);
+                NSLog(@"AppNewsKit: Not delivering yet because remind_later_in haven't passed yet: %@.", messageId);
             return NO;
         }
     }
 
     NSInteger last_at = [[NSUserDefaults standardUserDefaults] integerForKey:AppNewsKitLastDeliveryTimeKey];
     if (last_at > 0) {
-        json_t *json = json_object_get(message_json, "delay_if_nagged_within_days");
-        int days = (json_is_integer(json) ? json_integer_value(json) : 5);
-        if (days > 0) {
-            if (time(NULL) < last_at + 24 * 60 * 60 * days) {
+        time_t seconds = appnewskit_time_interval_value(json_object_get(message_json, "delay_if_nagged_within"), AppNewsKitDefaultDelayIfNaggedWithin);
+        if (seconds > 0) {
+            if (time(NULL) < last_at + seconds) {
                 if (AppNewsKitDebug)
-                    NSLog(@"AppNewsKit: Not delivering yet because delay_if_nagged_within_days haven't passed yet: %@.", messageId);
+                    NSLog(@"AppNewsKit: Not delivering yet because delay_if_nagged_within haven't passed yet: %@.", messageId);
                 return NO;
             }
         }
+    }
+
+    if (json_is_true(json_object_get(message_json, "wait_until_good_time"))) {
+        if (AppNewsKitLastGoodTimeToDeliver < time(NULL) - AppNewsKitGoodMomentDuration) {
+            if (AppNewsKitDebug)
+                NSLog(@"AppNewsKit: Not delivering yet, waiting for a good moment: %@.", messageId);
+            return NO;
+        }
+    }
+
+    json_t *item;
+    if (!!(item = json_object_get(message_json, "delivery_on_stats"))) {
+        if (!AppNewsKitMessageSatisfiesConditionsOnStatistics(messageId, @"delivery_on_stats", item, NO))
+            return NO;
     }
 
     return YES;
@@ -430,8 +581,11 @@ static void AppNewsKitDeliverNextMessage() {
     }
 }
 
-static void AppNewsKitQueueMessageDelivery() {
+static void AppNewsKitQueueMessageDelivery(BOOL good_time) {
     dispatch_async(dispatch_get_main_queue(), ^{
+        if (good_time)
+            AppNewsKitLastGoodTimeToDeliver = time(NULL);
+
         if (AppNewsKitMessageDeliveryQueued)
             return;
         AppNewsKitMessageDeliveryQueued = YES;
@@ -459,14 +613,7 @@ static BOOL AppNewsKitPickMessageToDeliver(const char *raw_response, char **next
     for (int i = 0; i < count; ++i) {
         json_t *message_json = json_array_get(messages_json, i);
 
-        const char *error_key = NULL;
-        BOOL matched = AppNewsKitMessageSatisfiesQueueingConditions(message_json, &error_key);
-
-        if (error_key) {
-            NSLog(@"AppNewsKit: Failed to parse incoming manifest file: error in key %s of message %d.", error_key, i);
-            json_decref(manifest_json);
-            return NO;
-        }
+        BOOL matched = AppNewsKitMessageSatisfiesQueueingConditions(message_json);
 
         if (matched) {
             if (AppNewsKitDebug) {
@@ -501,7 +648,7 @@ static void AppNewsKitDoPingServer(BOOL scheduled) {
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if ([defaults boolForKey:AppNewsKitFailedRecentlyKey])
-        [params setObject:"1" forKey:"appnewskit.failed"];
+        [params setObject:@"1" forKey:@"appnewskit.failed"];
     if ([defaults objectForKey:AppNewsKitDeliveredMessageIdsKey])
         [params setObject:[defaults objectForKey:AppNewsKitDeliveredMessageIdsKey] forKey:@"appnewskit.delivered"];
     if ([defaults objectForKey:AppNewsKitClickedMessageIdsKey])
@@ -565,12 +712,17 @@ static void AppNewsKitPingServer(BOOL force) {
     }
 }
 
+
+#pragma mark - Messaging API
+
 void AppNewsKitStartup(NSString *pingURL, AppNewsKitParamBlock_t pingParamBlock) {
     appnewskit_match_version_self_test();
 
     AppNewsKitPingURL    = [pingURL copy];
     AppNewsKitParamBlock = [pingParamBlock copy];
     AppNewsKitDebug      = [[NSUserDefaults standardUserDefaults] boolForKey:AppNewsKitDebugKey];
+
+    StatIncrement(@"stat.launch", 1);
 
     AppNewsKitPingServer(YES);
 
@@ -582,4 +734,8 @@ void AppNewsKitStartup(NSString *pingURL, AppNewsKitParamBlock_t pingParamBlock)
         AppNewsKitDeliverNextMessage();
     });
     dispatch_resume(AppNewsKitTimerSource);
+}
+
+void AppNewsKitGoodTimeToDeliverMessages() {
+    AppNewsKitQueueMessageDelivery(YES);
 }
