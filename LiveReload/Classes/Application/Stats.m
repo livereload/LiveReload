@@ -529,7 +529,7 @@ static BOOL AppNewsKitMessageSatisfiesDeliveryConditions(json_t *message_json) {
         time_t seconds = appnewskit_time_interval_value(json_object_get(message_json, "remind_later_in"), AppNewsKitDefaultRemindLaterIn);
         if (time(NULL) < postponed_at + seconds) {
             if (AppNewsKitDebug)
-                NSLog(@"AppNewsKit: Not delivering yet because remind_later_in haven't passed yet: %@.", messageId);
+                NSLog(@"AppNewsKit: Not delivering yet because remind_later_in hasn't passed: %@.", messageId);
             return NO;
         }
     }
@@ -540,7 +540,7 @@ static BOOL AppNewsKitMessageSatisfiesDeliveryConditions(json_t *message_json) {
         if (seconds > 0) {
             if (time(NULL) < last_at + seconds) {
                 if (AppNewsKitDebug)
-                    NSLog(@"AppNewsKit: Not delivering yet because delay_if_nagged_within haven't passed yet: %@.", messageId);
+                    NSLog(@"AppNewsKit: Not delivering yet because delay_if_nagged_within hasn't passed: %@.", messageId);
                 return NO;
             }
         }
