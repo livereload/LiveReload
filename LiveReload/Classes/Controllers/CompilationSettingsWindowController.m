@@ -142,10 +142,8 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
             for (Compiler *compiler in compilers) {
                 NSArray *options = [compiler optionsForProject:_project];
 
-                if (compiler.optional) {
-                    EnabledToolOption *enabledOption = [[[EnabledToolOption alloc] initWithCompiler:compiler project:_project optionInfo:nil] autorelease];
-                    options = [[NSArray arrayWithObject:enabledOption] arrayByAddingObjectsFromArray:options];
-                }
+                EnabledToolOption *enabledOption = [[[EnabledToolOption alloc] initWithCompiler:compiler project:_project optionInfo:nil] autorelease];
+                options = [[NSArray arrayWithObject:enabledOption] arrayByAddingObjectsFromArray:options];
 
                 [self renderOptions:options forCompiler:compiler withBuilder:builder isFirst:&isFirst];
                 [allOptions addObjectsFromArray:options];

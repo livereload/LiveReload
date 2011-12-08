@@ -43,8 +43,12 @@
             _additionalArguments = @"";
         }
 
-        raw = [memento objectForKey:@"enabled"];
+        raw = [memento objectForKey:@"enabled2"];
         if (raw) {
+            _enabled = [raw boolValue];
+        } else if (!_compiler.optional) {
+            _enabled = YES;
+        } else if (!!(raw = [memento objectForKey:@"enabled"])) {
             _enabled = [raw boolValue];
         } else {
             _enabled = NO;
@@ -65,7 +69,7 @@
 #pragma mark - Persistence
 
 - (NSDictionary *)memento {
-    return [NSDictionary dictionaryWithObjectsAndKeys:_globalOptions, @"options", [_fileOptions dictionaryByMappingValuesToSelector:@selector(memento)], @"files", _additionalArguments, @"additionalArguments", [NSNumber numberWithBool:_enabled], @"enabled", nil];
+    return [NSDictionary dictionaryWithObjectsAndKeys:_globalOptions, @"options", [_fileOptions dictionaryByMappingValuesToSelector:@selector(memento)], @"files", _additionalArguments, @"additionalArguments", [NSNumber numberWithBool:_enabled], @"enabled", [NSNumber numberWithBool:_enabled], @"enabled2", nil];
 }
 
 
@@ -147,7 +151,7 @@
 }
 
 - (BOOL)isActive {
-    return _enabled || !_compiler.optional;
+    return _enabled;
 }
 
 @end
