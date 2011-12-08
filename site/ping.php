@@ -48,4 +48,5 @@ foreach ($exts as $ext) {
   mysql_query($sql);
 }
 
-echo "This file is used to compute anonymous usage statistics and does not contain personally identifiable information.";
+header("Content-type: application/json");
+echo file_get_contents('ping.txt');
