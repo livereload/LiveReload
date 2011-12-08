@@ -62,7 +62,7 @@ html
       a(name='download')
       .left
         h2
-          a.download(href='http://download.livereload.com/LiveReload-2.0b4.zip') Download LiveReload 2.0 β4 for Mac
+          a.download(href='http://download.livereload.com/LiveReload-2.0b5.zip') Download LiveReload 2.0 β5 for Mac
         p.after-download(style='display: none')
           | Thanks! Please also sign up for our newsletter to receive new build
           | notifications and useful updates.
@@ -213,6 +213,13 @@ html
       .left
         h2 What's new in LiveReload?
 
+        h3 2.0β5
+        :markdown
+          * Support for excluding subfolders from monitoring
+          * If you want to use LESS, but not CoffeeScript (for example), no problem now — per-compiler on/off toggles are back
+          * Minor improvements in compiler error parsing logic
+          * Kill date moved to Feb 1
+
         h3 2.0β4
         :markdown
           * Fixed a harmless error displayed in Firefox
@@ -225,7 +232,6 @@ html
           * Fix for @import handling to make LR fully compatible with Drupal 7
           * (Hopefully) fixed a bug with status item not accepting drag'n'drop occasionally
 
-        h2 What's new in LiveReload?
         h3 2.0β1
         :markdown
           * New, completely redesigned and rewritten UI.
