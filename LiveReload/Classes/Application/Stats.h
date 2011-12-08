@@ -14,3 +14,6 @@ NSArray *StatGroupItems(NSString *name);
 void StatGroupToParams(NSString *name, NSMutableDictionary *params);
 
 void StatAllToParams(NSMutableDictionary *params);
+
+typedef void (^AppNewsKitParamBlock_t)(NSMutableDictionary *params);
+void AppNewsKitStartup(NSString *pingURL, AppNewsKitParamBlock_t pingParamBlock);

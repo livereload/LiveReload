@@ -81,7 +81,10 @@
 
         [self considerShowingWindowOnAppStartup];
 
-        [self pingServer];
+        AppNewsKitStartup(@"http://livereload.com/ping.php", ^(NSMutableDictionary *params) {
+            [params setObject:[[Preferences sharedPreferences].additionalExtensions componentsJoinedByString:@","] forKey:@"exts"];
+        });
+//        [self pingServer];
         [NSTimer scheduledTimerWithTimeInterval:60*60*24 target:self selector:@selector(pingServer) userInfo:nil repeats:YES];
     });
 
