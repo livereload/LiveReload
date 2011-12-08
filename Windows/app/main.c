@@ -27,30 +27,12 @@ HBITMAP g_hListBoxSelectionBgBitmap;
 
 HBITMAP g_hProjectPaneBgBitmap;
 
-#define kOuterShadowLeft   57
-#define kOuterShadowTop    35
-#define kOuterShadowRight  57
-#define kOuterShadowBottom 78
 
-#define kTitleBarHeight  22
-#define kBottomBarHeight 22
-#define kWindowWidth     738
-#define kWindowHeight    514
-#define kClientAreaX kOuterShadowLeft
-#define kClientAreaY (kOuterShadowTop + kTitleBarHeight)
-#define kClientAreaWidth  kWindowWidth
-#define kClientAreaHeight (kWindowHeight - kTitleBarHeight)
-
-#define kProjectListX kClientAreaX
-#define kProjectListY kClientAreaY
-#define kProjectListW 202
-#define kProjectListH (kClientAreaHeight - kBottomBarHeight)
-#define kProjectListItemHeight 20
-
-#define kProjectPaneX (kProjectListX + kProjectListW)
-#define kProjectPaneY kClientAreaY
-#define kProjectPaneW (kClientAreaWidth - kProjectListW)
-#define kProjectPaneH kProjectListH
+#define kListBoxItemHeight 20
+#define kProjectPaneX 202
+#define kProjectPaneY 22
+#define kProjectPaneW 536
+#define kProjectPaneH 470
 
 enum {
     ID_PROJECT_LIST_VIEW,
@@ -60,34 +42,10 @@ void LayoutSubviews() {
     RECT client;
     GetClientRect(g_hMainWindow, &client);
     int width = client.right, height = client.bottom;
-    MoveWindow(g_hProjectListView, kProjectListX, kProjectListY, kProjectListW, kProjectListH, TRUE);
-
-	HDC hdcScreen = GetDC(NULL);
-	HDC hDC = CreateCompatibleDC(hdcScreen);
-	HBITMAP hBmp = CreateCompatibleBitmap(hdcScreen, width, height);
-	HBITMAP hBmpOld = (HBITMAP)SelectObject(hDC, hBmp);
-
-	HDC hDC2 = CreateCompatibleDC(hdcScreen);
-	HBITMAP hBmpOld2 = (HBITMAP)SelectObject(hDC2, g_hMainWindowBgBitmap);
-
-
-	// Call UpdateLayeredWindow
-	BLENDFUNCTION blend = {0};
-	blend.BlendOp = AC_SRC_OVER;
-	blend.SourceConstantAlpha = 255;
-	blend.AlphaFormat = AC_SRC_ALPHA;
-	POINT ptPos = {0, 0};
-	SIZE sizeWnd = {width, height};
-	POINT ptSrc = {0, 0};
-	UpdateLayeredWindow(g_hMainWindow, hdcScreen, NULL, NULL, hDC, &ptSrc, 0, &blend, ULW_ALPHA);
-
-	SelectObject(hDC, hBmpOld);
-	DeleteObject(hBmp);
-	DeleteDC(hDC);
-	ReleaseDC(NULL, hdcScreen);
+    MoveWindow(g_hProjectListView, 0, 22, 202, 470, TRUE);
 }
 
-void OnSize(HWND hWnd, UINT state, int cx, int cy) {
+void OnSize(HWND hwnd, UINT state, int cx, int cy) {
     LayoutSubviews();
 }
 
@@ -121,7 +79,7 @@ void OnDestroy(HWND hwnd) {
 }
 
 void MainWnd_PaintContent(HWND hwnd, HDC hDC, RECT *prcPaint) {
-//    DrawState(hDC, NULL, NULL, (LPARAM)g_hMainWindowBgBitmap, 0, 0, 0, 0, 0, DST_BITMAP);
+    DrawState(hDC, NULL, NULL, (LPARAM)g_hMainWindowBgBitmap, 0, 0, 0, 0, 0, DST_BITMAP);
     DrawState(hDC, NULL, NULL, (LPARAM)g_hProjectPaneBgBitmap, 0, kProjectPaneX, kProjectPaneY, 0, 0, DST_BITMAP);
 }
 
@@ -144,7 +102,7 @@ DWORD OnNCHitTest(HWND hwnd, int x, int y) {
     x -= rect.left;
     y -= rect.top;
 
-    if (y <= kTitleBarHeight) {
+    if (y <= 21) {
         if (x >= 15 && x <= 25)
             return HTSYSMENU;
         if (x >= 700)
@@ -160,7 +118,7 @@ HBRUSH OnCtlColor(HWND hwnd, HDC hDC, HWND hChildWnd, DWORD dwType) {
 }
 
 void MainWnd_OnMeasureItem(HWND hwnd, MEASUREITEMSTRUCT * lpMeasureItem) {
-    lpMeasureItem->itemHeight = kProjectListItemHeight;
+    lpMeasureItem->itemHeight = kListBoxItemHeight;
 }
 
 void MainWnd_OnDrawItem(HWND hwnd, const DRAWITEMSTRUCT * lpDrawItem) {
@@ -271,14 +229,20 @@ int WINAPI WinMain(HINSTANCE hinst, HINSTANCE hinstPrev,
     g_hMainWindowBgBitmap = (HBITMAP) LoadImage(g_hinst, MAKEINTRESOURCE(IDB_MAIN_WINDOW_BG), IMAGE_BITMAP, 0, 0, LR_DEFAULTCOLOR);
     g_hListBoxSelectionBgBitmap = (HBITMAP) LoadImage(g_hinst, MAKEINTRESOURCE(IDB_LISTBOX_SELECTION_BG), IMAGE_BITMAP, 0, 0, LR_DEFAULTCOLOR);
     g_hProjectPaneBgBitmap = (HBITMAP) LoadImage(g_hinst, MAKEINTRESOURCE(IDB_MAINWND_PROJECT_PANE_BG), IMAGE_BITMAP, 0, 0, LR_DEFAULTCOLOR);
-	
+
     g_hProjectIcon = (HICON) LoadImage(g_hinst, MAKEINTRESOURCE(IDI_FOLDER), IMAGE_ICON, 16, 16, LR_DEFAULTCOLOR);
 
     g_hNormalFont12 = CreateFont(-12, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS,
         CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Lucida Sans Unicode");
 
-    int width  = kWindowWidth + kOuterShadowLeft + kOuterShadowRight;
-	int height = kWindowHeight + kOuterShadowTop + kOuterShadowBottom;
+    DWORD dwStyle = WS_POPUP;
+
+    RECT rect = {0, 0, 0, 0};
+    rect.right = 738;
+    rect.bottom = 514;
+    AdjustWindowRectEx(&rect, dwStyle, FALSE, 0);
+
+    int height = rect.bottom - rect.top, width = rect.right - rect.left;
 
     MONITORINFO mi;
     mi.cbSize = sizeof(mi);
@@ -288,10 +252,10 @@ int WINAPI WinMain(HINSTANCE hinst, HINSTANCE hinstPrev,
     int left = (rcToCenterIn.right  + rcToCenterIn.left) / 2 - width / 2;
     int top  = (rcToCenterIn.bottom + rcToCenterIn.top) / 2  - height / 2;
 
-    hwnd = CreateWindowEx(WS_EX_LAYERED,
+    hwnd = CreateWindow(
         L"LiveReload",
         L"LiveReload",
-        WS_POPUP,
+        dwStyle,
         left, top,
         width, height,
         NULL,

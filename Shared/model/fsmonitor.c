@@ -34,11 +34,11 @@ void do_listen(fsmonitor_t *monitor);
 fsmonitor_t *fsmonitor_create(const char *path) {
   fsmonitor_t *monitor = (fsmonitor_t *) calloc(1, sizeof(fsmonitor_t));
   monitor->path = strdup(path);
-  //monitor->hThread = (HANDLE) _beginthread((void(*)(void*))do_listen, 0, monitor);
+  monitor->hThread = (HANDLE) _beginthread((void(*)(void*))do_listen, 0, monitor);
   printf("Creating initial tree for %s\n", path);
-  //fstree_t *tree = fstree_create(monitor->path);
-  //fstree_dump(tree);
-  //fstree_free(tree);
+  fstree_t *tree = fstree_create(monitor->path);
+  fstree_dump(tree);
+  fstree_free(tree);
   return monitor;
 }
 
