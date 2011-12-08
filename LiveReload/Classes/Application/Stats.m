@@ -34,6 +34,7 @@ static NSString                 *AppNewsKitPingURL;
 static AppNewsKitParamBlock_t    AppNewsKitParamBlock;
 static dispatch_source_t         AppNewsKitTimerSource;
 static time_t                    AppNewsKitLastGoodTimeToDeliver;
+static NSMutableDictionary      *AppNewsKitStringValues;
 
 
 static void AppNewsKitQueueMessageDelivery(BOOL good_time);
@@ -457,29 +458,33 @@ static BOOL AppNewsKitMessageSatisfiesQueueingConditions(json_t *message_json) {
         }
     }
 
-    if (!!(item = json_object_get(message_json, "status"))) {
-        if (!json_is_array(item)) {
-            if (AppNewsKitDebug)
-                NSLog(@"AppNewsKit: Message %@ key 'status' is invalid.", messageId);
-            return NO;
-        }
+    for (NSString *key in AppNewsKitStringValues) {
+        NSString *value = [AppNewsKitStringValues objectForKey:key];
 
-        const char *status = "unregistered";
-        BOOL found = NO;
-
-        size_t count = json_array_size(item);
-        for (int i = 0; i < count; ++i) {
-            const char *rule = json_string_value(json_array_get(item, i));
-            if (0 == strcmp(status, rule)) {
-                found = YES;
-                break;
+        if (!!(item = json_object_get(message_json, [key UTF8String]))) {
+            if (!json_is_array(item)) {
+                if (AppNewsKitDebug)
+                    NSLog(@"AppNewsKit: Message %@ key '%@' is invalid.", messageId, key);
+                return NO;
             }
-        }
 
-        if (!found) {
-            if (AppNewsKitDebug)
-                NSLog(@"AppNewsKit: Message %@ is not considered because its status '%s' does not match any of the status conditions.", messageId, status);
-            return NO;
+            const char *value_sz = [value UTF8String];
+            BOOL found = NO;
+
+            size_t count = json_array_size(item);
+            for (int i = 0; i < count; ++i) {
+                const char *rule = json_string_value(json_array_get(item, i));
+                if (0 == strcmp(value_sz, rule)) {
+                    found = YES;
+                    break;
+                }
+            }
+
+            if (!found) {
+                if (AppNewsKitDebug)
+                    NSLog(@"AppNewsKit: Message %@ is not considered because its %@ '%@' does not match any of the conditions.", messageId, key, value);
+                return NO;
+            }
         }
     }
 
@@ -675,6 +680,7 @@ static void AppNewsKitDoPingServer(BOOL scheduled) {
     [params setObject:internalVersion forKey:@"iv"];
     [params setObject:(scheduled ? @"1" : @"0") forKey:@"scheduled"];
     [params setObject:[NSString stringWithFormat:@"%d", AppNewsKitRandomValue] forKey:@"random"];
+    [params addEntriesFromDictionary:AppNewsKitStringValues];
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if ([defaults boolForKey:AppNewsKitFailedRecentlyKey])
@@ -776,4 +782,15 @@ void AppNewsKitStartup(NSString *pingURL, AppNewsKitParamBlock_t pingParamBlock)
 
 void AppNewsKitGoodTimeToDeliverMessages() {
     AppNewsKitQueueMessageDelivery(YES);
+}
+
+void AppNewsKitSetStringValue(NSString *key, NSString *value) {
+    key = [[key copy] autorelease];
+    value = [[value copy] autorelease];
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (AppNewsKitStringValues == nil)
+            AppNewsKitStringValues = [[NSMutableDictionary alloc] init];
+        [AppNewsKitStringValues setObject:value forKey:key];
+    });
 }

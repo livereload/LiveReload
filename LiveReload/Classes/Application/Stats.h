@@ -18,3 +18,4 @@ void StatAllToParams(NSMutableDictionary *params);
 typedef void (^AppNewsKitParamBlock_t)(NSMutableDictionary *params);
 void AppNewsKitStartup(NSString *pingURL, AppNewsKitParamBlock_t pingParamBlock);
 void AppNewsKitGoodTimeToDeliverMessages();
+void AppNewsKitSetStringValue(NSString *key, NSString *value);

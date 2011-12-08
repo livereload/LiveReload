@@ -81,6 +81,8 @@
 
         [self considerShowingWindowOnAppStartup];
 
+        AppNewsKitSetStringValue(@"platform", @"mac");
+        AppNewsKitSetStringValue(@"status", @"beta");
         AppNewsKitStartup(@"http://livereload.com/ping.php", ^(NSMutableDictionary *params) {
             [params setObject:[[Preferences sharedPreferences].additionalExtensions componentsJoinedByString:@","] forKey:@"exts"];
         });
