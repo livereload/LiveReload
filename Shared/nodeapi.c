@@ -273,18 +273,22 @@ restart_node:
 void handle_hello() {
 }
 
+void mainwnd_set_project_list(json_t *data);
+
 void node_received(char *line) {
     fprintf(stderr, "Received from node: '%s'\n", line);
 
     json_error_t error;
     json_t *incoming = json_loads(line, 0, &error);
-    const char *command = json_string_value(json_array_get(incoming, 0));
-    json_t *args = json_array_get(incoming, 1);
+    const char *command = json_string_value(json_object_get(incoming, "command"));
+    json_t *args = incoming; //json_array_get(incoming, 1);
 
     if (!command)
         args;
     else if (0 == strcmp(command, "hello"))
         handle_hello();
+    else if (0 == strcmp(command, "mainwnd.set_project_list"))
+        mainwnd_set_project_list(args);
 
     json_decref(incoming);
     free(line);

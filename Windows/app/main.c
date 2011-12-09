@@ -4,6 +4,7 @@
 #include "resource.h"
 #include "osdep.h"
 #include "nodeapi.h"
+#include "jansson.h"
 
 #include <windows.h>
 #include <windowsx.h>
@@ -62,6 +63,10 @@ enum {
     ID_PROJECT_LIST_VIEW,
 };
 
+
+json_t *mainwnd_project_list_data = NULL;
+
+
 void LayoutSubviews() {
     RECT client;
     GetClientRect(g_hMainWindow, &client);
@@ -92,6 +97,25 @@ void LayoutSubviews() {
     //ReleaseDC(NULL, hdcScreen);
 }
 
+void mainwnd_render_project_list() {
+    json_t *projects_json = json_object_get(mainwnd_project_list_data, "projects");
+    int count = json_array_size(projects_json);
+    ListBox_ResetContent(g_hProjectListView);
+    for (int i = 0; i < count; i++) {
+        json_t *project_json = json_array_get(projects_json, i);
+        ListBox_AddItemData(g_hProjectListView, project_json);
+    }
+
+    ListBox_SetCurSel(g_hProjectListView, 0);
+}
+
+void mainwnd_set_project_list(json_t *data) {
+    if (mainwnd_project_list_data)
+        json_decref(mainwnd_project_list_data);
+    mainwnd_project_list_data = json_incref(data);
+    mainwnd_render_project_list();
+}
+
 void OnSize(HWND hWnd, UINT state, int cx, int cy) {
     LayoutSubviews();
 }
@@ -103,18 +127,6 @@ BOOL OnCreate(HWND hwnd, LPCREATESTRUCT lpcs) {
     g_hProjectListView = CreateWindowEx(WS_EX_TRANSPARENT, WC_LISTBOX, L"",
         WS_VISIBLE | WS_CHILD |    LBS_NOINTEGRALHEIGHT | LBS_NOTIFY | LBS_OWNERDRAWVARIABLE,
         0, 0, 100, 200, hwnd, (HMENU) ID_PROJECT_LIST_VIEW, g_hinst, NULL);
-
-    int count = project_count();
-    for (int i = 0; i < count; i++) {
-        project_t *project = project_get(i);
-        ListBox_AddItemData(g_hProjectListView, project);
-//        item.iItem = i;
-//        item.pszText = U2W(project_display_path(project));
-//        result = ListView_InsertItem(g_hwndProjectListView, &item);
-//        assert(result >= 0);
-    }
-
-    ListBox_SetCurSel(g_hProjectListView, 0);
 
     LayoutSubviews();
 
@@ -172,8 +184,10 @@ void MainWnd_OnDrawItem(HWND hwnd, const DRAWITEMSTRUCT * lpDrawItem) {
     if (lpDrawItem->itemID == -1)
         return;
     RECT rect = lpDrawItem->rcItem;
-    project_t *project = project_get(lpDrawItem->itemID);
-    WCHAR *name = U2W(project_name(project));
+
+    json_t *projects_json = json_object_get(mainwnd_project_list_data, "projects");
+    json_t *project_json = json_array_get(projects_json, lpDrawItem->itemID);
+    WCHAR *name = U2W(json_string_value(json_object_get(project_json, "name")));
     HFONT hOldFont;
 
     // http://www.codeproject.com/KB/combobox/TransListBox.aspx
