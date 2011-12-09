@@ -27,12 +27,34 @@ HBITMAP g_hListBoxSelectionBgBitmap;
 
 HBITMAP g_hProjectPaneBgBitmap;
 
+//#define kOuterShadowLeft   57
+//#define kOuterShadowTop    35
+//#define kOuterShadowRight  57
+//#define kOuterShadowBottom 78
+#define kOuterShadowLeft   0
+#define kOuterShadowTop    0
+#define kOuterShadowRight  0
+#define kOuterShadowBottom 0
 
-#define kListBoxItemHeight 20
-#define kProjectPaneX 202
-#define kProjectPaneY 22
-#define kProjectPaneW 536
-#define kProjectPaneH 470
+#define kTitleBarHeight  22
+#define kBottomBarHeight 22
+#define kWindowWidth     738
+#define kWindowHeight    514
+#define kClientAreaX kOuterShadowLeft
+#define kClientAreaY (kOuterShadowTop + kTitleBarHeight)
+#define kClientAreaWidth  kWindowWidth
+#define kClientAreaHeight (kWindowHeight - kTitleBarHeight)
+
+#define kProjectListX kClientAreaX
+#define kProjectListY kClientAreaY
+#define kProjectListW 202
+#define kProjectListH (kClientAreaHeight - kBottomBarHeight)
+#define kProjectListItemHeight 20
+
+#define kProjectPaneX (kProjectListX + kProjectListW)
+#define kProjectPaneY kClientAreaY
+#define kProjectPaneW (kClientAreaWidth - kProjectListW)
+#define kProjectPaneH kProjectListH
 
 enum {
     ID_PROJECT_LIST_VIEW,
@@ -42,10 +64,33 @@ void LayoutSubviews() {
     RECT client;
     GetClientRect(g_hMainWindow, &client);
     int width = client.right, height = client.bottom;
-    MoveWindow(g_hProjectListView, 0, 22, 202, 470, TRUE);
+    MoveWindow(g_hProjectListView, kProjectListX, kProjectListY, kProjectListW, kProjectListH, TRUE);
+
+    //HDC hdcScreen = GetDC(NULL);
+    //HDC hDC = CreateCompatibleDC(hdcScreen);
+    //HBITMAP hBmp = CreateCompatibleBitmap(hdcScreen, width, height);
+    //HBITMAP hBmpOld = (HBITMAP)SelectObject(hDC, hBmp);
+
+    //HDC hDC2 = CreateCompatibleDC(hdcScreen);
+    //HBITMAP hBmpOld2 = (HBITMAP)SelectObject(hDC2, g_hMainWindowBgBitmap);
+
+    //// Call UpdateLayeredWindow
+    //BLENDFUNCTION blend = {0};
+    //blend.BlendOp = AC_SRC_OVER;
+    //blend.SourceConstantAlpha = 255;
+    //blend.AlphaFormat = AC_SRC_ALPHA;
+    //POINT ptPos = {0, 0};
+    //SIZE sizeWnd = {width, height};
+    //POINT ptSrc = {0, 0};
+    //UpdateLayeredWindow(g_hMainWindow, hdcScreen, NULL, NULL, hDC, &ptSrc, 0, &blend, ULW_ALPHA);
+
+    //SelectObject(hDC, hBmpOld);
+    //DeleteObject(hBmp);
+    //DeleteDC(hDC);
+    //ReleaseDC(NULL, hdcScreen);
 }
 
-void OnSize(HWND hwnd, UINT state, int cx, int cy) {
+void OnSize(HWND hWnd, UINT state, int cx, int cy) {
     LayoutSubviews();
 }
 
@@ -102,7 +147,7 @@ DWORD OnNCHitTest(HWND hwnd, int x, int y) {
     x -= rect.left;
     y -= rect.top;
 
-    if (y <= 21) {
+    if (y <= kTitleBarHeight) {
         if (x >= 15 && x <= 25)
             return HTSYSMENU;
         if (x >= 700)
@@ -118,7 +163,7 @@ HBRUSH OnCtlColor(HWND hwnd, HDC hDC, HWND hChildWnd, DWORD dwType) {
 }
 
 void MainWnd_OnMeasureItem(HWND hwnd, MEASUREITEMSTRUCT * lpMeasureItem) {
-    lpMeasureItem->itemHeight = kListBoxItemHeight;
+    lpMeasureItem->itemHeight = kProjectListItemHeight;
 }
 
 void MainWnd_OnDrawItem(HWND hwnd, const DRAWITEMSTRUCT * lpDrawItem) {
@@ -235,14 +280,8 @@ int WINAPI WinMain(HINSTANCE hinst, HINSTANCE hinstPrev,
     g_hNormalFont12 = CreateFont(-12, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS,
         CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH | FF_DONTCARE, L"Lucida Sans Unicode");
 
-    DWORD dwStyle = WS_POPUP;
-
-    RECT rect = {0, 0, 0, 0};
-    rect.right = 738;
-    rect.bottom = 514;
-    AdjustWindowRectEx(&rect, dwStyle, FALSE, 0);
-
-    int height = rect.bottom - rect.top, width = rect.right - rect.left;
+    int width  = kWindowWidth + kOuterShadowLeft + kOuterShadowRight;
+    int height = kWindowHeight + kOuterShadowTop + kOuterShadowBottom;
 
     MONITORINFO mi;
     mi.cbSize = sizeof(mi);
@@ -252,10 +291,10 @@ int WINAPI WinMain(HINSTANCE hinst, HINSTANCE hinstPrev,
     int left = (rcToCenterIn.right  + rcToCenterIn.left) / 2 - width / 2;
     int top  = (rcToCenterIn.bottom + rcToCenterIn.top) / 2  - height / 2;
 
-    hwnd = CreateWindow(
+    hwnd = CreateWindowEx(0, // removed WS_EX_LAYERED for now
         L"LiveReload",
         L"LiveReload",
-        dwStyle,
+        WS_POPUP,
         left, top,
         width, height,
         NULL,
