@@ -16,6 +16,7 @@
     <ClCompile Include="..\Shared\communication.c" />
     <ClCompile Include="..\Shared\console.c" />
     <ClCompile Include="..\Shared\eventbus.c" />
+    <ClCompile Include="..\Shared\jansson\dump.c" />
     <ClCompile Include="..\Shared\jansson\error.c" />
     <ClCompile Include="..\Shared\jansson\hashtable.c" />
     <ClCompile Include="..\Shared\jansson\load.c" />

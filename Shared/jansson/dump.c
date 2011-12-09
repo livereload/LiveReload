@@ -297,7 +297,7 @@ static int do_dump(const json_t *json, size_t flags, int depth,
                 int (*cmp_func)(const void *, const void *);
 
                 size = json_object_size(json);
-                keys = jsonp_malloc(size * sizeof(object_key_t *));
+                keys = (const object_key_t **)jsonp_malloc(size * sizeof(object_key_t *));
                 if(!keys)
                     goto object_error;
 
