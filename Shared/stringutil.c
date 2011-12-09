@@ -72,15 +72,15 @@ int str_array_index(const char **array, int items, const char *string) {
 }
 
 #ifdef WIN32
-int vasprintf(char **sptr, char *fmt, va_list argv) {
+int vasprintf(char **sptr, const char *fmt, va_list argv) {
     *sptr = NULL;
     int wanted = vsnprintf(NULL, 0, fmt, argv );
-    if ((wanted > 0) && ((*sptr = malloc(1 + wanted)) != NULL))
+    if ((wanted > 0) && ((*sptr = (char *)malloc(1 + wanted)) != NULL))
         return vsprintf( *sptr, fmt, argv );
     return -1;
 }
 
-int asprintf(char **sptr, char *fmt, ... ) {
+int asprintf(char **sptr, const char *fmt, ... ) {
     va_list va;
     va_start(va, fmt);
     int retval = vasprintf(sptr, fmt, va);
