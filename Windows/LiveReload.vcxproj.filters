@@ -90,6 +90,12 @@
     <ClCompile Include="..\Shared\model\fstree.c">
       <Filter>Shared\model</Filter>
     </ClCompile>
+    <ClCompile Include="..\Shared\nodeapi.c">
+      <Filter>Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shared\jansson\dump.c">
+      <Filter>Shared\jansson</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Shared\autorelease.h">
@@ -151,6 +157,9 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Файлы исходного кода</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shared\nodeapi.h">
+      <Filter>Shared</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

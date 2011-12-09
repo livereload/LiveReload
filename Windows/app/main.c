@@ -2,6 +2,8 @@
 #include "project.h"
 #include "common.h"
 #include "resource.h"
+#include "osdep.h"
+#include "nodeapi.h"
 
 #include <windows.h>
 #include <windowsx.h>
@@ -267,6 +269,10 @@ int WINAPI WinMain(HINSTANCE hinst, HINSTANCE hinstPrev,
 
     AllocConsole();
     freopen("CONOUT$", "wb", stdout);
+    freopen("CONOUT$", "wb", stderr);
+
+    os_init();
+    node_init();
 
     project_add_new("c:\\Dropbox\\GitHub\\LiveReload2");
     project_add_new("c:\\Dropbox\\GitHub\\keymapper_tip");
@@ -315,6 +321,8 @@ int WINAPI WinMain(HINSTANCE hinst, HINSTANCE hinstPrev,
         }
         autorelease_cleanup();
     }
+
+    node_shutdown();
 
     return 0;
 }

@@ -1,3 +1,4 @@
+fs = require 'fs'
 { EventEmitter }     = require 'events'
 { CommandProcessor } = require './command-processor'
 
@@ -16,9 +17,11 @@ class exports.Communicator extends EventEmitter
       @stderr.write "Node received command: #{chunk}"
       [command, data] = JSON.parse(chunk)
       @processCommand command, data, (err) ->
+        process.stderr.write "command processed, err = #{err}.\n"
         throw err if err
 
     @stdin.on 'end', =>
+        process.stderr.write "stdin EOF.\n"
       @emit 'end'
 
   processCommand: (command, data, callback) ->
@@ -44,5 +47,7 @@ class exports.Communicator extends EventEmitter
 
   send: (command, callback) ->
     payload = JSON.stringify(command)
+    buf = new Buffer("#{payload}\n")
+    process.stderr.write "Node sending: #{payload}\n"
     @stdout.write "#{payload}\n"
     callback(null)
