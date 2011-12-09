@@ -20,5 +20,5 @@ static const char *os_get_bundled_resources_path() {
 }
 
 void os_init() {
-	os_bundled_resources_path = os_get_bundled_resources_path();
+    os_bundled_resources_path = os_get_bundled_resources_path();
 }
