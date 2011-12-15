@@ -5,6 +5,7 @@
 #include "osdep.h"
 #include "jansson.h"
 #include "strbuffer.h"
+#include "msg_router.h"
 
 #include <assert.h>
 
@@ -28,7 +29,7 @@ static void node_thread(void *dummy);
 static void node_launch();
 
 void node_init() {
-    node_bundled_backend_js = str_printf("%s/../../backend/lib/livereload-backend.js", os_bundled_resources_path);
+    node_bundled_backend_js = str_printf("%s/../../backend/bin/livereload-backend.js", os_bundled_resources_path);
     _beginthread(node_thread, 0, NULL);
 }
 
@@ -270,25 +271,21 @@ restart_node:
 //    dispatch_after_f(dispatch_time(DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC), dispatch_get_main_queue(), NULL, node_send_ping);
 //}
 
-void handle_hello() {
-}
-
-void mainwnd_set_project_list(json_t *data);
-
 void node_received(char *line) {
     fprintf(stderr, "Received from node: '%s'\n", line);
 
     json_error_t error;
     json_t *incoming = json_loads(line, 0, &error);
-    const char *command = json_string_value(json_object_get(incoming, "command"));
-    json_t *args = incoming; //json_array_get(incoming, 1);
+    const char *command = json_string_value(json_array_get(incoming, 0));
+    json_t *arg = json_array_get(incoming, 1);
 
-    if (!command)
-        args;
-    else if (0 == strcmp(command, "hello"))
-        handle_hello();
-    else if (0 == strcmp(command, "mainwnd.set_project_list"))
-        mainwnd_set_project_list(args);
+    msg_func_t handler = find_msg_handler(command);
+    if (handler == NULL) {
+        fprintf(stderr,  "Unknown command received: '%s'", command);
+        exit(1);
+    } else {
+        handler(arg);
+    }
 
     json_decref(incoming);
     free(line);
@@ -340,5 +337,5 @@ void node_send_init(void *dummy) {
     json_t *data = json_object();
     json_object_set_new(data, "pluginFolders", plugin_paths);
 
-    node_send("init", data);
+    node_send("app.init", data);
 }

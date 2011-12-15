@@ -193,3 +193,48 @@ namespace :site do
     sh 'rsync', '-avz', 'site/', 'andreyvit_livereload@ssh.phx.nearlyfreespeech.net:/home/public/'
   end
 end
+
+
+
+################################################################################
+# Windows
+
+require 'erb'
+
+def compiler_template func_name, args, file
+  ERB.new(File.read(file), nil, '%').def_method(Object, "#{func_name}(#{args.join(',')})", file)
+end
+
+RoutingTableEntry        = Struct.new(:func_name, :msg_name)
+
+CLIENT_MSG_ROUTER          = 'Shared/msg_router.c'
+CLIENT_MSG_ROUTER_SOURCES  = Dir['{Shared,Windows}/**/*.c'] - [CLIENT_MSG_ROUTER]
+CLIENT_MSG_PROXY_H         = 'Shared/msg_proxy.h'
+CLIENT_MSG_PROXY_C         = CLIENT_MSG_PROXY_H.ext('c')
+SERVER_MSG_PROXY           = 'backend/config/client-messages.json'
+SERVER_API_DUMPER          = 'backend/bin/livereload-backend-print-apis.js'
+
+compiler_template 'render_client_msg_router', %w(entries), "#{CLIENT_MSG_ROUTER}.erb"
+compiler_template 'render_server_msg_proxy',  %w(entries), "#{SERVER_MSG_PROXY}.erb"
+compiler_template 'render_client_msg_proxy_h', %w(entries), "#{CLIENT_MSG_PROXY_H}.erb"
+compiler_template 'render_client_msg_proxy_c', %w(entries), "#{CLIENT_MSG_PROXY_C}.erb"
+
+task :routing do
+  entries = CLIENT_MSG_ROUTER_SOURCES.map do |file|
+    lines = File.read(file).lines
+    names = lines.map { |line| $1 if line =~ /^void\s+C_(\w+)\s*\(/ }.compact
+    names.map { |name| puts "C_#{name}"; RoutingTableEntry.new("C_#{name}", name.gsub('__', '.')) }
+  end.flatten
+
+  File.open(CLIENT_MSG_ROUTER, 'w') { |f| f.write render_client_msg_router(entries) }
+  File.open(SERVER_MSG_PROXY,  'w') { |f| f.write render_server_msg_proxy(entries) }
+
+  entries = `node #{SERVER_API_DUMPER}`.strip.split("\n").map do |msg_name|
+    func_name = "S_" + msg_name.gsub('.', '_').gsub(/([a-z])([A-Z])/) { "#{$1}_#{$2.downcase}" }
+    puts func_name
+    RoutingTableEntry.new func_name, msg_name
+  end
+
+  File.open(CLIENT_MSG_PROXY_H, 'w') { |f| f.write render_client_msg_proxy_h(entries) }
+  File.open(CLIENT_MSG_PROXY_C, 'w') { |f| f.write render_client_msg_proxy_c(entries) }
+end

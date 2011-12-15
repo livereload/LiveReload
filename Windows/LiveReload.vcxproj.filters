@@ -96,6 +96,12 @@
     <ClCompile Include="..\Shared\jansson\dump.c">
       <Filter>Shared\jansson</Filter>
     </ClCompile>
+    <ClCompile Include="..\Shared\msg_router.c">
+      <Filter>Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shared\msg_proxy.c">
+      <Filter>Shared</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Shared\autorelease.h">
@@ -159,6 +165,12 @@
       <Filter>Файлы исходного кода</Filter>
     </ClInclude>
     <ClInclude Include="..\Shared\nodeapi.h">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shared\msg_router.h">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shared\msg_proxy.h">
       <Filter>Shared</Filter>
     </ClInclude>
   </ItemGroup>

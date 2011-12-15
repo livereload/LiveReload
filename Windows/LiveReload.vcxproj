@@ -29,6 +29,8 @@
     <ClCompile Include="..\Shared\model\fsmonitor.c" />
     <ClCompile Include="..\Shared\model\fstree.c" />
     <ClCompile Include="..\Shared\model\project.c" />
+    <ClCompile Include="..\Shared\msg_proxy.c" />
+    <ClCompile Include="..\Shared\msg_router.c" />
     <ClCompile Include="..\Shared\nodeapi.c" />
     <ClCompile Include="..\Shared\reload_request.c" />
     <ClCompile Include="..\Shared\stringutil.c" />
@@ -51,6 +53,8 @@
     <ClInclude Include="..\Shared\model\fsmonitor.h" />
     <ClInclude Include="..\Shared\model\fstree.h" />
     <ClInclude Include="..\Shared\model\project.h" />
+    <ClInclude Include="..\Shared\msg_proxy.h" />
+    <ClInclude Include="..\Shared\msg_router.h" />
     <ClInclude Include="..\Shared\nodeapi.h" />
     <ClInclude Include="..\Shared\osdep.h" />
     <ClInclude Include="..\Shared\reload_request.h" />

@@ -109,7 +109,7 @@ void mainwnd_render_project_list() {
     ListBox_SetCurSel(g_hProjectListView, 0);
 }
 
-void mainwnd_set_project_list(json_t *data) {
+void C_mainwnd__set_project_list(json_t *data) {
     if (mainwnd_project_list_data)
         json_decref(mainwnd_project_list_data);
     mainwnd_project_list_data = json_incref(data);
