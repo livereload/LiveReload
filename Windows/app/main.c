@@ -5,11 +5,13 @@
 #include "osdep.h"
 #include "nodeapi.h"
 #include "jansson.h"
+#include "msg_proxy.h"
 
 #include <windows.h>
 #include <windowsx.h>
 #include <ole2.h>
 #include <commctrl.h>
+#include <ShlObj.h>
 #include <ShellAPI.h>
 #include <shlwapi.h>
 #include <malloc.h>
@@ -58,6 +60,81 @@ HBITMAP g_hProjectPaneBgBitmap;
 #define kProjectPaneY kClientAreaY
 #define kProjectPaneW (kClientAreaWidth - kProjectListW)
 #define kProjectPaneH kProjectListH
+
+enum {
+    IDC_ADD_PROJECT_BUTTON,
+};
+
+int CALLBACK add_project_dialog_customizer(HWND hwnd, UINT uMsg, LPARAM lParam, LPARAM lpData) {
+    if (uMsg == BFFM_INITIALIZED) {
+        SetWindowText(hwnd, L"Add Folder");
+    }
+    return 0;
+}
+
+void add_project_button_click(int x, int y, UINT keyFlags) {
+    LPMALLOC pMalloc;
+    HRESULT result = SHGetMalloc(&pMalloc);
+    assert(SUCCEEDED(result));
+
+    BROWSEINFO bi;
+    ZeroMemory (&bi, sizeof(bi));
+    bi.lpszTitle = L"Tip: add each web site folder separately.";
+    bi.hwndOwner = g_hMainWindow;
+    bi.pszDisplayName = NULL;
+    bi.pidlRoot = NULL;
+    bi.ulFlags = BIF_RETURNONLYFSDIRS | BIF_STATUSTEXT | BIF_USENEWUI;
+    bi.lpfn = add_project_dialog_customizer;
+    bi.lParam = 0;
+
+    LPITEMIDLIST pidl = SHBrowseForFolder(&bi);
+    BOOL success = false;
+    wchar_t buf[MAX_PATH];
+    if (pidl) {
+        success = SHGetPathFromIDList(pidl, buf);
+        pMalloc->Free(pidl);
+    }
+
+    pMalloc->Release();
+
+    if (success) {
+        char *path = w2u(buf);
+
+        json_t *arg = json_object();
+        json_object_set_new(arg, "path", json_string(path));
+        S_projects_add(arg);
+        json_decref(arg);
+
+        free(path);
+    }
+}
+
+
+typedef struct rect_t { int x, y, w, h; } rect_t;
+typedef void (*area_click_func_t)(int x, int y, UINT keyFlags);
+typedef struct {
+    rect_t rect;
+    int id;
+    area_click_func_t on_click;
+} area_t;
+
+area_t areas[] = {
+    { { 65, 492, 28, 22 }, IDC_ADD_PROJECT_BUTTON, add_project_button_click },
+};
+
+bool pt_in_rect(int x, int y, rect_t *rect) {
+    return x >= rect->x && x < rect->x + rect->w && y >= rect->y && y < rect->y + rect->h;
+}
+
+area_t *find_area_by_pt(int x, int y) {
+    int count = sizeof(areas)/sizeof(areas[0]);
+    for (int i = 0; i < count; i++) {
+        if (pt_in_rect(x, y, &areas[i].rect))
+            return &areas[i];
+    }
+    return NULL;
+}
+
 
 enum {
     ID_PROJECT_LIST_VIEW,
@@ -220,6 +297,13 @@ void MainWnd_OnDrawItem(HWND hwnd, const DRAWITEMSTRUCT * lpDrawItem) {
     }
 }
 
+void MainWnd_OnLButtonDown(HWND hwnd, BOOL fDoubleClick, int x, int y, UINT keyFlags) {
+    area_t *area = find_area_by_pt(x, y);
+    if (area != NULL && area->on_click) {
+        area->on_click(x, y, keyFlags);
+    }
+}
+
 LRESULT CALLBACK WndProc(HWND hwnd, UINT uiMsg, WPARAM wParam, LPARAM lParam) {
     switch (uiMsg) {
     HANDLE_MSG(hwnd, WM_CREATE, OnCreate);
@@ -231,6 +315,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uiMsg, WPARAM wParam, LPARAM lParam) {
     HANDLE_MSG(hwnd, WM_NCHITTEST, OnNCHitTest);
     HANDLE_MSG(hwnd, WM_MEASUREITEM, MainWnd_OnMeasureItem);
     HANDLE_MSG(hwnd, WM_DRAWITEM, MainWnd_OnDrawItem);
+    HANDLE_MSG(hwnd, WM_LBUTTONDOWN, MainWnd_OnLButtonDown);
     case WM_PRINTCLIENT: OnPrintClient(hwnd, (HDC)wParam); return 0;
     }
 
@@ -272,6 +357,10 @@ int WINAPI WinMain(HINSTANCE hinst, HINSTANCE hinstPrev,
 {
     MSG msg;
     HWND hwnd;
+
+    // SHBrowseForFolder needs this, and says it's better to use OleInitialize than ComInitialize
+    HRESULT result = OleInitialize(NULL);
+    assert(SUCCEEDED(result));
 
     g_hinst = hinst;
     g_dwMainThreadId = GetCurrentThreadId();
@@ -337,6 +426,8 @@ int WINAPI WinMain(HINSTANCE hinst, HINSTANCE hinstPrev,
     }
 
     node_shutdown();
+
+    OleUninitialize();
 
     return 0;
 }
