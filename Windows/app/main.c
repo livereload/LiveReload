@@ -200,6 +200,10 @@ void mainwnd_render_project_list() {
     }
 
     ListBox_SetCurSel(g_hProjectListView, 0);
+
+    // because we've explicitly disabled background painting of the list box (and do not want to subclass
+    // it to add proper handling of WM_ERASEBKGND), redraw the whole window
+    InvalidateRect(g_hMainWindow, NULL, TRUE);
 }
 
 void C_mainwnd__set_project_list(json_t *data) {
