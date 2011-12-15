@@ -245,7 +245,7 @@ BOOL InitApp(void) {
     wc.cbClsExtra = 0;
     wc.cbWndExtra = 0;
     wc.hInstance = g_hinst;
-    wc.hIcon = NULL;
+    wc.hIcon = (HICON) LoadImage(g_hinst, MAKEINTRESOURCE(IDI_APP), IMAGE_ICON, 32, 32, LR_DEFAULTCOLOR);
     wc.hCursor = LoadCursor(NULL, IDC_ARROW);
     wc.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
     wc.lpszMenuName = NULL;
