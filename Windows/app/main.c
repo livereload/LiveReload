@@ -107,7 +107,6 @@ void add_project_button_click(int x, int y, UINT keyFlags) {
         json_t *arg = json_object();
         json_object_set_new(arg, "path", json_string(path));
         S_projects_add(arg);
-        json_decref(arg);
 
         free(path);
     }
