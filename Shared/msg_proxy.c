@@ -14,6 +14,10 @@ void S_projects_add(json_t *data) {
     node_send("projects.add", data);
 }
 
+void S_projects_remove(json_t *data) {
+    node_send("projects.remove", data);
+}
+
 void S_rpc_init(json_t *data) {
     node_send("rpc.init", data);
 }

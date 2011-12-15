@@ -32,6 +32,9 @@ HBITMAP g_hListBoxSelectionBgBitmap;
 
 HBITMAP g_hProjectPaneBgBitmap;
 
+json_t *mainwnd_project_list_data = NULL;
+
+
 //#define kOuterShadowLeft   57
 //#define kOuterShadowTop    35
 //#define kOuterShadowRight  57
@@ -63,6 +66,7 @@ HBITMAP g_hProjectPaneBgBitmap;
 
 enum {
     IDC_ADD_PROJECT_BUTTON,
+    IDC_REMOVE_PROJECT_BUTTON,
 };
 
 int CALLBACK add_project_dialog_customizer(HWND hwnd, UINT uMsg, LPARAM lParam, LPARAM lpData) {
@@ -109,6 +113,21 @@ void add_project_button_click(int x, int y, UINT keyFlags) {
     }
 }
 
+void remove_project_button_click(int x, int y, UINT keyFlags) {
+    int selection = ListBox_GetCurSel(g_hProjectListView);
+    if (selection == LB_ERR)
+        return;
+    if (!mainwnd_project_list_data)
+        return;
+    json_t *projects_json = json_object_get(mainwnd_project_list_data, "projects");
+    json_t *project_json = json_array_get(projects_json, selection);
+    json_t *project_id = json_object_get(project_json, "id");
+    if (project_id) {
+        json_t *arg = json_object();
+        json_object_set(arg, "projectId", project_id);
+        S_projects_remove(arg);
+    }
+}
 
 typedef struct rect_t { int x, y, w, h; } rect_t;
 typedef void (*area_click_func_t)(int x, int y, UINT keyFlags);
@@ -120,6 +139,7 @@ typedef struct {
 
 area_t areas[] = {
     { { 65, 492, 28, 22 }, IDC_ADD_PROJECT_BUTTON, add_project_button_click },
+    { { 107, 492, 28, 22 }, IDC_REMOVE_PROJECT_BUTTON, remove_project_button_click },
 };
 
 bool pt_in_rect(int x, int y, rect_t *rect) {
@@ -139,9 +159,6 @@ area_t *find_area_by_pt(int x, int y) {
 enum {
     ID_PROJECT_LIST_VIEW,
 };
-
-
-json_t *mainwnd_project_list_data = NULL;
 
 
 void LayoutSubviews() {
