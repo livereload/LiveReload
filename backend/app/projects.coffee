@@ -22,6 +22,13 @@ class Project
   toMemento: ->
     { @path }
 
+  handleChange: (paths, callback) ->
+    LR.log.fyi "change detected in #{@path}: #{JSON.stringify(paths)}\n"
+    for path in paths
+      LR.websockets.sendReloadCommand { path }
+    callback(null)
+
+
 projects = []
 
 loadModel = (callback) ->
@@ -73,7 +80,6 @@ exports.remove = ({ projectId }, callback) ->
 
 exports.changeDetected = ({ id, changes }, callback) ->
   if project = findById(id)
-    process.stderr.write "Node: change detected in #{project.path}: #{JSON.stringify(changes)}\n"
+    project.handleChange changes, callback
   else
-    process.stderr.write "Node: change detected in unknown id #{id}\n"
-  callback(null)
+    callback(new Error("Change detected in unknown project id #{id}"))

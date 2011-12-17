@@ -3,5 +3,6 @@
   "monitoring.remove",
   "mainwnd.set_project_list",
   "test_callback",
+  "app.failed_to_start",
   null
 ]

@@ -18,6 +18,11 @@ exports.init = ({ pluginFolders, preferencesFolder }, callback) ->
   async.series [
     (cb) -> LR.preferences.init preferencesFolder, cb
     (cb) -> pluginManager.rescan cb
+    (cb) -> LR.websockets.init cb
     (cb) -> runTestCallback cb
     (cb) -> LR.projects.init cb
-  ], callback
+  ], (err) ->
+    if err
+      LR.client.app.failed_to_start(message: "#{err.message}")
+      process.exit(1)
+    callback()

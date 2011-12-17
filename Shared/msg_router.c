@@ -11,6 +11,7 @@ void C_monitoring__add(json_t *data);
 json_t *C_monitoring__remove(json_t *data);
 void C_mainwnd__set_project_list(json_t *data);
 json_t *C_test_callback(json_t *data);
+void C_app__failed_to_start(json_t *data);
 
 json_t *_C_monitoring__add_wrapper(json_t *data) {
     C_monitoring__add(data);
@@ -22,11 +23,17 @@ json_t *_C_mainwnd__set_project_list_wrapper(json_t *data) {
     return NULL;
 }
 
+json_t *_C_app__failed_to_start_wrapper(json_t *data) {
+    C_app__failed_to_start(data);
+    return NULL;
+}
+
 msg_entry_t entries[] = {
     { "monitoring.add", &_C_monitoring__add_wrapper },
     { "monitoring.remove", &C_monitoring__remove },
     { "mainwnd.set_project_list", &_C_mainwnd__set_project_list_wrapper },
     { "test_callback", &C_test_callback },
+    { "app.failed_to_start", &_C_app__failed_to_start_wrapper },
     { NULL, NULL }
 };
 

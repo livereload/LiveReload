@@ -7,6 +7,8 @@ callbacks = {}
 timeouts  = {}
 nextCallbackId = 1
 
+_callbackTimeout = null
+
 get = (object, path) ->
   for component in path.split('.')
     object = object[component]
@@ -16,17 +18,18 @@ get = (object, path) ->
   object
 
 
-exports.init = (streams, exit) ->
+exports.init = (streams, exit, callbackTimeout=2000) ->
+  _callbackTimeout = callbackTimeout
   communicator = new Communicator streams.stdin, streams.stdout, streams.stderr, executeJSON
   communicator.on 'end', -> exit(0)
 
 exports.send = (message, arg, callback=null) ->
   if typeof message isnt 'string'
-    throw new Error("Invalid type of message")
+    throw new Error("Invalid type of message: #{message}")
   if callback  #args.length > 0 && typeof args[args.length - 1] is 'function'
     callbackId = "$" + nextCallbackId++
     callbacks[callbackId] = callback
-    timeouts[callbackId] = setInterval((-> handleCallbackTimeout(callbackId)), 2000)
+    timeouts[callbackId] = setInterval((-> handleCallbackTimeout(callbackId)), _callbackTimeout)
     communicator.send [message, arg, callbackId]
   else
     communicator.send [message, arg]

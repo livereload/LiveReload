@@ -6,8 +6,16 @@ void S_app_init(json_t *data) {
     node_send("app.init", data);
 }
 
-void S_log_warn(json_t *data) {
-    node_send("log.warn", data);
+void S_log_omg(json_t *data) {
+    node_send("log.omg", data);
+}
+
+void S_log_wtf(json_t *data) {
+    node_send("log.wtf", data);
+}
+
+void S_log_fyi(json_t *data) {
+    node_send("log.fyi", data);
 }
 
 void S_preferences_init(json_t *data) {
@@ -56,4 +64,12 @@ void S_rpc_send(json_t *data) {
 
 void S_rpc_execute(json_t *data) {
     node_send("rpc.execute", data);
+}
+
+void S_websockets_init(json_t *data) {
+    node_send("websockets.init", data);
+}
+
+void S_websockets_send_reload_command(json_t *data) {
+    node_send("websockets.sendReloadCommand", data);
 }
