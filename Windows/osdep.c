@@ -1,12 +1,14 @@
-
+#include "common.h"
 #include "osdep.h"
 #include "autorelease.h"
 
 #include <assert.h>
 #include <windows.h>
+#include <shlobj.h>
 
 const char *os_bundled_resources_path;
 const char *os_bundled_node_path;
+const char *os_preferences_path;
 
 static void os_compute_paths() {
     wchar_t buf[MAX_PATH];
@@ -31,6 +33,12 @@ static void os_compute_paths() {
 
     strcat(utf, "\\node.exe");
     os_bundled_node_path = strdup(utf);
+
+    rv = SHGetSpecialFolderPath(NULL, buf, CSIDL_APPDATA, TRUE);
+    assert(rv);
+    wcscat(buf, L"\\LiveReload");
+    CreateDirectory(buf, NULL);
+    os_preferences_path = w2u(buf);
 }
 
 void os_init() {

@@ -278,6 +278,7 @@ void node_received(char *line) {
     json_error_t error;
     json_t *incoming = json_loads(line, 0, &error);
     const char *command = json_string_value(json_array_get(incoming, 0));
+    assert(command);
     json_t *arg = json_array_get(incoming, 1);
 
     msg_func_t handler = find_msg_handler(command);
@@ -353,6 +354,7 @@ void node_send_init(void *dummy) {
 
     json_t *data = json_object();
     json_object_set_new(data, "pluginFolders", plugin_paths);
+    json_object_set_new(data, "preferencesFolder", json_string(os_preferences_path));
 
     node_send("app.init", data);
 }

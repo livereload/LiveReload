@@ -2,19 +2,22 @@
 
 pluginManager = null
 
-exports.init = ({ pluginFolders }, callback) ->
-  return callback(new Error("init requires pluginFolders")) unless pluginFolders
+async = require 'async'
 
-  LR.projects.init()
-
+runTestCallback = (cb) ->
   LR.client.test_callback 10, (err, value) ->
     process.stderr.write "Err is #{err}\nValue = #{value}\n"
+    cb(err)
+
+exports.init = ({ pluginFolders, preferencesFolder }, callback) ->
+  return callback(new Error("init requires pluginFolders")) unless pluginFolders
+  return callback(new Error("init requires preferencesFolder")) unless preferencesFolder
 
   pluginManager = new PluginManager(pluginFolders)
-  pluginManager.rescan (err) ->
-    return callback(err) if err
 
-    LR.projects.updateProjectList (err) ->
-      return callback(err) if err
-
-      callback(null)
+  async.series [
+    (cb) -> LR.preferences.init preferencesFolder, cb
+    (cb) -> pluginManager.rescan cb
+    (cb) -> runTestCallback cb
+    (cb) -> LR.projects.init cb
+  ], callback

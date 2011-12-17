@@ -21,6 +21,8 @@ exports.init = (streams, exit) ->
   communicator.on 'end', -> exit(0)
 
 exports.send = (message, arg, callback=null) ->
+  if typeof message isnt 'string'
+    throw new Error("Invalid type of message")
   if callback  #args.length > 0 && typeof args[args.length - 1] is 'function'
     callbackId = "$" + nextCallbackId++
     callbacks[callbackId] = callback

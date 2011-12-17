@@ -1,10 +1,14 @@
-Path = require 'path'
-fs   = require 'fs'
+Path  = require 'path'
+fs    = require 'fs'
+async = require 'async'
 
 nextProjectId = 1
 
+PREF_KEY = 'projects'
+
 class Project
-  constructor: (@path) ->
+  constructor: (memento={}) ->
+    @path = memento.path
     @id   = "P#{nextProjectId++}"
     @name = Path.basename(@path)
     LR.client.monitoring.add({ @id, @path })
@@ -15,7 +19,26 @@ class Project
   toJSON: ->
     { @id, @name, @path }
 
+  toMemento: ->
+    { @path }
+
 projects = []
+
+loadModel = (callback) ->
+  LR.preferences.get PREF_KEY, (memento) ->
+    for projectMemento in memento.projects || []
+      projects.push new Project(projectMemento)
+    callback()
+
+saveModel = ->
+  memento = {
+    projects: (p.toMemento() for p in projects)
+  }
+  LR.preferences.set PREF_KEY, memento
+
+modelDidChange = (callback) ->
+  saveModel()
+  updateProjectList callback
 
 projectListJSON = ->
   (project.toJSON() for project in projects)
@@ -26,8 +49,8 @@ findById = (projectId) ->
       return project
   null
 
-exports.init = ->
-  #
+exports.init = (callback) ->
+  async.series [loadModel, updateProjectList], callback
 
 exports.updateProjectList = updateProjectList = (callback) ->
   LR.client.mainwnd.set_project_list { projects: projectListJSON() }
@@ -38,15 +61,13 @@ exports.add = ({ path }, callback) ->
     if err or not stat
       callback(err || new Error("The path does not exist"))
     else
-      projects.push new Project(path)
-      updateProjectList (err) ->
-        callback(err)
+      projects.push new Project({ path })
+      modelDidChange callback
 
 exports.remove = ({ projectId }, callback) ->
   if project = findById(projectId)
     projects.splice projects.indexOf(project), 1
-    updateProjectList (err) ->
-      callback(err)
+    modelDidChange callback
   else
     callback(new Error("The given project id does not exist"))
 

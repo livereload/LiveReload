@@ -30,14 +30,8 @@ class exports.Communicator extends EventEmitter
     @beforeCommand()
 
     @execute command, (err, reply) =>
-      if err
-        @afterCommand()
-        return callback(err)
-      if reply
-        @send reply, (err) =>
-          @afterCommand()
-          return callback(err)
-      return callback(null)
+      @afterCommand()
+      return callback(err)
 
   beforeCommand: ->
     ++@commandsInFlight
@@ -48,6 +42,8 @@ class exports.Communicator extends EventEmitter
       @emit 'idle'
 
   send: (command) ->
+    if typeof command[0] isnt 'string'
+      throw new Error("Invalid type of message: #{command}")
     payload = JSON.stringify(command)
     buf = new Buffer("#{payload}\n")
     process.stderr.write "Node sending: #{payload}\n"
