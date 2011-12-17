@@ -3,7 +3,7 @@
 #include "project.h"
 #include "kvec.h"
 #include "reload_request.h"
-#include "fsmonitor.h"
+//#include "fsmonitor.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -13,7 +13,7 @@ typedef struct project_t {
     char *path;
     bool compilation_enabled;
     bool live_refresh_enabled;
-    fsmonitor_t *monitor;
+    //fsmonitor_t *monitor;
     struct reload_session_t *_session;
 } project_t;
 
@@ -31,7 +31,7 @@ project_t *project_get(int index) {
 
 void project_add_new(const char *path) {
   project_t *project = project_create(path,  NULL);
-  project->monitor = fsmonitor_create(path);
+  //project->monitor = fsmonitor_create(path);
   kv_push(project_t *, projects, project);
 }
 

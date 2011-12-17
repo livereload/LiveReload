@@ -76,12 +76,6 @@
     <ClCompile Include="..\Shared\model\project.c">
       <Filter>Shared\model</Filter>
     </ClCompile>
-    <ClCompile Include="..\Shared\model\fsmonitor.c">
-      <Filter>Shared\model</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Shared\model\fstree.c">
-      <Filter>Shared\model</Filter>
-    </ClCompile>
     <ClCompile Include="..\Shared\nodeapi.c">
       <Filter>Shared</Filter>
     </ClCompile>
@@ -146,12 +140,6 @@
     </ClInclude>
     <ClInclude Include="..\Shared\libs\kvec.h">
       <Filter>Shared\libs</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Shared\model\fsmonitor.h">
-      <Filter>Shared\model</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Shared\model\fstree.h">
-      <Filter>Shared\model</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Source</Filter>
