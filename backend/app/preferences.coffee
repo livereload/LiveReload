@@ -21,7 +21,7 @@ class PreferenceCategory
         try
           @data = JSON.parse(raw)
         catch e
-          LR.log.warn "Failed to parse preference file #{@path}"
+          LR.log.wtf "Failed to parse preference file #{@path}"
       [callbacks, @loadCallbacks] = [@loadCallbacks, null]
       for callback in callbacks
         callback()
@@ -38,7 +38,7 @@ class PreferenceCategory
   saveNow: ->
     fs.writeFile @path, JSON.stringify(@data, null, 2), 'utf8', (err) =>
       if err
-        LR.log.warn "Failed to save preferences file #{@path}"
+        LR.log.wtf "Failed to save preferences file #{@path}"
 
   save: ->
     unless @savingTimer
