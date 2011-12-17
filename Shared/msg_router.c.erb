@@ -8,12 +8,21 @@ typedef struct {
 } msg_entry_t;
 
 % for entry in entries
-void <%= entry.func_name %>(json_t *data);
+<%= entry.return_type %><%= entry.func_name %>(json_t *data);
+% end
+% for entry in entries
+% if entry.needs_wrapper
+
+json_t *<%= entry.wrapper_name %>(json_t *data) {
+    <%= entry.func_name %>(data);
+    return NULL;
+}
+% end
 % end
 
 msg_entry_t entries[] = {
 % for entry in entries
-    { "<%= entry.msg_name %>", &<%= entry.func_name %> },
+    { "<%= entry.msg_name %>", &<%= entry.func_to_call %> },
 % end
     { NULL, NULL }
 };

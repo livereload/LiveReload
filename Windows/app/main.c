@@ -213,6 +213,10 @@ void C_mainwnd__set_project_list(json_t *data) {
     mainwnd_render_project_list();
 }
 
+json_t *C_test_callback(json_t *data) {
+    return json_integer(42);
+}
+
 void OnSize(HWND hWnd, UINT state, int cx, int cy) {
     LayoutSubviews();
 }

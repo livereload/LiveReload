@@ -200,12 +200,13 @@ end
 # Windows
 
 require 'erb'
+require 'ostruct'
 
 def compiler_template func_name, args, file
   ERB.new(File.read(file), nil, '%').def_method(Object, "#{func_name}(#{args.join(',')})", file)
 end
 
-RoutingTableEntry        = Struct.new(:func_name, :msg_name)
+RoutingTableEntry = OpenStruct
 
 CLIENT_MSG_ROUTER          = 'Shared/msg_router.c'
 CLIENT_MSG_ROUTER_SOURCES  = Dir['{Shared,Windows}/**/*.c'] - [CLIENT_MSG_ROUTER]
@@ -222,8 +223,17 @@ compiler_template 'render_client_msg_proxy_c', %w(entries), "#{CLIENT_MSG_PROXY_
 task :routing do
   entries = CLIENT_MSG_ROUTER_SOURCES.map do |file|
     lines = File.read(file).lines
-    names = lines.map { |line| $1 if line =~ /^void\s+C_(\w+)\s*\(/ }.compact
-    names.map { |name| puts "C_#{name}"; RoutingTableEntry.new("C_#{name}", name.gsub('__', '.')) }
+    names = lines.map { |line| [$1, $2] if line =~ /^(void\s+|json_t\s*\*\s*)C_(\w+)\s*\(/ }.compact
+    names.map { |type, name|
+      puts "C_#{name}"
+      entry = RoutingTableEntry.new(:func_name => "C_#{name}", :msg_name => name.gsub('__', '.'), :return_type => type, :needs_wrapper => (type =~ /^void/))
+      if entry.needs_wrapper
+        entry.wrapper_name = entry.func_to_call = "_#{entry.func_name}_wrapper"
+      else
+        entry.func_to_call = entry.func_name
+      end
+      entry
+    }
   end.flatten
 
   File.open(CLIENT_MSG_ROUTER, 'w') { |f| f.write render_client_msg_router(entries) }
@@ -232,7 +242,7 @@ task :routing do
   entries = `node #{SERVER_API_DUMPER}`.strip.split("\n").map do |msg_name|
     func_name = "S_" + msg_name.gsub('.', '_').gsub(/([a-z])([A-Z])/) { "#{$1}_#{$2.downcase}" }
     puts func_name
-    RoutingTableEntry.new func_name, msg_name
+    RoutingTableEntry.new :func_name => func_name, :msg_name => msg_name
   end
 
   File.open(CLIENT_MSG_PROXY_H, 'w') { |f| f.write render_client_msg_proxy_h(entries) }

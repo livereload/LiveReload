@@ -11,8 +11,8 @@ class exports.Communicator extends EventEmitter
 
     @stdin.on 'data', (chunk) =>
       @stderr.write "Node received command: #{chunk}"
-      [command, args...] = JSON.parse(chunk)
-      @processCommand command, args, (err) ->
+      command = JSON.parse(chunk)
+      @processCommand command, (err) ->
         process.stderr.write "command processed, err = #{err}.\n"
         throw err if err
 
@@ -20,10 +20,10 @@ class exports.Communicator extends EventEmitter
         process.stderr.write "stdin EOF.\n"
       @emit 'end'
 
-  processCommand: (command, args, callback) ->
+  processCommand: (command, callback) ->
     @beforeCommand()
 
-    @execute command, args..., (err, reply) =>
+    @execute command, (err, reply) =>
       if err
         @afterCommand()
         return callback(err)
@@ -41,8 +41,8 @@ class exports.Communicator extends EventEmitter
     if @commandsInFlight is 0
       @emit 'idle'
 
-  send: (command, args...) ->
-    payload = JSON.stringify([command, args...])
+  send: (command) ->
+    payload = JSON.stringify(command)
     buf = new Buffer("#{payload}\n")
     process.stderr.write "Node sending: #{payload}\n"
     @stdout.write "#{payload}\n"

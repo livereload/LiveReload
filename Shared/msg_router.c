@@ -8,9 +8,16 @@ typedef struct {
 } msg_entry_t;
 
 void C_mainwnd__set_project_list(json_t *data);
+json_t *C_test_callback(json_t *data);
+
+json_t *_C_mainwnd__set_project_list_wrapper(json_t *data) {
+    C_mainwnd__set_project_list(data);
+    return NULL;
+}
 
 msg_entry_t entries[] = {
-    { "mainwnd.set_project_list", &C_mainwnd__set_project_list },
+    { "mainwnd.set_project_list", &_C_mainwnd__set_project_list_wrapper },
+    { "test_callback", &C_test_callback },
     { NULL, NULL }
 };
 

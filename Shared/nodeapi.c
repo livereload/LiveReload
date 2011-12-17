@@ -13,6 +13,7 @@ const char *node_bundled_backend_js;
 
 void node_received_raw(char *buf, int cb);
 void node_send_raw(const char *line);
+void node_send_json(json_t *array);
 void node_send_init(void *dummy);
 char node_buf[1024 * 1024];
 
@@ -284,7 +285,20 @@ void node_received(char *line) {
         fprintf(stderr,  "Unknown command received: '%s'", command);
         exit(1);
     } else {
-        handler(arg);
+        json_t *response = handler(arg);
+        if (json_array_size(incoming) > 2) {
+            json_t *response_command = json_array_get(incoming, 2);
+            json_t *array = json_array();
+            json_array_append(array, response_command);
+            if (response)
+                json_array_append_new(array, response);
+            else
+                json_array_append_new(array, json_null());
+            node_send_json(array);
+        } else {
+            if (response)
+                json_decref(response);
+        }
     }
 
     json_decref(incoming);
@@ -311,11 +325,7 @@ static int dump_to_strbuffer(const char *buffer, size_t size, void *data) {
     return strbuffer_append_bytes((strbuffer_t *)data, buffer, size);
 }
 
-void node_send(const char *command, json_t *json) {
-    json_t *array = json_array();
-    json_array_append_new(array, json_string(command));
-    json_array_append_new(array, json);
-
+void node_send_json(json_t *array) {
     strbuffer_t strbuff;
     int rv = strbuffer_init(&strbuff);
     assert(rv == 0);
@@ -328,6 +338,13 @@ void node_send(const char *command, json_t *json) {
     strbuffer_close(&strbuff);
 
     json_decref(array);
+}
+
+void node_send(const char *command, json_t *json) {
+    json_t *array = json_array();
+    json_array_append_new(array, json_string(command));
+    json_array_append_new(array, json);
+    node_send_json(array);
 }
 
 void node_send_init(void *dummy) {
