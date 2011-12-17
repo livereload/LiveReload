@@ -17,6 +17,9 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Shared\libs\fsmonitor">
+      <UniqueIdentifier>{c1a669b2-1b3c-403f-99ec-1478536e864f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="app\main.c">
@@ -87,6 +90,27 @@
     </ClCompile>
     <ClCompile Include="..\Shared\msg_proxy.c">
       <Filter>Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shared\monitoring.c">
+      <Filter>Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shared\libs\fsmonitor\src\fsdiff.c">
+      <Filter>Shared\libs\fsmonitor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shared\libs\fsmonitor\src\fslistener_win32.c">
+      <Filter>Shared\libs\fsmonitor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shared\libs\fsmonitor\src\fsmonitor.c">
+      <Filter>Shared\libs\fsmonitor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shared\libs\fsmonitor\src\fstree.c">
+      <Filter>Shared\libs\fsmonitor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shared\libs\fsmonitor\src\fstree_create_win32.c">
+      <Filter>Shared\libs\fsmonitor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shared\libs\fsmonitor\src\fstree_diff.c">
+      <Filter>Shared\libs\fsmonitor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

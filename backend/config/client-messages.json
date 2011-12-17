@@ -1,4 +1,6 @@
 [
+  "monitoring.add",
+  "monitoring.remove",
   "mainwnd.set_project_list",
   "test_callback",
   null

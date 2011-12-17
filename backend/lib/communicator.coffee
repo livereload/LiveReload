@@ -8,17 +8,23 @@ class exports.Communicator extends EventEmitter
     @stdin.resume()
     @stdin.setEncoding('utf8')
     @commandsInFlight = 0
+    @buffer = ""
 
     @stdin.on 'data', (chunk) =>
-      @stderr.write "Node received command: #{chunk}"
-      command = JSON.parse(chunk)
-      @processCommand command, (err) ->
-        process.stderr.write "command processed, err = #{err}.\n"
-        throw err if err
+      [lines..., @buffer] = (@buffer + chunk).split("\n")
+      for line in lines
+        @processLine line
 
     @stdin.on 'end', =>
         process.stderr.write "stdin EOF.\n"
       @emit 'end'
+
+  processLine: (line) ->
+    @stderr.write "Node received command: #{line}\n"
+    command = JSON.parse(line)
+    @processCommand command, (err) ->
+      process.stderr.write "command processed, err = #{err}.\n"
+      throw err if err
 
   processCommand: (command, callback) ->
     @beforeCommand()

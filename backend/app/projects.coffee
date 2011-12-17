@@ -7,13 +7,15 @@ class Project
   constructor: (@path) ->
     @id   = "P#{nextProjectId++}"
     @name = Path.basename(@path)
+    LR.client.monitoring.add({ @id, @path })
+
+  dispose: ->
+    LR.client.monitoring.remove({ @id })
 
   toJSON: ->
     { @id, @name, @path }
 
 projects = []
-projects.push new Project("Z:/example/naive_example")
-projects.push new Project("Z:/example/file_example")
 
 projectListJSON = ->
   (project.toJSON() for project in projects)
@@ -23,6 +25,9 @@ findById = (projectId) ->
     if project.id is projectId
       return project
   null
+
+exports.init = ->
+  #
 
 exports.updateProjectList = updateProjectList = (callback) ->
   LR.client.mainwnd.set_project_list { projects: projectListJSON() }
@@ -44,3 +49,10 @@ exports.remove = ({ projectId }, callback) ->
       callback(err)
   else
     callback(new Error("The given project id does not exist"))
+
+exports.changeDetected = ({ id, changes }, callback) ->
+  if project = findById(id)
+    process.stderr.write "Node: change detected in #{project.path}: #{JSON.stringify(changes)}\n"
+  else
+    process.stderr.write "Node: change detected in unknown id #{id}\n"
+  callback(null)
