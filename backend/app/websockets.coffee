@@ -49,7 +49,7 @@ class Connection
   _onclose: (e) ->
     @_cancelHandshakeTimeout()
     delete _connections[@id]
-    console.log "Closed"
+    LR.log.fyi "Connection closed."
 
   _onerror: (err) ->
     LR.log.wtf "Web Socket communication error: #{err.message}"
