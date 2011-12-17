@@ -15,6 +15,7 @@
 #include <ShellAPI.h>
 #include <shlwapi.h>
 #include <malloc.h>
+#include <time.h>
 
 #include <assert.h>
 
@@ -386,6 +387,15 @@ int WINAPI WinMain(HINSTANCE hinst, HINSTANCE hinstPrev,
 {
     MSG msg;
     HWND hwnd;
+
+    if (time(NULL) > 1328054400 /* Feb 1, 2012 UTC */) {
+        DWORD result = MessageBox(NULL, L"Sorry, this beta version of LiveReload has expired and cannot be launched.\n\nDo you want to visit http://livereload.com/ to get an updated version?",
+            L"LiveReload 2 beta expired", MB_YESNO | MB_ICONERROR);
+        if (result == IDYES) {
+            ShellExecute(NULL, L"open", L"http://livereload.com/", NULL, NULL, SW_SHOWNORMAL);
+        }
+        return 1;
+    }
 
     // SHBrowseForFolder needs this, and says it's better to use OleInitialize than ComInitialize
     HRESULT result = OleInitialize(NULL);
