@@ -46,7 +46,7 @@ void node_shutdown() {
 }
 
 void node_send_raw(const char *line) {
-    printf("Sending: %s", line);
+    fprintf(stderr, "app:  Sending: %s", line);
     DWORD len = strlen(line);
     while (len > 0) {
         DWORD written = 0;
@@ -61,7 +61,7 @@ void node_send_raw(const char *line) {
 static void node_thread(void *dummy) {
     while (!node_shut_down) {
         node_launch();
-        printf("Node launched, sending init.\n");
+        fprintf(stderr, "app:  Node launched, sending init.\n");
         invoke_on_main_thread(node_send_init, NULL);
 
         char buf[10240];
@@ -82,7 +82,7 @@ static void node_thread(void *dummy) {
             TerminateProcess(node_process, 42);
         }
         CloseHandle(node_process);
-        printf("Node terminated.\n");
+        fprintf(stderr, "app:  Node terminated.\n");
     }
 }
 
@@ -179,7 +179,7 @@ void node_shutdown() {
 }
 
 void node_send_raw(const char *line) {
-    fprintf(stderr, "Sending to node: %s", line);
+    fprintf(stderr, "app:  Sending: %s", line);
     write(node_stdin_fd, line, strlen(line));
 }
 
@@ -274,7 +274,7 @@ restart_node:
 //}
 
 void node_received(char *line) {
-    fprintf(stderr, "Received from node: '%s'\n", line);
+    fprintf(stderr, "app:  Received: '%s'\n", line);
 
     json_error_t error;
     json_t *incoming = json_loads(line, 0, &error);
@@ -284,7 +284,7 @@ void node_received(char *line) {
 
     msg_func_t handler = find_msg_handler(command);
     if (handler == NULL) {
-        fprintf(stderr,  "Unknown command received: '%s'", command);
+        fprintf(stderr,  "app:  Unknown command received: '%s'", command);
         exit(1);
     } else {
         json_t *response = handler(arg);
