@@ -12,8 +12,6 @@ describe "Back-end", ->
 
     it "should invoke C.mainwnd.set_project_list", (done) ->
       called = no
-      LR.client.mount 'test_callback', (arg, callback) ->
-        callback(null, 42)
       LR.client.mount 'mainwnd.set_project_list', ->
         called = yes
 

@@ -218,10 +218,6 @@ void C_mainwnd__set_project_list(json_t *data) {
     mainwnd_render_project_list();
 }
 
-json_t *C_test_callback(json_t *data) {
-    return json_integer(42);
-}
-
 void C_app__failed_to_start(json_t *arg) {
     MessageBox(NULL, U2W(json_string_value(json_object_get(arg, "message"))), L"LiveReload failed to start", MB_OK | MB_ICONERROR);
     ExitProcess(1);
