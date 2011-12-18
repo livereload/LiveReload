@@ -273,6 +273,7 @@ namespace :win do
     files.each { |file|  cp file,             File.join(WIN_BUNDLE_RESOURCES_DIR, file)   }
 
     cp "Windows/Resources/node.exe", "#{WIN_BUNDLE_RESOURCES_DIR}/node.exe"
+    cp "Windows/WinSparkle/WinSparkle.dll", "#{WIN_BUNDLE_DIR}/WinSparkle.dll"
 
     install_files = files.map { |f| "Resources/#{f}" } + ["Resources/node.exe", "LiveReload.exe"]
     install_files_by_folder = {}

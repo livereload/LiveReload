@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <channel>
+        <title>LiveReload Changelog</title>
+        <link>http://download.livereload.com/LiveReload-Windows-appcast.xml</link>
+        <description>Most recent changes with links to updates.</description>
+        <language>en</language>
+        <item>
+            <title>Version 0.0.2</title>
+            <sparkle:releaseNotesLink>
+                http://download.livereload.com/LiveReload-Windows-0.0.2-notes.html
+            </sparkle:releaseNotesLink>
+            <pubDate>Wed, 09 Jan 2006 19:20:11 +0000</pubDate>
+            <enclosure url="http://download.livereload.com/LiveReload-0.0.1-Setup.exe" sparkle:version="0.0.2" length="1600000" type="application/octet-stream" />
+            </item>
+    </channel>
+</rss>

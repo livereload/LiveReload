@@ -2,6 +2,7 @@
 !define VERSION "0.0.1"
 !define REG_UNINSTALL "Software\Microsoft\Windows\CurrentVersion\Uninstall\LiveReload"
 !define REG_APP_PATH  "Software\Microsoft\Windows\CurrentVersion\App Paths\LiveReload.exe"
+!define REG_UPDATES_PATH  "Software\LiveReload\Updates"
 !define START_LINK_RUN "$STARTMENU\Programs\LiveReload.lnk"
 !define UNINSTALLER_NAME "LiveReload-Uninstall.exe"
 !define WEBSITE_LINK "http://livereload.com/"
@@ -69,6 +70,9 @@ Function RegisterApplication
     WriteRegStr   HKCU "${REG_UNINSTALL}" "UninstallString" "$\"$INSTDIR\${UNINSTALLER_NAME}$\""
     WriteRegStr   HKCU "${REG_UNINSTALL}" "Comments" "Uninstalls LiveReload."
     
+    WriteRegStr   HKCU "${REG_UPDATES_PATH}" "CheckForUpdates" "1"
+    WriteRegStr   HKCU "${REG_UPDATES_PATH}" "DidRunOnce" "1"
+
     ;Start menu links
     SetShellVarContext current
     CreateShortCut "${START_LINK_RUN}" "$INSTDIR\LiveReload.exe"
@@ -89,6 +93,8 @@ Section LiveReload
     
     SetOutPath $INSTDIR
     SetOverwrite on
+
+    File WinSparkle\WinSparkle.dll
 
     !include files.nsi    
         

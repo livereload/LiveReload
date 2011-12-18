@@ -98,6 +98,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)..\WinApp\</OutDir>
+    <LibraryPath>$(MSBuildProjectDirectory)\WinSparkle;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -109,7 +110,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(MSBuildProjectDirectory)\..\shared\libs;$(MSBuildProjectDirectory)\..\shared\libs\fsmonitor\headers;$(MSBuildProjectDirectory)\..\shared\model;$(MSBuildProjectDirectory)\..\shared\jansson;$(MSBuildProjectDirectory)\..\shared;$(MSBuildProjectDirectory)\include;$(MSBuildProjectDirectory);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(MSBuildProjectDirectory)\WinSparkle;$(MSBuildProjectDirectory)\..\shared\libs;$(MSBuildProjectDirectory)\..\shared\libs\fsmonitor\headers;$(MSBuildProjectDirectory)\..\shared\model;$(MSBuildProjectDirectory)\..\shared\jansson;$(MSBuildProjectDirectory)\..\shared;$(MSBuildProjectDirectory)\include;$(MSBuildProjectDirectory);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <AdditionalOptions>/wd4996  /Dsnprintf=_snprintf %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>

@@ -7,6 +7,8 @@
 #include "jansson.h"
 #include "msg_proxy.h"
 
+#include "winsparkle.h"
+
 #include <windows.h>
 #include <windowsx.h>
 #include <io.h>
@@ -408,6 +410,10 @@ int WINAPI WinMain(HINSTANCE hinst, HINSTANCE hinstPrev,
     // create message queue
     PeekMessage(&msg, NULL, WM_USER, WM_USER, PM_NOREMOVE);
 
+    win_sparkle_set_app_details(L"Andrey Tarantsov", L"LiveReload", L"0.0.1");
+    win_sparkle_set_appcast_url("http://download.livereload.com/LiveReload-Windows-appcast.xml");
+    win_sparkle_set_registry_path("Software\\LiveReload\\Updates");
+
     if (!InitApp()) return 0;
 
     BOOL outputToConsole = !!strstr(lpCmdLine, "--console");
@@ -471,6 +477,8 @@ int WINAPI WinMain(HINSTANCE hinst, HINSTANCE hinstPrev,
         0);
 
     ShowWindow(hwnd, nShowCmd);
+
+    win_sparkle_init();
 
     while (GetMessage(&msg, NULL, 0, 0)) {
         if (msg.message == AM_INVOKE && msg.hwnd == NULL) {
