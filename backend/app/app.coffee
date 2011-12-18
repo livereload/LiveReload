@@ -22,6 +22,7 @@ exports.init = ({ pluginFolders, preferencesFolder, version }, callback) ->
       LR.client.app.failed_to_start(message: "#{err.message}")
       process.exit(1)
     LR.stats.startup()
+    LR.log.fyi "Backend is up and running."
     callback()
 
 exports.ping = (arg, callback) ->

@@ -16,14 +16,15 @@ class exports.Communicator extends EventEmitter
         @processLine line
 
     @stdin.on 'end', =>
-      process.stderr.write "stdin EOF.\n"
+      LR.log.fyi "KTNXBYE"
       @emit 'end'
 
   processLine: (line) ->
-    @stderr.write "Node received command: #{line}\n"
+    LR.log.fyi "App to Node: #{line}"
     command = JSON.parse(line)
     @processCommand command, (err) ->
-      process.stderr.write "command processed, err = #{err}.\n"
+      if err
+        LR.log.omg "Error encountered while processing incoming command: #{err.message}. Will die."
       throw err if err
 
   processCommand: (command, callback) ->
@@ -46,5 +47,5 @@ class exports.Communicator extends EventEmitter
       throw new Error("Invalid type of message: #{command}")
     payload = JSON.stringify(command)
     buf = new Buffer("#{payload}\n")
-    process.stderr.write "Node sending: #{payload}\n"
+    LR.log.fyi "Node to App: #{payload}"
     @stdout.write "#{payload}\n"

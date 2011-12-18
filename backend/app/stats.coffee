@@ -29,7 +29,7 @@ doPingServer = (scheduled) ->
       if res.statusCode is 200
         LR.preferences.set PREF_LANG_PING, unixTime()
     .on 'error', (err) ->
-      LR.log.fyi "Server ping error: #{err.message}"
+      LR.log.wtf "Server ping failed: #{err.message}"
 
 pingServer = (force) ->
   LR.preferences.get PREF_LANG_PING, (value) ->
