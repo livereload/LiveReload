@@ -4,6 +4,7 @@
 #include "jansson.h"
 
 void S_app_init(json_t *data);
+void S_app_ping(json_t *data);
 void S_log_omg(json_t *data);
 void S_log_wtf(json_t *data);
 void S_log_fyi(json_t *data);

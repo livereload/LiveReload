@@ -29,3 +29,6 @@ exports.init = ({ pluginFolders, preferencesFolder, version }, callback) ->
       process.exit(1)
     LR.stats.startup()
     callback()
+
+exports.ping = (arg, callback) ->
+  callback()

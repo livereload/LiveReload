@@ -6,6 +6,10 @@ void S_app_init(json_t *data) {
     node_send("app.init", data);
 }
 
+void S_app_ping(json_t *data) {
+    node_send("app.ping", data);
+}
+
 void S_log_omg(json_t *data) {
     node_send("log.omg", data);
 }

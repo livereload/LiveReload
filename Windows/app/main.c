@@ -386,6 +386,11 @@ void invoke_on_main_thread(INVOKE_LATER_FUNC func, void *context) {
   PostThreadMessage(g_dwMainThreadId, AM_INVOKE, (WPARAM)func, (LPARAM) context);
 }
 
+// node.js side gets stuck reading from stdin (a bug in Win32 code, I guess), these pings help to unstuck it
+void CALLBACK SendRegularPing(HWND, UINT, UINT_PTR, DWORD) {
+    S_app_ping(json_object());
+}
+
 int WINAPI WinMain(HINSTANCE hinst, HINSTANCE hinstPrev,
                    LPSTR lpCmdLine, int nShowCmd)
 {
@@ -480,6 +485,8 @@ int WINAPI WinMain(HINSTANCE hinst, HINSTANCE hinstPrev,
     ShowWindow(hwnd, nShowCmd);
 
     win_sparkle_init();
+
+    SetTimer(NULL, 0, 1000, SendRegularPing);
 
     while (GetMessage(&msg, NULL, 0, 0)) {
         if (msg.message == AM_INVOKE && msg.hwnd == NULL) {
