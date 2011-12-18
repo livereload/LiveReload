@@ -200,7 +200,7 @@ end
 
 
 ################################################################################
-# Windows
+# Routing
 
 require 'erb'
 require 'ostruct'
@@ -250,4 +250,50 @@ task :routing do
 
   File.open(CLIENT_MSG_PROXY_H, 'w') { |f| f.write render_client_msg_proxy_h(entries) }
   File.open(CLIENT_MSG_PROXY_C, 'w') { |f| f.write render_client_msg_proxy_c(entries) }
+end
+
+
+
+################################################################################
+# Windows
+
+WIN_BUNDLE_DIR = "WinApp"
+WIN_BUNDLE_RESOURCES_DIR = "#{WIN_BUNDLE_DIR}/Resources"
+WIN_BUNDLE_BACKEND_DIR = "#{WIN_BUNDLE_RESOURCES_DIR}/backend"
+
+namespace :win do
+
+  desc "Collects a Windows app files into a single folder"
+  task :bundle do
+    mkdir_p WIN_BUNDLE_DIR
+    mkdir_p WIN_BUNDLE_BACKEND_DIR
+
+    files = Dir["backend/{app/**/*.js,bin/livereload-backend.js,config/*.{json,js},lib/**/*.js,res/*.js,node_modules/{apitree,async,memorystream,plist,sha1,sugar,websocket.io}/**/*.{js,json}}"]
+    files.each { |file|  mkdir_p File.dirname(File.join(WIN_BUNDLE_RESOURCES_DIR, file))  }
+    files.each { |file|  cp file,             File.join(WIN_BUNDLE_RESOURCES_DIR, file)   }
+
+    cp "Windows/Resources/node.exe", "#{WIN_BUNDLE_RESOURCES_DIR}/node.exe"
+
+    install_files = files.map { |f| "Resources/#{f}" } + ["Resources/node.exe", "LiveReload.exe"]
+    install_files_by_folder = {}
+    install_files.each { |file|  (install_files_by_folder[File.dirname(file)] ||= []) << file }
+
+    nsis_spec = []
+    install_files_by_folder.sort.each do |folder, files|
+      nsis_spec << %Q<\nSetOutPath "$INSTDIR\\#{folder.gsub('/', '\\')}"\n> unless folder == '.'
+      files.each do |file|
+        nsis_spec << %Q<File "..\\WinApp\\#{file.gsub('/', '\\')}"\n>
+      end
+    end
+
+    File.open("Windows/files.nsi", "w") { |f| f << nsis_spec.join('') }
+  end
+
+  task :rmbundle do
+    rm_rf WIN_BUNDLE_DIR
+  end
+
+  desc "Recreate a Windows bundle from scratch"
+  task :rebundle => [:rmbundle, :bundle]
+
 end

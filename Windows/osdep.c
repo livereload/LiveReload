@@ -7,6 +7,7 @@
 #include <shlobj.h>
 
 const char *os_bundled_resources_path;
+const char *os_bundled_backend_path;
 const char *os_bundled_node_path;
 const char *os_preferences_path;
 const char *os_log_path;
@@ -29,11 +30,21 @@ static void os_compute_paths() {
         strcpy(utf, ".");
     }
 
-    strcat(utf, "\\..\\Resources");
+    LPWSTR command_line = GetCommandLine();
+    BOOL dev_mode = !!wcsstr(command_line, L"--dev");
+
+    strcat(utf, "\\Resources");
     os_bundled_resources_path = strdup(utf);
 
     strcat(utf, "\\node.exe");
     os_bundled_node_path = strdup(utf);
+
+    strcpy(utf, os_bundled_resources_path);
+    if (dev_mode)
+        strcat(utf, "\\..\\..\\backend");
+    else
+        strcat(utf, "\\backend");
+    os_bundled_backend_path = strdup(utf);
 
     rv = SHGetSpecialFolderPath(NULL, buf, CSIDL_APPDATA, TRUE);
     assert(rv);

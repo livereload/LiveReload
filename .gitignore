@@ -10,6 +10,8 @@ xcuserdata
 /extensions
 /js
 /legacy
+/WinApp
+/Windows/files.nsi
 site/css/livereload.css
 example/naive_example/*.css
 example/naive_example/*.js
