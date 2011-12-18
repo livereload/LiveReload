@@ -6,6 +6,7 @@
 #include "jansson.h"
 #include "strbuffer.h"
 #include "msg_router.h"
+#include "version.h"
 
 #include <assert.h>
 
@@ -355,6 +356,7 @@ void node_send_init(void *dummy) {
     json_t *data = json_object();
     json_object_set_new(data, "pluginFolders", plugin_paths);
     json_object_set_new(data, "preferencesFolder", json_string(os_preferences_path));
+    json_object_set_new(data, "version", json_string(LIVERELOAD_VERSION));
 
     node_send("app.init", data);
 }

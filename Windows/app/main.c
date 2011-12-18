@@ -6,6 +6,7 @@
 #include "nodeapi.h"
 #include "jansson.h"
 #include "msg_proxy.h"
+#include "version.h"
 
 #include "winsparkle.h"
 
@@ -410,7 +411,7 @@ int WINAPI WinMain(HINSTANCE hinst, HINSTANCE hinstPrev,
     // create message queue
     PeekMessage(&msg, NULL, WM_USER, WM_USER, PM_NOREMOVE);
 
-    win_sparkle_set_app_details(L"Andrey Tarantsov", L"LiveReload", L"0.0.1");
+    win_sparkle_set_app_details(L"Andrey Tarantsov", L"LiveReload", TEXT(LIVERELOAD_VERSION));
     win_sparkle_set_appcast_url("http://download.livereload.com/LiveReload-Windows-appcast.xml");
     win_sparkle_set_registry_path("Software\\LiveReload\\Updates");
 
