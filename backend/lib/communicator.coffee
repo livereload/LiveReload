@@ -16,7 +16,7 @@ class exports.Communicator extends EventEmitter
         @processLine line
 
     @stdin.on 'end', =>
-        process.stderr.write "stdin EOF.\n"
+      process.stderr.write "stdin EOF.\n"
       @emit 'end'
 
   processLine: (line) ->
