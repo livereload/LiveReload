@@ -9,6 +9,7 @@
 
 #include <windows.h>
 #include <windowsx.h>
+#include <io.h>
 #include <ole2.h>
 #include <commctrl.h>
 #include <ShlObj.h>
@@ -409,11 +410,30 @@ int WINAPI WinMain(HINSTANCE hinst, HINSTANCE hinstPrev,
 
     if (!InitApp()) return 0;
 
-    AllocConsole();
-    freopen("CONOUT$", "wb", stdout);
-    freopen("CONOUT$", "wb", stderr);
+    BOOL outputToConsole = !!strstr(lpCmdLine, "--console");
 
-    os_init();
+    os_init(); // to fill in paths before opening log files
+
+    if (outputToConsole) {
+        AllocConsole();
+        freopen("CONOUT$", "wb", stdout);
+        freopen("CONOUT$", "wb", stderr);
+    } else {
+        WCHAR buf[MAX_PATH];
+        MultiByteToWideChar(CP_UTF8, 0, os_log_path, -1, buf, MAX_PATH);
+        wcscat(buf, L"\\log.txt");
+        _wfreopen(buf, L"w", stderr);
+        HANDLE hLogFile = (HANDLE) _get_osfhandle(_fileno(stderr));
+        //HANDLE hLogFile = CreateFile(buf, FILE_ALL_ACCESS, FILE_SHARE_WRITE | FILE_SHARE_READ | FILE_SHARE_DELETE, NULL, CREATE_ALWAYS, FILE_FLAG_WRITE_THROUGH, NULL);
+        //SetStdHandle(STD_OUTPUT_HANDLE, hLogFile);
+        SetStdHandle(STD_ERROR_HANDLE, hLogFile);
+    }
+    time_t startup_time = time(NULL);
+    struct tm *startup_tm = gmtime(&startup_time);
+    fprintf(stderr, "LiveReload launched at %04d-%02d-%02d %02d:%02d:%02d\n", 1900 + startup_tm->tm_year,
+        1 + startup_tm->tm_mon, startup_tm->tm_mday, startup_tm->tm_hour, startup_tm->tm_min, startup_tm->tm_sec);
+    fflush(stderr);
+
     node_init();
 
     project_add_new("c:\\Dropbox\\GitHub\\LiveReload2");

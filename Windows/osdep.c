@@ -9,6 +9,7 @@
 const char *os_bundled_resources_path;
 const char *os_bundled_node_path;
 const char *os_preferences_path;
+const char *os_log_path;
 
 static void os_compute_paths() {
     wchar_t buf[MAX_PATH];
@@ -39,6 +40,14 @@ static void os_compute_paths() {
     wcscat(buf, L"\\LiveReload");
     CreateDirectory(buf, NULL);
     os_preferences_path = w2u(buf);
+
+    rv = SHGetSpecialFolderPath(NULL, buf, CSIDL_LOCAL_APPDATA, TRUE);
+    assert(rv);
+    wcscat(buf, L"\\LiveReload");
+    CreateDirectory(buf, NULL);
+    wcscat(buf, L"\\Logs");
+    CreateDirectory(buf, NULL);
+    os_log_path = w2u(buf);
 }
 
 void os_init() {
