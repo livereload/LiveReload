@@ -20,6 +20,7 @@ void S_projects_change_detected(json_t *data);
 void S_rpc_init(json_t *data);
 void S_rpc_send(json_t *data);
 void S_rpc_execute(json_t *data);
+void S_stats_startup(json_t *data);
 void S_websockets_init(json_t *data);
 void S_websockets_send_reload_command(json_t *data);
 

@@ -70,6 +70,10 @@ void S_rpc_execute(json_t *data) {
     node_send("rpc.execute", data);
 }
 
+void S_stats_startup(json_t *data) {
+    node_send("stats.startup", data);
+}
+
 void S_websockets_init(json_t *data) {
     node_send("websockets.init", data);
 }
