@@ -4,7 +4,7 @@ http = require 'http'
 PREF_LANG_PING = 'stats.AppNewsKitLastPingTime'
 
 
-Debug              = yes
+Debug              = no
 PingInterval       = (24*60*60)
 CheckInterval      = (30*60)
 DebugPingInterval  = (60)
@@ -33,8 +33,8 @@ doPingServer = (scheduled) ->
 
 pingServer = (force) ->
   LR.preferences.get PREF_LANG_PING, (value) ->
-    schedule = value && unixTime() < value + PingInterval
-    if Debug and value and (unixTime() < value + DebugPingInterval)
+    schedule = value && unixTime() > value + PingInterval
+    if Debug and value and (unixTime() > value + DebugPingInterval)
       force = yes
     if schedule or force
       doPingServer(schedule)
@@ -42,4 +42,4 @@ pingServer = (force) ->
 
 exports.startup = ->
   pingServer(yes)
-  setTimeout (-> pingServer(no)), (Debug && DebugCheckInterval || CheckInterval)
+  setInterval (-> pingServer(no)), (Debug && DebugCheckInterval || CheckInterval) * 1000
