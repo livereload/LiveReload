@@ -12,7 +12,7 @@
 !include LogicLib.nsh ;nsDialogs
 
 # INIT
-# SetCompressor /SOLID lzma
+SetCompressor /SOLID lzma
 Name "LiveReload"
 ; titlebar of the installer
 Caption "LiveReload"
