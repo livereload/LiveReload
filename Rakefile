@@ -9,6 +9,30 @@ MAC_ZIP_BASE_NAME = "LiveReload"
 MAC_SRC = File.join(ROOT_DIR, 'LiveReload')
 INFO_PLIST = File.join(MAC_SRC, 'LiveReload-Info.plist')
 
+
+def subst_version_refs_in_file file, ver
+    puts file
+    orig = File.read(file)
+    prev_line = ""
+    anything_matched = false
+    data = orig.lines.map do |line|
+        if line =~ /\d\.\d\.\d/ && (line =~ /version/i || prev_line =~ /CFBundleShortVersionString|CFBundleVersion/)
+            anything_matched = true
+            new_line = line.gsub /\d\.\d\.\d/, ver
+            puts "    #{new_line.strip}"
+        else
+            new_line = line
+        end
+        prev_line = line
+        new_line
+    end.join('')
+
+    raise "Error: no substitutions made in #{file}" unless anything_matched
+
+    File.open(file, 'w') { |f| f.write data }
+end
+
+
 module PList
   class << self
     def get file_name, key
@@ -261,6 +285,15 @@ WIN_BUNDLE_DIR = "WinApp"
 WIN_BUNDLE_RESOURCES_DIR = "#{WIN_BUNDLE_DIR}/Resources"
 WIN_BUNDLE_BACKEND_DIR = "#{WIN_BUNDLE_RESOURCES_DIR}/backend"
 
+WIN_VERSION_FILES = %w(
+    Windows/version.h
+    Windows/LiveReload.nsi
+)
+
+def win_version
+    File.read('Windows/VERSION').strip
+end
+
 namespace :win do
 
   desc "Collects a Windows app files into a single folder"
@@ -296,5 +329,11 @@ namespace :win do
 
   desc "Recreate a Windows bundle from scratch"
   task :rebundle => [:rmbundle, :bundle]
+
+  desc "Embed version number where it belongs"
+  task :version do
+      ver = win_version
+      WIN_VERSION_FILES.each { |file| subst_version_refs_in_file(file, ver) }
+  end
 
 end
