@@ -438,7 +438,7 @@ int WINAPI WinMain(HINSTANCE hinst, HINSTANCE hinstPrev,
     }
     time_t startup_time = time(NULL);
     struct tm *startup_tm = gmtime(&startup_time);
-    fprintf(stderr, "LiveReload launched at %04d-%02d-%02d %02d:%02d:%02d\n", 1900 + startup_tm->tm_year,
+    fprintf(stderr, "%04d-%02d-%02d %02d:%02d:%02d LiveReload " LIVERELOAD_VERSION " launched\n", 1900 + startup_tm->tm_year,
         1 + startup_tm->tm_mon, startup_tm->tm_mday, startup_tm->tm_hour, startup_tm->tm_min, startup_tm->tm_sec);
     fflush(stderr);
 
