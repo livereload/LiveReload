@@ -113,6 +113,7 @@
       <AdditionalIncludeDirectories>$(MSBuildProjectDirectory)\WinSparkle;$(MSBuildProjectDirectory)\..\shared\libs;$(MSBuildProjectDirectory)\..\shared\libs\fsmonitor\headers;$(MSBuildProjectDirectory)\..\shared\model;$(MSBuildProjectDirectory)\..\shared\jansson;$(MSBuildProjectDirectory)\..\shared;$(MSBuildProjectDirectory)\include;$(MSBuildProjectDirectory);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <AdditionalOptions>/wd4996  /Dsnprintf=_snprintf %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
