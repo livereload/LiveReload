@@ -336,4 +336,22 @@ namespace :win do
       WIN_VERSION_FILES.each { |file| subst_version_refs_in_file(file, ver) }
   end
 
+  desc "Tag the current Windows version"
+  task :tag do
+    sh 'git', 'tag', "win#{win_version}"
+  end
+
+  desc "Upload the Windows installer"
+  task :upload do
+    installer_name = "LiveReload-#{win_version}-Setup.exe"
+    installer_path = File.join(BUILDS_DIR, installer_name)
+    unless File.exists? installer_path
+      fail "Installer does not exist: #{installer_path}"
+    end
+
+    sh 's3cmd', '-P', 'put', installer_path, "s3://#{S3_BUCKET}/#{installer_name}"
+    puts "http://download.livereload.com.s3.amazonaws.com/#{installer_name}"
+    puts "http://download.livereload.com/#{installer_name}"
+  end
+
 end
