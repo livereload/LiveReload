@@ -158,7 +158,11 @@
 }
 
 - (void)considerShowingWindowOnAppStartup {
-    // TODO: show the window on first launch, and restore window visibility on subsequent launches
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"firstLaunchDone"]) {
+        [self displayMainWindow:self];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstLaunchDone"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
 }
 
 
