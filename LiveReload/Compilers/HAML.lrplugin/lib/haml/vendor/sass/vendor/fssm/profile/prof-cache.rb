@@ -5,7 +5,7 @@ require 'fssm'
 require 'rubygems'
 require 'ruby-prof'
 
-$test_path = FSSM::Pathname.new('..').expand_path
+$test_path  = FSSM::Pathname.new('..').expand_path
 $test_files = FSSM::Pathname.glob(File.join($test_path, '**', '*'))
 
 RubyProf.start
@@ -33,8 +33,8 @@ cache = FSSM::Tree::Cache.new
   print "\n\n"
 end
 
-result = RubyProf.stop
-output = File.new('prof.html', 'w+')
+result  = RubyProf.stop
+output  = File.new('prof.html', 'w+')
 
 printer = RubyProf::GraphHtmlPrinter.new(result)
 printer.print(output, :min_percent => 1)

@@ -293,19 +293,17 @@ module Sass
     #
     # @yield A block in which no Sass warnings will be printed
     def silence_sass_warnings
-      old_silence_warnings = @@silence_warnings
-      @@silence_warnings = true
+      old_level, Sass.logger.log_level = Sass.logger.log_level, :error
       yield
     ensure
-      @@silence_warnings = old_silence_warnings
+      Sass.logger.log_level = old_level
     end
 
     # The same as `Kernel#warn`, but is silenced by \{#silence\_sass\_warnings}.
     #
     # @param msg [String]
     def sass_warn(msg)
-      return if @@silence_warnings
-      warn(msg)
+      Sass.logger.warn(msg)
     end
 
     ## Cross Rails Version Compatibility
@@ -469,7 +467,8 @@ MSG
       # We allow any printable ASCII characters but double quotes in the charset decl
       bin = str.dup.force_encoding("BINARY")
       encoding = Sass::Util::ENCODINGS_TO_CHECK.find do |enc|
-        bin =~ Sass::Util::CHARSET_REGEXPS[enc]
+        re = Sass::Util::CHARSET_REGEXPS[enc]
+        re && bin =~ re
       end
       charset, bom = $1, $2
       if charset
@@ -510,6 +509,8 @@ MSG
             Regexp.new(/\A(?:#{_enc("\uFEFF", e)})?#{
               _enc('@charset "', e)}(.*?)#{_enc('"', e)}|\A(#{
               _enc("\uFEFF", e)})/)
+          rescue Encoding::ConverterNotFound => _
+            nil # JRuby on Java 5 doesn't support UTF-32
           rescue
             # /\A@charset "(.*?)"/
             Regexp.new(/\A#{_enc('@charset "', e)}(.*?)#{_enc('"', e)}/)
@@ -612,6 +613,57 @@ MSG
       return ':' + inspect_obj(obj.to_s) if obj.is_a?(Symbol)
       return obj.inspect unless obj.is_a?(String)
       '"' + obj.gsub(/[\x00-\x7F]+/) {|s| s.inspect[1...-1]} + '"'
+    end
+
+    # Extracts the non-string vlaues from an array containing both strings and non-strings.
+    # These values are replaced with escape sequences.
+    # This can be undone using \{#inject\_values}.
+    #
+    # This is useful e.g. when we want to do string manipulation
+    # on an interpolated string.
+    #
+    # The precise format of the resulting string is not guaranteed.
+    # However, it is guaranteed that newlines and whitespace won't be affected.
+    #
+    # @param arr [Array] The array from which values are extracted.
+    # @return [(String, Array)] The resulting string, and an array of extracted values.
+    def extract_values(arr)
+      values = []
+      return arr.map do |e|
+        next e.gsub('{', '{{') if e.is_a?(String)
+        values << e
+        next "{#{values.count - 1}}"
+      end.join, values
+    end
+
+    # Undoes \{#extract\_values} by transforming a string with escape sequences
+    # into an array of strings and non-string values.
+    #
+    # @param str [String] The string with escape sequences.
+    # @param values [Array] The array of values to inject.
+    # @return [Array] The array of strings and values.
+    def inject_values(str, values)
+      return [str.gsub('{{', '{')] if values.empty?
+      # Add an extra { so that we process the tail end of the string
+      result = (str + '{{').scan(/(.*?)(?:(\{\{)|\{(\d+)\})/m).map do |(pre, esc, n)|
+        [pre, esc ? '{' : '', n ? values[n.to_i] : '']
+      end.flatten(1)
+      result[-2] = '' # Get rid of the extra {
+      merge_adjacent_strings(result).reject {|s| s == ''}
+    end
+
+    # Allows modifications to be performed on the string form
+    # of an array containing both strings and non-strings.
+    #
+    # @param arr [Array] The array from which values are extracted.
+    # @yield [str] A block in which string manipulation can be done to the array.
+    # @yieldparam str [String] The string form of `arr`.
+    # @yieldreturn [String] The modified string.
+    # @return [Array] The modified, interpolated array.
+    def with_extracted_values(arr)
+      str, vals = extract_values(arr)
+      str = yield str
+      inject_values(str, vals)
     end
 
     ## Static Method Stuff

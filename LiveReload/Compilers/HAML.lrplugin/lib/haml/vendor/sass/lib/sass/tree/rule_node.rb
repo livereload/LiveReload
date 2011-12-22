@@ -50,6 +50,13 @@ module Sass::Tree
     # @return [Boolean]
     attr_accessor :group_end
 
+    # The stack trace.
+    # This is only readable in a CSS tree as it is written during the perform step
+    # and only when the :trace_selectors option is set.
+    #
+    # @return [Array<String>]
+    attr_accessor :stack_trace
+
     # @param rule [Array<String, Sass::Script::Node>]
     #   The CSS rule. See \{#rule}
     def initialize(rule)
@@ -121,8 +128,8 @@ module Sass::Tree
       if @rule.all? {|t| t.kind_of?(String)}
         # We don't use real filename/line info because we don't have it yet.
         # When we get it, we'll set it on the parsed rules if possible.
-        parser = Sass::SCSS::StaticParser.new(@rule.join.strip, 1)
-        @parsed_rules = parser.parse_selector('') rescue nil
+        parser = Sass::SCSS::StaticParser.new(@rule.join.strip, '', 1)
+        @parsed_rules = parser.parse_selector rescue nil
       end
     end
   end

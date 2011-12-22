@@ -57,16 +57,12 @@ MSG
     "& a\n  :b c" => ["Base-level rules cannot contain the parent-selector-referencing character '&'.", 1],
     "a\n  :b\n    c" => "Illegal nesting: Only properties may be nested beneath properties.",
     "$a: b\n  :c d\n" => "Illegal nesting: Nothing may be nested beneath variable declarations.",
-    "@import foo.sass" => "File to import not found or unreadable: foo.sass.",
     "$a: b\n  :c d\n" => "Illegal nesting: Nothing may be nested beneath variable declarations.",
-    "@import foo.sass" => <<MSG,
-File to import not found or unreadable: foo.sass.
-Load path: .
-MSG
     "@import templates/basic\n  foo" => "Illegal nesting: Nothing may be nested beneath import directives.",
     "foo\n  @import foo.css" => "CSS import directives may only be used at the root of a document.",
     "@if true\n  @import foo" => "Import directives may not be used within control directives or mixins.",
     "@mixin foo\n  @import foo" => "Import directives may not be used within control directives or mixins.",
+    "@import foo;" => "Invalid @import: expected end of line, was \";\".",
     '$foo: "bar" "baz" !' => %Q{Invalid CSS after ""bar" "baz" ": expected expression (e.g. 1px, bold), was "!"},
     '$foo: "bar" "baz" $' => %Q{Invalid CSS after ""bar" "baz" ": expected expression (e.g. 1px, bold), was "$"},
     "=foo\n  :color red\n.bar\n  +bang" => "Undefined mixin 'bang'.",
@@ -263,7 +259,7 @@ SASS
   end
 
   def test_imported_exception
-    [1, 2, 3, 4].each do |i|
+    [1, 2, 3, 4, 5].each do |i|
       begin
         Sass::Engine.new("@import bork#{i}", :load_paths => [File.dirname(__FILE__) + '/templates/']).render
       rescue Sass::SyntaxError => err
@@ -285,7 +281,7 @@ SASS
   end
 
   def test_double_imported_exception
-    [1, 2, 3, 4].each do |i|
+    [1, 2, 3, 4, 5].each do |i|
       begin
         Sass::Engine.new("@import nested_bork#{i}", :load_paths => [File.dirname(__FILE__) + '/templates/']).render
       rescue Sass::SyntaxError => err
@@ -308,6 +304,23 @@ SASS
         assert(false, "Exception not raised for imported template: bork#{i}")
       end
     end
+  end
+
+  def test_selector_tracing
+    actual_css = render(<<-SCSS, :syntax => :scss, :trace_selectors => true)
+      @mixin mixed {
+        .mixed { color: red; }
+      }
+      .context {
+        @include mixed;
+      }
+    SCSS
+    assert_equal(<<CSS,actual_css)
+/* on line 2 of test_selector_tracing_inline.scss, in `mixed'
+   from line 5 of test_selector_tracing_inline.scss */
+.context .mixed {
+  color: red; }
+CSS
   end
 
   def test_mixin_exception
@@ -579,12 +592,21 @@ CSS
     assert File.exists?(sassc_file)
   end
 
+  def test_nonexistent_import
+    assert_raise_message(Sass::SyntaxError, <<ERR.rstrip) do
+File to import not found or unreadable: nonexistent.sass.
+Load path: #{Dir.pwd}
+ERR
+      render("@import nonexistent.sass")
+    end
+  end
+
   def test_nonexistent_extensionless_import
     assert_raise_message(Sass::SyntaxError, <<ERR.rstrip) do
 File to import not found or unreadable: nonexistent.
-Load path: .
+Load path: #{Dir.pwd}
 ERR
-      assert_equal("@import url(nonexistent.css);\n", render("@import nonexistent"))
+      render("@import nonexistent")
     end
   end
 
@@ -1181,6 +1203,18 @@ bar
 SASS
   end
 
+  def test_control_directive_in_nested_property
+    assert_equal(<<CSS, render(<<SASS))
+foo {
+  a-b: c; }
+CSS
+foo
+  a:
+    @if true
+      b: c
+SASS
+  end
+
   def test_interpolation
     assert_equal("a-1 {\n  b-2-3: c-3; }\n", render(<<SASS))
 $a: 1
@@ -1548,11 +1582,11 @@ foo
    */
 SASS
   end
+
   def test_loud_comment_in_silent_comment
-    assert_equal <<CSS, render(<<SASS, :style => :compressed)
+    silence_warnings {assert_equal <<CSS, render(<<SASS, :style => :compressed)}
 foo{color:blue;/* foo */
 /* bar */
-/* */
 /* bip */
 /* baz */}
 CSS
@@ -1568,8 +1602,7 @@ SASS
 
   def test_loud_comment_is_evaluated
     assert_equal <<CSS, render(<<SASS)
-/*
- * Hue: 327.216deg */
+/* Hue: 327.216deg */
 CSS
 /*!
   Hue: \#{hue(#f836a0)}
@@ -1772,22 +1805,22 @@ SASS
 
   def test_interpolation_doesnt_deep_unquote_strings
     assert_equal(<<CSS, render(<<SASS))
-.foo- "bar" "baz" {
-  a: b; }
+.foo {
+  a: "bar" "baz"; }
 CSS
-.foo-\#{"bar" "baz"}
-  a: b
+.foo
+  a: \#{"bar" "baz"}
 SASS
   end
 
   def test_warn_directive
   expected_warning = <<EXPECTATION
 WARNING: this is a warning
-        on line 4 of test_warn_directive_inline.sass
+         on line 4 of test_warn_directive_inline.sass
 
 WARNING: this is a mixin warning
-        on line 2 of test_warn_directive_inline.sass, in `foo'
-        from line 7 of test_warn_directive_inline.sass
+         on line 2 of test_warn_directive_inline.sass, in `foo'
+         from line 7 of test_warn_directive_inline.sass
 EXPECTATION
     assert_warning expected_warning do
       assert_equal <<CSS, render(<<SASS)
@@ -1817,15 +1850,15 @@ SASS
   def test_warn_with_imports
     expected_warning = <<WARN
 WARNING: In the main file
-        on line 1 of #{File.dirname(__FILE__)}/templates/warn.sass
+         on line 1 of #{File.dirname(__FILE__)}/templates/warn.sass
 
 WARNING: Imported
-        on line 1 of #{File.dirname(__FILE__)}/templates/warn_imported.sass
-        from line 2 of #{File.dirname(__FILE__)}/templates/warn.sass
+         on line 1 of #{File.dirname(__FILE__)}/templates/warn_imported.sass
+         from line 2 of #{File.dirname(__FILE__)}/templates/warn.sass
 
 WARNING: In an imported mixin
-        on line 4 of #{File.dirname(__FILE__)}/templates/warn_imported.sass, in `emits-a-warning'
-        from line 3 of #{File.dirname(__FILE__)}/templates/warn.sass
+         on line 4 of #{File.dirname(__FILE__)}/templates/warn_imported.sass, in `emits-a-warning'
+         from line 3 of #{File.dirname(__FILE__)}/templates/warn.sass
 WARN
     assert_warning expected_warning do
       renders_correctly "warn", :style => :compact, :load_paths => [File.dirname(__FILE__) + "/templates"]
@@ -2008,6 +2041,31 @@ CSS
 
   # Regression tests
 
+  def test_interpolated_comment_in_mixin
+    assert_equal <<CSS, render(<<SASS)
+/* color: red */
+.foo {
+  color: red; }
+
+/* color: blue */
+.foo {
+  color: blue; }
+
+/* color: green */
+.foo {
+  color: green; }
+CSS
+=foo($var)
+  /*! color: \#{$var}
+  .foo
+    color: $var
+
++foo(red)
++foo(blue)
++foo(green)
+SASS
+  end
+
   def test_parens_in_mixins
     assert_equal(<<CSS, render(<<SASS))
 .foo {
@@ -2148,6 +2206,16 @@ CSS
 SASS
   end
 
+  def test_silent_comment_in_prop_val_after_important
+    assert_equal(<<CSS, render(<<SASS))
+.advanced {
+  display: none !important; }
+CSS
+.advanced
+  display: none !important // yeah, yeah. it's not really a style anyway.
+SASS
+  end
+
   def test_mixin_with_keyword_args
     assert_equal <<CSS, render(<<SASS)
 .mixed {
@@ -2276,7 +2344,16 @@ SASS
 WARNING:
 On line 1 of 'test_comment_interpolation_warning_inline.sass'
 Comments will evaluate the contents of interpolations (\#{ ... }) in Sass 3.2.
-Please escape the interpolation by adding a backslash before the hash sign.
+Please escape the interpolation by adding a backslash before the `#`.
+END
+  end
+
+  def test_loud_silent_comment_warning
+    assert_warning(<<END) {render("//! \#{foo}")}
+WARNING:
+On line 1 of 'test_loud_silent_comment_warning_inline.sass'
+`//` comments will no longer be allowed to use the `!` flag in Sass 3.2.
+Please change to `/*` comments.
 END
   end
 
@@ -2420,6 +2497,27 @@ SASS
     assert_equal original_filename, importer.engine("imported").options[:original_filename]
   end
 
+  def test_deprecated_PRECISION
+    assert_warning(<<END) {assert_equal 1000.0, Sass::Script::Number::PRECISION}
+Sass::Script::Number::PRECISION is deprecated and will be removed in a future release. Use Sass::Script::Number.precision_factor instead.
+END
+  end
+  def test_changing_precision
+    begin
+      Sass::Script::Number.precision = 8
+      assert_equal <<CSS, render(<<SASS)
+div {
+  maximum: 1.00000001;
+  too-much: 1.0; }
+CSS
+div
+  maximum : 1.00000001
+  too-much: 1.000000001
+SASS
+    ensure
+      Sass::Script::Number.precision = 3
+    end
+  end
 
   private
 

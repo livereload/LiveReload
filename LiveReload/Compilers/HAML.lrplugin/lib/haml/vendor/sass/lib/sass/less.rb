@@ -31,7 +31,7 @@ module Less
 WARNING: Sass doesn't support mixing in selector sequences.
 Replacing "#{sel}" with "@extend #{base}"
 WARNING
-              env << Node::SassNode.new(Sass::Tree::CommentNode.new("// #{sel};", true))
+              env << Node::SassNode.new(Sass::Tree::CommentNode.new(["// #{sel};"], true, false))
               env << Node::SassNode.new(Sass::Tree::ExtendNode.new([base]))
             end
           end
@@ -225,7 +225,7 @@ WARNING
     class Property
       def to_sass_tree
         return if hide_in_sass
-        Sass::Tree::PropNode.new([self], @value.to_sass_tree, false, :new)
+        Sass::Tree::PropNode.new([self], @value.to_sass_tree, :new)
       end
     end
 

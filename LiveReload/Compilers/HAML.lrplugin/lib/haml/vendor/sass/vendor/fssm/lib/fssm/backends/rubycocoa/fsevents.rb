@@ -14,7 +14,7 @@ module Rucola
       # Returns an array of the files/dirs in the path that the event occurred in.
       # The files are sorted by the modification time, the first entry is the last modified file.
       def files
-        Dir.glob("#{File.expand_path(path)}/*").sort_by {|f| File.mtime(f) }.reverse
+        Dir.glob("#{File.expand_path(path)}/*").sort_by { |f| File.mtime(f) }.reverse
       end
 
       # Returns the last modified file in the path that the event occurred in.
@@ -88,22 +88,22 @@ module Rucola
       raise ArgumentError, 'No callback block was specified.' unless block_given?
 
       options = params.last.kind_of?(Hash) ? params.pop : {}
-      @paths = params.flatten
+      @paths  = params.flatten
 
       paths.each { |path| raise ArgumentError, "The specified path (#{path}) does not exist." unless File.exist?(path) }
 
-      @allocator = options[:allocator] || OSX::KCFAllocatorDefault
-      @context = options[:context] || nil
-      @since = options[:since] || OSX::KFSEventStreamEventIdSinceNow
-      @latency = options[:latency] || 0.0
-      @flags = options[:flags] || 0
-      @stream = options[:stream] || nil
+      @allocator     = options[:allocator] || OSX::KCFAllocatorDefault
+      @context       = options[:context] || nil
+      @since         = options[:since] || OSX::KFSEventStreamEventIdSinceNow
+      @latency       = options[:latency] || 0.0
+      @flags         = options[:flags] || 0
+      @stream        = options[:stream] || nil
 
       @user_callback = block
-      @callback = Proc.new do |stream, client_callback_info, number_of_events, paths_pointer, event_flags, event_ids|
+      @callback      = Proc.new do |stream, client_callback_info, number_of_events, paths_pointer, event_flags, event_ids|
         paths_pointer.regard_as('*')
         events = []
-        number_of_events.times {|i| events << Rucola::FSEvents::FSEvent.new(self, event_ids[i], paths_pointer[i]) }
+        number_of_events.times { |i| events << Rucola::FSEvents::FSEvent.new(self, event_ids[i], paths_pointer[i]) }
         @user_callback.call(events)
       end
     end
