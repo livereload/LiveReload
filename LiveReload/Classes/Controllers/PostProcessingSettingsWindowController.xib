@@ -40,7 +40,7 @@
 				<string key="NSClassName">NSApplication</string>
 			</object>
 			<object class="NSWindowTemplate" id="1024784667">
-				<int key="NSWindowStyleMask">15</int>
+				<int key="NSWindowStyleMask">7</int>
 				<int key="NSWindowBacking">2</int>
 				<string key="NSWindowRect">{{109, 138}, {480, 163}}</string>
 				<int key="NSWTFlags">611845120</int>
@@ -58,6 +58,7 @@
 							<int key="NSvFlags">266</int>
 							<string key="NSFrame">{{14, 126}, {446, 17}}</string>
 							<reference key="NSSuperview" ref="658543533"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="209433726"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="586686553">
@@ -95,6 +96,7 @@
 							<int key="NSvFlags">266</int>
 							<string key="NSFrame">{{17, 96}, {440, 22}}</string>
 							<reference key="NSSuperview" ref="658543533"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="1020598875"/>
 							<string key="NSReuseIdentifierKey">_NS:247</string>
 							<bool key="NSEnabled">YES</bool>
@@ -129,7 +131,7 @@
 							<int key="NSvFlags">289</int>
 							<string key="NSFrame">{{366, 12}, {97, 32}}</string>
 							<reference key="NSSuperview" ref="658543533"/>
-							<reference key="NSNextKeyView"/>
+							<reference key="NSWindow"/>
 							<string key="NSReuseIdentifierKey">_NS:687</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="879945173">
@@ -152,6 +154,7 @@
 							<int key="NSvFlags">266</int>
 							<string key="NSFrame">{{14, 60}, {446, 28}}</string>
 							<reference key="NSSuperview" ref="658543533"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="395097275"/>
 							<string key="NSReuseIdentifierKey">_NS:3944</string>
 							<bool key="NSEnabled">YES</bool>
@@ -175,6 +178,7 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{15, 17}, {25, 25}}</string>
 							<reference key="NSSuperview" ref="658543533"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="19981765"/>
 							<string key="NSReuseIdentifierKey">_NS:3956</string>
 							<bool key="NSEnabled">YES</bool>
@@ -196,6 +200,7 @@
 					</object>
 					<string key="NSFrameSize">{480, 163}</string>
 					<reference key="NSSuperview"/>
+					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="790460087"/>
 					<string key="NSReuseIdentifierKey">_NS:224</string>
 				</object>
@@ -418,7 +423,70 @@
 			<nil key="sourceID"/>
 			<int key="maxID">21</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<bool key="EncodedWithXMLCoder">YES</bool>
+				<object class="IBPartialClassDescription">
+					<string key="className">BaseProjectSettingsWindowController</string>
+					<string key="superclassName">NSWindowController</string>
+					<object class="NSMutableDictionary" key="actions">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>dismiss:</string>
+							<string>showHelp:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>dismiss:</string>
+							<string>showHelp:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBActionInfo">
+								<string key="name">dismiss:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">showHelp:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/BaseProjectSettingsWindowController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">PostProcessingSettingsWindowController</string>
+					<string key="superclassName">BaseProjectSettingsWindowController</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">commandField</string>
+						<string key="NS.object.0">NSTextField</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">commandField</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">commandField</string>
+							<string key="candidateClassName">NSTextField</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/PostProcessingSettingsWindowController.h</string>
+					</object>
+				</object>
+			</object>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
