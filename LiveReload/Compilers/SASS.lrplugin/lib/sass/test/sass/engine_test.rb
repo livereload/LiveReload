@@ -470,6 +470,53 @@ MESSAGE
     assert_hash_has(err.sass_backtrace[2], :mixin => "foo", :line => 2)
   end
 
+  def test_basic_import_loop_exception
+    import = filename_for_test
+    importer = MockImporter.new
+    importer.add_import(import, "@import '#{import}'")
+
+    engine = Sass::Engine.new("@import '#{import}'", :filename => import,
+      :load_paths => [importer])
+
+    assert_raise_message(Sass::SyntaxError, <<ERR.rstrip) {engine.render}
+An @import loop has been found: #{import} imports itself
+ERR
+  end
+
+  def test_double_import_loop_exception
+    importer = MockImporter.new
+    importer.add_import("foo", "@import 'bar'")
+    importer.add_import("bar", "@import 'foo'")
+
+    engine = Sass::Engine.new('@import "foo"', :filename => filename_for_test,
+      :load_paths => [importer])
+
+    assert_raise_message(Sass::SyntaxError, <<ERR.rstrip) {engine.render}
+An @import loop has been found:
+    #{filename_for_test} imports foo
+    foo imports bar
+    bar imports foo
+ERR
+  end
+
+  def test_deep_import_loop_exception
+    importer = MockImporter.new
+    importer.add_import("foo", "@import 'bar'")
+    importer.add_import("bar", "@import 'baz'")
+    importer.add_import("baz", "@import 'foo'")
+
+    engine = Sass::Engine.new('@import "foo"', :filename => filename_for_test,
+      :load_paths => [importer])
+
+    assert_raise_message(Sass::SyntaxError, <<ERR.rstrip) {engine.render}
+An @import loop has been found:
+    #{filename_for_test} imports foo
+    foo imports bar
+    bar imports baz
+    baz imports foo
+ERR
+  end
+
   def test_exception_css_with_offset
     opts = {:full_exception => true, :line => 362}
     render(("a\n  b: c\n" * 10) + "d\n  e:\n" + ("f\n  g: h\n" * 10), opts)
@@ -1200,6 +1247,18 @@ CSS
 
 bar
   a: foo(1, 2)
+SASS
+  end
+
+  def test_control_directive_in_nested_property
+    assert_equal(<<CSS, render(<<SASS))
+foo {
+  a-b: c; }
+CSS
+foo
+  a:
+    @if true
+      b: c
 SASS
   end
 
@@ -1967,6 +2026,19 @@ CSS
 SASS
   end
 
+  def test_double_media_bubbling_with_commas
+    assert_equal <<CSS, render(<<SASS)
+@media foo and baz, foo and bang, bar and baz, bar and bang {
+  .foo {
+    c: d; } }
+CSS
+@media foo, bar
+  @media baz, bang
+    .foo
+      c: d
+SASS
+  end
+
   def test_rule_media_rule_bubbling
     assert_equal <<CSS, render(<<SASS)
 @media bar {
@@ -2028,6 +2100,24 @@ CSS
   end
 
   # Regression tests
+
+  def test_tricky_mixin_loop_exception
+    render <<SASS
+@mixin foo($a)
+  @if $a
+    @include foo(false)
+    @include foo(true)
+  @else
+    a: b
+
+a
+  @include foo(true)
+SASS
+    assert(false, "Exception not raised")
+  rescue Sass::SyntaxError => err
+    assert_equal("An @include loop has been found: foo includes itself", err.message)
+    assert_hash_has(err.sass_backtrace[0], :mixin => "foo", :line => 3)
+  end
 
   def test_interpolated_comment_in_mixin
     assert_equal <<CSS, render(<<SASS)

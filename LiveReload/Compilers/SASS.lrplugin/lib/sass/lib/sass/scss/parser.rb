@@ -287,20 +287,23 @@ module Sass
       def use_css_import?; false; end
 
       def media_directive
-        val = str {media_query_list}.strip
-        block(node(Sass::Tree::MediaNode.new(val)), :directive)
+        block(node(Sass::Tree::MediaNode.new(media_query_list)), :directive)
       end
 
       # http://www.w3.org/TR/css3-mediaqueries/#syntax
       def media_query_list
-        return unless media_query
+        has_q = false
+        q = str {has_q = media_query}
+
+        return unless has_q
+        queries = [q.strip]
 
         ss
         while tok(/,/)
-          ss; expr!(:media_query); ss
+          ss; queries << str {expr!(:media_query)}.strip; ss
         end
 
-        true
+        queries
       end
 
       def media_query
@@ -437,7 +440,7 @@ module Sass
       end
 
       def selector_sequence
-        if sel = tok(STATIC_SELECTOR)
+        if sel = tok(STATIC_SELECTOR, true)
           return [sel]
         end
 
@@ -681,7 +684,7 @@ MESSAGE
         # we don't parse it at all, and instead return a plain old string
         # containing the value.
         # This results in a dramatic speed increase.
-        if val = tok(STATIC_VALUE)
+        if val = tok(STATIC_VALUE, true)
           return space, Sass::Script::String.new(val.strip)
         end
         return space, sass_script(:parse)
@@ -770,7 +773,7 @@ MESSAGE
       end
 
       def interp_ident(start = IDENT)
-        return unless val = tok(start) || interpolation
+        return unless val = tok(start) || interpolation || tok(IDENT_HYPHEN_INTERP, true)
         res = [val]
         while val = tok(NAME) || interpolation
           res << val
@@ -944,9 +947,20 @@ MESSAGE
       # This is important because `#tok` is called all the time.
       NEWLINE = "\n"
 
-      def tok(rx)
+      def tok(rx, last_group_lookahead = false)
         res = @scanner.scan(rx)
         if res
+          # This fixes https://github.com/nex3/sass/issues/104, which affects
+          # Ruby 1.8.7 and REE. This fix is to replace the ?= zero-width
+          # positive lookahead operator in the Regexp (which matches without
+          # consuming the matched group), with a match that does consume the
+          # group, but then rewinds the scanner and removes the group from the
+          # end of the matched string. This fix makes the assumption that the
+          # matched group will always occur at the end of the match.
+          if last_group_lookahead && @scanner[-1]
+            @scanner.pos -= @scanner[-1].length
+            res.slice!(-@scanner[-1].length..-1)
+          end
           @line += res.count(NEWLINE)
           @expected = nil
           if !@strs.empty? && rx != COMMENT && rx != SINGLE_LINE_COMMENT

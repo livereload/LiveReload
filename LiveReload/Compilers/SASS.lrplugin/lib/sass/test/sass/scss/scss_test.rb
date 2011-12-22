@@ -1095,6 +1095,15 @@ SCSS
 
   # Regression
 
+  def test_prop_name_interpolation_after_hyphen
+    assert_equal <<CSS, render(<<SCSS)
+a {
+  -foo-bar: b; }
+CSS
+a { -\#{"foo"}-bar: b; }
+SCSS
+  end
+
   def test_star_plus_and_parent
     assert_equal <<CSS, render(<<SCSS)
 * + html foo {
@@ -1260,5 +1269,30 @@ foo{color:#000}
 CSS
 foo {color: darken(black, 10%)}
 SCSS
+  end
+
+  # ref: https://github.com/nex3/sass/issues/104
+  def test_no_buffer_overflow
+    template = render <<SCSS
+.aaa {
+  background-color: white;
+}
+.aaa .aaa .aaa {
+  background-color: black;
+}   
+.bbb {
+  @extend .aaa;
+} 
+.xxx {
+  @extend .bbb;
+}
+.yyy {
+  @extend .bbb;
+}
+.zzz {
+  @extend .bbb;
+}
+SCSS
+    Sass::SCSS::Parser.new(template, "test.scss").parse
   end
 end
