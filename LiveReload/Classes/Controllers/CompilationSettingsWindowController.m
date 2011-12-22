@@ -45,7 +45,7 @@ void compilable_file_free(compilable_file_t *file) {
 
 
 
-@interface CompilationSettingsWindowController () <NSTabViewDelegate, NSTableViewDataSource, NSTableViewDelegate> {
+@interface CompilationSettingsWindowController () <NSTabViewDelegate, NSTableViewDataSource, NSTableViewDelegate, NSWindowDelegate> {
     NSArray               *_compilerOptions;
     BOOL                   _populatingRubyVersions;
     NSArray               *_rubyVersions;
@@ -254,13 +254,36 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
     [self resizeWindowForTab:tabViewItem animated:YES];
 }
 
+- (compilation_settings_tab_t)enumForItem:(NSTabViewItem *)item {
+    return ([[item identifier] isEqualToString:@"options"] ? compilation_settings_tab_options : compilation_settings_tab_paths);
+}
+
+- (compilation_settings_tab_t)currentTab {
+    return [self enumForItem:_tabView.selectedTabViewItem];
+}
 
 - (void)resizeWindowForTab:(NSTabViewItem *)item animated:(BOOL)animated {
-    compilation_settings_tab_t tab = ([[item identifier] isEqualToString:@"options"] ? compilation_settings_tab_options : compilation_settings_tab_paths);
-    CGFloat desiredHeight = (tab == compilation_settings_tab_options ? _compilerSettingsWindowHeight : _outputPathsWindowHeight);
+    CGFloat desiredHeight = ([self enumForItem:item] == compilation_settings_tab_options ? _compilerSettingsWindowHeight : _outputPathsWindowHeight);
 
     NSRect rect = self.window.frame;
-    rect.size.height += (desiredHeight - _tabView.frame.size.height);
+    
+    BOOL heightSet = NO;
+    if ([self currentTab] == compilation_settings_tab_paths) {
+        CGFloat height = [[NSUserDefaults standardUserDefaults] floatForKey:@"compilationOptions.height.paths"];
+        if (height > 0.0) {
+            rect.size.height = height;
+            heightSet = YES;
+        }
+    }
+    if (!heightSet) {
+        rect.size.height += (desiredHeight - _tabView.frame.size.height);
+    }
+    
+    CGFloat width = [[NSUserDefaults standardUserDefaults] floatForKey:@"compilationOptions.width"];
+    if (width > 0.0) {
+        rect.size.width = width;
+    }
+
     [self.window setFrame:rect display:YES animate:YES];
 }
 
@@ -440,6 +463,20 @@ retry:
         for (FileCompilationOptions *options in selection) {
             options.destinationDirectory = relativePath;
         }
+    }
+}
+
+
+#pragma mark - Settings Restore
+
+- (void)windowDidResize:(NSNotification *)notification {
+    if (notification.object == self.window) {
+        NSSize size = self.window.frame.size;
+        if ([self currentTab] == compilation_settings_tab_paths) {
+            [[NSUserDefaults standardUserDefaults] setFloat:size.height forKey:@"compilationOptions.height.paths"];
+        }
+        [[NSUserDefaults standardUserDefaults] setFloat:size.width forKey:@"compilationOptions.width"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
 }
 
