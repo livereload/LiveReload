@@ -90,7 +90,7 @@ tree.Ruleset.prototype = {
             if (rule !== self) {
                 for (var j = 0; j < rule.selectors.length; j++) {
                     if (match = selector.match(rule.selectors[j])) {
-                        if (selector.elements.length > 1) {
+                        if (selector.elements.length > rule.selectors[j].elements.length) {
                             Array.prototype.push.apply(rules, rule.find(
                                 new(tree.Selector)(selector.elements.slice(1)), self));
                         } else {
@@ -184,7 +184,7 @@ tree.Ruleset.prototype = {
 
         for (var i = 0; i < selector.elements.length; i++) {
             el = selector.elements[i];
-            if (el.combinator.value[0] === '&') {
+            if (el.combinator.value.charAt(0) === '&') {
                 hasParentSelector = true;
             }
             if (hasParentSelector) afterElements.push(el);
@@ -209,4 +209,4 @@ tree.Ruleset.prototype = {
         }
     }
 };
-})(require('less/tree'));
+})(require('../tree'));

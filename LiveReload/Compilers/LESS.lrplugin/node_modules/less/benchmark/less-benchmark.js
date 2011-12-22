@@ -1,10 +1,8 @@
 var path = require('path'),
     fs = require('fs'),
-    sys = require('sys');
+    sys = require('util');
 
-require.paths.unshift(__dirname, path.join(__dirname, '..'));
-
-var less = require('lib/less');
+var less = require('../lib/less');
 var file = path.join(__dirname, 'benchmark.less');
 
 if (process.argv[2]) { file = path.join(process.cwd(), process.argv[2]) }

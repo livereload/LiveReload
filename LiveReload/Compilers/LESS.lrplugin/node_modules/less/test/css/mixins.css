@@ -48,3 +48,23 @@
 .direct {
   border-style: dotted;
 }
+.bo, .bar {
+  width: 100%;
+}
+.bo {
+  border: 1px;
+}
+.ar.bo.ca {
+  color: black;
+}
+.jo.ki {
+  background: none;
+}
+.extended {
+  width: 100%;
+  border: 1px;
+  background: none;
+}
+.foo .bar {
+  width: 100%;
+}

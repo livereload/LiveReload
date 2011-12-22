@@ -1,12 +1,12 @@
 (function (tree) {
 
-tree.Alpha = function (val) {
+tree.Assignment = function (key, val) {
+    this.key = key;
     this.value = val;
 };
-tree.Alpha.prototype = {
+tree.Assignment.prototype = {
     toCSS: function () {
-        return "alpha(opacity=" +
-               (this.value.toCSS ? this.value.toCSS() : this.value) + ")";
+        return this.key + '=' + (this.value.toCSS ? this.value.toCSS() : this.value);
     },
     eval: function (env) {
         if (this.value.eval) { this.value = this.value.eval(env) }

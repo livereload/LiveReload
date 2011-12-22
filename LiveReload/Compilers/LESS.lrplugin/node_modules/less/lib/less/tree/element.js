@@ -1,9 +1,10 @@
 (function (tree) {
 
-tree.Element = function (combinator, value) {
+tree.Element = function (combinator, value, index) {
     this.combinator = combinator instanceof tree.Combinator ?
                       combinator : new(tree.Combinator)(combinator);
     this.value = value ? value.trim() : "";
+    this.index = index;
 };
 tree.Element.prototype.toCSS = function (env) {
     return this.combinator.toCSS(env || {}) + this.value;
@@ -32,4 +33,4 @@ tree.Combinator.prototype.toCSS = function (env) {
     }[this.value];
 };
 
-})(require('less/tree'));
+})(require('../tree'));
