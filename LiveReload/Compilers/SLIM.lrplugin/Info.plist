@@ -8,6 +8,8 @@
 			<key>CommandLine</key>
 			<array>
 				<string>$(ruby)</string>
+				<string>-I$(plugin)/lib/temple/lib</string>
+				<string>-I$(plugin)/lib/tilt/lib</string>
 				<string>$(plugin)/lib/slim/bin/slimrb</string>
 				<string>$(additional)</string>
 				<string>$(src_path)</string>
