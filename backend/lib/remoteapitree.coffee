@@ -5,10 +5,10 @@ mkdir = (tree, path) ->
   tree
 
 
-class ApiTree
+exports.ApiTree = class ApiTree
 
   mount: (message, value) ->
-    [path..., name] = message.split('.')
+    [path..., name] = message.split('.').map((component) -> component.camelize(no))
     parent = mkdir(this, path)
     parent[name] = value
 

@@ -18,13 +18,3 @@ exports.createEnvironment = ->
   LR.client = createRemoteApiTree(messages, (msg) -> (args...) -> LR.rpc.send(msg, args...))
 
   LR
-
-
-exports.createTestEnvironment = ->
-  LR = createApiTree(path.join(__dirname, '../app'))
-
-  LR.events = new EventEmitter()
-
-  LR.client = createRemoteApiTree([], ->)
-
-  LR

@@ -8,6 +8,7 @@ timeouts  = {}
 nextCallbackId = 1
 
 _callbackTimeout = null
+_exit = null
 
 get = (object, path) ->
   for component in path.split('.')
@@ -20,8 +21,12 @@ get = (object, path) ->
 
 exports.init = (streams, exit, callbackTimeout=2000) ->
   _callbackTimeout = callbackTimeout
+  _exit = exit
   communicator = new Communicator streams.stdin, streams.stdout, streams.stderr, executeJSON
   communicator.on 'end', -> exit(0)
+
+exports.exit = (rv) ->
+  _exit(rv)
 
 exports.send = (message, arg, callback=null) ->
   if typeof message isnt 'string'
