@@ -4,6 +4,7 @@ fs   = require 'fs'
 
 _categories = {}
 _path = {}
+_savingDelay = 100
 
 class PreferenceCategory
   constructor: (@name) ->
@@ -42,7 +43,7 @@ class PreferenceCategory
 
   save: ->
     unless @savingTimer
-      @savingTimer = setTimeout((=> @savingTimer = null; @saveNow()), 100)
+      @savingTimer = setTimeout((=> @savingTimer = null; @saveNow()), _savingDelay)
 
   get: (subkey, callback) ->
     @load =>
@@ -83,6 +84,9 @@ nop = ->
 exports.init = (path, callback) ->
   _path = path
   callback()
+
+exports.setTestingOptions = ({ savingDelay }) ->
+  _savingDelay = savingDelay
 
 exports.setDefault = (key, value) ->
   throw new Error("Preferences not initialized yet") if !_path
