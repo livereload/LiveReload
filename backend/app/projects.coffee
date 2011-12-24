@@ -60,7 +60,7 @@ exports.init = (callback) ->
   async.series [loadModel, updateProjectList], callback
 
 exports.updateProjectList = updateProjectList = (callback) ->
-  LR.client.mainwnd.set_project_list { projects: projectListJSON() }
+  LR.client.mainwnd.setProjectList { projects: projectListJSON() }
   callback(null)
 
 exports.add = ({ path }, callback) ->

@@ -1,5 +1,5 @@
 fs    = require 'fs'
-path  = require 'path'
+Path  = require 'path'
 util  = require 'util'
 plist = require 'plist'
 async = require 'async'
@@ -13,17 +13,29 @@ class Plugin
   initialize: (callback) ->
     @compilers = {}
 
-    plist.parseFile "#{@folder}/Info.plist", (err, obj) =>
-      return callback(err) if err
+    @manifestFile = "#{@folder}/manifest.json"
 
-      @manifest = obj[0]
-      # console.log "Loaded manifest at #{@folder} with #{@manifest.LRCompilers.length} compilers"
+    plistFile = "#{@folder}/Info.plist"
+    if Path.existsSync(plistFile)
+      plist.parseFile plistFile, (err, obj) =>
+        fs.writeFileSync(@manifestFile, JSON.stringify(obj[0], null, 2))
+        @parseManifest(callback)
+    else
+      @parseManifest(callback)
 
-      for compilerManifest in @manifest.LRCompilers
-        compiler = new Compiler(this, compilerManifest)
-        @compilers[compiler.name] = compiler
+  parseManifest: (callback) ->
+    try
+      @processManifest JSON.parse(fs.readFileSync(@manifestFile, 'utf8')), callback
+    catch e
+      callback(e)
 
-      callback(err)
+  processManifest: (@manifest, callback) ->
+    for compilerManifest in @manifest.LRCompilers
+      compiler = new Compiler(this, compilerManifest)
+      @compilers[compiler.name] = compiler
+
+    console.log "Loaded manifest at #{@folder} with #{@manifest.LRCompilers.length} compilers"
+    callback(null)
 
 
 loadPlugin = (folder, callback) ->
@@ -41,7 +53,7 @@ class PluginManager
     pluginFolders = []
     for folder in @folders
       for entry in fs.readdirSync(folder) when entry.endsWith('.lrplugin')
-        pluginFolders.push path.join(folder, entry)
+        pluginFolders.push Path.join(folder, entry)
 
     async.map pluginFolders, loadPlugin, (err, result) =>
       return callback(err) if err

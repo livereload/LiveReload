@@ -15,16 +15,14 @@ exports.LRRoot        = LRRoot = Path.join(__dirname, "../..")
 exports.LRPluginsRoot = LRPluginsRoot = Path.join(LRRoot, "LiveReload/Compilers")
 
 
-class CommunicatorTwin extends EventEmitter
+class ProcessStdStreamsMock extends EventEmitter
   constructor: ->
     @stdin  = new MemoryStream()
     @stdout = new MemoryStream(null, readable: no)
     @stdout.setEncoding('utf8')
-    @stderr = new MemoryStream(null, readable: no)
-    @stderr.setEncoding('utf8')
-    @communicator = new Communicator(@stdin, @stdout, @stderr)
-    @communicator.on 'end', =>
-      @emit 'end'
+    @stderr = process.stderr
+    # @stderr = new MemoryStream(null, readable: no)
+    # @stderr.setEncoding('utf8')
 
   send: (command, data, callback) ->
     @stdin.write JSON.stringify([command, data]) + "\n"
@@ -33,10 +31,8 @@ class CommunicatorTwin extends EventEmitter
   end: ->
     @stdin.emit 'end'
 
-  toString: -> @stdout.getAll()
-
-
-exports.CommunicatorTwin = CommunicatorTwin
+  outputAsJson: ->
+    JSON.parse(line) for line in @stdout.getAll().split("\n").compact(yes)
 
 
 exports.setup = (modules=[]) ->
@@ -91,3 +87,25 @@ exports.setup = (modules=[]) ->
 
   global.LR = LR
   return LR
+
+
+exports.setupIntegrationTest = ->
+
+  beforeEach (done) ->
+    global.LR = LR = require('../config/env').createEnvironment()
+
+    LR.test =
+      exit: ->
+      streams: new ProcessStdStreamsMock()
+
+    LR.rpc.init(LR.test.streams, (-> LR.test.exit()), 60000)
+
+    LR.app.init {
+      pluginFolders:     [LRPluginsRoot]
+      preferencesFolder: process.env['TMPDIR']
+      version:           "1.2.3"
+    }, done
+
+  afterEach (done) ->
+    LR.test.exit = done
+    LR.test.streams.end()
