@@ -1,2 +1,3 @@
-data/raw
+data
 node_modules
+*.js
