@@ -11,19 +11,22 @@ processors = fs.readdirSync(Path.join(__dirname, '../lib/processing')).filter(/\
 groups     = Object.keys(DataFileGroups)
 
 options = require('dreamopt') [
-  "Usage: node bin/process.js #{processors.join('|')} #{groups.join('|')} #{groups.join('|')}"
+  "Usage: node bin/process.js processor input output"
 
-  "processor            A processor to run (a module under lib/processing)  #required"
-  "input                Source file group to process                        #required"
-  "output               Destination file group to write to                  #required"
+  "  processor            A processor to run (a module under lib/processing)  #required"
+  "  input                Source file group to process                        #required"
+  "  output               Destination file group to write to                  #required"
+
+  "Available processors: #{processors.join(', ')}."
+  "Available groups: #{groups.join(', ')}."
 
   "Options affecting which input files are processed:"
-  "-s, --since DATE     On or after this date   #date"
-  "-u, --until DATE     Before or on this date  #date"
-  "-f, --force          Force reprocessing of all files"
+  "  -s, --since DATE     On or after this date   #date"
+  "  -u, --until DATE     Before or on this date  #date"
+  "  -f, --force          Force reprocessing of all files"
 
   "Output verbosity options:"
-  "--show-sources       Show source files for each output file  #var(showSources)"
+  "  --show-sources       Show source files for each output file  #var(showSources)"
 
   "Generic options:"
 ], {
@@ -31,6 +34,7 @@ options = require('dreamopt') [
     unless value.match /^\d{4}-\d{2}-\d{2}$/
       throw new Error("Invalid date for option #{optionName}")
     value
+
 }
 
 die = (message) ->

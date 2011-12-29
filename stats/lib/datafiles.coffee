@@ -48,9 +48,10 @@ class DataFile
       0
 
 
-exports.DataFileGroups =
+exports.DataFileGroups = DataFileGroups =
   raw:     new DataFileGroup('raw',     'day',    0,  '')
-  daily:   new DataFileGroup('daily',   'day',    2)
-  weekly:  new DataFileGroup('weekly',  'week',   2)
-  monthly: new DataFileGroup('monthly', 'month',  2)
-  yearly:  new DataFileGroup('yearly',  'year',   2)
+
+for [ category, levels ] in [['events', 2], ['users', 1]]
+  for granularity in require('./granularities').all
+    name = "#{granularity}-#{category}"
+    DataFileGroups[name] = new DataFileGroup(name, granularity, levels)
