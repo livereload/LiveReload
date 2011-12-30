@@ -1,7 +1,7 @@
 Hierarchy        = require '../hierarchy'
 rawentries       = require '../rawentries'
 
-module.exports = (day, stats) ->
+module.exports = (period, stats) ->
   usersToEventsToData = Hierarchy()
   for entry in stats
     userId = rawentries.guessUserId(entry)

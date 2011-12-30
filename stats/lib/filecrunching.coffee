@@ -1,6 +1,42 @@
 G         = require './granularities'
 Hierarchy = require './hierarchy'
 
+
+withTiming = (message, func) ->
+  console.time message if message
+  result = func()
+  console.timeEnd message if message
+  return result
+
+
+class Job
+  constructor: (@period, @outputFile) ->
+    @inputFiles = []
+    @inputData  = null
+    @outputData = null
+
+  addSource: (file) ->
+    @inputFiles.push file
+
+  resolve: (timingMessage) ->
+    @inputData ||=
+      for file in @inputFiles
+        withTiming (timingMessage && "#{timingMessage} #{file.name}"), =>
+          { stats: file.readSync(), period: file.id }
+
+  resolveOutput: (timingMessage) ->
+    @outputData ||=
+      withTiming (timingMessage && "#{timingMessage} #{@outputFile.name}"), =>
+        @outputFile.readSync()
+
+
+extractSingleItem = (items) ->
+  if items.length != 1
+    throw new Error("Assertion error: for srcG == dstG, but multiple items loaded")
+  [{ period, stats }] = items
+  return stats
+
+
 exports.run = (options, sourceGroup, destinationGroup, func) ->
   console.log "Options: " + JSON.stringify(options)
 
@@ -14,73 +50,74 @@ exports.run = (options, sourceGroup, destinationGroup, func) ->
 
   console.time 'total'
 
-  execute = (dstperiod, sources, srctimestamp) ->
-    dstfile = destinationGroup.file(dstperiod)
+  execute = (cur, prev) ->
+    sourceFiles     = [cur.inputFiles, func.temporalInput && prev?.inputFiles, func.temporalOutput && prev?.outputFile].compact().flatten()
+    sourceTimestamp = sourceFiles.map('timestamp').max()
 
-    if options.force or srctimestamp > dstfile.timestamp()
-      console.log  "#{dstfile.name}"
+    if options.force or sourceTimestamp > cur.outputFile.timestamp()
+      console.log  "#{cur.outputFile.name}"
       console.time " -> total"
 
-      console.time " -> read"
-      data =
-        for file in sources
-          console.time " -> read #{file.name}"    if options.showSources
-          stats = file.readSync()
-          if file.group.levels > 0
-            stats = Hierarchy(stats, file.group.levels)
-          console.timeEnd " -> read #{file.name}" if options.showSources
-          { stats, period: file.id }
+      console.time    " -> read"
+      curInputData  = cur.resolve(options.showSources && " -> read")
+      if func.temporalInput
+        prevInputData = prev?.resolve(options.showSources && " -> read previous input")
+      if func.temporalOutput
+        prevOutputData = prev?.resolveOutput(options.showSources && " -> read previous output #{prev.outputFile.name}")
       console.timeEnd " -> read"
 
+      srcArgWrapper = if srcG == dstG then extractSingleItem else ((items) -> items)
+
+      args = [cur.period, srcArgWrapper(curInputData)]
+      if func.temporalInput or func.temporalOutput
+        args.push prev?.period
+      if func.temporalInput
+        args.push prevInputData && srcArgWrapper(prevInputData)
+      if func.temporalOutput
+        args.push prevOutputData
+
       console.time " -> computation"
-      if srcG == dstG
-        [{ period, stats }] = data
-        if period != dstperiod
-          throw new Error("Internal error: for srcG == dstG, srcperiod != dstperiod")
-        result = func(dstperiod, stats)
-      else
-        result = func(dstperiod, data)
+      outputData = func.apply(null, args)
       console.timeEnd " -> computation"
 
-      unless result instanceof Hierarchy
-        throw new Error("Processing function returned something which is not a Hierarchy: #{typeof result} #{JSON.stringify(result)}")
+      unless outputData instanceof Hierarchy
+        throw new Error("Processing function returned something which is not a Hierarchy: #{typeof outputData} #{JSON.stringify(outputData)}")
+
+      if func.temporalOutput
+        cur.outputData = outputData
 
       console.time " -> write"
-      dstfile.writeSync(result)
+      cur.outputFile.writeSync(outputData)
       console.timeEnd " -> write"
 
       console.timeEnd " -> total"
 
     else
-      fileNames = (file.name for file in sources).join(", ")
+      fileNames = sourceFiles.map('name').join(", ")
       if options.showSources
-        console.log "#{dstfile.name}: unchanged (source files: #{fileNames})"
+        console.log "#{cur.outputFile.name}: unchanged (source files: #{fileNames})"
       else
-        console.log "#{dstfile.name}: unchanged"
+        console.log "#{cur.outputFile.name}: unchanged"
 
   Queue =
-    sources:    []
-    period:     null
-    timestamp:  0
+    cur:  null
+    prev: null
 
     prepare: (period) ->
-      if @period != period
-        if @period
+      if !@cur || @cur.period != period
+        if @cur
           # console.log "flushing #{@period} with #{@sources.length} sources"
-          execute @period, @sources, @timestamp
+          execute @cur, @prev
 
-# .id, file.readSync(), file.timestamp()
-        @period    = period
-        @sources   = []
-        @timestamp = 0
+        @prev = @cur              if func.temporalInput or func.temporalOutput
+        @cur  = new Job(period, destinationGroup.file(period))
 
     flush: -> @prepare(null)
 
     add: (file) ->
       # console.log "enqueued: #{file.id}"
       @prepare srcG.outer(dstG, file.id)
-      @sources.push file
-      @timestamp = Math.max(@timestamp, file.timestamp())
+      @cur.addSource file
 
 
   do ->

@@ -1,7 +1,7 @@
 Hierarchy        = require '../hierarchy'
 
-module.exports = (dstperiod, srcitems) ->
+module.exports = (period, srcitems) ->
   usersToEventsToData = Hierarchy()
-  for { period, stats } in srcitems
+  for { srcperiod, stats } in srcitems
     usersToEventsToData.merge stats
   return usersToEventsToData

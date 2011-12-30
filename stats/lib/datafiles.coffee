@@ -1,6 +1,8 @@
 fs    = require 'fs'
 Path  = require 'path'
 
+Hierarchy = require './hierarchy'
+
 
 outputDir = Path.join(__dirname, '../data')
 
@@ -34,7 +36,12 @@ class DataFile
 
   exists:    -> Path.existsSync(@path)
 
-  readSync:  -> JSON.parse(fs.readFileSync(@path))
+  readSync:  ->
+    result = JSON.parse(fs.readFileSync(@path))
+    if @group.levels > 0
+      Hierarchy(result, @group.levels)
+    else
+      result
 
   writeSync: (data) ->
     unless Path.existsSync(Path.dirname(@path))
@@ -51,7 +58,14 @@ class DataFile
 exports.DataFileGroups = DataFileGroups =
   raw:     new DataFileGroup('raw',     'day',    0,  '')
 
-for [ category, levels ] in [['events', 2], ['users', 1]]
-  for granularity in require('./granularities').all
-    name = "#{granularity}-#{category}"
-    DataFileGroups[name] = new DataFileGroup(name, granularity, levels)
+CATEGORIES = [
+  ['events', 2]
+  ['events-cum', 2]
+  ['users', 1]
+]
+
+do ->
+  for [ category, levels ] in CATEGORIES
+    for granularity in require('./granularities').all
+      name = "#{granularity}-#{category}"
+      DataFileGroups[name] = new DataFileGroup(name, granularity, levels)
