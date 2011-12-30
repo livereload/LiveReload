@@ -41,6 +41,11 @@ class Granularity
       do (method) =>
         @::[method + granularity] = (period) -> throw new Error("Unsupported G.#{@name}.#{method}(#{granularity}, #{period})")
 
+  startTime: (period) ->
+  endTime:   (period) -> Date.create(@lastday(period)).setUTC().endOfDay()
+
+  wrap: (period) -> new Period(this, period)
+
 
 module.exports = G =
   day:
@@ -66,5 +71,27 @@ module.exports = G =
 
 do ->
   G.all = (k for own k of G)
+  G.allObjects = (v for own k, v of G)
   for g in G.all
     Granularity.define g
+
+
+
+
+class Period
+  constructor: (@granularity, @string) ->
+
+  toString: -> @string
+
+  startTime: -> @_startTime ||= Date.create(@firstday()).setUTC().beginningOfDay()
+  endTime:   -> @_endTime   ||= Date.create(@lastday()) .setUTC().endOfDay()
+
+  startUnixTime: -> @_startUnixTime ||= Math.round(@startTime().getTime() / 1000)
+  endUnixTime:   -> @_endUnixTime   ||= Math.round(@endTime()  .getTime() / 1000)
+
+  for method in METHODS
+    for granularity in G.allObjects
+      methodName = method + granularity.name
+      @::[methodName] = do (methodName) ->
+        varName = '_' + methodName
+        -> @[varName] ||= @granularity[methodName].call(@granularity, @string)

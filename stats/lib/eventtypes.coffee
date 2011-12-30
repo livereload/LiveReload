@@ -21,11 +21,15 @@ EventType =
       a.mincount = Math.min(a.mincount, b.mincount)
       a.maxcount = Math.max(a.maxcount, b.maxcount)
 
+  user:
+    clone: (object) -> Object.clone(object, true)
+
 
 EventType.prefixes = prefixes =
   e: EventType.single
   v: EventType.single
   s: EventType.aggregate
+  u: EventType.user
 
 
 reportMalformedEventName = (event) -> throw new Error("Event #{event} does not have a valid type prefix")

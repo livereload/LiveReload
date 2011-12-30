@@ -68,9 +68,9 @@ exports.run = (options, sourceGroup, destinationGroup, func) ->
 
       srcArgWrapper = if srcG == dstG then extractSingleItem else ((items) -> items)
 
-      args = [cur.period, srcArgWrapper(curInputData)]
+      args = [dstG.wrap(cur.period), srcArgWrapper(curInputData)]
       if func.temporalInput or func.temporalOutput
-        args.push prev?.period
+        args.push prev && dstG.wrap(prev.period)
       if func.temporalInput
         args.push prevInputData && srcArgWrapper(prevInputData)
       if func.temporalOutput

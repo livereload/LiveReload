@@ -2,7 +2,7 @@
 Hierarchy        = require '../lib/hierarchy'
 
 
-exports.guessUserId = (entry) -> entry.ip
+exports.guessUserId = (entry) -> 'u:' + entry.ip
 
 
 guessOperatingSystem = (agent) ->
