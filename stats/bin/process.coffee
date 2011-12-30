@@ -43,6 +43,6 @@ die = (message) ->
 
 processor = require "../lib/processing/#{options.processor}"
 input     = DataFileGroups[options.input]  or die "Invalid input: #{options.input}"
-output    = DataFileGroups[options.output] or die "Invalid output: #{options.input}"
+output    = DataFileGroups[options.output] or die "Invalid output: #{options.output}"
 
 filecrunching.run options, input, output, processor

@@ -24,12 +24,24 @@ EventType =
   user:
     clone: (object) -> Object.clone(object, true)
 
+  segment:
+    map: (userData) ->
+      {
+        count: 1
+      }
+
+    clone: (object) -> Object.clone(object, true)
+
+    reduce: (a, b) ->
+      a.count += b.count
+
 
 EventType.prefixes = prefixes =
   e: EventType.single
   v: EventType.single
   s: EventType.aggregate
   u: EventType.user
+  g: EventType.segment
 
 
 reportMalformedEventName = (event) -> throw new Error("Event #{event} does not have a valid type prefix")

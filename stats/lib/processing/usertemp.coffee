@@ -13,6 +13,7 @@ NULL_PREV =
   engagementStats:     {}
   statusStats:         {}
   statusHistory:       []
+  knownfor:            0
 
 
 appendToHistory = (history, item) ->
@@ -54,6 +55,8 @@ analyzeUser = (period, userData, prevUserData=NULL_PREV) ->
   userData.statusStats[userData.status] = (userData.statusStats[userData.status] || 0) + 1
 
   userData.statusHistory = appendToHistory(prevUserData.statusHistory, userData.status)
+
+  userData.knownfor = prevUserData.knownfor + 1
 
   return userData
 
