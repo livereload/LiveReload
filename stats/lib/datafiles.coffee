@@ -62,6 +62,7 @@ CATEGORIES = [
   ['events', 2]
   ['events-cum', 2]
   ['users', 1]
+  ['users-temp', 1]
 ]
 
 do ->
