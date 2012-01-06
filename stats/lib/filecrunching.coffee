@@ -14,9 +14,11 @@ class Job
     @inputFiles = []
     @inputData  = null
     @outputData = null
+    @skip       = yes
 
-  addSource: (file) ->
+  addSource: (file, skip) ->
     @inputFiles.push file
+    @skip = no if skip is no
 
   resolve: (timingMessage) ->
     @inputData ||=
@@ -51,6 +53,8 @@ exports.run = (options, sourceGroup, destinationGroup, func) ->
   console.time 'total'
 
   execute = (cur, prev) ->
+    return if cur.skip
+
     sourceFiles     = [cur.inputFiles, func.temporalInput && prev?.inputFiles, func.temporalOutput && prev?.outputFile].compact().flatten()
     sourceTimestamp = sourceFiles.map('timestamp').max()
 
@@ -114,19 +118,20 @@ exports.run = (options, sourceGroup, destinationGroup, func) ->
 
     flush: -> @prepare(null)
 
-    add: (file) ->
+    add: (file, skip) ->
       # console.log "enqueued: #{file.id}"
       @prepare srcG.outer(dstG, file.id)
-      @cur.addSource file
+      @cur.addSource file, skip
 
 
   do ->
     for file in sourceGroup.allFiles()
       # console.log "source: #{file.id}"
-      continue if options.since && srcG.lt(file.id, options.since)
-      continue if options.until && srcG.gt(file.id, options.until)
+      skip = no
+      skip = yes if options.since && srcG.lt(file.id, options.since)
+      skip = yes if options.until && srcG.gt(file.id, options.until)
 
-      Queue.add file
+      Queue.add file, skip
 
   Queue.flush()
 
