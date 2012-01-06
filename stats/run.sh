@@ -13,3 +13,5 @@ node bin/process.js userinfo month-events-cum month-users "$@"
 node bin/process.js usertemp month-users month-users-temp "$@"
 
 node bin/process.js segmentation month-users-temp month-segments "$@"
+
+node bin/report.js

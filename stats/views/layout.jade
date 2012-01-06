@@ -1,0 +1,25 @@
+!!! 5
+html
+  head
+    meta(charset='utf-8')
+    title= title
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js")
+    script(src="http://files.tarantsov.com/jquery.tablesorter.min.js")
+    link(rel="stylesheet", href="http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css")
+  body
+    .container
+      ul.breadcrumb
+        for breadcrumb in breadcrumbs
+          li(class=(breadcrumb.active ? "active" : ""))
+            if breadcrumb.active
+              = breadcrumb.title
+            else
+              a(href=breadcrumb.url)= breadcrumb.title
+              span.divider /
+
+      != content
+      
+    script
+      $('table.with-headers').each(function() {
+        $(this).tablesorter({ sortList: [[0,0]] });
+      });

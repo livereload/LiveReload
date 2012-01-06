@@ -25,9 +25,11 @@ class DataFileGroup
   file: (id) ->
     new DataFile(this, Path.join(@path, @idToFileName(id)), id)
 
-  getDirectoryPath: (create=no) ->
-    try
-      fs.mkdirSync(@path, )
+  mkdir: ->
+    unless Path.existsSync(@path)
+      fs.mkdirSync(@path, 0770)
+
+  subpath: (subpath) -> Path.join(@path, subpath)
 
 
 class DataFile
@@ -57,6 +59,7 @@ class DataFile
 
 exports.DataFileGroups = DataFileGroups =
   raw:     new DataFileGroup('raw',     'day',    0,  '')
+  html:    new DataFileGroup('html',    'none',   0,  '')
 
 CATEGORIES = [
   ['events', 2]
