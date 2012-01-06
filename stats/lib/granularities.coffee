@@ -16,6 +16,15 @@ N = (g) ->
 METHODS = ['first', 'last', 'outer']
 
 
+NOW = new Date()
+
+capToNow = (date) ->
+  if date > NOW
+    NOW
+  else
+    date
+
+
 class Granularity
 
   constructor: (@name) ->
@@ -40,9 +49,6 @@ class Granularity
     for method in METHODS
       do (method) =>
         @::[method + granularity] = (period) -> throw new Error("Unsupported G.#{@name}.#{method}(#{granularity}, #{period})")
-
-  startTime: (period) ->
-  endTime:   (period) -> Date.create(@lastday(period)).setUTC().endOfDay()
 
   wrap: (period) -> new Period(this, period)
 
@@ -84,7 +90,7 @@ class Period
   toString: -> @string
 
   startTime: -> @_startTime ||= Date.create(@firstday()).setUTC().beginningOfDay()
-  endTime:   -> @_endTime   ||= Date.create(@lastday()) .setUTC().endOfDay()
+  endTime:   -> @_endTime   ||= capToNow(Date.create(@lastday()) .setUTC().endOfDay())
 
   startUnixTime: -> @_startUnixTime ||= Math.round(@startTime().getTime() / 1000)
   endUnixTime:   -> @_endUnixTime   ||= Math.round(@endTime()  .getTime() / 1000)
