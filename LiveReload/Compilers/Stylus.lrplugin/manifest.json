@@ -1,0 +1,54 @@
+{
+  "LRCompilers": [
+    {
+      "CommandLine": [
+        "$(node)",
+        "$(plugin)/node_modules/stylus/bin/stylus",
+        "$(additional)",
+        "-o",
+        "$(dst_dir)",
+        "$(src_path)"
+      ],
+      "DestinationExtension": "css",
+      "Errors": [
+        "Error: ((file)):((line))\\n(?:\\s[^\\n]*\\n)*\\s*\\n((message))\\n",
+        "\\w+Error: ((message))\\n"
+      ],
+      "Extensions": [
+        "styl"
+      ],
+      "Name": "Stylus",
+      "ExpectedOutputDirectories": [
+        "css",
+        "styles",
+        "stylesheet",
+        "stylesheets"
+      ],
+      "ImportRegExps": [
+        "@import \"([^\"]+)\"",
+        "@import '([^']+)'",
+        "@import ([\\w./]+)"
+      ],
+      "DefaultImportedExts": [
+        "styl"
+      ],
+      "NonImportedExts": [
+        "css"
+      ],
+      "Options": [
+        {
+          "Id": "debug-info",
+          "Type": "checkbox",
+          "Title": "Emit debug info for FireStylus (--firebug)",
+          "OnArgument": "--firebug"
+        },
+        {
+          "Id": "line-numbers",
+          "Type": "checkbox",
+          "Title": "Emit line numbers debug info (--line-numbers)",
+          "OnArgument": "--line-numbers"
+        }
+      ]
+    }
+  ]
+}

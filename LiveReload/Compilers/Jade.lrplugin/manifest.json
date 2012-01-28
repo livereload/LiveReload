@@ -1,0 +1,36 @@
+{
+  "LRCompilers": [
+    {
+      "CommandLine": [
+        "$(node)",
+        "$(plugin)/jade_compiler.js",
+        "$(additional)",
+        "$(src_file)",
+        "$(dst_file)"
+      ],
+      "RunIn": "$(src_dir)",
+      "DestinationExtension": "html",
+      "Optional": true,
+      "Errors": [
+        "\\w+Error: ((file)):((line))\\n(?:\\s[^\\n]*\\n)*\\s*\\n((message))\\n",
+        "\\w+Error: ((message))\\n"
+      ],
+      "ExpectedOutputDirectories": [
+        "html",
+        "view",
+        "views"
+      ],
+      "Extensions": [
+        "jade"
+      ],
+      "ImportRegExps": [
+        "include ([\\w./]+)",
+        "extends ([\\w./]+)"
+      ],
+      "DefaultImportedExts": [
+        "jade"
+      ],
+      "Name": "Jade"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "LRCompilers": [
+    {
+      "CommandLine": [
+        "$(node)",
+        "$(plugin)/node_modules/coffee-script/bin/coffee",
+        "$(additional)",
+        "-o",
+        "$(dst_dir)",
+        "$(src_path)"
+      ],
+      "DestinationExtension": "js",
+      "Errors": [
+        "Error: In ((file)), Parse error on line ((line)): ((message))\\n",
+        "Error: In ((file)), ((message)) on line ((line))\\n"
+      ],
+      "Extensions": [
+        "coffee"
+      ],
+      "Name": "CoffeeScript",
+      "ExpectedOutputDirectories": [
+        "js",
+        "javascript",
+        "javascripts"
+      ],
+      "Options": [
+        {
+          "Id": "no-wrapper",
+          "Type": "checkbox",
+          "Title": "No wrapper (--bare)",
+          "OnArgument": "--bare"
+        }
+      ]
+    }
+  ]
+}

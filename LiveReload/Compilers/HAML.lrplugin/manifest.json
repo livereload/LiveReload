@@ -1,0 +1,100 @@
+{
+  "LRCompilers": [
+    {
+      "Optional": true,
+      "CommandLine": [
+        "$(ruby)",
+        "$(plugin)/lib/haml/bin/haml",
+        "$(additional)",
+        "$(src_path)",
+        "$(dst_path)"
+      ],
+      "DestinationExtension": "html",
+      "Errors": [
+        "Syntax error on line ((line)): ((message))\\n",
+        "Exception on line ((line)): ((message))\\n",
+        "Haml error on line ((line)): ((message))\\n"
+      ],
+      "ExpectedOutputDirectories": [
+        "html",
+        "view",
+        "views"
+      ],
+      "Extensions": [
+        "haml"
+      ],
+      "Name": "HAML",
+      "Options": [
+        {
+          "Id": "escape-html",
+          "Type": "checkbox",
+          "Title": "Escape HTML characters (like ampersands and angle brackets)",
+          "OnArgument": "--escape-html"
+        },
+        {
+          "Id": "no-escape-attrs",
+          "Type": "checkbox",
+          "Title": "Don't escape HTML characters in attributes",
+          "OnArgument": "--no-escape-attrs"
+        },
+        {
+          "Id": "quotes-type",
+          "Type": "select",
+          "Items": [
+            {
+              "Id": "single",
+              "Title": "Use single quotes for attributes"
+            },
+            {
+              "Id": "double",
+              "Title": "Use double quotes for attributes",
+              "Argument": "--double-quote-attributes"
+            }
+          ]
+        },
+        {
+          "Id": "output-style",
+          "Type": "select",
+          "Items": [
+            {
+              "Id": "indented",
+              "Title": "Indented output style"
+            },
+            {
+              "Id": "ugly",
+              "Title": "Ugly ouput style",
+              "Argument": "--style ugly"
+            }
+          ]
+        },
+        {
+          "Id": "output-format",
+          "Type": "select",
+          "Items": [
+            {
+              "Id": "xhtml",
+              "Title": "XHTML output format"
+            },
+            {
+              "Id": "html4",
+              "Title": "HTML4 output format",
+              "Argument": "--format html4"
+            },
+            {
+              "Id": "html5",
+              "Title": "HTML5 output format",
+              "Argument": "--format html5"
+            }
+          ]
+        }
+      ],
+      "ImportRegExps": [
+        "partial\\s*=>\\s*\"([^\"]+)\"",
+        "partial\\s*=>\\s*'([^']+)'"
+      ],
+      "DefaultImportedExts": [
+        "haml"
+      ]
+    }
+  ]
+}

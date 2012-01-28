@@ -1,0 +1,48 @@
+{
+  "LRCompilers": [
+    {
+      "CommandLine": [
+        "$(node)",
+        "$(plugin)/node_modules/less/bin/lessc",
+        "$(additional)",
+        "$(src_path)",
+        "$(dst_path)"
+      ],
+      "DestinationExtension": "css",
+      "Errors": [
+        "<ESC>((message)) on line ((line))<ESC> in <ESC>((file))(?:<ESC>|\\n)",
+        "(Missing ((message))$)",
+        "((message:Syntax Error)) on line ((line))",
+        "((message:color functions take numbers as parameters))",
+        "((message:variable .*? is undefined))",
+        "((message:FATAL ERROR: ***))\\n",
+        "((file)):((line))\\n[^\\n]*\\n\\s*\\^\\nError: ((message))\\n",
+        "^Error: EBADF, ((message)) '((file))'",
+        "<ESC>((message)) in ((file))",
+        "^TypeError: ((message-override:Internal LESS compiler error))",
+        "^((message:file '.*?' wasn't found.))"
+      ],
+      "Extensions": [
+        "less"
+      ],
+      "Name": "LESS",
+      "ExpectedOutputDirectories": [
+        "css",
+        "styles",
+        "stylesheet",
+        "stylesheets"
+      ],
+      "ImportRegExps": [
+        "@import \"([^\"]+)\"",
+        "@import '([^']+)'",
+        "@import ([\\w./]+)"
+      ],
+      "DefaultImportedExts": [
+        "less"
+      ],
+      "NonImportedExts": [
+        "css"
+      ]
+    }
+  ]
+}

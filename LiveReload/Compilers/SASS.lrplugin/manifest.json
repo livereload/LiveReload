@@ -1,0 +1,122 @@
+{
+  "LRCompilers": [
+    {
+      "CommandLine": [
+        "$(ruby)",
+        "-rubygems",
+        "$(plugin)/lib/sass/bin/sass",
+        "$(additional)",
+        "$(src_path)",
+        "$(dst_path)"
+      ],
+      "DestinationExtension": "css",
+      "Errors": [
+        "Syntax error: ((message))\\n\\s+on line ((line)) of ((file))\\n",
+        "Exception on line ((line)): ((message))\\n",
+        "Syntax error: ((message))\\n\\s+Load path:.*\\n\\s+on line ((line)) of ((file))\\n",
+        "Errno::ENOENT: ((message)) - ((file))",
+        "ZeroDivisionError: ((message))"
+      ],
+      "Warnings": [
+        "WARNING on line ((line)) of ((file)):\\n((message))\\n"
+      ],
+      "Extensions": [
+        "sass",
+        "scss"
+      ],
+      "Name": "SASS",
+      "ExpectedOutputDirectories": [
+        "css",
+        "styles",
+        "stylesheet",
+        "stylesheets"
+      ],
+      "ImportRegExps": [
+        "@import \"([^\"]+)\"",
+        "@import '([^']+)'",
+        "@import ([\\w./]+)"
+      ],
+      "DefaultImportedExts": [
+        "sass",
+        "scss"
+      ],
+      "ImportToFileMappings": [
+        "$(file)",
+        "_$(file)"
+      ],
+      "NonImportedExts": [
+        "css"
+      ],
+      "Options": [
+        {
+          "Id": "debug-info",
+          "Type": "checkbox",
+          "Title": "Emit debug info for FireSass",
+          "OnArgument": "--debug-info"
+        },
+        {
+          "Id": "output-style",
+          "Type": "select",
+          "Items": [
+            {
+              "Id": "nested",
+              "Title": "Nested output style"
+            },
+            {
+              "Id": "compact",
+              "Title": "Compact output style",
+              "Argument": "--style compact"
+            },
+            {
+              "Id": "compressed",
+              "Title": "Compressed output style",
+              "Argument": "--style compressed"
+            },
+            {
+              "Id": "expanded",
+              "Title": "Expanded output style",
+              "Argument": "--style expanded"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CommandLine": [
+        "$(ruby)",
+        "-rubygems",
+        "-I$(plugin)/lib/sass/lib",
+        "-I$(plugin)/lib/compass/lib",
+        "-I$(plugin)/lib/chunky_png/lib",
+        "$(plugin)/lib/compass/bin/compass",
+        "compile",
+        "-q",
+        "$(additional)",
+        "$(project_dir)"
+      ],
+      "RunIn": "$(project_dir)",
+      "DestinationExtension": "css",
+      "NeedsOutputDirectory": false,
+      "Errors": [
+        "Syntax error: ((message))\\n\\s+on line ((line)) of ((file))\\n",
+        "Exception on line ((line)): ((message))\\n",
+        "Syntax error: ((message))\\n\\s+Load path:.*\\n\\s+on line ((line)) of ((file))\\n",
+        "Errno::ENOENT: ((message)) - ((file))",
+        "ZeroDivisionError: ((message))",
+        "error<ESC>\\s*((file))\\s*\\(Line ((line)): ((message))\\)",
+        "Nothing to compile. If you're trying to start a new project, you have left off the directory argument.((message-override:Compass cannot find its config. Please make sure that the directory added to LiveReload is the root Compass folder.))"
+      ],
+      "Extensions": [
+        "sass",
+        "scss"
+      ],
+      "Name": "Compass",
+      "ExpectedOutputDirectories": [
+        "css",
+        "styles",
+        "stylesheet",
+        "stylesheets"
+      ]
+    }
+  ]
+}

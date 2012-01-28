@@ -1,0 +1,42 @@
+{
+  "LRCompilers": [
+    {
+      "CommandLine": [
+        "$(node)",
+        "$(plugin)/node_modules/eco/bin/eco",
+        "$(additional)",
+        "-o",
+        "$(dst_dir)",
+        "$(src_file)"
+      ],
+      "RunIn": "$(src_dir)",
+      "DestinationExtension": "js",
+      "Errors": [
+        "\\w+Error: ((file)):((line))\\n(?:\\s[^\\n]*\\n)*\\s*\\n((message))\\n",
+        "\\w+Error: ((message))\\n"
+      ],
+      "ExpectedOutputDirectories": [
+        "js",
+        "template",
+        "templates",
+        "eco",
+        "view",
+        "views"
+      ],
+      "Extensions": [
+        "eco"
+      ],
+      "Name": "Eco",
+      "Options": [
+        {
+          "Id": "identifier",
+          "Type": "edit",
+          "Label": "Eco object identifier:",
+          "Placeholder": "ecoTemplates",
+          "Argument": "--identifier $(value)",
+          "SkipIfEmpty": true
+        }
+      ]
+    }
+  ]
+}
