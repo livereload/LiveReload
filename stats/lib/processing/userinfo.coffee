@@ -4,6 +4,8 @@ Hierarchy = require '../hierarchy'
 TRIAL_PERIOD      =  7
 INACTIVITY_CUTOFF = 14
 
+VALUE_VALIDITY_PERIOD = 2
+
 DAY = (1).day() / 1000
 
 
@@ -23,7 +25,11 @@ analyzeUser = (period, eventsToData) ->
   else
     engagement = 'active'
 
-  return { firstPingTime, lastPingTime, activityDuration, inactivityDuration, age, engagement }
+  valueCutoff = period.endUnixTime() - VALUE_VALIDITY_PERIOD * DAY
+
+  values = (event for own event, eventData of eventsToData when event.startsWith('v:') and eventData.last >= valueCutoff)
+
+  return { firstPingTime, lastPingTime, activityDuration, inactivityDuration, age, engagement, values }
 
 
 module.exports = (period, usersToEventsToData) ->

@@ -5,6 +5,11 @@ Hierarchy   = require '../hierarchy'
 computeSegments = (userData) ->
   segmentNames = ["g:all", "g:status:#{userData.status}", "g:engagement:#{userData.engagement}", "g:knownfor:#{userData.knownfor}"]
 
+  segmentNames = segmentNames.concat('g:' + event for event in userData.values)
+
+  if userData.engagement is 'active'
+    segmentNames = segmentNames.concat('g:active:' + event for event in userData.values)
+
   segmentData = EventType.segment.map(userData)
 
   segmentsToData = Hierarchy()
