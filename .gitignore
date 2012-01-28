@@ -23,3 +23,9 @@ example/import_example_sass/*.css
 example/random_example/*.css
 example/random_example/*.js
 example/random_example/*.html
+
+# Temporarily ignore stuff from the node branch
+/stats
+/backend
+/Windows
+/WinApp
