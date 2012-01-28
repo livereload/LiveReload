@@ -19,6 +19,7 @@ static PluginManager *sharedPluginManager;
 - (id)init {
     self = [super init];
     if (self) {
+        _loadedPluginNames = [[NSMutableSet alloc] init];
     }
 
     return self;
@@ -28,14 +29,37 @@ static PluginManager *sharedPluginManager;
     [super dealloc];
 }
 
-- (void)reloadPlugins {
-    NSArray *paths = [[NSBundle mainBundle] pathsForResourcesOfType:@"lrplugin" inDirectory:@""];
-    NSLog(@"Plugins found: %@", [paths description]);
-    NSMutableArray *plugins = [NSMutableArray array];
-    for (NSString *path in paths) {
-        [plugins addObject:[[[Plugin alloc] initWithPath:path] autorelease]];
+- (void)loadPluginFromFolder:(NSString *)pluginFolder into:(NSMutableArray *)plugins {
+    NSString *name = [[pluginFolder lastPathComponent] stringByDeletingPathExtension];
+
+    if ([_loadedPluginNames containsObject:name])
+        return;
+    [_loadedPluginNames addObject:name];
+
+    [plugins addObject:[[[Plugin alloc] initWithPath:pluginFolder] autorelease]];
+}
+
+- (void)loadPluginsFromFolder:(NSString *)pluginsFolder into:(NSMutableArray *)plugins {
+    for (NSString *fileName in [[[NSFileManager defaultManager] contentsOfDirectoryAtPath:pluginsFolder error:nil] sortedArrayUsingSelector:@selector(compare:)]) {
+        if ([[fileName pathExtension] isEqualToString:@"lrplugin"]) {
+            [self loadPluginFromFolder:[pluginsFolder stringByAppendingPathComponent:fileName] into:plugins];
+        }
     }
+}
+
+- (void)reloadPlugins {
+    NSMutableArray *plugins = [NSMutableArray array];
+
+    NSArray *libraryFolderPaths = [NSArray arrayWithObjects:@"~/Library/LiveReload", @"~/Dropbox/Library/LiveReload", nil];
+    for (NSString *libraryFolderPath in libraryFolderPaths) {
+        NSString *pluginsFolder = [[libraryFolderPath stringByAppendingPathComponent:@"Plugins"] stringByExpandingTildeInPath];
+        [self loadPluginsFromFolder:pluginsFolder into:plugins];
+    }
+
+    [self loadPluginsFromFolder:[[NSBundle mainBundle] resourcePath] into:plugins];
     [_plugins release], _plugins = [plugins copy];
+
+    NSLog(@"Plugins loaded:\n%@", [[_plugins valueForKeyPath:@"path"] componentsJoinedByString:@"\n"]);
 }
 
 - (NSArray *)plugins {

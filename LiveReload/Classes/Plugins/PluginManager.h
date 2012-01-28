@@ -7,6 +7,7 @@
 @interface PluginManager : NSObject {
 @private
     NSArray *_plugins;
+    NSMutableSet *_loadedPluginNames;
 }
 
 + (PluginManager *)sharedPluginManager;
