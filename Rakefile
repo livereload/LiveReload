@@ -124,6 +124,10 @@ namespace :build do
     tag = "#{TAG_PREFIX}#{suffix_for_tag}"
     sh 'git', 'tag', tag
 
+    Dir.chdir 'LiveReload/Compilers' do
+      sh 'git', 'tag', tag
+    end
+
     zip_name = "#{MAC_ZIP_BASE_NAME}-#{suffix}.zip"
     zip_path = File.join(XCODE_RELEASE_DIR, zip_name)
     zip_path_in_builds = File.join(BUILDS_DIR, zip_name)
@@ -185,6 +189,16 @@ end
 
 desc "Update LiveReload.js from js/dist/"
 task :js => ['LiveReload/livereload.js', 'extensions/LiveReload.safariextension/livereload.js', 'extensions/Chrome/LiveReload/livereload.js', 'extensions/Firefox/content/livereload.js']
+
+desc "Push all Git changes"
+task :push do
+  Dir.chdir 'LiveReload/Compilers' do
+    sh 'git', 'push'
+    sh 'git', 'push', '--tags'
+  end
+  sh 'git', 'push'
+  sh 'git', 'push', '--tags'
+end
 
 
 namespace :site do
