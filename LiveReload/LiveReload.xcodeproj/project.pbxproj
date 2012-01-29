@@ -41,6 +41,7 @@
 		4346F3A91450D8AD00B133F2 /* ImportGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 4346F3A81450D8AD00B133F2 /* ImportGraph.m */; };
 		4346F3AB1451012A00B133F2 /* StatusItemStateRotation3.png in Resources */ = {isa = PBXBuildFile; fileRef = 4346F3AA1451012A00B133F2 /* StatusItemStateRotation3.png */; };
 		4349AAF414D469DB009350DA /* node in Resources */ = {isa = PBXBuildFile; fileRef = 4349AAF314D469DB009350DA /* node */; };
+		4349AAF614D48DB5009350DA /* IcedCoffeeScript.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 4349AAF514D48DB5009350DA /* IcedCoffeeScript.lrplugin */; };
 		4353196F1465B52D005FA59F /* ShitHappens.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353196E1465B52D005FA59F /* ShitHappens.m */; };
 		4353197214668E7D005FA59F /* LRHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4353197014668E7D005FA59F /* LRHelpTemplate.png */; };
 		4353197314668E7D005FA59F /* LRSupportTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4353197114668E7D005FA59F /* LRSupportTemplate.png */; };
@@ -221,6 +222,7 @@
 		4346F3A81450D8AD00B133F2 /* ImportGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImportGraph.m; sourceTree = "<group>"; };
 		4346F3AA1451012A00B133F2 /* StatusItemStateRotation3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemStateRotation3.png; sourceTree = "<group>"; };
 		4349AAF314D469DB009350DA /* node */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = node; path = Resources/node; sourceTree = "<group>"; };
+		4349AAF514D48DB5009350DA /* IcedCoffeeScript.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = IcedCoffeeScript.lrplugin; path = Compilers/IcedCoffeeScript.lrplugin; sourceTree = SOURCE_ROOT; };
 		4353196D1465B52D005FA59F /* ShitHappens.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShitHappens.h; sourceTree = "<group>"; };
 		4353196E1465B52D005FA59F /* ShitHappens.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShitHappens.m; sourceTree = "<group>"; };
 		4353197014668E7D005FA59F /* LRHelpTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRHelpTemplate.png; sourceTree = "<group>"; };
@@ -545,6 +547,7 @@
 				43E4BBE713C5DA7900A75F81 /* CoffeeScript.lrplugin */,
 				43191845141A0D1C008457FF /* Eco.lrplugin */,
 				825235311428769E001C3486 /* SLIM.lrplugin */,
+				4349AAF514D48DB5009350DA /* IcedCoffeeScript.lrplugin */,
 			);
 			name = Compilers;
 			path = Extensions/Compilers;
@@ -1011,6 +1014,7 @@
 				43F0030614700C96005D48A4 /* LRTerminalButtonOn.png in Resources */,
 				43F0030714700C96005D48A4 /* LRTerminalButtonOnHighlight.png in Resources */,
 				4349AAF414D469DB009350DA /* node in Resources */,
+				4349AAF614D48DB5009350DA /* IcedCoffeeScript.lrplugin in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
