@@ -233,7 +233,7 @@ Class ToolOptionClassByType(NSString *type) {
 }
 
 - (void)renderControlWithBuilder:(UIBuilder *)builder {
-    CompilationOptions *options = [_project optionsForCompiler:_compiler create:NO];
+    CompilationOptions *options = [_project optionsForCompiler:_compiler create:YES];
     _view = [[builder addCheckboxWithTitle:@"Enabled"] retain];
     [_view setTarget:self];
     [_view setAction:@selector(checkBoxClicked:)];
