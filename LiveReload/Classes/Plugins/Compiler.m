@@ -249,6 +249,8 @@
 
             NSDictionary *data = nil;
             for (NSString *regexp in _errorFormats) {
+                if ([regexp rangeOfString:@"message-override"].location != NSNotFound || [regexp rangeOfString:@"***"].location != NSNotFound)
+                    continue;  // new Node.js features not supported by this native code (yet?)
                 NSString *stripped;
                 if ([regexp rangeOfString:@"<ESC>"].length > 0) {
                     stripped = strippedOutput;
