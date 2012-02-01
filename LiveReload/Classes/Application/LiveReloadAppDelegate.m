@@ -43,7 +43,18 @@
     [[NSAppleEventManager sharedAppleEventManager] setEventHandler:self andSelector:@selector(handleURLEvent:withReplyEvent:) forEventClass:kInternetEventClass andEventID:kAEGetURL];
 }
 
+- (void)applicationWillFinishLaunching:(NSNotification *)notification {
+#ifdef APPSTORE
+    NSString *receiptPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"Contents/_MASReceipt/receipt"];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:receiptPath]) {
+        // magic return value to make Finder ask for an App Store account and create a receipt
+        exit(173);
+    }
+#endif
+}
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+#ifndef APPSTORE
     NSDate *now = [NSDate date];
     NSDateComponents *cutoff = [[[NSDateComponents alloc] init] autorelease];
     [cutoff setYear:2012];
@@ -63,6 +74,7 @@
         }
         [NSApp terminate:self];
     }
+#endif
 
     [Preferences initDefaults];
     [[PluginManager sharedPluginManager] reloadPlugins];
@@ -82,7 +94,11 @@
         [self considerShowingWindowOnAppStartup];
 
         AppNewsKitSetStringValue(@"platform", @"mac");
+#ifdef APPSTORE
+        AppNewsKitSetStringValue(@"status", @"appstore");
+#else
         AppNewsKitSetStringValue(@"status", @"beta");
+#endif
         AppNewsKitStartup(@"http://livereload.com/ping.php", ^(NSMutableDictionary *params) {
             [params setObject:[[Preferences sharedPreferences].additionalExtensions componentsJoinedByString:@","] forKey:@"exts"];
         });

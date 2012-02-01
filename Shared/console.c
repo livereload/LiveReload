@@ -47,12 +47,7 @@ void console_init() {
     buffer_ptr = buffer;
     *buffer_ptr = 0;
 //    console_put("The Personal Computer BASIC\nVersion C1.10 Copyright IBM Corp 1981\n62390 Bytes free\nOk");
-    console_put("APPLESOFT ][ FLOATING POINT BASIC\n"
-                "           APRIL 1978\n"
-                "\n\n"
-                "COPYRIGHT 1978 APPLE COMPUTER\n\n"
-                "COPYRIGHT 1976 BY MICROSOFT\n\n"
-                "ALL RIGHT RESERVED\n\n\n" "]");
+    console_put("]");
 }
 
 void console_put(const char *text) {
