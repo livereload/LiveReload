@@ -1,2 +1,0 @@
-
-var jade = (function(exports){

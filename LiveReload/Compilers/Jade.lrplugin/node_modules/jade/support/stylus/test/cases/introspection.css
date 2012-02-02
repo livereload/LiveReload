@@ -1,7 +1,0 @@
-got {
-  root: true;
-}
-body {
-  got: "a mixin";
-  foo: "not a mixin";
-}
