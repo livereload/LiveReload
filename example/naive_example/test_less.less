@@ -1,4 +1,7 @@
 
+.max (@a, @b) when (@a > @b) { width: @a }
+.max (@a, @b) when (@a < @b) { width: @b }
+
 .foo() {
     top: 2px;
 }
@@ -9,4 +12,5 @@
     left: 50%;
     height: 40px;
     cursor: pointer;
+    .max (30px, 20px);
 }
