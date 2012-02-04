@@ -292,7 +292,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         return; // don't try to compile deleted files
     FileCompilationOptions *fileOptions = [self optionsForFileAtPath:relativePath in:compilationOptions];
     if (fileOptions.destinationDirectory != nil || !compiler.needsOutputDirectory) {
-        NSString *derivedName = [compiler derivedNameForFile:path];
+        NSString *derivedName = [compiler derivedNameForFile:path inTree:self.tree];
         NSString *derivedPath = (compiler.needsOutputDirectory ? [fileOptions.destinationDirectory stringByAppendingPathComponent:derivedName] : [[path stringByDeletingLastPathComponent] stringByAppendingPathComponent:derivedName]);
 
         ToolOutput *compilerOutput = nil;
@@ -350,7 +350,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
                 StatGroupIncrement(CompilerChangeCountEnabledStatGroup, compiler.uniqueId, 1);
                 break;
             } else {
-                NSString *derivedName = [compiler derivedNameForFile:relativePath];
+                NSString *derivedName = [compiler derivedNameForFile:relativePath inTree:nil];
                 reload_session_add(_session, reload_request_create([derivedName UTF8String], [[_path stringByAppendingPathComponent:relativePath] UTF8String]));
                 NSLog(@"Broadcasting a fake change in %@ instead of %@ (compiler %@).", derivedName, relativePath, compiler.name);
                 StatGroupIncrement(CompilerChangeCountStatGroup, compiler.uniqueId, 1);
@@ -522,7 +522,7 @@ fin:
         NSString *guessedDirectory = nil;
 
         // 1) destination file already exists?
-        NSString *derivedName = [compilationOptions.compiler derivedNameForFile:sourcePath];
+        NSString *derivedName = [compilationOptions.compiler derivedNameForFile:sourcePath inTree:self.tree];
         NSString *derivedPath = [self.tree pathOfFileNamed:derivedName];
 
         if (derivedPath) {

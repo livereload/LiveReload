@@ -233,7 +233,7 @@ static BOOL IsBrokenFolder(NSString *path) {
 #pragma mark - Querying
 
 - (BOOL)containsFileNamed:(NSString *)fileName {
-    return nil == [self pathOfFileNamed:fileName];
+    return nil != [self pathOfFileNamed:fileName];
 }
 
 - (NSString *)pathOfFileNamed:(NSString *)fileName {
