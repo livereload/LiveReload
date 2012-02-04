@@ -62,7 +62,7 @@ html
       a(name='download')
       .left
         h2
-          a.download(href='http://download.livereload.com/LiveReload-2.0b8.zip') Download LiveReload 2.0 β8 for Mac
+          a.download(href='http://download.livereload.com/LiveReload-2.0b9.zip') Download LiveReload 2.0 β9 for Mac
         p.after-download(style='display: none')
           | Thanks! Please also sign up for our newsletter to receive new build
           | notifications and useful updates.
@@ -219,6 +219,13 @@ html
       a(name='news')
       .left
         h2 What's new in LiveReload?
+
+        h3 2.0β9
+        :markdown
+          * Bundled a lot of popular Compass plugins (and oh boy is Compass ecosystem booming); note that you can still install any other plugins via gems
+          * Compass vs. pure SASS detection improved, works for all popular Compass frameworks now
+          * New, App Store-friendly icon (I know it's worse than the previous one; will be fixed in due time)
+          * Improved handling of double-extension (smt.css.less) files
 
         h3 2.0β8
         :markdown
