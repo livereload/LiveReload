@@ -26,7 +26,7 @@ static BOOL IsBrokenFolder(NSString *path) {
     AliasHandle itemAlias;
     HFSUniStr255 targetName;
     HFSUniStr255 volumeName;
-    CFStringRef pathString;
+    CFStringRef pathString = NULL;
     FSAliasInfoBitmap returnedInInfo;
     FSAliasInfo info;
 
@@ -38,18 +38,21 @@ static BOOL IsBrokenFolder(NSString *path) {
     if (strstr(path_buf, "_!LR_BROKEN!_"))
         return YES; // for testing
 
-    realpath(path_buf, real_path_buf);
-    if (0 != strcmp(path_buf, real_path_buf)) {
-        return YES;
+    if (realpath(path_buf, real_path_buf)) {
+        if (0 != strcmp(path_buf, real_path_buf)) {
+            return YES;
+        }
     }
 
     FSPathMakeRefWithOptions((unsigned char *)path_buf, kFSPathMakeRefDoNotFollowLeafSymlink, &fsref, NULL);
     FSNewAlias(NULL, &fsref, &itemAlias);
     FSCopyAliasInfo(itemAlias, &targetName, &volumeName, &pathString, &returnedInInfo, &info);
-    CFStringGetCString(pathString, real_path_buf, sizeof(real_path_buf), kCFStringEncodingUTF8);
-    CFRelease(pathString);
-    if (0 != strcmp(path_buf, real_path_buf)) {
-        return YES;
+    if (pathString) {
+        CFStringGetCString(pathString, real_path_buf, sizeof(real_path_buf), kCFStringEncodingUTF8);
+        CFRelease(pathString);
+        if (0 != strcmp(path_buf, real_path_buf)) {
+            return YES;
+        }
     }
 
     return NO;
