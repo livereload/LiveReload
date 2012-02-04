@@ -49,6 +49,17 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
 
 
 
+BOOL MatchLastPathComponent(NSString *path, NSString *lastComponent) {
+    return [[path lastPathComponent] isEqualToString:lastComponent];
+}
+
+BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent, NSString *lastComponent) {
+    NSArray *components = [path pathComponents];
+    return components.count >= 2 && [[components objectAtIndex:components.count - 2] isEqualToString:secondToLastComponent] && [[path lastPathComponent] isEqualToString:lastComponent];
+}
+
+
+
 @interface Project () <FSMonitorDelegate>
 
 - (void)updateFilter;
@@ -304,6 +315,19 @@ static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
     comm_broadcast_reload_requests(_session);
     reload_session_clear(_session);
     StatIncrement(BrowserRefreshCountStat, 1);
+}
+
+- (BOOL)isCompassConfigurationFile:(NSString *)relativePath {
+    return MatchLastPathTwoComponents(relativePath, @"config", @"compass.rb") || MatchLastPathTwoComponents(relativePath, @".compass", @"config.rb") || MatchLastPathTwoComponents(relativePath, @"config", @"compass.config") || MatchLastPathComponent(relativePath, @"config.rb") || MatchLastPathTwoComponents(relativePath, @"src", @"config.rb");
+}
+
+- (void)scanCompassConfigurationFile:(NSString *)relativePath {
+    NSString *data = [NSString stringWithContentsOfFile:[self.path stringByAppendingPathComponent:relativePath] encoding:NSUTF8StringEncoding error:nil];
+    if (data) {
+        if ([data isMatchedByRegex:@"compass plugins"] || [data isMatchedByRegex:@"^preferred_syntax = :(sass|scss)" options:RKLMultiline inRange:NSMakeRange(0, data.length) error:nil]) {
+            _compassDetected = YES;
+        }
+    }
 }
 
 - (void)processChangeAtPath:(NSString *)relativePath {
@@ -673,6 +697,10 @@ skipGuessing:
         return;
     }
 
+    if ([self isCompassConfigurationFile:relativePath]) {
+        [self scanCompassConfigurationFile:relativePath];
+    }
+
     NSString *extension = [relativePath pathExtension];
 
     for (Compiler *compiler in [PluginManager sharedPluginManager].compilers) {
@@ -696,6 +724,11 @@ skipGuessing:
     [_importGraph removeAllPaths];
     NSArray *paths = [_monitor.tree pathsOfFilesMatching:^BOOL(NSString *name) {
         NSString *extension = [name pathExtension];
+
+        // a hack for Compass
+        if ([extension isEqualToString:@"rb"] || [extension isEqualToString:@"config"]) {
+            return YES;
+        }
 
         for (Compiler *compiler in [PluginManager sharedPluginManager].compilers) {
             if ([compiler.extensions containsObject:extension]) {
