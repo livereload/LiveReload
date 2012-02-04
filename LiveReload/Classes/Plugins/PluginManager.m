@@ -9,6 +9,8 @@ static PluginManager *sharedPluginManager;
 
 @implementation PluginManager
 
+@synthesize userPluginNames=_userPluginNames;
+
 + (PluginManager *)sharedPluginManager {
     if (sharedPluginManager == nil) {
         sharedPluginManager = [[PluginManager alloc] init];
@@ -55,6 +57,8 @@ static PluginManager *sharedPluginManager;
         NSString *pluginsFolder = [[libraryFolderPath stringByAppendingPathComponent:@"Plugins"] stringByExpandingTildeInPath];
         [self loadPluginsFromFolder:pluginsFolder into:plugins];
     }
+
+    [_userPluginNames release], _userPluginNames = [[NSArray alloc] initWithArray:[_loadedPluginNames allObjects]];
 
     [self loadPluginsFromFolder:[[NSBundle mainBundle] resourcePath] into:plugins];
     [_plugins release], _plugins = [plugins copy];

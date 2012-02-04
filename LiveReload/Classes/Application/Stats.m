@@ -768,7 +768,10 @@ void AppNewsKitStartup(NSString *pingURL, AppNewsKitParamBlock_t pingParamBlock)
 
     StatIncrement(@"stat.launch", 1);
 
-    AppNewsKitPingServer(YES);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        AppNewsKitPingServer(YES);
+    });
+
 
     AppNewsKitTimerSource = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_main_queue());
     int64_t interval = (AppNewsKitDebug ? AppNewsKitDebugCheckInterval : AppNewsKitCheckInterval) * 1ull * NSEC_PER_SEC;
