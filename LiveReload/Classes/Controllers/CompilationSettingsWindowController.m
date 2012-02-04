@@ -266,7 +266,7 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
     CGFloat desiredHeight = ([self enumForItem:item] == compilation_settings_tab_options ? _compilerSettingsWindowHeight : _outputPathsWindowHeight);
 
     NSRect rect = self.window.frame;
-    
+
     BOOL heightSet = NO;
     if ([self currentTab] == compilation_settings_tab_paths) {
         CGFloat height = [[NSUserDefaults standardUserDefaults] floatForKey:@"compilationOptions.height.paths"];
@@ -278,7 +278,7 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
     if (!heightSet) {
         rect.size.height += (desiredHeight - _tabView.frame.size.height);
     }
-    
+
     CGFloat width = [[NSUserDefaults standardUserDefaults] floatForKey:@"compilationOptions.width"];
     if (width > 0.0) {
         rect.size.width = width;
