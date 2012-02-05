@@ -26,7 +26,7 @@ char node_buf[1024 * 1024];
 
 HANDLE node_stdin_fd, node_stdout_fd;
 HANDLE node_process = NULL;
-bool node_shut_down = false;
+volatile bool node_shut_down = false;
 
 static void node_thread(void *dummy);
 static void node_launch();
@@ -44,6 +44,7 @@ void node_shutdown() {
     if (result != WAIT_OBJECT_0) {
         TerminateProcess(node_process, 42);
     }
+    CloseHandle(node_process);
 }
 
 void node_send_raw(const char *line) {
@@ -60,12 +61,12 @@ void node_send_raw(const char *line) {
 }
 
 static void node_emergency_shutdown(void *dummy) {
-	DWORD result = MessageBox(NULL, L"Oh my, oh my. The backend decided to be very naughty, so looks like I have to crash.\n\nClick Yes to open troubleshooting instructions and reveal the log file.", L"LiveReload Crash", MB_YESNO | MB_ICONERROR);
-	if (result == IDYES) {
-		ShellExecute(NULL, L"explore", U2W(os_log_path), NULL, NULL, SW_SHOWNORMAL);
-		ShellExecute(NULL, L"open", L"http://help.livereload.com/kb/troubleshooting/livereload-has-crashed-on-windows", NULL, NULL, SW_SHOWNORMAL);
-	}
-	ExitProcess(1);
+    DWORD result = MessageBox(NULL, L"Oh my, oh my. The backend decided to be very naughty, so looks like I have to crash.\n\nClick Yes to open troubleshooting instructions and reveal the log file.", L"LiveReload Crash", MB_YESNO | MB_ICONERROR);
+    if (result == IDYES) {
+        ShellExecute(NULL, L"explore", U2W(os_log_path), NULL, NULL, SW_SHOWNORMAL);
+        ShellExecute(NULL, L"open", L"http://help.livereload.com/kb/troubleshooting/livereload-has-crashed-on-windows", NULL, NULL, SW_SHOWNORMAL);
+    }
+    ExitProcess(1);
 }
 
 static void node_thread(void *dummy) {
@@ -87,20 +88,22 @@ static void node_thread(void *dummy) {
             node_received_raw(buf, cb);
         }
 
-		time_t endTime = time(NULL);
-		if (endTime < startTime + 3) {
-			// shut down in less than 3 seconds considered a crash
-			node_shut_down = true;
-	        invoke_on_main_thread(node_emergency_shutdown, NULL);
-		}
-
-        CloseHandle(node_stdin_fd);
-        CloseHandle(node_stdout_fd);
-        DWORD result = WaitForSingleObject(node_process, 2000);
-        if (result != WAIT_OBJECT_0) {
-            TerminateProcess(node_process, 42);
+        if (!node_shut_down) {
+            CloseHandle(node_stdin_fd);
+            CloseHandle(node_stdout_fd);
+            DWORD result = WaitForSingleObject(node_process, 2000);
+            if (result != WAIT_OBJECT_0) {
+                TerminateProcess(node_process, 42);
+            }
+            CloseHandle(node_process);
         }
-        CloseHandle(node_process);
+
+        time_t endTime = time(NULL);
+        if (endTime < startTime + 3) {
+            // shut down in less than 3 seconds considered a crash
+            node_shut_down = true;
+            invoke_on_main_thread(node_emergency_shutdown, NULL);
+        }
         fprintf(stderr, "app:  Node terminated.\n");
     }
 }
