@@ -1,6 +1,7 @@
 #include "mainwnd.h"
 #include "mainwnd_projlist.h"
 #include "mainwnd_metrics.h"
+#include "mainwnd_rpane.h"
 
 #include "autorelease.h"
 #include "common.h"
@@ -18,7 +19,6 @@
 
 
 static HBITMAP hMainWindowBgBitmap;
-static HBITMAP hProjectPaneBgBitmap;
 
 static HWND hMainWindow;
 static HWND hProjectListView;
@@ -69,8 +69,7 @@ static void mainwnd_do_layout() {
 
 static void mainwnd_do_paint(HWND hwnd, HDC hDC, RECT *prcPaint) {
     DrawState(hDC, NULL, NULL, (LPARAM)hMainWindowBgBitmap, 0, 0, 0, 0, 0, DST_BITMAP);
-    DrawState(hDC, NULL, NULL, (LPARAM)hWelcomePaneBgBitmap, 0, kProjectPaneX, kProjectPaneY, 0, 0, DST_BITMAP);
-    DrawState(hDC, NULL, NULL, (LPARAM)hProjectPaneBgBitmap, 0, kProjectPaneX, kProjectPaneY, 0, 0, DST_BITMAP);
+    mainwnd_rpane_paint(hDC);
 }
 
 static void OnSize(HWND hWnd, UINT state, int cx, int cy) {
@@ -81,6 +80,7 @@ static BOOL OnCreate(HWND hwnd, LPCREATESTRUCT lpcs) {
     hMainWindow = hwnd;
 
     hProjectListView = mainwnd_projlist_create(hwnd);
+    mainwnd_rpane_create(hMainWindow);
 
     mainwnd_do_layout();
 
@@ -168,7 +168,6 @@ static void mainwnd_register_window_class() {
 
 static void mainwnd_load_resources() {
     hMainWindowBgBitmap = (HBITMAP) LoadImage(GetCurrentInstance(), MAKEINTRESOURCE(IDB_MAIN_WINDOW_BG), IMAGE_BITMAP, 0, 0, LR_DEFAULTCOLOR);
-    hProjectPaneBgBitmap = (HBITMAP) LoadImage(GetCurrentInstance(), MAKEINTRESOURCE(IDB_MAINWND_PROJECT_PANE_BG), IMAGE_BITMAP, 0, 0, LR_DEFAULTCOLOR);
 
 }
 
