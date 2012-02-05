@@ -347,8 +347,7 @@ BOOL InitApp(void) {
     wc.lpszMenuName = NULL;
     wc.lpszClassName = L"LiveReload";
 
-    if (!RegisterClass(&wc)) return FALSE;
-
+    VERIFY_BOOL(RegisterClass(&wc));
     INITCOMMONCONTROLSEX sex;
     sex.dwSize = sizeof(sex);
     sex.dwICC = ICC_WIN95_CLASSES | ICC_LINK_CLASS;

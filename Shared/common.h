@@ -6,6 +6,7 @@
 
 #include <windows.h>
 #include <malloc.h>
+#include <stdlib.h>
 
 #define __typeof decltype
 char *stpcpy(char *dest, const char *source);
@@ -20,6 +21,8 @@ static inline WCHAR *_u2w(WCHAR *buf, int cch, const char *utf) {
 char *w2u(WCHAR *string);
 
 #define U2W(str) _u2w((WCHAR *)_alloca(sizeof(WCHAR) * (strlen(str) + 1)), sizeof(WCHAR) * (strlen(str) + 1), str)
+
+#define VERIFY_BOOL(api) do { if (!(api)) abort(); } while(0)
 
 #endif
 
