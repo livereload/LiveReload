@@ -9,6 +9,7 @@
 #include "version.h"
 
 #include <assert.h>
+#include <time.h>
 
 const char *node_bundled_backend_js;
 
@@ -58,11 +59,22 @@ void node_send_raw(const char *line) {
     }
 }
 
+static void node_emergency_shutdown(void *dummy) {
+	DWORD result = MessageBox(NULL, L"Oh my, oh my. The backend decided to be very naughty, so looks like I have to crash.\n\nClick Yes to open troubleshooting instructions and reveal the log file.", L"LiveReload Crash", MB_YESNO | MB_ICONERROR);
+	if (result == IDYES) {
+		ShellExecute(NULL, L"explore", U2W(os_log_path), NULL, NULL, SW_SHOWNORMAL);
+		ShellExecute(NULL, L"open", L"http://help.livereload.com/kb/troubleshooting/livereload-has-crashed-on-windows", NULL, NULL, SW_SHOWNORMAL);
+	}
+	ExitProcess(1);
+}
+
 static void node_thread(void *dummy) {
     while (!node_shut_down) {
         node_launch();
         fprintf(stderr, "app:  Node launched, sending init.\n");
         invoke_on_main_thread(node_send_init, NULL);
+
+        time_t startTime = time(NULL);
 
         char buf[10240];
         while (1) {
@@ -74,6 +86,13 @@ static void node_thread(void *dummy) {
                 break;  // end of file
             node_received_raw(buf, cb);
         }
+
+		time_t endTime = time(NULL);
+		if (endTime < startTime + 3) {
+			// shut down in less than 3 seconds considered a crash
+			node_shut_down = true;
+	        invoke_on_main_thread(node_emergency_shutdown, NULL);
+		}
 
         CloseHandle(node_stdin_fd);
         CloseHandle(node_stdout_fd);
