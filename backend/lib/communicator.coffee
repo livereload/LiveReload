@@ -4,7 +4,7 @@ fs = require 'fs'
 
 class exports.Communicator extends EventEmitter
 
-  constructor: (@stdin, @stdout, @stderr, @execute) ->
+  constructor: (@stdin, @stdout, @stderr, @execute, @consoleDebuggingMode=no) ->
     @stdin.resume()
     @stdin.setEncoding('utf8')
     @commandsInFlight = 0
@@ -23,7 +23,7 @@ class exports.Communicator extends EventEmitter
     return if line == ''  # empty lines are handy when testing in console mode
 
     unless line.match /"app\.ping"/
-      LR.log.fyi "App to Node: #{line}"
+      LR.log.fyi "App to Node: #{line}" unless @consoleDebuggingMode
     command = JSON.parse(line)
     @processCommand command, (err) ->
       if err
@@ -50,5 +50,5 @@ class exports.Communicator extends EventEmitter
       throw new Error("Invalid type of message: #{command}")
     payload = JSON.stringify(command)
     buf = new Buffer("#{payload}\n")
-    LR.log.fyi "Node to App: #{payload}"
+    LR.log.fyi "Node to App: #{payload}" unless @consoleDebuggingMode
     @stdout.write "#{payload}\n"

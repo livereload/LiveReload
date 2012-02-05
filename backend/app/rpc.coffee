@@ -19,10 +19,10 @@ get = (object, path) ->
   object
 
 
-exports.init = (streams, exit, callbackTimeout=2000) ->
-  _callbackTimeout = callbackTimeout
+exports.init = (streams, exit, { callbackTimeout, consoleDebuggingMode }) ->
+  _callbackTimeout = callbackTimeout ? 2000
   _exit = exit
-  communicator = new Communicator streams.stdin, streams.stdout, streams.stderr, executeJSON
+  communicator = new Communicator streams.stdin, streams.stdout, streams.stderr, executeJSON, consoleDebuggingMode
   communicator.on 'end', -> exit(0)
 
 exports.exit = (rv) ->

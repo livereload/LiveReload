@@ -7,7 +7,7 @@ global.LR = require('../config/env').createEnvironment();
 if (process.argv.indexOf('--console') >= 0) {
     Path = require('path');
 
-    LR.rpc.init(process, process.exit, 60000);
+    LR.rpc.init(process, process.exit, { callbackTimeout: 60000, consoleDebuggingMode: true });
 
     LR.app.init({
         pluginFolders: [ Path.join(__dirname, "../../LiveReload/Compilers")],
