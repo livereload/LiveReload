@@ -23,6 +23,12 @@ char *w2u(WCHAR *string);
 #define U2W(str) _u2w((WCHAR *)_alloca(sizeof(WCHAR) * (strlen(str) + 1)), sizeof(WCHAR) * (strlen(str) + 1), str)
 
 #define VERIFY_BOOL(api) do { if (!(api)) abort(); } while(0)
+#define VERIFY_NOT_NULL(api) VERIFY_BOOL(api)
+
+// some magic to avoid passing hInstance everywhere
+// http://blogs.msdn.com/b/oldnewthing/archive/2004/10/25/247180.aspx
+EXTERN_C IMAGE_DOS_HEADER __ImageBase;
+#define GetCurrentInstance() ((HINSTANCE)&__ImageBase)
 
 #endif
 

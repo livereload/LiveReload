@@ -112,6 +112,9 @@
     <ClCompile Include="app\mainwnd.c">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="app\mainwnd_projlist.c">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Shared\autorelease.h">
@@ -178,6 +181,9 @@
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="app\mainwnd.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="app\mainwnd_projlist.h">
       <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>
