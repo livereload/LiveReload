@@ -20,6 +20,8 @@ class exports.Communicator extends EventEmitter
       @emit 'end'
 
   processLine: (line) ->
+    return if line == ''  # empty lines are handy when testing in console mode
+
     unless line.match /"app\.ping"/
       LR.log.fyi "App to Node: #{line}"
     command = JSON.parse(line)
