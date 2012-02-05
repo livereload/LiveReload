@@ -59,6 +59,10 @@ NSString *CommunicationStateChangedNotification = @"CommunicationStateChangedNot
     self = [super init];
     if (self) {
         _connections = [[NSMutableArray alloc] init];
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:@"LRPortNumber"])
+            _portNumber = [[NSUserDefaults standardUserDefaults] integerForKey:@"LRPortNumber"];
+        else
+            _portNumber = PORT_NUMBER;
     }
     return self;
 }
@@ -66,7 +70,7 @@ NSString *CommunicationStateChangedNotification = @"CommunicationStateChangedNot
 - (void)startServer {
     _server = [[WebSocketServer alloc] init];
     _server.delegate = self;
-    _server.port = PORT_NUMBER;
+    _server.port = _portNumber;
     [_server connect];
 }
 
@@ -132,7 +136,7 @@ NSString *CommunicationStateChangedNotification = @"CommunicationStateChangedNot
 }
 
 - (void)webSocketServerDidFailToInitialize:(WebSocketServer *)server {
-    NSInteger result = [[NSAlert alertWithMessageText:@"Failed to start: port occupied" defaultButton:@"Quit" alternateButton:nil otherButton:@"More Info" informativeTextWithFormat:@"LiveReload cannot listen on port %d. You probably have another copy of LiveReload 2.x, a command-line LiveReload 1.x or an alternative tool like guard-livereload running.\n\nPlease quit any other live reloaders and rerun LiveReload.", PORT_NUMBER] runModal];
+    NSInteger result = [[NSAlert alertWithMessageText:@"Failed to start: port occupied" defaultButton:@"Quit" alternateButton:nil otherButton:@"More Info" informativeTextWithFormat:@"LiveReload cannot listen on port %d. You probably have another copy of LiveReload 2.x, a command-line LiveReload 1.x or an alternative tool like guard-livereload running.\n\nPlease quit any other live reloaders and rerun LiveReload.", (int)_portNumber] runModal];
     if (result == NSAlertOtherReturn) {
         [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://help.livereload.com/kb/troubleshooting/failed-to-start-port-occupied"]];
     }

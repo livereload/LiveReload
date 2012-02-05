@@ -16,6 +16,7 @@ extern NSString *CommunicationStateChangedNotification;
     NSInteger _numberOfSessions;
     NSInteger _numberOfProcessedChanges;
     NSMutableArray        *_connections;
+    NSInteger              _portNumber;
 }
 
 + (CommunicationController *)sharedCommunicationController;
