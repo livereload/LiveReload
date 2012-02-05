@@ -50,7 +50,7 @@ modelDidChange = (callback) ->
 projectListJSON = ->
   (project.toJSON() for project in projects)
 
-findById = (projectId) ->
+exports.findById = findById = (projectId) ->
   for project in projects
     if project.id is projectId
       return project

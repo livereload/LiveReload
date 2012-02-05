@@ -33,6 +33,17 @@ static HWND hProjectListView;
 static json_t *mainwnd_project_list_data = NULL;
 
 
+json_t *mainwnd_projlist_get_selected_project_id() {
+    int selection;
+    if (hProjectListView && (selection = ListBox_GetCurSel(hProjectListView)) != LB_ERR && mainwnd_project_list_data) {
+        json_t *projects_json = json_object_get(mainwnd_project_list_data, "projects");
+        json_t *project_json = json_array_get(projects_json, selection);
+        return json_object_get(project_json, "id");
+    } else {
+        return json_null();
+    }
+}
+
 int CALLBACK add_project_dialog_customizer(HWND hwnd, UINT uMsg, LPARAM lParam, LPARAM lpData) {
     if (uMsg == BFFM_INITIALIZED) {
         SetWindowText(hwnd, L"Add Folder");
@@ -137,16 +148,36 @@ void mainwnd_render_project_list() {
         ListBox_AddItemData(hProjectListView, project_json);
     }
 
-    ListBox_SetCurSel(hProjectListView, 0);
-
     mainwnd_redraw();
 }
 
 void C_mainwnd__set_project_list(json_t *data) {
+    // preserve selection
+    json_t *selected_project_id = mainwnd_projlist_get_selected_project_id();
+    json_incref(selected_project_id);
+
+    // save
     if (mainwnd_project_list_data)
         json_decref(mainwnd_project_list_data);
     mainwnd_project_list_data = json_incref(data);
+
+    // render
     mainwnd_render_project_list();
+
+    // restore selection
+    int selection_index = -1;
+    json_t *projects_json = json_object_get(mainwnd_project_list_data, "projects");
+    int count = json_array_size(projects_json);
+    for (int i = 0; i < count; i++) {
+        json_t *project_id = json_object_get(json_array_get(projects_json, i), "id");
+        if (json_equal(project_id, selected_project_id)) {
+            selection_index = i;
+            break;
+        }
+    }
+    ListBox_SetCurSel(hProjectListView, selection_index);
+
+    json_decref(selected_project_id);
 }
 
 HWND mainwnd_projlist_create(HWND _hMainWindow) {
@@ -163,4 +194,10 @@ HWND mainwnd_projlist_create(HWND _hMainWindow) {
         WS_VISIBLE | WS_CHILD | LBS_NOINTEGRALHEIGHT | LBS_NOTIFY | LBS_OWNERDRAWVARIABLE,
         0, 0, 100, 200, hMainWindow, (HMENU)ID_PROJECT_LIST_VIEW, GetCurrentInstance(), NULL);
     return hProjectListView;
+}
+
+void mainwnd_projlist_selection_changed() {
+    json_t *arg = json_object();
+    json_object_set(arg, "projectId", mainwnd_projlist_get_selected_project_id());
+    S_mainwnd_set_selected_project(arg);
 }

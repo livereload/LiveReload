@@ -11,4 +11,6 @@ void mainwnd_projlist_remove_project_button_click(int x, int y, UINT keyFlags);
 
 HWND mainwnd_projlist_create(HWND hMainWindow);
 
+void mainwnd_projlist_selection_changed();
+
 #endif

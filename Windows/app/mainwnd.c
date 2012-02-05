@@ -132,6 +132,14 @@ static void OnLButtonDown(HWND hwnd, BOOL fDoubleClick, int x, int y, UINT keyFl
     }
 }
 
+static void OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify) {
+    if (id == ID_PROJECT_LIST_VIEW) {
+        if (codeNotify == LBN_SELCHANGE) {
+            mainwnd_projlist_selection_changed();
+        }
+    }
+}
+
 static LRESULT CALLBACK WndProc(HWND hwnd, UINT uiMsg, WPARAM wParam, LPARAM lParam) {
     switch (uiMsg) {
     HANDLE_MSG(hwnd, WM_CREATE, OnCreate);
@@ -144,6 +152,7 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT uiMsg, WPARAM wParam, LPARAM lPa
     HANDLE_MSG(hwnd, WM_MEASUREITEM, mainwnd_projlist_measure_item);
     HANDLE_MSG(hwnd, WM_DRAWITEM, mainwnd_projlist_draw_item);
     HANDLE_MSG(hwnd, WM_LBUTTONDOWN, OnLButtonDown);
+    HANDLE_MSG(hwnd, WM_COMMAND, OnCommand);
     case WM_PRINTCLIENT: OnPrintClient(hwnd, (HDC)wParam); return 0;
     }
 
