@@ -32,7 +32,6 @@
     <ClCompile Include="..\Shared\libs\fsmonitor\src\fstree.c" />
     <ClCompile Include="..\Shared\libs\fsmonitor\src\fstree_create_win32.c" />
     <ClCompile Include="..\Shared\libs\fsmonitor\src\fstree_diff.c" />
-    <ClCompile Include="..\Shared\model\project.c" />
     <ClCompile Include="..\Shared\monitoring.c" />
     <ClCompile Include="..\Shared\msg_proxy.c" />
     <ClCompile Include="..\Shared\msg_router.c" />
@@ -55,7 +54,6 @@
     <ClInclude Include="..\Shared\jansson\strbuffer.h" />
     <ClInclude Include="..\Shared\jansson\utf.h" />
     <ClInclude Include="..\Shared\libs\kvec.h" />
-    <ClInclude Include="..\Shared\model\project.h" />
     <ClInclude Include="..\Shared\msg_proxy.h" />
     <ClInclude Include="..\Shared\msg_router.h" />
     <ClInclude Include="..\Shared\nodeapi.h" />

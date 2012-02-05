@@ -1,5 +1,4 @@
 #include "autorelease.h"
-#include "project.h"
 #include "common.h"
 #include "resource.h"
 #include "osdep.h"
@@ -443,9 +442,6 @@ int WINAPI WinMain(HINSTANCE hinst, HINSTANCE hinstPrev,
     fflush(stderr);
 
     node_init();
-
-    project_add_new("c:\\Dropbox\\GitHub\\LiveReload2");
-    project_add_new("c:\\Dropbox\\GitHub\\keymapper_tip");
 
     g_hMainWindowBgBitmap = (HBITMAP) LoadImage(g_hinst, MAKEINTRESOURCE(IDB_MAIN_WINDOW_BG), IMAGE_BITMAP, 0, 0, LR_DEFAULTCOLOR);
     g_hListBoxSelectionBgBitmap = (HBITMAP) LoadImage(g_hinst, MAKEINTRESOURCE(IDB_LISTBOX_SELECTION_BG), IMAGE_BITMAP, 0, 0, LR_DEFAULTCOLOR);
