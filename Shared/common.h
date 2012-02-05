@@ -22,8 +22,10 @@ char *w2u(WCHAR *string);
 
 #define U2W(str) _u2w((WCHAR *)_alloca(sizeof(WCHAR) * (strlen(str) + 1)), sizeof(WCHAR) * (strlen(str) + 1), str)
 
-#define VERIFY_BOOL(api) do { if (!(api)) abort(); } while(0)
-#define VERIFY_NOT_NULL(api) VERIFY_BOOL(api)
+#define _VERIFY(x) do { if (!(x)) abort(); } while(0)
+#define VERIFY_BOOL(api) _VERIFY(api)
+#define VERIFY_NOT_NULL(api) _VERIFY(api)
+#define VERIFY_HRESULT(api) _VERIFY(SUCCEEDED(api))
 
 // some magic to avoid passing hInstance everywhere
 // http://blogs.msdn.com/b/oldnewthing/archive/2004/10/25/247180.aspx
