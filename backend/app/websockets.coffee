@@ -68,7 +68,7 @@ class Connection
   _onHandshakeDone: ->
     @_cancelHandshakeTimeout()
     _connections[@id] = this
-    LR.log.wtf "Web Socket handshake done, connected."
+    LR.log.fyi "Web Socket handshake done, connected."
 
   _oncommand: (command) ->
     LR.log.fyi "Ignoring command #{command.command}"
