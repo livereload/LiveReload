@@ -109,6 +109,9 @@
     <ClCompile Include="app\widgets.c">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="app\mainwnd.c">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Shared\autorelease.h">
@@ -172,6 +175,9 @@
       <Filter>Shared</Filter>
     </ClInclude>
     <ClInclude Include="app\widgets.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="app\mainwnd.h">
       <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>

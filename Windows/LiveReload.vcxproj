@@ -39,6 +39,7 @@
     <ClCompile Include="..\Shared\reload_request.c" />
     <ClCompile Include="..\Shared\stringutil.c" />
     <ClCompile Include="app\main.c" />
+    <ClCompile Include="app\mainwnd.c" />
     <ClCompile Include="app\widgets.c" />
     <ClCompile Include="osdep.c" />
   </ItemGroup>
@@ -62,6 +63,7 @@
     <ClInclude Include="..\Shared\reload_request.h" />
     <ClInclude Include="..\Shared\sglib.h" />
     <ClInclude Include="..\Shared\stringutil.h" />
+    <ClInclude Include="app\mainwnd.h" />
     <ClInclude Include="app\widgets.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>

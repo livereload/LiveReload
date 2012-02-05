@@ -7,6 +7,7 @@
 #include "msg_proxy.h"
 #include "version.h"
 #include "widgets.h"
+#include "mainwnd.h"
 
 #include "winsparkle.h"
 
@@ -334,20 +335,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uiMsg, WPARAM wParam, LPARAM lParam) {
 }
 
 BOOL InitApp(void) {
-    WNDCLASS wc;
-
-    wc.style = 0;
-    wc.lpfnWndProc = WndProc;
-    wc.cbClsExtra = 0;
-    wc.cbWndExtra = 0;
-    wc.hInstance = g_hinst;
-    wc.hIcon = (HICON) LoadImage(g_hinst, MAKEINTRESOURCE(IDI_APP), IMAGE_ICON, 32, 32, LR_DEFAULTCOLOR);
-    wc.hCursor = LoadCursor(NULL, IDC_ARROW);
-    wc.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
-    wc.lpszMenuName = NULL;
-    wc.lpszClassName = L"LiveReload";
-
-    VERIFY_BOOL(RegisterClass(&wc));
     INITCOMMONCONTROLSEX sex;
     sex.dwSize = sizeof(sex);
     sex.dwICC = ICC_WIN95_CLASSES | ICC_LINK_CLASS;
@@ -397,6 +384,8 @@ int WINAPI WinMain(HINSTANCE hinst, HINSTANCE hinstPrev,
     win_sparkle_set_registry_path("Software\\LiveReload\\Updates");
 
     if (!InitApp()) return 0;
+
+    mainwnd_init();
 
     BOOL outputToConsole = !!strstr(lpCmdLine, "--console");
 
