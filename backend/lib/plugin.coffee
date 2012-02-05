@@ -1,7 +1,6 @@
 fs    = require 'fs'
 Path  = require 'path'
 util  = require 'util'
-plist = require 'plist'
 async = require 'async'
 
 { Compiler } = require './tool'
@@ -14,14 +13,7 @@ class Plugin
     @compilers = {}
 
     @manifestFile = "#{@folder}/manifest.json"
-
-    plistFile = "#{@folder}/Info.plist"
-    if Path.existsSync(plistFile)
-      plist.parseFile plistFile, (err, obj) =>
-        fs.writeFileSync(@manifestFile, JSON.stringify(obj[0], null, 2))
-        @parseManifest(callback)
-    else
-      @parseManifest(callback)
+    @parseManifest(callback)
 
   parseManifest: (callback) ->
     try
