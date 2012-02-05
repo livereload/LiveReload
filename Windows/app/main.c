@@ -6,6 +6,7 @@
 #include "jansson.h"
 #include "msg_proxy.h"
 #include "version.h"
+#include "widgets.h"
 
 #include "winsparkle.h"
 
@@ -132,31 +133,12 @@ void remove_project_button_click(int x, int y, UINT keyFlags) {
     }
 }
 
-typedef struct rect_t { int x, y, w, h; } rect_t;
-typedef void (*area_click_func_t)(int x, int y, UINT keyFlags);
-typedef struct {
-    rect_t rect;
-    int id;
-    area_click_func_t on_click;
-} area_t;
-
 area_t areas[] = {
     { { 65, 492, 28, 22 }, IDC_ADD_PROJECT_BUTTON, add_project_button_click },
     { { 107, 492, 28, 22 }, IDC_REMOVE_PROJECT_BUTTON, remove_project_button_click },
 };
 
-bool pt_in_rect(int x, int y, rect_t *rect) {
-    return x >= rect->x && x < rect->x + rect->w && y >= rect->y && y < rect->y + rect->h;
-}
-
-area_t *find_area_by_pt(int x, int y) {
-    int count = sizeof(areas)/sizeof(areas[0]);
-    for (int i = 0; i < count; i++) {
-        if (pt_in_rect(x, y, &areas[i].rect))
-            return &areas[i];
-    }
-    return NULL;
-}
+area_container_t container = { areas, sizeof(areas) / sizeof(areas[0]) };
 
 
 enum {
@@ -327,7 +309,7 @@ void MainWnd_OnDrawItem(HWND hwnd, const DRAWITEMSTRUCT * lpDrawItem) {
 }
 
 void MainWnd_OnLButtonDown(HWND hwnd, BOOL fDoubleClick, int x, int y, UINT keyFlags) {
-    area_t *area = find_area_by_pt(x, y);
+    area_t *area = find_area_by_pt(&container, x, y);
     if (area != NULL && area->on_click) {
         area->on_click(x, y, keyFlags);
     }
