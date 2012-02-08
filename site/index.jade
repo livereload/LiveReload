@@ -33,11 +33,11 @@ html
               CoffeeScript, SASS, LESS [and others](#compilers) just work.
 
           p.citizenship
-            | Citizenship will be granted through the Mac App Store.
+            | Citizenship is granted through the Mac App Store.
             br
-            | Meanwhile, get yourself a
-            a(href='#download') green beta tester card
-            | .
+            | Windows permanent residency issues are being worked out,
+            br
+            | temporary stay already allowed.
         .right
           img(src="images/LiveReload_350.png")
     section.what-is-livereload
@@ -58,30 +58,34 @@ html
     section.download-section
       a(name='download')
       .left
-        h2
-          a.download(href='http://download.livereload.com/LiveReload-2.0b9.zip') Download LiveReload 2.0 β9 for Mac
+        h2 Downloads
+
+        h3
+          span Mac?
+          a.download(href='http://itunes.apple.com/us/app/livereload/id482898991?mt=12') Get LiveReload 2 on the Mac App Store
+
+        :markdown
+          Requires OS X 10.6 or later. $9.99. 64-bit only. [Got old 32-bit Mac?](http://help.livereload.com/kb/troubleshooting/32-bit-mac-support)
+
+          Don't miss: [Getting started](#getting-started), [compilers](#compilers), [plugins](#plugins), [post-processing](#postprocessing).
+
         p.after-download(style='display: none')
           | Thanks! Please also sign up for our newsletter to receive new build
           | notifications and useful updates.
 
+        // Included plugins: 
+
+        h3
+          span Windows?
+          a.download(href='http://download.livereload.com/LiveReload-0.0.3-Setup.exe') Try LiveReload 0.0.3 Pre-Alpha
+
         :markdown
-          ANN: We now have a [compiler plugin system](https://github.com/livereload/livereload-plugins)!
-          Add support for your favorite compiler, no coding involved.
+          Warrrrning: this early Windows release is toxic, AND it won't be clear how to use it. [Read some helpful instructions here.](http://help.livereload.com/kb/roadmap/latest-development-builds) Requires XP+.
 
-          Included plugins: LESS, SASS, Compass, Stylus, CoffeeScript, IcedCoffeeScript, Eco, SLIM, HAML, Jade.
+        h3 Linux?
 
         :markdown
-          Requires OS X 10.6 Snow Leopard or later. 64-bit only. [Got old 32-bit Mac?](http://help.livereload.com/kb/troubleshooting/32-bit-mac-support)
-
-          Windows version is under development. [Sign up for early access](http://livereload.com/early-access.html) and maybe [try a very early build](http://help.livereload.com/kb/roadmap/latest-development-builds).
-
-          After you download and install LiveReload, it will quietly live in your menu bar. There are two great ways to use LiveReload: [insert a SCRIPT tag before </body>](http://help.livereload.com/kb/general-use/using-livereload-without-browser-extensions) or [install browser extensions](http://help.livereload.com/kb/general-use/browser-extensions).
-
-          A rule of thumb: each directory you add to LiveReload should be a separate web site project. Do not add your whole home directory or something like that.
-
-          If you encounter a problem, please be sure to [start a support discussion](http://help.livereload.com/discussion/new).
-
-          Fill in the application form on the right to subscribe to our newsletter and receive notifications about new builds.
+          Try [guard-livereload](https://github.com/guard/guard-livereload), they use our browser extensions and are pretty cool. Not limited to Linux either; if GUI is not your thing, guard-livereload is the next best choice.
 
       .right
         h2 Wonderland green card application
@@ -113,323 +117,131 @@ html
             label.checkbox(for="cm2467775") I want early access to (and receive news about) prerelease builds
           p
             input.submit(type='submit', value='Apply and subscribe to citizen news')
-    section.friends-section
-      a(name='friends')
+
+
+    section.source-section
+      a(name='source')
       .left
-        img.binaryage-icon(src='images/binaryage/totalfinder-256.png', width='256', height='256', alt='')
-        img.binaryage-icon(src='images/binaryage/firequery-256.png', width='256', height='256', alt='')
-        img.binaryage-icon(src='images/binaryage/firerainbow-256.png', width='256', height='256', alt='')
-        img.binaryage-icon(src='images/binaryage/firelogger-256.png', width='256', height='256', alt='')
+        h2 Wanna see the source?
+
+        :markdown
+          The full source code of LiveReload 2 is available on GitHub: [LiveReload2](https://github.com/livereload/LiveReload2) (Mac on master branch, Windows on node branch), [livereload-plugins](https://github.com/livereload/livereload-plugins), [livereload-js](https://github.com/livereload/livereload-js), [livereload-extensions](https://github.com/livereload/livereload-extensions).
+          
+          Why? Because curiosity is the most basic and important quality of good developers. I believe that everyone benefits from being able to study and tinker with other people's software.
+
+          There is no formal license attached. You are free to tinker with it and share the results with your friends, but please don't distribute binaries publicly without my permission. I still expect every user to pay for a license, unless you have a good reason not to.
+
+          If you find a nice generic class or a piece of code you'd like to reuse, I will probably be happy to release it under MIT.
+
       .right
-        h2 Our friends at BinaryAge
-        p
-          | LiveReload has been inspired by XRefresh,
-          | an old Firebug plugin made by our friends at BinaryAge. The entire LiveReload
-          | team is using their
-          a.binaryage-link-totalfinder(href='http://totalfinder.binaryage.com/') TotalFinder
-          | ,
-          | and you might find
-          a.binaryage-link-firequery(href='http://firequery.binaryage.com/') FireQuery
-          |  and
-          a.binaryage-link-other(href='http://www.binaryage.com/') other free tools
-          |  useful too.
-    section.support-section
-      a(name='support')
+
+        <a class="forkme" href="http://github.com/livereload/LiveReload2"><img style="border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/7afbc8b248c68eb468279e8c17986ad46549fb71/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub"></a>
+
+
+
+    section.getting-started-section
+      a(name='getting-started')
       .left
-        h2 Help & Support
-        p
-          | Popular articles from our
-          a.go-kb-general(href='http://help.livereload.com/kb') knowledge base
-          | :
-        ul
-          li
-            a.go-kb-popular(href='http://help.livereload.com/kb/general-use/using-livereload-without-browser-extensions')
-              | Using LiveReload without browser extensions
-          li
-            a.go-kb-popular(href='http://help.livereload.com/kb/editor-support/list-of-supported-editors')
-              | List of supported editors
-        p
-          | Question, problem or suggestion? Please
-          a.go-support-new(href='http://help.livereload.com/discussion/new') contact support on the web
-          |  or email
-          a(href='mailto:support@livereload.com') support@livereload.com
-          | .
-          | You can also browse existing
-          a.go-support-problems(href='http://help.livereload.com/discussions/problems') problems
-          |  and
-          a.go-support-questions(href='http://help.livereload.com/discussions/questions') questions
-          | .
-      .right
-        h2  
-        p
-          | We're using Tender for our user manual and support system.
-          | You can access it at:
-        div(style='text-align: center')
-          a(href='http://help.livereload.com/') help.livereload.com
-    // <section class="screencast-section"><a name="screencast"></a>
+        h2 Getting Started, or<br>N things you need to know about LiveReload
+
+        :markdown
+          1. LiveReload lives in your menu bar.
+
+          2. It works with Safari, Chrome, Firefox and Mobile Safari.
+
+          3. Yes, you heard that right, LiveReload 3> iPhones, iPads and their Simulators if you [insert a JavaScript snippet](http://help.livereload.com/kb/general-use/using-livereload-without-browser-extensions).
+
+          4. If adding a tag is not your thing, and you're only interested in desktop browsers, only on your computer, [use our browser extensions](http://help.livereload.com/kb/general-use/browser-extensions).
+
+          5. VMs or testing from other PCs? Same as with mobile devices, really; the JavaScript snippet is your friend. (It is displayed in the LiveReload window, btw, so you can't possibly miss it.)
+
+          6. How do you stop that snippet from making it into production, then? Well, simple: add an IF and check location.host, and then feel free to commit and deploy.
+          
+          7. What happens if there's a hideous error in your shiny CoffeeScript or SASS file? LiveReload will display an error notification. It will also detect which editor you are using and display a corresponding “Edit in Submate Wrangler” button.
+
+          8. That edit button goes to great lengths to jump to the exact error location. One would expect any text editor since sed to be able to jump to a specific line number from the command line. Alas, guys like Coda and Espresso make it hard (as in, emulate-command-L-typing-a-number-pressing-enter hard), which works just as well as it sounds.
+
+          9. Back to basics. It is important to know that LiveReload only monitors files with specific extensions. A nice fat list is hard-coded, but you can add your own ones in monitoring settings.
+
+          1. LiveReload has been tested with [Rails](http://help.livereload.com/kb/frameworks-and-toolchains/rails), [Drupal](http://help.livereload.com/kb/frameworks-and-toolchains/drupal), [WordPress](http://help.livereload.com/kb/frameworks-and-toolchains/wordpress), [Joomla](http://help.livereload.com/kb/frameworks-and-toolchains/joomla) and [ExpessionEngine](http://help.livereload.com/kb/frameworks-and-toolchains/expressionengine), all of which are links to articles with useful framework-specific information.
+          
+          1. Working with file: protocol? @import quirks? Keyboard shortcuts? Explore our [knowledge base](http://help.livereload.com/kb/) to find out more.
+
+          1. If you are ever stuck, there's a nice friendly question mark button in the title bar. Think of it as a modern version of DON'T PANIC.
+
+
     section.compilers-section
       a(name='compilers')
       .left
-        h2 Compilers and preprocessors
-        p
-          | LiveReload 2 introduces first-class support for
-          | CoffeeScript, SASS/SCSS, LESS, Stylus, HAML and Jade,
-          | and is shipped with all of them included.
-        p
-          | If you want LiveReload to compile your source files,
-          | enable the desired items in the project options dialog
-          | (the one you get when you double-click a project).
-        p
-          | After you add new source files, you might need to
-          | go back to the options dialog and set the output directory.
-          | LiveReload tries to guess where you want to put the
-          | compiled files, however every once in a while its magic dust
-          | runs dry and guessing fails.
-        p
-          | If compiling through LiveReload is not your thing,
-          | keep the compilers disabled on the options page.
-          | There are two other modes of operation that LR
-          | activates automatically when a compiler is disabled.
-        p
-          | First, if you simply want to compile the source files yourself
-          | (from the command line or using your own script),
-          | LiveReload will step away and ignore the changes to your source files.
-          | This mode (total ignorance) is activated when the compiled files
-          | are present in the project.
-        p
-          | Second, if you are using some kind of server-side middleware
-          | to serve the compiled files on the fly, LiveReload simulates a change
-          | in a corresponding (non-existent) derived file when you change
-          | a source file. FOR EXAMPLE, if you change think.less,
-          | LiveReload will tell the browser that think.css has changed.
-          | That will cause all CSS files to be reloaded by the browser
-          | (unless your middleware actually serves the file as think.css,
-          | in which case only that file will be reloaded).
-          | This mode is activated if the corresponding compiled files
-          | are NOT present in the project.
-        p
-          | If that last paragraph is giving you head aches, perhaps
-          | you should forget it and just remember that server-side on-the-fly
-          | compilation now works out of the box.
-      .right
-    section.news-section
-      a(name='news')
+        h2 Compilers
+
+        :markdown
+          If you are using stuff like CoffeeScript, SASS or LESS (and you should!), LiveReload will compile them for you all right. Just turn it on; LiveReload is controlled by two main checkboxes, so you won't get lost.
+
+          LiveReload ships with the following compilers: LESS, SASS, Compass, Stylus, CoffeeScript, IcedCoffeeScript, Eco, SLIM, HAML, Jade.
+
+          If you're using any of the following compilers, please read additional details on our knowledge base:
+
+          * [More about SASS and Compass support](http://help.livereload.com/kb/languages/sass-compass)
+
+          * [More about LESS support](http://help.livereload.com/kb/languages/less).
+
+
+    section.plugins-section
+      a(name='plugins')
       .left
-        h2 What's new in LiveReload?
+        h2 Plugins
 
-        h3 2.0β9
         :markdown
-          * Bundled a lot of popular Compass plugins (and oh boy is Compass ecosystem booming); note that you can still install any other plugins via gems
-          * Compass vs. pure SASS detection improved, works for all popular Compass frameworks now
-          * New, App Store-friendly icon (I know it's worse than the previous one; will be fixed in due time)
-          * Improved handling of double-extension (smt.css.less) files
+          The compilers supported by LiveReload aren't set in stone; they are provided by bundled plugins, and you can add your own ones too. (We even look for them in Dropbox/Library, to save you some trouble if you're using Dropbox and multiple Macs.)
 
-        h3 2.0β8
+          No coding is invoked: write a JSON manifest, copy required files and there you go. You can find all the docs you need in [livereload-plugins](https://github.com/livereload/livereload-plugins) repository.
+
+
+    section.postprocessing-section
+      a(name='postprocessing')
+      .left
+        h2 Post-processing
+
         :markdown
-          * [Compiler plugin system](https://github.com/livereload/livereload-plugins) (no coding involved)
-          * Added IcedCoffeeScript compiler — it's the best shit of 2012, try it
-          * Some improvements in Compass support
-          * Updated to latest versions of all compilers
+          LiveReload can invoke a Terminal command after processing changes. Run a Rake/Cake task, a Shell script or anything else you need.
 
-        h3 2.0β6
+          Protip: If you're working with some Ruby stuff and want to use RVM, pick the correct Ruby interpreter in compilation options (which also affect post-processing).
+
+
+    section.support-section
+      a(name='support')
+      .left
+        h2 Support
+
         :markdown
-          * Updated to latest versions of all compilers
-          * Compilation settings window is now resizable properly
-          * SLIM works even if you don't have its gems installed in the system Ruby
+          Things blow up? [Happens with apps by the best of us](http://help.livereload.com/discussion/new).
 
-        h3 2.0β5
+          Ideas? [Too many](http://help.livereload.com/discussion/new) or [too few](http://help.livereload.com/discussions/suggestions)?
+
+          Old-school? [Got you covered](mailto:support@livereload.com).
+
+          Procrastinating? [Who doesn't](http://help.livereload.com/discussions/problems).
+
+
+    section.friends-section
+      a(name='friends')
+      .left
+        h2 Acknoledgements
+
         :markdown
-          * Support for excluding subfolders from monitoring
-          * If you want to use LESS, but not CoffeeScript (for example), no problem now — per-compiler on/off toggles are back
-          * Minor improvements in compiler error parsing logic
-          * Kill date moved to Feb 1
+          LiveReload has been inspired by XRefresh, an old Firebug plugin made by our friends at BinaryAge. Their [TotalFinder](http://totalfinder.binaryage.com/) product is awesome, and you might find [FireQuery](http://firequery.binaryage.com/) and [other free tools](http://www.binaryage.com/) useful too.
 
-        h3 2.0β4
-        :markdown
-          * Fixed a harmless error displayed in Firefox
-          * Improved FSEvents bug reporting
 
-        h3 2.0β3
-        :markdown
-          * Added [keyboard shortcuts](http://help.livereload.com/kb/general-use/keyboard-shortcuts)
-          * Fixes for PATH, shell and rvm handling in post-processing code
-          * Fix for @import handling to make LR fully compatible with Drupal 7
-          * (Hopefully) fixed a bug with status item not accepting drag'n'drop occasionally
-
-        h3 2.0β1
-        :markdown
-          * New, completely redesigned and rewritten UI.
-          * Full support for Compass. SASS/Compass is detected automatically. Compass plugins are supported (you may need to configure LiveReload to use a correct instance of Ruby, or simply install any plugins into the system Ruby).
-          * Compilation modes have been removed; now it's just a big on/off switch (HTML compilers like HAML, Jade and Slim still have to be enabled individually)
-          * All bundled compilers updated to latest versions.
-          * Individual compiler options are now configurable.
-          * Jade partials are supported.
-          * Cache busting for in-browser LESS.js compiler.
-          * The list of monitored file extension is now configurable.
-          * Some more monitoring options for rare use cases.
-
-        h3 2.0α10
-        p
-          | Fixed Compass support (which has been broken in α8–α9) and a crashing bug on web
-          | socket disconnection.
-        h3 2.0α9
-        p Fixed a web socket protocol bug that caused handshake failures for many users.
-        h3 2.0α8
-        p Bigger changes:
-        ol
-          li
-            | Completely rewritten
-            a(href='http://help.livereload.com/kb/general-use/browser-extensions') browser extensions v2.0
-            | . Browser-side code has been split into two parts: livereload.js, which handles
-            | all the meaty logic (and
-            a(href='http://help.livereload.com/kb/general-use/using-livereload-without-browser-extensions') can be used stand-alone
-            | ), and optional browser extensions that merely insert a SCRIPT tag to include
-            | livereload.js.
-          li
-            | The new livereload.js now supports
-            a(href='http://help.livereload.com/kb/features/css-import-support') CSS @import
-            | and
-            a(href='http://help.livereload.com/kb/languages/less') in-browser LESS compiler
-            | , also reconnects automatically.
-          li
-            a(href='http://help.livereload.com/kb/general-use/imported-files-partials-support') Server-side @import support
-            | for LESS, SASS, Stylus.
-          li
-            a(href='http://help.livereload.com/kb/general-use/custom-post-processing') Simple support for custom post-processing
-            | .
-          li
-            | Compiler modes adjusted: new default is a zero-suprise “disabled” mode, the old
-            | “ignored” mode has been removed.
-          li
-            | For your scripting pleasure, an
-            a(href='http://help.livereload.com/kb/ecosystem/livereload-url-api') API based on livereload: URL scheme
-            | .
-        p Smaller changes:
-        ul
-          li
-            | a
-            a(href='http://help.livereload.com/kb/troubleshooting/os-x-fsevents-bug-may-prevent-monitoring-of-certain-folders') rare FSEvents bug that breaks file change monitoring
-            | is now automatically detected
-          li
-            | for those experiencing 'unstyled content after editing CSS' problem, it's now
-            | much better (unstyled content flashes instead of staying permanently), and
-            a(href='http://help.livereload.com/kb/troubleshooting/flash-of-unstyled-content-when-editing-css-files') there's a hidden preference to hopefully get rid of it altogether
-          li
-            | documented
-            a(href='http://help.livereload.com/kb/settings/hidden-preferences') another hidden preference to specify additional file extensions to monitor
-          li
-            | fixed output path computation for newly added compilable files; will now always
-            | default to the source file's parent folder when in doubt.
-          li
-            | fixed multiple selection in compiler's file list to change output directories in
-            | bulk
-          li added .as and .swf to monitored extensions
-          li
-            | added node_modules to excluded folders (mainly to avoid compiling
-            | LESS/CoffeeScript/whatever inside those folders, even if you enable compilation
-            | for the main project)
-          li added Slim compiler
-          li added support for BBEdit
-          li new menu bar icons and smooth animation, kindly provided by Pete Schaffner
-          li
-            a(href='http://help.livereload.com/kb/about-us/usage-statistics-privacy-policy') more usage statistics and privacy policy for those
-        h3 2.0α7
-        ol
-          li Fixes memory leaks and CPU utilization issues.
-          li Adds Eco compiler plugin.
-          li Adds monitoring for .ctp extension (CakePHP templates!).
-          li Some minor changes for the compilation error window.
-        h3 2.0α6
-        ol
-          li
-            | Should be able to connect to the latest Chrome and Firefox (implements WebSockets
-            | protocol version 8).
-          li Fixes some bugs and memory leaks.
-          li Includes a new icon artwork.
-          li
-            | Full output log can now be displayed for error messages (gears menu » Show
-            | Complete Output), displayed automatically when the error message cannot be
-            | parsed.
-          li
-            | Files and folders starting with a dot (.something.html) are no longer excluded
-            | from monitoring (there still is an exclusion list of usual offenders like .git,
-            | .svn, CVS and others), per request from ExpressionEngine users.
-          li
-            | Any double file extensions are supported now: foo.bar.haml will be compiled into
-            | foo.bar.
-          li Monitors more file extensions: phtml, json, yaml, tpl.
-          li LiveReload is now declared an official successor of XRefresh!
-        p
-          | Perhaps you want to
-          a(href='#download') download LR 2.0α6
-          | ?
-        h3 2.0α5
-        ol
-          li Experimental Compass support.
-          li Experimental new compilation error notifications.
-          li
-            | Jump to Error works with TextMate, SubEthaEdit, Sublime Text 2, Coda, Espresso or
-            a(href='http://help.livereload.com/kb/editor-support/using-custom-scripts-to-support-other-editors') any custom editor if you can write a script
-            | .
-        h3 2.0α4
-        ol
-          li Correctly handles file names like style.css.sass and script.js.coffee.
-          li Compatible with OS X 10.7 Lion.
-          li Now using a grey background, black no more.
-        h3 2.0α3
-        ol
-          li
-            | Introduced
-            a(href='#compilers') support for languages that compile into CSS/JS/HTML
-          li Updated the web site to suck less.
-        h3 2.0α2
-        ol
-          li
-            | Limits monitored extensions to a predefined list.
-            | Includes: HTML/CSS/JS and their variants (Less, SASS, HAML, CoffeeScript),
-            | images, various PHP extensions, Ruby, Python.
-          li
-            | First step of handling
-            b Less/SASS/HAML/CoffeeScript
-            | .
-            | If there is a corresponding css/js file for your less/sass/scss/coffee,
-            | the changes to your less/sass/scss/coffee will be ignored
-            | (because there is probably an external compiler that will update css/js soon).
-            | Otherwise LR proceeds as usual.
-          li
-            | The
-            b menu bar icon
-            | now indicates the state of LiveReload: inactive (no browsers connected,
-            | monitoring disabled), active (browser(s) connected, monitoring the file system),
-            | change detected (blinks green).
-            | You can also drag'n'drop folders onto the menu bar icon.
-        h3 2.0α1
-        ol
-          li
-            | Native Mac OS X Cocoa-based UI
-          li
-            | File system monitoring via native FSEvents API
-          li
-            | Does not depend on Ruby or any external libraries
-          li
-            | Installs Safari & Chrome extensions (almost) automatically
-          li
-            | Monitoring is only activated when a browser is connected — meaning zero resource
-            | usage while not in use
     section
       .left
         h2 Who are we?
-        p
-          | LiveReload 2.x is mainly developed by Andrey Tarantsov.
-          | Occasionally he gets some help from a long-time LR 1.x contributor Nikita
-          | Vasiliev.
-        p
-          | You can read
-          a(href='http://tarantsov.com/blog/2011/07/the-story-of-livereload-the-first-anniversary/')
-            | the whole story of LiveReload here
-          | .
-        p
-          | Cheers!
+        :markdown
+          LiveReload 2.x is developed by Andrey Tarantsov, all alone and by himself now (although it used to be more of us).
+
+          You can read [the history of the first year of LiveReload here](http://tarantsov.com/blog/2011/07/the-story-of-livereload-the-first-anniversary).
+          
+          Cheers!
 
     script(src='https://livereload.tenderapp.com/tender_widget.js', type='text/javascript')
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js')
