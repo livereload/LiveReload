@@ -1,15 +1,19 @@
 LiveReload 2
 ============
 
-Please remember that this is not under an open-source license. See http://livereload.com for licensing info.
+LiveReload is an essential tool for web developers, and is currently the top paid developer tool on the Mac App Store in many countries.
 
-If you'd like to reuse some of the classes, however, please contact me and I may publish those under MIT.
+Please remember that this is not under a traditional free software license, but under a specific set of moral terms. I'm happy with you forking the source code, sharing your modifications and sharing binaries with your friends, but please don't post the binaries publicly without my permission, and don't fork the project under a different name. I want every user to buy a license by default, though, unless you have a good reason not to pay (in which case just ask me for a free license or copy a binary from someone else, there is no copy protection).
+
+See http://livereload.com for licensing info and an optional backstory on that.
+
+If you'd like to reuse some of the classes, please contact me and I'm likely to publish those under MIT.
 
 
 AppNewsKit
 ==========
 
-(See Stats.h/m.)
+(See Stats.h/m. This is a seriously cool shit to communicate with your live users. consider those files to be under MIT; I will extract and document it properly soon.)
 
 * Collect usage statistics
 * Deliver news to your users
