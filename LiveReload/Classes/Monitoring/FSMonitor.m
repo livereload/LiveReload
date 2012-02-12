@@ -27,6 +27,7 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
 
 @synthesize eventCache = _eventCache;
 @synthesize cacheWaitingTime = _cacheWaitingTime;
+@synthesize eventProcessingDelay=_eventProcessingDelay;
 
 
 #pragma mark -
@@ -165,7 +166,7 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
 
     [self.eventCache addObject:path];
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
-    [self performSelector:@selector(sendChangeEventsFromCache) withObject:nil afterDelay:self.cacheWaitingTime];
+    [self performSelector:@selector(sendChangeEventsFromCache) withObject:nil afterDelay:MAX(_eventProcessingDelay, self.cacheWaitingTime)];
 
 }
 

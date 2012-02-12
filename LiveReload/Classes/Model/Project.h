@@ -46,7 +46,9 @@ EVENTBUS_DECLARE_EVENT(project_fs_change_event);
     BOOL                     _compassDetected;
 
     BOOL                     _disableLiveRefresh;
+    BOOL                     _enableRemoteServerWorkflow;
     NSTimeInterval           _fullPageReloadDelay;
+    NSTimeInterval           _eventProcessingDelay;
     struct reload_session_t *_session;
 
     BOOL                     _brokenPathReported;
@@ -66,6 +68,8 @@ EVENTBUS_DECLARE_EVENT(project_fs_change_event);
 @property(nonatomic) BOOL compilationEnabled;
 
 @property(nonatomic) BOOL disableLiveRefresh;
+@property(nonatomic) BOOL enableRemoteServerWorkflow;
+@property(nonatomic) NSTimeInterval eventProcessingDelay;
 @property(nonatomic) NSTimeInterval fullPageReloadDelay;
 
 @property(nonatomic, readonly) FSTree *tree;

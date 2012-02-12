@@ -1,7 +1,7 @@
 
 #import <Foundation/Foundation.h>
 
-#define EventProcessingDelayKey @"EventProcessingDelay"
+#define EventProcessingDelayKey @"MinEventProcessingDelay"
 
 
 @interface Preferences : NSObject {

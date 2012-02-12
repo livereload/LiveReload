@@ -81,7 +81,9 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 @synthesize postProcessingCommand=_postProcessingCommand;
 @synthesize postProcessingEnabled=_postProcessingEnabled;
 @synthesize disableLiveRefresh=_disableLiveRefresh;
+@synthesize enableRemoteServerWorkflow=_enableRemoteServerWorkflow;
 @synthesize fullPageReloadDelay=_fullPageReloadDelay;
+@synthesize eventProcessingDelay=_eventProcessingDelay;
 @synthesize rubyVersionIdentifier=_rubyVersionIdentifier;
 
 
@@ -129,11 +131,18 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         }
 
         _disableLiveRefresh = [[memento objectForKey:@"disableLiveRefresh"] boolValue];
+        _enableRemoteServerWorkflow = [[memento objectForKey:@"enableRemoteServerWorkflow"] boolValue];
 
         if ([memento objectForKey:@"fullPageReloadDelay"])
             _fullPageReloadDelay = [[memento objectForKey:@"fullPageReloadDelay"] doubleValue];
         else
             _fullPageReloadDelay = 0.0;
+
+        if ([memento objectForKey:@"eventProcessingDelay"])
+            _eventProcessingDelay = [[memento objectForKey:@"eventProcessingDelay"] doubleValue];
+        else
+            _eventProcessingDelay = 0.0;
+        _monitor.eventProcessingDelay = _eventProcessingDelay;
 
         _postProcessingCommand = [[memento objectForKey:@"postproc"] copy];
         if ([memento objectForKey:@"postprocEnabled"]) {
@@ -186,8 +195,12 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         [memento setObject:[NSNumber numberWithBool:_postProcessingEnabled] forKey:@"postprocEnabled"];
     }
     [memento setObject:[NSNumber numberWithBool:_disableLiveRefresh] forKey:@"disableLiveRefresh"];
+    [memento setObject:[NSNumber numberWithBool:_enableRemoteServerWorkflow] forKey:@"enableRemoteServerWorkflow"];
     if (_fullPageReloadDelay > 0.001) {
         [memento setObject:[NSNumber numberWithDouble:_fullPageReloadDelay] forKey:@"fullPageReloadDelay"];
+    }
+    if (_eventProcessingDelay > 0.001) {
+        [memento setObject:[NSNumber numberWithDouble:_eventProcessingDelay] forKey:@"eventProcessingDelay"];
     }
     if ([_excludedFolderPaths count] > 0) {
         [memento setObject:_excludedFolderPaths forKey:@"excludedPaths"];
@@ -621,9 +634,24 @@ skipGuessing:
     }
 }
 
+- (void)setEnableRemoteServerWorkflow:(BOOL)enableRemoteServerWorkflow {
+    if (_enableRemoteServerWorkflow != enableRemoteServerWorkflow) {
+        _enableRemoteServerWorkflow = enableRemoteServerWorkflow;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+    }
+}
+
 - (void)setFullPageReloadDelay:(NSTimeInterval)fullPageReloadDelay {
     if (_fullPageReloadDelay != fullPageReloadDelay) {
         _fullPageReloadDelay = fullPageReloadDelay;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+    }
+}
+
+- (void)setEventProcessingDelay:(NSTimeInterval)eventProcessingDelay {
+    if (_eventProcessingDelay != eventProcessingDelay) {
+        _eventProcessingDelay = eventProcessingDelay;
+        _monitor.eventProcessingDelay = _eventProcessingDelay;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
     }
 }

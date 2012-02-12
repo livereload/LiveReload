@@ -17,6 +17,9 @@
 @synthesize disableLiveRefreshCheckBox = _disableLiveRefreshCheckBox;
 @synthesize delayFullRefreshCheckBox = _delayFullRefreshCheckBox;
 @synthesize fullRefreshDelayTextField = _fullRefreshDelayTextField;
+@synthesize delayChangeProcessingButton = _delayChangeProcessingButton;
+@synthesize changeProcessingDelayTextField = _changeProcessingDelayTextField;
+@synthesize remoteServerWorkflowButton = _remoteServerWorkflowButton;
 @synthesize excludedPathsTableView = _excludedPathsTableView;
 
 - (void)windowDidLoad {
@@ -43,18 +46,31 @@
     }
 }
 
+- (void)renderEventProcessingDelay {
+    if (_delayChangeProcessingButton.state == NSOnState) {
+        _changeProcessingDelayTextField.stringValue = [NSString stringWithFormat:@"%.3f", _project.eventProcessingDelay];
+        [_changeProcessingDelayTextField setEnabled:YES];
+    } else {
+        _changeProcessingDelayTextField.stringValue = @"";
+        [_changeProcessingDelayTextField setEnabled:NO];
+    }
+}
+
 - (void)render {
     _builtInExtensionsLabelField.stringValue = [[[Preferences sharedPreferences].builtInExtensions sortedArrayUsingSelector:@selector(compare:)] componentsJoinedByString:@" "];
     _additionalExtensionsTextField.stringValue = [[Preferences sharedPreferences].additionalExtensions componentsJoinedByString:@" "];
     _disableLiveRefreshCheckBox.state = (_project.disableLiveRefresh ? NSOnState : NSOffState);
     _delayFullRefreshCheckBox.state = (_project.fullPageReloadDelay > 0.001 ? NSOnState : NSOffState);
+    _delayChangeProcessingButton.state = (_project.eventProcessingDelay > 0.001 ? NSOnState : NSOffState);
     [self renderFullPageRefreshDelay];
+    [self renderEventProcessingDelay];
 }
 
 - (void)save {
     NSString *extensions = [[_additionalExtensionsTextField.stringValue stringByReplacingOccurrencesOfRegex:@"[, ]+" withString:@" "] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     [Preferences sharedPreferences].additionalExtensions = (extensions.length > 0 ? [extensions componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] : [NSArray array]);
     _project.fullPageReloadDelay = (_delayFullRefreshCheckBox.state == NSOnState ? _fullRefreshDelayTextField.doubleValue : 0.0);
+    _project.eventProcessingDelay = (_delayChangeProcessingButton.state == NSOnState ? _changeProcessingDelayTextField.doubleValue : 0.0);
 }
 
 
@@ -68,6 +84,13 @@
     [self renderFullPageRefreshDelay];
 }
 
+- (IBAction)delayEventProcessingClicked:(id)sender {
+    [self renderEventProcessingDelay];
+}
+
+- (IBAction)enableRemoteServerWorkflowClicked:(id)sender {
+    _project.enableRemoteServerWorkflow = (_remoteServerWorkflowButton.state == NSOnState);
+}
 
 #pragma mark - Excluded paths
 
