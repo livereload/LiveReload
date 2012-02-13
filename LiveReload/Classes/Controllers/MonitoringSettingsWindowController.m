@@ -60,6 +60,7 @@
     _builtInExtensionsLabelField.stringValue = [[[Preferences sharedPreferences].builtInExtensions sortedArrayUsingSelector:@selector(compare:)] componentsJoinedByString:@" "];
     _additionalExtensionsTextField.stringValue = [[Preferences sharedPreferences].additionalExtensions componentsJoinedByString:@" "];
     _disableLiveRefreshCheckBox.state = (_project.disableLiveRefresh ? NSOnState : NSOffState);
+    _remoteServerWorkflowButton.state = (_project.enableRemoteServerWorkflow ? NSOnState : NSOffState);
     _delayFullRefreshCheckBox.state = (_project.fullPageReloadDelay > 0.001 ? NSOnState : NSOffState);
     _delayChangeProcessingButton.state = (_project.eventProcessingDelay > 0.001 ? NSOnState : NSOffState);
     [self renderFullPageRefreshDelay];

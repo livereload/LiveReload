@@ -2,6 +2,9 @@
 #include "libwebsockets.h"
 #include "private-libwebsockets.h"
 
+#import "RegexKitLite.h"
+#import <CommonCrypto/CommonDigest.h>
+
 
 enum {
     PROTOCOL_HTTP = 0,
@@ -9,9 +12,90 @@ enum {
 };
 
 
+static NSString *SHA1OfString(NSString *input) {
+    const char *cstr = [input cStringUsingEncoding:NSUTF8StringEncoding];
+    NSData *data = [NSData dataWithBytes:cstr length:input.length];
+
+    uint8_t digest[CC_SHA1_DIGEST_LENGTH];
+
+    CC_SHA1(data.bytes, data.length, digest);
+
+    NSMutableString* output = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
+
+    for(int i = 0; i < CC_SHA1_DIGEST_LENGTH; i++)
+        [output appendFormat:@"%02x", digest[i]];
+
+    return output;
+}
+
+static NSString *CreateUUID() {
+    CFUUIDRef uuidObj = CFUUIDCreate(nil);
+    NSString *uuidString = (NSString *) CFUUIDCreateString(nil, uuidObj);
+    CFRelease(uuidObj);
+    return [uuidString autorelease];
+}
+
+static NSString *MimeTypeForFile(NSString *file) {
+    NSString *ext = [file pathExtension];
+    if ([ext isEqualToString:@"css"])
+        return @"text/css";
+    if ([ext isEqualToString:@"png"])
+        return @"image/png";
+    if ([ext isEqualToString:@"gif"])
+        return @"image/gif";
+    if ([ext isEqualToString:@"jpg"])
+        return @"image/jpg";
+    return @"application/octet-stream";
+}
+
+
+// from https://github.com/samsoffes/sstoolkit
+
+static NSString *UnescapeURLString(NSString *escapedString) {
+    NSString *deplussed = [escapedString stringByReplacingOccurrencesOfString:@"+" withString:@" "];
+    return [deplussed stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+
+static NSDictionary *DecodeURLQueryString(NSString *encodedString) {
+    if (!encodedString) {
+        return nil;
+    }
+
+    NSMutableDictionary *result = [NSMutableDictionary dictionary];
+    NSArray *pairs = [encodedString componentsSeparatedByString:@"&"];
+
+    for (NSString *kvp in pairs) {
+        if ([kvp length] == 0) {
+            continue;
+        }
+
+        NSRange pos = [kvp rangeOfString:@"="];
+        NSString *key;
+        NSString *val;
+
+        if (pos.location == NSNotFound) {
+            key = UnescapeURLString(kvp);
+            val = @"";
+        } else {
+            key = UnescapeURLString([kvp substringToIndex:pos.location]);
+            val = UnescapeURLString([kvp substringFromIndex:pos.location + pos.length]);
+        }
+
+        if (!key || !val) {
+            continue; // I'm sure this will bite my arse one day
+        }
+
+        [result setObject:val forKey:key];
+    }
+    return result;
+}
+
+
 @interface WebSocketServer ()
 
 - (void)connected:(WebSocketConnection *)connection;
+
+- (NSString *)localPathForUrlPath:(NSString *)urlPath;
 
 @end
 
@@ -61,9 +145,38 @@ static int WebSocketServer_http_callback(struct libwebsocket_context * this,
                 NSCAssert(path != nil, @"File 'livereload.js' not found inside the bundle");
                 libwebsockets_serve_http_file(wsi, [path fileSystemRepresentation], "text/javascript");
             } else {
-                sprintf(buf, "HTTP/1.0 404 Not Found\x0d\x0aContent-Length: 0\x0d\x0a\x0d\x0a");
-                libwebsocket_write(wsi, (unsigned char *)buf, strlen(buf), LWS_WRITE_HTTP);
+                @autoreleasepool {
+                    // btw we're running in a fucking background thread here (man isn't Node.js nice?)
+                    const char *pathUTF = (const char *)in;
+                    NSURL *url = [NSURL URLWithString:[NSString stringWithUTF8String:pathUTF]];
+                    NSString *urlPath = url.path;
+                    NSDictionary *query = DecodeURLQueryString(url.query);
+                    NSString *localPath = [lastWebSocketServer localPathForUrlPath:urlPath];
+                    if (localPath && [[NSFileManager defaultManager] fileExistsAtPath:localPath] && [[localPath pathExtension] isEqualToString:@"css"]) {
+                        const char *mime = [MimeTypeForFile(localPath) UTF8String];
+                        NSString *originalUrl = [query objectForKey:@"url"];
+                        if (originalUrl.length == 0) {
+                            libwebsockets_serve_http_file(wsi, [localPath fileSystemRepresentation], mime);
+                        } else {
+                            NSURL *originalUrlObj = [NSURL URLWithString:originalUrl];
+                            NSString *content = [NSString stringWithContentsOfFile:localPath encoding:NSUTF8StringEncoding error:nil] ?: @"";
+                            content = [content stringByReplacingOccurrencesOfRegex:@"(url\\s*\\(\\s*?['\"]?)([^)'\"]*)(['\"]?\\s*?\\))" usingBlock:^NSString *(NSInteger captureCount, NSString *const *capturedStrings, const NSRange *capturedRanges, volatile BOOL *const stop) {
+                                NSString *prefix = capturedStrings[1], *mid = [capturedStrings[2] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]], *suffix = capturedStrings[3];
+                                mid = [[NSURL URLWithString:mid relativeToURL:originalUrlObj] absoluteString];
+                                return [NSString stringWithFormat:@"%@%@%@", prefix, mid, suffix];
+                            }];
+                            const char *contentUTF = [content UTF8String];
+                            sprintf(buf, "HTTP/1.0 200 OK\x0d\x0a" "Server: libwebsockets\x0d\x0a" "Content-Type: %s\x0d\x0a" "Content-Length: %d\x0d\x0a" "\x0d\x0a", mime, (int) strlen(contentUTF));
+                            libwebsocket_write(wsi, (unsigned char *)buf, strlen(buf), LWS_WRITE_HTTP);
+                            libwebsocket_write(wsi, (unsigned char *)contentUTF, strlen(contentUTF), LWS_WRITE_HTTP);
+                        }
+                    } else {
+                        sprintf(buf, "HTTP/1.0 404 Not Found\x0d\x0aContent-Length: 0\x0d\x0a\x0d\x0a");
+                        libwebsocket_write(wsi, (unsigned char *)buf, strlen(buf), LWS_WRITE_HTTP);
+                    }
+                }
             }
+        down:
             shutdown(wsi->sock, SHUT_RDWR);
             break;
 
@@ -180,6 +293,38 @@ static struct libwebsocket_protocols protocols[] = {
 
 @synthesize port;
 @synthesize delegate;
+
+- (id)init {
+    self = [super init];
+    if (self) {
+        // all override URLs are digitally signed using this salt as a key;
+        // otherwise we'd give read access to any file on the user's file system
+        _salt = [CreateUUID() copy];
+    }
+    return self;
+}
+
+- (NSString *)urlPathForServingLocalPath:(NSString *)localPath {
+    NSString *signature = SHA1OfString([_salt stringByAppendingString:localPath]);
+    return [NSString stringWithFormat:@"/%@%@", signature, localPath];
+}
+
+- (NSString *)localPathForUrlPath:(NSString *)urlPath {
+    if (urlPath.length == 0 || [urlPath characterAtIndex:0] != '/')
+        return nil;
+    NSRange range = [urlPath rangeOfString:@"/" options:0 range:NSMakeRange(1, urlPath.length - 1)];
+    if (range.location == NSNotFound)
+        return nil;
+
+    NSString *signature = [urlPath substringWithRange:NSMakeRange(1, range.location - 1)];
+    NSString *localPath = [urlPath substringFromIndex:range.location];
+
+    NSString *correctSignature = SHA1OfString([_salt stringByAppendingString:localPath]);
+    if (![correctSignature isEqualToString:signature])
+        return nil;
+
+    return localPath;
+}
 
 - (void)connect {
     [lastWebSocketServer release];

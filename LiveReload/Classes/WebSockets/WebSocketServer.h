@@ -12,6 +12,7 @@
     struct libwebsocket_context *context;
     NSUInteger port;
     __weak id<WebSocketServerDelegate> delegate;
+    NSString *_salt;
 }
 
 @property(nonatomic) NSUInteger port;
@@ -23,6 +24,8 @@
 - (void)broadcast:(NSString *)message;
 
 - (NSInteger)countOfConnections;
+
+- (NSString *)urlPathForServingLocalPath:(NSString *)localPath;
 
 @end
 

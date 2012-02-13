@@ -30,6 +30,8 @@ NSString *CommunicationStateChangedNotification = @"CommunicationStateChangedNot
 
 @interface CommunicationController () <WebSocketServerDelegate, LiveReloadConnectionDelegate>
 
+@property(nonatomic, readonly) WebSocketServer *server;
+
 @end
 
 @interface LiveReloadConnection () <WebSocketConnectionDelegate>
@@ -47,6 +49,8 @@ NSString *CommunicationStateChangedNotification = @"CommunicationStateChangedNot
 
 @synthesize numberOfSessions=_numberOfSessions;
 @synthesize numberOfProcessedChanges=_numberOfProcessedChanges;
+
+@synthesize server=_server;
 
 + (CommunicationController *)sharedCommunicationController {
     if (sharedCommunicationController == nil) {
@@ -168,6 +172,7 @@ NSString *CommunicationStateChangedNotification = @"CommunicationStateChangedNot
 }
 
 - (void)sendCommand:(NSDictionary *)command {
+    NSLog(@"Sending command: %@", command);
     [_connection send:[command JSONRepresentation]];
 }
 
@@ -310,12 +315,15 @@ NSString *CommunicationStateChangedNotification = @"CommunicationStateChangedNot
                                      nil];
             [self sendOldCommand:@"refresh" data:data];
         } else {
-            NSDictionary *command = [NSDictionary dictionaryWithObjectsAndKeys:@"reload", @"command",
-                                     path, @"path",
-                                     originalPath, @"originalPath",
-                                     //                              [NSNumber numberWithBool:[[Preferences sharedPreferences] autoreloadJavascript]], @"liveJS",
-                                     [NSNumber numberWithBool:!project.disableLiveRefresh], @"liveCSS",
-                                     nil];
+            NSMutableDictionary *command = [NSMutableDictionary dictionary];
+            [command setObject:@"reload" forKey:@"command"];
+            [command setObject:path forKey:@"path"];
+            [command setObject:originalPath forKey:@"originalPath"];
+            [command setObject:[NSNumber numberWithBool:!project.disableLiveRefresh] forKey:@"liveCSS"];
+//            [command setObject:[NSNumber numberWithBool:NO] forKey:@"liveJS"];
+            if (project.enableRemoteServerWorkflow) {
+                [command setObject:[[CommunicationController sharedCommunicationController].server urlPathForServingLocalPath:path] forKey:@"overrideURL"];
+            }
             [self sendCommand:command];
         }
     }
