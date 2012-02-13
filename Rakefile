@@ -35,6 +35,7 @@ def marketing_for_internal_version version, greek=true
         when 30 .. 49 then "β#{d-30}"
         when 50 .. 69 then "rc#{d-60}"
         when 70 .. 89 then ""
+        when nil      then ""
         else               "unk#{d}"
       end
 
