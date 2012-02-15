@@ -172,6 +172,9 @@
 - (void)compile:(NSString *)sourceRelPath into:(NSString *)destinationRelPath under:(NSString *)rootPath inProject:(Project *)project with:(CompilationOptions *)options compilerOutput:(ToolOutput **)compilerOutput {
     if (compilerOutput) *compilerOutput = nil;
 
+    // TODO: move this into a more appropriate place
+    setenv("COMPASS_FULL_SASS_BACKTRACE", "1", 1);
+
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
     NSString *sourcePath = [rootPath stringByAppendingPathComponent:sourceRelPath];
