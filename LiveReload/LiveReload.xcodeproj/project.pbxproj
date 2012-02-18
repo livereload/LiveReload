@@ -441,6 +441,7 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				43594AF313D3BB34004175B2 /* QuartzCore.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
 			);
 			name = "Linked Frameworks";
@@ -449,6 +450,7 @@
 		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				43A265E613DCEAE600704BF6 /* Carbon.framework */,
 				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
 				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
 				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
@@ -468,8 +470,6 @@
 			isa = PBXGroup;
 			children = (
 				823DDE2D13F8DA3100529AD2 /* Classes */,
-				43A265E613DCEAE600704BF6 /* Carbon.framework */,
-				43594AF313D3BB34004175B2 /* QuartzCore.framework */,
 				43C0368513CA191C00A01305 /* LiveReload.icns */,
 				43361D4513C30D1400C0E589 /* libicucore.dylib */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -1172,7 +1172,6 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = LiveReload_Prefix.pch;
 				INFOPLIST_FILE = "LiveReload-Info.plist";
@@ -1188,7 +1187,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = LiveReload_Prefix.pch;
@@ -1204,7 +1202,6 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = LiveReload_Prefix.pch;
 				INFOPLIST_FILE = "LiveReload-Info.plist";
