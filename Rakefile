@@ -1,3 +1,6 @@
+#!/usr/bin/env ruby
+# -*- encoding: utf-8 -*-
+
 ROOT_DIR = File.expand_path('.')
 BUILDS_DIR = File.join(ROOT_DIR, 'dist')
 XCODE_RELEASE_DIR = File.expand_path('~/Documents/XBuilds/Release')
