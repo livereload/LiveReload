@@ -1160,10 +1160,22 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = "APPSTORE=1";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PROVISIONING_PROFILE = "7B3A9371-6567-459B-BAA8-0688778029BC";
 				SDKROOT = macosx10.7;
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-Wextra",
+					"-Wpointer-arith",
+					"-Wformat=2",
+					"-Wfloat-equal",
+					"-Wstrict-overflow=4",
+					"-Wbad-function-cast",
+					"-Winline",
+					"-Wstrict-aliasing",
+					"-Wno-unused-parameter",
+					"-Wno-arc-performSelector-leaks",
+				);
 			};
 			name = AppStore;
 		};
@@ -1219,10 +1231,22 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx10.7;
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-Wextra",
+					"-Wpointer-arith",
+					"-Wformat=2",
+					"-Wfloat-equal",
+					"-Wstrict-overflow=4",
+					"-Wbad-function-cast",
+					"-Winline",
+					"-Wstrict-aliasing",
+					"-Wno-unused-parameter",
+					"-Wno-arc-performSelector-leaks",
+				);
 			};
 			name = Debug;
 		};
@@ -1233,9 +1257,21 @@
 				CODE_SIGN_IDENTITY = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				SDKROOT = macosx10.7;
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-Wextra",
+					"-Wpointer-arith",
+					"-Wformat=2",
+					"-Wfloat-equal",
+					"-Wstrict-overflow=4",
+					"-Wbad-function-cast",
+					"-Winline",
+					"-Wstrict-aliasing",
+					"-Wno-unused-parameter",
+					"-Wno-arc-performSelector-leaks",
+				);
 			};
 			name = Release;
 		};
