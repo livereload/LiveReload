@@ -16,6 +16,7 @@
     <ClCompile Include="..\Shared\communication.c" />
     <ClCompile Include="..\Shared\console.c" />
     <ClCompile Include="..\Shared\eventbus.c" />
+    <ClCompile Include="..\Shared\jansson\dump.c" />
     <ClCompile Include="..\Shared\jansson\error.c" />
     <ClCompile Include="..\Shared\jansson\hashtable.c" />
     <ClCompile Include="..\Shared\jansson\load.c" />
@@ -25,12 +26,23 @@
     <ClCompile Include="..\Shared\jansson\strconv.c" />
     <ClCompile Include="..\Shared\jansson\utf.c" />
     <ClCompile Include="..\Shared\jansson\value.c" />
-    <ClCompile Include="..\Shared\model\fsmonitor.c" />
-    <ClCompile Include="..\Shared\model\fstree.c" />
-    <ClCompile Include="..\Shared\model\project.c" />
+    <ClCompile Include="..\Shared\libs\fsmonitor\src\fsdiff.c" />
+    <ClCompile Include="..\Shared\libs\fsmonitor\src\fslistener_win32.c" />
+    <ClCompile Include="..\Shared\libs\fsmonitor\src\fsmonitor.c" />
+    <ClCompile Include="..\Shared\libs\fsmonitor\src\fstree.c" />
+    <ClCompile Include="..\Shared\libs\fsmonitor\src\fstree_create_win32.c" />
+    <ClCompile Include="..\Shared\libs\fsmonitor\src\fstree_diff.c" />
+    <ClCompile Include="..\Shared\monitoring.c" />
+    <ClCompile Include="..\Shared\msg_proxy.c" />
+    <ClCompile Include="..\Shared\msg_router.c" />
+    <ClCompile Include="..\Shared\nodeapi.c" />
     <ClCompile Include="..\Shared\reload_request.c" />
     <ClCompile Include="..\Shared\stringutil.c" />
     <ClCompile Include="app\main.c" />
+    <ClCompile Include="app\mainwnd.c" />
+    <ClCompile Include="app\mainwnd_projlist.c" />
+    <ClCompile Include="app\mainwnd_rpane.c" />
+    <ClCompile Include="app\widgets.c" />
     <ClCompile Include="osdep.c" />
   </ItemGroup>
   <ItemGroup>
@@ -46,13 +58,17 @@
     <ClInclude Include="..\Shared\jansson\strbuffer.h" />
     <ClInclude Include="..\Shared\jansson\utf.h" />
     <ClInclude Include="..\Shared\libs\kvec.h" />
-    <ClInclude Include="..\Shared\model\fsmonitor.h" />
-    <ClInclude Include="..\Shared\model\fstree.h" />
-    <ClInclude Include="..\Shared\model\project.h" />
+    <ClInclude Include="..\Shared\msg_proxy.h" />
+    <ClInclude Include="..\Shared\msg_router.h" />
+    <ClInclude Include="..\Shared\nodeapi.h" />
     <ClInclude Include="..\Shared\osdep.h" />
     <ClInclude Include="..\Shared\reload_request.h" />
     <ClInclude Include="..\Shared\sglib.h" />
     <ClInclude Include="..\Shared\stringutil.h" />
+    <ClInclude Include="app\mainwnd.h" />
+    <ClInclude Include="app\mainwnd_projlist.h" />
+    <ClInclude Include="app\mainwnd_rpane.h" />
+    <ClInclude Include="app\widgets.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
@@ -87,6 +103,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)..\WinApp\</OutDir>
+    <LibraryPath>$(MSBuildProjectDirectory)\WinSparkle;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -98,14 +116,17 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(MSBuildProjectDirectory)\..\shared\libs;$(MSBuildProjectDirectory)\..\shared\model;$(MSBuildProjectDirectory)\..\shared\jansson;$(MSBuildProjectDirectory)\..\shared;$(MSBuildProjectDirectory)\include;$(MSBuildProjectDirectory);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(MSBuildProjectDirectory)\WinSparkle;$(MSBuildProjectDirectory)\..\shared\libs;$(MSBuildProjectDirectory)\..\shared\libs\fsmonitor\headers;$(MSBuildProjectDirectory)\..\shared\model;$(MSBuildProjectDirectory)\..\shared\jansson;$(MSBuildProjectDirectory)\..\shared;$(MSBuildProjectDirectory)\include;$(MSBuildProjectDirectory);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <AdditionalOptions>/wd4996  /Dsnprintf=_snprintf %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comctl32.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <ProgramDatabaseFile>$(OutDir)$(TargetName).pdb</ProgramDatabaseFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

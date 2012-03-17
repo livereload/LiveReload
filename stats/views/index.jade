@@ -1,0 +1,14 @@
+
+h2 Segments
+
+table.segments
+  tr
+    th Segment
+    for col in segments.cols
+      th= col.title
+  
+  for row in segments.rows
+    tr
+      td= row.key
+      for col in row.cols
+        td= col.value.count

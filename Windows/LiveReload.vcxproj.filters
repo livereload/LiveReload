@@ -1,34 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Файлы исходного кода">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Заголовочные файлы">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="Shared">
       <UniqueIdentifier>{4194265d-f5b2-4627-970b-b1e305720dcf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shared\model">
-      <UniqueIdentifier>{3d1df982-2456-4e15-974e-a5406be6e7d0}</UniqueIdentifier>
     </Filter>
     <Filter Include="Shared\jansson">
       <UniqueIdentifier>{b4772492-caad-470b-934b-fac1ffd85f2d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Файлы исходного кода\Файлы ресурсов">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="Shared\libs">
       <UniqueIdentifier>{c040b490-0460-4c43-a3e9-f41c7cdac5c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Shared\libs\fsmonitor">
+      <UniqueIdentifier>{c1a669b2-1b3c-403f-99ec-1478536e864f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="app\main.c">
-      <Filter>Файлы исходного кода</Filter>
+      <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="..\Shared\autorelease.c">
       <Filter>Shared</Filter>
@@ -79,16 +71,52 @@
       <Filter>Shared</Filter>
     </ClCompile>
     <ClCompile Include="osdep.c">
-      <Filter>Файлы исходного кода</Filter>
+      <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\Shared\model\project.c">
-      <Filter>Shared\model</Filter>
+    <ClCompile Include="..\Shared\nodeapi.c">
+      <Filter>Shared</Filter>
     </ClCompile>
-    <ClCompile Include="..\Shared\model\fsmonitor.c">
-      <Filter>Shared\model</Filter>
+    <ClCompile Include="..\Shared\jansson\dump.c">
+      <Filter>Shared\jansson</Filter>
     </ClCompile>
-    <ClCompile Include="..\Shared\model\fstree.c">
-      <Filter>Shared\model</Filter>
+    <ClCompile Include="..\Shared\msg_router.c">
+      <Filter>Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shared\msg_proxy.c">
+      <Filter>Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shared\monitoring.c">
+      <Filter>Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shared\libs\fsmonitor\src\fsdiff.c">
+      <Filter>Shared\libs\fsmonitor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shared\libs\fsmonitor\src\fslistener_win32.c">
+      <Filter>Shared\libs\fsmonitor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shared\libs\fsmonitor\src\fsmonitor.c">
+      <Filter>Shared\libs\fsmonitor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shared\libs\fsmonitor\src\fstree.c">
+      <Filter>Shared\libs\fsmonitor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shared\libs\fsmonitor\src\fstree_create_win32.c">
+      <Filter>Shared\libs\fsmonitor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shared\libs\fsmonitor\src\fstree_diff.c">
+      <Filter>Shared\libs\fsmonitor</Filter>
+    </ClCompile>
+    <ClCompile Include="app\widgets.c">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="app\mainwnd.c">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="app\mainwnd_projlist.c">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="app\mainwnd_rpane.c">
+      <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -134,28 +162,40 @@
     <ClInclude Include="..\Shared\jansson\utf.h">
       <Filter>Shared\jansson</Filter>
     </ClInclude>
-    <ClInclude Include="..\Shared\model\project.h">
-      <Filter>Shared\model</Filter>
-    </ClInclude>
     <ClInclude Include="..\Shared\osdep.h">
       <Filter>Shared</Filter>
     </ClInclude>
     <ClInclude Include="..\Shared\libs\kvec.h">
       <Filter>Shared\libs</Filter>
     </ClInclude>
-    <ClInclude Include="..\Shared\model\fsmonitor.h">
-      <Filter>Shared\model</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Shared\model\fstree.h">
-      <Filter>Shared\model</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
-      <Filter>Файлы исходного кода</Filter>
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shared\nodeapi.h">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shared\msg_router.h">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shared\msg_proxy.h">
+      <Filter>Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="app\widgets.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="app\mainwnd.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="app\mainwnd_projlist.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="app\mainwnd_rpane.h">
+      <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="LiveReload.rc">
-      <Filter>Файлы исходного кода</Filter>
+      <Filter>Source</Filter>
     </ResourceCompile>
   </ItemGroup>
 </Project>

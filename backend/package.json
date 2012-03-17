@@ -1,0 +1,33 @@
+{
+  "author": "Andrey Tarantsov <andreyvit@me.com>",
+  "name": "livereload-backend",
+  "description": "LiveReload Back-end",
+  "version": "0.0.0",
+  "homepage": "http://livereload.com/",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/andreyvit/LiveReload2.git"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/mocha"
+  },
+  "directories": {
+    "lib": "lib",
+    "bin": "bin"
+  },
+  "engines": {
+    "node": ">=0.5.5 <0.6"
+  },
+  "dependencies": {
+    "async"  : ">=0.1.15",
+    "js-yaml": ">=0.3.1",
+    "sha1"   : ">=0.0.1",
+    "sugar"  : ">=1.1.1",
+    "apitree": ">=1.0.0",
+    "websocket.io": ">=0.1.2"
+  },
+  "devDependencies" : {
+    "mocha"       : ">=0.3.1",
+    "memorystream": ">=0.0.4"
+  }
+}

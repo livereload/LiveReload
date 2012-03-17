@@ -12,6 +12,30 @@ MAC_ZIP_BASE_NAME = "LiveReload"
 MAC_SRC = File.join(ROOT_DIR, 'LiveReload')
 INFO_PLIST = File.join(MAC_SRC, 'LiveReload-Info.plist')
 
+
+def subst_version_refs_in_file file, ver
+    puts file
+    orig = File.read(file)
+    prev_line = ""
+    anything_matched = false
+    data = orig.lines.map do |line|
+        if line =~ /\d\.\d\.\d/ && (line =~ /version/i || prev_line =~ /CFBundleShortVersionString|CFBundleVersion/)
+            anything_matched = true
+            new_line = line.gsub /\d\.\d\.\d/, ver
+            puts "    #{new_line.strip}"
+        else
+            new_line = line
+        end
+        prev_line = line
+        new_line
+    end.join('')
+
+    raise "Error: no substitutions made in #{file}" unless anything_matched
+
+    File.open(file, 'w') { |f| f.write data }
+end
+
+
 module PList
   class << self
     def get file_name, key
@@ -210,4 +234,139 @@ namespace :site do
   task :publish do
     sh 'rsync', '-avz', 'site/', 'andreyvit_livereload@ssh.phx.nearlyfreespeech.net:/home/public/'
   end
+end
+
+
+
+################################################################################
+# Routing
+
+require 'erb'
+require 'ostruct'
+
+def compiler_template func_name, args, file
+  ERB.new(File.read(file), nil, '%').def_method(Object, "#{func_name}(#{args.join(',')})", file)
+end
+
+RoutingTableEntry = OpenStruct
+
+CLIENT_MSG_ROUTER          = 'Shared/msg_router.c'
+CLIENT_MSG_ROUTER_SOURCES  = Dir['{Shared,Windows}/**/*.c'] - [CLIENT_MSG_ROUTER]
+CLIENT_MSG_PROXY_H         = 'Shared/msg_proxy.h'
+CLIENT_MSG_PROXY_C         = CLIENT_MSG_PROXY_H.ext('c')
+SERVER_MSG_PROXY           = 'backend/config/client-messages.json'
+SERVER_API_DUMPER          = 'backend/bin/livereload-backend-print-apis.js'
+
+compiler_template 'render_client_msg_router', %w(entries), "#{CLIENT_MSG_ROUTER}.erb"
+compiler_template 'render_server_msg_proxy',  %w(entries), "#{SERVER_MSG_PROXY}.erb"
+compiler_template 'render_client_msg_proxy_h', %w(entries), "#{CLIENT_MSG_PROXY_H}.erb"
+compiler_template 'render_client_msg_proxy_c', %w(entries), "#{CLIENT_MSG_PROXY_C}.erb"
+
+task :routing do
+  entries = CLIENT_MSG_ROUTER_SOURCES.map do |file|
+    lines = File.read(file).lines
+    names = lines.map { |line| [$1, $2] if line =~ /^(void\s+|json_t\s*\*\s*)C_(\w+)\s*\(/ }.compact
+    names.map { |type, name|
+      puts "C_#{name}"
+      entry = RoutingTableEntry.new(:func_name => "C_#{name}", :msg_name => name.gsub('__', '.'), :return_type => type, :needs_wrapper => (type =~ /^void/))
+      if entry.needs_wrapper
+        entry.wrapper_name = entry.func_to_call = "_#{entry.func_name}_wrapper"
+      else
+        entry.func_to_call = entry.func_name
+      end
+      entry
+    }
+  end.flatten
+
+  File.open(CLIENT_MSG_ROUTER, 'w') { |f| f.write render_client_msg_router(entries) }
+  File.open(SERVER_MSG_PROXY,  'w') { |f| f.write render_server_msg_proxy(entries) }
+
+  entries = `node #{SERVER_API_DUMPER}`.strip.split("\n").map do |msg_name|
+    func_name = "S_" + msg_name.gsub('.', '_').gsub(/([a-z])([A-Z])/) { "#{$1}_#{$2.downcase}" }
+    puts func_name
+    RoutingTableEntry.new :func_name => func_name, :msg_name => msg_name
+  end
+
+  File.open(CLIENT_MSG_PROXY_H, 'w') { |f| f.write render_client_msg_proxy_h(entries) }
+  File.open(CLIENT_MSG_PROXY_C, 'w') { |f| f.write render_client_msg_proxy_c(entries) }
+end
+
+
+
+################################################################################
+# Windows
+
+WIN_BUNDLE_DIR = "WinApp"
+WIN_BUNDLE_RESOURCES_DIR = "#{WIN_BUNDLE_DIR}/Resources"
+WIN_BUNDLE_BACKEND_DIR = "#{WIN_BUNDLE_RESOURCES_DIR}/backend"
+
+WIN_VERSION_FILES = %w(
+    Windows/version.h
+    Windows/LiveReload.nsi
+)
+
+def win_version
+    File.read('Windows/VERSION').strip
+end
+
+namespace :win do
+
+  desc "Collects a Windows app files into a single folder"
+  task :bundle do
+    mkdir_p WIN_BUNDLE_DIR
+    mkdir_p WIN_BUNDLE_BACKEND_DIR
+
+    files = Dir["backend/{app/**/*.js,bin/livereload-backend.js,config/*.{json,js},lib/**/*.js,res/*.js,node_modules/{apitree,async,memorystream,plist,sha1,sugar,websocket.io}/**/*.{js,json}}"]
+    files.each { |file|  mkdir_p File.dirname(File.join(WIN_BUNDLE_RESOURCES_DIR, file))  }
+    files.each { |file|  cp file,             File.join(WIN_BUNDLE_RESOURCES_DIR, file)   }
+
+    cp "Windows/Resources/node.exe", "#{WIN_BUNDLE_RESOURCES_DIR}/node.exe"
+    cp "Windows/WinSparkle/WinSparkle.dll", "#{WIN_BUNDLE_DIR}/WinSparkle.dll"
+
+    install_files = files.map { |f| "Resources/#{f}" } + ["Resources/node.exe", "LiveReload.exe"]
+    install_files_by_folder = {}
+    install_files.each { |file|  (install_files_by_folder[File.dirname(file)] ||= []) << file }
+
+    nsis_spec = []
+    install_files_by_folder.sort.each do |folder, files|
+      nsis_spec << %Q<\nSetOutPath "$INSTDIR\\#{folder.gsub('/', '\\')}"\n> unless folder == '.'
+      files.each do |file|
+        nsis_spec << %Q<File "..\\WinApp\\#{file.gsub('/', '\\')}"\n>
+      end
+    end
+
+    File.open("Windows/files.nsi", "w") { |f| f << nsis_spec.join('') }
+  end
+
+  task :rmbundle do
+    rm_rf WIN_BUNDLE_DIR
+  end
+
+  desc "Recreate a Windows bundle from scratch"
+  task :rebundle => [:rmbundle, :bundle]
+
+  desc "Embed version number where it belongs"
+  task :version do
+      ver = win_version
+      WIN_VERSION_FILES.each { |file| subst_version_refs_in_file(file, ver) }
+  end
+
+  desc "Tag the current Windows version"
+  task :tag do
+    sh 'git', 'tag', "win#{win_version}"
+  end
+
+  desc "Upload the Windows installer"
+  task :upload do
+    installer_name = "LiveReload-#{win_version}-Setup.exe"
+    installer_path = File.join(BUILDS_DIR, installer_name)
+    unless File.exists? installer_path
+      fail "Installer does not exist: #{installer_path}"
+    end
+
+    sh 's3cmd', '-P', 'put', installer_path, "s3://#{S3_BUCKET}/#{installer_name}"
+    puts "http://download.livereload.com.s3.amazonaws.com/#{installer_name}"
+    puts "http://download.livereload.com/#{installer_name}"
+  end
+
 end

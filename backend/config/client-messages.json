@@ -1,0 +1,8 @@
+[
+  "monitoring.add",
+  "monitoring.remove",
+  "app.failed_to_start",
+  "mainwnd.set_project_list",
+  "mainwnd.rpane.set_data",
+  null
+]

@@ -3,7 +3,6 @@
 *.sublime-*
 *.swp
 xcuserdata
-/tags
 /dist
 /logs
 /raw-logs
@@ -24,8 +23,9 @@ example/random_example/*.css
 example/random_example/*.js
 example/random_example/*.html
 
-# Temporarily ignore stuff from the node branch
-/stats
-/backend
-/Windows
+# Windows
 /WinApp
+/Windows/files.nsi
+
+# CTAGS
+/tags

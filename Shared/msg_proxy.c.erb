@@ -1,0 +1,9 @@
+#include "msg_proxy.h"
+#include "nodeapi.h"
+
+% for entry in entries
+
+void <%= entry.func_name %>(json_t *data) {
+    node_send("<%= entry.msg_name %>", data);
+}
+% end
