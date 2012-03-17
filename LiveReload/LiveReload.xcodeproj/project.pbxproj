@@ -42,6 +42,16 @@
 		4346F3AB1451012A00B133F2 /* StatusItemStateRotation3.png in Resources */ = {isa = PBXBuildFile; fileRef = 4346F3AA1451012A00B133F2 /* StatusItemStateRotation3.png */; };
 		4349AAF414D469DB009350DA /* node in Resources */ = {isa = PBXBuildFile; fileRef = 4349AAF314D469DB009350DA /* node */; };
 		4349AAF614D48DB5009350DA /* IcedCoffeeScript.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 4349AAF514D48DB5009350DA /* IcedCoffeeScript.lrplugin */; };
+		434DB7F61514F49500C62042 /* monitoring.c in Sources */ = {isa = PBXBuildFile; fileRef = 434DB7EF1514F49400C62042 /* monitoring.c */; };
+		434DB7F71514F49500C62042 /* msg_proxy.c in Sources */ = {isa = PBXBuildFile; fileRef = 434DB7F01514F49400C62042 /* msg_proxy.c */; };
+		434DB7F81514F49500C62042 /* msg_router.c in Sources */ = {isa = PBXBuildFile; fileRef = 434DB7F21514F49400C62042 /* msg_router.c */; };
+		434DB7F91514F49500C62042 /* nodeapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 434DB7F41514F49500C62042 /* nodeapi.c */; };
+		434DB8151514F58C00C62042 /* fsdiff.c in Sources */ = {isa = PBXBuildFile; fileRef = 434DB8071514F58C00C62042 /* fsdiff.c */; };
+		434DB8171514F58C00C62042 /* fsmonitor.c in Sources */ = {isa = PBXBuildFile; fileRef = 434DB8091514F58C00C62042 /* fsmonitor.c */; };
+		434DB8181514F58C00C62042 /* fstree.c in Sources */ = {isa = PBXBuildFile; fileRef = 434DB80A1514F58C00C62042 /* fstree.c */; };
+		434DB8191514F58C00C62042 /* fstree_create_posix.c in Sources */ = {isa = PBXBuildFile; fileRef = 434DB80B1514F58C00C62042 /* fstree_create_posix.c */; };
+		434DB81B1514F58C00C62042 /* fstree_diff.c in Sources */ = {isa = PBXBuildFile; fileRef = 434DB80D1514F58C00C62042 /* fstree_diff.c */; };
+		434DB81D1514F62100C62042 /* fslistener_osx.c in Sources */ = {isa = PBXBuildFile; fileRef = 434DB81C1514F62100C62042 /* fslistener_osx.c */; };
 		4353196F1465B52D005FA59F /* ShitHappens.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353196E1465B52D005FA59F /* ShitHappens.m */; };
 		4353197214668E7D005FA59F /* LRHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4353197014668E7D005FA59F /* LRHelpTemplate.png */; };
 		4353197314668E7D005FA59F /* LRSupportTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4353197114668E7D005FA59F /* LRSupportTemplate.png */; };
@@ -81,6 +91,7 @@
 		43F50BFC146706B0004FD951 /* BaseProjectSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F50BFB146706B0004FD951 /* BaseProjectSettingsWindowController.m */; };
 		43F50BFF14670A9F004FD951 /* CompilationSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F50BFE14670A9F004FD951 /* CompilationSettingsWindowController.m */; };
 		43F50C0114670AAF004FD951 /* CompilationSettingsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43F50C0014670AAF004FD951 /* CompilationSettingsWindowController.xib */; };
+		43FAB8581514FDEA00400F61 /* backend in Resources */ = {isa = PBXBuildFile; fileRef = 43FAB8571514FDEA00400F61 /* backend */; };
 		821AFF0014270B5200B61760 /* BBEditEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 821AFEFF14270B5200B61760 /* BBEditEditor.m */; };
 		823DDED313F8DA3100529AD2 /* LiveReloadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3013F8DA3100529AD2 /* LiveReloadAppDelegate.m */; };
 		823DDED413F8DA3100529AD2 /* CommunicationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3313F8DA3100529AD2 /* CommunicationController.m */; };
@@ -223,6 +234,22 @@
 		4346F3AA1451012A00B133F2 /* StatusItemStateRotation3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemStateRotation3.png; sourceTree = "<group>"; };
 		4349AAF314D469DB009350DA /* node */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = node; path = Resources/node; sourceTree = "<group>"; };
 		4349AAF514D48DB5009350DA /* IcedCoffeeScript.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = IcedCoffeeScript.lrplugin; path = Compilers/IcedCoffeeScript.lrplugin; sourceTree = SOURCE_ROOT; };
+		434DB7EF1514F49400C62042 /* monitoring.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = monitoring.c; sourceTree = "<group>"; };
+		434DB7F01514F49400C62042 /* msg_proxy.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = msg_proxy.c; sourceTree = "<group>"; };
+		434DB7F11514F49400C62042 /* msg_proxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = msg_proxy.h; sourceTree = "<group>"; };
+		434DB7F21514F49400C62042 /* msg_router.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = msg_router.c; sourceTree = "<group>"; };
+		434DB7F31514F49400C62042 /* msg_router.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = msg_router.h; sourceTree = "<group>"; };
+		434DB7F41514F49500C62042 /* nodeapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = nodeapi.c; sourceTree = "<group>"; };
+		434DB7F51514F49500C62042 /* nodeapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nodeapi.h; sourceTree = "<group>"; };
+		434DB8021514F58C00C62042 /* fsmonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fsmonitor.h; sourceTree = "<group>"; };
+		434DB8031514F58C00C62042 /* fsmonitor_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fsmonitor_private.h; sourceTree = "<group>"; };
+		434DB8071514F58C00C62042 /* fsdiff.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fsdiff.c; sourceTree = "<group>"; };
+		434DB8091514F58C00C62042 /* fsmonitor.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fsmonitor.c; sourceTree = "<group>"; };
+		434DB80A1514F58C00C62042 /* fstree.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fstree.c; sourceTree = "<group>"; };
+		434DB80B1514F58C00C62042 /* fstree_create_posix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fstree_create_posix.c; sourceTree = "<group>"; };
+		434DB80D1514F58C00C62042 /* fstree_diff.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fstree_diff.c; sourceTree = "<group>"; };
+		434DB81C1514F62100C62042 /* fslistener_osx.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fslistener_osx.c; sourceTree = "<group>"; };
+		434DB81E1514F71400C62042 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
 		4353196D1465B52D005FA59F /* ShitHappens.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShitHappens.h; sourceTree = "<group>"; };
 		4353196E1465B52D005FA59F /* ShitHappens.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShitHappens.m; sourceTree = "<group>"; };
 		4353197014668E7D005FA59F /* LRHelpTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRHelpTemplate.png; sourceTree = "<group>"; };
@@ -249,7 +276,6 @@
 		43E34F9814705125001641AA /* console.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = console.h; sourceTree = "<group>"; };
 		43E34F9914705125001641AA /* eventbus.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eventbus.c; sourceTree = "<group>"; };
 		43E34F9A14705125001641AA /* eventbus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eventbus.h; sourceTree = "<group>"; };
-		43E34F9D14706D90001641AA /* osdep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = osdep.h; sourceTree = "<group>"; };
 		43E34F9E14706D9B001641AA /* osdep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = osdep.m; sourceTree = "<group>"; };
 		43E34FA014706FB3001641AA /* autorelease.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = autorelease.h; sourceTree = "<group>"; };
 		43E34FA11470701C001641AA /* autorelease.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = autorelease.c; sourceTree = "<group>"; };
@@ -282,6 +308,8 @@
 		43F50BFD14670A9F004FD951 /* CompilationSettingsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompilationSettingsWindowController.h; sourceTree = "<group>"; };
 		43F50BFE14670A9F004FD951 /* CompilationSettingsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompilationSettingsWindowController.m; sourceTree = "<group>"; };
 		43F50C0014670AAF004FD951 /* CompilationSettingsWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompilationSettingsWindowController.xib; sourceTree = "<group>"; };
+		43FAB8561514FD5700400F61 /* osdep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = osdep.h; path = ../../../Shared/osdep.h; sourceTree = "<group>"; };
+		43FAB8571514FDEA00400F61 /* backend */ = {isa = PBXFileReference; lastKnownFileType = folder; name = backend; path = ../backend; sourceTree = "<group>"; };
 		821AFEFE14270B5200B61760 /* BBEditEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBEditEditor.h; sourceTree = "<group>"; };
 		821AFEFF14270B5200B61760 /* BBEditEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBEditEditor.m; sourceTree = "<group>"; };
 		823DDE2F13F8DA3100529AD2 /* LiveReloadAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveReloadAppDelegate.h; sourceTree = "<group>"; };
@@ -496,6 +524,7 @@
 				4349AAF314D469DB009350DA /* node */,
 				823DDF2213F8DA3F00529AD2 /* Images */,
 				433617FE13C2E0C800C0E589 /* Compilers */,
+				43FAB8571514FDEA00400F61 /* backend */,
 				8D1107310486CEB800E47090 /* LiveReload-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
@@ -553,6 +582,37 @@
 			path = Extensions/Compilers;
 			sourceTree = "<group>";
 		};
+		434DB7FA1514F58C00C62042 /* fsmonitor */ = {
+			isa = PBXGroup;
+			children = (
+				434DB8011514F58C00C62042 /* headers */,
+				434DB8061514F58C00C62042 /* src */,
+			);
+			path = fsmonitor;
+			sourceTree = "<group>";
+		};
+		434DB8011514F58C00C62042 /* headers */ = {
+			isa = PBXGroup;
+			children = (
+				434DB8021514F58C00C62042 /* fsmonitor.h */,
+				434DB8031514F58C00C62042 /* fsmonitor_private.h */,
+			);
+			path = headers;
+			sourceTree = "<group>";
+		};
+		434DB8061514F58C00C62042 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				434DB8071514F58C00C62042 /* fsdiff.c */,
+				434DB81C1514F62100C62042 /* fslistener_osx.c */,
+				434DB8091514F58C00C62042 /* fsmonitor.c */,
+				434DB80A1514F58C00C62042 /* fstree.c */,
+				434DB80B1514F58C00C62042 /* fstree_create_posix.c */,
+				434DB80D1514F58C00C62042 /* fstree_diff.c */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		43E34F9614705125001641AA /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -570,6 +630,13 @@
 				432A6D951476269C00144F97 /* reload_request.c */,
 				432A6D97147627F000144F97 /* communication.h */,
 				432A6D98147627F800144F97 /* communication.c */,
+				434DB7EF1514F49400C62042 /* monitoring.c */,
+				434DB7F01514F49400C62042 /* msg_proxy.c */,
+				434DB7F11514F49400C62042 /* msg_proxy.h */,
+				434DB7F21514F49400C62042 /* msg_router.c */,
+				434DB7F31514F49400C62042 /* msg_router.h */,
+				434DB7F41514F49500C62042 /* nodeapi.c */,
+				434DB7F51514F49500C62042 /* nodeapi.h */,
 				43F301D51477A67D0072F324 /* libs */,
 				432A6D9A147636F700144F97 /* jansson */,
 			);
@@ -580,6 +647,7 @@
 		43F301D51477A67D0072F324 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				434DB7FA1514F58C00C62042 /* fsmonitor */,
 				43F301D61477A67D0072F324 /* kvec.h */,
 			);
 			path = libs;
@@ -614,8 +682,9 @@
 				435729161452267C00947B2E /* Stats.m */,
 				4353196D1465B52D005FA59F /* ShitHappens.h */,
 				4353196E1465B52D005FA59F /* ShitHappens.m */,
-				43E34F9D14706D90001641AA /* osdep.h */,
+				43FAB8561514FD5700400F61 /* osdep.h */,
 				43E34F9E14706D9B001641AA /* osdep.m */,
+				434DB81E1514F71400C62042 /* version.h */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -1015,6 +1084,7 @@
 				43F0030714700C96005D48A4 /* LRTerminalButtonOnHighlight.png in Resources */,
 				4349AAF414D469DB009350DA /* node in Resources */,
 				4349AAF614D48DB5009350DA /* IcedCoffeeScript.lrplugin in Resources */,
+				43FAB8581514FDEA00400F61 /* backend in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1127,6 +1197,16 @@
 				432A6DB3147636F700144F97 /* utf.c in Sources */,
 				432A6DB4147636F700144F97 /* value.c in Sources */,
 				C01FCF5008A954540054247E /* RSVerticallyCenteredTextFieldCell.m in Sources */,
+				434DB7F61514F49500C62042 /* monitoring.c in Sources */,
+				434DB7F71514F49500C62042 /* msg_proxy.c in Sources */,
+				434DB7F81514F49500C62042 /* msg_router.c in Sources */,
+				434DB7F91514F49500C62042 /* nodeapi.c in Sources */,
+				434DB8151514F58C00C62042 /* fsdiff.c in Sources */,
+				434DB8171514F58C00C62042 /* fsmonitor.c in Sources */,
+				434DB8181514F58C00C62042 /* fstree.c in Sources */,
+				434DB8191514F58C00C62042 /* fstree_create_posix.c in Sources */,
+				434DB81B1514F58C00C62042 /* fstree_diff.c in Sources */,
+				434DB81D1514F62100C62042 /* fslistener_osx.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

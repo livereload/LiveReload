@@ -1,6 +1,7 @@
 
 #include "osdep.h"
 #include "console.h"
+#include "jansson.h"
 
 #import "LiveReloadAppDelegate.h"
 #import "Project.h"
@@ -18,6 +19,21 @@
 
 #import "ShitHappens.h"
 #import "FixUnixPath.h"
+
+
+void C_app__failed_to_start(json_t *arg) {
+    const char *msg = json_string_value(json_object_get(arg, "message"));
+    [[NSAlert alertWithMessageText:@"LiveReload failed to start" defaultButton:@"Quit" alternateButton:nil otherButton:nil informativeTextWithFormat:@"%s", msg] runModal];
+    [NSApp terminate:nil];
+}
+
+void C_mainwnd__set_project_list(json_t *arg) {
+    // TODO
+}
+
+void C_mainwnd__rpane__set_data(json_t *arg) {
+    // TODO
+}
 
 
 @interface LiveReloadAppDelegate ()

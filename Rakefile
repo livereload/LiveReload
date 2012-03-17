@@ -12,6 +12,10 @@ MAC_ZIP_BASE_NAME = "LiveReload"
 MAC_SRC = File.join(ROOT_DIR, 'LiveReload')
 INFO_PLIST = File.join(MAC_SRC, 'LiveReload-Info.plist')
 
+MAC_VERSION_FILES = %w(
+    LiveReload/Classes/Application/version.h
+)
+
 
 def subst_version_refs_in_file file, ver
     puts file
@@ -116,6 +120,7 @@ namespace :version do
   task :update do
     marketing_version = marketing_for_internal_version(TheApp.version)
     PList.set INFO_PLIST, 'CFBundleShortVersionString', marketing_version
+    MAC_VERSION_FILES.each { |file|  subst_version_refs_in_file file, marketing_version }
   end
 
   desc "Bump version number to the specified one"

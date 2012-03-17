@@ -3,7 +3,7 @@
 #include "nodeapi.h"
 #include "msg_proxy.h"
 
-#include <jansson.h>
+#include "jansson.h"
 #include <assert.h>
 
 #define MAX_ITEMS 100
