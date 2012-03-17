@@ -119,6 +119,15 @@ void C_app__failed_to_start(json_t *arg) {
     ExitProcess(1);
 }
 
+void os_emergency_shutdown_backend_crashed() {
+    DWORD result = MessageBox(NULL, L"Oh my, oh my. The backend decided to be very naughty, so looks like I have to crash.\n\nClick Yes to open troubleshooting instructions and reveal the log file.", L"LiveReload Crash", MB_YESNO | MB_ICONERROR);
+    if (result == IDYES) {
+       ShellExecute(NULL, L"explore", U2W(os_log_path), NULL, NULL, SW_SHOWNORMAL);
+       ShellExecute(NULL, L"open", L"http://help.livereload.com/kb/troubleshooting/livereload-has-crashed-on-windows", NULL, NULL, SW_SHOWNORMAL);
+    }
+    ExitProcess(1);
+}
+
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     // SHBrowseForFolder needs this, and says it's better to use OleInitialize than ComInitialize

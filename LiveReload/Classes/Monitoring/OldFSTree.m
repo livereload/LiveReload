@@ -1,7 +1,7 @@
 
 #import <sys/stat.h>
-#import "FSTree.h"
-#import "FSTreeFilter.h"
+#import "OldFSTree.h"
+#import "OldFSTreeFilter.h"
 
 #import "ShitHappens.h"
 

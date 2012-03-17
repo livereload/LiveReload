@@ -4,9 +4,9 @@
 #import "PluginManager.h"
 
 #import "Project.h"
-#import "FSMonitor.h"
-#import "FSTreeFilter.h"
-#import "FSTree.h"
+#import "OldFSMonitor.h"
+#import "OldFSTreeFilter.h"
+#import "OldFSTree.h"
 #import "CommunicationController.h"
 #import "Preferences.h"
 #import "PluginManager.h"

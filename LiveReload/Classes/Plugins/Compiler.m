@@ -10,7 +10,7 @@
 #import "RubyVersion.h"
 #import "ToolOptions.h"
 
-#import "FSTree.h"
+#import "OldFSTree.h"
 #import "RegexKitLite.h"
 #import "NSTask+OneLineTasksWithOutput.h"
 #import "NSArray+Substitutions.h"

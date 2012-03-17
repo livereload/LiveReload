@@ -12,6 +12,7 @@
 #include <time.h>
 
 const char *node_bundled_backend_js;
+volatile bool node_shut_down = false;
 
 void node_received_raw(char *buf, int cb);
 void node_send_raw(const char *line);
@@ -26,7 +27,6 @@ char node_buf[1024 * 1024];
 
 HANDLE node_stdin_fd, node_stdout_fd;
 HANDLE node_process = NULL;
-volatile bool node_shut_down = false;
 
 static void node_thread(void *dummy);
 static void node_launch();
@@ -58,15 +58,6 @@ void node_send_raw(const char *line) {
         line += written;
         len  -= written;
     }
-}
-
-static void node_emergency_shutdown(void *dummy) {
-    DWORD result = MessageBox(NULL, L"Oh my, oh my. The backend decided to be very naughty, so looks like I have to crash.\n\nClick Yes to open troubleshooting instructions and reveal the log file.", L"LiveReload Crash", MB_YESNO | MB_ICONERROR);
-    if (result == IDYES) {
-        ShellExecute(NULL, L"explore", U2W(os_log_path), NULL, NULL, SW_SHOWNORMAL);
-        ShellExecute(NULL, L"open", L"http://help.livereload.com/kb/troubleshooting/livereload-has-crashed-on-windows", NULL, NULL, SW_SHOWNORMAL);
-    }
-    ExitProcess(1);
 }
 
 static void node_thread(void *dummy) {
@@ -102,7 +93,7 @@ static void node_thread(void *dummy) {
         if (endTime < startTime + 3) {
             // shut down in less than 3 seconds considered a crash
             node_shut_down = true;
-            invoke_on_main_thread(node_emergency_shutdown, NULL);
+            invoke_on_main_thread((INVOKE_LATER_FUNC)os_emergency_shutdown_backend_crashed, NULL);
         }
         fprintf(stderr, "app:  Node terminated.\n");
     }
@@ -186,7 +177,7 @@ static void *node_thread(void *dummy);
 
 
 void node_init() {
-    node_bundled_backend_js = str_printf("%s/backend/lib/livereload-backend.js", os_bundled_resources_path);
+    node_bundled_backend_js = str_printf("%s/bin/livereload-backend.js", os_bundled_backend_path);
 
     pthread_t thread;
     pthread_create(&thread, NULL, node_thread, NULL);
@@ -195,6 +186,7 @@ void node_init() {
 }
 
 void node_shutdown() {
+    node_shut_down = true;
     if (node_pid) {
         kill(node_pid, SIGINT);
     }
@@ -208,8 +200,11 @@ void node_send_raw(const char *line) {
 static void *node_thread(void *dummy) {
     int pipe_stdin[2], pipe_stdout[2];
     int result;
+    time_t start_time;
 
 restart_node:
+
+    start_time = time(NULL);
 
     result = pipe(pipe_stdin);
     assert(result == 0);
@@ -284,7 +279,17 @@ restart_node:
     close(node_stdin_fd);
     close(node_stdout_fd);
 
-    goto restart_node;
+    time_t end_time = time(NULL);
+    if (end_time < start_time + 3) {
+        // shut down in less than 3 seconds considered a crash
+        node_shut_down = true;
+        invoke_on_main_thread((INVOKE_LATER_FUNC)os_emergency_shutdown_backend_crashed, NULL);
+    }
+    fprintf(stderr, "app:  Node terminated.\n");
+
+    if (!node_shut_down)
+        goto restart_node;
+    return NULL;
 }
 #endif
 
@@ -300,6 +305,11 @@ void node_received(char *line) {
 
     json_error_t error;
     json_t *incoming = json_loads(line, 0, &error);
+    if (!incoming) {
+        fprintf(stderr,  "app:  Cannot parse received line as JSON: '%s'\n", line);
+        free(line);
+        return;
+    }
     const char *command = json_string_value(json_array_get(incoming, 0));
     assert(command);
     json_t *arg = json_array_get(incoming, 1);

@@ -1,5 +1,5 @@
 
-#import "FSTreeFilter.h"
+#import "OldFSTreeFilter.h"
 
 
 @implementation FSTreeFilter

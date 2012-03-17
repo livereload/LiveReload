@@ -64,6 +64,10 @@
 		435BE042141B72A60008FF77 /* NewMainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 435BE041141B72A60008FF77 /* NewMainWindow.xib */; };
 		435BE045141B87920008FF77 /* NewMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 435BE044141B87920008FF77 /* NewMainWindowController.m */; };
 		4376A0E2146DF1C800338AD4 /* TitleBarHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */; };
+		4378C8D11515205C003187D5 /* OldFSMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CA1515205C003187D5 /* OldFSMonitor.m */; };
+		4378C8D21515205C003187D5 /* OldFSTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CC1515205C003187D5 /* OldFSTree.m */; };
+		4378C8D31515205C003187D5 /* OldFSTreeDiffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CE1515205C003187D5 /* OldFSTreeDiffer.m */; };
+		4378C8D41515205C003187D5 /* OldFSTreeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8D01515205C003187D5 /* OldFSTreeFilter.m */; };
 		4379ADCB141D1060008C836F /* livereload.js in Resources */ = {isa = PBXBuildFile; fileRef = 4379ADC9141D00CE008C836F /* livereload.js */; };
 		439C093313ADCBDD00119233 /* monitoring.plist in Resources */ = {isa = PBXBuildFile; fileRef = 439C093213ADCBDD00119233 /* monitoring.plist */; };
 		43C0368613CA191D00A01305 /* LiveReload.icns in Resources */ = {isa = PBXBuildFile; fileRef = 43C0368513CA191C00A01305 /* LiveReload.icns */; };
@@ -121,10 +125,6 @@
 		823DDEF013F8DA3100529AD2 /* FileCompilationOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE6D13F8DA3100529AD2 /* FileCompilationOptions.m */; };
 		823DDEF113F8DA3100529AD2 /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE6F13F8DA3100529AD2 /* Project.m */; };
 		823DDEF213F8DA3100529AD2 /* Workspace.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE7113F8DA3100529AD2 /* Workspace.m */; };
-		823DDEF313F8DA3100529AD2 /* FSMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE7413F8DA3100529AD2 /* FSMonitor.m */; };
-		823DDEF413F8DA3100529AD2 /* FSTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE7613F8DA3100529AD2 /* FSTree.m */; };
-		823DDEF513F8DA3100529AD2 /* FSTreeDiffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE7813F8DA3100529AD2 /* FSTreeDiffer.m */; };
-		823DDEF613F8DA3100529AD2 /* FSTreeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE7A13F8DA3100529AD2 /* FSTreeFilter.m */; };
 		823DDEF713F8DA3100529AD2 /* Compiler.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE7D13F8DA3100529AD2 /* Compiler.m */; };
 		823DDEF813F8DA3100529AD2 /* CompilerVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE7F13F8DA3100529AD2 /* CompilerVersion.m */; };
 		823DDEF913F8DA3100529AD2 /* Plugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE8113F8DA3100529AD2 /* Plugin.m */; };
@@ -268,6 +268,14 @@
 		435BE043141B87920008FF77 /* NewMainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewMainWindowController.h; sourceTree = "<group>"; };
 		435BE044141B87920008FF77 /* NewMainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewMainWindowController.m; sourceTree = "<group>"; };
 		4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TitleBarHelpTemplate.png; sourceTree = "<group>"; };
+		4378C8C91515205C003187D5 /* OldFSMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldFSMonitor.h; sourceTree = "<group>"; };
+		4378C8CA1515205C003187D5 /* OldFSMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldFSMonitor.m; sourceTree = "<group>"; };
+		4378C8CB1515205C003187D5 /* OldFSTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldFSTree.h; sourceTree = "<group>"; };
+		4378C8CC1515205C003187D5 /* OldFSTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldFSTree.m; sourceTree = "<group>"; };
+		4378C8CD1515205C003187D5 /* OldFSTreeDiffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldFSTreeDiffer.h; sourceTree = "<group>"; };
+		4378C8CE1515205C003187D5 /* OldFSTreeDiffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldFSTreeDiffer.m; sourceTree = "<group>"; };
+		4378C8CF1515205C003187D5 /* OldFSTreeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldFSTreeFilter.h; sourceTree = "<group>"; };
+		4378C8D01515205C003187D5 /* OldFSTreeFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldFSTreeFilter.m; sourceTree = "<group>"; };
 		4379ADC9141D00CE008C836F /* livereload.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = livereload.js; sourceTree = "<group>"; };
 		439C093213ADCBDD00119233 /* monitoring.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = monitoring.plist; sourceTree = "<group>"; };
 		43A265E613DCEAE600704BF6 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
@@ -368,14 +376,6 @@
 		823DDE6F13F8DA3100529AD2 /* Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Project.m; sourceTree = "<group>"; };
 		823DDE7013F8DA3100529AD2 /* Workspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Workspace.h; sourceTree = "<group>"; };
 		823DDE7113F8DA3100529AD2 /* Workspace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Workspace.m; sourceTree = "<group>"; };
-		823DDE7313F8DA3100529AD2 /* FSMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSMonitor.h; sourceTree = "<group>"; };
-		823DDE7413F8DA3100529AD2 /* FSMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSMonitor.m; sourceTree = "<group>"; };
-		823DDE7513F8DA3100529AD2 /* FSTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSTree.h; sourceTree = "<group>"; };
-		823DDE7613F8DA3100529AD2 /* FSTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSTree.m; sourceTree = "<group>"; };
-		823DDE7713F8DA3100529AD2 /* FSTreeDiffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSTreeDiffer.h; sourceTree = "<group>"; };
-		823DDE7813F8DA3100529AD2 /* FSTreeDiffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSTreeDiffer.m; sourceTree = "<group>"; };
-		823DDE7913F8DA3100529AD2 /* FSTreeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSTreeFilter.h; sourceTree = "<group>"; };
-		823DDE7A13F8DA3100529AD2 /* FSTreeFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSTreeFilter.m; sourceTree = "<group>"; };
 		823DDE7C13F8DA3100529AD2 /* Compiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Compiler.h; sourceTree = "<group>"; };
 		823DDE7D13F8DA3100529AD2 /* Compiler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Compiler.m; sourceTree = "<group>"; };
 		823DDE7E13F8DA3100529AD2 /* CompilerVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompilerVersion.h; sourceTree = "<group>"; };
@@ -804,14 +804,14 @@
 		823DDE7213F8DA3100529AD2 /* Monitoring */ = {
 			isa = PBXGroup;
 			children = (
-				823DDE7313F8DA3100529AD2 /* FSMonitor.h */,
-				823DDE7413F8DA3100529AD2 /* FSMonitor.m */,
-				823DDE7513F8DA3100529AD2 /* FSTree.h */,
-				823DDE7613F8DA3100529AD2 /* FSTree.m */,
-				823DDE7713F8DA3100529AD2 /* FSTreeDiffer.h */,
-				823DDE7813F8DA3100529AD2 /* FSTreeDiffer.m */,
-				823DDE7913F8DA3100529AD2 /* FSTreeFilter.h */,
-				823DDE7A13F8DA3100529AD2 /* FSTreeFilter.m */,
+				4378C8C91515205C003187D5 /* OldFSMonitor.h */,
+				4378C8CA1515205C003187D5 /* OldFSMonitor.m */,
+				4378C8CB1515205C003187D5 /* OldFSTree.h */,
+				4378C8CC1515205C003187D5 /* OldFSTree.m */,
+				4378C8CD1515205C003187D5 /* OldFSTreeDiffer.h */,
+				4378C8CE1515205C003187D5 /* OldFSTreeDiffer.m */,
+				4378C8CF1515205C003187D5 /* OldFSTreeFilter.h */,
+				4378C8D01515205C003187D5 /* OldFSTreeFilter.m */,
 			);
 			path = Monitoring;
 			sourceTree = "<group>";
@@ -1123,10 +1123,6 @@
 				823DDEF013F8DA3100529AD2 /* FileCompilationOptions.m in Sources */,
 				823DDEF113F8DA3100529AD2 /* Project.m in Sources */,
 				823DDEF213F8DA3100529AD2 /* Workspace.m in Sources */,
-				823DDEF313F8DA3100529AD2 /* FSMonitor.m in Sources */,
-				823DDEF413F8DA3100529AD2 /* FSTree.m in Sources */,
-				823DDEF513F8DA3100529AD2 /* FSTreeDiffer.m in Sources */,
-				823DDEF613F8DA3100529AD2 /* FSTreeFilter.m in Sources */,
 				823DDEF713F8DA3100529AD2 /* Compiler.m in Sources */,
 				823DDEF813F8DA3100529AD2 /* CompilerVersion.m in Sources */,
 				823DDEF913F8DA3100529AD2 /* Plugin.m in Sources */,
@@ -1207,6 +1203,10 @@
 				434DB8191514F58C00C62042 /* fstree_create_posix.c in Sources */,
 				434DB81B1514F58C00C62042 /* fstree_diff.c in Sources */,
 				434DB81D1514F62100C62042 /* fslistener_osx.c in Sources */,
+				4378C8D11515205C003187D5 /* OldFSMonitor.m in Sources */,
+				4378C8D21515205C003187D5 /* OldFSTree.m in Sources */,
+				4378C8D31515205C003187D5 /* OldFSTreeDiffer.m in Sources */,
+				4378C8D41515205C003187D5 /* OldFSTreeFilter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
