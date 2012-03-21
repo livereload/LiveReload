@@ -23,3 +23,26 @@ exports.api =
 
   ping: (arg, callback) ->
     callback()
+
+
+exports.displayCriticalError = ({title, text, url, button}) ->
+  button ?= "More Info"
+
+  LR.log.omg "Critical error: #{title} -- #{text}"
+  LR.client.app.displayPopupMessage {
+      title, text, buttons: [['help', button], ['quit', "Quit"]]
+    }, (err, result) ->
+      if result == 'help'
+        LR.client.app.openUrl url
+      LR.client.app.terminate()
+
+
+exports.displayHelpfulWarning = ({title, text, url, button}) ->
+  button ?= "More Info"
+
+  LR.log.wtf "Warning: #{title} -- #{text}"
+  LR.client.app.displayPopupMessage {
+      title, text, buttons: [['help', button], ['quit', "Quit"]]
+    }, (err, result) ->
+      if result == 'help'
+        LR.client.app.openUrl url

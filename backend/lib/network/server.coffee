@@ -91,20 +91,23 @@ class LRWebSocketServer extends EventEmitter
 
   start: (callback) ->
     @httpServer ||= http.createServer()  # non-nil when running tests
-    @httpServer.listen @port, (err) =>
-      return callback(err) if err
+    try
+      @httpServer.listen @port, (err) =>
+        return callback(err) if err
 
-      @httpServer.on 'request', (request, response) =>
-        request.on 'end', =>
-          url = Url.parse(request.url)
-          @emit 'httprequest', url, request, response
+        @httpServer.on 'request', (request, response) =>
+          request.on 'end', =>
+            url = Url.parse(request.url)
+            @emit 'httprequest', url, request, response
 
-      @wsserver ||= wsio.attach(@httpServer)
+        @wsserver ||= wsio.attach(@httpServer)
 
-      @wsserver.on 'connection', (socket) =>
-        new LRWebSocketConnection(@, socket, "C" + (@nextConnectionId++))
+        @wsserver.on 'connection', (socket) =>
+          new LRWebSocketConnection(@, socket, "C" + (@nextConnectionId++))
 
-      callback()
+        callback(null)
+    catch e
+      callback(e)
 
   monitoringConnections: -> connection for own dummy, connection of @connections when connection.isMonitoring()
 

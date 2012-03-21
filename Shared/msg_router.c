@@ -12,6 +12,10 @@ json_t *C_monitoring__remove(json_t *data);
 void C_app__failed_to_start(json_t *data);
 void C_mainwnd__set_project_list(json_t *data);
 void C_mainwnd__rpane__set_data(json_t *data);
+json_t *C_app__display_popup_message(json_t *data);
+void C_app__open_url(json_t *data);
+void C_app__terminate(json_t *data);
+void C_app__good_time_to_deliver_news(json_t *data);
 void C_mainwnd__set_connection_status(json_t *data);
 void C_mainwnd__set_change_count(json_t *data);
 void C_workspace__set_monitoring_enabled(json_t *data);
@@ -36,6 +40,21 @@ json_t *_C_mainwnd__rpane__set_data_wrapper(json_t *data) {
     return NULL;
 }
 
+json_t *_C_app__open_url_wrapper(json_t *data) {
+    C_app__open_url(data);
+    return NULL;
+}
+
+json_t *_C_app__terminate_wrapper(json_t *data) {
+    C_app__terminate(data);
+    return NULL;
+}
+
+json_t *_C_app__good_time_to_deliver_news_wrapper(json_t *data) {
+    C_app__good_time_to_deliver_news(data);
+    return NULL;
+}
+
 json_t *_C_mainwnd__set_connection_status_wrapper(json_t *data) {
     C_mainwnd__set_connection_status(data);
     return NULL;
@@ -57,6 +76,10 @@ msg_entry_t entries[] = {
     { "app.failed_to_start", &_C_app__failed_to_start_wrapper },
     { "mainwnd.set_project_list", &_C_mainwnd__set_project_list_wrapper },
     { "mainwnd.rpane.set_data", &_C_mainwnd__rpane__set_data_wrapper },
+    { "app.display_popup_message", &C_app__display_popup_message },
+    { "app.open_url", &_C_app__open_url_wrapper },
+    { "app.terminate", &_C_app__terminate_wrapper },
+    { "app.good_time_to_deliver_news", &_C_app__good_time_to_deliver_news_wrapper },
     { "mainwnd.set_connection_status", &_C_mainwnd__set_connection_status_wrapper },
     { "mainwnd.set_change_count", &_C_mainwnd__set_change_count_wrapper },
     { "workspace.set_monitoring_enabled", &_C_workspace__set_monitoring_enabled_wrapper },

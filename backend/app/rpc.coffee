@@ -34,7 +34,8 @@ exports.send = (message, arg, callback=null) ->
   if callback  #args.length > 0 && typeof args[args.length - 1] is 'function'
     callbackId = "$" + nextCallbackId++
     callbacks[callbackId] = callback
-    timeouts[callbackId] = setInterval((-> handleCallbackTimeout(callbackId)), _callbackTimeout)
+    # timeouts temporarily disabled because they prevent displayPopupMessage call from returning useful data
+    # timeouts[callbackId] = setInterval((-> handleCallbackTimeout(callbackId)), _callbackTimeout)
     communicator.send [message, arg, callbackId]
   else
     communicator.send [message, arg]
