@@ -108,11 +108,11 @@ void C_app__good_time_to_deliver_news(json_t *arg) {
     [cutoff setDay:1];
     if ([now compare:[[NSCalendar currentCalendar] dateFromComponents:cutoff]] == NSOrderedDescending) {
         // stop auto-login and show a message
-        NSInteger ans = [[NSAlert alertWithMessageText:@"LiveReload 2 beta has expired"
+        NSInteger ans = [[NSAlert alertWithMessageText:@"LiveReload 2 trial has expired"
                                          defaultButton:@"Visit our site"
                                        alternateButton:@"Quit LiveReload"
                                            otherButton:nil
-                             informativeTextWithFormat:@"Sorry, this beta version of LiveReload has expired and cannot be launched.\n\nPlease visit http://livereload.com/ to get an updated version."] runModal];
+                             informativeTextWithFormat:@"Sorry, this trial version of LiveReload has expired and cannot be launched.\n\nPlease visit http://livereload.com/ to get an updated version."] runModal];
         if (ans == NSAlertDefaultReturn) {
             [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://livereload.com/"]];
         } else {
