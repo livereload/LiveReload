@@ -13,23 +13,26 @@ exports.Parser = class Parser extends EventEmitter
     @reset()
 
   reset: ->
-    @protocol = null
+    @protocols = null
 
   process: (data) ->
     try
-      if not @protocol?
+      if not @protocols?
         if data.match(///^ !!ver: ([\d.]+) $///)
-          @protocol = 6
+          @emit 'oldproto'
+          return
         else if message = @_parseMessage(data, ['hello'])
           if !message.protocols.length
             throw new ProtocolError("no protocols specified in handshake message")
-          else if PROTOCOL_7 in message.protocols
-            @protocol = 7
-          else if CONN_CHECK in message.protocols
-            @protocol = 7
-          else
+
+          @protocols = {}
+          if PROTOCOL_7 in message.protocols
+            @protocols.monitoring = 7
+          if CONN_CHECK in message.protocols
+            @protocols.connCheck = 1
+          if Object.keys(@protocols).length is 0
             throw new ProtocolError("no supported protocols found")
-        @emit 'connected', @protocol
+          @emit 'connected', @protocols
       else
         message = @_parseMessage(data, ['info'])
         @emit 'message', message

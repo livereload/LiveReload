@@ -19,15 +19,16 @@
     "node": ">=0.5.5 <0.6"
   },
   "dependencies": {
-    "async"  : ">=0.1.15",
+    "async": ">=0.1.15",
     "js-yaml": ">=0.3.1",
-    "sha1"   : ">=0.0.1",
-    "sugar"  : ">=1.1.1",
+    "sha1": ">=0.0.1",
+    "sugar": ">=1.1.1",
     "apitree": ">=1.0.0",
     "websocket.io": ">=0.1.2"
   },
-  "devDependencies" : {
-    "mocha"       : ">=0.3.1",
-    "memorystream": ">=0.0.4"
+  "devDependencies": {
+    "mocha": ">=0.3.1",
+    "memorystream": ">=0.0.4",
+    "gently": "~0.9.1"
   }
 }
