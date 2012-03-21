@@ -219,9 +219,13 @@ end
 file 'extensions/Firefox/content/livereload.js' => ['js/dist/livereload.js'] do |t|
   cp t.prerequisites.first, t.name
 end
+file 'backend/res/livereload.js' => ['js/dist/livereload.js'] do |t|
+  mkdir_p File.dirname(t.name)
+  cp t.prerequisites.first, t.name
+end
 
 desc "Update LiveReload.js from js/dist/"
-task :js => ['LiveReload/livereload.js', 'extensions/LiveReload.safariextension/livereload.js', 'extensions/Chrome/LiveReload/livereload.js', 'extensions/Firefox/content/livereload.js']
+task :js => ['LiveReload/livereload.js', 'extensions/LiveReload.safariextension/livereload.js', 'extensions/Chrome/LiveReload/livereload.js', 'extensions/Firefox/content/livereload.js', 'backend/res/livereload.js']
 
 desc "Push all Git changes"
 task :push do
