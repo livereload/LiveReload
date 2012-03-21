@@ -4,5 +4,8 @@
   "app.failed_to_start",
   "mainwnd.set_project_list",
   "mainwnd.rpane.set_data",
+  "mainwnd.set_connection_status",
+  "mainwnd.set_change_count",
+  "workspace.set_monitoring_enabled",
   null
 ]

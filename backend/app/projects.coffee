@@ -63,23 +63,24 @@ exports.updateProjectList = updateProjectList = (callback) ->
   LR.client.mainwnd.setProjectList { projects: projectListJSON() }
   callback(null)
 
-exports.add = ({ path }, callback) ->
-  fs.stat path, (err, stat) ->
-    if err or not stat
-      callback(err || new Error("The path does not exist"))
-    else
-      projects.push new Project({ path })
+exports.api =
+  add: ({ path }, callback) ->
+    fs.stat path, (err, stat) ->
+      if err or not stat
+        callback(err || new Error("The path does not exist"))
+      else
+        projects.push new Project({ path })
+        modelDidChange callback
+
+  remove: ({ projectId }, callback) ->
+    if project = findById(projectId)
+      projects.splice projects.indexOf(project), 1
       modelDidChange callback
+    else
+      callback(new Error("The given project id does not exist"))
 
-exports.remove = ({ projectId }, callback) ->
-  if project = findById(projectId)
-    projects.splice projects.indexOf(project), 1
-    modelDidChange callback
-  else
-    callback(new Error("The given project id does not exist"))
-
-exports.changeDetected = ({ id, changes }, callback) ->
-  if project = findById(id)
-    project.handleChange changes, callback
-  else
-    callback(new Error("Change detected in unknown project id #{id}"))
+  changeDetected: ({ id, changes }, callback) ->
+    if project = findById(id)
+      project.handleChange changes, callback
+    else
+      callback(new Error("Change detected in unknown project id #{id}"))

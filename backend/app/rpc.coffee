@@ -40,6 +40,7 @@ exports.send = (message, arg, callback=null) ->
     communicator.send [message, arg]
 
 exports.execute = execute = (message, args..., callback) ->
+  message = message.replace /\.(\w+)$/, '.api.$1'
   try
     get(LR, message)(args..., callback)
   catch e

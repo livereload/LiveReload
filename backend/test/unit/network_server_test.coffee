@@ -93,3 +93,13 @@ describe "LRWebSocketServer", ->
 
     @shakeHands [PROTOCOL_7], (connection) =>
       connection.socket.emit 'message', JSON.stringify({ command: 'info' })
+
+
+  it "should handle socket disconnection", wrap (done) ->
+    @server.on 'wsconnected', (connection) ->
+      connection.socket.emit 'close'
+
+    @server.on 'wsdisconnected', (connection) ->
+      done()
+
+    @shakeHands [PROTOCOL_7]

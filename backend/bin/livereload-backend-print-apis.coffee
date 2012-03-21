@@ -12,6 +12,8 @@ flattenHash = (object, sep='.', prefix='', result={}) ->
 
   return result
 
-tree = flattenHash(apitree.createApiTree(path.join(__dirname, '../app')))
+loadItem = (path) -> require(path).api || {}
+
+tree = flattenHash(apitree.createApiTree(path.join(__dirname, '../app'), { loadItem }))
 for k in Object.keys(tree)
   process.stdout.write "#{k}\n"

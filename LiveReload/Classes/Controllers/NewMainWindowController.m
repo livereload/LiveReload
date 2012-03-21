@@ -5,7 +5,6 @@
 #import "CompilationSettingsWindowController.h"
 #import "PostProcessingSettingsWindowController.h"
 #import "TerminalViewController.h"
-#import "CommunicationController.h"
 
 #import "LiveReloadAppDelegate.h"
 #import "PluginManager.h"
@@ -21,6 +20,8 @@
 #import "ShitHappens.h"
 #import "LoginItemController.h"
 
+#import "jansson.h"
+
 
 typedef enum {
     PaneWelcome,
@@ -30,6 +31,8 @@ enum { PANE_COUNT = PaneProject+1 };
 
 
 @interface NewMainWindowController () <NSAnimationDelegate>
+
++ (NewMainWindowController *)sharedMainWindowController;
 
 - (void)updatePanes;
 - (void)updateProjectList;
@@ -43,6 +46,20 @@ enum { PANE_COUNT = PaneProject+1 };
 - (void)updateOpenAtLoginState;
 
 @end
+
+
+int browsers_connected = 0;
+int changes_processed = 0;
+
+void C_mainwnd__set_connection_status(json_t *arg) {
+    browsers_connected = json_integer_value(json_object_get(arg, "connectionCount"));
+    [[NewMainWindowController sharedMainWindowController] updateStatus];
+}
+
+void C_mainwnd__set_change_count(json_t *arg) {
+    changes_processed = json_integer_value(json_object_get(arg, "changeCount"));
+    [[NewMainWindowController sharedMainWindowController] updateStatus];
+}
 
 
 @implementation NewMainWindowController
@@ -72,6 +89,11 @@ enum { PANE_COUNT = PaneProject+1 };
 @synthesize compilerEnabledCheckBox = _compilerEnabledCheckBox;
 @synthesize postProcessingEnabledCheckBox = _postProcessingEnabledCheckBox;
 @synthesize availableCompilersLabel = _availableCompilersLabel;
+
++ (NewMainWindowController *)sharedMainWindowController {
+    LiveReloadAppDelegate *delegate = [NSApp delegate];
+    return delegate.mainWindowController;
+}
 
 - (id)init {
     self = [super initWithWindowNibName:@"NewMainWindow"];
@@ -190,8 +212,6 @@ enum { PANE_COUNT = PaneProject+1 };
     [self updateOpenAtLoginState];
 
     [[Workspace sharedWorkspace] addObserver:self forKeyPath:@"projects" options:0 context:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(communicationStateChanged:) name:CommunicationStateChangedNotification object:nil];
-    [[CommunicationController sharedCommunicationController] addObserver:self forKeyPath:@"numberOfProcessedChanges" options:0 context:nil];
 }
 
 
@@ -668,13 +688,13 @@ enum { PANE_COUNT = PaneProject+1 };
         [_gettingStartedView setHidden:NO];
     } else {
         [_gettingStartedView setHidden:YES];
-        NSInteger n = [CommunicationController sharedCommunicationController].numberOfSessions;
+        NSInteger n = browsers_connected;
         if (n == 0) {
             text = @"Waiting for a browser to connect.";
         } else if (n == 1) {
-            text = [NSString stringWithFormat:@"1 browser connected, %d changes detected so far.", [CommunicationController sharedCommunicationController].numberOfProcessedChanges];
+            text = [NSString stringWithFormat:@"1 browser connected, %d changes detected so far.", changes_processed];
         } else {
-            text = [NSString stringWithFormat:@"%d browsers connected, %d changes detected so far.", n, [CommunicationController sharedCommunicationController].numberOfProcessedChanges];
+            text = [NSString stringWithFormat:@"%d browsers connected, %d changes detected so far.", n, changes_processed];
         }
     }
     _statusTextField.stringValue = text;

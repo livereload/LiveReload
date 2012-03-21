@@ -83,15 +83,15 @@ class LRWebSocketConnection
 
 class LRWebSocketServer extends EventEmitter
 
-  constructor: (@options={}) ->
-    @options.port ?= DefaultPort
+  constructor: (options={}) ->
+    @port = options.port || DefaultPort
     @connections = {}
     @activeConnections = 0
     @nextConnectionId = 1
 
   start: (callback) ->
     @httpServer ||= http.createServer()  # non-nil when running tests
-    @httpServer.listen @options.port, (err) =>
+    @httpServer.listen @port, (err) =>
       return callback(err) if err
 
       @httpServer.on 'request', (request, response) =>
@@ -115,7 +115,7 @@ class LRWebSocketServer extends EventEmitter
     @emit 'wsconnected', connection
 
   _onwsdisconnected: (connection) ->
-    delete @connection[connection.id]
+    delete @connections[connection.id]
     @emit 'wsdisconnected', connection
 
   _onwscommand: (connection, command) ->

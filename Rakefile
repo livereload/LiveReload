@@ -256,7 +256,7 @@ end
 RoutingTableEntry = OpenStruct
 
 CLIENT_MSG_ROUTER          = 'Shared/msg_router.c'
-CLIENT_MSG_ROUTER_SOURCES  = Dir['{Shared,Windows}/**/*.c'] - [CLIENT_MSG_ROUTER]
+CLIENT_MSG_ROUTER_SOURCES  = Dir['{Shared,Windows,LiveReload}/**/*.{c,m}'] - [CLIENT_MSG_ROUTER]
 CLIENT_MSG_PROXY_H         = 'Shared/msg_proxy.h'
 CLIENT_MSG_PROXY_C         = CLIENT_MSG_PROXY_H.ext('c')
 SERVER_MSG_PROXY           = 'backend/config/client-messages.json'
@@ -268,10 +268,14 @@ compiler_template 'render_client_msg_proxy_h', %w(entries), "#{CLIENT_MSG_PROXY_
 compiler_template 'render_client_msg_proxy_c', %w(entries), "#{CLIENT_MSG_PROXY_C}.erb"
 
 task :routing do
+  existing_names = {}
   entries = CLIENT_MSG_ROUTER_SOURCES.map do |file|
     lines = File.read(file).lines
     names = lines.map { |line| [$1, $2] if line =~ /^(void\s+|json_t\s*\*\s*)C_(\w+)\s*\(/ }.compact
     names.map { |type, name|
+      next if existing_names[name]
+      existing_names[name] = true
+
       puts "C_#{name}"
       entry = RoutingTableEntry.new(:func_name => "C_#{name}", :msg_name => name.gsub('__', '.'), :return_type => type, :needs_wrapper => (type =~ /^void/))
       if entry.needs_wrapper
@@ -281,7 +285,7 @@ task :routing do
       end
       entry
     }
-  end.flatten
+  end.flatten.compact
 
   File.open(CLIENT_MSG_ROUTER, 'w') { |f| f.write render_client_msg_router(entries) }
   File.open(SERVER_MSG_PROXY,  'w') { |f| f.write render_server_msg_proxy(entries) }

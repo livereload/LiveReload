@@ -1,107 +1,66 @@
-wsio = require 'websocket.io'
-http = require 'http'
-Url  = require 'url'
-Path = require 'path'
 fs   = require 'fs'
+Path = require 'path'
 
-{ Parser, PROTOCOL_7, CONN_CHECK } = require '../lib/protocol'
+{ LRWebSocketServer } = require '../lib/network/server'
 
-Version = '2.0.4'
-HandshakeTimeout = 1000
-Port = 35729
+ResourceFolder = Path.join(__dirname, '../res')
 
+class LRWebSocketController
 
-_server      = null
-_wsserver    = null
-_connections = {}
-_nextConnectionId = 1
+  constructor: ->
+    @server = new LRWebSocketServer()
+    @server.on 'httprequest', @_onhttprequest.bind(@)
 
+    @server.on 'wsconnected',    @_updateConnectionCountInUI.bind(@)
+    @server.on 'wsdisconnected', @_updateConnectionCountInUI.bind(@)
 
-class Connection
-  constructor: (@socket) ->
-    @id = "C" + (_nextConnectionId++)
+    @server.on 'wscommand', (connection) =>
+      # TODO: handle INFO command?
 
-    @socket.on 'message', @_ondata.bind(@)
-    @socket.on 'close',   @_onclose.bind(@)
+    @changeCount = 0
 
-    @parser = new Parser
-    @parser.on 'connected', @_onHandshakeDone.bind(@)
-    @parser.on 'message',   @_oncommand.bind(@)
-    @parser.on 'error',     @_onerror.bind(@)
+  init: (callback) ->
+    @server.start =>
+      LR.log.fyi "WebSocket server listening on port #{@server.port}."
+      callback(null)
 
-    @handshakeTimeout = setTimeout(@_onHandshakeTimeout.bind(@), HandshakeTimeout)
+  sendReloadCommand: ({ path, originalPath, liveCSS, enableOverride }) ->
+    for connection in @server.monitoringConnections()
+      connection.send {
+        command: 'reload'
+        path:    path
+        originalPath: originalPath
+        liveCSS: liveCSS
+        # overrideURL: ...
+      }
 
-    @send {
-      command:    "hello"
-      protocols:  [PROTOCOL_7, CONN_CHECK]
-      serverName: "LiveReload 2"
-    }
+    @changeCount += 1
+    @_updateChangeCountInUI()
 
-  send: (command) ->
-    payload = JSON.stringify(command)
-    LR.log.fyi "Sending message #{payload}"
-    @socket.send payload
+  monitoringConnectionCount: -> @server.monitoringConnectionCount()
 
-  _ondata: (payload) ->
-    LR.log.fyi "Got message #{payload}"
-    @parser.process(payload)
+  _updateConnectionCountInUI: ->
+    LR.client.mainwnd.setConnectionStatus connectionCount: @monitoringConnectionCount()
+    LR.client.workspace.setMonitoringEnabled (@monitoringConnectionCount() > 0)
 
-  _onclose: (e) ->
-    @_cancelHandshakeTimeout()
-    delete _connections[@id]
-    LR.log.fyi "Connection closed."
+  _updateChangeCountInUI: ->
+    LR.client.mainwnd.setChangeCount changeCount: @changeCount
 
-  _onerror: (err) ->
-    LR.log.wtf "Web Socket communication error: #{err.message}"
-    @socket.close()
-
-  _onHandshakeTimeout: ->
-    @handshakeTimeout = null
-    LR.log.wtf "Web Socket handshake timeout"
-    @socket.close()
-
-  _cancelHandshakeTimeout: ->
-    if @handshakeTimeout
-      clearTimeout @handshakeTimeout
-      @handshakeTimeout = null
-
-  _onHandshakeDone: ->
-    @_cancelHandshakeTimeout()
-    _connections[@id] = this
-    LR.log.fyi "Web Socket handshake done, connected."
-
-  _oncommand: (command) ->
-    LR.log.fyi "Ignoring command #{command.command}"
+  _onhttprequest: (url, request, response) ->
+    if url.pathname.match ///^ /x?livereload\.js $///
+      data = fs.readFileSync(Path.join(ResourceFolder, 'livereload.js'))
+      response.writeHead 200, 'Content-Length': data.length, 'Content-Type': 'text/javascript'
+      response.end(data)
+    else
+      response.writeHead 404
+      response.end()
 
 
-exports.init = (callback) ->
-  _server = http.createServer()
-  _server.listen Port, (err) ->
-    return callback(err) if err
+_controller = new LRWebSocketController()
 
-    _server.on 'request', (request, response) ->
-      request.on 'end', ->
-        path = Url.parse(request.url).pathname
-        if path.match ///^ /x?livereload\.js $///
-          data = fs.readFileSync(Path.join(__dirname, '../res/livereload.js'))
-          response.writeHead 200, 'Content-Length': data.length, 'Content-Type': 'text/javascript'
-          response.end(data)
-        else
-          response.writeHead 404
-          response.end()
+exports.init = (cb) -> _controller.init(cb)
 
-    _wsserver = wsio.attach(_server)
-
-    _wsserver.on 'connection', (socket) ->
-      new Connection(socket)
-
-    callback()
-
-
-exports.sendReloadCommand = ({ path }) ->
-  for own dummy, connection of _connections
-    connection.send {
-      command: 'reload'
-      path:    path
-      liveCSS: yes
-    }
+exports.api =
+  sendReloadCommand: (arg, callback) ->
+    _controller.sendReloadCommand(arg)
+    callback(null)

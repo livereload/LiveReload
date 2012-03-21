@@ -5,6 +5,8 @@
 
 #import "ATFunctionalStyle.h"
 
+#import "jansson.h"
+
 
 #define ProjectListKey @"projects20a3"
 
@@ -19,6 +21,11 @@ static NSString *ClientConnectedMonitoringKey = @"clientConnected";
 - (void)load;
 
 @end
+
+
+void C_workspace__set_monitoring_enabled(json_t *arg) {
+    [Workspace sharedWorkspace].monitoringEnabled = json_is_true(arg);
+}
 
 
 @implementation Workspace

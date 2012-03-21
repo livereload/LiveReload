@@ -10,7 +10,6 @@
 #import "CompilationOptions.h"
 #import "StatusItemController.h"
 #import "NewMainWindowController.h"
-#import "CommunicationController.h"
 #import "LoginItemController.h"
 #import "PluginManager.h"
 
@@ -100,9 +99,6 @@ void C_mainwnd__rpane__set_data(json_t *arg) {
     node_init();
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-
-        [[CommunicationController sharedCommunicationController] startServer];
-
         [self considerShowingWindowOnAppStartup];
 
         AppNewsKitSetStringValue(@"platform", @"mac");
