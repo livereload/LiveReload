@@ -19,8 +19,8 @@ class LRWebSocketController
 
     @server.on 'wsoldproto', (connection) =>
       LR.app.displayHelpfulWarning
-        title:  "Update browser extensions"
-        text:   "LiveReload browser extensions 1.x are no longer supported. Please update your browser extensions to version 2.x to get advantage of many bug fixes, automatic reconnection, @import support, in-browser LESS.js support and more."
+        title:  "Legacy browser extensions"
+        text:   "LiveReload browser extensions 1.x are no longer supported and won't work with LiveReload 2.\n\nPlease update your browser extensions to version 2.x to get advantage of many bug fixes, automatic reconnection, @import support, in-browser LESS.js support and more."
         button: "Update Now"
         url:    "http://help.livereload.com/kb/general-use/browser-extensions"
         # TODO:

@@ -28,7 +28,7 @@ exports.api =
 exports.displayCriticalError = ({title, text, url, button}) ->
   button ?= "More Info"
 
-  LR.log.omg "Critical error: #{title} -- #{text}"
+  LR.log.omg "#{title} -- #{text}"
   LR.client.app.displayPopupMessage {
       title, text, buttons: [['help', button], ['quit', "Quit"]]
     }, (err, result) ->
@@ -40,9 +40,9 @@ exports.displayCriticalError = ({title, text, url, button}) ->
 exports.displayHelpfulWarning = ({title, text, url, button}) ->
   button ?= "More Info"
 
-  LR.log.wtf "Warning: #{title} -- #{text}"
+  LR.log.wtf "#{title} -- #{text}"
   LR.client.app.displayPopupMessage {
-      title, text, buttons: [['help', button], ['quit', "Quit"]]
+      title, text, buttons: [['help', button], ['ignore', "Ignore"]]
     }, (err, result) ->
       if result == 'help'
         LR.client.app.openUrl url

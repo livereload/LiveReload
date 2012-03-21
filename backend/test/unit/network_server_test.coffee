@@ -24,6 +24,9 @@ describe "LRWebSocketServer", ->
         ws = new MockWebSocket()
         @server.mockWebSockets.push ws
 
+        @expect ws, 'send', (command) ->
+          assert.equal JSON.parse(command).command, 'hello'
+
         if callback
           @server.on 'wsconnected', (connection) ->
             if connection.socket is ws
@@ -48,19 +51,6 @@ describe "LRWebSocketServer", ->
 
     @server.start (err) ->
       assert.equal err, error
-      done()
-
-
-  it "should send HELLO command on connection", wrap (done) ->
-    ws = new MockWebSocket()
-
-    @server.start (err) =>
-      assert.equal err, null
-
-      @expect ws, 'send', (command) ->
-        assert.equal JSON.parse(command).command, 'hello'
-
-      @server.wsserver.emit 'connection', ws
       done()
 
 

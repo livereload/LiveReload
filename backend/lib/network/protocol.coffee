@@ -18,7 +18,7 @@ exports.Parser = class Parser extends EventEmitter
   process: (data) ->
     try
       if not @protocols?
-        if data.match(///^ !!ver: ([\d.]+) $///)
+        if data.match(///^ [^\s{] ///)  # could use (https?|file):, but Safari sends (null) for the URL
           @emit 'oldproto'
           return
         else if message = @_parseMessage(data, ['hello'])

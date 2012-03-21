@@ -29,12 +29,6 @@ class LRWebSocketConnection
 
     @handshakeTimeout = setTimeout(@_onHandshakeTimeout.bind(@), HandshakeTimeout)
 
-    @send {
-      command:    "hello"
-      protocols:  [PROTOCOL_7, CONN_CHECK]
-      serverName: "LiveReload 2"
-    }
-
   send: (command) ->
     payload = JSON.stringify(command)
     LR.log.fyi "#{@id}: Sending message #{payload}"
@@ -73,6 +67,11 @@ class LRWebSocketConnection
   _onHandshakeDone: (protocols) ->
     @protocols = protocols
     @_cancelHandshakeTimeout()
+    @send {
+      command:    "hello"
+      protocols:  [PROTOCOL_7, CONN_CHECK]
+      serverName: "LiveReload 2"
+    }
     @server._onwsconnected(@)
     LR.log.fyi "#{@id}: Web Socket handshake done, connected."
 
