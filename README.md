@@ -10,6 +10,33 @@ See http://livereload.com for licensing info and an optional backstory on that.
 If you'd like to reuse some of the classes, please contact me and I'm likely to publish those under MIT.
 
 
+Building LiveReload
+-------------------
+
+You need:
+
+* Xcode 4.2.1
+* Node 0.6.x (I'm actually using Node 0.5.5, but that's an accident to be corrected soon)
+* Ruby 1.8.7 for running Rake
+
+1. Don't forget to pull all submodules after getting the source code.
+
+2. Compile CoffeeScript files inside backend/ dir. This isn't automated at the moment, so just invoke coffee on the command line; I'm using CoffeeScript 1.1.3.
+
+3. Open LiveReload/LiveReload.xcodeproj and build it with Xcode. Alternatively, use `rake build:release` or a similar task (see `rake -T` for the full list).
+
+That should be it.
+
+
+Hacking tips
+------------
+
+1. Add backend/ to LiveReload, enable compilation.
+
+2. Traditional (non-Node.js) LiveReload supports -LRPortNumber 35778 option to override the port number. This is useful to compile backend sources with one copy of LiveReload while debugging another one.
+
+
+
 AppNewsKit
 ==========
 
