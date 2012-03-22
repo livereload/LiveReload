@@ -7,8 +7,6 @@ xcuserdata
 /logs
 /raw-logs
 /Supplementary
-/extensions
-/js
 /legacy
 site/css/livereload.css
 example/naive_example/*.css
