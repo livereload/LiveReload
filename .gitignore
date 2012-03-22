@@ -3,6 +3,7 @@
 *.sublime-*
 *.swp
 xcuserdata
+/LiveReload/build
 /dist
 /logs
 /raw-logs
