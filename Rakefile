@@ -3,7 +3,8 @@
 
 ROOT_DIR = File.expand_path('.')
 BUILDS_DIR = File.join(ROOT_DIR, 'dist')
-XCODE_RELEASE_DIR = File.expand_path('~/Documents/XBuilds/Release')
+# XCODE_RELEASE_DIR = File.expand_path('~/Documents/XBuilds/Release')
+XCODE_RELEASE_DIR = File.join(ROOT_DIR, 'LiveReload/build/Release')
 TAG_PREFIX = 'v'
 S3_BUCKET = 'download.livereload.com'
 
@@ -43,7 +44,7 @@ def marketing_for_internal_version version, greek=true
       end
 
   result = "#{a}.#{b}"
-  result += ".#{c}" if c > 0
+  result += ".#{c}" if c && c > 0
   result += " #{x}" unless x.empty?
   return result
 end

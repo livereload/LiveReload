@@ -3,6 +3,7 @@
 *.sublime-*
 *.swp
 xcuserdata
+/LiveReload/build
 /tags
 /dist
 /logs
