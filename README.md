@@ -19,6 +19,8 @@ You need:
 * Node 0.6.x (I'm actually using Node 0.5.5, but that's an accident to be corrected soon)
 * Ruby 1.8.7 for running Rake
 
+Build process:
+
 1. Don't forget to pull all submodules after getting the source code.
 
 2. Compile CoffeeScript files inside backend/ dir. This isn't automated at the moment, so just invoke coffee on the command line; I'm using CoffeeScript 1.1.3.
