@@ -19,6 +19,7 @@
 
 #import "ShitHappens.h"
 #import "FixUnixPath.h"
+#import "MASReceipt.h"
 
 
 void C_mainwnd__set_project_list(json_t *arg) {
@@ -90,35 +91,30 @@ void C_app__good_time_to_deliver_news(json_t *arg) {
 }
 
 - (void)applicationWillFinishLaunching:(NSNotification *)notification {
-#ifdef APPSTORE
-    NSString *receiptPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"Contents/_MASReceipt/receipt"];
-    if (![[NSFileManager defaultManager] fileExistsAtPath:receiptPath]) {
-        // magic return value to make Finder ask for an App Store account and create a receipt
-        exit(173);
-    }
-#endif
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 #ifndef APPSTORE
-    NSDate *now = [NSDate date];
-    NSDateComponents *cutoff = [[[NSDateComponents alloc] init] autorelease];
-    [cutoff setYear:2012];
-    [cutoff setMonth:5];
-    [cutoff setDay:1];
-    if ([now compare:[[NSCalendar currentCalendar] dateFromComponents:cutoff]] == NSOrderedDescending) {
-        // stop auto-login and show a message
-        NSInteger ans = [[NSAlert alertWithMessageText:@"LiveReload 2 trial has expired"
-                                         defaultButton:@"Visit our site"
-                                       alternateButton:@"Quit LiveReload"
-                                           otherButton:nil
-                             informativeTextWithFormat:@"Sorry, this trial version of LiveReload has expired and cannot be launched.\n\nPlease visit http://livereload.com/ to get an updated version."] runModal];
-        if (ans == NSAlertDefaultReturn) {
-            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://livereload.com/"]];
-        } else {
-            [LoginItemController sharedController].loginItemEnabled = NO;
+    if (!MASReceiptIsAuthenticated()) {
+        NSDate *now = [NSDate date];
+        NSDateComponents *cutoff = [[[NSDateComponents alloc] init] autorelease];
+        [cutoff setYear:2012];
+        [cutoff setMonth:5];
+        [cutoff setDay:1];
+        if ([now compare:[[NSCalendar currentCalendar] dateFromComponents:cutoff]] == NSOrderedDescending) {
+            // stop auto-login and show a message
+            NSInteger ans = [[NSAlert alertWithMessageText:@"LiveReload 2 trial has expired"
+                                             defaultButton:@"Visit our site"
+                                           alternateButton:@"Quit LiveReload"
+                                               otherButton:nil
+                                 informativeTextWithFormat:@"Sorry, this trial version of LiveReload has expired and cannot be launched.\n\nPlease visit http://livereload.com/ to get an updated version."] runModal];
+            if (ans == NSAlertDefaultReturn) {
+                [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://livereload.com/"]];
+            } else {
+                [LoginItemController sharedController].loginItemEnabled = NO;
+            }
+            [NSApp terminate:self];
         }
-        [NSApp terminate:self];
     }
 #endif
 
