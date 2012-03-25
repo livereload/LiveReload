@@ -201,6 +201,9 @@ enum { PANE_COUNT = PaneProject+1 };
 }
 
 - (void)windowWillClose:(NSNotification *)notification {
+    if (_projectSettingsSheetController && [_projectSettingsSheetController isWindowLoaded]) {
+        [NSApp endSheet:[_projectSettingsSheetController window]];
+    }
 }
 
 
