@@ -18,6 +18,7 @@
 
 #import "Stats.h"
 #import "ShitHappens.h"
+#import "VersionChecks.h"
 #import "LoginItemController.h"
 
 #import "jansson.h"
@@ -212,6 +213,13 @@ void C_mainwnd__set_change_count(json_t *arg) {
     [self updateOpenAtLoginState];
 
     [[Workspace sharedWorkspace] addObserver:self forKeyPath:@"projects" options:0 context:nil];
+}
+
+- (IBAction)showWindow:(id)sender {
+    [super showWindow:sender];
+}
+
+- (void)windowWillClose:(NSNotification *)notification {
 }
 
 

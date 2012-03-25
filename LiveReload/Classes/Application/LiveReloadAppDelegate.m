@@ -20,6 +20,7 @@
 #import "ShitHappens.h"
 #import "FixUnixPath.h"
 #import "MASReceipt.h"
+#import "DockIcon.h"
 
 
 void C_mainwnd__set_project_list(json_t *arg) {
@@ -148,6 +149,8 @@ void C_app__good_time_to_deliver_news(json_t *arg) {
     });
 
     FixUnixPath();
+    
+    [[DockIcon currentDockIcon] displayDockIconWhenAppHasWindowsWithDelegateClass:[NewMainWindowController class]];
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification {
@@ -204,7 +207,7 @@ void C_app__good_time_to_deliver_news(json_t *arg) {
 }
 
 - (void)hideMainWindow {
-    [self.mainWindowController.window orderOut:nil];
+    [self.mainWindowController close];
 }
 
 - (IBAction)toggleMainWindow:sender {
