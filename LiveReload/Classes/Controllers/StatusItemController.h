@@ -12,7 +12,7 @@
 
 @property(nonatomic, retain) IBOutlet MainWindowController *mainWindowController;
 
-- (void)showStatusBarIcon;
+- (void)initStatusBarIcon;
 
 @property(nonatomic, readonly) NSPoint statusItemPosition;
 

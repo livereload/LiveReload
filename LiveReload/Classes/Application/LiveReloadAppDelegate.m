@@ -77,7 +77,7 @@
     [[PluginManager sharedPluginManager] reloadPlugins];
 
     _statusItemController = [[StatusItemController alloc] init];
-    [self.statusItemController showStatusBarIcon];
+    [self.statusItemController initStatusBarIcon];
 
     _mainWindowController = [[NewMainWindowController alloc] init];
 
