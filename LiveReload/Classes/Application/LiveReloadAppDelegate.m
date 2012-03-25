@@ -181,6 +181,12 @@
     }
 }
 
+- (BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag {
+    if (![self isMainWindowVisible])
+        [self displayMainWindow:nil];
+    return NO;
+}
+
 
 #pragma mark - Model
 
