@@ -19,6 +19,10 @@
     NSWindowController    *_projectSettingsSheetController;
 
     TerminalViewController *_terminalViewController;
+
+    IBOutlet NSMenuItem *_showInDockMenuItem;
+    IBOutlet NSMenuItem *_showInMenuBarMenuItem;
+    IBOutlet NSMenuItem *_showNowhereMenuItem;
 }
 
 @property (assign) IBOutlet NSView *titleBarSideView;
@@ -59,5 +63,6 @@
 
 
 - (IBAction)showPostProcessingOptions:(id)sender;
+- (IBAction)toggleVisibilityMode:(NSMenuItem *)sender;
 
 @end

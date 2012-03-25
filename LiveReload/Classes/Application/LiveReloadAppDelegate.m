@@ -123,7 +123,7 @@ void C_app__good_time_to_deliver_news(json_t *arg) {
     [[PluginManager sharedPluginManager] reloadPlugins];
 
     _statusItemController = [[StatusItemController alloc] init];
-    [self.statusItemController showStatusBarIcon];
+    [self.statusItemController initStatusBarIcon];
 
     _mainWindowController = [[NewMainWindowController alloc] init];
 

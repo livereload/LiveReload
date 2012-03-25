@@ -20,6 +20,7 @@
 #import "ShitHappens.h"
 #import "VersionChecks.h"
 #import "LoginItemController.h"
+#import "DockIcon.h"
 
 #import "jansson.h"
 
@@ -44,7 +45,7 @@ enum { PANE_COUNT = PaneProject+1 };
 
 - (void)updateStatus;
 
-- (void)updateOpenAtLoginState;
+- (void)updateItemStates;
 
 @end
 
@@ -210,7 +211,7 @@ void C_mainwnd__set_change_count(json_t *arg) {
     [self restoreSelection];
 
     [self selectedProjectDidChange];
-    [self updateOpenAtLoginState];
+    [self updateItemStates];
 
     [[Workspace sharedWorkspace] addObserver:self forKeyPath:@"projects" options:0 context:nil];
 }
@@ -506,6 +507,35 @@ void C_mainwnd__set_change_count(json_t *arg) {
     }
 }
 
+
+#pragma mark - Settings menu
+
+- (void)updateItemStates {
+    _openAtLoginMenuItem.state = ([LoginItemController sharedController].loginItemEnabled ? NSOnState : NSOffState);
+    
+    AppVisibilityMode visibilityMode = [DockIcon currentDockIcon].visibilityMode;
+    [_showInDockMenuItem setState:(visibilityMode == AppVisibilityModeDock ? NSOnState : NSOffState)];
+    [_showInMenuBarMenuItem setState:(visibilityMode == AppVisibilityModeMenuBar ? NSOnState : NSOffState)];
+    [_showNowhereMenuItem setState:(visibilityMode == AppVisibilityModeNone ? NSOnState : NSOffState)];
+}
+
+- (IBAction)toggleOpenAtLogin:(id)sender {
+    [LoginItemController sharedController].loginItemEnabled = ![LoginItemController sharedController].loginItemEnabled;
+    [self updateItemStates];
+}
+
+- (IBAction)toggleVisibilityMode:(NSMenuItem *)sender {
+    [DockIcon currentDockIcon].visibilityMode = (AppVisibilityMode)sender.tag;
+    [self updateItemStates];
+}
+
+- (IBAction)performQuit:(id)sender {
+    [NSApp terminate:self];
+}
+
+
+#pragma mark - Help menu
+
 - (IBAction)performHelp:(id)sender {
     TenderDisplayHelp();
 }
@@ -529,20 +559,6 @@ void C_mainwnd__set_change_count(json_t *arg) {
 - (IBAction)performSuggest:(id)sender {
     TenderStartDiscussionIn(@"suggestions");
 }
-
-- (void)updateOpenAtLoginState {
-    _openAtLoginMenuItem.state = ([LoginItemController sharedController].loginItemEnabled ? NSOnState : NSOffState);
-}
-
-- (IBAction)toggleOpenAtLogin:(id)sender {
-    [LoginItemController sharedController].loginItemEnabled = ![LoginItemController sharedController].loginItemEnabled;
-    [self updateOpenAtLoginState];
-}
-
-- (IBAction)performQuit:(id)sender {
-    [NSApp terminate:self];
-}
-
 
 - (IBAction)helpSupportClicked:(NSSegmentedControl *)sender {
     if (sender.selectedSegment == 0) {
