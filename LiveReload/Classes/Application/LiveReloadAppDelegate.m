@@ -19,6 +19,7 @@
 #import "ShitHappens.h"
 #import "FixUnixPath.h"
 #import "MASReceipt.h"
+#import "DockIcon.h"
 
 
 @interface LiveReloadAppDelegate ()
@@ -104,6 +105,8 @@
     });
 
     FixUnixPath();
+    
+    [[DockIcon currentDockIcon] displayDockIconWhenAppHasWindowsWithDelegateClass:[NewMainWindowController class]];
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification {
@@ -160,7 +163,7 @@
 }
 
 - (void)hideMainWindow {
-    [self.mainWindowController.window orderOut:nil];
+    [self.mainWindowController close];
 }
 
 - (IBAction)toggleMainWindow:sender {

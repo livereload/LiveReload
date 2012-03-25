@@ -19,6 +19,7 @@
 
 #import "Stats.h"
 #import "ShitHappens.h"
+#import "VersionChecks.h"
 #import "LoginItemController.h"
 
 
@@ -192,6 +193,13 @@ enum { PANE_COUNT = PaneProject+1 };
     [[Workspace sharedWorkspace] addObserver:self forKeyPath:@"projects" options:0 context:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(communicationStateChanged:) name:CommunicationStateChangedNotification object:nil];
     [[CommunicationController sharedCommunicationController] addObserver:self forKeyPath:@"numberOfProcessedChanges" options:0 context:nil];
+}
+
+- (IBAction)showWindow:(id)sender {
+    [super showWindow:sender];
+}
+
+- (void)windowWillClose:(NSNotification *)notification {
 }
 
 
