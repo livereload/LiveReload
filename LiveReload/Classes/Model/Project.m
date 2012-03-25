@@ -702,7 +702,7 @@ skipGuessing:
 
     NSMutableSet *referencedPaths = [NSMutableSet set];
     for (NSString *pathFragment in referencedPathFragments) {
-        if ([pathFragment rangeOfString:@"compass/"].location == 0 || [pathFragment rangeOfString:@"ZURB-foundation"].location != NSNotFound) {
+        if ([pathFragment rangeOfString:@"compass"].location == 0 || [pathFragment rangeOfString:@"ZURB-foundation"].location != NSNotFound) {
             _compassDetected = YES;
         }
 
