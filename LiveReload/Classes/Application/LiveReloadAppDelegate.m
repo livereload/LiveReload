@@ -225,6 +225,12 @@ void C_app__good_time_to_deliver_news(json_t *arg) {
     }
 }
 
+- (BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag {
+    if (![self isMainWindowVisible])
+        [self displayMainWindow:nil];
+    return NO;
+}
+
 
 #pragma mark - Model
 
