@@ -221,6 +221,9 @@ void C_mainwnd__set_change_count(json_t *arg) {
 }
 
 - (void)windowWillClose:(NSNotification *)notification {
+    if (_projectSettingsSheetController && [_projectSettingsSheetController isWindowLoaded]) {
+        [NSApp endSheet:[_projectSettingsSheetController window]];
+    }
 }
 
 
