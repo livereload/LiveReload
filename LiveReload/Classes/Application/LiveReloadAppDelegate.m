@@ -49,6 +49,11 @@
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    // Tell everyone we're running their scripts from LiveReload.
+    // At least one of ours users has to test this var in his .bash_profile;
+    // I can imagine there any many more cases when it comes in handy.
+    putenv("INVOKED_FROM_LIVERELOAD=1");
+
 #ifndef APPSTORE
     if (!MASReceiptIsAuthenticated()) {
         NSDate *now = [NSDate date];
