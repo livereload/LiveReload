@@ -110,7 +110,7 @@
     });
 
     FixUnixPath();
-    
+
     [[DockIcon currentDockIcon] displayDockIconWhenAppHasWindowsWithDelegateClass:[NewMainWindowController class]];
 }
 
