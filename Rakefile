@@ -110,7 +110,7 @@ namespace :version do
 
 end
 
-namespace :build do
+namespace :mac do
 
   desc "Upload the given build to S3"
   task :upload, :suffix do |t, args|
@@ -123,7 +123,7 @@ namespace :build do
   desc "Tag, build and zip using a custom suffix"
   task :custom, :suffix do |t, args|
     suffix = args[:suffix]
-    raise "Suffix is required for build:custom" if suffix.empty?
+    raise "Suffix is required for mac:custom" if suffix.empty?
 
     suffix_for_tag = TheApp.find_unused_suffix(suffix, '-')
     tag = "#{TAG_PREFIX}#{suffix_for_tag}"
@@ -150,7 +150,7 @@ namespace :build do
 
     sh 'open', '-R', zip_path_in_builds
 
-    Rake::Task['build:upload'].invoke(suffix)
+    Rake::Task['mac:upload'].invoke(suffix)
 
     sh 'git', 'tag'
 
@@ -160,19 +160,19 @@ namespace :build do
 
   desc "Tag, build and zip using the current version number"
   task :release do |t, args|
-    Rake::Task['build:custom'].invoke(TheApp.short_version)
+    Rake::Task['mac:custom'].invoke(TheApp.short_version)
   end
 
   desc "Tag, build and zip using the current version number suffixed with -pre"
   task :prerelease do |t, args|
     suffix = TheApp.find_unused_suffix("#{TheApp.short_version}-pre", '')
-    Rake::Task['build:custom'].invoke(suffix)
+    Rake::Task['mac:custom'].invoke(suffix)
   end
 
   desc "Tag, build and zip using the current version number"
   task :dev do |t, args|
     suffix = TheApp.find_unused_suffix("#{TheApp.short_version}-dev-#{Time.now.strftime('%b%d').downcase}", '-')
-    Rake::Task['build:custom'].invoke(suffix)
+    Rake::Task['mac:custom'].invoke(suffix)
   end
 
 end
