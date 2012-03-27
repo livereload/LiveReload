@@ -187,6 +187,17 @@ namespace :mac do
     puts "http://download.livereload.com/LiveReload-#{suffix}.zip"
   end
 
+  desc "Tag using the current version number"
+  task :tag do |t, args|
+    suffix_for_tag = TheApp.find_unused_suffix(TheApp.short_version, '-')
+    tag = "#{TAG_PREFIX}#{suffix_for_tag}"
+    sh 'git', 'tag', tag
+
+    Dir.chdir 'LiveReload/Compilers' do
+      sh 'git', 'tag', tag
+    end
+  end
+
   desc "Tag, build and zip using the current version number"
   task :release do |t, args|
     Rake::Task['mac:custom'].invoke(TheApp.short_version)
