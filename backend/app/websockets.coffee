@@ -2,6 +2,7 @@ fs   = require 'fs'
 Path = require 'path'
 
 { LRWebSocketServer } = require '../lib/network/server'
+{ URLOverrideCoordinator, ERR_NOT_MATCHED, ERR_AUTH_FAILED, ERR_FILE_NOT_FOUND } = require '../lib/network/urloverride'
 
 ResourceFolder = Path.join(__dirname, '../res')
 
@@ -28,6 +29,8 @@ class LRWebSocketController
 
     @changeCount = 0
 
+    @urlOverrideCoordinator = new URLOverrideCoordinator()
+
   init: (callback) ->
     @server.start (err) =>
       if err
@@ -45,13 +48,16 @@ class LRWebSocketController
 
   sendReloadCommand: ({ path, originalPath, liveCSS, enableOverride }) ->
     for connection in @server.monitoringConnections()
-      connection.send {
+      message =
         command: 'reload'
         path:    path
         originalPath: originalPath
         liveCSS: liveCSS
-        # overrideURL: ...
-      }
+
+      if enableOverride and @urlOverrideCoordinator.shouldOverrideFile(path)
+        message.overrideURL = @urlOverrideCoordinator.createOverrideURL(path)
+
+      connection.send message
 
     @changeCount += 1
     @_updateChangeCountInUI()
@@ -74,8 +80,25 @@ class LRWebSocketController
       response.writeHead 200, 'Content-Length': data.length, 'Content-Type': 'text/javascript'
       response.end(data)
     else
-      response.writeHead 404
-      response.end()
+      @urlOverrideCoordinator.handleHttpRequest url, (err, result) ->
+        if err
+          if err is ERR_NOT_MATCHED
+            response.writeHead 404
+            response.end()
+          else if err is ERR_AUTH_FAILED
+            response.writeHead 403
+            response.end("LiveReload cannot authenticate this request; please reload the page. (Happens if you restart LiveReload app.)")
+          else if err is ERR_FILE_NOT_FOUND
+            response.writeHead 404
+            response.end("The given file no longer exists. Please reload the page.")
+          else
+            LR.omg "Error processing URL override HTTP request: #{e.message || e}"
+            response.writeHead 500
+            response.end("Error processing this request. Please see the log file, and try reloading this page.")
+        else
+          response.setHeader 'Content-Type',   result.mime
+          response.setHeader 'Content-Length', result.content.length
+          response.end result.content
 
 
 _controller = new LRWebSocketController()

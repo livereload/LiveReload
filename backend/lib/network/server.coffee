@@ -96,7 +96,7 @@ class LRWebSocketServer extends EventEmitter
 
         @httpServer.on 'request', (request, response) =>
           request.on 'end', =>
-            url = Url.parse(request.url)
+            url = Url.parse(request.url, yes)
             @emit 'httprequest', url, request, response
 
         @wsserver ||= wsio.attach(@httpServer)
