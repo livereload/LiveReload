@@ -492,6 +492,7 @@ void C_mainwnd__set_change_count(json_t *arg) {
     [openPanel setCanCreateDirectories:YES];
     [openPanel setPrompt:@"Choose folder"];
     [openPanel setCanChooseFiles:NO];
+    [openPanel setTreatsFilePackagesAsDirectories:YES];
     [openPanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
         if (result == NSFileHandlingPanelOKButton) {
             NSURL *url = [openPanel URL];
