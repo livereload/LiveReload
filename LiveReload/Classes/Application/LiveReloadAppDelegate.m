@@ -166,6 +166,18 @@ void C_app__good_time_to_deliver_news(json_t *arg) {
     AppNewsKitGoodTimeToDeliverMessages();
 }
 
+- (BOOL)application:(NSApplication *)sender openFile:(NSString *)filename {
+    BOOL isDirectory = NO;
+    if ([[NSFileManager defaultManager] fileExistsAtPath:filename isDirectory:&isDirectory]) {
+        if (isDirectory) {
+            Project *project = [[Workspace sharedWorkspace] projectWithPath:filename create:YES];
+            [self projectAdded:project];
+            return YES;
+        }
+    }
+    return NO;
+}
+
 
 #pragma mark - Pinging server
 
@@ -240,6 +252,8 @@ void C_app__good_time_to_deliver_news(json_t *arg) {
 #pragma mark - Model
 
 - (void)projectAdded:(Project *)project {
+    if (![self isMainWindowVisible])
+        [self displayMainWindow:nil];
     [self.mainWindowController projectAdded:project];
 }
 
