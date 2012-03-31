@@ -402,7 +402,7 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
     if ([selection count] == 0) {
         kv_each(compilable_file_t *, _fileList, file, [selection addObject:file->file_options]);
 
-        NSString *common = [FileCompilationOptions commonOutputDirectoryFor:selection];
+        NSString *common = [FileCompilationOptions commonOutputDirectoryFor:selection inProject:_project];
         if ([common isEqualToString:@"__NONE_SET__"]) {
             // do nothing
         } else if (common != nil) {
@@ -418,7 +418,7 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
             }
         }
     } else if ([selection count] > 1) {
-        NSString *common = [FileCompilationOptions commonOutputDirectoryFor:selection];
+        NSString *common = [FileCompilationOptions commonOutputDirectoryFor:selection inProject:_project];
         if ([common isEqualToString:@"__NONE_SET__"]) {
             // do nothing
         } else if (common != nil) {

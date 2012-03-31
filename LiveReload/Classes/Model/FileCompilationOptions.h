@@ -2,6 +2,8 @@
 #import <Foundation/Foundation.h>
 
 
+@class Project;
+
 @interface FileCompilationOptions : NSObject {
 @private
     BOOL                   _enabled;
@@ -20,6 +22,6 @@
 @property (nonatomic, copy) NSString *destinationDirectoryForDisplay;
 @property (nonatomic, readonly, retain) NSMutableDictionary *additionalOptions;
 
-+ (NSString *)commonOutputDirectoryFor:(NSArray *)fileOptions;  // nil if files have different output directories, or no files configured
++ (NSString *)commonOutputDirectoryFor:(NSArray *)fileOptions inProject:(Project *)project;  // nil if files have different output directories, or no files configured
 
 @end

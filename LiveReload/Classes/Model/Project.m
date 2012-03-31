@@ -552,7 +552,7 @@ fin:
                 NSArray *otherFileOptions = [otherFiles arrayByMappingElementsUsingBlock:^id(id otherFilePath) {
                     return [compilationOptions optionsForFileAtPath:otherFilePath create:NO];
                 }];
-                NSString *common = [FileCompilationOptions commonOutputDirectoryFor:otherFileOptions];
+                NSString *common = [FileCompilationOptions commonOutputDirectoryFor:otherFileOptions inProject:self];
                 if ([common isEqualToString:@"__NONE_SET__"]) {
                     // nothing to figure it from
                 } else if (common == nil) {

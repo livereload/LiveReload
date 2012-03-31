@@ -1,5 +1,6 @@
 
 #import "FileCompilationOptions.h"
+#import "Project.h"
 
 
 @implementation FileCompilationOptions
@@ -87,9 +88,13 @@
 
 #pragma mark -
 
-+ (NSString *)commonOutputDirectoryFor:(NSArray *)fileOptions {
++ (NSString *)commonOutputDirectoryFor:(NSArray *)fileOptions inProject:(Project *)project {
     NSString *commonOutputDirectory = nil;
     for (FileCompilationOptions *options in fileOptions) {
+        if (!options.enabled)
+            continue;
+        if ([project isFileImported:options.sourcePath])
+            continue;
         if (options.destinationDirectory == nil)
             continue;
         if (commonOutputDirectory == nil) {
