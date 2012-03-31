@@ -307,7 +307,7 @@ static ToolOutputWindowController *lastOutputController = nil;
 
 - (IBAction)revealInFinder:(id)sender {
     NSString *root = nil;
-    if ([_compilerOutput.project relativePathForPath:_compilerOutput.sourcePath]) {
+    if ([_compilerOutput.project isPathInsideProject:_compilerOutput.sourcePath]) {
         root = _compilerOutput.project.path;
     }
     [[NSWorkspace sharedWorkspace] selectFile:_compilerOutput.sourcePath inFileViewerRootedAtPath:root];

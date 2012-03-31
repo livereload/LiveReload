@@ -665,6 +665,23 @@ skipGuessing:
 
 #pragma mark - Paths
 
+- (BOOL)isPathInsideProject:(NSString *)path {
+    NSString *root = [_path stringByResolvingSymlinksInPath];
+    path = [path stringByResolvingSymlinksInPath];
+    
+    NSArray *rootComponents = [root pathComponents];
+    NSArray *pathComponents = [path pathComponents];
+    
+    NSInteger pathCount = [pathComponents count];
+    NSInteger rootCount = [rootComponents count];
+    
+    NSInteger numberOfIdenticalComponents = 0;
+    while (numberOfIdenticalComponents < MIN(pathCount, rootCount) && [[rootComponents objectAtIndex:numberOfIdenticalComponents] isEqualToString:[pathComponents objectAtIndex:numberOfIdenticalComponents]])
+        ++numberOfIdenticalComponents;
+    
+    return (numberOfIdenticalComponents == rootCount);
+}
+
 - (NSString *)relativePathForPath:(NSString *)path {
     NSString *root = [_path stringByResolvingSymlinksInPath];
     path = [path stringByResolvingSymlinksInPath];
@@ -678,12 +695,19 @@ skipGuessing:
 
     NSInteger pathCount = [pathComponents count];
     NSInteger rootCount = [rootComponents count];
-    if (pathCount > rootCount) {
-        if ([rootComponents isEqualToArray:[pathComponents subarrayWithRange:NSMakeRange(0, rootCount)]]) {
-            return [[pathComponents subarrayWithRange:NSMakeRange(rootCount, pathCount - rootCount)] componentsJoinedByString:@"/"];
-        }
-    }
-    return nil;
+
+    NSInteger numberOfIdenticalComponents = 0;
+    while (numberOfIdenticalComponents < MIN(pathCount, rootCount) && [[rootComponents objectAtIndex:numberOfIdenticalComponents] isEqualToString:[pathComponents objectAtIndex:numberOfIdenticalComponents]])
+        ++numberOfIdenticalComponents;
+
+    NSInteger numberOfDotDotComponents = (rootCount - numberOfIdenticalComponents);
+    NSInteger numberOfTrailingComponents = (pathCount - numberOfIdenticalComponents);
+    NSMutableArray *components = [NSMutableArray arrayWithCapacity:numberOfDotDotComponents + numberOfTrailingComponents];
+    for (NSInteger i = 0; i < numberOfDotDotComponents; ++i)
+        [components addObject:@".."];
+    [components addObjectsFromArray:[pathComponents subarrayWithRange:NSMakeRange(numberOfIdenticalComponents, numberOfTrailingComponents)]];
+    
+    return [components componentsJoinedByString:@"/"];
 }
 
 - (NSString *)safeDisplayPath {

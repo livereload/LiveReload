@@ -440,29 +440,22 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
         }
     }
 
-    NSOpenPanel *openPanel;
-    NSInteger result;
-retry:
-    openPanel = [NSOpenPanel openPanel];
+    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     [openPanel setCanChooseDirectories:YES];
     [openPanel setCanCreateDirectories:YES];
     [openPanel setPrompt:@"Choose folder"];
     [openPanel setCanChooseFiles:NO];
     [openPanel setDirectoryURL:[NSURL fileURLWithPath:initialPath isDirectory:YES]];
-    result = [openPanel runModal];
+    NSInteger result = [openPanel runModal];
+
     if (result == NSFileHandlingPanelOKButton) {
         NSURL *url = [openPanel URL];
         NSString *absolutePath = [url path];
         NSString *relativePath = [_project relativePathForPath:absolutePath];
-        if (relativePath == nil) {
-            if ([[NSAlert alertWithMessageText:@"Subdirectory required" defaultButton:@"Retry" alternateButton:@"Cancel" otherButton:nil informativeTextWithFormat:@"Sorry, the path you have chosen in not a subdirectory of the project.\n\nChosen path:\n%@\n\nMust be a subdirectory of:\n%@", [absolutePath stringByAbbreviatingWithTildeInPath], [_project.path stringByAbbreviatingWithTildeInPath]] runModal] == NSAlertDefaultReturn) {
-                goto retry;
-            }
-            return;
-        }
         for (FileCompilationOptions *options in selection) {
             options.destinationDirectory = relativePath;
         }
+        [_pathTableView reloadData];
     }
 }
 

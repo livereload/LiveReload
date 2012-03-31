@@ -114,11 +114,11 @@
         if (result == NSFileHandlingPanelOKButton) {
             NSURL *url = [openPanel URL];
             NSString *path = [url path];
-            NSString *relativePath = [_project relativePathForPath:path];
-            if (relativePath == nil) {
+            if (![_project isPathInsideProject:path]) {
                 [[NSAlert alertWithMessageText:@"Subfolder required" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"Excluded folder must be a subfolder of the project."] runModal];
                 return;
             }
+            NSString *relativePath = [_project relativePathForPath:path];
             if (relativePath.length == 0) {
                 [[NSAlert alertWithMessageText:@"Subfolder required" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"Sorry, but excluding the project's root folder does not make sense."] runModal];
                 return;

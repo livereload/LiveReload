@@ -85,6 +85,7 @@ EVENTBUS_DECLARE_EVENT(project_fs_change_event);
 
 - (NSComparisonResult)compareByDisplayPath:(Project *)another;
 
+- (BOOL)isPathInsideProject:(NSString *)path;
 - (NSString *)relativePathForPath:(NSString *)path;
 
 @property(nonatomic, copy) NSString *lastSelectedPane;
