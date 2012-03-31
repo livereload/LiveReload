@@ -111,7 +111,7 @@
             _nonImportedExts = [[NSArray alloc] init];
         _importToFileMappings = [[info objectForKey:@"ImportToFileMappings"] copy];
         if (!_importToFileMappings)
-            _importToFileMappings = [[NSArray alloc] initWithObjects:@"$(file)", nil];
+            _importToFileMappings = [[NSArray alloc] initWithObjects:@"$(dir)/$(file)", nil];
         _options = [[info objectForKey:@"Options"] copy];
         if (!_options)
             _options = [[NSArray alloc] init];
@@ -347,14 +347,25 @@
                 for (NSString *ext in _defaultImportedExts) {
                     NSString *newPath = [path stringByAppendingFormat:@".%@", ext];
                     for (NSString *mapping in _importToFileMappings) {
-                        [result addObject:[mapping stringByReplacingOccurrencesOfString:@"$(file)" withString:newPath]];
+                        NSString *dir = [newPath stringByDeletingLastPathComponent];
+                        NSString *name = [newPath lastPathComponent];
+                        NSString *mapped = [[mapping stringByReplacingOccurrencesOfString:@"$(file)" withString:name] stringByReplacingOccurrencesOfString:@"$(dir)" withString:dir];
+                        if ([[mapped substringToIndex:2] isEqualToString:@"./"])
+                            mapped = [mapped substringFromIndex:2];
+                        [result addObject:mapped];
                     }
                 }
             } else if ([[path pathExtension] length] > 0 && [_nonImportedExts containsObject:[path pathExtension]]) {
                 // do nothing; e.g. @import "foo.css" in LESS does not actually import the file
             } else {
                 for (NSString *mapping in _importToFileMappings) {
-                    [result addObject:[mapping stringByReplacingOccurrencesOfString:@"$(file)" withString:path]];
+                    NSString *newPath = path;
+                    NSString *dir = [newPath stringByDeletingLastPathComponent];
+                    NSString *name = [newPath lastPathComponent];
+                    NSString *mapped = [[mapping stringByReplacingOccurrencesOfString:@"$(file)" withString:name] stringByReplacingOccurrencesOfString:@"$(dir)" withString:dir];
+                    if ([[mapped substringToIndex:2] isEqualToString:@"./"])
+                        mapped = [mapped substringFromIndex:2];
+                    [result addObject:mapped];
                 }
             }
         }];
