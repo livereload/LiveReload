@@ -526,7 +526,15 @@ void C_mainwnd__set_change_count(json_t *arg) {
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
     if (menuItem.target == self) {
-        if (menuItem.action == @selector(useProposedProjectName:)) {
+        if (menuItem.action == @selector(doNothingOnShowAs:)) {
+            menuItem.enabled = NO;
+            if (_selectedProject == nil) {
+                menuItem.title = @"No project selected";
+            } else {
+                menuItem.title = @"Show As:";
+            }
+            return NO;
+        } else if (menuItem.action == @selector(useProposedProjectName:)) {
             NSInteger numberOfPathComponentsToUseAsName = menuItem.tag - 1001 + 1;
             NSString *name = [_selectedProject proposedNameAtIndex:numberOfPathComponentsToUseAsName - 1];
             if (name) {
@@ -537,12 +545,15 @@ void C_mainwnd__set_change_count(json_t *arg) {
             }
             menuItem.state = (_selectedProject.numberOfPathComponentsToUseAsName == numberOfPathComponentsToUseAsName ? NSOnState : NSOffState);
         } else if (menuItem.action == @selector(usePreviouslySetCustomProjectName:)) {
-            menuItem.title = _selectedProject.customName;
+            menuItem.title = _selectedProject.customName ?: @"";
             menuItem.hidden = (_selectedProject.customName.length == 0);
             menuItem.state = (_selectedProject.numberOfPathComponentsToUseAsName == ProjectUseCustomName ? NSOnState : NSOffState);
+        } else if (menuItem.tag >= 500 && menuItem.tag <= 999) {
+            menuItem.hidden = (_selectedProject == nil);
         }
+        return YES;
     }
-    return YES;
+    return NO;
 }
 
 - (IBAction)useNewCustomProjectName:(NSMenuItem *)sender {
@@ -560,6 +571,9 @@ void C_mainwnd__set_change_count(json_t *arg) {
 - (IBAction)useProposedProjectName:(NSMenuItem *)sender {
     _selectedProject.numberOfPathComponentsToUseAsName = sender.tag - 1000;
     [_projectOutlineView reloadData];
+}
+
+- (IBAction)doNothingOnShowAs:(id)sender {
 }
 
 

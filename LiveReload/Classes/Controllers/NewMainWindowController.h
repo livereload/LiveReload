@@ -65,4 +65,6 @@
 - (IBAction)showPostProcessingOptions:(id)sender;
 - (IBAction)toggleVisibilityMode:(NSMenuItem *)sender;
 
+- (IBAction)doNothingOnShowAs:(id)sender;
+
 @end
