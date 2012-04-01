@@ -142,23 +142,6 @@
 
 #pragma mark - Paths
 
-- (NSString *)derivedNameForFile:(NSString *)path inTree:(FSTree *)tree {
-    NSString *bareName = [[path lastPathComponent] stringByDeletingPathExtension];
-    NSString *normalOutputFile = [bareName stringByAppendingPathExtension:self.destinationExtension];
-
-    // style.css.sass, jquery.ui.less
-    if ([[bareName pathExtension] length] > 0) {
-        // for jquery.ui.less, check if jquery.ui.css already exists, and use it if it does
-        if (tree && [tree containsFileNamed:normalOutputFile]) {
-            return normalOutputFile;
-        } else {
-            // just drop the extension
-            return bareName;
-        }
-    }
-    return normalOutputFile;
-}
-
 - (NSArray *)pathsOfSourceFilesInTree:(FSTree *)tree {
     NSSet *validExtensions = [NSSet setWithArray:_extensions];
     return [tree pathsOfFilesMatching:^BOOL(NSString *name) {

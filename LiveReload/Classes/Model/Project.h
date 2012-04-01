@@ -99,6 +99,7 @@ EVENTBUS_DECLARE_EVENT(project_fs_change_event);
 
 - (NSComparisonResult)compareByDisplayPath:(Project *)another;
 
+- (NSString *)pathForRelativePath:(NSString *)relativePath;
 - (BOOL)isPathInsideProject:(NSString *)path;
 - (NSString *)relativePathForPath:(NSString *)path;
 

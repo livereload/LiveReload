@@ -341,7 +341,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         return; // don't try to compile deleted files
     FileCompilationOptions *fileOptions = [self optionsForFileAtPath:relativePath in:compilationOptions];
     if (fileOptions.destinationDirectory != nil || !compiler.needsOutputDirectory) {
-        NSString *derivedName = [compiler derivedNameForFile:path inTree:self.tree];
+        NSString *derivedName = fileOptions.destinationName;
         NSString *derivedPath = (compiler.needsOutputDirectory ? [fileOptions.destinationDirectory stringByAppendingPathComponent:derivedName] : [[path stringByDeletingLastPathComponent] stringByAppendingPathComponent:derivedName]);
 
         ToolOutput *compilerOutput = nil;
@@ -399,7 +399,8 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
                 StatGroupIncrement(CompilerChangeCountEnabledStatGroup, compiler.uniqueId, 1);
                 break;
             } else {
-                NSString *derivedName = [compiler derivedNameForFile:relativePath inTree:nil];
+                FileCompilationOptions *fileOptions = [self optionsForFileAtPath:relativePath in:compilationOptions];
+                NSString *derivedName = fileOptions.destinationName;
                 reload_session_add(_session, reload_request_create([derivedName UTF8String], [[_path stringByAppendingPathComponent:relativePath] UTF8String]));
                 NSLog(@"Broadcasting a fake change in %@ instead of %@ (compiler %@).", derivedName, relativePath, compiler.name);
                 StatGroupIncrement(CompilerChangeCountStatGroup, compiler.uniqueId, 1);
@@ -581,12 +582,24 @@ fin:
     FileCompilationOptions *fileOptions = [compilationOptions optionsForFileAtPath:sourcePath create:YES];
 
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+
+    FSTree *tree = self.tree;
+    if (fileOptions.destinationNameMask.length == 0) {
+        // for a name like foo.php.jade, check if foo.php already exists in the project
+        NSString *bareName = [[sourcePath lastPathComponent] stringByDeletingPathExtension];
+        if ([bareName pathExtension].length > 0 && tree && [tree containsFileNamed:bareName]) {
+            fileOptions.destinationName = bareName;
+        } else {
+            fileOptions.destinationNameMask = [NSString stringWithFormat:@"*.%@", compilationOptions.compiler.destinationExtension];
+        }
+    }
+
     if (fileOptions.destinationDirectory == nil) {
         // see if we can guess it
         NSString *guessedDirectory = nil;
 
         // 1) destination file already exists?
-        NSString *derivedName = [compilationOptions.compiler derivedNameForFile:sourcePath inTree:self.tree];
+        NSString *derivedName = fileOptions.destinationName;
         NSString *derivedPath = [self.tree pathOfFileNamed:derivedName];
 
         if (derivedPath) {
@@ -716,6 +729,10 @@ skipGuessing:
 
 
 #pragma mark - Paths
+
+- (NSString *)pathForRelativePath:(NSString *)relativePath {
+    return [[_path stringByExpandingTildeInPath] stringByAppendingPathComponent:relativePath];
+}
 
 - (BOOL)isPathInsideProject:(NSString *)path {
     NSString *root = [_path stringByResolvingSymlinksInPath];

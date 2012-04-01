@@ -15,4 +15,6 @@
 @property (assign) IBOutlet NSTableView *pathTableView;
 @property (assign) IBOutlet NSButton *chooseFolderButton;
 
+- (IBAction)chooseOutputFileName:(id)sender;
+
 @end

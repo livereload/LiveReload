@@ -4,6 +4,7 @@
 
 @class Plugin;
 @class CompilationOptions;
+@class FileCompilationOptions;
 @class FSTree;
 @class ToolOutput;
 @class Project;
@@ -46,8 +47,6 @@
 
 @property(nonatomic, readonly) NSArray *options;
 - (NSArray *)optionsForProject:(Project *)project;
-
-- (NSString *)derivedNameForFile:(NSString *)path inTree:(FSTree *)tree;
 
 - (void)compile:(NSString *)sourceRelPath into:(NSString *)destinationRelPath under:(NSString *)rootPath inProject:(Project *)project with:(CompilationOptions *)options compilerOutput:(ToolOutput **)compilerOutput;
 

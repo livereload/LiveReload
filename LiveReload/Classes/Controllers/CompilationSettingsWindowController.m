@@ -45,7 +45,7 @@ void compilable_file_free(compilable_file_t *file) {
 
 
 
-@interface CompilationSettingsWindowController () <NSTabViewDelegate, NSTableViewDataSource, NSTableViewDelegate, NSWindowDelegate> {
+@interface CompilationSettingsWindowController () <NSTabViewDelegate, NSTableViewDataSource, NSTableViewDelegate, NSWindowDelegate, NSTextFieldDelegate> {
     NSArray               *_compilerOptions;
     BOOL                   _populatingRubyVersions;
     NSArray               *_rubyVersions;
@@ -54,12 +54,25 @@ void compilable_file_free(compilable_file_t *file) {
     CGFloat                _outputPathsWindowHeight;
 
     kvec_t(compilable_file_t *) _fileList;
+
+    IBOutlet NSButton     *_changeOutputFileButton;
+    IBOutlet NSTextField  *_outputFileNameMask;
+    IBOutlet NSButton     *_applyOutputFileNameMaskButton;
+    IBOutlet NSButton     *_applyButton;
+    
+    NSSet                 *_bulkMaskEditingFiles;
+    BOOL                   _bulkMaskEditingInProgress;
 }
 
 - (void)populateToolVersions;
 - (void)updateOutputPathsTabData;
 - (void)resizeWindowForTab:(NSTabViewItem *)item animated:(BOOL)animated;
 - (void)didDetectChange;
+
+- (void)updateOutputPathsButtonStates;
+- (void)updateApplyMaskButton;
+- (NSString *)draftFileNameMask;
+- (void)endBulkMaskEditing;
 
 @end
 
@@ -315,8 +328,10 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
             file->file_options = [fileOptions retain];
             kv_push(compilable_file_t *, _fileList, file);
         }
-
     }
+
+    [self updateOutputPathsButtonStates];
+    [self updateApplyMaskButton];
 }
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
@@ -336,7 +351,12 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
     } else if (column == output_paths_table_column_output) {
         if (imported)
             return @"(imported)";
-        return file->file_options.destinationDirectoryForDisplay;
+        
+        NSString *draftMask = [self draftFileNameMask];
+        if (draftMask.length > 0 && [_bulkMaskEditingFiles containsObject:file->file_options])
+            return [NSString stringWithFormat:@"%@ *", [file->file_options destinationDisplayPathForMask:draftMask]];
+        else 
+            return file->file_options.destinationPathForDisplay;
     } else {
         return nil;
     }
@@ -349,7 +369,7 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
         file->file_options.enabled = [object boolValue];
     } else if (column == output_paths_table_column_source) {
     } else if (column == output_paths_table_column_output) {
-        file->file_options.destinationDirectory = [object stringByExpandingTildeInPath];
+        file->file_options.destinationPathForDisplay = [object stringByExpandingTildeInPath];
     } else {
     }
 }
@@ -378,7 +398,28 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
     }
 }
 
+- (void)tableViewSelectionDidChange:(NSNotification *)notification {
+    [self endBulkMaskEditing];
+    [self updateOutputPathsButtonStates];
+}
+
 #pragma mark -
+
+- (NSArray *)selectedFileOptions {
+    NSIndexSet *indexSet = [_pathTableView selectedRowIndexes];
+    NSMutableArray *selection = [NSMutableArray array];
+    for (NSUInteger currentIndex = [indexSet firstIndex]; currentIndex != NSNotFound; currentIndex = [indexSet indexGreaterThanIndex:currentIndex]) {
+        compilable_file_t *file = kv_A(_fileList, currentIndex);
+        [selection addObject:file->file_options];
+    }
+
+    // no selection => act on all files
+    if ([selection count] == 0) {
+        kv_each(compilable_file_t *, _fileList, file, [selection addObject:file->file_options]);
+    }
+
+    return selection;
+}
 
 - (IBAction)chooseOutputDirectory:(id)sender {
     if (kv_size(_fileList) == 0) {
@@ -443,7 +484,7 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     [openPanel setCanChooseDirectories:YES];
     [openPanel setCanCreateDirectories:YES];
-    [openPanel setPrompt:@"Choose folder"];
+    [openPanel setPrompt:@"Set Output Folder"];
     [openPanel setCanChooseFiles:NO];
     [openPanel setDirectoryURL:[NSURL fileURLWithPath:initialPath isDirectory:YES]];
     NSInteger result = [openPanel runModal];
@@ -457,6 +498,118 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
         }
         [_pathTableView reloadData];
     }
+}
+
+- (IBAction)chooseOutputFileName:(id)sender {
+    NSArray *selection = [self selectedFileOptions];
+    if ([selection count] != 1)
+        return;
+
+    FileCompilationOptions *fileOptions = [selection objectAtIndex:0];
+    
+    NSSavePanel *savePanel = [NSSavePanel savePanel];
+    [savePanel setCanCreateDirectories:YES];
+    [savePanel setNameFieldStringValue:fileOptions.destinationName];
+    [savePanel setMessage:[NSString stringWithFormat:@"Choose an output file for %@", fileOptions.sourcePath]];
+    [savePanel setDirectoryURL:[NSURL fileURLWithPath:(fileOptions.destinationDirectory.length > 0 ? [_project pathForRelativePath:fileOptions.destinationDirectory] : [[_project pathForRelativePath:fileOptions.sourcePath] stringByDeletingLastPathComponent]) isDirectory:YES]];
+    NSInteger result = [savePanel runModal];
+    
+    if (result == NSFileHandlingPanelOKButton) {
+        NSURL *url = [savePanel URL];
+        NSString *absolutePath = [url path];
+        NSString *relativePath = [_project relativePathForPath:absolutePath];
+        
+        fileOptions.destinationPath = relativePath;
+        [_pathTableView reloadData];
+    }
+}
+
+- (void)updateOutputPathsButtonStates {
+    NSArray *selection = [self selectedFileOptions];
+
+    _changeOutputFileButton.enabled = (selection.count == 1);
+    
+    [[_outputFileNameMask cell] setPlaceholderString:@"e.g. *.shtml"];
+    if (selection.count == 0) {
+        [_outputFileNameMask setStringValue:@""];
+    } else {
+        NSString *commonMask = [FileCompilationOptions commonDestinationNameMaskFor:selection inProject:_project];
+        if (commonMask.length == 0) {
+            [[_outputFileNameMask cell] setPlaceholderString:@"(multiple)"];
+            [_outputFileNameMask setStringValue:@""];
+        } else {
+            [_outputFileNameMask setStringValue:commonMask];
+        }
+    }
+}
+
+- (void)startBulkMaskEditing {
+    if (_bulkMaskEditingInProgress)
+        return;
+    _bulkMaskEditingInProgress = YES;
+    _bulkMaskEditingFiles = [[NSSet alloc] initWithArray:[self selectedFileOptions]];
+    
+    _applyButton.keyEquivalent = @"";
+    _applyOutputFileNameMaskButton.keyEquivalent = @"\r";
+
+    [self updateApplyMaskButton];
+}
+
+- (void)endBulkMaskEditing {
+    if (!_bulkMaskEditingInProgress)
+        return;
+    _bulkMaskEditingInProgress = NO;
+    [_bulkMaskEditingFiles release], _bulkMaskEditingFiles = nil;
+    [self.window setDefaultButtonCell:[_applyButton cell]];
+
+    _applyOutputFileNameMaskButton.keyEquivalent = @"";
+    _applyButton.keyEquivalent = @"\r";
+
+    [_pathTableView reloadData];
+    [self updateOutputPathsButtonStates];
+    [self updateApplyMaskButton];
+}
+
+- (NSString *)draftFileNameMask {
+    if (_bulkMaskEditingInProgress)
+        return _outputFileNameMask.stringValue;
+    else
+        return nil;
+}
+
+- (void)updateApplyMaskButton {
+    NSString *commonMask = [FileCompilationOptions commonDestinationNameMaskFor:[_bulkMaskEditingFiles allObjects] inProject:_project];
+    _applyOutputFileNameMaskButton.enabled = [self draftFileNameMask].length > 0 && (commonMask.length == 0 || ![commonMask isEqualToString:[self draftFileNameMask]]);
+}
+
+- (void)controlTextDidBeginEditing:(NSNotification *)obj {
+    NSLog(@"controlTextDidBeginEditing");
+}
+
+- (void)controlTextDidEndEditing:(NSNotification *)obj {
+    NSLog(@"controlTextDidEndEditing");
+}
+
+- (void)controlTextDidChange:(NSNotification *)obj {
+    NSLog(@"controlTextDidChange");
+    if (obj.object != _outputFileNameMask)
+        return;
+
+    [self startBulkMaskEditing];
+    [self updateApplyMaskButton];
+    [_pathTableView reloadData];
+}
+
+- (IBAction)applyFileNameMask:(id)sender {
+    NSLog(@"applyFileNameMask");
+    NSString *mask = _outputFileNameMask.stringValue;
+
+    NSArray *selection = [self selectedFileOptions];
+    for (FileCompilationOptions *fileOptions in selection) {
+        fileOptions.destinationNameMask = mask;
+    }
+
+    [self endBulkMaskEditing];
 }
 
 
