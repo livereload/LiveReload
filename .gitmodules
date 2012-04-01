@@ -6,7 +6,7 @@
 	url = git://github.com/andreyvit/fsmonitor.c.git
 [submodule "extensions"]
 	path = extensions
-	url = git@github.com:livereload/livereload-extensions.git
+	url = git://github.com/livereload/livereload-extensions.git
 [submodule "js"]
 	path = js
-	url = git@github.com:livereload/livereload-js.git
+	url = git://github.com/livereload/livereload-js.git
