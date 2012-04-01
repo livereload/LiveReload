@@ -30,7 +30,7 @@ namespace :backend do
             exit
         end
         sh 'coffee', '-c', *COFFEE_SRC
-        sh 'iced',   '-c', *ICED_SRC
+        sh 'iced', '--runtime', 'inline', '-c', *ICED_SRC
     end
 
     desc "Install all backend prerequisites"
