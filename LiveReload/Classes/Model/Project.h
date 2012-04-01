@@ -17,6 +17,11 @@ extern NSString *ProjectMonitoringStateDidChangeNotification;
 extern NSString *ProjectNeedsSavingNotification;
 
 
+enum {
+    ProjectUseCustomName = -1,
+};
+
+
 EVENTBUS_DECLARE_EVENT(project_fs_change_event);
 
 
@@ -54,6 +59,9 @@ EVENTBUS_DECLARE_EVENT(project_fs_change_event);
     BOOL                     _brokenPathReported;
 
     NSMutableArray          *_excludedFolderPaths;
+    
+    NSInteger                _numberOfPathComponentsToUseAsName;
+    NSString                *_customName;
 }
 
 - (id)initWithPath:(NSString *)path memento:(NSDictionary *)memento;
@@ -61,8 +69,14 @@ EVENTBUS_DECLARE_EVENT(project_fs_change_event);
 - (NSDictionary *)memento;
 
 @property(nonatomic, readonly, copy) NSString *path;
+@property(nonatomic, readonly, copy) NSString *displayName;
 @property(nonatomic, readonly, copy) NSString *displayPath;
 @property(nonatomic, readonly, copy) NSString *safeDisplayPath;
+
+- (NSString *)proposedNameAtIndex:(NSInteger)index;
+
+@property(nonatomic) NSInteger numberOfPathComponentsToUseAsName;
+@property(nonatomic, copy) NSString *customName;
 
 @property(nonatomic) BOOL enabled;
 @property(nonatomic) BOOL compilationEnabled;

@@ -451,7 +451,17 @@ void C_mainwnd__set_change_count(json_t *arg) {
     NSParameterAssert(item != nil);
     if (item == _projectsItem)
         return (_projects.count > 0 ? @"MONITORED FOLDERS" : @"");
-    return [((Project *)item).path lastPathComponent];
+    return [(Project *)item displayName];
+}
+
+- (void)outlineView:(NSOutlineView *)outlineView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn byItem:(id)item {
+    if ([item isKindOfClass:[Project class]]) {
+        NSString *name = object;
+        Project *project = item;
+        project.customName = name;
+        project.numberOfPathComponentsToUseAsName = ProjectUseCustomName;
+        [_projectOutlineView reloadData];
+    }
 }
 
 - (void)outlineView:(NSOutlineView *)outlineView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn item:(id)item {
@@ -509,6 +519,47 @@ void C_mainwnd__set_change_count(json_t *arg) {
         [self updateProjectList];
         [_projectOutlineView deselectAll:nil];
     }
+}
+
+
+#pragma mark - Contextual menu
+
+- (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
+    if (menuItem.target == self) {
+        if (menuItem.action == @selector(useProposedProjectName:)) {
+            NSInteger numberOfPathComponentsToUseAsName = menuItem.tag - 1001 + 1;
+            NSString *name = [_selectedProject proposedNameAtIndex:numberOfPathComponentsToUseAsName - 1];
+            if (name) {
+                menuItem.title = name;
+                menuItem.hidden = NO;
+            } else {
+                menuItem.hidden = YES;
+            }
+            menuItem.state = (_selectedProject.numberOfPathComponentsToUseAsName == numberOfPathComponentsToUseAsName ? NSOnState : NSOffState);
+        } else if (menuItem.action == @selector(usePreviouslySetCustomProjectName:)) {
+            menuItem.title = _selectedProject.customName;
+            menuItem.hidden = (_selectedProject.customName.length == 0);
+            menuItem.state = (_selectedProject.numberOfPathComponentsToUseAsName == ProjectUseCustomName ? NSOnState : NSOffState);
+        }
+    }
+    return YES;
+}
+
+- (IBAction)useNewCustomProjectName:(NSMenuItem *)sender {
+    NSInteger row = [_projectOutlineView rowForItem:_selectedProject];
+    [_projectOutlineView editColumn:0 row:row withEvent:[NSApp currentEvent] select:YES];
+}
+
+- (IBAction)usePreviouslySetCustomProjectName:(NSMenuItem *)sender {
+    if (_selectedProject.customName.length > 0) {
+        _selectedProject.numberOfPathComponentsToUseAsName = ProjectUseCustomName;
+        [_projectOutlineView reloadData];
+    }
+}
+
+- (IBAction)useProposedProjectName:(NSMenuItem *)sender {
+    _selectedProject.numberOfPathComponentsToUseAsName = sender.tag - 1000;
+    [_projectOutlineView reloadData];
 }
 
 

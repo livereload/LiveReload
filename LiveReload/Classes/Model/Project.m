@@ -84,6 +84,8 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 @synthesize fullPageReloadDelay=_fullPageReloadDelay;
 @synthesize eventProcessingDelay=_eventProcessingDelay;
 @synthesize rubyVersionIdentifier=_rubyVersionIdentifier;
+@synthesize numberOfPathComponentsToUseAsName=_numberOfPathComponentsToUseAsName;
+@synthesize customName=_customName;
 
 
 #pragma mark -
@@ -161,6 +163,12 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         if (excludedPaths == nil)
             excludedPaths = [NSArray array];
         _excludedFolderPaths = [[NSMutableArray alloc] initWithArray:excludedPaths];
+        
+        _numberOfPathComponentsToUseAsName = [[memento objectForKey:@"numberOfPathComponentsToUseAsName"] integerValue];
+        if (_numberOfPathComponentsToUseAsName == 0)
+            _numberOfPathComponentsToUseAsName = 1;
+        
+        _customName = [memento objectForKey:@"customName"] ?: @"";
 
         [self handleCompilationOptionsEnablementChanged];
     }
@@ -206,11 +214,29 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     }
     [memento setObject:_rubyVersionIdentifier forKey:@"rubyVersion"];
     [memento setObject:[NSNumber numberWithBool:_compilationEnabled ] forKey:@"compilationEnabled"];
+    
+    [memento setObject:[NSNumber numberWithInteger:_numberOfPathComponentsToUseAsName] forKey:@"numberOfPathComponentsToUseAsName"];
+    if (_customName.length > 0)
+        [memento setObject:_customName forKey:@"customName"];
+    
     return [NSDictionary dictionaryWithDictionary:memento];
 }
 
 
 #pragma mark - Displaying
+
+- (NSString *)displayName {
+    if (_numberOfPathComponentsToUseAsName == ProjectUseCustomName)
+        return _customName;
+    else {
+        // if there aren't as many components any more (well who knows, right?), display one
+        NSString *name = [self proposedNameAtIndex:_numberOfPathComponentsToUseAsName - 1];
+        if (name)
+            return name;
+        else
+            return [self proposedNameAtIndex:0];
+    }
+}
 
 - (NSString *)displayPath {
     return [_path stringByAbbreviatingWithTildeInPath];
@@ -222,6 +248,17 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
 - (NSComparisonResult)compareByDisplayPath:(Project *)another {
     return [self.displayPath compare:another.displayPath];
+}
+
+- (NSString *)proposedNameAtIndex:(NSInteger)index {
+    NSArray *components = [self.displayPath pathComponents];
+    NSInteger count = [components count];
+    index = count - 1 - index;
+    if (index < 0)
+        return nil;
+    if (index == 0 && [[components objectAtIndex:0] isEqualToString:@"~"])
+        return nil;
+    return [[components subarrayWithRange:NSMakeRange(index, count - index)] componentsJoinedByString:@"/"];
 }
 
 
@@ -498,6 +535,21 @@ fin:
 
 
 #pragma mark - Options
+
+- (void)setCustomName:(NSString *)customName {
+    if (_customName != customName) {
+        [_customName autorelease];
+        _customName = [customName retain];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+    }
+}
+
+- (void)setNumberOfPathComponentsToUseAsName:(NSInteger)numberOfPathComponentsToUseAsName {
+    if (_numberOfPathComponentsToUseAsName != numberOfPathComponentsToUseAsName) {
+        _numberOfPathComponentsToUseAsName = numberOfPathComponentsToUseAsName;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+    }
+}
 
 - (CompilationOptions *)optionsForCompiler:(Compiler *)compiler create:(BOOL)create {
     NSString *uniqueId = compiler.uniqueId;
