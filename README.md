@@ -23,13 +23,9 @@ Build process:
 
 1. Don't forget to pull all submodules after getting the source code.
 
-2. Compile CoffeeScript files inside backend/ dir. This isn't automated at the moment, so just invoke coffee on the command line; I'm using CoffeeScript 1.1.3.
+2. Run `rake prepare`.
 
-3. Run `npm install` in backend/ dir to install prerequisites.
-
-4. Open LiveReload/LiveReload.xcodeproj and build it with Xcode. Alternatively, use `rake build:release` or a similar task (see `rake -T` for the full list).
-
-That should be it.
+3. Open LiveReload/LiveReload.xcodeproj and build it with Xcode. Alternatively, use `rake mac:release` or a similar task (see `rake -T` for the full list).
 
 
 Hacking tips

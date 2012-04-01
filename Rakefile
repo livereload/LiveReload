@@ -1,6 +1,9 @@
 #!/usr/bin/env ruby
 # -*- encoding: utf-8 -*-
 
+require 'rake/clean'
+require 'tasks/backend'
+
 ROOT_DIR = File.expand_path('.')
 BUILDS_DIR = File.join(ROOT_DIR, 'dist')
 # XCODE_RELEASE_DIR = File.expand_path('~/Documents/XBuilds/Release')
@@ -395,3 +398,6 @@ namespace :win do
   end
 
 end
+
+desc "Install all prerequisites, compile all CoffeeScript files"
+task 'prepare' => ['backend:prepare']
