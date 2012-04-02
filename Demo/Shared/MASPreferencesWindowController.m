@@ -102,7 +102,12 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
 
 - (NSArray *)toolbarItemIdentifiers
 {
-    NSArray *identifiers = [_viewControllers valueForKey:@"identifier"];
+    NSMutableArray *identifiers = [NSMutableArray arrayWithCapacity:_viewControllers.count];
+    for (id viewController in _viewControllers)
+        if (viewController == [NSNull null])
+            [identifiers addObject:NSToolbarFlexibleSpaceItemIdentifier];
+        else
+            [identifiers addObject:[viewController identifier]];
     return identifiers;
 }
 
@@ -180,9 +185,9 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
 
 - (NSViewController <MASPreferencesViewController> *)viewControllerForIdentifier:(NSString *)identifier
 {
-    for (NSViewController <MASPreferencesViewController>* viewController in self.viewControllers)
-    {
-        if ([viewController.identifier isEqualToString:identifier])
+    for (id viewController in self.viewControllers) {
+        if (viewController == [NSNull null]) continue;
+        if ([[viewController identifier] isEqualToString:identifier])
             return viewController;
     }
     return nil;
@@ -261,16 +266,11 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
     
     [self.window setContentView:controllerView];
     [self.window recalculateKeyViewLoop];
-    if ([self.window firstResponder] == self.window)
-    {
+    if ([self.window firstResponder] == self.window) {
         if ([controller respondsToSelector:@selector(initialKeyView)])
-        {
             [self.window makeFirstResponder:[controller initialKeyView]];
-        }
         else
-        {
             [self.window selectKeyViewFollowingView:controllerView];
-        }
     }
     
     // Insert view controller into responder chain
