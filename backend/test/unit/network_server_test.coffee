@@ -19,7 +19,7 @@ describe "LRWebSocketServer", ->
     @shakeHands = (protocols, callback) =>
       @server.mockWebSockets = []
       @server.start (err) =>
-        assert.equal err, null
+        throw err if err
 
         ws = new MockWebSocket()
         @server.mockWebSockets.push ws
@@ -36,9 +36,9 @@ describe "LRWebSocketServer", ->
         ws.emit 'message', JSON.stringify({ command: 'hello', protocols })
 
 
-  it "should listen on port 35729", wrap (done) ->
+  it "should listen on port #{parseInt(process.env['LRPortOverride'], 10) || 35729}", wrap (done) ->
     @expect @server.httpServer, 'listen', (port, callback) =>
-      assert.equal port, 35729
+      assert.equal port, parseInt(process.env['LRPortOverride'], 10) || 35729
       callback(null)
 
     @server.start done

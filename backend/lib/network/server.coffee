@@ -9,7 +9,7 @@ fs   = require 'fs'
 { Parser, PROTOCOL_7, CONN_CHECK } = require './protocol'
 
 HandshakeTimeout = 1000
-DefaultPort = 35729
+DefaultPort = parseInt(process.env['LRPortOverride'], 10) || 35729
 
 
 _connections = {}

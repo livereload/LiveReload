@@ -1,9 +1,9 @@
 assert    = require 'assert'
 { setup } = require '../helper'
 
-describe "LR.app", ->
-  beforeEach ->
-    setup ['app']
+describe "LRApplication", ->
+  # beforeEach ->
+  #   setup ['app']
 
   describe ".init", ->
     beforeEach ->

@@ -19,7 +19,7 @@ class LRWebSocketController
       # TODO: handle INFO command?
 
     @server.on 'wsoldproto', (connection) =>
-      LR.app.displayHelpfulWarning
+      LR.help.displayHelpfulWarning
         title:  "Legacy browser extensions"
         text:   "LiveReload browser extensions 1.x are no longer supported and won't work with LiveReload 2.\n\nPlease update your browser extensions to version 2.x to get advantage of many bug fixes, automatic reconnection, @import support, in-browser LESS.js support and more."
         button: "Update Now"
@@ -35,7 +35,7 @@ class LRWebSocketController
     @server.start (err) =>
       if err
         if err.code && err.code == 'EADDRINUSE'
-          LR.app.displayCriticalError
+          LR.help.displayCriticalError
             title: "Failed to start: port occupied"
             text:  "LiveReload cannot listen on port #{@server.port}. You probably have another copy of LiveReload 2.x, a command-line LiveReload 1.x or an alternative tool like guard-livereload running.\n\nPlease quit any other live reloaders and rerun LiveReload."
             url:   'http://help.livereload.com/kb/troubleshooting/failed-to-start-port-occupied'

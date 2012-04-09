@@ -1,12 +1,12 @@
-assert = require 'assert'
+# assert = require 'assert'
 
-{ setupIntegrationTest } = require './helper'
+# { setupIntegrationTest } = require './helper'
 
-describe "LiveReload backend", ->
+# describe "LiveReload backend", ->
 
-  setupIntegrationTest()
+#   setupIntegrationTest()
 
-  it "should start up and shut down", ->
-    assert.deepEqual LR.test.streams.outputAsJson(), [
-      ["mainwnd.set_project_list", { projects: []}]
-    ]
+#   it "should start up and shut down", ->
+#     assert.deepEqual LR.test.streams.outputAsJson(), [
+#       ["mainwnd.set_project_list", { projects: []}]
+#     ]

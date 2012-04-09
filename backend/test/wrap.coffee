@@ -1,5 +1,6 @@
-Gently = require 'gently'
+Gently = require 'andreyvit-gently'
 helper = require './helper'
+process.setMaxListeners(1000)  # disable a warning about too many listener caused by Gently hooking process.exit
 
 _testContext = null
 

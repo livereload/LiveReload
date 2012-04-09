@@ -16,11 +16,16 @@ now = ->
   "#{y}-#{m}-#{d} #{H}:#{M}:#{S}"
 
 
-exports.omg = (message) ->
-  process.stderr.write "#{now()} node OMG: #{message.trim()}\n"
+class LRLog
 
-exports.wtf = (message) ->
-  process.stderr.write "#{now()} node WTF: #{message.trim()}\n"
+  omg: (message) ->
+    process.stderr.write "#{now()} node OMG: #{message.trim()}\n"
 
-exports.fyi = (message) ->
-  process.stderr.write "#{now()} node: #{message.trim()}\n"
+  wtf: (message) ->
+    process.stderr.write "#{now()} node WTF: #{message.trim()}\n"
+
+  fyi: (message) ->
+    process.stderr.write "#{now()} node: #{message.trim()}\n"
+
+
+module.exports = LRLog

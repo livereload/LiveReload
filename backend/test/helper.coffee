@@ -7,8 +7,7 @@ Path = require 'path'
 MemoryStream = require 'memorystream'
 
 { createApiTree }                = require 'apitree'
-{ Communicator }                 = require '../lib/communicator'
-{ ApiTree, createRemoteApiTree } = require '../lib/remoteapitree'
+{ ApiTree, createRemoteApiTree } = require '../lib/util/remoteapitree'
 
 
 exports.LRRoot        = LRRoot = Path.join(__dirname, "../..")
