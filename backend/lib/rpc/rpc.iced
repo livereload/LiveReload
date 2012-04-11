@@ -39,6 +39,8 @@ module.exports = class RPCSubsystem extends EventEmitter
       @handleException e
 
   handleException: (err) ->
+    console.log "ERRRRR !!!!!!!! #{err.message}"
+    throw err
     unless @listeners('uncaughtException').length > 0
       throw err
     @emit 'uncaughtException', err
@@ -72,8 +74,13 @@ module.exports = class RPCSubsystem extends EventEmitter
     await @emit('command', command, arg, defer(err))
 
     --@commandsInFlight
+
+    # emit on next tick so that the callback has time to run first
+    # (useful for testing, so that the callback can be the first to throw an assertion)
     if @commandsInFlight is 0
-      @emit 'idle'
+      process.nextTick =>
+        if @commandsInFlight is 0
+          @emit 'idle'
 
     callback(err)
 

@@ -39,10 +39,12 @@ describe "RPCSubsystem", ->
     assert.deepEqual @rpc.events, [['callback-called']]
 
 
-  it "should emit 'command' when a command message is received", wrap ->
+  it "should emit 'command' when a command message is received", wrap (done) ->
     @rpc.transport.simulate ['foo', 42]
-    assert.deepEqual @rpc.transport.messages, []
     for event in @rpc.events
       if typeof event.last() is 'function'
         event.pop()(null)
-    assert.deepEqual @rpc.events, [['command', 'foo', 42], ['idle']]
+    process.nextTick =>
+      assert.deepEqual @rpc.transport.messages, []
+      assert.deepEqual @rpc.events, [['command', 'foo', 42], ['idle']]
+      done()

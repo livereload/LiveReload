@@ -1,33 +1,36 @@
 assert       = require 'assert'
-MemoryStream = require 'memorystream'
 wrap         = require '../wrap'
 
 LRApplication = require '../../lib/app/application'
-LineOrientedStreamTransport = require '../../lib/rpc/streamtransport'
 
-{ MockRpcTransport } = require '../mocks'
+{ MockRpcTransport }           = require '../mocks'
+{ LRApplicationTestingHelper } = require '../helpers'
+{ LRPluginsRoot }              = require '../helper'
 
 
 describe "LiveReload", ->
 
-  it "should start up with a mock transport", (done) ->
+  it "should start up with a mock transport and direct invocation of start()", (done) ->
     application = new LRApplication(new MockRpcTransport())
-    application.start { pluginFolders: ["/abc", "/def"], preferencesFolder: "/ghi", version: "1.2.3" }, (err) ->
-      assert.equal err, null
-      done()
 
-  it "should start up successfully", wrap (done) ->
-    @input  = new MemoryStream()
-    @output = new MemoryStream(null, readable: no)
-    application = new LRApplication(new LineOrientedStreamTransport(@input, @output))
-    application.start { pluginFolders: ["/abc", "/def"], preferencesFolder: "/ghi", version: "1.2.3" }, (err) ->
-      assert.equal err, null
-      done()
+    application.start { pluginFolders: [LRPluginsRoot], preferencesFolder: "/ghi", version: "1.2.3" }, (err) ->
+      assert.ifError err
+      assert.ok application.pluginManager?, "application.pluginManager is not initialized"
+      assert.ok application.pluginManager.plugins.length > 0, "application.pluginManager hasn't found any plugins"
 
-  it "should start up via the top-level module", (done) ->
-    input  = new MemoryStream()
-    output = new MemoryStream(null, readable: no)
-    exit = ->
-      assert no
-    require('../../lib/livereload').run(input, output, ['--console'], exit)
-    process.nextTick => process.nextTick => process.nextTick => done()
+      application.once 'quit', done
+      application.rpc.transport.emit 'end'
+
+
+  it "should start up in --console mode", (done) ->
+    helper = new LRApplicationTestingHelper()
+    helper.run ['--console'], done
+    helper.sendInitAndWait =>
+      helper.quit()
+
+
+  it "should start up normally, execute the initialization command and then quit", (done) ->
+    helper = new LRApplicationTestingHelper()
+    helper.run [], done
+    helper.sendInitAndWait =>
+      helper.quit()

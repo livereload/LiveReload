@@ -1,4 +1,5 @@
-{ EventEmitter } = require 'events'
+{ EventEmitter }  = require 'events'
+
 
 class MockHttpServer extends EventEmitter
 
@@ -36,4 +37,25 @@ class MockFS
         else                     throw new Error("Unsupported encoding: #{encoding}")
       callback(null, content)
 
-module.exports = { MockHttpServer, MockWebSocketServer, MockWebSocket, MockFS }
+
+class MockRpcTransport extends EventEmitter
+  constructor: ->
+    @messages = []
+
+  send: (message) ->
+    @messages.push message
+
+  simulate: (message) ->
+    @emit 'message', message
+
+
+EventEmitter::iCanHazEvents = ->
+  @events = []
+
+  oldEmit = @emit
+  @emit = (args...) =>
+    @events.push(args)
+    oldEmit.apply(this, args)
+
+
+module.exports = { MockHttpServer, MockWebSocketServer, MockWebSocket, MockFS, MockRpcTransport }

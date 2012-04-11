@@ -10,30 +10,13 @@ RPC             = require '../rpc/rpc'
 { createRemoteApiTree } = require '../util/remoteapitree'
 
 
-class LRRemoteApi
+get = (object, path) ->
+  for component in path.split('.')
+    object = object[component]
+    throw new Error("Invalid RPC API method: '#{path}' (cannot find '#{component}')") if !object
 
-  constructor: (@application) ->
-
-  invoke: (command, arg, callback) ->
-    LR.log.wtf "Ignoring command #{command}"
-    callback(null)
-
-  # get = (object, path) ->
-  #   for component in path.split('.')
-  #     object = object[component]
-  #     throw new Error("Cannot find #{path}") if !object
-
-  #   throw new Error("#{path} is not callable") unless object.call?
-  #   object
-
-
-  # exports.execute = execute = (message, args..., callback) ->
-  #   message = message.replace /\.(\w+)$/, '.api.$1'
-  #   try
-  #     get(LR, message)(args..., callback)
-  #   catch e
-  #     callback(e)
-
+  throw new Error("Invalid RPC API method: '#{path}' (not a callable function)") unless object.call?
+  object
 
 
 class LRApplication extends EventEmitter
@@ -55,12 +38,18 @@ class LRApplication extends EventEmitter
     messages.pop()
     @native = createRemoteApiTree(messages, (msg) => (args...) => @rpc.send(msg, args...))
 
-    @_api = new LRRemoteApi(this)
+    @_api =
+      app:
+        init: (arg, callback) => @start(arg, callback)
 
     global.LR = this
 
   start: ({ pluginFolders, preferencesFolder, @version }, callback) ->
     @pluginManager = new LRPluginManager(pluginFolders)
+
+    await @pluginManager.rescan defer(err)
+    return callback(err) if err
+
     @rpc.send 'foo', 42
     callback(null)
 
@@ -71,7 +60,10 @@ class LRApplication extends EventEmitter
     @emit 'quit'
 
   invoke: (command, arg, callback) ->
-    @_api.invoke command, arg, callback
+    try
+      get(@_api, command)(arg, callback)
+    catch err
+      callback(err)
 
 
 module.exports = LRApplication

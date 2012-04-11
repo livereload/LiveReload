@@ -21,3 +21,5 @@ exports.run = (input, output, argv, exit) ->
       version: "1.2.3"
     }, (err) ->
       throw err if err
+
+  return app
