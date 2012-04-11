@@ -1,5 +1,8 @@
-apitree = require 'apitree'
-path    = require 'path'
+require 'sugar'
+
+LRApplication        = require '../lib/app/application'
+{ MockRpcTransport } = require '../test/mocks'
+
 
 flattenHash = (object, sep='.', prefix='', result={}) ->
   for own key, value of object
@@ -12,8 +15,8 @@ flattenHash = (object, sep='.', prefix='', result={}) ->
 
   return result
 
-loadItem = (path) -> require(path).api || {}
 
-tree = flattenHash(apitree.createApiTree(path.join(__dirname, '../app'), { loadItem }))
-for k in Object.keys(tree)
+application = new LRApplication(new MockRpcTransport())
+
+for k in Object.keys(flattenHash(application._api))
   process.stdout.write "#{k}\n"

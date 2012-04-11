@@ -41,6 +41,17 @@ class LRApplication extends EventEmitter
     @_api =
       app:
         init: (arg, callback) => @start(arg, callback)
+        ping: (arg, callback) => callback(null)   # simple do-nothing RPC roundtrip, used to unstuck IO streams on Windows
+      projects:
+        add: (arg, callback) =>
+          callback(new Error("Not implemented yet"))
+        remove: (arg, callback) =>
+          callback(new Error("Not implemented yet"))
+        changeDetected: (arg, callback) =>
+          callback(new Error("Not implemented yet"))
+      websockets:
+        sendReloadCommand: (arg, callback) =>
+          callback(new Error("Not implemented yet"))
 
     global.LR = this
 
