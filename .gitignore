@@ -10,17 +10,6 @@ xcuserdata
 /Supplementary
 /legacy
 site/css/livereload.css
-example/naive_example/*.css
-example/naive_example/*.js
-example/naive_example/*.html
-example/naive_example/.sass-cache
-example/compass_example/.sass-cache
-example/compass_example/stylesheets/
-example/import_example/*.css
-example/import_example_sass/*.css
-example/random_example/*.css
-example/random_example/*.js
-example/random_example/*.html
 
 # Windows
 /WinApp
