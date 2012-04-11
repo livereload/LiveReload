@@ -6,6 +6,8 @@ path = require 'path'
 LRPluginManager = require '../plugins/manager'
 RPC             = require '../rpc/rpc'
 
+LRWebSocketController = require '../controllers/websockets'
+
 # { createApiTree }       = require 'apitree'
 { createRemoteApiTree } = require '../util/remoteapitree'
 
@@ -22,6 +24,8 @@ get = (object, path) ->
 class LRApplication extends EventEmitter
 
   constructor: (rpcTransport) ->
+    @_up = no
+
     # instantiate services (cross-cutting concepts available to the entire application)
     @log  = new (require '../services/log')()
     @help = new (require '../services/help')()
@@ -36,7 +40,9 @@ class LRApplication extends EventEmitter
 
     messages = JSON.parse(fs.readFileSync(path.join(__dirname, '../../config/client-messages.json'), 'utf8'))
     messages.pop()
-    @native = createRemoteApiTree(messages, (msg) => (args...) => @rpc.send(msg, args...))
+    @client = createRemoteApiTree(messages, (msg) => (args...) => @rpc.send(msg, args...))
+
+    @websockets = new LRWebSocketController()
 
     @_api =
       app:
@@ -51,23 +57,45 @@ class LRApplication extends EventEmitter
           callback(new Error("Not implemented yet"))
       websockets:
         sendReloadCommand: (arg, callback) =>
-          callback(new Error("Not implemented yet"))
+          @websockets.sendReloadCommand(arg)
+          callback(null)
 
     global.LR = this
 
+
   start: ({ pluginFolders, preferencesFolder, @version }, callback) ->
+    @_up = yes
     @pluginManager = new LRPluginManager(pluginFolders)
 
-    await @pluginManager.rescan defer(err)
-    return callback(err) if err
+    errs = {}
+    await
+      @pluginManager.rescan defer(errs.pluginManager)
+      @websockets.init defer(errs.websockets)
 
-    @rpc.send 'foo', 42
+    for own _, err of errs when err
+      return callback(err)
+
+    # TODO:
+    # if err
+    #   LR.client.app.failedToStart(message: "#{err.message}")
+    #   LR.rpc.exit(1)
+    #   return callback(null)  # in case we're in tests and did not exit
+    # LR.stats.startup()
+    # LR.log.fyi "Backend is up and running."
+
     callback(null)
 
-  shutdown: ->
-    if global.LR is this
-      delete global.LR
+  shutdownSilently: ->
+    return unless @_up
+    @_up = no
 
+    @websockets.shutdown()
+
+    # if global.LR is this
+    #   delete global.LR
+
+  shutdown: ->
+    @shutdownSilently()
     @emit 'quit'
 
   invoke: (command, arg, callback) ->

@@ -9,7 +9,7 @@ fs   = require 'fs'
 { Parser, PROTOCOL_7, CONN_CHECK } = require './protocol'
 
 HandshakeTimeout = 1000
-DefaultPort = parseInt(process.env['LRPortOverride'], 10) || 35729
+DefaultWebSocketPort = parseInt(process.env['LRPortOverride'], 10) || 35729
 
 
 _connections = {}
@@ -28,6 +28,9 @@ class LRWebSocketConnection
     @parser.on 'error',     @_onerror.bind(@)
 
     @handshakeTimeout = setTimeout(@_onHandshakeTimeout.bind(@), HandshakeTimeout)
+
+  close: ->
+    @socket.close()
 
   send: (command) ->
     payload = JSON.stringify(command)
@@ -83,7 +86,7 @@ class LRWebSocketConnection
 class LRWebSocketServer extends EventEmitter
 
   constructor: (options={}) ->
-    @port = options.port || DefaultPort
+    @port = options.port || DefaultWebSocketPort
     @connections = {}
     @activeConnections = 0
     @nextConnectionId = 1
@@ -107,6 +110,12 @@ class LRWebSocketServer extends EventEmitter
         callback(null)
     catch e
       callback(e)
+
+  shutdown: ->
+    @httpServer.close()
+    for own _, connection of @connections
+      connection.close()
+    return
 
   monitoringConnections: -> connection for own dummy, connection of @connections when connection.isMonitoring()
 

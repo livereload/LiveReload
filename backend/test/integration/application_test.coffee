@@ -1,5 +1,6 @@
-assert       = require 'assert'
-wrap         = require '../wrap'
+assert = require 'assert'
+http   = require 'http'
+wrap   = require '../wrap'
 
 LRApplication = require '../../lib/app/application'
 
@@ -34,3 +35,37 @@ describe "LiveReload", ->
     helper.run [], done
     helper.sendInitAndWait =>
       helper.quit()
+
+
+  it "should serve livereload.js after startup", (done) ->
+    WebSocket = require 'ws'
+    DefaultWebSocketPort = parseInt(process.env['LRPortOverride'], 10) || 35729
+
+    helper = new LRApplicationTestingHelper()
+    helper.run [], done
+    helper.sendInitAndWait =>
+      http.get { host: '127.0.0.1', port: DefaultWebSocketPort, path: '/livereload.js' }, (res) =>
+        assert.equal res.statusCode, 200
+        res.setEncoding 'utf8'
+        data = []
+        res.on 'data', (chunk) => data.push chunk
+        res.on 'end', =>
+          data = data.join('')
+          assert.ok data.match(/LR-verbose/)
+          helper.quit()
+
+
+  it "should listen to web socket connections after startup", (done) ->
+    WebSocket = require 'ws'
+    DefaultWebSocketPort = parseInt(process.env['LRPortOverride'], 10) || 35729
+
+    helper = new LRApplicationTestingHelper()
+    helper.run [], done
+    helper.sendInitAndWait =>
+      ws = new WebSocket("ws://127.0.0.1:#{DefaultWebSocketPort}")
+      ws.on 'open', ->
+        ws.send JSON.stringify({ 'command': 'hello', 'protocols': ['http://livereload.com/protocols/official-7'] })
+      ws.on 'message', (message) ->
+        json = JSON.parse(message)
+        if json.command is 'hello'
+          helper.quit()

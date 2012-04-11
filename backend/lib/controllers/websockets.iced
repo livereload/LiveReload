@@ -1,12 +1,13 @@
 fs   = require 'fs'
 Path = require 'path'
 
-{ LRWebSocketServer } = require '../lib/network/server'
-{ URLOverrideCoordinator, ERR_NOT_MATCHED, ERR_AUTH_FAILED, ERR_FILE_NOT_FOUND } = require '../lib/network/urloverride'
+{ LRWebSocketServer } = require '../network/server'
+{ URLOverrideCoordinator, ERR_NOT_MATCHED, ERR_AUTH_FAILED, ERR_FILE_NOT_FOUND } = require '../network/urloverride'
 
-ResourceFolder = Path.join(__dirname, '../res')
+ResourceFolder = Path.join(__dirname, '../../res')
 
-class LRWebSocketController
+
+module.exports = class LRWebSocketController
 
   constructor: ->
     @server = new LRWebSocketServer()
@@ -45,6 +46,9 @@ class LRWebSocketController
 
       LR.log.fyi "WebSocket server listening on port #{@server.port}."
       callback(null)
+
+  shutdown: ->
+    @server.shutdown()
 
   sendReloadCommand: ({ path, originalPath, liveCSS, enableOverride }) ->
     for connection in @server.monitoringConnections()
@@ -99,13 +103,3 @@ class LRWebSocketController
           response.setHeader 'Content-Type',   result.mime
           response.setHeader 'Content-Length', result.content.length
           response.end result.content
-
-
-_controller = new LRWebSocketController()
-
-exports.init = (cb) -> _controller.init(cb)
-
-exports.api =
-  sendReloadCommand: (arg, callback) ->
-    _controller.sendReloadCommand(arg)
-    callback(null)
