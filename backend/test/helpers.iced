@@ -6,6 +6,9 @@ MemoryStream = require 'memorystream'
 
 exports.LRApplicationTestingHelper = class LRApplicationTestingHelper
 
+  @initCommand: ->
+    { pluginFolders: [LRPluginsRoot], preferencesFolder: "/ghi", version: "1.2.3" }
+
   constructor: ->
     @input  = new MemoryStream()
     @output = new MemoryStream(null, readable: no)
@@ -44,7 +47,7 @@ exports.LRApplicationTestingHelper = class LRApplicationTestingHelper
     @_readyToQuit = yes
 
   quitHandler: (done) ->
-    return (exitCode) =>
+    return (exitCode=0) =>
       unless @_readyToQuit
         assert no, "LiveReload has quit prematurely with exit code #{exitCode}"
       assert.equal exitCode, 0
@@ -56,7 +59,7 @@ exports.LRApplicationTestingHelper = class LRApplicationTestingHelper
 
 
   sendInitAndWait: (callback) ->
-    @sendAndWait "app.init", { pluginFolders: [LRPluginsRoot], preferencesFolder: "/ghi", version: "1.2.3" }, (err) =>
+    @sendAndWait "app.init", LRApplicationTestingHelper.initCommand(), (err) =>
       assert.ifError err
       assert.ok @application.pluginManager?, "application.pluginManager is not initialized"
       assert.ok @application.pluginManager.plugins.length > 0, "application.pluginManager hasn't found any plugins"

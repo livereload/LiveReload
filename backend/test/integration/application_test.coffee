@@ -14,7 +14,7 @@ describe "LiveReload", ->
   it "should start up with a mock transport and direct invocation of start()", (done) ->
     application = new LRApplication(new MockRpcTransport())
 
-    application.start { pluginFolders: [LRPluginsRoot], preferencesFolder: "/ghi", version: "1.2.3" }, (err) ->
+    application.start LRApplicationTestingHelper.initCommand(), (err) ->
       assert.ifError err
       assert.ok application.pluginManager?, "application.pluginManager is not initialized"
       assert.ok application.pluginManager.plugins.length > 0, "application.pluginManager hasn't found any plugins"
@@ -69,3 +69,20 @@ describe "LiveReload", ->
         json = JSON.parse(message)
         if json.command is 'hello'
           helper.quit()
+
+
+  it "should send 'app.failedToStart' when there's an error on startup", (done) ->
+    helper = new LRApplicationTestingHelper()
+    helper.application = new LRApplication(new MockRpcTransport())
+
+    helper.application.on 'quit', (exitCode=0) =>
+      assert.equal exitCode, 0
+      done()
+
+    helper.application.on 'init', (callback) -> callback(new Error("simulated error"))
+
+    helper.application.rpc.transport.on 'sent', ([command, arg]) =>
+      if command is 'app.failedToStart'
+        helper.readyToQuit()
+
+    helper.application.rpc.transport.simulate LRApplicationTestingHelper.initCommand()

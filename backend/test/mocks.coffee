@@ -44,6 +44,7 @@ class MockRpcTransport extends EventEmitter
 
   send: (message) ->
     @messages.push message
+    @emit 'sent', message
 
   simulate: (message) ->
     @emit 'message', message

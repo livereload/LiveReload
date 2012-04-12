@@ -39,8 +39,6 @@ module.exports = class RPCSubsystem extends EventEmitter
       @handleException e
 
   handleException: (err) ->
-    console.log "ERRRRR !!!!!!!! #{err.message}"
-    throw err
     unless @listeners('uncaughtException').length > 0
       throw err
     @emit 'uncaughtException', err

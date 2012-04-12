@@ -38,6 +38,10 @@ class LRApplication extends EventEmitter
     @rpc.on 'command', (command, arg, callback) =>
       @invoke command, arg, callback
 
+    @rpc.on 'uncaughtException', (err) =>
+      @rpc.send 'app.failedToStart', message: "#{err.message}"
+      @shutdown()
+
     messages = JSON.parse(fs.readFileSync(path.join(__dirname, '../../config/client-messages.json'), 'utf8'))
     messages.pop()
     @client = createRemoteApiTree(messages, (msg) => (args...) => @rpc.send(msg, args...))
@@ -72,17 +76,16 @@ class LRApplication extends EventEmitter
       @pluginManager.rescan defer(errs.pluginManager)
       @websockets.init defer(errs.websockets)
 
+      for listener, index in @listeners('init')
+        listener defer(errs["init#{index}"])
+
     for own _, err of errs when err
       return callback(err)
 
     # TODO:
-    # if err
-    #   LR.client.app.failedToStart(message: "#{err.message}")
-    #   LR.rpc.exit(1)
-    #   return callback(null)  # in case we're in tests and did not exit
     # LR.stats.startup()
-    # LR.log.fyi "Backend is up and running."
 
+    LR.log.fyi "Backend is up and running."
     callback(null)
 
   shutdownSilently: ->
