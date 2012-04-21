@@ -24,9 +24,10 @@ class LRPluginManager
         return callback(err) if err
         @plugins.push(plugin)
 
-    @compilers = {}
+    @compilersById = {}
     for plugin in @plugins
-      Object.merge @compilers, plugin.compilers
+      Object.merge @compilersById, plugin.compilers
+    @compilers = (compiler for own _, compiler of @compilersById)
 
     callback(null)
 

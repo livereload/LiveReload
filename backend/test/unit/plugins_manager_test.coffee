@@ -18,8 +18,8 @@ describe "LRPluginManager", ->
     assert.equal @manager.plugins.length, 9
 
   it "should be able to find all standard compilers", wrap ->
-    assert.ok 'SASS' of @manager.compilers
-    assert.ok 'Compass' of @manager.compilers
-    assert.ok 'CoffeeScript' of @manager.compilers
-    assert.ok 'LESS' of @manager.compilers
-    assert.ok 'HAML' of @manager.compilers
+    assert.ok 'sass' of @manager.compilersById
+    assert.ok 'compass' of @manager.compilersById
+    assert.ok 'coffeescript' of @manager.compilersById
+    assert.ok 'less' of @manager.compilersById
+    assert.ok 'haml' of @manager.compilersById

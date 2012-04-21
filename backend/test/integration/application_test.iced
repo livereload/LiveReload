@@ -1,4 +1,5 @@
 assert = require 'assert'
+Path   = require 'path'
 http   = require 'http'
 wrap   = require '../wrap'
 
@@ -93,37 +94,16 @@ describe "LiveReload", ->
 
 
   it "should tell the browser to reload when a monitored project has been changed", (done) ->
-    WebSocket = require 'ws'
-    DefaultWebSocketPort = parseInt(process.env['LRPortOverride'], 10) || 35729
-
-    folder = new TempFileSystemFolder()
-    reloadRequests = []
-
     helper = new LRApplicationTestingHelper()
-    helper.on 'monitoring.add', (arg) =>
-      assert.equal arg.id, 'H1'
-      assert.equal arg.path, folder.path
-    helper.on 'monitoring.remove', (arg) =>
-      assert.equal arg.id, 'H1'
+    await helper.runWithSingleProject done, { 'enabled2': yes }, defer()
+    await helper.simulateBrowserConnection {}, defer()
+    await helper.generateChange 'foo.txt', null, defer()
+    assert.deepEqual helper.reloadRequests, [ { path: 'foo.txt' } ]
+    helper.quit()
 
-    (helper.preferences['projects20a3'] = {})[folder.path] = { 'enabled2': yes }
-
-    produceFakeChange = ->
-      folder.touch 'foo.html'
-      helper.sendAndWait 'projects.changeDetected', { id: 'H1', changes: ['foo.html'] }, ->
-        setTimeout ->
-          assert.deepEqual reloadRequests, [ { path: 'foo.html' } ]
-          helper.quit()
-        , 10
-
-    helper.run [], done
-    helper.sendInitAndWait =>
-      ws = new WebSocket("ws://127.0.0.1:#{DefaultWebSocketPort}")
-      ws.on 'open', ->
-        ws.send JSON.stringify({ 'command': 'hello', 'protocols': ['http://livereload.com/protocols/official-7'] })
-      ws.on 'message', (message) ->
-        json = JSON.parse(message)
-        if json.command is 'hello'
-          produceFakeChange()
-        else if json.command is 'reload'
-          reloadRequests.push { path: json.path }
+  it "should compile a changed CoffeeScript file", (done) ->
+    helper = new LRApplicationTestingHelper()
+    await helper.runWithSingleProject done, { 'enabled2': yes, 'compilationEnabled': yes }, defer()
+    await helper.generateChange 'foo.coffee', "alert 42\n", defer()
+    assert.equal helper.folder.read('foo.js').replace(/\s+/g, ' ').trim(), "(function() { alert(42); }).call(this);"
+    helper.quit()

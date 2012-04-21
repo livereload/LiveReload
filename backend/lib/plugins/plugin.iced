@@ -22,7 +22,7 @@ class LRPlugin
   processManifest: (@manifest, callback) ->
     for compilerManifest in @manifest.LRCompilers
       compiler = new Compiler(this, compilerManifest)
-      @compilers[compiler.name] = compiler
+      @compilers[compiler.id] = compiler
 
     # console.log "Loaded manifest at #{@folder} with #{@manifest.LRCompilers.length} compilers"
     callback(null)

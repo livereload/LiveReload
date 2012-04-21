@@ -3,10 +3,13 @@ assert       = require 'assert'
 Path         = require 'path'
 Temp         = require 'temp'
 MemoryStream = require 'memorystream'
+WebSocket    = require 'ws'
 
 { EventEmitter }  = require 'events'
 
 { LRPluginsRoot } = require './helper'
+
+DefaultWebSocketPort = parseInt(process.env['LRPortOverride'], 10) || 35729
 
 
 exports.LRApplicationTestingHelper = class LRApplicationTestingHelper extends EventEmitter
@@ -21,6 +24,8 @@ exports.LRApplicationTestingHelper = class LRApplicationTestingHelper extends Ev
     @preferences = {}
 
     @_readyToQuit = no
+
+    @reloadRequests = []
 
 
   run: (args, done) ->
@@ -104,6 +109,43 @@ exports.LRApplicationTestingHelper = class LRApplicationTestingHelper extends Ev
       assert.ok @application.pluginManager.plugins.length > 0, "application.pluginManager hasn't found any plugins"
       callback()
 
+  runWithSingleProject: (done, projectMemento, callback) ->
+    @folder = new TempFileSystemFolder()
+    (@preferences['projects20a3'] = {})[@folder.path] = projectMemento
+
+    @on 'monitoring.add', (arg) =>
+      assert.equal arg.id, 'H1'
+      assert.equal arg.path, @folder.path
+    @on 'monitoring.remove', (arg) =>
+      assert.equal arg.id, 'H1'
+
+    @run [], done
+    @sendInitAndWait callback
+
+  generateChange: (fileName, content, callback) ->
+    @folder.touch fileName, content
+    @sendAndWait 'projects.changeDetected', { id: 'H1', changes: [fileName] }, =>
+      setTimeout callback, 10
+
+  simulateBrowserConnection: (callbacks, helloCallback=null) ->
+    if helloCallback
+      callbacks.hello = helloCallback
+
+    ws = new WebSocket("ws://127.0.0.1:#{DefaultWebSocketPort}")
+    ws.on 'open', =>
+      ws.send JSON.stringify({ 'command': 'hello', 'protocols': ['http://livereload.com/protocols/official-7'] })
+    ws.on 'message', (message) =>
+      json = JSON.parse(message)
+      if callback = callbacks[json.command]
+        callback(json)
+      else if json.command is 'hello'
+        # ignore
+      else if json.command is 'reload'
+        @reloadRequests.push { path: Path.basename(json.path) }
+      else
+        throw new Error("Unexpected command received from the server: '#{json.command}'")
+
+
 
 exports.TempFileSystemFolder = class TempFileSystemFolder
 
@@ -113,5 +155,8 @@ exports.TempFileSystemFolder = class TempFileSystemFolder
   pathOf: (relativePath) ->
     Path.join(@path, relativePath)
 
-  touch: (relativePath) ->
-    fs.writeFileSync @pathOf(relativePath), "" + new Date()
+  touch: (relativePath, content = "" + new Date()) ->
+    fs.writeFileSync @pathOf(relativePath), content
+
+  read: (relativePath) ->
+    fs.readFileSync @pathOf(relativePath), 'utf8'

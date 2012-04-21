@@ -25,7 +25,6 @@ class FSHive extends EventEmitter
 
     @fullPath = abspath(@path)
 
-
   dispose: ->
     unless @_disposed
       @_disposed = yes
@@ -60,5 +59,8 @@ class FSHive extends EventEmitter
 
   handleFSChangeEvent: (event, callback) ->
     @emit 'change', event.changes, callback
+
+  absolutePathOf: (relativePath) ->
+    Path.join(@fullPath, relativePath)
 
 module.exports = FSHive

@@ -10,7 +10,7 @@ class LRWorkspace
 
     @projects = []
     for own path, projectMemento of @memento
-      @projects.push new Project(this, path, memento)
+      @projects.push new Project(this, path, projectMemento)
 
   _initializeProject: (project) ->
     for own key, state of @globalMonitoringRequests

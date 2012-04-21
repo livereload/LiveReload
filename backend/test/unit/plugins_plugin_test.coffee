@@ -15,5 +15,5 @@ describe "LRPlugin for SASS", ->
   it "should be named 'SASS'", wrap ->
     assert.equal @plugin.name, 'SASS'
 
-  it "should contain SASS and Compass compilers", wrap ->
-    assert.deepEqual Object.keys(@plugin.compilers), ['SASS', 'Compass']
+  it "should contain SASS and compass compilers", wrap ->
+    assert.deepEqual Object.keys(@plugin.compilers), ['sass', 'compass']
