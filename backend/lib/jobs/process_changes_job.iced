@@ -64,6 +64,7 @@ module.exports = class ProcessChangesJob
       isFullReload = paths.any (path) => !path.match /\.(jpe?g|gif|png|css)$/
 
     broadcastChangesToBrowser = =>
+      LR.stats.incr 'stat.reloads'
       for request in @reloadRequests
         LR.websockets.sendReloadCommand
           path:            request.path
