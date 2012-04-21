@@ -73,7 +73,7 @@ module.exports = class LRWebSocketController
 
   _updateConnectionCountInUI: ->
     LR.client.mainwnd.setConnectionStatus connectionCount: @monitoringConnectionCount()
-    LR.client.workspace.setMonitoringEnabled (@monitoringConnectionCount() > 0)
+    LR.model.workspace.requestMonitoring 'websockets', (@monitoringConnectionCount() > 0)
 
   _updateChangeCountInUI: ->
     LR.client.mainwnd.setChangeCount changeCount: @changeCount

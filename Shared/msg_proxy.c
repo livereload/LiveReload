@@ -21,7 +21,3 @@ void S_projects_remove(json_t *data) {
 void S_projects_change_detected(json_t *data) {
     node_send("projects.changeDetected", data);
 }
-
-void S_websockets_send_reload_command(json_t *data) {
-    node_send("websockets.sendReloadCommand", data);
-}

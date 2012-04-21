@@ -8,6 +8,7 @@
   "app.open_url",
   "app.terminate",
   "app.good_time_to_deliver_news",
+  "preferences.read",
   "mainwnd.set_connection_status",
   "mainwnd.set_change_count",
   "workspace.set_monitoring_enabled",

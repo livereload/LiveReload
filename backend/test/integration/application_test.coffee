@@ -14,6 +14,10 @@ describe "LiveReload", ->
   it "should start up with a mock transport and direct invocation of start()", (done) ->
     application = new LRApplication(new MockRpcTransport())
 
+    helper = new LRApplicationTestingHelper()
+    helper.send = (command, arg) => application.rpc.transport.simulate [command, arg]
+    application.rpc.transport.on 'sent', (message) => helper.handle message
+
     application.start LRApplicationTestingHelper.initCommand(), (err) ->
       assert.ifError err
       assert.ok application.pluginManager?, "application.pluginManager is not initialized"

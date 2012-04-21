@@ -29,6 +29,10 @@ class LRApplication extends EventEmitter
     # instantiate services (cross-cutting concepts available to the entire application)
     @log  = new (require '../services/log')()
     @help = new (require '../services/help')()
+    @preferences = new (require '../services/preferences')()
+
+    @fsmanager = new (require '../vfs/fsmanager')()
+    @model = new (require '../model/model')(this)
 
     @rpc = new RPC(rpcTransport)
 
@@ -39,7 +43,7 @@ class LRApplication extends EventEmitter
       @invoke command, arg, callback
 
     @rpc.on 'uncaughtException', (err) =>
-      @rpc.send 'app.failedToStart', message: "#{err.message}"
+      @rpc.send 'app.failedToStart', message: "" + (err.stack || err.message || err)
       @shutdown()
 
     messages = JSON.parse(fs.readFileSync(path.join(__dirname, '../../config/client-messages.json'), 'utf8'))
@@ -58,11 +62,7 @@ class LRApplication extends EventEmitter
         remove: (arg, callback) =>
           callback(new Error("Not implemented yet"))
         changeDetected: (arg, callback) =>
-          callback(new Error("Not implemented yet"))
-      websockets:
-        sendReloadCommand: (arg, callback) =>
-          @websockets.sendReloadCommand(arg)
-          callback(null)
+          @fsmanager.handleFSChangeEvent arg, callback
 
     global.LR = this
 
@@ -75,6 +75,7 @@ class LRApplication extends EventEmitter
     await
       @pluginManager.rescan defer(errs.pluginManager)
       @websockets.init defer(errs.websockets)
+      @model.init defer(errs.model)
 
       for listener, index in @listeners('init')
         listener defer(errs["init#{index}"])

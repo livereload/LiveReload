@@ -9,15 +9,43 @@ exports.LRApplicationTestingHelper = class LRApplicationTestingHelper
   @initCommand: ->
     { pluginFolders: [LRPluginsRoot], preferencesFolder: "/ghi", version: "1.2.3" }
 
+
   constructor: ->
     @input  = new MemoryStream()
-    @output = new MemoryStream(null, readable: no)
+    @output = new MemoryStream(null)
 
     @_readyToQuit = no
 
 
   run: (args, done) ->
     @application = require('../lib/livereload').run @input, @output, args, @quitHandler(done)
+    @hook()
+    @application
+
+
+  hook: ->
+    @output.on 'data', (message) =>
+      console.error "Blow! '#{message}'"
+      if message && ((typeof message) is 'object') && (message.constructor is Buffer)
+        message = message.toString('utf8')
+      return unless message.substr(0, 1) is '['
+      message = JSON.parse message
+      if message && ((typeof message) is 'object') && (message.constructor is Array)
+        @handle message
+      else
+        throw new Error("Unexpected thingie sent by the backend: '#{JSON.stringify(message)}'")
+
+  send: (command, arg) ->
+    @input.write JSON.stringify([command, arg]) + "\n"
+
+  handle: ([command, arg, cbid]) ->
+    switch command
+      when 'preferences.read'
+        @send cbid, null
+      when 'mainwnd.set_connection_status', 'workspace.set_monitoring_enabled'
+        42  # nop
+      else
+        throw new Error("Unexpected command sent by the backend: '#{command}'")
 
 
   sendAndWait: (command, arg, callback) ->
@@ -39,7 +67,7 @@ exports.LRApplicationTestingHelper = class LRApplicationTestingHelper
         callback(new Error("timeout"))
     , 500
 
-    @input.write JSON.stringify([command, arg]) + "\n"
+    @send command, arg
     return
 
 

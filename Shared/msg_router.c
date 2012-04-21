@@ -16,6 +16,7 @@ json_t *C_app__display_popup_message(json_t *data);
 void C_app__open_url(json_t *data);
 void C_app__terminate(json_t *data);
 void C_app__good_time_to_deliver_news(json_t *data);
+json_t *C_preferences__read(json_t *data);
 void C_mainwnd__set_connection_status(json_t *data);
 void C_mainwnd__set_change_count(json_t *data);
 void C_workspace__set_monitoring_enabled(json_t *data);
@@ -80,6 +81,7 @@ msg_entry_t entries[] = {
     { "app.open_url", &_C_app__open_url_wrapper },
     { "app.terminate", &_C_app__terminate_wrapper },
     { "app.good_time_to_deliver_news", &_C_app__good_time_to_deliver_news_wrapper },
+    { "preferences.read", &C_preferences__read },
     { "mainwnd.set_connection_status", &_C_mainwnd__set_connection_status_wrapper },
     { "mainwnd.set_change_count", &_C_mainwnd__set_change_count_wrapper },
     { "workspace.set_monitoring_enabled", &_C_workspace__set_monitoring_enabled_wrapper },

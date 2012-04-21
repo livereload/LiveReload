@@ -1,0 +1,756 @@
+{
+  "~/dev/mini/json-diff": {
+    "enableRemoteServerWorkflow": 0,
+    "disableLiveRefresh": 0,
+    "compilationEnabled": 1,
+    "numberOfPathComponentsToUseAsName": 1,
+    "compilers": {
+      "icedcoffeescript": {
+        "enabled2": 1,
+        "options": {},
+        "additionalArguments": "",
+        "files": {
+          "lib/colorize.iced": {
+            "enabled": 1,
+            "output_dir": "lib",
+            "output_file": "*.js"
+          },
+          "bin/json-diff.iced": {
+            "enabled": 1,
+            "output_dir": "bin",
+            "output_file": "*.js"
+          },
+          "lib/util.iced": {
+            "enabled": 1,
+            "output_dir": "lib",
+            "output_file": "*.js"
+          },
+          "lib/cli.iced": {
+            "enabled": 1,
+            "output_dir": "lib",
+            "output_file": "*.js"
+          },
+          "lib/index.iced": {
+            "enabled": 1,
+            "output_dir": "lib",
+            "output_file": "*.js"
+          }
+        },
+        "enabled": 1
+      },
+      "coffeescript": {
+        "enabled2": 1,
+        "options": {},
+        "additionalArguments": "",
+        "files": {
+          "lib/colorize.coffee": {
+            "enabled": 1,
+            "output_dir": "lib",
+            "output_file": "*.js"
+          },
+          "test/colorize_test.coffee": {
+            "enabled": 1,
+            "output_dir": "test",
+            "output_file": "*.js"
+          },
+          "test/diff_test.coffee": {
+            "enabled": 1,
+            "output_dir": "test",
+            "output_file": "*.js"
+          }
+        },
+        "enabled": 1
+      }
+    },
+    "rubyVersion": "system"
+  },
+  "~/Dropbox/Clients/Ascendo/dictionary/converter/src": {
+    "enableRemoteServerWorkflow": 0,
+    "disableLiveRefresh": 0,
+    "compilationEnabled": 1,
+    "numberOfPathComponentsToUseAsName": 3,
+    "compilers": {
+      "coffeescript": {
+        "enabled2": 1,
+        "options": {},
+        "additionalArguments": "",
+        "files": {
+          "merge/merge.coffee": {
+            "enabled": 1,
+            "output_dir": "merge",
+            "output_file": "*.js"
+          },
+          "tools/process.coffee": {
+            "enabled": 1,
+            "output_dir": "tools",
+            "output_file": "*.js"
+          },
+          "demuxer/lang_demuxer.coffee": {
+            "enabled": 1,
+            "output_dir": "demuxer",
+            "output_file": "*.js"
+          }
+        },
+        "enabled": 1
+      }
+    },
+    "rubyVersion": "system"
+  },
+  "~/dev/products/LiveReload/backend": {
+    "enableRemoteServerWorkflow": 0,
+    "disableLiveRefresh": 0,
+    "compilationEnabled": 1,
+    "numberOfPathComponentsToUseAsName": 2,
+    "compilers": {
+      "icedcoffeescript": {
+        "enabled2": 1,
+        "options": {
+          "no-wrapper": 0,
+          "runtime-mode": "inline"
+        },
+        "additionalArguments": "",
+        "files": {
+          "lib/app/application.iced": {
+            "enabled": 1,
+            "output_dir": "lib/app",
+            "output_file": "*.js"
+          },
+          "lib/services/help.iced": {
+            "enabled": 1,
+            "output_dir": "lib/services",
+            "output_file": "*.js"
+          },
+          "lib/livereload.iced": {
+            "enabled": 1,
+            "output_dir": "lib",
+            "output_file": "*.js"
+          },
+          "lib/network/urloverride.iced": {
+            "enabled": 1,
+            "output_dir": "lib/network",
+            "output_file": "*.js"
+          },
+          "lib/plugins/manager.iced": {
+            "enabled": 1,
+            "output_dir": "lib/plugins",
+            "output_file": "*.js"
+          },
+          "test/helpers.iced": {
+            "enabled": 1,
+            "output_dir": "test",
+            "output_file": "*.js"
+          },
+          "lib/services/preferences.iced": {
+            "enabled": 1,
+            "output_dir": "lib/services",
+            "output_file": "*.js"
+          },
+          "lib/model/project.iced": {
+            "enabled": 1,
+            "output_dir": "lib/model",
+            "output_file": "*.js"
+          },
+          "lib/controllers/mainwindow.iced": {
+            "enabled": 1,
+            "output_dir": "lib/controllers",
+            "output_file": "*.js"
+          },
+          "lib/rpc/rpc.iced": {
+            "enabled": 1,
+            "output_dir": "lib/rpc",
+            "output_file": "*.js"
+          },
+          "lib/plugins/plugin.iced": {
+            "enabled": 1,
+            "output_dir": "lib/plugins",
+            "output_file": "*.js"
+          },
+          "lib/model/workspace.iced": {
+            "enabled": 1,
+            "output_dir": "lib/model",
+            "output_file": "*.js"
+          },
+          "lib/controllers/websockets.iced": {
+            "enabled": 1,
+            "output_dir": "lib/controllers",
+            "output_file": "*.js"
+          }
+        },
+        "enabled": 1
+      },
+      "coffeescript": {
+        "enabled2": 1,
+        "options": {
+          "no-wrapper": 0
+        },
+        "additionalArguments": "",
+        "files": {
+          "app/projects.coffee": {
+            "enabled": 1,
+            "output_dir": "app",
+            "output_file": "*.js"
+          },
+          "lib/network/server.coffee": {
+            "enabled": 1,
+            "output_dir": "lib/network",
+            "output_file": "*.js"
+          },
+          "test/unit/rpc_subsystem_test.coffee": {
+            "enabled": 1,
+            "output_dir": "test/unit",
+            "output_file": "*.js"
+          },
+          "test/integration/application_test_old.coffee": {
+            "enabled": 1,
+            "output_dir": "test/integration",
+            "output_file": "*.js"
+          },
+          "bin/livereload-backend-print-apis.coffee": {
+            "enabled": 1,
+            "output_dir": "bin",
+            "output_file": "*.js"
+          },
+          "app/mainwnd.coffee": {
+            "enabled": 1,
+            "output_dir": "app",
+            "output_file": "*.js"
+          },
+          "lib/util/remoteapitree.coffee": {
+            "enabled": 1,
+            "output_dir": "lib/util",
+            "output_file": "*.js"
+          },
+          "lib/plugins/tool-output.coffee": {
+            "enabled": 1,
+            "output_dir": "lib/plugins",
+            "output_file": "*.js"
+          },
+          "config/env.coffee": {
+            "enabled": 1,
+            "output_dir": "config",
+            "output_file": "*.js"
+          },
+          "test/unit/network_urloverride_test.coffee": {
+            "enabled": 1,
+            "output_dir": "test/unit",
+            "output_file": "*.js"
+          },
+          "lib/services/log.coffee": {
+            "enabled": 1,
+            "output_dir": "lib/services",
+            "output_file": "*.js"
+          },
+          "test/unit/network_pathauth_test.coffee": {
+            "enabled": 1,
+            "output_dir": "test/unit",
+            "output_file": "*.js"
+          },
+          "lib/network/protocol.coffee": {
+            "enabled": 1,
+            "output_dir": "lib/network",
+            "output_file": "*.js"
+          },
+          "test/integration/application_test.coffee": {
+            "enabled": 1,
+            "output_dir": "test/integration",
+            "output_file": "*.js"
+          },
+          "lib/rpc/streamtransport.coffee": {
+            "enabled": 1,
+            "output_dir": "lib/rpc",
+            "output_file": "*.js"
+          },
+          "test/unit/plugins_manager_test.coffee": {
+            "enabled": 1,
+            "output_dir": "test/unit",
+            "output_file": "*.js"
+          },
+          "app/preferences.coffee": {
+            "enabled": 1,
+            "output_dir": "app",
+            "output_file": "*.js"
+          },
+          "lib/network/pathauth.coffee": {
+            "enabled": 1,
+            "output_dir": "lib/network",
+            "output_file": "*.js"
+          },
+          "lib/vfs/forest.coffee": {
+            "enabled": 1,
+            "output_dir": "lib/vfs",
+            "output_file": "*.js"
+          },
+          "test/unit/rpc_stream_transport_test.coffee": {
+            "enabled": 1,
+            "output_dir": "test/unit",
+            "output_file": "*.js"
+          },
+          "logs/process-logs.coffee": {
+            "enabled": 1,
+            "output_dir": "logs",
+            "output_file": "*.js"
+          },
+          "test/unit/preferences_test.coffee": {
+            "enabled": 1,
+            "output_dir": "test/unit",
+            "output_file": "*.js"
+          },
+          "test/unit/plugins_plugin_test.coffee": {
+            "enabled": 1,
+            "output_dir": "test/unit",
+            "output_file": "*.js"
+          },
+          "test/wrap.coffee": {
+            "enabled": 1,
+            "output_dir": "test",
+            "output_file": "*.js"
+          },
+          "app/stats.coffee": {
+            "enabled": 1,
+            "output_dir": "app",
+            "output_file": "*.js"
+          },
+          "test/integration_test.coffee": {
+            "enabled": 1,
+            "output_dir": "test",
+            "output_file": "*.js"
+          },
+          "lib/plugins/tool.coffee": {
+            "enabled": 1,
+            "output_dir": "lib/plugins",
+            "output_file": "*.js"
+          },
+          "test/helper.coffee": {
+            "enabled": 1,
+            "output_dir": "test",
+            "output_file": "*.js"
+          },
+          "test/unit/network_server_test.coffee": {
+            "enabled": 1,
+            "output_dir": "test/unit",
+            "output_file": "*.js"
+          },
+          "test/mocks.coffee": {
+            "enabled": 1,
+            "output_dir": "test",
+            "output_file": "*.js"
+          }
+        },
+        "enabled": 1
+      }
+    },
+    "rubyVersion": "system"
+  },
+  "~/Dropbox/Projects/LiveReload/example/naive_example_2": {
+    "enableRemoteServerWorkflow": 0,
+    "disableLiveRefresh": 0,
+    "compilationEnabled": 1,
+    "numberOfPathComponentsToUseAsName": 2,
+    "compilers": {
+      "slim": {
+        "enabled2": 0,
+        "options": {
+          "output-style": "minified",
+          "sections": 0
+        },
+        "additionalArguments": "",
+        "files": {
+          "test_slim.slim": {
+            "enabled": 1,
+            "output_dir": ".",
+            "output_file": "*.html"
+          }
+        },
+        "enabled": 0
+      },
+      "jade": {
+        "enabled2": 0,
+        "options": {
+          "output-style": "minified"
+        },
+        "additionalArguments": "",
+        "files": {
+          "test_jade.jade": {
+            "enabled": 1,
+            "output_dir": ".",
+            "output_file": "*.html"
+          }
+        },
+        "enabled": 0
+      },
+      "less": {
+        "enabled2": 1,
+        "options": {},
+        "additionalArguments": "",
+        "files": {
+          "test_less.less": {
+            "enabled": 1,
+            "output_dir": ".",
+            "output_file": "*.css"
+          }
+        },
+        "enabled": 1
+      },
+      "stylus": {
+        "enabled2": 1,
+        "options": {
+          "debug-info": 0,
+          "use-nib": 0,
+          "line-numbers": 0,
+          "include-css": 0
+        },
+        "additionalArguments": "",
+        "files": {
+          "test_stylus.styl": {
+            "enabled": 1,
+            "output_dir": ".",
+            "output_file": "*.css"
+          }
+        },
+        "enabled": 1
+      }
+    },
+    "rubyVersion": "system"
+  },
+  "~/Dropbox/Projects/LiveReload/site": {
+    "enableRemoteServerWorkflow": 0,
+    "disableLiveRefresh": 0,
+    "compilationEnabled": 1,
+    "numberOfPathComponentsToUseAsName": 2,
+    "compilers": {
+      "stylus": {
+        "enabled2": 1,
+        "options": {
+          "debug-info": 0,
+          "use-nib": 1,
+          "line-numbers": 0,
+          "include-css": 0
+        },
+        "additionalArguments": "",
+        "files": {
+          "css/livereload.styl": {
+            "enabled": 1,
+            "output_dir": "css",
+            "output_file": ""
+          }
+        },
+        "enabled": 1
+      },
+      "jade": {
+        "enabled2": 0,
+        "options": {
+          "output-style": "minified"
+        },
+        "additionalArguments": "",
+        "files": {
+          "early-access.jade": {
+            "enabled": 1,
+            "output_dir": ".",
+            "output_file": ""
+          },
+          "index.jade": {
+            "enabled": 1,
+            "output_dir": ".",
+            "output_file": ""
+          }
+        },
+        "enabled": 0
+      }
+    },
+    "rubyVersion": "system"
+  },
+  "~/Dropbox/Projects/Mini/PrideAndPrejudice": {
+    "fullPageReloadDelay": 0.5,
+    "compilers": {
+      "jade": {
+        "enabled2": 0,
+        "options": {
+          "output-style": "minified"
+        },
+        "additionalArguments": "",
+        "files": {
+          "web/views/index.jade": {
+            "enabled": 1,
+            "output_dir": "web/views",
+            "output_file": "*.html"
+          },
+          "web/views/layout.jade": {
+            "enabled": 1,
+            "output_dir": "web/views",
+            "output_file": "*.html"
+          }
+        },
+        "enabled": 0
+      },
+      "icedcoffeescript": {
+        "enabled2": 1,
+        "options": {
+          "no-wrapper": 0,
+          "runtime-mode": "inline"
+        },
+        "additionalArguments": "",
+        "files": {
+          "scraper/main.iced": {
+            "enabled": 1,
+            "output_dir": "scraper",
+            "output_file": "*.js"
+          },
+          "scraper/parse.iced": {
+            "enabled": 1,
+            "output_dir": "scraper",
+            "output_file": "*.js"
+          },
+          "parse.iced": {
+            "enabled": 1,
+            "output_dir": ".",
+            "output_file": "*.js"
+          },
+          "main.iced": {
+            "enabled": 1,
+            "output_dir": ".",
+            "output_file": "*.js"
+          }
+        },
+        "enabled": 1
+      },
+      "coffeescript": {
+        "enabled2": 1,
+        "options": {
+          "no-wrapper": 0
+        },
+        "additionalArguments": "",
+        "files": {
+          "web/lib/data.coffee": {
+            "enabled": 0,
+            "output_dir": "web/lib",
+            "output_file": "*.js"
+          },
+          "parse.coffee": {
+            "enabled": 1,
+            "output_dir": ".",
+            "output_file": "*.js"
+          },
+          "web/routes/index.coffee": {
+            "enabled": 0,
+            "output_dir": "web/routes",
+            "output_file": "*.js"
+          },
+          "web/app.coffee": {
+            "enabled": 1,
+            "output_dir": "web",
+            "output_file": "*.js"
+          },
+          "web/web.coffee": {
+            "enabled": 0,
+            "output_dir": "web",
+            "output_file": "*.js"
+          }
+        },
+        "enabled": 1
+      }
+    },
+    "numberOfPathComponentsToUseAsName": 1,
+    "enableRemoteServerWorkflow": 0,
+    "disableLiveRefresh": 0,
+    "compilationEnabled": 0,
+    "rubyVersion": "system"
+  },
+  "~/Dropbox/Clients/Ascendo/dictionary/converter/src/merge": {
+    "compilationEnabled": 1,
+    "enableRemoteServerWorkflow": 0,
+    "disableLiveRefresh": 0,
+    "compilers": {
+      "coffeescript": {
+        "enabled2": 1,
+        "options": {},
+        "additionalArguments": "",
+        "files": {
+          "merge.coffee": {
+            "enabled": 1,
+            "output_dir": ".",
+            "output_file": "*.js"
+          }
+        },
+        "enabled": 1
+      }
+    },
+    "customName": "dictionaries merge",
+    "numberOfPathComponentsToUseAsName": -1,
+    "rubyVersion": "system"
+  },
+  "~/Dropbox/Clients/KEY-TEC/pm": {
+    "fullPageReloadDelay": 0.7,
+    "compilers": {
+      "coffeescript": {
+        "enabled2": 1,
+        "options": {
+          "no-wrapper": 0
+        },
+        "additionalArguments": "",
+        "files": {
+          "stats/lib/logs.coffee": {
+            "enabled": 1,
+            "output_dir": "stats/lib",
+            "output_file": ""
+          },
+          "stats/lib/apache.coffee": {
+            "enabled": 1,
+            "output_dir": "stats/lib",
+            "output_file": ""
+          },
+          "stats/lib/browscap.coffee": {
+            "enabled": 1,
+            "output_dir": "stats/lib",
+            "output_file": ""
+          },
+          "stats/test.coffee": {
+            "enabled": 1,
+            "output_dir": "stats",
+            "output_file": ""
+          },
+          "stats/lib/process-file-downloads.coffee": {
+            "enabled": 1,
+            "output_dir": "stats/lib",
+            "output_file": ""
+          },
+          "stats/lib/data.coffee": {
+            "enabled": 1,
+            "output_dir": "stats/lib",
+            "output_file": ""
+          },
+          "stats/lib/coll.coffee": {
+            "enabled": 1,
+            "output_dir": "stats/lib",
+            "output_file": ""
+          },
+          "stats/lib/process.coffee": {
+            "enabled": 1,
+            "output_dir": "stats/lib",
+            "output_file": ""
+          },
+          "stats/test/browscap.coffee": {
+            "enabled": 1,
+            "output_dir": "stats/lib",
+            "output_file": ""
+          },
+          "stats/test2.coffee": {
+            "enabled": 1,
+            "output_dir": "stats",
+            "output_file": ""
+          }
+        },
+        "enabled": 1
+      }
+    },
+    "numberOfPathComponentsToUseAsName": 2,
+    "enableRemoteServerWorkflow": 0,
+    "disableLiveRefresh": 1,
+    "compilationEnabled": 0,
+    "rubyVersion": "system"
+  },
+  "~/Dropbox/Projects/Mini/better-tender": {
+    "postprocEnabled": 0,
+    "compilers": {
+      "coffeescript": {
+        "enabled2": 1,
+        "options": {
+          "no-wrapper": 0
+        },
+        "additionalArguments": "",
+        "files": {
+          "src/injected-chrome.coffee": {
+            "enabled": 1,
+            "output_dir": "interim",
+            "output_file": "*.js"
+          },
+          "src/global.coffee": {
+            "enabled": 1,
+            "output_dir": "Safari/BetterTender.safariextension",
+            "output_file": "*.js"
+          },
+          "src/injected-safari.coffee": {
+            "enabled": 1,
+            "output_dir": "interim",
+            "output_file": "*.js"
+          },
+          "src/injected.coffee": {
+            "enabled": 1,
+            "output_dir": "interim",
+            "output_file": "*.js"
+          },
+          "src/global-chrome.coffee": {
+            "enabled": 1,
+            "output_dir": "Chrome/BetterTender",
+            "output_file": "*.js"
+          },
+          "src/global-safari.coffee": {
+            "enabled": 1,
+            "output_dir": "Safari/BetterTender.safariextension",
+            "output_file": "*.js"
+          }
+        },
+        "enabled": 1
+      }
+    },
+    "postproc": "rake",
+    "numberOfPathComponentsToUseAsName": 1,
+    "enableRemoteServerWorkflow": 0,
+    "disableLiveRefresh": 0,
+    "compilationEnabled": 0,
+    "rubyVersion": "system"
+  },
+  "~/Dropbox/Projects/LiveReload/extensions": {
+    "postprocEnabled": 1,
+    "compilers": {},
+    "postproc": "rake",
+    "numberOfPathComponentsToUseAsName": 2,
+    "enableRemoteServerWorkflow": 0,
+    "disableLiveRefresh": 0,
+    "compilationEnabled": 0,
+    "rubyVersion": "system"
+  },
+  "~/Dropbox/Projects/dreamopt.js": {
+    "enableRemoteServerWorkflow": 0,
+    "disableLiveRefresh": 0,
+    "compilationEnabled": 1,
+    "numberOfPathComponentsToUseAsName": 1,
+    "compilers": {
+      "coffeescript": {
+        "enabled2": 1,
+        "options": {
+          "no-wrapper": 0
+        },
+        "additionalArguments": "",
+        "files": {
+          "examples/intro.coffee": {
+            "enabled": 1,
+            "output_dir": "examples",
+            "output_file": "*.js"
+          },
+          "examples/date.coffee": {
+            "enabled": 1,
+            "output_dir": "examples",
+            "output_file": "*.js"
+          },
+          "test/dreamopt_test.coffee": {
+            "enabled": 1,
+            "output_dir": "test",
+            "output_file": "*.js"
+          },
+          "lib/dreamopt.coffee": {
+            "enabled": 1,
+            "output_dir": "lib",
+            "output_file": "*.js"
+          },
+          "test/optionspec_test.coffee": {
+            "enabled": 1,
+            "output_dir": "test",
+            "output_file": "*.js"
+          }
+        },
+        "enabled": 1
+      }
+    },
+    "rubyVersion": "system"
+  }
+}

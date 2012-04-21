@@ -3,35 +3,24 @@ fs = require 'fs'
 
 { Project } = require './project'
 
-PREF_KEY = 'projects'
+class LRWorkspace
 
-class Workspace
+  constructor: (@memento={}) ->
+    @globalMonitoringRequests = {}
 
-  constructor: ->
     @projects = []
+    for own path, projectMemento of @memento
+      @projects.push new Project(this, path, memento)
 
-  loadModel: (callback) ->
-    LR.preferences.get PREF_KEY, (memento) =>
-      for projectMemento in memento.projects || []
-        @projects.push new Project(projectMemento)
-      callback()
+  _initializeProject: (project) ->
+    for own key, state of @globalMonitoringRequests
+      project.requestMonitoring key, state
+    return project
 
-  saveModel: ->
-    memento = {
-      projects: (p.toMemento() for p in @projects)
-    }
-    LR.preferences.set PREF_KEY, memento
-
-  modelDidChange: (callback) ->
-    @saveModel()
-    @updateProjectList callback
-
-  updateProjectList: (callback) ->
-    LR.client.mainwnd.setProjectList { projects: @projectListJSON() }
+  init: (callback) ->
+    for project in @projects
+      @_initializeProject project
     callback(null)
-
-  projectListJSON: ->
-    (project.toJSON() for project in @projects)
 
   findById: (projectId) ->
     for project in @projects
@@ -39,17 +28,12 @@ class Workspace
         return project
     null
 
-  init: (callback) ->
-    await @loadModel defer()
-    await @updateProjectList defer()
-    callback()
-
   add: ({ path }, callback) ->
     fs.stat path, (err, stat) =>
       if err or not stat
         callback(err || new Error("The path does not exist"))
       else
-        @projects.push new Project({ path })
+        @projects.push @_initializeProject(new Project({ path }))
         @modelDidChange callback
 
   remove: ({ projectId }, callback) ->
@@ -65,4 +49,10 @@ class Workspace
     else
       callback(new Error("Change detected in unknown project id #{id}"))
 
-module.exports = { Workspace }
+  requestMonitoring: (key, state) ->
+    @globalMonitoringRequests[key] = state
+    for project in @projects
+      project.hive.requestMonitoring key, state
+    undefined
+
+module.exports = LRWorkspace

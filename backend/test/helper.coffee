@@ -2,66 +2,47 @@ require 'sugar'
 fs   = require 'fs'
 Path = require 'path'
 
-{ EventEmitter } = require 'events'
-
-MemoryStream = require 'memorystream'
-
-{ createApiTree }                = require 'apitree'
-{ ApiTree, createRemoteApiTree } = require '../lib/util/remoteapitree'
+{ createRemoteApiTree } = require '../lib/util/remoteapitree'
 
 
 exports.LRRoot        = LRRoot = Path.join(__dirname, "../..")
 exports.LRPluginsRoot = LRPluginsRoot = Path.join(LRRoot, "LiveReload/Compilers")
 
 
-class ProcessStdStreamsMock extends EventEmitter
+class MockLRApplication
   constructor: ->
-    @stdin  = new MemoryStream()
-    @stdout = new MemoryStream(null, readable: no)
-    @stdout.setEncoding('utf8')
-    @stderr = process.stderr
-    # @stderr = new MemoryStream(null, readable: no)
-    # @stderr.setEncoding('utf8')
+    @log =
+      fyi: =>
+      wtf: (message) => @test.log.push ['wtf', message]
+      omg: (message) => @test.log.push ['omg', message]
 
-  send: (command, data, callback) ->
-    @stdin.write JSON.stringify([command, data]) + "\n"
-    @communicator.once 'idle', callback
-
-  end: ->
-    @stdin.emit 'end'
-
-  outputAsJson: ->
-    JSON.parse(line) for line in @stdout.getAll().split("\n").compact(yes)
-
-
-exports.setup = setup = (modules=[]) ->
-  global.LR = LR =
-    log:
-      fyi: ->
-      wtf: (message) -> LR.test.log.push ['wtf', message]
-      omg: (message) -> LR.test.log.push ['omg', message]
-
-    shutdownSilently: ->
-
-    test:
+    @test =
       log: []
 
-      # logCall: (name, args...) ->
-      #   callback = (typeof args.last() is 'function') && args.pop()
-      #   LR.test.log.push [name].concat(args)
-      #   callback?(null)
+      clearLog: =>
+        @test.log = []
 
-      # allow: (apis...) ->
-      #   callback = (typeof apis.last() is 'function') && apis.pop() || LR.test.logCall
-      #   for api in apis
-      #     LR.mount api, callback.fill(api)
-      #   return
+      logCall: (name, args...) =>
+        callback = (typeof args.last() is 'function') && args.pop()
+        @test.log.push [name].concat(args)
+        callback?(null)
 
-      # allowRPC: (apis...) ->
-      #   callback = (typeof apis.last() is 'function') && apis.pop() || LR.test.logCall
-      #   for api in apis
-      #     LR.client.mount api, callback.fill("C.#{api}")
-      #   return
+    messages = JSON.parse(fs.readFileSync(Path.join(__dirname, '../config/client-messages.json'), 'utf8'))
+    messages.pop()
+    @client = createRemoteApiTree(messages, (msg) => (args...) => throw new Error("Unexpected call to LR.client.#{msg}"))
+
+    @client.allow = (apis...) =>
+      callback = if typeof apis.last() is 'function' then apis.pop() else @test.logCall
+      for api in apis
+        @client.mount api, callback.fill("C.#{api}")
+      return
+
+    global.LR = this
+
+  shutdownSilently: ->
+
+exports.setup = setup = (modules=[]) ->
+  new MockLRApplication()
 
 
 beforeEach ->
@@ -69,25 +50,3 @@ beforeEach ->
 
 afterEach ->
   global.LR?.shutdownSilently()
-
-
-exports.setupIntegrationTest = ->
-
-  beforeEach (done) ->
-    global.LR = LR = require('../config/env').createEnvironment()
-
-    LR.test =
-      exit: ->
-      streams: new ProcessStdStreamsMock()
-
-    LR.rpc.init(LR.test.streams, (-> LR.test.exit()), 60000)
-
-    LR.app.init {
-      pluginFolders:     [LRPluginsRoot]
-      preferencesFolder: process.env['TMPDIR']
-      version:           "1.2.3"
-    }, done
-
-  afterEach (done) ->
-    LR.test.exit = done
-    LR.test.streams.end()
