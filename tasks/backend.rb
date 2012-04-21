@@ -49,4 +49,22 @@ namespace :backend do
         rm COFFEE_DST + ICED_DST
     end
 
+    task :test do
+        puts "Invoking tests."
+        Dir.chdir 'backend' do
+            sh 'LRPortOverride=35727 ./run-tests --growl -R spec test/**/*_test.js'
+        end
+    end
+
+    task :autotest do
+        require 'listen'
+        Rake::Task['backend:test'].invoke rescue nil
+        puts "\nAutotest waiting for changes.\n"
+        Listen.to('backend', :filter => /\.js$/) do |modified, added, removed|
+            Rake::Task.tasks.each { |task| task.reenable }
+            Rake::Task['backend:test'].invoke rescue nil
+            puts "\nAutotest waiting for changes.\n"
+        end
+    end
+
 end

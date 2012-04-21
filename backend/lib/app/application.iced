@@ -30,6 +30,7 @@ class LRApplication extends EventEmitter
     @log  = new (require '../services/log')()
     @help = new (require '../services/help')()
     @preferences = new (require '../services/preferences')()
+    @console = new (require '../services/console')()
 
     @fsmanager = new (require '../vfs/fsmanager')()
     @model = new (require '../model/model')(this)

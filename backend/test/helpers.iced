@@ -1,10 +1,15 @@
+fs           = require 'fs'
 assert       = require 'assert'
+Path         = require 'path'
+Temp         = require 'temp'
 MemoryStream = require 'memorystream'
+
+{ EventEmitter }  = require 'events'
 
 { LRPluginsRoot } = require './helper'
 
 
-exports.LRApplicationTestingHelper = class LRApplicationTestingHelper
+exports.LRApplicationTestingHelper = class LRApplicationTestingHelper extends EventEmitter
 
   @initCommand: ->
     { pluginFolders: [LRPluginsRoot], preferencesFolder: "/ghi", version: "1.2.3" }
@@ -13,6 +18,7 @@ exports.LRApplicationTestingHelper = class LRApplicationTestingHelper
   constructor: ->
     @input  = new MemoryStream()
     @output = new MemoryStream(null)
+    @preferences = {}
 
     @_readyToQuit = no
 
@@ -39,13 +45,18 @@ exports.LRApplicationTestingHelper = class LRApplicationTestingHelper
     @input.write JSON.stringify([command, arg]) + "\n"
 
   handle: ([command, arg, cbid]) ->
-    switch command
-      when 'preferences.read'
-        @send cbid, null
-      when 'mainwnd.set_connection_status', 'workspace.set_monitoring_enabled'
-        42  # nop
-      else
-        throw new Error("Unexpected command sent by the backend: '#{command}'")
+    if @listeners(command).length > 0
+      @emit arg, cbid
+    else
+      switch command
+        when 'preferences.read'
+          @send cbid, @preferences[arg.key] ? null
+        when 'mainwnd.set_connection_status', 'workspace.set_monitoring_enabled', 'mainwnd.set_change_count', 'app.good_time_to_deliver_news'
+          42  # nop
+        when 'app.failedToStart'
+          throw new Error("Exception thrown inside Node:\n" + arg.message)
+        else
+            throw new Error("Unexpected command sent by the backend: '#{command}'")
 
 
   sendAndWait: (command, arg, callback) ->
@@ -92,3 +103,15 @@ exports.LRApplicationTestingHelper = class LRApplicationTestingHelper
       assert.ok @application.pluginManager?, "application.pluginManager is not initialized"
       assert.ok @application.pluginManager.plugins.length > 0, "application.pluginManager hasn't found any plugins"
       callback()
+
+
+exports.TempFileSystemFolder = class TempFileSystemFolder
+
+  constructor: ->
+    @path = Temp.mkdirSync 'LRtest-'
+
+  pathOf: (relativePath) ->
+    Path.join(@path, relativePath)
+
+  touch: (relativePath) ->
+    fs.writeFileSync @pathOf(relativePath), "" + new Date()

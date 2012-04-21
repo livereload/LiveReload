@@ -3,6 +3,8 @@ Path = require 'path'
 
 nextProjectId = 1
 
+ProcessChangesJob = require '../jobs/process_changes_job'
+
 
 decodeExternalRelativeDir = (dir) ->
   switch dir
@@ -66,9 +68,6 @@ class Project
     { @path }
 
   handleChange: (paths, callback) ->
-    LR.log.fyi "change detected in #{@path}: #{JSON.stringify(paths)}\n"
-    for path in paths
-      LR.websockets.sendReloadCommand { path }
-    callback(null)
+    new ProcessChangesJob(this, paths).execute(callback)
 
 module.exports = { Project }

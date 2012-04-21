@@ -11,6 +11,7 @@ helper = require '../helper'
 
 
 describe "LRWebSocketServer", ->
+
   beforeEach wrap ->
     @server = new LRWebSocketServer()
     @server.httpServer = new MockHttpServer()

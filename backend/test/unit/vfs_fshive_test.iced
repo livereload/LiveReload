@@ -34,9 +34,10 @@ describe "FSHive", ->
   it "should emit 'change' when asked to process a change event", (done) ->
     hive = new FSHive('bar', '/foo/bar')
     _ok = no
-    hive.on 'change', (changes) =>
+    hive.on 'change', (changes, callback) =>
       assert.deepEqual changes, ['foo/bar', 'boz']
       _ok = yes
+      callback(null)
 
     hive.handleFSChangeEvent { changes: ['foo/bar', 'boz'] }, (err) =>
       assert.ifError err

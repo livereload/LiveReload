@@ -5,7 +5,7 @@ wrap   = require '../wrap'
 LRApplication = require '../../lib/app/application'
 
 { MockRpcTransport }           = require '../mocks'
-{ LRApplicationTestingHelper } = require '../helpers'
+{ LRApplicationTestingHelper, TempFileSystemFolder } = require '../helpers'
 { LRPluginsRoot }              = require '../helper'
 
 
@@ -90,3 +90,40 @@ describe "LiveReload", ->
         helper.readyToQuit()
 
     helper.application.rpc.transport.simulate LRApplicationTestingHelper.initCommand()
+
+
+  it "should tell the browser to reload when a monitored project has been changed", (done) ->
+    WebSocket = require 'ws'
+    DefaultWebSocketPort = parseInt(process.env['LRPortOverride'], 10) || 35729
+
+    folder = new TempFileSystemFolder()
+    reloadRequests = []
+
+    helper = new LRApplicationTestingHelper()
+    helper.on 'monitoring.add', (arg) =>
+      assert.equal arg.id, 'H1'
+      assert.equal arg.path, folder.path
+    helper.on 'monitoring.remove', (arg) =>
+      assert.equal arg.id, 'H1'
+
+    (helper.preferences['projects20a3'] = {})[folder.path] = { 'enabled2': yes }
+
+    produceFakeChange = ->
+      folder.touch 'foo.html'
+      helper.sendAndWait 'projects.changeDetected', { id: 'H1', changes: ['foo.html'] }, ->
+        setTimeout ->
+          assert.deepEqual reloadRequests, [ { path: 'foo.html' } ]
+          helper.quit()
+        , 10
+
+    helper.run [], done
+    helper.sendInitAndWait =>
+      ws = new WebSocket("ws://127.0.0.1:#{DefaultWebSocketPort}")
+      ws.on 'open', ->
+        ws.send JSON.stringify({ 'command': 'hello', 'protocols': ['http://livereload.com/protocols/official-7'] })
+      ws.on 'message', (message) ->
+        json = JSON.parse(message)
+        if json.command is 'hello'
+          produceFakeChange()
+        else if json.command is 'reload'
+          reloadRequests.push { path: json.path }
