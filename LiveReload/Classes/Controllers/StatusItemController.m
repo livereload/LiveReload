@@ -4,7 +4,6 @@
 #import "StatusItemController.h"
 #import "StatusItemView.h"
 #import "Workspace.h"
-#import "Project.h"
 #import "DockIcon.h"
 
 

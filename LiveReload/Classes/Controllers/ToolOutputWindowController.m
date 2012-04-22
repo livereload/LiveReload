@@ -1,7 +1,6 @@
 
 #import "ToolOutputWindowController.h"
 
-#import "ToolOutput.h"
 #import "Project.h"
 
 #import "EditorManager.h"

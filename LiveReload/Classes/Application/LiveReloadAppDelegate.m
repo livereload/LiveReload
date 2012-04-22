@@ -1,17 +1,13 @@
 
 #include "osdep.h"
-#include "console.h"
 #include "jansson.h"
 #include "nodeapi.h"
 
 #import "LiveReloadAppDelegate.h"
-#import "Project.h"
 #import "Workspace.h"
-#import "CompilationOptions.h"
 #import "StatusItemController.h"
 #import "NewMainWindowController.h"
 #import "LoginItemController.h"
-#import "PluginManager.h"
 
 #import "Stats.h"
 #import "NSWindowFlipper.h"
@@ -164,7 +160,6 @@ json_t *C_preferences__read(json_t *arg) {
 #endif
 
     [Preferences initDefaults];
-    [[PluginManager sharedPluginManager] reloadPlugins];
 
     _statusItemController = [[StatusItemController alloc] init];
     [self.statusItemController initStatusBarIcon];
@@ -172,7 +167,6 @@ json_t *C_preferences__read(json_t *arg) {
     _mainWindowController = [[NewMainWindowController alloc] init];
 
     os_init();
-    console_init();
     node_init();
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
