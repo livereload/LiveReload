@@ -43,7 +43,7 @@ static void app_init_logging() {
         freopen("CONOUT$", "wb", stderr);
     } else {
         WCHAR buf[MAX_PATH];
-        MultiByteToWideChar(CP_UTF8, 0, os_log_path, -1, buf, MAX_PATH);
+        MultiByteToWideChar(CP_UTF8, 0, nodeapp_log_path, -1, buf, MAX_PATH);
         wcscat(buf, L"\\log.txt");
         _wfreopen(buf, L"w", stderr);
         HANDLE hLogFile = (HANDLE) _get_osfhandle(_fileno(stderr));
@@ -119,10 +119,10 @@ void C_app__failed_to_start(json_t *arg) {
     ExitProcess(1);
 }
 
-void os_emergency_shutdown_backend_crashed() {
+void nodeapp_emergency_shutdown_backend_crashed() {
     DWORD result = MessageBox(NULL, L"Oh my, oh my. The backend decided to be very naughty, so looks like I have to crash.\n\nClick Yes to open troubleshooting instructions and reveal the log file.", L"LiveReload Crash", MB_YESNO | MB_ICONERROR);
     if (result == IDYES) {
-       ShellExecute(NULL, L"explore", U2W(os_log_path), NULL, NULL, SW_SHOWNORMAL);
+       ShellExecute(NULL, L"explore", U2W(nodeapp_log_path), NULL, NULL, SW_SHOWNORMAL);
        ShellExecute(NULL, L"open", L"http://help.livereload.com/kb/troubleshooting/livereload-has-crashed-on-windows", NULL, NULL, SW_SHOWNORMAL);
     }
     ExitProcess(1);
@@ -139,7 +139,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     app_init_sparkle();
     app_init_win32_ui();
     mainwnd_init();
-    os_init();                // must be called before app_init_logging
+    nodeapp_init();                // must be called before app_init_logging
     app_init_logging();
     node_init();
 

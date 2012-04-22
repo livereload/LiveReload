@@ -7,7 +7,7 @@ WebSocket    = require 'ws'
 
 { EventEmitter }  = require 'events'
 
-{ LRPluginsRoot } = require './helper'
+{ LRRoot } = require './helper'
 
 DefaultWebSocketPort = parseInt(process.env['LRPortOverride'], 10) || 35729
 
@@ -15,7 +15,7 @@ DefaultWebSocketPort = parseInt(process.env['LRPortOverride'], 10) || 35729
 exports.LRApplicationTestingHelper = class LRApplicationTestingHelper extends EventEmitter
 
   @initCommand: ->
-    { pluginFolders: [LRPluginsRoot], preferencesFolder: "/ghi", version: "1.2.3" }
+    { resourcesDir: LRRoot, appDataDir: "/tmp", logDir: "/tmp", version: "1.2.3" }
 
 
   constructor: ->

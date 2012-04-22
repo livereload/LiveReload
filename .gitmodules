@@ -1,8 +1,8 @@
-[submodule "LiveReload/Compilers"]
-	path = LiveReload/Compilers
+[submodule "plugins"]
+	path = plugins
 	url = git://github.com/livereload/livereload-plugins.git
-[submodule "Shared/libs/fsmonitor"]
-	path = Shared/libs/fsmonitor
+[submodule "nodeapp/fsmonitor/libs/fsmonitor"]
+	path = nodeapp/fsmonitor/libs/fsmonitor
 	url = git://github.com/andreyvit/fsmonitor.c.git
 [submodule "extensions"]
 	path = extensions

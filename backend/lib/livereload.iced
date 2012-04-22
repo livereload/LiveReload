@@ -16,8 +16,9 @@ exports.run = (input, output, argv, exit) ->
     # callbackTimeout = 60000
 
     app.start {
-      pluginFolders: [ Path.join(__dirname, "../../LiveReload/Compilers") ]
-      preferencesFolder: process.env['TMPDIR']
+      resourcesDir: Path.join(__dirname, "../..")
+      appDataDir:   process.env['TMPDIR']
+      logDir:       process.env['TMPDIR']
       version: "1.2.3"
     }, (err) ->
       throw err if err

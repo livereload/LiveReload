@@ -1,16 +1,11 @@
 [
   "monitoring.add",
   "monitoring.remove",
-  "app.failed_to_start",
-  "mainwnd.set_project_list",
-  "mainwnd.rpane.set_data",
   "app.display_popup_message",
+  "app.reveal_file",
   "app.open_url",
   "app.terminate",
-  "app.good_time_to_deliver_news",
   "preferences.read",
-  "mainwnd.set_connection_status",
-  "mainwnd.set_change_count",
-  "workspace.set_monitoring_enabled",
+  "licensing.verify_receipt",
   null
 ]

@@ -1,5 +1,5 @@
 fs   = require 'fs'
-path = require 'path'
+Path = require 'path'
 
 { EventEmitter }        = require 'events'
 
@@ -32,6 +32,7 @@ class LRApplication extends EventEmitter
     @preferences = new (require '../services/preferences')()
     @console     = new (require '../services/console')()
     @stats       = new (require '../services/stats')()
+    @appnewskit  = new (require '../services/appnewskit')()
 
     @fsmanager = new (require '../vfs/fsmanager')()
     @model = new (require '../model/model')(this)
@@ -48,7 +49,7 @@ class LRApplication extends EventEmitter
       @rpc.send 'app.failedToStart', message: "" + (err.stack || err.message || err)
       @shutdown()
 
-    messages = JSON.parse(fs.readFileSync(path.join(__dirname, '../../config/client-messages.json'), 'utf8'))
+    messages = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../config/client-messages.json'), 'utf8'))
     messages.pop()
     @client = createRemoteApiTree(messages, (msg) => (args...) => @rpc.send(msg, args...))
 
@@ -69,7 +70,12 @@ class LRApplication extends EventEmitter
     global.LR = this
 
 
-  start: ({ pluginFolders, preferencesFolder, @version }, callback) ->
+  start: ({ resourcesDir, appDataDir, logDir, @version }, callback) ->
+    pluginFolders = [ Path.join(resourcesDir, 'plugins') ]
+    preferencesFolder = Path.join(appDataDir, 'Data')
+
+    console.log "pluginFolders = ", pluginFolders
+
     @_up = yes
     @pluginManager = new LRPluginManager(pluginFolders)
 

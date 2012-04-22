@@ -19,87 +19,8 @@
 #import "DockIcon.h"
 
 
-void C_mainwnd__set_project_list(json_t *arg) {
-    // TODO
-}
-
-void C_mainwnd__rpane__set_data(json_t *arg) {
-    // TODO
-}
-
-#define NSStr(x) ((x) ? [NSString stringWithUTF8String:(x)] : nil)
-json_t *C_app__display_popup_message(json_t *arg) {
-    const char *title = json_string_value(json_object_get(arg, "title"));
-    const char *text = json_string_value(json_object_get(arg, "text"));
-    json_t *buttons = json_object_get(arg, "buttons");
-
-    json_t *button1 = json_array_get(buttons, 0);
-    json_t *button2 = json_array_get(buttons, 1);
-    json_t *button3 = json_array_get(buttons, 2);
-
-    const char *b1title = json_string_value(json_array_get(button1, 1));
-    const char *b2title = json_string_value(json_array_get(button2, 1));
-    const char *b3title = json_string_value(json_array_get(button3, 1));
-
-    NSInteger response = [[NSAlert alertWithMessageText:NSStr(title) defaultButton:NSStr(b1title) alternateButton:NSStr(b2title) otherButton:NSStr(b3title) informativeTextWithFormat:@"%s", text] runModal];
-    if (response == NSAlertDefaultReturn)
-        return json_incref(json_array_get(button1, 0));
-    if (response == NSAlertAlternateReturn)
-        return json_incref(json_array_get(button2, 0));
-    if (response == NSAlertOtherReturn)
-        return json_incref(json_array_get(button3, 0));
-    return json_string("error");
-}
-
-void C_app__open_url(json_t *arg) {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithUTF8String:json_string_value(arg)]]];
-}
-
-void C_app__terminate(json_t *arg) {
-    [NSApp terminate:nil];
-}
-
 void C_app__good_time_to_deliver_news(json_t *arg) {
     AppNewsKitGoodTimeToDeliverMessages();
-}
-
-json_t *objc_to_json(id value) {
-    if (value == nil) {
-        return json_null();
-    } else if ([value isKindOfClass:[NSString class]]) {
-        return json_string([value UTF8String]);
-    } else if ([value isKindOfClass:[NSNumber class]]) {
-        double d = [value doubleValue];
-        if (fabs(d - floor(d)) < 1e-10) {
-            return json_integer([value intValue]);
-        } else {
-            return json_real(d);
-        }
-    } else if ([value isKindOfClass:[NSArray class]]) {
-        int count = [value count];
-        json_t *result = json_array();
-        for (int i = 0; i < count; ++i)
-            json_array_append_new(result, objc_to_json([value objectAtIndex:i]));
-        return result;
-    } else if ([value isKindOfClass:[NSDictionary class]]) {
-        json_t *result = json_object();
-        for (id key in value) {
-            if ([key isKindOfClass:[NSNumber class]])
-                key = [key description];
-            NSCAssert([key isKindOfClass:[NSString class]], @"Cannot convert a non-string key to JSON");
-            json_object_set_new(result, [key UTF8String], objc_to_json([value objectForKey:key]));
-        }
-        return result;
-    } else {
-        NSCAssert(NO, @"Cannot convert this type to JSON: %@", [[value class] description]);
-        return NULL;
-    }
-}
-
-json_t *C_preferences__read(json_t *arg) {
-    const char *name = json_string_value(json_object_get(arg, "key"));
-    id value = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithUTF8String:name]];
-    return objc_to_json(value);
 }
 
 
@@ -187,7 +108,7 @@ json_t *C_preferences__read(json_t *arg) {
     });
 
     FixUnixPath();
-    
+
     [[DockIcon currentDockIcon] displayDockIconWhenAppHasWindowsWithDelegateClass:[NewMainWindowController class]];
 }
 

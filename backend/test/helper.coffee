@@ -6,7 +6,7 @@ Path = require 'path'
 
 
 exports.LRRoot        = LRRoot = Path.join(__dirname, "../..")
-exports.LRPluginsRoot = LRPluginsRoot = Path.join(LRRoot, "LiveReload/Compilers")
+exports.LRPluginsRoot = Path.join(LRRoot, 'plugins')
 
 
 class MockLRApplication

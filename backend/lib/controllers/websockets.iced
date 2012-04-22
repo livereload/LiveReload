@@ -67,16 +67,16 @@ module.exports = class LRWebSocketController
     @_updateChangeCountInUI()
 
     if @monitoringConnectionCount() > 0
-      LR.client.app.goodTimeToDeliverNews()
+      LR.appnewskit.goodTimeToDeliverNews()
 
   monitoringConnectionCount: -> @server.monitoringConnectionCount()
 
   _updateConnectionCountInUI: ->
-    LR.client.mainwnd.setConnectionStatus connectionCount: @monitoringConnectionCount()
+    # LR.client.mainwnd.setConnectionStatus connectionCount: @monitoringConnectionCount()
     LR.model.workspace.requestMonitoring 'websockets', (@monitoringConnectionCount() > 0)
 
   _updateChangeCountInUI: ->
-    LR.client.mainwnd.setChangeCount changeCount: @changeCount
+    # LR.client.mainwnd.setChangeCount changeCount: @changeCount
 
   _onhttprequest: (url, request, response) ->
     if url.pathname.match ///^ /x?livereload\.js $///
