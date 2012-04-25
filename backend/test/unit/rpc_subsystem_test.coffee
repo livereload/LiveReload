@@ -32,7 +32,6 @@ describe "RPCSubsystem", ->
     @rpc.send 'foo', 42, cb
     assert.deepEqual @rpc.transport.messages, [['foo', 42, '$1']]
     assert.deepEqual Object.keys(@rpc.callbacks), ['$1']
-    assert.equal @rpc.callbacks['$1'], cb
     assert.deepEqual @rpc.events, []
 
     @rpc.transport.simulate ['$1', 24]

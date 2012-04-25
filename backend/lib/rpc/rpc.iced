@@ -17,17 +17,45 @@ module.exports = class RPCSubsystem extends EventEmitter
       @emit 'end'
 
 
+  registerCallback: (callback) ->
+    callbackId = "$" + @nextCallbackId++
+    @callbacks[callbackId] = callback
+    return callbackId
+
+  freeCallback: (callbackId) ->
+    delete @callbacks[callbackId]
+    if timerId = @timeouts[callbackId]
+      clearTimeout(timerId)
+      delete @timeouts[callbackId]
+
+  registerOneTimeCallback: (callback, timeout) ->
+    wrapperCallback = (args...) =>
+      @freeCallback(callbackId)
+      return callback(null, args...)
+
+    callbackId = @registerCallback(wrapperCallback)
+
+    if timeout
+      @timeouts[callbackId] = setTimeout((-> wrapperCallback new Error("timeout")), @callbackTimeout)
+
+    return callbackId
+
+
   send: (message, arg, callback=null) ->
     if typeof message isnt 'string'
       throw new Error("Invalid type of message: #{message}")
+
+    self = this
+    Function::toJSON = -> self.registerCallback(this)
+
     if callback  #args.length > 0 && typeof args[args.length - 1] is 'function'
-      callbackId = "$" + @nextCallbackId++
-      @callbacks[callbackId] = callback
       # timeouts temporarily disabled because they prevent displayPopupMessage call from returning useful data
-      # @timeouts[callbackId] = setInterval((-> handleCallbackTimeout(callbackId)), @callbackTimeout)
-      @transport.send [message, arg, callbackId]
+      timeout = null
+      @transport.send [message, arg, @registerOneTimeCallback(callback, timeout)]
     else
       @transport.send [message, arg]
+
+    delete Function::toJSON
 
 
   executeWithProtection: (message) ->
@@ -56,11 +84,7 @@ module.exports = class RPCSubsystem extends EventEmitter
 
   executeCallback: (command, arg, callback) ->
     if func = @callbacks[command]
-      if @timeouts[command]
-        clearTimeout(@timeouts[command])
-      delete @timeouts[command]
-      delete @callbacks[command]
-      func null, arg
+      func arg
       callback(null)
     else
       callback(new Error("Unknown or duplicate callback received"))
@@ -81,10 +105,3 @@ module.exports = class RPCSubsystem extends EventEmitter
           @emit 'idle'
 
     callback(err)
-
-
-  handleCallbackTimeout: (callbackId) ->
-    func = @callbacks[callbackId]
-    delete @timeouts[callbackId]
-    delete @callbacks[callbackId]
-    func new Error("timeout")
