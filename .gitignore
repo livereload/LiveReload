@@ -11,6 +11,7 @@ xcuserdata
 /legacy
 /examples
 site/css/livereload.css
+backend/coverage.html
 
 # Windows
 /WinApp

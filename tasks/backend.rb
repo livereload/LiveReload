@@ -49,6 +49,7 @@ namespace :backend do
         rm COFFEE_DST + ICED_DST
     end
 
+    desc "Run tests"
     task :test do
         puts "Invoking tests."
         Dir.chdir 'backend' do
@@ -56,6 +57,33 @@ namespace :backend do
         end
     end
 
+    desc "Produce a test coverage report"
+    task :coverage do
+        unless File.exist? 'backend/lib-src'
+            sh 'cd backend; mv lib lib-src'
+            sh 'cd backend; ln -s lib-src lib'
+        end
+        rm_rf 'backend/lib-cov'
+        sh 'jscoverage backend/lib-src backend/lib-cov'
+        sh 'rm backend/lib'
+        sh 'cd backend; ln -s lib-cov lib'
+        puts "Invoking tests."
+        Dir.chdir 'backend' do
+            sh 'LRPortOverride=35727 ./run-tests -R html-cov test/**/*_test.js >coverage.html' rescue nil
+        end
+        rm_rf 'backend/lib-cov'
+        sh 'open', 'backend/coverage.html'
+        Rake::Task['backend:uncover'].invoke
+    end
+
+    desc "Cleanup after running test coverage"
+    task :uncover do
+        if File.exist? 'backend/lib-src'
+            sh 'cd backend; rm lib; mv lib-src lib'
+        end
+    end
+
+    desc "Run tests automatically when a backend JavaScript file is modified"
     task :autotest do
         require 'listen'
         Rake::Task['backend:test'].invoke rescue nil
