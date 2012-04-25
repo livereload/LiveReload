@@ -2,6 +2,7 @@
 #include "nodeapp_broker.h"
 
 #import <Cocoa/Cocoa.h>
+#include <objc/runtime.h>
 
 
 @interface NodeAppBinding : NSObject
@@ -42,9 +43,10 @@ id nodeapp_ui_get(id parent, NSString *path) {
 }
 
 void nodeapp_ui_bind_control_action(id control, json_t *callback) {
-    id binding = [[NodeAppBinding alloc] initWithCallbackId:json_nsstring_value(callback)];
+    id binding = [[[NodeAppBinding alloc] initWithCallbackId:json_nsstring_value(callback)] autorelease];
     [control setTarget:binding];
     [control setAction:@selector(performSomething:)];
+    objc_setAssociatedObject(control, [NodeAppBinding class], binding, OBJC_ASSOCIATION_RETAIN);
 }
 
 void nodeapp_ui_bind(id control, json_t *bindings) {
