@@ -90,10 +90,9 @@ class LRApplication extends EventEmitter
 
 
   start: ({ resourcesDir, appDataDir, @logDir, @logFile, @version, @build, @platform }, callback) ->
-    pluginFolders = [ Path.join(resourcesDir, 'plugins') ]
-    preferencesFolder = Path.join(appDataDir, 'Data')
+    bundledPluginsFolder = process.env.LRBundledPluginsOverride || Path.join(resourcesDir, 'plugins')
 
-    console.log "pluginFolders = ", pluginFolders
+    preferencesFolder = Path.join(appDataDir, 'Data')
 
     @isPurchased = await C.licensing.verifyReceipt {}, defer(_)
     @isFaithfulCitizen = (@build is 'appstore')
@@ -112,7 +111,7 @@ class LRApplication extends EventEmitter
           return callback(null)
 
     @_up = yes
-    @pluginManager = new LRPluginManager(pluginFolders)
+    @pluginManager = new LRPluginManager([ bundledPluginsFolder ])
 
     errs = {}
     await

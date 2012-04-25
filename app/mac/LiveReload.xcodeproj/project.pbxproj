@@ -47,8 +47,6 @@
 		43E22FBF15444A2E00BCD9C9 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 43E22F9615444A2E00BCD9C9 /* Info.plist */; };
 		43E22FC015444A2E00BCD9C9 /* App.icns in Resources */ = {isa = PBXBuildFile; fileRef = 43E22F9715444A2E00BCD9C9 /* App.icns */; };
 		43E22FC115444A2E00BCD9C9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E22F9E15444A2E00BCD9C9 /* main.m */; };
-		43E22FC415444A7800BCD9C9 /* backend in Resources */ = {isa = PBXBuildFile; fileRef = 43E22FC315444A7700BCD9C9 /* backend */; };
-		43E22FC615444A9700BCD9C9 /* plugins in Resources */ = {isa = PBXBuildFile; fileRef = 43E22FC515444A9700BCD9C9 /* plugins */; };
 		43E22FC915444AD700BCD9C9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 43E22FC715444AD700BCD9C9 /* InfoPlist.strings */; };
 		43E22FCA15444AD700BCD9C9 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43E22FC815444AD700BCD9C9 /* MainMenu.xib */; };
 		43E23021154463B200BCD9C9 /* dump.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E22FD8154463B100BCD9C9 /* dump.c */; };
@@ -145,8 +143,6 @@
 		43E22F9715444A2E00BCD9C9 /* App.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = App.icns; sourceTree = "<group>"; };
 		43E22F9D15444A2E00BCD9C9 /* prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = prefix.pch; sourceTree = "<group>"; };
 		43E22F9E15444A2E00BCD9C9 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		43E22FC315444A7700BCD9C9 /* backend */ = {isa = PBXFileReference; lastKnownFileType = folder; name = backend; path = ../../backend; sourceTree = "<group>"; };
-		43E22FC515444A9700BCD9C9 /* plugins */ = {isa = PBXFileReference; lastKnownFileType = folder; name = plugins; path = ../../plugins; sourceTree = "<group>"; };
 		43E22FC715444AD700BCD9C9 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		43E22FC815444AD700BCD9C9 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		43E22FCC15444B2800BCD9C9 /* app_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = app_config.h; sourceTree = "<group>"; };
@@ -260,8 +256,6 @@
 			children = (
 				43E22F7615444A2E00BCD9C9 /* app */,
 				43E22FD4154463B100BCD9C9 /* nodeapp */,
-				43E22FC315444A7700BCD9C9 /* backend */,
-				43E22FC515444A9700BCD9C9 /* plugins */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
@@ -721,8 +715,6 @@
 				43E22FBE15444A2E00BCD9C9 /* WelcomePaneBackground.png in Resources */,
 				43E22FBF15444A2E00BCD9C9 /* Info.plist in Resources */,
 				43E22FC015444A2E00BCD9C9 /* App.icns in Resources */,
-				43E22FC415444A7800BCD9C9 /* backend in Resources */,
-				43E22FC615444A9700BCD9C9 /* plugins in Resources */,
 				43E22FC915444AD700BCD9C9 /* InfoPlist.strings in Resources */,
 				43E22FCA15444AD700BCD9C9 /* MainMenu.xib in Resources */,
 				43E23036154463B200BCD9C9 /* nodeapp_rpc_proxy.c.erb in Resources */,
