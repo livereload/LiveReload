@@ -1,7 +1,7 @@
 
 #include "nodeapp.h"
 
-json_t *objc_to_json(id value) {
+json_t *nodeapp_objc_to_json_or_null(id value) {
     if (value == nil) {
         return json_null();
     } else if ([value isKindOfClass:[NSString class]]) {
@@ -16,8 +16,15 @@ json_t *objc_to_json(id value) {
     } else if ([value isKindOfClass:[NSArray class]]) {
         int count = [value count];
         json_t *result = json_array();
-        for (int i = 0; i < count; ++i)
-            json_array_append_new(result, objc_to_json([value objectAtIndex:i]));
+        for (int i = 0; i < count; ++i) {
+            json_t *item = nodeapp_objc_to_json_or_null([value objectAtIndex:i]);
+            if (!item) {
+                json_decref(result);
+                return NULL;
+            }
+
+            json_array_append_new(result, item);
+        }
         return result;
     } else if ([value isKindOfClass:[NSDictionary class]]) {
         json_t *result = json_object();
@@ -25,11 +32,26 @@ json_t *objc_to_json(id value) {
             if ([key isKindOfClass:[NSNumber class]])
                 key = [key description];
             NSCAssert([key isKindOfClass:[NSString class]], @"Cannot convert a non-string key to JSON");
-            json_object_set_new(result, [key UTF8String], objc_to_json([value objectForKey:key]));
+
+            json_t *item = nodeapp_objc_to_json_or_null([value objectForKey:key]);
+            if (!item) {
+                json_decref(result);
+                return NULL;
+            }
+
+            json_object_set_new(result, [key UTF8String], item);
         }
         return result;
     } else {
+        return NULL;
+    }
+}
+
+json_t *nodeapp_objc_to_json(id value) {
+    json_t *result = nodeapp_objc_to_json_or_null(value);
+    if (!result) {
         NSCAssert(NO, @"Cannot convert this type to JSON: %@", [[value class] description]);
         return NULL;
     }
+    return result;
 }

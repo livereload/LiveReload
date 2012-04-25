@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		43059222151E8FA400CC3F88 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43059221151E8FA400CC3F88 /* CoreServices.framework */; };
+		430829DE1547696A006D5B4A /* NodeAppWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 430829DD1547696A006D5B4A /* NodeAppWindow.m */; };
+		430829E215476A30006D5B4A /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 430829DF15476A30006D5B4A /* MainWindow.xib */; };
+		430829E315476A30006D5B4A /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 430829E115476A30006D5B4A /* MainWindowController.m */; };
+		430829E515476CF4006D5B4A /* nodeapp_ui.m in Sources */ = {isa = PBXBuildFile; fileRef = 430829E415476CF4006D5B4A /* nodeapp_ui.m */; };
+		430829E715476E43006D5B4A /* nodeapp_broker_osdep.m in Sources */ = {isa = PBXBuildFile; fileRef = 430829E615476E43006D5B4A /* nodeapp_broker_osdep.m */; };
+		430829EB15477D73006D5B4A /* nodeapp_broker.c in Sources */ = {isa = PBXBuildFile; fileRef = 430829EA15477D73006D5B4A /* nodeapp_broker.c */; };
 		43361D4613C30D1400C0E589 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43361D4513C30D1400C0E589 /* libicucore.dylib */; };
 		43594AF413D3BB34004175B2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43594AF313D3BB34004175B2 /* QuartzCore.framework */; };
 		43E22FA315444A2E00BCD9C9 /* AddTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 43E22F7915444A2E00BCD9C9 /* AddTemplate.png */; };
@@ -94,6 +100,16 @@
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		43059221151E8FA400CC3F88 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		430829DC1547696A006D5B4A /* NodeAppWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NodeAppWindow.h; sourceTree = "<group>"; };
+		430829DD1547696A006D5B4A /* NodeAppWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NodeAppWindow.m; sourceTree = "<group>"; };
+		430829DF15476A30006D5B4A /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		430829E015476A30006D5B4A /* MainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindowController.h; sourceTree = "<group>"; };
+		430829E115476A30006D5B4A /* MainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainWindowController.m; sourceTree = "<group>"; };
+		430829E415476CF4006D5B4A /* nodeapp_ui.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nodeapp_ui.m; sourceTree = "<group>"; };
+		430829E615476E43006D5B4A /* nodeapp_broker_osdep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nodeapp_broker_osdep.m; sourceTree = "<group>"; };
+		430829E815476E4D006D5B4A /* nodeapp_broker_osdep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nodeapp_broker_osdep.h; sourceTree = "<group>"; };
+		430829E915477D5D006D5B4A /* nodeapp_broker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nodeapp_broker.h; sourceTree = "<group>"; };
+		430829EA15477D73006D5B4A /* nodeapp_broker.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = nodeapp_broker.c; sourceTree = "<group>"; };
 		43361D4513C30D1400C0E589 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		43594AF313D3BB34004175B2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		43A265E613DCEAE600704BF6 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
@@ -262,6 +278,24 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		430829DA15476323006D5B4A /* ui */ = {
+			isa = PBXGroup;
+			children = (
+				430829DB1547632C006D5B4A /* mac */,
+			);
+			path = ui;
+			sourceTree = "<group>";
+		};
+		430829DB1547632C006D5B4A /* mac */ = {
+			isa = PBXGroup;
+			children = (
+				430829E415476CF4006D5B4A /* nodeapp_ui.m */,
+				430829DC1547696A006D5B4A /* NodeAppWindow.h */,
+				430829DD1547696A006D5B4A /* NodeAppWindow.m */,
+			);
+			path = mac;
+			sourceTree = "<group>";
+		};
 		43E22F7615444A2E00BCD9C9 /* app */ = {
 			isa = PBXGroup;
 			children = (
@@ -344,6 +378,7 @@
 				43E22F9D15444A2E00BCD9C9 /* prefix.pch */,
 				43E22F9E15444A2E00BCD9C9 /* main.m */,
 				43E23050154463F700BCD9C9 /* app_version.h */,
+				43E230641545D25000BCD9C9 /* ui */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -378,6 +413,7 @@
 				43E22FD5154463B100BCD9C9 /* core */,
 				43E23000154463B100BCD9C9 /* fsmonitor */,
 				43E230571544932E00BCD9C9 /* licensing */,
+				430829DA15476323006D5B4A /* ui */,
 				43E2301C154463B100BCD9C9 /* url_handler */,
 			);
 			name = nodeapp;
@@ -400,6 +436,8 @@
 				43E22FFA154463B100BCD9C9 /* nodeapp_rpc_router.c.erb */,
 				43E22FFB154463B100BCD9C9 /* nodeapp_rpc_router.h */,
 				43E22FFC154463B100BCD9C9 /* nodeapp_utils.c */,
+				430829E915477D5D006D5B4A /* nodeapp_broker.h */,
+				430829EA15477D73006D5B4A /* nodeapp_broker.c */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -450,6 +488,8 @@
 				43E22FEF154463B100BCD9C9 /* NodeAppDelegate.m */,
 				43E22FF0154463B100BCD9C9 /* NodeAppWindowController.h */,
 				43E22FF1154463B100BCD9C9 /* NodeAppWindowController.m */,
+				430829E815476E4D006D5B4A /* nodeapp_broker_osdep.h */,
+				430829E615476E43006D5B4A /* nodeapp_broker_osdep.m */,
 			);
 			path = mac;
 			sourceTree = "<group>";
@@ -548,6 +588,56 @@
 			path = mac;
 			sourceTree = "<group>";
 		};
+		43E230641545D25000BCD9C9 /* ui */ = {
+			isa = PBXGroup;
+			children = (
+				43E230661545D28C00BCD9C9 /* main-window */,
+				43E230651545D28C00BCD9C9 /* compilation-settings */,
+				43E230671545D28C00BCD9C9 /* monitoring-settings */,
+				43E230681545D28C00BCD9C9 /* postproc-settings */,
+				43E230691545D28C00BCD9C9 /* status-item */,
+			);
+			path = ui;
+			sourceTree = "<group>";
+		};
+		43E230651545D28C00BCD9C9 /* compilation-settings */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "compilation-settings";
+			sourceTree = "<group>";
+		};
+		43E230661545D28C00BCD9C9 /* main-window */ = {
+			isa = PBXGroup;
+			children = (
+				430829DF15476A30006D5B4A /* MainWindow.xib */,
+				430829E015476A30006D5B4A /* MainWindowController.h */,
+				430829E115476A30006D5B4A /* MainWindowController.m */,
+			);
+			path = "main-window";
+			sourceTree = "<group>";
+		};
+		43E230671545D28C00BCD9C9 /* monitoring-settings */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "monitoring-settings";
+			sourceTree = "<group>";
+		};
+		43E230681545D28C00BCD9C9 /* postproc-settings */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "postproc-settings";
+			sourceTree = "<group>";
+		};
+		43E230691545D28C00BCD9C9 /* status-item */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "status-item";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -639,6 +729,7 @@
 				43E23037154463B200BCD9C9 /* nodeapp_rpc_proxy.h.erb in Resources */,
 				43E23038154463B200BCD9C9 /* nodeapp_rpc_router.c.erb in Resources */,
 				43E2306315449DA600BCD9C9 /* node in Resources */,
+				430829E215476A30006D5B4A /* MainWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -686,6 +777,11 @@
 				43E2305D1544973100BCD9C9 /* nodeapp_api_app.m in Sources */,
 				43E2305F15449A7700BCD9C9 /* nodeapp_objc_json.m in Sources */,
 				43E2306115449ACC00BCD9C9 /* nodeapp_api_preferences.m in Sources */,
+				430829DE1547696A006D5B4A /* NodeAppWindow.m in Sources */,
+				430829E315476A30006D5B4A /* MainWindowController.m in Sources */,
+				430829E515476CF4006D5B4A /* nodeapp_ui.m in Sources */,
+				430829E715476E43006D5B4A /* nodeapp_broker_osdep.m in Sources */,
+				430829EB15477D73006D5B4A /* nodeapp_broker.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

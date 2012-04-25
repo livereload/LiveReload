@@ -2,11 +2,11 @@
 #import <AppKit/AppKit.h>
 
 
-@interface MainWindow : NSWindow
+@interface NodeAppWindow : NSWindow
 @end
 
 
-@interface NSObject (MainWindowDelegate)
+@interface NSObject (NodeAppWindowDelegate)
 
 - (void)window:(NSWindow *)window didChangeFirstResponder:(NSResponder *)responder;
 

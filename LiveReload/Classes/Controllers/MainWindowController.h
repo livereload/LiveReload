@@ -10,9 +10,6 @@
     NSObject              *_projectsItem;
     NSImage               *_folderImage;
 
-    NSArray               *_projects;
-    Project               *_selectedProject;
-
     NSArray               *_panes;
     NSInteger              _currentPane;
 

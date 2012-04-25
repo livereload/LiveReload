@@ -1,4 +1,5 @@
 [
+  "broker.unretain",
   "monitoring.add",
   "monitoring.remove",
   "app.display_popup_message",
@@ -7,5 +8,7 @@
   "app.terminate",
   "preferences.read",
   "licensing.verify_receipt",
+  "ui.create_window",
+  "ui.show_window",
   null
 ]

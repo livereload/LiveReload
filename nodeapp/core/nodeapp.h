@@ -62,7 +62,8 @@ EXTERN_C IMAGE_DOS_HEADER __ImageBase;
 #endif
 
 #ifdef __OBJC__
-json_t *objc_to_json(id value);
+json_t *nodeapp_objc_to_json_or_null(id value);
+json_t *nodeapp_objc_to_json(id value);
 #endif
 
 

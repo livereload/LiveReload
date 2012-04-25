@@ -32,6 +32,15 @@ typedef enum {
 enum { PANE_COUNT = PaneProject+1 };
 
 
+static NewMainWindowController *me;
+
+// model
+static json_t *project_list;
+static json_t *status_view;
+static int browsers_connected = 0;
+static int changes_processed = 0;
+
+
 @interface NewMainWindowController () <NSAnimationDelegate>
 
 + (NewMainWindowController *)sharedMainWindowController;
@@ -50,17 +59,28 @@ enum { PANE_COUNT = PaneProject+1 };
 @end
 
 
-int browsers_connected = 0;
-int changes_processed = 0;
+void C_mainwnd__update_project_list(json_t *arg) {
+    json_set(project_list, json_object_get(arg, "projects"));
+    [me updateProjectList];
+}
+
+void C_mainwnd__update_project_list(json_t *arg) {
+    json_set(project_list, json_object_get(arg, "projects"));
+    [me updateProjectList];
+}
+
+void C_mainwnd__rpane__set_data(json_t *arg) {
+    // TODO
+}
 
 void C_mainwnd__set_connection_status(json_t *arg) {
     browsers_connected = json_integer_value(json_object_get(arg, "connectionCount"));
-    [[NewMainWindowController sharedMainWindowController] updateStatus];
+    [me updateStatus];
 }
 
 void C_mainwnd__set_change_count(json_t *arg) {
     changes_processed = json_integer_value(json_object_get(arg, "changeCount"));
-    [[NewMainWindowController sharedMainWindowController] updateStatus];
+    [me updateStatus];
 }
 
 
@@ -93,8 +113,7 @@ void C_mainwnd__set_change_count(json_t *arg) {
 @synthesize availableCompilersLabel = _availableCompilersLabel;
 
 + (NewMainWindowController *)sharedMainWindowController {
-    LiveReloadAppDelegate *delegate = [NSApp delegate];
-    return delegate.mainWindowController;
+    return me;
 }
 
 - (id)init {
@@ -104,6 +123,8 @@ void C_mainwnd__set_change_count(json_t *arg) {
 
         _folderImage = [[[NSWorkspace sharedWorkspace] iconForFileType:NSFileTypeForHFSTypeCode(kGenericFolderIcon)] retain];
         [_folderImage setSize:NSMakeSize(16,16)];
+
+        me = self;
     }
     return self;
 }
@@ -357,7 +378,6 @@ void C_mainwnd__set_change_count(json_t *arg) {
 #pragma mark - NSOutlineView management
 
 - (void)updateProjectList {
-    _projects = [[Workspace sharedWorkspace].sortedProjects copy];
     [self updateStatus];
     [_projectOutlineView reloadData];
     [self restoreSelection];
@@ -581,7 +601,7 @@ void C_mainwnd__set_change_count(json_t *arg) {
 
 - (void)updateItemStates {
     _openAtLoginMenuItem.state = ([LoginItemController sharedController].loginItemEnabled ? NSOnState : NSOffState);
-    
+
     AppVisibilityMode visibilityMode = [DockIcon currentDockIcon].visibilityMode;
     [_showInDockMenuItem setState:(visibilityMode == AppVisibilityModeDock ? NSOnState : NSOffState)];
     [_showInMenuBarMenuItem setState:(visibilityMode == AppVisibilityModeMenuBar ? NSOnState : NSOffState)];
@@ -775,22 +795,6 @@ void C_mainwnd__set_change_count(json_t *arg) {
 #pragma mark - Status
 
 - (void)updateStatus {
-    NSString *text;
-    if (_projects.count == 0) {
-        text = @"";
-        [_gettingStartedView setHidden:NO];
-    } else {
-        [_gettingStartedView setHidden:YES];
-        NSInteger n = browsers_connected;
-        if (n == 0) {
-            text = @"Waiting for a browser to connect.";
-        } else if (n == 1) {
-            text = [NSString stringWithFormat:@"1 browser connected, %d changes detected so far.", changes_processed];
-        } else {
-            text = [NSString stringWithFormat:@"%d browsers connected, %d changes detected so far.", n, changes_processed];
-        }
-    }
-    _statusTextField.stringValue = text;
 }
 
 - (void)communicationStateChanged:(NSNotification *)notification {

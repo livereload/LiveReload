@@ -38,6 +38,7 @@ class LRApplication extends EventEmitter
 
     @fsmanager = new (require '../vfs/fsmanager')()
     @model = new (require '../model/model')(this)
+    @ui = new (require '../ui/appui')()
 
     @rpc = new RPC(rpcTransport)
 
@@ -128,7 +129,12 @@ class LRApplication extends EventEmitter
     # TODO:
     # LR.stats.startup()
 
-    LR.log.fyi "Backend is up and running."
+    LR.log.fyi "Backend is up and running; starting the UI."
+
+    if @platform is 'mac'
+      await @ui.start defer()
+
+    LR.log.fyi "App startup has been finished."
     callback(null)
 
   shutdownSilently: ->

@@ -1,8 +1,8 @@
 
-#import "MainWindow.h"
+#import "NodeAppWindow.h"
 
 
-@implementation MainWindow
+@implementation NodeAppWindow
 
 - (BOOL)makeFirstResponder:(NSResponder *)aResponder {
     BOOL result = [super makeFirstResponder:aResponder];
