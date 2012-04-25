@@ -76,7 +76,7 @@ describe "LiveReload", ->
           helper.quit()
 
 
-  it "should send 'app.failedToStart' when there's an error on startup", (done) ->
+  it "should display a popup message when there's an unhandled error", (done) ->
     helper = new LRApplicationTestingHelper()
     helper.application = new LRApplication(new MockRpcTransport())
 
@@ -86,9 +86,12 @@ describe "LiveReload", ->
 
     helper.application.on 'init', (callback) -> callback(new Error("simulated error"))
 
-    helper.application.rpc.transport.on 'sent', ([command, arg]) =>
-      if command is 'app.failedToStart'
-        helper.readyToQuit()
+    helper.application.rpc.transport.on 'sent', ([command, arg, cbid]) =>
+      if command is 'app.display_popup_message'
+        helper.application.rpc.transport.simulate [cbid, 'quit']
+      else if command is 'app.terminate'
+        console.error 'quitting!'
+        helper.application.rpc.transport.emit 'end'
 
     helper.application.rpc.transport.simulate LRApplicationTestingHelper.initCommand()
 

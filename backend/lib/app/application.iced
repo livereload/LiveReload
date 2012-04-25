@@ -26,6 +26,8 @@ class LRApplication extends EventEmitter
   constructor: (rpcTransport) ->
     @_up = no
 
+    @expirationDate = 'June 1, 2012'
+
     # instantiate services (cross-cutting concepts available to the entire application)
     @log         = new (require '../services/log')()
     @help        = new (require '../services/help')()
@@ -46,8 +48,23 @@ class LRApplication extends EventEmitter
       @invoke command, arg, callback
 
     @rpc.on 'uncaughtException', (err) =>
-      @rpc.send 'app.failedToStart', message: "" + (err.stack || err.message || err)
-      @shutdown()
+      details = "" + (err.stack || err.message || err)
+      summary = details.split("\n").slice(0, 4).join("\n").trim()
+      subject = details.split("\n")[0].trim()
+
+      await C.app.displayPopupMessage {
+        title:   "LiveReload 2 error"
+        text:    "Whoops: LiveReload has just survived an error. If something stops working, you might want to restart the app. Sending the log file to the developer would be tremendously helpful too.\n\nGeeky details: #{summary}"
+        buttons: [['report', 'Contact Support'], ['ignore', 'Ignore'], ['quit', 'Quit']]
+      }, defer(err, result)
+      if result is 'report'
+        await
+          LR.help.openSupportTicket "Error: #{subject}", '', defer()
+          if @logFile
+            C.app.revealFile { file: @logFile }, defer()
+      else if result is 'quit'
+        C.app.terminate()
+      return
 
     messages = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../config/client-messages.json'), 'utf8'))
     messages.pop()
@@ -68,13 +85,30 @@ class LRApplication extends EventEmitter
           @fsmanager.handleFSChangeEvent arg, callback
 
     global.LR = this
+    global.C = @client
 
 
-  start: ({ resourcesDir, appDataDir, logDir, @version }, callback) ->
+  start: ({ resourcesDir, appDataDir, @logDir, @logFile, @version, @build, @platform }, callback) ->
     pluginFolders = [ Path.join(resourcesDir, 'plugins') ]
     preferencesFolder = Path.join(appDataDir, 'Data')
 
     console.log "pluginFolders = ", pluginFolders
+
+    @isPurchased = await C.licensing.verifyReceipt {}, defer(_)
+    @isFaithfulCitizen = (@build is 'appstore')
+
+    # beta versions have soft expiration dates
+    unless @isFaithfulCitizen
+      if new Date().isAfter(@expirationDate)
+        await C.app.displayPopupMessage {
+          title:   "LiveReload 2 beta has expired"
+          text:    "Hey! Thanks for trying our betas. This particular beta version of LiveReload has expired #{Date.create(@expirationDate).relative()}. It now begs you to ease its suffering and update to the latest one from http://livereload.com/."
+          buttons: [['update', 'Visit Our Site'], ['launch', 'Brutally Ignore']]
+        }, defer(err, result)
+        if result is 'update'
+          await C.app.openUrl "http://livereload.com/", defer()
+          C.app.terminate()
+          return callback(null)
 
     @_up = yes
     @pluginManager = new LRPluginManager(pluginFolders)

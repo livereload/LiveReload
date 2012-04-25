@@ -22,5 +22,13 @@ class LRHelp
         if result == 'help'
           LR.client.app.openUrl url
 
+  openSupportTicket: (subject, body, callback) ->
+    body = "#{body}\n\nI'm using LiveReload v#{LR.version}-#{LR.platform}.\n\nRemember: please attach the log file from `#{LR.logDir}`!"
+
+    subject = encodeURIComponent(subject)
+    body    = encodeURIComponent(body)
+
+    C.app.openUrl "http://help.livereload.com/discussion/new?discussion%%5Btitle%%5D=#{subject}&discussion%%5Bbody%%5D=#{body}", callback
+
 
 module.exports = LRHelp

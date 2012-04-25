@@ -1,2 +1,2 @@
 --reporter spec
---globals LR
+--globals LR,C

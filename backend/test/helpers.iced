@@ -58,8 +58,10 @@ exports.LRApplicationTestingHelper = class LRApplicationTestingHelper extends Ev
           @send cbid, @preferences[arg.key] ? null
         when 'mainwnd.set_connection_status', 'workspace.set_monitoring_enabled', 'mainwnd.set_change_count', 'app.good_time_to_deliver_news'
           42  # nop
-        when 'app.failedToStart'
+        when 'app.failed_to_start'
           throw new Error("Exception thrown inside Node:\n" + arg.message)
+        when 'licensing.verify_receipt'
+          @send cbid, no
         else
             throw new Error("Unexpected command sent by the backend: '#{command}'")
 
