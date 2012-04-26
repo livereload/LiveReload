@@ -27,7 +27,7 @@ describe "LR.app", ->
 
     describe "when one of the initialization calls fails", ->
       beforeEach (done) ->
-        LR.test.allow 'plugins.init', (_, _, callback) -> callback(new Error("simulated error"))
+        LR.test.allow 'plugins.init', (_, __, callback) -> callback(new Error("simulated error"))
         LR.test.allow 'rpc.exit'
         LR.test.allowRPC 'app.failed_to_start'
         LR.app.init { pluginFolders: ["/abc", "/def"], preferencesFolder: "/ghi", version: "1.2.3" }, done
