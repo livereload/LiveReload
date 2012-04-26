@@ -105,7 +105,7 @@ void C_app__good_time_to_deliver_news(json_t *arg) {
         NSDate *now = [NSDate date];
         NSDateComponents *cutoff = [[[NSDateComponents alloc] init] autorelease];
         [cutoff setYear:2012];
-        [cutoff setMonth:5];
+        [cutoff setMonth:7];
         [cutoff setDay:1];
         if ([now compare:[[NSCalendar currentCalendar] dateFromComponents:cutoff]] == NSOrderedDescending) {
             // stop auto-login and show a message
