@@ -390,7 +390,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
             continue;
         if ([compiler.extensions containsObject:extension]) {
             compilerFound = YES;
-            CompilationOptions *compilationOptions = [self optionsForCompiler:compiler create:_compilationEnabled];
+            CompilationOptions *compilationOptions = [self optionsForCompiler:compiler create:YES];
             if (_compilationEnabled && compilationOptions.active) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:ProjectWillBeginCompilationNotification object:self];
                 [self compile:relativePath under:_path with:compiler options:compilationOptions];
