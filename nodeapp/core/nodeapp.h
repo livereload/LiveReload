@@ -9,10 +9,18 @@
 #ifdef _MSC_VER
 #include <windows.h>
 #include <malloc.h>
+#else
+#include <stdbool.h>
 #endif
 
 #include <stdlib.h>
 #include <string.h>
+#include <assert.h>
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -70,8 +78,17 @@ json_t *nodeapp_objc_to_json(id value);
 ////////////////////////////////////////////////////////////////////////////////
 // Common Helpers
 
+#define malloc_type(type) ((type *) malloc(sizeof(type)))
+    
+#define assert0(expr, fmt) if(expr); else fprintf(stderr, "Assertion failed at %s:%u: %s " fmt, __FILE__, __LINE__, #expr)
+#define assert1(expr, fmt, arg1) if(expr); else fprintf(stderr, "Assertion failed at %s:%u: %s " fmt, __FILE__, __LINE__, #expr, arg1)
+#define assert2(expr, fmt, arg1, arg2) if(expr); else fprintf(stderr, "Assertion failed at %s:%u: %s " fmt, __FILE__, __LINE__, #expr, arg1, arg2)
+
 #define json_set(var, value) do { json_decref(var); (var) = json_incref(value); } while(0)
 #define json_bool(val) ((val) ? json_true() : json_false())
+#define json_bool_value(val) (json_is_true(val))
+    
+json_t *json_object_1(const char *key1, json_t *value1);
 
 #define ARRAY_FOREACH(type, array, iterVar, code) {\
     type *iterVar##end = (array) + sizeof((array))/sizeof((array)[0]);\
@@ -79,6 +96,14 @@ json_t *nodeapp_objc_to_json(id value);
         code;\
     }\
 }
+
+#define for_each_object_key_value_(object, key, value) \
+    for (void *key##_iter = json_object_iter(object); key##_iter && (key = json_object_iter_key(key##_iter)) && (value = json_object_iter_value(key##_iter)); key##_iter = json_object_iter_next(object, key##_iter))
+
+#define for_each_object_key_value(object, key, value) \
+    const char *key; \
+    json_t *value; \
+    for_each_object_key_value_(object, key, value)
 
 char *str_printf(const char *fmt, ...);
 
@@ -100,5 +125,9 @@ void nodeapp_rpc_send(const char *command, json_t *arg);
 
 typedef void (*INVOKE_LATER_FUNC)(void *);
 void nodeapp_invoke_on_main_thread(INVOKE_LATER_FUNC func, void *context);
+
+#ifdef __cplusplus
+} // extern "C"
+#endif
 
 #endif

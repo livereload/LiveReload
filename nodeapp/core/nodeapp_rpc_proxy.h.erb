@@ -3,8 +3,16 @@
 
 #include "jansson.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 % for entry in entries
 void <%= entry.func_name %>(json_t *data);
 % end
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

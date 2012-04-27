@@ -84,6 +84,10 @@ class LRApplication extends EventEmitter
           callback(new Error("Not implemented yet"))
         changeDetected: (arg, callback) =>
           @fsmanager.handleFSChangeEvent arg, callback
+      ui:
+        notify: (arg, callback) =>
+          @ui.notify(arg)
+          callback(null)
 
     global.LR = this
     global.C = @client

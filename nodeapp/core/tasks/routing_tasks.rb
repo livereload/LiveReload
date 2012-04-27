@@ -9,7 +9,7 @@ class RoutingTasks
   RoutingTableEntry = OpenStruct
 
   CLIENT_MSG_ROUTER          = 'app/shared/gen_src/nodeapp_rpc_router.c'
-  CLIENT_MSG_ROUTER_SOURCES  = Dir['{nodeapp,app}/**/*.{c,m}'] - [CLIENT_MSG_ROUTER]
+  CLIENT_MSG_ROUTER_SOURCES  = Dir['{nodeapp,app}/**/*.{c,cc,m,mm}'] - [CLIENT_MSG_ROUTER]
   CLIENT_MSG_PROXY_H         = 'app/shared/gen_src/nodeapp_rpc_proxy.h'
   CLIENT_MSG_PROXY_C         = 'app/shared/gen_src/nodeapp_rpc_proxy.c'
   SERVER_MSG_PROXY           = 'backend/config/client-messages.json'

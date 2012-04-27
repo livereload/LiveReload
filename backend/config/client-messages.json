@@ -2,13 +2,12 @@
   "broker.unretain",
   "monitoring.add",
   "monitoring.remove",
+  "ui.update",
   "app.display_popup_message",
   "app.reveal_file",
   "app.open_url",
   "app.terminate",
   "preferences.read",
   "licensing.verify_receipt",
-  "ui.create_window",
-  "ui.show_window",
   null
 ]

@@ -11,10 +11,11 @@
 		430829DE1547696A006D5B4A /* NodeAppWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 430829DD1547696A006D5B4A /* NodeAppWindow.m */; };
 		430829E215476A30006D5B4A /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 430829DF15476A30006D5B4A /* MainWindow.xib */; };
 		430829E315476A30006D5B4A /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 430829E115476A30006D5B4A /* MainWindowController.m */; };
-		430829E515476CF4006D5B4A /* nodeapp_ui.m in Sources */ = {isa = PBXBuildFile; fileRef = 430829E415476CF4006D5B4A /* nodeapp_ui.m */; };
+		430829E515476CF4006D5B4A /* nodeapp_ui_osdep.mm in Sources */ = {isa = PBXBuildFile; fileRef = 430829E415476CF4006D5B4A /* nodeapp_ui_osdep.mm */; };
 		430829E715476E43006D5B4A /* nodeapp_broker_osdep.m in Sources */ = {isa = PBXBuildFile; fileRef = 430829E615476E43006D5B4A /* nodeapp_broker_osdep.m */; };
 		430829EB15477D73006D5B4A /* nodeapp_broker.c in Sources */ = {isa = PBXBuildFile; fileRef = 430829EA15477D73006D5B4A /* nodeapp_broker.c */; };
 		43361D4613C30D1400C0E589 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43361D4513C30D1400C0E589 /* libicucore.dylib */; };
+		4348E4C4154A6DDE00BA8F26 /* nodeapp_ui.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4348E4C3154A6DDE00BA8F26 /* nodeapp_ui.cc */; };
 		43594AF413D3BB34004175B2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43594AF313D3BB34004175B2 /* QuartzCore.framework */; };
 		43E22FA315444A2E00BCD9C9 /* AddTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 43E22F7915444A2E00BCD9C9 /* AddTemplate.png */; };
 		43E22FA415444A2E00BCD9C9 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 43E22F7A15444A2E00BCD9C9 /* background.png */; };
@@ -103,12 +104,15 @@
 		430829DF15476A30006D5B4A /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		430829E015476A30006D5B4A /* MainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindowController.h; sourceTree = "<group>"; };
 		430829E115476A30006D5B4A /* MainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainWindowController.m; sourceTree = "<group>"; };
-		430829E415476CF4006D5B4A /* nodeapp_ui.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nodeapp_ui.m; sourceTree = "<group>"; };
+		430829E415476CF4006D5B4A /* nodeapp_ui_osdep.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = nodeapp_ui_osdep.mm; sourceTree = "<group>"; };
 		430829E615476E43006D5B4A /* nodeapp_broker_osdep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nodeapp_broker_osdep.m; sourceTree = "<group>"; };
 		430829E815476E4D006D5B4A /* nodeapp_broker_osdep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nodeapp_broker_osdep.h; sourceTree = "<group>"; };
 		430829E915477D5D006D5B4A /* nodeapp_broker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nodeapp_broker.h; sourceTree = "<group>"; };
 		430829EA15477D73006D5B4A /* nodeapp_broker.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = nodeapp_broker.c; sourceTree = "<group>"; };
 		43361D4513C30D1400C0E589 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		4348E4C2154A6DCF00BA8F26 /* nodeapp_ui.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = nodeapp_ui.hh; sourceTree = "<group>"; };
+		4348E4C3154A6DDE00BA8F26 /* nodeapp_ui.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nodeapp_ui.cc; sourceTree = "<group>"; };
+		4348E4C5154A81B600BA8F26 /* nodeapp_ui_osdep.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = nodeapp_ui_osdep.hh; sourceTree = "<group>"; };
 		43594AF313D3BB34004175B2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		43A265E613DCEAE600704BF6 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		43E22F7915444A2E00BCD9C9 /* AddTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddTemplate.png; sourceTree = "<group>"; };
@@ -276,6 +280,8 @@
 			isa = PBXGroup;
 			children = (
 				430829DB1547632C006D5B4A /* mac */,
+				4348E4C2154A6DCF00BA8F26 /* nodeapp_ui.hh */,
+				4348E4C3154A6DDE00BA8F26 /* nodeapp_ui.cc */,
 			);
 			path = ui;
 			sourceTree = "<group>";
@@ -283,7 +289,8 @@
 		430829DB1547632C006D5B4A /* mac */ = {
 			isa = PBXGroup;
 			children = (
-				430829E415476CF4006D5B4A /* nodeapp_ui.m */,
+				4348E4C5154A81B600BA8F26 /* nodeapp_ui_osdep.hh */,
+				430829E415476CF4006D5B4A /* nodeapp_ui_osdep.mm */,
 				430829DC1547696A006D5B4A /* NodeAppWindow.h */,
 				430829DD1547696A006D5B4A /* NodeAppWindow.m */,
 			);
@@ -771,9 +778,10 @@
 				43E2306115449ACC00BCD9C9 /* nodeapp_api_preferences.m in Sources */,
 				430829DE1547696A006D5B4A /* NodeAppWindow.m in Sources */,
 				430829E315476A30006D5B4A /* MainWindowController.m in Sources */,
-				430829E515476CF4006D5B4A /* nodeapp_ui.m in Sources */,
+				430829E515476CF4006D5B4A /* nodeapp_ui_osdep.mm in Sources */,
 				430829E715476E43006D5B4A /* nodeapp_broker_osdep.m in Sources */,
 				430829EB15477D73006D5B4A /* nodeapp_broker.c in Sources */,
+				4348E4C4154A6DDE00BA8F26 /* nodeapp_ui.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
