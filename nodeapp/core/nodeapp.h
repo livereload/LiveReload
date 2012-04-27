@@ -76,6 +76,14 @@ json_t *nodeapp_objc_to_json(id value);
 
 
 ////////////////////////////////////////////////////////////////////////////////
+// Hash Table
+
+#include "hashtable.h"
+    
+size_t jsonp_hash_str(const void *ptr);
+int jsonp_str_equal(const void *ptr1, const void *ptr2);
+
+////////////////////////////////////////////////////////////////////////////////
 // Common Helpers
 
 #define malloc_type(type) ((type *) malloc(sizeof(type)))
@@ -89,6 +97,7 @@ json_t *nodeapp_objc_to_json(id value);
 #define json_bool_value(val) (json_is_true(val))
     
 json_t *json_object_1(const char *key1, json_t *value1);
+json_t *json_object_2(const char *key1, json_t *value1, const char *key2, json_t *value2);
 
 #define ARRAY_FOREACH(type, array, iterVar, code) {\
     type *iterVar##end = (array) + sizeof((array))/sizeof((array)[0]);\
@@ -104,6 +113,13 @@ json_t *json_object_1(const char *key1, json_t *value1);
     const char *key; \
     json_t *value; \
     for_each_object_key_value_(object, key, value)
+    
+#define for_each_array_item_(array, index, value) \
+    for (size_t index##_size = json_array_size(array), index = 0; index < index##_size && (value = json_array_get(array, index)); ++index)
+    
+#define for_each_array_item(array, index, value) \
+    json_t *value; \
+    for_each_array_item_(array, index, value)
 
 char *str_printf(const char *fmt, ...);
 

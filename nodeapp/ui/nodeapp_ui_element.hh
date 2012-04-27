@@ -1,5 +1,5 @@
-#ifndef nodeapp_ui_h
-#define nodeapp_ui_h
+#ifndef nodeapp_ui_element_h
+#define nodeapp_ui_element_h
 
 #include "nodeapp.h"
 
@@ -18,10 +18,10 @@ public:
     
     static UIElement *create_root_context();
 
+    char *path_;
 protected:
     UIElement *parent_context_;
     char *id_;
-    char *path_;
     hashtable_t children_;
 
     UIElement *resolve_child(const char *name, json_t *payload);

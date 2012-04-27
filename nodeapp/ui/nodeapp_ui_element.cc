@@ -1,15 +1,10 @@
 
-#include "nodeapp_ui.hh"
+#include "nodeapp_ui_element.hh"
 #include "nodeapp_rpc_proxy.h"
 
 
-extern "C" {
-    size_t jsonp_hash_str(const void *ptr);
-    int jsonp_str_equal(const void *ptr1, const void *ptr2);
-
-    static void UIElement_free(void *arg) {
-        delete (UIElement *)arg;
-    }
+static void UIElement_free(void *arg) {
+    delete (UIElement *)arg;
 }
 
 
