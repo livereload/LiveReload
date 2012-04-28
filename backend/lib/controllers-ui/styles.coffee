@@ -1,5 +1,5 @@
 
-module.exports =
+module.exports = styles =
 
   '#mainwindow #projectOutlineView':
     'style':           'source-list'
@@ -15,3 +15,7 @@ module.exports =
   '#mainwindow #projectOutlineView data .project':
     image: 'folder'
     expandable: no
+
+for id in ['#nameTextField', '#pathTextField', '#statusTextField', '#addProjectButton', '#removeProjectButton', '#gettingStartedIconView', '#gettingStartedLabelField', '#terminalButton']
+  styles["#mainwindow #{id}"] =
+    'cell-background-style': 'raised'

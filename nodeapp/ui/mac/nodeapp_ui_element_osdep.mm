@@ -127,7 +127,35 @@ const char *ViewUIElement::action_event_name() {
 GenericViewUIElement::GenericViewUIElement(UIElement *parent_context, const char *_id, id view) : ViewUIElement(parent_context, _id, view, [UIElementDelegate class]) {
 }
 
-ButtonUIElement::ButtonUIElement(UIElement *parent_context, const char *_id, id view) : ViewUIElement(parent_context, _id, view, [UIElementDelegate class]) {
+
+ControlUIElement::ControlUIElement(UIElement *parent_context, const char *_id, id view, Class delegate_klass) : ViewUIElement(parent_context, _id, view, delegate_klass) {
+    hook_action();
+}
+
+bool ControlUIElement::set(const char *property, json_t *value) {
+    if (0 == strcmp(property, "cell-background-style")) {
+        const char *style = json_string_value(value);
+        if (!style) {
+            assert1(json_is_string(value), "Unsupported value for cell-background-style of %s", path_);
+        } if (0 == strcmp(style, "raised")) {
+            [[view_ cell] setBackgroundStyle:NSBackgroundStyleRaised];
+        } else if (0 == strcmp(style, "lowered")) {
+            [[view_ cell] setBackgroundStyle:NSBackgroundStyleLowered];
+        } else if (0 == strcmp(style, "light")) {  // the default
+            [[view_ cell] setBackgroundStyle:NSBackgroundStyleDark];
+        } else if (0 == strcmp(style, "dark")) {
+            [[view_ cell] setBackgroundStyle:NSBackgroundStyleLight];
+        } else {
+            assert2(json_is_string(value), "Unsupported value '%s' for cell-background-style of %s", style, path_);
+        }
+        return true;
+    } else {
+        return UIElement::set(property, value);
+    }
+}
+
+
+ButtonUIElement::ButtonUIElement(UIElement *parent_context, const char *_id, id view) : ControlUIElement(parent_context, _id, view, [UIElementDelegate class]) {
     hook_action();
 }
 
@@ -222,7 +250,7 @@ bool OutlineUIElement::set(const char *property, json_t *value) {
 
 
 
-TextFieldUIElement::TextFieldUIElement(UIElement *parent_context, const char *_id, id view) : ViewUIElement(parent_context, _id, view, [UIElementDelegate class]) {
+TextFieldUIElement::TextFieldUIElement(UIElement *parent_context, const char *_id, id view) : ControlUIElement(parent_context, _id, view, [UIElementDelegate class]) {
 }
 
 bool TextFieldUIElement::set(const char *property, json_t *value) {
@@ -230,7 +258,7 @@ bool TextFieldUIElement::set(const char *property, json_t *value) {
         [view_ setStringValue:json_nsstring_value(value)];
         return true;
     } else {
-        return ViewUIElement::set(property, value);
+        return ControlUIElement::set(property, value);
     }
 }
 

@@ -1,3 +1,4 @@
+{ makeObject, splitSelector, selectorToTree } = require './util'
 
 module.exports = class Stylesheet
 
@@ -5,7 +6,20 @@ module.exports = class Stylesheet
     # selectors are only annotated the first time they are used
     @annotatedSelectors = {}
 
-  annotate: (payload, path=[], always=no) ->
+  annotate: (payload) ->
+    @__annotate payload
+
+    LR.log.fyi "Stylesheet: " + JSON.stringify(@selectorsToProperties, null, 2)
+
+    for own selector, props of @selectorsToProperties when selector.match(/^[ #a-zA-Z0-9-]+$/)  # IDs only
+      if !@annotatedSelectors[selector]
+        Object.merge payload, selectorToTree(selector, props), false, false  # shallow merge, don't overwrite keys
+        @annotatedSelectors[selector] = yes
+
+    return
+
+
+  __annotate: (payload, path=[], always=no) ->
     selector = path.join(' ')
     if props = @selectorsToProperties[selector]
       if always or !@annotatedSelectors[selector]
@@ -18,7 +32,7 @@ module.exports = class Stylesheet
         # property data is completely overwritten, so always annotate it
 
         path.push(key)
-        @annotate value, path, always || isProperty
+        @__annotate value, path, always || isProperty
         path.pop()
 
         if Object.isString(value.tags)
@@ -26,7 +40,7 @@ module.exports = class Stylesheet
 
         for tag in value.tags || []
           path.push(tag)
-          @annotate value, path, always || isProperty
+          @__annotate value, path, always || isProperty
           path.pop()
 
       # TODO: if this is a deletion request (value == false), mark the corresponding selectors as unannotated

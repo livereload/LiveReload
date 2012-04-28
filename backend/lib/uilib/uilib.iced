@@ -1,4 +1,5 @@
 Stylesheet = require './stylesheet'
+{ makeObject, splitSelector, selectorToTree } = require './util'
 
 Tree =
   mkdir: (tree, path) ->
@@ -18,17 +19,6 @@ Tree =
   get: (tree, path, value) ->
     [prefix..., suffix] = path
     Tree.cd(tree, prefix)[suffix]
-
-makeObject = (key, value) ->
-  object = {}
-  object[key] = value
-  return object
-
-splitSelector = (selector) ->
-  if selector
-    selector.split ' '
-  else
-    []
 
 
 class UIControllerWrapper
@@ -242,6 +232,7 @@ module.exports = class UIDirector
 
   update: (payload) ->
     @stylesheet.annotate payload
+    LR.log.fyi "Final outgoing payload with stylesheet applied: " + JSON.stringify(payload, null, 2)
     C.ui.update payload
 
   notify: (payload) ->

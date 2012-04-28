@@ -64,14 +64,22 @@ protected:
 };
 
 
-class ButtonUIElement : public ViewUIElement {
+class ControlUIElement : public ViewUIElement {
+public:
+    ControlUIElement(UIElement *parent_context, const char *_id, id view, Class delegate_klass);
+protected:
+    virtual bool set(const char *property, json_t *value);
+};
+
+
+class ButtonUIElement : public ControlUIElement {
 public:
     ButtonUIElement(UIElement *parent_context, const char *_id, id view);
     //protected:
 };
 
 
-class TextFieldUIElement : public ViewUIElement {
+class TextFieldUIElement : public ControlUIElement {
 public:
     TextFieldUIElement(UIElement *parent_context, const char *_id, id view);
 protected:
