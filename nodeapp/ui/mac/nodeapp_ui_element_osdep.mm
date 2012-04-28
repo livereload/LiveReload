@@ -47,7 +47,10 @@ UIElement *WindowUIElement::create_child(const char *name, json_t *payload) {
 }
 
 bool WindowUIElement::set(const char *property, json_t *value) {
-    if (0 == strcmp(property, "visible")) {
+    if (0 == strcmp(property, "type")) {
+        // handled earlier; ignore
+        return true;
+    } else if (0 == strcmp(property, "visible")) {
         bool v = json_bool_value(value);
         NSWindow *window = [windowController_ window];
         if ([window isVisible] != v) {

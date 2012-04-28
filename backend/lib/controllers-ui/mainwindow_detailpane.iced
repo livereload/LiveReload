@@ -9,7 +9,6 @@ module.exports = class DetailPaneController
 
       '#nameTextField':
         text: 'Foo'
-        biz: 42
 
       '#pathTextField':
         text: 'Bar'

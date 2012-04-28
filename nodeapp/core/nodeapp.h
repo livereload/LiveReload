@@ -88,9 +88,9 @@ int jsonp_str_equal(const void *ptr1, const void *ptr2);
 
 #define malloc_type(type) ((type *) malloc(sizeof(type)))
     
-#define assert0(expr, fmt) if(expr); else fprintf(stderr, "Assertion failed at %s:%u: %s " fmt, __FILE__, __LINE__, #expr)
-#define assert1(expr, fmt, arg1) if(expr); else fprintf(stderr, "Assertion failed at %s:%u: %s " fmt, __FILE__, __LINE__, #expr, arg1)
-#define assert2(expr, fmt, arg1, arg2) if(expr); else fprintf(stderr, "Assertion failed at %s:%u: %s " fmt, __FILE__, __LINE__, #expr, arg1, arg2)
+#define assert0(expr, fmt) if(expr); else (fprintf(stderr, "Assertion failed at %s:%u: %s " fmt, __FILE__, __LINE__, #expr), abort())
+#define assert1(expr, fmt, arg1) if(expr); else (fprintf(stderr, "Assertion failed at %s:%u: %s " fmt, __FILE__, __LINE__, #expr, arg1), abort())
+#define assert2(expr, fmt, arg1, arg2) if(expr); else (fprintf(stderr, "Assertion failed at %s:%u: %s " fmt, __FILE__, __LINE__, #expr, arg1, arg2), abort())
 
 #define json_set(var, value) do { json_decref(var); (var) = json_incref(value); } while(0)
 #define json_bool(val) ((val) ? json_true() : json_false())

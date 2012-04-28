@@ -71,6 +71,10 @@ UIElement *UIElement::create_child(const char *name, json_t *payload) {
 }
 
 bool UIElement::set(const char *property, json_t *value) {
+    if (0 == strcmp(property, "tags")) {
+        // this property is used by the backend only, but we don't strip it for inspection and debugging purposes
+        return true;
+    }
     return false;
 }
 
