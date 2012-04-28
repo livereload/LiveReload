@@ -191,6 +191,9 @@ class UIControllerWrapper
       unless eventSpec is '*' or eventSpec.match /^[a-zA-Z0-9-]+[?!]?$/
         throw new Error("Invalid event spec '#{eventSpec}' in selector '#{key}' of #{@name}")
 
+      # because we sometimes put elements and events into the same tree, we need them to have different names;
+      # e.g. "#foo *" would be overwritten by "#foo * clicked" if we didn't rename '*' event into '*!'.
+      # note that allowing other suffixes like '?' (and exposing them to the user) was likely a stupid idea.
       eventSpec = "#{eventSpec}!" unless eventSpec.match /[?!]$/
 
       Tree.set @handlerTree, [elementSpec..., eventSpec], value
