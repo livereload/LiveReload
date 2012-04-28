@@ -152,11 +152,6 @@ bool OutlineUIElement::set(const char *property, json_t *value) {
             }
         }
         return true;
-    } else if (0 == strcmp(property, "columns")){
-//        NSOutlineView *outlineView = view_;
-//        json_set(data_, value);
-//        [view_ reloadData];
-        return true;
     } else if (0 == strcmp(property, "dnd-drop-types")) {
         NSMutableArray *array = [NSMutableArray array];
         for_each_array_item(value, i, type_json) {
@@ -286,14 +281,6 @@ UIElement *UIElement::create_root_context() {
     
 }
 
-//- (id)outlineView:(NSOutlineView *)outlineView itemForPersistentObject:(id)object {
-//    
-//}
-//
-//- (id)outlineView:(NSOutlineView *)outlineView persistentObjectForItem:(id)item {
-//    
-//}
-
 - (void)outlineView:(NSOutlineView *)outlineView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn item:(id)item {
     if ([cell respondsToSelector:@selector(setImage:)]) {
         json_t *data = [self data];
@@ -311,22 +298,6 @@ UIElement *UIElement::create_root_context() {
     }
 }
 
-//- (BOOL)outlineView:(NSOutlineView *)outlineView shouldEditTableColumn:(NSTableColumn *)tableColumn item:(id)item {
-//    
-//}
-
-//- (BOOL)selectionShouldChangeInOutlineView:(NSOutlineView *)outlineView {
-//    
-//}
-//
-//- (BOOL)outlineView:(NSOutlineView *)outlineView shouldSelectItem:(id)item {
-//    
-//}
-//
-//- (BOOL)outlineView:(NSOutlineView *)outlineView shouldSelectTableColumn:(NSTableColumn *)tableColumn {
-//    
-//}
-
 - (void)outlineView:(NSOutlineView *)outlineView mouseDownInHeaderOfTableColumn:(NSTableColumn *)tableColumn {
     
 }
@@ -339,34 +310,6 @@ UIElement *UIElement::create_root_context() {
     
 }
 
-//- (NSString *)outlineView:(NSOutlineView *)outlineView toolTipForCell:(NSCell *)cell rect:(NSRectPointer)rect tableColumn:(NSTableColumn *)tableColumn item:(id)item mouseLocation:(NSPoint)mouseLocation {
-//    
-//}
-
-//- (CGFloat)outlineView:(NSOutlineView *)outlineView heightOfRowByItem:(id)item;
-
-//- (NSString *)outlineView:(NSOutlineView *)outlineView typeSelectStringForTableColumn:(NSTableColumn *)tableColumn item:(id)item 
-
-//- (BOOL)outlineView:(NSOutlineView *)outlineView shouldShowCellExpansionForTableColumn:(NSTableColumn *)tableColumn item:(id)item
-
-//- (BOOL)outlineView:(NSOutlineView *)outlineView shouldTrackCell:(NSCell *)cell forTableColumn:(NSTableColumn *)tableColumn item:(id)item NS_AVAILABLE_MAC(10_5);
-
-//- (NSCell *)outlineView:(NSOutlineView *)outlineView dataCellForTableColumn:(NSTableColumn *)tableColumn item:(id)item NS_AVAILABLE_MAC(10_5);
-
-//- (BOOL)outlineView:(NSOutlineView *)outlineView shouldExpandItem:(id)item {
-//    
-//}
-
-//- (BOOL)outlineView:(NSOutlineView *)outlineView shouldCollapseItem:(id)item {
-//    
-//}
-
-//- (void)outlineView:(NSOutlineView *)outlineView willDisplayOutlineCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn item:(id)item;
-
-//- (CGFloat)outlineView:(NSOutlineView *)outlineView sizeToFitWidthOfColumn:(NSInteger)column NS_AVAILABLE_MAC(10_6);
-
-//- (BOOL)outlineView:(NSOutlineView *)outlineView shouldShowOutlineCellForItem:(id)item NS_AVAILABLE_MAC(10_6);
-
 - (void)outlineViewSelectionDidChange:(NSNotification *)notification {
     NSOutlineView *outlineView = _element->view_;
     NSInteger selectedRow = [outlineView selectedRow];
@@ -377,10 +320,6 @@ UIElement *UIElement::create_root_context() {
         _element->notify(json_object_1("selected", json_null()));
     }
 }
-
-//- (void)outlineViewColumnDidMove:(NSNotification *)notification;
-//- (void)outlineViewColumnDidResize:(NSNotification *)notification;
-//- (void)outlineViewSelectionIsChanging:(NSNotification *)notification;
 
 - (void)outlineViewItemWillExpand:(NSNotification *)notification {
     
@@ -399,25 +338,3 @@ UIElement *UIElement::create_root_context() {
 }
 
 @end
-
-//void nodeapp_ui_bind_children(id parent, json_t *bindings, json_t *response) {
-//    for (void *iter = json_object_iter(bindings); iter; iter = json_object_iter_next(bindings, iter)) {
-//        const char *key = json_object_iter_key(iter);
-//        json_t *subbindings = json_object_iter_value(iter);
-//
-//        id child = nodeapp_ui_get(parent, NSStr(key));
-//        if (child) {
-//            json_object_set(response, key, json_broker_object(child));
-//            nodeapp_ui_bind(child, subbindings);
-//        }
-//    }
-//}
-
-
-
-#define nodeapp_ui_context_intro() if (root_context); else nodeapp_ui_context_init()
-
-//void C_ui__show_window(json_t *arg) {
-//    NSWindowController *windowController = json_broker_object_value(json_object_get(arg, "window"));
-//    [windowController showWindow:nil];
-//}
