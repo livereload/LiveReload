@@ -16,6 +16,11 @@ module.exports = styles =
     image: 'folder'
     expandable: no
 
+  '#mainwindow #snippetLabelField':
+    'hyperlink-url': "http://help.livereload.com/kb/general-use/browser-extensions"
+    'hyperlink-color': "#000a89"
+
+
 for id in ['#nameTextField', '#pathTextField', '#statusTextField', '#addProjectButton', '#removeProjectButton', '#gettingStartedIconView', '#gettingStartedLabelField', '#terminalButton']
   styles["#mainwindow #{id}"] =
     'cell-background-style': 'raised'

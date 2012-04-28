@@ -30,6 +30,7 @@ protected:
     // override points for children
     virtual UIElement *create_child(const char *name, json_t *payload);
     virtual bool set(const char *property, json_t *value);
+    virtual void post_set(json_t *payload);
 };
 
 

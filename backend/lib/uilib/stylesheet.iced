@@ -13,7 +13,8 @@ module.exports = class Stylesheet
 
     for own selector, props of @selectorsToProperties when selector.match(/^[ #a-zA-Z0-9-]+$/)  # IDs only
       if !@annotatedSelectors[selector]
-        Object.merge payload, selectorToTree(selector, props), false, false  # shallow merge, don't overwrite keys
+        LR.log.fyi "Selector #{selector}, props: " + JSON.stringify(selectorToTree(selector, props), null, 2)
+        Object.merge payload, selectorToTree(selector, props), true  # deep merge
         @annotatedSelectors[selector] = yes
 
     return

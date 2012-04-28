@@ -58,6 +58,7 @@ void UIElement::update(json_t *payload) {
             assert2(ok, "Unknown property '%s' set for element '%s'", key, path_);
         }
     }
+    post_set(payload);
 }
 
 void UIElement::notify(json_t *payload) {
@@ -76,6 +77,9 @@ bool UIElement::set(const char *property, json_t *value) {
         return true;
     }
     return false;
+}
+
+void UIElement::post_set(json_t *payload) {
 }
 
 

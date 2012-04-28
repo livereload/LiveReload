@@ -44,9 +44,24 @@ protected:
     virtual const char *action_event_name();
 };
 
+
+class ControlUIElement : public ViewUIElement {
+public:
+    ControlUIElement(UIElement *parent_context, const char *_id, id view, Class delegate_klass);
+protected:
+    virtual bool set(const char *property, json_t *value);
+};
+
+
 class GenericViewUIElement : public ViewUIElement {
 public:
     GenericViewUIElement(UIElement *parent_context, const char *_id, id view);
+};
+
+
+class GenericControlUIElement : public ControlUIElement {
+public:
+    GenericControlUIElement(UIElement *parent_context, const char *_id, id view);
 };
 
 
@@ -64,14 +79,6 @@ protected:
 };
 
 
-class ControlUIElement : public ViewUIElement {
-public:
-    ControlUIElement(UIElement *parent_context, const char *_id, id view, Class delegate_klass);
-protected:
-    virtual bool set(const char *property, json_t *value);
-};
-
-
 class ButtonUIElement : public ControlUIElement {
 public:
     ButtonUIElement(UIElement *parent_context, const char *_id, id view);
@@ -84,6 +91,7 @@ public:
     TextFieldUIElement(UIElement *parent_context, const char *_id, id view);
 protected:
     virtual bool set(const char *property, json_t *value);
+    virtual void post_set(json_t *payload);
 };
 
 

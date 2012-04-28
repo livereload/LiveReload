@@ -7,6 +7,34 @@
 #include <objc/runtime.h>
 
 
+#define hex2i(string, start, len, result) [[NSScanner scannerWithString:[string substringWithRange:NSMakeRange(start, len)]] scanHexInt:result]
+
+NSColor *NSColorFromStringSpec(NSString *spec) {
+    NSCAssert1([spec characterAtIndex:0] == '#', @"Invalid color format: '%@'", spec);
+    unsigned red, green, blue, alpha = 255;
+    BOOL ok;
+    switch ([spec length]) {
+        case 4:
+            ok = hex2i(spec, 1, 1, &red) && hex2i(spec, 2, 1, &green) && hex2i(spec, 3, 1, &blue);
+            red   = (red   << 4) + red;
+            green = (green << 4) + green;
+            blue  = (blue  << 4) + blue;
+            break;
+        case 7:
+            ok = hex2i(spec, 1, 2, &red) && hex2i(spec, 3, 2, &green) && hex2i(spec, 5, 2, &blue);
+            break;
+        case 9:
+            ok = hex2i(spec, 1, 2, &red) && hex2i(spec, 3, 2, &green) && hex2i(spec, 5, 2, &blue) && hex2i(spec, 7, 2, &alpha);
+            break;
+        default:
+            ok = NO;
+            break;
+    }
+    NSCAssert1(ok, @"Invalid color format: '%@'", spec);
+    return [NSColor colorWithCalibratedRed:red/255.0 green:green/255.0 blue:blue/255.0 alpha:alpha/255.0];
+}
+
+
 ApplicationUIElement::ApplicationUIElement() : RootUIElement("#application") {
 }
 
@@ -45,6 +73,8 @@ UIElement *WindowUIElement::create_child(const char *name, json_t *payload) {
         return new OutlineUIElement(this, name, view);
     else if ([view isKindOfClass:[NSTextField class]])
         return new TextFieldUIElement(this, name, view);
+    else if ([view isKindOfClass:[NSControl class]])
+        return new GenericControlUIElement(this, name, view);
     else
         return new GenericViewUIElement(this, name, view);
 }
@@ -125,6 +155,10 @@ const char *ViewUIElement::action_event_name() {
 
 
 GenericViewUIElement::GenericViewUIElement(UIElement *parent_context, const char *_id, id view) : ViewUIElement(parent_context, _id, view, [UIElementDelegate class]) {
+}
+
+
+GenericControlUIElement::GenericControlUIElement(UIElement *parent_context, const char *_id, id view) : ControlUIElement(parent_context, _id, view, [UIElementDelegate class]) {
 }
 
 
@@ -250,15 +284,72 @@ bool OutlineUIElement::set(const char *property, json_t *value) {
 
 
 
+void StyleHyperlink(NSTextField *label, NSString *string, NSURL *url, NSColor *linkColor) {
+    // both are needed, otherwise hyperlink won't accept mousedown
+    [label setAllowsEditingTextAttributes:YES];
+    [label setSelectable:YES];
+
+    // attributes
+    NSShadow *shadow = [[[NSShadow alloc] init] autorelease];
+    NSMutableParagraphStyle *paragraphStyle = [[[NSMutableParagraphStyle alloc] init] autorelease];
+    [paragraphStyle setAlignment:label.alignment];
+    if (!linkColor)
+        linkColor = label.textColor;
+    NSDictionary *linkAttributes = [NSDictionary dictionaryWithObjectsAndKeys:linkColor, NSForegroundColorAttributeName, [NSNumber numberWithInt:NSSingleUnderlineStyle], NSUnderlineStyleAttributeName, url, NSLinkAttributeName, label.font, NSFontAttributeName, shadow, NSShadowAttributeName, paragraphStyle, NSParagraphStyleAttributeName, nil];
+    
+    NSRange range = [string rangeOfString:@"_["];
+    if (range.location == NSNotFound) {
+        label.attributedStringValue = [[[NSAttributedString alloc] initWithString:string attributes:linkAttributes] autorelease];
+    } else {
+        NSString *prefix = [string substringToIndex:range.location];
+        string = [string substringFromIndex:range.location + range.length];
+        
+        range = [string rangeOfString:@"]_"];
+        NSCAssert(range.length > 0, @"Partial hyperlink must contain ]_ marker");
+        NSString *link = [string substringToIndex:range.location];
+        NSString *suffix = [string substringFromIndex:range.location + range.length];
+        
+        NSMutableAttributedString *as = [[[NSMutableAttributedString alloc] init] autorelease];
+        
+        
+        [as appendAttributedString:[[[NSAttributedString alloc] initWithString:prefix attributes:[NSDictionary dictionaryWithObjectsAndKeys:label.textColor, NSForegroundColorAttributeName, shadow, NSShadowAttributeName, paragraphStyle, NSParagraphStyleAttributeName, label.font, NSFontAttributeName, nil]] autorelease]];
+        
+        [as appendAttributedString:[[[NSAttributedString alloc] initWithString:link attributes:linkAttributes] autorelease]];
+        
+        [as appendAttributedString:[[[NSAttributedString alloc] initWithString:suffix attributes:[NSDictionary dictionaryWithObjectsAndKeys:label.textColor, NSForegroundColorAttributeName, shadow, NSShadowAttributeName, paragraphStyle, NSParagraphStyleAttributeName, label.font, NSFontAttributeName, nil]] autorelease]];
+
+        label.attributedStringValue = as;
+    }
+}
+
 TextFieldUIElement::TextFieldUIElement(UIElement *parent_context, const char *_id, id view) : ControlUIElement(parent_context, _id, view, [UIElementDelegate class]) {
 }
 
 bool TextFieldUIElement::set(const char *property, json_t *value) {
     if (0 == strcmp(property, "text")) {
-        [view_ setStringValue:json_nsstring_value(value)];
+        return true;
+    } else if (0 == strcmp(property, "hyperlink-url")) {
+        return true;
+    } else if (0 == strcmp(property, "hyperlink-color")) {
         return true;
     } else {
         return ControlUIElement::set(property, value);
+    }
+}
+
+void TextFieldUIElement::post_set(json_t *payload) {
+    json_t *text_j = json_object_get(payload, "text");
+    json_t *hyperlink_url_j = json_object_get(payload, "hyperlink-url");
+    json_t *hyperlink_color_j = json_object_get(payload, "hyperlink-color");
+    if (text_j || hyperlink_url_j) {
+        NSString *text = json_nsstring_value(text_j);
+        if (!text)
+            text = [view_ stringValue];
+        if (hyperlink_url_j) {
+            StyleHyperlink(view_, text, [NSURL URLWithString:json_nsstring_value(hyperlink_url_j)], (hyperlink_color_j ? NSColorFromStringSpec(json_nsstring_value(hyperlink_color_j)) : nil));
+        } else {
+            [view_ setStringValue:text];
+        }
     }
 }
 
