@@ -102,7 +102,8 @@ class UIControllerWrapper
 
   addChildController: (selector, childController) ->
     LR.log.fyi "Adding a child controller for #{selector} of #{@name}"
-    @selectorsToChildControllers[selector] = wrapper = new UIControllerWrapper(this, splitSelector(selector), childController)
+    wrapper = new UIControllerWrapper(this, splitSelector(selector), childController)
+    (@selectorsToChildControllers[selector] ||= []).push wrapper
     wrapper.$ = @_sendChildUpdate.bind(@, wrapper)
     LR.log.fyi "Initializing child controller #{wrapper.name}"
     wrapper.initialize()
@@ -132,8 +133,8 @@ class UIControllerWrapper
       LR.log.fyi "Notification received: " + JSON.stringify(payload, null, 2)
 
     selector = path.join(' ')
-    if childController = @selectorsToChildControllers[selector]
-      LR.log.fyi "Handing payload off to a child controller for #{selector}"
+    for childController in @selectorsToChildControllers[selector] || []
+      LR.log.fyi "Handing payload off to #{childController.name}"
       childController.notify(payload)
 
     for own key, value of payload

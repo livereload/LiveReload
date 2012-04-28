@@ -9,5 +9,8 @@ module.exports = class MainWindowController
   '%projectList controller?': ->
     new (require './mainwindow_projectlist')(this)
 
+  '%detailPane controller?': ->
+    new (require './mainwindow_detailpane')(this)
+
   setStatus: (text) ->
     @$ '#statusTextField': text: text
