@@ -20,6 +20,8 @@ module.exports = class ProjectListController
 
   '#projectOutlineView selected': (arg) ->
     @mainWindowController.setStatus "Selected: #{arg}"
+    if project = arg && LR.model.workspace.findById(arg.substr(1))
+      @mainWindowController.detailPane.setProject project
 
   updateProjectList: ->
     listData =

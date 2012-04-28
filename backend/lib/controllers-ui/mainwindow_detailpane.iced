@@ -16,3 +16,11 @@ module.exports = class DetailPaneController
       # just for a test
       '#statusTextField':
         text: "Hello from DetailPaneController"
+
+  setProject: (project) ->
+    @$
+      '#nameTextField':
+        text: project.name
+
+      '#pathTextField':
+        text: project.path
