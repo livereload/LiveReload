@@ -18,6 +18,7 @@ void nodeapp_shutdown() {
 void nodeapp_reset() {
     nodeapp_fsmonitor_reset();
     nodeapp_ui_reset();
+    nodeapp_init_logging();
 }
 
 json_t *json_object_1(const char *key1, json_t *value1) {
