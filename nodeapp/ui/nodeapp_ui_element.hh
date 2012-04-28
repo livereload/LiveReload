@@ -18,13 +18,13 @@ public:
     
     static UIElement *create_root_context();
 
+    UIElement *resolve_child(const char *name, json_t *payload);
+
     char *path_;
 protected:
     UIElement *parent_context_;
     char *id_;
     hashtable_t children_;
-
-    UIElement *resolve_child(const char *name, json_t *payload);
 
 protected:
     // override points for children

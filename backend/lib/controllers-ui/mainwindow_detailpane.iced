@@ -4,6 +4,7 @@ module.exports = class DetailPaneController
   initialize: ->
     @$
       '#projectPane':
+        placeholder: '#panePlaceholder'
         visible: yes
 
       '#nameTextField':

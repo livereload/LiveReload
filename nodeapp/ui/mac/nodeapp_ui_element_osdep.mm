@@ -84,6 +84,21 @@ bool ViewUIElement::set(const char *property, json_t *value) {
             [view_ setHidden:hidden];
         }
         return true;
+    } else if (0 == strcmp(property, "placeholder")) {
+        const char *placeholder = json_string_value(value);
+        UIElement *element = parent_context_->resolve_child(placeholder, NULL);
+        assert2(element, "Cannot find placeholder element '%s' around %s", placeholder, path_);
+        ViewUIElement *viewEl = dynamic_cast<ViewUIElement *>(element);
+        assert2(viewEl, "Placeholder element '%s' (around %s) must be a view", placeholder, path_);
+        NSView *placeholderView = viewEl->view_;
+        
+        if ([view_ superview] != [placeholderView superview]) {
+            [view_ removeFromSuperview];
+            [[placeholderView superview] addSubview:view_ positioned:NSWindowBelow relativeTo:placeholderView];
+        }
+        [view_ setFrame:[placeholderView frame]];
+        [(NSView *)view_ setAutoresizingMask:[placeholderView autoresizingMask]];
+        return true;
     } else {
         return UIElement::set(property, value);
     }
