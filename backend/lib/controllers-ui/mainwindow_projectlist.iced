@@ -1,5 +1,5 @@
 
-class ProjectListController
+module.exports = class ProjectListController
 
   constructor: (@mainWindowController) ->
 
@@ -42,17 +42,3 @@ class ProjectListController
         expandable: no
 
     @$ '#projectOutlineView': data: listData
-
-
-module.exports = class MainWindowController
-
-  initialize: ->
-    @$
-      type: 'MainWindow'
-      visible: true
-
-  '%projectList controller?': ->
-    new ProjectListController(this)
-
-  setStatus: (text) ->
-    @$ '#statusTextField': text: text

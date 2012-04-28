@@ -33,13 +33,14 @@ class UIControllerWrapper
 
   constructor: (@parent, @prefix, @controller) ->
     @controller.$ = @update.bind(@)
-    @reversePrefix = @prefix.slice(0).reverse()
 
-    @childControllers = {}
+    @selectorsToChildControllers        = {}
     @selectorsTestedForChildControllers = {}
-    @_enqueuedPayload = {}
-    @_updateNestingLevel = 0
 
+    @enqueuedPayload    = {}
+    @updateNestingLevel = 0
+
+    @reversePrefix = @prefix.slice(0).reverse()
     @name = (@parent && "#{@parent.name}/" || "") + @controller.constructor.name + (@prefix.length > 0 && "(#{@prefix.join(' ')})" || "")
 
   initialize: ->
@@ -54,6 +55,8 @@ class UIControllerWrapper
   update: (payload) ->
     LR.log.fyi "update of #{@name}: " + JSON.stringify(payload, null, 2)
     @_sendUpdate payload, =>
+      # any update payloads sent while initializing child controllers have to be merged into this payload
+      # because some properties provided by those updates might be only settable at UI creation time
       for own key, value of payload
         @instantiateChildControllers [key]
 
@@ -62,24 +65,26 @@ class UIControllerWrapper
     @_sendUpdate payload
 
   _sendUpdate: (payload, func) ->
-    # TODO: smarter merge (merge #smt and .smt keys, overwrite property keys)
-    @_enqueuedPayload = Object.merge @_enqueuedPayload, payload, true
-    LR.log.fyi "#{@name}._sendUpdate merged payload: " + JSON.stringify(@_enqueuedPayload, null, 2)
+    # TODO: smarter merge (merge #smt and .smt keys, overwrite property keys even if they are objects like 'data')
+    # (or maybe it's better to use update rather than overwrite semantics for the 'data' property)
+    @enqueuedPayload = Object.merge @enqueuedPayload, payload, true
+    LR.log.fyi "#{@name}._sendUpdate merged payload: " + JSON.stringify(@enqueuedPayload, null, 2)
 
+    # merge any updates that happen while func is executing into this one
     if func
-      @_updateNestingLevel++
+      @updateNestingLevel++
       try
         func()
       finally
-        @_updateNestingLevel--
+        @updateNestingLevel--
 
-    if @_updateNestingLevel == 0
+    if @updateNestingLevel == 0
       @_submitEnqueuedPayload()
 
   _submitEnqueuedPayload: ->
-    LR.log.fyi "#{@name}._submitEnqueuedPayload: " + JSON.stringify(@_enqueuedPayload, null, 2)
-    payload = @_enqueuedPayload
-    @_enqueuedPayload = {}
+    LR.log.fyi "#{@name}._submitEnqueuedPayload: " + JSON.stringify(@enqueuedPayload, null, 2)
+    payload = @enqueuedPayload
+    @enqueuedPayload = {}
 
     for key in @reversePrefix
       payload = makeObject(key, payload)
@@ -97,7 +102,7 @@ class UIControllerWrapper
 
   addChildController: (selector, childController) ->
     LR.log.fyi "Adding a child controller for #{selector} of #{@name}"
-    @childControllers[selector] = wrapper = new UIControllerWrapper(this, splitSelector(selector), childController)
+    @selectorsToChildControllers[selector] = wrapper = new UIControllerWrapper(this, splitSelector(selector), childController)
     wrapper.$ = @_sendChildUpdate.bind(@, wrapper)
     LR.log.fyi "Initializing child controller #{wrapper.name}"
     wrapper.initialize()
@@ -127,7 +132,7 @@ class UIControllerWrapper
       LR.log.fyi "Notification received: " + JSON.stringify(payload, null, 2)
 
     selector = path.join(' ')
-    if childController = @childControllers[selector]
+    if childController = @selectorsToChildControllers[selector]
       LR.log.fyi "Handing payload off to a child controller for #{selector}"
       childController.notify(payload)
 
