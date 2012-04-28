@@ -1,67 +1,120 @@
 { EventEmitter } = require 'events'
 
-class UIObject extends EventEmitter
-  constructor: (@options) ->
-    @handle = null
-    @_init()
 
-  _init: ->
+Tree =
+  mkdir: (tree, path) ->
+    for item in path
+      tree = (tree[item] ||= {})
+    tree
 
-  _createBindings: -> {}
+  cd: (tree, path) ->
+    for item in path
+      tree = tree?[item]
+    tree
 
-class UIControl extends UIObject
+  set: (tree, path, value) ->
+    [prefix..., suffix] = path
+    Tree.mkdir(tree, prefix)[suffix] = value
 
-  _init: ->
-    if @options.click
-      @on 'click', @options.click
-      delete @options.click
+  get: (tree, path, value) ->
+    [prefix..., suffix] = path
+    Tree.cd(tree, prefix)[suffix]
 
-  _createBindings: ->
-    click: =>
-      @emit 'click'
+makeObject = (key, value) ->
+  object = {}
+  object[key] = value
+  return object
 
-class UIButton extends UIControl
 
-class UIWindow extends UIObject
-  constructor: (@className, controls={}) ->
-    @controls = []
-    @add controls
+class UIControllerWrapper extends EventEmitter
 
-  add: (name, control) ->
-    if Object.isObject name
-      for own k, v of name
-        @add k, v
-      return
+  constructor: (@prefix, @controller) ->
+    @controller.$ = @update.bind(@)
+    @reversePrefix = @prefix.slice(0).reverse()
 
-    control.name = name
-    @controls.push control
-    this[name] = control
+  initialize: ->
+    @controller.initialize()
+    @rescan()
 
-  create: (callback) ->
-    bindings = {}
-    objects = {}
-    bindings.window = @_createBindings()
-    objects.window = this
-    for control in @controls
-      bindings[control.name] = control._createBindings()
-      objects[control.name] = control
+  rescan: ->
+    @handlerTree = {}
 
-    await C.ui.createWindow {
-      @className
-      bindings
-    }, defer(err, response)
+    # intentionally traversing the prototype chain here
+    for key, value of @controller when key.indexOf(' ') >= 0
+      [elementSpec..., eventSpec] = key.split(' ')
 
-    for own k, _ of bindings
-      objects[k].handle = response[k]
+      for component in elementSpec
+        unless component.match /^#[a-zA-Z0-9-]+$/
+          throw new Error("Invalid element spec '#{component}' in selector '#{key}'")
+      unless eventSpec is '*' or eventSpec.match /^[a-zA-Z0-9-]+[?!]?$/
+        throw new Error("Invalid event spec '#{eventSpec}' in selector '#{key}'")
 
+      eventSpec = "#{eventSpec}!" unless eventSpec.match /[?!]$/
+
+      Tree.set @handlerTree, [elementSpec..., eventSpec], value
+
+  update: (data) ->
+    for key in @reversePrefix
+      data = makeObject(key, data)
+    @emit 'update', data
+
+  notify: (payload, path=[]) ->
+    if path.length == 0
+      LR.log.fyi "Notification received: " + JSON.stringify(payload, null, 2)
+    for own key, value of payload
+      if key[0] == '#'
+        path.push key
+        @notify value, path
+        path.pop()
+      else
+        @invoke path, key, value,
+
+  invoke: (path, event, arg) ->
+    event = "#{event}!" unless event.match /[?!]$/
+
+    LR.log.fyi "Looking for handlers for path #{path.join(' ')}, event #{event}"
+    Function::toJSON = -> "<func>"
+    LR.log.fyi "Handler tree: " + JSON.stringify(@handlerTree, null, 2)
+    delete Function::toJSON
+
+    handlers = @collectHandlers @handlerTree, path, event, '*' + event.match(/[?!]$/)[0]
+    for { handler, selector } in handlers
+      LR.log.fyi "Invoking handler for #{selector}"
+      handler.call(@controller, arg, path, event)
+
+  collectHandlers: (node, path, event, wildcardEvent, handlers=[], selectorComponents=[]) ->
+    LR.log.fyi "collectHandlers(node at '#{selectorComponents.join(' ')}', '#{path.join(' ')}', '#{event}', '#{wildcardEvent}', handlers #{handlers.length})"
+    if path.length > 0
+      if subnode = node[path[0]]
+        selectorComponents.push(path[0])
+        @collectHandlers(subnode, path.slice(1), event, wildcardEvent, handlers, selectorComponents)
+        selectorComponents.pop()
+      if subnode = node['*']
+        selectorComponents.push('*')
+        @collectHandlers(subnode, path.slice(1), event, wildcardEvent, handlers, selectorComponents)
+        selectorComponents.pop()
+    else
+      if handler = node[event]
+        selector = selectorComponents.concat([event]).join(' ')
+        handlers.push { handler, selector }
+      if handler = node[wildcardEvent]
+        selector = selectorComponents.concat([wildcardEvent]).join(' ')
+        handlers.push { handler, selector }
+    return handlers
+
+
+module.exports = class UIDirector
+
+  constructor: (rootController) ->
+    @rootControllerWrapper = new UIControllerWrapper([], rootController)
+    @rootControllerWrapper.on 'update', @update.bind(@)
+
+  start: (callback) ->
+    @rootControllerWrapper.initialize()
     callback(null)
 
-  show: (callback) ->
-    C.ui.showWindow { window: @handle }, callback
+  update: (payload) ->
+    C.ui.update payload
 
-module.exports = {
-  UIObject
-  UIControl
-  UIButton
-  UIWindow
-}
+  notify: (payload) ->
+    @rootControllerWrapper.notify payload
