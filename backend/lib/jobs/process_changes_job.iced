@@ -35,6 +35,13 @@ module.exports = class ProcessChangesJob
   constructor: (@project, @changedPaths) ->
 
   execute: (callback) ->
+    # LiveReload developer mode hack
+    if @project.isLiveReloadBackend and @changedPaths.some((path) => path.match(/\.(js|json)$/))
+      setTimeout =>
+        LR.log.fyi "LiveReload backend change detected. Restarting."
+        process.exit 49  # a magic code signalling a backend restart (note: not 42 to avoid false positives)
+      , 200  # before we can self-host, give another instance of LiveReload a chance to finish compilation
+
     @reloadRequests = []
 
     LR.log.fyi "change detected in #{@project.path}: #{JSON.stringify(@changedPaths)}\n"

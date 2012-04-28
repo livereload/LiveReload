@@ -28,6 +28,9 @@ WindowUIElement::WindowUIElement(UIElement *parent_context, const char *id, Clas
 }
 
 WindowUIElement::~WindowUIElement() {
+    if ([windowController_ isWindowLoaded]) {
+        [windowController_ close];
+    }
     [windowController_ release];
 }
 

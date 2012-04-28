@@ -54,6 +54,7 @@ static void *nodeapp_rpc_thread(void *dummy) {
     time_t start_time;
 
 restart_node:
+    nodeapp_reset();
 
     start_time = time(NULL);
 
@@ -134,6 +135,12 @@ restart_node:
 
     close(nodeapp_stdin_fd);
     close(nodeapp_stdout_fd);
+    
+    if (WIFEXITED(exit_status) && WEXITSTATUS(exit_status) == 49) {
+        // 49 means the backend wants to be restarted
+        if (!nodeapp_is_shut_down)
+            goto restart_node;
+    }
 
     time_t end_time = time(NULL);
     if (end_time < start_time + 3) {

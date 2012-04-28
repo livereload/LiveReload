@@ -136,6 +136,7 @@ extern const char *nodeapp_log_file;
 
 void nodeapp_init();
 void nodeapp_shutdown();
+void nodeapp_reset();
 
 void nodeapp_rpc_send(const char *command, json_t *arg);
 

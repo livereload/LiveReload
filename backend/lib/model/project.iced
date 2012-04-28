@@ -79,6 +79,12 @@ class Project extends EventEmitter
     @postprocLastRunTime = 0
     @postprocGracePeriod = 500
 
+    @isLiveReloadBackend = (Path.normalize(@hive.fullPath) == Path.normalize(Path.join(__dirname, '../..')))
+    if @isLiveReloadBackend
+      LR.log.wtf "LiveReload Development Mode enabled. Will restart myself on backend changes."
+      @hive.requestMonitoring 'ThySelfAutoRestart', yes
+
+
 
   dispose: ->
     @hive.dispose()

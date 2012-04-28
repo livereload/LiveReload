@@ -14,6 +14,7 @@ extern "C" {
 
 void nodeapp_ui_image_register(const char *name, NSImage *image);
 NSImage *nodeapp_ui_image_lookup(const char *name);
+void nodeapp_ui_reset();
 #endif
     
 

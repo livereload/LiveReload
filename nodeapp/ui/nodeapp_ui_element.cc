@@ -103,3 +103,11 @@ void C_ui__update(json_t *payload) {
     nodeapp_ui_context_init();
     root_context->update(payload);
 }
+
+extern "C"
+void nodeapp_ui_reset() {
+    if (root_context) {
+        delete root_context;
+        root_context = NULL;
+    }
+}

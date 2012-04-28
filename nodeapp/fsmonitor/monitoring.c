@@ -98,3 +98,11 @@ json_t *C_monitoring__remove(json_t *arg) {
     item_free(item);
     return json_true();
 }
+
+void nodeapp_fsmonitor_reset() {
+    for (int i = 0; i < cmonitors; ++i)
+        if (monitors[i].id != NULL)
+            item_free(&monitors[i]);
+    cmonitors = 0;
+    nextid = 0;
+}
