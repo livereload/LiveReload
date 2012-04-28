@@ -31,7 +31,6 @@ module.exports = class ProjectListController
     for project in LR.model.workspace.projects
       listData["#" + project.id] =
         label: project.name
-        image: 'folder'
-        expandable: no
+        tags: '.project'
 
     @$ '#projectOutlineView': 'data': listData

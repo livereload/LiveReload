@@ -21,6 +21,14 @@ module.exports = class Stylesheet
         @annotate value, path, always || isProperty
         path.pop()
 
+        if Object.isString(value.tags)
+          value.tags = value.tags.trim().split(/\s+/)
+
+        for tag in value.tags || []
+          path.push(tag)
+          @annotate value, path, always || isProperty
+          path.pop()
+
       # TODO: if this is a deletion request (value == false), mark the corresponding selectors as unannotated
 
     return payload

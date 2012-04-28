@@ -11,3 +11,7 @@ module.exports =
     label: "MONITORED FOLDERS"
     'is-group': yes
     expanded: yes
+
+  '#mainwindow #projectOutlineView data .project':
+    image: 'folder'
+    expandable: no
