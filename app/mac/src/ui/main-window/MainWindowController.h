@@ -1,8 +1,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class TerminalViewController;
-
 
 @interface MainWindowController : NSWindowController {
     NSObject              *_projectsItem;
@@ -12,8 +10,6 @@
     NSInteger              _currentPane;
 
     NSWindowController    *_projectSettingsSheetController;
-
-    TerminalViewController *_terminalViewController;
 
     IBOutlet NSMenuItem *_showInDockMenuItem;
     IBOutlet NSMenuItem *_showInMenuBarMenuItem;
@@ -52,11 +48,5 @@
 @property (assign) IBOutlet NSButton *compilerEnabledCheckBox;
 @property (assign) IBOutlet NSButton *postProcessingEnabledCheckBox;
 @property (assign) IBOutlet NSTextField *availableCompilersLabel;
-
-
-//- (IBAction)showPostProcessingOptions:(id)sender;
-//- (IBAction)toggleVisibilityMode:(NSMenuItem *)sender;
-//
-//- (IBAction)doNothingOnShowAs:(id)sender;
 
 @end

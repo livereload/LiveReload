@@ -46,12 +46,13 @@ UIElement *ApplicationUIElement::create_child(const char *name, json_t *payload)
     Class klass = NSClassFromString(controllerClassName);
     assert(klass && "Window controller class not found for the specified window type");
 
-    return new WindowUIElement(this, name, klass);
+    NSWindowController *windowController = [[[klass alloc] initWithWindowNibName:className] autorelease];
+    return new WindowUIElement(this, name, windowController);
 }
 
 
-WindowUIElement::WindowUIElement(UIElement *parent_context, const char *id, Class klass) : UIElement(parent_context, id) {
-    windowController_ = [[klass alloc] init];
+WindowUIElement::WindowUIElement(UIElement *parent_context, const char *id, NSWindowController *windowController) : UIElement(parent_context, id) {
+    windowController_ = [windowController retain];
     [windowController_ window]; // load
 }
 

@@ -15,7 +15,7 @@ protected:
 
 class WindowUIElement : public UIElement {
 public:
-    WindowUIElement(UIElement *parent_context, const char *id, Class klass);
+    WindowUIElement(UIElement *parent_context, const char *id, NSWindowController *windowController);
     virtual ~WindowUIElement();
 
 protected:
