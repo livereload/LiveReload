@@ -52,6 +52,7 @@ static void *nodeapp_rpc_thread(void *dummy) {
     int pipe_stdin[2], pipe_stdout[2];
     int result;
     time_t start_time;
+    bool developer_mode = false;
 
 restart_node:
     nodeapp_reset();
@@ -138,6 +139,7 @@ restart_node:
     
     if (WIFEXITED(exit_status) && WEXITSTATUS(exit_status) == 49) {
         // 49 means the backend wants to be restarted
+        developer_mode = true; // activate; no way to reset without restarting the whole app
         if (!nodeapp_is_shut_down)
             goto restart_node;
     }
@@ -145,6 +147,14 @@ restart_node:
     time_t end_time = time(NULL);
     if (end_time < start_time + 3) {
         // shut down in less than 3 seconds considered a crash
+
+        if (developer_mode) {
+            // the developer is in the middle of doing some changes; wait a few seconds and try again
+            nodeapp_reset(); // kill the UI to provide a visual clue to the developer
+            sleep(3);
+            goto restart_node;
+        }
+
         nodeapp_is_shut_down = true;
         nodeapp_invoke_on_main_thread((INVOKE_LATER_FUNC)nodeapp_emergency_shutdown_backend_crashed, NULL);
     }
