@@ -1,3 +1,5 @@
+Stylesheet = require './stylesheet'
+
 Tree =
   mkdir: (tree, path) ->
     for item in path
@@ -208,15 +210,17 @@ class UIControllerWrapper
 
 module.exports = class UIDirector
 
-  constructor: (rootController) ->
+  constructor: (rootController, styles) ->
     @rootControllerWrapper = new UIControllerWrapper(null, [], rootController)
     @rootControllerWrapper.$ = @update.bind(@)
+    @stylesheet = new Stylesheet(styles)
 
   start: (callback) ->
     @rootControllerWrapper.initialize()
     callback(null)
 
   update: (payload) ->
+    @stylesheet.annotate payload
     C.ui.update payload
 
   notify: (payload) ->

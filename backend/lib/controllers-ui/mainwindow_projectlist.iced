@@ -5,11 +5,7 @@ module.exports = class ProjectListController
 
   initialize: ->
     @$
-      '#projectOutlineView':
-        style: 'source-list'
-        'dnd-drop-types': ['file']
-        'dnd-drag': yes
-        'cell-type': 'ImageAndTextCell'
+      '#projectOutlineView': {}
 
       '#gettingStartedView':
         visible: no
@@ -30,10 +26,7 @@ module.exports = class ProjectListController
       '#root':
         children: ['#folders']
       '#folders':
-        label: "MONITORED FOLDERS"
-        'is-group': yes
         children: ("#" + project.id for project in LR.model.workspace.projects)
-        expanded: yes
 
     for project in LR.model.workspace.projects
       listData["#" + project.id] =
@@ -41,4 +34,4 @@ module.exports = class ProjectListController
         image: 'folder'
         expandable: no
 
-    @$ '#projectOutlineView': data: listData
+    @$ '#projectOutlineView': 'data': listData

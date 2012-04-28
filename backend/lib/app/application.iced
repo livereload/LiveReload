@@ -36,7 +36,7 @@ class LRApplication extends EventEmitter
 
     @fsmanager = new (require '../vfs/fsmanager')()
     @model = new (require '../model/model')(this)
-    @ui = new (require '../uilib/uilib')(new (require '../controllers-ui/application'))
+    @ui = new (require '../uilib/uilib')(new (require '../controllers-ui/application'), require('../controllers-ui/styles'))
 
     @rpc = new RPC(rpcTransport)
 
