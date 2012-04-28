@@ -22,6 +22,12 @@ makeObject = (key, value) ->
   object[key] = value
   return object
 
+splitSelector = (selector) ->
+  if selector
+    selector.split ' '
+  else
+    []
+
 
 class UIControllerWrapper
 
@@ -38,26 +44,12 @@ class UIControllerWrapper
 
   initialize: ->
     @rescan()
+    @instantiateCoControllers()
     @controller.initialize()
 
-  rescan: ->
-    @handlerTree = {}
-    @eventToSelectorToHandler = {}
 
-    # intentionally traversing the prototype chain here
-    for key, value of @controller when key.indexOf(' ') >= 0
-      [elementSpec..., eventSpec] = key.split(' ')
-
-      for component in elementSpec
-        unless component.match /^#[a-zA-Z0-9-]+$/
-          throw new Error("Invalid element spec '#{component}' in selector '#{key}' of #{@name}")
-      unless eventSpec is '*' or eventSpec.match /^[a-zA-Z0-9-]+[?!]?$/
-        throw new Error("Invalid event spec '#{eventSpec}' in selector '#{key}' of #{@name}")
-
-      eventSpec = "#{eventSpec}!" unless eventSpec.match /[?!]$/
-
-      Tree.set @handlerTree, [elementSpec..., eventSpec], value
-      Tree.set @eventToSelectorToHandler, [eventSpec, elementSpec.join(' ')], value
+  ################################################################################
+  # outgoing payloads
 
   update: (payload) ->
     LR.log.fyi "update of #{@name}: " + JSON.stringify(payload, null, 2)
@@ -93,13 +85,28 @@ class UIControllerWrapper
       payload = makeObject(key, payload)
     @$ payload
 
+
+  ################################################################################
+  # child controllers
+
+  instantiateCoControllers: ->
+    LR.log.fyi "#{@name}.instantiateCoControllers(): " + JSON.stringify(Object.keys(@eventToSelectorToHandler['controller?'] || {}))
+    for own selector, handler of @eventToSelectorToHandler['controller?'] || {}
+      if selector.match /^%[a-zA-Z0-9-]+$/
+        @instantiateChildController '', handler, selector
+
   addChildController: (selector, childController) ->
     LR.log.fyi "Adding a child controller for #{selector} of #{@name}"
-    @childControllers[selector] = wrapper = new UIControllerWrapper(this, selector.split(' '), childController)
+    @childControllers[selector] = wrapper = new UIControllerWrapper(this, splitSelector(selector), childController)
     wrapper.$ = @_sendChildUpdate.bind(@, wrapper)
     LR.log.fyi "Initializing child controller #{wrapper.name}"
     wrapper.initialize()
     LR.log.fyi "Done adding child controller #{wrapper.name}"
+
+  instantiateChildController: (selector, handler, handlerSpecSelector) ->
+    LR.log.fyi "Instantiating a child controller for #{handlerSpecSelector}, actual selector '#{selector}'"
+    if childController = handler.call(@controller)
+      @addChildController selector, childController
 
   instantiateChildControllers: (path) ->
     childSelector = path.join(' ')
@@ -109,9 +116,11 @@ class UIControllerWrapper
 
     handlers = @collectHandlers @handlerTree, path, 'controller?'
     for { handler, selector } in handlers
-      LR.log.fyi "Instantiating a child controller for #{selector}"
-      if childController = handler.call(@controller)
-        @addChildController childSelector, childController
+      @instantiateChildController childSelector, handler, selector
+
+
+  ################################################################################
+  # incoming payloads
 
   notify: (payload, path=[]) ->
     if path.length == 0
@@ -143,6 +152,10 @@ class UIControllerWrapper
       LR.log.fyi "Invoking handler for #{selector}"
       handler.call(@controller, arg, path, event)
 
+
+  ################################################################################
+  # selector/handler hookup
+
   collectHandlers: (node, path, event, wildcardEvent=null, handlers=[], selectorComponents=[]) ->
     LR.log.fyi "collectHandlers(node at '#{selectorComponents.join(' ')}', '#{path.join(' ')}', '#{event}', '#{wildcardEvent}', handlers #{handlers.length})"
     if path.length > 0
@@ -162,6 +175,26 @@ class UIControllerWrapper
         selector = selectorComponents.concat([wildcardEvent]).join(' ')
         handlers.push { handler, selector }
     return handlers
+
+  rescan: ->
+    @handlerTree = {}
+    @eventToSelectorToHandler = {}
+
+    # intentionally traversing the prototype chain here
+    for key, value of @controller when key.indexOf(' ') >= 0
+      key = key.replace /\s+/g, ' '
+      [elementSpec..., eventSpec] = splitSelector(key)
+
+      for component in elementSpec
+        unless component.match /^[#%.][a-zA-Z0-9-]+$/
+          throw new Error("Invalid element spec '#{component}' in selector '#{key}' of #{@name}")
+      unless eventSpec is '*' or eventSpec.match /^[a-zA-Z0-9-]+[?!]?$/
+        throw new Error("Invalid event spec '#{eventSpec}' in selector '#{key}' of #{@name}")
+
+      eventSpec = "#{eventSpec}!" unless eventSpec.match /[?!]$/
+
+      Tree.set @handlerTree, [elementSpec..., eventSpec], value
+      Tree.set @eventToSelectorToHandler, [eventSpec, elementSpec.join(' ')], value
 
 
 module.exports = class UIDirector

@@ -1,11 +1,10 @@
 
-module.exports = class MainWindowController
+class ProjectListController
+
+  constructor: (@mainWindowController) ->
 
   initialize: ->
     @$
-      type: 'MainWindow'
-      visible: true
-
       '#projectOutlineView':
         style: 'source-list'
         'dnd-drop-types': ['file']
@@ -18,16 +17,13 @@ module.exports = class MainWindowController
     @updateProjectList()
 
   '#addProjectButton clicked': ->
-    @setStatus "Add project clicked at #{Date.now()}"
+    @mainWindowController.setStatus "Add project clicked at #{Date.now()}"
 
   '#removeProjectButton clicked': ->
-    @setStatus "Remove project clicked at #{Date.now()}"
+    @mainWindowController.setStatus "Remove project clicked at #{Date.now()}"
 
   '#projectOutlineView selected': (arg) ->
-    @setStatus "Selected: #{arg}"
-
-  setStatus: (text) ->
-    @$ '#statusTextField': text: text
+    @mainWindowController.setStatus "Selected: #{arg}"
 
   updateProjectList: ->
     listData =
@@ -46,3 +42,17 @@ module.exports = class MainWindowController
         expandable: no
 
     @$ '#projectOutlineView': data: listData
+
+
+module.exports = class MainWindowController
+
+  initialize: ->
+    @$
+      type: 'MainWindow'
+      visible: true
+
+  '%projectList controller?': ->
+    new ProjectListController(this)
+
+  setStatus: (text) ->
+    @$ '#statusTextField': text: text
