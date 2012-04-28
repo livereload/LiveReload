@@ -40,15 +40,17 @@ class UIControllerWrapper
     @selectorsTestedForChildControllers = {}
 
     @enqueuedPayload    = {}
-    @updateNestingLevel = 0
+    @batchUpdateNestingLevel = 0
 
     @reversePrefix = @prefix.slice(0).reverse()
     @name = (@parent && "#{@parent.name}/" || "") + @controller.constructor.name + (@prefix.length > 0 && "(#{@prefix.join(' ')})" || "")
 
   initialize: ->
-    @rescan()
-    @instantiateCoControllers()
-    @controller.initialize()
+    @batchUpdates =>
+      @rescan()
+      @instantiateCoControllers()
+      @controller.initialize()
+      @hookElementsMentionedInSelectors()
 
 
   ################################################################################
@@ -56,7 +58,9 @@ class UIControllerWrapper
 
   update: (payload) ->
     LR.log.fyi "update of #{@name}: " + JSON.stringify(payload, null, 2)
-    @_sendUpdate payload, =>
+    @batchUpdates =>
+      @_sendUpdate payload
+
       # any update payloads sent while initializing child controllers have to be merged into this payload
       # because some properties provided by those updates might be only settable at UI creation time
       for own key, value of payload
@@ -66,24 +70,26 @@ class UIControllerWrapper
     LR.log.fyi "_sendChildUpdate from #{childWrapper.name} to #{@name}: " + JSON.stringify(payload, null, 2)
     @_sendUpdate payload
 
+  batchUpdates: (func) ->
+    @batchUpdateNestingLevel++
+    try
+      func()
+    finally
+      @batchUpdateNestingLevel--
+
+    @_submitEnqueuedPayload()
+
   _sendUpdate: (payload, func) ->
     # TODO: smarter merge (merge #smt and .smt keys, overwrite property keys even if they are objects like 'data')
     # (or maybe it's better to use update rather than overwrite semantics for the 'data' property)
     @enqueuedPayload = Object.merge @enqueuedPayload, payload, true
     LR.log.fyi "#{@name}._sendUpdate merged payload: " + JSON.stringify(@enqueuedPayload, null, 2)
 
-    # merge any updates that happen while func is executing into this one
-    if func
-      @updateNestingLevel++
-      try
-        func()
-      finally
-        @updateNestingLevel--
-
-    if @updateNestingLevel == 0
-      @_submitEnqueuedPayload()
+    @_submitEnqueuedPayload()
 
   _submitEnqueuedPayload: ->
+    return unless @batchUpdateNestingLevel == 0
+
     LR.log.fyi "#{@name}._submitEnqueuedPayload: " + JSON.stringify(@enqueuedPayload, null, 2)
     payload = @enqueuedPayload
     @enqueuedPayload = {}
@@ -207,6 +213,21 @@ class UIControllerWrapper
       Tree.set @handlerTree, [elementSpec..., eventSpec], value
       Tree.set @eventToSelectorToHandler, [eventSpec, elementSpec.join(' ')], value
 
+  hookElementsMentionedInSelectors: ->
+    @__hookElementsMentionedInSelectors @handlerTree
+
+  __hookElementsMentionedInSelectors: (node, path=[]) ->
+    any = no
+    for own key, value of node when key[0] == '#' and Object.isObject(value)
+      path.push(key)
+      @__hookElementsMentionedInSelectors value, path
+      path.pop(key)
+      any = yes
+    unless any
+      payload = {}
+      for key in path.slice(0).reverse()
+        payload = makeObject(key, payload)
+      @update payload
 
 module.exports = class UIDirector
 
