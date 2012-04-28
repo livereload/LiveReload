@@ -6,8 +6,6 @@ Path = require 'path'
 LRPluginManager = require '../plugins/manager'
 RPC             = require '../rpc/rpc'
 
-LRWebSocketController = require '../controllers/websockets'
-
 # { createApiTree }       = require 'apitree'
 { createRemoteApiTree } = require '../util/remoteapitree'
 
@@ -71,7 +69,7 @@ class LRApplication extends EventEmitter
     messages.pop()
     @client = createRemoteApiTree(messages, (msg) => (args...) => @rpc.send(msg, args...))
 
-    @websockets = new LRWebSocketController()
+    @websockets = new (require '../controllers-nonui/websockets')()
 
     @_api =
       app:
