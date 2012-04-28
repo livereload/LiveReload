@@ -1,6 +1,3 @@
-{ EventEmitter } = require 'events'
-
-
 Tree =
   mkdir: (tree, path) ->
     for item in path
@@ -26,18 +23,26 @@ makeObject = (key, value) ->
   return object
 
 
-class UIControllerWrapper extends EventEmitter
+class UIControllerWrapper
 
-  constructor: (@prefix, @controller) ->
+  constructor: (@parent, @prefix, @controller) ->
     @controller.$ = @update.bind(@)
     @reversePrefix = @prefix.slice(0).reverse()
 
+    @childControllers = {}
+    @selectorsTestedForChildControllers = {}
+    @_enqueuedPayload = {}
+    @_updateNestingLevel = 0
+
+    @name = (@parent && "#{@parent.name}/" || "") + @controller.constructor.name + (@prefix.length > 0 && "(#{@prefix.join(' ')})" || "")
+
   initialize: ->
-    @controller.initialize()
     @rescan()
+    @controller.initialize()
 
   rescan: ->
     @handlerTree = {}
+    @eventToSelectorToHandler = {}
 
     # intentionally traversing the prototype chain here
     for key, value of @controller when key.indexOf(' ') >= 0
@@ -45,22 +50,78 @@ class UIControllerWrapper extends EventEmitter
 
       for component in elementSpec
         unless component.match /^#[a-zA-Z0-9-]+$/
-          throw new Error("Invalid element spec '#{component}' in selector '#{key}'")
+          throw new Error("Invalid element spec '#{component}' in selector '#{key}' of #{@name}")
       unless eventSpec is '*' or eventSpec.match /^[a-zA-Z0-9-]+[?!]?$/
-        throw new Error("Invalid event spec '#{eventSpec}' in selector '#{key}'")
+        throw new Error("Invalid event spec '#{eventSpec}' in selector '#{key}' of #{@name}")
 
       eventSpec = "#{eventSpec}!" unless eventSpec.match /[?!]$/
 
       Tree.set @handlerTree, [elementSpec..., eventSpec], value
+      Tree.set @eventToSelectorToHandler, [eventSpec, elementSpec.join(' ')], value
 
-  update: (data) ->
+  update: (payload) ->
+    LR.log.fyi "update of #{@name}: " + JSON.stringify(payload, null, 2)
+    @_sendUpdate payload, =>
+      for own key, value of payload
+        @instantiateChildControllers [key]
+
+  _sendChildUpdate: (childWrapper, payload) ->
+    LR.log.fyi "_sendChildUpdate from #{childWrapper.name} to #{@name}: " + JSON.stringify(payload, null, 2)
+    @_sendUpdate payload
+
+  _sendUpdate: (payload, func) ->
+    # TODO: smarter merge (merge #smt and .smt keys, overwrite property keys)
+    @_enqueuedPayload = Object.merge @_enqueuedPayload, payload, true
+    LR.log.fyi "#{@name}._sendUpdate merged payload: " + JSON.stringify(@_enqueuedPayload, null, 2)
+
+    if func
+      @_updateNestingLevel++
+      try
+        func()
+      finally
+        @_updateNestingLevel--
+
+    if @_updateNestingLevel == 0
+      @_submitEnqueuedPayload()
+
+  _submitEnqueuedPayload: ->
+    LR.log.fyi "#{@name}._submitEnqueuedPayload: " + JSON.stringify(@_enqueuedPayload, null, 2)
+    payload = @_enqueuedPayload
+    @_enqueuedPayload = {}
+
     for key in @reversePrefix
-      data = makeObject(key, data)
-    @emit 'update', data
+      payload = makeObject(key, payload)
+    @$ payload
+
+  addChildController: (selector, childController) ->
+    LR.log.fyi "Adding a child controller for #{selector} of #{@name}"
+    @childControllers[selector] = wrapper = new UIControllerWrapper(this, selector.split(' '), childController)
+    wrapper.$ = @_sendChildUpdate.bind(@, wrapper)
+    LR.log.fyi "Initializing child controller #{wrapper.name}"
+    wrapper.initialize()
+    LR.log.fyi "Done adding child controller #{wrapper.name}"
+
+  instantiateChildControllers: (path) ->
+    childSelector = path.join(' ')
+    if @selectorsTestedForChildControllers[childSelector]
+      return
+    @selectorsTestedForChildControllers[childSelector] = yes
+
+    handlers = @collectHandlers @handlerTree, path, 'controller?'
+    for { handler, selector } in handlers
+      LR.log.fyi "Instantiating a child controller for #{selector}"
+      if childController = handler.call(@controller)
+        @addChildController childSelector, childController
 
   notify: (payload, path=[]) ->
     if path.length == 0
       LR.log.fyi "Notification received: " + JSON.stringify(payload, null, 2)
+
+    selector = path.join(' ')
+    if childController = @childControllers[selector]
+      LR.log.fyi "Handing payload off to a child controller for #{selector}"
+      childController.notify(payload)
+
     for own key, value of payload
       if key[0] == '#'
         path.push key
@@ -82,7 +143,7 @@ class UIControllerWrapper extends EventEmitter
       LR.log.fyi "Invoking handler for #{selector}"
       handler.call(@controller, arg, path, event)
 
-  collectHandlers: (node, path, event, wildcardEvent, handlers=[], selectorComponents=[]) ->
+  collectHandlers: (node, path, event, wildcardEvent=null, handlers=[], selectorComponents=[]) ->
     LR.log.fyi "collectHandlers(node at '#{selectorComponents.join(' ')}', '#{path.join(' ')}', '#{event}', '#{wildcardEvent}', handlers #{handlers.length})"
     if path.length > 0
       if subnode = node[path[0]]
@@ -97,7 +158,7 @@ class UIControllerWrapper extends EventEmitter
       if handler = node[event]
         selector = selectorComponents.concat([event]).join(' ')
         handlers.push { handler, selector }
-      if handler = node[wildcardEvent]
+      if wildcardEvent and (handler = node[wildcardEvent])
         selector = selectorComponents.concat([wildcardEvent]).join(' ')
         handlers.push { handler, selector }
     return handlers
@@ -106,8 +167,8 @@ class UIControllerWrapper extends EventEmitter
 module.exports = class UIDirector
 
   constructor: (rootController) ->
-    @rootControllerWrapper = new UIControllerWrapper([], rootController)
-    @rootControllerWrapper.on 'update', @update.bind(@)
+    @rootControllerWrapper = new UIControllerWrapper(null, [], rootController)
+    @rootControllerWrapper.$ = @update.bind(@)
 
   start: (callback) ->
     @rootControllerWrapper.initialize()

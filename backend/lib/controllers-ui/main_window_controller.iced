@@ -3,14 +3,46 @@ module.exports = class MainWindowController
 
   initialize: ->
     @$
-      title: 'Something'
+      type: 'MainWindow'
+      visible: true
 
-      '#addProjectButton':
-        tags:
-          '.button': yes
+      '#projectOutlineView':
+        style: 'source-list'
+        'dnd-drop-types': ['file']
+        'dnd-drag': yes
+        'cell-type': 'ImageAndTextCell'
 
-  '#addProjectButton update': ->
+      '#gettingStartedView':
+        visible: no
 
-  '#addProjectButton onclick': ->
+    @updateProjectList()
 
-  '#projectList selectionChanged': ->
+  '#addProjectButton clicked': ->
+    @setStatus "Add project clicked at #{Date.now()}"
+
+  '#removeProjectButton clicked': ->
+    @setStatus "Remove project clicked at #{Date.now()}"
+
+  '#projectOutlineView selected': (arg) ->
+    @setStatus "Selected: #{arg}"
+
+  setStatus: (text) ->
+    @$ '#statusTextField': text: text
+
+  updateProjectList: ->
+    listData =
+      '#root':
+        children: ['#folders']
+      '#folders':
+        label: "MONITORED FOLDERS"
+        'is-group': yes
+        children: ("#" + project.id for project in LR.model.workspace.projects)
+        expanded: yes
+
+    for project in LR.model.workspace.projects
+      listData["#" + project.id] =
+        label: project.name
+        image: 'folder'
+        expandable: no
+
+    @$ '#projectOutlineView': data: listData
