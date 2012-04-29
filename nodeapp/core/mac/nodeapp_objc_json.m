@@ -55,3 +55,45 @@ json_t *nodeapp_objc_to_json(id value) {
     }
     return result;
 }
+
+id nodeapp_json_to_objc(json_t *json, BOOL null_ok) {
+    if (json_is_null(json))
+        if (null_ok)
+            return NULL;
+        else
+            return [NSNull null];
+    else if (json_is_string(json))
+        return json_nsstring_value(json);
+    else if (json_is_integer(json))
+        return [NSNumber numberWithInt:json_integer_value(json)];
+    else if (json_is_real(json))
+        return [NSNumber numberWithDouble:json_real_value(json)];
+    else if (json_is_true(json))
+        return [NSNumber numberWithBool:YES];
+    else if (json_is_false(json))
+        return [NSNumber numberWithBool:NO];
+    else if (json_is_array(json)) {
+        size_t len = json_array_size(json);
+        id elements[len];
+        for (size_t i = 0; i < len; ++i) {
+            elements[i] = nodeapp_json_to_objc(json_array_get(json, i), NO);
+        }
+        return [NSArray arrayWithObjects:elements count:len];
+    } else if (json_is_object(json)) {
+        size_t len = json_object_size(json);
+        id<NSCopying> keys[len];
+        id values[len];
+        size_t i = 0;
+        
+        for_each_object_key_value(json, key, value) {
+            keys[i] = NSStr(key);
+            values[i] = nodeapp_json_to_objc(value, NO);
+            ++i;
+        }
+        
+        return [NSDictionary dictionaryWithObjects:values forKeys:keys count:len];
+    } else {
+        NSCAssert(NO, @"Unknown json type encountered.");
+        abort();
+    }
+}

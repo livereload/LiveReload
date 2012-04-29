@@ -53,12 +53,42 @@ void UIElement::update(json_t *payload) {
             if (!child_context)
                 continue;
             child_context->update(value);
+        } else if (*key == '$') {
+            if (0 == strcmp(key, "$do")) {
+                if (json_is_array(value)) {
+                    for_each_array_item(value, funcs_index, funcs_spec) {
+                        invoke_custom_funcs_and_handle_errors(funcs_spec);
+                    }
+                } else if (json_is_object(value)) {
+                    invoke_custom_funcs_and_handle_errors(value);
+                } else {
+                    assert1(false, "Invalid data type in $do for element '%s'", path_);
+                }
+            } else {
+                assert2(false, "Unknown meta '%s' for element '%s'", key, path_);
+            }
         } else {
             bool ok = set(key, value);
             assert2(ok, "Unknown property '%s' set for element '%s'", key, path_);
         }
     }
     post_set(payload);
+}
+
+void UIElement::invoke_custom_funcs_and_handle_errors(json_t *spec) {
+    for_each_object_key_value(spec, method, arg) {
+        invoke_custom_func_and_handle_errors(method, arg);
+    }
+}
+
+void UIElement::invoke_custom_func_and_handle_errors(const char *method, json_t *arg) {
+    if (!invoke_custom_func(method, arg)) {
+        if (parent_context_) {
+            parent_context_->invoke_custom_func_and_handle_errors(method, arg);
+        } else {
+            assert1(false, "Custom func '%s' not found", method);
+        }
+    }
 }
 
 void UIElement::notify(json_t *payload) {
@@ -82,9 +112,13 @@ bool UIElement::set(const char *property, json_t *value) {
 void UIElement::post_set(json_t *payload) {
 }
 
+bool UIElement::invoke_custom_func(const char *method, json_t *arg) {
+    return false;
+}
 
 
-RootUIElement::RootUIElement(const char *_id) : UIElement(NULL, _id) {    
+
+RootUIElement::RootUIElement(const char *_id) : UIElement(NULL, _id) {
 }
 
 void RootUIElement::notify(json_t *payload) {

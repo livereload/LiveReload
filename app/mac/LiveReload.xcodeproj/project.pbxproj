@@ -20,6 +20,7 @@
 		4348E4CC154ADA0200BA8F26 /* PassThruView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4348E4CA154ADA0200BA8F26 /* PassThruView.m */; };
 		4348E4D0154ADA1400BA8F26 /* ImageAndTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4348E4CF154ADA1400BA8F26 /* ImageAndTextCell.m */; };
 		43594AF413D3BB34004175B2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43594AF313D3BB34004175B2 /* QuartzCore.framework */; };
+		4359ED37154DE9F20054EC17 /* nodeapp_callbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = 4359ED36154DE9F20054EC17 /* nodeapp_callbacks.m */; };
 		438A2311154AE2420070E9F2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 438A2310154AE2420070E9F2 /* AppDelegate.m */; };
 		438A2314154AE3900070E9F2 /* nodeapp_ui_image.m in Sources */ = {isa = PBXBuildFile; fileRef = 438A2313154AE3900070E9F2 /* nodeapp_ui_image.m */; };
 		43E22FA315444A2E00BCD9C9 /* AddTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 43E22F7915444A2E00BCD9C9 /* AddTemplate.png */; };
@@ -124,6 +125,7 @@
 		4348E4CE154ADA1400BA8F26 /* ImageAndTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageAndTextCell.h; sourceTree = "<group>"; };
 		4348E4CF154ADA1400BA8F26 /* ImageAndTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageAndTextCell.m; sourceTree = "<group>"; };
 		43594AF313D3BB34004175B2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		4359ED36154DE9F20054EC17 /* nodeapp_callbacks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nodeapp_callbacks.m; sourceTree = "<group>"; };
 		438A230F154AE2420070E9F2 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		438A2310154AE2420070E9F2 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		438A2312154AE2BF0070E9F2 /* nodeapp_ui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nodeapp_ui.h; sourceTree = "<group>"; };
@@ -532,6 +534,7 @@
 				43E22FEB154463B100BCD9C9 /* nodeapp_paths_osdep.m */,
 				43E22FEC154463B100BCD9C9 /* nodeapp_rpc_osdep.c */,
 				43E22FED154463B100BCD9C9 /* nodeapp_threading.c */,
+				4359ED36154DE9F20054EC17 /* nodeapp_callbacks.m */,
 				43E22FEE154463B100BCD9C9 /* NodeAppDelegate.h */,
 				43E22FEF154463B100BCD9C9 /* NodeAppDelegate.m */,
 				43E22FF0154463B100BCD9C9 /* NodeAppWindowController.h */,
@@ -834,6 +837,7 @@
 				4348E4D0154ADA1400BA8F26 /* ImageAndTextCell.m in Sources */,
 				438A2311154AE2420070E9F2 /* AppDelegate.m in Sources */,
 				438A2314154AE3900070E9F2 /* nodeapp_ui_image.m in Sources */,
+				4359ED37154DE9F20054EC17 /* nodeapp_callbacks.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

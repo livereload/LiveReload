@@ -1,5 +1,6 @@
 
 #import "MainWindowController.h"
+#import "nodeapp.h"
 
 
 @implementation MainWindowController
@@ -51,6 +52,25 @@
         // not trying to copy automatically because this will require a stupid UI ("copied!" label),
         // and I physically miss pressing Command-C anyway
     }
+}
+
+- (void)chooseFolderToAdd:(NSDictionary *)arg {
+    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+    [openPanel setCanChooseDirectories:YES];
+    [openPanel setCanCreateDirectories:YES];
+    [openPanel setPrompt:@"Choose folder"];
+    [openPanel setCanChooseFiles:NO];
+    [openPanel setTreatsFilePackagesAsDirectories:YES];
+    [openPanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
+        NSString *callback = [arg objectForKey:@"callback"];
+        if (result == NSFileHandlingPanelOKButton) {
+            NSURL *url = [openPanel URL];
+            NSString *path = [url path];
+            NodeAppRpcInvokeAndDisposeCallback(callback, path);
+        } else {
+            NodeAppRpcInvokeAndDisposeCallback(callback, nil);
+        }
+    }];
 }
 
 @end

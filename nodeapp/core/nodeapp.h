@@ -66,12 +66,14 @@ EXTERN_C IMAGE_DOS_HEADER __ImageBase;
 #define NSStr(x) ((x) ? [NSString stringWithUTF8String:(x)] : nil)
 #define nsstrdup(x) (strdup([(x) UTF8String]))
 #define json_nsstring_value(x) (NSStr(json_string_value(x)))
+#define json_nsstring(x) (json_string([(x) UTF8String]))
 
 #endif
 
 #ifdef __OBJC__
 json_t *nodeapp_objc_to_json_or_null(id value);
 json_t *nodeapp_objc_to_json(id value);
+id nodeapp_json_to_objc(json_t *json, BOOL null_ok);
 #endif
 
 
@@ -139,6 +141,15 @@ void nodeapp_shutdown();
 void nodeapp_reset();
 
 void nodeapp_rpc_send(const char *command, json_t *arg);
+void nodeapp_rpc_invoke_and_keep_callback(const char *callback, json_t *arg);
+void nodeapp_rpc_invoke_and_dispose_callback(const char *callback, json_t *arg);
+void nodeapp_rpc_dispose_callback(const char *callback);
+
+#ifdef __OBJC__
+void NodeAppRpcInvokeAndKeepCallback(NSString *callback, id arg);
+void NodeAppRpcInvokeAndDisposeCallback(NSString *callback, id arg);
+void NodeAppRpcDisposeCallback(NSString *callback);
+#endif
 
 typedef void (*INVOKE_LATER_FUNC)(void *);
 void nodeapp_invoke_on_main_thread(INVOKE_LATER_FUNC func, void *context);

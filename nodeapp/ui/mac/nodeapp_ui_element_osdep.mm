@@ -35,6 +35,25 @@ NSColor *NSColorFromStringSpec(NSString *spec) {
 }
 
 
+bool invoke_custom_func_in_nsobject(id object, const char *method, json_t *arg) {
+    NSString *selectorName = [NSString stringWithFormat:@"%s:", method];
+    SEL selector = NSSelectorFromString(selectorName);
+    if ([object respondsToSelector:selector]) {
+        if (*[[object methodSignatureForSelector:selector] getArgumentTypeAtIndex:2] == '@') {
+            // accepts NSDictionary *
+            [object performSelector:selector withObject:nodeapp_json_to_objc(arg, YES)];
+        } else {
+            // accepts json_t *; signature returned by getArgumentTypeAtIndex looks like ^{...bullshit...}
+            IMP imp = [object methodForSelector:selector];
+            imp(object, selector, arg);
+        }
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 ApplicationUIElement::ApplicationUIElement() : RootUIElement("#application") {
 }
 
@@ -49,6 +68,11 @@ UIElement *ApplicationUIElement::create_child(const char *name, json_t *payload)
     NSWindowController *windowController = [[[klass alloc] initWithWindowNibName:className] autorelease];
     return new WindowUIElement(this, name, windowController);
 }
+
+bool ApplicationUIElement::invoke_custom_func(const char *method, json_t *arg) {
+    return invoke_custom_func_in_nsobject([NSApp delegate], method, arg);
+}
+
 
 
 WindowUIElement::WindowUIElement(UIElement *parent_context, const char *id, NSWindowController *windowController) : UIElement(parent_context, id) {
@@ -100,6 +124,10 @@ bool WindowUIElement::set(const char *property, json_t *value) {
     }
 }
 
+bool WindowUIElement::invoke_custom_func(const char *method, json_t *arg) {
+    return invoke_custom_func_in_nsobject(windowController_, method, arg);
+}
+
 
 
 ViewUIElement::ViewUIElement(UIElement *parent_context, const char *_id, id view, Class delegate_klass) : UIElement(parent_context, _id) {
@@ -139,6 +167,10 @@ bool ViewUIElement::set(const char *property, json_t *value) {
     } else {
         return UIElement::set(property, value);
     }
+}
+
+bool ViewUIElement::invoke_custom_func(const char *method, json_t *arg) {
+    return invoke_custom_func_in_nsobject(view_, method, arg);
 }
 
 void ViewUIElement::hook_action() {

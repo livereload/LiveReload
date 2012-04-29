@@ -4,12 +4,18 @@
 #include "nodeapp_ui_element.hh"
 
 
+#ifdef __APPLE__
+bool invoke_custom_func_in_nsobject(id object, const char *method, json_t *arg);
+#endif
+
+
 class ApplicationUIElement : public RootUIElement {
 public:
     ApplicationUIElement();
 
 protected:
     virtual UIElement *create_child(const char *name, json_t *payload);
+    virtual bool invoke_custom_func(const char *method, json_t *arg);
 };
 
 
@@ -23,6 +29,7 @@ protected:
 
     virtual UIElement *create_child(const char *name, json_t *payload);
     virtual bool set(const char *property, json_t *value);
+    virtual bool invoke_custom_func(const char *method, json_t *arg);
 };
 
 
@@ -42,6 +49,7 @@ protected:
     virtual bool set(const char *property, json_t *value);
 
     virtual const char *action_event_name();
+    virtual bool invoke_custom_func(const char *method, json_t *arg);
 };
 
 

@@ -76,6 +76,8 @@ module.exports = class RPCSubsystem extends EventEmitter
     if command && typeof command is 'string'
       if command[0] is '$'
         @executeCallback(command, arg, callback)
+      else if command[0] is '-'
+        @freeCallback(command.substr(1))
       else
         @executeCommand(command, arg, callback)
     else

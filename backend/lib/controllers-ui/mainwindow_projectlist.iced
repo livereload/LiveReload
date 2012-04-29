@@ -13,7 +13,9 @@ module.exports = class ProjectListController
     @updateProjectList()
 
   '#addProjectButton clicked': ->
-    @mainWindowController.setStatus "Add project clicked at #{Date.now()}"
+    @$ '$do': 'chooseFolderToAdd':
+      callback: (folder) =>
+        @mainWindowController.setStatus "Add project: #{folder}"
 
   '#removeProjectButton clicked': ->
     @mainWindowController.setStatus "Remove project clicked at #{Date.now()}"
