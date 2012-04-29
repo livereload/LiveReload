@@ -12,6 +12,9 @@ describe "LRWorkspace", ->
     LR.fsmanager = new (require '../../lib/vfs/fsmanager')()
     LR.pluginManager =
       compilersById: {}
+    LR.client.monitoring.add = ->
+    LR.client.monitoring.remove = ->
+
     memento = JSON.parse(fs.readFileSync(__filename.replace /\.\w+$/, '.json', 'utf8'))
     workspace = new LRWorkspace(memento)
     assert.equal workspace.projects.length, 11
