@@ -31,9 +31,11 @@ Build process:
 Hacking tips
 ------------
 
-1. Add backend/ to LiveReload, enable compilation.
+1. Add backend/ to LiveReload, enable compilation. LiveReload will detect this and automatically restart the backend each time you change a JavaScript file (additionally, on backend crash, instead of displaying an annoying popup, it will simply kill the UI, wait 3 seconds and restart the backend again).
 
 2. Traditional (non-Node.js) LiveReload supports -LRPortNumber 35778 option to override the port number. This is useful to compile backend sources with one copy of LiveReload while debugging another one.
+
+3. Use `rake backend:autotest` to run backend tests continuously. Requires `sudo gem install rake listen`.
 
 
 
