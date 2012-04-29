@@ -3,6 +3,10 @@
 
 #include <string.h>
 
+#ifdef __APPLE__
+#pragma clang diagnostic ignored "-Wformat-nonliteral"
+#endif
+
 char *str_printf(const char *fmt, ...) {
     char *buf;
     va_list va;

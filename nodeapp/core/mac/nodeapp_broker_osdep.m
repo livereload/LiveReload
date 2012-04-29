@@ -25,6 +25,7 @@ static double nodeapp_broker_dummy = 42.42;
 @implementation NodeAppBrokerDisposeHandler
 - (void)dealloc {
     nodeapp_broker_unexpose(obj_id);
+    [super dealloc];
 }
 @end
 

@@ -15,6 +15,7 @@
 
 #ifdef __APPLE__
 #pragma clang diagnostic ignored "-Wfloat-equal"
+#pragma clang diagnostic ignored "-Wformat-nonliteral"
 #endif
 
 #define container_of(ptr_, type_, member_)  \
