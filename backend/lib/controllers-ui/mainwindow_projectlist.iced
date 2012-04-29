@@ -1,3 +1,4 @@
+{ convertForeshToBushes } = require '../util/bushes'
 
 module.exports = class ProjectListController
 
@@ -26,15 +27,11 @@ module.exports = class ProjectListController
       @mainWindowController.detailPane.setProject project
 
   updateProjectList: ->
-    listData =
-      '#root':
-        children: ['#folders']
-      '#folders':
-        children: ("#" + project.id for project in LR.model.workspace.projects)
-
-    for project in LR.model.workspace.projects
-      listData["#" + project.id] =
-        label: project.name
-        tags: '.project'
-
-    @$ '#projectOutlineView': 'data': listData
+    @$ '#projectOutlineView': 'data': convertForeshToBushes [
+      id: '#folders'
+      children:
+        for project in LR.model.workspace.projects
+          id:    "#" + project.id
+          label: project.name
+          tags:  '.project'
+    ]
