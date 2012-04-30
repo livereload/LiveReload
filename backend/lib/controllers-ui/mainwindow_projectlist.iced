@@ -3,6 +3,7 @@
 module.exports = class ProjectListController
 
   constructor: (@mainWindowController) ->
+    @selectedProjectId = null
 
   initialize: ->
     @$
@@ -11,22 +12,29 @@ module.exports = class ProjectListController
       '#gettingStartedView':
         visible: no
 
-    @updateProjectList()
+    # @_('#workspace #P6')
 
   '#addProjectButton clicked': ->
     @$ '$do': 'chooseFolderToAdd':
       callback: (folder) =>
-        @mainWindowController.setStatus "Add project: #{folder}"
+        if folder
+          LR.model.workspace.add { path: folder }, LR.consumeErr
 
   '#removeProjectButton clicked': ->
-    @mainWindowController.setStatus "Remove project clicked at #{Date.now()}"
+    if @selectedProjectId
+      LR.model.workspace.remove { projectId: @selectedProjectId }, LR.consumeErr
 
   '#projectOutlineView selected': (arg) ->
+    @selectedProjectId = arg && arg.substr(1)
     @mainWindowController.setStatus "Selected: #{arg}"
-    if project = arg && LR.model.workspace.findById(arg.substr(1))
+    if project = (arg && LR.model.workspace.findById(@selectedProjectId))
       @mainWindowController.detailPane.setProject project
 
-  updateProjectList: ->
+  # '/workspace projectAdded': ->
+
+  # '/workspace @selectedProjectId projectRemoved': ->
+
+  render: ->
     @$ '#projectOutlineView': 'data': convertForeshToBushes [
       id: '#folders'
       children:

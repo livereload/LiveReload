@@ -1,16 +1,16 @@
-
 fs = require 'fs'
 
 { Project } = require './project'
+R = require '../reactive'
 
-class LRWorkspace
+class LRWorkspace extends R.Entity
 
   constructor: (@memento={}) ->
     @globalMonitoringRequests = {}
 
-    @projects = []
-    for own path, projectMemento of @memento
-      @projects.push new Project(this, path, projectMemento)
+    @__defprop 'projects',
+      for own path, projectMemento of @memento
+        new Project(this, path, projectMemento)
 
   _initializeProject: (project) ->
     for own key, state of @globalMonitoringRequests
@@ -33,13 +33,13 @@ class LRWorkspace
       if err or not stat
         callback(err || new Error("The path does not exist"))
       else
-        @projects.push @_initializeProject(new Project({ path }))
-        @modelDidChange callback
+        @projects.push @_initializeProject(new Project(this, path))
+        callback(null)
 
   remove: ({ projectId }, callback) ->
     if project = @findById(projectId)
       @projects.splice @projects.indexOf(project), 1
-      @modelDidChange callback
+      callback(null)
     else
       callback(new Error("The given project id does not exist"))
 

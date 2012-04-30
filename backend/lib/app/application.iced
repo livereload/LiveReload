@@ -46,7 +46,9 @@ class LRApplication extends EventEmitter
     @rpc.on 'command', (command, arg, callback) =>
       @invoke command, arg, callback
 
-    @rpc.on 'uncaughtException', (err) =>
+    @consumeErr = (err) =>
+      return unless err
+
       details = "" + (err.stack || err.message || err)
       summary = details.split("\n").slice(0, 4).join("\n").trim()
       subject = details.split("\n")[0].trim()
@@ -64,6 +66,8 @@ class LRApplication extends EventEmitter
       else if result is 'quit'
         C.app.terminate()
       return
+
+    @rpc.on 'uncaughtException', @consumeErr
 
     messages = JSON.parse(fs.readFileSync(Path.join(__dirname, '../../config/client-messages.json'), 'utf8'))
     messages.pop()

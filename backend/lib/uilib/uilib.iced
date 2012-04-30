@@ -1,5 +1,6 @@
 Stylesheet = require './stylesheet'
 { makeObject, splitSelector, selectorToTree } = require './util'
+R = require '../reactive'
 
 Tree =
   mkdir: (tree, path) ->
@@ -40,6 +41,8 @@ class UIControllerWrapper
       @rescan()
       @instantiateCoControllers()
       @controller.initialize()
+      R.run =>
+        @controller.render?()
       @hookElementsMentionedInSelectors()
 
 
