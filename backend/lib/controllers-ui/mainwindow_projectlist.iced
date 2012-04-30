@@ -1,4 +1,4 @@
-{ convertForeshToBushes } = require '../util/bushes'
+{ convertForestToBushes } = require '../util/bushes'
 
 module.exports = class ProjectListController
 
@@ -35,7 +35,7 @@ module.exports = class ProjectListController
   # '/workspace @selectedProjectId projectRemoved': ->
 
   render: ->
-    @$ '#projectOutlineView': 'data': convertForeshToBushes [
+    @$ '#projectOutlineView': 'data': convertForestToBushes [
       id: '#folders'
       children:
         for project in LR.model.workspace.projects

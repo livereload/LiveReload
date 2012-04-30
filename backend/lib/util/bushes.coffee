@@ -12,7 +12,7 @@ __convertTreeToBush = (tree, bushes, siblings) ->
 
   return
 
-exports.convertForeshToBushes = (forest) ->
+exports.convertForestToBushes = (forest) ->
   bushes = '#root': children: []
   for tree in forest
     __convertTreeToBush tree, bushes, bushes['#root'].children
