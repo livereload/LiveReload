@@ -50,7 +50,7 @@ class UIControllerWrapper
   # outgoing payloads
 
   update: (payload) ->
-    LR.log.fyi "update of #{@name}: " + JSON.stringify(payload, null, 2)
+    # LR.log.fyi "update of #{@name}: " + JSON.stringify(payload, null, 2)
     @batchUpdates =>
       @_sendUpdate payload
 
@@ -60,7 +60,7 @@ class UIControllerWrapper
         @instantiateChildControllers [key]
 
   _sendChildUpdate: (childWrapper, payload) ->
-    LR.log.fyi "_sendChildUpdate from #{childWrapper.name} to #{@name}: " + JSON.stringify(payload, null, 2)
+    # LR.log.fyi "_sendChildUpdate from #{childWrapper.name} to #{@name}: " + JSON.stringify(payload, null, 2)
     @_sendUpdate payload
 
   batchUpdates: (func) ->
@@ -76,14 +76,14 @@ class UIControllerWrapper
     # TODO: smarter merge (merge #smt and .smt keys, overwrite property keys even if they are objects like 'data')
     # (or maybe it's better to use update rather than overwrite semantics for the 'data' property)
     @enqueuedPayload = Object.merge @enqueuedPayload, payload, true
-    LR.log.fyi "#{@name}._sendUpdate merged payload: " + JSON.stringify(@enqueuedPayload, null, 2)
+    # LR.log.fyi "#{@name}._sendUpdate merged payload: " + JSON.stringify(@enqueuedPayload, null, 2)
 
     @_submitEnqueuedPayload()
 
   _submitEnqueuedPayload: ->
     return unless @batchUpdateNestingLevel == 0
 
-    LR.log.fyi "#{@name}._submitEnqueuedPayload: " + JSON.stringify(@enqueuedPayload, null, 2)
+    # LR.log.fyi "#{@name}._submitEnqueuedPayload: " + JSON.stringify(@enqueuedPayload, null, 2)
     payload = @enqueuedPayload
     @enqueuedPayload = {}
 
@@ -96,22 +96,21 @@ class UIControllerWrapper
   # child controllers
 
   instantiateCoControllers: ->
-    LR.log.fyi "#{@name}.instantiateCoControllers(): " + JSON.stringify(Object.keys(@eventToSelectorToHandler['controller?'] || {}))
+    # LR.log.fyi "#{@name}.instantiateCoControllers(): " + JSON.stringify(Object.keys(@eventToSelectorToHandler['controller?'] || {}))
     for own selector, handler of @eventToSelectorToHandler['controller?'] || {}
       if selector.match /^%[a-zA-Z0-9-]+$/
         @instantiateChildController '', handler, selector
 
   addChildController: (selector, childController) ->
-    LR.log.fyi "Adding a child controller for #{selector} of #{@name}"
+    # LR.log.fyi "Adding a child controller for #{selector} of #{@name}"
     wrapper = new UIControllerWrapper(this, splitSelector(selector), childController)
     (@selectorsToChildControllers[selector] ||= []).push wrapper
     wrapper.$ = @_sendChildUpdate.bind(@, wrapper)
-    LR.log.fyi "Initializing child controller #{wrapper.name}"
     wrapper.initialize()
-    LR.log.fyi "Done adding child controller #{wrapper.name}"
+    # LR.log.fyi "Done adding child controller #{wrapper.name}"
 
   instantiateChildController: (selector, handler, handlerSpecSelector) ->
-    LR.log.fyi "Instantiating a child controller for #{handlerSpecSelector}, actual selector '#{selector}'"
+    # LR.log.fyi "Instantiating a child controller for #{handlerSpecSelector}, actual selector '#{selector}'"
     if childController = handler.call(@controller)
       @addChildController selector, childController
 
@@ -130,12 +129,12 @@ class UIControllerWrapper
   # incoming payloads
 
   notify: (payload, path=[]) ->
-    if path.length == 0
-      LR.log.fyi "Notification received: " + JSON.stringify(payload, null, 2)
+    # if path.length == 0
+    #   LR.log.fyi "Notification received: " + JSON.stringify(payload, null, 2)
 
     selector = path.join(' ')
     for childController in @selectorsToChildControllers[selector] || []
-      LR.log.fyi "Handing payload off to #{childController.name}"
+      # LR.log.fyi "Handing payload off to #{childController.name}"
       childController.notify(payload)
 
     for own key, value of payload
@@ -149,14 +148,14 @@ class UIControllerWrapper
   invoke: (path, event, arg) ->
     event = "#{event}!" unless event.match /[?!]$/
 
-    LR.log.fyi "Looking for handlers for path #{path.join(' ')}, event #{event}"
+    # LR.log.fyi "Looking for handlers for path #{path.join(' ')}, event #{event}"
     Function::toJSON = -> "<func>"
-    LR.log.fyi "Handler tree: " + JSON.stringify(@handlerTree, null, 2)
+    # LR.log.fyi "Handler tree: " + JSON.stringify(@handlerTree, null, 2)
     delete Function::toJSON
 
     handlers = @collectHandlers @handlerTree, path, event, '*' + event.match(/[?!]$/)[0]
     for { handler, selector } in handlers
-      LR.log.fyi "Invoking handler for #{selector}"
+      # LR.log.fyi "Invoking handler for #{selector}"
       handler.call(@controller, arg, path, event)
 
 
@@ -164,7 +163,7 @@ class UIControllerWrapper
   # selector/handler hookup
 
   collectHandlers: (node, path, event, wildcardEvent=null, handlers=[], selectorComponents=[]) ->
-    LR.log.fyi "collectHandlers(node at '#{selectorComponents.join(' ')}', '#{path.join(' ')}', '#{event}', '#{wildcardEvent}', handlers #{handlers.length})"
+    # LR.log.fyi "collectHandlers(node at '#{selectorComponents.join(' ')}', '#{path.join(' ')}', '#{event}', '#{wildcardEvent}', handlers #{handlers.length})"
     if path.length > 0
       if subnode = node[path[0]]
         selectorComponents.push(path[0])
@@ -239,4 +238,5 @@ module.exports = class UIDirector
     C.ui.update payload
 
   notify: (payload) ->
+    LR.log.fyi "Incoming payload: " + JSON.stringify(payload, null, 2)
     @rootControllerWrapper.notify payload

@@ -9,11 +9,11 @@ module.exports = class Stylesheet
   annotate: (payload) ->
     @__annotate payload
 
-    LR.log.fyi "Stylesheet: " + JSON.stringify(@selectorsToProperties, null, 2)
+    # LR.log.fyi "Stylesheet: " + JSON.stringify(@selectorsToProperties, null, 2)
 
     for own selector, props of @selectorsToProperties when selector.match(/^[ #a-zA-Z0-9-]+$/)  # IDs only
       if !@annotatedSelectors[selector]
-        LR.log.fyi "Selector #{selector}, props: " + JSON.stringify(selectorToTree(selector, props), null, 2)
+        # LR.log.fyi "Selector #{selector}, props: " + JSON.stringify(selectorToTree(selector, props), null, 2)
         Object.merge payload, selectorToTree(selector, props), true  # deep merge
         @annotatedSelectors[selector] = yes
 
