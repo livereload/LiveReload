@@ -6,6 +6,8 @@ R = require '../reactive'
 class LRWorkspace extends R.Entity
 
   constructor: (@memento={}) ->
+    super()
+
     @globalMonitoringRequests = {}
 
     @__defprop 'projects',

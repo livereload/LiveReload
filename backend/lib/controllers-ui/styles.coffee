@@ -16,6 +16,12 @@ module.exports = styles =
     image: 'folder'
     expandable: no
 
+  '#mainwindow #welcomePane':
+    placeholder: '#panePlaceholder'
+
+  '#mainwindow #projectPane':
+    placeholder: '#panePlaceholder'
+
   '#mainwindow #snippetLabelField':
     'hyperlink-url': "http://help.livereload.com/kb/general-use/browser-extensions"
     'hyperlink-color': "#000a89"

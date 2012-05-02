@@ -41,7 +41,12 @@ class UIControllerWrapper
       @rescan()
       @instantiateCoControllers()
       @controller.initialize()
-      R.run =>
+      for own _, childControllers of @selectorsToChildControllers
+        for childController in childControllers
+          # LR.log.fyi "Initializing child controller #{childController.name}"
+          childController.initialize()
+          # LR.log.fyi "Done initializing child controller #{childController.name}"
+      R.runNamed @name + "_render", =>
         @controller.render?()
       @hookElementsMentionedInSelectors()
 
@@ -106,7 +111,6 @@ class UIControllerWrapper
     wrapper = new UIControllerWrapper(this, splitSelector(selector), childController)
     (@selectorsToChildControllers[selector] ||= []).push wrapper
     wrapper.$ = @_sendChildUpdate.bind(@, wrapper)
-    wrapper.initialize()
     # LR.log.fyi "Done adding child controller #{wrapper.name}"
 
   instantiateChildController: (selector, handler, handlerSpecSelector) ->

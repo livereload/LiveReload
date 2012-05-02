@@ -2,7 +2,7 @@
 
 module.exports = class ProjectListController
 
-  constructor: (@mainWindowController) ->
+  constructor: (@model) ->
     @selectedProjectId = null
 
   initialize: ->
@@ -21,18 +21,14 @@ module.exports = class ProjectListController
           LR.model.workspace.add { path: folder }, LR.consumeErr
 
   '#removeProjectButton clicked': ->
-    if @selectedProjectId
-      LR.model.workspace.remove { projectId: @selectedProjectId }, LR.consumeErr
+    if project = @model.selectedProject
+      LR.model.workspace.remove { projectId: project.id }, LR.consumeErr
 
   '#projectOutlineView selected': (arg) ->
-    @selectedProjectId = arg && arg.substr(1)
-    @mainWindowController.setStatus "Selected: #{arg}"
-    if project = (arg && LR.model.workspace.findById(@selectedProjectId))
-      @mainWindowController.detailPane.setProject project
-
-  # '/workspace projectAdded': ->
-
-  # '/workspace @selectedProjectId projectRemoved': ->
+    if project = (arg && LR.model.workspace.findById(arg.substr(1)))
+      LR.log.fyi "@model.statusText = #{@model.statusText}"
+      @model.statusText = "Selected: #{arg}"
+      @model.selectedProject = project
 
   render: ->
     @$ '#projectOutlineView': 'data': convertForestToBushes [

@@ -28,7 +28,7 @@ describe "Reactive", ->
     R.flush()
     assert.deepEqual values, [42, 24]
 
-  it "should ARR re-invoke consumer functions when a reactive var is updated", ->
+  it "should handle arrays", ->
     foo = new R.Entity()
     foo.__defprop 'bar', [42]
 
@@ -42,3 +42,17 @@ describe "Reactive", ->
     assert.deepEqual values, [[42]]
     R.flush()
     assert.deepEqual values, [[42], [42,24]]
+
+  it "should handle derived properties", ->
+    foo = new R.Entity()
+    foo.__defprop 'bar', 42
+    foo.__deriveprop 'boz', =>
+      if foo.bar > 30 then 'many' else 'few'
+
+    assert.equal foo.boz, 'many'
+
+    foo.bar = 24
+    assert.equal foo.boz, 'many'
+
+    R.flush()
+    assert.equal foo.boz, 'few'

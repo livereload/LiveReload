@@ -48,7 +48,6 @@ protected:
 
     virtual bool set(const char *property, json_t *value);
 
-    virtual const char *action_event_name();
     virtual bool invoke_custom_func(const char *method, json_t *arg);
 };
 
@@ -90,7 +89,10 @@ protected:
 class ButtonUIElement : public ControlUIElement {
 public:
     ButtonUIElement(UIElement *parent_context, const char *_id, id view);
-    //protected:
+
+    virtual void on_action();
+protected:
+    virtual bool set(const char *property, json_t *value);
 };
 
 

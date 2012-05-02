@@ -1,26 +1,27 @@
 
 module.exports = class DetailPaneController
 
+  constructor: (@model) ->
+
   initialize: ->
+
+  '#compilerEnabledCheckBox clicked': (arg) ->
+    @model.selectedProject.compilationEnabled = !!arg
+
+  '#postProcessingEnabledCheckBox clicked': (arg) ->
+    @model.selectedProject.postprocEnabled = !!arg
+
+  render: ->
+    project = @model.selectedProject
+    return unless project
+
     @$
-      '#projectPane':
-        placeholder: '#panePlaceholder'
-        visible: yes
+      '#nameTextField': text: project?.name ? ''
 
-      '#nameTextField':
-        text: 'Foo'
+      '#pathTextField': text: project?.path ? '(select a project)'
 
-      '#pathTextField':
-        text: 'Bar'
+      '#monitoringSummaryLabelField': text: "Monitoring 123 file extensions."
 
-      # just for a test
-      '#statusTextField':
-        text: "Hello from DetailPaneController"
+      '#compilerEnabledCheckBox': state: @model.selectedProject.compilationEnabled
 
-  setProject: (project) ->
-    @$
-      '#nameTextField':
-        text: project.name
-
-      '#pathTextField':
-        text: project.path
+      '#postProcessingEnabledCheckBox': state: @model.selectedProject.postprocEnabled

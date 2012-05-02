@@ -3,10 +3,24 @@
 WhistlingArray = require './lib/array'
 
 
+# interface Dependable:
+#    __uid
+#    addListener(event, handler)
+#    removeListener(event, handler)
+#    event 'change'
+
+
 class Entity extends EventEmitter
 
-  constructor: ->
-    @__eid = "E#{R.nextEntityId++}"
+  constructor: (uidSuffix) ->
+    @__uid = R.uniqueId @constructor.name || 'E', uidSuffix
+
+    # a tinsy bit of magic
+    for k, v of this
+      if k.match /^automatically /
+        do (k, v) =>
+          process.nextTick =>
+            R.runNamed @__uid + "_" + k.substr('automatically '.length), v.bind(@)
 
   __defprop: (name, initialValue) ->
     reactive = new Var(this, name, "_#{name}", initialValue)
@@ -15,15 +29,41 @@ class Entity extends EventEmitter
       get: -> reactive.get()
       set: (newValue) -> reactive.set(newValue)
 
+    return reactive
+
+  __deriveprop: (name, func) ->
+    reactive = @__defprop name, undefined
+    reactive.propGroup = new PropertyGroup(name)
+    R.runNamed "#{@__uid}_compute_#{name}", =>
+      @[name] = func()
+
+
+class PropertyGroup extends EventEmitter
+
+  constructor: (name) ->
+    @__uid = R.uniqueId 'PG', name
+
 
 class Context
-  constructor: (@func) ->
-    @id = "C#{R.nextContextId++}"
+  constructor: (@func, name) ->
+    @id = R.uniqueId 'C', name || @func.name
     @dirty = yes
+    @_depedencies = {}
+    @_prevdep = undefined
+    @invalidate = @invalidate.bind(@)
+
     @_validate()
 
-  dependsOn: (entity) ->
-    entity.on 'change', @invalidate.bind(@)
+  dependsOn: (dependable) ->
+    return unless @_prevdep
+
+    unless dependable.__uid of @_depedencies
+      @_depedencies[dependable.__uid] = dependable
+
+      if dependable.__uid of @_prevdep
+        @_prevdep[dependable.__uid] = undefined
+      else
+        dependable.addListener 'change', @invalidate
 
   invalidate: ->
     return if @dirty
@@ -33,7 +73,16 @@ class Context
   _validate: ->
     return unless @dirty
     @dirty = no
+
+    @_prevdep = @_depedencies
+    @_depedencies = {}
+
+    LR.log.fyi "R.run: #{@id}"
     R.withContext this, @func
+
+    for own _, entity of @_prevdep when entity
+      entity.removeListener 'change', @invalidate
+    @_prevdep = undefined
 
 
 class Property
@@ -41,11 +90,14 @@ class Property
     while @entity.container?
       @entity = @entity.container
 
+  dependable: -> @propGroup || @entity
+
   infect: ->
-    R.context?.dependsOn(@entity)
+    R.context?.dependsOn(@dependable())
 
   fire: ->
-    @entity.emit 'change'
+    LR.log.fyi "R.propchange: #{@name} of #{@entity.__uid}"
+    @dependable().emit 'change'
 
 
 class Var extends Property
@@ -55,20 +107,35 @@ class Var extends Property
       initialValue = new WhistlingArray(this, initialValue)
     @holder[@field] = initialValue
 
-  get: ->
-    @infect()
+  peek: ->
     @holder[@field]
 
+  get: ->
+    @infect()
+    @peek()
+
   set: (newValue) ->
-    @holder[@field] = newValue
-    @fire()
+    unless @peek() == newValue
+      @holder[@field] = newValue
+      @fire()
 
 
 module.exports = R =
   Entity: Entity
 
-  nextContextId: 1
-  nextEntityId: 1
+  nextUniqueId: {}
+
+  uniqueId: (prefix, suffix) ->
+    if !prefix || typeof(prefix) != 'string'
+      throw new Error("R.uniqueId(prefix, suffix) has been called with a non-string prefix of type #{typeof prefix}")
+    if suffix
+      if typeof(suffix) != 'string'
+        throw new Error("R.uniqueId(prefix, suffix) has been called with a non-string suffix of type #{typeof suffix}")
+
+      suffix = suffix.replace(/[\s_-]+/g, '_')
+
+    R.nextUniqueId[prefix] ||= 1
+    return "#{prefix}#{R.nextUniqueId[prefix]++}" + if suffix then "_#{suffix}" else ''
 
   context: null
 
@@ -98,6 +165,9 @@ module.exports = R =
 
   run: (func) ->
     new Context(func)
+
+  runNamed: (name, func) ->
+    new Context(func, name)
 
 
 

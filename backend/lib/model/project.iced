@@ -1,6 +1,8 @@
 
 Path = require 'path'
 
+R = require '../reactive'
+
 nextProjectId = 1
 
 ProcessChangesJob = require '../jobs/process_changes_job'
@@ -44,10 +46,12 @@ class CompilerOptions
     @options = @memento?.options || {}
 
 
-class Project extends EventEmitter
+class Project extends R.Entity
   constructor: (@workspace, @path, @memento={}) ->
-    @id   = "P#{nextProjectId++}"
     @name = Path.basename(@path)
+
+    super(@name)
+    @id = @__uid
 
     @hive = LR.fsmanager.createHive(@path)
     @hive.on 'change', (paths, callback) =>
@@ -55,17 +59,17 @@ class Project extends EventEmitter
 
     LR.log.fyi "Adding project at #{@path} with memento #{JSON.stringify(@memento, null, 2)}"
 
-    @compilationEnabled         = !!(@memento?.compilationEnabled ? 0)
-    @disableLiveRefresh         = !!(@memento?.disableLiveRefresh ? 0)
-    @enableRemoteServerWorkflow = !!(@memento?.enableRemoteServerWorkflow ? 0)
-    @fullPageReloadDelay        = Math.floor((@memento?.fullPageReloadDelay ? 0.0) * 1000)
-    @eventProcessingDelay       = Math.floor((@memento?.eventProcessingDelay ? 0.0) * 1000)
-    @postprocCommand            = (@memento?.postproc ? '').trim()
-    @postprocEnabled            = !!(@memento?.postprocEnabled ? (@postprocCommand.length > 0))
-    @rubyVersionIdentifier      = @memento?.rubyVersion || 'system'
-    @excludedPaths              = @memento?.excludedPaths || []
-    @customName                 = @memento?.customName || ''
-    @numberOfPathComponentsToUseAsName = @memento?.numberOfPathComponentsToUseAsName || 1  # 0 is intentionally turned into 1
+    @__defprop 'compilationEnabled',         !!(@memento?.compilationEnabled ? 0)
+    @__defprop 'disableLiveRefresh',         !!(@memento?.disableLiveRefresh ? 0)
+    @__defprop 'enableRemoteServerWorkflow', !!(@memento?.enableRemoteServerWorkflow ? 0)
+    @__defprop 'fullPageReloadDelay',        Math.floor((@memento?.fullPageReloadDelay ? 0.0) * 1000)
+    @__defprop 'eventProcessingDelay',       Math.floor((@memento?.eventProcessingDelay ? 0.0) * 1000)
+    @__defprop 'postprocCommand',            (@memento?.postproc ? '').trim()
+    @__defprop 'postprocEnabled',            !!(@memento?.postprocEnabled ? (@postprocCommand.length > 0))
+    @__defprop 'rubyVersionIdentifier',      @memento?.rubyVersion || 'system'
+    @__defprop 'excludedPaths',              @memento?.excludedPaths || []
+    @__defprop 'customName',                 @memento?.customName || ''
+    @__defprop 'numberOfPathComponentsToUseAsName', @memento?.numberOfPathComponentsToUseAsName || 1  # 0 is intentionally turned into 1
 
     @compilerOptionsById = {}
     @fileOptionsByPath = {}
@@ -84,6 +88,8 @@ class Project extends EventEmitter
       LR.log.wtf "LiveReload Development Mode enabled. Will restart myself on backend changes."
       @hive.requestMonitoring 'ThySelfAutoRestart', yes
 
+  'automatically request monitoring for processing': ->
+     @hive.requestMonitoring 'processing', (@compilationEnabled || @postprocEnabled)
 
 
   dispose: ->

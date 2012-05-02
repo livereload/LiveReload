@@ -173,17 +173,12 @@ bool ViewUIElement::invoke_custom_func(const char *method, json_t *arg) {
     return invoke_custom_func_in_nsobject(view_, method, arg);
 }
 
+void ViewUIElement::on_action() {
+}
+
 void ViewUIElement::hook_action() {
     [view_ setTarget:delegate_];
     [view_ setAction:@selector(perform:)];
-}
-
-void ViewUIElement::on_action() {
-    notify(json_object_1(action_event_name(), json_true()));
-}
-
-const char *ViewUIElement::action_event_name() {
-    return "clicked";
 }
 
 
@@ -224,6 +219,34 @@ bool ControlUIElement::set(const char *property, json_t *value) {
 
 ButtonUIElement::ButtonUIElement(UIElement *parent_context, const char *_id, id view) : ControlUIElement(parent_context, _id, view, [UIElementDelegate class]) {
     hook_action();
+}
+
+
+void ButtonUIElement::on_action() {
+    json_t *state;
+    if ([view_ state] == NSOnState)
+        state = json_true();
+    else if ([view_ state] == NSOffState)
+        state = json_false();
+    else
+        state = json_string("mixed");
+    notify(json_object_1("clicked", state));
+}
+
+bool ButtonUIElement::set(const char *property, json_t *value) {
+    if (0 == strcmp(property, "state")) {
+        if (json_is_true(value))
+            [view_ setState:NSOnState];
+        else if (json_is_false(value))
+            [view_ setState:NSOffState];
+        else if (json_is_string(value) && 0 == strcmp("mixed", json_string_value(value)))
+            [view_ setState:NSMixedState];
+        else
+            assert1(json_is_string(value), "Unsupported value for 'state' property of %s", path_);
+        return true;
+    } else {
+        return ControlUIElement::set(property, value);
+    }
 }
 
 
