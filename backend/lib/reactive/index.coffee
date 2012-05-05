@@ -9,39 +9,26 @@ WhistlingArray = require './lib/array'
 #    removeListener(event, handler)
 #    event 'change'
 
-
 class Entity extends EventEmitter
 
   constructor: (uidSuffix) ->
-    @__uid = R.uniqueId @constructor.name || 'E', uidSuffix
+    R.hook(this, uidSuffix)
 
-    # a tinsy bit of magic
-    for k, v of this
-      if k.match /^automatically /
-        do (k, v) =>
-          process.nextTick =>
-            R.runNamed @__uid + "_" + k.substr('automatically '.length), v.bind(@)
-
-  __defprop: (name, initialValue) ->
-    reactive = new Var(this, name, "_#{name}", initialValue)
-
+  __addprop: (name, reactive) ->
     Object.defineProperty this, name,
       get: -> reactive.get()
       set: (newValue) -> reactive.set(newValue)
-
     return reactive
 
-  __deriveprop: (name, func) ->
-    reactive = @__defprop name, undefined
-    reactive.propGroup = new PropertyGroup(name)
-    R.runNamed "#{@__uid}_compute_#{name}", =>
-      @[name] = func()
+  __defprop: (name, initialValue, options={}) ->
+    options.initialValue = initialValue
+    @__addprop name, new Var(this, name, options)
 
+  __deriveprop: (name, options) ->
+    if typeof options is 'function'
+      options = { compute: options }
 
-class PropertyGroup extends EventEmitter
-
-  constructor: (name) ->
-    @__uid = R.uniqueId 'PG', name
+    @__addprop name, new ComputedVar(this, name, options)
 
 
 class Context
@@ -85,39 +72,63 @@ class Context
     @_prevdep = undefined
 
 
-class Property
+class Property extends EventEmitter
   constructor: (@entity, @name) ->
+    @__uid = R.uniqueId 'P', name, @entity.__uid
     while @entity.container?
       @entity = @entity.container
 
-  dependable: -> @propGroup || @entity
-
   infect: ->
-    R.context?.dependsOn(@dependable())
+    R.context?.dependsOn(this)
 
   fire: ->
     LR.log.fyi "R.propchange: #{@name} of #{@entity.__uid}"
-    @dependable().emit 'change'
+    @emit 'change'
+    @entity.emit 'propchange', @name
+    @entity.emit "#{@name}.change"
 
 
 class Var extends Property
-  constructor: (@holder, name, @field, initialValue) ->
+  constructor: (@holder, name, { initialValue, set, onchange }) ->
     super(@holder, name)
+
     if initialValue && initialValue.constructor is Array
       initialValue = new WhistlingArray(this, initialValue)
-    @holder[@field] = initialValue
+
+    @_setter = set || @setInternally
+
+    @on 'change', onchange  if onchange
+
+    @holder["#{@name}$$"] = this
+    @holder["_raw_#{@name}"] = initialValue
 
   peek: ->
-    @holder[@field]
+    @holder["_raw_#{@name}"]
 
   get: ->
     @infect()
     @peek()
 
-  set: (newValue) ->
+  setInternally: (newValue) ->
+    LR.log.fyi "#{@name}.setInternally: old = #{@peek()}, new = #{newValue}"
     unless @peek() == newValue
-      @holder[@field] = newValue
+      @holder["_raw_#{@name}"] = newValue
       @fire()
+
+  set: (newValue) ->
+    @_setter.call(this, newValue, this)
+
+
+class ComputedVar extends Var
+
+  constructor: (holder, name, options) ->
+    options.set ||= => throw new Error("#{@name} of #{@entity.__uid} is not settable")
+
+    super(holder, name, options)
+
+    R.runNamed "#{@entity.__uid}_compute_#{@name}", =>
+      @setInternally options.compute()
+
 
 
 module.exports = R =
@@ -136,6 +147,16 @@ module.exports = R =
 
     R.nextUniqueId[prefix] ||= 1
     return "#{prefix}#{R.nextUniqueId[prefix]++}" + if suffix then "_#{suffix}" else ''
+
+  hook: (object, uidSuffix) ->
+    object.__uid = R.uniqueId object.constructor.name || 'E', uidSuffix
+
+    # a tinsy bit of magic
+    for k, v of object
+      if k.match /^automatically /
+        do (k, v) ->
+          process.nextTick ->
+            R.runNamed object.__uid + "_" + k.substr('automatically '.length), v.bind(object)
 
   context: null
 

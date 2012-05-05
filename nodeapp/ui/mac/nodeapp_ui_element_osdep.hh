@@ -169,5 +169,8 @@ protected:
 @interface OutlineUIElementDelegate : UIElementDelegate <NSOutlineViewDataSource, NSOutlineViewDelegate>
 @end
 
+@interface TextFieldUIElementDelegate : UIElementDelegate <NSTextFieldDelegate>
+@end
+
 
 #endif

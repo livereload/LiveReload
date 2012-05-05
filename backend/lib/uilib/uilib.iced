@@ -22,6 +22,36 @@ Tree =
     Tree.cd(tree, prefix)[suffix]
 
 
+bindProp = (controller, control, prop, { event, uiKey, commitEvent }) ->
+  _enabled = yes
+  _timeout = null
+
+  render = (value) ->
+    controller.$ makeObject(control, makeObject(uiKey, value))
+
+  if event
+    controller["#{control} #{event}"] = (arg) ->
+      # disable model -> UI updates for the next 50 ms
+      clearTimeout(_timeout) if _timeout
+      _timeout = setTimeout((=> _timeout = null; _enabled = yes), 50)
+      _enabled = no
+
+      prop.set(arg)
+
+  if commitEvent
+    controller["#{control} #{commitEvent}"] = (arg) ->
+      clearTimeout(_timeout) if _timeout
+      _enabled = yes
+      render(prop.get())
+
+  controller["automatically render #{control}.#{uiKey}"] = ->
+    value = prop.get()
+    return unless _enabled
+    render(value)
+
+  LR.log.fyi "Binding: bound '#{control} #{event}' to '#{prop.name}'"
+
+
 class UIControllerWrapper
 
   constructor: (@parent, @prefix, @controller) ->
@@ -47,6 +77,9 @@ class UIControllerWrapper
           # LR.log.fyi "Initializing child controller #{childController.name}"
           childController.initialize()
           # LR.log.fyi "Done initializing child controller #{childController.name}"
+      @establishBindings()
+      @rescan()
+      R.hook(@controller)
       R.runNamed @name + "_render", =>
         @controller.render?()
       @hookElementsMentionedInSelectors()
@@ -176,6 +209,24 @@ class UIControllerWrapper
 
 
   ################################################################################
+  # bindings
+
+  establishBindings: ->
+    LR.log.fyi "establishBindings of #{@name}, @eventToSelectorToHandler = " + JSON.stringify(@eventToSelectorToHandler, null, 2)
+    # TODO: run the bindings inside R block in case they change at run time
+    for own selector, handler of @eventToSelectorToHandler['checkbox-binding!'] || {}
+      property = handler.call(@controller)
+      bindProp @controller, selector, property, uiKey: 'state', event: 'clicked'
+    for own selector, handler of @eventToSelectorToHandler['text-binding!'] || {}
+      property = handler.call(@controller)
+      bindProp @controller, selector, property, uiKey: 'text', event: 'text-changed', commitEvent: 'text-commit'
+    for own selector, handler of @eventToSelectorToHandler['enabled-binding!'] || {}
+      property = handler.call(@controller)
+      bindProp @controller, selector, property, uiKey: 'enabled'
+    return
+
+
+  ################################################################################
   # selector/handler hookup
 
   collectHandlers: (node, path, event, wildcardEvent=null, handlers=[], selectorComponents=[]) ->
@@ -206,6 +257,8 @@ class UIControllerWrapper
     for key, value of @controller when key.indexOf(' ') >= 0
       key = key.replace /\s+/g, ' '
       [elementSpec..., eventSpec] = splitSelector(key)
+
+      continue if elementSpec[0] is 'automatically'   # R's magic method
 
       for component in elementSpec
         unless component.match /^[#%.][a-zA-Z0-9-]+$/

@@ -36,3 +36,5 @@ module.exports = class WhistlingArray extends Array
     return value
 
   toJSON: -> @slice(0)
+
+  toString: -> ('' + el for el in this).join(',')

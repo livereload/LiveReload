@@ -1,6 +1,8 @@
 fs   = require 'fs'
 Path = require 'path'
 
+require '../util/moresugar'
+
 { Compiler } = require './tool'
 
 class LRPlugin
@@ -20,9 +22,12 @@ class LRPlugin
       callback(e)
 
   processManifest: (@manifest, callback) ->
-    for compilerManifest in @manifest.LRCompilers
+    for compilerManifest in @manifest.LRCompilers || []
       compiler = new Compiler(this, compilerManifest)
       @compilers[compiler.id] = compiler
+
+    @extensionsToMonitor = @manifest.extensionsToMonitor || []
+    @fileAndFolderNamesToIgnore = @manifest.fileAndFolderNamesToIgnore || []
 
     # console.log "Loaded manifest at #{@folder} with #{@manifest.LRCompilers.length} compilers"
     callback(null)

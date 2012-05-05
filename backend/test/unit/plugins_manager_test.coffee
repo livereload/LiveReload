@@ -15,7 +15,7 @@ describe "LRPluginManager", ->
       done()
 
   it "should be able to find standard plugins", wrap ->
-    assert.equal @manager.plugins.length, 9
+    assert.equal @manager.plugins.length, 10
 
   it "should be able to find all standard compilers", wrap ->
     assert.ok 'sass' of @manager.compilersById

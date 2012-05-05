@@ -29,6 +29,12 @@ class LRPluginManager
       Object.merge @compilersById, plugin.compilers
     @compilers = (compiler for own _, compiler of @compilersById)
 
+    @extensionsToMonitor = []
+    @fileAndFolderNamesToIgnore = []
+    for plugin in @plugins
+      @extensionsToMonitor.pushAll plugin.extensionsToMonitor
+      @fileAndFolderNamesToIgnore.pushAll plugin.fileAndFolderNamesToIgnore
+
     callback(null)
 
 

@@ -2,6 +2,7 @@
 fs = require 'fs'
 
 LRWorkspace = require './workspace'
+LRSettings  = require './settings'
 
 
 module.exports = class LRModel
@@ -17,6 +18,8 @@ module.exports = class LRModel
     console.log "Loaded #{@workspace.projects.length} project(s)."
 
     @workspace.init callback
+
+    @settings = new LRSettings()
 
     # LR.preferences.get PREF_KEY, (memento) =>
     #   for projectMemento in memento.projects || []

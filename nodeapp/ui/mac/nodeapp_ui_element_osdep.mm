@@ -420,7 +420,9 @@ void StyleHyperlink(NSTextField *label, NSString *string, NSURL *url, NSColor *l
     }
 }
 
-TextFieldUIElement::TextFieldUIElement(UIElement *parent_context, const char *_id, id view) : ControlUIElement(parent_context, _id, view, [UIElementDelegate class]) {
+TextFieldUIElement::TextFieldUIElement(UIElement *parent_context, const char *_id, id view) : ControlUIElement(parent_context, _id, view, [TextFieldUIElementDelegate class]) {
+    NSTextField *textField = view_;
+    [textField setDelegate:self()];
 }
 
 bool TextFieldUIElement::set(const char *property, json_t *value) {
@@ -581,6 +583,21 @@ UIElement *UIElement::create_root_context() {
 
 - (void)outlineViewItemDidCollapse:(NSNotification *)notification {
     
+}
+
+@end
+
+
+@implementation TextFieldUIElementDelegate
+
+- (void)controlTextDidChange:(NSNotification *)obj {
+    TextFieldUIElement *that = ObjCObject::from_id<TextFieldUIElement>(self);
+    that->notify(json_object_1("text-changed", json_nsstring([that->view_ stringValue])));
+}
+
+- (void)controlTextDidEndEditing:(NSNotification *)obj {
+    TextFieldUIElement *that = ObjCObject::from_id<TextFieldUIElement>(self);
+    that->notify(json_object_1("text-commit", json_nsstring([that->view_ stringValue])));
 }
 
 @end
