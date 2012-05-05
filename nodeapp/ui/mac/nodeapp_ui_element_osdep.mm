@@ -34,7 +34,6 @@ NSColor *NSColorFromStringSpec(NSString *spec) {
     return [NSColor colorWithCalibratedRed:red/255.0 green:green/255.0 blue:blue/255.0 alpha:alpha/255.0];
 }
 
-
 bool invoke_custom_func_in_nsobject(id object, const char *method, json_t *arg) {
     NSString *selectorName = [NSString stringWithFormat:@"%s:", method];
     SEL selector = NSSelectorFromString(selectorName);
@@ -51,6 +50,22 @@ bool invoke_custom_func_in_nsobject(id object, const char *method, json_t *arg) 
     } else {
         return false;
     }
+}
+
+int parse_enum(const char *name, ...) {
+    va_list va;
+    const char *candidate;
+    int index = 0;
+
+    va_start(va, name);
+    while (!!(candidate = va_arg(va, const char *))) {
+        if (0 == strcmp(name, candidate))
+            return index;
+        ++index;
+    }
+    va_end(va);
+
+    assert1(NO, "Not a valid enumeration identifier: '%s'", name);
 }
 
 
@@ -75,7 +90,14 @@ bool ApplicationUIElement::invoke_custom_func(const char *method, json_t *arg) {
 
 
 
-WindowUIElement::WindowUIElement(UIElement *parent_context, const char *id, NSWindowController *windowController) : UIElement(parent_context, id) {
+WindowUIElement::WindowUIElement(UIElement *parent_context, const char *id, NSWindowController *windowController) : UIElement(parent_context, id)
+{
+    window_type_ = WindowTypeNormal;
+    parent_window_element_ = NULL;
+
+    delegate_ = [[WindowUIElementDelegate alloc] init];
+    delegate_->_element = this;
+
     windowController_ = [windowController retain];
     [windowController_ window]; // load
 }
@@ -85,6 +107,7 @@ WindowUIElement::~WindowUIElement() {
         [windowController_ close];
     }
     [windowController_ release];
+    [delegate_ release];
 }
 
 UIElement *WindowUIElement::create_child(const char *name, json_t *payload) {
@@ -113,15 +136,36 @@ bool WindowUIElement::set(const char *property, json_t *value) {
         NSWindow *window = [windowController_ window];
         if ([window isVisible] != v) {
             if (v) {
-                [windowController_ showWindow:nil];
+                if (WindowTypeSheet == window_type_ && !!parent_window_element_) {
+                    NSWindow *parentWindow = [parent_window_element_->windowController_ window];
+                    [NSApp beginSheet:[windowController_ window] modalForWindow:parentWindow modalDelegate:delegate_ didEndSelector:@selector(didEndProjectSettingsSheet:returnCode:contextInfo:) contextInfo:NULL];
+                } else {
+                    [windowController_ showWindow:nil];
+                }
             } else {
-                [windowController_ close];
+                if (WindowTypeSheet == window_type_ && !!parent_window_element_) {
+                    [NSApp endSheet:[windowController_ window]];
+                } else {
+                    [windowController_ close];
+                }
             }
         }
         return true;
     } else {
         return UIElement::set(property, value);
     }
+}
+
+void WindowUIElement::pre_set(json_t *payload) {
+    if (const char *parent_window_id = json_object_extract_string(payload, "parent-window")) {
+        WindowUIElement *parent_window_element = dynamic_cast<WindowUIElement *>(parent_context_->resolve_child(parent_window_id, NULL));
+        parent_window_element_ = parent_window_element;
+        // TODO: notify the window that it now has a parent
+    }
+    if (const char *window_type_str = json_object_extract_string(payload, "parent-style")) {
+        window_type_ = (WindowType) parse_enum(window_type_str, "normal", "sheet", NULL);
+    }
+    UIElement::pre_set(payload);
 }
 
 bool WindowUIElement::invoke_custom_func(const char *method, json_t *arg) {
@@ -382,31 +426,23 @@ TextFieldUIElement::TextFieldUIElement(UIElement *parent_context, const char *_i
 }
 
 bool TextFieldUIElement::set(const char *property, json_t *value) {
-    if (0 == strcmp(property, "text")) {
-        return true;
-    } else if (0 == strcmp(property, "hyperlink-url")) {
-        return true;
-    } else if (0 == strcmp(property, "hyperlink-color")) {
-        return true;
-    } else {
-        return ControlUIElement::set(property, value);
-    }
+    return ControlUIElement::set(property, value);
 }
 
-void TextFieldUIElement::post_set(json_t *payload) {
-    json_t *text_j = json_object_get(payload, "text");
-    json_t *hyperlink_url_j = json_object_get(payload, "hyperlink-url");
-    json_t *hyperlink_color_j = json_object_get(payload, "hyperlink-color");
-    if (text_j || hyperlink_url_j) {
-        NSString *text = json_nsstring_value(text_j);
+void TextFieldUIElement::pre_set(json_t *payload) {
+    NSString *text = json_object_extract_nsstring(payload, "text");
+    NSString *hyperlink_url = json_object_extract_nsstring(payload, "hyperlink-url");
+    NSString *hyperlink_color = json_object_extract_nsstring(payload, "hyperlink-color");
+    if (text || hyperlink_url) {
         if (!text)
             text = [view_ stringValue];
-        if (hyperlink_url_j) {
-            StyleHyperlink(view_, text, [NSURL URLWithString:json_nsstring_value(hyperlink_url_j)], (hyperlink_color_j ? NSColorFromStringSpec(json_nsstring_value(hyperlink_color_j)) : nil));
+        if (hyperlink_url) {
+            StyleHyperlink(view_, text, [NSURL URLWithString:hyperlink_url], (hyperlink_color ? NSColorFromStringSpec(hyperlink_color) : nil));
         } else {
             [view_ setStringValue:text];
         }
     }
+    ControlUIElement::pre_set(payload);
 }
 
 
@@ -415,6 +451,15 @@ void TextFieldUIElement::post_set(json_t *payload) {
 UIElement *UIElement::create_root_context() {
     return new ApplicationUIElement();
 }
+
+
+@implementation WindowUIElementDelegate
+
+- (void)didEndProjectSettingsSheet:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+    [sheet orderOut:self];
+}
+
+@end
 
 
 @implementation UIElementDelegate

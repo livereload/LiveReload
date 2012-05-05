@@ -9,6 +9,9 @@ bool invoke_custom_func_in_nsobject(id object, const char *method, json_t *arg);
 #endif
 
 
+@class WindowUIElementDelegate;
+
+
 class ApplicationUIElement : public RootUIElement {
 public:
     ApplicationUIElement();
@@ -19,6 +22,12 @@ protected:
 };
 
 
+typedef enum {
+    WindowTypeNormal,
+    WindowTypeSheet,
+} WindowType;
+
+
 class WindowUIElement : public UIElement {
 public:
     WindowUIElement(UIElement *parent_context, const char *id, NSWindowController *windowController);
@@ -26,8 +35,12 @@ public:
 
 protected:
     NSWindowController *windowController_;
+    WindowUIElementDelegate *delegate_;
+    WindowUIElement *parent_window_element_;
+    WindowType window_type_;
 
     virtual UIElement *create_child(const char *name, json_t *payload);
+    virtual void pre_set(json_t *payload);
     virtual bool set(const char *property, json_t *value);
     virtual bool invoke_custom_func(const char *method, json_t *arg);
 };
@@ -101,10 +114,16 @@ public:
     TextFieldUIElement(UIElement *parent_context, const char *_id, id view);
 protected:
     virtual bool set(const char *property, json_t *value);
-    virtual void post_set(json_t *payload);
+    virtual void pre_set(json_t *payload);
 };
 
 
+
+@interface WindowUIElementDelegate : NSObject <NSWindowDelegate> {
+@public
+    WindowUIElement *_element;
+}
+@end
 
 @interface UIElementDelegate : NSObject {
 @public

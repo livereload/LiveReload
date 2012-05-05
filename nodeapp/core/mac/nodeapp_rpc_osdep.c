@@ -145,7 +145,7 @@ restart_node:
     }
 
     time_t end_time = time(NULL);
-    if (end_time < start_time + 3) {
+    if (true || end_time < start_time + 3) {
         // shut down in less than 3 seconds considered a crash
 
         if (developer_mode) {

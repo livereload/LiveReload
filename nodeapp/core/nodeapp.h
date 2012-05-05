@@ -63,10 +63,12 @@ EXTERN_C IMAGE_DOS_HEADER __ImageBase;
 
 #ifdef __APPLE__
 
-#define NSStr(x) ((x) ? [NSString stringWithUTF8String:(x)] : nil)
+#define NSStr(x) ({ const char *__string = (x); (__string ? [NSString stringWithUTF8String:__string] : nil); })
 #define nsstrdup(x) (strdup([(x) UTF8String]))
 #define json_nsstring_value(x) (NSStr(json_string_value(x)))
 #define json_nsstring(x) (json_string([(x) UTF8String]))
+#define json_object_get_nsstring(obj, key) (json_nsstring_value(json_object_get(obj, key)))
+#define json_object_extract_nsstring(obj, key) (json_nsstring_value(json_object_extract(obj, key)))
 
 #endif
 
@@ -100,6 +102,10 @@ int jsonp_str_equal(const void *ptr1, const void *ptr2);
     
 json_t *json_object_1(const char *key1, json_t *value1);
 json_t *json_object_2(const char *key1, json_t *value1, const char *key2, json_t *value2);
+json_t *json_object_extract(json_t *object, const char *key);
+
+#define json_object_get_string(obj, key) (json_string_value(json_object_get(obj, key)))
+#define json_object_extract_string(obj, key) (json_string_value(json_object_extract(obj, key)))
 
 #define ARRAY_FOREACH(type, array, iterVar, code) {\
     type *iterVar##end = (array) + sizeof((array))/sizeof((array)[0]);\
@@ -124,6 +130,28 @@ json_t *json_object_2(const char *key1, json_t *value1, const char *key2, json_t
     for_each_array_item_(array, index, value)
 
 char *str_printf(const char *fmt, ...);
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Autorelease
+
+typedef void (*autorelease_func_t)(void *);
+void autorelease_custom(autorelease_func_t func, void *data);
+
+void _autorelease_malloced_impl(void *ptr);
+json_t *json_autodecref(json_t *json);
+
+#if defined(__MSC_VER) || defined(__cplusplus)
+extern "C++" {
+    template <typename T>
+    inline T *autorelease_malloced(T *val) {
+        _autorelease_malloced_impl(val);
+        return val;
+    }
+}
+#else
+#define autorelease_malloced(val) ({ __typeof(val) __val = val; _autorelease_malloced_impl(__val); __val; })
+#endif
 
 
 ////////////////////////////////////////////////////////////////////////////////

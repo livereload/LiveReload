@@ -53,6 +53,8 @@ class LRApplication extends EventEmitter
       summary = details.split("\n").slice(0, 4).join("\n").trim()
       subject = details.split("\n")[0].trim()
 
+      LR.log.omg "Uncaught exception: " + details
+
       await C.app.displayPopupMessage {
         title:   "LiveReload 2 error"
         text:    "Whoops: LiveReload has just survived an error. If something stops working, you might want to restart the app. Sending the log file to the developer would be tremendously helpful too.\n\nGeeky details: #{summary}"

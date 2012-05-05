@@ -14,15 +14,19 @@
 		430829E515476CF4006D5B4A /* nodeapp_ui_element_osdep.mm in Sources */ = {isa = PBXBuildFile; fileRef = 430829E415476CF4006D5B4A /* nodeapp_ui_element_osdep.mm */; };
 		430829E715476E43006D5B4A /* nodeapp_broker_osdep.m in Sources */ = {isa = PBXBuildFile; fileRef = 430829E615476E43006D5B4A /* nodeapp_broker_osdep.m */; };
 		430829EB15477D73006D5B4A /* nodeapp_broker.c in Sources */ = {isa = PBXBuildFile; fileRef = 430829EA15477D73006D5B4A /* nodeapp_broker.c */; };
+		432E73191553C3A400383E8C /* MonitoringSettingsWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 432E73161553C3A400383E8C /* MonitoringSettingsWindow.xib */; };
+		432E731A1553C3A400383E8C /* MonitoringSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 432E73181553C3A400383E8C /* MonitoringSettingsWindowController.m */; };
 		43361D4613C30D1400C0E589 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43361D4513C30D1400C0E589 /* libicucore.dylib */; };
 		4348E4C4154A6DDE00BA8F26 /* nodeapp_ui_element.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4348E4C3154A6DDE00BA8F26 /* nodeapp_ui_element.cc */; };
 		4348E4CB154ADA0200BA8F26 /* PassThruImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4348E4C8154ADA0200BA8F26 /* PassThruImageView.m */; };
 		4348E4CC154ADA0200BA8F26 /* PassThruView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4348E4CA154ADA0200BA8F26 /* PassThruView.m */; };
 		4348E4D0154ADA1400BA8F26 /* ImageAndTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4348E4CF154ADA1400BA8F26 /* ImageAndTextCell.m */; };
+		435846DE1554A7C900003DD1 /* nodeapp_autorelease_osdep.m in Sources */ = {isa = PBXBuildFile; fileRef = 435846DD1554A7C900003DD1 /* nodeapp_autorelease_osdep.m */; };
 		43594AF413D3BB34004175B2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43594AF313D3BB34004175B2 /* QuartzCore.framework */; };
 		4359ED37154DE9F20054EC17 /* nodeapp_callbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = 4359ED36154DE9F20054EC17 /* nodeapp_callbacks.m */; };
 		438A2311154AE2420070E9F2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 438A2310154AE2420070E9F2 /* AppDelegate.m */; };
 		438A2314154AE3900070E9F2 /* nodeapp_ui_image.m in Sources */ = {isa = PBXBuildFile; fileRef = 438A2313154AE3900070E9F2 /* nodeapp_ui_image.m */; };
+		439CC76F1554A43F00A3CCA5 /* nodeapp_autorelease.c in Sources */ = {isa = PBXBuildFile; fileRef = 439CC76E1554A43F00A3CCA5 /* nodeapp_autorelease.c */; };
 		43E22FA315444A2E00BCD9C9 /* AddTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 43E22F7915444A2E00BCD9C9 /* AddTemplate.png */; };
 		43E22FA415444A2E00BCD9C9 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 43E22F7A15444A2E00BCD9C9 /* background.png */; };
 		43E22FA515444A2E00BCD9C9 /* FolderIcon64.png in Resources */ = {isa = PBXBuildFile; fileRef = 43E22F7B15444A2E00BCD9C9 /* FolderIcon64.png */; };
@@ -114,6 +118,9 @@
 		430829E815476E4D006D5B4A /* nodeapp_broker_osdep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nodeapp_broker_osdep.h; sourceTree = "<group>"; };
 		430829E915477D5D006D5B4A /* nodeapp_broker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nodeapp_broker.h; sourceTree = "<group>"; };
 		430829EA15477D73006D5B4A /* nodeapp_broker.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = nodeapp_broker.c; sourceTree = "<group>"; };
+		432E73161553C3A400383E8C /* MonitoringSettingsWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MonitoringSettingsWindow.xib; sourceTree = "<group>"; };
+		432E73171553C3A400383E8C /* MonitoringSettingsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonitoringSettingsWindowController.h; sourceTree = "<group>"; };
+		432E73181553C3A400383E8C /* MonitoringSettingsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonitoringSettingsWindowController.m; sourceTree = "<group>"; };
 		43361D4513C30D1400C0E589 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		4348E4C2154A6DCF00BA8F26 /* nodeapp_ui_element.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = nodeapp_ui_element.hh; sourceTree = "<group>"; };
 		4348E4C3154A6DDE00BA8F26 /* nodeapp_ui_element.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nodeapp_ui_element.cc; sourceTree = "<group>"; };
@@ -124,12 +131,14 @@
 		4348E4CA154ADA0200BA8F26 /* PassThruView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassThruView.m; sourceTree = "<group>"; };
 		4348E4CE154ADA1400BA8F26 /* ImageAndTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageAndTextCell.h; sourceTree = "<group>"; };
 		4348E4CF154ADA1400BA8F26 /* ImageAndTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageAndTextCell.m; sourceTree = "<group>"; };
+		435846DD1554A7C900003DD1 /* nodeapp_autorelease_osdep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nodeapp_autorelease_osdep.m; sourceTree = "<group>"; };
 		43594AF313D3BB34004175B2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4359ED36154DE9F20054EC17 /* nodeapp_callbacks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nodeapp_callbacks.m; sourceTree = "<group>"; };
 		438A230F154AE2420070E9F2 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		438A2310154AE2420070E9F2 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		438A2312154AE2BF0070E9F2 /* nodeapp_ui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nodeapp_ui.h; sourceTree = "<group>"; };
 		438A2313154AE3900070E9F2 /* nodeapp_ui_image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nodeapp_ui_image.m; sourceTree = "<group>"; };
+		439CC76E1554A43F00A3CCA5 /* nodeapp_autorelease.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = nodeapp_autorelease.c; sourceTree = "<group>"; };
 		43A265E613DCEAE600704BF6 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		43E22F7915444A2E00BCD9C9 /* AddTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddTemplate.png; sourceTree = "<group>"; };
 		43E22F7A15444A2E00BCD9C9 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
@@ -488,6 +497,7 @@
 				43E22FFC154463B100BCD9C9 /* nodeapp_utils.c */,
 				430829E915477D5D006D5B4A /* nodeapp_broker.h */,
 				430829EA15477D73006D5B4A /* nodeapp_broker.c */,
+				439CC76E1554A43F00A3CCA5 /* nodeapp_autorelease.c */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -541,6 +551,7 @@
 				43E22FF1154463B100BCD9C9 /* NodeAppWindowController.m */,
 				430829E815476E4D006D5B4A /* nodeapp_broker_osdep.h */,
 				430829E615476E43006D5B4A /* nodeapp_broker_osdep.m */,
+				435846DD1554A7C900003DD1 /* nodeapp_autorelease_osdep.m */,
 			);
 			path = mac;
 			sourceTree = "<group>";
@@ -672,6 +683,9 @@
 		43E230671545D28C00BCD9C9 /* monitoring-settings */ = {
 			isa = PBXGroup;
 			children = (
+				432E73161553C3A400383E8C /* MonitoringSettingsWindow.xib */,
+				432E73171553C3A400383E8C /* MonitoringSettingsWindowController.h */,
+				432E73181553C3A400383E8C /* MonitoringSettingsWindowController.m */,
 			);
 			path = "monitoring-settings";
 			sourceTree = "<group>";
@@ -779,6 +793,7 @@
 				43E23038154463B200BCD9C9 /* nodeapp_rpc_router.c.erb in Resources */,
 				43E2306315449DA600BCD9C9 /* node in Resources */,
 				430829E215476A30006D5B4A /* MainWindow.xib in Resources */,
+				432E73191553C3A400383E8C /* MonitoringSettingsWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -838,6 +853,9 @@
 				438A2311154AE2420070E9F2 /* AppDelegate.m in Sources */,
 				438A2314154AE3900070E9F2 /* nodeapp_ui_image.m in Sources */,
 				4359ED37154DE9F20054EC17 /* nodeapp_callbacks.m in Sources */,
+				432E731A1553C3A400383E8C /* MonitoringSettingsWindowController.m in Sources */,
+				439CC76F1554A43F00A3CCA5 /* nodeapp_autorelease.c in Sources */,
+				435846DE1554A7C900003DD1 /* nodeapp_autorelease_osdep.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

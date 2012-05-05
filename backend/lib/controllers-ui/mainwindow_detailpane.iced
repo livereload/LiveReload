@@ -1,7 +1,10 @@
+MonitoringOptionsController = require './details_monitoring'
 
 module.exports = class DetailPaneController
 
   constructor: (@model) ->
+    unless @model
+      throw new Error "DetailPaneController: constructor called without a model"
 
   initialize: ->
 
@@ -10,6 +13,10 @@ module.exports = class DetailPaneController
 
   '#postProcessingEnabledCheckBox clicked': (arg) ->
     @model.selectedProject.postprocEnabled = !!arg
+
+  '#monitoringOptionsButton clicked': ->
+    return unless @model.selectedProject
+    @createChildWindow new MonitoringOptionsController(@model.selectedProject)
 
   render: ->
     project = @model.selectedProject

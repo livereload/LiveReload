@@ -1,6 +1,9 @@
 
 module.exports = styles =
 
+  '#mainwindow':
+    'type': 'MainWindow'
+
   '#mainwindow #projectOutlineView':
     'style':           'source-list'
     'dnd-drop-types': ['file']
@@ -25,6 +28,10 @@ module.exports = styles =
   '#mainwindow #snippetLabelField':
     'hyperlink-url': "http://help.livereload.com/kb/general-use/browser-extensions"
     'hyperlink-color': "#000a89"
+
+
+  '#monitoring':
+    'type': 'MonitoringSettingsWindow'
 
 
 for id in ['#nameTextField', '#pathTextField', '#statusTextField', '#addProjectButton', '#removeProjectButton', '#gettingStartedIconView', '#gettingStartedLabelField', '#terminalButton']

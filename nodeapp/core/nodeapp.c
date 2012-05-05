@@ -18,7 +18,7 @@ void nodeapp_shutdown() {
 void nodeapp_reset() {
     nodeapp_fsmonitor_reset();
     nodeapp_ui_reset();
-    nodeapp_init_logging();
+//    nodeapp_init_logging();
 }
 
 void nodeapp_rpc_invoke_and_keep_callback(const char *callback, json_t *arg) {
@@ -47,4 +47,12 @@ json_t *json_object_2(const char *key1, json_t *value1, const char *key2, json_t
     json_object_set_new(result, key1, value1);
     json_object_set_new(result, key2, value2);
     return result;
+}
+
+json_t *json_object_extract(json_t *object, const char *key) {
+    json_t *value = json_object_get(object, key);
+    json_autodecref(json_incref(value));
+    if (value)
+        json_object_del(object, key);
+    return value;
 }

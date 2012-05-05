@@ -26,6 +26,7 @@ class UIControllerWrapper
 
   constructor: (@parent, @prefix, @controller) ->
     @controller.$ = @update.bind(@)
+    @controller.createChildWindow = @createChildWindow.bind(@)
 
     @selectorsToChildControllers        = {}
     @selectorsTestedForChildControllers = {}
@@ -49,6 +50,16 @@ class UIControllerWrapper
       R.runNamed @name + "_render", =>
         @controller.render?()
       @hookElementsMentionedInSelectors()
+
+  createChildWindow: (controller) ->
+    if @parent
+      @parent.createChildWindow(controller)
+    else
+      unless controller.id
+        throw new Error("createChildWindow: controller must have an id")
+
+      wrapper = @addChildController(controller.id, controller)
+      wrapper.initialize()
 
 
   ################################################################################
@@ -107,11 +118,12 @@ class UIControllerWrapper
         @instantiateChildController '', handler, selector
 
   addChildController: (selector, childController) ->
-    # LR.log.fyi "Adding a child controller for #{selector} of #{@name}"
+    LR.log.fyi "Adding a child controller for #{selector} of #{@name}"
     wrapper = new UIControllerWrapper(this, splitSelector(selector), childController)
     (@selectorsToChildControllers[selector] ||= []).push wrapper
     wrapper.$ = @_sendChildUpdate.bind(@, wrapper)
     # LR.log.fyi "Done adding child controller #{wrapper.name}"
+    return wrapper
 
   instantiateChildController: (selector, handler, handlerSpecSelector) ->
     # LR.log.fyi "Instantiating a child controller for #{handlerSpecSelector}, actual selector '#{selector}'"

@@ -19,9 +19,7 @@ module.exports = class MainWindowController
     @model = new MainWindow()
 
   initialize: ->
-    @$
-      type: 'MainWindow'
-      visible: true
+    @$ visible: true
 
   render: ->
     @$ '#statusTextField': text: @model.statusText

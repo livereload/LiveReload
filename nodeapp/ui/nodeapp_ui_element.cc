@@ -47,6 +47,7 @@ UIElement *UIElement::resolve_child(const char *child_id, json_t *child_payload)
 }
 
 void UIElement::update(json_t *payload) {
+    pre_set(payload);
     for_each_object_key_value(payload, key, value) {
         if (*key == '#') {
             UIElement *child_context = resolve_child(key, value);
@@ -107,6 +108,9 @@ bool UIElement::set(const char *property, json_t *value) {
         return true;
     }
     return false;
+}
+
+void UIElement::pre_set(json_t *payload) {
 }
 
 void UIElement::post_set(json_t *payload) {

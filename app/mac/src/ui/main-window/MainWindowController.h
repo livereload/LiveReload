@@ -14,6 +14,10 @@
     IBOutlet NSMenuItem *_showInDockMenuItem;
     IBOutlet NSMenuItem *_showInMenuBarMenuItem;
     IBOutlet NSMenuItem *_showNowhereMenuItem;
+
+    IBOutlet NSButton *monitoringOptionsButton;
+    IBOutlet NSButton *compilationOptionsButton;
+    IBOutlet NSButton *postprocOptionsButton;
 }
 
 @property (assign) IBOutlet NSView *titleBarSideView;

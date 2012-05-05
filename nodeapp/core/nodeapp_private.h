@@ -16,4 +16,7 @@ void nodeapp_rpc_send_init(void *dummy);
 
 void nodeapp_init_logging();
 
+void nodeapp_autorelease_pool_activate();
+void nodeapp_autorelease_cleanup();
+
 #endif
