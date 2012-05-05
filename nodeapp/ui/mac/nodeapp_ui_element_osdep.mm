@@ -90,16 +90,13 @@ bool ApplicationUIElement::invoke_custom_func(const char *method, json_t *arg) {
 
 
 
-WindowUIElement::WindowUIElement(UIElement *parent_context, const char *id, NSWindowController *windowController) : UIElement(parent_context, id)
+WindowUIElement::WindowUIElement(UIElement *parent_context, const char *id, NSWindowController *windowController) : UIElement(parent_context, id), ObjCObject([WindowUIElementDelegate class])
 {
     window_type_ = WindowTypeNormal;
     parent_window_element_ = NULL;
 
-    delegate_ = [[WindowUIElementDelegate alloc] init];
-    delegate_->_element = this;
-
     windowController_ = [windowController retain];
-    [windowController_ window]; // load
+    [[windowController_ window] setDelegate:self()]; // load window
 }
 
 WindowUIElement::~WindowUIElement() {
@@ -107,7 +104,6 @@ WindowUIElement::~WindowUIElement() {
         [windowController_ close];
     }
     [windowController_ release];
-    [delegate_ release];
 }
 
 UIElement *WindowUIElement::create_child(const char *name, json_t *payload) {
@@ -138,7 +134,7 @@ bool WindowUIElement::set(const char *property, json_t *value) {
             if (v) {
                 if (WindowTypeSheet == window_type_ && !!parent_window_element_) {
                     NSWindow *parentWindow = [parent_window_element_->windowController_ window];
-                    [NSApp beginSheet:[windowController_ window] modalForWindow:parentWindow modalDelegate:delegate_ didEndSelector:@selector(didEndProjectSettingsSheet:returnCode:contextInfo:) contextInfo:NULL];
+                    [NSApp beginSheet:[windowController_ window] modalForWindow:parentWindow modalDelegate:self() didEndSelector:@selector(didEndProjectSettingsSheet:returnCode:contextInfo:) contextInfo:NULL];
                 } else {
                     [windowController_ showWindow:nil];
                 }
@@ -174,16 +170,12 @@ bool WindowUIElement::invoke_custom_func(const char *method, json_t *arg) {
 
 
 
-ViewUIElement::ViewUIElement(UIElement *parent_context, const char *_id, id view, Class delegate_klass) : UIElement(parent_context, _id) {
+ViewUIElement::ViewUIElement(UIElement *parent_context, const char *_id, id view, Class delegate_klass) : UIElement(parent_context, _id), ObjCObject(delegate_klass) {
     view_ = [view retain];
-    delegate_ = [[delegate_klass alloc] init];
-    if (delegate_)
-        ((UIElementDelegate *)delegate_)->_element = this;
 }
 
 ViewUIElement::~ViewUIElement() {
     [view_ release];
-    [delegate_ release];
 }
 
 bool ViewUIElement::set(const char *property, json_t *value) {
@@ -221,7 +213,7 @@ void ViewUIElement::on_action() {
 }
 
 void ViewUIElement::hook_action() {
-    [view_ setTarget:delegate_];
+    [view_ setTarget:self()];
     [view_ setAction:@selector(perform:)];
 }
 
@@ -253,6 +245,12 @@ bool ControlUIElement::set(const char *property, json_t *value) {
             [[view_ cell] setBackgroundStyle:NSBackgroundStyleLight];
         } else {
             assert2(json_is_string(value), "Unsupported value '%s' for cell-background-style of %s", style, path_);
+        }
+        return true;
+    } else if (0 == strcmp(property, "enabled")) {
+        bool enable = json_bool_value(value);
+        if ([view_ isEnabled] != enable) {
+            [view_ setEnabled:enable];
         }
         return true;
     } else {
@@ -299,8 +297,8 @@ OutlineUIElement::OutlineUIElement(UIElement *parent_context, const char *_id, i
     data_ = json_object_1("#root", json_object_1("children", json_array()));
 
     NSOutlineView *outlineView = view_;
-    [outlineView setDataSource:delegate_];
-    [outlineView setDelegate:delegate_];
+    [outlineView setDataSource:self()];
+    [outlineView setDelegate:self()];
 }
 
 OutlineUIElement::~OutlineUIElement() {
@@ -455,8 +453,15 @@ UIElement *UIElement::create_root_context() {
 
 @implementation WindowUIElementDelegate
 
+- (void)windowDidBecomeKey:(NSNotification *)notification {
+    WindowUIElement *el = ObjCObject::from_id<WindowUIElement>(self);
+    printf("windowDidBecomeKey, el = %p\n", el);
+}
+
 - (void)didEndProjectSettingsSheet:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+    WindowUIElement *el = ObjCObject::from_id<WindowUIElement>(self);
     [sheet orderOut:self];
+    printf("el = %p\n", el);
 }
 
 @end
@@ -465,8 +470,7 @@ UIElement *UIElement::create_root_context() {
 @implementation UIElementDelegate
 
 - (IBAction)perform:(id)sender {
-    if (_element)
-        _element->on_action();
+    ObjCObject::from_id<OutlineUIElement>(self)->on_action();
 }
 
 @end
@@ -475,7 +479,7 @@ UIElement *UIElement::create_root_context() {
 @implementation OutlineUIElementDelegate
 
 - (json_t *)data {
-    return ((OutlineUIElement *)_element)->data_;
+    return ObjCObject::from_id<OutlineUIElement>(self)->data_;
 }
 
 - (NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item {
@@ -491,7 +495,7 @@ UIElement *UIElement::create_root_context() {
     const char *key = (item == nil ? "#root" : [item UTF8String]);
     json_t *item_data = json_object_get(data, key);
     json_t *item_children = json_object_get(item_data, "children");
-    return ((OutlineUIElement *)_element)->lookup_id(json_string_value((json_array_get(item_children, index))));
+    return ObjCObject::from_id<OutlineUIElement>(self)->lookup_id(json_string_value((json_array_get(item_children, index))));
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item {
@@ -533,7 +537,7 @@ UIElement *UIElement::create_root_context() {
             image = nodeapp_ui_image_lookup(image_name);
             if (!image)
                 image = [NSImage imageNamed:NSStr(image_name)];
-            assert2(image, "Cannot find image '%s' of %s", image_name, _element->path_);
+            assert2(image, "Cannot find image '%s' of %s", image_name, ObjCObject::from_id<OutlineUIElement>(self)->path_);
         }
         [cell setImage:image];
     }
@@ -552,13 +556,14 @@ UIElement *UIElement::create_root_context() {
 }
 
 - (void)outlineViewSelectionDidChange:(NSNotification *)notification {
-    NSOutlineView *outlineView = _element->view_;
+    OutlineUIElement *that = ObjCObject::from_id<OutlineUIElement>(self);
+    NSOutlineView *outlineView = that->view_;
     NSInteger selectedRow = [outlineView selectedRow];
     if (selectedRow >= 0) {
         NSString *itemId = [outlineView itemAtRow:selectedRow];
-        _element->notify(json_object_2("selected", json_string([itemId UTF8String]), [itemId UTF8String], json_object_1("selected", json_true())));
+        that->notify(json_object_2("selected", json_string([itemId UTF8String]), [itemId UTF8String], json_object_1("selected", json_true())));
     } else {
-        _element->notify(json_object_1("selected", json_null()));
+        that->notify(json_object_1("selected", json_null()));
     }
 }
 
