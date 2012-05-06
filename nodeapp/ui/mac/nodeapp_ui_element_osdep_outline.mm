@@ -5,6 +5,10 @@
 
 OutlineUIElement::OutlineUIElement(UIElement *parent_context, const char *_id, id view) : BaseTableUIElement(parent_context, _id, view, [OutlineUIElementDelegate class]) {
     data_ = json_object_1("#root", json_object_1("children", json_array()));
+
+    // data_ must be set before setting data source
+    [view_ setDataSource:self()];
+    [view_ setDelegate:self()];
 }
 
 OutlineUIElement::~OutlineUIElement() {

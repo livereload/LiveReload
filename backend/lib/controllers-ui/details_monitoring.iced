@@ -42,12 +42,15 @@ class MonitoringOptionsVM extends R.Entity
             []
         LR.model.settings.customExtensionsToMonitor = extensions
 
+    @__defprop 'selectedExcludedPath', null
+
 
 module.exports = class MonitoringOptionsController
 
   constructor: (@project) ->
     @id = '#monitoring'
     @project.fullPageReloadDelay = 2.5
+    @project.excludedPaths = ["foo", "bar/boz"]
     @vm = new MonitoringOptionsVM(@project)
 
   initialize: ->
@@ -74,3 +77,16 @@ module.exports = class MonitoringOptionsController
 
   render: ->
     @$ '#builtInExtensionsLabelField': text: @vm.builtInExtensions
+
+
+
+  #############################################################################
+  # excludedPathsTableView
+
+  'automatically render excludedPathsTableView': ->
+    @$ '#excludedPathsTableView': rows:
+      for path in @project.excludedPaths
+        { id: path, name: path }
+
+  '#excludedPathsTableView selectedRow': (rowId) ->
+    @vm.selectedExcludedPath = rowId

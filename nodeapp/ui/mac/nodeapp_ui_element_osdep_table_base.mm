@@ -4,9 +4,6 @@
 
 BaseTableUIElement::BaseTableUIElement(UIElement *parent_context, const char *_id, id view, Class delegate_klass) : ViewUIElement(parent_context, _id, view, delegate_klass) {
     item_ids_ = [[NSMutableDictionary alloc] init];
-
-    [view_ setDataSource:self()];
-    [view_ setDelegate:self()];
 }
 
 BaseTableUIElement::~BaseTableUIElement() {

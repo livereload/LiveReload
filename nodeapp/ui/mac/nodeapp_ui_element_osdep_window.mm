@@ -5,6 +5,7 @@
 #include "nodeapp_ui_element_osdep_button.hh"
 #include "nodeapp_ui_element_osdep_textfield.hh"
 #include "nodeapp_ui_element_osdep_outline.hh"
+#include "nodeapp_ui_element_osdep_table.hh"
 // #include "nodeapp_ui_element_osdep_.hh"
 
 
@@ -33,6 +34,8 @@ UIElement *WindowUIElement::create_child(const char *name, json_t *payload) {
         return new ButtonUIElement(this, name, view);
     else if ([view isKindOfClass:[NSOutlineView class]])
         return new OutlineUIElement(this, name, view);
+    else if ([view isKindOfClass:[NSTableView class]])
+        return new TableUIElement(this, name, view);
     else if ([view isKindOfClass:[NSTextField class]])
         return new TextFieldUIElement(this, name, view);
     else if ([view isKindOfClass:[NSControl class]])
