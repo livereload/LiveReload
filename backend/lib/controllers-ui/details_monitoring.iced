@@ -90,3 +90,13 @@ module.exports = class MonitoringOptionsController
 
   '#excludedPathsTableView selectedRow': (rowId) ->
     @vm.selectedExcludedPath = rowId
+
+  '#addExcludedPathButton clicked': ->
+    @$ '$do': 'chooseFolderToExclude':
+      callback: (path) =>
+        if path
+          @project.excludedPaths = @project.excludedPaths.concat([path])
+
+  '#removeExcludedPathButton clicked': ->
+    if @vm.selectedExcludedPath
+      @project.excludedPaths = @project.excludedPaths.exclude @vm.selectedExcludedPath

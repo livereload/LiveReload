@@ -14,6 +14,7 @@
 		430829E715476E43006D5B4A /* nodeapp_broker_osdep.m in Sources */ = {isa = PBXBuildFile; fileRef = 430829E615476E43006D5B4A /* nodeapp_broker_osdep.m */; };
 		430829EB15477D73006D5B4A /* nodeapp_broker.c in Sources */ = {isa = PBXBuildFile; fileRef = 430829EA15477D73006D5B4A /* nodeapp_broker.c */; };
 		431D093B155655A900D094C4 /* nodeapp_ui_element_osdep_table_base.mm in Sources */ = {isa = PBXBuildFile; fileRef = 431D093A155655A900D094C4 /* nodeapp_ui_element_osdep_table_base.mm */; };
+		431D093E155655FD00D094C4 /* nodeapp_ui_element_osdep_table.mm in Sources */ = {isa = PBXBuildFile; fileRef = 431D093D155655FC00D094C4 /* nodeapp_ui_element_osdep_table.mm */; };
 		432E73191553C3A400383E8C /* MonitoringSettingsWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 432E73161553C3A400383E8C /* MonitoringSettingsWindow.xib */; };
 		432E731A1553C3A400383E8C /* MonitoringSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 432E73181553C3A400383E8C /* MonitoringSettingsWindowController.m */; };
 		43361D4613C30D1400C0E589 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43361D4513C30D1400C0E589 /* libicucore.dylib */; };
@@ -129,6 +130,8 @@
 		430829EA15477D73006D5B4A /* nodeapp_broker.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = nodeapp_broker.c; sourceTree = "<group>"; };
 		431D0939155655A900D094C4 /* nodeapp_ui_element_osdep_table_base.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = nodeapp_ui_element_osdep_table_base.hh; sourceTree = "<group>"; };
 		431D093A155655A900D094C4 /* nodeapp_ui_element_osdep_table_base.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = nodeapp_ui_element_osdep_table_base.mm; sourceTree = "<group>"; };
+		431D093C155655FC00D094C4 /* nodeapp_ui_element_osdep_table.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = nodeapp_ui_element_osdep_table.hh; sourceTree = "<group>"; };
+		431D093D155655FC00D094C4 /* nodeapp_ui_element_osdep_table.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = nodeapp_ui_element_osdep_table.mm; sourceTree = "<group>"; };
 		432E73161553C3A400383E8C /* MonitoringSettingsWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MonitoringSettingsWindow.xib; sourceTree = "<group>"; };
 		432E73171553C3A400383E8C /* MonitoringSettingsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonitoringSettingsWindowController.h; sourceTree = "<group>"; };
 		432E73181553C3A400383E8C /* MonitoringSettingsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonitoringSettingsWindowController.m; sourceTree = "<group>"; };
@@ -366,6 +369,8 @@
 				431D093A155655A900D094C4 /* nodeapp_ui_element_osdep_table_base.mm */,
 				43EFAB7015564EC200165108 /* nodeapp_ui_element_osdep_outline.hh */,
 				43EFAB7115564EC200165108 /* nodeapp_ui_element_osdep_outline.mm */,
+				431D093C155655FC00D094C4 /* nodeapp_ui_element_osdep_table.hh */,
+				431D093D155655FC00D094C4 /* nodeapp_ui_element_osdep_table.mm */,
 				438A2313154AE3900070E9F2 /* nodeapp_ui_image.m */,
 				43EFAB7B15564ECC00165108 /* nodeapp_ui_objcobject.hh */,
 				430829DC1547696A006D5B4A /* NodeAppWindow.h */,
@@ -916,6 +921,7 @@
 				439CC76F1554A43F00A3CCA5 /* nodeapp_autorelease.c in Sources */,
 				435846DE1554A7C900003DD1 /* nodeapp_autorelease_osdep.m in Sources */,
 				431D093B155655A900D094C4 /* nodeapp_ui_element_osdep_table_base.mm in Sources */,
+				431D093E155655FD00D094C4 /* nodeapp_ui_element_osdep_table.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
