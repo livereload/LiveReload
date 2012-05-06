@@ -33,6 +33,12 @@ module.exports = styles =
   '#monitoring':
     'type': 'MonitoringSettingsWindow'
 
+  '#postproc':
+    'type': 'PostprocOptionsWindow'
+    'parent-window': '#mainwindow'
+    'parent-style':  'sheet'
+
+
 
 for id in ['#nameTextField', '#pathTextField', '#statusTextField', '#addProjectButton', '#removeProjectButton', '#gettingStartedIconView', '#gettingStartedLabelField', '#terminalButton']
   styles["#mainwindow #{id}"] =

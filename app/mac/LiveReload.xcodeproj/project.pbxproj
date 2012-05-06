@@ -15,6 +15,8 @@
 		430829EB15477D73006D5B4A /* nodeapp_broker.c in Sources */ = {isa = PBXBuildFile; fileRef = 430829EA15477D73006D5B4A /* nodeapp_broker.c */; };
 		431D093B155655A900D094C4 /* nodeapp_ui_element_osdep_table_base.mm in Sources */ = {isa = PBXBuildFile; fileRef = 431D093A155655A900D094C4 /* nodeapp_ui_element_osdep_table_base.mm */; };
 		431D093E155655FD00D094C4 /* nodeapp_ui_element_osdep_table.mm in Sources */ = {isa = PBXBuildFile; fileRef = 431D093D155655FC00D094C4 /* nodeapp_ui_element_osdep_table.mm */; };
+		431D094215566DB900D094C4 /* PostprocOptionsWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 431D093F15566DB900D094C4 /* PostprocOptionsWindow.xib */; };
+		431D094315566DB900D094C4 /* PostprocOptionsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 431D094115566DB900D094C4 /* PostprocOptionsWindowController.m */; };
 		432E73191553C3A400383E8C /* MonitoringSettingsWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 432E73161553C3A400383E8C /* MonitoringSettingsWindow.xib */; };
 		432E731A1553C3A400383E8C /* MonitoringSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 432E73181553C3A400383E8C /* MonitoringSettingsWindowController.m */; };
 		43361D4613C30D1400C0E589 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43361D4513C30D1400C0E589 /* libicucore.dylib */; };
@@ -132,6 +134,9 @@
 		431D093A155655A900D094C4 /* nodeapp_ui_element_osdep_table_base.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = nodeapp_ui_element_osdep_table_base.mm; sourceTree = "<group>"; };
 		431D093C155655FC00D094C4 /* nodeapp_ui_element_osdep_table.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = nodeapp_ui_element_osdep_table.hh; sourceTree = "<group>"; };
 		431D093D155655FC00D094C4 /* nodeapp_ui_element_osdep_table.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = nodeapp_ui_element_osdep_table.mm; sourceTree = "<group>"; };
+		431D093F15566DB900D094C4 /* PostprocOptionsWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostprocOptionsWindow.xib; sourceTree = "<group>"; };
+		431D094015566DB900D094C4 /* PostprocOptionsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostprocOptionsWindowController.h; sourceTree = "<group>"; };
+		431D094115566DB900D094C4 /* PostprocOptionsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostprocOptionsWindowController.m; sourceTree = "<group>"; };
 		432E73161553C3A400383E8C /* MonitoringSettingsWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MonitoringSettingsWindow.xib; sourceTree = "<group>"; };
 		432E73171553C3A400383E8C /* MonitoringSettingsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonitoringSettingsWindowController.h; sourceTree = "<group>"; };
 		432E73181553C3A400383E8C /* MonitoringSettingsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonitoringSettingsWindowController.m; sourceTree = "<group>"; };
@@ -748,6 +753,9 @@
 		43E230681545D28C00BCD9C9 /* postproc-settings */ = {
 			isa = PBXGroup;
 			children = (
+				431D093F15566DB900D094C4 /* PostprocOptionsWindow.xib */,
+				431D094015566DB900D094C4 /* PostprocOptionsWindowController.h */,
+				431D094115566DB900D094C4 /* PostprocOptionsWindowController.m */,
 			);
 			path = "postproc-settings";
 			sourceTree = "<group>";
@@ -849,6 +857,7 @@
 				43E2306315449DA600BCD9C9 /* node in Resources */,
 				430829E215476A30006D5B4A /* MainWindow.xib in Resources */,
 				432E73191553C3A400383E8C /* MonitoringSettingsWindow.xib in Resources */,
+				431D094215566DB900D094C4 /* PostprocOptionsWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -922,6 +931,7 @@
 				435846DE1554A7C900003DD1 /* nodeapp_autorelease_osdep.m in Sources */,
 				431D093B155655A900D094C4 /* nodeapp_ui_element_osdep_table_base.mm in Sources */,
 				431D093E155655FD00D094C4 /* nodeapp_ui_element_osdep_table.mm in Sources */,
+				431D094315566DB900D094C4 /* PostprocOptionsWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

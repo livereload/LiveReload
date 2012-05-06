@@ -80,8 +80,9 @@ class UIControllerWrapper
       @establishBindings()
       @rescan()
       R.hook(@controller)
-      R.runNamed @name + "_render", =>
-        @controller.render?()
+      if @controller.render
+        R.runNamed @name + "_render", =>
+          @controller.render()
       @hookElementsMentionedInSelectors()
 
   createChildWindow: (controller) ->
