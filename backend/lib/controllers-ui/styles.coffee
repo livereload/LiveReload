@@ -33,6 +33,11 @@ module.exports = styles =
   '#monitoring':
     'type': 'MonitoringSettingsWindow'
 
+  '#compilation':
+    'type': 'CompilationOptionsWindow'
+    'parent-window': '#mainwindow'
+    'parent-style':  'sheet'
+
   '#postproc':
     'type': 'PostprocOptionsWindow'
     'parent-window': '#mainwindow'

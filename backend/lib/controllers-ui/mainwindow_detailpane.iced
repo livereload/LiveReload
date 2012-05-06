@@ -1,5 +1,6 @@
-MonitoringOptionsController = require './details_monitoring'
-PostprocOptionsController   = require './details_postproc'
+MonitoringOptionsController  = require './details_monitoring'
+CompilationOptionsController = require './details_compilation'
+PostprocOptionsController    = require './details_postproc'
 
 module.exports = class DetailPaneController
 
@@ -18,6 +19,10 @@ module.exports = class DetailPaneController
   '#monitoringOptionsButton clicked': ->
     return unless @model.selectedProject
     @createChildWindow new MonitoringOptionsController(@model.selectedProject)
+
+  '#compilationOptionsButton clicked': ->
+    return unless @model.selectedProject
+    @createChildWindow new CompilationOptionsController(@model.selectedProject)
 
   '#postprocOptionsButton clicked': ->
     return unless @model.selectedProject
