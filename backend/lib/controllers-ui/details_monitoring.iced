@@ -49,8 +49,6 @@ module.exports = class MonitoringOptionsController
 
   constructor: (@project) ->
     @id = '#monitoring'
-    @project.fullPageReloadDelay = 2.5
-    @project.excludedPaths = ["foo", "bar/boz"]
     @vm = new MonitoringOptionsVM(@project)
 
   initialize: ->
