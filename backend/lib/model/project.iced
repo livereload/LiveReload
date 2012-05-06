@@ -5,8 +5,9 @@ R = require '../reactive'
 
 nextProjectId = 1
 
-ProcessChangesJob = require '../jobs/process_changes_job'
+{ scheduleChangeProcessing } = require '../jobs/schedule_change_processing'
 { EventEmitter }  = require 'events'
+ImportGraph       = require './graph'
 
 
 decodeExternalRelativeDir = (dir) ->
@@ -57,6 +58,8 @@ class Project extends R.Entity
     @hive.on 'change', (paths, callback) =>
       @handleChange(paths, callback)
 
+    @importGraph = new ImportGraph()
+
     LR.log.fyi "Adding project at #{@path} with memento #{JSON.stringify(@memento, null, 2)}"
 
     @__defprop 'compilationEnabled',         !!(@memento?.compilationEnabled ? 0)
@@ -102,7 +105,7 @@ class Project extends R.Entity
     { @path }
 
   handleChange: (paths, callback) ->
-    new ProcessChangesJob(this, paths).execute(callback)
+    scheduleChangeProcessing(this, paths, callback)
 
   _modified: ->
     @emit 'modified'

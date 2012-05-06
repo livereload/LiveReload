@@ -5,6 +5,7 @@ Path = require 'path'
 
 LRPluginManager = require '../plugins/manager'
 RPC             = require '../rpc/rpc'
+Job             = require './jobs'
 
 # { createApiTree }       = require 'apitree'
 { createRemoteApiTree } = require '../util/remoteapitree'
@@ -92,6 +93,16 @@ class LRApplication extends EventEmitter
         notify: (arg, callback) =>
           @ui.notify(arg)
           callback(null)
+
+    @queue = new Job.Queue [
+      'AnalyzeImportsJob'
+      'ScheduleCompilationJob'
+      'RunCompilerJob'
+      'RunPostProcessingJob'
+      'ReloadBrowserJob'
+      'DevModeRestartJob'
+    ]
+    @queue.verbose = yes
 
     global.LR = this
     global.C = @client
