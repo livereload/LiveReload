@@ -11,7 +11,6 @@
 		430829DE1547696A006D5B4A /* NodeAppWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 430829DD1547696A006D5B4A /* NodeAppWindow.m */; };
 		430829E215476A30006D5B4A /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 430829DF15476A30006D5B4A /* MainWindow.xib */; };
 		430829E315476A30006D5B4A /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 430829E115476A30006D5B4A /* MainWindowController.m */; };
-		430829E515476CF4006D5B4A /* nodeapp_ui_element_osdep.mm in Sources */ = {isa = PBXBuildFile; fileRef = 430829E415476CF4006D5B4A /* nodeapp_ui_element_osdep.mm */; };
 		430829E715476E43006D5B4A /* nodeapp_broker_osdep.m in Sources */ = {isa = PBXBuildFile; fileRef = 430829E615476E43006D5B4A /* nodeapp_broker_osdep.m */; };
 		430829EB15477D73006D5B4A /* nodeapp_broker.c in Sources */ = {isa = PBXBuildFile; fileRef = 430829EA15477D73006D5B4A /* nodeapp_broker.c */; };
 		432E73191553C3A400383E8C /* MonitoringSettingsWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 432E73161553C3A400383E8C /* MonitoringSettingsWindow.xib */; };
@@ -99,6 +98,16 @@
 		43E2305F15449A7700BCD9C9 /* nodeapp_objc_json.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E2305E15449A7500BCD9C9 /* nodeapp_objc_json.m */; };
 		43E2306115449ACC00BCD9C9 /* nodeapp_api_preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E2306015449ACB00BCD9C9 /* nodeapp_api_preferences.m */; };
 		43E2306315449DA600BCD9C9 /* node in Resources */ = {isa = PBXBuildFile; fileRef = 43E2306215449DA600BCD9C9 /* node */; };
+		43EFAB7C15564FE900165108 /* nodeapp_ui_element_osdep.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43EFAB7A15564EC200165108 /* nodeapp_ui_element_osdep.mm */; };
+		43EFAB7D15564FE900165108 /* nodeapp_ui_element_osdep_utils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43EFAB7515564EC200165108 /* nodeapp_ui_element_osdep_utils.mm */; };
+		43EFAB7E15564FE900165108 /* nodeapp_ui_element_osdep_application.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43EFAB6915564EC200165108 /* nodeapp_ui_element_osdep_application.mm */; };
+		43EFAB7F15564FE900165108 /* nodeapp_ui_element_osdep_window.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43EFAB7915564EC200165108 /* nodeapp_ui_element_osdep_window.mm */; };
+		43EFAB8015564FE900165108 /* nodeapp_ui_element_osdep_view.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43EFAB7715564EC200165108 /* nodeapp_ui_element_osdep_view.mm */; };
+		43EFAB8115564FE900165108 /* nodeapp_ui_element_osdep_control.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43EFAB6D15564EC200165108 /* nodeapp_ui_element_osdep_control.mm */; };
+		43EFAB8215564FE900165108 /* nodeapp_ui_element_osdep_generic.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43EFAB6F15564EC200165108 /* nodeapp_ui_element_osdep_generic.mm */; };
+		43EFAB8315564FE900165108 /* nodeapp_ui_element_osdep_button.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43EFAB6B15564EC200165108 /* nodeapp_ui_element_osdep_button.mm */; };
+		43EFAB8415564FE900165108 /* nodeapp_ui_element_osdep_outline.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43EFAB7115564EC200165108 /* nodeapp_ui_element_osdep_outline.mm */; };
+		43EFAB8515564FE900165108 /* nodeapp_ui_element_osdep_textfield.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43EFAB7315564EC200165108 /* nodeapp_ui_element_osdep_textfield.mm */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
@@ -113,7 +122,6 @@
 		430829DF15476A30006D5B4A /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		430829E015476A30006D5B4A /* MainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindowController.h; sourceTree = "<group>"; };
 		430829E115476A30006D5B4A /* MainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainWindowController.m; sourceTree = "<group>"; };
-		430829E415476CF4006D5B4A /* nodeapp_ui_element_osdep.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = nodeapp_ui_element_osdep.mm; sourceTree = "<group>"; };
 		430829E615476E43006D5B4A /* nodeapp_broker_osdep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nodeapp_broker_osdep.m; sourceTree = "<group>"; };
 		430829E815476E4D006D5B4A /* nodeapp_broker_osdep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nodeapp_broker_osdep.h; sourceTree = "<group>"; };
 		430829E915477D5D006D5B4A /* nodeapp_broker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nodeapp_broker.h; sourceTree = "<group>"; };
@@ -124,7 +132,6 @@
 		43361D4513C30D1400C0E589 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		4348E4C2154A6DCF00BA8F26 /* nodeapp_ui_element.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = nodeapp_ui_element.hh; sourceTree = "<group>"; };
 		4348E4C3154A6DDE00BA8F26 /* nodeapp_ui_element.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nodeapp_ui_element.cc; sourceTree = "<group>"; };
-		4348E4C5154A81B600BA8F26 /* nodeapp_ui_element_osdep.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = nodeapp_ui_element_osdep.hh; sourceTree = "<group>"; };
 		4348E4C7154ADA0200BA8F26 /* PassThruImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassThruImageView.h; sourceTree = "<group>"; };
 		4348E4C8154ADA0200BA8F26 /* PassThruImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassThruImageView.m; sourceTree = "<group>"; };
 		4348E4C9154ADA0200BA8F26 /* PassThruView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassThruView.h; sourceTree = "<group>"; };
@@ -233,6 +240,26 @@
 		43E2305E15449A7500BCD9C9 /* nodeapp_objc_json.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nodeapp_objc_json.m; sourceTree = "<group>"; };
 		43E2306015449ACB00BCD9C9 /* nodeapp_api_preferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nodeapp_api_preferences.m; sourceTree = "<group>"; };
 		43E2306215449DA600BCD9C9 /* node */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = node; sourceTree = "<group>"; };
+		43EFAB6815564EC200165108 /* nodeapp_ui_element_osdep_application.hh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = nodeapp_ui_element_osdep_application.hh; sourceTree = "<group>"; };
+		43EFAB6915564EC200165108 /* nodeapp_ui_element_osdep_application.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = nodeapp_ui_element_osdep_application.mm; sourceTree = "<group>"; };
+		43EFAB6A15564EC200165108 /* nodeapp_ui_element_osdep_button.hh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = nodeapp_ui_element_osdep_button.hh; sourceTree = "<group>"; };
+		43EFAB6B15564EC200165108 /* nodeapp_ui_element_osdep_button.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = nodeapp_ui_element_osdep_button.mm; sourceTree = "<group>"; };
+		43EFAB6C15564EC200165108 /* nodeapp_ui_element_osdep_control.hh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = nodeapp_ui_element_osdep_control.hh; sourceTree = "<group>"; };
+		43EFAB6D15564EC200165108 /* nodeapp_ui_element_osdep_control.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = nodeapp_ui_element_osdep_control.mm; sourceTree = "<group>"; };
+		43EFAB6E15564EC200165108 /* nodeapp_ui_element_osdep_generic.hh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = nodeapp_ui_element_osdep_generic.hh; sourceTree = "<group>"; };
+		43EFAB6F15564EC200165108 /* nodeapp_ui_element_osdep_generic.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = nodeapp_ui_element_osdep_generic.mm; sourceTree = "<group>"; };
+		43EFAB7015564EC200165108 /* nodeapp_ui_element_osdep_outline.hh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = nodeapp_ui_element_osdep_outline.hh; sourceTree = "<group>"; };
+		43EFAB7115564EC200165108 /* nodeapp_ui_element_osdep_outline.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = nodeapp_ui_element_osdep_outline.mm; sourceTree = "<group>"; };
+		43EFAB7215564EC200165108 /* nodeapp_ui_element_osdep_textfield.hh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = nodeapp_ui_element_osdep_textfield.hh; sourceTree = "<group>"; };
+		43EFAB7315564EC200165108 /* nodeapp_ui_element_osdep_textfield.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = nodeapp_ui_element_osdep_textfield.mm; sourceTree = "<group>"; };
+		43EFAB7415564EC200165108 /* nodeapp_ui_element_osdep_utils.hh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = nodeapp_ui_element_osdep_utils.hh; sourceTree = "<group>"; };
+		43EFAB7515564EC200165108 /* nodeapp_ui_element_osdep_utils.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = nodeapp_ui_element_osdep_utils.mm; sourceTree = "<group>"; };
+		43EFAB7615564EC200165108 /* nodeapp_ui_element_osdep_view.hh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = nodeapp_ui_element_osdep_view.hh; sourceTree = "<group>"; };
+		43EFAB7715564EC200165108 /* nodeapp_ui_element_osdep_view.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = nodeapp_ui_element_osdep_view.mm; sourceTree = "<group>"; };
+		43EFAB7815564EC200165108 /* nodeapp_ui_element_osdep_window.hh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = nodeapp_ui_element_osdep_window.hh; sourceTree = "<group>"; };
+		43EFAB7915564EC200165108 /* nodeapp_ui_element_osdep_window.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = nodeapp_ui_element_osdep_window.mm; sourceTree = "<group>"; };
+		43EFAB7A15564EC200165108 /* nodeapp_ui_element_osdep.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = nodeapp_ui_element_osdep.mm; sourceTree = "<group>"; };
+		43EFAB7B15564ECC00165108 /* nodeapp_ui_objcobject.hh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = nodeapp_ui_objcobject.hh; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* LiveReload.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveReload.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -315,9 +342,27 @@
 		430829DB1547632C006D5B4A /* mac */ = {
 			isa = PBXGroup;
 			children = (
-				4348E4C5154A81B600BA8F26 /* nodeapp_ui_element_osdep.hh */,
-				430829E415476CF4006D5B4A /* nodeapp_ui_element_osdep.mm */,
+				43EFAB7A15564EC200165108 /* nodeapp_ui_element_osdep.mm */,
+				43EFAB7415564EC200165108 /* nodeapp_ui_element_osdep_utils.hh */,
+				43EFAB7515564EC200165108 /* nodeapp_ui_element_osdep_utils.mm */,
+				43EFAB6815564EC200165108 /* nodeapp_ui_element_osdep_application.hh */,
+				43EFAB6915564EC200165108 /* nodeapp_ui_element_osdep_application.mm */,
+				43EFAB7815564EC200165108 /* nodeapp_ui_element_osdep_window.hh */,
+				43EFAB7915564EC200165108 /* nodeapp_ui_element_osdep_window.mm */,
+				43EFAB7615564EC200165108 /* nodeapp_ui_element_osdep_view.hh */,
+				43EFAB7715564EC200165108 /* nodeapp_ui_element_osdep_view.mm */,
+				43EFAB6C15564EC200165108 /* nodeapp_ui_element_osdep_control.hh */,
+				43EFAB6D15564EC200165108 /* nodeapp_ui_element_osdep_control.mm */,
+				43EFAB6E15564EC200165108 /* nodeapp_ui_element_osdep_generic.hh */,
+				43EFAB6F15564EC200165108 /* nodeapp_ui_element_osdep_generic.mm */,
+				43EFAB6A15564EC200165108 /* nodeapp_ui_element_osdep_button.hh */,
+				43EFAB6B15564EC200165108 /* nodeapp_ui_element_osdep_button.mm */,
+				43EFAB7015564EC200165108 /* nodeapp_ui_element_osdep_outline.hh */,
+				43EFAB7115564EC200165108 /* nodeapp_ui_element_osdep_outline.mm */,
+				43EFAB7215564EC200165108 /* nodeapp_ui_element_osdep_textfield.hh */,
+				43EFAB7315564EC200165108 /* nodeapp_ui_element_osdep_textfield.mm */,
 				438A2313154AE3900070E9F2 /* nodeapp_ui_image.m */,
+				43EFAB7B15564ECC00165108 /* nodeapp_ui_objcobject.hh */,
 				430829DC1547696A006D5B4A /* NodeAppWindow.h */,
 				430829DD1547696A006D5B4A /* NodeAppWindow.m */,
 			);
@@ -804,6 +849,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43EFAB7C15564FE900165108 /* nodeapp_ui_element_osdep.mm in Sources */,
+				43EFAB7D15564FE900165108 /* nodeapp_ui_element_osdep_utils.mm in Sources */,
+				43EFAB7E15564FE900165108 /* nodeapp_ui_element_osdep_application.mm in Sources */,
+				43EFAB7F15564FE900165108 /* nodeapp_ui_element_osdep_window.mm in Sources */,
+				43EFAB8015564FE900165108 /* nodeapp_ui_element_osdep_view.mm in Sources */,
+				43EFAB8115564FE900165108 /* nodeapp_ui_element_osdep_control.mm in Sources */,
+				43EFAB8215564FE900165108 /* nodeapp_ui_element_osdep_generic.mm in Sources */,
+				43EFAB8315564FE900165108 /* nodeapp_ui_element_osdep_button.mm in Sources */,
+				43EFAB8415564FE900165108 /* nodeapp_ui_element_osdep_outline.mm in Sources */,
+				43EFAB8515564FE900165108 /* nodeapp_ui_element_osdep_textfield.mm in Sources */,
 				43E22FC115444A2E00BCD9C9 /* main.m in Sources */,
 				43E23021154463B200BCD9C9 /* dump.c in Sources */,
 				43E23022154463B200BCD9C9 /* error.c in Sources */,
@@ -843,7 +898,6 @@
 				43E2306115449ACC00BCD9C9 /* nodeapp_api_preferences.m in Sources */,
 				430829DE1547696A006D5B4A /* NodeAppWindow.m in Sources */,
 				430829E315476A30006D5B4A /* MainWindowController.m in Sources */,
-				430829E515476CF4006D5B4A /* nodeapp_ui_element_osdep.mm in Sources */,
 				430829E715476E43006D5B4A /* nodeapp_broker_osdep.m in Sources */,
 				430829EB15477D73006D5B4A /* nodeapp_broker.c in Sources */,
 				4348E4C4154A6DDE00BA8F26 /* nodeapp_ui_element.cc in Sources */,
