@@ -9,6 +9,8 @@ nextProjectId = 1
 { EventEmitter }  = require 'events'
 ImportGraph       = require './graph'
 
+AnalysisEngine = require './analyzer'
+
 
 decodeExternalRelativeDir = (dir) ->
   switch dir
@@ -90,6 +92,9 @@ class Project extends R.Entity
     if @isLiveReloadBackend
       LR.log.wtf "LiveReload Development Mode enabled. Will restart myself on backend changes."
       @hive.requestMonitoring 'ThySelfAutoRestart', yes
+
+    unless LR.pluginManager.analysisSchema.skipInUnitTest
+      @analysis = new AnalysisEngine(this, LR.pluginManager.analysisSchema, null)
 
   'automatically request monitoring for processing': ->
      @hive.requestMonitoring 'processing', (@compilationEnabled || @postprocEnabled)

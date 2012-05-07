@@ -12,6 +12,7 @@ describe "LRWorkspace", ->
     LR.fsmanager = new (require '../../lib/vfs/fsmanager')()
     LR.pluginManager =
       compilersById: {}
+      analysisSchema: { skipInUnitTest: yes }
     LR.client.monitoring.add = ->
     LR.client.monitoring.remove = ->
 

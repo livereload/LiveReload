@@ -3,12 +3,15 @@ Path = require 'path'
 
 LRPlugin = require './plugin'
 
+AnalysisEngine = require '../model/analyzer'
+
 
 class LRPluginManager
 
   constructor: (@folders) ->
     unless @folders.length?
       throw new Error("No plugin folders specified")
+    @analysisSchema = new AnalysisEngine.Schema()
 
   rescan: (callback) ->
     pluginFolders = []
@@ -20,7 +23,7 @@ class LRPluginManager
     await
       for pluginFolder in pluginFolders
         plugin = new LRPlugin(pluginFolder)
-        plugin.initialize defer(err)
+        plugin.initialize @analysisSchema, defer(err)
         return callback(err) if err
         @plugins.push(plugin)
 

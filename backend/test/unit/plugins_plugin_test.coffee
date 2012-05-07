@@ -10,7 +10,7 @@ describe "LRPlugin for SASS", ->
 
   beforeEach wrap (done) ->
     @plugin = new LRPlugin(Path.join(LRPluginsRoot, 'SASS.lrplugin'))
-    @plugin.initialize(done)
+    @plugin.initialize({ skipInUnitTest: yes }, done)
 
   it "should be named 'SASS'", wrap ->
     assert.equal @plugin.name, 'SASS'

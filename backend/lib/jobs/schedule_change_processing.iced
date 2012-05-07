@@ -1,6 +1,5 @@
 
 DevModeRestartJob      = require './dev_mode_restart_job'
-AnalyzeImportsJob      = require './analyze_imports_job'
 ScheduleCompilationJob = require './schedule_compilation_job'
 RunPostProcessingJob   = require './run_postproc_job'
 
@@ -13,7 +12,7 @@ scheduleChangeProcessing = (project, changedPaths, callback) ->
       LR.queue.add new DevModeRestartJob
 
     for path in changedPaths
-      LR.queue.add new AnalyzeImportsJob project, path
+      project.analysis.updateFile path
     LR.queue.add new ScheduleCompilationJob project, changedPaths
     LR.queue.add new RunPostProcessingJob project, changedPaths
 
