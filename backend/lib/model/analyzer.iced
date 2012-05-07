@@ -1,8 +1,6 @@
 R = require '../reactive'
 Job = require '../app/jobs'
 
-_nextId = 1
-
 
 class ListVarType
 
