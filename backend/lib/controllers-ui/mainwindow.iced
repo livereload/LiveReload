@@ -21,6 +21,12 @@ module.exports = class MainWindowController
   initialize: ->
     @$ visible: true
 
+    LR.queue.on 'running', =>
+      @model.statusText = "Running #{LR.queue.runningJob}..."
+
+    LR.queue.on 'empty', =>
+      @model.statusText = "All jobs finished."
+
   render: ->
     @$ '#statusTextField': text: @model.statusText
 

@@ -97,7 +97,7 @@ class JobQueue extends EventEmitter
     @runningJob = job
     process.stderr.write "JobQueue running: #{job}\n" if @verbose
 
-    # @emit 'running'
+    @emit 'running'
     # for tag in job.tags
     #   @emit "#{tag}.running"
 
