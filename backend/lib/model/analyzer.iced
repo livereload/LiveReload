@@ -178,8 +178,7 @@ class DataVar
 
   invalidate: ->
     for own _, analyzer of @def.dependentAnalyzers
-      if dependentDataSource = @data.analyzerIdToDataSource[analyzer.__uid]
-        dependentDataSource.invalidate()
+      @data.invalidateDataContributedByAnalyzer analyzer.__uid
 
 
 class Data
@@ -206,6 +205,12 @@ class FileData extends Data
       analyzer.invalidate()
     return
 
+  invalidateDataContributedByAnalyzer: (analyzerId) ->
+    if dataSource = @analyzerIdToDataSource[analyzerId] || @projectData.analyzerIdToDataSource[analyzerId]
+      dataSource.invalidate()
+    else
+      throw new Error "Don't know how to invalidate analyzer #{analyzerId}"
+
 
 class ProjectData extends Data
   constructor: (@project, @schema, @tree) ->
@@ -221,6 +226,14 @@ class ProjectData extends Data
       @pathToFileData[path] ||= new FileData(this, path)
     else
       @pathToFileData[path]
+
+  invalidateDataContributedByAnalyzer: (analyzerId) ->
+    if dataSource = @analyzerIdToDataSource[analyzerId]
+      dataSource.invalidate()
+    else
+      for own _, fileData of @pathToFileData
+        fileData.analyzerIdToDataSource[analyzerId]?.invalidate()
+    return
 
   updateFile: (path) ->
     @file(path, yes).invalidate()

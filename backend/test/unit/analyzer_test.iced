@@ -111,3 +111,36 @@ describe "Analysis Framework", ->
     assert.equal helper.log.join(" "), "analyze(foo.sass) change analyze(foo.sass)"
     assert.equal JSON.stringify(helper.engine.file('foo.sass').imports), JSON.stringify(['another.sass'])
     done()
+
+
+  it "should run an interdependent system of file -> project -> file analyzers", (done) ->
+    helper = new Helper (schema) ->
+      schema.addProjectVarDef 'imports', 'list'
+      schema.addProjectVarDef 'compilers', 'list'
+      schema.addFileVarDef 'compassMixins', 'list'
+
+      schema.addFileAnalyzer @sassSources, (project, file, emit) ->
+        helper.log.push "f2(#{file.path})"
+        if 'Compass' in project.compilers
+          emit 'compassMixins', 'background-with-css2-fallback'
+          emit 'compassMixins', 'blueprint-reset'
+
+      schema.addFileAnalyzer @sassSources, (project, file, emit) ->
+        helper.log.push "f1(#{file.path})"
+        emit 'imports', 'compass/reset'
+
+      schema.addProjectAnalyzer (project, emit) ->
+        helper.log.push "p(#{project.id})"
+        for path in project.imports
+          if path.startsWith 'compass'
+            emit 'compilers', 'Compass'
+
+    helper.tree.touch 'foo.sass'
+    helper.engine.updateFile 'foo.sass'
+
+    await LR.queue.once 'empty', defer()
+    assert.equal helper.log.join(" "), "f2(foo.sass) f1(foo.sass) p(fakeproj) f2(foo.sass)"
+    assert.equal JSON.stringify(helper.engine.compilers), JSON.stringify(['Compass'])
+    assert.equal JSON.stringify(helper.engine.imports), JSON.stringify(['compass/reset'])
+    assert.equal JSON.stringify(helper.engine.file('foo.sass').compassMixins), JSON.stringify(['background-with-css2-fallback', 'blueprint-reset'])
+    done()
