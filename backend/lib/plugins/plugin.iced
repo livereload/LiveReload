@@ -5,6 +5,8 @@ require '../util/moresugar'
 
 { Compiler } = require './tool'
 
+Registrator = require './registrator'
+
 class LRPlugin
   constructor: (@folder) ->
     @name = Path.basename(@folder, '.lrplugin')
@@ -13,13 +15,21 @@ class LRPlugin
     @compilers = {}
 
     @manifestFile = "#{@folder}/manifest.json"
-    @parseManifest(callback)
+    @codeFile = "#{@folder}/index.js"
+    await @parseManifest defer()
+    @loadCode()
+    callback(null)
 
   parseManifest: (callback) ->
     try
       @processManifest JSON.parse(fs.readFileSync(@manifestFile, 'utf8')), callback
     catch e
       callback(e)
+
+  loadCode: ->
+    return unless Path.existsSync(@codeFile)
+    func = require(@codeFile)
+    func(new Registrator(this))
 
   processManifest: (@manifest, callback) ->
     for compilerManifest in @manifest.LRCompilers || []
