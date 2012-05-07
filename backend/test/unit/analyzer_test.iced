@@ -144,3 +144,35 @@ describe "Analysis Framework", ->
     assert.equal JSON.stringify(helper.engine.imports), JSON.stringify(['compass/reset'])
     assert.equal JSON.stringify(helper.engine.file('foo.sass').compassMixins), JSON.stringify(['background-with-css2-fallback', 'blueprint-reset'])
     done()
+
+
+  it "should build an import graph", (done) ->
+    helper = new Helper (schema) ->
+      schema.addProjectVarDef 'importGraph', 'graph'
+
+      imports =
+        'foo.sass': ['bar.sass', 'boz.sass']
+        'bar.sass': ['fubar.sass', 'kubar.sass']
+        'boz.sass': ['boz1.sass', 'boz2.sass', 'kubar.sass']
+        'biz.sass': ['fubar.sass']
+
+      schema.addFileAnalyzer @sassSources, (project, file, emit) ->
+        helper.log.push file.path
+        for path in imports[file.path] || []
+          emit 'importGraph', [file.path, path]
+
+    helper.tree.touch 'foo.sass'
+    helper.engine.updateFile 'foo.sass'
+    helper.engine.updateFile 'bar.sass'
+    helper.engine.updateFile 'boz.sass'
+    helper.engine.updateFile 'fubar.sass'
+    helper.engine.updateFile 'kubar.sass'
+    helper.engine.updateFile 'biz.sass'
+    helper.engine.updateFile 'boz1.sass'
+    helper.engine.updateFile 'boz2.sass'
+
+    await LR.queue.once 'empty', defer()
+    assert.equal helper.engine.importGraph.toString(), "foo.sass-bar.sass foo.sass-boz.sass bar.sass-fubar.sass bar.sass-kubar.sass boz.sass-boz1.sass boz.sass-boz2.sass boz.sass-kubar.sass biz.sass-fubar.sass"
+    assert.deepEqual helper.engine.importGraph.findRoots('kubar.sass'), ['foo.sass']
+    assert.deepEqual helper.engine.importGraph.findRoots('fubar.sass').sort(), ['foo.sass', 'biz.sass'].sort()
+    done()

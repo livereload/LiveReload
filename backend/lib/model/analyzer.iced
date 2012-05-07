@@ -21,9 +21,49 @@ class ListVarType
     return yes
 
 
+class GraphVarType
+
+  constructor: ->
+    @sourceIdToItems = {}
+
+  get: -> this
+
+  update: (sourceId, newPieces) ->
+    oldPieces = @sourceIdToItems[sourceId]
+    return no if Object.equal(oldPieces, newPieces)
+
+    @sourceIdToItems[sourceId] = newPieces
+    return yes
+
+  visitBackwards: (vertex, roots=[], visited={}) ->
+    visited[vertex] = yes
+    hasChildren = no
+    for own _, pieces of @sourceIdToItems
+      for [first, second] in pieces when second is vertex
+        hasChildren = yes
+        @visitBackwards first, roots, visited  unless visited[first]
+    if !hasChildren
+      roots.push vertex
+    return roots
+
+  findRoots: (vertex) ->
+    @visitBackwards(vertex)
+
+  hasBackwardReferences: (vertex) ->
+    for own _, pieces of @sourceIdToItems
+      for [first, second] in pieces when second is vertex
+        return yes
+    return no
+
+  toString: ->
+    (for own _, pieces of @sourceIdToItems
+      for [first, second] in pieces
+        "#{first}-#{second}").flatten().join(' ')
+
 
 StandardTypes =
-  list: ListVarType
+  list:  ListVarType
+  graph: GraphVarType
 
 
 class Analyzer
@@ -144,7 +184,7 @@ class DataSource
 
     # update all output vars (even if we didn't emit a value for a certain var now, we could've done so on the previous iteration)
     for varName in Object.keys(@analyzer.outputVars)
-      @data.varNamed(varName).update @analyzer.__uid, varNameToPieces[varName] || []
+      @data.varNamed(varName).update @sourceId(), varNameToPieces[varName] || []
 
     return yes
 
@@ -155,12 +195,20 @@ class FileDataSource extends DataSource
   analyze: (emit) ->
     @analyzer.func @data.projectData, @data, emit
 
+  sourceId: ->
+    # for file vars @analyzer.__uid alone is enough; full path is needed for project vars
+    "#{@data.path}-#{@analyzer.__uid}"
+
+
 class ProjectDataSource extends DataSource
   schedule: ->
     LR.queue.add new AnalyzeProjectJob(this)
 
   analyze: (emit) ->
     @analyzer.func @data, emit
+
+  sourceId: ->
+    @analyzer.__uid
 
 
 class DataVar
@@ -172,8 +220,8 @@ class DataVar
       @def.addDependentAnalyzer R.context.analyzer
     return @value.get()
 
-  update: (analyzerId, pieces) ->
-    if @value.update(analyzerId, pieces)
+  update: (sourceId, pieces) ->
+    if @value.update(sourceId, pieces)
       @invalidate()
 
   invalidate: ->
