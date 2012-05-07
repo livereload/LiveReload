@@ -12,7 +12,7 @@ class Helper
     @fakeProject =
       id: "fakeproj"
 
-    LR.queue = new Job.Queue ['RunAnalyzerJob']
+    LR.queue = new Job.Queue ['AnalyzeFileJob']
     LR.queue.verbose = yes
 
     @schema = new AnalysisEngine.Schema
@@ -40,4 +40,5 @@ describe "Analysis Framework", ->
 
     await LR.queue.once 'empty', defer()
     assert.equal helper.log.join(" "), "analyze(foo.sass)"
+    assert.equal JSON.stringify(Object.keys(helper.schema.fileAnalyzers[0].outputVars).sort()), '["imports"]'
     done()

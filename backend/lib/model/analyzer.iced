@@ -67,16 +67,26 @@ class AnalyzerSchema
     @namesToVarDefs[name] || throw new Error("File/project analysis variable '#{name}' is not defined")
 
 
-class RunAnalyzerJob extends Job
+class AnalyzeFileJob extends Job
 
-  constructor: (@dataSource) ->
-    super [@dataSource.fileData.projectData.project.id, @dataSource.fileData.path, @dataSource.analyzer.__uid]
+  constructor: (@fileData) ->
+    super [@fileData.projectData.project.id, @fileData.path]
 
   merge: (sibling) ->
 
   execute: (callback) ->
-    @dataSource.validate()
+    # follow the schema order -- it will be manipulated in the future
+    # (or perhaps not, but predictability and repeatability are nice to have anyway)
+    while @executeOneIteration()
+      42
     callback(null)
+
+  executeOneIteration: ->
+    for analyzer in @fileData.projectData.schema.fileAnalyzers
+      if dataSource = @fileData.analyzerIdToFileDataSource[analyzer.__uid]
+        if dataSource.validate()
+          return yes
+    return no
 
 
 class FileDataSource
@@ -93,7 +103,7 @@ class FileDataSource
     @schedule()
 
   schedule: ->
-    LR.queue.add new RunAnalyzerJob(this)
+    LR.queue.add new AnalyzeFileJob(@fileData)
 
   validate: ->
     return no if @valid
@@ -101,6 +111,10 @@ class FileDataSource
     R.withContext this, =>
       @varNameToPieces = {}
       @analyzer.func(@fileData.projectData, @fileData, @emit.bind(@))
+
+    for own varName, pieces of @varNameToPieces
+      theVar = @fileData.varNamed(varName)
+      @analyzer.addOutputVar theVar.def
 
     return yes
 
@@ -120,16 +134,17 @@ class FileVar
 class FileData
   constructor: (@projectData, @path) ->
     @analyzerIdToFileDataSource = {}
+    for analyzer in @projectData.schema.fileAnalyzers
+      if analyzer.fileGroup.contains(@path)
+        @analyzerIdToFileDataSource[analyzer.__uid] = new FileDataSource(this, analyzer)
 
     @namesToVars = {}
     for varDef in @projectData.schema.fileVarDefs
       theVar = @namesToVars[varDef.name] = new FileVar(this, varDef)
       Object.defineProperty this, varDef.name, get: theVar.get.bind(theVar)
 
-  contributionOf: (analyzer) ->
-    @analyzerIdToFileDataSource[analyzer.__uid] ||= new FileDataSource(this, analyzer)
-
   varNamed: (name) ->
+    @namesToVars[name] || throw new Error "Variable '#{name}' is not defined"
 
 
 class ProjectData
@@ -138,9 +153,6 @@ class ProjectData
 
   updateFile: (path) ->
     fileData = (@pathToFileData[path] ||= new FileData(this, path))
-    for analyzer in @schema.fileAnalyzers
-      if analyzer.fileGroup.contains(path)
-        fileData.contributionOf(analyzer).schedule()
 
 
 AnalysisEngine = ProjectData
