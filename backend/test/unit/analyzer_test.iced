@@ -176,3 +176,27 @@ describe "Analysis Framework", ->
     assert.deepEqual helper.engine.importGraph.findRoots('kubar.sass'), ['foo.sass']
     assert.deepEqual helper.engine.importGraph.findRoots('fubar.sass').sort(), ['foo.sass', 'biz.sass'].sort()
     done()
+
+
+  it "should build a dict", (done) ->
+    helper = new Helper (schema) ->
+      schema.addProjectVarDef 'optionOverrides', 'dict'
+
+      hints =
+        'foo.sass': { 'test': 12 }
+        'boz.sass': { 'another': 42 }
+
+      schema.addFileAnalyzer @sassSources, (project, file, emit) ->
+        helper.log.push file.path
+        if hint = hints[file.path]
+          emit 'optionOverrides', hint
+
+    helper.tree.touch 'foo.sass'
+    helper.engine.updateFile 'foo.sass'
+    helper.engine.updateFile 'bar.sass'
+    helper.engine.updateFile 'boz.sass'
+    helper.engine.updateFile 'fubar.sass'
+
+    await LR.queue.once 'empty', defer()
+    assert.deepEqual helper.engine.optionOverrides, { test: 12, another: 42 }
+    done()

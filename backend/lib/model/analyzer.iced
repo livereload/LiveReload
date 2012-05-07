@@ -21,6 +21,26 @@ class ListVarType
     return yes
 
 
+class DictVarType
+
+  constructor: ->
+    @sourceIdToItems = {}
+
+  get: ->
+    result = {}
+    for _, pieces of @sourceIdToItems
+      for piece in pieces
+        Object.merge result, piece
+    return result
+
+  update: (sourceId, newPieces) ->
+    oldPieces = @sourceIdToItems[sourceId]
+    return no if Object.equal(oldPieces, newPieces)
+
+    @sourceIdToItems[sourceId] = newPieces
+    return yes
+
+
 class GraphVarType
 
   constructor: ->
@@ -63,6 +83,7 @@ class GraphVarType
 
 StandardTypes =
   list:  ListVarType
+  dict:  DictVarType
   graph: GraphVarType
 
 
