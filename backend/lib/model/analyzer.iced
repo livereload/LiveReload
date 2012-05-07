@@ -116,6 +116,10 @@ class FileDataSource
       theVar = @fileData.varNamed(varName)
       @analyzer.addOutputVar theVar.def
 
+      for own _, analyzer of theVar.def.dependentAnalyzers
+        if dependentDataSource = @fileData.analyzerIdToFileDataSource[analyzer.__uid]
+          dependentDataSource.invalidate()
+
     return yes
 
 
