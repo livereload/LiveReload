@@ -83,3 +83,31 @@ describe "Analysis Framework", ->
     assert.equal JSON.stringify(Object.keys(helper.schema.projectAnalyzers[0].outputVars).sort()), JSON.stringify(['compilers'])
     assert.equal JSON.stringify(helper.engine.compilers), JSON.stringify(['SASS'])
     done()
+
+
+  it "should update analysis results when file changes", (done) ->
+    _value = 'one.sass'
+    helper = new Helper (schema) ->
+      schema.addFileVarDef 'imports', 'list'
+
+      schema.addFileAnalyzer @sassSources, (project, file, emit) ->
+        helper.log.push "analyze(#{file.path})"
+        emit 'imports', _value
+
+    helper.tree.touch 'foo.sass'
+    helper.engine.updateFile 'foo.sass'
+
+    await LR.queue.once 'empty', defer()
+    assert.equal helper.log.join(" "), "analyze(foo.sass)"
+    assert.equal JSON.stringify(helper.engine.file('foo.sass').imports), JSON.stringify(['one.sass'])
+
+    helper.log.push "change"
+    _value = 'another.sass'
+
+    helper.tree.touch 'foo.sass'
+    helper.engine.updateFile 'foo.sass'
+
+    await LR.queue.once 'empty', defer()
+    assert.equal helper.log.join(" "), "analyze(foo.sass) change analyze(foo.sass)"
+    assert.equal JSON.stringify(helper.engine.file('foo.sass').imports), JSON.stringify(['another.sass'])
+    done()

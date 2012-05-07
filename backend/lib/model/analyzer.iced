@@ -201,6 +201,11 @@ class FileData extends Data
   varNamed: (name) ->
     @projectData.namesToVars[name] || @namesToVars[name] || throw new Error "File/project variable '#{name}' is not defined"
 
+  invalidate: ->
+    for own _, analyzer of @analyzerIdToDataSource
+      analyzer.invalidate()
+    return
+
 
 class ProjectData extends Data
   constructor: (@project, @schema, @tree) ->
@@ -211,11 +216,14 @@ class ProjectData extends Data
   varNamed: (name) ->
     @namesToVars[name] || throw new Error "Project variable '#{name}' is not defined"
 
-  file: (path) ->
-    @pathToFileData[path]
+  file: (path, create=no) ->
+    if create
+      @pathToFileData[path] ||= new FileData(this, path)
+    else
+      @pathToFileData[path]
 
   updateFile: (path) ->
-    fileData = (@pathToFileData[path] ||= new FileData(this, path))
+    @file(path, yes).invalidate()
 
 
 AnalysisEngine = ProjectData
