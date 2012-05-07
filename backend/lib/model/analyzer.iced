@@ -6,10 +6,26 @@ _nextId = 1
 
 class ListVarType
 
-  defaultValue: -> []
+  constructor: ->
+    @sourceIdToItems = {}
+
+  get: ->
+    items = []
+    for _, pieces of @sourceIdToItems
+      items.pushAll pieces
+    return items
+
+  update: (sourceId, newPieces) ->
+    oldPieces = @sourceIdToItems[sourceId]
+    return no if Object.equal(oldPieces, newPieces)
+
+    @sourceIdToItems[sourceId] = newPieces
+    return yes
+
+
 
 StandardTypes =
-  list: new ListVarType()
+  list: ListVarType
 
 
 class Analyzer
@@ -108,31 +124,43 @@ class FileDataSource
   validate: ->
     return no if @valid
     @valid = yes
+
+    oldVarNameToPieces = @varNameToPieces
+    @varNameToPieces = {}
+
     R.withContext this, =>
-      @varNameToPieces = {}
       @analyzer.func(@fileData.projectData, @fileData, @emit.bind(@))
 
-    for own varName, pieces of @varNameToPieces
-      theVar = @fileData.varNamed(varName)
-      @analyzer.addOutputVar theVar.def
+    newVarNames = Object.keys(@varNameToPieces)
+    for varName in newVarNames
+      @analyzer.addOutputVar @fileData.varNamed(varName).def
 
-      for own _, analyzer of theVar.def.dependentAnalyzers
-        if dependentDataSource = @fileData.analyzerIdToFileDataSource[analyzer.__uid]
-          dependentDataSource.invalidate()
+    affectedVarNames = Object.keys(oldVarNameToPieces).concat(newVarNames).unique()
+    for varName in affectedVarNames
+      @fileData.varNamed(varName).update @analyzer.__uid, @varNameToPieces[varName] || []
 
     return yes
 
 
 class FileVar
   constructor: (@fileData, @def) ->
-    @value = @def.type.defaultValue()
+    @value = new (@def.type)
 
   get: ->
     if R.context instanceof FileDataSource
       if R.context.fileData isnt @fileData
         throw new Error "File analyzers are prohibited from reading variables of other files; analyzer for #{R.context.fileData.path} tried to read #{@def.name} from #{@fileData.path}"
       @def.addDependentAnalyzer R.context.analyzer
-    return @value
+    return @value.get()
+
+  update: (analyzerId, pieces) ->
+    if @value.update(analyzerId, pieces)
+      @invalidate()
+
+  invalidate: ->
+    for own _, analyzer of @def.dependentAnalyzers
+      if dependentDataSource = @fileData.analyzerIdToFileDataSource[analyzer.__uid]
+        dependentDataSource.invalidate()
 
 
 class FileData
@@ -154,6 +182,9 @@ class FileData
 class ProjectData
   constructor: (@project, @schema, @tree) ->
     @pathToFileData = {}
+
+  file: (path) ->
+    @pathToFileData[path]
 
   updateFile: (path) ->
     fileData = (@pathToFileData[path] ||= new FileData(this, path))

@@ -40,7 +40,8 @@ describe "Analysis Framework", ->
 
     await LR.queue.once 'empty', defer()
     assert.equal helper.log.join(" "), "analyze(foo.sass)"
-    assert.equal JSON.stringify(Object.keys(helper.schema.fileAnalyzers[0].outputVars).sort()), '["imports"]'
+    assert.equal JSON.stringify(Object.keys(helper.schema.fileAnalyzers[0].outputVars).sort()), JSON.stringify(['imports'])
+    assert.equal JSON.stringify(helper.engine.file('foo.sass').imports), JSON.stringify(['another.sass'])
     done()
 
 
@@ -63,4 +64,6 @@ describe "Analysis Framework", ->
 
     await LR.queue.once 'empty', defer()
     assert.equal helper.log.join(" "), "first(foo.sass) second(foo.sass) first(foo.sass)"
+    assert.equal JSON.stringify(helper.engine.file('foo.sass').imports), JSON.stringify(['another.sass'])
+    assert.equal JSON.stringify(helper.engine.file('foo.sass').something), JSON.stringify(['another.sass/boz.txt'])
     done()
