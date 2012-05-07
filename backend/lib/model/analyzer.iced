@@ -107,12 +107,8 @@ class AnalyzeFileJob extends Job
 
 class FileDataSource
   constructor: (@fileData, @analyzer) ->
-    @varNameToPieces = {}
     @valid = no
     @schedule()
-
-  emit: (varName, piece) ->
-    (@varNameToPieces[varName] ||= []).push piece
 
   invalidate: ->
     @valid = no
@@ -125,19 +121,19 @@ class FileDataSource
     return no if @valid
     @valid = yes
 
-    oldVarNameToPieces = @varNameToPieces
-    @varNameToPieces = {}
+    varNameToPieces = {}
 
     R.withContext this, =>
-      @analyzer.func(@fileData.projectData, @fileData, @emit.bind(@))
+      @analyzer.func @fileData.projectData, @fileData, (varName, piece) =>
+        (varNameToPieces[varName] ||= []).push piece
 
-    newVarNames = Object.keys(@varNameToPieces)
-    for varName in newVarNames
+    # add any first-time vars to the list of output vars
+    for varName in Object.keys(varNameToPieces) when !(varName of @analyzer.outputVars)
       @analyzer.addOutputVar @fileData.varNamed(varName).def
 
-    affectedVarNames = Object.keys(oldVarNameToPieces).concat(newVarNames).unique()
-    for varName in affectedVarNames
-      @fileData.varNamed(varName).update @analyzer.__uid, @varNameToPieces[varName] || []
+    # update all output vars (even if we didn't emit a value for a certain var now, we could've done so on the previous iteration)
+    for varName in Object.keys(@analyzer.outputVars)
+      @fileData.varNamed(varName).update @analyzer.__uid, varNameToPieces[varName] || []
 
     return yes
 
