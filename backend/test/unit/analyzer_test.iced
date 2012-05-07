@@ -6,18 +6,19 @@ Job = require '../../lib/app/jobs'
 
 
 class Helper
-  constructor: ->
+  constructor: (schemaBuilder) ->
     @log = []
 
     @fakeProject =
       id: "fakeproj"
 
-    LR.queue = new Job.Queue ['AnalyzeFileJob']
+    LR.queue = new Job.Queue ['AnalyzeFileJob', 'AnalyzeProjectJob']
     LR.queue.verbose = yes
 
-    @schema = new AnalysisEngine.Schema
-
     @sassSources = FSGroup.parse("*.sass")
+
+    @schema = new AnalysisEngine.Schema
+    schemaBuilder.call(this, @schema)
 
     @tree = new FSTree()
 
@@ -28,12 +29,12 @@ class Helper
 describe "Analysis Framework", ->
 
   it "should run a single file analyzer", (done) ->
-    helper = new Helper()
-    helper.schema.addFileVarDef 'imports', 'list'
+    helper = new Helper (schema) ->
+      schema.addFileVarDef 'imports', 'list'
 
-    helper.schema.addFileAnalyzer helper.sassSources, (project, file, emit) ->
-      helper.log.push "analyze(#{file.path})"
-      emit 'imports', 'another.sass'
+      schema.addFileAnalyzer @sassSources, (project, file, emit) ->
+        helper.log.push "analyze(#{file.path})"
+        emit 'imports', 'another.sass'
 
     helper.tree.touch 'foo.sass'
     helper.engine.updateFile 'foo.sass'
@@ -46,18 +47,18 @@ describe "Analysis Framework", ->
 
 
   it "should run two file analyzers, first one depending on the second one", (done) ->
-    helper = new Helper()
-    helper.schema.addFileVarDef 'imports', 'list'
-    helper.schema.addFileVarDef 'something', 'list'
+    helper = new Helper (schema) ->
+      schema.addFileVarDef 'imports', 'list'
+      schema.addFileVarDef 'something', 'list'
 
-    helper.schema.addFileAnalyzer helper.sassSources, (project, file, emit) ->
-      helper.log.push "first(#{file.path})"
-      for path in file.imports
-        emit 'something', "#{path}/boz.txt"
+      schema.addFileAnalyzer @sassSources, (project, file, emit) ->
+        helper.log.push "first(#{file.path})"
+        for path in file.imports
+          emit 'something', "#{path}/boz.txt"
 
-    helper.schema.addFileAnalyzer helper.sassSources, (project, file, emit) ->
-      helper.log.push "second(#{file.path})"
-      emit 'imports', 'another.sass'
+      schema.addFileAnalyzer @sassSources, (project, file, emit) ->
+        helper.log.push "second(#{file.path})"
+        emit 'imports', 'another.sass'
 
     helper.tree.touch 'foo.sass'
     helper.engine.updateFile 'foo.sass'
@@ -66,4 +67,19 @@ describe "Analysis Framework", ->
     assert.equal helper.log.join(" "), "first(foo.sass) second(foo.sass) first(foo.sass)"
     assert.equal JSON.stringify(helper.engine.file('foo.sass').imports), JSON.stringify(['another.sass'])
     assert.equal JSON.stringify(helper.engine.file('foo.sass').something), JSON.stringify(['another.sass/boz.txt'])
+    done()
+
+
+  it "should run a single project analyzer", (done) ->
+    helper = new Helper (schema) ->
+      schema.addProjectVarDef 'compilers', 'list'
+
+      schema.addProjectAnalyzer (project, emit) ->
+        helper.log.push "analyze(#{project.id})"
+        emit 'compilers', 'SASS'
+
+    await LR.queue.once 'empty', defer()
+    assert.equal helper.log.join(" "), "analyze(fakeproj)"
+    assert.equal JSON.stringify(Object.keys(helper.schema.projectAnalyzers[0].outputVars).sort()), JSON.stringify(['compilers'])
+    assert.equal JSON.stringify(helper.engine.compilers), JSON.stringify(['SASS'])
     done()

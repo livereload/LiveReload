@@ -31,17 +31,19 @@ StandardTypes =
 class Analyzer
   constructor: (@func) ->
     R.hook this
-
-
-class FileAnalyzer extends Analyzer
-  constructor: (func, @fileGroup) ->
-    super(func)
-
     @outputVars = {}
 
   addOutputVar: (varDef) ->
     @outputVars[varDef.__uid] = varDef
     varDef.producingAnalyzers[this.__uid] = this
+
+class FileAnalyzer extends Analyzer
+  constructor: (func, @fileGroup) ->
+    super(func)
+
+class ProjectAnalyzer extends Analyzer
+  constructor: (func) ->
+    super(func)
 
 
 class VarDef
@@ -76,6 +78,9 @@ class AnalyzerSchema
     @fileVarDefs.push varDef
     @namesToVarDefs[varDef.name] = varDef
 
+  addProjectAnalyzer: (func) ->
+    @projectAnalyzers.push new ProjectAnalyzer(func)
+
   addFileAnalyzer: (fileGroup, func) ->
     @fileAnalyzers.push new FileAnalyzer(func, fileGroup)
 
@@ -99,23 +104,31 @@ class AnalyzeFileJob extends Job
 
   executeOneIteration: ->
     for analyzer in @fileData.projectData.schema.fileAnalyzers
-      if dataSource = @fileData.analyzerIdToFileDataSource[analyzer.__uid]
+      if dataSource = @fileData.analyzerIdToDataSource[analyzer.__uid]
         if dataSource.validate()
           return yes
     return no
 
+class AnalyzeProjectJob extends Job
 
-class FileDataSource
-  constructor: (@fileData, @analyzer) ->
+  constructor: (@dataSource) ->
+    super [@dataSource.data.project.id, @dataSource.analyzer.__uid]
+
+  merge: (sibling) ->
+
+  execute: (callback) ->
+    @dataSource.validate()
+    callback(null)
+
+
+class DataSource
+  constructor: (@analyzer, @data) ->
     @valid = no
     @schedule()
 
   invalidate: ->
     @valid = no
     @schedule()
-
-  schedule: ->
-    LR.queue.add new AnalyzeFileJob(@fileData)
 
   validate: ->
     return no if @valid
@@ -124,28 +137,40 @@ class FileDataSource
     varNameToPieces = {}
 
     R.withContext this, =>
-      @analyzer.func @fileData.projectData, @fileData, (varName, piece) =>
+      @analyze (varName, piece) =>
         (varNameToPieces[varName] ||= []).push piece
 
     # add any first-time vars to the list of output vars
     for varName in Object.keys(varNameToPieces) when !(varName of @analyzer.outputVars)
-      @analyzer.addOutputVar @fileData.varNamed(varName).def
+      @analyzer.addOutputVar @data.varNamed(varName).def
 
     # update all output vars (even if we didn't emit a value for a certain var now, we could've done so on the previous iteration)
     for varName in Object.keys(@analyzer.outputVars)
-      @fileData.varNamed(varName).update @analyzer.__uid, varNameToPieces[varName] || []
+      @data.varNamed(varName).update @analyzer.__uid, varNameToPieces[varName] || []
 
     return yes
 
+class FileDataSource extends DataSource
+  schedule: ->
+    LR.queue.add new AnalyzeFileJob(@data)
 
-class FileVar
-  constructor: (@fileData, @def) ->
+  analyze: (emit) ->
+    @analyzer.func @data.projectData, @data, emit
+
+class ProjectDataSource extends DataSource
+  schedule: ->
+    LR.queue.add new AnalyzeProjectJob(this)
+
+  analyze: (emit) ->
+    @analyzer.func @data, emit
+
+
+class DataVar
+  constructor: (@data, @def) ->
     @value = new (@def.type)
 
   get: ->
-    if R.context instanceof FileDataSource
-      if R.context.fileData isnt @fileData
-        throw new Error "File analyzers are prohibited from reading variables of other files; analyzer for #{R.context.fileData.path} tried to read #{@def.name} from #{@fileData.path}"
+    if R.context instanceof DataSource
       @def.addDependentAnalyzer R.context.analyzer
     return @value.get()
 
@@ -155,29 +180,38 @@ class FileVar
 
   invalidate: ->
     for own _, analyzer of @def.dependentAnalyzers
-      if dependentDataSource = @fileData.analyzerIdToFileDataSource[analyzer.__uid]
+      if dependentDataSource = @data.analyzerIdToDataSource[analyzer.__uid]
         dependentDataSource.invalidate()
 
 
-class FileData
-  constructor: (@projectData, @path) ->
-    @analyzerIdToFileDataSource = {}
-    for analyzer in @projectData.schema.fileAnalyzers
-      if analyzer.fileGroup.contains(@path)
-        @analyzerIdToFileDataSource[analyzer.__uid] = new FileDataSource(this, analyzer)
+class Data
+  constructor: (analyzers, varDefs, SpecificDataSource) ->
+    @analyzerIdToDataSource = {}
+    for analyzer in analyzers
+      @analyzerIdToDataSource[analyzer.__uid] = new SpecificDataSource(analyzer, this)
 
     @namesToVars = {}
-    for varDef in @projectData.schema.fileVarDefs
-      theVar = @namesToVars[varDef.name] = new FileVar(this, varDef)
+    for varDef in varDefs
+      theVar = @namesToVars[varDef.name] = new DataVar(this, varDef)
       Object.defineProperty this, varDef.name, get: theVar.get.bind(theVar)
 
+
+class FileData extends Data
+  constructor: (@projectData, @path) ->
+    super(@projectData.schema.fileAnalyzers.filter((a) => a.fileGroup.contains(@path)), @projectData.schema.fileVarDefs, FileDataSource)
+
   varNamed: (name) ->
-    @namesToVars[name] || throw new Error "Variable '#{name}' is not defined"
+    @projectData.namesToVars[name] || @namesToVars[name] || throw new Error "File/project variable '#{name}' is not defined"
 
 
-class ProjectData
+class ProjectData extends Data
   constructor: (@project, @schema, @tree) ->
+    super(@schema.projectAnalyzers, @schema.projectVarDefs, ProjectDataSource)
+    @id = @project.id
     @pathToFileData = {}
+
+  varNamed: (name) ->
+    @namesToVars[name] || throw new Error "Project variable '#{name}' is not defined"
 
   file: (path) ->
     @pathToFileData[path]
