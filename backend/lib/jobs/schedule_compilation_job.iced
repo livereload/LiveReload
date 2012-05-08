@@ -37,7 +37,7 @@ module.exports = class ScheduleCompilationJob extends Job
       if @project.compilationEnabled && compilerOptions.enabled
         if !fileOptions.enabled
           LR.log.fyi "Ignoring a change in #{path} because it is disabled"
-        else if fileOptions.compiler.needsOutputDirectory && !fileOptions.outputDir
+        else if fileOptions.compiler.needsOutputDirectory && !fileOptions.outputDir?
           LR.log.fyi "Ignoring a change in #{path} because no output dir is set"
         else
           # [[NSNotificationCenter defaultCenter] postNotificationName:ProjectWillBeginCompilationNotification object:self];

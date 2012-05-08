@@ -1,11 +1,11 @@
 R = require '../reactive'
 Job = require '../app/jobs'
 
-
 class ListVarType
 
   constructor: ->
     @sourceIdToItems = {}
+    @x = 10
 
   get: ->
     items = []
@@ -97,7 +97,7 @@ class Analyzer
     varDef.producingAnalyzers[this.__uid] = this
 
 class FileAnalyzer extends Analyzer
-  constructor: (func, @fileGroup) ->
+  constructor: (func, @pathList) ->
     super(func)
 
 class ProjectAnalyzer extends Analyzer
@@ -140,8 +140,8 @@ class AnalyzerSchema
   addProjectAnalyzer: (func) ->
     @projectAnalyzers.push new ProjectAnalyzer(func)
 
-  addFileAnalyzer: (fileGroup, func) ->
-    @fileAnalyzers.push new FileAnalyzer(func, fileGroup)
+  addFileAnalyzer: (pathList, func) ->
+    @fileAnalyzers.push new FileAnalyzer(func, pathList)
 
   varDefNamed: (name) ->
     @namesToVarDefs[name] || throw new Error("File/project analysis variable '#{name}' is not defined")
@@ -264,7 +264,7 @@ class Data
 
 class FileData extends Data
   constructor: (@projectData, @path) ->
-    super(@projectData.schema.fileAnalyzers.filter((a) => a.fileGroup.contains(@path)), @projectData.schema.fileVarDefs, FileDataSource)
+    super(@projectData.schema.fileAnalyzers.filter((a) => a.pathList.matches(@path)), @projectData.schema.fileVarDefs, FileDataSource)
 
   varNamed: (name) ->
     @projectData.namesToVars[name] || @namesToVars[name] || throw new Error "File/project variable '#{name}' is not defined"

@@ -4,7 +4,7 @@ Path = require 'path'
 require '../util/moresugar'
 
 { Compiler } = require './tool'
-FSGroup = require '../vfs/fsgroup'
+{ RelPathList } = require 'pathspec'
 
 Registrator = require './registrator'
 
@@ -48,7 +48,7 @@ class LRPlugin
     if typeof fileGroup is 'string'
       if @nameToFileGroup[fileGroup]
         fileGroup = @nameToFileGroup[fileGroup]
-      return FSGroup.parse(fileGroup)
+      return RelPathList.parse(fileGroup)
     else
       fileGroup
 

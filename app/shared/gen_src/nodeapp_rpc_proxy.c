@@ -18,8 +18,8 @@ void S_projects_remove(json_t *data) {
     nodeapp_rpc_send("projects.remove", data);
 }
 
-void S_projects_change_detected(json_t *data) {
-    nodeapp_rpc_send("projects.changeDetected", data);
+void S_monitoring_change_detected(json_t *data) {
+    nodeapp_rpc_send("monitoring.changeDetected", data);
 }
 
 void S_ui_notify(json_t *data) {

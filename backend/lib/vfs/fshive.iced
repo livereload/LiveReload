@@ -58,7 +58,10 @@ class FSHive extends EventEmitter
     @_monitoring = no
 
   handleFSChangeEvent: (event, callback) ->
-    @emit 'change', event.changes, callback
+    if event.changes
+      @emit 'change', event.changes, callback
+    else
+      @emit 'tree', event.tree, callback
 
   absolutePathOf: (relativePath) ->
     Path.join(@fullPath, relativePath)

@@ -1,4 +1,4 @@
-FSGroup = require './fsgroup'
+{ RelPathList, RelPathSpec } = require 'pathspec'
 
 class FSTreeDependency
 
@@ -12,7 +12,7 @@ class FSTreeDependency
 
 class FSTreeGroupDependency extends FSTreeDependency
 
-  constructor: (@tree, @group) ->
+  constructor: (@tree, @list) ->
 
 
 class FSTreePathDependency extends FSTreeDependency
@@ -24,20 +24,25 @@ class FSTreePathDependency extends FSTreeDependency
 class FSTree
 
   constructor: ->
+    @root = { name: "", type: 'dir' }
     @paths = []
 
-  query: (group) ->
-    new FSTreeGroupDependency(this, group).infect()
-    return @paths.filter (path) -> group.contains(path)
+  initialize: (tree) ->
+    @root = tree
+
+  query: (list) ->
+    new FSTreeGroupDependency(this, list).infect()
+    return @paths.filter (path) -> list.matches(path)
 
   fileExists: (path) ->
     new FSTreePathDependency(this, path).infect()
     return path in @paths
 
   folderChildren: (path) ->
-    group = FSGroup.childrenOfPath(path)
-    new FSTreeGroupDependency(this, group).infect()
-    return @paths.filter (path) -> group.contains(path)
+    list = new RelPathList()
+    list.include RelPathSpec.parse(path + '/**')
+    new FSTreeGroupDependency(this, list).infect()
+    return @paths.filter (path) -> list.matches(path)
 
   touch: (path) ->
     unless path in @paths

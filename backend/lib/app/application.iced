@@ -87,6 +87,7 @@ class LRApplication extends EventEmitter
           callback(new Error("Not implemented yet"))
         remove: (arg, callback) =>
           callback(new Error("Not implemented yet"))
+      monitoring:
         changeDetected: (arg, callback) =>
           @fsmanager.handleFSChangeEvent arg, callback
       ui:

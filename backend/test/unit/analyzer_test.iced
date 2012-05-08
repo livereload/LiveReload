@@ -1,7 +1,7 @@
 assert = require 'assert'
 AnalysisEngine = require '../../lib/model/analyzer'
 FSTree = require '../../lib/vfs/fstree'
-FSGroup = require '../../lib/vfs/fsgroup'
+{ RelPathList, RelPathSpec } = require 'pathspec'
 Job = require '../../lib/app/jobs'
 
 
@@ -15,7 +15,7 @@ class Helper
     LR.queue = new Job.Queue ['AnalyzeFileJob', 'AnalyzeProjectJob']
     LR.queue.verbose = yes
 
-    @sassSources = FSGroup.parse("*.sass")
+    @sassSources = RelPathList.parse(["*.sass"])
 
     @schema = new AnalysisEngine.Schema
     schemaBuilder.call(this, @schema)

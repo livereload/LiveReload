@@ -126,7 +126,7 @@ exports.LRApplicationTestingHelper = class LRApplicationTestingHelper extends Ev
 
   generateChange: (fileName, content, callback) ->
     @folder.touch fileName, content
-    @sendAndWait 'projects.changeDetected', { id: 'H1', changes: [fileName] }, =>
+    @sendAndWait 'monitoring.changeDetected', { id: 'H1', changes: [fileName] }, =>
       setTimeout callback, 10
 
   simulateBrowserConnection: (callbacks, helloCallback=null) ->
