@@ -27,6 +27,9 @@ class FileOptions
     @outputDir = decodeExternalRelativeDir(@memento.output_dir ? '')
     @outputNameMask = @memento.output_file ? ''
 
+    # TODO XXX HACK removeme
+    @outputDir = (if Path.dirname(@path) == '.' then '' else Path.dirname(@path))
+
     Object.defineProperty this, 'outputName', get: => @outputNameForMask(@outputNameMask)
 
   outputNameForMask: (mask) ->
