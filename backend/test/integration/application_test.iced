@@ -103,6 +103,7 @@ describe "LiveReload", ->
     await
       LR.queue.once 'empty', defer()
       helper.generateChange 'foo.txt', null, defer()
+    await setTimeout defer(), 50  # fix spurious failures in this test
     assert.deepEqual helper.reloadRequests, [ { path: 'foo.txt' } ]
     helper.quit()
 
