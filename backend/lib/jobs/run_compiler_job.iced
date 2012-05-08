@@ -26,7 +26,7 @@ module.exports = class RunCompilerJob extends Job
 
     info =
       "$(ruby)":         "/usr/bin/ruby"
-      "$(node)":         process.argv[0]
+      "$(node)":         process.execPath
       "$(plugin)":       @fileOptions.compiler.plugin.folder
       "$(project_dir)":  @project.hive.fullPath
 
@@ -40,7 +40,26 @@ module.exports = class RunCompilerJob extends Job
       "$(dst_dir)":      Path.dirname(outputAbsPath)
       "$(dst_rel_path)": outputPath
 
-    info["$(additional)"] = []
+    additional = []
+    compilerOptions = @project.obtainCompilerOptions(@fileOptions.compiler, yes)
+    for option in @fileOptions.compiler.options
+      LR.log.fyi "option #{option.Id}"
+      value = compilerOptions.options[option.Id]
+      LR.log.fyi "value #{value}"
+      if value?
+        LR.log.fyi "type #{option.Type}"
+        switch option.Type
+          when 'select'
+            item = option.Items.find (item) -> item.Id == value
+            LR.log.fyi "item #{item}"
+            if item
+              LR.log.fyi "item.Argument #{item.Argument}"
+              additional.push item.Argument
+
+    additional = (for arg in additional
+      subst(arg.split(' '), info)).flatten()
+
+    info["$(additional)"] = additional
 
     LR.log.fyi "Substituting info: #{JSON.stringify(info, null, 2)}"
 

@@ -22,6 +22,7 @@ decodeExternalRelativeDir = (dir) ->
 class FileOptions
 
   constructor: (@path, @memento={}) ->
+    @initialized = no
     @enabled = @memento.enabled ? yes
     @outputDir = decodeExternalRelativeDir(@memento.output_dir ? '')
     @outputNameMask = @memento.output_file ? ''
@@ -84,6 +85,7 @@ class Project extends R.Entity
         @compilerOptionsById[compilerId] = new CompilerOptions(compiler, compilerOptionsMemento)
       for own filePath, fileOptionsMemento of compilerOptionsMemento.files || {}
         @fileOptionsByPath[filePath] = new FileOptions(filePath, fileOptionsMemento)
+    LR.log.fyi "@compilerOptionsById = " + JSON.stringify(([i, o.options] for i, o of @compilerOptionsById), null, 2)
 
     @postprocLastRunTime = 0
     @postprocGracePeriod = 500
@@ -126,6 +128,7 @@ class Project extends R.Entity
     fileOptions = @fileOptionsByPath[path]
     unless fileOptions
       fileOptions = new FileOptions(path)
+    unless fileOptions.initialized
       await @initializeFileOptions fileOptions, defer(err)
       if err
         return callback(err)
