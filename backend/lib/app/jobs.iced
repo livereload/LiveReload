@@ -1,3 +1,4 @@
+log = require('dreamlog')('jobqueue')
 { EventEmitter } = require 'events'
 
 class Job extends EventEmitter
@@ -72,12 +73,12 @@ class JobQueue extends EventEmitter
     @jobCount += 1
     for tag in job.tags
       @tagToJobCount[tag] = (@tagToJobCount[tag] || 0) + 1
-    process.stderr.write "JobQueue enqueued: #{job}\n" if @verbose
+    log.debug "JobQueue enqueued: #{job}"
 
     @schedule()
 
   schedule: ->
-    return if @scheduled
+    return if @scheduled or @runningJob
     @scheduled = yes
 
     process.nextTick =>
@@ -90,12 +91,12 @@ class JobQueue extends EventEmitter
         delete @nameToJob[job.name]
         @executeJob job
         return
-    process.stderr.write "JobQueue empty\n" if @verbose
+    log.info "JobQueue empty"
     @emit 'empty'
 
   executeJob: (job) ->
     @runningJob = job
-    process.stderr.write "JobQueue running: #{job}\n" if @verbose
+    log.info "JobQueue running: #{job}"
 
     @emit 'running'
     # for tag in job.tags
@@ -103,9 +104,9 @@ class JobQueue extends EventEmitter
 
     job.executeInQueue this, =>
       if @runningJob != job
-        throw new Error "JobQueue internal error"
+        throw new Error "JobQueue internal error: @runningJob == #{@runningJob}, but the finished job is #{job}"
       @runningJob = null
-      process.stderr.write "JobQueue finished: #{job}\n" if @verbose
+      log.info "JobQueue finished: #{job}"
 
       completedTags = []
 
@@ -116,7 +117,7 @@ class JobQueue extends EventEmitter
           completedTags.push tag
 
       for tag in completedTags
-        process.stderr.write "JobQueue empty for tag: #{tag}\n" if @verbose
+        log.debug "JobQueue empty for tag: #{tag}"
         @emit "#{tag}.empty"
 
       @schedule()

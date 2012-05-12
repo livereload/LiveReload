@@ -49,6 +49,8 @@ class LRPlugin
       if @nameToFileGroup[fileGroup]
         fileGroup = @nameToFileGroup[fileGroup]
       return RelPathList.parse(fileGroup)
+    else if Object.isArray fileGroup
+      return RelPathList.parse(fileGroup)
     else
       fileGroup
 

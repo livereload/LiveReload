@@ -98,6 +98,7 @@ class LRApplication extends EventEmitter
     @queue = new Job.Queue [
       'AnalyzeFileJob'
       'AnalyzeProjectJob'
+      'SaveAnalysisResultsJob'
       'ScheduleCompilationJob'
       'RunCompilerJob'
       'RunPostProcessingJob'

@@ -1,3 +1,4 @@
+log = require('dreamlog')(module)
 
 Path = require 'path'
 
@@ -10,6 +11,7 @@ nextProjectId = 1
 ImportGraph       = require './graph'
 
 AnalysisEngine = require './analyzer'
+FSTree = require '../vfs/fstree'
 
 
 decodeExternalRelativeDir = (dir) ->
@@ -60,13 +62,17 @@ class Project extends R.Entity
     super(@name)
     @id = @__uid
 
+    @tree = new FSTree()
+
     @hive = LR.fsmanager.createHive(@path)
     @hive.on 'change', (paths, callback) =>
       @handleChange(paths, callback)
+    @hive.on 'tree', (tree, callback) =>
+      @tree.initialize(tree)
 
     @importGraph = new ImportGraph()
 
-    LR.log.fyi "Adding project at #{@path} with memento #{JSON.stringify(@memento, null, 2)}"
+    log.fyi "Adding project at #{@path} with memento #{JSON.stringify(@memento, null, 2)}"
 
     @__defprop 'compilationEnabled',         !!(@memento?.compilationEnabled ? 0)
     @__defprop 'disableLiveRefresh',         !!(@memento?.disableLiveRefresh ? 0)
@@ -88,18 +94,18 @@ class Project extends R.Entity
         @compilerOptionsById[compilerId] = new CompilerOptions(compiler, compilerOptionsMemento)
       for own filePath, fileOptionsMemento of compilerOptionsMemento.files || {}
         @fileOptionsByPath[filePath] = new FileOptions(filePath, fileOptionsMemento)
-    LR.log.fyi "@compilerOptionsById = " + JSON.stringify(([i, o.options] for i, o of @compilerOptionsById), null, 2)
+    log.debug "@compilerOptionsById = " + JSON.stringify(([i, o.options] for i, o of @compilerOptionsById), null, 2)
 
     @postprocLastRunTime = 0
     @postprocGracePeriod = 500
 
     @isLiveReloadBackend = (Path.normalize(@hive.fullPath) == Path.normalize(Path.join(__dirname, '../..')))
     if @isLiveReloadBackend
-      LR.log.wtf "LiveReload Development Mode enabled. Will restart myself on backend changes."
+      log.warn "LiveReload Development Mode enabled. Will restart myself on backend changes."
       @hive.requestMonitoring 'ThySelfAutoRestart', yes
 
     unless LR.pluginManager.analysisSchema.skipInUnitTest
-      @analysis = new AnalysisEngine(this, LR.pluginManager.analysisSchema, null)
+      @analysis = new AnalysisEngine(this, LR.pluginManager.analysisSchema, @tree)
 
   'automatically request monitoring for processing': ->
      @hive.requestMonitoring 'processing', (@compilationEnabled || @postprocEnabled)

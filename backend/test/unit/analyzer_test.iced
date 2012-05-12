@@ -12,7 +12,7 @@ class Helper
     @fakeProject =
       id: "fakeproj"
 
-    LR.queue = new Job.Queue ['AnalyzeFileJob', 'AnalyzeProjectJob']
+    LR.queue = new Job.Queue ['AnalyzeFileJob', 'AnalyzeProjectJob', 'SaveAnalysisResultsJob']
     LR.queue.verbose = yes
 
     @sassSources = RelPathList.parse(["*.sass"])
@@ -32,7 +32,7 @@ describe "Analysis Framework", ->
     helper = new Helper (schema) ->
       schema.addFileVarDef 'imports', 'list'
 
-      schema.addFileAnalyzer @sassSources, (project, file, emit) ->
+      schema.addFileAnalyzer 'Some analyzer', @sassSources, (project, file, emit) ->
         helper.log.push "analyze(#{file.path})"
         emit 'imports', 'another.sass'
 
@@ -51,12 +51,12 @@ describe "Analysis Framework", ->
       schema.addFileVarDef 'imports', 'list'
       schema.addFileVarDef 'something', 'list'
 
-      schema.addFileAnalyzer @sassSources, (project, file, emit) ->
+      schema.addFileAnalyzer 'Some analyzer', @sassSources, (project, file, emit) ->
         helper.log.push "first(#{file.path})"
         for path in file.imports
           emit 'something', "#{path}/boz.txt"
 
-      schema.addFileAnalyzer @sassSources, (project, file, emit) ->
+      schema.addFileAnalyzer 'Some analyzer', @sassSources, (project, file, emit) ->
         helper.log.push "second(#{file.path})"
         emit 'imports', 'another.sass'
 
@@ -74,7 +74,7 @@ describe "Analysis Framework", ->
     helper = new Helper (schema) ->
       schema.addProjectVarDef 'compilers', 'list'
 
-      schema.addProjectAnalyzer (project, emit) ->
+      schema.addProjectAnalyzer 'Foo', (project, emit) ->
         helper.log.push "analyze(#{project.id})"
         emit 'compilers', 'SASS'
 
@@ -90,7 +90,7 @@ describe "Analysis Framework", ->
     helper = new Helper (schema) ->
       schema.addFileVarDef 'imports', 'list'
 
-      schema.addFileAnalyzer @sassSources, (project, file, emit) ->
+      schema.addFileAnalyzer 'Some analyzer', @sassSources, (project, file, emit) ->
         helper.log.push "analyze(#{file.path})"
         emit 'imports', _value
 
@@ -119,17 +119,17 @@ describe "Analysis Framework", ->
       schema.addProjectVarDef 'compilers', 'list'
       schema.addFileVarDef 'compassMixins', 'list'
 
-      schema.addFileAnalyzer @sassSources, (project, file, emit) ->
+      schema.addFileAnalyzer 'Some analyzer', @sassSources, (project, file, emit) ->
         helper.log.push "f2(#{file.path})"
         if 'Compass' in project.compilers
           emit 'compassMixins', 'background-with-css2-fallback'
           emit 'compassMixins', 'blueprint-reset'
 
-      schema.addFileAnalyzer @sassSources, (project, file, emit) ->
+      schema.addFileAnalyzer 'Some analyzer', @sassSources, (project, file, emit) ->
         helper.log.push "f1(#{file.path})"
         emit 'imports', 'compass/reset'
 
-      schema.addProjectAnalyzer (project, emit) ->
+      schema.addProjectAnalyzer 'Foo', (project, emit) ->
         helper.log.push "p(#{project.id})"
         for path in project.imports
           if path.startsWith 'compass'
@@ -156,7 +156,7 @@ describe "Analysis Framework", ->
         'boz.sass': ['boz1.sass', 'boz2.sass', 'kubar.sass']
         'biz.sass': ['fubar.sass']
 
-      schema.addFileAnalyzer @sassSources, (project, file, emit) ->
+      schema.addFileAnalyzer 'Some analyzer', @sassSources, (project, file, emit) ->
         helper.log.push file.path
         for path in imports[file.path] || []
           emit 'importGraph', [file.path, path]
@@ -186,7 +186,7 @@ describe "Analysis Framework", ->
         'foo.sass': { 'test': 12 }
         'boz.sass': { 'another': 42 }
 
-      schema.addFileAnalyzer @sassSources, (project, file, emit) ->
+      schema.addFileAnalyzer 'Some analyzer', @sassSources, (project, file, emit) ->
         helper.log.push file.path
         if hint = hints[file.path]
           emit 'optionOverrides', hint

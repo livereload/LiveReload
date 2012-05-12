@@ -20,7 +20,7 @@ module.exports = class ReloadBrowserJob extends Job
 
     isFullReload = projects.any((p) -> p.disableLiveRefresh) || @requests.any((r) => r.requiresFullReload)
 
-    fullPageReloadDelay = projects.min('fullPageReloadDelay')
+    fullPageReloadDelay = Math.min.apply(Math, projects.map('fullPageReloadDelay'))
 
     if isFullReload and fullPageReloadDelay > 0
       # TODO: we won't be running any other jobs while we're waiting here -- perhaps schedule a separate job instead?

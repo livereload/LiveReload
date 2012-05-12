@@ -1,3 +1,5 @@
+log = require('dreamlog')('nodeappjs.ui')
+
 Stylesheet = require './stylesheet'
 { makeObject, splitSelector, selectorToTree } = require './util'
 R = require '../reactive'
@@ -49,7 +51,7 @@ bindProp = (controller, control, prop, { event, uiKey, commitEvent }) ->
     return unless _enabled
     render(value)
 
-  LR.log.fyi "Binding: bound '#{control} #{event}' to '#{prop.name}'"
+  log.fyi "Binding: bound '#{control} #{event}' to '#{prop.name}'"
 
 
 class UIControllerWrapper
@@ -152,7 +154,7 @@ class UIControllerWrapper
         @instantiateChildController '', handler, selector
 
   addChildController: (selector, childController) ->
-    LR.log.fyi "Adding a child controller for #{selector} of #{@name}"
+    log.fyi "Adding a child controller for #{selector} of #{@name}"
     wrapper = new UIControllerWrapper(this, splitSelector(selector), childController)
     (@selectorsToChildControllers[selector] ||= []).push wrapper
     wrapper.$ = @_sendChildUpdate.bind(@, wrapper)
@@ -213,7 +215,7 @@ class UIControllerWrapper
   # bindings
 
   establishBindings: ->
-    LR.log.fyi "establishBindings of #{@name}, @eventToSelectorToHandler = " + JSON.stringify(@eventToSelectorToHandler, null, 2)
+    log.debug "establishBindings of #{@name}, @eventToSelectorToHandler = " + JSON.stringify(@eventToSelectorToHandler, null, 2)
     # TODO: run the bindings inside R block in case they change at run time
     for own selector, handler of @eventToSelectorToHandler['checkbox-binding!'] || {}
       property = handler.call(@controller)
@@ -304,9 +306,9 @@ module.exports = class UIDirector
 
   update: (payload) ->
     @stylesheet.annotate payload
-    LR.log.fyi "Final outgoing payload with stylesheet applied: " + JSON.stringify(payload, null, 2)
+    log.fyi "Final outgoing payload with stylesheet applied: " + JSON.stringify(payload, null, 2)
     C.ui.update payload
 
   notify: (payload) ->
-    LR.log.fyi "Incoming payload: " + JSON.stringify(payload, null, 2)
+    log.fyi "Incoming payload: " + JSON.stringify(payload, null, 2)
     @rootControllerWrapper.notify payload

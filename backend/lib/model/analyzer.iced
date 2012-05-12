@@ -1,5 +1,7 @@
+log = require('dreamlog')('livereload.analyzer')
 R = require '../reactive'
 Job = require '../app/jobs'
+{ RelPathList } = require 'pathspec'
 
 class ListVarType
 
@@ -88,21 +90,29 @@ StandardTypes =
 
 
 class Analyzer
-  constructor: (@func) ->
-    R.hook this
+  constructor: (@__uid, @func) ->
     @outputVars = {}
 
   addOutputVar: (varDef) ->
     @outputVars[varDef.__uid] = varDef
     varDef.producingAnalyzers[this.__uid] = this
+    log.debug "#{varDef} produced by #{this}"
 
 class FileAnalyzer extends Analyzer
-  constructor: (func, @pathList) ->
-    super(func)
+  constructor: (uid, func, @pathList) ->
+    super(uid, func)
+    if typeof @pathList is 'function'
+      throw new Error "!!!!! #{uid}"
+
+  toString: ->
+    "FileAn(#{@__uid})"
 
 class ProjectAnalyzer extends Analyzer
-  constructor: (func) ->
-    super(func)
+  constructor: (uid, func) ->
+    super(uid, func)
+
+  toString: ->
+    "ProjAn(#{@__uid})"
 
 
 class VarDef
@@ -116,7 +126,11 @@ class VarDef
     @dependentAnalyzers = {}
 
   addDependentAnalyzer: (analyzer) ->
+    log.debug "#{analyzer} depends on #{this}"
     @dependentAnalyzers[analyzer.__uid] = analyzer
+
+  toString: ->
+    "VarDef(#{@name})"
 
 
 class AnalyzerSchema
@@ -126,6 +140,7 @@ class AnalyzerSchema
     @namesToVarDefs = {}
     @fileAnalyzers = []
     @projectAnalyzers = []
+    @uidsInUse = {}
 
   addProjectVarDef: (name, type, options={}) ->
     varDef = new VarDef(name, type, options)
@@ -137,11 +152,25 @@ class AnalyzerSchema
     @fileVarDefs.push varDef
     @namesToVarDefs[varDef.name] = varDef
 
-  addProjectAnalyzer: (func) ->
-    @projectAnalyzers.push new ProjectAnalyzer(func)
+  _ensureUniqueUid: (analyzer) ->
+    uid = analyzer.__uid
 
-  addFileAnalyzer: (pathList, func) ->
-    @fileAnalyzers.push new FileAnalyzer(func, pathList)
+    nextSuffix = 2
+    suffix = ''
+    while @uidsInUse.hasOwnProperty(uid + suffix)
+      suffix = '_' + (nextSuffix++)
+
+    analyzer.__uid = uid + suffix
+    @uidsInUse[uid] = yes
+
+    return analyzer
+
+
+  addProjectAnalyzer: (uid, func) ->
+    @projectAnalyzers.push @_ensureUniqueUid(new ProjectAnalyzer(uid, func))
+
+  addFileAnalyzer: (uid, pathList, func) ->
+    @fileAnalyzers.push @_ensureUniqueUid(new FileAnalyzer(uid, func, pathList))
 
   varDefNamed: (name) ->
     @namesToVarDefs[name] || throw new Error("File/project analysis variable '#{name}' is not defined")
@@ -155,6 +184,7 @@ class AnalyzeFileJob extends Job
   merge: (sibling) ->
 
   execute: (callback) ->
+    LR.queue.add new SaveAnalysisResultsJob(@fileData.projectData)
     # follow the schema order -- it will be manipulated in the future
     # (or perhaps not, but predictability and repeatability are nice to have anyway)
     while @executeOneIteration()
@@ -164,6 +194,7 @@ class AnalyzeFileJob extends Job
   executeOneIteration: ->
     for analyzer in @fileData.projectData.schema.fileAnalyzers
       if dataSource = @fileData.analyzerIdToDataSource[analyzer.__uid]
+        log.debug "AnalyzeFileJob running '#{analyzer}' on #{@fileData}"
         if dataSource.validate()
           return yes
     return no
@@ -176,7 +207,28 @@ class AnalyzeProjectJob extends Job
   merge: (sibling) ->
 
   execute: (callback) ->
+    LR.queue.add new SaveAnalysisResultsJob(@dataSource.data)
     @dataSource.validate()
+    callback(null)
+
+class SaveAnalysisResultsJob extends Job
+
+  constructor: (@projectData) ->
+    super @projectData.id
+
+  merge: (sibling) ->
+
+  execute: (callback) ->
+    dump = { projectVars: {}, fileVars: {} }
+    for own varName, theVar of @projectData.namesToVars
+      dump.projectVars[varName] = theVar.get()
+    for own path, fileData of @projectData.pathToFileData
+      fileDump = dump.fileVars[path] = {}
+      for own varName, theVar of fileData.namesToVars
+        fileDump[varName] = theVar.get()
+
+    require('fs').writeFileSync "/tmp/LR-analysis-#{@projectData.id}", JSON.stringify(dump, null, 2)
+
     callback(null)
 
 
@@ -186,6 +238,7 @@ class DataSource
     @schedule()
 
   invalidate: ->
+    log.debug "#{this} invalidated"
     @valid = no
     @schedule()
 
@@ -220,6 +273,9 @@ class FileDataSource extends DataSource
     # for file vars @analyzer.__uid alone is enough; full path is needed for project vars
     "#{@data.path}-#{@analyzer.__uid}"
 
+  toString: ->
+    "FileDS(#{@data})"
+
 
 class ProjectDataSource extends DataSource
   schedule: ->
@@ -230,6 +286,9 @@ class ProjectDataSource extends DataSource
 
   sourceId: ->
     @analyzer.__uid
+
+  toString: ->
+    "ProjDS(#{@data})"
 
 
 class DataVar
@@ -246,8 +305,12 @@ class DataVar
       @invalidate()
 
   invalidate: ->
+    log.debug "#{this} updated, invalidating analyzers"
     for own _, analyzer of @def.dependentAnalyzers
       @data.invalidateDataContributedByAnalyzer analyzer.__uid
+
+  toString: ->
+    "Var(#{@data}.#{@def.name})"
 
 
 class Data
@@ -280,12 +343,27 @@ class FileData extends Data
     else
       throw new Error "Don't know how to invalidate analyzer #{analyzerId}"
 
+  toString: ->
+    "FileD(#{@path} in #{@projectData.id})"
+
 
 class ProjectData extends Data
   constructor: (@project, @schema, @tree) ->
     super(@schema.projectAnalyzers, @schema.projectVarDefs, ProjectDataSource)
     @id = @project.id
     @pathToFileData = {}
+
+    list = RelPathList.union.apply(RelPathList, (analyzer.pathList for analyzer in @schema.fileAnalyzers))
+    @treeQuery = @tree.createQuery(list)
+    @treeQuery.subscribe(@id, this)
+    @dependencyChanged(@treeQuery, null)
+
+  dependencyChanged: (sender, path) ->
+    if path?
+      @updateFile path
+    else
+      for path in sender.result
+        @updateFile path
 
   varNamed: (name) ->
     @namesToVars[name] || throw new Error "Project variable '#{name}' is not defined"
@@ -306,6 +384,9 @@ class ProjectData extends Data
 
   updateFile: (path) ->
     @file(path, yes).invalidate()
+
+  toString: ->
+    "ProjD(#{@id})"
 
 
 AnalysisEngine = ProjectData

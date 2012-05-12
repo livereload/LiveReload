@@ -9,8 +9,11 @@ module.exports = class Registrator
   projectVar: (name, type, options={}) ->
     @schema.addProjectVarDef name, type, options
 
-  fileAnalyzer: (fileGroup, func) ->
-    @schema.addFileAnalyzer @plugin.resolveGroup(fileGroup), func
+  fileAnalyzer: (name, fileGroup, func) ->
+    @schema.addFileAnalyzer @uid(name), @plugin.resolveGroup(fileGroup), func
 
-  projectAnalyzer: (func) ->
-    @schema.addProjectAnalyzer func
+  projectAnalyzer: (name, func) ->
+    @schema.addProjectAnalyzer @uid(name), func
+
+  uid: (name) ->
+    (@plugin.name + " " + name).replace(/[^a-zA-Z0-9]+/g, '_')

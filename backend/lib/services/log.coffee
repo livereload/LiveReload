@@ -1,3 +1,5 @@
+require('dreamlog').into 'stderr', 'boring', 'LR.log,console'
+log = require('dreamlog')('LR.log')
 
 fill = (n) ->
   if 0 < n < 10
@@ -19,13 +21,16 @@ now = ->
 class LRLog
 
   omg: (message) ->
-    process.stderr.write "#{now()} node OMG: #{message.trim()}\n"
+    log.omg message
+    # process.stderr.write "#{now()} node OMG: #{message.trim()}\n"
 
   wtf: (message) ->
-    process.stderr.write "#{now()} node WTF: #{message.trim()}\n"
+    log.wtf message
+    # process.stderr.write "#{now()} node WTF: #{message.trim()}\n"
 
   fyi: (message) ->
-    process.stderr.write "#{now()} node: #{message.trim()}\n"
+    log.fyi message
+    # process.stderr.write "#{now()} node: #{message.trim()}\n"
 
 
 module.exports = LRLog

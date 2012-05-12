@@ -1,3 +1,4 @@
+log = require('dreamlog')('nodeappjs.reactive')
 { EventEmitter } = require 'events'
 
 WhistlingArray = require './lib/array'
@@ -64,7 +65,7 @@ class Context
     @_prevdep = @_depedencies
     @_depedencies = {}
 
-    LR.log.fyi "R.run: #{@id}"
+    log.fyi "run: #{@id}"
     R.withContext this, @func
 
     for own _, entity of @_prevdep when entity
@@ -82,7 +83,7 @@ class Property extends EventEmitter
     R.context?.dependsOn(this)
 
   fire: ->
-    LR.log.fyi "R.propchange: #{@name} of #{@entity.__uid}"
+    log.fyi "propchange: #{@name} of #{@entity.__uid}"
     @emit 'change'
     @entity.emit 'propchange', @name
     @entity.emit "#{@name}.change"
@@ -110,7 +111,7 @@ class Var extends Property
     @peek()
 
   setInternally: (newValue) ->
-    LR.log.fyi "#{@name}.setInternally: old = #{@peek()}, new = #{newValue}"
+    log.fyi "#{@name}.setInternally: old = #{@peek()}, new = #{newValue}"
     unless @peek() == newValue
       @holder["_raw_#{@name}"] = newValue
       @fire()
@@ -190,6 +191,40 @@ module.exports = R =
   runNamed: (name, func) ->
     new Context(func, name)
 
+  mixin:
+    dependable: (klass) ->
+      klass::subscribe = (uid, dependable) ->
+        if !uid
+          throw new Error "subscribe: uid is required"
+        if typeof uid isnt 'string'
+          throw new Error "subscribe: uid must be a string (got #{uid})"
+        if !dependable
+          throw new Error "subscribe: dependable is required (uid = #{uid})"
+        if typeof dependable isnt 'object'
+          throw new Error "subscribe: dependable must be an object (got #{dependable})"
+        @_subscribers ||= []
+        if @_subscribers.indexOf(uid) < 0
+          @_subscribers.push uid, dependable
+          @_firstSubscriberAdded?() if @_subscribers.length == 2
+        return
+
+      klass::unsubscribe = (uid) ->
+        if @_subscribers and (index = @_subscribers.indexOf(uid)) >= 0
+          @_subscribers.splice index, 2
+          @_lastSubscriberRemoved?() if @_subscribers.length == 0
+        return
+
+      klass::notifySubscribers = (delta) ->
+        for subscriber in @_subscribers when typeof subscriber isnt 'string'
+          subscriber.dependencyChanged(this, delta)
+        return
+
+      klass::infect = ->
+        if R.context
+          R.context.recommendSubscribingTo @__uid, this
+
+    subscriber: (klass) ->
+      klass::addDependency
 
 
 # project.name
