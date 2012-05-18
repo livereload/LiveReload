@@ -60,7 +60,15 @@ static PluginManager *sharedPluginManager;
 
     [_userPluginNames release], _userPluginNames = [[NSArray alloc] initWithArray:[_loadedPluginNames allObjects]];
 
-    [self loadPluginsFromFolder:[[NSBundle mainBundle] resourcePath] into:plugins];
+    NSString *bundledPluginsFolder;
+    const char *pluginsOverrideFolder = getenv("LRBundledPluginsOverride");
+    if (pluginsOverrideFolder && *pluginsOverrideFolder) {
+        bundledPluginsFolder = [[NSString stringWithUTF8String:pluginsOverrideFolder] stringByExpandingTildeInPath];
+    } else {
+        bundledPluginsFolder = [[NSBundle mainBundle] resourcePath];
+    }
+
+    [self loadPluginsFromFolder:bundledPluginsFolder into:plugins];
     [_plugins release], _plugins = [plugins copy];
 
     NSLog(@"Plugins loaded:\n%@", [[_plugins valueForKeyPath:@"path"] componentsJoinedByString:@"\n"]);
