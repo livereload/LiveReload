@@ -9,7 +9,7 @@ ResourceFolder = Path.join(__dirname, '../res')
 class LRWebSocketController
 
   constructor: ->
-    @server = new LRWebSocketServer()
+    @server = new LRWebSocketServer(port: +process.env['LRPortOverride'] || null)
     @server.on 'httprequest', @_onhttprequest.bind(@)
 
     @server.on 'wsconnected',    @_updateConnectionCountInUI.bind(@)
