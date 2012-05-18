@@ -32,7 +32,10 @@ static void node_thread(void *dummy);
 static void node_launch();
 
 void node_init() {
-    node_bundled_backend_js = str_printf("%s/bin/livereload-backend.js", os_bundled_backend_path);
+    node_bundled_backend_js = getenv("LRBackendOverride");
+    if (!node_bundled_backend_js || !*node_bundled_backend_js) {
+        node_bundled_backend_js = str_printf("%s/bin/livereload-backend.js", os_bundled_backend_path);
+    }
     _beginthread(node_thread, 0, NULL);
 }
 
@@ -177,7 +180,10 @@ static void *node_thread(void *dummy);
 
 
 void node_init() {
-    node_bundled_backend_js = str_printf("%s/bin/livereload-backend.js", os_bundled_backend_path);
+    node_bundled_backend_js = getenv("LRBackendOverride");
+    if (!node_bundled_backend_js || !*node_bundled_backend_js) {
+        node_bundled_backend_js = str_printf("%s/bin/livereload-backend.js", os_bundled_backend_path);
+    }
 
     pthread_t thread;
     pthread_create(&thread, NULL, node_thread, NULL);
