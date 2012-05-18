@@ -1,6 +1,8 @@
 pathspec.js
 ===========
 
+A node.js library and a command-line tool (pathspec-find) for matching and introspection of shell/.gitignore-style masks.
+
 Shell-style file name masks:
 
     var Mask = require('pathspec').Mask;
@@ -44,6 +46,21 @@ Installation
 ------------
 
     npm install pathspec
+
+
+Command-line tool
+-----------------
+
+Includes pathspec-find(1) which is similar to find(1):
+
+    pathspec-find . '*.json'
+    find . | pathspec-find - '*.json' '!excluded/folder'
+
+The first argument is the folder to look in. Pass a single dash (`-`) to read the list of files from stdin, one path per line.
+
+The remaining arguments are .gitignore-style masks. At least one is required.
+
+Pass `--help` for usage, `-v` for verbose mode (currently just dumps the RelPathList before processing).
 
 
 Running tests
