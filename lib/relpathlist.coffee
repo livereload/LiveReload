@@ -6,10 +6,15 @@ class RelPathList
     @specs = []
 
   include: (spec) ->
-    @specs.push [yes, spec]
+    if spec instanceof RelPathList
+      @specs.push.apply(@specs, spec.specs)
+    else
+      @specs.push [yes, spec]
     return this
 
   exclude: (spec) ->
+    if spec instanceof RelPathList
+      throw new Error("Cannot exclude a list")
     @specs.push [no, spec]
     return this
 
@@ -25,6 +30,11 @@ class RelPathList
 
   toString: -> ((if isIncluded then '' else '!') + spec for [isIncluded, spec] in @specs).join(" ")
 
+RelPathList.union = (lists...) ->
+  result = new RelPathList()
+  for list in lists
+    result.include list
+  return result
 
 RelPathList.isSkippedLine = (line) ->
 
