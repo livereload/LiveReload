@@ -53,7 +53,7 @@ namespace :backend do
     end
 
     desc "Install all backend prerequisites & compile all CoffeeScript sources"
-    task :prepare => ['backend:install', 'backend:compile', 'backend:bundle']
+    task :prepare => ['backend:install', 'backend:compile', 'routing', 'backend:bundle']
 
     desc "Remove all compiled JavaScript files in the backend"
     task :clobber do
