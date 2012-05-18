@@ -151,16 +151,6 @@
 		823DDF1313F8DA3100529AD2 /* AuxWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEBC13F8DA3100529AD2 /* AuxWindow.m */; };
 		823DDF1413F8DA3100529AD2 /* KeyWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEBE13F8DA3100529AD2 /* KeyWindow.m */; };
 		823DDF1713F8DA3100529AD2 /* StatusItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEC313F8DA3100529AD2 /* StatusItemView.m */; };
-		823DDF1813F8DA3100529AD2 /* base64-decode.c in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEC513F8DA3100529AD2 /* base64-decode.c */; };
-		823DDF1913F8DA3100529AD2 /* client-handshake.c in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEC613F8DA3100529AD2 /* client-handshake.c */; };
-		823DDF1A13F8DA3100529AD2 /* extension-deflate-stream.c in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEC713F8DA3100529AD2 /* extension-deflate-stream.c */; };
-		823DDF1B13F8DA3100529AD2 /* extension.c in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEC913F8DA3100529AD2 /* extension.c */; };
-		823DDF1C13F8DA3100529AD2 /* handshake.c in Sources */ = {isa = PBXBuildFile; fileRef = 823DDECA13F8DA3100529AD2 /* handshake.c */; };
-		823DDF1D13F8DA3100529AD2 /* libwebsockets.c in Sources */ = {isa = PBXBuildFile; fileRef = 823DDECB13F8DA3100529AD2 /* libwebsockets.c */; };
-		823DDF1E13F8DA3100529AD2 /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = 823DDECD13F8DA3100529AD2 /* md5.c */; };
-		823DDF1F13F8DA3100529AD2 /* parsers.c in Sources */ = {isa = PBXBuildFile; fileRef = 823DDECE13F8DA3100529AD2 /* parsers.c */; };
-		823DDF2013F8DA3100529AD2 /* sha-1.c in Sources */ = {isa = PBXBuildFile; fileRef = 823DDED013F8DA3100529AD2 /* sha-1.c */; };
-		823DDF2113F8DA3100529AD2 /* WebSocketServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDED213F8DA3100529AD2 /* WebSocketServer.m */; };
 		823DDF2F13F8DA3F00529AD2 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF2313F8DA3F00529AD2 /* background.png */; };
 		823DDF3013F8DA3F00529AD2 /* Icon-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF2413F8DA3F00529AD2 /* Icon-48.png */; };
 		823DDF3213F8DA3F00529AD2 /* preferences-box.png in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF2613F8DA3F00529AD2 /* preferences-box.png */; };
@@ -172,7 +162,6 @@
 		823DDF3813F8DA3F00529AD2 /* StatusItemStateRotation1.png in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF2D13F8DA3F00529AD2 /* StatusItemStateRotation1.png */; };
 		823DDF3913F8DA3F00529AD2 /* StatusItemStateRotation2.png in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF2E13F8DA3F00529AD2 /* StatusItemStateRotation2.png */; };
 		825235321428769E001C3486 /* SLIM.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 825235311428769E001C3486 /* SLIM.lrplugin */; };
-		82B886AC1407D452001A94D6 /* extension-x-google-mux.c in Sources */ = {isa = PBXBuildFile; fileRef = 82B886AB1407D452001A94D6 /* extension-x-google-mux.c */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -429,20 +418,6 @@
 		823DDEBE13F8DA3100529AD2 /* KeyWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyWindow.m; sourceTree = "<group>"; };
 		823DDEC213F8DA3100529AD2 /* StatusItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusItemView.h; sourceTree = "<group>"; };
 		823DDEC313F8DA3100529AD2 /* StatusItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusItemView.m; sourceTree = "<group>"; };
-		823DDEC513F8DA3100529AD2 /* base64-decode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "base64-decode.c"; sourceTree = "<group>"; };
-		823DDEC613F8DA3100529AD2 /* client-handshake.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "client-handshake.c"; sourceTree = "<group>"; };
-		823DDEC713F8DA3100529AD2 /* extension-deflate-stream.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "extension-deflate-stream.c"; sourceTree = "<group>"; };
-		823DDEC813F8DA3100529AD2 /* extension-deflate-stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "extension-deflate-stream.h"; sourceTree = "<group>"; };
-		823DDEC913F8DA3100529AD2 /* extension.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = extension.c; sourceTree = "<group>"; };
-		823DDECA13F8DA3100529AD2 /* handshake.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = handshake.c; sourceTree = "<group>"; };
-		823DDECB13F8DA3100529AD2 /* libwebsockets.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = libwebsockets.c; sourceTree = "<group>"; };
-		823DDECC13F8DA3100529AD2 /* libwebsockets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libwebsockets.h; sourceTree = "<group>"; };
-		823DDECD13F8DA3100529AD2 /* md5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = md5.c; sourceTree = "<group>"; };
-		823DDECE13F8DA3100529AD2 /* parsers.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = parsers.c; sourceTree = "<group>"; };
-		823DDECF13F8DA3100529AD2 /* private-libwebsockets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "private-libwebsockets.h"; sourceTree = "<group>"; };
-		823DDED013F8DA3100529AD2 /* sha-1.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "sha-1.c"; sourceTree = "<group>"; };
-		823DDED113F8DA3100529AD2 /* WebSocketServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebSocketServer.h; sourceTree = "<group>"; };
-		823DDED213F8DA3100529AD2 /* WebSocketServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebSocketServer.m; sourceTree = "<group>"; };
 		823DDF2313F8DA3F00529AD2 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		823DDF2413F8DA3F00529AD2 /* Icon-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-48.png"; sourceTree = "<group>"; };
 		823DDF2613F8DA3F00529AD2 /* preferences-box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "preferences-box.png"; sourceTree = "<group>"; };
@@ -454,8 +429,6 @@
 		823DDF2D13F8DA3F00529AD2 /* StatusItemStateRotation1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemStateRotation1.png; sourceTree = "<group>"; };
 		823DDF2E13F8DA3F00529AD2 /* StatusItemStateRotation2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemStateRotation2.png; sourceTree = "<group>"; };
 		825235311428769E001C3486 /* SLIM.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SLIM.lrplugin; path = Compilers/SLIM.lrplugin; sourceTree = SOURCE_ROOT; };
-		82B886AA1407D452001A94D6 /* extension-x-google-mux.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "extension-x-google-mux.h"; sourceTree = "<group>"; };
-		82B886AB1407D452001A94D6 /* extension-x-google-mux.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "extension-x-google-mux.c"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* LiveReload-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "LiveReload-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* LiveReload.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveReload.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C01FCF5008A954540054247C /* RSVerticallyCenteredTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSVerticallyCenteredTextFieldCell.h; sourceTree = "<group>"; };
@@ -680,7 +653,6 @@
 				823DDE8613F8DA3100529AD2 /* Preferences */,
 				823DDE9F13F8DA3100529AD2 /* Utilities */,
 				823DDEBA13F8DA3100529AD2 /* Views */,
-				823DDEC413F8DA3100529AD2 /* WebSockets */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -932,29 +904,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		823DDEC413F8DA3100529AD2 /* WebSockets */ = {
-			isa = PBXGroup;
-			children = (
-				82B886AA1407D452001A94D6 /* extension-x-google-mux.h */,
-				82B886AB1407D452001A94D6 /* extension-x-google-mux.c */,
-				823DDEC513F8DA3100529AD2 /* base64-decode.c */,
-				823DDEC613F8DA3100529AD2 /* client-handshake.c */,
-				823DDEC713F8DA3100529AD2 /* extension-deflate-stream.c */,
-				823DDEC813F8DA3100529AD2 /* extension-deflate-stream.h */,
-				823DDEC913F8DA3100529AD2 /* extension.c */,
-				823DDECA13F8DA3100529AD2 /* handshake.c */,
-				823DDECB13F8DA3100529AD2 /* libwebsockets.c */,
-				823DDECC13F8DA3100529AD2 /* libwebsockets.h */,
-				823DDECD13F8DA3100529AD2 /* md5.c */,
-				823DDECE13F8DA3100529AD2 /* parsers.c */,
-				823DDECF13F8DA3100529AD2 /* private-libwebsockets.h */,
-				823DDED013F8DA3100529AD2 /* sha-1.c */,
-				823DDED113F8DA3100529AD2 /* WebSocketServer.h */,
-				823DDED213F8DA3100529AD2 /* WebSocketServer.m */,
-			);
-			path = WebSockets;
-			sourceTree = "<group>";
-		};
 		823DDF2213F8DA3F00529AD2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -1161,17 +1110,6 @@
 				823DDF1313F8DA3100529AD2 /* AuxWindow.m in Sources */,
 				823DDF1413F8DA3100529AD2 /* KeyWindow.m in Sources */,
 				823DDF1713F8DA3100529AD2 /* StatusItemView.m in Sources */,
-				823DDF1813F8DA3100529AD2 /* base64-decode.c in Sources */,
-				823DDF1913F8DA3100529AD2 /* client-handshake.c in Sources */,
-				823DDF1A13F8DA3100529AD2 /* extension-deflate-stream.c in Sources */,
-				823DDF1B13F8DA3100529AD2 /* extension.c in Sources */,
-				823DDF1C13F8DA3100529AD2 /* handshake.c in Sources */,
-				823DDF1D13F8DA3100529AD2 /* libwebsockets.c in Sources */,
-				823DDF1E13F8DA3100529AD2 /* md5.c in Sources */,
-				823DDF1F13F8DA3100529AD2 /* parsers.c in Sources */,
-				823DDF2013F8DA3100529AD2 /* sha-1.c in Sources */,
-				823DDF2113F8DA3100529AD2 /* WebSocketServer.m in Sources */,
-				82B886AC1407D452001A94D6 /* extension-x-google-mux.c in Sources */,
 				435BE045141B87920008FF77 /* NewMainWindowController.m in Sources */,
 				821AFF0014270B5200B61760 /* BBEditEditor.m in Sources */,
 				4304FC2D144B2BEB00D650DF /* NSDictionaryAndArray+SafeAccess.m in Sources */,
