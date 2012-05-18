@@ -4,6 +4,7 @@
 *.swp
 xcuserdata
 /LiveReload/build
+/interim
 /dist
 /logs
 /raw-logs

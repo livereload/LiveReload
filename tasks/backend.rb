@@ -41,8 +41,19 @@ namespace :backend do
         end
     end
 
+    desc "Copy relevant backend files"
+    task :bundle do
+        files = `cd backend; node_modules/pathspec/bin/pathspec-find.js . '*.js' '*.json' '*.md' '!**/ws/examples' '!test' '!tests' '!unit_tests' '!**/sugar/release' '!example' '!examples' '!pyyaml-src' '!*.tmbundle' '!.bin' '!mocha'`.split("\n").sort
+        rm_rf 'interim/backend'
+        for file in files
+            dst = "interim/backend/#{file}"
+            mkdir_p File.dirname(dst)
+            cp "backend/#{file}", dst
+        end
+    end
+
     desc "Install all backend prerequisites & compile all CoffeeScript sources"
-    task :prepare => ['backend:install', 'backend:compile']
+    task :prepare => ['backend:install', 'backend:compile', 'backend:bundle']
 
     desc "Remove all compiled JavaScript files in the backend"
     task :clobber do

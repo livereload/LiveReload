@@ -67,6 +67,7 @@
 		43594AF413D3BB34004175B2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43594AF313D3BB34004175B2 /* QuartzCore.framework */; };
 		435BE042141B72A60008FF77 /* NewMainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 435BE041141B72A60008FF77 /* NewMainWindow.xib */; };
 		435BE045141B87920008FF77 /* NewMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 435BE044141B87920008FF77 /* NewMainWindowController.m */; };
+		43719FD41565FE5F004B0E0C /* backend in Resources */ = {isa = PBXBuildFile; fileRef = 43719FD31565FE5F004B0E0C /* backend */; };
 		4376A0E2146DF1C800338AD4 /* TitleBarHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */; };
 		4378C8D11515205C003187D5 /* OldFSMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CA1515205C003187D5 /* OldFSMonitor.m */; };
 		4378C8D21515205C003187D5 /* OldFSTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CC1515205C003187D5 /* OldFSTree.m */; };
@@ -99,7 +100,6 @@
 		43F50BFC146706B0004FD951 /* BaseProjectSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F50BFB146706B0004FD951 /* BaseProjectSettingsWindowController.m */; };
 		43F50BFF14670A9F004FD951 /* CompilationSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F50BFE14670A9F004FD951 /* CompilationSettingsWindowController.m */; };
 		43F50C0114670AAF004FD951 /* CompilationSettingsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43F50C0014670AAF004FD951 /* CompilationSettingsWindowController.xib */; };
-		43FAB8581514FDEA00400F61 /* backend in Resources */ = {isa = PBXBuildFile; fileRef = 43FAB8571514FDEA00400F61 /* backend */; };
 		821AFF0014270B5200B61760 /* BBEditEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 821AFEFF14270B5200B61760 /* BBEditEditor.m */; };
 		823DDED313F8DA3100529AD2 /* LiveReloadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3013F8DA3100529AD2 /* LiveReloadAppDelegate.m */; };
 		823DDED413F8DA3100529AD2 /* CommunicationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3313F8DA3100529AD2 /* CommunicationController.m */; };
@@ -267,6 +267,7 @@
 		435BE041141B72A60008FF77 /* NewMainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewMainWindow.xib; sourceTree = "<group>"; };
 		435BE043141B87920008FF77 /* NewMainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewMainWindowController.h; sourceTree = "<group>"; };
 		435BE044141B87920008FF77 /* NewMainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewMainWindowController.m; sourceTree = "<group>"; };
+		43719FD31565FE5F004B0E0C /* backend */ = {isa = PBXFileReference; lastKnownFileType = folder; name = backend; path = ../interim/backend; sourceTree = "<group>"; };
 		4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TitleBarHelpTemplate.png; sourceTree = "<group>"; };
 		4378C8C91515205C003187D5 /* OldFSMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldFSMonitor.h; sourceTree = "<group>"; };
 		4378C8CA1515205C003187D5 /* OldFSMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldFSMonitor.m; sourceTree = "<group>"; };
@@ -317,7 +318,6 @@
 		43F50BFE14670A9F004FD951 /* CompilationSettingsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompilationSettingsWindowController.m; sourceTree = "<group>"; };
 		43F50C0014670AAF004FD951 /* CompilationSettingsWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompilationSettingsWindowController.xib; sourceTree = "<group>"; };
 		43FAB8561514FD5700400F61 /* osdep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = osdep.h; path = ../../../Shared/osdep.h; sourceTree = "<group>"; };
-		43FAB8571514FDEA00400F61 /* backend */ = {isa = PBXFileReference; lastKnownFileType = folder; name = backend; path = ../backend; sourceTree = "<group>"; };
 		821AFEFE14270B5200B61760 /* BBEditEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBEditEditor.h; sourceTree = "<group>"; };
 		821AFEFF14270B5200B61760 /* BBEditEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBEditEditor.m; sourceTree = "<group>"; };
 		823DDE2F13F8DA3100529AD2 /* LiveReloadAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveReloadAppDelegate.h; sourceTree = "<group>"; };
@@ -509,7 +509,7 @@
 				4349AAF314D469DB009350DA /* node */,
 				823DDF2213F8DA3F00529AD2 /* Images */,
 				433617FE13C2E0C800C0E589 /* Compilers */,
-				43FAB8571514FDEA00400F61 /* backend */,
+				43719FD31565FE5F004B0E0C /* backend */,
 				8D1107310486CEB800E47090 /* LiveReload-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
@@ -1050,7 +1050,7 @@
 				43F0030714700C96005D48A4 /* LRTerminalButtonOnHighlight.png in Resources */,
 				4349AAF414D469DB009350DA /* node in Resources */,
 				4349AAF614D48DB5009350DA /* IcedCoffeeScript.lrplugin in Resources */,
-				43FAB8581514FDEA00400F61 /* backend in Resources */,
+				43719FD41565FE5F004B0E0C /* backend in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
