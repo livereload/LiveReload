@@ -44,7 +44,6 @@
 		43361D5013C32C3D00C0E589 /* SASS.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43361D4F13C32C3D00C0E589 /* SASS.lrplugin */; };
 		4346F3A91450D8AD00B133F2 /* ImportGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 4346F3A81450D8AD00B133F2 /* ImportGraph.m */; };
 		4346F3AB1451012A00B133F2 /* StatusItemStateRotation3.png in Resources */ = {isa = PBXBuildFile; fileRef = 4346F3AA1451012A00B133F2 /* StatusItemStateRotation3.png */; };
-		4349AAF414D469DB009350DA /* node in Resources */ = {isa = PBXBuildFile; fileRef = 4349AAF314D469DB009350DA /* node */; };
 		4349AAF614D48DB5009350DA /* IcedCoffeeScript.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 4349AAF514D48DB5009350DA /* IcedCoffeeScript.lrplugin */; };
 		434DB7F61514F49500C62042 /* monitoring.c in Sources */ = {isa = PBXBuildFile; fileRef = 434DB7EF1514F49400C62042 /* monitoring.c */; };
 		434DB7F71514F49500C62042 /* msg_proxy.c in Sources */ = {isa = PBXBuildFile; fileRef = 434DB7F01514F49400C62042 /* msg_proxy.c */; };
@@ -67,6 +66,7 @@
 		43594AF413D3BB34004175B2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43594AF313D3BB34004175B2 /* QuartzCore.framework */; };
 		435BE042141B72A60008FF77 /* NewMainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 435BE041141B72A60008FF77 /* NewMainWindow.xib */; };
 		435BE045141B87920008FF77 /* NewMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 435BE044141B87920008FF77 /* NewMainWindowController.m */; };
+		43693F4115660A8700C453CC /* LiveReloadNodejs in Resources */ = {isa = PBXBuildFile; fileRef = 43693F4015660A8700C453CC /* LiveReloadNodejs */; };
 		43719FD41565FE5F004B0E0C /* backend in Resources */ = {isa = PBXBuildFile; fileRef = 43719FD31565FE5F004B0E0C /* backend */; };
 		4376A0E2146DF1C800338AD4 /* TitleBarHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */; };
 		4378C8D11515205C003187D5 /* OldFSMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CA1515205C003187D5 /* OldFSMonitor.m */; };
@@ -232,7 +232,6 @@
 		4346F3A71450D8AD00B133F2 /* ImportGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImportGraph.h; sourceTree = "<group>"; };
 		4346F3A81450D8AD00B133F2 /* ImportGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImportGraph.m; sourceTree = "<group>"; };
 		4346F3AA1451012A00B133F2 /* StatusItemStateRotation3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemStateRotation3.png; sourceTree = "<group>"; };
-		4349AAF314D469DB009350DA /* node */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = node; path = Resources/node; sourceTree = "<group>"; };
 		4349AAF514D48DB5009350DA /* IcedCoffeeScript.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = IcedCoffeeScript.lrplugin; path = Compilers/IcedCoffeeScript.lrplugin; sourceTree = SOURCE_ROOT; };
 		434DB7EF1514F49400C62042 /* monitoring.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = monitoring.c; sourceTree = "<group>"; };
 		434DB7F01514F49400C62042 /* msg_proxy.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = msg_proxy.c; sourceTree = "<group>"; };
@@ -267,6 +266,7 @@
 		435BE041141B72A60008FF77 /* NewMainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewMainWindow.xib; sourceTree = "<group>"; };
 		435BE043141B87920008FF77 /* NewMainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewMainWindowController.h; sourceTree = "<group>"; };
 		435BE044141B87920008FF77 /* NewMainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewMainWindowController.m; sourceTree = "<group>"; };
+		43693F4015660A8700C453CC /* LiveReloadNodejs */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = LiveReloadNodejs; path = Resources/LiveReloadNodejs; sourceTree = "<group>"; };
 		43719FD31565FE5F004B0E0C /* backend */ = {isa = PBXFileReference; lastKnownFileType = folder; name = backend; path = ../interim/backend; sourceTree = "<group>"; };
 		4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TitleBarHelpTemplate.png; sourceTree = "<group>"; };
 		4378C8C91515205C003187D5 /* OldFSMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldFSMonitor.h; sourceTree = "<group>"; };
@@ -506,7 +506,7 @@
 			isa = PBXGroup;
 			children = (
 				4379ADC9141D00CE008C836F /* livereload.js */,
-				4349AAF314D469DB009350DA /* node */,
+				43693F4015660A8700C453CC /* LiveReloadNodejs */,
 				823DDF2213F8DA3F00529AD2 /* Images */,
 				433617FE13C2E0C800C0E589 /* Compilers */,
 				43719FD31565FE5F004B0E0C /* backend */,
@@ -1048,9 +1048,9 @@
 				43F0030514700C96005D48A4 /* LRTerminalButtonOffHighlight.png in Resources */,
 				43F0030614700C96005D48A4 /* LRTerminalButtonOn.png in Resources */,
 				43F0030714700C96005D48A4 /* LRTerminalButtonOnHighlight.png in Resources */,
-				4349AAF414D469DB009350DA /* node in Resources */,
 				4349AAF614D48DB5009350DA /* IcedCoffeeScript.lrplugin in Resources */,
 				43719FD41565FE5F004B0E0C /* backend in Resources */,
+				43693F4115660A8700C453CC /* LiveReloadNodejs in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
