@@ -2,12 +2,15 @@
   "author": "Andrey Tarantsov <andrey@tarantsov.com>",
   "name": "pathspec",
   "description": "Shell-like name/path wildcards, gitignore-like file lists",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "repository": {
     "type": "git",
     "url": "git@github.com:andreyvit/pathspec.js.git"
   },
   "main": "index.js",
+  "bin": {
+    "pathspec-find": "bin/pathspec-find.js"
+  },
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha -R ${REPORTER-spec}"
   },
