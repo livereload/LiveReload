@@ -296,6 +296,12 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
     if (width > 0.0) {
         rect.size.width = width;
     }
+    
+    if (rect.size.height < self.window.minSize.height)
+        rect.size.height = self.window.minSize.height;
+    
+    if (rect.size.width < self.window.minSize.width)
+        rect.size.width = self.window.minSize.width;
 
     [self.window setFrame:rect display:YES animate:YES];
 }
