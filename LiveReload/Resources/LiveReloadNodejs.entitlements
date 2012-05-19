@@ -4,11 +4,5 @@
 <dict>
 	<key>com.apple.application-identifier</key>
 	<string>D963M2VVCH.com.livereload.LiveReload</string>
-	<key>com.apple.developer.ubiquity-container-identifiers</key>
-	<array>
-		<string>D963M2VVCH.com.livereload.LiveReload</string>
-	</array>
-	<key>com.apple.developer.ubiquity-kvstore-identifier</key>
-	<string>D963M2VVCH.com.livereload.LiveReload</string>
 </dict>
 </plist>
