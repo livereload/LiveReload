@@ -168,7 +168,7 @@
 
     NSMutableDictionary *info = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                  rubyPath, @"$(ruby)",
-                                 [[NSBundle mainBundle] pathForResource:@"node" ofType:nil], @"$(node)",
+                                 [[NSBundle mainBundle] pathForResource:@"LiveReloadNodejs" ofType:nil], @"$(node)",
                                  _plugin.path, @"$(plugin)",
                                  rootPath, @"$(project_dir)",
 
