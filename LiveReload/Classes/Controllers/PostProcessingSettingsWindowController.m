@@ -2,7 +2,9 @@
 #import "PostProcessingSettingsWindowController.h"
 
 
-@implementation PostProcessingSettingsWindowController
+@implementation PostProcessingSettingsWindowController {
+    IBOutlet NSTextField *gracePeriod;
+}
 
 @synthesize commandField = _commandField;
 
@@ -18,10 +20,12 @@
 
 - (void)render {
     _commandField.stringValue = _project.postProcessingCommand;
+    gracePeriod.doubleValue = _project.postProcessingGracePeriod;
 }
 
 - (void)save {
     _project.postProcessingCommand = _commandField.stringValue;
+    _project.postProcessingGracePeriod = gracePeriod.doubleValue;
 }
 
 

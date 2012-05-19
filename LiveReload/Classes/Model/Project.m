@@ -32,10 +32,9 @@
 #include "eventbus.h"
 
 
-#define kPostProcessingSafeInterval 0.5l
-
-
 #define PathKey @"path"
+
+#define DefaultPostProcessingGracePeriod 0.5
 
 NSString *ProjectDidDetectChangeNotification = @"ProjectDidDetectChangeNotification";
 NSString *ProjectWillBeginCompilationNotification = @"ProjectWillBeginCompilationNotification";
@@ -67,6 +66,8 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 - (void)updateImportGraphForPaths:(NSSet *)paths;
 - (void)rebuildImportGraph;
 
+- (void)processPendingChanges;
+
 @end
 
 
@@ -83,6 +84,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 @synthesize enableRemoteServerWorkflow=_enableRemoteServerWorkflow;
 @synthesize fullPageReloadDelay=_fullPageReloadDelay;
 @synthesize eventProcessingDelay=_eventProcessingDelay;
+@synthesize postProcessingGracePeriod=_postProcessingGracePeriod;
 @synthesize rubyVersionIdentifier=_rubyVersionIdentifier;
 @synthesize numberOfPathComponentsToUseAsName=_numberOfPathComponentsToUseAsName;
 @synthesize customName=_customName;
@@ -170,6 +172,13 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         
         _customName = [memento objectForKey:@"customName"] ?: @"";
 
+        _pendingChanges = [[NSMutableSet alloc] init];
+        
+        if ([memento objectForKey:@"postProcessingGracePeriod"])
+            _postProcessingGracePeriod = [[memento objectForKey:@"postProcessingGracePeriod"] doubleValue];
+        else
+            _postProcessingGracePeriod = DefaultPostProcessingGracePeriod;
+        
         [self handleCompilationOptionsEnablementChanged];
     }
     return self;
@@ -208,6 +217,9 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     }
     if (_eventProcessingDelay > 0.001) {
         [memento setObject:[NSNumber numberWithDouble:_eventProcessingDelay] forKey:@"eventProcessingDelay"];
+    }
+    if (fabs(_postProcessingGracePeriod - DefaultPostProcessingGracePeriod) > 0.01) {
+        [memento setObject:[NSNumber numberWithDouble:_postProcessingGracePeriod] forKey:@"postProcessingGracePeriod"];
     }
     if ([_excludedFolderPaths count] > 0) {
         [memento setObject:_excludedFolderPaths forKey:@"excludedPaths"];
@@ -424,7 +436,17 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 }
 #endif
 
-- (void)fileSystemMonitor:(FSMonitor *)monitor detectedChangeAtPathes:(NSSet *)pathes {
+- (void)fileSystemMonitor:(FSMonitor *)monitor detectedChangeAtPathes:(NSSet *)paths {
+    [_pendingChanges unionSet:paths];
+
+    if (!(_runningPostProcessor || (_lastPostProcessingRunDate > 0 && [NSDate timeIntervalSinceReferenceDate] < _lastPostProcessingRunDate + _postProcessingGracePeriod))) {
+        _pendingPostProcessing = YES;
+    }
+    
+    [self processPendingChanges];
+}
+
+- (void)processBatchOfPendingChanges:(NSSet *)pathes andInvokePostProcessor:(BOOL)invokePostProcessor {
     switch (pathes.count) {
         case 0:  break;
         case 1:  console_printf("Changed: %s", [[pathes anyObject] UTF8String]); break;
@@ -455,8 +477,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     }
 
     if ([_postProcessingCommand length] > 0 && _postProcessingEnabled) {
-        NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
-        if (_lastPostProcessingRunDate == 0 || (now - _lastPostProcessingRunDate >= kPostProcessingSafeInterval)) {
+        if (invokePostProcessor) {
 
             NSMutableDictionary *info = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                          @"/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/bin/ruby", @"$(ruby)",
@@ -491,9 +512,10 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
                 NSLog(@"Error: %@", [error description]);
             }
 
+            _runningPostProcessor = NO;
             _lastPostProcessingRunDate = [NSDate timeIntervalSinceReferenceDate];
         } else {
-            console_printf("Skipping post-processing (only %.1fs since last run)", now - _lastPostProcessingRunDate);
+            console_printf("Skipping post-processing.");
         }
     }
 
@@ -513,6 +535,25 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
 fin:
     ;
+}
+
+- (void)processPendingChanges {
+    if (_processingChanges)
+        return;
+    
+    _processingChanges = YES;
+
+    while (_pendingChanges.count > 0 || _pendingPostProcessing) {
+        NSSet *paths = [_pendingChanges autorelease];
+        BOOL invokePostProcessor = _pendingPostProcessing;
+
+        _pendingChanges = [[NSMutableSet alloc] init];
+        _pendingPostProcessing = NO;
+
+        [self processBatchOfPendingChanges:paths andInvokePostProcessor:invokePostProcessor];
+    }
+
+    _processingChanges = NO;
 }
 
 - (FSTree *)tree {
@@ -716,6 +757,15 @@ skipGuessing:
     if (_eventProcessingDelay != eventProcessingDelay) {
         _eventProcessingDelay = eventProcessingDelay;
         _monitor.eventProcessingDelay = _eventProcessingDelay;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+    }
+}
+
+- (void)setPostProcessingGracePeriod:(NSTimeInterval)postProcessingGracePeriod {
+    if (postProcessingGracePeriod < 0.01)
+        return;
+    if (_postProcessingGracePeriod != postProcessingGracePeriod) {
+        _postProcessingGracePeriod = postProcessingGracePeriod;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
     }
 }

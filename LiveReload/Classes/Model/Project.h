@@ -41,6 +41,8 @@ EVENTBUS_DECLARE_EVENT(project_fs_change_event);
     NSString                *_postProcessingCommand;
     BOOL                     _postProcessingEnabled;
     NSTimeInterval           _lastPostProcessingRunDate;
+    NSTimeInterval           _postProcessingGracePeriod;
+    BOOL                     _runningPostProcessor;
 
     NSString                *_rubyVersionIdentifier;
 
@@ -62,6 +64,10 @@ EVENTBUS_DECLARE_EVENT(project_fs_change_event);
     
     NSInteger                _numberOfPathComponentsToUseAsName;
     NSString                *_customName;
+    
+    NSMutableSet            *_pendingChanges;
+    BOOL                     _pendingPostProcessing;
+    BOOL                     _processingChanges;
 }
 
 - (id)initWithPath:(NSString *)path memento:(NSDictionary *)memento;
@@ -85,6 +91,7 @@ EVENTBUS_DECLARE_EVENT(project_fs_change_event);
 @property(nonatomic) BOOL enableRemoteServerWorkflow;
 @property(nonatomic) NSTimeInterval eventProcessingDelay;
 @property(nonatomic) NSTimeInterval fullPageReloadDelay;
+@property(nonatomic) NSTimeInterval postProcessingGracePeriod;
 
 @property(nonatomic, readonly) FSTree *tree;
 
