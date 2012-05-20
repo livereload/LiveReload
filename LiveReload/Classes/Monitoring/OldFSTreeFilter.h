@@ -6,6 +6,7 @@
     NSSet *_enabledExtensions;
     NSSet *_excludedNames;
     NSSet *_excludedPaths;
+    BOOL _ignoreEmacsCraft;
     BOOL _ignoreHiddenFiles;
 }
 

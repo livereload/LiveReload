@@ -9,6 +9,14 @@
 @synthesize excludedPaths=_excludedPaths;
 @synthesize ignoreHiddenFiles=_ignoreHiddenFiles;
 
+- (id)init {
+    self = [super init];
+    if (self) {
+        _ignoreEmacsCraft = ![[NSUserDefaults standardUserDefaults] boolForKey:@"DontIgnoreEmacsTempFiles"];
+    }
+    return self;
+}
+
 - (void)dealloc {
     [_enabledExtensions release], _enabledExtensions = nil;
     [_excludedNames release], _excludedNames = nil;
@@ -23,12 +31,13 @@
         return NO;
     }
 
-    // Emacs craft
-    if ([[name substringToIndex:1] isEqualToString:@"#"]) {
-        return NO;
-    }
-    if ([[name substringFromIndex:[name length]-1] isEqualToString:@"~"]) {
-        return NO;
+    if (_ignoreEmacsCraft) {
+        if ([[name substringToIndex:1] isEqualToString:@"#"]) {
+            return NO;
+        }
+        if ([[name substringFromIndex:[name length]-1] isEqualToString:@"~"]) {
+            return NO;
+        }
     }
 
     if (_enabledExtensions && !isDirectory) {
