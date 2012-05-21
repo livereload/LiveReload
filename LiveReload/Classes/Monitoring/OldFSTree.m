@@ -249,6 +249,44 @@ static BOOL IsBrokenFolder(NSString *path) {
     return nil;
 }
 
+- (NSString *)pathOfBestFileMatchingPathSuffix:(NSString *)pathSuffix preferringSubtree:(NSString *)subtreePath {
+    // avoid edge cases
+    if ([pathSuffix pathComponents].count == 1)
+        return [self pathOfFileNamed:pathSuffix];
+
+    NSString *name = [pathSuffix lastPathComponent];
+    NSArray *suffix = [[pathSuffix stringByDeletingLastPathComponent] pathComponents];
+
+    NSString *bestMatch = nil;
+    NSInteger bestScore = -1;
+    
+    NSArray *subtreeComponents = [subtreePath pathComponents];
+
+    for (NSString *path in [self pathsOfFilesNamed:name]) {
+        NSArray *components = [[path stringByDeletingLastPathComponent] pathComponents];
+        
+        NSInteger score = 0;
+        NSInteger common = MIN(components.count, suffix.count);
+
+        // score is the number of matching path components, not counting the name itself
+        while (score < common && [[components subarrayWithRange:NSMakeRange(components.count - (score+1), (score+1))] isEqualToArray:[suffix subarrayWithRange:NSMakeRange(suffix.count - (score+1), (score+1))]])
+            ++score;
+
+        // adjust score to give the given subtree a preference
+        score *= 10;
+        if (subtreePath.length && components.count >= subtreeComponents.count && [[components subarrayWithRange:NSMakeRange(0, subtreeComponents.count)] isEqualToArray:subtreeComponents]) {
+            score += 5;
+        }
+        
+        if (score > bestScore) {
+            bestMatch = path;
+            bestScore = score;
+        }
+    }
+    
+    return bestMatch;
+}
+
 - (NSArray *)pathsOfFilesNamed:(NSString *)fileName {
     NSMutableArray *result = [NSMutableArray array];
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];

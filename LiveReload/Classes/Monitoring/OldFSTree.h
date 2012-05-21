@@ -24,6 +24,7 @@
 - (NSString *)pathOfFileNamed:(NSString *)fileName;
 - (NSArray *)pathsOfFilesNamed:(NSString *)fileName;
 - (NSArray *)pathsOfFilesMatching:(BOOL (^)(NSString *name))filter;
+- (NSString *)pathOfBestFileMatchingPathSuffix:(NSString *)pathSuffix preferringSubtree:(NSString *)subtreePath;
 
 - (NSArray *)brokenPaths;
 

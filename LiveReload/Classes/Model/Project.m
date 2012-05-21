@@ -864,9 +864,7 @@ skipGuessing:
             _compassDetected = YES;
         }
 
-        // TODO match fragments
-        NSString *name = [pathFragment lastPathComponent];
-        NSString *path = [_monitor.tree pathOfFileNamed:name];
+        NSString *path = [_monitor.tree pathOfBestFileMatchingPathSuffix:pathFragment preferringSubtree:[relativePath stringByDeletingLastPathComponent]];
         if (path) {
             [referencedPaths addObject:path];
         }
