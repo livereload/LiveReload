@@ -95,7 +95,8 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
 - (id)initWithPath:(NSString *)path memento:(NSDictionary *)memento {
     if ((self = [super init])) {
-        _path = [path copy];
+        // we cannot monitor through symlink boundaries anyway
+        _path = [[path stringByResolvingSymlinksInPath] copy];
         _enabled = YES;
         _session = reload_session_create(self);
 
@@ -303,6 +304,8 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 - (void)checkBrokenPaths {
     if (_brokenPathReported)
         return;
+    if (![[NSFileManager defaultManager] fileExistsAtPath:_path])
+        return; // don't report spurious messages for missing folders
 
     NSArray *brokenPaths = [[_monitor obtainTree] brokenPaths];
     if ([brokenPaths count] > 0) {
