@@ -81,7 +81,6 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
 
 @implementation CompilationSettingsWindowController
 
-@synthesize nodeVersionsPopUpButton = _nodeVersionsPopUpButton;
 @synthesize rubyVersionsPopUpButton = _rubyVersionsPopUpButton;
 @synthesize tabView = _tabView;
 @synthesize compilerSettingsTabView = _compilerSettingsTabView;
@@ -297,7 +296,7 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
         rect.size.width = width;
     }
     
-    if (rect.size.height < self.window.minSize.height)
+    if ([self currentTab] == compilation_settings_tab_paths && rect.size.height < self.window.minSize.height)
         rect.size.height = self.window.minSize.height;
     
     if (rect.size.width < self.window.minSize.width)
