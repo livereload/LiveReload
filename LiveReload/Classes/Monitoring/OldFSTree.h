@@ -22,6 +22,7 @@
 
 - (BOOL)containsFileNamed:(NSString *)fileName;
 - (NSString *)pathOfFileNamed:(NSString *)fileName;
+- (NSArray *)pathsOfFilesNamed:(NSString *)fileName;
 - (NSArray *)pathsOfFilesMatching:(BOOL (^)(NSString *name))filter;
 
 - (NSArray *)brokenPaths;

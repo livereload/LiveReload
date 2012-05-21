@@ -249,6 +249,19 @@ static BOOL IsBrokenFolder(NSString *path) {
     return nil;
 }
 
+- (NSArray *)pathsOfFilesNamed:(NSString *)fileName {
+    NSMutableArray *result = [NSMutableArray array];
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    struct FSTreeItem *end = _items + _count;
+    for (struct FSTreeItem *cur = _items; cur < end; ++cur) {
+        if (cur->st_mode == S_IFREG && [[cur->name lastPathComponent] isEqualToString:fileName]) {
+            [result addObject:cur->name];
+        }
+    }
+    [pool drain];
+    return result;
+}
+
 - (NSArray *)pathsOfFilesMatching:(BOOL (^)(NSString *))filter {
     NSMutableArray *result = [NSMutableArray array];
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];

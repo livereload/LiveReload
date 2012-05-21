@@ -36,6 +36,8 @@
 
 - (FileCompilationOptions *)optionsForFileAtPath:(NSString *)path create:(BOOL)create;
 
+- (NSString *)sourcePathThatCompilesInto:(NSString *)outputPath;
+
 @property(nonatomic, readonly) NSArray *allFileOptions;
 
 - (id)valueForOptionIdentifier:(NSString *)optionIdentifier;

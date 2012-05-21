@@ -136,6 +136,18 @@
     return result;
 }
 
+- (NSString *)sourcePathThatCompilesInto:(NSString *)outputPath {
+    __block NSString *result = nil;
+    [_fileOptions enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        FileCompilationOptions *fileOptions = obj;
+        if (fileOptions.enabled && [fileOptions.destinationPath isEqualToString:outputPath]) {
+            result = key;
+            *stop = YES;
+        }
+    }];
+    return result;
+}
+
 - (NSArray *)allFileOptions {
     return [_fileOptions allValues];
 }

@@ -644,11 +644,23 @@ fin:
 
         // 1) destination file already exists?
         NSString *derivedName = fileOptions.destinationName;
-        NSString *derivedPath = [self.tree pathOfFileNamed:derivedName];
+        NSArray *derivedPaths = [self.tree pathsOfFilesNamed:derivedName];
+        if (derivedPaths.count > 0) {
+            NSString *defaultDerivedFile = [[sourcePath stringByDeletingLastPathComponent] stringByAppendingPathComponent:fileOptions.destinationName];
 
-        if (derivedPath) {
-            guessedDirectory = [derivedPath stringByDeletingLastPathComponent];
-            NSLog(@"Guessed output directory for %@ by existing output file %@", sourcePath, derivedPath);
+            if ([derivedPaths containsObject:defaultDerivedFile]) {
+                guessedDirectory = [sourcePath stringByDeletingLastPathComponent];
+                NSLog(@"Guessed output directory for %@ by existing output file in the same folder: %@", sourcePath, defaultDerivedFile);
+            } else {
+                NSArray *unoccupiedPaths = [derivedPaths filteredArrayUsingBlock:^BOOL(id value) {
+                    NSString *derivedPath = value;
+                    return [compilationOptions sourcePathThatCompilesInto:derivedPath] == nil;
+                }];
+                if (unoccupiedPaths.count == 1) {
+                    guessedDirectory = [[unoccupiedPaths objectAtIndex:0] stringByDeletingLastPathComponent];
+                    NSLog(@"Guessed output directory for %@ by existing output file %@", sourcePath, [unoccupiedPaths objectAtIndex:0]);
+                }
+            }
         }
 
         // 2) other files in the same folder have a common destination path?
