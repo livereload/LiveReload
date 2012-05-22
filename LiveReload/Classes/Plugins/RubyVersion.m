@@ -6,7 +6,10 @@
 
 
 static NSString *RubyVersionAtPath(NSString *path) {
-    NSArray *components = [[[NSTask stringByLaunchingPath:path withArguments:[NSArray arrayWithObject:@"--version"] error:nil] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSError *error = nil;
+    NSArray *components = [[[NSTask stringByLaunchingPath:path withArguments:[NSArray arrayWithObject:@"--version"] error:&error] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if (error)
+        return nil;
     if ([[components objectAtIndex:0] isEqualToString:@"ruby"] && components.count > 1)
         return [components objectAtIndex:1];
     return nil;
