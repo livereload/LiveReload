@@ -43,9 +43,12 @@ module.exports = (argv) ->
   usage() if argv.length < 2 or '--help' in argv
 
   verbose = no
+  absolute = no
   argv = argv.filter (arg) ->
     if arg in ['-v', '--verbose']
       verbose = yes; return no
+    if arg in ['-a', '--absolute']
+      absolute = yes; return no
     return yes
 
   rootPath = argv.shift()
@@ -61,12 +64,14 @@ module.exports = (argv) ->
       process.exit 2
     stream = new TreeStream(list).visit(rootPath)
 
-  stream.on 'file', (path) ->
-    process.stdout.write "#{path}\n"
+  stream.on 'file', (path, absPath) ->
+    o = (if absolute then absPath else path)
+    process.stdout.write "#{o}\n"
 
   if verbose
-    stream.on 'folder', (path) ->
-      process.stderr.write "Folder: #{path}\n"
+    stream.on 'folder', (path, absPath) ->
+      o = (if absolute then absPath else path)
+      process.stderr.write "Folder: #{o}/\n"
 
   stream.on 'error', (err) ->
     process.stderr.write "Error: #{err.stack || err.message || err}\n"

@@ -22,36 +22,41 @@ module.exports = class TreeStream extends EventEmitter
       @emit 'end'
 
 
-  visit: (path) ->
+  visit: (root) ->
+    @_visit(root, '')
+
+  _visit: (root, path) ->
     @enter()
 
-    fs.stat path, (err, stats) =>
+    absPath = Path.join(root, path)
+
+    fs.stat absPath, (err, stats) =>
       if err
         @emit 'error', err
 
       else
         if stats.isDirectory()
           unless @list?.membership(path, yes) is no
-            @_traverse path
+            @_traverse root, path, absPath
         else
           if !@list or @list.membership(path, no) is yes
-            @emit 'file', path
+            @emit 'file', path, absPath
 
       @leave()
 
     return this
 
 
-  _traverse: (parent) ->
+  _traverse: (root, parent, absParent) ->
     @enter()
-    @emit 'folder', parent
+    @emit 'folder', parent, absParent
 
-    fs.readdir parent, (err, names) =>
+    fs.readdir absParent, (err, names) =>
       if err
         @emit 'error', err
 
       else
         for name in names
-          @visit Path.join(parent, name), parent
+          @_visit root, Path.join(parent, name)
 
       @leave()
