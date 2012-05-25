@@ -22,14 +22,7 @@ usage = ->
   process.exit 41
 
 
-createLineStream = (stream) ->
-  result = new EventEmitter()
-  leftover = ''
-
-  stream.setEncoding 'utf-8'
-  stream.on 'data', (chunk) ->
-    lines = (leftover + chunk).split "\n"
-    leftover = lines.pop()
+createLineStream = require './util/linestream'
 
 
 createStdinFileStream = (list) ->
