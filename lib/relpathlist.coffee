@@ -26,7 +26,10 @@ class RelPathList
     answer
 
   matches: (path, isDir) ->
-    @membership(path, isDir) ? no
+    @membership(path, isDir) is yes
+
+  excludes: (path, isDir) ->
+    @membership(path, isDir) is no
 
   toString: -> ((if isIncluded then '' else '!') + spec for [isIncluded, spec] in @specs).join(" ")
 

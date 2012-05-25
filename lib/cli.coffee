@@ -4,6 +4,7 @@ fs   = require 'fs'
 { EventEmitter } = require 'events'
 
 RelPathList = require './relpathlist'
+TreeStream  = require './treestream'
 
 
 usage = ->
@@ -30,51 +31,18 @@ createLineStream = (stream) ->
     lines = (leftover + chunk).split "\n"
     leftover = lines.pop()
 
-    for line in lines
-      result.emit 'line', line
 
-    return
+createStdinFileStream = (list) ->
+  result = new EventEmitter()
 
+  stream = createLineStream(process.stdin)
+  stream.on 'line', (line) ->
+    if list.matches(line)
+      result.emit 'file', line
   stream.on 'end', ->
-    if leftover
-      result.emit 'line', leftover
     result.emit 'end'
 
-  result
-
-
-createStdinFileStream = ->
-  result = new EventEmitter()
-
-  createLineStream(process.stdin).on 'line', (line) ->
-    result.emit 'file', line
-
-  result.resume = -> process.stdin.resume()
-
-  return result
-
-
-createTreeFileStream = (rootPath) ->
-  result = new EventEmitter()
-
-  scan = (folder) ->
-    fs.readdir folder, (err, files) ->
-      if err
-        result.emit 'error', err
-      else
-        for file in files
-          file = Path.join(folder, file)
-          do (file) ->
-            fs.stat file, (err, stats) ->
-              if err
-                result.emit 'error', err
-              else if stats.isDirectory()
-                scan file
-              else
-                result.emit 'file', file
-
-  result.resume = -> scan rootPath
-
+  process.stdin.resume()
   return result
 
 
@@ -88,24 +56,25 @@ module.exports = (argv) ->
     return yes
 
   rootPath = argv.shift()
+
+  list = RelPathList.parse(argv)
+  process.stderr.write "Path List: #{list}\n" if verbose
+
   if rootPath is '-'
-    enumerator = createStdinFileStream()
+    stream = createStdinFileStream(list)
   else
     unless fs.statSync(rootPath)
       process.stderr.write "Root path does not exist: #{rootPath}\n"
       process.exit 2
-    enumerator = createTreeFileStream(rootPath)
+    stream = new TreeStream(list).visit(rootPath)
 
-  pathList = RelPathList.parse(argv)
-  process.stderr.write "Path List: #{pathList}\n" if verbose
+  stream.on 'file', (path) ->
+    process.stdout.write "#{path}\n"
 
-  enumerator.on 'file', (path) ->
-    # process.stderr.write "Checking: #{path}\n"
-    if pathList.matches(path)
-      process.stdout.write "#{path}\n"
+  if verbose
+    stream.on 'folder', (path) ->
+      process.stderr.write "Folder: #{path}\n"
 
-  enumerator.on 'error', (err) ->
+  stream.on 'error', (err) ->
     process.stderr.write "Error: #{err.stack || err.message || err}\n"
     process.exit 1
-
-  enumerator.resume()
