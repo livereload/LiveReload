@@ -17,8 +17,6 @@ NodeApp contains:
 
 * a UI Elements architecture that drives the binding between the native controls and the Node controllers (implemented as a module on the native side and as a library on Node side).
 
-Also see [this gist](https://gist.github.com/2506111).
-
 
 
 ## Status
@@ -259,6 +257,229 @@ A block and a property can be combined into a **derived property**:
         @__deriveprop 'x', => @y * 2
 
 This does the same thing as the previous example, but additionally disallows any (other) assignments to `x`.
+
+**Status:** Seems to work, but not tested in production and still undergoes significant changes from time to time.
+
+
+
+## UI Elements
+
+### UI Elements overview
+
+UI Elements are implemented on top of the RPC subsystem as `ui.update` native-side endpoint and `ui.notify` backend-side endpoint. UI Elements enable backend controllers to communicate with native widgets so that:
+
+* the backend code is pleasant and artful,
+* the backend code is easily inspectable and testable,
+* there's no boilerplate code anywhere,
+* you can drop back to native code at any point to handle stuff that would be harder to do in JavaScript.
+
+We could handle the UI using a large number of RPC methods like `ui.button.setTitle` and `ui.addEventListener` (like in the examples above), but:
+
+* RPC calls are a mess when it comes to testing
+* we're exposing a fundamentally object-based API here, and doing that via RPC calls is downright ugly
+
+So instead, we represent the application UI as a bunch of elements sitting in a tree, that is, as a tree of UI elements such as windows, controls, tree items and menu items. Native and backend sides then exchange parts of this tree as updates/notifications.
+
+**Status:** Works on Cocoa with some elements missing (notably, there's no support for menu items yet) and will likely continue to change in the future.
+
+
+### UI Elements JSON payload examples
+
+For example, the native `ui.update` RPC endpoint could be invoked by the backend with an argument like:
+
+    '#mainwindow':
+      type: 'MainWindow'
+      visible: true
+
+      '#addProjectButton': {}
+      '#removeProjectButton': {}
+
+      '#projectOutlineView':
+        style: 'source-list'
+        'dnd-drop-types': ['file']
+        'dnd-drag': yes
+        'cell-type': 'ImageAndTextCell'
+        data:
+          '#root':
+            children: ['#folders']
+          '#folders':
+            label: "MONITORED FOLDERS"
+            'is-group': yes
+            children: ['#folder1', '#folder2']
+            expanded: yes
+          '#folder1':
+            label: "~/Foo/Bar"
+            image: 'folder'
+            expandable: no
+          '#folder2':
+            label: "/some/dir"
+            image: 'folder'
+            expandable: no
+
+      '#gettingStartedView':
+        visible: no
+
+And the backend `ui.notify` RPC endpoint could be invoked with an argument like:
+
+    "#mainwindow": {
+      "#projectList": {
+        "selected": "#folder2"
+      }
+    }
+
+
+### UI Element Tree details
+
+Every UI element has a string ID starting with a hash mark; unlike HTML, string IDs are only required to be unique within their parent.
+
+Some elements are assigned their IDs at compilation time; for example, Cocoa views specified in a xib file and assigned to the outlets of a custom window controller use their outlet names as IDs: an outlet named `addProjectButton` is accessible as `#addProjectButton`.
+
+Other IDs can be arbitrarily assigned by the backend if enough information is provided to create the corresponding elements. For example, the native side does not know about `#mainwindow` ID initially; however, because the backend tells that it has a `"type": "MainWindow"`, the native UI lib knows how to create the window in a platform-specific way — the Cocoa implementation will look for MainWindow.xib and MainWindowController class here.
+
+Native side hooks up and reports events for the controls that have been mentioned in JSON updates at least once. That's why "#removeProjectButton": {} is specified.
+
+To delete a UI element, "#something": false can be used.
+
+
+### UI Element controllers
+
+The Node UI Elements library allows you to write UI code inside controllers, adding a special `$` method for sending updates, and using declarative CSS-like syntax to bind incoming notifications to their handlers:
+
+    class ApplicationController
+
+      initialize: ->
+        @$ '#mainwindow':
+          type: 'MainWindow'
+          ...
+
+      '#mainwindow #addProjectButton clicked': ->
+        @$ '#mainwindow': '#statusTextField': text: "Clicked the Add Project button!"
+
+The parallel to HTML and CSS (including the hash marks) may seem random, however we do have very similar case here and many CSS and jQuery concepts can be applied. In particular, with support something very similar to CSS classes, so that you could bind a handler to `#mainwindow .someButtonClass clicked`. (We could do away without hash marks, but they are very useful for grepping.)
+
+
+### UI Element controllers hierarachy
+
+Handling the entire tree on the Node style would still be a mess, so the UI library allows you to define a hierarchy controllers, each controller bound to a certain element of the tree.
+
+For example, this ApplicationController basically delegates everything to a main window controller:
+
+    class ApplicationController
+
+      initialize: ->
+        @$ '#mainwindow': {}
+
+      '#mainwindow controller?': -> new MainWindowController
+
+The main window controller handles some stuff itself, but employs a subcontroller for managing the list of projects. Note how the controller doubles as a presentation model; conceptually, those are one and the same:
+
+    class MainWindowController extends R.Entity
+
+      constructor: ->
+        @__defprop 'selectedProject', null
+        @__defprop 'visiblePane', 'welcome'
+
+      initialize: ->
+        @$ visible: true
+
+      render: ->
+        @$ '#welcomePane': visible: (@visiblePane is 'welcome')
+        @$ '#projectPane': visible: (@visiblePane is 'details')
+
+      '%projectList controller?': -> new MainWindowProjectListController(this)
+
+And the project list controller handles the tree view plus the add/remove project buttons:
+
+    class MainWindowProjectListController
+
+      constructor: (@model) ->
+
+      initialize: ->
+        @$
+          '#projectOutlineView': {}
+          '#gettingStartedView': visible: no
+
+      '#projectOutlineView selected': (arg) ->
+        if project = (arg && LR.model.workspace.findById(arg.substr(1)))
+          @model.selectedProject = project
+
+      render: ->
+        @$ '#projectOutlineView': 'data': convertForestToBushes [
+          id: '#folders'
+          children:
+            for project in LR.model.workspace.projects
+              id:    "#" + project.id
+              label: project.name
+              tags:  '.project'
+        ]
+
+      ...
+
+(Don't ask me about the question mark in `controller?` — that was just a stupid internal decision. Also don't ask me about convertForestToBushes, that's shenanigans of the Outline View element.)
+
+The `initialize` method is called once at the start; `render` method is called afterwards within an R.run block, so it will be called again and again to re-render the UI when the model changes. You can also use `automatically something` methods like in R.Entity subclasses (in fact, some of your controllers _will_ be R.Entity subclasses, as the example shows).
+
+
+### UI Element data binding
+
+Some UI elements are naturally handled as a render method and event handler methods. In simple cases, however, that may get boring:
+
+    class MonitoringOptionsController
+
+      constructor: (@project) ->
+
+      initialize: ->
+        @$ visible: yes
+
+      render:
+        @$ '#disableLiveRefreshCheckBox': state: @project.disableLiveRefresh
+
+      '#disableLiveRefreshCheckBox clicked': (newState) ->
+        @project.disableLiveRefresh = newState
+
+(Repeat for all 5 checkboxes in that window.)
+
+That's why the UI library also supports declarative data binding:
+
+    class MonitoringOptionsController
+
+      constructor: (@project) ->
+
+      initialize: ->
+        @$ visible: yes
+
+      '#disableLiveRefreshCheckBox checkbox-binding': -> @project.disableLiveRefresh$$
+
+The magic `disableLiveRefresh$$` property is an object with `get` and `set` methods which get or set the value of the corresponding `disableLiveRefresh` property. (Both are created by the `__defprop` call in the R.Entity subclass.)
+
+
+### UI Elements stylesheet
+
+Similar to how CSS allows you to extract presentation information from HTML and JavaScript code, UI Elements library also supports stylesheets (which are merged with outgoing UI updates, right before sending them from the backend side).
+
+Currently the styles are specified as JSON, although we should probably add a layer that reads a real CSS file (compiled from something like Stylus, LESS or Sass) and converts that to JSON:
+
+    module.exports =
+
+      '#mainwindow':
+        'type': 'MainWindow'
+
+      '#mainwindow #projectOutlineView':
+        'style':           'source-list'
+        'dnd-drop-types': ['file']
+        'dnd-drag':         yes
+        'cell-type':       'ImageAndTextCell'
+
+      '#mainwindow #snippetLabelField':
+        'hyperlink-url': "http://help.livereload.com/kb/general-use/browser-extensions"
+        'hyperlink-color': "#000a89"
+        'cell-background-style': 'raised'
+
+      ...
+
+This allows to provide properties that will not change (like `type`) and also add platform-specific styles and behaviors that cannot be set in Interface Builder (like `cell-background-style` or `dnd-drop-types`).
+
+Naturally, we are going to have platform-indendepent stylesheets and platform-specific stylesheets. (Could even reuse `@media` for that, although right now `@media` seems like an overkill.)
 
 
 
