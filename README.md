@@ -38,6 +38,45 @@ Hacking tips
 3. Use `rake backend:autotest` to run backend tests continuously. Requires `sudo gem install rake listen`.
 
 
+Unified system of compilers and filters
+---------------------------------------
+
+    SASS / LESS: *.src1 | *.src2 -> *.dst
+
+    Prefixfree: *.css -> *.css
+
+    Tests: [*.js] -> test-results
+
+    Lint: *.src -> lint-results
+
+    Compass: [*.{sass,sccs}] -> [*.js]
+
+    Minification: *.js -> *.js
+    Minification: *.css -> *.css
+
+    Minification differences from other things:
+        runs only in production mode
+
+        when in-place minification is active:
+            [x] production mode checkbox controls whether the filter is applied
+
+        when minifying into another folder:
+            [x] production mode checkbox enables/disables this step of the processing graph
+
+    Concatenation: [*.js] -> *.js
+    Concatenation: [*.css] -> *.css
+
+    Concatenation differences from other things:
+        requires a bunch of files
+        usually only one output per project (but could be multiple)
+        basically the 'active invocations/instances/configurations' are created manually
+
+    Testing differences from other things:
+        no persistent output — or a very special kind of output (treated specially by LR)
+
+    Uploading differences:
+        has potential implications for other remote system setup (ie overriding could be auto-enabled)
+
 
 AppNewsKit
 ==========

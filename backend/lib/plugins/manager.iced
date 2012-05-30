@@ -5,6 +5,8 @@ LRPlugin = require './plugin'
 
 AnalysisEngine = require '../model/analyzer'
 
+class Graph
+
 
 class LRPluginManager
 
@@ -12,6 +14,28 @@ class LRPluginManager
     unless @folders.length?
       throw new Error("No plugin folders specified")
     @analysisSchema = new AnalysisEngine.Schema()
+
+    @analysisSchema.addProjectVarDef 'outputPaths', 'list'
+    @analysisSchema.addProjectAnalyzer "Compute output paths", (project, emit) ->
+
+      allCompilablePaths = []
+      # todo
+
+      for compilablePath in allCompilablePaths
+
+        candidateNames = ['foo.bar.css', 'foo.bar']
+        candidateDirsWithAuto = ['**/some/dir']
+        candidateDirs = ['...']
+
+        candidatePaths = [] # merge names and dirs
+
+        # add to the graph with a rank
+        for candidatePath in candidatePaths
+          rank = 42 #...
+          emit 'outputPaths', [compilablePath, candidatePath, rank]
+
+      # the data structure should figure out the actual paths per file
+
 
   rescan: (callback) ->
     pluginFolders = []
