@@ -1,1 +1,1 @@
-#define LIVERELOAD_VERSION "0.0.3"
+#define LIVERELOAD_VERSION "0.0.4"

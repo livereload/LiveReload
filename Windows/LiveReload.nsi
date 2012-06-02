@@ -1,5 +1,5 @@
 # BASICS
-!define VERSION "0.0.3"
+!define VERSION "0.0.4"
 !define REG_UNINSTALL "Software\Microsoft\Windows\CurrentVersion\Uninstall\LiveReload"
 !define REG_APP_PATH  "Software\Microsoft\Windows\CurrentVersion\App Paths\LiveReload.exe"
 !define REG_UPDATES_PATH  "Software\LiveReload\Updates"
