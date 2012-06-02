@@ -38,7 +38,7 @@ VIAddVersionKey "FileVersion"  "${VERSION}"
 # UI
 ;!define MUI_PAGE_HEADER_TEXT "LiveReload"
 !define MUI_WELCOMEPAGE_TITLE "The Web Developer Paradise"
-!define MUI_WELCOMEPAGE_TEXT "Welcome to highly experimental LiveReload ${VERSION}!$\r$\n$\r$\nPlease report any bugs and suggestions to help.livereload.com.$\r$\n$\r$\nThis beta expires on Jun 1, 2012. Eventually, in a few months, LiveReload will be sold for $$9.99.$\r$\n$\r$\nReady to install?"
+!define MUI_WELCOMEPAGE_TEXT "Welcome to highly experimental LiveReload ${VERSION}!$\r$\n$\r$\nPlease report any bugs and suggestions to help.livereload.com.$\r$\n$\r$\nThis beta expires on Sep 1, 2012. Eventually, in a few months, LiveReload will be sold for $$9.99.$\r$\n$\r$\nReady to install?"
 !insertmacro MUI_PAGE_WELCOME
 
 !insertmacro MUI_PAGE_INSTFILES
