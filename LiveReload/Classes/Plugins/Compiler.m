@@ -103,6 +103,9 @@
         _importRegExps = [[info objectForKey:@"ImportRegExps"] copy];
         if (!_importRegExps)
             _importRegExps = [[NSArray alloc] init];
+        _importContinuationRegExps = [[info objectForKey:@"ImportContinuationRegExps"] copy];
+        if (!_importContinuationRegExps)
+            _importContinuationRegExps = [[NSArray alloc] init];
         _defaultImportedExts = [[info objectForKey:@"DefaultImportedExts"] copy];
         if (!_defaultImportedExts)
             _defaultImportedExts = [[NSArray alloc] init];
@@ -319,30 +322,12 @@
     }
 
     NSMutableSet *result = [NSMutableSet set];
-    for (NSString *regexp in _importRegExps) {
-        [text enumerateStringsMatchedByRegex:regexp usingBlock:^(NSInteger captureCount, NSString *const *capturedStrings, const NSRange *capturedRanges, volatile BOOL *const stop) {
-            if (captureCount != 2) {
-                NSLog(@"Skipping import regexp '%@' for compiler %@ because the regexp does not have exactly one capture group.", regexp, _name);
-                return;
-            }
-            NSString *path = capturedStrings[1];
-            if ([_defaultImportedExts count] > 0 && [[path pathExtension] length] == 0) {
-                for (NSString *ext in _defaultImportedExts) {
-                    NSString *newPath = [path stringByAppendingFormat:@".%@", ext];
-                    for (NSString *mapping in _importToFileMappings) {
-                        NSString *dir = [newPath stringByDeletingLastPathComponent];
-                        NSString *name = [newPath lastPathComponent];
-                        NSString *mapped = [[mapping stringByReplacingOccurrencesOfString:@"$(file)" withString:name] stringByReplacingOccurrencesOfString:@"$(dir)" withString:dir];
-                        if ([[mapped substringToIndex:2] isEqualToString:@"./"])
-                            mapped = [mapped substringFromIndex:2];
-                        [result addObject:mapped];
-                    }
-                }
-            } else if ([[path pathExtension] length] > 0 && [_nonImportedExts containsObject:[path pathExtension]]) {
-                // do nothing; e.g. @import "foo.css" in LESS does not actually import the file
-            } else {
+
+    void (^processImport)(NSString *path) = ^(NSString *path){
+        if ([_defaultImportedExts count] > 0 && [[path pathExtension] length] == 0) {
+            for (NSString *ext in _defaultImportedExts) {
+                NSString *newPath = [path stringByAppendingFormat:@".%@", ext];
                 for (NSString *mapping in _importToFileMappings) {
-                    NSString *newPath = path;
                     NSString *dir = [newPath stringByDeletingLastPathComponent];
                     NSString *name = [newPath lastPathComponent];
                     NSString *mapped = [[mapping stringByReplacingOccurrencesOfString:@"$(file)" withString:name] stringByReplacingOccurrencesOfString:@"$(dir)" withString:dir];
@@ -350,6 +335,49 @@
                         mapped = [mapped substringFromIndex:2];
                     [result addObject:mapped];
                 }
+            }
+        } else if ([[path pathExtension] length] > 0 && [_nonImportedExts containsObject:[path pathExtension]]) {
+            // do nothing; e.g. @import "foo.css" in LESS does not actually import the file
+        } else {
+            for (NSString *mapping in _importToFileMappings) {
+                NSString *newPath = path;
+                NSString *dir = [newPath stringByDeletingLastPathComponent];
+                NSString *name = [newPath lastPathComponent];
+                NSString *mapped = [[mapping stringByReplacingOccurrencesOfString:@"$(file)" withString:name] stringByReplacingOccurrencesOfString:@"$(dir)" withString:dir];
+                if ([[mapped substringToIndex:2] isEqualToString:@"./"])
+                    mapped = [mapped substringFromIndex:2];
+                [result addObject:mapped];
+            }
+        }
+    };
+
+    for (NSString *regexp in _importRegExps) {
+        [text enumerateStringsMatchedByRegex:regexp usingBlock:^(NSInteger captureCount, NSString *const *capturedStrings, const NSRange *capturedRanges, volatile BOOL *const stop) {
+            if (captureCount != 2) {
+                NSLog(@"Skipping import regexp '%@' for compiler %@ because the regexp does not have exactly one capture group.", regexp, _name);
+                return;
+            }
+            processImport(capturedStrings[1]);
+            
+            __block NSUInteger start = capturedRanges[0].location + capturedRanges[0].length;
+            while (start < text.length) {
+                __block BOOL found = NO;
+                for (NSString *contRegexp in _importContinuationRegExps) {
+                    contRegexp = [@"^\\s*" stringByAppendingString:contRegexp];
+                    [[text substringFromIndex:start] enumerateStringsMatchedByRegex:contRegexp usingBlock:^(NSInteger captureCount, NSString *const *capturedStrings, const NSRange *capturedRanges, volatile BOOL *const stop) {
+                        if (captureCount != 2) {
+                            NSLog(@"Skipping import continuation regexp '%@' for compiler %@ because the regexp does not have exactly one capture group.", contRegexp, _name);
+                            return;
+                        }
+                        processImport(capturedStrings[1]);
+                        start += capturedRanges[0].location + capturedRanges[0].length;
+                        *stop = found = YES;
+                    }];
+                    if (found)
+                        break;
+                }
+                if (!found)
+                    break;
             }
         }];
     }

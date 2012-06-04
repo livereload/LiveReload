@@ -25,6 +25,7 @@
     NSArray          *_expectedOutputDirectoryNames;
 
     NSArray          *_importRegExps;
+    NSArray          *_importContinuationRegExps;
     NSArray          *_defaultImportedExts;
     NSArray          *_nonImportedExts;
     NSArray          *_importToFileMappings;
