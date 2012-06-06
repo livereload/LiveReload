@@ -10,7 +10,7 @@ xcuserdata
 /raw-logs
 /Supplementary
 /legacy
-site/css/livereload.css
+/site
 example/naive_example/*.css
 example/naive_example/*.js
 example/naive_example/*.html
