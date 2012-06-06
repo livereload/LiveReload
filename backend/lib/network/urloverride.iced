@@ -52,7 +52,7 @@ CSS_IMPORT_RE = ///
     ['"]?  \s*?
     \)
   )
-///
+///g
 
 
 class URLOverrideCoordinator
