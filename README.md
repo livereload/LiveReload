@@ -47,6 +47,7 @@ AppNewsKit
 
 Example ping.txt:
 
+```json
     {
         "see_explanation_at": "http://help.livereload.com/kb/about-us/usage-statistics-privacy-policy",
         "messages": [
@@ -75,3 +76,4 @@ Example ping.txt:
             }
         ]
     }
+```
