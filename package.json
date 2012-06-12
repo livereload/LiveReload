@@ -1,0 +1,26 @@
+{
+  "author": "Andrey Tarantsov <andrey@tarantsov.com>",
+  "name": "livereload",
+  "description": "LiveReload 3 command-line tool / GUI backend",
+  "version": "0.0.0",
+  "homepage": "https://github.com/andreyvit/livereload",
+  "repository": {
+    "url": "git://github.com/andreyvit/livereload"
+  },
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha -R ${REPORTER-spec}"
+  },
+  "dependencies": {
+    "debug": "~0.7.0",
+    "dreamopt": "~0.7.0"
+  },
+  "devDependencies": {
+    "mocha": "~1.0.3"
+  },
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  },
+  "private": true
+}
