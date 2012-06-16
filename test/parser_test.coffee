@@ -194,3 +194,7 @@ describe "LRProtocolParser", ->
     parser.received JSON.stringify({ command: 'info', url: 'http://foo', plugins: { abc: 123 } })
     assert.equal parser.lastErrorCode, null
 
+  it "should expose supportedProtocolUrls", ->
+    parser = createParser('server', { dummy: [DUMMY_2, DUMMY_1], xdummy: [XDUMMY_1] })
+    assert.deepEqual parser.supportedProtocolUrls, [DUMMY_2.url, DUMMY_1.url, XDUMMY_1.url]
+

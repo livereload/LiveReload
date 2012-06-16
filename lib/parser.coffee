@@ -61,6 +61,12 @@ module.exports = class LRProtocolParser extends EventEmitter
 
   constructor: (@role, @supportedProtocols) ->
     @peerRole = OPPOSITE_ROLES[@role]
+
+    @supportedProtocolUrls = []
+    for own key, versions of @supportedProtocols
+      for proto in versions
+        @supportedProtocolUrls.push proto.url
+
     @reset()
 
   reset: ->
