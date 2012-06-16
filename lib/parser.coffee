@@ -37,6 +37,25 @@ module.exports = class LRProtocolParser extends EventEmitter
   HANDSHAKE_PROTOCOL = { client_commands: HANDSHAKE_COMMANDS, server_commands: HANDSHAKE_COMMANDS }
 
 
+  @protocols =
+    CONN_CHECK_1:
+      url: "http://livereload.com/protocols/connection-check-1"
+      client_commands: []
+      server_commands: []
+
+    MONITORING_7:
+      version: 7
+      url: "http://livereload.com/protocols/official-7"
+      client_commands:
+        'info':
+          'url': []
+          'plugins': []
+      server_commands:
+        'reload':
+          'path': ['required', 'string']
+          'liveCSS': ['boolean']
+
+
   OPPOSITE_ROLES = { 'server': 'client', 'client': 'server' }
 
 

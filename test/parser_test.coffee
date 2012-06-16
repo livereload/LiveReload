@@ -185,3 +185,12 @@ describe "LRProtocolParser", ->
       parser.sending { command: 'omg', bar: 42 }
     , /Invalid attribute/
 
+
+  it "should handle LiveReload monitoring protocol", ->
+    parser = createParser('server', { monitoring: [LRProtocolParser.protocols.MONITORING_7] })
+    parser.received JSON.stringify({ command: 'hello', protocols: [LRProtocolParser.protocols.MONITORING_7.url] })
+    assert.deepEqual parser.negotiatedProtocols, { monitoring: 7 }
+
+    parser.received JSON.stringify({ command: 'info', url: 'http://foo', plugins: { abc: 123 } })
+    assert.equal parser.lastErrorCode, null
+
