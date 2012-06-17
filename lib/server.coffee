@@ -29,7 +29,10 @@ class LRWebSocketServer extends EventEmitter
         @httpServer.on 'request', (request, response) =>
           request.on 'end', =>
             url = Url.parse(request.url, yes)
-            @emit 'httprequest', url, request, response
+            if url.pathname is '/livereload.js' or url.pathname is '/xlivereload.js'
+              @emit 'livereload.js', request, response
+            else
+              @emit 'httprequest', url, request, response
 
         @wsserver = wsio.attach(@httpServer)
 
