@@ -96,6 +96,9 @@ module.exports = class LRProtocolParser extends EventEmitter
       @emit 'command', message
 
   sending: (message) ->
+    # we might be sending our HELLO after receiving an incoming one
+    return if message.command is 'hello'
+
     @_validate message, @role
     return
 
