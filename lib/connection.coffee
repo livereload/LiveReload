@@ -25,7 +25,7 @@ class LRWebSocketConnection extends EventEmitter
       @socket.close()
       @emit 'error', err
 
-    @parser.on 'command', =>
+    @parser.on 'command', (command) =>
       @emit 'command', command
 
     @parser.on 'connected', =>
