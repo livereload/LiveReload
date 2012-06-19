@@ -1,6 +1,9 @@
 Path = require 'path'
 fs   = require 'fs'
 
+Session = require 'livereload-core'
+LocalVFS = require 'vfs-local'
+
 exports.run = (argv) ->
   options = require('dreamopt') [
     'Mode selection:'
@@ -16,6 +19,10 @@ exports.run = (argv) ->
 
   dirs = for dir in options.dirs
     Path.resolve(dir)
+
+  session = new Session
+  for dir in dirs
+    session.addProject LocalVFS, dir
 
   if options.watch
     Server = require 'livereload-server'
@@ -36,5 +43,7 @@ exports.run = (argv) ->
       throw err if err
       res.writeHead 200, 'Content-Length': data.length, 'Content-Type': 'text/javascript'
       res.end(data)
-    console.log "TODO: watch " + dirs.join(", ")
+
+    session.addInterface(server)
+    session.startMonitoring()
 

@@ -14,7 +14,9 @@
   "dependencies": {
     "debug": "~0.7.0",
     "dreamopt": "~0.7.0",
-    "livereload-server": "~0.0.0"
+    "livereload-server": "~0.0.0",
+    "livereload-core": ">= 0.0.0",
+    "vfs-local": ">= 0.0.0"
   },
   "devDependencies": {
     "mocha": "~1.0.3"
