@@ -21,6 +21,13 @@ class Session extends EventEmitter
     for project in @projects
       project.stopMonitoring()
 
+  addInterface: (face) ->
+    @on 'command', (message) =>
+      face.send(message)
+
+    face.on 'command', (message) =>
+      @execute(message)
+
 
 module.exports = Session
 

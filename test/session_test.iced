@@ -1,5 +1,7 @@
 assert = require 'assert'
 
+{ EventEmitter } = require 'events'
+
 Session = require '../lib/session'
 TestVFS = require 'vfs-test'
 
@@ -20,4 +22,10 @@ describe "Session", ->
 
     session.startMonitoring()
     vfs.put '/foo/bar/boz.css', "body: { background: green }\n"
+
+  it "should implement addInterface", ->
+    face = new EventEmitter()
+    session = new Session
+    session.addInterface(face)
+    assert.equal face.listeners('command').length, 1
 
