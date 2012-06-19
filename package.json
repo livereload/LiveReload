@@ -7,7 +7,7 @@
   "repository": {
     "url": "git://github.com/livereload/core"
   },
-  "main": "lib/index.js",
+  "main": "lib/session.js",
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha -R ${REPORTER-spec}"
   },
