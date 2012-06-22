@@ -25,6 +25,7 @@ class PathAuthenticator
   localPathForUrlPath: (urlPath) ->
     if m = urlPath.match ///^ /_livereload/url-override-v1/ ([a-z0-9]{40}) (/.*) $///
       [_, signature, localPath] = m
+      localPath = decodeURI(localPath)
       if @sign(localPath) == signature
         return [200, localPath]
       else
