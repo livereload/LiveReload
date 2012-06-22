@@ -20,12 +20,14 @@ class PathAuthenticator
       throw new Error("urlPathForServingLocalPath: localPath is expected to start with a slash: '#{localPath}'")
 
     signature = @sign(localPath)
+    LR.log.fyi "urlPathForServingLocalPath: localPath = #{localPath}"
     return  "/_livereload/url-override-v1/#{signature}#{localPath}"
 
   localPathForUrlPath: (urlPath) ->
     if m = urlPath.match ///^ /_livereload/url-override-v1/ ([a-z0-9]{40}) (/.*) $///
       [_, signature, localPath] = m
       localPath = decodeURI(localPath)
+      LR.log.fyi "localPathForUrlPath: localPath = #{localPath}"
       if @sign(localPath) == signature
         return [200, localPath]
       else
