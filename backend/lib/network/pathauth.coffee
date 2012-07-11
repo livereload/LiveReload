@@ -1,8 +1,6 @@
 
 crypto = require 'crypto'
 
-sha1 = (string) -> crypto.createHash('sha1').update(string).digest('hex')
-
 random8  = -> Math.random().toString(36).substr(2,8)
 random40 = -> random8() + random8() + random8() + random8() + random8()
 
@@ -13,7 +11,7 @@ class PathAuthenticator
     @salt = random40()
 
   sign: (localPath) ->
-    sha1(@salt + localPath)
+    crypto.createHmac('sha1', @salt).update(localPath).digest('hex')
 
   urlPathForServingLocalPath: (localPath) ->
     if localPath.length == 0 or localPath[0] != '/'
