@@ -31,6 +31,9 @@ class LRWebSocketController
 
     @urlOverrideCoordinator = new URLOverrideCoordinator()
 
+    @monitoringCessationTimer = null
+    @monitoringCessationTimeout = 30000
+
   init: (callback) ->
     @server.start (err) =>
       if err
@@ -69,7 +72,19 @@ class LRWebSocketController
 
   _updateConnectionCountInUI: ->
     LR.client.mainwnd.setConnectionStatus connectionCount: @monitoringConnectionCount()
-    LR.client.workspace.setMonitoringEnabled (@monitoringConnectionCount() > 0)
+
+    if @monitoringConnectionCount() > 0
+      LR.client.workspace.setMonitoringEnabled yes
+      if @monitoringCessationTimer
+        clearTimeout(@monitoringCessationTimer)
+        @monitoringCessationTimer = null
+    else
+      unless @monitoringCessationTimer
+        @monitoringCessationTimer = setTimeout =>
+          LR.client.workspace.setMonitoringEnabled no
+          @monitoringCessationTimer = null
+        , @monitoringCessationTimeout
+
 
   _updateChangeCountInUI: ->
     LR.client.mainwnd.setChangeCount changeCount: @changeCount
