@@ -13,7 +13,7 @@
 #define NODEAPP_LOG_FILE      "log.txt"
 
 #define NODEAPP_BACKENDCRASH_TITLE           "LiveReload Crash"
-#define NODEAPP_BACKENDCRASH_TEXT            "My backend has decided to be very naughty, so looks like I have to crash."
+#define NODEAPP_BACKENDCRASH_TEXT            "My backend has decided to be very naughty, so looks like I have to crash.\n\nGeeky details: %s"
 #define NODEAPP_BACKENDCRASH_BUTTON_QUIT     "Just Quit"
 #define NODEAPP_BACKENDCRASH_BUTTON_HELP     "Troubleshooting Instructions"
 #ifdef __APPLE__
