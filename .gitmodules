@@ -1,12 +1,12 @@
 [submodule "plugins"]
 	path = plugins
 	url = git://github.com/livereload/livereload-plugins.git
-[submodule "nodeapp/fsmonitor/libs/fsmonitor"]
-	path = nodeapp/fsmonitor/libs/fsmonitor
-	url = git://github.com/andreyvit/fsmonitor.c.git
 [submodule "extensions"]
 	path = extensions
 	url = git://github.com/livereload/livereload-extensions.git
 [submodule "js"]
 	path = js
 	url = git://github.com/livereload/livereload-js.git
+[submodule "nodeapp"]
+	path = nodeapp
+	url = git://github.com/livereload/nodeapp.git
