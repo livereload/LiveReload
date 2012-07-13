@@ -1,3 +1,0 @@
-html
-  body
-    p(x=2+2) Hello
