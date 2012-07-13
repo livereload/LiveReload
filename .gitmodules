@@ -4,9 +4,6 @@
 [submodule "Shared/libs/fsmonitor"]
 	path = Shared/libs/fsmonitor
 	url = git://github.com/andreyvit/fsmonitor.c.git
-[submodule "extensions"]
-	path = extensions
-	url = git://github.com/livereload/livereload-extensions.git
 [submodule "js"]
 	path = js
 	url = git://github.com/livereload/livereload-js.git
