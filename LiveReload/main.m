@@ -1,12 +1,12 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "MASReceipt.h"
+#import "LicenseManager.h"
 
 int main(int argc, char *argv[])
 {
     @autoreleasepool {
-        MASReceiptStartup();
+        LicenseManagerStartup();
     }
     return NSApplicationMain(argc,  (const char **) argv);
 }

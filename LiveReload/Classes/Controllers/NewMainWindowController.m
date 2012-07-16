@@ -5,6 +5,7 @@
 #import "CompilationSettingsWindowController.h"
 #import "PostProcessingSettingsWindowController.h"
 #import "TerminalViewController.h"
+#import "LicenseCodeWindowController.h"
 
 #import "LiveReloadAppDelegate.h"
 #import "PluginManager.h"
@@ -21,6 +22,7 @@
 #import "VersionChecks.h"
 #import "LoginItemController.h"
 #import "DockIcon.h"
+#import "LicenseManager.h"
 
 #import "jansson.h"
 
@@ -46,6 +48,8 @@ enum { PANE_COUNT = PaneProject+1 };
 - (void)updateStatus;
 
 - (void)updateItemStates;
+
+- (void)updateLicensingUI;
 
 @end
 
@@ -212,8 +216,12 @@ void C_mainwnd__set_change_count(json_t *arg) {
 
     [self selectedProjectDidChange];
     [self updateItemStates];
+    
+    [self updateLicensingUI];
 
     [[Workspace sharedWorkspace] addObserver:self forKeyPath:@"projects" options:0 context:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLicensingUI) name:LicenseManagerStatusDidChangeNotification object:nil];
 }
 
 - (IBAction)showWindow:(id)sender {
@@ -808,5 +816,69 @@ void C_mainwnd__set_change_count(json_t *arg) {
     }
 }
 
+
+#pragma mark - Licensing
+
+- (void)updateLicensingUI {
+    BOOL all = LicenseManagerShouldDisplayLicensingUI();
+    BOOL code = LicenseManagerShouldDisplayLicenseCodeUI();
+    BOOL purchasing = LicenseManagerShouldDisplayPurchasingUI();
+    
+    purchasePopUpButton.hidden = !purchasing;
+    displayLicenseManagerMenuItem.hidden = !code;
+    displayLicenseManagerMenuItemSeparator.hidden = !code;
+    
+    NSString *licenseStatus;
+    if (LicenseManagerIsTrialMode()) {
+        licenseStatus = @"Trial mode";
+    } else {
+        switch (LicenseManagerGetCodeStatus()) {
+            case LicenseManagerCodeStatusNotRequired:
+                licenseStatus = @"Licensed via the Mac App Store";
+                break;
+            case LicenseManagerCodeStatusNotEntered:
+                break;
+            case LicenseManagerCodeStatusAcceptedIndividual:
+                licenseStatus = @"Individual license";
+                break;
+            case LicenseManagerCodeStatusAcceptedBusiness:
+                licenseStatus = @"Per-seat business license";
+                break;
+            case LicenseManagerCodeStatusAcceptedBusinessUnlimited:
+                licenseStatus = @"Unlimited business license";
+                break;
+            case LicenseManagerCodeStatusAcceptedUnknown:
+                licenseStatus = @"Unknown valid license";
+                break;
+            default:
+                licenseStatus = @"";
+        }
+    }
+    licenseStatusMenuItem.hidden = !all;
+    licenseStatusMenuItem.title = licenseStatus;
+    
+    if (LicenseManagerIsTrialMode())
+        self.window.title = @"LiveReload — unlimited trial, please purchase when ready";
+    else
+        self.window.title = @"LiveReload";
+}
+
+- (IBAction)purchaseViaMAS:(id)sender {
+    if (![[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"macappstore://itunes.apple.com/app/id482898991?mt=12"]]) {
+        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://itunes.apple.com/us/app/livereload/id482898991?mt=12"]];
+    }
+}
+
+- (IBAction)purchaseOutsideMAS:(id)sender {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://go.livereload.com/purchase"]];
+}
+
+- (IBAction)displayLicenseManager:(id)sender {
+    [[LicenseCodeWindowController sharedLicenseCodeWindowController] showWindow:nil];
+}
+
+- (IBAction)enterLicenseCode:(id)sender {
+    [self displayLicenseManager:sender];
+}
 
 @end

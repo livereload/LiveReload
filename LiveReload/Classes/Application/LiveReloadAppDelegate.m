@@ -19,7 +19,7 @@
 
 #import "ShitHappens.h"
 #import "FixUnixPath.h"
-#import "MASReceipt.h"
+#import "LicenseManager.h"
 #import "DockIcon.h"
 
 

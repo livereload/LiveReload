@@ -23,6 +23,11 @@
     IBOutlet NSMenuItem *_showInDockMenuItem;
     IBOutlet NSMenuItem *_showInMenuBarMenuItem;
     IBOutlet NSMenuItem *_showNowhereMenuItem;
+
+    IBOutlet NSMenuItem *licenseStatusMenuItem;
+    IBOutlet NSPopUpButton *purchasePopUpButton;
+    IBOutlet NSMenuItem *displayLicenseManagerMenuItem;
+    IBOutlet NSMenuItem *displayLicenseManagerMenuItemSeparator;
 }
 
 @property (assign) IBOutlet NSView *titleBarSideView;
