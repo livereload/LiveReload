@@ -22,6 +22,10 @@
 #import "LicenseManager.h"
 #import "DockIcon.h"
 
+#ifndef APPSTORE
+#import "Sparkle/Sparkle.h"
+#endif
+
 
 void C_mainwnd__set_project_list(json_t *arg) {
     // TODO
@@ -102,6 +106,10 @@ void C_app__good_time_to_deliver_news(json_t *arg) {
 
     [Preferences initDefaults];
     [[PluginManager sharedPluginManager] reloadPlugins];
+    
+#ifndef APPSTORE
+    [[SUUpdater sharedUpdater] setDelegate:self];
+#endif
 
     _statusItemController = [[StatusItemController alloc] init];
     [self.statusItemController initStatusBarIcon];
@@ -336,6 +344,13 @@ void C_app__good_time_to_deliver_news(json_t *arg) {
         command = url;
     }
     [self handleCommand:command params:params];
+}
+
+
+#pragma mark - Sparkle
+
+- (IBAction)checkForUpdates:(id)sender {
+    [[SUUpdater sharedUpdater] checkForUpdates:sender];
 }
 
 @end

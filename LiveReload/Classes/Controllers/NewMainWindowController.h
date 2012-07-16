@@ -28,6 +28,9 @@
     IBOutlet NSPopUpButton *purchasePopUpButton;
     IBOutlet NSMenuItem *displayLicenseManagerMenuItem;
     IBOutlet NSMenuItem *displayLicenseManagerMenuItemSeparator;
+
+    IBOutlet NSMenuItem *checkForUpdatesMenuItem;
+    IBOutlet NSMenuItem *checkForUpdatesMenuItemSeparator;
 }
 
 @property (assign) IBOutlet NSView *titleBarSideView;

@@ -12,6 +12,8 @@
 		4303A4B315B3898E009D732A /* LR-B9BC.public in Resources */ = {isa = PBXBuildFile; fileRef = 4303A4B015B3898D009D732A /* LR-B9BC.public */; };
 		4303A4B415B3898E009D732A /* LR-E9BC.public in Resources */ = {isa = PBXBuildFile; fileRef = 4303A4B115B3898D009D732A /* LR-E9BC.public */; };
 		4303A4B715B3959D009D732A /* BuyTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4303A4B615B3959D009D732A /* BuyTemplate.png */; };
+		4303A4B915B3B438009D732A /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4303A4B815B3B438009D732A /* Sparkle.framework */; };
+		4303A4BB15B3B464009D732A /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4303A4B815B3B438009D732A /* Sparkle.framework */; };
 		4304FC2D144B2BEB00D650DF /* NSDictionaryAndArray+SafeAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 4304FC2C144B2BEB00D650DF /* NSDictionaryAndArray+SafeAccess.m */; };
 		43059209151DF2DE00CC3F88 /* MASReceipt.m in Sources */ = {isa = PBXBuildFile; fileRef = 43059208151DF2DE00CC3F88 /* MASReceipt.m */; };
 		4305921F151E8E3F00CC3F88 /* VersionChecks.m in Sources */ = {isa = PBXBuildFile; fileRef = 4305921E151E8E3F00CC3F88 /* VersionChecks.m */; };
@@ -177,6 +179,19 @@
 		C01FCF5008A954540054247E /* RSVerticallyCenteredTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C01FCF5008A954540054247D /* RSVerticallyCenteredTextFieldCell.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		4303A4BA15B3B450009D732A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4303A4BB15B3B464009D732A /* Sparkle.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
@@ -190,6 +205,7 @@
 		4303A4B015B3898D009D732A /* LR-B9BC.public */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "LR-B9BC.public"; sourceTree = "<group>"; };
 		4303A4B115B3898D009D732A /* LR-E9BC.public */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "LR-E9BC.public"; sourceTree = "<group>"; };
 		4303A4B615B3959D009D732A /* BuyTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BuyTemplate.png; sourceTree = "<group>"; };
+		4303A4B815B3B438009D732A /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		4304FC2B144B2BEB00D650DF /* NSDictionaryAndArray+SafeAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionaryAndArray+SafeAccess.h"; sourceTree = "<group>"; };
 		4304FC2C144B2BEB00D650DF /* NSDictionaryAndArray+SafeAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionaryAndArray+SafeAccess.m"; sourceTree = "<group>"; };
 		43059207151DF2DE00CC3F88 /* MASReceipt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASReceipt.h; sourceTree = "<group>"; };
@@ -465,6 +481,7 @@
 				43594AF413D3BB34004175B2 /* QuartzCore.framework in Frameworks */,
 				43361D4613C30D1400C0E589 /* libicucore.dylib in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				4303A4B915B3B438009D732A /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -543,6 +560,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4303A4B815B3B438009D732A /* Sparkle.framework */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
@@ -1006,6 +1024,7 @@
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
+				4303A4BA15B3B450009D732A /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -1281,6 +1300,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = LiveReload_Prefix.pch;
 				INFOPLIST_FILE = "LiveReload-Info.plist";
@@ -1295,6 +1318,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1311,6 +1338,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = LiveReload_Prefix.pch;
 				INFOPLIST_FILE = "LiveReload-Info.plist";

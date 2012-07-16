@@ -64,5 +64,11 @@
 	<array/>
 	<key>UTImportedTypeDeclarations</key>
 	<array/>
+	<key>SUFeedURL</key>
+	<string>https://s3.amazonaws.com/download.livereload.com/LiveReload-Mac-appcast.xml</string>
+	<key>SUEnableAutomaticChecks</key>
+	<true/>
+	<key>SUEnableSystemProfiling</key>
+	<true/>
 </dict>
 </plist>

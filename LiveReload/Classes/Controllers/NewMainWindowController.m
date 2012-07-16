@@ -218,6 +218,11 @@ void C_mainwnd__set_change_count(json_t *arg) {
     [self updateItemStates];
     
     [self updateLicensingUI];
+    
+#ifdef APPSTORE
+    checkForUpdatesMenuItem.hidden = YES;
+    checkForUpdatesMenuItemSeparator.hidden = YES;
+#endif
 
     [[Workspace sharedWorkspace] addObserver:self forKeyPath:@"projects" options:0 context:nil];
     
