@@ -7,3 +7,6 @@
 [submodule "js"]
 	path = js
 	url = git://github.com/livereload/livereload-js.git
+[submodule "nodeapp"]
+	path = nodeapp
+	url = git://github.com/livereload/nodeapp.git
