@@ -1,5 +1,5 @@
 
-#import "msg_proxy.h"
+#import "nodeapp_rpc_proxy.h"
 
 #import "Project.h"
 #import "Preferences.h"

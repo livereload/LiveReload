@@ -1,9 +1,14 @@
+Path  = require 'path'
 async = require 'async'
 
 exports.api =
-  init: ({ pluginFolders, preferencesFolder, version }, callback) ->
-    return callback(new Error("init requires pluginFolders")) unless pluginFolders
-    return callback(new Error("init requires preferencesFolder")) unless preferencesFolder
+  init: ({ resourcesDir, appDataDir, logDir, logFile, version, build, platform }, callback) ->
+    return callback(new Error("init requires resourcesDir")) unless resourcesDir
+    return callback(new Error("init requires appDataDir"))   unless appDataDir
+    return callback(new Error("init requires logDir"))       unless logDir
+
+    pluginFolders = [resourcesDir]
+    preferencesFolder = Path.join(appDataDir, 'Data')
 
     LR.version = version || '0.0.0'
 

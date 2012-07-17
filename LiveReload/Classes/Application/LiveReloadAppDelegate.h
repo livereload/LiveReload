@@ -1,10 +1,13 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import "NodeAppDelegate.h"
+
+
 @class StatusItemController;
 @class NewMainWindowController;
 
-@interface LiveReloadAppDelegate : NSObject <NSApplicationDelegate> {
+@interface LiveReloadAppDelegate : NodeAppDelegate <NSApplicationDelegate> {
     StatusItemController  *_statusItemController;
     NewMainWindowController  *_mainWindowController;
 }
