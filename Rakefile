@@ -9,7 +9,12 @@ MacVersion = VersionTasks.new('ver:mac', 'app/mac/Info.plist', %w(
     app/mac/src/app_version.h
 ))
 
-RoutingTasks.new
+RoutingTasks.new(
+  :app_src => 'app',
+  :gen_src => 'app/shared/gen_src',
+  :messages_json => 'backend/config/client-messages.json',
+  :api_dumper_js => "backend/bin/livereload-backend-print-apis.js"
+)
 
 CopyTask.new :js, 'js/dist/livereload.js', %w(
   extensions/LiveReload.safariextension/livereload.js
