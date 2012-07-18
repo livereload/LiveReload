@@ -202,7 +202,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 #pragma mark -
 #pragma mark Persistence
 
-- (NSDictionary *)memento {
+- (NSMutableDictionary *)memento {
     NSMutableDictionary *memento = [NSMutableDictionary dictionary];
     [memento setObject:[_compilerOptions dictionaryByMappingValuesToSelector:@selector(memento)] forKey:@"compilers"];
     if (_lastSelectedPane)
@@ -232,7 +232,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     if (_customName.length > 0)
         [memento setObject:_customName forKey:@"customName"];
     
-    return [NSDictionary dictionaryWithDictionary:memento];
+    return memento;
 }
 
 

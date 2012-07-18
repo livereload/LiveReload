@@ -1,10 +1,11 @@
 
+#import "nodeapp.h"
 #import "Workspace.h"
 #import "Project.h"
 #import "Preferences.h"
 
 #import "ATFunctionalStyle.h"
-
+#import "NSData+Base64.h"
 #import "jansson.h"
 
 
@@ -50,6 +51,7 @@ void C_workspace__set_monitoring_enabled(json_t *arg) {
 - (id)init {
     if ((self = [super init])) {
         _projects = [[NSMutableSet alloc] init];
+    
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSomethingChanged:) name:@"SomethingChanged" object:nil];
         [self load];
     }
@@ -66,10 +68,31 @@ void C_workspace__set_monitoring_enabled(json_t *arg) {
 #pragma mark -
 #pragma mark Persistence
 
+- (NSString *)dataFilePath {
+    return [[NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"Data/livereload.json"];
+}
+
 - (void)save {
-    NSDictionary *projectMementos = [[[[_projects allObjects] dictionaryWithElementsGroupedByKeyPath:@"path"] dictionaryByMappingKeysToSelector:@selector(stringByAbbreviatingWithTildeInPath)] dictionaryByMappingValuesToSelector:@selector(memento)];
-    [[NSUserDefaults standardUserDefaults] setObject:projectMementos forKey:ProjectListKey];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    NSString *dataFilePath = [self dataFilePath];
+    [[NSFileManager defaultManager] createDirectoryAtPath:[dataFilePath stringByDeletingLastPathComponent] withIntermediateDirectories:YES attributes:nil error:NULL];
+    
+    NSMutableArray *projectMementos = [NSMutableArray array];
+    for (Project *project in _projects) {
+        NSMutableDictionary *memento = [project memento];
+        NSError *error = nil;
+        NSString *bookmark = [[[NSURL fileURLWithPath:project.path] bookmarkDataWithOptions:NSURLBookmarkCreationWithSecurityScope includingResourceValuesForKeys:nil relativeToURL:nil error:&error] base64EncodedString];
+        [memento setObject:project.path forKey:@"path"];
+        [memento setObject:bookmark forKey:@"bookmark"];
+        [projectMementos addObject:memento];
+    }
+    json_t *json = nodeapp_objc_to_json(projectMementos);
+    char *dump = json_dumps(json, JSON_INDENT(2));
+    [[NSData dataWithBytesNoCopy:dump length:strlen(dump) freeWhenDone:NO] writeToFile:dataFilePath options:NSDataWritingAtomic error:NULL];
+    free(dump);
+    json_decref(json);
+    
+//    [[NSUserDefaults standardUserDefaults] setObject:projectMementos forKey:ProjectListKey];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
     _savingScheduled = NO;
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(save) object:nil];
     NSLog(@"Workspace saved.");
@@ -83,11 +106,30 @@ void C_workspace__set_monitoring_enabled(json_t *arg) {
 }
 
 - (void)load {
-    NSDictionary *projectMementos = [[NSUserDefaults standardUserDefaults] objectForKey:ProjectListKey];
+    _oldMementos = [[[NSUserDefaults standardUserDefaults] objectForKey:ProjectListKey] retain];
+    
+    NSArray *projectMementos = nil;
+
+    NSString *data = [NSString stringWithContentsOfFile:[self dataFilePath] encoding:NSUTF8StringEncoding error:NULL];
+    if (data) {
+        json_error_t err;
+        json_t *json = json_loads([data UTF8String], 0, &err);
+        projectMementos = nodeapp_json_to_objc(json, YES);
+        json_decref(json);
+    }
+
     [_projects removeAllObjects];
-    [projectMementos enumerateKeysAndObjectsUsingBlock:^(id path, id projectMemento, BOOL *stop) {
-        [_projects addObject:[[[Project alloc] initWithPath:[path stringByExpandingTildeInPath] memento:projectMemento] autorelease]];
-    }];
+    for (NSDictionary *projectMemento in projectMementos) {
+        NSString *bookmark = [projectMemento objectForKey:@"bookmark"];
+        BOOL stale = NO;
+        NSError *error = nil;
+        NSURL *url = [NSURL URLByResolvingBookmarkData:[NSData dataFromBase64String:bookmark] options:NSURLBookmarkResolutionWithSecurityScope relativeToURL:nil bookmarkDataIsStale:&stale error:&error];
+        if ([url isFileURL]) {
+            [url startAccessingSecurityScopedResource];                       
+            NSString *path = [url path];
+            [_projects addObject:[[[Project alloc] initWithPath:path memento:projectMemento] autorelease]];
+        }
+    }
 }
 
 - (void)handleSomethingChanged:(NSNotification *)notification {

@@ -77,6 +77,7 @@
 		4303A58815B513FD009D732A /* nodeapp_url_handler_mac.m in Sources */ = {isa = PBXBuildFile; fileRef = 4303A53E15B513FD009D732A /* nodeapp_url_handler_mac.m */; };
 		4303A59215B5275F009D732A /* nodeapp_rpc_proxy.c in Sources */ = {isa = PBXBuildFile; fileRef = 4303A58F15B5275F009D732A /* nodeapp_rpc_proxy.c */; };
 		4303A59315B5275F009D732A /* nodeapp_rpc_router.c in Sources */ = {isa = PBXBuildFile; fileRef = 4303A59115B5275F009D732A /* nodeapp_rpc_router.c */; };
+		4303A59815B546E4009D732A /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 4303A59715B546E4009D732A /* NSData+Base64.m */; };
 		4304FC2D144B2BEB00D650DF /* NSDictionaryAndArray+SafeAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 4304FC2C144B2BEB00D650DF /* NSDictionaryAndArray+SafeAccess.m */; };
 		43059209151DF2DE00CC3F88 /* MASReceipt.m in Sources */ = {isa = PBXBuildFile; fileRef = 43059208151DF2DE00CC3F88 /* MASReceipt.m */; };
 		4305921F151E8E3F00CC3F88 /* VersionChecks.m in Sources */ = {isa = PBXBuildFile; fileRef = 4305921E151E8E3F00CC3F88 /* VersionChecks.m */; };
@@ -347,6 +348,8 @@
 		4303A59015B5275F009D732A /* nodeapp_rpc_proxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nodeapp_rpc_proxy.h; sourceTree = "<group>"; };
 		4303A59115B5275F009D732A /* nodeapp_rpc_router.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = nodeapp_rpc_router.c; sourceTree = "<group>"; };
 		4303A59415B53B31009D732A /* LiveReload.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = LiveReload.entitlements; sourceTree = "<group>"; };
+		4303A59615B546E4009D732A /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		4303A59715B546E4009D732A /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		4304FC2B144B2BEB00D650DF /* NSDictionaryAndArray+SafeAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionaryAndArray+SafeAccess.h"; sourceTree = "<group>"; };
 		4304FC2C144B2BEB00D650DF /* NSDictionaryAndArray+SafeAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionaryAndArray+SafeAccess.m"; sourceTree = "<group>"; };
 		43059207151DF2DE00CC3F88 /* MASReceipt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASReceipt.h; sourceTree = "<group>"; };
@@ -966,6 +969,15 @@
 			path = gen_src;
 			sourceTree = "<group>";
 		};
+		4303A59515B546E2009D732A /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				4303A59615B546E4009D732A /* NSData+Base64.h */,
+				4303A59715B546E4009D732A /* NSData+Base64.m */,
+			);
+			path = Vendor;
+			sourceTree = "<group>";
+		};
 		433617FE13C2E0C800C0E589 /* Compilers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1043,6 +1055,7 @@
 				823DDE7B13F8DA3100529AD2 /* Plugins */,
 				823DDE8613F8DA3100529AD2 /* Preferences */,
 				823DDE9F13F8DA3100529AD2 /* Utilities */,
+				4303A59515B546E2009D732A /* Vendor */,
 				823DDEBA13F8DA3100529AD2 /* Views */,
 				439A76AB15B28D9000E50057 /* Licensing */,
 			);
@@ -1609,6 +1622,7 @@
 				4303A58815B513FD009D732A /* nodeapp_url_handler_mac.m in Sources */,
 				4303A59215B5275F009D732A /* nodeapp_rpc_proxy.c in Sources */,
 				4303A59315B5275F009D732A /* nodeapp_rpc_router.c in Sources */,
+				4303A59815B546E4009D732A /* NSData+Base64.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

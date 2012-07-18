@@ -72,7 +72,7 @@ EVENTBUS_DECLARE_EVENT(project_fs_change_event);
 
 - (id)initWithPath:(NSString *)path memento:(NSDictionary *)memento;
 
-- (NSDictionary *)memento;
+- (NSMutableDictionary *)memento;
 
 @property(nonatomic, readonly, copy) NSString *path;
 @property(nonatomic, readonly, copy) NSString *displayName;

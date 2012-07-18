@@ -7,6 +7,7 @@
 
 @interface Workspace : NSObject {
     NSMutableSet *_projects;
+    NSDictionary *_oldMementos;
 
     BOOL _monitoringEnabled;
     BOOL _savingScheduled;
