@@ -116,6 +116,16 @@
 		43594AF413D3BB34004175B2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43594AF313D3BB34004175B2 /* QuartzCore.framework */; };
 		435BE042141B72A60008FF77 /* NewMainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 435BE041141B72A60008FF77 /* NewMainWindow.xib */; };
 		435BE045141B87920008FF77 /* NewMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 435BE044141B87920008FF77 /* NewMainWindowController.m */; };
+		435FF2B615B68C0300391E8D /* ActionAll.png in Resources */ = {isa = PBXBuildFile; fileRef = 435FF2AE15B68C0300391E8D /* ActionAll.png */; };
+		435FF2B715B68C0300391E8D /* ActionCompile.png in Resources */ = {isa = PBXBuildFile; fileRef = 435FF2AF15B68C0300391E8D /* ActionCompile.png */; };
+		435FF2B815B68C0300391E8D /* ActionGeneric.png in Resources */ = {isa = PBXBuildFile; fileRef = 435FF2B015B68C0300391E8D /* ActionGeneric.png */; };
+		435FF2B915B68C0300391E8D /* ActionMinify.png in Resources */ = {isa = PBXBuildFile; fileRef = 435FF2B115B68C0300391E8D /* ActionMinify.png */; };
+		435FF2BA15B68C0300391E8D /* ActionMonitoring.png in Resources */ = {isa = PBXBuildFile; fileRef = 435FF2B215B68C0300391E8D /* ActionMonitoring.png */; };
+		435FF2BB15B68C0300391E8D /* ActionRefresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 435FF2B315B68C0300391E8D /* ActionRefresh.png */; };
+		435FF2BC15B68C0300391E8D /* ActionRefresh0.png in Resources */ = {isa = PBXBuildFile; fileRef = 435FF2B415B68C0300391E8D /* ActionRefresh0.png */; };
+		435FF2BD15B68C0300391E8D /* ActionRunScript.png in Resources */ = {isa = PBXBuildFile; fileRef = 435FF2B515B68C0300391E8D /* ActionRunScript.png */; };
+		435FF2BF15B68F2B00391E8D /* ActionCompileTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 435FF2BE15B68F2B00391E8D /* ActionCompileTemplate.png */; };
+		435FF2C315B6989600391E8D /* ActionTestTemplate.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 435FF2C215B6989600391E8D /* ActionTestTemplate.pdf */; };
 		43693F4115660A8700C453CC /* LiveReloadNodejs in Resources */ = {isa = PBXBuildFile; fileRef = 43693F4015660A8700C453CC /* LiveReloadNodejs */; };
 		43719FD41565FE5F004B0E0C /* backend in Resources */ = {isa = PBXBuildFile; fileRef = 43719FD31565FE5F004B0E0C /* backend */; };
 		4376A0E2146DF1C800338AD4 /* TitleBarHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */; };
@@ -408,6 +418,16 @@
 		435BE041141B72A60008FF77 /* NewMainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewMainWindow.xib; sourceTree = "<group>"; };
 		435BE043141B87920008FF77 /* NewMainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewMainWindowController.h; sourceTree = "<group>"; };
 		435BE044141B87920008FF77 /* NewMainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewMainWindowController.m; sourceTree = "<group>"; };
+		435FF2AE15B68C0300391E8D /* ActionAll.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ActionAll.png; sourceTree = "<group>"; };
+		435FF2AF15B68C0300391E8D /* ActionCompile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ActionCompile.png; sourceTree = "<group>"; };
+		435FF2B015B68C0300391E8D /* ActionGeneric.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ActionGeneric.png; sourceTree = "<group>"; };
+		435FF2B115B68C0300391E8D /* ActionMinify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ActionMinify.png; sourceTree = "<group>"; };
+		435FF2B215B68C0300391E8D /* ActionMonitoring.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ActionMonitoring.png; sourceTree = "<group>"; };
+		435FF2B315B68C0300391E8D /* ActionRefresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ActionRefresh.png; sourceTree = "<group>"; };
+		435FF2B415B68C0300391E8D /* ActionRefresh0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ActionRefresh0.png; sourceTree = "<group>"; };
+		435FF2B515B68C0300391E8D /* ActionRunScript.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ActionRunScript.png; sourceTree = "<group>"; };
+		435FF2BE15B68F2B00391E8D /* ActionCompileTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ActionCompileTemplate.png; sourceTree = "<group>"; };
+		435FF2C215B6989600391E8D /* ActionTestTemplate.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = ActionTestTemplate.pdf; sourceTree = "<group>"; };
 		43693F4015660A8700C453CC /* LiveReloadNodejs */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = LiveReloadNodejs; path = Resources/LiveReloadNodejs; sourceTree = "<group>"; };
 		43719FD31565FE5F004B0E0C /* backend */ = {isa = PBXFileReference; lastKnownFileType = folder; name = backend; path = ../interim/backend; sourceTree = "<group>"; };
 		4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TitleBarHelpTemplate.png; sourceTree = "<group>"; };
@@ -1311,6 +1331,16 @@
 		823DDF2213F8DA3F00529AD2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				435FF2BE15B68F2B00391E8D /* ActionCompileTemplate.png */,
+				435FF2C215B6989600391E8D /* ActionTestTemplate.pdf */,
+				435FF2AE15B68C0300391E8D /* ActionAll.png */,
+				435FF2AF15B68C0300391E8D /* ActionCompile.png */,
+				435FF2B015B68C0300391E8D /* ActionGeneric.png */,
+				435FF2B115B68C0300391E8D /* ActionMinify.png */,
+				435FF2B215B68C0300391E8D /* ActionMonitoring.png */,
+				435FF2B315B68C0300391E8D /* ActionRefresh.png */,
+				435FF2B415B68C0300391E8D /* ActionRefresh0.png */,
+				435FF2B515B68C0300391E8D /* ActionRunScript.png */,
 				4303A4B615B3959D009D732A /* BuyTemplate.png */,
 				43146698146C5D2100DC075A /* ProjectPaneBackground.png */,
 				4314669C146C884800DC075A /* WelcomePaneBackground.png */,
@@ -1470,6 +1500,16 @@
 				4303A56415B513FD009D732A /* plist.rb in Resources */,
 				4303A56515B513FD009D732A /* routing_tasks.rb in Resources */,
 				4303A56615B513FD009D732A /* version_tasks.rb in Resources */,
+				435FF2B615B68C0300391E8D /* ActionAll.png in Resources */,
+				435FF2B715B68C0300391E8D /* ActionCompile.png in Resources */,
+				435FF2B815B68C0300391E8D /* ActionGeneric.png in Resources */,
+				435FF2B915B68C0300391E8D /* ActionMinify.png in Resources */,
+				435FF2BA15B68C0300391E8D /* ActionMonitoring.png in Resources */,
+				435FF2BB15B68C0300391E8D /* ActionRefresh.png in Resources */,
+				435FF2BC15B68C0300391E8D /* ActionRefresh0.png in Resources */,
+				435FF2BD15B68C0300391E8D /* ActionRunScript.png in Resources */,
+				435FF2BF15B68F2B00391E8D /* ActionCompileTemplate.png in Resources */,
+				435FF2C315B6989600391E8D /* ActionTestTemplate.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

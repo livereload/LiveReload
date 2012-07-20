@@ -5,6 +5,8 @@
 @class Project;
 @class TerminalViewController;
 
+#define TryActionsInSourceList 0
+
 
 @interface NewMainWindowController : NSWindowController {
     NSObject              *_projectsItem;

@@ -191,6 +191,13 @@
             imageFrame.origin.y += ceil((cellFrame.size.height + imageFrame.size.height) / 2);
         else
             imageFrame.origin.y += ceil((cellFrame.size.height - imageFrame.size.height) / 2);
+        
+//        NSButtonCell *cell = [[NSButtonCell alloc] init];
+//        [cell setImage:image];
+//        [cell setBackgroundStyle:NSBackgroundStyleLowered];
+//        [cell setBordered:NO];
+//        [cell drawWithFrame:imageFrame inView:controlView];
+//        [cell release];
         [image compositeToPoint:imageFrame.origin operation:NSCompositeSourceOver];
 
         NSRect newFrame = cellFrame;

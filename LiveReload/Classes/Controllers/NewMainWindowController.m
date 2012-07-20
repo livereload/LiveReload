@@ -424,6 +424,22 @@ void C_mainwnd__set_change_count(json_t *arg) {
 
 #pragma mark - NSOutlineView data source and delegate
 
+- (NSArray *)saveActions {
+    static NSArray *actions = nil;
+    if (!actions) {
+        actions = [[NSArray arrayWithObjects:
+                   [NSDictionary dictionaryWithObjectsAndKeys:@"Watch Local Folder", @"label", @"ActionGeneric", @"icon", nil],
+                   [NSDictionary dictionaryWithObjectsAndKeys:@"Compile SASS", @"label", @"ActionCompile", @"icon", nil],
+                   [NSDictionary dictionaryWithObjectsAndKeys:@"Compile CoffeeScript", @"label", @"ActionCompile", @"icon", nil],
+                   [NSDictionary dictionaryWithObjectsAndKeys:@"Minify & Concatenate", @"label", @"ActionMinify", @"icon", nil],
+                   [NSDictionary dictionaryWithObjectsAndKeys:@"Run Script", @"label", @"ActionRunScript", @"icon", nil],
+                   [NSDictionary dictionaryWithObjectsAndKeys:@"Refresh Browsers", @"label", @"ActionRefresh", @"icon", nil],
+                    [NSDictionary dictionaryWithObjectsAndKeys:@"Add More", @"label", @"ActionAll", @"icon", nil],
+                   nil] retain];
+    }
+    return actions;
+}
+
 - (void)outlineViewSelectionDidChange:(NSNotification *)notification {
     [self selectedProjectDidChange];
 }
@@ -441,6 +457,8 @@ void C_mainwnd__set_change_count(json_t *arg) {
         return _projectsItem;
     if (item == _projectsItem)
         return [_projects objectAtIndex:index];
+    if (TryActionsInSourceList && [item isKindOfClass:[Project class]])
+        return [[self saveActions] objectAtIndex:index];
     assert(0);
 }
 
@@ -448,6 +466,8 @@ void C_mainwnd__set_change_count(json_t *arg) {
     if (item == nil)
         return YES;
     if (item == _projectsItem)
+        return YES;
+    if (TryActionsInSourceList && [item isKindOfClass:[Project class]])
         return YES;
     return NO;
 }
@@ -457,6 +477,8 @@ void C_mainwnd__set_change_count(json_t *arg) {
         return 1;
     if (item == _projectsItem)
         return [_projects count];
+    if (TryActionsInSourceList && [item isKindOfClass:[Project class]])
+        return [[self saveActions] count];
     return 0;
 }
 
@@ -464,7 +486,11 @@ void C_mainwnd__set_change_count(json_t *arg) {
     NSParameterAssert(item != nil);
     if (item == _projectsItem)
         return (_projects.count > 0 ? @"MONITORED FOLDERS" : @"");
-    return [(Project *)item displayName];
+    if ([item isKindOfClass:[Project class]])
+        return [(Project *)item displayName];
+    if (TryActionsInSourceList && [item isKindOfClass:[NSDictionary class]])
+        return [item objectForKey:@"label"];
+    assert(0);
 }
 
 - (void)outlineView:(NSOutlineView *)outlineView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn byItem:(id)item {
@@ -481,25 +507,33 @@ void C_mainwnd__set_change_count(json_t *arg) {
     ImageAndTextCell *theCell = cell;
     if (item == nil || item == _projectsItem) {
         theCell.image = nil;
-    } else {
+    } else if ([item isKindOfClass:[Project class]]) {
         theCell.image = _folderImage;
+    } else if ([item isKindOfClass:[NSDictionary class]]) {
+        theCell.image = [NSImage imageNamed:[item objectForKey:@"icon"]];
     }
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView shouldShowOutlineCellForItem:(id)item {
+    if (TryActionsInSourceList && [item isKindOfClass:[Project class]])
+        return YES;
     return NO;
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView shouldCollapseItem:(id)item {
+    if (TryActionsInSourceList && [item isKindOfClass:[Project class]])
+        return YES;
     return NO;
 }
 
 - (NSString *)outlineView:(NSOutlineView *)outlineView toolTipForCell:(NSCell *)cell rect:(NSRectPointer)rect tableColumn:(NSTableColumn *)tableColumn item:(id)item mouseLocation:(NSPoint)mouseLocation {
     if (item == nil || item == _projectsItem) {
         return nil;
-    } else {
+    } else if ([item isKindOfClass:[Project class]]) {
         Project *project = item;
         return project.displayPath;
+    } else {
+        return nil;
     }
 }
 
