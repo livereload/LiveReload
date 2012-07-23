@@ -16,6 +16,7 @@
 #import "Workspace.h"
 #import "Project.h"
 #import "Preferences.h"
+#import "UserScript.h"
 
 #import "Stats.h"
 #import "ShitHappens.h"
@@ -51,6 +52,9 @@ enum { PANE_COUNT = PaneProject+1 };
 
 - (void)updateLicensingUI;
 - (void)updateURLs;
+
+- (void)initUserScripts;
+- (void)updateUserScripts;
 
 @end
 
@@ -218,18 +222,20 @@ void C_mainwnd__set_change_count(json_t *arg) {
     [_projectOutlineView expandItem:_projectsItem];
     [self restoreSelection];
 
+    [self initUserScripts];
+
     [self selectedProjectDidChange];
     [self updateItemStates];
-    
+
     [self updateLicensingUI];
-    
+
 #ifdef APPSTORE
     checkForUpdatesMenuItem.hidden = YES;
     checkForUpdatesMenuItemSeparator.hidden = YES;
 #endif
 
     [[Workspace sharedWorkspace] addObserver:self forKeyPath:@"projects" options:0 context:nil];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLicensingUI) name:LicenseManagerStatusDidChangeNotification object:nil];
 }
 
@@ -258,7 +264,7 @@ void C_mainwnd__set_change_count(json_t *arg) {
     _nameTextField.stringValue = [_selectedProject.displayPath lastPathComponent];
     _pathTextField.stringValue = [_selectedProject.displayPath stringByDeletingLastPathComponent];
 //    [self styleLabel:_pathTextField color:[self headerLabelColor] shadow:[self subtleWhiteShadow] text:[_selectedProject.displayPath stringByDeletingLastPathComponent]];
-    
+
     NSString *exclusionsString;
     int exclusionCount = _selectedProject.excludedPaths.count;
     switch (exclusionCount) {
@@ -266,14 +272,15 @@ void C_mainwnd__set_change_count(json_t *arg) {
         case 1:  exclusionsString = @"1 exclusion"; break;
         default: exclusionsString = [NSString stringWithFormat:@"%d exclusions", exclusionCount]; break;
     }
-    
+
     _monitoringSummaryLabelField.stringValue = [NSString stringWithFormat:@"Monitoring %d file extensions, %@ →", [Preferences sharedPreferences].allExtensions.count, exclusionsString];
     [_compilerEnabledCheckBox setState:_selectedProject.compilationEnabled ? NSOnState : NSOffState];
     [_postProcessingEnabledCheckBox setState:_selectedProject.postProcessingEnabled ? NSOnState : NSOffState];
 
     _availableCompilersLabel.stringValue = [NSString stringWithFormat:@"%@", [[[PluginManager sharedPluginManager].compilers valueForKeyPath:@"name"] componentsJoinedByString:@", "]];
-    
+
     [self updateURLs];
+    [self updateUserScripts];
 }
 
 - (void)setVisibility:(BOOL)visible forPaneView:(NSView *)paneView {
@@ -609,7 +616,7 @@ void C_mainwnd__set_change_count(json_t *arg) {
 
 - (void)updateItemStates {
     _openAtLoginMenuItem.state = ([LoginItemController sharedController].loginItemEnabled ? NSOnState : NSOffState);
-    
+
     AppVisibilityMode visibilityMode = [DockIcon currentDockIcon].visibilityMode;
     [_showInDockMenuItem setState:(visibilityMode == AppVisibilityModeDock ? NSOnState : NSOffState)];
     [_showInMenuBarMenuItem setState:(visibilityMode == AppVisibilityModeMenuBar ? NSOnState : NSOffState)];
@@ -788,15 +795,82 @@ void C_mainwnd__set_change_count(json_t *arg) {
 #pragma mark - Project settings (post-processing)
 
 - (IBAction)togglePostProcessingCheckboxClicked:(NSButton *)sender {
-    if (sender.state == NSOnState && _selectedProject.postProcessingCommand.length == 0) {
-        [self showPostProcessingOptions:nil];
+    _selectedProject.postProcessingEnabled = (sender.state == NSOnState);
+}
+
+- (UserScript *)selectedUserScript {
+    NSString *selectedScriptName = _selectedProject.postProcessingScriptName;
+    if (selectedScriptName.length == 0)
+        return nil;
+    NSInteger selectedScriptIndex = [self indexOfScriptNamed:_selectedProject.postProcessingScriptName];
+    if (selectedScriptIndex < 0) {
+        [_userScripts insertObject:[[[MissingUserScript alloc] initWithName:selectedScriptName] autorelease] atIndex:0];
+        selectedScriptIndex = 0;
+    }
+    return [_userScripts objectAtIndex:selectedScriptIndex];
+}
+
+- (IBAction)customScriptSelected:(id)sender {
+    NSUInteger count = [customScriptPopUp numberOfItems];
+    NSUInteger index = [customScriptPopUp indexOfSelectedItem];
+    if (index == 0) {
+        _selectedProject.postProcessingScriptName = @"";
+        _selectedProject.postProcessingEnabled = NO;
+    } if (index == count - 1) {
+        [[UserScriptManager sharedUserScriptManager] revealUserScriptsFolderSelectingScript:[self selectedUserScript]];
+    } else if (index >= _firstUserScriptIndex && index < _firstUserScriptIndex + _userScripts.count) {
+        UserScript *userScript = [_userScripts objectAtIndex:index - _firstUserScriptIndex];
+        _selectedProject.postProcessingScriptName = userScript.uniqueName;
+        _selectedProject.postProcessingEnabled = userScript.exists;
+    }
+    [self updateProjectPane];
+}
+
+- (NSInteger)indexOfScriptNamed:(NSString *)name {
+    NSInteger index = 0;
+    for (UserScript *userScript in _userScripts) {
+        if ([userScript.uniqueName isEqualToString:name])
+            return index;
+        ++index;
+    }
+    return -1;
+}
+
+- (void)updateUserScripts {
+    [_userScripts autorelease];
+    _userScripts = [[UserScriptManager sharedUserScriptManager].userScripts mutableCopy];
+
+    [customScriptPopUp removeAllItems];
+
+    UserScript *userScript = [self selectedUserScript];
+
+    if (_userScripts.count > 0) {
+        [customScriptPopUp addItemWithTitle:@"None"];
+        [[customScriptPopUp menu] addItem:[NSMenuItem separatorItem]];
+
+        _firstUserScriptIndex = [customScriptPopUp numberOfItems];
+
+        for (UserScript *userScript in _userScripts) {
+            [customScriptPopUp addItemWithTitle:userScript.friendlyName];
+        }
     } else {
-        _selectedProject.postProcessingEnabled = (sender.state == NSOnState);
+        _firstUserScriptIndex = 0; // does not really matter, but just in case
+        [customScriptPopUp addItemWithTitle:@"No Scripts Installed"];
+//        [[customScriptPopUp lastItem] setEnabled:NO];
+    }
+
+    [[customScriptPopUp menu] addItem:[NSMenuItem separatorItem]];
+    [customScriptPopUp addItemWithTitle:@"Show in Finder"];
+
+    if (userScript) {
+        [customScriptPopUp selectItemAtIndex:_firstUserScriptIndex + [self indexOfScriptNamed:userScript.uniqueName]];
+    } else {
+        [customScriptPopUp selectItemAtIndex:0];
     }
 }
 
-- (IBAction)showPostProcessingOptions:(id)sender {
-    [self showProjectSettingsSheet:[PostProcessingSettingsWindowController class]];
+- (void)initUserScripts {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserScripts) name:UserScriptManagerScriptsDidChangeNotification object:nil];
 }
 
 
@@ -843,11 +917,11 @@ void C_mainwnd__set_change_count(json_t *arg) {
     BOOL all = LicenseManagerShouldDisplayLicensingUI();
     BOOL code = LicenseManagerShouldDisplayLicenseCodeUI();
     BOOL purchasing = LicenseManagerShouldDisplayPurchasingUI();
-    
+
     purchasePopUpButton.hidden = !purchasing;
     displayLicenseManagerMenuItem.hidden = !code;
     displayLicenseManagerMenuItemSeparator.hidden = !code;
-    
+
     NSString *licenseStatus;
     if (LicenseManagerIsTrialMode()) {
         licenseStatus = @"Trial mode";
@@ -876,7 +950,7 @@ void C_mainwnd__set_change_count(json_t *arg) {
     }
     licenseStatusMenuItem.hidden = !all;
     licenseStatusMenuItem.title = licenseStatus;
-    
+
     if (LicenseManagerIsTrialMode())
         self.window.title = @"LiveReload — unlimited trial, please purchase when ready";
     else
@@ -909,7 +983,7 @@ void C_mainwnd__set_change_count(json_t *arg) {
 }
 
 - (void)controlTextDidBeginEditing:(NSNotification *)obj {
-    
+
 }
 
 - (void)controlTextDidEndEditing:(NSNotification *)obj {
@@ -918,7 +992,7 @@ void C_mainwnd__set_change_count(json_t *arg) {
 }
 
 - (void)controlTextDidChange:(NSNotification *)obj {
-    
+
 }
 
 @end
