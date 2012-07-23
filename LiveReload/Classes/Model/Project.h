@@ -9,6 +9,8 @@
 @class CompilationOptions;
 @class FileCompilationOptions;
 @class ImportGraph;
+@class UserScript;
+
 
 extern NSString *ProjectDidDetectChangeNotification;
 extern NSString *ProjectWillBeginCompilationNotification;
@@ -39,6 +41,7 @@ EVENTBUS_DECLARE_EVENT(project_fs_change_event);
     BOOL                     _dirty;
 
     NSString                *_postProcessingCommand;
+    NSString                *_postProcessingScriptName;
     BOOL                     _postProcessingEnabled;
     NSTimeInterval           _lastPostProcessingRunDate;
     NSTimeInterval           _postProcessingGracePeriod;
@@ -115,6 +118,8 @@ EVENTBUS_DECLARE_EVENT(project_fs_change_event);
 @property(nonatomic, getter = isDirty) BOOL dirty;
 
 @property(nonatomic, retain) NSString *postProcessingCommand;
+@property(nonatomic, retain) NSString *postProcessingScriptName;
+@property(nonatomic, readonly) UserScript *postProcessingScript;
 @property(nonatomic) BOOL postProcessingEnabled;
 
 @property(nonatomic, copy) NSString *rubyVersionIdentifier;

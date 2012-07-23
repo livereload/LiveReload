@@ -14,6 +14,7 @@
 #import "FileCompilationOptions.h"
 #import "ImportGraph.h"
 #import "ToolOutput.h"
+#import "UserScript.h"
 
 #import "Stats.h"
 #import "RegexKitLite.h"
@@ -79,6 +80,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 @synthesize enabled=_enabled;
 @synthesize compilationEnabled=_compilationEnabled;
 @synthesize postProcessingCommand=_postProcessingCommand;
+@synthesize postProcessingScriptName=_postProcessingScriptName;
 @synthesize postProcessingEnabled=_postProcessingEnabled;
 @synthesize disableLiveRefresh=_disableLiveRefresh;
 @synthesize enableRemoteServerWorkflow=_enableRemoteServerWorkflow;
@@ -149,10 +151,11 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         _monitor.eventProcessingDelay = _eventProcessingDelay;
 
         _postProcessingCommand = [[memento objectForKey:@"postproc"] copy];
+        _postProcessingScriptName = [[memento objectForKey:@"postprocScript"] copy];
         if ([memento objectForKey:@"postprocEnabled"]) {
             _postProcessingEnabled = [[memento objectForKey:@"postprocEnabled"] boolValue];
         } else {
-            _postProcessingEnabled = [_postProcessingCommand length] > 0;
+            _postProcessingEnabled = [_postProcessingScriptName length] > 0 || [_postProcessingCommand length] > 0;
         }
 
         if ([memento objectForKey:@"rubyVersion"])
@@ -209,6 +212,9 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         [memento setObject:_lastSelectedPane forKey:@"last_pane"];
     if ([_postProcessingCommand length] > 0) {
         [memento setObject:_postProcessingCommand forKey:@"postproc"];
+    }
+    if ([_postProcessingScriptName length] > 0) {
+        [memento setObject:_postProcessingScriptName forKey:@"postprocScript"];
         [memento setObject:[NSNumber numberWithBool:_postProcessingEnabled] forKey:@"postprocEnabled"];
     }
     [memento setObject:[NSNumber numberWithBool:_disableLiveRefresh] forKey:@"disableLiveRefresh"];
@@ -479,44 +485,21 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         goto fin;
     }
 
-    if ([_postProcessingCommand length] > 0 && _postProcessingEnabled) {
-        if (invokePostProcessor) {
-
-            NSMutableDictionary *info = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                         @"/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/bin/ruby", @"$(ruby)",
-                                         [[NSBundle mainBundle] pathForResource:@"node" ofType:nil], @"$(node)",
-                                         _path, @"$(project_dir)",
-                                         nil];
-
-            NSString *command = [_postProcessingCommand stringBySubstitutingValuesFromDictionary:info];
-            NSString *shell = DetermineShell();
-            NSLog(@"Running post-processing command: %@", command);
-
-            NSString *runDirectory = _path;
-            NSString *prefix = @"which rvm >/dev/null || source \"$HOME/.rvm/scripts/rvm\"; ";
-            NSArray *shArgs = [NSArray arrayWithObjects:@"--login",@"-i",@"-c", [prefix stringByAppendingString:command], nil];
-
+    if (_postProcessingScriptName.length > 0 && _postProcessingEnabled) {
+        UserScript *userScript = self.postProcessingScript;
+        if (invokePostProcessor && userScript.exists) {
+            ToolOutput *toolOutput = nil;
             NSError *error = nil;
-            NSString *pwd = [[NSFileManager defaultManager] currentDirectoryPath];
-            [[NSFileManager defaultManager] changeCurrentDirectoryPath:runDirectory];
-            const char *project_path = [self.path UTF8String];
-            console_printf("Post-proc exec: %s --login -c \"%s\"", [shell UTF8String], str_collapse_paths([command UTF8String], project_path));
-            NSString *output = [NSTask stringByLaunchingPath:shell
-                                               withArguments:shArgs
-                                                       error:&error];
-            [[NSFileManager defaultManager] changeCurrentDirectoryPath:pwd];
-
-            if ([output length] > 0) {
-                console_printf("\n%s\n\n", str_collapse_paths([output UTF8String], project_path));
-                NSLog(@"Post-processing output:\n%@\n", output);
-            }
-            if (error) {
-                console_printf("Post-processor failed.");
-                NSLog(@"Error: %@", [error description]);
-            }
-
+            
+            _runningPostProcessor = YES;
+            [userScript invokeForProjectAtPath:_path withModifiedFiles:pathes output:&toolOutput error:&error];
             _runningPostProcessor = NO;
             _lastPostProcessingRunDate = [NSDate timeIntervalSinceReferenceDate];
+            
+            if (toolOutput) {
+                toolOutput.project = self;
+                [[[[ToolOutputWindowController alloc] initWithCompilerOutput:toolOutput key:[NSString stringWithFormat:@"%@.postproc", _path]] autorelease] show];
+            }
         } else {
             console_printf("Skipping post-processing.");
         }
@@ -939,12 +922,20 @@ skipGuessing:
 
 - (void)setPostProcessingCommand:(NSString *)postProcessingCommand {
     if (postProcessingCommand != _postProcessingCommand) {
-        BOOL wasEmpty = (_postProcessingCommand.length == 0);
         [_postProcessingCommand release];
         _postProcessingCommand = [postProcessingCommand copy];
-        if ([_postProcessingCommand length] > 0 && wasEmpty && !_postProcessingEnabled) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+    }
+}
+
+- (void)setPostProcessingScriptName:(NSString *)postProcessingScriptName {
+    if (postProcessingScriptName != _postProcessingScriptName) {
+        BOOL wasEmpty = (_postProcessingScriptName.length == 0);
+        [_postProcessingScriptName release];
+        _postProcessingScriptName = [postProcessingScriptName copy];
+        if ([_postProcessingScriptName length] > 0 && wasEmpty && !_postProcessingEnabled) {
             [self setPostProcessingEnabled:YES];
-        } else if ([_postProcessingCommand length] == 0 && _postProcessingEnabled) {
+        } else if ([_postProcessingScriptName length] == 0 && _postProcessingEnabled) {
             _postProcessingEnabled = NO;
         }
         [self handleCompilationOptionsEnablementChanged];
@@ -953,7 +944,7 @@ skipGuessing:
 }
 
 - (void)setPostProcessingEnabled:(BOOL)postProcessingEnabled {
-    if ([_postProcessingCommand length] == 0 && postProcessingEnabled) {
+    if ([_postProcessingScriptName length] == 0 && postProcessingEnabled) {
         return;
     }
     if (postProcessingEnabled != _postProcessingEnabled) {
@@ -961,6 +952,19 @@ skipGuessing:
         [self handleCompilationOptionsEnablementChanged];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
     }
+}
+
+- (UserScript *)postProcessingScript {
+    if (_postProcessingScriptName.length == 0)
+        return nil;
+
+    NSArray *userScripts = [UserScriptManager sharedUserScriptManager].userScripts;
+    for (UserScript *userScript in userScripts) {
+        if ([userScript.uniqueName isEqualToString:_postProcessingScriptName])
+            return userScript;
+    }
+
+    return [[[MissingUserScript alloc] initWithName:_postProcessingScriptName] autorelease];
 }
 
 

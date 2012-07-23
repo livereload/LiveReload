@@ -33,6 +33,10 @@
 
     IBOutlet NSMenuItem *checkForUpdatesMenuItem;
     IBOutlet NSMenuItem *checkForUpdatesMenuItemSeparator;
+
+    IBOutlet NSPopUpButton *customScriptPopUp;
+    NSMutableArray *_userScripts;
+    NSUInteger _firstUserScriptIndex;
 }
 
 @property (assign) IBOutlet NSView *titleBarSideView;
@@ -72,7 +76,6 @@
 - (void)projectAdded:(Project *)project;
 
 
-- (IBAction)showPostProcessingOptions:(id)sender;
 - (IBAction)toggleVisibilityMode:(NSMenuItem *)sender;
 
 - (IBAction)doNothingOnShowAs:(id)sender;

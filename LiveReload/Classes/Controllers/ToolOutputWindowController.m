@@ -224,7 +224,7 @@ static ToolOutputWindowController *lastOutputController = nil;
             break;
     }
 
-    _fileNameLabel.stringValue = [_compilerOutput.sourcePath lastPathComponent];
+    _fileNameLabel.stringValue = [_compilerOutput.sourcePath lastPathComponent] ?: @"";
 
     [[_messageView layoutManager] glyphRangeForTextContainer:[_messageView textContainer]]; // forces layout manager to relayout container
     CGFloat windowHeightDelta = _messageView.frame.size.height - oldHeight;

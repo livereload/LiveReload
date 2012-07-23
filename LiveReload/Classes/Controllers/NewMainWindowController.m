@@ -16,6 +16,7 @@
 #import "Workspace.h"
 #import "Project.h"
 #import "Preferences.h"
+#import "UserScript.h"
 
 #import "Stats.h"
 #import "ShitHappens.h"
@@ -50,6 +51,9 @@ enum { PANE_COUNT = PaneProject+1 };
 - (void)updateItemStates;
 
 - (void)updateLicensingUI;
+
+- (void)initUserScripts;
+- (void)updateUserScripts;
 
 @end
 
@@ -213,6 +217,8 @@ void C_mainwnd__set_change_count(json_t *arg) {
     // MUST be done after initializing _panes
     [_projectOutlineView expandItem:_projectsItem];
     [self restoreSelection];
+    
+    [self initUserScripts];
 
     [self selectedProjectDidChange];
     [self updateItemStates];
@@ -259,6 +265,8 @@ void C_mainwnd__set_change_count(json_t *arg) {
     [_postProcessingEnabledCheckBox setState:_selectedProject.postProcessingEnabled ? NSOnState : NSOffState];
 
     _availableCompilersLabel.stringValue = [NSString stringWithFormat:@"Available compilers: %@.", [[[PluginManager sharedPluginManager].compilers valueForKeyPath:@"name"] componentsJoinedByString:@", "]];
+    
+    [self updateUserScripts];
 }
 
 - (void)setVisibility:(BOOL)visible forPaneView:(NSView *)paneView {
@@ -807,15 +815,82 @@ void C_mainwnd__set_change_count(json_t *arg) {
 #pragma mark - Project settings (post-processing)
 
 - (IBAction)togglePostProcessingCheckboxClicked:(NSButton *)sender {
-    if (sender.state == NSOnState && _selectedProject.postProcessingCommand.length == 0) {
-        [self showPostProcessingOptions:nil];
+    _selectedProject.postProcessingEnabled = (sender.state == NSOnState);
+}
+
+- (UserScript *)selectedUserScript {
+    NSString *selectedScriptName = _selectedProject.postProcessingScriptName;
+    if (selectedScriptName.length == 0)
+        return nil;
+    NSInteger selectedScriptIndex = [self indexOfScriptNamed:_selectedProject.postProcessingScriptName];
+    if (selectedScriptIndex < 0) {
+        [_userScripts insertObject:[[[MissingUserScript alloc] initWithName:selectedScriptName] autorelease] atIndex:0];
+        selectedScriptIndex = 0;
+    }
+    return [_userScripts objectAtIndex:selectedScriptIndex];
+}
+
+- (IBAction)customScriptSelected:(id)sender {
+    NSUInteger count = [customScriptPopUp numberOfItems];
+    NSUInteger index = [customScriptPopUp indexOfSelectedItem];
+    if (index == 0) {
+        _selectedProject.postProcessingScriptName = @"";
+        _selectedProject.postProcessingEnabled = NO;
+    } if (index == count - 1) {
+        [[UserScriptManager sharedUserScriptManager] revealUserScriptsFolderSelectingScript:[self selectedUserScript]];
+    } else if (index >= _firstUserScriptIndex && index < _firstUserScriptIndex + _userScripts.count) {
+        UserScript *userScript = [_userScripts objectAtIndex:index - _firstUserScriptIndex];
+        _selectedProject.postProcessingScriptName = userScript.uniqueName;
+        _selectedProject.postProcessingEnabled = userScript.exists;
+    }
+    [self updateProjectPane];
+}
+
+- (NSInteger)indexOfScriptNamed:(NSString *)name {
+    NSInteger index = 0;
+    for (UserScript *userScript in _userScripts) {
+        if ([userScript.uniqueName isEqualToString:name])
+            return index;
+        ++index;
+    }
+    return -1;
+}
+
+- (void)updateUserScripts {
+    [_userScripts autorelease];
+    _userScripts = [[UserScriptManager sharedUserScriptManager].userScripts mutableCopy];
+    
+    [customScriptPopUp removeAllItems];
+
+    UserScript *userScript = [self selectedUserScript];
+
+    if (_userScripts.count > 0) {
+        [customScriptPopUp addItemWithTitle:@"None"];
+        [[customScriptPopUp menu] addItem:[NSMenuItem separatorItem]];
+
+        _firstUserScriptIndex = [customScriptPopUp numberOfItems];
+        
+        for (UserScript *userScript in _userScripts) {
+            [customScriptPopUp addItemWithTitle:userScript.friendlyName];
+        }
     } else {
-        _selectedProject.postProcessingEnabled = (sender.state == NSOnState);
+        _firstUserScriptIndex = 0; // does not really matter, but just in case
+        [customScriptPopUp addItemWithTitle:@"No Scripts Installed"];
+        [[customScriptPopUp lastItem] setEnabled:NO];
+    }
+
+    [[customScriptPopUp menu] addItem:[NSMenuItem separatorItem]];
+    [customScriptPopUp addItemWithTitle:@"Show in Finder"];
+
+    if (userScript) {
+        [customScriptPopUp selectItemAtIndex:_firstUserScriptIndex + [self indexOfScriptNamed:userScript.uniqueName]];
+    } else {
+        [customScriptPopUp selectItemAtIndex:0];
     }
 }
 
-- (IBAction)showPostProcessingOptions:(id)sender {
-    [self showProjectSettingsSheet:[PostProcessingSettingsWindowController class]];
+- (void)initUserScripts {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserScripts) name:UserScriptManagerScriptsDidChangeNotification object:nil];
 }
 
 

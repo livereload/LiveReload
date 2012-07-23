@@ -85,6 +85,8 @@
 		43059225151E90DE00CC3F88 /* DockIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 43059224151E90DE00CC3F88 /* DockIcon.m */; };
 		4310DE3D146DB588003091D1 /* ToolOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4310DE3C146DB588003091D1 /* ToolOptions.m */; };
 		4310DE40146DB6A0003091D1 /* UIBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4310DE3F146DB6A0003091D1 /* UIBuilder.m */; };
+		4313347915BC295B00659B4F /* UserScript.m in Sources */ = {isa = PBXBuildFile; fileRef = 4313347815BC295B00659B4F /* UserScript.m */; };
+		4313347D15BC2CC200659B4F /* ATSandboxing.m in Sources */ = {isa = PBXBuildFile; fileRef = 4313347C15BC2CC200659B4F /* ATSandboxing.m */; };
 		43146699146C5D2100DC075A /* ProjectPaneBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 43146698146C5D2100DC075A /* ProjectPaneBackground.png */; };
 		4314669B146C689500DC075A /* FolderIcon64.png in Resources */ = {isa = PBXBuildFile; fileRef = 4314669A146C689500DC075A /* FolderIcon64.png */; };
 		4314669D146C884800DC075A /* WelcomePaneBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 4314669C146C884800DC075A /* WelcomePaneBackground.png */; };
@@ -373,6 +375,10 @@
 		4310DE3C146DB588003091D1 /* ToolOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolOptions.m; sourceTree = "<group>"; };
 		4310DE3E146DB6A0003091D1 /* UIBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBuilder.h; sourceTree = "<group>"; };
 		4310DE3F146DB6A0003091D1 /* UIBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIBuilder.m; sourceTree = "<group>"; };
+		4313347715BC295B00659B4F /* UserScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserScript.h; sourceTree = "<group>"; };
+		4313347815BC295B00659B4F /* UserScript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserScript.m; sourceTree = "<group>"; };
+		4313347B15BC2CC200659B4F /* ATSandboxing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATSandboxing.h; sourceTree = "<group>"; };
+		4313347C15BC2CC200659B4F /* ATSandboxing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATSandboxing.m; sourceTree = "<group>"; };
 		43146698146C5D2100DC075A /* ProjectPaneBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ProjectPaneBackground.png; sourceTree = "<group>"; };
 		4314669A146C689500DC075A /* FolderIcon64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FolderIcon64.png; sourceTree = "<group>"; };
 		4314669C146C884800DC075A /* WelcomePaneBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WelcomePaneBackground.png; sourceTree = "<group>"; };
@@ -1206,6 +1212,8 @@
 				823DDE7113F8DA3100529AD2 /* Workspace.m */,
 				4346F3A71450D8AD00B133F2 /* ImportGraph.h */,
 				4346F3A81450D8AD00B133F2 /* ImportGraph.m */,
+				4313347715BC295B00659B4F /* UserScript.h */,
+				4313347815BC295B00659B4F /* UserScript.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1289,6 +1297,8 @@
 				4305921E151E8E3F00CC3F88 /* VersionChecks.m */,
 				43059223151E90DE00CC3F88 /* DockIcon.h */,
 				43059224151E90DE00CC3F88 /* DockIcon.m */,
+				4313347B15BC2CC200659B4F /* ATSandboxing.h */,
+				4313347C15BC2CC200659B4F /* ATSandboxing.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1663,6 +1673,8 @@
 				4303A59215B5275F009D732A /* nodeapp_rpc_proxy.c in Sources */,
 				4303A59315B5275F009D732A /* nodeapp_rpc_router.c in Sources */,
 				4303A59815B546E4009D732A /* NSData+Base64.m in Sources */,
+				4313347915BC295B00659B4F /* UserScript.m in Sources */,
+				4313347D15BC2CC200659B4F /* ATSandboxing.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
