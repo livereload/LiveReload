@@ -13,7 +13,12 @@ NSString *ATRealHomeDirectory() {
 }
 
 BOOL ATIsSandboxed() {
-    return [NSHomeDirectory() compare:ATRealHomeDirectory() options:NSCaseInsensitiveSearch] != NSOrderedSame;
+    static BOOL sandboxed;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sandboxed = [NSHomeDirectory() compare:ATRealHomeDirectory() options:NSCaseInsensitiveSearch] != NSOrderedSame;
+    });
+    return sandboxed;
 }
 
 NSString *ATUserScriptsDirectory() {

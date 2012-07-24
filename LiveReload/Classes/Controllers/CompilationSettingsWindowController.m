@@ -10,6 +10,7 @@
 #import "Project.h"
 
 #import "UIBuilder.h"
+#import "ATSandboxing.h"
 #import "sglib.h"
 #include "kvec.h"
 #include "stringutil.h"
@@ -49,6 +50,7 @@ void compilable_file_free(compilable_file_t *file) {
     NSArray               *_compilerOptions;
     BOOL                   _populatingRubyVersions;
     NSArray               *_rubyVersions;
+    NSInteger              _addRvmInstanceItemIndex;
 
     CGFloat                _compilerSettingsWindowHeight;
     CGFloat                _outputPathsWindowHeight;
@@ -99,12 +101,14 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
     _outputPathsWindowHeight = _tabView.frame.size.height;
     [_project requestMonitoring:YES forKey:@"compilationSettings"];
     EVENTBUS_OBJC_SUBSCRIBE(CompilationSettingsWindowController, project_fs_change_event);
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(populateRubyVersions) name:RubyVersionsDidChangeNotification object:nil];
     [super windowDidLoad];
 }
 
 - (IBAction)dismiss:(id)sender {
     [_project requestMonitoring:NO forKey:@"compilationSettings"];
     EVENTBUS_OBJC_UNSUBSCRIBE(CompilationSettingsWindowController, project_fs_change_event);
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:RubyVersionsDidChangeNotification object:nil];
     [super dismiss:sender];
 }
 
@@ -233,6 +237,10 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
             [_rubyVersionsPopUpButton addItemsWithTitles:titles];
             [_rubyVersionsPopUpButton setEnabled:YES];
             [_rubyVersionsPopUpButton selectItemAtIndex:selectedIndex];
+            
+            [[_rubyVersionsPopUpButton menu] addItem:[NSMenuItem separatorItem]];
+            [_rubyVersionsPopUpButton addItemWithTitle:@"Add RVM Rubies…"];
+            _addRvmInstanceItemIndex = [_rubyVersionsPopUpButton numberOfItems] - 1;
 
             _populatingRubyVersions = NO;
         });
@@ -250,6 +258,27 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
     NSInteger index = [_rubyVersionsPopUpButton indexOfSelectedItem];
     if (index < 0)
         return;
+    if (index == _addRvmInstanceItemIndex) {
+        NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+        [openPanel setCanChooseDirectories:YES];
+        [openPanel setCanCreateDirectories:YES];
+        [openPanel setShowsHiddenFiles:YES];
+        [openPanel setTitle:@"Add RVM"];
+        [openPanel setMessage:@"Choose RVM root folder (typically ~/.rvm) to give LiveReload access to it."];
+        [openPanel setPrompt:@"Use As RVM Root"];
+        [openPanel setCanChooseFiles:NO];
+        [openPanel setTreatsFilePackagesAsDirectories:YES];
+        [openPanel setDirectoryURL:[NSURL fileURLWithPath:[ATRealHomeDirectory() stringByAppendingPathComponent:@".rvm"]]];
+        [openPanel beginWithCompletionHandler:^(NSInteger result) {
+            if (result == NSFileHandlingPanelOKButton) {
+                NSURL *url = [openPanel URL];
+                [RvmInstance addRvmInstanceAtPath:[url path]];
+            }
+            [self populateRubyVersions]; // to restore selection
+        }];
+        return;
+    }
+
     RubyVersion *version = [_rubyVersions objectAtIndex:index];
     _project.rubyVersionIdentifier = version.identifier;
 }

@@ -1,6 +1,21 @@
 
 #import <Foundation/Foundation.h>
 
+
+extern NSString *RubyVersionsDidChangeNotification;
+
+
+@interface RvmInstance : NSObject
+
++ (NSArray *)rvmInstances;
+
++ (void)addRvmInstanceAtPath:(NSString *)path;
+
+- (NSArray *)availableRubyVersions;
+
+@end
+
+
 @interface RubyVersion : NSObject
 
 + (RubyVersion *)rubyVersionWithIdentifier:(NSString *)identifier;
