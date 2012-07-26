@@ -348,16 +348,16 @@ void node_received(char *line) {
 void node_received_raw(char *buf, int cb) {
     strncat(node_buf, buf, cb);
 
-    char *start = buf;
+    char *start = node_buf;
     char *end;
     while ((end = (char *)strchr(start, '\n')) != NULL) {
         *end = 0;
         invoke_on_main_thread((INVOKE_LATER_FUNC)node_received, strdup(start));
         start = end + 1;
     }
-    if (start > buf) {
+    if (start > node_buf) {
         // strings overlap, so can't use strcpy
-        memmove(buf, start, strlen(start) + 1);
+        memmove(node_buf, start, strlen(start) + 1);
     }
 }
 
