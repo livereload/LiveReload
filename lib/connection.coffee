@@ -26,7 +26,10 @@ class LRWebSocketConnection extends EventEmitter
       @emit 'error', err
 
     @parser.on 'command', (command) =>
-      @emit 'command', command
+      if command.command is 'ping'
+        @send { command: 'pong', token: command.token }
+      else
+        @emit 'command', command
 
     @parser.on 'connected', =>
       (clearTimeout @_handshakeTimeout; @_handshakeTimeout = null) if @_handshakeTimeout

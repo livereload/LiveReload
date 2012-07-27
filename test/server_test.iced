@@ -26,6 +26,13 @@ describe "LRWebSocketServer", ->
     msg = JSON.parse(msg)
     assert.equal msg.command, 'hello'
 
+    await
+      ws.on 'message', defer(msg)
+      ws.send JSON.stringify { command: 'ping', token: 'xyz' }
+
+    assert.equal msg.command, 'pong'
+    assert.equal msg.token, 'xyz'
+
     server.close()
     done()
 
