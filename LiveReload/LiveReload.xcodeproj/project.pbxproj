@@ -1720,13 +1720,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Developer ID Application: Andrey Tarantsov";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				WARNING_CFLAGS = (
 					"-Wall",
@@ -1748,11 +1749,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Developer ID Application: Andrey Tarantsov";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				WARNING_CFLAGS = (
 					"-Wall",
