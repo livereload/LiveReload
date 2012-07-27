@@ -6,7 +6,7 @@ require 'rake/clean'
 Dir['tasks/*.rb'].each { |file| require file }
 Dir['nodeapp/*/tasks/*.rb'].each { |file| require file }
 
-MacVersion = VersionTasks.new('ver:mac', 'app/mac/Info.plist', %w(app/mac/src/app_version.h))
+MacVersion = VersionTasks.new('ver:mac', 'LiveReload/LiveReload-Info.plist', %w(LiveReload/Classes/Application/app_version.h))
 
 RoutingTasks.new(
   :app_src        => 'LiveReload,Shared',
