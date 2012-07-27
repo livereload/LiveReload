@@ -44,8 +44,16 @@ module.exports = class LRProtocolParser extends EventEmitter
   @protocols =
     CONN_CHECK_1:
       url: "http://livereload.com/protocols/connection-check-1"
-      client_commands: []
-      server_commands: []
+      client_commands:
+        'ping':
+          'token': ['required', 'string']
+        'pong':
+          'token': ['required', 'string']
+      server_commands:
+        'ping':
+          'token': ['required', 'string']
+        'pong':
+          'token': ['required', 'string']
 
     MONITORING_7:
       version: 7
