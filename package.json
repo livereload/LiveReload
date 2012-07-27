@@ -1,0 +1,29 @@
+{
+  "name": "livereload-client",
+  "description": "LiveReload client (talks to livereload-server)",
+  "version": "0.1.0",
+  "author": "Andrey Tarantsov <andrey@tarantsov.com>",
+  "homepage": "https://github.com/livereload/livereload-client",
+  "repository": {
+    "url": "git://github.com/livereload/livereload-client"
+  },
+  "main": "lib/client.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha -R ${REPORTER-spec}"
+  },
+  "dependencies": {
+    "debug": "~0.7.0",
+    "livereload-protocol": "~0.2.0",
+    "rewebsocket": "~0.1.0"
+  },
+  "devDependencies": {
+    "mocha": "~1.0.3",
+    "iced-coffee-script": "~1.3",
+    "livereload-server": "~0.1.1",
+    "ws": "~0.4.21"
+  },
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  }
+}
