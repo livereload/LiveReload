@@ -10,7 +10,7 @@ PORT = parseInt(process.env['LRPortOverride'], 10) || 35729
 describe "LRWebSocketServer", ->
 
   it "should accept web socket connections", (done) ->
-    server = new LRWebSocketServer(port: PORT)
+    server = new LRWebSocketServer(port: PORT, id: "com.livereload.livereload-server.test", name: "TestServer", version: "1.0")
     await server.listen defer (err)
     throw err if err
 

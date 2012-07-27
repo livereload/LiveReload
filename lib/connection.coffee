@@ -8,7 +8,7 @@ HandshakeTimeout = 1000
 
 
 class LRWebSocketConnection extends EventEmitter
-  constructor: (@socket, @id) ->
+  constructor: (@socket, @id, @party) ->
     @parser = new Parser 'server',
       monitoring: [Parser.protocols.MONITORING_7]
       conncheck:  [Parser.protocols.CONN_CHECK_1]
@@ -30,7 +30,7 @@ class LRWebSocketConnection extends EventEmitter
 
     @parser.on 'connected', =>
       (clearTimeout @_handshakeTimeout; @_handshakeTimeout = null) if @_handshakeTimeout
-      @send { command: "hello", protocols: @parser.supportedProtocolUrls, serverName: "LiveReload 2" }
+      @send @parser.hello(@party)
       @emit 'connected'
 
     @_handshakeTimeout = setTimeout((=> @_handshakeTimeout = null; @socket.close()), HandshakeTimeout)

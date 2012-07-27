@@ -14,8 +14,12 @@ DefaultWebSocketPort = parseInt(process.env['LRPortOverride'], 10) || 35729
 
 class LRWebSocketServer extends EventEmitter
 
-  constructor: (options={}) ->
-    @port = options.port || DefaultWebSocketPort
+  constructor: (@options) ->
+    throw new Error("ERR_INVALID_ARG: id is required")      unless @options.id
+    throw new Error("ERR_INVALID_ARG: name is required")    unless @options.name
+    throw new Error("ERR_INVALID_ARG: version is required") unless @options.version
+
+    @port = @options.port || DefaultWebSocketPort
     @connections = {}
     @activeConnections = 0
     @nextConnectionId = 1
@@ -53,7 +57,7 @@ class LRWebSocketServer extends EventEmitter
   monitoringConnectionCount: -> @monitoringConnections().length
 
   _createConnection: (socket) ->
-    connection = new LRWebSocketConnection(socket, "C" + (@nextConnectionId++))
+    connection = new LRWebSocketConnection(socket, "C" + (@nextConnectionId++), @options)
 
     connection.on 'connected', =>
       @connections[connection.id] = connection
