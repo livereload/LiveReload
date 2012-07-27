@@ -10,6 +10,7 @@ module.exports = class LRProtocolParser extends EventEmitter
 
   createError = (code, message) ->
     err = new Error(message)
+    err.isLiveReloadProtocolError = yes
     err.code = code
     return err
 
@@ -83,6 +84,7 @@ module.exports = class LRProtocolParser extends EventEmitter
     try
       @_validate message, @peerRole
     catch e
+      throw e unless e.isLiveReloadProtocolError
       @emit 'error', e
       return
 
