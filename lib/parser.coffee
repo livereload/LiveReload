@@ -34,7 +34,10 @@ module.exports = class LRProtocolParser extends EventEmitter
   HANDSHAKE_COMMANDS =
     'hello':
       'protocols': ['required', 'array']
-      '*': []
+      'id':        ['string']
+      'name':      ['string']
+      'version':   ['string']
+      '*':         []
   HANDSHAKE_PROTOCOL = { client_commands: HANDSHAKE_COMMANDS, server_commands: HANDSHAKE_COMMANDS }
 
 
