@@ -67,11 +67,23 @@ module.exports = class LRProtocolParser extends EventEmitter
     @peerRole = OPPOSITE_ROLES[@role]
 
     @supportedProtocolUrls = []
-    for own key, versions of @supportedProtocols
-      for proto in versions
+    for key in Object.keys(@supportedProtocols).sort()
+      for proto in @supportedProtocols[key]
         @supportedProtocolUrls.push proto.url
 
     @reset()
+
+  hello: ({ id, name, version }) ->
+    throw new Error("ERR_INVALID_ARG: id is required") unless id
+    throw new Error("ERR_INVALID_ARG: name is required") unless name
+    throw new Error("ERR_INVALID_ARG: version is required") unless version
+    {
+      'command':   'hello'
+      'protocols': @supportedProtocolUrls
+      'id':        id
+      'name':      name
+      'version':   version
+    }
 
   reset: ->
     @negotiatedProtocols = null

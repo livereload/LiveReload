@@ -47,6 +47,14 @@ XDUMMY_1 =
 
 describe "LRProtocolParser", ->
 
+  it "should provide a valid HELLO message for a single protocol", ->
+    parser = createParser('server', { dummy: [DUMMY_1] })
+    assert.deepEqual parser.hello(id: 'x', name: 'y', version: '1.2.3'), { command: 'hello', protocols: [DUMMY_1.url], id: 'x', name: 'y', version: '1.2.3'  }
+
+  it "should provide a valid HELLO message for multiple protocols", ->
+    parser = createParser('server', { dummy: [DUMMY_2, DUMMY_1], xdummy: [XDUMMY_1] })
+    assert.deepEqual parser.hello(id: 'x', name: 'y', version: '1.2.3'), { command: 'hello', protocols: [DUMMY_2.url, DUMMY_1.url, XDUMMY_1.url], id: 'x', name: 'y', version: '1.2.3' }
+
   it "should reject bogus data", ->
     parser = createParser('server', {})
     parser.received "qwerty"
