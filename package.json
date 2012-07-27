@@ -2,7 +2,7 @@
   "author": "Andrey Tarantsov <andrey@tarantsov.com>",
   "name": "livereload-protocol",
   "description": "LiveReload protocol parser",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "homepage": "https://github.com/andreyvit/livereload_protocol",
   "repository": {
     "url": "git://github.com/andreyvit/livereload_protocol"
