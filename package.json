@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "debug": "~0.7.0",
-    "websocket.io": "~0.1.6",
+    "websocket.io": "~0.2.1",
     "livereload-protocol": "0.1.x"
   },
   "devDependencies": {
