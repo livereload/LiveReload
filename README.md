@@ -1,6 +1,9 @@
-# livereload
+# LiveReload
 
-LiveReload 3 command-line tool / GUI backend
+This will be a LiveReload command-line tool by day, and a backend powering LiveReload 2 and LiveReload 3 GUI apps by night.
+
+Work in progress. Right now only `rpc server` and `rpc print-apis` commands work.
+
 
 ## License
 
