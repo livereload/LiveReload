@@ -14,7 +14,7 @@
   "dependencies": {
     "debug": "~0.7.0",
     "websocket.io": "~0.2.1",
-    "livereload-protocol": "0.2.x"
+    "livereload-protocol": "~0.2.1"
   },
   "devDependencies": {
     "mocha": "~1.0.3",
