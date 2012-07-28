@@ -46,7 +46,7 @@ class LRWebSocketConnection extends EventEmitter
     @socket.send JSON.stringify(command)
 
   isMonitoring: ->
-    @protocols.monitoring >= 7
+    @parser.negotiatedProtocols?.monitoring >= 7
 
 
 module.exports = LRWebSocketConnection
