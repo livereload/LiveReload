@@ -23,9 +23,13 @@ Build process:
 
 1. Don't forget to pull all submodules after getting the source code.
 
-2. Run `rake prepare`.
+2. You need IcedCoffeeScript: `npm install -g iced-coffee-script` (version 1.3.x should be fine).
 
-3. Open LiveReload/LiveReload.xcodeproj and build it with Xcode. Alternatively, use `rake mac:release` or a similar task (see `rake -T` for the full list).
+3. Compile the backend files: `iced -I inline -c cli`.
+
+4. Run `rake backend` to package the backend into `interim/backend`.
+
+5. Open LiveReload/LiveReload.xcodeproj and build it with Xcode. Alternatively, use `rake mac:release` or a similar task (see `rake -T` for the full list).
 
 
 Hacking tips
@@ -33,8 +37,11 @@ Hacking tips
 
 1. Add backend/ to LiveReload, enable compilation.
 
-2. Traditional (non-Node.js) LiveReload supports -LRPortNumber 35778 option to override the port number. This is useful to compile backend sources with one copy of LiveReload while debugging another one.
+2. Set LRBackendOverride environment variable to `/path/to/LiveReload/cli/bin/livereload.js` so that your changes are picked up without rerunning `rake backend`.
 
+3. To run multiple copies of LiveReload, set LRPortOverride to some unused TCP port.
+
+4. Set LRBundledPluginsOverride to specify a path to the bundled plugins when running on the command line. (Also useful for speeding up Xcode builds by temporarily deleting the bundled plugins from the project and setting this variable so that LiveReload can find them.)
 
 
 AppNewsKit

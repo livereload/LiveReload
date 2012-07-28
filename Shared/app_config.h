@@ -4,7 +4,7 @@
 #define NODEAPP_NODE_BINARY "LiveReloadNodejs"
 #define NODEAPP_NODE_BINARY_OVERRIDE_ENVVAR "LRNodeOverride"
 
-#define NODEAPP_BACKEND_JS "backend/bin/livereload-backend.js"
+#define NODEAPP_BACKEND_JS "backend/bin/livereload.js"
 #define NODEAPP_BACKEND_JS_OVERRIDE_ENVVAR "LRBackendOverride"
 
 #define NODEAPP_APPDATA_FOLDER "LiveReload"
