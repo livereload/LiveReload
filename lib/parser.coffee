@@ -72,6 +72,8 @@ module.exports = class LRProtocolParser extends EventEmitter
         'reload':
           'path': ['required', 'string']
           'liveCSS': ['boolean']
+          'originalPath': ['string']
+          'overrideURL': ['string']
 
 
   OPPOSITE_ROLES = { 'server': 'client', 'client': 'server' }
