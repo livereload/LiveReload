@@ -24,6 +24,5 @@
   "optionalDependencies": {},
   "engines": {
     "node": "*"
-  },
-  "private": true
+  }
 }
