@@ -19,17 +19,18 @@ describe "LRWebSocketServer", ->
     await
       do(cb=defer()) ->
         await ws.on 'open', defer()
-        ws.send JSON.stringify { command: 'hello', protocols: [Parser.protocols.MONITORING_7.url] }
+        ws.send JSON.stringify { command: 'hello', protocols: [Parser.protocols.MONITORING_7.url, Parser.protocols.CONN_CHECK_1.url] }
         cb()
-      ws.on 'message', defer (msg)
+      ws.once 'message', defer (msg)
 
     msg = JSON.parse(msg)
     assert.equal msg.command, 'hello'
 
     await
-      ws.on 'message', defer(msg)
+      ws.once 'message', defer(msg)
       ws.send JSON.stringify { command: 'ping', token: 'xyz' }
 
+    msg = JSON.parse(msg)
     assert.equal msg.command, 'pong'
     assert.equal msg.token, 'xyz'
 
