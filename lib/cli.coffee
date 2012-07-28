@@ -1,49 +1,34 @@
+debug = require('debug')('livereload:cli')
+
 Path = require 'path'
 fs   = require 'fs'
 
-Session = require 'livereload-core'
-LocalVFS = require 'vfs-local'
+dreamopt = require('dreamopt')
+
+OPTIONS = [
+  'Commands for interactive usage:'
+  '  watch'
+
+  'Other commands:'
+  '  rpc'
+
+  'General options:'
+]
+
+class LiveReloadContext
 
 exports.run = (argv) ->
-  options = require('dreamopt') [
-    'Mode selection:'
-    '  -w, --watch  Watch the given directory'
-    'Directories:'
-    '  -d, --directory DIR  Operate on the given directory #list #var(dirs)'
-  ]
-  console.log JSON.stringify(options)
+  options = dreamopt OPTIONS,
+    loadCommandSyntax: (name) ->
+      require("./commands/#{name.replace(/\s/g, '-')}").usage
 
-  if options.dirs.length is 0
-    process.stderr.write "At least one directory is required (for now)."
-    process.exit 2
+  debug JSON.stringify(options)
 
-  dirs = for dir in options.dirs
-    Path.resolve(dir)
+  context = new LiveReloadContext()
+  context.paths = {}
+  context.paths.root = Path.dirname(__dirname)
+  context.paths.rpc  = Path.join(context.paths.root, 'rpc-api')
 
-  session = new Session
-  for dir in dirs
-    session.addProject LocalVFS, dir
+  context.paths.bundledPlugins = Path.join(context.paths.root, 'plugins')
 
-  if options.watch
-    Server = require 'livereload-server'
-    server = new Server()
-    server.listen ->
-      console.log "LiveReload is listening on port #{server.port}."
-    server.on 'error', (err, connection) ->
-      console.log "Closing connection #{connection.id} because of error #{err.code}: #{err.message}"
-    server.on 'command', (connection, command) ->
-      console.log "Received command #{command.command} on connection #{connection.id}: #{JSON.stringify(command)}"
-    server.on 'connected', (connection) ->
-      console.log "Connection #{connection.id} connected."
-    server.on 'disconnected', (connection) ->
-      console.log "Connection #{connection.id} disconnected."
-    server.on 'livereload.js', (req, res) ->
-      console.log "Serving livereload.js."
-      await fs.readFile Path.join(__dirname, '../res/livereload.js'), 'utf8', defer(err, data)
-      throw err if err
-      res.writeHead 200, 'Content-Length': data.length, 'Content-Type': 'text/javascript'
-      res.end(data)
-
-    session.addInterface(server)
-    session.startMonitoring()
-
+  require("./commands/#{options.command}").run(options, context)
