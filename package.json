@@ -2,7 +2,7 @@
   "author": "Andrey Tarantsov <andrey@tarantsov.com>",
   "name": "livereload-server",
   "description": "LiveReload 3 web socket and http server",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "homepage": "https://github.com/livereload/livereload-server",
   "repository": {
     "url": "git://github.com/livereload/livereload-server"
