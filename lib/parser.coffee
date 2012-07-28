@@ -25,6 +25,11 @@ module.exports = class LRProtocolParser extends EventEmitter
       if typeof message[key] isnt 'string'
         throw createError(ERR_ATTR, "Attribute '#{key}' must be a string, got #{typeof message[key]} in command '#{message.command}'")
 
+    'boolean': (key, message) ->
+      return unless message.hasOwnProperty(key)
+      if typeof message[key] isnt 'boolean'
+        throw createError(ERR_ATTR, "Attribute '#{key}' must be a boolean, got #{typeof message[key]} in command '#{message.command}'")
+
     'array': (key, message) ->
       return unless message.hasOwnProperty(key)
       if typeof message[key] isnt 'object' or !(message[key] instanceof Array)
