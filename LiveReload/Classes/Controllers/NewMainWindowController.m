@@ -255,11 +255,20 @@ void C_mainwnd__set_change_count(json_t *arg) {
     _nameTextField.stringValue = [_selectedProject.displayPath lastPathComponent];
     _pathTextField.stringValue = [_selectedProject.displayPath stringByDeletingLastPathComponent];
 //    [self styleLabel:_pathTextField color:[self headerLabelColor] shadow:[self subtleWhiteShadow] text:[_selectedProject.displayPath stringByDeletingLastPathComponent]];
-    _monitoringSummaryLabelField.stringValue = [NSString stringWithFormat:@"Monitoring %d file extensions.", [Preferences sharedPreferences].allExtensions.count];
+    
+    NSString *exclusionsString;
+    int exclusionCount = _selectedProject.excludedPaths.count;
+    switch (exclusionCount) {
+        case 0:  exclusionsString = @"no exclusions"; break;
+        case 1:  exclusionsString = @"1 exclusion"; break;
+        default: exclusionsString = [NSString stringWithFormat:@"%d exclusions", exclusionCount]; break;
+    }
+    
+    _monitoringSummaryLabelField.stringValue = [NSString stringWithFormat:@"Monitoring %d file extensions, %@ →", [Preferences sharedPreferences].allExtensions.count, exclusionsString];
     [_compilerEnabledCheckBox setState:_selectedProject.compilationEnabled ? NSOnState : NSOffState];
     [_postProcessingEnabledCheckBox setState:_selectedProject.postProcessingEnabled ? NSOnState : NSOffState];
 
-    _availableCompilersLabel.stringValue = [NSString stringWithFormat:@"Available compilers: %@.", [[[PluginManager sharedPluginManager].compilers valueForKeyPath:@"name"] componentsJoinedByString:@", "]];
+    _availableCompilersLabel.stringValue = [NSString stringWithFormat:@"%@", [[[PluginManager sharedPluginManager].compilers valueForKeyPath:@"name"] componentsJoinedByString:@", "]];
     
     [self updateURLs];
 }
