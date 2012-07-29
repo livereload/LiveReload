@@ -65,6 +65,8 @@ EVENTBUS_DECLARE_EVENT(project_fs_change_event);
     NSInteger                _numberOfPathComponentsToUseAsName;
     NSString                *_customName;
     
+    NSArray                 *_urlMasks;
+    
     NSMutableSet            *_pendingChanges;
     BOOL                     _pendingPostProcessing;
     BOOL                     _processingChanges;
@@ -78,6 +80,9 @@ EVENTBUS_DECLARE_EVENT(project_fs_change_event);
 @property(nonatomic, readonly, copy) NSString *displayName;
 @property(nonatomic, readonly, copy) NSString *displayPath;
 @property(nonatomic, readonly, copy) NSString *safeDisplayPath;
+
+@property(nonatomic, copy) NSArray *urlMasks;
+@property(nonatomic, copy) NSString *formattedUrlMaskList;
 
 - (NSString *)proposedNameAtIndex:(NSInteger)index;
 

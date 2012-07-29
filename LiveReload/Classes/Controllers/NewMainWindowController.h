@@ -31,6 +31,8 @@
 
     IBOutlet NSMenuItem *checkForUpdatesMenuItem;
     IBOutlet NSMenuItem *checkForUpdatesMenuItemSeparator;
+
+    IBOutlet NSTextField *urlsTextField;
 }
 
 @property (assign) IBOutlet NSView *titleBarSideView;

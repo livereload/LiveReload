@@ -34,7 +34,7 @@ typedef enum {
 enum { PANE_COUNT = PaneProject+1 };
 
 
-@interface NewMainWindowController () <NSAnimationDelegate>
+@interface NewMainWindowController () <NSAnimationDelegate, NSTextFieldDelegate>
 
 + (NewMainWindowController *)sharedMainWindowController;
 
@@ -50,6 +50,7 @@ enum { PANE_COUNT = PaneProject+1 };
 - (void)updateItemStates;
 
 - (void)updateLicensingUI;
+- (void)updateURLs;
 
 @end
 
@@ -259,6 +260,8 @@ void C_mainwnd__set_change_count(json_t *arg) {
     [_postProcessingEnabledCheckBox setState:_selectedProject.postProcessingEnabled ? NSOnState : NSOffState];
 
     _availableCompilersLabel.stringValue = [NSString stringWithFormat:@"Available compilers: %@.", [[[PluginManager sharedPluginManager].compilers valueForKeyPath:@"name"] componentsJoinedByString:@", "]];
+    
+    [self updateURLs];
 }
 
 - (void)setVisibility:(BOOL)visible forPaneView:(NSView *)paneView {
@@ -884,6 +887,26 @@ void C_mainwnd__set_change_count(json_t *arg) {
 
 - (IBAction)enterLicenseCode:(id)sender {
     [self displayLicenseManager:sender];
+}
+
+
+#pragma mark - URLs
+
+- (void)updateURLs {
+    urlsTextField.stringValue = _selectedProject.formattedUrlMaskList;
+}
+
+- (void)controlTextDidBeginEditing:(NSNotification *)obj {
+    
+}
+
+- (void)controlTextDidEndEditing:(NSNotification *)obj {
+    _selectedProject.formattedUrlMaskList = urlsTextField.stringValue;
+    [self updateURLs];
+}
+
+- (void)controlTextDidChange:(NSNotification *)obj {
+    
 }
 
 @end

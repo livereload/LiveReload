@@ -88,6 +88,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 @synthesize rubyVersionIdentifier=_rubyVersionIdentifier;
 @synthesize numberOfPathComponentsToUseAsName=_numberOfPathComponentsToUseAsName;
 @synthesize customName=_customName;
+@synthesize urlMasks=_urlMasks;
 
 
 #pragma mark -
@@ -167,6 +168,11 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
             excludedPaths = [NSArray array];
         _excludedFolderPaths = [[NSMutableArray alloc] initWithArray:excludedPaths];
         
+        NSArray *urlMasks = [memento objectForKey:@"urls"];
+        if (urlMasks == nil)
+            urlMasks = [NSArray array];
+        _urlMasks = [urlMasks copy];
+        
         _numberOfPathComponentsToUseAsName = [[memento objectForKey:@"numberOfPathComponentsToUseAsName"] integerValue];
         if (_numberOfPathComponentsToUseAsName == 0)
             _numberOfPathComponentsToUseAsName = 1;
@@ -224,6 +230,9 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     }
     if ([_excludedFolderPaths count] > 0) {
         [memento setObject:_excludedFolderPaths forKey:@"excludedPaths"];
+    }
+    if ([_urlMasks count] > 0) {
+        [memento setObject:_urlMasks forKey:@"urls"];
     }
     [memento setObject:_rubyVersionIdentifier forKey:@"rubyVersion"];
     [memento setObject:[NSNumber numberWithBool:_compilationEnabled ] forKey:@"compilationEnabled"];
@@ -987,6 +996,25 @@ skipGuessing:
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
         [self updateFilter];
     }
+}
+
+
+#pragma mark - URLs
+
+- (void)setUrlMasks:(NSArray *)urlMasks {
+    if (_urlMasks != urlMasks) {
+        [_urlMasks release];
+        _urlMasks = [urlMasks copy];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+    }
+}
+
+- (NSString *)formattedUrlMaskList {
+    return [_urlMasks componentsJoinedByString:@", "];
+}
+
+- (void)setFormattedUrlMaskList:(NSString *)formattedUrlMaskList {
+    self.urlMasks = [formattedUrlMaskList componentsSeparatedByRegex:@"\\s*,\\s*|\\s+"];
 }
 
 
