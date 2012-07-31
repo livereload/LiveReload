@@ -75,6 +75,15 @@ module.exports = class LRProtocolParser extends EventEmitter
           'originalPath': ['string']
           'overrideURL': ['string']
 
+    SAVING_1:
+      version: 1
+      url: "http://livereload.com/protocols/saving-1"
+      client_commands:
+        'save':
+          'url':     ['required', 'string']
+          'content': ['required', 'string']
+      server_commands: {}
+
 
   OPPOSITE_ROLES = { 'server': 'client', 'client': 'server' }
 
