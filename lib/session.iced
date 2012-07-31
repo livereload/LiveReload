@@ -5,13 +5,33 @@ class Session extends EventEmitter
 
   constructor: ->
     @projects = []
+    @projectsMemento = {}
+
+  setProjectsMemento: (vfs, @projectsMemento) ->
+    @projects = []
+    for own path, projectMemento of @projectsMemento
+      project = @_addProject new Project(this, vfs, path)
+      project.setMemento projectMemento
+    return
+
+  findProjectById: (projectId) ->
+    for project in @projects
+      if project.id is projectId
+        return project
+    null
+
+  findProjectByPath: (path) ->
+    for project in @projects
+      if project.path is path
+        return project
+    null
+
+  findCompilerById: (compilerId) ->
+    # return a fake compiler for now to test the memento loading code
+    { id: compilerId }
 
   addProject: (vfs, path) ->
-    project = new Project vfs, path
-    @projects.push project
-    project.on 'change', (path) =>
-      @emit 'command', command: 'reload', path: path
-    project
+    @_addProject new Project this, vfs, path
 
   startMonitoring: ->
     for project in @projects
@@ -27,6 +47,13 @@ class Session extends EventEmitter
 
     face.on 'command', (message) =>
       @execute(message)
+
+  # Hooks up and stores a newly added or loaded project.
+  _addProject: (project) ->
+    project.on 'change', (path) =>
+      @emit 'command', command: 'reload', path: path
+    @projects.push project
+    return project
 
 
 module.exports = Session

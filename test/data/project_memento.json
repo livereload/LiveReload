@@ -1,0 +1,65 @@
+{
+  "enableRemoteServerWorkflow": 0,
+  "disableLiveRefresh": 0,
+  "compilationEnabled": 1,
+  "numberOfPathComponentsToUseAsName": 1,
+  "compilers": {
+    "icedcoffeescript": {
+      "enabled2": 1,
+      "options": {},
+      "additionalArguments": "",
+      "files": {
+        "lib/colorize.iced": {
+          "enabled": 1,
+          "output_dir": "lib",
+          "output_file": "*.js"
+        },
+        "bin/json-diff.iced": {
+          "enabled": 1,
+          "output_dir": "bin",
+          "output_file": "*.js"
+        },
+        "lib/util.iced": {
+          "enabled": 1,
+          "output_dir": "lib",
+          "output_file": "*.js"
+        },
+        "lib/cli.iced": {
+          "enabled": 1,
+          "output_dir": "lib",
+          "output_file": "*.js"
+        },
+        "lib/index.iced": {
+          "enabled": 1,
+          "output_dir": "lib",
+          "output_file": "*.js"
+        }
+      },
+      "enabled": 1
+    },
+    "coffeescript": {
+      "enabled2": 1,
+      "options": {},
+      "additionalArguments": "",
+      "files": {
+        "lib/colorize.coffee": {
+          "enabled": 1,
+          "output_dir": "lib",
+          "output_file": "*.js"
+        },
+        "test/colorize_test.coffee": {
+          "enabled": 1,
+          "output_dir": "test",
+          "output_file": "*.js"
+        },
+        "test/diff_test.coffee": {
+          "enabled": 1,
+          "output_dir": "test",
+          "output_file": "*.js"
+        }
+      },
+      "enabled": 1
+    }
+  },
+  "rubyVersion": "system"
+}
