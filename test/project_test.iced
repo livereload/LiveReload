@@ -4,7 +4,7 @@ fs     = require 'fs'
 
 { EventEmitter } = require 'events'
 
-Project = require '../lib/project'
+Project = require '../lib/projects/project'
 TestVFS = require 'vfs-test'
 
 DataDir = Path.join(__dirname, 'data')

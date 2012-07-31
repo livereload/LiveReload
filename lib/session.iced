@@ -1,5 +1,5 @@
 { EventEmitter } = require 'events'
-Project = require './project'
+Project = require './projects/project'
 
 class Session extends EventEmitter
 

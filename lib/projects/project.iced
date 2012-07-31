@@ -3,8 +3,8 @@ Path = require 'path'
 
 { EventEmitter } = require 'events'
 
-CompilerOptions = require './projects/compileropts'
-FileOptions     = require './projects/fileopts'
+CompilerOptions = require './compileropts'
+FileOptions     = require './fileopts'
 
 
 nextId = 1
