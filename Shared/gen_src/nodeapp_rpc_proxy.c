@@ -10,6 +10,10 @@ void S_app_ping(json_t *data) {
     nodeapp_rpc_send("app.ping", data);
 }
 
+void S_app_reload_legacy_projects(json_t *data) {
+    nodeapp_rpc_send("app.reloadLegacyProjects", data);
+}
+
 void S_monitoring_change_detected(json_t *data) {
     nodeapp_rpc_send("monitoring.changeDetected", data);
 }

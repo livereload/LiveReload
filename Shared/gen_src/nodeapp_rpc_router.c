@@ -25,6 +25,7 @@ void C_app__failed_to_start(json_t *data);
 void C_mainwnd__set_connection_status(json_t *data);
 void C_mainwnd__set_change_count(json_t *data);
 void C_workspace__set_monitoring_enabled(json_t *data);
+void C_app__request_model(json_t *data);
 
 json_t *_C_broker__unretain_wrapper(json_t *data) {
     C_broker__unretain(data);
@@ -91,6 +92,11 @@ json_t *_C_workspace__set_monitoring_enabled_wrapper(json_t *data) {
     return NULL;
 }
 
+json_t *_C_app__request_model_wrapper(json_t *data) {
+    C_app__request_model(data);
+    return NULL;
+}
+
 msg_entry_t entries[] = {
     { "broker.unretain", &_C_broker__unretain_wrapper },
     { "monitoring.add", &_C_monitoring__add_wrapper },
@@ -109,6 +115,7 @@ msg_entry_t entries[] = {
     { "mainwnd.set_connection_status", &_C_mainwnd__set_connection_status_wrapper },
     { "mainwnd.set_change_count", &_C_mainwnd__set_change_count_wrapper },
     { "workspace.set_monitoring_enabled", &_C_workspace__set_monitoring_enabled_wrapper },
+    { "app.request_model", &_C_app__request_model_wrapper },
     { NULL, NULL }
 };
 

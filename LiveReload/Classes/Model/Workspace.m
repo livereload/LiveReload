@@ -6,6 +6,8 @@
 #import "ATFunctionalStyle.h"
 
 #import "jansson.h"
+#import "nodeapp.h"
+#import "nodeapp_rpc_proxy.h"
 
 
 #define ProjectListKey @"projects20a3"
@@ -19,6 +21,8 @@ static NSString *ClientConnectedMonitoringKey = @"clientConnected";
 @interface Workspace ()
 
 - (void)load;
+
+- (void)sendModelToBackend;
 
 @end
 
@@ -73,6 +77,7 @@ void C_workspace__set_monitoring_enabled(json_t *arg) {
     _savingScheduled = NO;
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(save) object:nil];
     NSLog(@"Workspace saved.");
+    [self sendModelToBackend];
 }
 
 - (void)setNeedsSaving {
@@ -150,5 +155,19 @@ void C_workspace__set_monitoring_enabled(json_t *arg) {
     }
 }
 
+
+#pragma mark - Backend sync
+
+- (void)sendModelToBackend {
+    id memento = [[NSUserDefaults standardUserDefaults] objectForKey:ProjectListKey];
+    if (!memento)
+        memento = [NSDictionary dictionary];
+    json_t *memento_json = nodeapp_objc_to_json(memento);
+    S_app_reload_legacy_projects(memento_json);
+}
+
+void C_app__request_model(json_t *arg) {
+    [[Workspace sharedWorkspace] sendModelToBackend];
+}
 
 @end
