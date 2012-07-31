@@ -1,6 +1,8 @@
 debug = require('debug')('livereload:cli:rpc')
 Path  = require 'path'
 
+localVFS = require 'vfs-local'
+
 exports.api =
   init: ({ resourcesDir, appDataDir, logDir, logFile, version, build, platform }, callback) ->
     return callback(new Error("init requires resourcesDir")) unless resourcesDir
@@ -21,11 +23,18 @@ exports.api =
       return callback(null)  # in case we're in tests and did not exit
 
     LR.stats.startup()
+
+    LR.client.app.requestModel({})
+
     LR.log.fyi "Backend is up and running."
     debug "Backend is up and running."
     callback()
 
   ping: (arg, callback) ->
+    callback()
+
+  reloadLegacyProjects: (memento, callback) ->
+    @session.setProjectsMemento localVFS, memento
     callback()
 
 

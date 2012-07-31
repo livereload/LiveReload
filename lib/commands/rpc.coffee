@@ -35,10 +35,10 @@ setupRpcEnvironment = (options, context) ->
 
 runServer = (options, context) ->
   process.title = "LiveReloadHelper"
-  LR.rpc.init(process, process.exit)
+  LR.rpc.init(process, process.exit, context: context)
 
 runConsoleServer = (options, context) ->
-  LR.rpc.init(process, process.exit, { callbackTimeout: 60000, consoleDebuggingMode: true })
+  LR.rpc.init(process, process.exit, context: context, callbackTimeout: 60000, consoleDebuggingMode: true)
 
   LR.app.api.init {
     resourcesDir: [ context.paths.bundledPlugins ],

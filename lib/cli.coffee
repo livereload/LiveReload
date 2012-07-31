@@ -5,6 +5,9 @@ fs   = require 'fs'
 
 dreamopt = require('dreamopt')
 
+LiveReloadContext = require './context'
+
+
 OPTIONS = [
   'Commands for interactive usage:'
   '  watch'
@@ -15,7 +18,6 @@ OPTIONS = [
   'General options:'
 ]
 
-class LiveReloadContext
 
 exports.run = (argv) ->
   options = dreamopt OPTIONS,

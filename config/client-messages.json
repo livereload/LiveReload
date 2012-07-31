@@ -16,5 +16,6 @@
   "mainwnd.set_connection_status",
   "mainwnd.set_change_count",
   "workspace.set_monitoring_enabled",
+  "app.request_model",
   null
 ]

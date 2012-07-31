@@ -3,6 +3,7 @@
 
 communicator = null
 
+_context  = null
 callbacks = {}
 timeouts  = {}
 nextCallbackId = 1
@@ -19,7 +20,8 @@ get = (object, path) ->
   object
 
 
-exports.init = (streams, exit, { callbackTimeout, consoleDebuggingMode }={}) ->
+exports.init = (streams, exit, { context, callbackTimeout, consoleDebuggingMode }={}) ->
+  _context = context ? null
   _callbackTimeout = callbackTimeout ? 2000
   _exit = exit
   communicator = new Communicator streams.stdin, streams.stdout, streams.stderr, executeJSON, consoleDebuggingMode
@@ -43,7 +45,7 @@ exports.send = (message, arg, callback=null) ->
 exports.execute = execute = (message, args..., callback) ->
   message = message.replace /\.(\w+)$/, '.api.$1'
   try
-    get(LR, message)(args..., callback)
+    get(LR, message).apply(_context, [args..., callback])
   catch e
     callback(e)
 
