@@ -1,13 +1,30 @@
 debug = require('debug')('livereload:core:project')
-Path = require 'path'
+Path  = require 'path'
+Url   = require 'url'
 
 { EventEmitter } = require 'events'
 
 CompilerOptions = require './compileropts'
 FileOptions     = require './fileopts'
 
+urlmatch = require '../utils/urlmatch'
+
 
 nextId = 1
+
+
+abspath = (path) ->
+  if path.charAt(0) is '~'
+    home = process.env.HOME
+    if path.length is 1
+      home
+    else if path.charAt(1) is '/'
+      Path.resolve(home, path.substr(2))
+    else if m = path.match ///^ ~ ([^/]+) / (.*) $ ///
+      other = Path.join(Path.dirname(home), m[1])  # TODO: resolve other users' home folders properly
+      Path.resolve(other, m[2])
+  else
+    Path.resolve(path)
 
 
 class Project extends EventEmitter
@@ -15,6 +32,7 @@ class Project extends EventEmitter
   constructor: (@session, @vfs, @path) ->
     @name = Path.basename(@path)
     @id = "P#{nextId++}_#{@name}"
+    @fullPath = abspath(@path)
 
   setMemento: (@memento) ->
     # log.fyi
@@ -31,6 +49,7 @@ class Project extends EventEmitter
     @excludedPaths        = @memento?.excludedPaths || []
     @customName           = @memento?.customName || ''
     @nrPathCompsInName    = @memento?.numberOfPathComponentsToUseAsName || 1  # 0 is intentionally turned into 1
+    @urls                 = @memento?.urls || []
 
     @compilerOptionsById = {}
     @fileOptionsByPath = {}
@@ -62,6 +81,32 @@ class Project extends EventEmitter
     @monitor?.close()
     @monitor = null
 
+  matchesUrl: (url) ->
+    @urls.some (pattern) -> urlmatch(pattern, url)
+
+
+  saveResourceFromWebInspector: (url, content, callback) ->
+    components = Url.parse(url)
+
+    await @vfs.findFilesMatchingSuffixInSubtree @path, components.pathname, null, defer(err, result)
+    if err
+      debug "findFilesMatchingSuffixInSubtree() returned error: #{err.message}"
+      return callback(err)
+
+    if result.bestMatch
+      debug "findFilesMatchingSuffixInSubtree() found '#{result.bestMatch.path}'"
+      fullPath = Path.join(@fullPath, result.bestMatch.path)
+
+      debug "Saving #{content.length} characters into #{fullPath}..."
+      await @vfs.writeFile fullPath, content, defer(err)
+      if err
+        debug "Saving failed: #{err.message}"
+        return callback(err, no)
+
+      debug "Saving succeeded!"
+      return callback(err, yes)
+    else
+      debug "findFilesMatchingSuffixInSubtree() found #{result.bestMatches.length} matches."
+      return callback(null, no)
 
 module.exports = Project
-

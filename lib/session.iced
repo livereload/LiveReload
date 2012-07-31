@@ -1,3 +1,4 @@
+debug = require('debug')('livereload:core:session')
 { EventEmitter } = require 'events'
 Project = require './projects/project'
 
@@ -26,6 +27,12 @@ class Session extends EventEmitter
         return project
     null
 
+  findProjectByUrl: (url) ->
+    for project in @projects
+      if project.matchesUrl url
+        return project
+    null
+
   findCompilerById: (compilerId) ->
     # return a fake compiler for now to test the memento loading code
     { id: compilerId }
@@ -45,8 +52,9 @@ class Session extends EventEmitter
     @on 'command', (message) =>
       face.send(message)
 
-    face.on 'command', (message) =>
-      @execute(message)
+    face.on 'command', (connection, message) =>
+      @execute message, connection, (err) =>
+        console.error err.stack if err
 
   # Hooks up and stores a newly added or loaded project.
   _addProject: (project) ->
@@ -55,6 +63,23 @@ class Session extends EventEmitter
     @projects.push project
     return project
 
+  # message routing
+  execute: (message, connection, callback) ->
+    if func = @["on #{message.command}"]
+      func.call(@, connection, message, callback)
+    else
+      debug "Ignoring unknown command #{message.command}: #{JSON.stringify(message)}"
+      callback(null)
+
+  'on save': (connection, message, callback) ->
+    debug "Got save command for URL #{message.url}"
+    project = @findProjectByUrl message.url
+    if project
+      debug "Save: project #{project.path} matches URL #{message.url}"
+      project.saveResourceFromWebInspector message.url, message.content, callback
+    else
+      debug "Save: no match for URL #{message.url}"
+      callback(null)
 
 module.exports = Session
 

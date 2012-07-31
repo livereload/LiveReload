@@ -38,7 +38,6 @@ describe "Project", ->
 
   it "should be able to load a simple memento", ->
     vfs = new TestVFS()
-    # vfs.put '/foo/bar/boz.css', "body: { background: red }\n"
 
     session = new FakeSession()
 
@@ -56,3 +55,18 @@ describe "Project", ->
 
     assert.equal project.compilationEnabled, true
     assert.equal project.rubyVersionId, 'system'
+
+
+  it "should save CSS files edited in Chrome Web Inspector", (done) ->
+    vfs = new TestVFS()
+    vfs.put '/foo/bar/app/static/test.css', "h1 { color: red }\n"
+
+    session = new FakeSession()
+
+    project = new Project(session, vfs, "/foo/bar")
+    project.saveResourceFromWebInspector 'http://example.com/static/test.css', "h1 { color: green }\n", (err, saved) ->
+      assert.ifError err
+      assert.ok saved
+      assert.equal vfs.get('/foo/bar/app/static/test.css'), "h1 { color: green }\n"
+
+      done()

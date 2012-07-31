@@ -48,3 +48,19 @@ describe "Session", ->
     boz = session.findProjectByPath('/foo/boz')
     assert.ok boz?
     assert.equal boz.compilationEnabled, false
+
+
+  it "should handle 'save' command", (done) ->
+    vfs = new TestVFS()
+    vfs.put '/foo/bar/app/static/test.css', "h1 { color: red }\n"
+
+    session = new Session
+    session.setProjectsMemento vfs, {
+      '/foo/bar': { urls: ['example.com'] }
+    }
+    session.addProject vfs, '/foo/bar'
+
+    session.execute { command: 'save', url: 'http://example.com/static/test.css', content: "h1 { color: green }\n" }, null, (err) ->
+      assert.ifError err
+      assert.equal vfs.get('/foo/bar/app/static/test.css'), "h1 { color: green }\n"
+      done()
