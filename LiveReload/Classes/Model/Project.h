@@ -99,6 +99,7 @@ EVENTBUS_DECLARE_EVENT(project_fs_change_event);
 @property(nonatomic) NSTimeInterval postProcessingGracePeriod;
 
 @property(nonatomic, readonly) FSTree *tree;
+- (FSTree *)obtainTree;
 
 @property(nonatomic, readonly) NSArray *compilersInUse;
 

@@ -3,6 +3,8 @@
 #import "Project.h"
 #import "Preferences.h"
 
+#import "OldFSTree.h"
+
 #import "ATFunctionalStyle.h"
 
 #import "jansson.h"
@@ -168,6 +170,21 @@ void C_workspace__set_monitoring_enabled(json_t *arg) {
 
 void C_app__request_model(json_t *arg) {
     [[Workspace sharedWorkspace] sendModelToBackend];
+}
+
+json_t *C_project__path_of_best_file_matching_path_suffix(json_t *arg) {
+    NSString *path = json_object_get_nsstring(arg, "project");
+    NSString *suffix = json_object_get_nsstring(arg, "suffix");
+    Project *project = [[Workspace sharedWorkspace] projectWithPath:path create:NO];
+    if (project) {
+        NSString *path = [[project obtainTree] pathOfBestFileMatchingPathSuffix:suffix preferringSubtree:nil];
+        if (path)
+            return json_object_2("found", json_true(), "file", json_nsstring(path));
+        else
+            return json_object_1("found", json_false());
+    } else {
+        return json_object_1("err", json_string("Project not found"));
+    }
 }
 
 @end

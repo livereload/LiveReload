@@ -571,6 +571,10 @@ fin:
     return _monitor.tree;
 }
 
+- (FSTree *)obtainTree {
+    return [_monitor obtainTree];
+}
+
 
 #pragma mark - Compilation
 
