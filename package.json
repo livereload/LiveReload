@@ -1,7 +1,7 @@
 {
   "name": "livereload-client",
   "description": "LiveReload client (talks to livereload-server)",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Andrey Tarantsov <andrey@tarantsov.com>",
   "homepage": "https://github.com/livereload/livereload-client",
   "repository": {
