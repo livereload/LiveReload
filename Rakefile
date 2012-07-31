@@ -11,8 +11,8 @@ MacVersion = VersionTasks.new('ver:mac', 'LiveReload/LiveReload-Info.plist', %w(
 RoutingTasks.new(
   :app_src        => 'LiveReload,Shared',
   :gen_src        => 'Shared/gen_src',
-  :messages_json  => 'backend/config/client-messages.json',
-  :api_dumper_js  => "backend/bin/livereload-backend-print-apis.js")
+  :messages_json  => 'cli/config/client-messages.json',
+  :api_dumper_js  => "cli/bin/livereload.js rpc print-apis")
 
 
 ROOT_DIR = File.expand_path('.')
