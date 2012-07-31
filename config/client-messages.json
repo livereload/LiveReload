@@ -17,5 +17,6 @@
   "mainwnd.set_change_count",
   "workspace.set_monitoring_enabled",
   "app.request_model",
+  "project.path_of_best_file_matching_path_suffix",
   null
 ]

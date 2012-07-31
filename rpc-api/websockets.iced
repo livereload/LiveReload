@@ -8,9 +8,14 @@ ResourceFolder = Path.join(__dirname, '../res')
 
 class LRWebSocketController
 
-  constructor: ->
+  constructor: (@context) ->
+    @session = @context.session
+
     @server = new LRWebSocketServer
       port: +process.env['LRPortOverride'] || null
+
+      protocols:
+        saving: 1
 
       id: "com.livereload.LiveReload"
       name: "LiveReload"
@@ -21,8 +26,9 @@ class LRWebSocketController
     @server.on 'connected',    @_updateConnectionCountInUI.bind(@)
     @server.on 'disconnected', @_updateConnectionCountInUI.bind(@)
 
-    @server.on 'command', (connection) =>
-      # TODO: handle INFO command?
+    @server.on 'command', (connection, message) =>
+      @session.execute message, connection, (err) =>
+        console.error err.stack if err
 
     @server.on 'livereload.js', (req, res) =>
       console.log "Serving livereload.js."
@@ -129,9 +135,11 @@ class LRWebSocketController
           response.end result.content
 
 
-_controller = new LRWebSocketController()
+_controller = null
 
-exports.init = (cb) -> _controller.init(cb)
+exports.init = (context, cb) ->
+  _controller = new LRWebSocketController(context)
+  _controller.init(cb)
 
 exports.api =
   sendReloadCommand: (arg, callback) ->

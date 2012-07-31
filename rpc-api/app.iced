@@ -1,7 +1,7 @@
 debug = require('debug')('livereload:cli:rpc')
 Path  = require 'path'
 
-localVFS = require 'vfs-local'
+AppVFS = require '../lib/vfs-app'
 
 exports.api =
   init: ({ resourcesDir, appDataDir, logDir, logFile, version, build, platform }, callback) ->
@@ -15,7 +15,7 @@ exports.api =
     LR.version = version || '0.0.0'
 
     await LR.plugins.init pluginFolders, defer(err)
-    await LR.websockets.init defer(err)
+    await LR.websockets.init this, defer(err)
 
     if err
       LR.client.app.failedToStart(message: "#{err.message}")
@@ -23,6 +23,8 @@ exports.api =
       return callback(null)  # in case we're in tests and did not exit
 
     LR.stats.startup()
+
+    @appVfs = new AppVFS(LR.client)
 
     LR.client.app.requestModel({})
 
@@ -34,7 +36,7 @@ exports.api =
     callback()
 
   reloadLegacyProjects: (memento, callback) ->
-    @session.setProjectsMemento localVFS, memento
+    @session.setProjectsMemento @appVfs, memento
     callback()
 
 
