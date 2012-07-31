@@ -24,6 +24,8 @@ class LRWebSocketServer extends EventEmitter
     @activeConnections = 0
     @nextConnectionId = 1
 
+    @options.protocols ?= {}
+
   listen: (callback) ->
     @httpServer = http.createServer()
     try
