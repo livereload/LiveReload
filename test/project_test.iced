@@ -70,3 +70,25 @@ describe "Project", ->
       assert.equal vfs.get('/foo/bar/app/static/test.css'), "h1 { color: green }\n"
 
       done()
+
+
+  it "should patch source SCSS/Stylus files when a compiled CSS is edited in Chrome Web Inspector", (done) ->
+    styl1 = "h1\n  color red\n\nh2\n  color blue\n\nh3\n  color yellow\n"
+    styl2 = styl1.replace 'blue', 'black'
+    css1  = "/* line 1 : test.styl */\nh1 { color: red }\n/* line 4 : test.styl */\nh2 { color: blue }\n/* line 7 : test.styl */\nh3 { color: yellow }\n"
+    css2  = css1.replace 'blue', 'black'
+
+    vfs = new TestVFS()
+    vfs.put '/foo/bar/app/static/test.styl', styl1
+    vfs.put '/foo/bar/app/static/test.css', css1
+
+    session = new FakeSession()
+
+    project = new Project(session, vfs, "/foo/bar")
+    project.saveResourceFromWebInspector 'http://example.com/static/test.css', css2, (err, saved) ->
+      assert.ifError err
+      assert.ok saved
+      assert.equal vfs.get('/foo/bar/app/static/test.css'), css2
+      assert.equal vfs.get('/foo/bar/app/static/test.styl'), styl2
+
+      done()

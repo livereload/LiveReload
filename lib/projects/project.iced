@@ -10,6 +10,10 @@ FileOptions     = require './fileopts'
 urlmatch = require '../utils/urlmatch'
 
 
+RegExp_escape = (s) ->
+  s.replace /// [-/\\^$*+?.()|[\]{}] ///g, '\\$&'
+
+
 nextId = 1
 
 
@@ -82,7 +86,116 @@ class Project extends EventEmitter
     @monitor = null
 
   matchesUrl: (url) ->
+    components = Url.parse(url)
+    if components.protocol is 'file:'
+      return components.pathname.substr(0, @fullPath.length) == @fullPath
     @urls.some (pattern) -> urlmatch(pattern, url)
+
+
+  patchSourceFile: (oldCompiled, newCompiled, callback) ->
+    oldLines = oldCompiled.trim().split("\n")
+    newLines = newCompiled.trim().split("\n")
+
+    oldLen = oldLines.length
+    newLen = newLines.length
+    minLen = Math.min(oldLen, newLen)
+
+    prefixLen = 0
+    prefixLen++ while (prefixLen < minLen) and (oldLines[prefixLen] == newLines[prefixLen])
+
+    maxSuffixLen = minLen - prefixLen
+    suffixLen = 0
+    suffixLen++ while (suffixLen < maxSuffixLen) and (oldLines[oldLen - suffixLen - 1] == newLines[newLen - suffixLen - 1])
+
+    if minLen - prefixLen - suffixLen != 1
+      debug "Cannot patch source file: minLen = #{minLen}, prefixLen = #{prefixLen}, suffixLen = #{suffixLen}"
+      return callback(null)
+
+    oldLine = oldLines[prefixLen]
+    newLine = newLines[prefixLen]
+
+    debug "oldLine = %j", oldLine
+    debug "newLine = %j", newLine
+
+    SELECTOR_RE = /// ([\w-]+) \s* : (.*?) [;}] ///
+    unless (om = oldLine.match SELECTOR_RE) and (nm = newLine.match SELECTOR_RE)
+      debug "Cannot match selector regexp"
+      return callback(null)
+
+    oldSelector = om[1]; oldValue = om[2].trim()
+    newSelector = nm[1]; newValue = nm[2].trim()
+
+    debug "oldSelector = #{oldSelector}, oldValue = '#{oldValue}'"
+    debug "newSelector = #{newSelector}, newValue = '#{newValue}'"
+
+    unless oldSelector == newSelector
+      debug "Refusing to change oldSelector = #{oldSelector} into newSelector = #{newSelector}"
+      return callback(null)
+
+    sourceRef = null
+    lineno = prefixLen - 1
+    while lineno >= 0
+      if m = newLines[lineno].match ///  /\* \s* line \s+ (\d+) \s* [,:] (.*?) \*/ ///
+        sourceRef = { path: m[2].trim(), line: parseInt(m[1].trim(), 10) }
+        break
+      --lineno
+
+    unless sourceRef
+      debug "patchSourceFile() cannot find source ref before line #{prefixLen}"
+      return callback(null)
+
+    debug "patchSourceFile() foudn source ref %j", sourceRef
+
+    await @vfs.findFilesMatchingSuffixInSubtree @path, sourceRef.path, null, defer(err, srcResult)
+    if err
+      debug "findFilesMatchingSuffixInSubtree() for src file '#{sourceRef.path}' returned error: #{err.message}"
+      return callback(err)
+
+    unless srcResult.bestMatch
+      debug "findFilesMatchingSuffixInSubtree() for src file '#{sourceRef.path}' found #{result.bestMatches.length} matches."
+      return callback(null)
+
+    fullSrcPath = Path.join(@fullPath, srcResult.bestMatch.path)
+    debug "findFilesMatchingSuffixInSubtree() for src file '#{sourceRef.path}' found #{fullSrcPath}"
+
+    await @vfs.readFile fullSrcPath, 'utf8', defer(err, oldSource)
+    return callback(err) if err
+
+    REPLACEMENT_RE = /// #{RegExp_escape(oldSelector)} (\s* (?: : \s* )?) #{RegExp_escape(oldValue)} ///
+
+    srcLines = oldSource.split "\n"
+
+    debug "Got #{srcLines.length} lines, looking starting from line #{sourceRef.line - 1}"
+
+    lineno = sourceRef.line - 1
+    found = no
+    while lineno < srcLines.length
+      line = srcLines[lineno ]
+      debug "Considering line #{lineno}: #{line}"
+
+      if m = line.match REPLACEMENT_RE
+        debug "Matched!"
+
+        line = line.replace REPLACEMENT_RE, (_, sep) -> "#{newSelector}#{sep}#{newValue}"
+        srcLines[lineno] = line
+        found = yes
+        break
+
+      ++lineno
+
+    unless found
+      debug "Nothing matched :-("
+      return callback null
+
+    newSource = srcLines.join "\n"
+
+    debug "Saving patched source file..."
+
+    await @vfs.writeFile fullSrcPath, newSource, defer(err)
+    return callback err if err
+
+    callback null
+
 
 
   saveResourceFromWebInspector: (url, content, callback) ->
@@ -97,6 +210,11 @@ class Project extends EventEmitter
       debug "findFilesMatchingSuffixInSubtree() found '#{result.bestMatch.path}'"
       fullPath = Path.join(@fullPath, result.bestMatch.path)
 
+      await @vfs.readFile fullPath, 'utf8', defer(err, oldContent)
+      if err
+        debug "Loading (pre-save) failed: #{err.message}"
+        return callback(err, no)
+
       debug "Saving #{content.length} characters into #{fullPath}..."
       await @vfs.writeFile fullPath, content, defer(err)
       if err
@@ -104,7 +222,15 @@ class Project extends EventEmitter
         return callback(err, no)
 
       debug "Saving succeeded!"
-      return callback(err, yes)
+
+      if oldContent.match ///  /\* \s* line \s+ \d+ \s* [,:] (.*?) \*/ ///
+        await @patchSourceFile oldContent, content, defer(err)
+        if err
+          debug "patchSourceFile() failed: #{err.message}"
+          return callback(err, yes)
+
+      return callback(null, yes)
+
     else
       debug "findFilesMatchingSuffixInSubtree() found #{result.bestMatches.length} matches."
       return callback(null, no)
