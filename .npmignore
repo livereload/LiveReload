@@ -2,3 +2,4 @@
 *.coffee
 *.iced
 test/
+example/

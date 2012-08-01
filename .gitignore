@@ -1,2 +1,4 @@
 *.js
+!example/*.js
+!example/res/*.js
 node_modules
