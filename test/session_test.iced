@@ -64,3 +64,16 @@ describe "Session", ->
       assert.ifError err
       assert.equal vfs.get('/foo/bar/app/static/test.css'), "h1 { color: green }\n"
       done()
+
+
+  it "should involve postproc plugin when loading a memento", ->
+    session = new Session
+    vfs = new TestVFS
+    session.setProjectsMemento vfs, {
+      '/foo/bar': { postproc: 'foo' }
+    }
+
+    bar = session.findProjectByPath('/foo/bar')
+    assert.ok bar?
+    assert.equal bar.postprocCommand, 'foo'
+    assert.equal bar.postprocLastRunTime, 0

@@ -47,8 +47,6 @@ class Project extends EventEmitter
     @enableRemoteWorkflow = !!(@memento?.enableRemoteServerWorkflow ? 0)
     @fullPageReloadDelay  = Math.floor((@memento?.fullPageReloadDelay ? 0.0) * 1000)
     @eventProcessingDelay = Math.floor((@memento?.eventProcessingDelay ? 0.0) * 1000)
-    @postprocCommand      = (@memento?.postproc ? '').trim()
-    @postprocEnabled      = !!(@memento?.postprocEnabled ? (@postprocCommand.length > 0))
     @rubyVersionId        = @memento?.rubyVersion || 'system'
     @excludedPaths        = @memento?.excludedPaths || []
     @customName           = @memento?.customName || ''
@@ -66,8 +64,6 @@ class Project extends EventEmitter
 
     debug "@compilerOptionsById = " + JSON.stringify(([i, o.options] for i, o of @compilerOptionsById), null, 2)
 
-    @postprocLastRunTime = 0
-    @postprocGracePeriod = 500
     for plugin in @session.plugins
       plugin.loadProject? this, @memento
 

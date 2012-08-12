@@ -9,6 +9,8 @@ class Session extends EventEmitter
     @projects = []
     @projectsMemento = {}
 
+    @addPlugin new (require('livereload-postproc'))()
+
   setProjectsMemento: (vfs, @projectsMemento) ->
     @projects = []
     for own path, projectMemento of @projectsMemento
@@ -64,7 +66,6 @@ class Session extends EventEmitter
     unless plugin.metadata.apiVersion is 1
       throw new Error "Unsupported API version #{plugin.metadata.apiVersion} requested by plugin #{plugin.metadata.name}"
     @plugins.push plugin
-    plugin.init(this)
 
   # Hooks up and stores a newly added or loaded project.
   _addProject: (project) ->
