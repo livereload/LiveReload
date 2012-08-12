@@ -77,3 +77,18 @@ describe "Session", ->
     assert.ok bar?
     assert.equal bar.postprocCommand, 'foo'
     assert.equal bar.postprocLastRunTime, 0
+
+
+  it "should handle changes", ->
+    session = new Session
+    vfs = new TestVFS
+    session.setProjectsMemento vfs, {
+      '/foo/bar': {}
+    }
+
+    bar = session.findProjectByPath('/foo/bar')
+    assert.ok bar?
+
+    runs = session.handleChange vfs, ['/foo/bar/boz.js']
+    assert.equal runs.length, 1
+    assert.equal runs[0].project, bar

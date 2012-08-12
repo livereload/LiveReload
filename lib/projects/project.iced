@@ -8,6 +8,7 @@ CompilerOptions = require './compileropts'
 FileOptions     = require './fileopts'
 
 urlmatch = require '../utils/urlmatch'
+Run      = require '../runs/run'
 
 
 RegExp_escape = (s) ->
@@ -83,12 +84,30 @@ class Project extends EventEmitter
     @monitor?.close()
     @monitor = null
 
+  matchesVFS: (vfs) ->
+    vfs is @vfs
+
+  matchesPath: (path) ->
+    @vfs.isSubpath(@fullPath, path)
+
+  filterPaths: (paths) ->
+    (path for path in paths when @matchesPath(path))
+
   matchesUrl: (url) ->
     components = Url.parse(url)
     if components.protocol is 'file:'
       return components.pathname.substr(0, @fullPath.length) == @fullPath
     @urls.some (pattern) -> urlmatch(pattern, url)
 
+  handleChange: (vfs, paths) ->
+    return unless @matchesVFS(vfs)
+
+    paths = @filterPaths(paths)
+    return if paths.length is 0
+
+    run = new Run(this, paths)
+    debug "Project.handleChange: created run for %j", paths
+    return run
 
   patchSourceFile: (oldCompiled, newCompiled, callback) ->
     oldLines = oldCompiled.trim().split("\n")

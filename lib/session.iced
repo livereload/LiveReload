@@ -67,6 +67,14 @@ class Session extends EventEmitter
       throw new Error "Unsupported API version #{plugin.metadata.apiVersion} requested by plugin #{plugin.metadata.name}"
     @plugins.push plugin
 
+  handleChange: (vfs, paths) ->
+    debug "Session.handleChange %j", paths
+    runs = []
+    for project in @projects
+      if run = project.handleChange(vfs, paths)
+        runs.push run
+    return runs
+
   # Hooks up and stores a newly added or loaded project.
   _addProject: (project) ->
     project.on 'change', (path) =>
