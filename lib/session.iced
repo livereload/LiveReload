@@ -5,6 +5,7 @@ Project = require './projects/project'
 class Session extends EventEmitter
 
   constructor: ->
+    @plugins = []
     @projects = []
     @projectsMemento = {}
 
@@ -55,6 +56,15 @@ class Session extends EventEmitter
     face.on 'command', (connection, message) =>
       @execute message, connection, (err) =>
         console.error err.stack if err
+
+  addPlugin: (plugin) ->
+    # sanity check
+    unless typeof plugin.metadata is 'object'
+      throw new Error "Missing plugin.metadata"
+    unless plugin.metadata.apiVersion is 1
+      throw new Error "Unsupported API version #{plugin.metadata.apiVersion} requested by plugin #{plugin.metadata.name}"
+    @plugins.push plugin
+    plugin.init(this)
 
   # Hooks up and stores a newly added or loaded project.
   _addProject: (project) ->

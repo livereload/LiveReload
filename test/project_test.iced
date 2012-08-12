@@ -12,6 +12,9 @@ DataDir = Path.join(__dirname, 'data')
 readMementoSync = (name) -> JSON.parse(fs.readFileSync(Path.join(DataDir, name), 'utf8'))
 
 class FakeSession
+  constructor: ->
+    @plugins = []
+
   findCompilerById: (compilerId) ->
     { id: compilerId }
 
@@ -92,3 +95,19 @@ describe "Project", ->
       assert.equal vfs.get('/foo/bar/app/static/test.styl'), styl2
 
       done()
+
+
+  describe "plugin support", ->
+
+    it "should run plugin.loadProject on setMemento", ->
+      vfs = new TestVFS()
+
+      session = new FakeSession()
+      session.plugins.push
+        loadProject: (project, memento) ->
+          project.foo = memento.bar
+
+      project = new Project(session, vfs, "/foo/bar")
+      project.setMemento { disableLiveRefresh: 1, bar: 42 }
+
+      assert.equal project.foo, 42

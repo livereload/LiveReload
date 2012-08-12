@@ -68,6 +68,8 @@ class Project extends EventEmitter
 
     @postprocLastRunTime = 0
     @postprocGracePeriod = 500
+    for plugin in @session.plugins
+      plugin.loadProject? this, @memento
 
     # @isLiveReloadBackend = (Path.normalize(@hive.fullPath) == Path.normalize(Path.join(__dirname, '../..')))
     # if @isLiveReloadBackend
