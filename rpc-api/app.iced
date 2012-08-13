@@ -39,6 +39,10 @@ exports.api =
     @session.setProjectsMemento @appVfs, memento
     callback()
 
+  handleChange: ({root, paths}, callback) ->
+    @session.handleChange @appVfs, (Path.join(root, path) for path in paths)
+    callback(null)
+
 
 exports.displayCriticalError = ({title, text, url, button}) ->
   button ?= "More Info"
