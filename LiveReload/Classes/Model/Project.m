@@ -31,6 +31,8 @@
 #include "communication.h"
 #include "eventbus.h"
 
+#include "nodeapp_rpc_proxy.h"
+
 
 #define PathKey @"path"
 
@@ -545,7 +547,8 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     }
 
 fin:
-    ;
+
+    S_app_handle_change(json_object_2("root", json_nsstring(_path), "paths", nodeapp_objc_to_json([pathes allObjects])));
 }
 
 - (void)processPendingChanges {

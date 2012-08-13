@@ -14,6 +14,10 @@ void S_app_reload_legacy_projects(json_t *data) {
     nodeapp_rpc_send("app.reloadLegacyProjects", data);
 }
 
+void S_app_handle_change(json_t *data) {
+    nodeapp_rpc_send("app.handleChange", data);
+}
+
 void S_monitoring_change_detected(json_t *data) {
     nodeapp_rpc_send("monitoring.changeDetected", data);
 }
