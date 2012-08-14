@@ -2,7 +2,7 @@
 # -*- encoding: utf-8 -*-
 
 require 'rake/clean'
-require 'tasks/backend'
+require_relative 'tasks/backend'
 
 ROOT_DIR = File.expand_path('.')
 BUILDS_DIR = File.join(ROOT_DIR, 'dist')
