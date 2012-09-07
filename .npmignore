@@ -1,0 +1,4 @@
+*.coffee
+*.iced
+example/
+test/
