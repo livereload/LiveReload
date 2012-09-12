@@ -11,6 +11,7 @@
 
 extern NSString *const kMASPreferencesWindowControllerDidChangeViewNotification;
 
+__attribute__((__visibility__("default")))
 #if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
 @interface MASPreferencesWindowController : NSWindowController <NSToolbarDelegate, NSWindowDelegate>
 #else
