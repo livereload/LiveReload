@@ -1,0 +1,44 @@
+{
+  "author": {
+    "name": "Andrey Tarantsov",
+    "email": "andrey@tarantsov.com"
+  },
+  "name": "livereload",
+  "description": "LiveReload 3 command-line tool / GUI backend",
+  "version": "0.1.0",
+  "homepage": "https://github.com/andreyvit/livereload",
+  "repository": {
+    "url": "git://github.com/andreyvit/livereload"
+  },
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha -R ${REPORTER-spec}"
+  },
+  "dependencies": {
+    "debug": "~0.7.0",
+    "dreamopt": "~0.8.0",
+    "livereload-server": "~0.1.1",
+    "apitree": "~1.1.0",
+    "sugar": "=1.1.1"
+  },
+  "devDependencies": {
+    "mocha": "~1.0.3"
+  },
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  },
+  "_npmUser": {
+    "name": "andreyvit",
+    "email": "andreyvit@me.com"
+  },
+  "_id": "livereload@0.1.0",
+  "_engineSupported": true,
+  "_npmVersion": "1.1.16",
+  "_nodeVersion": "v0.6.15",
+  "_defaultsLoaded": true,
+  "dist": {
+    "shasum": "549dea78eda2d3145ff738b56fbf64dbb617fa3e"
+  },
+  "_from": "../cli"
+}
