@@ -4,6 +4,11 @@ R             = require '../lib/reactive'
 
 describe 'R.Model', ->
 
+  it "should conform to EventEmitter protocol", (done) ->
+    m = new R.Model()
+    m.once 'foo', done
+    m.emit 'foo'
+
   describe "#initialize()", ->
     it "should be able to call #get() and #set()", ->
       class Ruby extends R.Model

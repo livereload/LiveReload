@@ -1,6 +1,7 @@
+{ EventEmitter } = require 'events'
 RModelSchema = require './schema'
 
-class RModel
+class RModel extends EventEmitter
 
   constructor: ->
     unless @constructor.name
