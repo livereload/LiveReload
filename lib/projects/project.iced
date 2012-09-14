@@ -68,6 +68,12 @@ class Project extends EventEmitter
     for plugin in @session.plugins
       plugin.loadProject? this, @memento
 
+    @steps = []
+    for plugin in @session.plugins
+      for step in plugin.createSteps?(this) || []
+        step.initialize()
+        @steps.push step
+
     # @isLiveReloadBackend = (Path.normalize(@hive.fullPath) == Path.normalize(Path.join(__dirname, '../..')))
     # if @isLiveReloadBackend
     #   log.warn "LiveReload Development Mode enabled. Will restart myself on backend changes."
@@ -105,8 +111,11 @@ class Project extends EventEmitter
     paths = @filterPaths(paths)
     return if paths.length is 0
 
-    run = new Run(this, paths)
+    change = { paths }
+
+    run = new Run(this, change, @steps)
     debug "Project.handleChange: created run for %j", paths
+    run.start()
     return run
 
   patchSourceFile: (oldCompiled, newCompiled, callback) ->

@@ -1,6 +1,7 @@
 debug = require('debug')('livereload:core:session')
 { EventEmitter } = require 'events'
 Project = require './projects/project'
+JobQueue = require 'jobqueue'
 
 class Session extends EventEmitter
 
@@ -8,6 +9,8 @@ class Session extends EventEmitter
     @plugins = []
     @projects = []
     @projectsMemento = {}
+
+    @queue = new JobQueue()
 
     @addPlugin new (require('livereload-postproc'))()
 
@@ -66,6 +69,9 @@ class Session extends EventEmitter
     unless plugin.metadata.apiVersion is 1
       throw new Error "Unsupported API version #{plugin.metadata.apiVersion} requested by plugin #{plugin.metadata.name}"
     @plugins.push plugin
+
+    # for priority in plugin.jobPriorities || []
+    #   @queue.addPriority priority
 
   handleChange: (vfs, paths) ->
     debug "Session.handleChange %j", paths

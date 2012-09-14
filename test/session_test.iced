@@ -92,3 +92,8 @@ describe "Session", ->
     runs = session.handleChange vfs, ['/foo/bar/boz.js']
     assert.equal runs.length, 1
     assert.equal runs[0].project, bar
+
+    requests = session.queue.getQueuedRequests()
+    assert.equal requests.length, 1, "Requests.length != 1: #{JSON.stringify(requests)}"
+    assert.equal requests[0].project, runs[0].project.id
+    assert.equal requests[0].action, 'postproc'
