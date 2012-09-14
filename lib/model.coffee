@@ -9,11 +9,11 @@ class RModel
     unless @constructor.schemaObj?.modelClass is @constructor
       @constructor.schemaObj = new RModelSchema(@constructor)
 
-    @attributes = {}
-    @initialize()
-
-    @_changedAttrs = {}
+    @attributes     = {}
+    @_changedAttrs  = {}
     @_changePending = no
+
+    @initialize()
 
   initialize: ->
 

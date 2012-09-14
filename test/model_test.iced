@@ -4,6 +4,15 @@ R             = require '../lib/reactive'
 
 describe 'R.Model', ->
 
+  describe "#initialize()", ->
+    it "should be able to call #get() and #set()", ->
+      class Ruby extends R.Model
+        initialize: ->
+          @set 'foo', 42
+          equal @get('foo'), 42
+      m = new Ruby()
+      equal m.get('foo'), 42
+
   describe "#get()", ->
 
     it "should return a value set via #set()", ->
