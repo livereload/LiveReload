@@ -1,7 +1,11 @@
+RModelSchema = require './schema'
 
 class RModel
 
   constructor: ->
+    unless @constructor.schemaObj?.modelClass is @constructor
+      @constructor.schemaObj = new RModelSchema(@constructor)
+
     @attributes = {}
     @initialize()
 

@@ -74,3 +74,31 @@ describe 'R.Model', ->
       m.set 'foo', 42
       m.set 'foo', 43
       m.set 'foo', 44
+
+
+  describe "accessors defined by a schema", ->
+
+    it "should return a previously set value", ->
+      u = new R.Universe()
+      class Ruby extends R.Model
+        schema:
+          foo: {}
+      m = new Ruby()
+      m.foo = 42
+      equal m.foo, 42
+
+    it "should emit a change event on write", (done) ->
+      u = new R.Universe()
+      class Ruby extends R.Model
+        schema:
+          foo: {}
+      m = new Ruby()
+
+      await
+        u.once 'change', defer(model, attr)
+        m.foo = 42
+      equal model, m
+      equal attr, 'foo'
+
+      u.destroy()
+      done()
