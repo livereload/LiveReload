@@ -1,7 +1,7 @@
 {
   "author": "Andrey Tarantsov <andrey@tarantsov.com>",
   "name": "reactive",
-  "description": "Reactive library draft",
+  "description": "Reactive model kit for Node.js and JavaScript",
   "version": "0.0.1",
   "homepage": "https://github.com/andreyvit/reactive.js",
   "repository": {
