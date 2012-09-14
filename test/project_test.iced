@@ -1,6 +1,7 @@
 assert = require 'assert'
 Path   = require 'path'
 fs     = require 'fs'
+R      = require 'reactive'
 
 { EventEmitter } = require 'events'
 
@@ -95,6 +96,18 @@ describe "Project", ->
       assert.equal vfs.get('/foo/bar/app/static/test.styl'), styl2
 
       done()
+
+
+  it "should be reactive", (done) ->
+    u = new R.Universe()
+    vfs = new TestVFS()
+
+    session = new FakeSession()
+
+    project = new Project(session, vfs, "/foo/bar")
+
+    u.once 'change', -> done()
+    project.setMemento { disableLiveRefresh: 1, compilationEnabled: 1 }
 
 
   describe "plugin support", ->

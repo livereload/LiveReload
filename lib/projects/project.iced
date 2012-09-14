@@ -1,8 +1,7 @@
 debug = require('debug')('livereload:core:project')
 Path  = require 'path'
 Url   = require 'url'
-
-{ EventEmitter } = require 'events'
+R     = require 'reactive'
 
 CompilerOptions = require './compileropts'
 FileOptions     = require './fileopts'
@@ -32,9 +31,35 @@ abspath = (path) ->
     Path.resolve(path)
 
 
-class Project extends EventEmitter
+class Project extends R.Model
+
+  schema:
+    compilationEnabled:       { type: Boolean }
+
+    # always do a full page reload
+    disableLiveRefresh:       { type: Boolean }
+
+    # enables URL overriding when CSS modifications are detected
+    enableRemoteWorkflow:     { type: Boolean }
+
+    # in ms
+    fullPageReloadDelay:      { type: Number }
+    eventProcessingDelay:     { type: Number }
+
+    rubyVersionId:            { type: String }
+
+    # paths we should never monitor or enumerate
+    excludedPaths:            { type: Array }
+
+    # URL wildcards that correspond to this project's files
+    urls:                     { type: Array }
+
+    customName:               { type: String }
+    nrPathCompsInName:        { type: 'int' }
+
 
   constructor: (@session, @vfs, @path) ->
+    super()
     @name = Path.basename(@path)
     @id = "P#{nextId++}_#{@name}"
     @fullPath = abspath(@path)
