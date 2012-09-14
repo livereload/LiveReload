@@ -3,6 +3,9 @@ RModelSchema = require './schema'
 class RModel
 
   constructor: ->
+    unless @constructor.name
+      throw new Error "R.Model must have a name"
+
     unless @constructor.schemaObj?.modelClass is @constructor
       @constructor.schemaObj = new RModelSchema(@constructor)
 
