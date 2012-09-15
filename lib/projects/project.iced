@@ -2,11 +2,11 @@ debug = require('debug')('livereload:core:project')
 Path  = require 'path'
 Url   = require 'url'
 R     = require 'reactive'
+urlmatch = require 'urlmatch'
 
 CompilerOptions = require './compileropts'
 FileOptions     = require './fileopts'
 
-urlmatch = require '../utils/urlmatch'
 Run      = require '../runs/run'
 
 

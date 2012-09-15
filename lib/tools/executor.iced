@@ -1,4 +1,6 @@
 debug = require('debug')('livereload:core:executor')
+subst = require 'subst'
+
 
 module.exports = execute = ({ commandLine, info, cwd }) ->
 

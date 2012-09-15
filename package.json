@@ -14,7 +14,9 @@
   "dependencies": {
     "debug": "~0.7.0",
     "jobqueue": "=0.1.0",
-    "reactive": "=0.0.1"
+    "reactive": "=0.0.1",
+    "subst": "~0.1.0",
+    "urlmatch": "~0.1.0"
   },
   "devDependencies": {
     "mocha": "~1.0.3",
