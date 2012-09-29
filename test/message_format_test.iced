@@ -24,3 +24,6 @@ describe "MessageFormat", ->
 
   o "((file)):((line)) ((message))\n", (oo) ->
     oo "foo.c:12 syntax error\n", [{message: "syntax error", file: "foo.c", line: "12"}]
+
+  o { pattern: "TypeError: ((message))\n", message: "Internal compiler error: ***" }, (oo) ->
+    oo "TypeError: foo.bar is not an object\n", [{message: "Internal compiler error: foo.bar is not an object"}]

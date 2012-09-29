@@ -13,12 +13,19 @@ class MessageFormat
     @overrides = {}
     @used      = no
 
+    if typeof @pattern is 'string'
+      @options = {}
+    else
+      @options = @pattern
+      @pattern = @options.pattern
+      unless typeof @pattern is 'string'
+        throw new Error "When an error/warning pattern is specified as an object, it must contain a string 'pattern' key; got: #{JSON.stringify(@options, null, 2)}"
+
+    if @options.message
+      @overrides.message = @options.message
+
     index = 1
     @processedPattern = @pattern.replace(/<ESC>/g, '').replace /// \(\( ([\w-]+) (?: : (.*?) )? \)\) ///gm, (_, name, content) =>
-      if name is 'message-override'
-        @overrides['message'] = content
-        return ''
-
       if replacement = MessageFormat.WILDCARDS[name]
         @indices[name] = index
       else
