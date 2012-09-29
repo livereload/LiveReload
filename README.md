@@ -44,6 +44,23 @@ Hacking tips
 4. Set LRBundledPluginsOverride to specify a path to the bundled plugins when running on the command line. (Also useful for speeding up Xcode builds by temporarily deleting the bundled plugins from the project and setting this variable so that LiveReload can find them.)
 
 
+Signing the bundled Node.js binary
+----------------------------------
+
+Copy:
+
+    cp /usr/local/bin/node LiveReload/Resources/LiveReloadNodejs
+
+Sign:
+
+    codesign -f -s "3rd Party Mac Developer Application: Andrey Tarantsov" --entitlements LiveReload/Resources/LiveReloadNodejs.entitlements LiveReload/Resources/LiveReloadNodejs
+
+Verify:
+
+    codesign -dvvv ./LiveReload/Resources/LiveReloadNodejs
+
+
+
 AppNewsKit
 ==========
 
