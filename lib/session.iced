@@ -1,16 +1,20 @@
 debug = require('debug')('livereload:core:session')
 { EventEmitter } = require 'events'
 Project = require './projects/project'
+
 JobQueue = require 'jobqueue'
 
 class Session extends EventEmitter
 
-  constructor: ->
+  constructor: (options={}) ->
     @plugins = []
     @projects = []
     @projectsMemento = {}
 
     @queue = new JobQueue()
+
+    @CommandLineTool = require('./tools/cmdline')
+    @MessageParser = require('./messages/parser')
 
     @addPlugin new (require('livereload-postproc'))()
 
