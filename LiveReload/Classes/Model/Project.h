@@ -40,9 +40,7 @@ EVENTBUS_DECLARE_EVENT(project_fs_change_event);
 
     NSString                *_postProcessingCommand;
     BOOL                     _postProcessingEnabled;
-    NSTimeInterval           _lastPostProcessingRunDate;
     NSTimeInterval           _postProcessingGracePeriod;
-    BOOL                     _runningPostProcessor;
 
     NSString                *_rubyVersionIdentifier;
 
@@ -68,7 +66,6 @@ EVENTBUS_DECLARE_EVENT(project_fs_change_event);
     NSArray                 *_urlMasks;
     
     NSMutableSet            *_pendingChanges;
-    BOOL                     _pendingPostProcessing;
     BOOL                     _processingChanges;
 }
 

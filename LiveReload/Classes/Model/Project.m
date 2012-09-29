@@ -452,15 +452,10 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
 - (void)fileSystemMonitor:(FSMonitor *)monitor detectedChangeAtPathes:(NSSet *)paths {
     [_pendingChanges unionSet:paths];
-
-    if (!(_runningPostProcessor || (_lastPostProcessingRunDate > 0 && [NSDate timeIntervalSinceReferenceDate] < _lastPostProcessingRunDate + _postProcessingGracePeriod))) {
-        _pendingPostProcessing = YES;
-    }
-    
     [self processPendingChanges];
 }
 
-- (void)processBatchOfPendingChanges:(NSSet *)pathes andInvokePostProcessor:(BOOL)invokePostProcessor {
+- (void)processBatchOfPendingChanges:(NSSet *)pathes {
     switch (pathes.count) {
         case 0:  break;
         case 1:  console_printf("Changed: %s", [[pathes anyObject] UTF8String]); break;
@@ -490,48 +485,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         goto fin;
     }
 
-    if ([_postProcessingCommand length] > 0 && _postProcessingEnabled) {
-        if (invokePostProcessor) {
-
-            NSMutableDictionary *info = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                         @"/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/bin/ruby", @"$(ruby)",
-                                         [[NSBundle mainBundle] pathForResource:@"node" ofType:nil], @"$(node)",
-                                         _path, @"$(project_dir)",
-                                         nil];
-
-            NSString *command = [_postProcessingCommand stringBySubstitutingValuesFromDictionary:info];
-            NSString *shell = DetermineShell();
-            NSLog(@"Running post-processing command: %@", command);
-
-            NSString *runDirectory = _path;
-            NSArray *shArgs = [NSArray arrayWithObjects:@"--login",@"-i",@"-c", command, nil];
-
-            NSError *error = nil;
-            NSString *pwd = [[NSFileManager defaultManager] currentDirectoryPath];
-            [[NSFileManager defaultManager] changeCurrentDirectoryPath:runDirectory];
-            const char *project_path = [self.path UTF8String];
-            console_printf("Post-proc exec: %s --login -c \"%s\"", [shell UTF8String], str_collapse_paths([command UTF8String], project_path));
-            NSString *output = [NSTask stringByLaunchingPath:shell
-                                               withArguments:shArgs
-                                                       error:&error];
-            [[NSFileManager defaultManager] changeCurrentDirectoryPath:pwd];
-
-            if ([output length] > 0) {
-                console_printf("\n%s\n\n", str_collapse_paths([output UTF8String], project_path));
-                NSLog(@"Post-processing output:\n%@\n", output);
-            }
-            if (error) {
-                console_printf("Post-processor failed.");
-                NSLog(@"Error: %@", [error description]);
-            }
-
-            _runningPostProcessor = NO;
-            _lastPostProcessingRunDate = [NSDate timeIntervalSinceReferenceDate];
-        } else {
-            console_printf("Skipping post-processing.");
-        }
-    }
-
     BOOL isFullReload = NO;
     if (_disableLiveRefresh) {
         isFullReload = YES;
@@ -557,14 +510,10 @@ fin:
     
     _processingChanges = YES;
 
-    while (_pendingChanges.count > 0 || _pendingPostProcessing) {
+    while (_pendingChanges.count > 0) {
         NSSet *paths = [_pendingChanges autorelease];
-        BOOL invokePostProcessor = _pendingPostProcessing;
-
         _pendingChanges = [[NSMutableSet alloc] init];
-        _pendingPostProcessing = NO;
-
-        [self processBatchOfPendingChanges:paths andInvokePostProcessor:invokePostProcessor];
+        [self processBatchOfPendingChanges:paths];
     }
 
     _processingChanges = NO;
