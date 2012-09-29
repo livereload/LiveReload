@@ -8,7 +8,7 @@ class MessageFormat
     line:    '\\d+'
     message: '\\S[^\\n]+?'
 
-  constructor: (@pattern) ->
+  constructor: (@pattern, @createMessage=(-> {})) ->
     @indices   = {}
     @overrides = {}
     @used      = no
@@ -51,7 +51,7 @@ class MessageFormat
       # console.log @indices
       # console.log match
 
-      message = {} #new ToolMessage()
+      message = @createMessage()
       for key, index of @indices
         message[key] = match[index]
       for key, value of @overrides

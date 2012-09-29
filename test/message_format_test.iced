@@ -22,6 +22,9 @@ describe "MessageFormat", ->
     oo "hello there\n", [{message: "hello there"}]
     oo "hello\nthere\n", [{message: "hello"}, {message: "there"}]
 
+  o "error: ((message))\n", (oo) ->
+    oo "error: hello world\n", [{message: "hello world"}]
+
   o "((file)):((line)) ((message))\n", (oo) ->
     oo "foo.c:12 syntax error\n", [{message: "syntax error", file: "foo.c", line: "12"}]
 
