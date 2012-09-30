@@ -1,6 +1,28 @@
 debug = require('debug')('livereload:core:postproc')
 
 module.exports =
+class PostProcPlugin
+
+  metadata:
+    apiVersion: 1
+    name: 'livereload-postproc'
+
+  jobPriorities: [
+    'postproc'
+  ]
+
+
+  loadProject: (project, memento) ->
+    project.postprocCommand = (memento?.postproc ? '').trim()
+    project.postprocEnabled = !!(memento?.postprocEnabled ? (project.postprocCommand.length > 0))
+    project.postprocLastRunTime = 0
+    project.postprocGracePeriod = 500
+
+
+  createSteps: (project) ->
+    [new PostProcStep(project)]
+
+
 class PostProcStep
 
   constructor: (@project) ->

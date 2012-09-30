@@ -16,7 +16,7 @@ class Session extends EventEmitter
     @CommandLineTool = require('./tools/cmdline')
     @MessageParser = require('./messages/parser')
 
-    @addPlugin new (require('livereload-postproc'))()
+    @addPlugin new (require('./plugins/postproc'))()
 
   setProjectsMemento: (vfs, @projectsMemento) ->
     @projects = []
