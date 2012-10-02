@@ -9,6 +9,8 @@ exports.api =
     return callback(new Error("init requires appDataDir"))   unless appDataDir
     return callback(new Error("init requires logDir"))       unless logDir
 
+    debug "Initializing LiveReload backend with folders: " + JSON.stringify({ resourcesDir, appDataDir, logDir, logFile, version, build, platform })
+
     pluginFolders = [ process.env.LRBundledPluginsOverride || resourcesDir]
     preferencesFolder = Path.join(appDataDir, 'Data')
 

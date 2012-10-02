@@ -1,3 +1,4 @@
+debug = require('debug')('livereload:app:plugins')
 fs    = require 'fs'
 Path  = require 'path'
 util  = require 'util'
@@ -43,6 +44,7 @@ class PluginManager
   rescan: (callback) ->
     pluginFolders = []
     for folder in @folders
+      debug "Scanning plugin folder: #{JSON.stringify(folder)}"
       for entry in fs.readdirSync(folder) when entry.endsWith('.lrplugin')
         pluginFolders.push Path.join(folder, entry)
 
