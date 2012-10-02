@@ -68,17 +68,12 @@ class LRWebSocketController
       LR.log.fyi "WebSocket server listening on port #{@server.port}."
       callback(null)
 
-  sendReloadCommand: ({ path, originalPath, liveCSS, enableOverride }) ->
+  sendReloadCommand: (message) ->
+    if message.enableOverride and @urlOverrideCoordinator.shouldOverrideFile(path)
+      message.overrideURL = @urlOverrideCoordinator.createOverrideURL(path)
+      delete message.enableOverride
+
     for connection in @server.monitoringConnections()
-      message =
-        command: 'reload'
-        path:    path
-        originalPath: originalPath
-        liveCSS: liveCSS
-
-      if enableOverride and @urlOverrideCoordinator.shouldOverrideFile(path)
-        message.overrideURL = @urlOverrideCoordinator.createOverrideURL(path)
-
       connection.send message
 
     @changeCount += 1
@@ -141,7 +136,5 @@ exports.init = (context, cb) ->
   _controller = new LRWebSocketController(context)
   _controller.init(cb)
 
-exports.api =
-  sendReloadCommand: (arg, callback) ->
-    _controller.sendReloadCommand(arg)
-    callback(null)
+  context.session.on 'browser-command', (command) ->
+    _controller.sendReloadCommand(command)

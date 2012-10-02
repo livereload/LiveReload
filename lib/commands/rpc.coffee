@@ -40,8 +40,8 @@ runServer = (options, context) ->
 runConsoleServer = (options, context) ->
   LR.rpc.init(process, process.exit, context: context, callbackTimeout: 60000, consoleDebuggingMode: true)
 
-  LR.app.api.init {
-    resourcesDir: [ context.paths.bundledPlugins ],
+  LR.app.api.init.call context, {
+    resourcesDir: context.paths.bundledPlugins,
     appDataDir: context.paths.bundledPlugins,
     logDir: process.env['TMPDIR']
   }, (err) ->
