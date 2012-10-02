@@ -27,8 +27,6 @@
 #include "sglib.h"
 #include "console.h"
 #include "stringutil.h"
-#include "reload_request.h"
-#include "communication.h"
 #include "eventbus.h"
 
 #include "nodeapp_rpc_proxy.h"
@@ -101,7 +99,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         // we cannot monitor through symlink boundaries anyway
         _path = [[path stringByResolvingSymlinksInPath] copy];
         _enabled = YES;
-        _session = reload_session_create(self);
 
         _monitor = [[FSMonitor alloc] initWithPath:_path];
         _monitor.delegate = self;
@@ -194,7 +191,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 }
 
 - (void)dealloc {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(broadcastPendingChanges) object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [_path release], _path = nil;
     [_monitor release], _monitor = nil;
@@ -384,14 +380,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     }
 }
 
-- (void)broadcastPendingChanges {
-    [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidDetectChangeNotification object:self];
-    eventbus_post(project_fs_change_event, NULL);
-    comm_broadcast_reload_requests(_session);
-    reload_session_clear(_session);
-    StatIncrement(BrowserRefreshCountStat, 1);
-}
-
 - (BOOL)isCompassConfigurationFile:(NSString *)relativePath {
     return MatchLastPathTwoComponents(relativePath, @"config", @"compass.rb") || MatchLastPathTwoComponents(relativePath, @".compass", @"config.rb") || MatchLastPathTwoComponents(relativePath, @"config", @"compass.config") || MatchLastPathComponent(relativePath, @"config.rb") || MatchLastPathTwoComponents(relativePath, @"src", @"config.rb");
 }
@@ -427,7 +415,8 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
             } else {
                 FileCompilationOptions *fileOptions = [self optionsForFileAtPath:relativePath in:compilationOptions];
                 NSString *derivedName = fileOptions.destinationName;
-                reload_session_add(_session, reload_request_create([derivedName UTF8String], [[_path stringByAppendingPathComponent:relativePath] UTF8String]));
+                // path = derivedName
+                // originalPath = [_path stringByAppendingPathComponent:relativePath]
                 NSLog(@"Broadcasting a fake change in %@ instead of %@ (compiler %@).", derivedName, relativePath, compiler.name);
                 StatGroupIncrement(CompilerChangeCountStatGroup, compiler.uniqueId, 1);
                 break;
@@ -438,7 +427,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     }
 
     if (!compilerFound) {
-        reload_session_add(_session, reload_request_create([[_path stringByAppendingPathComponent:relativePath] UTF8String], NULL));
+        // path = [_path stringByAppendingPathComponent:relativePath]
     }
 }
 
@@ -481,25 +470,10 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         }
 
     }
-    if (reload_session_empty(_session)) {
-        goto fin;
-    }
 
-    BOOL isFullReload = NO;
-    if (_disableLiveRefresh) {
-        isFullReload = YES;
-    } else {
-        isFullReload = !reload_session_can_refresh_live(_session);
-    }
-
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(broadcastPendingChanges) object:nil];
-    if (isFullReload && _fullPageReloadDelay > 0.001) {
-        [self performSelector:@selector(broadcastPendingChanges) withObject:nil afterDelay:_fullPageReloadDelay];
-    } else {
-        [self broadcastPendingChanges];
-    }
-
-fin:
+    [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidDetectChangeNotification object:self];
+    eventbus_post(project_fs_change_event, NULL);
+    StatIncrement(BrowserRefreshCountStat, 1);
 
     S_app_handle_change(json_object_2("root", json_nsstring(_path), "paths", nodeapp_objc_to_json([pathes allObjects])));
 }

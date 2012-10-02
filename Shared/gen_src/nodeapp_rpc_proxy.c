@@ -37,7 +37,3 @@ void S_projects_change_detected(json_t *data) {
 void S_ui_notify(json_t *data) {
     nodeapp_rpc_send("ui.notify", data);
 }
-
-void S_websockets_send_reload_command(json_t *data) {
-    nodeapp_rpc_send("websockets.sendReloadCommand", data);
-}

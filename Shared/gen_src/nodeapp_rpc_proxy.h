@@ -16,7 +16,6 @@ void S_projects_add(json_t *data);
 void S_projects_remove(json_t *data);
 void S_projects_change_detected(json_t *data);
 void S_ui_notify(json_t *data);
-void S_websockets_send_reload_command(json_t *data);
 
 #ifdef __cplusplus
 }

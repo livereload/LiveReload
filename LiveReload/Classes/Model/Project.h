@@ -54,7 +54,6 @@ EVENTBUS_DECLARE_EVENT(project_fs_change_event);
     BOOL                     _enableRemoteServerWorkflow;
     NSTimeInterval           _fullPageReloadDelay;
     NSTimeInterval           _eventProcessingDelay;
-    struct reload_session_t *_session;
 
     BOOL                     _brokenPathReported;
 

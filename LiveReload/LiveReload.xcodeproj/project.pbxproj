@@ -93,8 +93,6 @@
 		431466A6146CA68500DC075A /* PassThruView.m in Sources */ = {isa = PBXBuildFile; fileRef = 431466A5146CA68500DC075A /* PassThruView.m */; };
 		431466A9146CA82200DC075A /* PassThruImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 431466A8146CA82200DC075A /* PassThruImageView.m */; };
 		43191846141A0D1C008457FF /* Eco.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43191845141A0D1C008457FF /* Eco.lrplugin */; };
-		432A6D961476269C00144F97 /* reload_request.c in Sources */ = {isa = PBXBuildFile; fileRef = 432A6D951476269C00144F97 /* reload_request.c */; };
-		432A6D99147627F800144F97 /* communication.c in Sources */ = {isa = PBXBuildFile; fileRef = 432A6D98147627F800144F97 /* communication.c */; };
 		43361D2F13C2E0E500C0E589 /* Stylus.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43361D2E13C2E0E500C0E589 /* Stylus.lrplugin */; };
 		43361D4613C30D1400C0E589 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43361D4513C30D1400C0E589 /* libicucore.dylib */; };
 		43361D4A13C319FC00C0E589 /* Jade.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43361D4913C319FC00C0E589 /* Jade.lrplugin */; };
@@ -155,7 +153,6 @@
 		43F50C0114670AAF004FD951 /* CompilationSettingsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43F50C0014670AAF004FD951 /* CompilationSettingsWindowController.xib */; };
 		821AFF0014270B5200B61760 /* BBEditEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 821AFEFF14270B5200B61760 /* BBEditEditor.m */; };
 		823DDED313F8DA3100529AD2 /* LiveReloadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3013F8DA3100529AD2 /* LiveReloadAppDelegate.m */; };
-		823DDED413F8DA3100529AD2 /* CommunicationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3313F8DA3100529AD2 /* CommunicationController.m */; };
 		823DDED513F8DA3100529AD2 /* ExtensionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3613F8DA3100529AD2 /* ExtensionsController.m */; };
 		823DDEDA13F8DA3100529AD2 /* StatusItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3E13F8DA3100529AD2 /* StatusItemController.m */; };
 		823DDEDB13F8DA3100529AD2 /* ToolOutputWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE4013F8DA3100529AD2 /* ToolOutputWindowController.m */; };
@@ -372,10 +369,6 @@
 		43191845141A0D1C008457FF /* Eco.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Eco.lrplugin; path = Compilers/Eco.lrplugin; sourceTree = SOURCE_ROOT; };
 		432A6D921476192300144F97 /* sglib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sglib.h; sourceTree = "<group>"; };
 		432A6D93147622A600144F97 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
-		432A6D941476269400144F97 /* reload_request.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = reload_request.h; sourceTree = "<group>"; };
-		432A6D951476269C00144F97 /* reload_request.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = reload_request.c; sourceTree = "<group>"; };
-		432A6D97147627F000144F97 /* communication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = communication.h; sourceTree = "<group>"; };
-		432A6D98147627F800144F97 /* communication.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = communication.c; sourceTree = "<group>"; };
 		43361D2E13C2E0E500C0E589 /* Stylus.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Stylus.lrplugin; path = Compilers/Stylus.lrplugin; sourceTree = SOURCE_ROOT; };
 		43361D4513C30D1400C0E589 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		43361D4913C319FC00C0E589 /* Jade.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Jade.lrplugin; path = Compilers/Jade.lrplugin; sourceTree = SOURCE_ROOT; };
@@ -465,7 +458,6 @@
 		821AFEFF14270B5200B61760 /* BBEditEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBEditEditor.m; sourceTree = "<group>"; };
 		823DDE2F13F8DA3100529AD2 /* LiveReloadAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveReloadAppDelegate.h; sourceTree = "<group>"; };
 		823DDE3013F8DA3100529AD2 /* LiveReloadAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveReloadAppDelegate.m; sourceTree = "<group>"; };
-		823DDE3313F8DA3100529AD2 /* CommunicationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommunicationController.m; sourceTree = "<group>"; };
 		823DDE3513F8DA3100529AD2 /* ExtensionsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtensionsController.h; sourceTree = "<group>"; };
 		823DDE3613F8DA3100529AD2 /* ExtensionsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExtensionsController.m; sourceTree = "<group>"; };
 		823DDE3D13F8DA3100529AD2 /* StatusItemController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusItemController.h; sourceTree = "<group>"; };
@@ -1008,10 +1000,6 @@
 				43E34FA3147071E2001641AA /* stringutil.h */,
 				43E34FA4147071E8001641AA /* stringutil.c */,
 				432A6D921476192300144F97 /* sglib.h */,
-				432A6D941476269400144F97 /* reload_request.h */,
-				432A6D951476269C00144F97 /* reload_request.c */,
-				432A6D97147627F000144F97 /* communication.h */,
-				432A6D98147627F800144F97 /* communication.c */,
 				43F301D51477A67D0072F324 /* libs */,
 				4303A58D15B5163C009D732A /* app_config.h */,
 			);
@@ -1032,7 +1020,6 @@
 			children = (
 				43E34F9614705125001641AA /* Shared */,
 				823DDE2E13F8DA3100529AD2 /* Application */,
-				823DDE3113F8DA3100529AD2 /* Connectivity */,
 				823DDE3413F8DA3100529AD2 /* Controllers */,
 				823DDE4213F8DA3100529AD2 /* Editors */,
 				823DDE5313F8DA3100529AD2 /* JSON */,
@@ -1062,14 +1049,6 @@
 				43059208151DF2DE00CC3F88 /* MASReceipt.m */,
 			);
 			path = Application;
-			sourceTree = "<group>";
-		};
-		823DDE3113F8DA3100529AD2 /* Connectivity */ = {
-			isa = PBXGroup;
-			children = (
-				823DDE3313F8DA3100529AD2 /* CommunicationController.m */,
-			);
-			path = Connectivity;
 			sourceTree = "<group>";
 		};
 		823DDE3413F8DA3100529AD2 /* Controllers */ = {
@@ -1467,7 +1446,6 @@
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				823DDED313F8DA3100529AD2 /* LiveReloadAppDelegate.m in Sources */,
-				823DDED413F8DA3100529AD2 /* CommunicationController.m in Sources */,
 				823DDED513F8DA3100529AD2 /* ExtensionsController.m in Sources */,
 				823DDEDA13F8DA3100529AD2 /* StatusItemController.m in Sources */,
 				823DDEDB13F8DA3100529AD2 /* ToolOutputWindowController.m in Sources */,
@@ -1538,8 +1516,6 @@
 				43E34F9C14705125001641AA /* eventbus.c in Sources */,
 				43E34F9F14706D9B001641AA /* osdep.m in Sources */,
 				43E34FA5147071E9001641AA /* stringutil.c in Sources */,
-				432A6D961476269C00144F97 /* reload_request.c in Sources */,
-				432A6D99147627F800144F97 /* communication.c in Sources */,
 				C01FCF5008A954540054247E /* RSVerticallyCenteredTextFieldCell.m in Sources */,
 				4378C8D11515205C003187D5 /* OldFSMonitor.m in Sources */,
 				4378C8D21515205C003187D5 /* OldFSTree.m in Sources */,
