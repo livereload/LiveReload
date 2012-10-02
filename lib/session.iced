@@ -17,6 +17,7 @@ class Session extends EventEmitter
     @MessageParser = require('./messages/parser')
 
     @addPlugin new (require('./plugins/postproc'))()
+    @addPlugin new (require('./plugins/refresh'))()
 
   setProjectsMemento: (vfs, @projectsMemento) ->
     @projects = []
@@ -109,6 +110,9 @@ class Session extends EventEmitter
     else
       debug "Save: no match for URL #{message.url}"
       callback(null)
+
+  sendBrowserCommand: (command) ->
+    @emit 'browser-command', command
 
 module.exports = Session
 

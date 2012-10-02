@@ -35,7 +35,7 @@ class PostProcStep
   initialize: () ->
     @queue.register { action: 'postproc' }, { idKeys: ['project', 'action'] }, @_perform.bind(@)
 
-  schedule: (queue) ->
+  schedule: (change) ->
     @queue.add { project: @project.id, action: 'postproc' }
 
 

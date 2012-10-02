@@ -140,6 +140,9 @@ class Project extends R.Model
 
     run = new Run(this, change, @steps)
     debug "Project.handleChange: created run for %j", paths
+
+    run.once 'finish', =>
+      debug "Project.handleChange: finished run for %j", paths
     run.start()
     return run
 
