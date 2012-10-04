@@ -15,6 +15,9 @@ readMementoSync = (name) -> JSON.parse(fs.readFileSync(Path.join(DataDir, name),
 class FakeSession
   constructor: ->
     @plugins = []
+    @queue =
+      register: ->
+      add: ->
 
   findCompilerById: (compilerId) ->
     { id: compilerId }

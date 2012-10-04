@@ -89,11 +89,14 @@ describe "Session", ->
     bar = session.findProjectByPath('/foo/bar')
     assert.ok bar?
 
-    runs = session.handleChange vfs, ['/foo/bar/boz.js']
+    runs = session.handleChange vfs, '/foo/bar', ['boz.js']
     assert.equal runs.length, 1
     assert.equal runs[0].project, bar
 
     requests = session.queue.getQueuedRequests()
-    assert.equal requests.length, 1, "Requests.length != 1: #{JSON.stringify(requests)}"
-    assert.equal requests[0].project, runs[0].project.id
-    assert.equal requests[0].action, 'postproc'
+    assert.equal requests.length, 3, "Requests.length != 3: #{JSON.stringify(requests)}"
+    assert.equal requests[0].action, 'rescan-plugins'
+    assert.equal requests[1].project, runs[0].project.id
+    assert.equal requests[1].action, 'analyzer-rebuild'
+    assert.equal requests[2].project, runs[0].project.id
+    assert.equal requests[2].action, 'postproc'

@@ -32,20 +32,20 @@ class RefreshStep
     @queue.register { action: 'refresh' }, { idKeys: ['project', 'action'] }, @_perform.bind(@)
 
   schedule: (change) ->
-    @queue.add { project: @project.id, action: 'refresh', change }
+    @queue.add { project: @project.id, action: 'refresh', paths: change.paths.slice(0) }
     debug "Scheduled browser refresh job for change: " + JSON.stringify(change)
 
 
   # internal
 
   _perform: (request, done) ->
-    debug "Executing browser refresh job for change: " + JSON.stringify(request.change)
+    debug "Executing browser refresh job: " + JSON.stringify(request)
     # json_object_set_new(arg, "path", json_string(request->path));
     # json_object_set_new(arg, "originalPath", json_string(request->original_path ?: ""));
     # json_object_set_new(arg, "liveCSS", !project.disableLiveRefresh ? json_true() : json_false());
     # json_object_set_new(arg, "enableOverride", project.enableRemoteServerWorkflow ? json_true() : json_false());
     # _fullPageReloadDelay!!
-    for path in request.change.paths
+    for path in request.paths
       command =
         command:        'reload'
         path:           path

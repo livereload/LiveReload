@@ -1,6 +1,7 @@
 debug = require('debug')('livereload:core:session')
 { EventEmitter } = require 'events'
 Project = require './projects/project'
+{ PluginManager } = require './pluginmgr/plugin'
 
 JobQueue = require 'jobqueue'
 
@@ -18,6 +19,15 @@ class Session extends EventEmitter
 
     @addPlugin new (require('./plugins/postproc'))()
     @addPlugin new (require('./plugins/refresh'))()
+
+    @pluginManager = new PluginManager()
+
+    @queue.register { action: 'rescan-plugins' }, @_rescanPlugins.bind(@)
+    @queue.add { action: 'rescan-plugins' }
+
+  addPluginFolder: (folder) ->
+    @pluginManager.addFolder folder
+    @queue.add { action: 'rescan-plugins' }
 
   setProjectsMemento: (vfs, @projectsMemento) ->
     @projects = []
@@ -78,11 +88,11 @@ class Session extends EventEmitter
     # for priority in plugin.jobPriorities || []
     #   @queue.addPriority priority
 
-  handleChange: (vfs, paths) ->
-    debug "Session.handleChange %j", paths
+  handleChange: (vfs, root, paths) ->
+    debug "Session.handleChange root=%j; paths: %j", root, paths
     runs = []
     for project in @projects
-      if run = project.handleChange(vfs, paths)
+      if run = project.handleChange(vfs, root, paths)
         runs.push run
     return runs
 
@@ -113,6 +123,9 @@ class Session extends EventEmitter
 
   sendBrowserCommand: (command) ->
     @emit 'browser-command', command
+
+  _rescanPlugins: (request, done) ->
+    @pluginManager.rescan(done)
 
 module.exports = Session
 

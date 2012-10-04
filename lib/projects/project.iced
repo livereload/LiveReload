@@ -63,6 +63,7 @@ class Project extends R.Model
     @name = Path.basename(@path)
     @id = "P#{nextId++}_#{@name}"
     @fullPath = abspath(@path)
+    @analyzer = new (require './analyzer')(this)
 
   setMemento: (@memento) ->
     # log.fyi
@@ -118,11 +119,11 @@ class Project extends R.Model
   matchesVFS: (vfs) ->
     vfs is @vfs
 
-  matchesPath: (path) ->
-    @vfs.isSubpath(@fullPath, path)
+  matchesPath: (root, path) ->
+    @vfs.isSubpath(@fullPath, Path.join(root, path))
 
-  filterPaths: (paths) ->
-    (path for path in paths when @matchesPath(path))
+  filterPaths: (root, paths) ->
+    (path for path in paths when @matchesPath(root, path))
 
   matchesUrl: (url) ->
     components = Url.parse(url)
@@ -130,13 +131,15 @@ class Project extends R.Model
       return components.pathname.substr(0, @fullPath.length) == @fullPath
     @urls.some (pattern) -> urlmatch(pattern, url)
 
-  handleChange: (vfs, paths) ->
+  handleChange: (vfs, root, paths) ->
     return unless @matchesVFS(vfs)
 
-    paths = @filterPaths(paths)
+    paths = @filterPaths(root, paths)
     return if paths.length is 0
 
     change = { paths }
+
+    @analyzer.update(paths)
 
     run = new Run(this, change, @steps)
     debug "Project.handleChange: created run for %j", paths
