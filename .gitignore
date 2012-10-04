@@ -2,6 +2,7 @@
 bin
 obj
 *.suo
+*.csproj.user
 
 # mstest test results
 TestResults
