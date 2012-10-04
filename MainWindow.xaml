@@ -1,7 +1,7 @@
 ﻿<Window x:Class="LiveReload.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Height="480" Width="640">
+        Title="MainWindow" Loaded="Window_Loaded" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Height="480" Width="640">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150*" />
@@ -36,5 +36,6 @@
         <TextBlock Height="32" Margin="65,334,202,0" Name="textBlock4" VerticalAlignment="Top" TextWrapping="Wrap" FontSize="10" Grid.Column="1">
             CoffeeScript, Eco, HAML, IcedCoffeeScript, Jade, LESS, SASS, Compass, Slim, Stylus
         </TextBlock>
+        <TextBox Grid.Column="1" Height="23" HorizontalAlignment="Left" Margin="130,406,0,0" Name="textBoxNodeResult" VerticalAlignment="Top" Width="326" IsReadOnly="True" />
     </Grid>
 </Window>
