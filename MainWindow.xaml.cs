@@ -12,6 +12,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using System.Diagnostics;
+
 namespace LiveReload
 {
     /// <summary>
@@ -23,5 +25,11 @@ namespace LiveReload
         {
             InitializeComponent();
         }
+        
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            Process.Start(e.Uri.ToString());
+        }
+        
     }
 }
