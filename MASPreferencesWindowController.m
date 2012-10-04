@@ -1,4 +1,3 @@
-
 #import "MASPreferencesWindowController.h"
 
 NSString *const kMASPreferencesWindowControllerDidChangeViewNotification = @"MASPreferencesWindowControllerDidChangeViewNotification";
@@ -268,7 +267,7 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
     [self.window recalculateKeyViewLoop];
     if ([self.window firstResponder] == self.window) {
         if ([controller respondsToSelector:@selector(initialKeyView)])
-            [self.window makeFirstResponder:[controller initialKeyView]];
+            [self.window performSelector:@selector(makeFirstResponder:) withObject:[controller initialKeyView] afterDelay:0];
         else
             [self.window selectKeyViewFollowingView:controllerView];
     }
