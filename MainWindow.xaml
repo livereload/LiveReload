@@ -1,8 +1,40 @@
 ﻿<Window x:Class="LiveReload.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Height="480" Width="640">
     <Grid>
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150*" />
+            <ColumnDefinition Width="468" />
+        </Grid.ColumnDefinitions>
+        <CheckBox Content="Compile scripts, stylesheets, etc" Height="16" HorizontalAlignment="Left" Margin="47,312,0,0" Name="checkBoxCompile" VerticalAlignment="Top" Grid.Column="1" />
+        <CheckBox Content="Run a custom command"              Height="16" HorizontalAlignment="Left" Margin="47,372,0,0" Name="checkBoxRunCustom" VerticalAlignment="Top" Grid.Column="1" />
+        <Button Content="Options..." Height="23" HorizontalAlignment="Left" Margin="272,308,0,0" Name="buttonCompile" VerticalAlignment="Top" Width="75" Grid.Column="1" />
+        <Button Content="Options..." Height="23" HorizontalAlignment="Left" Margin="272,368,0,0" Name="buttonRunCustom" VerticalAlignment="Top" Width="75" Grid.Column="1" />
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="45,147,0,0" Name="textBlock1" VerticalAlignment="Top" Grid.Column="1">
+            ❶ Site URL(s):
+        </TextBlock>
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="45,188,0,0" Name="textBlock2" VerticalAlignment="Top" Grid.Column="1">❷ Insert this tag before &lt;/body&gt; or
+            <Hyperlink
+                NavigateUri="http://go.livereload.com/extensions"
+                RequestNavigate="Hyperlink_RequestNavigate">
+                install browser extensions
+            </Hyperlink>
+            :
+        </TextBlock>
+        <TextBox Height="23" HorizontalAlignment="Right" Margin="0,144,12,0" Name="textBox1" VerticalAlignment="Top" Width="326" IsReadOnly="True" Foreground="Black" Grid.Column="1">
+            localhost:3000, site.local, dev.example.com</TextBox>
+        <TextBox Height="35" HorizontalAlignment="Left" Margin="65,217,0,0" Name="textBox2" VerticalAlignment="Top" Width="391" FontSize="10" TextWrapping="Wrap" IsReadOnly="True" Grid.Column="1">
+            &lt;script&gt;document.write('
+                &lt;script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"&gt;
+                    &lt;/' + 'script&gt; ')
+                &lt;/script&gt;
+        </TextBox>
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="45,283,0,0" Name="textBlock3" VerticalAlignment="Top" Grid.Column="1">
+            ❸ When a file is modified:
+        </TextBlock>
+        <TextBlock Height="32" Margin="65,334,202,0" Name="textBlock4" VerticalAlignment="Top" TextWrapping="Wrap" FontSize="10" Grid.Column="1">
+            CoffeeScript, Eco, HAML, IcedCoffeeScript, Jade, LESS, SASS, Compass, Slim, Stylus
+        </TextBlock>
     </Grid>
 </Window>
