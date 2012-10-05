@@ -13,7 +13,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using System.Diagnostics;
-using System.Windows.Threading;
 
 namespace LiveReload
 {
@@ -22,7 +21,6 @@ namespace LiveReload
     /// </summary>
     public partial class MainWindow : Window
     {
-        NodeRPC nodeFoo;
 
         public MainWindow()
         {
@@ -31,8 +29,6 @@ namespace LiveReload
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            nodeFoo = new NodeRPC(Dispatcher.CurrentDispatcher);
-            nodeFoo.RaiseNodeLineEvent += HandleNodeLineEvent;
         }
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
@@ -40,7 +36,7 @@ namespace LiveReload
             Process.Start(e.Uri.ToString());
         }
 
-        void HandleNodeLineEvent(string nodeLine)
+        public void DisplayNodeResult(string nodeLine)
         {
             textBoxNodeResult.Text = nodeLine;
             Console.WriteLine(nodeLine);
