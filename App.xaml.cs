@@ -28,6 +28,8 @@ namespace LiveReload
             
             window = new MainWindow();
             window.Show();
+
+            TrayIconController trayIcon = new TrayIconController(window);
         }
     }
 }
