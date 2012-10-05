@@ -101,6 +101,8 @@ class Session extends EventEmitter
     project.on 'change', (path) =>
       @emit 'command', command: 'reload', path: path
     @projects.push project
+    project.analyzer.addAnalyzerClass require('./analyzers/imports')
+    project.analyzer.addAnalyzerClass require('./analyzers/compass')
     return project
 
   # message routing
