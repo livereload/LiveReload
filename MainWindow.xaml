@@ -37,5 +37,8 @@
             CoffeeScript, Eco, HAML, IcedCoffeeScript, Jade, LESS, SASS, Compass, Slim, Stylus
         </TextBlock>
         <TextBox Grid.Column="1" Height="23" HorizontalAlignment="Left" Margin="130,406,0,0" Name="textBoxNodeResult" VerticalAlignment="Top" Width="326" IsReadOnly="True" />
+        <TreeView Height="441" HorizontalAlignment="Left" Name="treeViewProjects" VerticalAlignment="Top" Width="150" />
+        <TextBlock Grid.Column="1" Height="23" HorizontalAlignment="Left" Margin="130,71,0,0" Name="textBlockProjectName" Text="-" VerticalAlignment="Top" Width="326" />
+        <TextBlock Grid.Column="1" Height="23" HorizontalAlignment="Left" Margin="130,100,0,0" Name="textBlockProjectPath" Text="-" VerticalAlignment="Top" Width="326" />
     </Grid>
 </Window>

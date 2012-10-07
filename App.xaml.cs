@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows;
 
 using System.Windows.Threading;
+using Newtonsoft.Json.Linq;
 
 namespace LiveReload
 {
@@ -32,7 +33,14 @@ namespace LiveReload
 
         void HandleNodeLineEvent(string nodeLine)
         {
+            JArray a = JArray.Parse(nodeLine);
             window.DisplayNodeResult(nodeLine);
+            Console.WriteLine(a.ToString());
+            if (a.First.ToString() == "update")
+            {
+                JArray treeData = (JArray)a[1]["projects"];
+                window.updateTreeView(treeData);
+            }
         }
 
         void HandleMainWindowHideEvent()
