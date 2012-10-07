@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using System.Diagnostics;
+using Newtonsoft.Json.Linq;
 
 namespace LiveReload
 {
@@ -46,6 +47,20 @@ namespace LiveReload
         {
             e.Cancel = true;
             this.Hide();
+        }
+        public void updateTreeView(JArray a)
+        {
+            foreach (JToken t in a)
+            {
+                TreeViewItem newChild = new TreeViewItem();
+                newChild.Header = (string)t["name"];
+                newChild.Name   = (string)t["id"];
+                treeViewProjects.Items.Add(newChild);
+
+                TreeViewItem newPath = new TreeViewItem();
+                newPath.Header  = (string)t["path"];
+                newChild.Items.Add(newPath);
+            }
         }
     }
 }
