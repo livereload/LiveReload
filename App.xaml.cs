@@ -16,11 +16,6 @@ namespace LiveReload
     {
         MainWindow window;
 
-        void HandleNodeLineEvent(string nodeLine)
-        {
-            window.DisplayNodeResult(nodeLine);
-        }
-
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             NodeRPC nodeFoo = new NodeRPC(Dispatcher.CurrentDispatcher);
@@ -29,7 +24,35 @@ namespace LiveReload
             window = new MainWindow();
             window.Show();
 
-            TrayIconController trayIcon = new TrayIconController(window);
+            TrayIconController trayIcon = new TrayIconController();
+            //trayIcon.MainWindowHideEvent += HandleMainWindowShowEvent;
+            trayIcon.MainWindowShowEvent += HandleMainWindowShowEvent;
+            trayIcon.MainWindowToggleEvent  += HandleMainWindowToggleEvent;
+        }
+
+        void HandleNodeLineEvent(string nodeLine)
+        {
+            window.DisplayNodeResult(nodeLine);
+        }
+
+        void HandleMainWindowHideEvent()
+        {
+            window.Hide();
+        }
+        void HandleMainWindowShowEvent()
+        {
+            window.Show();
+        }
+        void HandleMainWindowToggleEvent()
+        {
+            if (window.IsVisible)
+            {
+                window.Hide();
+            }
+            else
+            {
+                window.Show();
+            }
         }
     }
 }
