@@ -6,7 +6,6 @@ using System.Linq;
 using System.Windows;
 
 using System.Windows.Threading;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace LiveReload
@@ -39,9 +38,8 @@ namespace LiveReload
             Console.WriteLine(a.ToString());
             if (a.First.ToString() == "update")
             {
-                //JArray treeData = (JArray)a[1]["projects"];
-                List<ProjectData> projectsList = (List<ProjectData>)JsonConvert.DeserializeObject(a[1]["projects"].ToString(), typeof(List<ProjectData>));
-                window.updateTreeView(projectsList);
+                JArray treeData = (JArray)a[1]["projects"];
+                window.updateTreeView(treeData);
             }
         }
 
@@ -64,12 +62,5 @@ namespace LiveReload
                 window.Show();
             }
         }
-    }
-    
-    public class ProjectData
-    {
-        public string id { get; set; }
-        public string name { get; set; }
-        public string path { get; set; }
     }
 }
