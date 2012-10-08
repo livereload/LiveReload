@@ -22,7 +22,6 @@ namespace LiveReload
     /// </summary>
     public partial class MainWindow : Window
     {
-        private List<ProjectData> projectsList;
 
         public MainWindow()
         {
@@ -49,29 +48,19 @@ namespace LiveReload
             e.Cancel = true;
             this.Hide();
         }
-        public void updateTreeView(List<ProjectData> projectsList_)
+        public void updateTreeView(JArray a)
         {
-            projectsList = projectsList_;
-            foreach (ProjectData t in projectsList)
+            foreach (JToken t in a)
             {
                 TreeViewItem newChild = new TreeViewItem();
-                newChild.Header = t.name;
-                newChild.Name   = t.id;
+                newChild.Header = (string)t["name"];
+                newChild.Name   = (string)t["id"];
                 treeViewProjects.Items.Add(newChild);
 
-                //TreeViewItem newPath = new TreeViewItem();
-                //newPath.Header  = (string)t["path"];
-                //newChild.Items.Add(newPath);
+                TreeViewItem newPath = new TreeViewItem();
+                newPath.Header  = (string)t["path"];
+                newChild.Items.Add(newPath);
             }
-        }
-
-        private void treeViewProjects_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-            TreeViewItem selectedTVI = (TreeViewItem)treeViewProjects.SelectedItem;
-            int selectedIndex = treeViewProjects.Items.IndexOf(selectedTVI);
-
-            textBlockProjectName.Text = projectsList[selectedIndex].name;
-            textBlockProjectPath.Text = projectsList[selectedIndex].path;
         }
     }
 }
