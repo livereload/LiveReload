@@ -1,7 +1,7 @@
 {
   "author": "Andrey Tarantsov <andrey@tarantsov.com>",
   "name": "livereload-core",
-  "description": "The heard of LiveReload: file monitoring, analysis and tool invocation",
+  "description": "The heart of LiveReload: file monitoring, analysis and tool invocation",
   "version": "0.3.1",
   "homepage": "https://github.com/livereload/core",
   "repository": {
