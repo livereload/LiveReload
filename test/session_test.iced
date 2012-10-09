@@ -1,3 +1,4 @@
+debug  = require('debug')('livereload:core:tests')
 assert = require 'assert'
 
 { EventEmitter } = require 'events'
@@ -83,16 +84,11 @@ describe "Session", ->
     session = new Session
     vfs = new TestVFS
 
-    requests = session.queue.getQueuedRequests()
-    assert.equal requests.length, 1, "Requests.length != 1: #{JSON.stringify(requests)}"
-    assert.equal requests[0].action, 'rescan-plugins'
-
-    await session.queue.once 'empty', defer()
-    await process.nextTick defer()
-    session.queue.checkDrain()
+    requests = []
+    session.queue.on 'running', (job) -> requests.push(job.request)
 
     session.setProjectsMemento vfs, {
-      '/foo/bar': {}
+      '/foo/bar': { compilationEnabled: yes }
     }
 
     bar = session.findProjectByPath('/foo/bar')
@@ -102,12 +98,16 @@ describe "Session", ->
     assert.equal runs.length, 1
     assert.equal runs[0].project, bar
 
-    requests = session.queue.getQueuedRequests()
-    assert.equal requests.length, 2, "Requests.length != 2: #{JSON.stringify(requests)}"
-    assert.equal requests[0].project, runs[0].project.id
-    assert.equal requests[0].action, 'analyzer-rebuild'
-    assert.equal requests[1].project, runs[0].project.id
-    assert.equal requests[1].action, 'postproc'
+    await
+      session.queue.on 'empty', defer()
+      session.queue.checkDrain()
 
-    session.queue.on 'empty', done
-    session.queue.checkDrain()
+    debug "requests = %j", requests
+    assert.deepEqual requests, [
+      { action: 'rescan-plugins' }
+      { action: 'analyzer-rebuild', project: runs[0].project.id }
+      { action: 'compile', project: runs[0].project.id, paths: ['boz.js'] }
+      { action: 'postproc', project: runs[0].project.id }
+      { action: 'refresh', project: runs[0].project.id, paths: ['boz.js'] }
+    ]
+    done()

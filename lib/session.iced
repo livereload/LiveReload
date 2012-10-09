@@ -17,6 +17,7 @@ class Session extends EventEmitter
     @CommandLineTool = require('./tools/cmdline')
     @MessageParser = require('./messages/parser')
 
+    @addPlugin new (require('./plugins/compilation'))()
     @addPlugin new (require('./plugins/postproc'))()
     @addPlugin new (require('./plugins/refresh'))()
 

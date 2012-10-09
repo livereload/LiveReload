@@ -1,7 +1,8 @@
 debug = require('debug')('livereload:tests')
-assert = require 'assert'
 Path   = require 'path'
 fs     = require 'fs'
+
+{ ok, equal } = require 'assert'
 
 { EventEmitter } = require 'events'
 
@@ -28,7 +29,8 @@ describe "livereload-core", ->
     session.setProjectsMemento vfs, memento
 
     if func
-      await func defer()
+      context = { session, root: sampleDir }
+      await func.call context, defer()
 
     session.queue.on 'empty', done
     session.queue.checkDrain()
@@ -36,3 +38,19 @@ describe "livereload-core", ->
 
   it "should not fuck up the initial analysis of less_with_imports", (done) ->
     o done, 'less_with_imports', {}
+
+  it "should compile test.less", (done) ->
+    o done, 'less', { compilationEnabled: yes }, (callback) ->
+      cssFile = Path.join(@root, 'test.css')
+      await fs.unlink cssFile, defer()
+
+      runs = @session.handleChange vfs, @root, ['test.less']
+      equal runs.length, 1
+      await @session.queue.on 'empty', defer()
+
+      await fs.readFile cssFile, 'utf8', defer(err, css)
+      ok !err, "Compiled CSS file does not exist: #{cssFile}"
+      ok css.match /red/
+      await fs.unlink cssFile, defer()
+
+      callback()

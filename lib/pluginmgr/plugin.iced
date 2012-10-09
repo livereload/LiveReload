@@ -12,6 +12,7 @@ class Compiler
   constructor: (@plugin, @manifest) ->
     @name = @manifest.Name
     @extensions = @manifest.Extensions or []
+    @destinationExt = @manifest.DestinationExtension or ''
     @sourceSpecs = ("*.#{ext}" for ext in @extensions)
 
     @tool = new CommandLineTool
@@ -19,6 +20,8 @@ class Compiler
       args:   @manifest.CommandLine
       cwd:    (@manifest.RunIn or "$(project_dir)")
       parser: new MessageParser(errors: @manifest.Errors or [], warnings: @manifest.Warnings or [])
+      info:
+        '$(plugin)': @plugin.folder
 
     @importRegExps =
       for re in @manifest.ImportRegExps or []

@@ -1,13 +1,15 @@
 debug     = require('debug')('livereload:core:tools:cmdline')
 subst     = require 'subst'
 { spawn } = require 'child_process'
+_         = require 'underscore'
 
 Invocation = require './invocation'
 
 module.exports =
 class CommandLineTool
 
-  constructor: ({ @name, @args, @cwd, @parser }) ->
+  constructor: ({ @name, @args, @cwd, @parser, @info }) ->
+    @info or= {}
 
   toString: ->
     "CommandLineTool(#{@name})"
@@ -16,8 +18,10 @@ class CommandLineTool
     new Invocation(this, info)
 
   invoke: (invocation, callback) ->
-    args = subst(@args, invocation.info)
-    cwd  = subst(@cwd,  invocation.info)
+    info = _.extend {}, invocation.info, @info
+
+    args = subst(@args, info)
+    cwd  = subst(@cwd,  info)
 
     debug "Invoking command line: #{JSON.stringify(args)}"
 
