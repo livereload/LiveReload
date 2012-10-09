@@ -6,7 +6,6 @@ using System.Linq;
 using System.Windows;
 
 using System.Windows.Threading;
-using Newtonsoft.Json.Linq;
 
 namespace LiveReload
 {
@@ -33,13 +32,21 @@ namespace LiveReload
 
         void HandleNodeLineEvent(string nodeLine)
         {
-            JArray a = JArray.Parse(nodeLine);
             window.DisplayNodeResult(nodeLine);
-            Console.WriteLine(a.ToString());
-            if (a.First.ToString() == "update")
+
+            var b = (object[])fastJSON.JSON.Instance.ToObject(nodeLine);
+            string messageType = (string) b[0];
+            if (messageType == "update")
             {
-                JArray treeData = (JArray)a[1]["projects"];
-                window.updateTreeView(treeData);
+                var messageArg = (Dictionary<string, object>) b[1];
+                var rawProjects = (List<object>)messageArg["projects"];
+
+                var projectsList = new List<ProjectData>();
+                foreach (var rawProject in rawProjects)
+                {
+                    projectsList.Add(new ProjectData((Dictionary<string, object>) rawProject));
+                }
+                window.updateTreeView(projectsList);
             }
         }
 
@@ -61,6 +68,20 @@ namespace LiveReload
             {
                 window.Show();
             }
+        }
+    }
+
+    public class ProjectData
+    {
+        public string id { get; set; }
+        public string name { get; set; }
+        public string path { get; set; }
+
+        public ProjectData(Dictionary<string,object> dic)
+        {
+            id   = (string) dic["id"];
+            name = (string) dic["name"];
+            path = (string) dic["path"];
         }
     }
 }

@@ -13,7 +13,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using System.Diagnostics;
-using Newtonsoft.Json.Linq;
 
 namespace LiveReload
 {
@@ -22,6 +21,7 @@ namespace LiveReload
     /// </summary>
     public partial class MainWindow : Window
     {
+        private List<ProjectData> projectsList;
 
         public MainWindow()
         {
@@ -48,18 +48,15 @@ namespace LiveReload
             e.Cancel = true;
             this.Hide();
         }
-        public void updateTreeView(JArray a)
+        public void updateTreeView(List<ProjectData> projectsList_)
         {
-            foreach (JToken t in a)
+            projectsList = projectsList_;
+            foreach (ProjectData t in projectsList)
             {
                 TreeViewItem newChild = new TreeViewItem();
-                newChild.Header = (string)t["name"];
-                newChild.Name   = (string)t["id"];
+                newChild.Header = t.name;
+                newChild.Name   = t.id;
                 treeViewProjects.Items.Add(newChild);
-
-                TreeViewItem newPath = new TreeViewItem();
-                newPath.Header  = (string)t["path"];
-                newChild.Items.Add(newPath);
             }
         }
     }
