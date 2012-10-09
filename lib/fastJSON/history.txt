@@ -1,0 +1,155 @@
+1.1 
+- 26% performance boost on dataset
+
+1.2
+- culture info 
+- system.dbnull -> null
+- skips readonly properties
+
+1.3
+- removed unused code 786 lines now
+- property comma fix
+
+1.4
+- ~3% speed boost to serializer
+- 50% speed boost to deserializer
+- 46% speed boost to dataset serializer
+- 26% speed boost to dataset deserializer
+
+1.5
+- 53% speed boost deserializer without dataset
+- 21% speed boost deserializer with dataset
+- Enum parse fix
+
+1.6 
+- guid 2x faster
+- dataset 40% smaller
+- dataset deserialize 35% faster
+- dataset serialize 11% faster
+- single dimension valuetype arrays supported 
+
+1.7 
+- bug fix dictionary deserialize
+- special case List<object[]> 
+- int, long parse 4x faster
+- unicode string optimize
+- changetype optimize
+- dictionary optimize
+- deserialize embeded class e.g. Sales.Customer
+- safedictionary check before add
+- handles object ReturnEntity = new object[] { object1, object2 }
+- handles object ReturnEntity = Guid, Dataset, valuetype
+
+1.7.5
+- serialize without extensions
+- added overloaded methods
+- deserialize without extensions
+
+1.7.6
+- xmlignore on properties handled
+- date output fix -> 0000 format
+- special case optimized dictionary<string,string> output {"prop":"value",...} insteadof [{"k":"prop","v":"value"},...]
+- override serialize nulls to output
+
+1.7.7
+- datatable support 
+- indented output
+- bug fix 
+
+1.8
+- SilverLight4 support merged into source
+- RegisterCustomType() for custom serializer
+
+1.9
+- added support for public field serialize and deserialize
+
+1.9.1
+- fixed SerializeNullValues = false bug 
+
+1.9.2
+- fixed to fullname instaed of name when searching for types in property cache (namespace1.myclass , namespace2.myclass are now different)
+
+1.9.3
+- UTC datetime handling via UseUTCDateTime = true property 
+- added support for enum as key in dictionary
+
+1.9.4
+- ShowReadOnlyProperties added for exporting readonly properties (default = false)
+- if datetime value ends in "Z" then automatic UTC time calculated 
+- if using UTC datetime the output end in a "Z" (standards compliant) 
+
+1.9.5
+- bug fix datatable schema serialize & deserialize
+
+1.9.6
+- added a $types extension for global type definitions which reduce the size of the output json
+- added UsingGlobalTypes config for controling the above (default = true)
+- bug fix datatable commas between arrays and table definitions (less lint complaining)
+- string key dictionaries are serialized optimally now (not K V format)
+
+1.9.6.1
+- bug fix SilverLight version to support GlobalTypes 
+
+1.9.7 
+- removed indent logic from serializer
+- added Beautify(json) method to JSON
+- added locks on SafeDictionary
+- added FillObject(obj,json) for filling an existing object
+
+1.9.8
+- added DeepCopy(obj) and DeepCopy<T>(obj)
+- refactored code to JSONParameters and removed the JSON overloads
+- added support to serialize anonymous types (deserialize is not possible at the moment)
+- bug fix $types output with non object root
+
+1.9.8.1
+- spelling mistake on JSONParameters
+- bug fix Parameter initialization
+
+1.9.9
+- bug fix char and string ToString
+- refactored reflection code into Reflection class
+- added support for top level struct object serialize/deserialize
+
+1.9.9.1
+- bug fix reflection code 
+
+2.0.0
+- added unit tests 
+- deserialize root level arrays (int[] etc.)
+- deserialize root level value types (int,long,decimal,string)
+- deserialize ToObject< Dictionary<T,V> >  
+- deserialize ToObject< List<T> >
+- * breaking change in Parse , numbers are returned as decimals and longs not strings
+
+2.0.1
+- bug fix preserve internal objects when FillObject called
+- changed ArrayList to List<object> and consolidated silverlight code
+- added more tests
+- speed increase when using global types ($types)
+
+2.0.2
+- bug fix $types and arrays
+
+2.0.3
+- readonly property checking on deserialize (thanks to Slava Pocheptsov)
+- bug fix deserialize nested types with unit test (thanks to Slava Pocheptsov)
+- fix the silverlight4 project build (silverlight5 is not supported)
+
+2.0.4
+- fixed null objects -> returns "null" 
+- added sealed keyword to classes
+- bug fix SerializeNullValues=false and an extra comma at the end
+- UseExtensions=false will disable global types also
+- fixed parameters setting for Parse()
+
+2.0.5
+- fixed number parsing for invariant format 
+- added a test for German locale number testing (,. problems)
+
+2.0.6
+- singleton uses [ThreadStatic] for concurrency (thanks to Philip Jander) 
+- bug fix extra comma in the output when only 1 property in the object (thanks to Philip Jander) 
+
+2.0.7
+- bug fix missing comma with single property and extension enabled

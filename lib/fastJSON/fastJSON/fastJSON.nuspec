@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>fastJSON</id>
+    <version>2.0.4</version>
+    <authors>Mehdi Gholam</authors>
+    <owners>Mehdi Gholam</owners>
+    <projectUrl>http://fastjson.codeplex.com/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Smallest, fastest polymorphic JSON serializer</description>
+    <releaseNotes />
+    <copyright>Copyright 2012 Mehdi Gholam</copyright>
+    <tags>JSON serializer C# .NET</tags>
+  </metadata>
+</package> 
