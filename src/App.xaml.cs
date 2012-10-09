@@ -27,7 +27,7 @@ namespace LiveReload
             }
 
             nodeFoo = new NodeRPC(Dispatcher.CurrentDispatcher, baseDir);
-            nodeFoo.NodeLineEvent += HandleNodeLineEvent;
+            nodeFoo.NodeMessageEvent += HandleNodeMessageEvent;
             
             window = new MainWindow();
             window.ProjectAddEvent    += HandleProjectAddEvent;
@@ -40,7 +40,7 @@ namespace LiveReload
             trayIcon.MainWindowToggleEvent  += HandleMainWindowToggleEvent;
         }
 
-        void HandleNodeLineEvent(string nodeLine)
+        void HandleNodeMessageEvent(string nodeLine)
         {
             window.DisplayNodeResult(nodeLine);
 
@@ -84,13 +84,13 @@ namespace LiveReload
         {
             var foo = new object[] { "projects.add", new Dictionary<string, object>{{"path", path}}};
             string response = fastJSON.JSON.Instance.ToJSON(foo);
-            nodeFoo.NodeSendLine(response);
+            nodeFoo.NodeMessageSend(response);
         }
         void HandleProjectRemoveEvent(string id)
         {
             var foo = new object[] { "projects.remove", new Dictionary<string, object> { { "id", id } } };
             string response = fastJSON.JSON.Instance.ToJSON(foo);
-            nodeFoo.NodeSendLine(response);
+            nodeFoo.NodeMessageSend(response);
         }
     }
 
