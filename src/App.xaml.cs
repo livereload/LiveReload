@@ -20,7 +20,7 @@ namespace LiveReload
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             nodeFoo = new NodeRPC(Dispatcher.CurrentDispatcher);
-            nodeFoo.RaiseNodeLineEvent += HandleNodeLineEvent;
+            nodeFoo.NodeLineEvent += HandleNodeLineEvent;
 
             window = new MainWindow();
             window.ProjectAddEvent    += HandleProjectAddEvent;
