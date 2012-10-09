@@ -53,8 +53,11 @@ namespace LiveReload
             while (!reader.EndOfStream)
             {
                 string nodeLine = reader.ReadLine();
-                dispatcher.Invoke(DispatcherPriority.Normal,
-                    (Action)(() => { NodeMessageEvent(nodeLine); }));
+                if (nodeLine[0] == '[')
+                {
+                    dispatcher.Invoke(DispatcherPriority.Normal,
+                        (Action)(() => { NodeMessageEvent(nodeLine); }));
+                }
             }
         }
 
