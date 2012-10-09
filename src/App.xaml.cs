@@ -28,6 +28,7 @@ namespace LiveReload
 
             nodeFoo = new NodeRPC(Dispatcher.CurrentDispatcher, baseDir);
             nodeFoo.NodeMessageEvent += HandleNodeMessageEvent;
+            nodeFoo.NodeStartedEvent += HandleNodeStartedEvent;
             
             window = new MainWindow();
             window.ProjectAddEvent    += HandleProjectAddEvent;
@@ -58,6 +59,32 @@ namespace LiveReload
                 }
                 window.updateTreeView(projectsList);
             }
+        }
+
+        void HandleNodeStartedEvent()
+        {
+            string resourcesDir = baseDir + @"res\";
+            string appDataDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\LiveReload\Data\";
+            string logDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\LiveReload\Log\";
+            string version = "0.5";
+            string build = "beta";
+            string platform = "windows";
+            Console.WriteLine(resourcesDir);
+            Console.WriteLine(appDataDir);
+            Console.WriteLine(logDir);
+
+            var foo = new object[] { "app.init", new Dictionary<string, object> {
+                {"resourcesDir", resourcesDir},
+                {"appDataDir",   appDataDir},
+                {"logDir",       logDir},
+                {"version",      version},
+                {"build",        build},
+                {"platform",     platform}
+            } };
+
+            string response = fastJSON.JSON.Instance.ToJSON(foo);
+            Console.WriteLine(response);
+            nodeFoo.NodeMessageSend(response);
         }
 
         void HandleMainWindowHideEvent()
