@@ -15,15 +15,18 @@ namespace LiveReload
     public partial class App : Application
     {
         MainWindow window;
+        NodeRPC nodeFoo;
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            NodeRPC nodeFoo = new NodeRPC(Dispatcher.CurrentDispatcher);
+            nodeFoo = new NodeRPC(Dispatcher.CurrentDispatcher);
             nodeFoo.RaiseNodeLineEvent += HandleNodeLineEvent;
             
             window = new MainWindow();
+            window.ProjectAddEvent    += HandleProjectAddEvent;
+            window.ProjectRemoveEvent += HandleProjectRemoveEvent;
             window.Show();
-            
+
             TrayIconController trayIcon = new TrayIconController();
             //trayIcon.MainWindowHideEvent += HandleMainWindowShowEvent;
             trayIcon.MainWindowShowEvent += HandleMainWindowShowEvent;
@@ -68,6 +71,19 @@ namespace LiveReload
             {
                 window.Show();
             }
+        }
+
+        void HandleProjectAddEvent(string path)
+        {
+            var foo = new object[] { "projects.add", new Dictionary<string, object>{{"path", path}}};
+            string response = fastJSON.JSON.Instance.ToJSON(foo);
+            nodeFoo.NodeSendLine(response);
+        }
+        void HandleProjectRemoveEvent(string id)
+        {
+            var foo = new object[] { "projects.remove", new Dictionary<string, object> { { "id", id } } };
+            string response = fastJSON.JSON.Instance.ToJSON(foo);
+            nodeFoo.NodeSendLine(response);
         }
     }
 

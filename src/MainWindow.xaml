@@ -40,5 +40,7 @@
         <TreeView Height="441" HorizontalAlignment="Left" Name="treeViewProjects" VerticalAlignment="Top" Width="150" SelectedItemChanged="treeViewProjects_SelectedItemChanged" />
         <TextBlock Grid.Column="1" Height="23" HorizontalAlignment="Left" Margin="130,71,0,0" Name="textBlockProjectName" Text="-" VerticalAlignment="Top" Width="326" />
         <TextBlock Grid.Column="1" Height="23" HorizontalAlignment="Left" Margin="130,100,0,0" Name="textBlockProjectPath" Text="-" VerticalAlignment="Top" Width="326" />
+        <Button Content="Add" Grid.Column="1" Height="23" HorizontalAlignment="Left" Margin="6,12,0,0" Name="buttonProjectAdd" VerticalAlignment="Top" Width="75" Click="buttonProjectAdd_Click" />
+        <Button Content="Remove" Grid.Column="1" Height="23" HorizontalAlignment="Left" Margin="6,41,0,0" Name="buttonProjectRemove" VerticalAlignment="Top" Width="75" Click="buttonProjectRemove_Click" />
     </Grid>
 </Window>
