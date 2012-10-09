@@ -2,6 +2,7 @@ debug = require('debug')('livereload:cli:rpc')
 Path  = require 'path'
 
 AppVFS = require '../lib/vfs-app'
+AppVFS = require('vfs-local').LocalVFS  # temporary Windows fix
 
 exports.api =
   init: ({ resourcesDir, appDataDir, logDir, logFile, version, build, platform }, callback) ->
@@ -27,6 +28,8 @@ exports.api =
     @appVfs = new AppVFS(LR.client)
 
     LR.client.app.requestModel({})
+
+    LR.projects.init(@appVfs, @session)
 
     LR.log.fyi "Backend is up and running."
     debug "Backend is up and running."

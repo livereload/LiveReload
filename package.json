@@ -15,8 +15,8 @@
     "debug": "~0.7.0",
     "dreamopt": "~0.8.0",
     "livereload-server": "~0.2.0",
-    "livereload-core": "~0.2.1",
-    "vfs-local": "~0.1.0",
+    "livereload-core": "=0.3.0",
+    "vfs-local": "http://download.livereload.com/npm/vfs-local-0.1.0.tgz",
     "apitree": "~1.1.0",
     "sugar": "=1.1.1"
   },
