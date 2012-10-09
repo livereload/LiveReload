@@ -16,9 +16,11 @@ namespace LiveReload
         StreamWriter writer;
         StreamReader reader;
         Dispatcher dispatcher;
+        string baseDir;
         
-        public NodeRPC(Dispatcher mainDispatcher)
+        public NodeRPC(Dispatcher mainDispatcher, string baseDir_)
         {
+            baseDir = baseDir_;
             dispatcher = mainDispatcher;
             Thread nodeThread = new Thread(new ThreadStart(NodeRun));
             nodeThread.IsBackground = true; // need for thread to close at application exit
@@ -27,11 +29,6 @@ namespace LiveReload
 
         public void NodeStart()
         {
-            string baseDir = System.AppDomain.CurrentDomain.BaseDirectory;
-            if (!File.Exists(baseDir + "LiveReloadNodeJs.exe"))
-            {
-                baseDir = baseDir + @"..\..\";
-            }
             process.StartInfo.FileName  = baseDir + @"res/LiveReloadNodejs.exe";
             process.StartInfo.Arguments = baseDir + @"backend/bin/livereload.js";
             process.StartInfo.UseShellExecute = false;
