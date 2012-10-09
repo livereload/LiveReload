@@ -27,7 +27,7 @@ namespace LiveReload
 
         public void NodeStart()
         {
-            process.StartInfo.FileName = @"res/node/LiveReloadNodejs.exe";
+            process.StartInfo.FileName = @"res/LiveReloadNodejs.exe";
             process.StartInfo.Arguments = @"res/node/test.js";
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.CreateNoWindow = true;
