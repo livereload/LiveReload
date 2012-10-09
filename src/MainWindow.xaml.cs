@@ -23,6 +23,9 @@ namespace LiveReload
     {
         private List<ProjectData> projectsList;
 
+        public event Action<string> ProjectAddEvent;
+        public event Action<string> ProjectRemoveEvent;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -51,6 +54,8 @@ namespace LiveReload
         public void updateTreeView(List<ProjectData> projectsList_)
         {
             projectsList = projectsList_;
+
+            treeViewProjects.Items.Clear();
             foreach (ProjectData t in projectsList)
             {
                 TreeViewItem newChild = new TreeViewItem();
@@ -62,11 +67,36 @@ namespace LiveReload
 
         private void treeViewProjects_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            TreeViewItem selectedTVI = (TreeViewItem)treeViewProjects.SelectedItem;
-            int selectedIndex = treeViewProjects.Items.IndexOf(selectedTVI);
+            if (treeViewProjects.SelectedItem != null)
+            {
+                int selectedIndex = treeViewProjects.Items.IndexOf(treeViewProjects.SelectedItem);
+                textBlockProjectName.Text = projectsList[selectedIndex].name;
+                textBlockProjectPath.Text = projectsList[selectedIndex].path;
+            }
+            else
+            {
+                textBlockProjectName.Text = "-";
+                textBlockProjectPath.Text = "-";
+            }
+        }
 
-            textBlockProjectName.Text = projectsList[selectedIndex].name;
-            textBlockProjectPath.Text = projectsList[selectedIndex].path;
+        private void buttonProjectAdd_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new System.Windows.Forms.FolderBrowserDialog();
+            System.Windows.Forms.DialogResult result = dialog.ShowDialog();
+            if (result == System.Windows.Forms.DialogResult.OK)
+            {
+                ProjectAddEvent(dialog.SelectedPath);
+            }
+        }
+
+        private void buttonProjectRemove_Click(object sender, RoutedEventArgs e)
+        {
+            if (treeViewProjects.SelectedItem != null)
+            {
+                int selectedIndex = treeViewProjects.Items.IndexOf(treeViewProjects.SelectedItem);
+                ProjectRemoveEvent(projectsList[selectedIndex].id);
+            }
         }
     }
 }
