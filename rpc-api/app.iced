@@ -40,7 +40,7 @@ exports.api =
     callback()
 
   handleChange: ({root, paths}, callback) ->
-    @session.handleChange @appVfs, (Path.join(root, path) for path in paths)
+    @session.handleChange @appVfs, root, paths
     callback(null)
 
 
