@@ -43,7 +43,7 @@ namespace LiveReload
             reader = process.StandardOutput;
         }
 
-        public event Action<string> NodeLineEvent;
+        public event Action<string> NodeMessageEvent;
 
         public void NodeRun()
         {
@@ -52,11 +52,11 @@ namespace LiveReload
             {
                 string nodeLine = reader.ReadLine();
                 dispatcher.Invoke(DispatcherPriority.Normal,
-                    (Action)(() => { NodeLineEvent(nodeLine); }));
+                    (Action)(() => { NodeMessageEvent(nodeLine); }));
             }
         }
 
-        public void NodeSendLine(string message)
+        public void NodeMessageSend(string message)
         {
             writer.WriteLine(message);
             writer.Flush();
