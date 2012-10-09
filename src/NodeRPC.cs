@@ -46,8 +46,7 @@ namespace LiveReload
             reader = process.StandardOutput;
         }
 
-        public delegate void CustomNodeLineEventHandler(string s);
-        public event CustomNodeLineEventHandler RaiseNodeLineEvent;
+        public event Action<string> NodeLineEvent;
         
         public void NodeRun()
         {
@@ -56,7 +55,7 @@ namespace LiveReload
             {
                 string nodeLine = reader.ReadLine();
                 dispatcher.Invoke(DispatcherPriority.Normal,
-                    (Action)(() => { RaiseNodeLineEvent(nodeLine); })); 
+                    (Action)(() => { NodeLineEvent(nodeLine); })); 
             }
         }
 
