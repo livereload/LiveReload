@@ -33,7 +33,7 @@ class PostProcStep
   # LiveReload API
 
   initialize: () ->
-    @queue.register { action: 'postproc' }, { idKeys: ['project', 'action'] }, @_perform.bind(@)
+    @queue.register { project: @project.id, action: 'postproc' }, @_perform.bind(@)
 
   schedule: (change) ->
     @queue.add { project: @project.id, action: 'postproc' }

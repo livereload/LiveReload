@@ -29,7 +29,7 @@ class RefreshStep
   # LiveReload API
 
   initialize: () ->
-    @queue.register { action: 'refresh' }, { idKeys: ['project', 'action'] }, @_perform.bind(@)
+    @queue.register { project: @project.id, action: 'refresh' }, @_perform.bind(@)
 
   schedule: (change) ->
     @queue.add { project: @project.id, action: 'refresh', paths: change.paths.slice(0) }
