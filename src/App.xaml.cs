@@ -16,10 +16,17 @@ namespace LiveReload
     {
         MainWindow window;
         NodeRPC nodeFoo;
+        string baseDir;
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            nodeFoo = new NodeRPC(Dispatcher.CurrentDispatcher);
+            baseDir = System.AppDomain.CurrentDomain.BaseDirectory;
+            if (!System.IO.File.Exists(baseDir + "LiveReloadNodeJs.exe"))
+            {
+                baseDir = baseDir + @"..\..\";
+            }
+
+            nodeFoo = new NodeRPC(Dispatcher.CurrentDispatcher, baseDir);
             nodeFoo.NodeLineEvent += HandleNodeLineEvent;
 
             window = new MainWindow();
