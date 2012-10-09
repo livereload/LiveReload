@@ -63,9 +63,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 - (void)updateFilter;
 - (void)handleCompilationOptionsEnablementChanged;
 
-- (void)updateImportGraphForPaths:(NSSet *)paths;
-- (void)rebuildImportGraph;
-
 - (void)processPendingChanges;
 
 @end
@@ -348,7 +345,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
             }
             _monitor.running = shouldBeRunning;
             if (shouldBeRunning) {
-                [self rebuildImportGraph];
                 [self checkBrokenPaths];
             }
             [[NSNotificationCenter defaultCenter] postNotificationName:ProjectMonitoringStateDidChangeNotification object:self];
@@ -356,88 +352,15 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     }
 }
 
-- (void)compile:(NSString *)relativePath under:(NSString *)rootPath with:(Compiler *)compiler options:(CompilationOptions *)compilationOptions {
-    NSString *path = [rootPath stringByAppendingPathComponent:relativePath];
+- (void)displayToolOutput:(ToolOutput *)compilerOutput forPath:(NSString *)path {
+    if (compilerOutput) {
+        compilerOutput.project = self;
 
-    if (![[NSFileManager defaultManager] fileExistsAtPath:path])
-        return; // don't try to compile deleted files
-    FileCompilationOptions *fileOptions = [self optionsForFileAtPath:relativePath in:compilationOptions];
-    if (fileOptions.destinationDirectory != nil || !compiler.needsOutputDirectory) {
-        NSString *derivedName = fileOptions.destinationName;
-        NSString *derivedPath = (compiler.needsOutputDirectory ? [fileOptions.destinationDirectory stringByAppendingPathComponent:derivedName] : [[path stringByDeletingLastPathComponent] stringByAppendingPathComponent:derivedName]);
-
-        ToolOutput *compilerOutput = nil;
-        [compiler compile:relativePath into:derivedPath under:rootPath inProject:self with:compilationOptions compilerOutput:&compilerOutput];
-        if (compilerOutput) {
-            compilerOutput.project = self;
-
-            [[[[ToolOutputWindowController alloc] initWithCompilerOutput:compilerOutput key:path] autorelease] show];
-        } else {
-            [ToolOutputWindowController hideOutputWindowWithKey:path];
-        }
+        [[[[ToolOutputWindowController alloc] initWithCompilerOutput:compilerOutput key:path] autorelease] show];
     } else {
-        NSLog(@"Ignoring %@ because destination directory is not set.", relativePath);
+        [ToolOutputWindowController hideOutputWindowWithKey:path];
     }
 }
-
-- (BOOL)isCompassConfigurationFile:(NSString *)relativePath {
-    return MatchLastPathTwoComponents(relativePath, @"config", @"compass.rb") || MatchLastPathTwoComponents(relativePath, @".compass", @"config.rb") || MatchLastPathTwoComponents(relativePath, @"config", @"compass.config") || MatchLastPathComponent(relativePath, @"config.rb") || MatchLastPathTwoComponents(relativePath, @"src", @"config.rb");
-}
-
-- (void)scanCompassConfigurationFile:(NSString *)relativePath {
-    NSString *data = [NSString stringWithContentsOfFile:[self.path stringByAppendingPathComponent:relativePath] encoding:NSUTF8StringEncoding error:nil];
-    if (data) {
-        if ([data isMatchedByRegex:@"compass plugins"] || [data isMatchedByRegex:@"^preferred_syntax = :(sass|scss)" options:RKLMultiline inRange:NSMakeRange(0, data.length) error:nil]) {
-            _compassDetected = YES;
-        }
-    }
-}
-
-- (void)processChangeAtPath:(NSString *)relativePath {
-    NSString *extension = [relativePath pathExtension];
-
-    BOOL compilerFound = NO;
-    for (Compiler *compiler in [PluginManager sharedPluginManager].compilers) {
-        if (_compassDetected && [compiler.uniqueId isEqualToString:@"sass"])
-            continue;
-        else if (!_compassDetected && [compiler.uniqueId isEqualToString:@"compass"])
-            continue;
-        if ([compiler.extensions containsObject:extension]) {
-            compilerFound = YES;
-            CompilationOptions *compilationOptions = [self optionsForCompiler:compiler create:YES];
-            if (_compilationEnabled && compilationOptions.active) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:ProjectWillBeginCompilationNotification object:self];
-                [self compile:relativePath under:_path with:compiler options:compilationOptions];
-                [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidEndCompilationNotification object:self];
-                StatGroupIncrement(CompilerChangeCountStatGroup, compiler.uniqueId, 1);
-                StatGroupIncrement(CompilerChangeCountEnabledStatGroup, compiler.uniqueId, 1);
-                break;
-            } else {
-                FileCompilationOptions *fileOptions = [self optionsForFileAtPath:relativePath in:compilationOptions];
-                NSString *derivedName = fileOptions.destinationName;
-                // path = derivedName
-                // originalPath = [_path stringByAppendingPathComponent:relativePath]
-                NSLog(@"Broadcasting a fake change in %@ instead of %@ (compiler %@).", derivedName, relativePath, compiler.name);
-                StatGroupIncrement(CompilerChangeCountStatGroup, compiler.uniqueId, 1);
-                break;
-//            } else if (compilationOptions.mode == CompilationModeDisabled) {
-//                compilerFound = NO;
-            }
-        }
-    }
-
-    if (!compilerFound) {
-        // path = [_path stringByAppendingPathComponent:relativePath]
-    }
-}
-
-// I don't think this will ever be needed, but not throwing the code away yet
-#ifdef AUTORESCAN_WORKAROUND_ENABLED
-- (void)rescanRecentlyChangedPaths {
-    NSLog(@"Rescanning %@ again in case some compiler was slow to write the changes.", _path);
-    [_monitor rescan];
-}
-#endif
 
 - (void)fileSystemMonitor:(FSMonitor *)monitor detectedChangeAtPathes:(NSSet *)paths {
     [_pendingChanges unionSet:paths];
@@ -449,26 +372,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         case 0:  break;
         case 1:  console_printf("Changed: %s", [[pathes anyObject] UTF8String]); break;
         default: console_printf("Changed: %s and %d others", [[pathes anyObject] UTF8String], pathes.count - 1); break;
-    }
-
-    [self updateImportGraphForPaths:pathes];
-
-#ifdef AUTORESCAN_WORKAROUND_ENABLED
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(rescanRecentlyChangedPaths) object:nil];
-    [self performSelector:@selector(rescanRecentlyChangedPaths) withObject:nil afterDelay:1.0];
-#endif
-
-    for (NSString *relativePath in pathes) {
-        NSSet *realPaths = [_importGraph rootReferencingPathsForPath:relativePath];
-        if ([realPaths count] > 0) {
-            NSLog(@"Instead of imported file %@, processing changes in %@", relativePath, [[realPaths allObjects] componentsJoinedByString:@", "]);
-            for (NSString *path in realPaths) {
-                [self processChangeAtPath:path];
-            }
-        } else {
-            [self processChangeAtPath:relativePath];
-        }
-
     }
 
     [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidDetectChangeNotification object:self];
@@ -809,63 +712,6 @@ skipGuessing:
     }
 
     [_importGraph setRereferencedPaths:referencedPaths forPath:relativePath];
-}
-
-- (void)updateImportGraphForPath:(NSString *)relativePath {
-    NSString *fullPath = [_path stringByAppendingPathComponent:relativePath];
-    if (![[NSFileManager defaultManager] fileExistsAtPath:fullPath]) {
-        [_importGraph removePath:relativePath collectingPathsToRecomputeInto:nil];
-        return;
-    }
-
-    if ([self isCompassConfigurationFile:relativePath]) {
-        [self scanCompassConfigurationFile:relativePath];
-    }
-
-    NSString *extension = [relativePath pathExtension];
-
-    for (Compiler *compiler in [PluginManager sharedPluginManager].compilers) {
-        if ([compiler.extensions containsObject:extension]) {
-//            CompilationOptions *compilationOptions = [self optionsForCompiler:compiler create:NO];
-            [self updateImportGraphForPath:relativePath compiler:compiler];
-            return;
-        }
-    }
-}
-
-- (void)updateImportGraphForPaths:(NSSet *)paths {
-    for (NSString *path in paths) {
-        [self updateImportGraphForPath:path];
-    }
-    NSLog(@"Incremental import graph update finished. %@", _importGraph);
-}
-
-- (void)rebuildImportGraph {
-    _compassDetected = NO;
-    [_importGraph removeAllPaths];
-    NSArray *paths = [_monitor.tree pathsOfFilesMatching:^BOOL(NSString *name) {
-        NSString *extension = [name pathExtension];
-
-        // a hack for Compass
-        if ([extension isEqualToString:@"rb"] || [extension isEqualToString:@"config"]) {
-            return YES;
-        }
-
-        for (Compiler *compiler in [PluginManager sharedPluginManager].compilers) {
-            if ([compiler.extensions containsObject:extension]) {
-//                CompilationOptions *compilationOptions = [self optionsForCompiler:compiler create:NO];
-//                CompilationMode mode = compilationOptions.mode;
-                if (YES) { //mode == CompilationModeCompile || mode == CompilationModeMiddleware) {
-                    return YES;
-                }
-            }
-        }
-        return NO;
-    }];
-    for (NSString *path in paths) {
-        [self updateImportGraphForPath:path];
-    }
-    NSLog(@"Full import graph rebuild finished. %@", _importGraph);
 }
 
 
