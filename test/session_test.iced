@@ -79,9 +79,18 @@ describe "Session", ->
     assert.equal bar.postprocLastRunTime, 0
 
 
-  it "should handle changes", ->
+  it "should handle changes", (done) ->
     session = new Session
     vfs = new TestVFS
+
+    requests = session.queue.getQueuedRequests()
+    assert.equal requests.length, 1, "Requests.length != 1: #{JSON.stringify(requests)}"
+    assert.equal requests[0].action, 'rescan-plugins'
+
+    await session.queue.once 'empty', defer()
+    await process.nextTick defer()
+    session.queue.checkDrain()
+
     session.setProjectsMemento vfs, {
       '/foo/bar': {}
     }
@@ -94,9 +103,11 @@ describe "Session", ->
     assert.equal runs[0].project, bar
 
     requests = session.queue.getQueuedRequests()
-    assert.equal requests.length, 3, "Requests.length != 3: #{JSON.stringify(requests)}"
-    assert.equal requests[0].action, 'rescan-plugins'
+    assert.equal requests.length, 2, "Requests.length != 2: #{JSON.stringify(requests)}"
+    assert.equal requests[0].project, runs[0].project.id
+    assert.equal requests[0].action, 'analyzer-rebuild'
     assert.equal requests[1].project, runs[0].project.id
-    assert.equal requests[1].action, 'analyzer-rebuild'
-    assert.equal requests[2].project, runs[0].project.id
-    assert.equal requests[2].action, 'postproc'
+    assert.equal requests[1].action, 'postproc'
+
+    session.queue.on 'empty', done
+    session.queue.checkDrain()
