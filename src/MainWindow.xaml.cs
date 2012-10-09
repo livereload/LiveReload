@@ -59,5 +59,14 @@ namespace LiveReload
                 treeViewProjects.Items.Add(newChild);
             }
         }
+
+        private void treeViewProjects_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            TreeViewItem selectedTVI = (TreeViewItem)treeViewProjects.SelectedItem;
+            int selectedIndex = treeViewProjects.Items.IndexOf(selectedTVI);
+
+            textBlockProjectName.Text = projectsList[selectedIndex].name;
+            textBlockProjectPath.Text = projectsList[selectedIndex].path;
+        }
     }
 }
