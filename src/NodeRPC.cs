@@ -18,6 +18,9 @@ namespace LiveReload
         Dispatcher dispatcher;
         string baseDir;
 
+        public event Action         NodeStartedEvent;
+        public event Action<string> NodeMessageEvent;
+
         public NodeRPC(Dispatcher mainDispatcher, string baseDir_)
         {
             baseDir = baseDir_;
@@ -41,9 +44,8 @@ namespace LiveReload
 
             writer = process.StandardInput;
             reader = process.StandardOutput;
+            NodeStartedEvent();
         }
-
-        public event Action<string> NodeMessageEvent;
 
         public void NodeRun()
         {
