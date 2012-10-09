@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows;
 
 using System.Windows.Threading;
+using System.IO;
 
 namespace LiveReload
 {
@@ -21,9 +22,9 @@ namespace LiveReload
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             baseDir = System.AppDomain.CurrentDomain.BaseDirectory;
-            if (!System.IO.File.Exists(baseDir + @"res\LiveReloadNodeJs.exe"))
+            if (!File.Exists(Path.Combine(baseDir, @"res\LiveReloadNodeJs.exe")))
             {
-                baseDir = baseDir + @"..\..\";
+                baseDir = Path.Combine(baseDir, @"..\..\");
             }
 
             nodeFoo = new NodeRPC(Dispatcher.CurrentDispatcher, baseDir);
