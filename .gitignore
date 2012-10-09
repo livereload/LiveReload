@@ -6,3 +6,6 @@ obj
 
 # mstest test results
 TestResults
+
+#temp files
+livereload-state.json
