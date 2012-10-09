@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "debug": "~0.7.0",
-    "jobqueue": "=0.1.1",
+    "jobqueue": "=0.1.2",
     "reactive": "=0.0.1",
     "subst": "~0.1.0",
     "urlmatch": "~0.1.0",
@@ -22,8 +22,8 @@
   },
   "devDependencies": {
     "mocha": "~1.6.0",
-    "vfs-local": "~0.1.0",
-    "vfs-test": ">=0.1.0",
+    "vfs-local": "http://download.livereload.com/npm/vfs-local-0.1.0.tgz",
+    "vfs-test": "http://download.livereload.com/npm/vfs-test-0.1.0.tgz",
     "rimraf": "~2.0.2",
     "mkdirp": "~0.3.4"
   },
