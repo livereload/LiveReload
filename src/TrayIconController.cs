@@ -8,7 +8,6 @@ using System.Windows.Forms;
 using System.Drawing;
 
 
-
 namespace LiveReload
 {
     class TrayIconController
@@ -31,9 +30,14 @@ namespace LiveReload
 
             contextMenuTray.MenuItems.Add(menuItemShow);
             contextMenuTray.MenuItems.Add(menuItemExit);
+
+            Uri iconUri = new Uri("pack://application:,,,/img/LiveReload.ico", UriKind.RelativeOrAbsolute);
+            System.IO.Stream iconStream = System.Windows.Application.GetResourceStream(iconUri).Stream;
+            
+            System.Windows.Forms.NotifyIcon icon = new System.Windows.Forms.NotifyIcon();
             
             myNotifyIcon = new System.Windows.Forms.NotifyIcon();
-            myNotifyIcon.Icon = new System.Drawing.Icon(@"img/LiveReload.ico");
+            myNotifyIcon.Icon = new System.Drawing.Icon(iconStream);
             myNotifyIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(MyNotifyIcon_MouseClick);
             myNotifyIcon.ContextMenu = contextMenuTray;
             myNotifyIcon.Visible = true;
