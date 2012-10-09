@@ -2,6 +2,10 @@ debug = require('debug')('livereload:core:plugins')
 fs    = require 'fs'
 Path  = require 'path'
 util  = require 'util'
+_     = require 'underscore'
+
+CommandLineTool = require '../tools/cmdline'
+MessageParser   = require '../messages/parser'
 
 
 class Compiler
@@ -9,7 +13,12 @@ class Compiler
     @name = @manifest.Name
     @extensions = @manifest.Extensions or []
     @sourceSpecs = ("*.#{ext}" for ext in @extensions)
-    # @parser = new MessageParser(@manifest)
+
+    @tool = new CommandLineTool
+      name:   @name
+      args:   @manifest.CommandLine
+      cwd:    (@manifest.RunIn or "$(project_dir)")
+      parser: new MessageParser(errors: @manifest.Errors or [], warnings: @manifest.Warnings or [])
 
     @importRegExps =
       for re in @manifest.ImportRegExps or []
@@ -32,6 +41,7 @@ class Plugin
     try
       @processManifest JSON.parse(fs.readFileSync(@manifestFile, 'utf8')), callback
     catch e
+      debug "Error parsing manifest #{@manifestFile}: #{e.stack}"
       callback(e)
 
   processManifest: (@manifest, callback) ->
@@ -79,7 +89,7 @@ class PluginManager
 
     @compilers = {}
     for plugin in @plugins
-      Object.merge @compilers, plugin.compilers
+      _.extend @compilers, plugin.compilers
 
     @allCompilers = (compiler for own name, compiler of @compilers)
 

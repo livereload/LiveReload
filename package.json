@@ -17,7 +17,8 @@
     "reactive": "=0.0.1",
     "subst": "~0.1.0",
     "urlmatch": "~0.1.0",
-    "pathspec": "~0.9.2"
+    "pathspec": "~0.9.2",
+    "underscore": "~1.4.2"
   },
   "devDependencies": {
     "mocha": "~1.6.0",
