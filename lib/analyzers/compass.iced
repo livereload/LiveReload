@@ -18,3 +18,18 @@ class CompassAnalyzer extends require('./base')
   update: (relpath, fullPath, callback) ->
     # TODO
     callback()
+
+# - (BOOL)isCompassConfigurationFile:(NSString *)relativePath {
+#     return MatchLastPathTwoComponents(relativePath, @"config", @"compass.rb") || MatchLastPathTwoComponents(relativePath, @".compass", @"config.rb") || MatchLastPathTwoComponents(relativePath, @"config", @"compass.config") || MatchLastPathComponent(relativePath, @"config.rb") || MatchLastPathTwoComponents(relativePath, @"src", @"config.rb");
+# }
+
+
+
+# - (void)scanCompassConfigurationFile:(NSString *)relativePath {
+#     NSString *data = [NSString stringWithContentsOfFile:[self.path stringByAppendingPathComponent:relativePath] encoding:NSUTF8StringEncoding error:nil];
+#     if (data) {
+#         if ([data isMatchedByRegex:@"compass plugins"] || [data isMatchedByRegex:@"^preferred_syntax = :(sass|scss)" options:RKLMultiline inRange:NSMakeRange(0, data.length) error:nil]) {
+#             _compassDetected = YES;
+#         }
+#     }
+# }

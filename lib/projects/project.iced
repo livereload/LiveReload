@@ -144,9 +144,22 @@ class Project extends R.Model
     run = new Run(this, change, @steps)
     debug "Project.handleChange: created run for %j", paths
 
-    run.once 'finish', =>
-      debug "Project.handleChange: finished run for %j", paths
-    run.start()
+    @session.queue.once 'drain', =>
+      pathsToProcess = []
+      for path in paths
+        if (sources = @imports.findSources(path)) and (sources.length > 0) and ((sources.length != 1) or (sources[0] != path))
+          debug "Will process #{sources.join(', ')} instead of imported #{path}"
+          pathsToProcess.push.apply(pathsToProcess, sources)
+        else
+          pathsToProcess.push(path)
+
+      change.paths = pathsToProcess
+
+      run.once 'finish', =>
+        debug "Project.handleChange: finished run for %j", paths
+      run.start()
+    @session.queue.checkDrain()
+
     return run
 
   patchSourceFile: (oldCompiled, newCompiled, callback) ->
