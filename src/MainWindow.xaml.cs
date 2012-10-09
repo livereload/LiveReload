@@ -31,10 +31,6 @@ namespace LiveReload
             InitializeComponent();
         }
         
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-        }
-        
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
             Process.Start(e.Uri.ToString());
