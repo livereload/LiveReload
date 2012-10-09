@@ -6,6 +6,7 @@ urlmatch = require 'urlmatch'
 
 CompilerOptions = require './compileropts'
 FileOptions     = require './fileopts'
+FSSubtree       = require './fssubtree'
 
 Run      = require '../runs/run'
 
@@ -64,6 +65,13 @@ class Project extends R.Model
     @id = "P#{nextId++}_#{@name}"
     @fullPath = abspath(@path)
     @analyzer = new (require './analyzer')(this)
+
+    @subtree = new FSSubtree(@fullPath)
+    debug "Monitoring for changes: folder = %j", @fullPath
+    @subtree.on 'change', (folder, action, filename) =>
+      debug "Detected change: folder = %j, action = %j, filename = %j", folder, action, filename
+      if filename
+        @handleChange @vfs, @fullPath, [filename]
 
   setMemento: (@memento) ->
     # log.fyi
