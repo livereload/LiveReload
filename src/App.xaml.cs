@@ -21,7 +21,7 @@ namespace LiveReload
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             baseDir = System.AppDomain.CurrentDomain.BaseDirectory;
-            if (!System.IO.File.Exists(baseDir + "LiveReloadNodeJs.exe"))
+            if (!System.IO.File.Exists(baseDir + @"res\LiveReloadNodeJs.exe"))
             {
                 baseDir = baseDir + @"..\..\";
             }
