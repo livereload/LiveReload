@@ -27,8 +27,13 @@ namespace LiveReload
 
         public void NodeStart()
         {
-            process.StartInfo.FileName = @"res/LiveReloadNodejs.exe";
-            process.StartInfo.Arguments = @"res/node/test.js";
+            string baseDir = System.AppDomain.CurrentDomain.BaseDirectory;
+            if (!File.Exists(baseDir + "LiveReloadNodeJs.exe"))
+            {
+                baseDir = baseDir + @"..\..\";
+            }
+            process.StartInfo.FileName  = baseDir + @"res/LiveReloadNodejs.exe";
+            process.StartInfo.Arguments = baseDir + @"res/node/test.js";
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.CreateNoWindow = true;
             process.StartInfo.RedirectStandardInput = true;
