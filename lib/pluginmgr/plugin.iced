@@ -62,7 +62,7 @@ class PluginManager
     pluginFolders = []
     for folder in @folders
       debug "Scanning plugin folder: #{JSON.stringify(folder)}"
-      for entry in fs.readdirSync(folder) when entry.endsWith('.lrplugin')
+      for entry in fs.readdirSync(folder) when entry.match(/\.lrplugin$/)
         pluginFolders.push Path.join(folder, entry)
 
     errs = {}
