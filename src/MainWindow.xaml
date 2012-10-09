@@ -12,9 +12,9 @@
         <Button Content="Options..." Height="23" HorizontalAlignment="Left" Margin="272,308,0,0" Name="buttonCompile" VerticalAlignment="Top" Width="75" Grid.Column="1" IsEnabled="False" />
         <Button Content="Options..." Height="23" HorizontalAlignment="Left" Margin="272,368,0,0" Name="buttonRunCustom" VerticalAlignment="Top" Width="75" Grid.Column="1" IsEnabled="False" />
         <TextBlock Height="23" HorizontalAlignment="Left" Margin="45,147,0,0" Name="textBlock1" VerticalAlignment="Top" Grid.Column="1">
-            ❶ Site URL(s):
+            (1) Site URL(s):
         </TextBlock>
-        <TextBlock Height="23" HorizontalAlignment="Left" Margin="45,188,0,0" Name="textBlock2" VerticalAlignment="Top" Grid.Column="1">❷ Insert this tag before &lt;/body&gt; or
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="45,188,0,0" Name="textBlock2" VerticalAlignment="Top" Grid.Column="1">(2) Insert this tag before &lt;/body&gt; or
             <Hyperlink
                 NavigateUri="http://go.livereload.com/extensions"
                 RequestNavigate="Hyperlink_RequestNavigate">
@@ -31,7 +31,7 @@
                 &lt;/script&gt;
         </TextBox>
         <TextBlock Height="23" HorizontalAlignment="Left" Margin="45,283,0,0" Name="textBlock3" VerticalAlignment="Top" Grid.Column="1">
-            ❸ When a file is modified:
+            (3) When a file is modified:
         </TextBlock>
         <TextBlock Height="32" Margin="65,334,202,0" Name="textBlock4" VerticalAlignment="Top" TextWrapping="Wrap" FontSize="10" Grid.Column="1">
             CoffeeScript, Eco, HAML, IcedCoffeeScript, Jade, LESS, SASS, Compass, Slim, Stylus
