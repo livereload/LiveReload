@@ -11,12 +11,10 @@ exports.api =
 
     debug "Initializing LiveReload backend with folders: " + JSON.stringify({ resourcesDir, appDataDir, logDir, logFile, version, build, platform })
 
-    pluginFolders = [ process.env.LRBundledPluginsOverride || resourcesDir]
     preferencesFolder = Path.join(appDataDir, 'Data')
 
     LR.version = version || '0.0.0'
 
-    await LR.plugins.init pluginFolders, defer(err)
     await LR.websockets.init this, defer(err)
 
     if err
