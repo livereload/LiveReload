@@ -33,7 +33,7 @@ namespace LiveReload
         public void NodeStart()
         {
             process.StartInfo.FileName  = baseDir + @"res/LiveReloadNodejs.exe";
-            process.StartInfo.Arguments = baseDir + @"backend/bin/livereload.js";
+            process.StartInfo.Arguments = baseDir + @"backend/bin/livereload.js rpc server";
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.CreateNoWindow = true;
             process.StartInfo.RedirectStandardInput = true;
