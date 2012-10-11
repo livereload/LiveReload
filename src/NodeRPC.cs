@@ -25,6 +25,10 @@ namespace LiveReload
         {
             baseDir = baseDir_;
             dispatcher = mainDispatcher;
+        }
+
+        public void Start()
+        {
             Thread nodeThread = new Thread(new ThreadStart(NodeRun));
             nodeThread.IsBackground = true; // need for thread to close at application exit
             nodeThread.Start();
@@ -32,7 +36,7 @@ namespace LiveReload
 
         public void NodeStart()
         {
-            process.StartInfo.FileName  = Path.Combine(baseDir, @"res/LiveReloadNodejs.exe");
+            process.StartInfo.FileName = Path.Combine(baseDir, @"res/LiveReloadNodejs.exe");
             process.StartInfo.Arguments = (Path.Combine(baseDir, @"backend/bin/livereload.js") + " " + "rpc server");
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.CreateNoWindow = true;
@@ -44,6 +48,7 @@ namespace LiveReload
 
             writer = process.StandardInput;
             reader = process.StandardOutput;
+
             NodeStartedEvent();
         }
 

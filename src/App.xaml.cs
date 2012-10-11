@@ -30,6 +30,7 @@ namespace LiveReload
             nodeFoo = new NodeRPC(Dispatcher.CurrentDispatcher, baseDir);
             nodeFoo.NodeMessageEvent += HandleNodeMessageEvent;
             nodeFoo.NodeStartedEvent += HandleNodeStartedEvent;
+            nodeFoo.Start();
 
             window = new MainWindow();
             window.ProjectAddEvent    += HandleProjectAddEvent;
