@@ -12,11 +12,11 @@ namespace LiveReload
 {
     class NodeRPC
     {
-        Process process = new Process();
-        StreamWriter writer;
-        StreamReader reader;
-        Dispatcher dispatcher;
-        string baseDir;
+        private Process process = new Process();
+        private StreamWriter writer;
+        private StreamReader reader;
+        private Dispatcher dispatcher;
+        private string baseDir;
 
         public event Action         NodeStartedEvent;
         public event Action<string> NodeMessageEvent;
@@ -34,7 +34,7 @@ namespace LiveReload
             nodeThread.Start();
         }
 
-        public void NodeStart()
+        private void NodeStart()
         {
             process.StartInfo.FileName = Path.Combine(baseDir, @"res/LiveReloadNodejs.exe");
             process.StartInfo.Arguments = (Path.Combine(baseDir, @"backend/bin/livereload.js") + " " + "rpc server");
@@ -52,7 +52,7 @@ namespace LiveReload
             NodeStartedEvent();
         }
 
-        public void NodeRun()
+        private void NodeRun()
         {
             NodeStart();
             while (!reader.EndOfStream)
