@@ -43,12 +43,12 @@ namespace LiveReload
             myNotifyIcon.Visible = true;
         }
 
-        void menuItemShow_Click(object sender, EventArgs e)
+        private void menuItemShow_Click(object sender, EventArgs e)
         {
             MainWindowShowEvent();
         }
 
-        void menuItemExit_Click(object sender, EventArgs e)
+        private void menuItemExit_Click(object sender, EventArgs e)
         {
             myNotifyIcon.Dispose();
             System.Windows.Application.Current.Shutdown();

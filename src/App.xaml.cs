@@ -15,9 +15,9 @@ namespace LiveReload
     /// </summary>
     public partial class App : Application
     {
-        MainWindow window;
-        NodeRPC nodeFoo;
-        string baseDir;
+        private MainWindow window;
+        private NodeRPC nodeFoo;
+        private string baseDir;
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
@@ -43,7 +43,7 @@ namespace LiveReload
             trayIcon.MainWindowToggleEvent  += HandleMainWindowToggleEvent;
         }
 
-        void HandleNodeMessageEvent(string nodeLine)
+        private void HandleNodeMessageEvent(string nodeLine)
         {
             window.DisplayNodeResult(nodeLine);
 
@@ -63,7 +63,7 @@ namespace LiveReload
             }
         }
 
-        void HandleNodeStartedEvent()
+        private void HandleNodeStartedEvent()
         {
             string resourcesDir = baseDir + @"res\";
             string appDataDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\LiveReload\Data\";
@@ -89,15 +89,15 @@ namespace LiveReload
             nodeFoo.NodeMessageSend(response);
         }
 
-        void HandleMainWindowHideEvent()
+        private void HandleMainWindowHideEvent()
         {
             window.Hide();
         }
-        void HandleMainWindowShowEvent()
+        private void HandleMainWindowShowEvent()
         {
             window.Show();
         }
-        void HandleMainWindowToggleEvent()
+        private void HandleMainWindowToggleEvent()
         {
             if (window.IsVisible)
             {
@@ -109,13 +109,13 @@ namespace LiveReload
             }
         }
 
-        void HandleProjectAddEvent(string path)
+        private void HandleProjectAddEvent(string path)
         {
             var foo = new object[] { "projects.add", new Dictionary<string, object>{{"path", path}}};
             string response = fastJSON.JSON.Instance.ToJSON(foo);
             nodeFoo.NodeMessageSend(response);
         }
-        void HandleProjectRemoveEvent(string id)
+        private void HandleProjectRemoveEvent(string id)
         {
             var foo = new object[] { "projects.remove", new Dictionary<string, object> { { "id", id } } };
             string response = fastJSON.JSON.Instance.ToJSON(foo);
