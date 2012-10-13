@@ -1,7 +1,7 @@
 ﻿<Controls:MetroWindow x:Class="LiveReload.MainWindow"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         Title="LiveReload" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Height="480" Width="640" Icon="/LiveReload;component/img/LiveReload.ico" ResizeMode="NoResize" MinWidth="640" MinHeight="480" Closing="Window_Closing">
     <Window.Resources>
         <ResourceDictionary>
@@ -16,13 +16,13 @@
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150*" />
-            <ColumnDefinition Width="468" />
+            <ColumnDefinition Width="152" />
+            <ColumnDefinition Width="466" />
         </Grid.ColumnDefinitions>
-        <CheckBox Content="Compile scripts, stylesheets, etc" Height="16" HorizontalAlignment="Left" Margin="47,312,0,0" Name="checkBoxCompile" VerticalAlignment="Top" Grid.Column="1" IsEnabled="False" />
-        <CheckBox Content="Run a custom command"              Height="16" HorizontalAlignment="Left" Margin="47,372,0,0" Name="checkBoxRunCustom" VerticalAlignment="Top" Grid.Column="1" IsEnabled="False" />
-        <Button Content="Options..." Height="23" HorizontalAlignment="Left" Margin="272,308,0,0" Name="buttonCompile" VerticalAlignment="Top" Width="75" Grid.Column="1" IsEnabled="False" />
-        <Button Content="Options..." Height="23" HorizontalAlignment="Left" Margin="272,368,0,0" Name="buttonRunCustom" VerticalAlignment="Top" Width="75" Grid.Column="1" IsEnabled="False" />
+        <CheckBox Content="Compile scripts, stylesheets, etc" HorizontalAlignment="Left" Margin="47,312,0,0" Name="checkBoxCompile" VerticalAlignment="Top" Grid.Column="1" IsEnabled="False" />
+        <CheckBox Content="Run a custom command"              HorizontalAlignment="Left" Margin="47,372,0,0" Name="checkBoxRunCustom" VerticalAlignment="Top" Grid.Column="1" IsEnabled="False" />
+        <Button Style="{DynamicResource SquareButtonStyle}" Content="Options..." HorizontalAlignment="Left" Margin="272,306,0,0" Name="buttonCompile" VerticalAlignment="Top" Width="75" Grid.Column="1" IsEnabled="False" />
+        <Button Style="{DynamicResource SquareButtonStyle}" Content="Options..." HorizontalAlignment="Left" Margin="272,366,0,0" Name="buttonRunCustom" VerticalAlignment="Top" Width="75" Grid.Column="1" IsEnabled="False" />
         <TextBlock Height="23" HorizontalAlignment="Left" Margin="45,147,0,0" Name="textBlock1" VerticalAlignment="Top" Grid.Column="1">
             (1) Site URL(s):
         </TextBlock>
@@ -31,8 +31,7 @@
                 NavigateUri="http://go.livereload.com/extensions"
                 RequestNavigate="Hyperlink_RequestNavigate">
                 install browser extensions
-            </Hyperlink>
-            :
+            </Hyperlink>:
         </TextBlock>
         <TextBox Height="23" HorizontalAlignment="Right" Margin="0,144,12,0" Name="textBox1" VerticalAlignment="Top" Width="326" IsReadOnly="True" Foreground="Black" Grid.Column="1">
             localhost:3000, site.local, dev.example.com</TextBox>
@@ -49,10 +48,20 @@
             CoffeeScript, Eco, HAML, IcedCoffeeScript, Jade, LESS, SASS, Compass, Slim, Stylus
         </TextBlock>
         <TextBox Grid.Column="1" Height="23" HorizontalAlignment="Left" Margin="130,406,0,0" Name="textBoxNodeResult" VerticalAlignment="Top" Width="326" IsReadOnly="True" />
-        <TreeView Height="441" HorizontalAlignment="Left" Name="treeViewProjects" VerticalAlignment="Top" Width="150" SelectedItemChanged="treeViewProjects_SelectedItemChanged" />
         <TextBlock Grid.Column="1" Height="23" HorizontalAlignment="Left" Margin="130,71,0,0" Name="textBlockProjectName" Text="-" VerticalAlignment="Top" Width="326" />
         <TextBlock Grid.Column="1" Height="23" HorizontalAlignment="Left" Margin="130,100,0,0" Name="textBlockProjectPath" Text="-" VerticalAlignment="Top" Width="326" />
-        <Button Content="Add" Grid.Column="1" Height="23" HorizontalAlignment="Left" Margin="6,12,0,0" Name="buttonProjectAdd" VerticalAlignment="Top" Width="75" Click="buttonProjectAdd_Click" />
-        <Button Content="Remove" Grid.Column="1" Height="23" HorizontalAlignment="Left" Margin="6,41,0,0" Name="buttonProjectRemove" VerticalAlignment="Top" Width="75" Click="buttonProjectRemove_Click" />
+        <Grid Name="gridProjects" Background="LightGray" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="76*" />
+                <ColumnDefinition Width="76*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="391*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Button Grid.Row="1" Grid.Column="0" Style="{DynamicResource SquareButtonStyle}" Content="Add" Name="buttonProjectAdd" Click="buttonProjectAdd_Click" Margin="8" />
+            <Button Grid.Row="1" Grid.Column="1" Style="{DynamicResource SquareButtonStyle}" Content="Remove" Name="buttonProjectRemove" Click="buttonProjectRemove_Click" Margin="8" />
+            <TreeView Grid.Row="0" Grid.Column="0" Name="treeViewProjects" SelectedItemChanged="treeViewProjects_SelectedItemChanged" BorderThickness="0" Grid.ColumnSpan="2" Background="LightGray" />
+        </Grid>
     </Grid>
 </Controls:MetroWindow>
