@@ -75,13 +75,14 @@ namespace LiveReload
             Console.WriteLine(appDataDir);
             Console.WriteLine(logDir);
 
-            var foo = new object[] { "app.init", new Dictionary<string, object> {
-                {"resourcesDir", resourcesDir},
-                {"appDataDir",   appDataDir},
-                {"logDir",       logDir},
-                {"version",      version},
-                {"build",        build},
-                {"platform",     platform}
+            var foo = new object[] { "app.init",
+                                     new Dictionary<string, object> {
+                                        {"resourcesDir", resourcesDir},
+                                        {"appDataDir",   appDataDir},
+                                        {"logDir",       logDir},
+                                        {"version",      version},
+                                        {"build",        build},
+                                        {"platform",     platform}
             } };
 
             string response = fastJSON.JSON.Instance.ToJSON(foo);
