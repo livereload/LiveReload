@@ -25,6 +25,7 @@ namespace LiveReload
 
         public event Action<string> ProjectAddEvent;
         public event Action<string> ProjectRemoveEvent;
+        public event Action<string, string, string> ProjectPropertyChangedEvent;
 
         public MainWindow()
         {
@@ -68,11 +69,15 @@ namespace LiveReload
                 int selectedIndex = treeViewProjects.Items.IndexOf(treeViewProjects.SelectedItem);
                 textBlockProjectName.Text = projectsList[selectedIndex].name;
                 textBlockProjectPath.Text = projectsList[selectedIndex].path;
+                checkBoxCompile.IsEnabled = true;
+                checkBoxRunCustom.IsEnabled = true;
             }
             else
             {
                 textBlockProjectName.Text = "-";
                 textBlockProjectPath.Text = "-";
+                checkBoxCompile.IsEnabled = false;
+                checkBoxRunCustom.IsEnabled = false;
             }
         }
 
@@ -105,6 +110,19 @@ namespace LiveReload
             if (selectedIndex != -1)
             {
                 ProjectRemoveEvent(projectsList[selectedIndex].id);
+            }
+        }
+
+        private void checkBoxCompile_Click(object sender, RoutedEventArgs e)
+        {
+            ProjectData project = projectsList[SelectedIndex()];
+            if (checkBoxCompile.IsChecked == true)
+            {
+                ProjectPropertyChangedEvent(project.id,"compilationEnabled","true");
+            }
+            else // ThreeWayState is disabled for this checkbox!
+            {
+                ProjectPropertyChangedEvent(project.id,"compilationEnabled","false");
             }
         }
     }

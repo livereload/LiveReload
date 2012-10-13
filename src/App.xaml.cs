@@ -33,8 +33,9 @@ namespace LiveReload
             nodeFoo.Start();
             
             window = new MainWindow();
-            window.ProjectAddEvent    += HandleProjectAddEvent;
-            window.ProjectRemoveEvent += HandleProjectRemoveEvent;
+            window.ProjectAddEvent             += HandleProjectAddEvent;
+            window.ProjectRemoveEvent          += HandleProjectRemoveEvent;
+            window.ProjectPropertyChangedEvent += HandleProjectPropertyChangedEvent;
             window.Show();
 
             TrayIconController trayIcon = new TrayIconController();
@@ -120,6 +121,17 @@ namespace LiveReload
         {
             var foo = new object[] { "projects.remove", new Dictionary<string, object> { { "id", id } } };
             string response = fastJSON.JSON.Instance.ToJSON(foo);
+            nodeFoo.NodeMessageSend(response);
+        }
+        private void HandleProjectPropertyChangedEvent(string id, string property, string value)
+        {
+            var foo = new object[] { "projects.update",
+                                     new Dictionary<string, object> {
+                                        {"id",     id },
+                                        {property, value}
+            } };
+            string response = fastJSON.JSON.Instance.ToJSON(foo);
+            Console.WriteLine(response);
             nodeFoo.NodeMessageSend(response);
         }
     }
