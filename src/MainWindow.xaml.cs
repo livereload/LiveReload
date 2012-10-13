@@ -86,11 +86,24 @@ namespace LiveReload
             }
         }
 
+        private int SelectedIndex()
+        {
+            var item = treeViewProjects.SelectedItem;
+            if (item != null)
+            {
+                return treeViewProjects.Items.IndexOf(item);
+            }
+            else
+            {
+                return -1;
+            }
+        }
+
         private void buttonProjectRemove_Click(object sender, RoutedEventArgs e)
         {
-            if (treeViewProjects.SelectedItem != null)
+            int selectedIndex = SelectedIndex();
+            if (selectedIndex != -1)
             {
-                int selectedIndex = treeViewProjects.Items.IndexOf(treeViewProjects.SelectedItem);
                 ProjectRemoveEvent(projectsList[selectedIndex].id);
             }
         }
