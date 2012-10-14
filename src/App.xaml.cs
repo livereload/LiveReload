@@ -141,12 +141,14 @@ namespace LiveReload
         public string id { get; set; }
         public string name { get; set; }
         public string path { get; set; }
+        public bool compilationEnabled { get; set; }
 
         public ProjectData(Dictionary<string,object> dic)
         {
             id   = (string) dic["id"];
             name = (string) dic["name"];
             path = (string) dic["path"];
+            compilationEnabled = (bool) dic["compilationEnabled"];
         }
     }
 }
