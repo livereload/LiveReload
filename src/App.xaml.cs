@@ -123,7 +123,7 @@ namespace LiveReload
             string response = fastJSON.JSON.Instance.ToJSON(foo);
             nodeFoo.NodeMessageSend(response);
         }
-        private void HandleProjectPropertyChangedEvent(string id, string property, string value)
+        private void HandleProjectPropertyChangedEvent(string id, string property, object value)
         {
             var foo = new object[] { "projects.update",
                                      new Dictionary<string, object> {

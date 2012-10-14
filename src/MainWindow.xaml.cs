@@ -25,7 +25,7 @@ namespace LiveReload
 
         public event Action<string> ProjectAddEvent;
         public event Action<string> ProjectRemoveEvent;
-        public event Action<string, string, string> ProjectPropertyChangedEvent;
+        public event Action<string, string, object> ProjectPropertyChangedEvent;
 
         public MainWindow()
         {
@@ -118,11 +118,11 @@ namespace LiveReload
             ProjectData project = projectsList[SelectedIndex()];
             if (checkBoxCompile.IsChecked == true)
             {
-                ProjectPropertyChangedEvent(project.id,"compilationEnabled","true");
+                ProjectPropertyChangedEvent(project.id,"compilationEnabled",true);
             }
             else // ThreeWayState is disabled for this checkbox!
             {
-                ProjectPropertyChangedEvent(project.id,"compilationEnabled","false");
+                ProjectPropertyChangedEvent(project.id,"compilationEnabled",false);
             }
         }
     }
