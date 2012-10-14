@@ -20,9 +20,9 @@
             <ColumnDefinition Width="466" />
         </Grid.ColumnDefinitions>
         <CheckBox Content="Compile scripts, stylesheets, etc" HorizontalAlignment="Left" Margin="65,312,0,0" Name="checkBoxCompile" VerticalAlignment="Top" Grid.Column="1" IsEnabled="False" />
-        <CheckBox Content="Run a custom command"              HorizontalAlignment="Left" Margin="65,372,0,0" Name="checkBoxRunCustom" VerticalAlignment="Top" Grid.Column="1" IsEnabled="False" />
-        <Button Style="{DynamicResource SquareButtonStyle}" Content="Options..." HorizontalAlignment="Left" Margin="290,306,0,0" Name="buttonCompile" VerticalAlignment="Top" Width="75" Grid.Column="1" IsEnabled="False" />
-        <Button Style="{DynamicResource SquareButtonStyle}" Content="Options..." HorizontalAlignment="Left" Margin="290,366,0,0" Name="buttonRunCustom" VerticalAlignment="Top" Width="75" Grid.Column="1" IsEnabled="False" />
+        <CheckBox Content="Run a custom command"              HorizontalAlignment="Left" Margin="65,372,0,0" Name="checkBoxRunCustom" VerticalAlignment="Top" Grid.Column="1" IsEnabled="False" Visibility="Hidden" />
+        <Button Style="{DynamicResource SquareButtonStyle}" Content="Options..." HorizontalAlignment="Left" Margin="290,306,0,0" Name="buttonCompile" VerticalAlignment="Top" Width="75" Grid.Column="1" IsEnabled="False" Visibility="Hidden" />
+        <Button Style="{DynamicResource SquareButtonStyle}" Content="Options..." HorizontalAlignment="Left" Margin="290,366,0,0" Name="buttonRunCustom" VerticalAlignment="Top" Width="75" Grid.Column="1" IsEnabled="False" Visibility="Hidden" />
         <TextBlock Height="23" HorizontalAlignment="Left" Margin="45,147,0,0" Name="textBlock1" VerticalAlignment="Top" Grid.Column="1">
             (1) Site URL(s):
         </TextBlock>
@@ -47,7 +47,7 @@
         <TextBlock Height="32" Margin="83,334,184,0" Name="textBlock4" VerticalAlignment="Top" TextWrapping="Wrap" FontSize="10" Grid.Column="1">
             CoffeeScript, Eco, HAML, IcedCoffeeScript, Jade, LESS, SASS, Compass, Slim, Stylus
         </TextBlock>
-        <TextBox Grid.Column="1" Height="23" HorizontalAlignment="Left" Margin="6,406,0,0" Name="textBoxNodeResult" VerticalAlignment="Top" Width="448" IsReadOnly="True" />
+        <TextBox Grid.Column="1" Height="23" HorizontalAlignment="Left" Margin="6,406,0,0" Name="textBoxNodeResult" VerticalAlignment="Top" Width="448" IsReadOnly="True" Visibility="Hidden" />
         <TextBlock Grid.Column="1" Height="23" HorizontalAlignment="Left" Margin="130,71,0,0" Name="textBlockProjectName" Text="-" VerticalAlignment="Top" Width="324" FontWeight="Bold" FontSize="14" />
         <TextBlock Grid.Column="1" Height="23" HorizontalAlignment="Left" Margin="130,100,0,0" Name="textBlockProjectPath" Text="-" VerticalAlignment="Top" Width="324" />
         <Grid Name="gridProjects" Background="LightGray" >
