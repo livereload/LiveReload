@@ -19,7 +19,7 @@
             <ColumnDefinition Width="152" />
             <ColumnDefinition Width="466" />
         </Grid.ColumnDefinitions>
-        <CheckBox Content="Compile scripts, stylesheets, etc" HorizontalAlignment="Left" Margin="65,312,0,0" Name="checkBoxCompile" VerticalAlignment="Top" Grid.Column="1" IsEnabled="False" />
+        <CheckBox Content="Compile scripts, stylesheets, etc" HorizontalAlignment="Left" Margin="65,312,0,0" Name="checkBoxCompile" VerticalAlignment="Top" Grid.Column="1" IsEnabled="False" Click="checkBoxCompile_Click" />
         <CheckBox Content="Run a custom command"              HorizontalAlignment="Left" Margin="65,372,0,0" Name="checkBoxRunCustom" VerticalAlignment="Top" Grid.Column="1" IsEnabled="False" Visibility="Hidden" />
         <Button Style="{DynamicResource SquareButtonStyle}" Content="Options..." HorizontalAlignment="Left" Margin="290,306,0,0" Name="buttonCompile" VerticalAlignment="Top" Width="75" Grid.Column="1" IsEnabled="False" Visibility="Hidden" />
         <Button Style="{DynamicResource SquareButtonStyle}" Content="Options..." HorizontalAlignment="Left" Margin="290,366,0,0" Name="buttonRunCustom" VerticalAlignment="Top" Width="75" Grid.Column="1" IsEnabled="False" Visibility="Hidden" />

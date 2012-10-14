@@ -71,6 +71,7 @@ namespace LiveReload
                 textBlockProjectPath.Text = projectsList[selectedIndex].path;
                 checkBoxCompile.IsEnabled = true;
                 checkBoxRunCustom.IsEnabled = true;
+                checkBoxCompile.IsChecked = projectsList[selectedIndex].compilationEnabled;
             }
             else
             {
