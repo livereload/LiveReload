@@ -78,6 +78,8 @@ namespace LiveReload
                 textBlockProjectPath.Text = "-";
                 checkBoxCompile.IsEnabled = false;
                 checkBoxRunCustom.IsEnabled = false;
+                checkBoxCompile.IsChecked = false;
+                checkBoxRunCustom.IsChecked = false;
             }
         }
 
