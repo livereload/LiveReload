@@ -36,7 +36,7 @@ class CompilationStep
 
   schedule: (change) ->
     return unless @_isCompilationActive()
-    @queue.add { project: @project.id, action: 'compile', paths: change.paths.slice(0) }
+    @queue.add { project: @project.id, action: 'compile', paths: change.paths.slice(0), changes: [change] }
 
 
   # internal
@@ -46,6 +46,8 @@ class CompilationStep
 
   _perform: (request, done) ->
     return done(null) unless @_isCompilationActive()
+
+    compiled = {}
 
     for relpath in request.paths
       debug "Looking for compiler for #{relpath}..."
@@ -62,7 +64,12 @@ class CompilationStep
             break
 
       if found
+        compiled[relpath] = yes
+
         debug "TODO: modify change.paths to process '#{dstRelPath}' instead of '#{relpath}'"
+
+    for change in request.changes
+      change.pathsToRefresh = (relpath for relpath in change.pathsToRefresh when !compiled.hasOwnProperty(relpath))
 
     done()
 

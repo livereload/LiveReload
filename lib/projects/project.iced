@@ -144,7 +144,7 @@ class Project extends R.Model
     paths = @filterPaths(root, paths)
     return if paths.length is 0
 
-    change = { paths }
+    change = { paths, pathsToRefresh: paths }
 
     @analyzer.update(paths)
 
@@ -160,7 +160,7 @@ class Project extends R.Model
         else
           pathsToProcess.push(path)
 
-      change.paths = pathsToProcess
+      change.paths = change.pathsToRefresh = pathsToProcess
 
       run.once 'finish', =>
         debug "Project.handleChange: finished run for %j", paths

@@ -32,7 +32,7 @@ class RefreshStep
     @queue.register { project: @project.id, action: 'refresh' }, @_perform.bind(@)
 
   schedule: (change) ->
-    @queue.add { project: @project.id, action: 'refresh', paths: change.paths.slice(0) }
+    @queue.add { project: @project.id, action: 'refresh', paths: change.pathsToRefresh.slice(0) }
     debug "Scheduled browser refresh job for change: " + JSON.stringify(change)
 
 
