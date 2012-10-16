@@ -19,6 +19,7 @@ namespace LiveReload
         private NodeRPC nodeFoo;
         private string baseDir, logDir, resourcesDir, appDataDir;
         private StreamWriter logWriter;
+        private TrayIconController trayIcon;
 
         public static string Version
         {
@@ -71,7 +72,7 @@ namespace LiveReload
             window.buttonVersion.Content = "v" + Version;
             window.Show();
 
-            TrayIconController trayIcon = new TrayIconController();
+            trayIcon = new TrayIconController();
             trayIcon.MainWindowHideEvent += HandleMainWindowHideEvent;
             trayIcon.MainWindowShowEvent += HandleMainWindowShowEvent;
             trayIcon.MainWindowToggleEvent  += HandleMainWindowToggleEvent;
@@ -174,6 +175,7 @@ namespace LiveReload
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
+            trayIcon.Dispose();
             logWriter.WriteLine("LiveReload says bye.");
             logWriter.Flush();
         }
