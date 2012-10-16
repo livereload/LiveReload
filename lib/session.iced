@@ -101,6 +101,8 @@ class Session extends EventEmitter
   _addProject: (project) ->
     project.on 'change', (path) =>
       @emit 'command', command: 'reload', path: path
+    project.on 'run.finish', (run) =>
+      @emit 'run.finish', project, run
     @projects.push project
     project.analyzer.addAnalyzerClass require('./analyzers/imports')
     project.analyzer.addAnalyzerClass require('./analyzers/compass')

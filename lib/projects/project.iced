@@ -164,6 +164,7 @@ class Project extends R.Model
 
       run.once 'finish', =>
         debug "Project.handleChange: finished run for %j", paths
+        @emit 'run.finish', run
       run.start()
     @session.queue.checkDrain()
 
