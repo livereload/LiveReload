@@ -12,6 +12,10 @@ sendUpdate = ->
 exports.init = (vfs, session) ->
   _vfs = vfs
   _session = session
+
+  session.on 'run.finish', =>
+    LR.client.projects.notifyChanged({})
+
   sendUpdate()
 
 exports.api =
