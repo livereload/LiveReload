@@ -15,15 +15,18 @@ namespace LiveReload
         private Process process = new Process();
         private StreamWriter writer;
         private StreamReader reader;
+        private StreamReader stderrReader;
         private Dispatcher dispatcher;
         private string baseDir;
+        private StreamWriter logWriter;
 
         public event Action         NodeStartedEvent;
         public event Action<string> NodeMessageEvent;
         
-        public NodeRPC(Dispatcher mainDispatcher, string baseDir_)
+        public NodeRPC(Dispatcher mainDispatcher, string baseDir_, StreamWriter logWriter_)
         {
             baseDir = baseDir_;
+            logWriter = logWriter_;
             dispatcher = mainDispatcher;
         }
 
@@ -48,8 +51,13 @@ namespace LiveReload
 
             writer = process.StandardInput;
             reader = process.StandardOutput;
+            stderrReader = process.StandardError;
 
             NodeStartedEvent();
+
+            Thread stderrThread = new Thread(new ThreadStart(CopyNodeStderrToLog));
+            stderrThread.IsBackground = true;
+            stderrThread.Start();
         }
 
         private void NodeRun()
@@ -58,11 +66,26 @@ namespace LiveReload
             while (!reader.EndOfStream)
             {
                 string nodeLine = reader.ReadLine();
+                logWriter.WriteLine("INCOMING: " + nodeLine);
+                logWriter.Flush();
                 if (nodeLine[0] == '[')
                 {
                     dispatcher.Invoke(DispatcherPriority.Normal,
                         (Action)(() => { NodeMessageEvent(nodeLine); }));
                 }
+            }
+            logWriter.WriteLine("Node.js has quit.");
+            logWriter.Flush();
+        }
+
+        private void CopyNodeStderrToLog()
+        {
+            while (!stderrReader.EndOfStream)
+            {
+                string nodeLine = stderrReader.ReadLine();
+                logWriter.WriteLine("STDERR: " + nodeLine);
+                logWriter.Flush();
+                Console.WriteLine("STDERR: " + nodeLine);
             }
         }
 

@@ -18,6 +18,7 @@ namespace LiveReload
         private MainWindow window;
         private NodeRPC nodeFoo;
         private string baseDir, logDir, resourcesDir, appDataDir;
+        private StreamWriter logWriter;
 
         public static string Version
         {
@@ -43,7 +44,19 @@ namespace LiveReload
             appDataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"LiveReload\Data\");
             logDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"LiveReload\Log\");
 
-            nodeFoo = new NodeRPC(Dispatcher.CurrentDispatcher, baseDir);
+            Directory.CreateDirectory(logDir);
+
+            string logFile = Path.Combine(logDir, "LiveReload_" + DateTime.Now.ToString("yyyy_MM_dd_HHmmss") + ".txt");
+            logWriter = new StreamWriter(logFile);
+            logWriter.WriteLine("LiveReload v" + Version + " says hi.");
+            logWriter.WriteLine("OS version: " + Environment.OSVersion);
+            logWriter.WriteLine("Paths:");
+            logWriter.WriteLine("  resourcesDir  = \"" + resourcesDir + "\"");
+            logWriter.WriteLine("  appDataDir    = \"" + appDataDir + "\"");
+            logWriter.WriteLine("  logDir        = \"" + logDir + "\"");
+            logWriter.Flush();
+
+            nodeFoo = new NodeRPC(Dispatcher.CurrentDispatcher, baseDir, logWriter);
             nodeFoo.NodeMessageEvent += HandleNodeMessageEvent;
             nodeFoo.NodeStartedEvent += HandleNodeStartedEvent;
             nodeFoo.Start();
@@ -148,6 +161,12 @@ namespace LiveReload
             string response = fastJSON.JSON.Instance.ToJSON(foo);
             Console.WriteLine(response);
             nodeFoo.NodeMessageSend(response);
+        }
+
+        private void Application_Exit(object sender, ExitEventArgs e)
+        {
+            logWriter.WriteLine("LiveReload says bye.");
+            logWriter.Flush();
         }
     }
 
