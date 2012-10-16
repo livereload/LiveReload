@@ -16,7 +16,7 @@
     </Window.Resources>
     <Controls:MetroWindow.WindowCommands>
         <Controls:WindowCommands>
-            <Button Name="buttonVersion" Content="version"/>
+            <Button Name="buttonVersion" Content="version" Click="buttonVersion_Click"/>
         </Controls:WindowCommands>
     </Controls:MetroWindow.WindowCommands>
     <Grid>

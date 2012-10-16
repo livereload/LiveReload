@@ -155,5 +155,10 @@ namespace LiveReload
             SelectItemHelper(node.Parent as TreeViewItem);
             node.IsSelected = true;
         }
+
+        private void buttonVersion_Click(object sender, RoutedEventArgs e)
+        {
+            ((App)App.Current).OpenExplorerWithLog();
+        }
     }
 }
