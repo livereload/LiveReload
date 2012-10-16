@@ -38,6 +38,10 @@ void C_app__good_time_to_deliver_news(json_t *arg) {
     AppNewsKitGoodTimeToDeliverMessages();
 }
 
+void C_update(json_t *arg) {
+    // ignored for compatibility with the Windows version
+}
+
 
 @interface LiveReloadAppDelegate ()
 

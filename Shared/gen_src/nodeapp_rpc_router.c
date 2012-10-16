@@ -21,6 +21,7 @@ json_t *C_licensing__verify_receipt(json_t *data);
 void C_mainwnd__set_project_list(json_t *data);
 void C_mainwnd__rpane__set_data(json_t *data);
 void C_app__good_time_to_deliver_news(json_t *data);
+void C_update(json_t *data);
 void C_app__failed_to_start(json_t *data);
 void C_mainwnd__set_connection_status(json_t *data);
 void C_mainwnd__set_change_count(json_t *data);
@@ -73,6 +74,11 @@ json_t *_C_app__good_time_to_deliver_news_wrapper(json_t *data) {
     return NULL;
 }
 
+json_t *_C_update_wrapper(json_t *data) {
+    C_update(data);
+    return NULL;
+}
+
 json_t *_C_app__failed_to_start_wrapper(json_t *data) {
     C_app__failed_to_start(data);
     return NULL;
@@ -112,6 +118,7 @@ msg_entry_t entries[] = {
     { "mainwnd.set_project_list", &_C_mainwnd__set_project_list_wrapper },
     { "mainwnd.rpane.set_data", &_C_mainwnd__rpane__set_data_wrapper },
     { "app.good_time_to_deliver_news", &_C_app__good_time_to_deliver_news_wrapper },
+    { "update", &_C_update_wrapper },
     { "app.failed_to_start", &_C_app__failed_to_start_wrapper },
     { "mainwnd.set_connection_status", &_C_mainwnd__set_connection_status_wrapper },
     { "mainwnd.set_change_count", &_C_mainwnd__set_change_count_wrapper },
