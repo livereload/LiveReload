@@ -20,6 +20,7 @@ namespace LiveReload
         private string baseDir, logDir, resourcesDir, appDataDir;
         private StreamWriter logWriter;
         private TrayIconController trayIcon;
+        private string logFile;
 
         public static string Version
         {
@@ -48,7 +49,7 @@ namespace LiveReload
             Directory.CreateDirectory(appDataDir);
             Directory.CreateDirectory(logDir);
 
-            string logFile = Path.Combine(logDir, "LiveReload_" + DateTime.Now.ToString("yyyy_MM_dd_HHmmss") + ".txt");
+            logFile = Path.Combine(logDir, "LiveReload_" + DateTime.Now.ToString("yyyy_MM_dd_HHmmss") + ".txt");
             logWriter = new StreamWriter(logFile);
             logWriter.WriteLine("LiveReload v" + Version + " says hi.");
             logWriter.WriteLine("OS version: " + Environment.OSVersion);
@@ -126,6 +127,19 @@ namespace LiveReload
         {
             logWriter.WriteLine("Node.js appears to have crashed.");
             logWriter.Flush();
+
+            MessageBoxResult result = MessageBox.Show(window, "Oops, Node.js appears to have crashed.\nPress OK to report the crash and reveal log.", "Error");
+            if (result == MessageBoxResult.OK)
+            {
+                string crashUrl = @"http://go.livereload.com/crashed/windows/";
+                System.Diagnostics.Process.Start(crashUrl);
+
+                System.Diagnostics.Process explorerWindowProcess = new System.Diagnostics.Process();
+                explorerWindowProcess.StartInfo.FileName = "explorer.exe";
+                explorerWindowProcess.StartInfo.Arguments = "/select,\"" + logFile + "\"";
+                explorerWindowProcess.Start();
+            }
+
             App.Current.Shutdown(1);
         }
 
