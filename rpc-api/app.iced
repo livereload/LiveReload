@@ -1,8 +1,10 @@
 debug = require('debug')('livereload:cli:rpc')
 Path  = require 'path'
 
-AppVFS = require '../lib/vfs-app'
-AppVFS = require('vfs-local').LocalVFS  # temporary Windows fix
+if process.platform is 'win32'
+  AppVFS = require('vfs-local').LocalVFS
+else
+  AppVFS = require '../lib/vfs-app'
 
 exports.api =
   init: ({ resourcesDir, appDataDir, logDir, logFile, version, build, platform }, callback) ->
