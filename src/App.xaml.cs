@@ -41,8 +41,8 @@ namespace LiveReload
             }
 
             resourcesDir = Path.Combine(baseDir, @"res\");
-            appDataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"LiveReload\Data\");
-            logDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"LiveReload\Log\");
+            appDataDir   = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"LiveReload\");
+            logDir       = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"LiveReload\Logs\");
 
             Directory.CreateDirectory(logDir);
 
