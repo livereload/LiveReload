@@ -36,6 +36,8 @@ namespace LiveReload
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            Environment.SetEnvironmentVariable("DEBUG", "livereload:*");
+
             baseDir = System.AppDomain.CurrentDomain.BaseDirectory;
             if (!File.Exists(Path.Combine(baseDir, @"res\LiveReloadNodeJs.exe")))
             {
