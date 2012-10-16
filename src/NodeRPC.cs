@@ -21,6 +21,7 @@ namespace LiveReload
         private StreamWriter logWriter;
 
         public event Action         NodeStartedEvent;
+        public event Action         NodeCrash;
         public event Action<string> NodeMessageEvent;
 
         public NodeRPC(Dispatcher mainDispatcher, string baseDir_, StreamWriter logWriter_)
@@ -74,8 +75,8 @@ namespace LiveReload
                         (Action)(() => { NodeMessageEvent(nodeLine); }));
                 }
             }
-            logWriter.WriteLine("Node.js has quit.");
-            logWriter.Flush();
+            dispatcher.Invoke(DispatcherPriority.Normal,
+                (Action)(() => { NodeCrash(); }));
         }
 
         private void CopyNodeStderrToLog()
