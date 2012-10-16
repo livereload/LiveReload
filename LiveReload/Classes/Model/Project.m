@@ -340,6 +340,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
 
 - (void)requestMonitoring:(BOOL)monitoringEnabled forKey:(NSString *)key {
+    return;
     if ([_monitoringRequests containsObject:key] != monitoringEnabled) {
         if (monitoringEnabled) {
 //            NSLog(@"%@: requesting monitoring for %@", [self description], key);
