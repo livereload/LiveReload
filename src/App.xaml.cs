@@ -17,7 +17,7 @@ namespace LiveReload
     {
         private MainWindow window;
         private NodeRPC nodeFoo;
-        private string baseDir;
+        private string baseDir, logDir, resourcesDir, appDataDir;
 
         public static string Version
         {
@@ -38,6 +38,10 @@ namespace LiveReload
             {
                 baseDir = Path.Combine(baseDir, @"..\..\");
             }
+
+            resourcesDir = Path.Combine(baseDir, @"res\");
+            appDataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"LiveReload\Data\");
+            logDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"LiveReload\Log\");
 
             nodeFoo = new NodeRPC(Dispatcher.CurrentDispatcher, baseDir);
             nodeFoo.NodeMessageEvent += HandleNodeMessageEvent;
@@ -80,9 +84,6 @@ namespace LiveReload
 
         private void HandleNodeStartedEvent()
         {
-            string resourcesDir = Path.Combine(baseDir, @"res\");
-            string appDataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"LiveReload\Data\");
-            string logDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"LiveReload\Log\");
             string version = Version;
             string build = "beta";
             string platform = "windows";
