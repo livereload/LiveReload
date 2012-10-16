@@ -87,7 +87,6 @@ namespace LiveReload
                 string nodeLine = stderrReader.ReadLine();
                 logWriter.WriteLine("STDERR: " + nodeLine);
                 logWriter.Flush();
-                Console.WriteLine("STDERR: " + nodeLine);
             }
         }
 
@@ -95,6 +94,8 @@ namespace LiveReload
         {
             logWriter.WriteLine("OUTGOING: " + message);
             logWriter.Flush();
+
+            Console.WriteLine("OUTGOING: " + message);
 
             writer.WriteLine(message);
             writer.Flush();
