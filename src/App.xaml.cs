@@ -82,7 +82,7 @@ namespace LiveReload
             string resourcesDir = baseDir + @"res\";
             string appDataDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\LiveReload\Data\";
             string logDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\LiveReload\Log\";
-            string version = "0.5";
+            string version = Version;
             string build = "beta";
             string platform = "windows";
             Console.WriteLine(resourcesDir);
