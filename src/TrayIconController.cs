@@ -43,6 +43,10 @@ namespace LiveReload
             myNotifyIcon.Visible = true;
         }
 
+        public void Dispose()
+        {
+            myNotifyIcon.Dispose();
+        }
         private void menuItemShow_Click(object sender, EventArgs e)
         {
             MainWindowShowEvent();
@@ -50,7 +54,6 @@ namespace LiveReload
 
         private void menuItemExit_Click(object sender, EventArgs e)
         {
-            myNotifyIcon.Dispose();
             System.Windows.Application.Current.Shutdown();
         }
 
