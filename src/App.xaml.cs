@@ -125,6 +125,14 @@ namespace LiveReload
             nodeFoo.NodeMessageSend(response);
         }
 
+        public void OpenExplorerWithLog()
+        {
+            System.Diagnostics.Process explorerWindowProcess = new System.Diagnostics.Process();
+            explorerWindowProcess.StartInfo.FileName = "explorer.exe";
+            explorerWindowProcess.StartInfo.Arguments = "/select,\"" + logFile + "\"";
+            explorerWindowProcess.Start();
+        }
+
         private void HandleNodeCrash()
         {
             logWriter.WriteLine("Node.js appears to have crashed.");
@@ -135,13 +143,9 @@ namespace LiveReload
             {
                 string crashUrl = @"http://go.livereload.com/crashed/windows/";
                 System.Diagnostics.Process.Start(crashUrl);
-
-                System.Diagnostics.Process explorerWindowProcess = new System.Diagnostics.Process();
-                explorerWindowProcess.StartInfo.FileName = "explorer.exe";
-                explorerWindowProcess.StartInfo.Arguments = "/select,\"" + logFile + "\"";
-                explorerWindowProcess.Start();
+                OpenExplorerWithLog();
             }
-            
+
             App.Current.Shutdown(1);
         }
 
