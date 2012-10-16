@@ -44,6 +44,7 @@ namespace LiveReload
             appDataDir   = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"LiveReload\");
             logDir       = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"LiveReload\Logs\");
 
+            Directory.CreateDirectory(appDataDir);
             Directory.CreateDirectory(logDir);
 
             string logFile = Path.Combine(logDir, "LiveReload_" + DateTime.Now.ToString("yyyy_MM_dd_HHmmss") + ".txt");
