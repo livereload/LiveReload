@@ -52,7 +52,7 @@ class Plugin
       compiler = new Compiler(this, compilerManifest)
       @compilers[compiler.name] = compiler
 
-    console.log "Loaded manifest at #{@folder} with #{@manifest.LRCompilers.length} compilers"
+    debug "Loaded manifest at #{@folder} with #{@manifest.LRCompilers.length} compilers"
     callback(null)
 
 
