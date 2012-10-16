@@ -45,6 +45,19 @@ EVENTBUS_DEFINE_EVENT(project_fs_change_event);
 
 static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
 
+void C_projects__notify_changed(json_t *arg) {
+    [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidDetectChangeNotification object:nil];
+    eventbus_post(project_fs_change_event, NULL);
+}
+
+void C_projects__notify_compilation_started(json_t *arg) {
+    [[NSNotificationCenter defaultCenter] postNotificationName:ProjectWillBeginCompilationNotification object:nil];
+}
+
+void C_projects__notify_compilation_finished(json_t *arg) {
+    [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidEndCompilationNotification object:nil];
+}
+
 
 
 BOOL MatchLastPathComponent(NSString *path, NSString *lastComponent) {

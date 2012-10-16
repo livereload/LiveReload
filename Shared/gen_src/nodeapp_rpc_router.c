@@ -25,6 +25,9 @@ void C_update(json_t *data);
 void C_app__failed_to_start(json_t *data);
 void C_mainwnd__set_connection_status(json_t *data);
 void C_mainwnd__set_change_count(json_t *data);
+void C_projects__notify_changed(json_t *data);
+void C_projects__notify_compilation_started(json_t *data);
+void C_projects__notify_compilation_finished(json_t *data);
 void C_workspace__set_monitoring_enabled(json_t *data);
 void C_app__request_model(json_t *data);
 json_t *C_project__path_of_best_file_matching_path_suffix(json_t *data);
@@ -94,6 +97,21 @@ json_t *_C_mainwnd__set_change_count_wrapper(json_t *data) {
     return NULL;
 }
 
+json_t *_C_projects__notify_changed_wrapper(json_t *data) {
+    C_projects__notify_changed(data);
+    return NULL;
+}
+
+json_t *_C_projects__notify_compilation_started_wrapper(json_t *data) {
+    C_projects__notify_compilation_started(data);
+    return NULL;
+}
+
+json_t *_C_projects__notify_compilation_finished_wrapper(json_t *data) {
+    C_projects__notify_compilation_finished(data);
+    return NULL;
+}
+
 json_t *_C_workspace__set_monitoring_enabled_wrapper(json_t *data) {
     C_workspace__set_monitoring_enabled(data);
     return NULL;
@@ -122,6 +140,9 @@ msg_entry_t entries[] = {
     { "app.failed_to_start", &_C_app__failed_to_start_wrapper },
     { "mainwnd.set_connection_status", &_C_mainwnd__set_connection_status_wrapper },
     { "mainwnd.set_change_count", &_C_mainwnd__set_change_count_wrapper },
+    { "projects.notify_changed", &_C_projects__notify_changed_wrapper },
+    { "projects.notify_compilation_started", &_C_projects__notify_compilation_started_wrapper },
+    { "projects.notify_compilation_finished", &_C_projects__notify_compilation_finished_wrapper },
     { "workspace.set_monitoring_enabled", &_C_workspace__set_monitoring_enabled_wrapper },
     { "app.request_model", &_C_app__request_model_wrapper },
     { "project.path_of_best_file_matching_path_suffix", &C_project__path_of_best_file_matching_path_suffix },
