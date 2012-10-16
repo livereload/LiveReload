@@ -59,6 +59,7 @@ namespace LiveReload
             nodeFoo = new NodeRPC(Dispatcher.CurrentDispatcher, baseDir, logWriter);
             nodeFoo.NodeMessageEvent += HandleNodeMessageEvent;
             nodeFoo.NodeStartedEvent += HandleNodeStartedEvent;
+            nodeFoo.NodeCrash        += HandleNodeCrash;
             nodeFoo.Start();
             
             window = new MainWindow();
@@ -117,6 +118,13 @@ namespace LiveReload
             string response = fastJSON.JSON.Instance.ToJSON(foo);
             Console.WriteLine(response);
             nodeFoo.NodeMessageSend(response);
+        }
+
+        private void HandleNodeCrash()
+        {
+            logWriter.WriteLine("Node.js appears to have crashed.");
+            logWriter.Flush();
+            App.Current.Shutdown(1);
         }
 
         private void HandleMainWindowHideEvent()
