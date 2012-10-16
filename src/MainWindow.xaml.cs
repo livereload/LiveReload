@@ -22,7 +22,7 @@ namespace LiveReload
     public partial class MainWindow : MahApps.Metro.Controls.MetroWindow
     {
         public event Action MainWindowHideEvent;
-        
+
         private List<ProjectData> projectsList;
 
         private string selectedID = null;

@@ -24,7 +24,7 @@ namespace LiveReload
             MenuItem menuItemShow = new MenuItem("&Show LiveReload");
             menuItemShow.DefaultItem = true;
             MenuItem menuItemExit = new MenuItem("E&xit");
-            
+
             menuItemShow.Click += new EventHandler(menuItemShow_Click);
             menuItemExit.Click += new EventHandler(menuItemExit_Click);
 
@@ -33,9 +33,9 @@ namespace LiveReload
 
             Uri iconUri = new Uri("pack://application:,,,/img/LiveReload.ico", UriKind.RelativeOrAbsolute);
             System.IO.Stream iconStream = System.Windows.Application.GetResourceStream(iconUri).Stream;
-            
+
             System.Windows.Forms.NotifyIcon icon = new System.Windows.Forms.NotifyIcon();
-            
+
             myNotifyIcon = new System.Windows.Forms.NotifyIcon();
             myNotifyIcon.Icon = new System.Drawing.Icon(iconStream);
             myNotifyIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(MyNotifyIcon_MouseClick);

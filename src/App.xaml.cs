@@ -62,7 +62,7 @@ namespace LiveReload
             nodeFoo.NodeStartedEvent += HandleNodeStartedEvent;
             nodeFoo.NodeCrash        += HandleNodeCrash;
             nodeFoo.Start();
-            
+
             window = new MainWindow();
             window.ProjectAddEvent             += HandleProjectAddEvent;
             window.ProjectRemoveEvent          += HandleProjectRemoveEvent;
