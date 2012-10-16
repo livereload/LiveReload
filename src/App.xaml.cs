@@ -19,6 +19,18 @@ namespace LiveReload
         private NodeRPC nodeFoo;
         private string baseDir;
 
+        public static string Version
+        {
+            get
+            {
+                System.Reflection.Assembly asm = System.Reflection.Assembly.GetExecutingAssembly();
+
+                System.Diagnostics.FileVersionInfo fvi = System.Diagnostics.FileVersionInfo.GetVersionInfo(asm.Location);
+                //return String.Format("{0}.{1}", fvi.ProductMajorPart, fvi.ProductMinorPart);
+                return fvi.FileVersion;
+            }
+        }
+
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             baseDir = System.AppDomain.CurrentDomain.BaseDirectory;
@@ -36,6 +48,7 @@ namespace LiveReload
             window.ProjectAddEvent             += HandleProjectAddEvent;
             window.ProjectRemoveEvent          += HandleProjectRemoveEvent;
             window.ProjectPropertyChangedEvent += HandleProjectPropertyChangedEvent;
+            window.buttonVersion.Content = "v" + Version;
             window.Show();
 
             TrayIconController trayIcon = new TrayIconController();

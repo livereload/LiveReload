@@ -14,6 +14,11 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
+    <Controls:MetroWindow.WindowCommands>
+        <Controls:WindowCommands>
+            <Button Name="buttonVersion" Content="version"/>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.WindowCommands>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="152" />
