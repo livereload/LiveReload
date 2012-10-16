@@ -80,9 +80,9 @@ namespace LiveReload
 
         private void HandleNodeStartedEvent()
         {
-            string resourcesDir = baseDir + @"res\";
-            string appDataDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\LiveReload\Data\";
-            string logDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\LiveReload\Log\";
+            string resourcesDir = Path.Combine(baseDir, @"res\");
+            string appDataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"LiveReload\Data\");
+            string logDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"LiveReload\Log\");
             string version = Version;
             string build = "beta";
             string platform = "windows";
