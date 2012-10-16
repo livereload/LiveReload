@@ -60,7 +60,9 @@ class Session extends EventEmitter
     { id: compilerId }
 
   addProject: (vfs, path) ->
-    @_addProject new Project this, vfs, path
+    project = new Project this, vfs, path
+    @_addProject project
+    project.setMemento {}
 
   startMonitoring: ->
     for project in @projects
