@@ -21,6 +21,8 @@ namespace LiveReload
     /// </summary>
     public partial class MainWindow : MahApps.Metro.Controls.MetroWindow
     {
+        public event Action MainWindowHideEvent;
+        
         private List<ProjectData> projectsList;
 
         private string selectedID = null;
@@ -48,7 +50,7 @@ namespace LiveReload
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             e.Cancel = true;
-            this.Hide();
+            MainWindowHideEvent();
         }
         public void updateTreeView(List<ProjectData> projectsList_)
         {

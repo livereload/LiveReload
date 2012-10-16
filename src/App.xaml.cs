@@ -48,11 +48,12 @@ namespace LiveReload
             window.ProjectAddEvent             += HandleProjectAddEvent;
             window.ProjectRemoveEvent          += HandleProjectRemoveEvent;
             window.ProjectPropertyChangedEvent += HandleProjectPropertyChangedEvent;
+            window.MainWindowHideEvent         += HandleMainWindowHideEvent;
             window.buttonVersion.Content = "v" + Version;
             window.Show();
 
             TrayIconController trayIcon = new TrayIconController();
-            //trayIcon.MainWindowHideEvent += HandleMainWindowShowEvent;
+            trayIcon.MainWindowHideEvent += HandleMainWindowHideEvent;
             trayIcon.MainWindowShowEvent += HandleMainWindowShowEvent;
             trayIcon.MainWindowToggleEvent  += HandleMainWindowToggleEvent;
         }
