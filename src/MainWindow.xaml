@@ -65,8 +65,35 @@
                 <RowDefinition Height="391*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Button Grid.Row="1" Grid.Column="0" Style="{DynamicResource SquareButtonStyle}" Content="Add" Name="buttonProjectAdd" Click="buttonProjectAdd_Click" Margin="8" />
-            <Button Grid.Row="1" Grid.Column="1" Style="{DynamicResource SquareButtonStyle}" Content="Remove" Name="buttonProjectRemove" Click="buttonProjectRemove_Click" Margin="8" />
+            <Button Style="{DynamicResource MetroCircleButtonStyle}"
+                    Name="buttonProjectAdd"
+                    Click="buttonProjectAdd_Click"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Height="55"
+                    Width="55"
+                    Margin="8">
+                <Rectangle Width="20" Height="20">
+                    <Rectangle.Fill>
+                        <VisualBrush Stretch="Uniform"
+                                 Visual="{StaticResource appbar_add}" />
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Button>
+            <Button Style="{DynamicResource MetroCircleButtonStyle}"
+                    Name="buttonProjectRemove"
+                    Click="buttonProjectRemove_Click"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Height="55"
+                    Width="55"
+                    Margin="8">
+                <Rectangle Width="20" Height="20">
+                    <Rectangle.Fill>
+                        <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_del}" />
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Button>
             <TreeView Grid.Row="0" Grid.Column="0" Name="treeViewProjects" SelectedItemChanged="treeViewProjects_SelectedItemChanged" BorderThickness="0" Grid.ColumnSpan="2" Background="LightGray" />
         </Grid>
     </Grid>
