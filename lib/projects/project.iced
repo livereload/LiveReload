@@ -3,10 +3,10 @@ Path  = require 'path'
 Url   = require 'url'
 R     = require 'reactive'
 urlmatch = require 'urlmatch'
+fsmonitor = require 'fsmonitor'
 
 CompilerOptions = require './compileropts'
 FileOptions     = require './fileopts'
-FSSubtree       = require './fssubtree'
 
 Run      = require '../runs/run'
 
@@ -66,12 +66,11 @@ class Project extends R.Model
     @fullPath = abspath(@path)
     @analyzer = new (require './analyzer')(this)
 
-    @subtree = new FSSubtree(@fullPath)
+    @watcher = fsmonitor.watch(@fullPath, null)
     debug "Monitoring for changes: folder = %j", @fullPath
-    @subtree.on 'change', (folder, action, filename) =>
-      debug "Detected change: folder = %j, action = %j, filename = %j", folder, action, filename
-      if filename
-        @handleChange @vfs, @fullPath, [filename]
+    @watcher.on 'change', (change) =>
+      debug "Detected change:\n#{change}"
+      @handleChange @vfs, @fullPath, change.addedFiles.concat(change.modifiedFiles)
 
   setMemento: (@memento) ->
     # log.fyi
