@@ -93,6 +93,9 @@ namespace LiveReload
 
         public void NodeMessageSend(string message)
         {
+            logWriter.WriteLine("OUTGOING: " + message);
+            logWriter.Flush();
+
             writer.WriteLine(message);
             writer.Flush();
         }
