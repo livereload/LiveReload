@@ -54,7 +54,8 @@ namespace LiveReload
             reader = process.StandardOutput;
             stderrReader = process.StandardError;
 
-            NodeStartedEvent();
+            dispatcher.Invoke(DispatcherPriority.Normal,
+                (Action)(() => { NodeStartedEvent(); }));
 
             Thread stderrThread = new Thread(new ThreadStart(CopyNodeStderrToLog));
             stderrThread.IsBackground = true;
