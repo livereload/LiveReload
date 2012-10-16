@@ -185,7 +185,6 @@ namespace LiveReload
                                         {property, value}
             } };
             string response = fastJSON.JSON.Instance.ToJSON(foo);
-            Console.WriteLine(response);
             nodeFoo.NodeMessageSend(response);
         }
 

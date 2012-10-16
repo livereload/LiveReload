@@ -23,7 +23,7 @@ namespace LiveReload
         public event Action         NodeStartedEvent;
         public event Action         NodeCrash;
         public event Action<string> NodeMessageEvent;
-        
+
         public NodeRPC(Dispatcher mainDispatcher, string baseDir_, StreamWriter logWriter_)
         {
             baseDir = baseDir_;
@@ -87,7 +87,6 @@ namespace LiveReload
                 string nodeLine = stderrReader.ReadLine();
                 logWriter.WriteLine("STDERR: " + nodeLine);
                 logWriter.Flush();
-                Console.WriteLine("STDERR: " + nodeLine);
             }
         }
 
@@ -95,6 +94,8 @@ namespace LiveReload
         {
             logWriter.WriteLine("OUTGOING: " + message);
             logWriter.Flush();
+
+            Console.WriteLine("OUTGOING: " + message);
 
             writer.WriteLine(message);
             writer.Flush();
