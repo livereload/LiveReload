@@ -23,6 +23,8 @@ namespace LiveReload
     {
         private List<ProjectData> projectsList;
 
+        private string selectedID = null;
+
         public event Action<string> ProjectAddEvent;
         public event Action<string> ProjectRemoveEvent;
         public event Action<string, string, object> ProjectPropertyChangedEvent;
@@ -59,6 +61,10 @@ namespace LiveReload
                 newChild.Header = t.name;
                 newChild.Name   = t.id;
                 treeViewProjects.Items.Add(newChild);
+                if (t.id == selectedID)
+                {
+                    SelectItem(newChild);
+                }
             }
         }
 
@@ -72,6 +78,7 @@ namespace LiveReload
                 checkBoxCompile.IsEnabled = true;
                 checkBoxRunCustom.IsEnabled = true;
                 checkBoxCompile.IsChecked = projectsList[selectedIndex].compilationEnabled;
+                selectedID = projectsList[selectedIndex].id;
             }
             else
             {
@@ -127,6 +134,23 @@ namespace LiveReload
             {
                 ProjectPropertyChangedEvent(project.id,"compilationEnabled",false);
             }
+        }
+
+        private void SelectItemHelper(TreeViewItem node) // unneeded ATM, retest when we will have tree depth > 1
+        {
+            if (node == null)
+                return;
+            SelectItemHelper((TreeViewItem)node.Parent);
+            if (!node.IsExpanded)
+            {
+                node.IsExpanded = true;
+                node.UpdateLayout();
+            }
+        }
+        private void SelectItem(TreeViewItem node) // QND solution
+        {
+            SelectItemHelper(node.Parent as TreeViewItem);
+            node.IsSelected = true;
         }
     }
 }
