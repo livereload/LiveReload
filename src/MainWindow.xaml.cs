@@ -49,9 +49,8 @@ namespace LiveReload
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            App.Current.Shutdown();
-            //e.Cancel = true;
-            //MainWindowHideEvent();
+            e.Cancel = true;
+            MainWindowHideEvent();
         }
         public void updateTreeView(List<ProjectData> projectsList_)
         {
