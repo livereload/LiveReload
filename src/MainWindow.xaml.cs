@@ -62,7 +62,7 @@ namespace LiveReload
             {
                 TreeViewItem newChild = new TreeViewItem();
                 newChild.Header = t.name;
-                newChild.Name   = t.id;
+                //newChild.Name   = t.id; // crashes whem there are some symbols in id, like '!'
                 treeViewProjects.Items.Add(newChild);
                 if (t.id == selectedID)
                 {
