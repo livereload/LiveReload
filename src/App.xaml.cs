@@ -7,6 +7,7 @@ using System.Windows;
 
 using System.Windows.Threading;
 using System.IO;
+using System.Text;
 
 namespace LiveReload
 {
@@ -36,6 +37,8 @@ namespace LiveReload
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+
             Environment.SetEnvironmentVariable("DEBUG", "livereload:*");
 
             baseDir = System.AppDomain.CurrentDomain.BaseDirectory;
@@ -138,7 +141,13 @@ namespace LiveReload
             logWriter.WriteLine("Node.js appears to have crashed.");
             logWriter.Flush();
 
-            MessageBoxResult result = MessageBox.Show(window, "Oops, Node.js appears to have crashed.\nPress OK to report the crash and reveal log.", "Error");
+            EmergencyShutdown("LiveReload backend process (LiveReloadNodejs) appears to have crashed.");
+       }
+
+        private void EmergencyShutdown(string reason)
+        {
+            string message = reason + "\n\nPress OK to report the crash, reveal the log file and quit the app.";
+            MessageBoxResult result = MessageBox.Show(message, "LiveReload crash", MessageBoxButton.OK, MessageBoxImage.Error);
             if (result == MessageBoxResult.OK)
             {
                 string crashUrl = @"http://go.livereload.com/crashed/windows/";
@@ -197,6 +206,72 @@ namespace LiveReload
             trayIcon.Dispose();
             logWriter.WriteLine("LiveReload says bye.");
             logWriter.Flush();
+        }
+
+        private void Application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            // Why do we handle both CurrentDomain_UnhandledException and Application_DispatcherUnhandledException?
+            //
+            // We could rely on CurrentDomain_UnhandledException to process all unhandled exceptions, but:
+            //
+            // 1) looks like Application_DispatcherUnhandledException can continue running the app, which
+            //    we will probably want to do in the future; after all, we have no in-process state to corrupt --
+            //    all valuable state is only stored on Node.js side, so it's 100% safe to continue
+            //    (well actually I have no idea whether CurrentDomain_UnhandledException is recoverable or not)
+            //
+            // 2) the log file can say "in UI thread" vs "in non-UI thread" (there is probably a better
+            //    way to do that, which I don't want to think about right now)
+
+            ReportUnhandledException(e.Exception, "UI thread");
+
+            // Mark as handled to prevent CurrentDomain_UnhandledException from occurring.
+            // (Would also cause the app to continue running, if ReportUnhandledException didn't call Shutdown.)
+            e.Handled = true;
+        }
+
+        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            // No idea why the fuck e.ExceptionObject is declared as 'object'; MSDN docs seem to imply the cast is safe.
+            Exception exception = (Exception) e.ExceptionObject;
+            App.Current.Dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() =>
+            {
+                ReportUnhandledException(exception, "non-UI thread");
+            }));
+        }
+
+        private void ReportUnhandledException(Exception exception, string threadName)
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.AppendLine();
+            builder.AppendLine("************************************************************************");
+            builder.AppendLine("Unhandled Exception in " + threadName + ": " + CreateStackTrace(exception));
+            builder.AppendLine("************************************************************************");
+            builder.AppendLine();
+
+            logWriter.Write(builder.ToString());
+            logWriter.Flush();
+
+            EmergencyShutdown("LiveReload has experienced an unknown error.");
+        }
+
+        private String CreateStackTrace(Exception exception)
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.Append(exception.GetType().ToString());
+            builder.Append(": ");
+            builder.Append(string.IsNullOrEmpty(exception.Message) ? "No reason" : exception.Message);
+            builder.AppendLine();
+            builder.Append(string.IsNullOrEmpty(exception.StackTrace) ? "  at unknown location" : exception.StackTrace);
+
+            Exception inner = exception.InnerException;
+            if ((inner != null) && (!string.IsNullOrEmpty(inner.StackTrace)))
+            {
+                builder.AppendLine();
+                builder.AppendLine("Inner Exception");
+                builder.Append(inner.StackTrace);
+            }
+
+            return builder.ToString().Trim();
         }
     }
 
