@@ -305,7 +305,7 @@ namespace fastJSON
 
             string s = new string(json, startIndex, index - startIndex);
             if (dec)
-                return decimal.Parse(s,NumberFormatInfo.InvariantInfo);
+                return double.Parse(s,NumberFormatInfo.InvariantInfo);
             return CreateLong(s);
         }
 

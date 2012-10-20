@@ -160,6 +160,10 @@ namespace fastJSON
                 else
                     return (o as List<object>).ToArray();
             }
+            if (type!=null && o.GetType() != type)
+            {
+                return ChangeType(o, type);
+            }
             return o;
         }
 
