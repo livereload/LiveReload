@@ -110,7 +110,7 @@
     <Resource Include="img\LiveReload.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="lib\fastJSON\fastJSON\fastJSON.csproj">
+    <ProjectReference Include="lib\fastJSON\fastJSON.csproj">
       <Project>{207E91B1-C9F8-4913-88E1-3549EF5F3273}</Project>
       <Name>fastJSON</Name>
     </ProjectReference>

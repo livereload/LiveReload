@@ -45,7 +45,7 @@ namespace fastJSON
         /// </summary>
         public bool IgnoreCaseOnDeserialize = false;
         /// <summary>
-        /// Anonymous types have read only properties
+        /// Anonymous types have read only properties 
         /// </summary>
         public bool EnableAnonymousTypes = false;
         /// <summary>

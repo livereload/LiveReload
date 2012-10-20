@@ -326,11 +326,11 @@ namespace fastJSON
             int c = g.Count;
             int i = c;
             if (_params.UseExtensions) // count $type as a property
-                i++;
+                i++; 
             foreach (var p in g)
             {
                 i--;
-                if (append && i>0)
+                if (append && i>0) 
                     _output.Append(',');
                 object o = p.Getter(obj);
                 if ((o == null || o is DBNull) && _params.SerializeNullValues == false)
