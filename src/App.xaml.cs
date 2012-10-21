@@ -19,6 +19,9 @@ namespace LiveReload
         private MainWindow window;
         private NodeRPC nodeFoo;
         private string baseDir, logDir, resourcesDir, appDataDir;
+        private string localAppDataDir;
+        private string extractedResourcesDir;
+        private string backendDir;
         private StreamWriter logWriter;
         private TrayIconController trayIcon;
         private string logFile;
@@ -41,15 +44,16 @@ namespace LiveReload
 
             Environment.SetEnvironmentVariable("DEBUG", "livereload:*");
 
-            baseDir = System.AppDomain.CurrentDomain.BaseDirectory;
-            if (!File.Exists(Path.Combine(baseDir, @"res\LiveReloadNodeJs.exe")))
-            {
-                baseDir = Path.Combine(baseDir, @"..\..\");
-            }
+            // root dirs
+            baseDir         = System.AppDomain.CurrentDomain.BaseDirectory;
+            localAppDataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "LiveReload");
+            appDataDir      = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"LiveReload\");
 
-            resourcesDir = Path.Combine(baseDir, @"res\");
-            appDataDir   = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"LiveReload\");
-            logDir       = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"LiveReload\Logs\");
+            // derived dirs
+            resourcesDir          = Path.Combine(baseDir, @"res");
+            logDir                = Path.Combine(localAppDataDir, @"Logs");
+            extractedResourcesDir = Path.Combine(localAppDataDir, @"Bundled");
+            backendDir            = Path.Combine(extractedResourcesDir, @"backend");
 
             Directory.CreateDirectory(appDataDir);
             Directory.CreateDirectory(logDir);
@@ -64,7 +68,10 @@ namespace LiveReload
             logWriter.WriteLine("  logDir        = \"" + logDir + "\"");
             logWriter.Flush();
 
-            nodeFoo = new NodeRPC(Dispatcher.CurrentDispatcher, baseDir, logWriter);
+            // has to be done before launching Node
+            extractBundledResources();
+
+            nodeFoo = new NodeRPC(Dispatcher.CurrentDispatcher, resourcesDir, backendDir, logWriter);
             nodeFoo.NodeMessageEvent += HandleNodeMessageEvent;
             nodeFoo.NodeStartedEvent += HandleNodeStartedEvent;
             nodeFoo.NodeCrash        += HandleNodeCrash;

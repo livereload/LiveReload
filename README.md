@@ -4,11 +4,18 @@ livereload-windows
 LiveReload for Windows
 
 
+## Building
 
-Acknowledgements:
-- fastJSON library      http://fastjson.codeplex.com/
-- MahApps.Metro         http://mahapps.com/MahApps.Metro/
-- Modern UI Icons       http://modernuiicons.com/
+* Run bundle-backend.cmd
+* Perform the build in Visual Studio
+
+
+## Acknowledgements
+
+* fastJSON library:      http://fastjson.codeplex.com/
+* MahApps.Metro:         http://mahapps.com/MahApps.Metro/
+* Modern UI Icons:       http://modernuiicons.com/
 
 NOTES:
-- when updating fastJSON livrary to newer version, change its Target Framework to match one of LiveReolad.
+
+* when updating fastJSON library to newer version, change its Target Framework to match one of LiveReload.
