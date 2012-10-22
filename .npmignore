@@ -2,4 +2,4 @@
 *.coffee
 *.iced
 test/
-
+*.tgz
