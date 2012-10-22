@@ -59,7 +59,7 @@ class LRWebSocketController
         if err.code && err.code == 'EADDRINUSE'
           LR.app.displayCriticalError
             title: "Failed to start: port occupied"
-            text:  "LiveReload cannot listen on port #{@server.port}. You probably have another copy of LiveReload 2.x, a command-line LiveReload 1.x or an alternative tool like guard-livereload running.\n\nPlease quit any other live reloaders and rerun LiveReload."
+            text:  "LiveReload tried to listen on port #{@server.port}, but it was occupied by another app.\n\nThe following tools are incompatible with LiveReload: guard-livereload; rack-livereload; Sublime Text LiveReload plugin; any other tools that use LiveReload browser extensions.\n\nPlease make sure you're not running any of those tools, and restart LiveReload. If in doubt, contact support@livereload.com."
             url:   'http://help.livereload.com/kb/troubleshooting/failed-to-start-port-occupied'
           return callback(null)
         else
