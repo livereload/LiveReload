@@ -24,6 +24,15 @@
     "mocha": "~1.0.3"
   },
   "optionalDependencies": {},
+  "bundledDependencies": [
+    "debug",
+    "dreamopt",
+    "livereload-server",
+    "livereload-core",
+    "vfs-local",
+    "apitree",
+    "sugar"
+  ],
   "engines": {
     "node": "*"
   }
