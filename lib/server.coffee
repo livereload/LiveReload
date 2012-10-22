@@ -27,10 +27,21 @@ class LRWebSocketServer extends EventEmitter
     @options.protocols ?= {}
 
   listen: (callback) ->
+    callbackCalled = no
+
     @httpServer = http.createServer()
     try
+      @httpServer.on 'error', (err) ->
+        if not callbackCalled
+          callbackCalled = yes
+          return callback(err)
+        else
+          throw err
+
       @httpServer.listen @port, (err) =>
-        return callback(err) if err
+        if err
+          callbackCalled = yes
+          return callback(err)
 
         @httpServer.on 'request', (request, response) =>
           request.on 'end', =>
