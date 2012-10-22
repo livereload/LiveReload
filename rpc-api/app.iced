@@ -14,8 +14,6 @@ exports.api =
 
     debug "Initializing LiveReload backend with folders: " + JSON.stringify({ resourcesDir, appDataDir, logDir, logFile, version, build, platform })
 
-    preferencesFolder = Path.join(appDataDir, 'Data')
-
     LR.version = version || '0.0.0'
 
     await LR.websockets.init this, defer(err)
@@ -31,7 +29,7 @@ exports.api =
 
     LR.client.app.requestModel({})
 
-    LR.projects.init(@appVfs, @session)
+    LR.projects.init(@appVfs, @session, appDataDir)
 
     LR.log.fyi "Backend is up and running."
     debug "Backend is up and running."
