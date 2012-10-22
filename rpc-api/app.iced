@@ -50,6 +50,10 @@ exports.api =
 exports.displayCriticalError = ({title, text, url, button}) ->
   button ?= "More Info"
 
+  if process.platform is 'win32'
+    LR.rpc.send 'app.displayCriticalError', {title, text, url, button}
+    return
+
   LR.log.omg "#{title} -- #{text}"
   LR.client.app.displayPopupMessage {
       title, text, buttons: [['help', button], ['quit', "Quit"]]
