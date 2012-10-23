@@ -77,6 +77,32 @@ class Project extends R.Model
     @stopMonitoring()
     @session._removeProject(this)
 
+
+  _hostnameForUrl: (url) ->
+    try
+      components = Url.parse(url)
+    catch e
+      components = null
+
+    if components?.protocol is 'file:'
+      return null
+    else
+      return components?.hostname or url.split('/')[0]
+
+
+  Object.defineProperty @::, 'snippet', get: ->
+    script = """document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=2"></' + 'script>')"""
+
+    if @urls.length > 0
+      checks =
+        for url in @urls when (hostname = @_hostnameForUrl(url))
+          "location.hostname == " + JSON.stringify(hostname)
+      checks = checks.join(" || ")
+      script = "if (#{checks}) { #{script} }"
+
+    return "<script>#{script}</script>"
+
+
   setMemento: (@memento) ->
     # log.fyi
     debug "Loading project at #{@path} with memento #{JSON.stringify(@memento, null, 2)}"
