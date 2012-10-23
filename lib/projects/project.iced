@@ -177,10 +177,11 @@ class Project extends R.Model
 
     change = { paths, pathsToRefresh: paths }
 
-    @analyzer.update(paths)
-
     run = new Run(this, change, @steps)
     debug "Project.handleChange: created run for %j", paths
+    @emit 'run.start', run
+
+    @analyzer.update(paths)
 
     @session.queue.once 'drain', =>
       pathsToProcess = []
