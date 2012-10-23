@@ -110,6 +110,11 @@ class Session extends EventEmitter
     project.analyzer.addAnalyzerClass require('./analyzers/compass')
     return project
 
+  _removeProject: (project) ->
+      if (index = @projects.indexOf(project)) >= 0
+        @projects.splice index, 1
+      undefined
+
   # message routing
   execute: (message, connection, callback) ->
     if func = @["on #{message.command}"]

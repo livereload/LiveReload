@@ -72,6 +72,11 @@ class Project extends R.Model
       debug "Detected change:\n#{change}"
       @handleChange @vfs, @fullPath, change.addedFiles.concat(change.modifiedFiles)
 
+  destroy: ->
+    @watcher?.close()
+    @stopMonitoring()
+    @session._removeProject(this)
+
   setMemento: (@memento) ->
     # log.fyi
     debug "Loading project at #{@path} with memento #{JSON.stringify(@memento, null, 2)}"
