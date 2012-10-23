@@ -2,8 +2,8 @@
 Path = require 'path'
 fs   = require 'fs'
 
-_categories = {}
-_path = {}
+_categories  = {}
+_path        = null
 _savingDelay = 100
 
 class PreferenceCategory

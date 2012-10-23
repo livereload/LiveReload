@@ -16,6 +16,7 @@ exports.api =
 
     LR.version = version || '0.0.0'
 
+    await LR.preferences.init appDataDir, defer(err)
     await LR.websockets.init this, defer(err)
 
     if err
