@@ -69,6 +69,9 @@ class Analyzer
       return callback()
 
     debug "#{analyzer}: analyzing #{relpath}"
+    action = { id: 'analyze', message: "Analyzing #{Path.basename(relpath)}"}
+    @project.reportActionStart(action)
     await analyzer.update relpath, fullPath, defer()
+    @project.reportActionFinish(action)
 
     callback()

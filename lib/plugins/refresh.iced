@@ -40,11 +40,15 @@ class RefreshStep
 
   _perform: (request, done) ->
     debug "Executing browser refresh job: " + JSON.stringify(request)
+    return done(null) if request.paths.length == 0
+
     # json_object_set_new(arg, "path", json_string(request->path));
     # json_object_set_new(arg, "originalPath", json_string(request->original_path ?: ""));
     # json_object_set_new(arg, "liveCSS", !project.disableLiveRefresh ? json_true() : json_false());
     # json_object_set_new(arg, "enableOverride", project.enableRemoteServerWorkflow ? json_true() : json_false());
     # _fullPageReloadDelay!!
+    action = { id: 'refresh', message: "Refreshing browser" }
+    @project.reportActionStart(action)
     for path in request.paths
       command =
         command:        'reload'
@@ -57,5 +61,6 @@ class RefreshStep
         #   message.overrideURL = @urlOverrideCoordinator.createOverrideURL(path)
 
       @session.sendBrowserCommand command
+    @project.reportActionFinish(action)
 
     done(null)

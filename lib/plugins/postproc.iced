@@ -69,6 +69,9 @@ class PostProcStep
       '$(projectDir)': @project.fullPath
     invocation = tool.createInvocation(info)
 
-    invocation.once 'finished', ->
+    action = { id: 'postproc', message: "Running #{@project.postprocCommand}" }
+    @project.reportActionStart(action)
+    invocation.once 'finished', =>
+      @project.reportActionFinish(action)
       callback(null)
     invocation.run()

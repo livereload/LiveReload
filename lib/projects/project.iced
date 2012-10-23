@@ -202,6 +202,16 @@ class Project extends R.Model
 
     return run
 
+  reportActionStart: (action) ->
+    if !action.id
+      throw new Error("Invalid argument: action.id is required")
+    @emit 'action.start', action
+
+  reportActionFinish: (action) ->
+    if !action.id
+      throw new Error("Invalid argument: action.id is required")
+    @emit 'action.finish', action
+
   patchSourceFile: (oldCompiled, newCompiled, callback) ->
     oldLines = oldCompiled.trim().split("\n")
     newLines = newCompiled.trim().split("\n")

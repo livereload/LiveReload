@@ -99,9 +99,12 @@ class CompilationStep
 
       '$(additional)':   []
 
+    action = { id: 'compile', message: "Compiling #{srcInfo.file}" }
     invocation = compiler.tool.createInvocation(info)
 
-    invocation.once 'finished', ->
+    @project.reportActionStart(action)
+    invocation.once 'finished', =>
+      @project.reportActionFinish(action)
       callback(dstRelPath)
     invocation.run()
 

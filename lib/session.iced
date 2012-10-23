@@ -103,6 +103,10 @@ class Session extends EventEmitter
   _addProject: (project) ->
     project.on 'change', (path) =>
       @emit 'command', command: 'reload', path: path
+    project.on 'action.start', (action) =>
+      @emit 'action.start', project, action
+    project.on 'action.finish', (action) =>
+      @emit 'action.finish', project, action
     project.on 'run.start', (run) =>
       @emit 'run.start', project, run
     project.on 'run.finish', (run) =>
