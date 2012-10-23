@@ -55,6 +55,8 @@ exports.api =
     callback()
 
   remove: ({ id }, callback) ->
+    if project = _session.findProjectById(id)
+      project.destroy()
     saveProjects()
     callback()
 
