@@ -10,7 +10,14 @@ sendUpdate = ->
   LR.rpc.send 'update', {
     projects:
       for project in _session.projects
-        { id: project.id, name: project.name, path: project.path, compilationEnabled: !!project.compilationEnabled }
+        {
+          id:       project.id
+          name:     project.name
+          path:     project.path
+          url:      project.urls.join(", ")
+          snippet:  project.snippet
+          compilationEnabled: !!project.compilationEnabled
+        }
   }
 
 saveProjects = ->
@@ -20,6 +27,7 @@ saveProjects = ->
         {
           path: project.path
           compilationEnabled: !!project.compilationEnabled
+          urls: project.urls
         }
   }
   fs.writeFileSync(_dataFile, JSON.stringify(memento, null, 2))
@@ -60,10 +68,12 @@ exports.api =
     saveProjects()
     callback()
 
-  update: ({ id, compilationEnabled }, callback) ->
+  update: ({ id, compilationEnabled, url }, callback) ->
     if project = _session.findProjectById(id)
       if compilationEnabled?
         project.compilationEnabled = !!compilationEnabled
+      if url?
+        project.urls = url.split(/[\s,]+/).filter((u) -> u.length > 0)
     saveProjects()
     callback()
 
