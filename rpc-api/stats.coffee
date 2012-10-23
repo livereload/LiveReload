@@ -17,9 +17,9 @@ unixTime = -> Math.floor(+new Date() / 1000)
 doPingServer = (scheduled) ->
   version = LR.version
   options =
-    host: 'livereload.com'
+    host: 'ping.livereload.com'
     port: 80
-    path: "/ping.php?platform=windows&v=#{version}&iv=#{version}&scheduled=#{scheduled && 1 || 0}"
+    path: "/news.json?apiver=1&platform=windows&v=#{version}&iv=#{version}&scheduled=#{scheduled && 1 || 0}"
 
   LR.log.fyi "Pinging server... (http://#{options.host}#{options.path})"
 
