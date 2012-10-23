@@ -86,6 +86,7 @@ class LRWebSocketController
 
   _updateConnectionCountInUI: ->
     LR.client.mainwnd.setConnectionStatus connectionCount: @monitoringConnectionCount()
+    LR.projects.setConnectionStatus       connectionCount: @monitoringConnectionCount()
 
     if @monitoringConnectionCount() > 0
       LR.client.workspace.setMonitoringEnabled yes
