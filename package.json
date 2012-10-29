@@ -32,7 +32,8 @@
     "livereload-core",
     "vfs-local",
     "apitree",
-    "sugar"
+    "sugar",
+    "underscore"
   ],
   "engines": {
     "node": "*"
