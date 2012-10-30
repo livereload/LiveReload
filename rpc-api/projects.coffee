@@ -69,6 +69,7 @@ exports.init = (vfs, session, appDataDir) ->
   session.on 'run.finish', (project, run) =>
     LR.client.projects.notifyChanged({})
     setStatus ''
+    saveProjects()
 
 
   statusClearingTimeout = null
@@ -96,7 +97,7 @@ exports.init = (vfs, session, appDataDir) ->
     if data
       _session.setProjectsMemento _vfs, (data.projects or [])
 
-  saveProjects()
+  sendUpdate()
 
 
 exports.api =
