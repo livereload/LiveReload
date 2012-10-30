@@ -36,11 +36,15 @@ class Session extends EventEmitter
         for own path, projectMemento of @projectsMemento
           projectMemento.path = path
           projectMemento
+
     @projects = []
     for projectMemento in @projectsMemento
       project = @_addProject new Project(this, vfs, projectMemento.path)
       project.setMemento projectMemento
     return
+
+  makeProjectsMemento: (callback) ->
+    callback null, (project.makeMemento() for project in @projects)
 
   findProjectById: (projectId) ->
     for project in @projects

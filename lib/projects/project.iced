@@ -143,6 +143,13 @@ class Project extends R.Model
     #   log.warn "LiveReload Development Mode enabled. Will restart myself on backend changes."
     #   @hive.requestMonitoring 'ThySelfAutoRestart', yes
 
+  makeMemento: ->
+    {
+      path: @path
+      urls: @urls
+      compilationEnabled: !!@compilationEnabled
+      disableLiveRefresh: !!@disableLiveRefresh
+    }
 
   startMonitoring: ->
     unless @monitor
