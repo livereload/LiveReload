@@ -100,10 +100,7 @@ exports.init = (vfs, session, appDataDir) ->
     catch e
       data = null
     if data
-      projects = {}
-      for project in data.projects or [] when project.path
-        projects[project.path] = project
-      _session.setProjectsMemento _vfs, projects
+      _session.setProjectsMemento _vfs, (data.projects or [])
 
   saveProjects()
 
