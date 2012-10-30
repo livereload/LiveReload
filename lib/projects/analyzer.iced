@@ -32,6 +32,9 @@ class Analyzer
     relpaths = tree.getAllPaths()
     debug "Analyzer found #{relpaths.length} paths: " + relpaths.join(", ")
 
+    for relpath in relpaths
+      @project._updateFile(relpath, yes)
+
     for analyzer in @analyzers
       debug "Running analyzer #{analyzer}"
 
@@ -40,7 +43,8 @@ class Analyzer
       relpaths = tree.findMatchingPaths(analyzer.list)
       debug "#{analyzer} full rebuild will process #{relpaths.length} paths: " + relpaths.join(", ")
       for relpath in relpaths
-        await @_updateFile analyzer, relpath, defer()
+        if file = @project.fileAt(relpath)
+          await @_updateFile analyzer, file, defer()
 
     @_fullRebuildRequired = no
     done()
@@ -51,27 +55,34 @@ class Analyzer
 
   _update: (request, done) ->
     debug "Analyzer update job running."
-    for relpath in request.relpaths
+
+    files =
+      for relpath in request.relpaths
+        fullPath = Path.join(@project.fullPath, relpath)
+        await fs.exists fullPath, defer(exists)
+
+        debug "file at #{relpath} #{exists && 'exists' || 'does not exist.'}"
+        @project._updateFile(relpath, exists)
+
+    for file in files
       for analyzer in @analyzers
-        if analyzer.list.matches(relpath)
-          await @_updateFile analyzer, relpath, defer()
+        if analyzer.list.matches(file.relpath)
+          await @_updateFile analyzer, file, defer()
         else
-          debug "#{analyzer} not interested in #{relpath}"
+          debug "#{analyzer} not interested in #{file.relpath}"
     done()
 
-  _updateFile: (analyzer, relpath, callback) ->
-    fullPath = Path.join(@project.fullPath, relpath)
-
-    await fs.exists fullPath, defer(exists)
-    unless exists
-      debug "#{analyzer}: deleting info on #{relpath}"
-      analyzer.removed(relpath)
+  _updateFile: (analyzer, file, callback) ->
+    unless file.exists
+      debug "#{analyzer}: deleting info on #{file.relpath}"
+      analyzer.removed(file.relpath)
       return callback()
 
-    debug "#{analyzer}: analyzing #{relpath}"
-    action = { id: 'analyze', message: "Analyzing #{Path.basename(relpath)}"}
+    debug "#{analyzer}: analyzing #{file.relpath}"
+    action = { id: 'analyze', message: "Analyzing #{Path.basename(file.relpath)}"}
     @project.reportActionStart(action)
-    await analyzer.update relpath, fullPath, defer()
+    await analyzer.update file, defer()
     @project.reportActionFinish(action)
 
     callback()
+

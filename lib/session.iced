@@ -121,8 +121,9 @@ class Session extends EventEmitter
     project.on 'run.finish', (run) =>
       @emit 'run.finish', project, run
     @projects.push project
-    project.analyzer.addAnalyzerClass require('./analyzers/imports')
     project.analyzer.addAnalyzerClass require('./analyzers/compass')
+    project.analyzer.addAnalyzerClass require('./analyzers/compilers')
+    project.analyzer.addAnalyzerClass require('./analyzers/imports')
     return project
 
   _removeProject: (project) ->

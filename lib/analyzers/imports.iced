@@ -23,18 +23,18 @@ class ImportAnalyzer extends require('./base')
   removed: (relpath) ->
     @project.imports.remove(relpath)
 
-  update: (relpath, fullPath, callback) ->
+  update: (file, callback) ->
     for compiler in @session.pluginManager.allCompilers
       for spec in compiler.sourceSpecs
-        if RelPathSpec.parseGitStyleSpec(spec).matches(relpath)
-          debug "  ...#{relpath} matches compiler #{compiler.name}"
-          await @_updateCompilableFile relpath, fullPath, compiler, defer()
+        if RelPathSpec.parseGitStyleSpec(spec).matches(file.relpath)
+          debug "  ...#{file.relpath} matches compiler #{compiler.name}"
+          await @_updateCompilableFile file, compiler, defer()
     callback()
 
-  _updateCompilableFile: (relpath, fullPath, compiler, callback) ->
-    await fs.readFile fullPath, 'utf8', defer(err, text)
+  _updateCompilableFile: (file, compiler, callback) ->
+    await fs.readFile file.fullPath, 'utf8', defer(err, text)
     if err
-      debug "Error reading #{fullPath}: #{err}"
+      debug "Error reading #{file.fullPath}: #{err}"
       return callback()
 
     fragments = []
@@ -46,7 +46,7 @@ class ImportAnalyzer extends require('./base')
 
     importedRelPaths = []
     for fragment in fragments
-      await @project.vfs.findFilesMatchingSuffixInSubtree @project.path, fragment, Path.basename(relpath), defer(err, result)
+      await @project.vfs.findFilesMatchingSuffixInSubtree @project.path, fragment, Path.basename(file.relpath), defer(err, result)
       if err
         debug "  ... ...error in findFilesMatchingSuffixInSubtree: #{err}"
       else if result.bestMatch
@@ -57,7 +57,7 @@ class ImportAnalyzer extends require('./base')
 
     debug "  ...imported paths = " + JSON.stringify(importedRelPaths)
 
-    @project.imports.updateOutgoing relpath, importedRelPaths
+    @project.imports.updateOutgoing file.relpath, importedRelPaths
 
     callback()
 

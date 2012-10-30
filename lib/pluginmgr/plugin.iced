@@ -11,6 +11,7 @@ MessageParser   = require '../messages/parser'
 class Compiler
   constructor: (@plugin, @manifest) ->
     @name = @manifest.Name
+    @id = @name.toLowerCase()
     @extensions = @manifest.Extensions or []
     @destinationExt = @manifest.DestinationExtension or ''
     @sourceSpecs = ("*.#{ext}" for ext in @extensions)
@@ -50,7 +51,7 @@ class Plugin
   processManifest: (@manifest, callback) ->
     for compilerManifest in @manifest.LRCompilers
       compiler = new Compiler(this, compilerManifest)
-      @compilers[compiler.name] = compiler
+      @compilers[compiler.id] = compiler
 
     debug "Loaded manifest at #{@folder} with #{@manifest.LRCompilers.length} compilers"
     callback(null)
@@ -94,7 +95,7 @@ class PluginManager
     for plugin in @plugins
       _.extend @compilers, plugin.compilers
 
-    @allCompilers = (compiler for own name, compiler of @compilers)
+    @allCompilers = (compiler for own id, compiler of @compilers)
 
     return callback(null)
 

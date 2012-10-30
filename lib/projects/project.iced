@@ -65,6 +65,7 @@ class Project extends R.Model
     @id = "P#{nextId++}_#{@name}"
     @fullPath = abspath(@path)
     @analyzer = new (require './analyzer')(this)
+    @analyzer.rebuild()
 
     @watcher = fsmonitor.watch(@fullPath, null)
     debug "Monitoring for changes: folder = %j", @fullPath
@@ -125,7 +126,7 @@ class Project extends R.Model
       if compiler = @session.findCompilerById(compilerId)
         @compilerOptionsById[compilerId] = new CompilerOptions(compiler, compilerOptionsMemento)
         for own filePath, fileOptionsMemento of compilerOptionsMemento.files || {}
-          @fileOptionsByPath[filePath] = new FileOptions(filePath, fileOptionsMemento)
+          @fileOptionsByPath[filePath] = new FileOptions(this, filePath, fileOptionsMemento)
 
     debug "@compilerOptionsById = " + JSON.stringify(([i, o.options] for i, o of @compilerOptionsById), null, 2)
 
@@ -149,7 +150,21 @@ class Project extends R.Model
       urls: @urls
       compilationEnabled: !!@compilationEnabled
       disableLiveRefresh: !!@disableLiveRefresh
+      files:
+        for own _, file of @fileOptionsByPath
+          file.makeMemento()
     }
+
+  fileAt: (relpath, create=no) ->
+    if create
+      @fileOptionsByPath[relpath] or= new FileOptions(this, relpath)
+    else
+      @fileOptionsByPath[relpath]
+
+  _updateFile: (relpath, exists) ->
+    file = @fileAt(relpath, exists)
+    file?.exists = exists
+    file
 
   startMonitoring: ->
     unless @monitor

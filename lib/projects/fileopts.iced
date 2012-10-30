@@ -7,19 +7,53 @@ decodeExternalRelativeDir = (dir) ->
     when '.' then ''
     else dir
 
+encodeExternalRelativeDir = (dir) ->
+  switch dir
+    when null then ''
+    when ''   then '.'
+    else dir
+
 
 class FileOptions
 
-  constructor: (@path, @memento={}) ->
+  constructor: (@project, @path, memento={}) ->
     @initialized = no
-    @enabled = @memento.enabled ? yes
-    @outputDir = decodeExternalRelativeDir(@memento.output_dir ? '')
-    @outputNameMask = @memento.output_file ? ''
+    @enabled = memento.enabled ? yes
+    @compiler = null
 
-    # TODO XXX HACK removeme
-    @outputDir = (if Path.dirname(@path) == '.' then '' else Path.dirname(@path))
+    @setMemento memento
+
 
     Object.defineProperty this, 'outputName', get: => @outputNameForMask(@outputNameMask)
+
+  Object.defineProperty @::, 'relpath', get: ->
+    @path
+
+  Object.defineProperty @::, 'fullPath', get: ->
+    Path.join(@project.fullPath, @path)
+
+  setMemento: (@memento) ->
+    @exists = @memento.exists ? null
+
+    if @memento.dst
+      @outputDir = decodeExternalRelativeDir Path.dirname(@memento.dst)
+
+      @outputNameMask = Path.basename(@memento.dst)
+      @outputNameMask = '' if @outputNameMask is '<none>'
+
+    else
+      @outputDir = decodeExternalRelativeDir(@memento.output_dir ? '')
+      @outputDir or= (if Path.dirname(@path) == '.' then '' else Path.dirname(@path))
+
+      @outputNameMask = @memento.output_file ? ''
+
+  makeMemento: ->
+    {
+      src: @path
+      dst: Path.join(@outputDir, (@outputNameMask or "<none>"))
+      exists: (if @exists then undefined else no)
+      compiler: @compiler?.id or undefined
+    }
 
   outputNameForMask: (mask) ->
     sourceBaseName = Path.basename(@path, Path.extname(@path))
