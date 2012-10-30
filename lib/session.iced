@@ -31,9 +31,14 @@ class Session extends EventEmitter
     @queue.add { action: 'rescan-plugins' }
 
   setProjectsMemento: (vfs, @projectsMemento) ->
+    if (typeof(@projectsMemento) is 'object') and not Array.isArray(@projectsMemento)
+      @projectsMemento =
+        for own path, projectMemento of @projectsMemento
+          projectMemento.path = path
+          projectMemento
     @projects = []
-    for own path, projectMemento of @projectsMemento
-      project = @_addProject new Project(this, vfs, path)
+    for projectMemento in @projectsMemento
+      project = @_addProject new Project(this, vfs, projectMemento.path)
       project.setMemento projectMemento
     return
 
