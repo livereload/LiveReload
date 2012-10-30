@@ -7,7 +7,7 @@ else
   AppVFS = require '../lib/vfs-app'
 
 exports.api =
-  init: ({ resourcesDir, appDataDir, logDir, logFile, version, build, platform }, callback) ->
+  init: ({ resourcesDir, appDataDir, logDir, logFile, rubies, version, build, platform }, callback) ->
     return callback(new Error("init requires resourcesDir")) unless resourcesDir
     return callback(new Error("init requires appDataDir"))   unless appDataDir
     return callback(new Error("init requires logDir"))       unless logDir
@@ -25,6 +25,9 @@ exports.api =
       return callback(null)  # in case we're in tests and did not exit
 
     LR.stats.startup()
+
+    for ruby in rubies or []
+      @session.addRuby(ruby)
 
     @appVfs = new AppVFS(LR.client)
 
