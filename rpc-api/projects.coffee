@@ -6,6 +6,7 @@ _     = require 'underscore'
 _session = null
 _vfs = null
 _dataFile = null
+_selectedProject = null
 
 _stats = {
   connectionCount: 0
@@ -22,11 +23,20 @@ n = (number, strings...) ->
 
 
 sendStatus = ->
-  message = _status or "Idle. #{n _stats.connectionCount, '1 browser connected', '# browsers connected'}. #{n _stats.changes, '1 change', '# changes'}, #{n _stats.compilations, '1 file compiled', '# files compiled'}, #{n _stats.refreshes, '1 refresh', '# refreshes'} so far."
+  message = _status or "Idle. #{n _stats.connectionCount, '1 browser connected', '# browsers connected'}. #{n _stats.changes, '1 change', '# changes'}, #{n _stats.compilations, '1 file compiled', '# files compiled'}, #{n _stats.refreshes, '1 refresh', '# refreshes'} so far. SEL = #{_selectedProject?.id}"
   # LR.rpc.send 'status', { status: message }
   LR.rpc.send 'rpc', '#mainwnd': '#textBlockStatus': 'text': message
 
 sendStatus = _.throttle(sendStatus, 50)
+
+
+sendProjectPaneUpdate = ->
+  data = []
+  if _selectedProject
+    for dummy, file of _selectedProject.fileOptionsByPath when file.compiler
+      data.push { id: file.relpath, text: "#{file.relpath}   →   #{file.destRelPath}" }
+
+  LR.rpc.send 'rpc', '#mainwnd': '#treeViewPaths': 'data': data
 
 
 sendUpdate = ->
@@ -42,6 +52,7 @@ sendUpdate = ->
           compilationEnabled: !!project.compilationEnabled
         }
   }
+  sendProjectPaneUpdate()
   sendStatus()
 
 
@@ -122,6 +133,10 @@ exports.api =
     callback()
 
   changeDetected: ({ id, changes }, callback) ->
+
+  setSelectedProject: ({ id }, callback) ->
+    _selectedProject = _session.findProjectById(id)
+    sendProjectPaneUpdate()
 
 
 exports.setConnectionStatus = ({ connectionCount }) ->
