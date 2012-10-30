@@ -46,17 +46,11 @@ sendUpdate = ->
 
 
 saveProjects = ->
-  memento = {
-    projects:
-      for project in _session.projects
-        {
-          path: project.path
-          compilationEnabled: !!project.compilationEnabled
-          urls: project.urls
-        }
-  }
-  fs.writeFileSync(_dataFile, JSON.stringify(memento, null, 2))
-  sendUpdate()
+  _session.makeProjectsMemento (err, projects) ->
+    throw err if err
+    memento = { projects }
+    fs.writeFileSync(_dataFile, JSON.stringify(memento, null, 2))
+    sendUpdate()
 
 
 setStatus = (status) ->
