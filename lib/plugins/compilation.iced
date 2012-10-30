@@ -82,9 +82,15 @@ class CompilationStep
     srcInfo = @_fileInfo(relpath)
     dstInfo = @_fileInfo(dstRelPath)
 
+    rubyExecPath =
+      if @session.rubies.length > 0
+        Path.join(@session.rubies[0].path, "bin", "ruby" + (if process.platform is 'win32' then '.exe' else ''))
+      else
+        'ruby'
+
     info =
       '$(project_dir)': @project.fullPath
-      '$(ruby)':  '/usr/bin/ruby'  # TODO: rvm/rubyenv/etc
+      '$(ruby)':  rubyExecPath
       '$(node)':  process.execPath
 
       '$(src_rel_path)': srcInfo.relpath

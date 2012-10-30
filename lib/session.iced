@@ -23,12 +23,17 @@ class Session extends EventEmitter
 
     @pluginManager = new PluginManager()
 
+    @rubies = []
+
     @queue.register { action: 'rescan-plugins' }, @_rescanPlugins.bind(@)
     @queue.add { action: 'rescan-plugins' }
 
   addPluginFolder: (folder) ->
     @pluginManager.addFolder folder
     @queue.add { action: 'rescan-plugins' }
+
+  addRuby: ({ path, version }) ->
+    @rubies.push { path, version }
 
   setProjectsMemento: (vfs, @projectsMemento) ->
     if (typeof(@projectsMemento) is 'object') and not Array.isArray(@projectsMemento)
