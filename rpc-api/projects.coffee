@@ -23,7 +23,7 @@ n = (number, strings...) ->
 
 
 sendStatus = ->
-  message = _status or "Idle. #{n _stats.connectionCount, '1 browser connected', '# browsers connected'}. #{n _stats.changes, '1 change', '# changes'}, #{n _stats.compilations, '1 file compiled', '# files compiled'}, #{n _stats.refreshes, '1 refresh', '# refreshes'} so far. SEL = #{_selectedProject?.id}"
+  message = _status or "Idle. #{n _stats.connectionCount, '1 browser connected', '# browsers connected'}. #{n _stats.changes, '1 change', '# changes'}, #{n _stats.compilations, '1 file compiled', '# files compiled'}, #{n _stats.refreshes, '1 refresh', '# refreshes'} so far."
   # LR.rpc.send 'status', { status: message }
   LR.rpc.send 'rpc', '#mainwnd': '#textBlockStatus': 'text': message
 
