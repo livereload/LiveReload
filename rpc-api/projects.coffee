@@ -7,6 +7,7 @@ _session = null
 _vfs = null
 _dataFile = null
 _selectedProject = null
+_selectedFile = null
 
 _stats = {
   connectionCount: 0
@@ -81,13 +82,22 @@ UI =
   '#mainwnd':
     '#buttonSetOutputFolder':
       'click': (arg) ->
-        setStatus "HELLO #{Date.now()}"
-        UPDATE '#mainwnd': '#buttonSetOutputFolder': label: "HELLO #{Date.now()} ;-)"
+        return unless _selectedFile
 
-        initial = _selectedProject?.fullPath ? null
+        initial = _selectedFile.fullDestDir
 
         UPDATE { '#mainwnd': '!chooseOutputFolder': [{ initial: initial }] }, (err, result) ->
-          setStatus "Result = #{JSON.stringify(result)}"
+          if result.ok
+            _selectedFile.fullDestDir = result.path
+            setStatus "_selectedFile relpath = #{JSON.stringify(_selectedFile.relpath)}, destDir = #{JSON.stringify(_selectedFile.destDir)}"
+            saveProjects()
+
+    '#treeViewPaths':
+      'selectedId': (relpath) ->
+        if _selectedProject
+          _selectedFile = _selectedProject.fileAt(relpath)
+        else
+          _selectedFile = null
 
   update: (payload) ->
     @_updateWithContext(payload, this)
