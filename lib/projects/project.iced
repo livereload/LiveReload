@@ -65,13 +65,18 @@ class Project extends R.Model
     @id = "P#{nextId++}_#{@name}"
     @fullPath = abspath(@path)
     @analyzer = new (require './analyzer')(this)
-    @analyzer.rebuild()
 
     @watcher = fsmonitor.watch(@fullPath, null)
     debug "Monitoring for changes: folder = %j", @fullPath
     @watcher.on 'change', (change) =>
       debug "Detected change:\n#{change}"
       @handleChange @vfs, @fullPath, change.addedFiles.concat(change.modifiedFiles)
+    @watcher.on 'complete', =>
+      debug "Tree scan complete for #{@fullPath}"
+      @analyzer.rebuild()
+      @session.queue.once 'drain', =>
+        @emit 'complete'
+      @session.queue.checkDrain()
 
   destroy: ->
     @watcher?.close()

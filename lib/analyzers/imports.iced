@@ -44,7 +44,7 @@ class ImportAnalyzer extends require('./base')
 
     importedRelPaths = []
     for fragment in fragments
-      await @project.vfs.findFilesMatchingSuffixInSubtree @project.path, fragment, Path.basename(file.relpath), defer(err, result)
+      await @project.watcher.tree.findFilesBySuffix fragment, { bestSubtree: Path.dirname(file.relpath) }, defer(err, result)
       if err
         debug "  ... ...error in findFilesMatchingSuffixInSubtree: #{err}"
       else if result.bestMatch
