@@ -26,14 +26,22 @@ class FileOptions
 
     Object.defineProperty this, 'outputName', get: => @outputNameForMask(@outputNameMask)
 
-  Object.defineProperty @::, 'relpath', get: ->
-    @path
+  Object.defineProperty @::, 'relpath',
+    get: -> @path
 
-  Object.defineProperty @::, 'fullPath', get: ->
-    Path.join(@project.fullPath, @path)
+  Object.defineProperty @::, 'fullPath',
+    get: -> Path.join(@project.fullPath, @path)
 
-  Object.defineProperty @::, 'destRelPath', get: ->
-    Path.join(@outputDir, (@outputNameMask and @outputNameForMask(@outputNameMask) or "<none>"))
+  Object.defineProperty @::, 'destDir',
+    get:     -> @outputDir
+    set: (v) -> @outputDir = v
+
+  Object.defineProperty @::, 'fullDestDir',
+    get:     -> Path.join(@project.fullPath, @destDir)
+    set: (v) -> @destDir = Path.relative(@project.fullPath, v)
+
+  Object.defineProperty @::, 'destRelPath',
+    get: -> Path.join(@outputDir, (@outputNameMask and @outputNameForMask(@outputNameMask) or "<none>"))
 
   setMemento: (@memento) ->
     @exists = @memento.exists ? null
