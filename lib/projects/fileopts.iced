@@ -43,6 +43,9 @@ class FileOptions
   Object.defineProperty @::, 'destRelPath',
     get: -> Path.join(@outputDir, (@outputNameMask and @outputNameForMask(@outputNameMask) or "<none>"))
 
+  Object.defineProperty @::, 'isImported',
+    get: -> @project.imports.hasIncomingEdges(@path)
+
   setMemento: (@memento) ->
     @exists = @memento.exists ? null
 
