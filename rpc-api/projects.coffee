@@ -25,7 +25,7 @@ n = (number, strings...) ->
 sendStatus = ->
   message = _status or "Idle. #{n _stats.connectionCount, '1 browser connected', '# browsers connected'}. #{n _stats.changes, '1 change', '# changes'}, #{n _stats.compilations, '1 file compiled', '# files compiled'}, #{n _stats.refreshes, '1 refresh', '# refreshes'} so far."
   # LR.rpc.send 'status', { status: message }
-  LR.rpc.send 'rpc', '#mainwnd': '#textBlockStatus': 'text': message
+  UPDATE '#mainwnd': '#textBlockStatus': 'text': message
 
 sendStatus = _.throttle(sendStatus, 50)
 
@@ -36,7 +36,11 @@ sendProjectPaneUpdate = ->
     for dummy, file of _selectedProject.fileOptionsByPath when file.compiler
       data.push { id: file.relpath, text: "#{file.relpath}   →   #{file.destRelPath}" }
 
-  LR.rpc.send 'rpc', '#mainwnd': '#treeViewPaths': 'data': data
+  UPDATE
+    '#mainwnd':
+      '#treeViewPaths':
+        'data': data
+      '#buttonSetOutputFolder': {}
 
 
 sendUpdate = ->
@@ -67,6 +71,34 @@ saveProjects = ->
 setStatus = (status) ->
   _status = status
   sendStatus()
+
+
+UPDATE = (payload, callback) ->
+  LR.rpc.send 'rpc', payload, callback
+
+
+UI =
+  '#mainwnd':
+    '#buttonSetOutputFolder':
+      'click': (arg) ->
+        setStatus "HELLO #{Date.now()}"
+        UPDATE '#mainwnd': '#buttonSetOutputFolder': label: "HELLO #{Date.now()} ;-)"
+
+        initial = _selectedProject?.fullPath ? null
+
+        UPDATE { '#mainwnd': '!chooseOutputFolder': [{ initial: initial }] }, (err, result) ->
+          setStatus "Result = #{JSON.stringify(result)}"
+
+  update: (payload) ->
+    @_updateWithContext(payload, this)
+
+  _updateWithContext: (payload, context) ->
+    if typeof context is 'function'
+      context(payload)
+    else
+      for own key, value of payload
+        if subcontext = context[key]
+          @_updateWithContext(value, subcontext)
 
 
 exports.init = (vfs, session, appDataDir) ->
@@ -137,6 +169,10 @@ exports.api =
   setSelectedProject: ({ id }, callback) ->
     _selectedProject = _session.findProjectById(id)
     sendProjectPaneUpdate()
+
+  rpc: (payload, callback) ->
+    UI.update(payload)
+    callback()
 
 
 exports.setConnectionStatus = ({ connectionCount }) ->

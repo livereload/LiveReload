@@ -43,6 +43,9 @@ exports.send = (message, arg, callback=null) ->
     communicator.send [message, arg]
 
 exports.execute = execute = (message, args..., callback) ->
+  if message is 'rpc'
+    message = 'projects.rpc'
+
   message = message.replace /\.(\w+)$/, '.api.$1'
   try
     get(LR, message).apply(_context, [args..., callback])
