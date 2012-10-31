@@ -52,21 +52,14 @@ class CompilationStep
     for relpath in request.paths
       debug "Looking for compiler for #{relpath}..."
       found = no
-      dstRelPath = null
 
-      for compiler in @session.pluginManager.allCompilers
-        # TODO: hande enabled state and the choice of Compass/Sass
-        for spec in compiler.sourceSpecs
-          if RelPathSpec.parseGitStyleSpec(spec).matches(relpath)
-            debug "  ...#{relpath} matches compiler #{compiler.name}"
-            await @_performCompilation relpath, compiler, defer(dstRelPath)
-            found = yes
-            break
+      if file = @project.fileAt(relpath)
+        if file.compiler and file.outputNameMask
+          await @_performCompilation file, defer()
+          found = yes
 
       if found
         compiled[relpath] = yes
-
-        debug "TODO: modify change.paths to process '#{dstRelPath}' instead of '#{relpath}'"
 
     for change in request.changes
       change.pathsToRefresh = (relpath for relpath in change.pathsToRefresh when !compiled.hasOwnProperty(relpath))
@@ -74,13 +67,9 @@ class CompilationStep
     done()
 
 
-  _performCompilation: (relpath, compiler, callback) ->
-    dstRelDir = Path.dirname(relpath)
-    dstName = Path.basename(relpath, Path.extname(relpath)) + ".#{compiler.destinationExt}"
-    dstRelPath = Path.join(dstRelDir, dstName)
-
-    srcInfo = @_fileInfo(relpath)
-    dstInfo = @_fileInfo(dstRelPath)
+  _performCompilation: (file, callback) ->
+    srcInfo = @_fileInfo(file.relpath)
+    dstInfo = @_fileInfo(file.destRelPath)
 
     rubyExecPath =
       if @session.rubies.length > 0
@@ -106,12 +95,12 @@ class CompilationStep
       '$(additional)':   []
 
     action = { id: 'compile', message: "Compiling #{srcInfo.file}" }
-    invocation = compiler.tool.createInvocation(info)
+    invocation = file.compiler.tool.createInvocation(info)
 
     @project.reportActionStart(action)
     invocation.once 'finished', =>
       @project.reportActionFinish(action)
-      callback(dstRelPath)
+      callback()
     invocation.run()
 
 

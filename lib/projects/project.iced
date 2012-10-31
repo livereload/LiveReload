@@ -128,6 +128,9 @@ class Project extends R.Model
         for own filePath, fileOptionsMemento of compilerOptionsMemento.files || {}
           @fileOptionsByPath[filePath] = new FileOptions(this, filePath, fileOptionsMemento)
 
+    for fileMemento in @memento?.files or []
+      @fileAt(fileMemento.src, yes).setMemento fileMemento
+
     debug "@compilerOptionsById = " + JSON.stringify(([i, o.options] for i, o of @compilerOptionsById), null, 2)
 
     for plugin in @session.plugins
@@ -151,7 +154,7 @@ class Project extends R.Model
       compilationEnabled: !!@compilationEnabled
       disableLiveRefresh: !!@disableLiveRefresh
       files:
-        for own _, file of @fileOptionsByPath
+        for own _, file of @fileOptionsByPath when file.compiler
           file.makeMemento()
     }
 

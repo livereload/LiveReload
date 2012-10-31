@@ -24,21 +24,19 @@ class ImportAnalyzer extends require('./base')
     @project.imports.remove(relpath)
 
   update: (file, callback) ->
-    for compiler in @session.pluginManager.allCompilers
-      for spec in compiler.sourceSpecs
-        if RelPathSpec.parseGitStyleSpec(spec).matches(file.relpath)
-          debug "  ...#{file.relpath} matches compiler #{compiler.name}"
-          await @_updateCompilableFile file, compiler, defer()
+    if file.compiler
+      debug "  ...#{file.relpath} matches compiler #{file.compiler.name}"
+      await @_updateCompilableFile file, defer()
     callback()
 
-  _updateCompilableFile: (file, compiler, callback) ->
+  _updateCompilableFile: (file, callback) ->
     await fs.readFile file.fullPath, 'utf8', defer(err, text)
     if err
       debug "Error reading #{file.fullPath}: #{err}"
       return callback()
 
     fragments = []
-    for re in compiler.importRegExps
+    for re in file.compiler.importRegExps
       text.replace re, ($0, fragment) ->
         debug "  ... ...found import of '#{fragment}'"
         fragments.push fragment

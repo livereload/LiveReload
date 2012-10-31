@@ -33,7 +33,7 @@ class FileOptions
     Path.join(@project.fullPath, @path)
 
   Object.defineProperty @::, 'destRelPath', get: ->
-    Path.join(@outputDir, (@outputNameMask or "<none>"))
+    Path.join(@outputDir, (@outputNameMask and @outputNameForMask(@outputNameMask) or "<none>"))
 
   setMemento: (@memento) ->
     @exists = @memento.exists ? null
