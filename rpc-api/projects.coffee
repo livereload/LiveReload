@@ -35,7 +35,11 @@ sendProjectPaneUpdate = ->
   data = []
   if _selectedProject
     for dummy, file of _selectedProject.fileOptionsByPath when file.compiler
-      data.push { id: file.relpath, text: "#{file.relpath}   →   #{file.destRelPath}" }
+      if file.isImported
+        text = "#{file.relpath}  (imported)"
+      else
+        text = "#{file.relpath}   →   #{file.destRelPath}"
+      data.push { id: file.relpath, text }
 
   UPDATE
     '#mainwnd':
