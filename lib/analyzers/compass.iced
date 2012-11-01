@@ -15,7 +15,7 @@ class CompassAnalyzer extends require('./base')
   removed: (relpath) ->
     # TODO
 
-  update: (relpath, fullPath, callback) ->
+  update: (file, callback) ->
     # TODO
     callback()
 
