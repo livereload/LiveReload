@@ -6,6 +6,7 @@ _     = require 'underscore'
 
 CommandLineTool = require '../tools/cmdline'
 MessageParser   = require '../messages/parser'
+{ RelPathList, RelPathSpec } = require 'pathspec'
 
 
 class Compiler
@@ -27,6 +28,10 @@ class Compiler
     @importRegExps =
       for re in @manifest.ImportRegExps or []
         new RegExp(re)
+
+    @sourceFilter = new RelPathList()
+    for spec in @sourceSpecs
+      @sourceFilter.include RelPathSpec.parseGitStyleSpec(spec)
 
 
 exports.Compiler = Compiler

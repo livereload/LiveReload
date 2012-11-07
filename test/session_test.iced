@@ -99,7 +99,7 @@ describe "Session", ->
     assert.equal runs[0].project, bar
 
     await
-      session.queue.on 'empty', defer()
+      session.queue.once 'empty', defer()
       session.queue.checkDrain()
 
     debug "requests = %j", requests

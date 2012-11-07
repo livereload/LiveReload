@@ -10,6 +10,8 @@ FileOptions     = require './fileopts'
 
 Run      = require '../runs/run'
 
+{ RelPathList, RelPathSpec } = require 'pathspec'
+
 
 RegExp_escape = (s) ->
   s.replace /// [-/\\^$*+?.()|[\]{}] ///g, '\\$&'
@@ -50,13 +52,22 @@ class Project extends R.Model
     rubyVersionId:            { type: String }
 
     # paths we should never monitor or enumerate
-    excludedPaths:            { type: Array }
+    excludedPaths:            { type: { array: String } }
 
     # URL wildcards that correspond to this project's files
-    urls:                     { type: Array }
+    urls:                     { type: { array: String } }
 
     customName:               { type: String }
     nrPathCompsInName:        { type: 'int' }
+
+    snippet:                  { type: String, computed: yes }
+    availableCompilers:       { type: Array, computed: yes }
+
+    fileOptionsByPath:        {}
+
+    compilableFilesFilter:    { computed: yes }
+
+    rules:                    { type: Array }
 
 
   constructor: (@session, @vfs, @path) ->
@@ -75,8 +86,10 @@ class Project extends R.Model
       debug "Tree scan complete for #{@fullPath}"
       @analyzer.rebuild()
       @session.queue.once 'drain', =>
+        @_changed 'fileOptionsByPath'
         @emit 'complete'
       @session.queue.checkDrain()
+    @tree = @watcher.tree
 
   destroy: ->
     @watcher?.close()
@@ -96,17 +109,29 @@ class Project extends R.Model
       return components?.hostname or url.split('/')[0]
 
 
-  Object.defineProperty @::, 'snippet', get: ->
+  'compute snippet': ->
     script = """document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=2"></' + 'script>')"""
 
     if @urls.length > 0
       checks =
         for url in @urls when (hostname = @_hostnameForUrl(url))
-          "location.hostname == " + JSON.stringify(hostname)
+          "location.hostname === " + JSON.stringify(hostname)
       checks = checks.join(" || ")
       script = "if (#{checks}) { #{script} }"
 
     return "<script>#{script}</script>"
+
+
+  'compute availableCompilers': ->
+    @session.pluginManager?.allCompilers or []
+
+
+  'compute compilableFilesFilter': ->
+    list = new RelPathList()
+    for compiler in @availableCompilers
+      for spec in compiler.sourceSpecs
+        list.include RelPathSpec.parseGitStyleSpec(spec)
+    return list
 
 
   setMemento: (@memento) ->
@@ -227,6 +252,7 @@ class Project extends R.Model
       run.once 'finish', =>
         debug "Project.handleChange: finished run for %j", paths
         @emit 'run.finish', run
+        @_changed 'fileOptionsByPath'
       run.start()
     @session.queue.checkDrain()
 

@@ -1,15 +1,23 @@
 debug = require('debug')('livereload:core:session')
 { EventEmitter } = require 'events'
 Project = require './projects/project'
+R = require 'reactive'
 { PluginManager } = require './pluginmgr/plugin'
 
 JobQueue = require 'jobqueue'
 
-class Session extends EventEmitter
+class Session extends R.Model
+
+  @R = R
+
+  schema:
+    projects:                 { type: Array }
 
   constructor: (options={}) ->
+    super()
+
+
     @plugins = []
-    @projects = []
     @projectsMemento = {}
 
     @queue = new JobQueue()
@@ -126,6 +134,7 @@ class Session extends EventEmitter
     project.on 'run.finish', (run) =>
       @emit 'run.finish', project, run
     @projects.push project
+    @_changed 'projects'
     project.analyzer.addAnalyzerClass require('./analyzers/compass')
     project.analyzer.addAnalyzerClass require('./analyzers/compilers')
     project.analyzer.addAnalyzerClass require('./analyzers/imports')
@@ -134,6 +143,7 @@ class Session extends EventEmitter
   _removeProject: (project) ->
       if (index = @projects.indexOf(project)) >= 0
         @projects.splice index, 1
+        @_changed 'projects'
       undefined
 
   # message routing
