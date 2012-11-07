@@ -14,7 +14,7 @@
   "dependencies": {
     "debug": "~0.7.0",
     "jobqueue": "=0.1.2",
-    "reactive": "=0.0.1",
+    "reactive": "=0.1.0",
     "subst": "~0.1.0",
     "urlmatch": "~0.1.0",
     "pathspec": "~0.9.2",
