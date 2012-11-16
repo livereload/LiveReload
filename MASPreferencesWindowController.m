@@ -301,7 +301,10 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
 {
     NSUInteger selectedIndex = self.indexOfSelectedController;
     NSUInteger numberOfControllers = [_viewControllers count];
-    selectedIndex = (selectedIndex + 1) % numberOfControllers;
+
+    do { selectedIndex = (selectedIndex + 1) % numberOfControllers; }
+    while ([_viewControllers objectAtIndex:selectedIndex] == [NSNull null]);
+
     [self selectControllerAtIndex:selectedIndex];
 }
 
@@ -309,7 +312,10 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
 {
     NSUInteger selectedIndex = self.indexOfSelectedController;
     NSUInteger numberOfControllers = [_viewControllers count];
-    selectedIndex = (selectedIndex + numberOfControllers - 1) % numberOfControllers;
+
+    do { selectedIndex = (selectedIndex + numberOfControllers - 1) % numberOfControllers; }
+    while ([_viewControllers objectAtIndex:selectedIndex] == [NSNull null]);
+
     [self selectControllerAtIndex:selectedIndex];
 }
 
