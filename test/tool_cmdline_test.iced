@@ -1,6 +1,5 @@
 { ok, equal, deepEqual } = require 'assert'
-CommandLineTool = require '../lib/tools/cmdline'
-MessageParser   = require '../lib/messages/parser'
+{ CommandLineTool, MessageParser } = require "../#{process.env.JSLIB or 'lib'}/session"
 
 describe "CommandLineTool", ->
 

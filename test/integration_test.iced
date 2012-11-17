@@ -6,7 +6,7 @@ fs     = require 'fs'
 
 { EventEmitter } = require 'events'
 
-Session = require '../lib/session'
+{ Session, R } = require "../#{process.env.JSLIB or 'lib'}/session"
 vfs = require 'vfs-local'
 
 describe "livereload-core", ->

@@ -3,7 +3,7 @@ assert = require 'assert'
 
 { EventEmitter } = require 'events'
 
-Session = require '../lib/session'
+{ Session, R } = require "../#{process.env.JSLIB or 'lib'}/session"
 TestVFS = require 'vfs-test'
 
 describe "Session", ->

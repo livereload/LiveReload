@@ -3,3 +3,5 @@
 *.iced
 test/
 
+/lib-cov
+/coverage.html

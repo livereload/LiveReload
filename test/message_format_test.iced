@@ -1,5 +1,5 @@
 { deepEqual } = require 'assert'
-MessageFormat = require '../lib/messages/format'
+{ MessageFormat } = require "../#{process.env.JSLIB or 'lib'}/session"
 
 o = (pattern, func) ->
   describe "like #{JSON.stringify pattern}", ->

@@ -5,7 +5,7 @@ R      = require 'reactive'
 
 { EventEmitter } = require 'events'
 
-Project = require '../lib/projects/project'
+{ R, Project } = require "../#{process.env.JSLIB or 'lib'}/session"
 TestVFS = require 'vfs-test'
 
 DataDir = Path.join(__dirname, 'data')

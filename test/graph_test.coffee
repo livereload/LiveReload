@@ -1,5 +1,6 @@
 { ok, deepEqual } = require 'assert'
-Graph = require '../lib/projects/graph'
+
+{Graph} = require "../#{process.env.JSLIB or 'lib'}/session"
 
 describe "Graph", ->
 

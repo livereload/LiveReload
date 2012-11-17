@@ -1,5 +1,5 @@
 { deepEqual } = require 'assert'
-MessageParser = require '../lib/messages/parser'
+{ MessageParser } = require "../#{process.env.JSLIB or 'lib'}/session"
 
 o = (manifest, func) ->
   describe "with #{JSON.stringify manifest}", ->

@@ -8,8 +8,6 @@ JobQueue = require 'jobqueue'
 
 class Session extends R.Model
 
-  @R = R
-
   schema:
     projects:                 { type: Array }
 
@@ -170,5 +168,17 @@ class Session extends R.Model
   _rescanPlugins: (request, done) ->
     @pluginManager.rescan(done)
 
-module.exports = Session
 
+module.exports            = Session
+Session.Session           = Session  # for those who prefer to use a destructuring assignment
+Session.R                 = require 'reactive'
+
+# private exports for tests
+Session.Project           = require './projects/project'
+Session.Graph             = require './projects/graph'
+Session.MessageFormat     = require './messages/format'
+Session.MessageParser     = require './messages/parser'
+Session.Action            = require './rules/action'
+Session.CompilationAction = require './rules/compilation-action'
+Session.RuleSet           = require './rules/ruleset'
+Session.CommandLineTool   = require './tools/cmdline'
