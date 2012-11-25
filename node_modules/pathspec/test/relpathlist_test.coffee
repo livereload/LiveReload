@@ -1,5 +1,5 @@
 assert = require 'assert'
-{ RelPathList } = require '../index'
+{ RelPathList } = require "../#{process.env.JSLIB or 'lib'}/index"
 
 tests = []
 o = (spec, examples) -> tests.push [spec, examples]

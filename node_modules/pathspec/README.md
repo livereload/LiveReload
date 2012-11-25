@@ -69,6 +69,10 @@ Running tests
     npm test
     REPORTER=dot npm test
 
+Test coverage report:
+
+    npm run-script cov
+
 
 License
 -------

@@ -1,5 +1,5 @@
 assert = require 'assert'
-{ Mask } = require '../index'
+{ Mask } = require "../#{process.env.JSLIB or 'lib'}/index"
 
 
 describe "Mask", ->

@@ -12,7 +12,8 @@
     "pathspec-find": "bin/pathspec-find.js"
   },
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha -R ${REPORTER-spec}"
+    "test": "./node_modules/mocha/bin/mocha -R ${REPORTER-spec}",
+    "cov": "rm -rf lib-cov; jscoverage lib lib-cov; env JSLIB=lib-cov mocha -R dot && env JSLIB=lib-cov mocha -R html-cov >coverage.html; open coverage.html"
   },
   "dependencies": {},
   "devDependencies": {
