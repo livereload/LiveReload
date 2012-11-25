@@ -2,7 +2,7 @@
   "author": "Andrey Tarantsov <andrey@tarantsov.com>",
   "name": "pathspec",
   "description": "Shell-like name/path wildcards, gitignore-like file lists",
-  "version": "0.9.2",
+  "version": "0.9.3",
   "repository": {
     "type": "git",
     "url": "git@github.com:andreyvit/pathspec.js.git"
