@@ -11,9 +11,9 @@ class Session extends R.Model
   schema:
     projects:                 { type: Array }
 
-  constructor: (options={}) ->
-    super()
 
+  initialize: (options) ->
+    super()
 
     @plugins = []
     @projectsMemento = {}
@@ -23,9 +23,9 @@ class Session extends R.Model
     @CommandLineTool = require('./tools/cmdline')
     @MessageParser = require('./messages/parser')
 
-    @addPlugin new (require('./plugins/compilation'))()
-    @addPlugin new (require('./plugins/postproc'))()
-    @addPlugin new (require('./plugins/refresh'))()
+    for plugin in ['compilation', 'postproc', 'refresh']
+      if !options.stdPlugins? or (Array.isArray(options.stdPlugins) and (plugin in options.stdPlugins))
+        @addPlugin new (require("./plugins/#{plugin}"))()
 
     @pluginManager = new PluginManager()
 
@@ -50,7 +50,7 @@ class Session extends R.Model
 
     @projects = []
     for projectMemento in @projectsMemento
-      project = @_addProject new Project(this, vfs, projectMemento.path)
+      project = @_addProject @universe.create(Project, session: this, vfs: vfs, path: projectMemento.path)
       project.setMemento projectMemento
     return
 
@@ -80,7 +80,7 @@ class Session extends R.Model
     { id: compilerId }
 
   addProject: (vfs, path) ->
-    project = new Project this, vfs, path
+    project = @universe.create(Project, { session: this, vfs, path })
     @_addProject project
     project.setMemento {}
 

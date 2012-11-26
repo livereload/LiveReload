@@ -16,6 +16,7 @@ class CompassAnalyzer extends require('./base')
     # TODO
 
   update: (file, callback) ->
+    # emit 'compass.prefer', { value: yes, reason: "" }
     # TODO
     callback()
 

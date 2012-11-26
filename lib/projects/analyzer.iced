@@ -70,6 +70,11 @@ class Analyzer
           await @_updateFile analyzer, file, defer()
         else
           debug "#{analyzer} not interested in #{file.relpath}"
+
+    for analyzer in @analyzers
+      debug "Calling #{analyzer}.after"
+      await analyzer.after defer()
+
     done()
 
   _updateFile: (analyzer, file, callback) ->

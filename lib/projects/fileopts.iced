@@ -1,4 +1,5 @@
 Path = require 'path'
+R = require 'reactive'
 
 
 decodeExternalRelativeDir = (dir) ->
@@ -14,7 +15,26 @@ encodeExternalRelativeDir = (dir) ->
     else dir
 
 
-class FileOptions
+class FileOptions extends R.Model
+
+  schema:
+    compilable:               { type: Boolean }
+    compiled:                 { type: Boolean }
+
+
+  # **/*.coffee -> **/*.js
+  # **/*.sass -> **/*.css
+
+  # livereload.json
+
+
+  # foo/*.css -> foo/foo.min.css
+
+  # bar/xxx.css
+  # bar/yyy.css
+  # implicit: bar/*.css -> bar.min.css
+
+  # [x] Minify and concatenate
 
   constructor: (@project, @path, memento={}) ->
     @initialized = no

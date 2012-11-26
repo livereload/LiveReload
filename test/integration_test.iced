@@ -19,7 +19,8 @@ describe "livereload-core", ->
 
 
   o = (done, projectName, projMemento, func) ->
-    session = new Session
+    universe = new R.Universe()
+    session = universe.create(Session)
     session.addPluginFolder pluginsDir
 
     sampleDir = Path.join(dataDir, projectName)

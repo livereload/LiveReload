@@ -12,3 +12,8 @@ class Analyzer
 
   Object.defineProperty @::, 'list', get: ->
     @_list or= @computePathList()
+
+  after: (callback) ->
+    callback()
+
+

@@ -1,5 +1,7 @@
 debug  = require('debug')('livereload:core:tests')
 assert = require 'assert'
+{ ok, equal } = require 'assert'
+{ inspect } = require 'util'
 
 { EventEmitter } = require 'events'
 
@@ -12,7 +14,8 @@ describe "Session", ->
     vfs = new TestVFS
     vfs.put '/foo/bar/boz.css', "body: { background: red }\n"
 
-    session = new Session
+    universe = new R.Universe()
+    session = universe.create(Session)
     session.addProject vfs, '/foo/bar'
 
     session.on "command", (message) ->
@@ -27,13 +30,15 @@ describe "Session", ->
 
   it "should implement addInterface", ->
     face = new EventEmitter()
-    session = new Session
+    universe = new R.Universe()
+    session = universe.create(Session)
     session.addInterface(face)
     assert.equal face.listeners('command').length, 1
 
 
   it "should be able to load a memento", ->
-    session = new Session
+    universe = new R.Universe()
+    session = universe.create(Session)
     vfs = new TestVFS
     session.setProjectsMemento vfs, {
       '/foo/bar': { compilationEnabled: 1 }
@@ -55,7 +60,8 @@ describe "Session", ->
     vfs = new TestVFS()
     vfs.put '/foo/bar/app/static/test.css', "h1 { color: red }\n"
 
-    session = new Session
+    universe = new R.Universe()
+    session = universe.create(Session)
     session.setProjectsMemento vfs, {
       '/foo/bar': { urls: ['example.com'] }
     }
@@ -68,7 +74,8 @@ describe "Session", ->
 
 
   it "should involve postproc plugin when loading a memento", ->
-    session = new Session
+    universe = new R.Universe()
+    session = universe.create(Session)
     vfs = new TestVFS
     session.setProjectsMemento vfs, {
       '/foo/bar': { postproc: 'foo' }
@@ -81,7 +88,8 @@ describe "Session", ->
 
 
   it "should handle changes", (done) ->
-    session = new Session
+    universe = new R.Universe()
+    session = universe.create(Session)
     vfs = new TestVFS
 
     requests = []
@@ -102,12 +110,23 @@ describe "Session", ->
       session.queue.once 'empty', defer()
       session.queue.checkDrain()
 
-    debug "requests = %j", requests
+    # debug "requests = %j", requests
     assert.deepEqual requests, [
       { action: 'rescan-plugins' }
       { action: 'analyzer-rebuild', project: runs[0].project.id }
-      { action: 'compile', project: runs[0].project.id, paths: ['boz.js'] }
+      { action: 'analyzer-rebuild', project: runs[0].project.id }
+      { action: 'compile', project: runs[0].project.id, paths: ['boz.js'], changes: [{ paths: ['boz.js'], pathsToRefresh: ['boz.js'] }] }
       { action: 'postproc', project: runs[0].project.id }
       { action: 'refresh', project: runs[0].project.id, paths: ['boz.js'] }
     ]
     done()
+
+  # describe '#addRuby()', ->
+
+  #   it "should add the given object to .rubies", ->
+  #     universe = new R.Universe()
+  #     session = universe.create(Session)
+  #     session.addRuby { version: '1.9.3', path: '~/.rvm/rubies/ruby-1.9.3' }
+  #     equal session.rubies.length, 1
+  #     equal session.rubies[0].version, '1.9.3'
+  #     equal session.rubies[0].path,    '~/.rvm/rubies/ruby-1.9.3'

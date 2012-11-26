@@ -7,8 +7,10 @@ fsmonitor = require 'fsmonitor'
 
 CompilerOptions = require './compileropts'
 FileOptions     = require './fileopts'
+CompilationAction = require '../rules/compilation-action'
 
 Run      = require '../runs/run'
+RuleSet = require '../rules/ruleset'
 
 { RelPathList, RelPathSpec } = require 'pathspec'
 
@@ -67,11 +69,8 @@ class Project extends R.Model
 
     compilableFilesFilter:    { computed: yes }
 
-    rules:                    { type: Array }
 
-
-  constructor: (@session, @vfs, @path) ->
-    super()
+  initialize: ({ @session, @vfs, @path }) ->
     @name = Path.basename(@path)
     @id = "P#{nextId++}_#{@name}"
     @fullPath = abspath(@path)
@@ -82,14 +81,21 @@ class Project extends R.Model
     @watcher.on 'change', (change) =>
       debug "Detected change:\n#{change}"
       @handleChange @vfs, @fullPath, change.addedFiles.concat(change.modifiedFiles)
-    @watcher.on 'complete', =>
-      debug "Tree scan complete for #{@fullPath}"
-      @analyzer.rebuild()
-      @session.queue.once 'drain', =>
-        @_changed 'fileOptionsByPath'
-        @emit 'complete'
-      @session.queue.checkDrain()
     @tree = @watcher.tree
+
+    actions =
+      for compiler in @session.pluginManager?.allCompilers or []
+        new CompilationAction(compiler)
+    @ruleSet = new RuleSet(actions)
+
+    await @watcher.on 'complete', defer()
+    debug "Tree scan complete for #{@fullPath}"
+    @analyzer.rebuild()
+    console.error "Session: %s", @session.constructor.name
+    @session.queue.once 'drain', =>
+      @_changed 'fileOptionsByPath'
+      @emit 'complete'
+    @session.queue.checkDrain()
 
   destroy: ->
     @watcher?.close()
@@ -172,6 +178,9 @@ class Project extends R.Model
         step.initialize()
         @steps.push step
 
+    if @memento.rules?
+      @ruleSet.setMemento @memento.rules
+
     # @isLiveReloadBackend = (Path.normalize(@hive.fullPath) == Path.normalize(Path.join(__dirname, '../..')))
     # if @isLiveReloadBackend
     #   log.warn "LiveReload Development Mode enabled. Will restart myself on backend changes."
@@ -186,6 +195,8 @@ class Project extends R.Model
       files:
         for own _, file of @fileOptionsByPath when file.compiler
           file.makeMemento()
+      rules:
+        @ruleSet.memento()
     }
 
   fileAt: (relpath, create=no) ->

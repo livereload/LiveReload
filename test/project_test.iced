@@ -18,6 +18,8 @@ class FakeSession
     @queue =
       register: ->
       add: ->
+      once: ->
+      checkDrain: ->
 
   findCompilerById: (compilerId) ->
     { id: compilerId }
@@ -29,7 +31,8 @@ describe "Project", ->
     vfs = new TestVFS()
     session = new FakeSession()
 
-    project = new Project(session, vfs, "/foo/bar")
+    universe = new R.Universe()
+    project = universe.create(Project, { session, vfs, path: "/foo/bar" })
     assert.equal project.name, 'bar'
     assert.equal project.path, '/foo/bar'
     assert.ok project.id =~ /^P\d+_bar$/
@@ -39,7 +42,8 @@ describe "Project", ->
     vfs = new TestVFS()
     session = new FakeSession()
 
-    project = new Project(session, vfs, "/foo/bar")
+    universe = new R.Universe()
+    project = universe.create(Project, { session, vfs, path: "/foo/bar" })
     project.setMemento {}
 
 
@@ -48,7 +52,8 @@ describe "Project", ->
 
     session = new FakeSession()
 
-    project = new Project(session, vfs, "/foo/bar")
+    universe = new R.Universe()
+    project = universe.create(Project, { session, vfs, path: "/foo/bar" })
     project.setMemento { disableLiveRefresh: 1, compilationEnabled: 1 }
 
 
@@ -57,7 +62,8 @@ describe "Project", ->
 
     session = new FakeSession()
 
-    project = new Project(session, vfs, "/foo/bar")
+    universe = new R.Universe()
+    project = universe.create(Project, { session, vfs, path: "/foo/bar" })
     project.setMemento readMementoSync('project_memento.json')
 
     assert.equal project.compilationEnabled, true
@@ -70,7 +76,8 @@ describe "Project", ->
 
     session = new FakeSession()
 
-    project = new Project(session, vfs, "/foo/bar")
+    universe = new R.Universe()
+    project = universe.create(Project, { session, vfs, path: "/foo/bar" })
     project.saveResourceFromWebInspector 'http://example.com/static/test.css', "h1 { color: green }\n", (err, saved) ->
       assert.ifError err
       assert.ok saved
@@ -91,7 +98,8 @@ describe "Project", ->
 
     session = new FakeSession()
 
-    project = new Project(session, vfs, "/foo/bar")
+    universe = new R.Universe()
+    project = universe.create(Project, { session, vfs, path: "/foo/bar" })
     project.saveResourceFromWebInspector 'http://example.com/static/test.css', css2, (err, saved) ->
       assert.ifError err
       assert.ok saved
@@ -102,14 +110,14 @@ describe "Project", ->
 
 
   it "should be reactive", (done) ->
-    u = new R.Universe()
+    universe = new R.Universe()
     vfs = new TestVFS()
 
     session = new FakeSession()
 
-    project = new Project(session, vfs, "/foo/bar")
+    project = universe.create(Project, { session, vfs, path: "/foo/bar" })
 
-    u.once 'change', -> done()
+    universe.once 'change', -> done()
     project.setMemento { disableLiveRefresh: 1, compilationEnabled: 1 }
 
 
@@ -123,7 +131,8 @@ describe "Project", ->
         loadProject: (project, memento) ->
           project.foo = memento.bar
 
-      project = new Project(session, vfs, "/foo/bar")
+      universe = new R.Universe()
+      project = universe.create(Project, { session, vfs, path: "/foo/bar" })
       project.setMemento { disableLiveRefresh: 1, bar: 42 }
 
       assert.equal project.foo, 42
