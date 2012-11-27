@@ -162,9 +162,10 @@ class Project extends R.Model
       if compiler = @session.findCompilerById(compilerId)
         @compilerOptionsById[compilerId] = new CompilerOptions(compiler, compilerOptionsMemento)
         for own filePath, fileOptionsMemento of compilerOptionsMemento.files || {}
-          @fileOptionsByPath[filePath] = new FileOptions(this, filePath, fileOptionsMemento)
+          @fileAt(filePath, yes).setMemento fileOptionsMemento
 
     for fileMemento in @memento?.files or []
+      debug "fileMemento: %j", fileMemento
       @fileAt(fileMemento.src, yes).setMemento fileMemento
 
     debug "@compilerOptionsById = " + JSON.stringify(([i, o.options] for i, o of @compilerOptionsById), null, 2)
@@ -201,7 +202,7 @@ class Project extends R.Model
 
   fileAt: (relpath, create=no) ->
     if create
-      @fileOptionsByPath[relpath] or= new FileOptions(this, relpath)
+      @fileOptionsByPath[relpath] or= @universe.create(FileOptions, project: this, path: relpath)
     else
       @fileOptionsByPath[relpath]
 

@@ -18,8 +18,15 @@ encodeExternalRelativeDir = (dir) ->
 class FileOptions extends R.Model
 
   schema:
+    project:                  { type: Object }
+    path:                     { type: String }
+    compiler:                 { type: Object }
+    memento:                  { type: Object }
+
     compilable:               { type: Boolean }
     compiled:                 { type: Boolean }
+    initialized:              { type: Boolean }
+    enabled:                  { type: Boolean }
 
 
   # **/*.coffee -> **/*.js
@@ -36,13 +43,12 @@ class FileOptions extends R.Model
 
   # [x] Minify and concatenate
 
-  constructor: (@project, @path, memento={}) ->
-    @initialized = no
-    @enabled = memento.enabled ? yes
-    @compiler = null
+  initialize: (options) ->
+    @memento = options.memento or {}
 
-    @setMemento memento
+    @enabled = @memento.enabled ? yes
 
+    @setMemento @memento
 
     Object.defineProperty this, 'outputName', get: => @outputNameForMask(@outputNameMask)
 
