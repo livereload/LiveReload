@@ -3,6 +3,8 @@ Path   = require 'path'
 fs     = require 'fs'
 R      = require 'reactive'
 
+{ ok, equal, deepEqual } = require 'assert'
+
 { EventEmitter } = require 'events'
 
 { R, Project } = require "../#{process.env.JSLIB or 'lib'}/session"
@@ -20,6 +22,9 @@ class FakeSession
       add: ->
       once: ->
       after: (func) -> process.nextTick func
+
+    @pluginManager =
+      allCompilers: []
 
   after: (func) -> process.nextTick func
 
@@ -138,3 +143,32 @@ describe "Project", ->
       project.setMemento { disableLiveRefresh: 1, bar: 42 }
 
       assert.equal project.foo, 42
+
+
+  describe "rule system", ->
+
+    it "should start new projects with a full set of supported rules", ->
+      universe = new R.Universe()
+      vfs = new TestVFS()
+      session = new FakeSession()
+      # TODO: add some kind of fuzzy dependency injection to collapse these stupid chains
+      session.pluginManager.allCompilers.push {
+        name:            'LESS'
+        id:              'less'
+        extensions:      ['less']
+        destinationExt:  'css'
+        sourceSpecs:     ["*.less"]
+      }
+      session.pluginManager.allCompilers.push {
+        name:            'CoffeeScript'
+        id:              'coffeescript'
+        extensions:      ['coffee']
+        destinationExt:  'js'
+        sourceSpecs:     ["*.coffee"]
+      }
+
+      project = universe.create(Project, { session, vfs, path: "/foo/bar" })
+      deepEqual project.ruleSet.memento(), [{ action: 'compile-less', src: '**/*.less', dst: '**/*.css' }, { action: 'compile-coffeescript', src: '**/*.coffee', dst: '**/*.js' }]
+
+    it "should use rules to determine compiler and output path"
+    it "should allow rules to be modified in the UI"
