@@ -92,10 +92,10 @@ class Project extends R.Model
     debug "Tree scan complete for #{@fullPath}"
     @analyzer.rebuild()
     console.error "Session: %s", @session.constructor.name
-    @session.queue.once 'drain', =>
+    @session.after =>
       @_changed 'fileOptionsByPath'
       @emit 'complete'
-    @session.queue.checkDrain()
+    , "#{this}.initialize.complete"
 
   destroy: ->
     @watcher?.close()
@@ -249,7 +249,7 @@ class Project extends R.Model
 
     @analyzer.update(paths)
 
-    @session.queue.once 'drain', =>
+    @session.queue.checkpoint =>
       pathsToProcess = []
       for path in paths
         if (sources = @imports.findSources(path)) and (sources.length > 0) and ((sources.length != 1) or (sources[0] != path))
@@ -265,7 +265,7 @@ class Project extends R.Model
         @emit 'run.finish', run
         @_changed 'fileOptionsByPath'
       run.start()
-    @session.queue.checkDrain()
+    , "#{this}.handleChange.after.analyzer.update"
 
     return run
 

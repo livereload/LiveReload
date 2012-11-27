@@ -111,6 +111,13 @@ class Session extends R.Model
     # for priority in plugin.jobPriorities || []
     #   @queue.addPriority priority
 
+  # call the given func when all previously issued requests have been completed and there's no pending background work
+  after: (func, description) ->
+    @queue.after =>
+      # make sure 'func' is allowed to add more jobs
+      process.nextTick func
+    , description
+
   handleChange: (vfs, root, paths) ->
     debug "Session.handleChange root=%j; paths: %j", root, paths
     runs = []

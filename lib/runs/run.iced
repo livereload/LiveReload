@@ -1,3 +1,4 @@
+debug = require('debug')('livereload:core')
 { EventEmitter } = require 'events'
 
 
@@ -9,6 +10,11 @@ class Run extends EventEmitter
     @remainingSteps = @steps.slice()
     @queue = @project.session.queue
 
+  toString: ->
+    paths = @change.paths
+    desc = paths.slice(0, 2).join(',') + (if paths.length > 2 then ",…" else "")
+    "Run(#{desc})"
+
   start: ->
     @performNextStep()
 
@@ -17,12 +23,13 @@ class Run extends EventEmitter
 
   performNextStep: ->
     if @currentStep = @remainingSteps.shift()
+      debug "Run performing step: #{@currentStep.constructor.name} #{@currentStep}"
       @emit 'step', this
       @currentStep.schedule(@change)
 
-      @queue.once 'drain', @_stepFinished.bind(@)
-      @queue.checkDrain()
+      @queue.checkpoint @_stepFinished.bind(@), "#{this}.stepFinished"
     else
+      debug "Run finished."
       return @finished()
 
   _stepFinished: ->

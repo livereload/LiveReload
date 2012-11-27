@@ -19,7 +19,9 @@ class FakeSession
       register: ->
       add: ->
       once: ->
-      checkDrain: ->
+      after: (func) -> process.nextTick func
+
+  after: (func) -> process.nextTick func
 
   findCompilerById: (compilerId) ->
     { id: compilerId }

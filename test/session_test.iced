@@ -106,9 +106,36 @@ describe "Session", ->
     assert.equal runs.length, 1
     assert.equal runs[0].project, bar
 
-    await
-      session.queue.once 'empty', defer()
-      session.queue.checkDrain()
+    await session.after defer()
+
+    # debug "requests = %j", requests
+    assert.deepEqual requests, [
+      { action: 'rescan-plugins' }
+      { action: 'analyzer-rebuild', project: runs[0].project.id }
+      { action: 'analyzer-rebuild', project: runs[0].project.id }
+      { action: 'compile', project: runs[0].project.id, paths: ['boz.js'], changes: [{ paths: ['boz.js'], pathsToRefresh: ['boz.js'] }] }
+      { action: 'postproc', project: runs[0].project.id }
+      { action: 'refresh', project: runs[0].project.id, paths: ['boz.js'] }
+    ]
+    done()
+
+  it.skip "should handle changes in a compilable file", (done) ->
+    universe = new R.Universe()
+    session = universe.create(Session)
+    vfs = new TestVFS
+
+    session.setProjectsMemento vfs, {
+      '/foo/bar': { compilationEnabled: yes }
+    }
+
+    bar = session.findProjectByPath('/foo/bar')
+    assert.ok bar?
+
+    runs = session.handleChange vfs, '/foo/bar', ['boz.js']
+    assert.equal runs.length, 1
+    assert.equal runs[0].project, bar
+
+    await session.after defer()
 
     # debug "requests = %j", requests
     assert.deepEqual requests, [
