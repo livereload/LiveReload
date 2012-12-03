@@ -15,7 +15,7 @@ class Rule extends R.Model
 class FileToFileRule extends Rule
 
   schema:
-    action:                   { type: 'object' }
+    action:                   { type: Object }
     sourceSpec:               { type: String }
     destSpec:                 { type: String }
 

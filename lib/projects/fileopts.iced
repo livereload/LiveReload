@@ -28,6 +28,9 @@ class FileOptions extends R.Model
     initialized:              { type: Boolean }
     enabled:                  { type: Boolean }
 
+    outputNameMask:           { type: String }
+    outputDir:                { type: String }
+
 
   # **/*.coffee -> **/*.js
   # **/*.sass -> **/*.css
