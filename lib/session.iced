@@ -6,6 +6,7 @@ R = require 'reactive'
 
 JobQueue = require 'jobqueue'
 
+
 class Session extends R.Model
 
   schema:
