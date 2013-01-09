@@ -20,15 +20,13 @@
   },
   "dependencies": {
     "async": ">=0.1.15",
-    "js-yaml": ">=0.3.1",
-    "sugar": ">=1.1.1",
+    "sugar": "=1.1.1",
     "apitree": ">=1.0.0",
     "websocket.io": ">=0.1.2",
     "pathspec": "~0.9.1"
   },
   "devDependencies": {
     "mocha": ">=0.3.1",
-    "memorystream": ">=0.0.4",
-    "gently": "~0.9.1"
+    "memorystream": ">=0.0.4"
   }
 }
