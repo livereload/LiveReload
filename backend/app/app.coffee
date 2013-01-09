@@ -14,7 +14,7 @@ exports.api =
       # (cb) -> LR.projects.init cb
     ], (err) ->
       if err
-        LR.client.app.failedToStart(message: "#{err.message}")
+        LR.client.app.failedToStart(message: "#{err.stack or err.message or err}")
         LR.rpc.exit(1)
         return callback(null)  # in case we're in tests and did not exit
       LR.stats.startup()
