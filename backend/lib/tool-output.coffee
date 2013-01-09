@@ -82,8 +82,8 @@ class MessageFormat
 class exports.MessageParser
 
   constructor: (compilerManifest) ->
-    @errorFormats   = (new MessageFormat(pattern) for pattern in compilerManifest.Errors)
-    @warningFormats = (new MessageFormat(pattern) for pattern in compilerManifest.Warnings || [])
+    @errorFormats   = (new MessageFormat(pattern) for pattern in compilerManifest.Errors when typeof(pattern) is 'string')
+    @warningFormats = (new MessageFormat(pattern) for pattern in compilerManifest.Warnings || [] when typeof(pattern) is 'string')
 
   parse: (text) ->
     output = new ToolOutput(text)
