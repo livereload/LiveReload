@@ -6,9 +6,6 @@
 #import "ShitHappens.h"
 
 
-#define kMaxItems 100000
-
-
 struct FSTreeItem {
     NSString *name;
     NSInteger parent;
@@ -68,7 +65,11 @@ static BOOL IsBrokenFolder(NSString *path) {
     if ((self = [super init])) {
         _filter = [filter retain];
         _rootPath = [rootPath copy];
-        _items = calloc(kMaxItems, sizeof(struct FSTreeItem));
+
+        NSInteger maxItems = [[NSUserDefaults standardUserDefaults] integerForKey:@"MaxMonitoredFilesPerProject"];
+        if (maxItems < 2)
+            maxItems = 1000000;
+        _items = calloc(maxItems, sizeof(struct FSTreeItem));
 
         NSFileManager *fm = [NSFileManager defaultManager];
         NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -101,6 +102,10 @@ static BOOL IsBrokenFolder(NSString *path) {
                             NSString *relativeChildPath = ([item->name length] > 0 ? [item->name stringByAppendingPathComponent:child] : child);
                             if (![filter acceptsFile:relativeChildPath isDirectory:isDir])
                                 continue;
+                            if (_count == maxItems) {
+                                NSLog(@"WARNING: Hitting the limit on max monitored files per project. Some files will not be monitored. To increase the limit, use 'defaults write com.livereload.LiveReload MaxMonitoredFilesPerProject %ld'. Current limit is %ld.", MIN(100000, maxItems * 5), maxItems);
+                                break;
+                            }
                             struct FSTreeItem *subitem = &_items[_count++];
                             subitem->parent = next;
                             subitem->name = [relativeChildPath retain];
