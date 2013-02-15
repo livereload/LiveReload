@@ -4,9 +4,6 @@
 [submodule "js"]
 	path = js
 	url = git://github.com/livereload/livereload-js.git
-[submodule "nodeapp"]
-	path = nodeapp
-	url = git://github.com/livereload/nodeapp.git
 [submodule "cli"]
 	path = cli
 	url = git://github.com/livereload/livereload-cli.git
