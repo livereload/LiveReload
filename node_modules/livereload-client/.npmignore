@@ -1,0 +1,4 @@
+*.md
+*.coffee
+test/
+.npmignore
