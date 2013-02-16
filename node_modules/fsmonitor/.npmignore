@@ -1,0 +1,4 @@
+*.iced
+.gitignore
+docs/
+test/
