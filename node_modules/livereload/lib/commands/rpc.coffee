@@ -45,7 +45,7 @@ runConsoleServer = (options, context) ->
   LR.app.api.init.call context, {
     resourcesDir: context.paths.bundledPlugins,
     appDataDir: context.paths.bundledPlugins,
-    logDir: process.env['TMPDIR']
+    logDir: process.env['TMPDIR'] or process.env['TEMP']
   }, (err) ->
     if err
       throw err
