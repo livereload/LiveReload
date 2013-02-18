@@ -112,6 +112,10 @@ namespace LiveReload
                 bundledBackendDir = options.LRBackendOverride;
                 logWriter.WriteLine("LRBackendOverride = \"" + options.LRBackendOverride + "\"");
             }
+            if (options.LRBundledPluginsOverride != null) {
+                Environment.SetEnvironmentVariable("LRBundledPluginsOverride", options.LRBundledPluginsOverride);
+                logWriter.WriteLine("LRBundledPluginsOverride = \"" + options.LRBundledPluginsOverride + "\"");
+            }
 
             window.gridProgress.Visibility = Visibility.Hidden;
 

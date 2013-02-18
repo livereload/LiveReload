@@ -29,6 +29,7 @@ namespace LiveReload
     public struct CommandLineOptions
     {
         public string LRBackendOverride;
+        public string LRBundledPluginsOverride;
 
         public static CommandLineOptions Parse(string[] args)
         {
@@ -43,6 +44,12 @@ namespace LiveReload
                         if (!iter.MoveNext())
                             throw new CommandLineArgException("Missing value for argument " + arg);
                         options.LRBackendOverride = iter.Current;
+                    }
+                    else if (String.Equals(arg, "-LRBundledPluginsOverride", StringComparison.OrdinalIgnoreCase))
+                    {
+                        if (!iter.MoveNext())
+                            throw new CommandLineArgException("Missing value for argument " + arg);
+                        options.LRBundledPluginsOverride = iter.Current;
                     }
                     else
                     {
