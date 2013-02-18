@@ -2,12 +2,15 @@ assert = require 'assert'
 Path   = require 'path'
 fs     = require 'fs'
 R      = require 'reactive'
+scopedfs = require 'scopedfs'
+{RelPathList} = require 'pathspec'
+JobQueue = require 'jobqueue'
 
 { ok, equal, deepEqual } = require 'assert'
 
 { EventEmitter } = require 'events'
 
-{ R, Project } = require "../#{process.env.JSLIB or 'lib'}/session"
+{ Session, R, Project } = require "../#{process.env.JSLIB or 'lib'}/session"
 TestVFS = require 'vfs-test'
 
 DataDir = Path.join(__dirname, 'data')
@@ -17,16 +20,13 @@ readMementoSync = (name) -> JSON.parse(fs.readFileSync(Path.join(DataDir, name),
 class FakeSession
   constructor: ->
     @plugins = []
-    @queue =
-      register: ->
-      add: ->
-      once: ->
-      after: (func) -> process.nextTick func
+    @queue = new JobQueue()
 
     @pluginManager =
       allCompilers: []
 
-  after: (func) -> process.nextTick func
+  after: (func, description) ->
+    @queue.after (=> process.nextTick func), description
 
   findCompilerById: (compilerId) ->
     { id: compilerId }
@@ -34,7 +34,7 @@ class FakeSession
 
 describe "Project", ->
 
-  it "should report basic info about itself", ->
+  it "should report basic info about itself", (done) ->
     vfs = new TestVFS()
     session = new FakeSession()
 
@@ -42,10 +42,11 @@ describe "Project", ->
     project = universe.create(Project, { session, vfs, path: "/foo/bar" })
     assert.equal project.name, 'bar'
     assert.equal project.path, '/foo/bar'
-    assert.ok project.id =~ /^P\d+_bar$/
+    assert.ok project.id.match /^P\d+_bar$/
+    project.once 'complete', done
 
 
-  it "should be able to load an empty memento", ->
+  it "should be able to load an empty memento", (done) ->
     vfs = new TestVFS()
     session = new FakeSession()
 
@@ -53,8 +54,10 @@ describe "Project", ->
     project = universe.create(Project, { session, vfs, path: "/foo/bar" })
     project.setMemento {}
 
+    project.once 'complete', done
 
-  it "should be able to load a simple memento", ->
+
+  it "should be able to load a simple memento", (done) ->
     vfs = new TestVFS()
 
     session = new FakeSession()
@@ -63,8 +66,10 @@ describe "Project", ->
     project = universe.create(Project, { session, vfs, path: "/foo/bar" })
     project.setMemento { disableLiveRefresh: 1, compilationEnabled: 1 }
 
+    project.once 'complete', done
 
-  it "should be able to load a real memento", ->
+
+  it "should be able to load a real memento", (done) ->
     vfs = new TestVFS()
 
     session = new FakeSession()
@@ -76,6 +81,8 @@ describe "Project", ->
     assert.equal project.compilationEnabled, true
     assert.equal project.rubyVersionId, 'system'
 
+    project.once 'complete', done
+
 
   it "should save CSS files edited in Chrome Web Inspector", (done) ->
     vfs = new TestVFS()
@@ -85,12 +92,12 @@ describe "Project", ->
 
     universe = new R.Universe()
     project = universe.create(Project, { session, vfs, path: "/foo/bar" })
-    project.saveResourceFromWebInspector 'http://example.com/static/test.css', "h1 { color: green }\n", (err, saved) ->
-      assert.ifError err
-      assert.ok saved
-      assert.equal vfs.get('/foo/bar/app/static/test.css'), "h1 { color: green }\n"
+    await project.saveResourceFromWebInspector 'http://example.com/static/test.css', "h1 { color: green }\n", defer(err, saved)
+    assert.ifError err
+    assert.ok saved
+    assert.equal vfs.get('/foo/bar/app/static/test.css'), "h1 { color: green }\n"
 
-      done()
+    project.once 'complete', done
 
 
   it "should patch source SCSS/Stylus files when a compiled CSS is edited in Chrome Web Inspector", (done) ->
@@ -107,13 +114,13 @@ describe "Project", ->
 
     universe = new R.Universe()
     project = universe.create(Project, { session, vfs, path: "/foo/bar" })
-    project.saveResourceFromWebInspector 'http://example.com/static/test.css', css2, (err, saved) ->
-      assert.ifError err
-      assert.ok saved
-      assert.equal vfs.get('/foo/bar/app/static/test.css'), css2
-      assert.equal vfs.get('/foo/bar/app/static/test.styl'), styl2
+    await project.saveResourceFromWebInspector 'http://example.com/static/test.css', css2, defer(err, saved)
+    assert.ifError err
+    assert.ok saved
+    assert.equal vfs.get('/foo/bar/app/static/test.css'), css2
+    assert.equal vfs.get('/foo/bar/app/static/test.styl'), styl2
 
-      done()
+    project.once 'complete', done
 
 
   it "should be reactive", (done) ->
@@ -124,13 +131,17 @@ describe "Project", ->
 
     project = universe.create(Project, { session, vfs, path: "/foo/bar" })
 
-    universe.once 'change', -> done()
-    project.setMemento { disableLiveRefresh: 1, compilationEnabled: 1 }
+    await
+      project.once 'complete', defer()
+      universe.once 'change', defer()
+      project.setMemento { disableLiveRefresh: 1, compilationEnabled: 1 }
+
+    done()
 
 
   describe "plugin support", ->
 
-    it "should run plugin.loadProject on setMemento", ->
+    it "should run plugin.loadProject on setMemento", (done) ->
       vfs = new TestVFS()
 
       session = new FakeSession()
@@ -144,10 +155,15 @@ describe "Project", ->
 
       assert.equal project.foo, 42
 
+      project.once 'complete', done
+
 
   describe "rule system", ->
 
-    it "should start new projects with a full set of supported rules", ->
+    class TestContext
+      constructor: ->
+
+    it "should start new projects with a full set of supported rules", (done) ->
       universe = new R.Universe()
       vfs = new TestVFS()
       session = new FakeSession()
@@ -158,6 +174,7 @@ describe "Project", ->
         extensions:      ['less']
         destinationExt:  'css'
         sourceSpecs:     ["*.less"]
+        sourceFilter:    RelPathList.parse("*.less")
       }
       session.pluginManager.allCompilers.push {
         name:            'CoffeeScript'
@@ -165,10 +182,53 @@ describe "Project", ->
         extensions:      ['coffee']
         destinationExt:  'js'
         sourceSpecs:     ["*.coffee"]
+        sourceFilter:    RelPathList.parse("*.less")
+        sourceFilter:    RelPathList.parse("*.coffee")
       }
 
       project = universe.create(Project, { session, vfs, path: "/foo/bar" })
+      project.setMemento {}
+      await project.once 'complete', defer()
       deepEqual project.ruleSet.memento(), [{ action: 'compile-less', src: '**/*.less', dst: '**/*.css' }, { action: 'compile-coffeescript', src: '**/*.coffee', dst: '**/*.js' }]
+      done()
+
+    it "should resolve the list of files matched by each rule", (done) ->
+      universe = new R.Universe()
+      vfs = new TestVFS()
+      session = new FakeSession()
+      # TODO: add some kind of fuzzy dependency injection to collapse these stupid chains
+      session.pluginManager.allCompilers.push {
+        name:            'LESS'
+        id:              'less'
+        extensions:      ['less']
+        destinationExt:  'css'
+        sourceSpecs:     ["*.less"]
+        sourceFilter:    RelPathList.parse("*.less")
+      }
+      session.pluginManager.allCompilers.push {
+        name:            'CoffeeScript'
+        id:              'coffeescript'
+        extensions:      ['coffee']
+        destinationExt:  'js'
+        sourceSpecs:     ["*.coffee"]
+        sourceFilter:    RelPathList.parse("*.coffee")
+      }
+
+      tempfs = scopedfs.createTempFS('livereload-test-')
+      tempfs.applySync
+        'foo.less':   "h1 { span { color: red } }\n"
+        'bar.coffee': "alert 42\n"
+
+      project = universe.create(Project, { session, vfs, path: tempfs.path })
+      project.setMemento {}
+      await project.once 'complete', defer()
+
+      equal project.ruleSet.rules[0].action.id, 'compile-less'
+      deepEqual (f.relpath for f in project.ruleSet.rules[0].files).sort(), ['foo.less']
+
+      equal project.ruleSet.rules[1].action.id, 'compile-coffeescript'
+      deepEqual (f.relpath for f in project.ruleSet.rules[1].files).sort(), ['bar.coffee']
+      done()
 
     it "should use rules to determine compiler and output path"
     it "should allow rules to be modified in the UI"

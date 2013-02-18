@@ -36,6 +36,16 @@ abspath = (path) ->
     Path.resolve(path)
 
 
+class Rule_Project
+
+  schema:
+    project:                  { type: Object }
+
+  'get files': ->
+    for path in @project.tree.findMatchingPaths(@action.compiler.sourceFilter)
+      @project.fileAt(path)
+
+
 class Project extends R.Model
 
   schema:
@@ -69,6 +79,10 @@ class Project extends R.Model
 
     compilableFilesFilter:    { computed: yes }
 
+    _mixins: [
+      [require('../rules/rule').FileToFileRule, [Rule_Project]]
+    ]
+
 
   initialize: ({ @session, @vfs, @path }) ->
     @name = Path.basename(@path)
@@ -86,7 +100,7 @@ class Project extends R.Model
     actions =
       for compiler in @session.pluginManager?.allCompilers or []
         new CompilationAction(compiler)
-    @ruleSet = new RuleSet(actions)
+    @ruleSet = @universe.create(RuleSet, { actions, project: this })
 
     await @watcher.on 'complete', defer()
     debug "Tree scan complete for #{@fullPath}"
