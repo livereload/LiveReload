@@ -7,6 +7,7 @@ mkdirp = require 'mkdirp'
 
 dirs = { node_modules: Path.join(Path.dirname(__dirname), 'node_modules') }
 
+
 class Module
   constructor: (@name, @path) ->
     @packageJsonPath = Path.join(@path, 'package.json')
@@ -14,6 +15,12 @@ class Module
 
   readPackageJson: ->
     @info = JSON.parse(fs.readFileSync(@packageJsonPath, 'utf8'))
+
+options = require('dreamopt') [
+  "Usage: iced scripts/relink.iced [-u]"
+
+  "  -u, --unlink    Remove the symlinks and don't recreate them"
+]
 
 modules =
   for moduleName in fs.readdirSync(dirs.node_modules)
@@ -36,7 +43,7 @@ for module in modules
       catch e
         stats = null
 
-      if stats and stats.isSymbolicLink()
+      if stats and stats.isSymbolicLink() and !options.unlink
         console.log("%s: %s (exists)", module.info.name, depName)
 
       else
@@ -47,6 +54,7 @@ for module in modules
           else
             rimraf.sync(depPath)
 
-        console.log "%s: %s (symlinking)", module.info.name, depName
-        mkdirp.sync(Path.dirname(depPath))
-        fs.symlinkSync(depTargetPath, depPath)
+        unless options.unlink
+          console.log "%s: %s (symlinking)", module.info.name, depName
+          mkdirp.sync(Path.dirname(depPath))
+          fs.symlinkSync(depTargetPath, depPath)

@@ -6,6 +6,7 @@
   "dependencies": {
     "underscore": "~1.4.4",
     "rimraf": "~2.1.4",
-    "mkdirp": "~0.3.4"
+    "mkdirp": "~0.3.4",
+    "dreamopt": "~0.8.0"
   }
 }
