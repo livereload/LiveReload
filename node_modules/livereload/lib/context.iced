@@ -17,7 +17,7 @@ class LiveReloadContext
     @paths.root = Path.dirname(__dirname)
     @paths.rpc  = Path.join(@paths.root, 'rpc-api')
 
-    @paths.bundledPlugins = process.env.LRBundledPluginsOverride || Path.join(@paths.root, 'plugins')
+    @paths.bundledPlugins = process.env.LRBundledPluginsOverride || Path.join(@paths.root, '../../plugins')
     @session.addPluginFolder @paths.bundledPlugins
 
   setupRpc: (transport) ->
