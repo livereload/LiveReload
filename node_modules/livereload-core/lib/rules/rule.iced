@@ -3,8 +3,8 @@ R = require 'reactive'
 
 class Rule extends R.Model
 
-  initialize: (options) ->
-    @setInfo(options)
+  constructor: (@action, info) ->
+    @setInfo(info)
 
   memento: ->
     memento = @getInfo()
