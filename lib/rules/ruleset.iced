@@ -9,10 +9,9 @@ module.exports =
 class RuleSet extends R.Model
 
   schema:
-    project:                  { type: Object }
     rules:                    { type: Array }
 
-  initialize: ({ @actions }) ->
+  constructor: (@actions) ->
     @rules = @createDefaultRules()
 
   setMemento: (memento) ->
@@ -26,7 +25,7 @@ class RuleSet extends R.Model
   createRule: (action, info) ->
     # TODO: check that action is one of @actions
     ruleClass = @_getRuleClassForAction(action)
-    return @universe.create(ruleClass, _.extend({}, { action, @project }, info))
+    return new ruleClass(action, info)
 
   addRule: (action, info) ->
     @rules.push @createRule(action, info)
