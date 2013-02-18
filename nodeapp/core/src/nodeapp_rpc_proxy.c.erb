@@ -1,0 +1,9 @@
+#include "nodeapp.h"
+#include "nodeapp_rpc_proxy.h"
+
+% for entry in entries
+
+void <%= entry.func_name %>(json_t *data) {
+    nodeapp_rpc_send("<%= entry.msg_name %>", data);
+}
+% end
