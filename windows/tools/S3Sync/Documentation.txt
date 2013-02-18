@@ -1,0 +1,264 @@
+S3 Sync - Documentation
+
+SprightlySoft S3 Sync synchronizes a folder on your computer with a folder on 
+Amazon S3.
+
+
+Requirements
+	The application requires a Microsoft Windows computer running the Microsoft .NET 
+	Framework 2.0 or later.  You will also need an Amazon AWS account with S3 
+	enabled.
+
+
+How to Run the Program
+	Start a command prompt and go to the folder where S3Sync.exe is located.  See 
+	http://www.tech-recipes.com/rx/232/right-click-to-open-a-command-prompt/ for 
+	information on opening a command prompt window.  Type S3Sync.exe and the command 
+	line parameters you require to synchronize your files.  Here is an example of 
+	what you would type:
+	
+	S3Sync.exe -AWSAccessKeyId xxxxxxxxxxxx -AWSSecretAccessKey xxxxxxxxxxxxxx 
+	-SyncDirection upload -LocalFolderPath "C:\myfolder" -BucketName mybucket 
+	-S3FolderKeyName "myfolder/"
+
+
+Command Line Parameters
+	The following describes the parameters of S3 Sync.
+	
+	-SyncDirection (required) - The direction of the synchronization.
+		Upload - Upload files from your computer to Amazon S3.  Your computer will be 
+		the source. 
+		Download - Download files from Amazon S3 to your computer.  Amazon S3 will be 
+		the source. 
+	
+	-AWSAccessKeyId (required) - Your AWS access key ID provided by Amazon.
+	
+	-AWSSecretAccessKey (required) - Your AWS secret access key provided by Amazon.
+	
+	-UseSSL (optional) - Specifies whether SSL should be used when communicating 
+	with Amazon.  The default value is true.
+		True - Request URLs to Amazon will begin with https://. 
+		False - Request URLs will begin with http://. 
+	
+	-RequestEndpoint (optional) - The endpoint to use in request URLs to Amazon.  If 
+	no value is specified the application will determine which endpoint to use based 
+	on the location of your bucket.
+	
+	-BucketName (required) - The name of the Amazon S3 bucket which you will be 
+	synchronizing files with.
+	
+	-S3FolderKeyName (optional) - The key name of the Amazon S3 folder you will 
+	synchronize files with.  A folder key name look like "rootfolder/subfolder/". 
+	This folder will be created if it does not exist.  Use an empty value if you 
+	want to synchronize to the root of the bucket.
+	
+	-LocalFolderPath (required) - The folder on your computer that you will be 
+	synchronizing with.  This can be any valid path.  The path will look like 
+	"C:\MyFolder".
+	
+	-LogOnlyMode (optional) - Specifies whether changes should be applied to the 
+	destination or if changes should only be logged and no actions will be 
+	performed.  The default value is false.
+		True - the program will run, check what changes are required, and report these 
+		changes. The program will not make any changes to the destination. 
+		False - The program will check which files need to be deleted and transferred, 
+		and then it will delete and transfer the required files. 
+	
+	-OutputLevel (optional) - Specifies what level of logging the program should 
+	output.  The default value is 1.
+		1 - Minimal logging.  Only show what will be deleted and what will be 
+		transferred. 
+		2 - Full logging.  Show all files that exist between both system and shows debug 
+		information in the event of an error. 
+	
+	-LogFilePath (optional) - The path and file name where a log file will be 
+	generated.  Leave this value empty if you do not want to create a text log file 
+	with log information when the program runs.  The path will look like 
+	"C:\S3SyncLog.txt".
+	
+	-OverwriteExistingLogFile (optional) - Specifies whether an existing log file 
+	should be overwritten when the program runs.  The default value is true.
+		True - Delete the existing log file when the program starts.  The log file will 
+		only contain data about the current execution of the program. 
+		False - Append to the existing log file and do not overwrite data. 
+	
+	-CompareFilesBy (optional) - When a file exist on the source and destination 
+	with the same name different methods can be used to determine if the data in the 
+	files are the same and if the source file needs to be copied over the 
+	destination file.  The methods to determine if files are the same are listed 
+	below.  The default value is ETag. 
+		ETag - Compares the source file's ETag hash with the destination file's ETag 
+		hash.  This is the most accurate method but it takes time to calculate the ETag 
+		of a local file. 
+		Size - Compare the size of the source file to the size of the destination file. 
+		If both files are the same size, the files are considered the same.  This method 
+		is quicker but is not as accurate.  Two files may have the identical size but 
+		not the identical content. 
+		FileName - If the source file and destination file have the same file name, the 
+		files are considered the same.  The content of the files are not compared. 
+	
+	-TransferThreads (optional) - Sets the number of concurrent uploads or 
+	downloads.  Use this to transfer multiple files at the same time which will improve 
+	your bandwidth utilization.  The default value is 2.
+	
+	-MultipartThreads (optional) - Sets the number of concurrent transfers of parts 
+	during a multipart upload.  Upload multiple parts at the same time to improve 
+	your bandwidth utilization.  The default value is 2.
+	
+	-TransferSpeedLimitKBps (optional) - Sets the maximum transfer speed in 
+	kilobytes per second.  Set this value to 0 if you do not wish to limit the speed 
+	of an upload or a download.  This setting applies to each transfer thread and is 
+	not a global setting.  The default value is 0.
+	
+	-ShowTransferProgress (optional) - Indicates weather progress for a transfer 
+	should be displayed in the console.  The default is true.
+		True - Show progress during a transfer. 
+		False - Do not show progress during a transfer. 
+	
+	-S3ErrorRetries (optional) - The number of times a failure communicating with S3 
+	should be retried.  The delay between retries increases as the number of retries 
+	increases.  Only certain errors are retried such as a connection timeout errors 
+	and a 503 responses from Amazon.  The default value is 3.
+	
+	
+	The following parameters only apply when the SyncDirection is "Upload":
+	
+		-UploadHeaders (optional) - A list of headers to add in the request when 
+		uploading files.  Multiple headers must be separated by the vertical bar 
+		character.  Header name and header value must be separated by the colon 
+		character.  Example; use "x-amz-acl:public-read|x-amz-storage-
+		class:REDUCED_REDUNDANCY" to make uploaded files public and stored with reduced 
+		redundancy.
+		
+		-OverrideContentTypes (optional) - The content type of a file is set when 
+		uploading a file to S3.  The program determines the content type of a file by 
+		it's file name extension.  You can overwrite one of these values or specify a 
+		new value here.  Separate multiple entries with the vertical bar character. 
+		Separate extensions and values with the colon character.  Example; use 
+		".zip:application/x-zip-compressed|.aspx:text/plain" to set the content type to 
+		application/x-zip-compressed for .zip files and text/plain for .aspx files.
+		
+		-UseMultipartUpload (optional) - Specifies if Amazon's multipart upload feature 
+		should be used when uploading large files to S3.  Multipart upload is beneficial 
+		since you can resume an upload if it gets interrupted.  If a file is smaller 
+		than the MultipartPartSizeBytes value, multipart upload will not be used on that 
+		file regardless of this setting.  The default value is true.
+			True - Use multipart upload. 
+			False - Do not use multipart upload. 
+		
+		-MultipartPartSizeBytes (optional) - The size of a part in bytes when using 
+		multipart upload.  The smallest size a part can be is 5242880.  The default 
+		value is 5242880.
+		
+		-SaveETagInMetadataForMultipart (optional) - When a file is uploaded to S3 using 
+		multipart upload, Amazon does not save the ETag in a standard way.  If you are 
+		comparing file content by ETag, use this setting to make the application 
+		calculates the ETag of file and save it in metadata during the upload.  The 
+		metadata ETag will be used when the application compares file content by ETag. 
+		The default value is true.
+		
+		-SaveTimestampsInMetadata (optional) - The application can save the last write 
+		time and creation time of files you upload to metadata in S3.  These values can 
+		be used when restoring files locally and you would like to set file timestamps 
+		to their original values.  The default value is true.
+		
+		-IncludeSubFolders (optional) - Specifies whether sub folders of your 
+		LocalFolderPath should be synchronized to S3.  The default value is true.
+			True - Synchronize sub folders to S3. 
+			False - Do not synchronize sub folders to S3.  Only files in the LocalFolderPath 
+			path will be synchronized. 
+		
+		-ExcludeLocalFolders (optional) - A list of local folder paths that will be 
+		excluded from synchronization.  Multiple paths should be separated with the 
+		vertical bar character.
+		
+		-IncludeOnlyLocalFilesRegularExpression (optional) - Only synchronize files 
+		where the file names match the regular expression.  Example; use ".*\.txt$" to 
+		only synchronize files that end with .txt.
+		
+		-ExcludeLocalFilesRegularExpression (optional) - Do not synchronize files that 
+		match the regular expression.  Example; use ".*\.(jpg|gif|jpeg)$" to exclude 
+		files that end with . jpg, .gif, or . jpeg from synchronization.
+		
+		-DeleteS3ItemsWhereNotInLocalList (optional) - Delete files on S3 that do not 
+		exist in the local list of files.  Any extra files that do not exist on your 
+		computer will be deleted from S3.  The default value is true.
+			True - Delete files on S3 that do not exist on your local system. 
+			False - Leave extra files on S3.  Do not delete them. 
+
+		--UseServerSideEncryption (optional) - Specifies whether Server Side Encryption 
+		should be used when uploading a file to S3. The default value is false.
+	
+	
+	The following parameters only apply when SyncDirection is "Download":
+	
+		-GetETagFromMetadataForMultipart (optional) - When comparing files by ETag, the 
+		application calculates the ETag of the local file and gets the ETag of the file 
+		on S3.  If the file on S3 was upload with the multipart upload technique, the 
+		ETag value will be a nonstandard value and it cannot be used to match against 
+		the local file.  If the standard ETag value was stored in S3 metadata this 
+		option can be used to get the ETag from metadata.  If no ETag is found in 
+		metadata, files are compared by size.  The default value is true.
+			True - Get the ETag of files upload with multipart upload from S3 metadata. 
+			False - Do not check metadata for the standard format ETag.  Multipart uploaded 
+			files will be compared by size. 
+		
+		-RestoreTimestampsFromMetadata (optional) - If the last write time and creation 
+		time of files were stored in S3 metadata this option will set the time stamp of 
+		files downloaded to the values in metadata.  The default value is true.
+		
+		-IncludeOnlyS3FilesRegularExpression (optional) - Only synchronize files where 
+		the file names match the regular expression.  Example; use ".*\.txt$" to only 
+		synchronize files that end with .txt.
+		
+		-ExcludeS3FilesRegularExpression (optional) - Do not synchronize files that 
+		match the regular expression.  Example; use ".*\.(jpg|gif|jpeg)$" to exclude 
+		files that end with . jpg, .gif, or . jpeg from synchronization.
+		
+		-DeleteLocalItemsWhereNotInS3List (optional) - Delete local files that do not 
+		exist in S3.  Any extra files that exist on your computer but do not exist on S3 
+		will be deleted.  The default value is true.
+			True - Delete local files that do not exist on S3. 
+			False - Leave extra local files.  Do not delete them. 
+		
+		-DeleteLocalItemsToRecycleBin (optional) - When deleting a local file, send it 
+		to the recycle bin.  The default value is true.
+			True - Send deleted files to the recycle bin. 
+			False - Permanently delete local files.  Do not use the recycle bin. 
+		
+		-EmailLogCondition - Specifies under what conditions an email should be sent 
+		when the program completes.  The email will contain the log of the program's 
+		operation.  The default value is 0.
+			0 - Never send an email. 
+			1 - Send an email when there is an error. 
+			2 - Always send an email when the program completes. 
+		
+		-EmailSmtpHost (optional) - The SMTP server used to send the email.
+		
+		-EmailSmtpPort (optional) - The port of the SMTP server.
+		
+		-EmailSmtpEnableSsl (optional) - If SSL should be used with the SMTP server.
+		
+		-EmailSmtpUserName (optional) - The user name to log into the SMTP server.  Keep 
+		this value empty is your SMTP server does not require authentication.
+		
+		-EmailSmtpPassword (optional) - The password used to log into the SMTP server.
+		
+		-EmailFromAddress (optional) - The from address to be used in the email.
+		
+		-EmailRecipients (optional) - The email addresses the email will be sent to. 
+		Separate multiple addresses with a comma.
+
+
+Setting Parameters In the .Config File
+	Parameters can be set in the .config file so you do not have to pass them as 
+	command line parameters.  This is useful for AWSAccessKeyId and 
+	AWSSecretAccessKey as they do not change often.  Open the S3Sync.exe.config file 
+	in a text editor such as Notepad and enter your parameter values.
+
+
+Running the Application As a Scheduled Task
+	If you would like to run the application regularly you can use Window's built in 
+	Task Scheduler.  Read the following articles on how to configure a scheduled 
+	task.  http://windows.microsoft.com/en-US/windows7/schedule-a-task
+

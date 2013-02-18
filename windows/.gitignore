@@ -1,0 +1,18 @@
+# Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
+/bin/
+/lib/fastJSON/bin/
+/backend/
+/publish/
+*.tgz
+
+/PubConfig.cmd
+
+obj
+*.suo
+*.csproj.user
+
+# mstest test results
+TestResults
+
+#temp files
+livereload-state.json

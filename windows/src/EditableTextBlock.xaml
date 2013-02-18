@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="Borgstrup.EditableTextBlock.EditableTextBlock"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:Borgstrup.EditableTextBlock"
+                x:Name="mainControl">
+    <UserControl.Resources>
+
+        <DataTemplate x:Key="EditModeTemplate">
+            <TextBox KeyDown="TextBox_KeyDown" Loaded="TextBox_Loaded" LostFocus="TextBox_LostFocus"
+                     Text="{Binding ElementName=mainControl, Path=Text, UpdateSourceTrigger=PropertyChanged}"
+                     TextChanged="TextBox_TextChanged"
+                     Margin="0" BorderThickness="1" />
+        </DataTemplate>
+        
+        <DataTemplate x:Key="DisplayModeTemplate">
+            <TextBlock Text="{Binding ElementName=mainControl, Path=FormattedText}" Margin="5,3,5,3" />
+        </DataTemplate>
+        
+        <Style TargetType="{x:Type local:EditableTextBlock}">
+            <Style.Triggers>
+                <Trigger Property="IsInEditMode" Value="True">
+                    <Setter Property="ContentTemplate" Value="{StaticResource EditModeTemplate}" />
+                </Trigger>
+                <Trigger Property="IsInEditMode" Value="False">
+                    <Setter Property="ContentTemplate" Value="{StaticResource DisplayModeTemplate}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+</UserControl>
