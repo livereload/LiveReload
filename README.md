@@ -10,6 +10,51 @@ See http://livereload.com for licensing info and an optional backstory on that.
 If you'd like to reuse some of the classes, please contact me and I'm likely to publish those under MIT.
 
 
+Setting things up
+-----------------
+
+(Doc in progress.)
+
+Subdirectories configuration for git-subdir:
+
+    git subdir node_modules/livereload/ -r cli --url git@github.com:livereload/livereload-cli.git --method squash,linear
+    git subdir node_modules/livereload-core/ -r core --url git@github.com:livereload/livereload-core.git --method squash,linear
+    git subdir node_modules/livereload-server/ -r server --url git@github.com:livereload/livereload-server.git --method squash,linear
+    git subdir node_modules/livereload-client/ -r client --url git@github.com:livereload/livereload-client.git --method squash,linear
+    git subdir node_modules/livereload-protocol/ -r protocol --url git@github.com:livereload/livereload-protocol.git --method squash,linear
+
+    git subdir node_modules/fsmonitor/ -r fsmonitor --url git@github.com:andreyvit/fsmonitor.js.git --method squash,linear
+    git subdir node_modules/jobqueue/ -r jobqueue --url git@github.com:livereload/jobqueue.git --method squash,linear
+    git subdir node_modules/pathspec/ -r pathspec --url git@github.com:andreyvit/pathspec.js.git --method squash,linear
+    git subdir node_modules/reactive/ -r reactive --url git@github.com:andreyvit/reactive.js.git --method squash,linear
+
+    git subdir node_modules/vfs-local/ -r vfs-local --url git@github.com:livereload/vfs-local.git --method squash,linear
+    git subdir node_modules/vfs-test/ -r vfs-test --url git@github.com:livereload/vfs-test.git --method squash,linear
+
+Then:
+
+    cd scripts
+    npm install
+    cd ..
+    iced scripts/relink.iced
+
+Then:
+
+    for i in node_modules/*; do (echo; echo $i; cd $i; npm install); done
+    iced scripts/relink.iced  # relink again because npm install loves to screw things up
+
+Then:
+
+    iced --runtime inline -cw node_modules/*/{.,test,lib,config,rpc-api,bin}/*.{coffee,iced}
+
+Then:
+
+    node node_modules/livereload/bin/livereload.js
+    node node_modules/livereload/bin/livereload.js rpc console
+    node node_modules/livereload/bin/livereload.js rpc server
+
+
+
 Building LiveReload
 -------------------
 

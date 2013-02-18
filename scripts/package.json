@@ -1,0 +1,11 @@
+{
+  "name": "livereload-scripts",
+  "version": "0.0.0",
+  "description": "ERROR: No README.md file found!",
+  "private": true,
+  "dependencies": {
+    "underscore": "~1.4.4",
+    "rimraf": "~2.1.4",
+    "mkdirp": "~0.3.4"
+  }
+}
