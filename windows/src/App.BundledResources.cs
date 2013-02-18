@@ -69,8 +69,10 @@ namespace LiveReload
                     System.Diagnostics.Debug.WriteLine("Gnomes prevent deletion of {0}! Applying magic dust, attempt #{1}.", destinationDir, gnomes);
 
                     // see http://stackoverflow.com/questions/329355/cannot-delete-directory-with-directory-deletepath-true for more magic.
+                    Thread.Sleep(50);
+                    continue;
                 }
-                Thread.Sleep(50);
+                return;
             }
         }
     }
