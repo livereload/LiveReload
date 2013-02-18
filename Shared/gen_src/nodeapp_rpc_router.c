@@ -9,8 +9,6 @@ typedef struct {
 } msg_entry_t;
 
 void C_broker__unretain(json_t *data);
-void C_monitoring__add(json_t *data);
-json_t *C_monitoring__remove(json_t *data);
 void C_ui__update(json_t *data);
 json_t *C_app__display_popup_message(json_t *data);
 void C_app__reveal_file(json_t *data);
@@ -34,11 +32,6 @@ json_t *C_project__path_of_best_file_matching_path_suffix(json_t *data);
 
 json_t *_C_broker__unretain_wrapper(json_t *data) {
     C_broker__unretain(data);
-    return NULL;
-}
-
-json_t *_C_monitoring__add_wrapper(json_t *data) {
-    C_monitoring__add(data);
     return NULL;
 }
 
@@ -124,8 +117,6 @@ json_t *_C_app__request_model_wrapper(json_t *data) {
 
 msg_entry_t entries[] = {
     { "broker.unretain", &_C_broker__unretain_wrapper },
-    { "monitoring.add", &_C_monitoring__add_wrapper },
-    { "monitoring.remove", &C_monitoring__remove },
     { "ui.update", &_C_ui__update_wrapper },
     { "app.display_popup_message", &C_app__display_popup_message },
     { "app.reveal_file", &_C_app__reveal_file_wrapper },
