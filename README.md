@@ -45,7 +45,7 @@ Then:
 
 Then:
 
-    iced --runtime inline -cw node_modules/*/{.,test,lib,config,rpc-api,bin}/*.{coffee,iced}
+    iced --runtime inline -cw node_modules/*/*.{coffee,iced} node_modules/*/{lib,test,config,rpc-api,bin}/**.{coffee,iced}
 
 Then:
 
