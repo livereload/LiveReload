@@ -72,6 +72,7 @@ class RModelSchema
 
 
   mixin: (mixinClasses...) ->
+    debug "Extending model schema #{@modelClass.name} with mixin #{mixinClasses[0].name}"
     # TODO: create a singleton class if not already done
     for mixinClass in mixinClasses
       @_extendModel(mixinClass)
@@ -79,6 +80,8 @@ class RModelSchema
 
   create: (options) ->
     result = new @modelClass(options)
+    debug "Created #{result}"
+    return result
 
 
   _createSingletonClass: (modelClass) ->
@@ -155,6 +158,7 @@ class RModelSchema
       instance.pleasedo name, func.bind(instance)
 
   _createAttribute: (key, options) ->
+    debug "Defining attribute #{@modelClass.name}.#{key}"
     Object.defineProperty @modelClass.prototype, key,
       enumerable: yes
       get: -> @get(key)
