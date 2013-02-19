@@ -9,11 +9,13 @@
 *.example    eol=crlf
 *.manifest   eol=crlf
 *.nuspec     eol=crlf
+*.ps1        eol=crlf
 *.resx       eol=crlf
 *.settings   eol=crlf
 *.sln        merge=union eol=crlf
 *.txt        eol=crlf
 *.xaml       eol=crlf
+*.xml        eol=crlf
 
 # Standard to msysgit
 *.doc	 diff=astextplain
