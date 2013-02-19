@@ -89,6 +89,9 @@ class MainWindow extends UIModel
     debug "WHEEE in 'on #textBoxUrl text', selectedProject = #{selectedProject?.id}, value = '#{value}'"
     @selectedProject.urls = value.split(/[\s,]+/).filter((u) -> u.length > 0)  if @selectedProject
 
+  'on #checkBoxCompile value': (value) ->
+    @selectedProject.compilationEnabled = value
+
 
   ##################################################################################################
   # project details - paths
