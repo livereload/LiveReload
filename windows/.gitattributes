@@ -1,13 +1,19 @@
 # Auto detect text files and perform LF normalization
 * text=auto
 
-# Custom for Visual Studio
-*.cs     diff=csharp
-*.sln    merge=union
-*.csproj merge=union
-*.vbproj merge=union
-*.fsproj merge=union
-*.dbproj merge=union
+# git ls-tree --name-only -r HEAD -- windows | grep -E '\.[^/]+$' | sed -E 's/^.*(\.[^/]+)/\\1/' | sort -u
+*.cmd        eol=crlf
+*.config     eol=crlf
+*.cs         diff=csharp eol=crlf
+*.csproj     merge=union eol=crlf
+*.example    eol=crlf
+*.manifest   eol=crlf
+*.nuspec     eol=crlf
+*.resx       eol=crlf
+*.settings   eol=crlf
+*.sln        merge=union eol=crlf
+*.txt        eol=crlf
+*.xaml       eol=crlf
 
 # Standard to msysgit
 *.doc	 diff=astextplain
