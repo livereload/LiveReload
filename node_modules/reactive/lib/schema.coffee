@@ -1,5 +1,6 @@
 debug = require('debug')('reactive')
 types = require('./types')
+_     = require 'underscore'
 
 
 class RAttributeSchema
@@ -118,7 +119,17 @@ class RModelSchema
   _handleMagicKeys: (mixinClass) ->
     prototype = mixinClass.prototype
 
-    data = prototype.schema ? {}
+    data = _.extend({}, prototype.schema)
+
+    if data._mixins
+      mixins = data._mixins; delete data._mixins
+      debug "Found mixin metadata in #{mixinClass.name}"
+
+      for [baseClass, mixinClasses] in mixins
+        if !Array.isArray(mixinClasses) then mixinClasses = [mixinClasses]
+        debug "  baseClass = #{baseClass.name}, mixinClasses = " + (c.name for c in mixinClasses).join(", ")
+        @universe.modelSchema(baseClass).mixin mixinClasses...
+
     for key, options of data
       @attributes[key] =  @_createAttribute(key, options)
 
