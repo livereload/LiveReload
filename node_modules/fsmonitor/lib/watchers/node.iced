@@ -22,6 +22,11 @@ class NodeWatcher extends EventEmitter
       watcher.on 'change', (event, filename) =>
         debug "fs.watch incoming change: event = %j, filename = %j", event, filename
         @emit 'change', relpath, filename, no
+
+      # In Windows, 'error' event is thrown on deleting a folder.
+      # Add empty handler to avoid crash.
+      watcher.on 'error', (error) ->
+
       watcher
 
   removeFolder: (relpath) ->
