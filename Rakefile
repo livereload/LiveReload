@@ -157,12 +157,12 @@ namespace :mac do
     suffix = args[:suffix]
     raise "Suffix is required for mac:custom" if suffix.empty?
 
-    suffix_for_tag = TheApp.find_unused_suffix(suffix, '-')
+    suffix_for_tag = suffix  # TheApp.find_unused_suffix(suffix, '-')
     tag = "#{TAG_PREFIX}#{suffix_for_tag}"
-    sh 'git', 'tag', tag
+    sh 'git', 'tag', tag  rescue nil
 
     Dir.chdir 'LiveReload/Compilers' do
-      sh 'git', 'tag', tag
+      sh 'git', 'tag', tag  rescue nil
     end
 
     zip_name = "#{MAC_ZIP_BASE_NAME}-#{suffix}.zip"
