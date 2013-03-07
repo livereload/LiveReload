@@ -175,7 +175,7 @@ namespace :mac do
     end
     Dir.chdir XCODE_RELEASE_DIR do
       rm_rf zip_name
-      sh 'zip', '-9rX', zip_name, MAC_BUNDLE_NAME
+      sh 'zip', '-9rXy', zip_name, MAC_BUNDLE_NAME
     end
 
     mkdir_p File.dirname(zip_path_in_builds)
