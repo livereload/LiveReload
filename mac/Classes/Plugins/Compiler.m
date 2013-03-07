@@ -245,9 +245,16 @@
                                            nil];
 
             NSDictionary *data = nil;
-            for (NSString *regexp in _errorFormats) {
+            for (id regexp in _errorFormats) {
+                // regexp is either a string or a dictionary
+
+                // TODO: handle dictionaries like { "pattern": "^TypeError: ", "message": "Internal LESS compiler error" },
+                if (![regexp respondsToSelector:@selector(rangeOfString:)])
+                    continue;
+
                 if ([regexp rangeOfString:@"message-override"].location != NSNotFound || [regexp rangeOfString:@"***"].location != NSNotFound)
                     continue;  // new Node.js features not supported by this native code (yet?)
+
                 NSString *stripped;
                 if ([regexp rangeOfString:@"<ESC>"].length > 0) {
                     stripped = strippedOutput;
