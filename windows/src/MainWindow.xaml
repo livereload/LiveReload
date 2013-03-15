@@ -46,6 +46,7 @@
                     <ContextMenu>
                         <MenuItem Name="buttonSimulateNodeEvent" Header="Simulate event from Node"  Click="buttonSimulateNodeEvent_Click" />
                         <MenuItem Header="Update" Click="UpdateMenuItem_Click" />
+                        <MenuItem Header="What's New?" Click="ShowReleaseNotes_Click" />
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>

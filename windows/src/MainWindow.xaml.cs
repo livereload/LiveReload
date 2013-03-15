@@ -123,5 +123,12 @@ namespace LiveReload
         private void UpdateMenuItem_Click(object sender, RoutedEventArgs e) {
             InstallUpdateSyncWithInfo();
         }
+
+        private void ShowReleaseNotes_Click(object sender, RoutedEventArgs e) {
+            if (gridProgress.Visibility == Visibility.Visible)
+                gridProgress.Visibility = Visibility.Hidden;
+            else
+                gridProgress.Visibility = Visibility.Visible;
+        }
     }
 }
