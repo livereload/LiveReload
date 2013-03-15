@@ -7,9 +7,9 @@
                         mc:Ignorable="d"
                         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                        Width="640" Height="480" MinWidth="640" MinHeight="480"
+                        Width="800" Height="600" MinWidth="400" MinHeight="100"
                         Icon="pack://application:,,,/img/LiveReload.ico"
-                        ResizeMode="CanMinimize"
+                        ResizeMode="CanResizeWithGrip"
                         Closing="Window_Closing"
                         StateChanged="MetroWindow_StateChanged"
                         Loaded="MetroWindow_Loaded" KeyDown="MetroWindow_KeyDown">
