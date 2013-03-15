@@ -33,6 +33,7 @@ namespace LiveReload
         public MainWindow()
         {
             InitializeComponent();
+            tabs.Visibility = Visibility.Collapsed;
         }
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
