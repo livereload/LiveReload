@@ -6,10 +6,10 @@
 >
     <lr:MainWindowViewModel.SampleItems>
         <lr:ProjectViewModel
-            Name="Project1"
+            Text="LiveReload-less-example-2"
         />
         <lr:ProjectViewModel
-            Name="Project2"
+            Text="Project2"
         />
     </lr:MainWindowViewModel.SampleItems>
 </lr:MainWindowViewModel>

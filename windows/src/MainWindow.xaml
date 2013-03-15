@@ -79,7 +79,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200" />
-            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="24" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
@@ -108,11 +108,11 @@
                 <RowDefinition Height="390*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <TextBlock Text="projects" Style="{StaticResource LiveReloadTextTitle1Style}" />
-            <TreeView Name="treeViewProjects" Grid.Row="1" BorderThickness="0" xxx:Background="LightGray" AllowDrop="True" xxx:ItemsSource="{Binding SampleItems}" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+            <TextBlock Text="site folders" Style="{StaticResource LiveReloadTextTitle1Style}" />
+            <TreeView Name="treeViewProjects" Grid.Row="1" BorderThickness="0" xxx:Background="LightGray" AllowDrop="True" ItemsSource="{Binding SampleItems}" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <TreeView.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Text="{Binding}" />
+                        <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Foreground="#FF444444" Text="{Binding Text}" TextTrimming="CharacterEllipsis" />
                     </DataTemplate>
                 </TreeView.ItemTemplate>
                 <TreeView.ItemContainerStyle>
@@ -126,12 +126,12 @@
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="43"/>
+                                            <RowDefinition Height="35"/>
                                             <RowDefinition/>
                                         </Grid.RowDefinitions>
                                         <ToggleButton x:Name="Expander" Style="{DynamicResource ExpandCollapseToggleStyle}" IsChecked="{Binding Path=IsExpanded,RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press"/>
-                                        <Border Name="Bd" Grid.Column="0" Background="LightGray" BorderBrush="{TemplateBinding BorderBrush}" Margin="24,2,0,2" BorderThickness="{TemplateBinding BorderThickness}" Padding="12,0,0,0" SnapsToDevicePixels="true">
-                                            <ContentPresenter x:Name="PART_Header" Style="{StaticResource LiveReloadTextNormalStyle}" ContentSource="Header" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="Center" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                        <Border Name="Bd" Grid.Column="0" Background="#FFDDDDDD" BorderBrush="{TemplateBinding BorderBrush}" Margin="24,2,0,2" BorderThickness="{TemplateBinding BorderThickness}" Padding="12,0,4,0" SnapsToDevicePixels="true">
+                                            <ContentPresenter x:Name="PART_Header" ContentSource="Header" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="Center" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
                                         </Border>
                                         <ItemsPresenter x:Name="ItemsHost" Grid.Row="1" Grid.Column="0" />
                                     </Grid>

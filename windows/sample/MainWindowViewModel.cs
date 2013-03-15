@@ -7,7 +7,7 @@ namespace LiveReload
 {
     public class ProjectViewModel
     {
-        public string Name {
+        public string Text {
             get {
                 return "";
             }

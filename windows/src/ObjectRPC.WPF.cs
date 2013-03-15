@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -130,169 +131,105 @@ namespace ObjectRPC.WPF
         }
     }
 
+    public class TreeViewItemViewModel
+    {
+        public string Id { get; set; }
+        public string Text { get; set; }
+        public bool Editable { get; set; }
+        public IList<TreeViewItemViewModel> Children { get; set; }
+    }
 
     class TreeViewFacet : Facet<TreeView>
     {
-        private IList<object> data;
         private bool isTreeViewUpdateInProgress = false;
-        private bool isInEditMode = false;
-        private EditableTextBlock currentETB;
+
+        private ObservableCollection<TreeViewItemViewModel> items = new ObservableCollection<TreeViewItemViewModel>();
 
         public TreeViewFacet(Entity entity, TreeView obj)
             : base(entity, obj)
         {
-            obj.MouseDoubleClick    += OnMouseDoubleClick;
+            //obj.MouseDoubleClick    += OnMouseDoubleClick;
             obj.SelectedItemChanged += OnSelectedItemChanged;
+            obj.ItemsSource = items;
         }
 
         public string SelectedId
         {
             get
             {
-                var selectedTVI = (TreeViewItem)obj.SelectedItem;
-                return (string)((selectedTVI != null) ? selectedTVI.Tag : null);
+                var selectedTVI = (TreeViewItemViewModel)obj.SelectedItem;
+                return (string)((selectedTVI != null) ? selectedTVI.Id : null);
             }
         }
 
-        private bool IsInEditMode
+        //void currentETB_TextChanged(object sender, TextChangedEventArgs e)
+        //{
+        //    entity.SendUpdate(new D { { "#" + SelectedId, new D { { "text", currentETB.Text } } } });
+        //}
+
+        //void currentETB_LostFocus(object sender, RoutedEventArgs e)
+        //{
+        //    currentETB.LostFocus   -= currentETB_LostFocus;
+        //    currentETB.TextChanged -= currentETB_TextChanged;
+        //    currentETB = null;
+        //}
+
+        private IList<TreeViewItemViewModel> CreateItems(IList<object> data)
         {
-            get
-            {
-                return isInEditMode;
-            }
-            set
-            {
-                // Make sure that the SelectedItem is actually a TreeViewItem
-                // and not null or something else
-                if (obj.SelectedItem is TreeViewItem)
-                {
-                    TreeViewItem tvi = obj.SelectedItem as TreeViewItem;
-
-                    // Also make sure that the TreeViewItem
-                    // uses an EditableTextBlock as its header
-                    if (tvi.Header is EditableTextBlock)
-                    {
-                        EditableTextBlock etb = tvi.Header as EditableTextBlock;
-
-                        // Finally make sure that we are
-                        // allowed to edit the TextBlock
-                        if (etb.IsEditable)
-                        {
-                            etb.IsInEditMode = value;
-                            if (value && !isInEditMode) // we are starting edit mode
-                            {
-                                currentETB = etb;
-                                currentETB.TextChanged += currentETB_TextChanged;
-                                currentETB.LostFocus += currentETB_LostFocus;
-                            }
-                            isInEditMode = value;
-                        }
-                    }
-                }
-            }
-        }
-
-        void currentETB_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            //TODO: add facet for items; 
-            entity.SendUpdate(new D { { "#" + SelectedId, new D { { "text", currentETB.Text } } } });
-            //Console.WriteLine("#" + SelectedId);
-        }
-
-        //TODO: implement event for switching edit mode and use it instead
-        void currentETB_LostFocus(object sender, RoutedEventArgs e)
-        {
-            currentETB.LostFocus   -= currentETB_LostFocus;
-            currentETB.TextChanged -= currentETB_TextChanged;
-            currentETB = null;
-        }
-
-        private void Fill(ItemCollection items, IList<object> data, string oldSelectedId, out TreeViewItem newSelectedTVI)
-        {
-            newSelectedTVI = null;
-            foreach (var itemDataRaw in data)
-            {
+            return data.Select((itemDataRaw) => {
                 var itemData = (Dictionary<string, object>)itemDataRaw;
                 string id = (string)itemData["id"];
                 string text = (string)itemData["text"];
-                IList<object> children = (itemData.ContainsKey("children") ? (IList<object>)itemData["children"] : null);
+                IList<object> children = (itemData.ContainsKey("children") ? (IList<object>)itemData["children"] : new object[0]);
                 bool editable = (itemData.ContainsKey("editable") ? (bool)itemData["editable"] : false);
 
-                var tvi = new TreeViewItem();
-
-                if ((id == oldSelectedId) && isInEditMode)
-                    tvi.Header = currentETB;
-                else
-                    tvi.Header = new EditableTextBlock(text, editable);
-
-                tvi.Tag = id;
-                items.Add(tvi);
-
-                if (id == oldSelectedId)
-                    newSelectedTVI = tvi;
-
-                if (children != null)
-                {
-                    TreeViewItem childNewSelectedTVI;
-                    Fill(tvi.Items, children, oldSelectedId, out childNewSelectedTVI);
-                    if (childNewSelectedTVI != null)
-                        newSelectedTVI = childNewSelectedTVI;
-                }
-            }
+                return new TreeViewItemViewModel {
+                    Id = id,
+                    Text = text,
+                    Editable = editable,
+                    Children = CreateItems(children),
+                };
+            }).ToList();
         }
 
-        private void OnMouseDoubleClick(object sender, RoutedEventArgs e)
-        {
-            IsInEditMode = true;
-        }
+        //private void OnMouseDoubleClick(object sender, RoutedEventArgs e)
+        //{
+        //    IsInEditMode = true;
+        //}
 
         public IList<object> Data
         {
             set
             {
-                data = value;
-
-                var items = obj.Items;
-
-                TreeViewItem newSelectedTVI = null;
-
                 isTreeViewUpdateInProgress = true;
-                string oldSelectedId = SelectedId;
-                items.Clear();
-                Fill(items, data, oldSelectedId, out newSelectedTVI);
-
-                if (oldSelectedId != null)
-                    if (newSelectedTVI == null )
-                    {
-                        isTreeViewUpdateInProgress = false;
-                        OnSelectedItemChanged(null, null); // need to reset view
+                try {
+                    var items = CreateItems(value);
+                    this.items.Clear();
+                    foreach (var item in items) {
+                        this.items.Add(item);
                     }
-                    else
-                    {
-                        SelectItem(newSelectedTVI);
-                        isTreeViewUpdateInProgress = false;
-                    }
-                else
+                } finally {
                     isTreeViewUpdateInProgress = false;
+                }
             }
         }
 
-        private void SelectItemHelper(TreeViewItem item)
-        {
-            if (item == null)
-                return;
-            SelectItemHelper(item.Parent as TreeViewItem);
-            if (!item.IsExpanded)
-            {
-                item.IsExpanded = true;
-                item.UpdateLayout();
-            }
-        }
-        private void SelectItem(TreeViewItem item) // QND solution
-        {
-            SelectItemHelper(item.Parent as TreeViewItem);
-            item.IsSelected = true;
-        }
+        //private void SelectItemHelper(TreeViewItem item)
+        //{
+        //    if (item == null)
+        //        return;
+        //    SelectItemHelper(item.Parent as TreeViewItem);
+        //    if (!item.IsExpanded)
+        //    {
+        //        item.IsExpanded = true;
+        //        item.UpdateLayout();
+        //    }
+        //}
+        //private void SelectItem(TreeViewItem item) // QND solution
+        //{
+        //    SelectItemHelper(item.Parent as TreeViewItem);
+        //    item.IsSelected = true;
+        //}
 
         private void OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
