@@ -120,8 +120,7 @@ namespace LiveReload
             }
         }
 
-        private void buttonUpdate_Click(object sender, RoutedEventArgs e)
-        {
+        private void UpdateMenuItem_Click(object sender, RoutedEventArgs e) {
             InstallUpdateSyncWithInfo();
         }
     }

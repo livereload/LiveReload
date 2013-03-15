@@ -45,6 +45,7 @@
                 <Button.ContextMenu>
                     <ContextMenu>
                         <MenuItem Name="buttonSimulateNodeEvent" Header="Simulate event from Node"  Click="buttonSimulateNodeEvent_Click" />
+                        <MenuItem Header="Update" Click="UpdateMenuItem_Click" />
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>
@@ -187,6 +188,5 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <Button Name="buttonUpdate" Content="Update" Margin="0,10,10,0" Grid.Column="1" Height="25" VerticalAlignment="Top" HorizontalAlignment="Right" Click="buttonUpdate_Click" />
     </Grid>
 </Controls:MetroWindow>
