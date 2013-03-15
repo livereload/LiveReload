@@ -96,49 +96,49 @@ class MainWindow extends UIModel
   ##################################################################################################
   # project details - paths
 
-  'automatically render path tree': ->
-    @SEND
-      '#buttonSetOutputFolder': {}
-      '#treeViewPaths':
-        data:
-          for rule in @selectedProject?.ruleSet?.rules or []
-            {
-              id: "rule-#{rule._id}"
-              text: "#{rule.action.name}:  #{rule.sourceSpec}   →   #{rule.destSpec}"
-              children:
-                for file in rule.files
-                  if file.isImported
-                    text = "#{file.relpath}  (imported)"
-                  else
-                    text = "#{file.relpath}   →   #{file.destRelPath}"
-                  {
-                    id: file.relpath
-                    text: text
-                    editable: true
-                  }
-            }
+  # 'automatically render path tree': ->
+  #   @SEND
+  #     '#buttonSetOutputFolder': {}
+  #     '#treeViewPaths':
+  #       data:
+  #         for rule in @selectedProject?.ruleSet?.rules or []
+  #           {
+  #             id: "rule-#{rule._id}"
+  #             text: "#{rule.action.name}:  #{rule.sourceSpec}   →   #{rule.destSpec}"
+  #             children:
+  #               for file in rule.files
+  #                 if file.isImported
+  #                   text = "#{file.relpath}  (imported)"
+  #                 else
+  #                   text = "#{file.relpath}   →   #{file.destRelPath}"
+  #                 {
+  #                   id: file.relpath
+  #                   text: text
+  #                   editable: true
+  #                 }
+  #           }
 
-  'on #treeViewPaths selectedId': (relpath) ->
-    if @selectedProject
-      @selectedFile = @selectedProject.fileAt(relpath)
-    else
-      @selectedFile = null
+  # 'on #treeViewPaths selectedId': (relpath) ->
+  #   if @selectedProject
+  #     @selectedFile = @selectedProject.fileAt(relpath)
+  #   else
+  #     @selectedFile = null
 
-  'on #treeViewPaths * text': (itemId, text) ->
-    debug "in-place editing for itemId = '#{itemId}', text = '#{text}'"
-    return unless @selectedProject
-    relpath = itemId.substr(1)
-    if file = @selectedProject.fileAt(relpath)
-      debug "found file at #{relpath}"
-      file.outputNameMask = text.replace(/^.*(→|>)/, '').trim() + "*"
+  # 'on #treeViewPaths * text': (itemId, text) ->
+  #   debug "in-place editing for itemId = '#{itemId}', text = '#{text}'"
+  #   return unless @selectedProject
+  #   relpath = itemId.substr(1)
+  #   if file = @selectedProject.fileAt(relpath)
+  #     debug "found file at #{relpath}"
+  #     file.outputNameMask = text.replace(/^.*(→|>)/, '').trim() + "*"
 
-  'on #buttonSetOutputFolder click': ->
-    return unless @selectedFile
+  # 'on #buttonSetOutputFolder click': ->
+  #   return unless @selectedFile
 
-    initial = @selectedFile.fullDestDir
+  #   initial = @selectedFile.fullDestDir
 
-    await @SEND { '!chooseOutputFolder': [{ initial: initial }] }, defer(err, result)
-    if result.ok
-      @selectedFile.fullDestDir = result.path
-      @status = "@selectedFile relpath = #{JSON.stringify(@selectedFile.relpath)}, destDir = #{JSON.stringify(@selectedFile.destDir)}"
-      # saveProjects()
+  #   await @SEND { '!chooseOutputFolder': [{ initial: initial }] }, defer(err, result)
+  #   if result.ok
+  #     @selectedFile.fullDestDir = result.path
+  #     @status = "@selectedFile relpath = #{JSON.stringify(@selectedFile.relpath)}, destDir = #{JSON.stringify(@selectedFile.destDir)}"
+  #     # saveProjects()
