@@ -2,6 +2,7 @@ debug   = require('debug')('livereload:cli')
 _       = require 'underscore'
 R       = require('livereload-core').R
 UIModel = require './base'
+Path    = require 'path'
 
 
 n = (number, strings...) ->
@@ -73,6 +74,10 @@ class MainWindow extends UIModel
 
   'automatically render project info': ->
     @SEND
+      '#projectName':
+        text: @selectedProject?.name or ''
+      '#projectPath':
+        text: if @selectedProject then Path.dirname(@selectedProject.path) else ''
       '#checkBoxCompile':
         value: !!@selectedProject?.compilationEnabled ? no
         enabled: yes

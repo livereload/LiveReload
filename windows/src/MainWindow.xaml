@@ -126,8 +126,8 @@
         <TabControl Name="tabs" Grid.Column="1" Margin="10,10,10,35" >
             <TabItem Header="Overview" >
                 <StackPanel Name="stackProjectPane" Margin="10,0,0,0">
-                    <TextBlock Height="23" Margin="85,16,0,0" Name="textBlockProjectName" Text="&lt;Name&gt;" FontWeight="Bold" FontSize="14" />
-                    <TextBlock Height="23" Margin="85,6,0,0" Name="textBlockProjectPath" Text="&lt;Path&gt;" />
+                    <TextBlock Height="23" Margin="85,16,0,0" Name="projectName" Text="&lt;Name&gt;" FontWeight="Bold" FontSize="14" />
+                    <TextBlock Height="23" Margin="85,6,0,0" Name="projectPath" Text="&lt;Path&gt;" />
                     <Grid Margin="0,21,0,3" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
