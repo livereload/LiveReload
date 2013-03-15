@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using Borgstrup.EditableTextBlock;
 
 using D = System.Collections.Generic.Dictionary<string, object>;
+using MahApps.Metro.Controls;
 
 namespace ObjectRPC.WPF
 {
@@ -88,6 +89,26 @@ namespace ObjectRPC.WPF
         private void OnClick(object sender, RoutedEventArgs e)
         {
             entity.SendUpdate(new D{ { "value", obj.IsChecked } });
+        }
+    }
+
+    class ToggleSwitchFacet : Facet<ToggleSwitch>
+    {
+        public ToggleSwitchFacet(Entity entity, ToggleSwitch obj)
+            : base(entity, obj) {
+            obj.Click += OnClick;
+        }
+
+        public string Label {
+            set { obj.Content = value; }
+        }
+
+        public bool Value {
+            set { obj.IsChecked = value; }
+        }
+
+        private void OnClick(object sender, RoutedEventArgs e) {
+            entity.SendUpdate(new D { { "value", obj.IsChecked } });
         }
     }
 
@@ -247,6 +268,7 @@ namespace ObjectRPC.WPF
             rpc.Register(typeof(Button), typeof(ButtonFacet));
             rpc.Register(typeof(TreeView), typeof(TreeViewFacet));
             rpc.Register(typeof(CheckBox), typeof(CheckBoxFacet));
+            rpc.Register(typeof(ToggleSwitch), typeof(ToggleSwitchFacet));
             rpc.Register(typeof(TextBox), typeof(TextBoxFacet));
         }
     }

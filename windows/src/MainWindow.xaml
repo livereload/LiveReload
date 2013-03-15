@@ -29,12 +29,16 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Resources/icons.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Resources/Icons.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <FontFamily x:Key="LiveReloadFontFamilyNormal">Segoe UI</FontFamily>
 
-            <Style x:Key="LiveReloadTextNormalStyle" TargetType="{x:Type TextBlock}">
+            <Style x:Key="LiveReloadTextBoxNormalStyle" TargetType="TextBox">
+                <Setter Property="FontFamily" Value="{StaticResource LiveReloadFontFamilyNormal}" />
+            </Style>
+
+            <Style x:Key="LiveReloadTextNormalStyle" TargetType="TextBlock">
                 <Setter Property="TextBlock.Foreground" Value="#FF666666" />
                 <Setter Property="TextBlock.FontFamily" Value="{StaticResource LiveReloadFontFamilyNormal}" />
                 <Setter Property="TextBlock.FontWeight" Value="Normal" />
@@ -43,10 +47,22 @@
                 <Setter Property="FrameworkElement.Margin" Value="0" />
             </Style>
 
-            <Style x:Key="LiveReloadTextTitle1Style" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource LiveReloadTextNormalStyle}">
+            <Style x:Key="LiveReloadTextTitle1Style" TargetType="TextBlock" BasedOn="{StaticResource LiveReloadTextNormalStyle}">
                 <Setter Property="TextBlock.FontSize" Value="24" />
                 <Setter Property="FrameworkElement.Margin" Value="24,10,0,6" />
                 <Setter Property="TextOptions.TextFormattingMode" Value="Ideal" />
+            </Style>
+
+            <Style x:Key="LiveReloadTextTinyStyle" TargetType="TextBlock" BasedOn="{StaticResource LiveReloadTextNormalStyle}">
+                <Setter Property="TextBlock.FontSize" Value="10" />
+            </Style>
+
+            <Style x:Key="LiveReloadCuteButtonStyle" TargetType="Button">
+                <Setter Property="Padding" Value="4,2" />
+                <Setter Property="Margin" Value="-4,0,8,0" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
             </Style>
         </ResourceDictionary>
     </Window.Resources>
@@ -85,7 +101,7 @@
 
         <Label Name="labelNoFolderSelected" Content="No folder selected" HorizontalAlignment="Center" VerticalAlignment="Center" Panel.ZIndex="1" Grid.Column="1" FontSize="16" FontWeight="Bold" Visibility="Hidden"/>
 
-        <Grid Name="gridProgress" Grid.ColumnSpan="2" Panel.ZIndex="1" Visibility="Hidden" >
+        <Grid Name="gridProgress" Grid.ColumnSpan="3" Panel.ZIndex="1" Visibility="Hidden" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
@@ -105,11 +121,39 @@
         <Grid Name="gridProjects" xxx:Background="LightGray" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="390*" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <TextBlock Text="site folders" Style="{StaticResource LiveReloadTextTitle1Style}" />
-            <TreeView Name="treeViewProjects" Grid.Row="1" BorderThickness="0" xxx:Background="LightGray" AllowDrop="True" ItemsSource="{Binding SampleItems}" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="25,0,0,8">
+                <Button Name="buttonProjectAdd" Style="{StaticResource LiveReloadCuteButtonStyle}" Background="Transparent" ToolTip="Add folder">
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Width="10" Height="10" Margin="0,2,4,0">
+                            <Rectangle.Resources>
+                                <SolidColorBrush x:Key="BlackBrush" Color="#FF666666" />
+                            </Rectangle.Resources>
+                            <Rectangle.Fill>
+                                <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_add}" />
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <TextBlock Text="add" FontWeight="Bold" Foreground="#FF666666" />
+                    </StackPanel>
+                </Button>
+                <Button Name="buttonProjectRemove" Style="{StaticResource LiveReloadCuteButtonStyle}" ToolTip="Remove folder">
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Width="10" Height="10" Margin="0,2,4,0">
+                            <Rectangle.Resources>
+                                <SolidColorBrush x:Key="BlackBrush" Color="#FF666666" />
+                            </Rectangle.Resources>
+                            <Rectangle.Fill>
+                                <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_minus}" />
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <TextBlock Text="remove" FontWeight="Bold" Foreground="#FF666666" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            <TreeView Name="treeViewProjects" Grid.Row="2" BorderThickness="0" xxx:Background="LightGray" AllowDrop="True" ItemsSource="{Binding SampleItems}" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <TreeView.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Foreground="#FF444444" Text="{Binding Text}" TextTrimming="CharacterEllipsis" />
@@ -164,62 +208,43 @@
                     </Style>
                 </TreeView.ItemContainerStyle>
             </TreeView>
-            <Grid Name="gridButtons" xxx:Background="LightGray" Grid.Row="2" Margin="0,0,0,8">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Button Name="buttonProjectAdd"
-                    Style="{DynamicResource MetroCircleButtonStyle}"
-                    Grid.Column="1"
-                    Height="56"
-                    Width="56"
-                    ToolTip="Add folder"
-                    >
-                    <Rectangle Width="24" Height="24">
-                        <Rectangle.Fill>
-                            <VisualBrush Stretch="Uniform"
-                                 Visual="{StaticResource appbar_add}" />
-                        </Rectangle.Fill>
-                    </Rectangle>
-                </Button>
-                <Button Name="buttonProjectRemove"
-                    Style="{DynamicResource MetroCircleButtonStyle}"
-                    Grid.Column="3"
-                    Height="56"
-                    Width="56"
-                    ToolTip="Remove folder"
-                    >
-                    <Rectangle Width="20" Height="20">
-                        <Rectangle.Fill>
-                            <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_close}" />
-                        </Rectangle.Fill>
-                    </Rectangle>
-                </Button>
-            </Grid>
         </Grid>
 
-        <TextBlock Grid.Column="2" Height="23" Margin="35,0,12,6" Name="textBlockStatus" VerticalAlignment="Bottom" />
+        <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Grid.Column="2" Height="23" Margin="35,0,12,6" Name="textBlockStatus" VerticalAlignment="Bottom" />
 
-        <TabControl Name="tabs" Grid.Column="2" Margin="0,10,10,35" >
-            <TabItem Header="Overview" >
+        <TabControl Name="tabs" Grid.Column="2" Margin="0,0,10,35" >
+            <TabItem Header="folder details">
+                <TabItem.HeaderTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" />
+                    </DataTemplate>
+                </TabItem.HeaderTemplate>
                 <StackPanel Name="stackProjectPane" Margin="10,0,0,0">
-                    <TextBlock Height="23" Margin="85,16,0,0" Name="projectName" Text="&lt;Name&gt;" FontWeight="Bold" FontSize="14" />
-                    <TextBlock Height="23" Margin="85,6,0,0" Name="projectPath" Text="&lt;Path&gt;" />
+                    <Grid Margin="0,12,0,0">
+                        <Rectangle Width="50" Height="50" Margin="0,2,4,0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                            <Rectangle.Resources>
+                                <SolidColorBrush x:Key="BlackBrush" Color="#FF666666" />
+                            </Rectangle.Resources>
+                            <Rectangle.Fill>
+                                <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_folder_open}" />
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <StackPanel Margin="64,0,0,0" VerticalAlignment="Center">
+                            <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Margin="0,0,0,0" Name="projectName" Text="LiveReload" FontWeight="Bold" FontSize="14" />
+                            <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Name="projectPath" Text="C:/Dev/livereload-examples" />
+                        </StackPanel>
+                    </Grid>
                     <Grid Margin="0,21,0,3" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Height="23" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,0" Name="textBlock1" Grid.Column="0">
+                        <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Height="23" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,0" Name="textBlock1" Grid.Column="0">
                             (1) Site URL(s):
                         </TextBlock>
-                        <TextBox Height="23" VerticalAlignment="Center" Margin="6,0,0,0" Name="textBoxUrl" Foreground="Black" Controls:TextboxHelper.Watermark="localhost:3000, site.local, dev.example.com" Grid.Column="1" />
+                        <TextBox FontFamily="{StaticResource LiveReloadFontFamilyNormal}" VerticalContentAlignment="Center" Height="23" VerticalAlignment="Center" Margin="6,0,0,0" Name="textBoxUrl" Foreground="Black" Controls:TextboxHelper.Watermark="localhost:3000, site.local, dev.example.com" Grid.Column="1" />
                     </Grid>
-                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="0,18,0,0" Name="textBlock2" VerticalAlignment="Top" Grid.Column="1">(2) Insert this tag before &lt;/body&gt; or
+                    <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Height="23" HorizontalAlignment="Left" Margin="0,18,0,0" Name="textBlock2" VerticalAlignment="Top" Grid.Column="1">(2) Insert this tag before &lt;/body&gt; or
                         <Hyperlink
                             NavigateUri="http://go.livereload.com/extensions"
                             RequestNavigate="Hyperlink_RequestNavigate">
@@ -227,6 +252,7 @@
                         </Hyperlink>:
                     </TextBlock>
                     <TextBox Name="textBoxSnippet"
+                        FontFamily="{StaticResource LiveReloadFontFamilyNormal}"
                         my:SelectTextOnFocus.Active="True"
                         Height="48"
                         Margin="20,3,0,3"
@@ -234,27 +260,12 @@
                         TextWrapping="Wrap"
                         Controls:TextboxHelper.Watermark="[open a project to see its snippet that corresponds to entered URL(s)]"
                         IsReadOnly="True" />
-                    <TextBlock Height="23" HorizontalAlignment="Left" Margin="0,18,0,0" Name="textBlock3" >
-                        (3) When a file is modified:
-                    </TextBlock>
-                    <Grid Margin="20,6,0,0" >
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="214" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <CheckBox Name="checkBoxCompile"   Content="Compile scripts, stylesheets, etc" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" IsEnabled="False" />
-                        <CheckBox Name="checkBoxRunCustom" Content="Run a custom command"              Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" IsEnabled="False" Visibility="Hidden" />
-                        <TextBlock Name="textBlock4" Margin="26,3,0,12"  VerticalAlignment="Top" TextWrapping="Wrap" FontSize="10" Grid.Column="0" Grid.Row="1">
+                    <StackPanel Margin="8,36,0,0" Width="240" HorizontalAlignment="Left">
+                        <Controls:ToggleSwitch Name="checkBoxCompile" HorizontalAlignment="Left" Header="Compile scripts, stylesheets, etc" />
+                        <TextBlock Style="{StaticResource LiveReloadTextTinyStyle}" Name="textBlock4" Margin="12,12,0,0"  VerticalAlignment="Center" TextWrapping="Wrap" Grid.Column="0" Grid.Row="1">
                             CoffeeScript, Eco, HAML, IcedCoffeeScript, Jade, LESS, SASS, Compass, Slim, Stylus
                         </TextBlock>
-                        <Button Name="buttonCompile"   Content="Options..." Style="{DynamicResource SquareButtonStyle}" Margin="6,0,0,0" Width="75" Grid.Column="1" Grid.Row="0" IsEnabled="False" Visibility="Hidden" />
-                        <Button Name="buttonRunCustom" Content="Options..." Style="{DynamicResource SquareButtonStyle}" Margin="6,0,0,0" Width="75" Grid.Column="1" Grid.Row="2" IsEnabled="False" Visibility="Hidden" />
-                    </Grid>
+                    </StackPanel>
                 </StackPanel>
             </TabItem>
             <TabItem Header="Paths" Visibility="Collapsed">
