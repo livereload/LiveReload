@@ -176,7 +176,7 @@
                     </Grid>
                 </StackPanel>
             </TabItem>
-            <TabItem Header="Paths">
+            <TabItem Header="Paths" Visibility="Collapsed">
                 <Grid >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
