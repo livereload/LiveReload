@@ -97,9 +97,10 @@ class Project extends R.Model
       @handleChange @vfs, @fullPath, change.addedFiles.concat(change.modifiedFiles)
     @tree = @watcher.tree
 
-    actions =
-      for compiler in @session.pluginManager?.allCompilers or []
-        new CompilationAction(compiler)
+    # actions =
+    #   for compiler in @session.pluginManager?.allCompilers or []
+    #     new CompilationAction(compiler)
+    actions = []
     @ruleSet = @universe.create(RuleSet, { actions, project: this })
 
     await @watcher.on 'complete', defer()
