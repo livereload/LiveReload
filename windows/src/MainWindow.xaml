@@ -64,13 +64,10 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Rectangle Name="rectStart" Fill="White" Opacity="0.90" Grid.RowSpan="2" />
-            <TextBlock TextWrapping="Wrap" Margin="30" xml:space="preserve"><Bold>What's New in v0.8</Bold>
-                
-Hey! In the release we've fixed Compass compilation and added error notifications. Also:
-
-• adjusted grace period on web socket disconnection — LiveReload now waits longer before stopping FS monitoring
-• added ZURB Foundation 3
-• fix a bug in url(…) CSS rewriting logic done when URL overriding is active
+            <TextBlock TextWrapping="Wrap" Margin="30">
+                <Bold>What's New in v0.8</Bold><LineBreak />
+                <Run>Hey! In the release we really wanted to fix Compass compilation and to add error notifications.</Run>
+                <Run>Unfortunately...</Run>
             </TextBlock>
             <StackPanel Grid.Row="1" Name="stackPanelStart" >
                 <Controls:ProgressRing Name="progressStart" IsActive="True" />
