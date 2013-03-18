@@ -44,6 +44,7 @@ class Analyzer
       debug "#{analyzer} full rebuild will process #{relpaths.length} paths: " + relpaths.join(", ")
       for relpath in relpaths
         if file = @project.fileAt(relpath)
+          await setImmediate defer()
           await @_updateFile analyzer, file, defer()
 
     @_fullRebuildRequired = no
@@ -67,6 +68,7 @@ class Analyzer
     for file in files
       for analyzer in @analyzers
         if analyzer.list.matches(file.relpath)
+          await setImmediate defer()
           await @_updateFile analyzer, file, defer()
         else
           debug "#{analyzer} not interested in #{file.relpath}"
