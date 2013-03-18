@@ -1,4 +1,4 @@
-set VER=0.8.12
+set VER=0.10.0
 
 cd "%~dp0"
 
