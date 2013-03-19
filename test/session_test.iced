@@ -147,6 +147,37 @@ describe "Session", ->
     done()
 
 
+  it "should handle folder change events delivered after removing a project (UV3122)", (done) ->
+    universe = new R.Universe()
+    session = universe.create(Session)
+    vfs = new TestVFS
+    tempfs = scopedfs.createTempFS('livereload-test-')
+
+    memento = {}
+    memento[tempfs.path] = { compilationEnabled: yes }
+    session.setProjectsMemento vfs, memento
+
+    bar = session.findProjectByPath(tempfs.path)
+    assert.ok bar?
+
+    await session.after defer()
+
+    debug "!!! monitorWacher = bar.watcher.watcher"
+    # monitorWacher = bar.watcher.watcher
+
+    bar.destroy()
+    debug "!!! destroy"
+
+    tempfs.applySync 'boz/boz111.less': "h1 { color: red; }\n"
+    # monitorWacher.emit 'change', tempfs.path, 'boz111.less', no
+
+    await session.after defer()
+
+    await setTimeout defer(), 500
+
+    done()
+
+
   it.skip "should handle changes in a compilable file", (done) ->
     universe = new R.Universe()
     session = universe.create(Session)
