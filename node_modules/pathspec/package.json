@@ -7,7 +7,7 @@
     "type": "git",
     "url": "git@github.com:andreyvit/pathspec.js.git"
   },
-  "main": "index.js",
+  "main": "lib/index.js",
   "bin": {
     "pathspec-find": "bin/pathspec-find.js"
   },
