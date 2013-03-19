@@ -13,6 +13,7 @@ namespace LiveReload
     public partial class App
     {
         private string bundledBackendDir;
+        private string bundledPluginsDir;
         private string bundledRubyDir;
         private string bundledNodeDir;
 
@@ -23,6 +24,7 @@ namespace LiveReload
                     SevenZipExtractor.SetLibraryPath(Path.Combine(resourcesDir, "7zxa.dll"));
 
                     bundledBackendDir = extractBundledResourcesFromFile("backend.7z");
+                    bundledPluginsDir = extractBundledResourcesFromFile("plugins.7z");
                     bundledRubyDir    = extractBundledResourcesFromFile("ruby-1.9.3.7z");
                     bundledNodeDir    = extractBundledResourcesFromFile("node-0.10.0.7z");
 

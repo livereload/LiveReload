@@ -115,6 +115,8 @@ namespace LiveReload
             if (options.LRBundledPluginsOverride != null) {
                 Environment.SetEnvironmentVariable("LRBundledPluginsOverride", options.LRBundledPluginsOverride);
                 logWriter.WriteLine("LRBundledPluginsOverride = \"" + options.LRBundledPluginsOverride + "\"");
+            } else {
+                Environment.SetEnvironmentVariable("LRBundledPluginsOverride", bundledPluginsDir);
             }
 
             window.gridProgress.Visibility = Visibility.Hidden;
