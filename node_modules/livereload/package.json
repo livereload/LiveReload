@@ -2,7 +2,7 @@
   "author": "Andrey Tarantsov <andrey@tarantsov.com>",
   "name": "livereload",
   "description": "LiveReload 3 command-line tool / GUI backend",
-  "version": "0.8.0",
+  "version": "0.8.3",
   "homepage": "https://github.com/andreyvit/livereload",
   "repository": {
     "url": "git://github.com/andreyvit/livereload"
