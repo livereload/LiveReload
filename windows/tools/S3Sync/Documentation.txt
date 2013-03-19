@@ -68,8 +68,10 @@ Command Line Parameters
 	output.  The default value is 1.
 		1 - Minimal logging.  Only show what will be deleted and what will be 
 		transferred. 
-		2 - Full logging.  Show all files that exist between both system and shows debug 
+		2 - Detailed logging.  Show all files that exist between both system and shows debug 
 		information in the event of an error. 
+		3 - HTTP logging.  Show all information of detailed logging and all HTTP requests 
+		to Amazon and responses from Amazon. 
 	
 	-LogFilePath (optional) - The path and file name where a log file will be 
 	generated.  Leave this value empty if you do not want to create a text log file 
@@ -111,7 +113,9 @@ Command Line Parameters
 	not a global setting.  The default value is 0.
 	
 	-ShowTransferProgress (optional) - Indicates weather progress for a transfer 
-	should be displayed in the console.  The default is true.
+	should be displayed in the console.  When running S3 Sync from an application that 
+	reads the console output, such as SQL Agent, you may need to disable the progress 
+	update by setting this parameter to false.  The default is true.
 		True - Show progress during a transfer. 
 		False - Do not show progress during a transfer. 
 	
