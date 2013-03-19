@@ -44,6 +44,8 @@ class LRWebSocketServer extends EventEmitter
           return callback(err)
 
         @httpServer.on 'request', (request, response) =>
+          request.on 'data', =>
+            # ignore; adding 'data' handler puts the stream into legacy mode on Node 0.10+
           request.on 'end', =>
             url = Url.parse(request.url, yes)
             if url.pathname is '/livereload.js' or url.pathname is '/xlivereload.js'
