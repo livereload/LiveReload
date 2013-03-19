@@ -37,7 +37,7 @@ class LRWebSocketController
 
     @server.on 'livereload.js', (req, res) =>
       console.log "Serving livereload.js."
-      await fs.readFile Path.join(__dirname, '../res/livereload.js'), 'utf8', defer(err, data)
+      await fs.readFile Path.join(ResourceFolder, 'livereload.js'), 'utf8', defer(err, data)
       throw err if err
       res.writeHead 200, 'Content-Length': data.length, 'Content-Type': 'text/javascript'
       res.end(data)
