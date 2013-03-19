@@ -1,6 +1,6 @@
 {
   "name": "fsmonitor",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Fine-grained cross-platform file system monitoring for Node.js",
   "main": "lib/index.js",
   "directories": {
