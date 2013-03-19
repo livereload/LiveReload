@@ -194,8 +194,8 @@ class Project extends R.Model
         step.initialize()
         @steps.push step
 
-    if @memento.rules?
-      @ruleSet.setMemento @memento.rules
+    # if @memento.rules?
+    #   @ruleSet.setMemento @memento.rules
 
     # @isLiveReloadBackend = (Path.normalize(@hive.fullPath) == Path.normalize(Path.join(__dirname, '../..')))
     # if @isLiveReloadBackend
@@ -211,8 +211,8 @@ class Project extends R.Model
       files:
         for own _, file of @fileOptionsByPath when file.compiler
           file.makeMemento()
-      rules:
-        @ruleSet.memento()
+      # rules:
+      #   @ruleSet.memento()
     }
 
   fileAt: (relpath, create=no) ->
