@@ -1,2 +1,5 @@
 @call PubConfig.cmd
-%~dp0tools\S3Sync\S3Sync.exe -AWSAccessKeyId %AWSAccessKeyId% -AWSSecretAccessKey %AWSSecretAccessKey% -SyncDirection upload -LocalFolderPath "bin\Debug\app.publish\" -BucketName download.livereload.com -S3FolderKeyName windows-stage/ -UploadHeaders x-amz-acl:public-read -DeleteS3ItemsWhereNotInLocalList false -UseSSL false -TransferThreads 5 -MultipartThreads 1
+
+@set opts=-AWSAccessKeyId %AWSAccessKeyId% -AWSSecretAccessKey %AWSSecretAccessKey% -SyncDirection upload -BucketName download.livereload.com -UploadHeaders x-amz-acl:public-read -DeleteS3ItemsWhereNotInLocalList false -UseSSL false -TransferThreads 5 -MultipartThreads 1
+
+"%~dp0tools\S3Sync\S3Sync.exe" -LocalFolderPath "bin\Debug\app.publish\" -S3FolderKeyName "windows-stage/" %opts%
