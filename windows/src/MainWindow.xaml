@@ -116,7 +116,7 @@
             </TextBlock>
             <StackPanel Grid.Row="1" Name="stackPanelStart" >
                 <Controls:ProgressRing Name="progressStart" IsActive="True" />
-                <TextBlock Name="textProgress" Text="Extracting new resources..." TextAlignment="Center" Margin="8,8,8,24"/>
+                <TextBlock Name="textProgress" Text="Extracting new compilers and tools..." TextAlignment="Center" Margin="8,8,8,24"/>
             </StackPanel>
         </Grid>
 
