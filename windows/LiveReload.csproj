@@ -171,9 +171,6 @@
     <Content Include="res\bundled\node-0.10.0.7z">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="res\bundled\plugins.7z">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Resource Include="Resources\Entypo.ttf" />
     <Resource Include="Resources\Entypo-license.txt" />
     <Content Include="res\7zxa.dll">
