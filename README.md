@@ -58,6 +58,8 @@ Then:
 Building LiveReload
 -------------------
 
+See `windows/README.md` for Windows build instructions.
+
 You need:
 
 * Xcode 4.2.1
