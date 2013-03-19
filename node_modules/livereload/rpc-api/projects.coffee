@@ -92,4 +92,3 @@ exports.api =
 
 exports.setConnectionStatus = ({ connectionCount }) ->
   _root.stats.connectionCount = connectionCount
-  sendStatus()
