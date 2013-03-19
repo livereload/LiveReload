@@ -2,6 +2,7 @@ debug  = require('debug')('livereload:core:tests')
 assert = require 'assert'
 { ok, equal } = require 'assert'
 { inspect } = require 'util'
+scopedfs = require 'scopedfs'
 
 { EventEmitter } = require 'events'
 
@@ -118,6 +119,33 @@ describe "Session", ->
       { action: 'refresh', project: runs[0].project.id, paths: ['boz.js'] }
     ]
     done()
+
+
+  it "should handle quick file creation+deletion", (done) ->
+    universe = new R.Universe()
+    session = universe.create(Session)
+    vfs = new TestVFS
+    tempfs = scopedfs.createTempFS('livereload-test-')
+
+    memento = {}
+    memento[tempfs.path] = { compilationEnabled: yes }
+    session.setProjectsMemento vfs, memento
+
+    bar = session.findProjectByPath(tempfs.path)
+    assert.ok bar?
+
+    await session.after defer()
+
+    tempfs.applySync 'boz.less': "h1 span { color: #777; }\n"
+    session.handleChange vfs, tempfs.path, ['boz.less']
+
+    tempfs.applySync 'boz.less': null
+    session.handleChange vfs, tempfs.path, ['boz.less']
+
+    await session.after defer()
+
+    done()
+
 
   it.skip "should handle changes in a compilable file", (done) ->
     universe = new R.Universe()
