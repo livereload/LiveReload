@@ -110,27 +110,22 @@ class LRWebSocketController
     # LR.client.mainwnd.setChangeCount changeCount: @changeCount
 
   _onhttprequest: (url, request, response) ->
-    if url.pathname.match ///^ /x?livereload\.js $///
-      data = fs.readFileSync(Path.join(ResourceFolder, 'livereload.js'))
-      response.writeHead 200, 'Content-Length': data.length, 'Content-Type': 'text/javascript'
-      response.end(data)
-    else
-      @urlOverrideCoordinator.handleHttpRequest url, (err, result) ->
-        if err
-          if err is ERR_NOT_MATCHED
-            response.writeHead 404
-            response.end()
-          else if err is ERR_AUTH_FAILED
-            response.writeHead 403
-            response.end("LiveReload cannot authenticate this request; please reload the page. (Happens if you restart LiveReload app.)")
-          else if err is ERR_FILE_NOT_FOUND
-            response.writeHead 404
-            response.end("The given file no longer exists. Please reload the page.")
-          else
-            debug "ERROR: Error processing URL override HTTP request: #{e.message || e}"
-            response.writeHead 500
-            response.end("Error processing this request. Please see the log file, and try reloading this page.")
+    @urlOverrideCoordinator.handleHttpRequest url, (err, result) ->
+      if err
+        if err is ERR_NOT_MATCHED
+          response.writeHead 404
+          response.end()
+        else if err is ERR_AUTH_FAILED
+          response.writeHead 403
+          response.end("LiveReload cannot authenticate this request; please reload the page. (Happens if you restart LiveReload app.)")
+        else if err is ERR_FILE_NOT_FOUND
+          response.writeHead 404
+          response.end("The given file no longer exists. Please reload the page.")
         else
-          response.setHeader 'Content-Type',   result.mime
-          response.setHeader 'Content-Length', result.content.length
-          response.end result.content
+          debug "ERROR: Error processing URL override HTTP request: #{e.message || e}"
+          response.writeHead 500
+          response.end("Error processing this request. Please see the log file, and try reloading this page.")
+      else
+        response.setHeader 'Content-Type',   result.mime
+        response.setHeader 'Content-Length', result.content.length
+        response.end result.content
