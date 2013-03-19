@@ -57,13 +57,14 @@ class Analyzer
   _update: (request, done) ->
     debug "Analyzer update job running."
 
-    files =
-      for relpath in request.relpaths
-        fullPath = Path.join(@project.fullPath, relpath)
-        await fs.exists fullPath, defer(exists)
+    files = []
+    for relpath in request.relpaths
+      fullPath = Path.join(@project.fullPath, relpath)
+      await fs.exists fullPath, defer(exists)
 
-        debug "file at #{relpath} #{exists && 'exists' || 'does not exist.'}"
-        @project._updateFile(relpath, exists)
+      debug "file at #{relpath} #{exists && 'exists' || 'does not exist.'}"
+      if file = @project._updateFile(relpath, exists)
+        files.push file
 
     for file in files
       for analyzer in @analyzers
