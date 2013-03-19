@@ -13,14 +13,17 @@ class FSMonitor extends EventEmitter
     @tree = new FSTree(@root, @filter)
     @tree.once 'complete', @_finishInitialization.bind(@)
     @tree.on 'change', @_processChange.bind(@)
+    @_closed = no
 
   close: ->
+    @_closed = yes
     @watcher?.close()
     @watcher = null
 
   _finishInitialization: ->
     @watcher = new Watcher(@root)
     @watcher.on 'change', (folder, filename, recursive) =>
+      return if @_closed
       @tree.update folder, filename, recursive
 
     for folder in @tree.allFolders
@@ -29,6 +32,7 @@ class FSMonitor extends EventEmitter
     @emit 'complete'
 
   _processChange: (change) ->
+    return if @_closed
     for folder in change.addedFolders
       @watcher.addFolder folder
     for folder in change.removedFolders
