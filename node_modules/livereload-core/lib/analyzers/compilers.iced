@@ -7,7 +7,11 @@ class CompilersAnalyzer extends require('./base')
   message: "Determining compilers"
 
   computePathList: ->
-    RelPathList.parse(["*.*"])
+    list = new RelPathList()
+    for compiler in @session.pluginManager.allCompilers
+      for spec in compiler.sourceSpecs
+        list.include RelPathSpec.parseGitStyleSpec(spec)
+    return list
 
   clear: ->
     @project.compassMarkers = []
