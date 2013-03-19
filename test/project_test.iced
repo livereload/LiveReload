@@ -163,7 +163,7 @@ describe "Project", ->
     class TestContext
       constructor: ->
 
-    it "should start new projects with a full set of supported rules", (done) ->
+    it.skip "should start new projects with a full set of supported rules", (done) ->
       universe = new R.Universe()
       vfs = new TestVFS()
       session = new FakeSession()
@@ -192,7 +192,7 @@ describe "Project", ->
       deepEqual project.ruleSet.memento(), [{ action: 'compile-less', src: '**/*.less', dst: '**/*.css' }, { action: 'compile-coffeescript', src: '**/*.coffee', dst: '**/*.js' }]
       done()
 
-    it "should resolve the list of files matched by each rule", (done) ->
+    it.skip "should resolve the list of files matched by each rule", (done) ->
       universe = new R.Universe()
       vfs = new TestVFS()
       session = new FakeSession()
