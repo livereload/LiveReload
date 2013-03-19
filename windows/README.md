@@ -14,6 +14,7 @@ Process:
 
 * Run bundle-backend.cmd
 * Run bundle-ruby.cmd
+* Run bundle-node.cmd
 * Perform the build in Visual Studio
 
 
