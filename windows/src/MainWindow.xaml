@@ -108,9 +108,11 @@
             </Grid.RowDefinitions>
             <Rectangle Name="rectStart" Fill="White" Opacity="0.90" Grid.RowSpan="2" />
             <TextBlock TextWrapping="Wrap" Margin="30">
-                <Bold>What's New in v0.8</Bold><LineBreak />
-                <Run>Hey! In the release we really wanted to fix Compass compilation and to add error notifications.</Run>
-                <Run>Unfortunately...</Run>
+                <Bold>What's New in v0.8</Bold><LineBreak /><LineBreak />
+                <Run>Hey!</Run><LineBreak /><LineBreak />
+                <Run>This release should hopefully fix all known v0.7 bugs.</Run><LineBreak /><LineBreak />
+                <Run>We've also changed a lot of internals, mostly in preparation for the soon-to-be-introduced rules system.</Run><LineBreak /><LineBreak />
+                <Run>We hope to get back to a consistent weekly release schedule, too.</Run>
             </TextBlock>
             <StackPanel Grid.Row="1" Name="stackPanelStart" >
                 <Controls:ProgressRing Name="progressStart" IsActive="True" />
