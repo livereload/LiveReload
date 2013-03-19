@@ -1,4 +1,4 @@
-set VER=0.8.3
+set VER=0.8.4
 set PKG=livereload-%VER%
 
 cd "%~dp0"
