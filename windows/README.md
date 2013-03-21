@@ -14,11 +14,20 @@ Prerequisites:
 
 Process:
 
-* Run `bundle-backend.cmd`
+* Run `powershell bundle-backend.ps1`
 * Run `bundle-ruby.cmd`
 * Run `bundle-node.cmd`
 * Run `bundle-plugins.cmd`
 * Perform the build in Visual Studio
+
+
+## Running PowerShell scripts
+
+As [explained on MSDN](http://technet.microsoft.com/library/hh847748.aspx), you need to configure PowerShell to run scripts. Here's how:
+
+1. Press Win+X, run Command Prompt (Admin).
+2. Run `powershell`
+3. In PS, run `Set-ExecutionPolicy -ExecutionPolicy Unrestricted`
 
 
 ## Overriding the backend and plugins path
