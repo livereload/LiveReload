@@ -56,6 +56,9 @@ namespace LiveReload
 
             process.Start();
 
+            var job = new JobManagement.Job();
+            job.AddProcess(process.Handle);
+
             var SaneUTF8 = new UTF8Encoding(false);  // UTF8 that does not emit BOM
             writer = new StreamWriter(process.StandardInput.BaseStream, SaneUTF8);
             reader = process.StandardOutput;

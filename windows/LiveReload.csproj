@@ -108,6 +108,7 @@
     <Compile Include="src\App.BundledResources.cs" />
     <Compile Include="src\App.SingleInstance.cs" />
     <Compile Include="src\App.CommandLineArgs.cs" />
+    <Compile Include="src\JobManagement.cs" />
     <Compile Include="src\EditableTextBlock.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>EditableTextBlock.xaml</DependentUpon>
