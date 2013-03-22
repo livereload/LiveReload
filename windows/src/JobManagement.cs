@@ -1,4 +1,8 @@
-﻿using System;
+﻿//
+// Based on http://stackoverflow.com/questions/6266820/working-example-of-createjobobject-setinformationjobobject-pinvoke-in-net/9164742#9164742
+//
+
+using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
