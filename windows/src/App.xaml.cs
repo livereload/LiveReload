@@ -8,6 +8,8 @@ using System.Windows;
 using System.Windows.Threading;
 using System.IO;
 using System.Text;
+using LiveReload.Properties;
+using System.Diagnostics;
 
 namespace LiveReload
 {
@@ -84,7 +86,31 @@ namespace LiveReload
                 return;
             }
 
+            Settings.Default.PropertyChanged += Settings_PropertyChanged;
+
+            UpdateConfigurationAccordingToSettings();
+
             StartUI();
+        }
+
+        void UpdateConfigurationAccordingToSettings() {
+            if (Settings.Default.DevMode) {
+                var dir = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
+                var backendPath = Path.Combine(dir, "..\\..\\..\\node_modules\\livereload");
+                var pluginsPath = Path.Combine(dir, "..\\..\\..\\plugins");
+                if (Directory.Exists(backendPath) && Directory.Exists(pluginsPath)) {
+                    options.LRBackendOverride = backendPath;
+                    options.LRBundledPluginsOverride = pluginsPath;
+                }
+            }
+        }
+
+        void Settings_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e) {
+            Settings.Default.Save();
+            if (e.PropertyName == "DevMode") {
+                EntryPoint.isRestarting = true;
+                Shutdown();
+            }
         }
 
         private void StartUI()
@@ -92,7 +118,7 @@ namespace LiveReload
             window = new MainWindow();
             window.MainWindowHideEvent         += HandleMainWindowHideEvent;
             window.NodeMessageEvent            += HandleNodeMessageEvent;
-            window.buttonVersion.Content = "v" + Version;
+            window.buttonVersion.Content = "v" + Version + (string.IsNullOrWhiteSpace(options.LRBundledPluginsOverride) ? "" : "*");
             window.gridProgress.Visibility = Visibility.Visible;
             window.Show();
 

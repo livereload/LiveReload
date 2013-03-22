@@ -1,9 +1,10 @@
 ﻿<Application x:Class="LiveReload.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:properties="clr-namespace:LiveReload.Properties"
              Startup="Application_Startup"
              ShutdownMode="OnExplicitShutdown" Exit="Application_Exit" DispatcherUnhandledException="Application_DispatcherUnhandledException">
     <Application.Resources>
-
+        <properties:Settings x:Key="Settings" />
     </Application.Resources>
 </Application>
