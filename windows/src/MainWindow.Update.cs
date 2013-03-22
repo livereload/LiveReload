@@ -8,9 +8,9 @@ using System.Deployment.Application;
 
 namespace LiveReload
 {
-    public partial class MainWindow : MahApps.Metro.Controls.MetroWindow
+    public partial class App : Application
     {
-        private void InstallUpdateSyncWithInfo()
+        public void InstallUpdateSyncWithInfo()
         {
             UpdateCheckInfo info = null;
 

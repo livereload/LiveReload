@@ -122,7 +122,7 @@ namespace LiveReload
         }
 
         private void UpdateMenuItem_Click(object sender, RoutedEventArgs e) {
-            InstallUpdateSyncWithInfo();
+           ((App)App.Current).InstallUpdateSyncWithInfo();
         }
 
         private void ShowReleaseNotes_Click(object sender, RoutedEventArgs e) {

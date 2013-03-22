@@ -243,10 +243,11 @@ namespace LiveReload
 
         private void EmergencyShutdown(string reason)
         {
-            string message = reason + "\n\nPress OK to report the crash, reveal the log file and quit the app.";
+            string message = reason + "\n\nPress OK to report the crash, reveal the log file, check for a possible app update and quit the app.";
             MessageBoxResult result = MessageBox.Show(message, "LiveReload crash", MessageBoxButton.OK, MessageBoxImage.Error);
             if (result == MessageBoxResult.OK)
             {
+                InstallUpdateSyncWithInfo(); // Check for updates
                 string crashUrl = @"http://go.livereload.com/crashed/windows/";
                 System.Diagnostics.Process.Start(crashUrl);
                 OpenExplorerWithLog();
