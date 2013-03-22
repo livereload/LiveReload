@@ -247,10 +247,10 @@ namespace LiveReload
             MessageBoxResult result = MessageBox.Show(message, "LiveReload crash", MessageBoxButton.OK, MessageBoxImage.Error);
             if (result == MessageBoxResult.OK)
             {
-                InstallUpdateSyncWithInfo(); // Check for updates
                 string crashUrl = @"http://go.livereload.com/crashed/windows/";
                 System.Diagnostics.Process.Start(crashUrl);
                 OpenExplorerWithLog();
+                InstallUpdateSyncWithInfo(); // Check for updates
             }
 
             App.Current.Shutdown(1);
