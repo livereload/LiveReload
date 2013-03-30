@@ -103,8 +103,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="sample\MainWindowViewModel.cs" />
+    <Compile Include="src\MainWindowViewModel.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="src\ActionsFilesHub.xaml.cs">
+      <DependentUpon>ActionsFilesHub.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\ActionsFilesViewModel.cs" />
     <Compile Include="src\App.BundledResources.cs" />
     <Compile Include="src\App.SingleInstance.cs" />
     <Compile Include="src\App.CommandLineArgs.cs" />
@@ -118,13 +122,17 @@
     <Compile Include="src\ObjectRPC.cs" />
     <Compile Include="src\SelectTextOnFocus.cs" />
     <Compile Include="src\TrayIconController.cs" />
-    <DesignData Include="sample\MainWindowDesignData.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Resources\AppStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
-    </DesignData>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="src\ActionsFilesHub.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="src\EditableTextBlock.xaml">
       <Generator>MSBuild:Compile</Generator>

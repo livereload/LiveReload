@@ -33,7 +33,14 @@ namespace LiveReload
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainWindowViewModel(true);
             tabs.Visibility = Visibility.Collapsed;
+        }
+
+        public MainWindowViewModel ViewModel {
+            get {
+                return (MainWindowViewModel)DataContext;
+            }
         }
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)

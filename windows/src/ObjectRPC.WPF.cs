@@ -92,6 +92,27 @@ namespace ObjectRPC.WPF
         }
     }
 
+    class MetroToggleSwitchButtonFacet : Facet<ToggleSwitchButton>
+    {
+        public MetroToggleSwitchButtonFacet(Entity entity, ToggleSwitchButton obj)
+            : base(entity, obj) {
+            obj.Checked += OnClick;
+            obj.Unchecked += OnClick;
+        }
+
+        public string Label {
+            set { obj.Content = value; }
+        }
+
+        public bool Value {
+            set { obj.IsChecked = value; }
+        }
+
+        private void OnClick(object sender, RoutedEventArgs e) {
+            entity.SendUpdate(new D { { "value", obj.IsChecked } });
+        }
+    }
+
     class ToggleSwitchFacet : Facet<ToggleSwitch>
     {
         public ToggleSwitchFacet(Entity entity, ToggleSwitch obj)
@@ -269,6 +290,7 @@ namespace ObjectRPC.WPF
             rpc.Register(typeof(TreeView), typeof(TreeViewFacet));
             rpc.Register(typeof(CheckBox), typeof(CheckBoxFacet));
             rpc.Register(typeof(ToggleSwitch), typeof(ToggleSwitchFacet));
+            rpc.Register(typeof(ToggleSwitchButton), typeof(MetroToggleSwitchButtonFacet));
             rpc.Register(typeof(TextBox), typeof(TextBoxFacet));
         }
     }

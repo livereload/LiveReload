@@ -9,7 +9,7 @@
                         xmlns:xxx="http://example.com/commented-out/"
                         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                        d:DataContext="{d:DesignData /sample/MainWindowDesignData.xaml}"
+                        d:DataContext="{d:DesignInstance lr:MainWindowViewModel, IsDesignTimeCreatable=True}"
                         Width="799" Height="643" MinWidth="400" MinHeight="100"
                         Icon="pack://application:,,,/img/LiveReload.ico"
                         ResizeMode="CanResizeWithGrip"
@@ -23,66 +23,15 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Resources/Icons.xaml" />
+                <ResourceDictionary Source="/MahApps.Metro;component/Styles/Colours.xaml" />
+                <ResourceDictionary Source="/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary Source="/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
+                <ResourceDictionary Source="/Resources/Icons.xaml" />
+                <ResourceDictionary Source="/Resources/AppStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <FontFamily x:Key="LiveReloadFontFamilyNormal">Segoe UI</FontFamily>
-
-            <Style x:Key="LiveReloadTextBoxNormalStyle" TargetType="TextBox">
-                <Setter Property="FontFamily" Value="{StaticResource LiveReloadFontFamilyNormal}" />
-            </Style>
-
-            <Style x:Key="LiveReloadTextNormalStyle" TargetType="TextBlock">
-                <Setter Property="TextBlock.Foreground" Value="#FF666666" />
-                <Setter Property="TextBlock.FontFamily" Value="{StaticResource LiveReloadFontFamilyNormal}" />
-                <Setter Property="TextBlock.FontWeight" Value="Normal" />
-                <Setter Property="TextBlock.FontSize" Value="14" />
-                <Setter Property="TextBlock.Padding" Value="0" />
-                <Setter Property="FrameworkElement.Margin" Value="0" />
-            </Style>
-
-            <Style x:Key="LiveReloadTextTitle1Style" TargetType="TextBlock" BasedOn="{StaticResource LiveReloadTextNormalStyle}">
-                <Setter Property="TextBlock.FontSize" Value="24" />
-                <Setter Property="TextOptions.TextFormattingMode" Value="Ideal" />
-            </Style>
-
-            <Style x:Key="LiveReloadTextSidebarHeaderStyle" TargetType="TextBlock" BasedOn="{StaticResource LiveReloadTextTitle1Style}">
-                <Setter Property="FrameworkElement.Margin" Value="24,10,0,6" />
-            </Style>
-
-            <Style x:Key="LiveReloadTextTitle2Style" TargetType="TextBlock" BasedOn="{StaticResource LiveReloadTextNormalStyle}">
-                <Setter Property="TextBlock.FontSize" Value="18" />
-                <Setter Property="TextOptions.TextFormattingMode" Value="Ideal" />
-            </Style>
-
-            <Style x:Key="LiveReloadTextTitle2SmallStyle" TargetType="TextBlock" BasedOn="{StaticResource LiveReloadTextTitle2Style}">
-                <Setter Property="TextBlock.FontSize" Value="16" />
-            </Style>
-
-            <Style x:Key="LiveReloadTextTinyStyle" TargetType="TextBlock" BasedOn="{StaticResource LiveReloadTextNormalStyle}">
-                <Setter Property="TextBlock.FontSize" Value="10" />
-            </Style>
-
-            <Style x:Key="LiveReloadCuteButtonStyle" TargetType="Button">
-                <Setter Property="Padding" Value="4,2" />
-                <Setter Property="Margin" Value="-4,0,8,0" />
-                <Setter Property="BorderThickness" Value="0" />
-                <Setter Property="Background" Value="Transparent" />
-                <Setter Property="HorizontalContentAlignment" Value="Left" />
-            </Style>
-
-            <Style x:Key="IntegrationTileGrid" TargetType="Grid">
-                <Setter Property="Margin" Value="5,4,12,4" />
-                <Setter Property="Width" Value="512" />
-                <Setter Property="HorizontalAlignment" Value="Left" />
-                <Setter Property="Background" Value="#eeeeef" />
-            </Style>
         </ResourceDictionary>
     </Window.Resources>
     <Controls:MetroWindow.WindowCommands>
@@ -240,7 +189,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             
-            <Grid Margin="10,6,0,6">
+            <Grid Name="ProjectHeaderBox" Margin="10,6,0,6">
                 <Rectangle Width="50" Height="50" Margin="0,2,4,0" HorizontalAlignment="Left" VerticalAlignment="Center">
                     <Rectangle.Resources>
                         <SolidColorBrush x:Key="BlackBrush" Color="#FF666666" />
@@ -312,152 +261,59 @@
                 <TabItem Header="actions+files">
                     <ScrollViewer Grid.Row="1" BorderThickness="0" VerticalScrollBarVisibility="Auto">
                         <StackPanel>
-                            <!--<StackPanel>
-                                <WrapPanel Visibility="Collapsed">
-                                    <StackPanel Margin="0,4,12,4" Background="#eeeeef" Width="119" HorizontalAlignment="Left" Height="40">
-                                        <TextBlock Style="{StaticResource LiveReloadTextTitle2SmallStyle}" Text="getting started" Margin="6,8,0,0" />
-                                    </StackPanel>
-                                </WrapPanel>
-                                <StackPanel Margin="0,4,12,4" Background="#eeeeef" Width="512" HorizontalAlignment="Left" Visibility="Visible">
-                                    <TextBlock Style="{StaticResource LiveReloadTextTitle2Style}" Text="getting started" Margin="12,8,0,0" />
-                                    <Grid Height="70">
-                                        <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Text="1" FontSize="28" Margin="12,8,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
-                                        <StackPanel Margin="40,12,12,0">
-                                            <TextBlock Text="Site URL you use for development:" Style="{StaticResource LiveReloadTextNormalStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,4" Grid.Column="0" />
-                                            <TextBox Name="textBoxUrl" FontFamily="{StaticResource LiveReloadFontFamilyNormal}" VerticalContentAlignment="Center" Height="23" VerticalAlignment="Center" Margin="0" Foreground="Black" Controls:TextboxHelper.Watermark="localhost:3000, site.local, dev.example.com" Grid.Column="1" />
+                            <Grid Margin="0,4,12,4" Background="#CCEECC" Width="512" MinHeight="70" Focusable="True" KeyboardNavigation.TabNavigation="Once">
+                                <TextBlock Style="{StaticResource LiveReloadTextTitle2Style}" Text="compile sass, less, coffee and others" Margin="12,6,0,0" />
+                                <Controls:ToggleSwitchButton Name="checkBoxCompile" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,16,0" TabIndex="0" />
+                            </Grid>
+                            
+                            <StackPanel Margin="0,40,0,20">
+                                <TextBlock Text="Coming soon to LiveReload near you" HorizontalAlignment="Center" />
+                                <TextBlock Text="(i.e. nothing below this point works)" HorizontalAlignment="Center" />
+                            </StackPanel>
+                            
+                            <lr:ActionsFilesHub DataContext="{Binding ActionsFiles}" />
+                            
+                            <TextBlock Style="{StaticResource LiveReloadTextTitle1Style}" Text="actions gallery" Margin="0,8,0,0" />
+                            <WrapPanel>
+                                <Grid Margin="0,4,10,4" Background="#e4e4e4" Width="164" MinHeight="50">
+                                    <TextBlock Style="{StaticResource LiveReloadTextTitle2SmallStyle}" Text="compile less" Margin="12,4,0,0" />
+                                    <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Text="v0.3.4" Margin="12,24,0,0" />
+
+                                    <Grid Background="#77ffffff">
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <Button Background="Transparent">+ add</Button>
                                         </StackPanel>
                                     </Grid>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Grid Width="250" Height="124">
-                                            <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Text="2" FontSize="28" Margin="12,8,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
-                                            <StackPanel Margin="40,12,12,0">
-                                                <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" HorizontalAlignment="Left" Margin="0,0,0,4" VerticalAlignment="Top" Grid.Column="1">
-                                        <Run>Insert this tag before &lt;/body&gt;:</Run>
-                                                </TextBlock>
-                                                <TextBox Name="textBoxSnippet" FontFamily="{StaticResource LiveReloadFontFamilyNormal}" my:SelectTextOnFocus.Active="True" Height="80" Margin="0" FontSize="10" TextWrapping="Wrap" Controls:TextboxHelper.Watermark="[open a project to see its snippet that corresponds to entered URL(s)]" IsReadOnly="True" />
-                                            </StackPanel>
-                                        </Grid>
-                                        <Grid Width="250" Height="124">
-                                            <StackPanel Margin="12,12,12,0">
-                                                <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" HorizontalAlignment="Left" Margin="0" TextWrapping="Wrap">
-                                        <Run>or</Run>
-                                        <Hyperlink
-                                            NavigateUri="http://go.livereload.com/extensions"
-                                            RequestNavigate="Hyperlink_RequestNavigate">
-                                            install browser extensions
-                                        </Hyperlink><LineBreak /><LineBreak />
-                                        (and click the browser toolbar button to enable/disable LiveReload on the current tab)
-                                                </TextBlock>
-                                            </StackPanel>
-                                        </Grid>
-                                    </StackPanel>
-                                    <Grid Height="70">
-                                        <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Text="3" FontSize="28" Margin="12,8,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
-                                        <StackPanel Margin="40,12,12,0">
-                                            <TextBlock Text="Save and watch your changes apply live! Configure additional actions below. Click this tile to collapse the instructions." Style="{StaticResource LiveReloadTextNormalStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,4" Grid.Column="0" TextWrapping="Wrap" />
-                                        </StackPanel>
-                                    </Grid>
-                                </StackPanel>-->
-
-                                <TextBlock Style="{StaticResource LiveReloadTextTitle1Style}" Text="enabled actions" Margin="0,8,0,0" />
-                                <WrapPanel>
-                                    <Grid Margin="0,4,12,4" Background="#CCEECC" Width="250" MinHeight="70">
-                                        <TextBlock Style="{StaticResource LiveReloadTextTitle2Style}" Text="compile everything" Margin="12,6,0,0" />
-                                        <Controls:ToggleSwitch Name="checkBoxCompile" Width="230" Margin="2,24,0,0" HorizontalAlignment="Left" />
-                                    </Grid>
-                                    <Grid Margin="0,4,12,4" Background="#CCEECC" Width="250" MinHeight="60">
-                                        <TextBlock Style="{StaticResource LiveReloadTextTitle2Style}" Text="compile sass" Margin="12,6,0,0" />
-                                        <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Text="3 files" Margin="12,30,0,0" />
-                                    </Grid>
-                                    <Grid Margin="0,4,12,4" Background="#CCEECC" Width="250" MinHeight="60">
-                                        <TextBlock Style="{StaticResource LiveReloadTextTitle2Style}" Text="compile coffeescript" Margin="12,6,0,0" />
-                                        <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Text="5 files" Margin="12,30,0,0" />
-                                    </Grid>
-                                </WrapPanel>
-                                <TextBlock Style="{StaticResource LiveReloadTextTitle1Style}" Text="available actions" Margin="0,8,0,0" />
-                                <WrapPanel>
-                                    <Grid Margin="0,4,10,4" Background="#e4e4e4" Width="164" MinHeight="50">
-                                        <TextBlock Style="{StaticResource LiveReloadTextTitle2SmallStyle}" Text="compile less" Margin="12,4,0,0" />
-                                        <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Text="v0.3.4" Margin="12,24,0,0" />
-
-                                        <Grid Background="#77ffffff">
-                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                <Button Background="Transparent">+ add</Button>
-                                            </StackPanel>
-                                        </Grid>
-                                    </Grid>
-                                    <Grid Margin="0,4,10,4" Background="#e4e4e4" Width="164" MinHeight="50">
-                                        <TextBlock Style="{StaticResource LiveReloadTextTitle2SmallStyle}" Text="compile haml" Margin="12,4,0,0" />
-                                        <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Text="disabled" Margin="12,24,0,0" />
-                                    </Grid>
-                                    <Grid Margin="0,4,10,4" Background="#e4e4e4" Width="164" MinHeight="50">
-                                        <TextBlock Style="{StaticResource LiveReloadTextTitle2SmallStyle}" Text="compile compass" Margin="12,4,0,0" />
-                                        <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Text="disabled" Margin="12,24,0,0" />
-                                    </Grid>
-                                    <Grid Margin="0,4,10,4" Background="#e4e4e4" Width="164" MinHeight="50">
-                                        <TextBlock Style="{StaticResource LiveReloadTextTitle2SmallStyle}" Text="compile stylus" Margin="12,4,0,0" />
-                                        <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Text="v0.3.4" Margin="12,24,0,0" />
-                                    </Grid>
-                                    <Grid Margin="0,4,10,4" Background="#e4e4e4" Width="164" MinHeight="50">
-                                        <TextBlock Style="{StaticResource LiveReloadTextTitle2SmallStyle}" Text="compile jade" Margin="12,4,0,0" />
-                                        <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Text="disabled" Margin="12,24,0,0" />
-                                    </Grid>
-                                    <Grid Margin="0,4,10,4" Background="#e4e4e4" Width="164" MinHeight="50">
-                                        <TextBlock Style="{StaticResource LiveReloadTextTitle2SmallStyle}" Text="compile eco" Margin="12,4,0,0" />
-                                        <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Text="disabled" Margin="12,24,0,0" />
-                                    </Grid>
-                                    <Grid Margin="0,4,10,4" Background="#e4e4e4" Width="164" MinHeight="50">
-                                        <TextBlock Style="{StaticResource LiveReloadTextTitle2SmallStyle}" Text="compile slim" Margin="12,4,0,0" />
-                                        <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Text="disabled" Margin="12,24,0,0" />
-                                    </Grid>
-                                </WrapPanel>
+                                </Grid>
+                                <Grid Margin="0,4,10,4" Background="#e4e4e4" Width="164" MinHeight="50">
+                                    <TextBlock Style="{StaticResource LiveReloadTextTitle2SmallStyle}" Text="compile haml" Margin="12,4,0,0" />
+                                    <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Text="disabled" Margin="12,24,0,0" />
+                                </Grid>
+                                <Grid Margin="0,4,10,4" Background="#e4e4e4" Width="164" MinHeight="50">
+                                    <TextBlock Style="{StaticResource LiveReloadTextTitle2SmallStyle}" Text="compile compass" Margin="12,4,0,0" />
+                                    <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Text="disabled" Margin="12,24,0,0" />
+                                </Grid>
+                                <Grid Margin="0,4,10,4" Background="#e4e4e4" Width="164" MinHeight="50">
+                                    <TextBlock Style="{StaticResource LiveReloadTextTitle2SmallStyle}" Text="compile stylus" Margin="12,4,0,0" />
+                                    <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Text="v0.3.4" Margin="12,24,0,0" />
+                                </Grid>
+                                <Grid Margin="0,4,10,4" Background="#e4e4e4" Width="164" MinHeight="50">
+                                    <TextBlock Style="{StaticResource LiveReloadTextTitle2SmallStyle}" Text="compile jade" Margin="12,4,0,0" />
+                                    <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Text="disabled" Margin="12,24,0,0" />
+                                </Grid>
+                                <Grid Margin="0,4,10,4" Background="#e4e4e4" Width="164" MinHeight="50">
+                                    <TextBlock Style="{StaticResource LiveReloadTextTitle2SmallStyle}" Text="compile eco" Margin="12,4,0,0" />
+                                    <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Text="disabled" Margin="12,24,0,0" />
+                                </Grid>
+                                <Grid Margin="0,4,10,4" Background="#e4e4e4" Width="164" MinHeight="50">
+                                    <TextBlock Style="{StaticResource LiveReloadTextTitle2SmallStyle}" Text="compile slim" Margin="12,4,0,0" />
+                                    <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Text="disabled" Margin="12,24,0,0" />
+                                </Grid>
+                            </WrapPanel>
                         </StackPanel>
                     </ScrollViewer>
                 </TabItem>
             </TabControl>
-
-                <!--<ScrollViewer Grid.Row="1" BorderThickness="0" VerticalScrollBarVisibility="Auto">
-                    </ScrollViewer> -->
-
-            <!--<TabControl Name="tabs" Grid.Row="1" Visibility="Collapsed" Background="White">
-                <TabItem Header="folder details">
-                    <TabItem.HeaderTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding}" />
-                        </DataTemplate>
-                    </TabItem.HeaderTemplate>
-                    <StackPanel Name="stackProjectPane" Margin="10,0,0,0">
-                        <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Height="23" HorizontalAlignment="Left" Margin="0,18,0,0" Name="textBlock2" VerticalAlignment="Top" Grid.Column="1">(2) Insert this tag before &lt;/body&gt; or
-                            <Hyperlink
-                                NavigateUri="http://go.livereload.com/extensions"
-                                RequestNavigate="Hyperlink_RequestNavigate">
-                                install browser extensions
-                            </Hyperlink>:
-                        </TextBlock>
-                        <TextBox 
-                            FontFamily="{StaticResource LiveReloadFontFamilyNormal}"
-                            my:SelectTextOnFocus.Active="True"
-                            Height="48"
-                            Margin="20,3,0,3"
-                            FontSize="10"
-                            TextWrapping="Wrap"
-                            Controls:TextboxHelper.Watermark="[open a project to see its snippet that corresponds to entered URL(s)]"
-                            IsReadOnly="True" />
-                    </StackPanel>
-                </TabItem>
-                <TabItem Header="Paths" Visibility="Collapsed">
-                    <Grid >
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <TreeView x:Name="treeViewPaths" Grid.Row="0" />
-                        <Button Name="buttonSetOutputFolder" Grid.Row="1" HorizontalAlignment="Right" Margin="0,10,0,0" Style="{DynamicResource SquareButtonStyle}" Width="150"> Set output folder...</Button>
-                        <Button Name="buttonAddRule"         Grid.Row="1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Bottom" Style="{DynamicResource SquareButtonStyle}" Width="75"> Add Rule...</Button>
-                        <Button Name="buttonRemoveRule"      Grid.Row="1" HorizontalAlignment="Left" Margin="90,0,0,0" VerticalAlignment="Bottom" Style="{DynamicResource SquareButtonStyle}" Width="75"> Remove Rule...</Button>
-                    </Grid>
-                </TabItem>
-            </TabControl>-->
         </Grid>
     </Grid>
 </Controls:MetroWindow>
