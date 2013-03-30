@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>WpfAnimatedGif</id>
+    <version>1.4.2</version>
+    <title>WPF Animated GIF</title>
+    <authors>Thomas Levesque</authors>
+    <owners>Thomas Levesque</owners>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.txt</licenseUrl>
+    <projectUrl>http://wpfanimatedgif.codeplex.com/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A simple library to display animated GIF images in WPF</description>
+    <summary>A simple library to display animated GIF images in WPF</summary>
+    <releaseNotes>Fixed issue #1453 (Partial frame with Disposal method = 2 (restore background) can cause incorrect display of next frame)</releaseNotes>
+    <copyright>Copyright 2013</copyright>
+    <language />
+    <tags>wpf animated gif</tags>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="WindowsBase" targetFramework="" />
+      <frameworkAssembly assemblyName="PresentationCore" targetFramework="" />
+      <frameworkAssembly assemblyName="PresentationFramework" targetFramework="" />
+      <frameworkAssembly assemblyName="System.Xaml" targetFramework=".NETFramework4.0, .NETFramework4.5" />
+    </frameworkAssemblies>
+    <references>
+      <reference file="WpfAnimatedGif.dll" />
+    </references>
+  </metadata>
+</package>

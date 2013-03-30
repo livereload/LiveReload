@@ -9,6 +9,8 @@
                         xmlns:xxx="http://example.com/commented-out/"
                         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:gif="http://wpfanimatedgif.codeplex.com"
+                        gif:ImageBehavior.AnimateInDesignMode="True"
                         d:DataContext="{d:DesignInstance lr:MainWindowViewModel, IsDesignTimeCreatable=True}"
                         Width="799" Height="643" MinWidth="400" MinHeight="100"
                         Icon="pack://application:,,,/img/LiveReload.ico"
@@ -84,7 +86,8 @@
                 <Run>We hope to get back to a consistent weekly release schedule, too.</Run>
             </TextBlock>
             <StackPanel Grid.Row="1" Name="stackPanelStart" >
-                <Controls:ProgressRing Name="progressStart" IsActive="True" />
+                <Image gif:ImageBehavior.AnimatedSource="/img/clippit-processing-loop.gif" UseLayoutRounding="True" Stretch="None" />
+                <!--<Controls:ProgressRing Name="progressStart" IsActive="True" />-->
                 <TextBlock Name="textProgress" Text="Extracting new compilers and tools..." TextAlignment="Center" Margin="8,8,8,24"/>
             </StackPanel>
         </Grid>

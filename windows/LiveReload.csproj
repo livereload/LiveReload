@@ -97,6 +97,10 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WpfAnimatedGif, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>packages\WpfAnimatedGif.1.4.2\lib\net\WpfAnimatedGif.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="src\App.xaml">
@@ -178,6 +182,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <Resource Include="img\clippit-processing-loop.gif" />
     <Content Include="res\bundled\node-0.10.0.7z">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
