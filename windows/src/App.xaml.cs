@@ -123,7 +123,7 @@ namespace LiveReload
             window.Show();
 
             trayIcon = new TrayIconController();
-            trayIcon.MainWindowHideEvent += HandleMainWindowHideEvent;
+            //trayIcon.MainWindowHideEvent += HandleMainWindowHideEvent;
             trayIcon.MainWindowShowEvent += HandleMainWindowShowEvent;
             trayIcon.MainWindowToggleEvent  += HandleMainWindowToggleEvent;
 

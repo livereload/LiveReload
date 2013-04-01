@@ -15,7 +15,7 @@ namespace LiveReload
         private NotifyIcon myNotifyIcon;
         private ContextMenu contextMenuTray = new ContextMenu();
 
-        public event Action MainWindowHideEvent;
+        //public event Action MainWindowHideEvent;
         public event Action MainWindowShowEvent;
         public event Action MainWindowToggleEvent;
 
