@@ -79,11 +79,10 @@
             </Grid.RowDefinitions>
             <Rectangle Name="rectStart" Fill="White" Opacity="0.90" Grid.RowSpan="2" />
             <TextBlock TextWrapping="Wrap" Margin="30">
-                <Bold>What's New in v0.8</Bold><LineBreak /><LineBreak />
-                <Run>Hey!</Run><LineBreak /><LineBreak />
-                <Run>This release should hopefully fix all known v0.7 bugs.</Run><LineBreak /><LineBreak />
-                <Run>We've also changed a lot of internals, mostly in preparation for the soon-to-be-introduced rules system.</Run><LineBreak /><LineBreak />
-                <Run>We hope to get back to a consistent weekly release schedule, too.</Run>
+                <Bold>v0.8.6 Emergency April Fool's Day Update</Bold><LineBreak /><LineBreak />
+                <Run>* a glipse of the new actions/rules UI (non-functional)</Run><LineBreak /><LineBreak />
+                <Run>* bug fixes</Run><LineBreak /><LineBreak />
+                <Run>* update check at startup is back</Run>
             </TextBlock>
             <StackPanel Grid.Row="1" Name="stackPanelStart" >
                 <Image gif:ImageBehavior.AnimatedSource="/img/clippit-processing-loop.gif" UseLayoutRounding="True" Stretch="None" />
