@@ -217,8 +217,8 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <CheckBox Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" />
-                    <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Text="{Binding Source}" Grid.Column="1" />
-                    <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Text="{Binding Destination}" Grid.Column="2" />
+                    <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Text="{Binding SourceMask}" Grid.Column="1" />
+                    <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Text="{Binding DestinationMask}" Grid.Column="2" />
                 </Grid>
             </HierarchicalDataTemplate>
             <HierarchicalDataTemplate x:Key="ActionTemplate" ItemsSource="{Binding Rules}" ItemTemplate="{StaticResource RuleTemplate}" ItemContainerStyle="{StaticResource RuleTreeItemStyle}">

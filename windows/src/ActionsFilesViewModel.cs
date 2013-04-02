@@ -27,6 +27,7 @@ namespace LiveReload
     {
         private ObservableCollection<ProjectAction> actions = new ObservableCollection<ProjectAction>();
 
+        public string Id { get; set; }
         public string Title { get; set; }
 
         public ActionGroup() {
@@ -46,11 +47,12 @@ namespace LiveReload
     {
         private ObservableCollection<Rule> rules = new ObservableCollection<Rule>();
 
+        public string Id { get; set; }
         public string Name { get; set; }
 
         public ProjectAction() {
-            rules.Add(new Rule { Source = "foo/**/*.sass", Destination = "foo/**/*.css" });
-            rules.Add(new Rule { Source = "bar/sass/*.sass", Destination = "bar/css/*.css" });
+            rules.Add(new Rule { SourceMask = "foo/**/*.sass", DestinationMask = "foo/**/*.css" });
+            rules.Add(new Rule { SourceMask = "bar/sass/*.sass", DestinationMask = "bar/css/*.css" });
         }
 
         public ObservableCollection<Rule> Rules {
@@ -64,8 +66,9 @@ namespace LiveReload
     {
         private ObservableCollection<RuleFile> files = new ObservableCollection<RuleFile>();
 
-        public string Source { get; set; }
-        public string Destination { get; set; }
+        public string Id { get; set; }
+        public string SourceMask { get; set; }
+        public string DestinationMask { get; set; }
 
         public Rule() {
             files.Add(new RuleFile { SourcePath = "foo/styles.sass", DestinationPath = "foo/styles.css" });
@@ -82,6 +85,8 @@ namespace LiveReload
 
     public class RuleFile
     {
+        public string Id { get; set; }
+        public bool Enabled { get; set; }
         public string SourcePath { get; set; }
         public string DestinationPath { get; set; }
     }
