@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 
-namespace fastJSON
+namespace Twins.JSON
 {
     internal static class JsonFormatter
     {

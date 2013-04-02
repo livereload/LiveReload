@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
-namespace fastJSON
+namespace Twins.JSON
 {
     /// <summary>
     /// This class encodes and decodes Json strings.

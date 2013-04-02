@@ -10,7 +10,6 @@ using System.IO;
 using System.Text;
 using LiveReload.Properties;
 using System.Diagnostics;
-using fastJSON;
 using Twins;
 
 namespace LiveReload

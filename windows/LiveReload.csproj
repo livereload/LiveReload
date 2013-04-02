@@ -128,10 +128,10 @@
     <Compile Include="src\SelectTextOnFocus.cs" />
     <Compile Include="src\TrayIconController.cs" />
     <Compile Include="Twins\ModelBase.cs" />
-    <Compile Include="vendor\Json.cs" />
-    <Compile Include="vendor\JsonFormatter.cs" />
-    <Compile Include="vendor\JsonParser.cs" />
-    <Compile Include="vendor\JsonSerializer.cs" />
+    <Compile Include="Twins\JSON\Json.cs" />
+    <Compile Include="Twins\JSON\JsonFormatter.cs" />
+    <Compile Include="Twins\JSON\JsonParser.cs" />
+    <Compile Include="Twins\JSON\JsonSerializer.cs" />
     <Page Include="Resources\AppStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
