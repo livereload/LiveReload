@@ -148,7 +148,10 @@ namespace LiveReload
 
             window.gridProgress.Visibility = Visibility.Hidden;
 
-            nodeFoo = new NodeRPC(bundledNodeDir, bundledBackendDir, logWriter);
+            var nodeExe = Path.Combine(bundledNodeDir, @"LiveReloadNodejs.exe");
+            var nodeArguments = "\"" + (Path.Combine(bundledBackendDir, "bin/livereload.js") + "\" " + "rpc server");
+
+            nodeFoo = new NodeRPC(nodeExe, nodeArguments, logWriter);
             nodeFoo.Message += HandleNodeMessageEvent;
             nodeFoo.LaunchComplete += HandleNodeStartedEvent;
             nodeFoo.Crash += HandleNodeCrash;
