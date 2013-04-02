@@ -122,8 +122,8 @@
       <DependentUpon>EditableTextBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="src\MainWindow.Update.cs" />
-    <Compile Include="src\ObjectRPC.WPF.cs" />
-    <Compile Include="src\ObjectRPC.cs" />
+    <Compile Include="Twins\WPF\Facets.cs" />
+    <Compile Include="Twins\Entity.cs" />
     <Compile Include="src\SelectTextOnFocus.cs" />
     <Compile Include="src\TrayIconController.cs" />
     <Compile Include="Twins\ModelBase.cs" />

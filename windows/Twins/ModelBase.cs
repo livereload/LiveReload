@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-namespace LiveReload.Twins
+namespace Twins
 {
     public abstract class ModelBase : INotifyPropertyChanged, IDisposable
     {
