@@ -135,6 +135,7 @@
     <Compile Include="Twins\WPF\TwinsDebugger.xaml.cs">
       <DependentUpon>TwinsDebugger.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Twins\WPF\WindowLocationPersistence.cs" />
     <Page Include="Resources\AppStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

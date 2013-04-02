@@ -8,20 +8,28 @@
         xmlns:TwinsWPF="clr-namespace:Twins.WPF"
         d:DataContext="{d:DesignInstance TwinsWPF:TwinsDebuggerViewModel}"
         Title="Twins Debugger"
-        Height="300" Width="300"
+        Height="350" Width="309"
         ResizeMode="CanResizeWithGrip"
         WindowStyle="ToolWindow"
         Closing="Window_Closing"
 >
     <Grid Margin="12,8">
-        <StackPanel>
-            <TextBlock Text="Simulate incoming JSON payload:" />
-            
-            <TextBox Height="150" Margin="0,4" TextWrapping="Wrap" Text="{Binding Payload}" />
-
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="Send" Padding="24,2" Click="SendPayload_Click" />
-            </StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Simulate incoming JSON payload:" Grid.Row="0" />
+        <TextBox Margin="0,4" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding Payload}" Grid.Row="1" />
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2">
+            <Button Content="Clear" Padding="16,2" Margin="12,0,0,0" Click="ClearPayload_Click" />
+            <TextBlock Name="SendConfirmationMark" Text="✓" Width="8" Margin="4,0,2,0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Visibility="Hidden" />
+            <Button Content="Send" Padding="30,2" Click="SendPayload_Click" />
+        </StackPanel>
+        <StackPanel Margin="0,8,0,0" Grid.Row="3">
+            <TextBlock Text="Recently used payloads:" />
+            <ComboBox ItemsSource="{Binding PayloadHistory}" SelectionChanged="PayloadHistoryCombo_SelectionChanged" />
         </StackPanel>
     </Grid>
 </Window>
