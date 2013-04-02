@@ -127,6 +127,10 @@
     <Compile Include="src\SelectTextOnFocus.cs" />
     <Compile Include="src\TrayIconController.cs" />
     <Compile Include="Twins\ModelBase.cs" />
+    <Compile Include="vendor\Json.cs" />
+    <Compile Include="vendor\JsonFormatter.cs" />
+    <Compile Include="vendor\JsonParser.cs" />
+    <Compile Include="vendor\JsonSerializer.cs" />
     <Page Include="Resources\AppStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -204,12 +208,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="img\LiveReload.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="lib\fastJSON\fastJSON.csproj">
-      <Project>{207E91B1-C9F8-4913-88E1-3549EF5F3273}</Project>
-      <Name>fastJSON</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

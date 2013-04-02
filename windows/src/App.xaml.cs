@@ -10,6 +10,7 @@ using System.IO;
 using System.Text;
 using LiveReload.Properties;
 using System.Diagnostics;
+using fastJSON;
 
 namespace LiveReload
 {
@@ -163,7 +164,7 @@ namespace LiveReload
 
         private void HandleNodeMessageEvent(string nodeLine)
         {
-            var b = (object[])fastJSON.JSON.Instance.ToObject(nodeLine);
+            var b = (object[])Json.Parse(nodeLine);
             string messageType = (string) b[0];
             if (messageType == "app.displayCriticalError")
             {
@@ -214,7 +215,7 @@ namespace LiveReload
                                         {"platform",     platform}
             }};
 
-            string response = fastJSON.JSON.Instance.ToJSON(foo);
+            string response = Json.Stringify(foo);
             nodeFoo.NodeMessageSend(response);
         }
 

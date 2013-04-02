@@ -83,7 +83,7 @@ namespace LiveReload
                 logWriter.WriteLine("INCOMING: " + nodeLine);
                 logWriter.Flush();
                 //Console.WriteLine("INCOMING: " + nodeLine);
-                //Console.WriteLine(fastJSON.JSON.Instance.Beautify(nodeLine));
+                //Console.WriteLine(fastJSON.Json.Instance.Beautify(nodeLine));
 
                 if (nodeLine[0] == '[')
                 {
@@ -115,7 +115,7 @@ namespace LiveReload
             logWriter.WriteLine("OUTGOING: " + message);
             logWriter.Flush();
             //Console.WriteLine("OUTGOING: " + message);
-            //Console.WriteLine(fastJSON.JSON.Instance.Beautify(message));
+            //Console.WriteLine(fastJSON.Json.Instance.Beautify(message));
 
             writer.WriteLine(message);
             writer.Flush();
@@ -123,7 +123,7 @@ namespace LiveReload
 
         public void Send(string command, object arg)
         {
-            NodeMessageSend(fastJSON.JSON.Instance.ToJSON(new object[] { command, arg }));
+            NodeMessageSend(Json.Stringify(new object[] { command, arg }));
         }
 
         public void Dispose()
