@@ -21,7 +21,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <TextBlock Text="Simulate incoming JSON payload:" Grid.Row="0" />
-        <TextBox Margin="0,4" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding Payload}" Grid.Row="1" />
+        <TextBox Margin="0,4" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding Payload, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" />
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2">
             <Button Content="Clear" Padding="16,2" Margin="12,0,0,0" Click="ClearPayload_Click" />
             <TextBlock Name="SendConfirmationMark" Text="✓" Width="8" Margin="4,0,2,0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Visibility="Hidden" />

@@ -59,7 +59,7 @@ namespace Twins.WPF
 
         private void WriteAll(object data) {
             try {
-                var text = Json.Stringify(data, true);
+                var text = Json.Stringify(data, false);
                 using (var writer = new StreamWriter(new IsolatedStorageFileStream(fileName, FileMode.Create, FileAccess.Write, FileShare.None, storage), UTF8WithoutBOM)) {
                     writer.WriteLine(text);
                 }

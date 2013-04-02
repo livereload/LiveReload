@@ -26,7 +26,7 @@ namespace Twins.WPF
             DataContext = new TwinsDebuggerViewModel(environment);
             ViewModel.PropertyChanged += ViewModel_PropertyChanged;
 
-            preferenceStore = new IsolatedStoragePreferenceStore(IsolatedStorageFile.GetUserStoreForAssembly(), "TwinsDebuggerPreference.json");
+            preferenceStore = new IsolatedStoragePreferenceStore(IsolatedStorageFile.GetUserStoreForAssembly(), "TwinsDebuggerPreferences.json");
             ViewModel.Payload = (preferenceStore.Get("Payload") as string) ?? "";
             ViewModel.PayloadHistoryMemento = (preferenceStore.Get("PayloadHistory") as string) ?? "";
             new WindowLocationPersistence(this, preferenceStore, "DebuggerWindowLocation");
