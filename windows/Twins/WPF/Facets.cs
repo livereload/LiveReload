@@ -16,16 +16,14 @@ namespace Twins.WPF
     class UIElementFacet : Facet<UIElement>
     {
         public UIElementFacet(Entity entity, UIElement obj)
-            : base(entity, obj)
-        {
+            : base(entity, obj) {
         }
 
-        public bool Visible
-        {
+        public bool Visible {
             set { obj.Visibility = value ? Visibility.Visible : Visibility.Hidden; }
         }
-        public bool Enabled
-        {
+
+        public bool Enabled {
             set { obj.IsEnabled = value; }
         }
     }
@@ -49,14 +47,11 @@ namespace Twins.WPF
     class TextBlockFacet : Facet<TextBlock>
     {
         public TextBlockFacet(Entity entity, TextBlock obj)
-            : base(entity, obj)
-        {
+            : base(entity, obj) {
         }
 
-        public string Text
-        {
-            set
-            {
+        public string Text {
+            set {
                 obj.Text = value;
             }
         }
@@ -65,46 +60,38 @@ namespace Twins.WPF
     class ButtonFacet : Facet<Button>
     {
         public ButtonFacet(Entity entity, Button obj)
-            : base(entity, obj)
-        {
+            : base(entity, obj) {
             obj.Click += OnClick;
         }
 
-        public string Label
-        {
-            set
-            {
+        public string Label {
+            set {
                 obj.Content = value;
             }
         }
 
-        private void OnClick(object sender, RoutedEventArgs e)
-        {
-            entity.SendUpdate(new D{ {"click", true } });
+        private void OnClick(object sender, RoutedEventArgs e) {
+            entity.SendUpdate(new D { { "click", true } });
         }
     }
 
     class CheckBoxFacet : Facet<CheckBox>
     {
         public CheckBoxFacet(Entity entity, CheckBox obj)
-            : base(entity, obj)
-        {
+            : base(entity, obj) {
             obj.Click += OnClick;
         }
 
-        public string Label
-        {
+        public string Label {
             set { obj.Content = value; }
         }
 
-        public bool Value
-        {
+        public bool Value {
             set { obj.IsChecked = value; }
         }
 
-        private void OnClick(object sender, RoutedEventArgs e)
-        {
-            entity.SendUpdate(new D{ { "value", obj.IsChecked } });
+        private void OnClick(object sender, RoutedEventArgs e) {
+            entity.SendUpdate(new D { { "value", obj.IsChecked } });
         }
     }
 
@@ -155,18 +142,14 @@ namespace Twins.WPF
         private bool isBeingChangedProgramatically = false;
 
         public TextBoxFacet(Entity entity, TextBox obj)
-            : base(entity, obj)
-        {
+            : base(entity, obj) {
             obj.TextChanged += OnTextChanged;
-            obj.LostFocus   += OnLostFocus;
+            obj.LostFocus += OnLostFocus;
         }
 
-        public string Text
-        {
-            set
-            {
-                if (!isBeingChangedByUser)
-                {
+        public string Text {
+            set {
+                if (!isBeingChangedByUser) {
                     isBeingChangedProgramatically = true;
                     obj.Text = value;
                     isBeingChangedProgramatically = false;
@@ -174,17 +157,14 @@ namespace Twins.WPF
             }
         }
 
-        private void OnTextChanged(object sender, RoutedEventArgs e)
-        {
-            if (!isBeingChangedProgramatically)
-            {
+        private void OnTextChanged(object sender, RoutedEventArgs e) {
+            if (!isBeingChangedProgramatically) {
                 isBeingChangedByUser = true;
-                entity.SendUpdate(new D{ { "text", obj.Text } });
+                entity.SendUpdate(new D { { "text", obj.Text } });
             }
         }
 
-        private void OnLostFocus(object sender, RoutedEventArgs e)
-        {
+        private void OnLostFocus(object sender, RoutedEventArgs e) {
             isBeingChangedByUser = false;
         }
     }
@@ -204,17 +184,14 @@ namespace Twins.WPF
         private ObservableCollection<TreeViewItemViewModel> items = new ObservableCollection<TreeViewItemViewModel>();
 
         public TreeViewFacet(Entity entity, TreeView obj)
-            : base(entity, obj)
-        {
+            : base(entity, obj) {
             //obj.MouseDoubleClick    += OnMouseDoubleClick;
             obj.SelectedItemChanged += OnSelectedItemChanged;
             obj.ItemsSource = items;
         }
 
-        public string SelectedId
-        {
-            get
-            {
+        public string SelectedId {
+            get {
                 var selectedTVI = (TreeViewItemViewModel)obj.SelectedItem;
                 return (string)((selectedTVI != null) ? selectedTVI.Id : null);
             }
@@ -232,8 +209,7 @@ namespace Twins.WPF
         //    currentETB = null;
         //}
 
-        private IList<TreeViewItemViewModel> CreateItems(IList<object> data)
-        {
+        private IList<TreeViewItemViewModel> CreateItems(IList<object> data) {
             return data.Select((itemDataRaw) => {
                 var itemData = (Dictionary<string, object>)itemDataRaw;
                 string id = (string)itemData["id"];
@@ -255,10 +231,8 @@ namespace Twins.WPF
         //    IsInEditMode = true;
         //}
 
-        public IList<object> Data
-        {
-            set
-            {
+        public IList<object> Data {
+            set {
                 isTreeViewUpdateInProgress = true;
                 try {
                     var items = CreateItems(value);
@@ -289,17 +263,15 @@ namespace Twins.WPF
         //    item.IsSelected = true;
         //}
 
-        private void OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
+        private void OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e) {
             if (!isTreeViewUpdateInProgress)
-                entity.SendUpdate(new D{ { "selectedId", SelectedId } });
+                entity.SendUpdate(new D { { "selectedId", SelectedId } });
         }
     }
 
     public static class UIFacets
     {
-        public static void Register(RootEntity rpc)
-        {
+        public static void Register(RootEntity rpc) {
             rpc.Register(typeof(UIElement), typeof(UIElementFacet));
             rpc.Register(typeof(FrameworkElement), typeof(FrameworkElementFacet));
             rpc.Register(typeof(TextBlock), typeof(TextBlockFacet));

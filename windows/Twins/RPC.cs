@@ -27,26 +27,23 @@ namespace Twins
         private Thread stderrThread;
         private bool disposed = false;
 
-        public event Action         LaunchComplete;
-        public event Action         Crash;
+        public event Action LaunchComplete;
+        public event Action Crash;
         public event Action<string> Message;
 
-        public TwinsRPC(string fileName, string arguments, TextWriter logWriter)
-        {
+        public TwinsRPC(string fileName, string arguments, TextWriter logWriter) {
             this.fileName = fileName;
             this.arguments = arguments;
             this.logWriter = logWriter;
         }
 
-        public void Start()
-        {
+        public void Start() {
             runThread = new Thread(new ThreadStart(RunThread));
             runThread.IsBackground = true; // need for thread to close at application exit
             runThread.Start();
         }
 
-        private void LaunchProcess()
-        {
+        private void LaunchProcess() {
             process.StartInfo.FileName = fileName;
             process.StartInfo.Arguments = arguments;
             process.StartInfo.UseShellExecute = false;
@@ -76,63 +73,49 @@ namespace Twins
             stderrThread.Start();
         }
 
-        private void RunThread()
-        {
+        private void RunThread() {
             LaunchProcess();
-            while (!reader.EndOfStream)
-            {
+            while (!reader.EndOfStream) {
                 string line = reader.ReadLine();
 
                 logWriter.WriteLine("INCOMING: " + line);
                 logWriter.Flush();
-                //Console.WriteLine("INCOMING: " + line);
-                //Console.WriteLine(fastJSON.Json.Instance.Beautify(line));
 
-                if (line[0] == '[')
-                {
+                if (line[0] == '[') {
                     dispatcher.Invoke(DispatcherPriority.Normal,
                         (Action)(() => { Message(line); })
                     );
                 }
             }
-            dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() =>
-                {
+            dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() => {
                     if (!disposed)
                         Crash();
                 })
             );
         }
 
-        private void LogStandardErrorThread()
-        {
-            while (!stderrReader.EndOfStream)
-            {
+        private void LogStandardErrorThread() {
+            while (!stderrReader.EndOfStream) {
                 string nodeLine = stderrReader.ReadLine();
                 logWriter.WriteLine("STDERR: " + nodeLine);
                 logWriter.Flush();
             }
         }
 
-        public void SendRaw(string message)
-        {
+        public void SendRaw(string message) {
             logWriter.WriteLine("OUTGOING: " + message);
             logWriter.Flush();
-            //Console.WriteLine("OUTGOING: " + message);
-            //Console.WriteLine(fastJSON.Json.Instance.Beautify(message));
 
             writer.WriteLine(message);
             writer.Flush();
         }
 
-        public void Send(string command, object arg)
-        {
+        public void Send(string command, object arg) {
             SendRaw(Json.Stringify(new object[] { command, arg }));
         }
 
-        public void Dispose()
-        {
-            if (writer != null)
-            {
+        public void Dispose() {
+            if (writer != null) {
                 writer.Close();
                 writer = null;
             }
