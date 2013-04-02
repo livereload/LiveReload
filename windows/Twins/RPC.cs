@@ -7,10 +7,12 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Windows.Threading;
+using System.Windows;
+using LiveReload;
 
-namespace LiveReload
+namespace Twins
 {
-    class NodeRPC
+    public class TwinsRPC
     {
         private readonly string fileName;
         private readonly string arguments;
@@ -20,7 +22,7 @@ namespace LiveReload
         private StreamWriter writer;
         private StreamReader reader;
         private StreamReader stderrReader;
-        private Dispatcher dispatcher = App.Current.Dispatcher;
+        private Dispatcher dispatcher = Application.Current.Dispatcher;
         private Thread runThread;
         private Thread stderrThread;
         private bool disposed = false;
@@ -29,7 +31,7 @@ namespace LiveReload
         public event Action         Crash;
         public event Action<string> Message;
 
-        public NodeRPC(string fileName, string arguments, TextWriter logWriter)
+        public TwinsRPC(string fileName, string arguments, TextWriter logWriter)
         {
             this.fileName = fileName;
             this.arguments = arguments;

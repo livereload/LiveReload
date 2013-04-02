@@ -11,6 +11,7 @@ using System.Text;
 using LiveReload.Properties;
 using System.Diagnostics;
 using fastJSON;
+using Twins;
 
 namespace LiveReload
 {
@@ -20,7 +21,7 @@ namespace LiveReload
     public partial class App : Application
     {
         private MainWindow window;
-        private NodeRPC nodeFoo;
+        private TwinsRPC nodeFoo;
         private Twins.RootEntity rpcRoot;
         private string baseDir, logDir, resourcesDir, appDataDir;
         private string localAppDataDir;
@@ -151,7 +152,7 @@ namespace LiveReload
             var nodeExe = Path.Combine(bundledNodeDir, @"LiveReloadNodejs.exe");
             var nodeArguments = "\"" + (Path.Combine(bundledBackendDir, "bin/livereload.js") + "\" " + "rpc server");
 
-            nodeFoo = new NodeRPC(nodeExe, nodeArguments, logWriter);
+            nodeFoo = new TwinsRPC(nodeExe, nodeArguments, logWriter);
             nodeFoo.Message += HandleNodeMessageEvent;
             nodeFoo.LaunchComplete += HandleNodeStartedEvent;
             nodeFoo.Crash += HandleNodeCrash;

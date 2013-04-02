@@ -161,7 +161,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="src\NodeRPC.cs" />
+    <Compile Include="Twins\RPC.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
