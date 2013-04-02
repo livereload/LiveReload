@@ -11,7 +11,7 @@ using Borgstrup.EditableTextBlock;
 using D = System.Collections.Generic.Dictionary<string, object>;
 using MahApps.Metro.Controls;
 
-namespace ObjectRPC.WPF
+namespace Twins.WPF
 {
     class UIElementFacet : Facet<UIElement>
     {

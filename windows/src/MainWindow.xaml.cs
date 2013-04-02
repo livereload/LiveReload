@@ -90,7 +90,7 @@ namespace LiveReload
             //}
         }
 
-        public void chooseOutputFolder(D options, ObjectRPC.PayloadDelegate reply)
+        public void chooseOutputFolder(D options, Twins.PayloadDelegate reply)
         {
             var dialog = new System.Windows.Forms.FolderBrowserDialog();
 

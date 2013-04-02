@@ -5,7 +5,7 @@ using System.Text;
 using System.Runtime.Serialization;
 using System.Reflection;
 
-namespace ObjectRPC
+namespace Twins
 {
     // Event delegate for outgoing payload events.
     public delegate void PayloadDelegate(IDictionary<string, object> payload);

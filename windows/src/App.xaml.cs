@@ -21,7 +21,7 @@ namespace LiveReload
     {
         private MainWindow window;
         private NodeRPC nodeFoo;
-        private ObjectRPC.RootEntity rpcRoot;
+        private Twins.RootEntity rpcRoot;
         private string baseDir, logDir, resourcesDir, appDataDir;
         private string localAppDataDir;
         private string extractedResourcesDir;
@@ -154,8 +154,8 @@ namespace LiveReload
             nodeFoo.NodeCrash += HandleNodeCrash;
             nodeFoo.Start();
 
-            rpcRoot = new ObjectRPC.RootEntity();
-            ObjectRPC.WPF.UIFacets.Register(rpcRoot);
+            rpcRoot = new Twins.RootEntity();
+            Twins.WPF.UIFacets.Register(rpcRoot);
             rpcRoot.OutgoingUpdate += (payload => nodeFoo.Send("rpc", payload));
 
             rpcRoot.Expose("app", this);
@@ -182,7 +182,7 @@ namespace LiveReload
             {
                 var arg = (Dictionary<string, object>)b[1];
 
-                ObjectRPC.PayloadDelegate reply = null;
+                Twins.PayloadDelegate reply = null;
                 if (b.Length > 2)
                 {
                     string callback = (string)b[2];
