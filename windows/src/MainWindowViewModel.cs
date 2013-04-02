@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LiveReload.Twins;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -11,10 +12,11 @@ namespace LiveReload
         public string Text { get; set; }
     }
 
-    public class MainWindowViewModel
+    public class MainWindowViewModel : ModelBase
     {
         private ObservableCollection<ProjectViewModel> projects = new ObservableCollection<ProjectViewModel>();
         private ActionsFilesViewModel actionsFiles = new ActionsFilesViewModel();
+        private string dummy = "123";
         
         // design-time only
         public MainWindowViewModel() {
@@ -34,6 +36,18 @@ namespace LiveReload
         public ObservableCollection<ProjectViewModel> SampleItems {
             get {
                 return projects;
+            }
+        }
+
+        public string Dummy {
+            get {
+                return dummy;
+            }
+            set {
+                if (dummy != value) {
+                    dummy = value;
+                    OnPropertyChanged("Dummy");
+                }
             }
         }
     }

@@ -126,6 +126,7 @@
     <Compile Include="src\ObjectRPC.cs" />
     <Compile Include="src\SelectTextOnFocus.cs" />
     <Compile Include="src\TrayIconController.cs" />
+    <Compile Include="Twins\ModelBase.cs" />
     <Page Include="Resources\AppStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

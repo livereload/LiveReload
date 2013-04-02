@@ -43,6 +43,7 @@ namespace ObjectRPC
     // and sends outgoing JSON payloads when native events occur.
     public interface IFacet
     {
+        void AddedTo(Entity entity);
         void Set(Dictionary<string, object> properties);
         bool TryInvoke(string name, object[] args, PayloadDelegate reply);
         bool TryResolve(string name, Dictionary<string, object> payload, out object obj);
@@ -58,6 +59,9 @@ namespace ObjectRPC
         {
             this.entity = entity;
             this.obj = obj;
+        }
+
+        public virtual void AddedTo(Entity entity) {
         }
         
         public virtual void Set(Dictionary<string, object> properties)
@@ -190,6 +194,7 @@ namespace ObjectRPC
         public void AddFacet(IFacet facet)
         {
             facets.Insert(0, facet);
+            facet.AddedTo(this);
         }
 
         public ChildEntity Expose(string name, object obj)

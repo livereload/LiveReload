@@ -30,6 +30,22 @@ namespace ObjectRPC.WPF
         }
     }
 
+    class FrameworkElementFacet : Facet<FrameworkElement>
+    {
+        public FrameworkElementFacet(Entity entity, FrameworkElement obj)
+            : base(entity, obj) {
+        }
+
+        public override void AddedTo(Entity entity) {
+            base.AddedTo(entity);
+
+            var viewModel = obj.DataContext;
+            if (viewModel != null) {
+                entity.AddFacet(new ReflectionFacet(entity, viewModel));
+            }
+        }
+    }
+
     class TextBlockFacet : Facet<TextBlock>
     {
         public TextBlockFacet(Entity entity, TextBlock obj)
@@ -285,6 +301,7 @@ namespace ObjectRPC.WPF
         public static void Register(RootEntity rpc)
         {
             rpc.Register(typeof(UIElement), typeof(UIElementFacet));
+            rpc.Register(typeof(FrameworkElement), typeof(FrameworkElementFacet));
             rpc.Register(typeof(TextBlock), typeof(TextBlockFacet));
             rpc.Register(typeof(Button), typeof(ButtonFacet));
             rpc.Register(typeof(TreeView), typeof(TreeViewFacet));
