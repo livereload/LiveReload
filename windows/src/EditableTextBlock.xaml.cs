@@ -23,16 +23,14 @@ namespace Borgstrup.EditableTextBlock
 
         #region Constructor
 
-        public EditableTextBlock()
-        {
+        public EditableTextBlock() {
             InitializeComponent();
             base.Focusable = true;
             base.FocusVisualStyle = null;
         }
 
         public EditableTextBlock(string _Text, bool _IsEditable)
-            : this()
-        {
+            : this() {
             Text = _Text;
             IsEditable = _IsEditable;
         }
@@ -49,8 +47,7 @@ namespace Borgstrup.EditableTextBlock
 
         #region Properties
 
-        public string Text
-        {
+        public string Text {
             get { return (string)GetValue(TextProperty); }
             set { SetValue(TextProperty, value); }
         }
@@ -61,8 +58,7 @@ namespace Borgstrup.EditableTextBlock
             typeof(EditableTextBlock),
             new PropertyMetadata(""));
 
-        public bool IsEditable
-        {
+        public bool IsEditable {
             get { return (bool)GetValue(IsEditableProperty); }
             set { SetValue(IsEditableProperty, value); }
         }
@@ -73,19 +69,15 @@ namespace Borgstrup.EditableTextBlock
             typeof(EditableTextBlock),
             new PropertyMetadata(true));
 
-        public bool IsInEditMode
-        {
-            get 
-            {
+        public bool IsInEditMode {
+            get {
                 if (IsEditable)
                     return (bool)GetValue(IsInEditModeProperty);
                 else
                     return false;
             }
-            set
-            {
-                if (IsEditable)
-                {
+            set {
+                if (IsEditable) {
                     if (value) oldText = Text;
                     SetValue(IsInEditModeProperty, value);
                 }
@@ -98,11 +90,9 @@ namespace Borgstrup.EditableTextBlock
             typeof(EditableTextBlock),
             new PropertyMetadata(false));
 
-        public string TextFormat
-        {
+        public string TextFormat {
             get { return (string)GetValue(TextFormatProperty); }
-            set
-            {
+            set {
                 if (value == "") value = "{0}";
                 SetValue(TextFormatProperty, value);
             }
@@ -114,8 +104,7 @@ namespace Borgstrup.EditableTextBlock
             typeof(EditableTextBlock),
             new PropertyMetadata("{0}"));
 
-        public string FormattedText
-        {
+        public string FormattedText {
             get { return String.Format(TextFormat, Text); }
         }
 
@@ -124,8 +113,7 @@ namespace Borgstrup.EditableTextBlock
         #region Event Handlers
 
         // Invoked when we enter edit mode.
-        void TextBox_Loaded(object sender, RoutedEventArgs e)
-        {
+        void TextBox_Loaded(object sender, RoutedEventArgs e) {
             TextBox txt = sender as TextBox;
 
             // Give the TextBox input focus
@@ -135,21 +123,16 @@ namespace Borgstrup.EditableTextBlock
         }
 
         // Invoked when we exit edit mode.
-        void TextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
+        void TextBox_LostFocus(object sender, RoutedEventArgs e) {
             this.IsInEditMode = false;
         }
 
         // Invoked when the user edits the annotation.
-        void TextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
+        void TextBox_KeyDown(object sender, KeyEventArgs e) {
+            if (e.Key == Key.Enter) {
                 this.IsInEditMode = false;
                 e.Handled = true;
-            }
-            else if (e.Key == Key.Escape)
-            {
+            } else if (e.Key == Key.Escape) {
                 Text = oldText;
                 this.IsInEditMode = false;
                 e.Handled = true;
@@ -157,8 +140,7 @@ namespace Borgstrup.EditableTextBlock
         }
 
         // Invoked when annotation changes
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e) {
             if (this.TextChanged != null)
                 this.TextChanged(sender, e);
         }

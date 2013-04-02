@@ -25,17 +25,14 @@ namespace JobManagement
         private IntPtr handle;
         private bool disposed;
 
-        public Job()
-        {
+        public Job() {
             handle = CreateJobObject(IntPtr.Zero, null);
 
-            var info = new JOBOBJECT_BASIC_LIMIT_INFORMATION
-            {
+            var info = new JOBOBJECT_BASIC_LIMIT_INFORMATION {
                 LimitFlags = 0x2000
             };
 
-            var extendedInfo = new JOBOBJECT_EXTENDED_LIMIT_INFORMATION
-            {
+            var extendedInfo = new JOBOBJECT_EXTENDED_LIMIT_INFORMATION {
                 BasicLimitInformation = info
             };
 
@@ -47,14 +44,12 @@ namespace JobManagement
                 throw new Exception(string.Format("Unable to set information.  Error: {0}", Marshal.GetLastWin32Error()));
         }
 
-        public void Dispose()
-        {
+        public void Dispose() {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
 
-        private void Dispose(bool disposing)
-        {
+        private void Dispose(bool disposing) {
             if (disposed)
                 return;
 
@@ -64,19 +59,16 @@ namespace JobManagement
             disposed = true;
         }
 
-        public void Close()
-        {
+        public void Close() {
             CloseHandle(handle);
             handle = IntPtr.Zero;
         }
 
-        public bool AddProcess(IntPtr processHandle)
-        {
+        public bool AddProcess(IntPtr processHandle) {
             return AssignProcessToJobObject(handle, processHandle);
         }
 
-        public bool AddProcess(int processId)
-        {
+        public bool AddProcess(int processId) {
             return AddProcess(Process.GetProcessById(processId).Handle);
         }
 

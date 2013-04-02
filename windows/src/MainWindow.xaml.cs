@@ -30,8 +30,7 @@ namespace LiveReload
 
         string debugSimulatedMessage;
 
-        public MainWindow()
-        {
+        public MainWindow() {
             InitializeComponent();
             DataContext = new MainWindowViewModel(true);
             tabs.Visibility = Visibility.Collapsed;
@@ -43,18 +42,15 @@ namespace LiveReload
             }
         }
 
-        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
-        {
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e) {
             Process.Start(e.Uri.ToString());
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
             App.Current.Shutdown();
         }
 
-        private void buttonVersion_Click(object sender, RoutedEventArgs e)
-        {
+        private void buttonVersion_Click(object sender, RoutedEventArgs e) {
             App app = (App)App.Current;
             if (app.CanRestartBackend)
                 app.RestartBackend();
@@ -62,23 +58,19 @@ namespace LiveReload
                 ((App)App.Current).OpenExplorerWithLog();
         }
 
-        private void MetroWindow_StateChanged(object sender, EventArgs e)
-        {
+        private void MetroWindow_StateChanged(object sender, EventArgs e) {
             this.WindowState = System.Windows.WindowState.Normal;
             MainWindowHideEvent();
         }
 
-        private void buttonSupport_Click(object sender, RoutedEventArgs e)
-        {
+        private void buttonSupport_Click(object sender, RoutedEventArgs e) {
             Process.Start(@"http://feedback.livereload.com/");
         }
 
-        private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
-        {
+        private void MetroWindow_Loaded(object sender, RoutedEventArgs e) {
         }
 
-        private void treeViewProjects_Drop(object sender, DragEventArgs e)
-        {
+        private void treeViewProjects_Drop(object sender, DragEventArgs e) {
             //if (e.Data.GetDataPresent(DataFormats.FileDrop, false))
             //{
             //    var droppedFileNames = (string[])e.Data.GetData(DataFormats.FileDrop, false);
@@ -90,8 +82,7 @@ namespace LiveReload
             //}
         }
 
-        public void chooseOutputFolder(D options, Twins.PayloadDelegate reply)
-        {
+        public void chooseOutputFolder(D options, Twins.PayloadDelegate reply) {
             var dialog = new System.Windows.Forms.FolderBrowserDialog();
 
             string initial = (string)options["initial"];
@@ -99,34 +90,28 @@ namespace LiveReload
                 dialog.SelectedPath = initial;
 
             System.Windows.Forms.DialogResult result = dialog.ShowDialog();
-            if (result == System.Windows.Forms.DialogResult.OK)
-            {
-                reply(new D { {"ok", true}, {"path", dialog.SelectedPath } });
-            }
-            else
-            {
-                reply(new D { {"ok", false } });
+            if (result == System.Windows.Forms.DialogResult.OK) {
+                reply(new D { { "ok", true }, { "path", dialog.SelectedPath } });
+            } else {
+                reply(new D { { "ok", false } });
             }
         }
 
-        private void buttonSimulateNodeEvent_Click(object sender, RoutedEventArgs e)
-        {
-            debugSimulatedMessage = Microsoft.VisualBasic.Interaction.InputBox("Simulated message from Node:\n(F3 in main window to invoke)","",debugSimulatedMessage);
+        private void buttonSimulateNodeEvent_Click(object sender, RoutedEventArgs e) {
+            debugSimulatedMessage = Microsoft.VisualBasic.Interaction.InputBox("Simulated message from Node:\n(F3 in main window to invoke)", "", debugSimulatedMessage);
             if (debugSimulatedMessage == "")
                 debugSimulatedMessage = null;
         }
 
-        private void MetroWindow_KeyDown(object sender, KeyEventArgs e)
-        {
-            if ((e.Key == Key.F3) && (debugSimulatedMessage != null))
-            {
+        private void MetroWindow_KeyDown(object sender, KeyEventArgs e) {
+            if ((e.Key == Key.F3) && (debugSimulatedMessage != null)) {
                 this.NodeMessageEvent(debugSimulatedMessage);
                 Console.WriteLine("Simulated message: " + debugSimulatedMessage);
             }
         }
 
         private void UpdateMenuItem_Click(object sender, RoutedEventArgs e) {
-           ((App)App.Current).InstallUpdateSyncWithInfo();
+            ((App)App.Current).InstallUpdateSyncWithInfo();
         }
 
         private void ShowReleaseNotes_Click(object sender, RoutedEventArgs e) {

@@ -19,8 +19,7 @@ namespace LiveReload
         public event Action MainWindowShowEvent;
         public event Action MainWindowToggleEvent;
 
-        public TrayIconController()
-        {
+        public TrayIconController() {
             MenuItem menuItemShow = new MenuItem("&Show LiveReload");
             menuItemShow.DefaultItem = true;
             MenuItem menuItemExit = new MenuItem("E&xit");
@@ -43,24 +42,19 @@ namespace LiveReload
             myNotifyIcon.Visible = true;
         }
 
-        public void Dispose()
-        {
+        public void Dispose() {
             myNotifyIcon.Dispose();
         }
-        private void menuItemShow_Click(object sender, EventArgs e)
-        {
+        private void menuItemShow_Click(object sender, EventArgs e) {
             MainWindowShowEvent();
         }
 
-        private void menuItemExit_Click(object sender, EventArgs e)
-        {
+        private void menuItemExit_Click(object sender, EventArgs e) {
             System.Windows.Application.Current.Shutdown();
         }
 
-        private void MyNotifyIcon_MouseClick(object sender, MouseEventArgs e)
-        {
-            switch (e.Button)
-            {
+        private void MyNotifyIcon_MouseClick(object sender, MouseEventArgs e) {
+            switch (e.Button) {
                 case MouseButtons.Left:
                     MainWindowToggleEvent();
                     break;

@@ -16,13 +16,11 @@ namespace LiveReload
     public class CommandLineArgException : Exception
     {
         public CommandLineArgException(string message)
-            : base(message)
-        {
+            : base(message) {
         }
 
         protected CommandLineArgException(SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        {
+            : base(info, context) {
         }
     }
 
@@ -31,28 +29,20 @@ namespace LiveReload
         public string LRBackendOverride;
         public string LRBundledPluginsOverride;
 
-        public static CommandLineOptions Parse(string[] args)
-        {
+        public static CommandLineOptions Parse(string[] args) {
             var options = new CommandLineOptions();
-            using (var iter = args.AsEnumerable().GetEnumerator())
-            {
-                while (iter.MoveNext())
-                {
+            using (var iter = args.AsEnumerable().GetEnumerator()) {
+                while (iter.MoveNext()) {
                     string arg = iter.Current;
-                    if (String.Equals(arg, "-LRBackendOverride", StringComparison.OrdinalIgnoreCase))
-                    {
+                    if (String.Equals(arg, "-LRBackendOverride", StringComparison.OrdinalIgnoreCase)) {
                         if (!iter.MoveNext())
                             throw new CommandLineArgException("Missing value for argument " + arg);
                         options.LRBackendOverride = iter.Current;
-                    }
-                    else if (String.Equals(arg, "-LRBundledPluginsOverride", StringComparison.OrdinalIgnoreCase))
-                    {
+                    } else if (String.Equals(arg, "-LRBundledPluginsOverride", StringComparison.OrdinalIgnoreCase)) {
                         if (!iter.MoveNext())
                             throw new CommandLineArgException("Missing value for argument " + arg);
                         options.LRBundledPluginsOverride = iter.Current;
-                    }
-                    else
-                    {
+                    } else {
                         throw new CommandLineArgException("Unknown option " + arg);
                     }
                 }
@@ -63,8 +53,7 @@ namespace LiveReload
 
     public partial class App
     {
-        public static void DisplayCommandLineError(string message)
-        {
+        public static void DisplayCommandLineError(string message) {
             MessageBox.Show(message, "LiveReload Command Line Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }

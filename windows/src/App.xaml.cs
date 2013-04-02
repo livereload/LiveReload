@@ -31,15 +31,12 @@ namespace LiveReload
         private string logFile;
         private CommandLineOptions options;
 
-        public void SendCommand(string command, object arg)
-        {
+        public void SendCommand(string command, object arg) {
             nodeFoo.Send(command, arg);
         }
 
-        public static string Version
-        {
-            get
-            {
+        public static string Version {
+            get {
                 System.Reflection.Assembly asm = System.Reflection.Assembly.GetExecutingAssembly();
 
                 System.Diagnostics.FileVersionInfo fvi = System.Diagnostics.FileVersionInfo.GetVersionInfo(asm.Location);
@@ -48,20 +45,19 @@ namespace LiveReload
             }
         }
 
-        private void Application_Startup(object sender, StartupEventArgs e)
-        {
+        private void Application_Startup(object sender, StartupEventArgs e) {
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 
             Environment.SetEnvironmentVariable("DEBUG", "*");
 
             // root dirs
-            baseDir         = System.AppDomain.CurrentDomain.BaseDirectory;
+            baseDir = System.AppDomain.CurrentDomain.BaseDirectory;
             localAppDataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "LiveReload");
-            appDataDir      = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"LiveReload\");
+            appDataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"LiveReload\");
 
             // derived dirs
-            resourcesDir          = Path.Combine(baseDir, @"res");
-            logDir                = Path.Combine(localAppDataDir, @"Logs");
+            resourcesDir = Path.Combine(baseDir, @"res");
+            logDir = Path.Combine(localAppDataDir, @"Logs");
             extractedResourcesDir = Path.Combine(localAppDataDir, @"Bundled");
 
             Directory.CreateDirectory(appDataDir);
@@ -77,12 +73,9 @@ namespace LiveReload
             logWriter.WriteLine("  logDir        = \"" + logDir + "\"");
             logWriter.Flush();
 
-            try
-            {
+            try {
                 options = CommandLineOptions.Parse(e.Args);
-            }
-            catch (CommandLineArgException err)
-            {
+            } catch (CommandLineArgException err) {
                 DisplayCommandLineError(err.Message);
                 Shutdown();
                 return;
@@ -115,11 +108,10 @@ namespace LiveReload
             }
         }
 
-        private void StartUI()
-        {
+        private void StartUI() {
             window = new MainWindow();
-            window.MainWindowHideEvent         += HandleMainWindowHideEvent;
-            window.NodeMessageEvent            += HandleNodeMessageEvent;
+            window.MainWindowHideEvent += HandleMainWindowHideEvent;
+            window.NodeMessageEvent += HandleNodeMessageEvent;
             window.buttonVersion.Content = "v" + Version + (string.IsNullOrWhiteSpace(options.LRBundledPluginsOverride) ? "" : "*");
             window.gridProgress.Visibility = Visibility.Visible;
             window.Show();
@@ -127,16 +119,14 @@ namespace LiveReload
             trayIcon = new TrayIconController();
             //trayIcon.MainWindowHideEvent += HandleMainWindowHideEvent;
             trayIcon.MainWindowShowEvent += HandleMainWindowShowEvent;
-            trayIcon.MainWindowToggleEvent  += HandleMainWindowToggleEvent;
+            trayIcon.MainWindowToggleEvent += HandleMainWindowToggleEvent;
 
             // has to be done before launching Node
             BeginExtractBundledResources(Application_ContinueStartupAfterExtraction);
         }
 
-        private void Application_ContinueStartupAfterExtraction()
-        {
-            if (options.LRBackendOverride != null)
-            {
+        private void Application_ContinueStartupAfterExtraction() {
+            if (options.LRBackendOverride != null) {
                 bundledBackendDir = options.LRBackendOverride;
                 logWriter.WriteLine("LRBackendOverride = \"" + options.LRBackendOverride + "\"");
             }
@@ -166,29 +156,24 @@ namespace LiveReload
             rpcRoot.Expose("mainwnd", window);
         }
 
-        private void HandleNodeMessageEvent(string nodeLine)
-        {
+        private void HandleNodeMessageEvent(string nodeLine) {
             var b = (object[])Json.Parse(nodeLine);
-            string messageType = (string) b[0];
-            if (messageType == "app.displayCriticalError")
-            {
-                var arg = (Dictionary<string, object>) b[1];
+            string messageType = (string)b[0];
+            if (messageType == "app.displayCriticalError") {
+                var arg = (Dictionary<string, object>)b[1];
 
-                var title  = (string)arg["title"];
-                var text   = (string)arg["text"];
-                var url    = (string)arg["url"];
+                var title = (string)arg["title"];
+                var text = (string)arg["text"];
+                var url = (string)arg["url"];
                 var button = (string)arg["button"];
 
                 MessageBox.Show(text, title, MessageBoxButton.OK, MessageBoxImage.Error);
                 App.Current.Shutdown();
-            }
-            else if (messageType == "rpc")
-            {
+            } else if (messageType == "rpc") {
                 var arg = (Dictionary<string, object>)b[1];
 
                 Twins.PayloadDelegate reply = null;
-                if (b.Length > 2)
-                {
+                if (b.Length > 2) {
                     string callback = (string)b[2];
                     reply = (payload => SendCommand(callback, payload));
                 }
@@ -197,8 +182,7 @@ namespace LiveReload
             }
         }
 
-        private void HandleNodeStartedEvent()
-        {
+        private void HandleNodeStartedEvent() {
             string version = Version;
             string build = "beta";
             string platform = "windows";
@@ -223,35 +207,30 @@ namespace LiveReload
             nodeFoo.SendRaw(response);
         }
 
-        public void OpenExplorerWithLog()
-        {
+        public void OpenExplorerWithLog() {
             System.Diagnostics.Process explorerWindowProcess = new System.Diagnostics.Process();
             explorerWindowProcess.StartInfo.FileName = "explorer.exe";
             explorerWindowProcess.StartInfo.Arguments = "/select,\"" + logFile + "\"";
             explorerWindowProcess.Start();
         }
 
-        private void HandleNodeCrash()
-        {
+        private void HandleNodeCrash() {
             logWriter.WriteLine("Node.js appears to have crashed.");
             logWriter.Flush();
 
-            if (CanRestartBackend)
-            {
+            if (CanRestartBackend) {
                 MessageBox.Show("Node.js backend has crashed. Press OK to restart.", "LiveReload crash", MessageBoxButton.OK, MessageBoxImage.Error);
                 RestartBackend();
                 return;
             }
 
             EmergencyShutdown("LiveReload backend process (LiveReloadNodejs) appears to have crashed.");
-       }
+        }
 
-        private void EmergencyShutdown(string reason)
-        {
+        private void EmergencyShutdown(string reason) {
             string message = reason + "\n\nPress OK to report the crash, reveal the log file, check for a possible app update and quit the app.";
             MessageBoxResult result = MessageBox.Show(message, "LiveReload crash", MessageBoxButton.OK, MessageBoxImage.Error);
-            if (result == MessageBoxResult.OK)
-            {
+            if (result == MessageBoxResult.OK) {
                 string crashUrl = @"http://go.livereload.com/crashed/windows/";
                 System.Diagnostics.Process.Start(crashUrl);
                 OpenExplorerWithLog();
@@ -261,16 +240,13 @@ namespace LiveReload
             App.Current.Shutdown(1);
         }
 
-        public bool CanRestartBackend
-        {
-            get
-            {
+        public bool CanRestartBackend {
+            get {
                 return options.LRBackendOverride != null;
             }
         }
 
-        public void RestartBackend()
-        {
+        public void RestartBackend() {
             window.Hide();
             window = null;
             rpcRoot = null;
@@ -281,31 +257,23 @@ namespace LiveReload
             StartUI();
         }
 
-        private void HandleMainWindowHideEvent()
-        {
+        private void HandleMainWindowHideEvent() {
             window.Hide();
         }
-        public void HandleMainWindowShowEvent()
-        {
+        public void HandleMainWindowShowEvent() {
             window.Show();
             window.Activate();
         }
-        private void HandleMainWindowToggleEvent()
-        {
-            if (window.IsVisible)
-            {
+        private void HandleMainWindowToggleEvent() {
+            if (window.IsVisible) {
                 HandleMainWindowHideEvent();
-            }
-            else
-            {
+            } else {
                 HandleMainWindowShowEvent();
             }
         }
 
-        private void Application_Exit(object sender, ExitEventArgs e)
-        {
-            if (trayIcon != null)
-            {
+        private void Application_Exit(object sender, ExitEventArgs e) {
+            if (trayIcon != null) {
                 trayIcon.Dispose();
                 trayIcon = null;
             }
@@ -313,8 +281,7 @@ namespace LiveReload
             logWriter.Flush();
         }
 
-        private void Application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
-        {
+        private void Application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e) {
             // Why do we handle both CurrentDomain_UnhandledException and Application_DispatcherUnhandledException?
             //
             // We could rely on CurrentDomain_UnhandledException to process all unhandled exceptions, but:
@@ -334,18 +301,15 @@ namespace LiveReload
             e.Handled = true;
         }
 
-        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
-        {
+        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e) {
             // No idea why the fuck e.ExceptionObject is declared as 'object'; MSDN docs seem to imply the cast is safe.
-            Exception exception = (Exception) e.ExceptionObject;
-            App.Current.Dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() =>
-            {
+            Exception exception = (Exception)e.ExceptionObject;
+            App.Current.Dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() => {
                 ReportUnhandledException(exception, "non-UI thread");
             }));
         }
 
-        private void ReportUnhandledException(Exception exception, string threadName)
-        {
+        private void ReportUnhandledException(Exception exception, string threadName) {
             StringBuilder builder = new StringBuilder();
             builder.AppendLine();
             builder.AppendLine("************************************************************************");
@@ -359,8 +323,7 @@ namespace LiveReload
             EmergencyShutdown("LiveReload has experienced an unknown error.");
         }
 
-        private String CreateStackTrace(Exception exception)
-        {
+        private String CreateStackTrace(Exception exception) {
             StringBuilder builder = new StringBuilder();
             builder.Append(exception.GetType().ToString());
             builder.Append(": ");
@@ -369,8 +332,7 @@ namespace LiveReload
             builder.Append(string.IsNullOrEmpty(exception.StackTrace) ? "  at unknown location" : exception.StackTrace);
 
             Exception inner = exception.InnerException;
-            if ((inner != null) && (!string.IsNullOrEmpty(inner.StackTrace)))
-            {
+            if ((inner != null) && (!string.IsNullOrEmpty(inner.StackTrace))) {
                 builder.AppendLine();
                 builder.AppendLine("Inner Exception");
                 builder.Append(inner.StackTrace);
@@ -389,14 +351,13 @@ namespace LiveReload
         public string url { get; set; }
         public string snippet { get; set; }
 
-        public ProjectData(Dictionary<string,object> dic)
-        {
-            id      = (string) dic["id"];
-            name    = (string) dic["name"];
-            path    = (string) dic["path"];
-            compilationEnabled = (bool) dic["compilationEnabled"];
-            url     = (string) dic["url"];
-            snippet = (string) dic["snippet"];
+        public ProjectData(Dictionary<string, object> dic) {
+            id = (string)dic["id"];
+            name = (string)dic["name"];
+            path = (string)dic["path"];
+            compilationEnabled = (bool)dic["compilationEnabled"];
+            url = (string)dic["url"];
+            snippet = (string)dic["snippet"];
         }
     }
 }

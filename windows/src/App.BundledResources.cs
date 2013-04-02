@@ -17,19 +17,18 @@ namespace LiveReload
         private string bundledRubyDir;
         private string bundledNodeDir;
 
-        private void BeginExtractBundledResources(Action Callback)
-        {
-            Thread extractThread = new Thread(new ThreadStart (
+        private void BeginExtractBundledResources(Action Callback) {
+            Thread extractThread = new Thread(new ThreadStart(
                 (Action)(() => {
                     SevenZipExtractor.SetLibraryPath(Path.Combine(resourcesDir, "7zxa.dll"));
 
                     bundledBackendDir = extractBundledResourcesFromFile("backend.7z");
                     bundledPluginsDir = extractBundledResourcesFromFile("plugins.7z");
-                    bundledRubyDir    = extractBundledResourcesFromFile("ruby-1.9.3.7z");
-                    bundledNodeDir    = extractBundledResourcesFromFile("node-0.10.0.7z");
+                    bundledRubyDir = extractBundledResourcesFromFile("ruby-1.9.3.7z");
+                    bundledNodeDir = extractBundledResourcesFromFile("node-0.10.0.7z");
 
                     App.Current.Dispatcher.Invoke(DispatcherPriority.Normal,
-                        (Action)(() => { Callback();})
+                        (Action)(() => { Callback(); })
                     );
                 })
             ));
@@ -37,15 +36,13 @@ namespace LiveReload
             extractThread.Start();
         }
 
-        private string extractBundledResourcesFromFile(string filename)
-        {
-            string sourceFile     = Path.Combine(resourcesDir, "bundled", filename);
-            string timestampFile  = Path.Combine(extractedResourcesDir, Path.ChangeExtension(filename, "timestamp"));
+        private string extractBundledResourcesFromFile(string filename) {
+            string sourceFile = Path.Combine(resourcesDir, "bundled", filename);
+            string timestampFile = Path.Combine(extractedResourcesDir, Path.ChangeExtension(filename, "timestamp"));
 
             string destinationDir = Path.Combine(extractedResourcesDir, Path.GetFileNameWithoutExtension(filename));
 
-            if (!File.Exists(timestampFile) || File.GetLastWriteTimeUtc(sourceFile) > File.GetLastWriteTimeUtc(timestampFile))
-            {
+            if (!File.Exists(timestampFile) || File.GetLastWriteTimeUtc(sourceFile) > File.GetLastWriteTimeUtc(timestampFile)) {
                 DeleteRecursivelyWithMagicDust(destinationDir);
 
                 var extractor = new SevenZipExtractor(sourceFile);

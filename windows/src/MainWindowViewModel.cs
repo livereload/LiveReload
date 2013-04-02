@@ -27,7 +27,7 @@ namespace LiveReload
         public MainWindowViewModel(bool live) {
         }
 
-        public ActionsFilesViewModel ActionsFiles {
+        public ActionsFilesViewModel ActionsFiles {Z:\livereload\devel\windows\src\MainWindowViewModel.cs
             get {
                 return actionsFiles;
             }
