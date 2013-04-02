@@ -68,7 +68,11 @@ namespace Twins
         }
 
         private void RPC_Message(string nodeLine) {
-            var b = (object[])Json.Parse(nodeLine);
+            var msg = Json.Parse(nodeLine);
+            if (msg is IDictionary<string, object>) {
+                msg = new object[] { "rpc", msg };
+            }
+            var b = (object[])msg;
             string messageType = (string)b[0];
             if (messageType == "app.displayCriticalError") {
                 var arg = (Dictionary<string, object>)b[1];
