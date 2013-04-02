@@ -14,8 +14,6 @@ namespace Twins.JSON
     {
         private StringBuilder _output = new StringBuilder();
         private StringBuilder _before = new StringBuilder();
-        readonly int _MAX_DEPTH = 10;
-        int _current_depth = 0;
 
         internal JsonSerializer()
         {
