@@ -41,7 +41,7 @@ namespace ObjectRPC.WPF
 
             var viewModel = obj.DataContext;
             if (viewModel != null) {
-                entity.AddFacet(new ReflectionFacet(entity, viewModel));
+                entity.AddNativeObject(viewModel);
             }
         }
     }

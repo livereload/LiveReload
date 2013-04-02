@@ -197,6 +197,10 @@ namespace ObjectRPC
             facet.AddedTo(this);
         }
 
+        public void AddNativeObject(object obj) {
+            AddFacet(new ReflectionFacet(this, obj));
+        }
+
         public ChildEntity Expose(string name, object obj)
         {
             ChildEntity entity;
@@ -297,7 +301,7 @@ namespace ObjectRPC
             this.name   = name;
             this.obj    = obj;
 
-            AddFacet(new ReflectionFacet(this, obj));
+            AddNativeObject(obj);
         }
 
         public override RootEntity Root
