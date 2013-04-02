@@ -29,8 +29,18 @@ namespace LiveReload
         private string logFile;
         private CommandLineOptions options;
 
+        public static new App Current {
+            get {
+                return (App)Application.Current;
+            }
+        }
+
         public void SendCommand(string command, object arg) {
             twins.Send(command, arg);
+        }
+
+        public void ShowTwinsDebugger() {
+            twins.ShowDebugger();
         }
 
         public static string Version {
@@ -109,7 +119,6 @@ namespace LiveReload
         private void StartUI() {
             window = new MainWindow();
             window.MainWindowHideEvent += HandleMainWindowHideEvent;
-            window.NodeMessageEvent += MainWindow_SimulateMessage;
             window.buttonVersion.Content = "v" + Version + (string.IsNullOrWhiteSpace(options.LRBundledPluginsOverride) ? "" : "*");
             window.gridProgress.Visibility = Visibility.Visible;
             window.Show();
@@ -121,10 +130,6 @@ namespace LiveReload
 
             // has to be done before launching Node
             BeginExtractBundledResources(Application_ContinueStartupAfterExtraction);
-        }
-
-        private void MainWindow_SimulateMessage(string payload) {
-            twins.SimulateRaw(payload);
         }
 
         private void Application_ContinueStartupAfterExtraction() {

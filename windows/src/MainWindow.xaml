@@ -54,9 +54,9 @@
             <Button Name="buttonVersion" Content="version" Click="buttonVersion_Click" ToolTip="Reveal log" >
                 <Button.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Name="buttonSimulateNodeEvent" Header="Simulate event from Node"  Click="buttonSimulateNodeEvent_Click" />
                         <MenuItem Header="Update" Click="UpdateMenuItem_Click" />
                         <MenuItem Header="What's New?" Click="ShowReleaseNotes_Click" />
+                        <MenuItem Header="Twins Debugger"  Click="ShowTwinsDebugger_Click" />
                         <MenuItem Name="DevMode" Header="Development mode (running from repository)" IsCheckable="True" IsChecked="{Binding Default.DevMode, Source={StaticResource Settings}}" />
                     </ContextMenu>
                 </Button.ContextMenu>

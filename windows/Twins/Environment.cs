@@ -14,6 +14,11 @@ namespace Twins
         public string ExecutableArguments;
     }
 
+    internal interface ITwinsDebugger
+    {
+        void ShowDebugger();
+    }
+
     public class TwinsEnvironment
     {
         public event Action LaunchComplete = delegate { };
@@ -21,6 +26,7 @@ namespace Twins
         
         private TwinsRPC rpc;
         private RootEntity root;
+        private ITwinsDebugger debugger;
 
         public TwinsEnvironment(Configuration conjugation, TextWriter logWriter) {
             rpc = new TwinsRPC(conjugation.ExecutablePath, conjugation.ExecutableArguments, logWriter);
@@ -40,6 +46,12 @@ namespace Twins
         // TODO: move this far, far away from here (some day)
         public void UseWPF() {
             Twins.WPF.UIFacets.Register(root);
+        }
+
+        public void ShowDebugger() {
+            if (debugger == null)
+                debugger = new WPF.TwinsDebugger(this);
+            debugger.ShowDebugger();
         }
 
         public void Expose(string name, object obj) {

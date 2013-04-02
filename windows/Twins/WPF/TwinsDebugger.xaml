@@ -1,0 +1,27 @@
+﻿<Window x:Class="Twins.WPF.TwinsDebugger"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        mc:Ignorable="d xxx"
+        xmlns:xxx="http://example.com/commented-out/"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:TwinsWPF="clr-namespace:Twins.WPF"
+        d:DataContext="{d:DesignInstance TwinsWPF:TwinsDebuggerViewModel}"
+        Title="Twins Debugger"
+        Height="300" Width="300"
+        ResizeMode="CanResizeWithGrip"
+        WindowStyle="ToolWindow"
+        Closing="Window_Closing"
+>
+    <Grid Margin="12,8">
+        <StackPanel>
+            <TextBlock Text="Simulate incoming JSON payload:" />
+            
+            <TextBox Height="150" Margin="0,4" TextWrapping="Wrap" Text="{Binding Payload}" />
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Send" Padding="24,2" Click="SendPayload_Click" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

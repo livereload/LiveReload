@@ -26,10 +26,6 @@ namespace LiveReload
     {
         public event Action MainWindowHideEvent;
 
-        public event Action<string> NodeMessageEvent;
-
-        string debugSimulatedMessage;
-
         public MainWindow() {
             InitializeComponent();
             DataContext = new MainWindowViewModel(true);
@@ -97,17 +93,14 @@ namespace LiveReload
             }
         }
 
-        private void buttonSimulateNodeEvent_Click(object sender, RoutedEventArgs e) {
-            debugSimulatedMessage = Microsoft.VisualBasic.Interaction.InputBox("Simulated message from Node:\n(F3 in main window to invoke)", "", debugSimulatedMessage);
-            if (debugSimulatedMessage == "")
-                debugSimulatedMessage = null;
+        private void MetroWindow_KeyDown(object sender, KeyEventArgs e) {
+            if (e.Key == Key.F3) {
+                App.Current.ShowTwinsDebugger();
+            }
         }
 
-        private void MetroWindow_KeyDown(object sender, KeyEventArgs e) {
-            if ((e.Key == Key.F3) && (debugSimulatedMessage != null)) {
-                this.NodeMessageEvent(debugSimulatedMessage);
-                Console.WriteLine("Simulated message: " + debugSimulatedMessage);
-            }
+        private void ShowTwinsDebugger_Click(object sender, RoutedEventArgs e) {
+            App.Current.ShowTwinsDebugger();
         }
 
         private void UpdateMenuItem_Click(object sender, RoutedEventArgs e) {
