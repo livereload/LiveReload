@@ -203,9 +203,7 @@ namespace Twins.JSON
                 if (c >= ' ' && c < 128 && c != '\"' && c != '\\')
                 {
                     if (runIndex == -1)
-                    {
                         runIndex = index;
-                    }
 
                     continue;
                 }
@@ -231,9 +229,8 @@ namespace Twins.JSON
             }
 
             if (runIndex != -1)
-            {
                 _output.Append(s, runIndex, s.Length - runIndex);
-            }
+
 
             _output.Append('\"');
         }

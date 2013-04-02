@@ -290,6 +290,8 @@ namespace Twins.JSON
             bool dec = false;
             do
             {
+                if (index == json.Length)
+                    break;
                 var c = json[index];
 
                 if ((c >= '0' && c <= '9') || c == '.' || c == '-' || c == '+' || c == 'e' || c == 'E')
