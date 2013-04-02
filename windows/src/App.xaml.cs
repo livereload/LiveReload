@@ -21,8 +21,7 @@ namespace LiveReload
     public partial class App : Application
     {
         private MainWindow window;
-        private TwinsRPC nodeFoo;
-        private Twins.RootEntity rpcRoot;
+        private TwinsEnvironment twins;
         private string baseDir, logDir, resourcesDir, appDataDir;
         private string localAppDataDir;
         private string extractedResourcesDir;
@@ -32,7 +31,7 @@ namespace LiveReload
         private CommandLineOptions options;
 
         public void SendCommand(string command, object arg) {
-            nodeFoo.Send(command, arg);
+            twins.Send(command, arg);
         }
 
         public static string Version {
@@ -111,7 +110,7 @@ namespace LiveReload
         private void StartUI() {
             window = new MainWindow();
             window.MainWindowHideEvent += HandleMainWindowHideEvent;
-            window.NodeMessageEvent += HandleNodeMessageEvent;
+            window.NodeMessageEvent += MainWindow_SimulateMessage;
             window.buttonVersion.Content = "v" + Version + (string.IsNullOrWhiteSpace(options.LRBundledPluginsOverride) ? "" : "*");
             window.gridProgress.Visibility = Visibility.Visible;
             window.Show();
@@ -123,6 +122,10 @@ namespace LiveReload
 
             // has to be done before launching Node
             BeginExtractBundledResources(Application_ContinueStartupAfterExtraction);
+        }
+
+        private void MainWindow_SimulateMessage(string payload) {
+            twins.SimulateRaw(payload);
         }
 
         private void Application_ContinueStartupAfterExtraction() {
@@ -139,82 +142,44 @@ namespace LiveReload
 
             window.gridProgress.Visibility = Visibility.Hidden;
 
-            var nodeExe = Path.Combine(bundledNodeDir, @"LiveReloadNodejs.exe");
-            var nodeArguments = "\"" + (Path.Combine(bundledBackendDir, "bin/livereload.js") + "\" " + "rpc server");
-
-            nodeFoo = new TwinsRPC(nodeExe, nodeArguments, logWriter);
-            nodeFoo.Message += HandleNodeMessageEvent;
-            nodeFoo.LaunchComplete += HandleNodeStartedEvent;
-            nodeFoo.Crash += HandleNodeCrash;
-            nodeFoo.Start();
-
-            rpcRoot = new Twins.RootEntity();
-            Twins.WPF.UIFacets.Register(rpcRoot);
-            rpcRoot.OutgoingUpdate += (payload => nodeFoo.Send("rpc", payload));
-
-            rpcRoot.Expose("app", this);
-            rpcRoot.Expose("mainwnd", window);
+            InitializeTwins(new Twins.Configuration {
+                ExecutablePath = Path.Combine(bundledNodeDir, @"LiveReloadNodejs.exe"),
+                ExecutableArguments = "\"" + (Path.Combine(bundledBackendDir, "bin/livereload.js") + "\" " + "rpc server"),
+            });
         }
 
-        private void HandleNodeMessageEvent(string nodeLine) {
-            var b = (object[])Json.Parse(nodeLine);
-            string messageType = (string)b[0];
-            if (messageType == "app.displayCriticalError") {
-                var arg = (Dictionary<string, object>)b[1];
-
-                var title = (string)arg["title"];
-                var text = (string)arg["text"];
-                var url = (string)arg["url"];
-                var button = (string)arg["button"];
-
-                MessageBox.Show(text, title, MessageBoxButton.OK, MessageBoxImage.Error);
-                App.Current.Shutdown();
-            } else if (messageType == "rpc") {
-                var arg = (Dictionary<string, object>)b[1];
-
-                Twins.PayloadDelegate reply = null;
-                if (b.Length > 2) {
-                    string callback = (string)b[2];
-                    reply = (payload => SendCommand(callback, payload));
-                }
-
-                rpcRoot.ProcessIncomingUpdate(arg, reply);
-            }
+        private void InitializeTwins(Twins.Configuration config) {
+            twins = new TwinsEnvironment(config, logWriter);
+            twins.UseWPF();
+            twins.Expose("app", this);
+            twins.Expose("mainwnd", window);
+            twins.LaunchComplete += Twins_LaunchComplete;
+            twins.Crash += Twins_Crash;
         }
 
-        private void HandleNodeStartedEvent() {
+        private void Twins_LaunchComplete() {
             string version = Version;
             string build = "beta";
             string platform = "windows";
 
-            var foo = new object[] { "app.init",
-                                     new Dictionary<string, object> {
-                                        {"resourcesDir", resourcesDir},
-                                        {"appDataDir",   appDataDir},
-                                        {"rubies",       new object[] {
-                                            new Dictionary<string, object> {
-                                                {"version", "1.9.3"},
-                                                {"path",    bundledRubyDir}
-                                            }
-                                        }},
-                                        {"logDir",       logDir},
-                                        {"version",      version},
-                                        {"build",        build},
-                                        {"platform",     platform}
-            }};
-
-            string response = Json.Stringify(foo);
-            nodeFoo.SendRaw(response);
+            var arg = new Dictionary<string, object> {
+                {"resourcesDir", resourcesDir},
+                {"appDataDir",   appDataDir},
+                {"rubies",       new object[] {
+                    new Dictionary<string, object> {
+                        {"version", "1.9.3"},
+                        {"path",    bundledRubyDir}
+                    }
+                }},
+                {"logDir",       logDir},
+                {"version",      version},
+                {"build",        build},
+                {"platform",     platform}
+            };
+            twins.Send("app.init", arg);
         }
 
-        public void OpenExplorerWithLog() {
-            System.Diagnostics.Process explorerWindowProcess = new System.Diagnostics.Process();
-            explorerWindowProcess.StartInfo.FileName = "explorer.exe";
-            explorerWindowProcess.StartInfo.Arguments = "/select,\"" + logFile + "\"";
-            explorerWindowProcess.Start();
-        }
-
-        private void HandleNodeCrash() {
+        private void Twins_Crash() {
             logWriter.WriteLine("Node.js appears to have crashed.");
             logWriter.Flush();
 
@@ -225,6 +190,13 @@ namespace LiveReload
             }
 
             EmergencyShutdown("LiveReload backend process (LiveReloadNodejs) appears to have crashed.");
+        }
+
+        public void OpenExplorerWithLog() {
+            System.Diagnostics.Process explorerWindowProcess = new System.Diagnostics.Process();
+            explorerWindowProcess.StartInfo.FileName = "explorer.exe";
+            explorerWindowProcess.StartInfo.Arguments = "/select,\"" + logFile + "\"";
+            explorerWindowProcess.Start();
         }
 
         private void EmergencyShutdown(string reason) {
@@ -249,9 +221,8 @@ namespace LiveReload
         public void RestartBackend() {
             window.Hide();
             window = null;
-            rpcRoot = null;
-            nodeFoo.Dispose();
-            nodeFoo = null;
+            twins.Dispose();
+            twins = null;
             trayIcon.Dispose();
             trayIcon = null;
             StartUI();
