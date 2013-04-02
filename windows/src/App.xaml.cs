@@ -149,9 +149,9 @@ namespace LiveReload
             window.gridProgress.Visibility = Visibility.Hidden;
 
             nodeFoo = new NodeRPC(bundledNodeDir, bundledBackendDir, logWriter);
-            nodeFoo.NodeMessageEvent += HandleNodeMessageEvent;
-            nodeFoo.NodeStartedEvent += HandleNodeStartedEvent;
-            nodeFoo.NodeCrash += HandleNodeCrash;
+            nodeFoo.Message += HandleNodeMessageEvent;
+            nodeFoo.LaunchComplete += HandleNodeStartedEvent;
+            nodeFoo.Crash += HandleNodeCrash;
             nodeFoo.Start();
 
             rpcRoot = new Twins.RootEntity();

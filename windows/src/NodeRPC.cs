@@ -24,9 +24,9 @@ namespace LiveReload
         private Thread stderrThread;
         private bool disposed = false;
 
-        public event Action         NodeStartedEvent;
-        public event Action         NodeCrash;
-        public event Action<string> NodeMessageEvent;
+        public event Action         LaunchComplete;
+        public event Action         Crash;
+        public event Action<string> Message;
 
         public NodeRPC(string nodeDir_, string backendDir_, TextWriter logWriter_)
         {
@@ -42,7 +42,7 @@ namespace LiveReload
             runThread.Start();
         }
 
-        private void StartProcess()
+        private void LaunchProcess()
         {
             process.StartInfo.FileName = Path.Combine(nodeDir, @"LiveReloadNodejs.exe");
             process.StartInfo.Arguments = "\"" + (Path.Combine(backendDir, "bin/livereload.js") + "\" " + "rpc server");
@@ -65,7 +65,7 @@ namespace LiveReload
             stderrReader = process.StandardError;
 
             dispatcher.Invoke(DispatcherPriority.Normal,
-                (Action)(() => { NodeStartedEvent(); })
+                (Action)(() => { LaunchComplete(); })
             );
 
             stderrThread = new Thread(new ThreadStart(LogStandardErrorThread));
@@ -75,27 +75,27 @@ namespace LiveReload
 
         private void RunThread()
         {
-            StartProcess();
+            LaunchProcess();
             while (!reader.EndOfStream)
             {
-                string nodeLine = reader.ReadLine();
+                string line = reader.ReadLine();
 
-                logWriter.WriteLine("INCOMING: " + nodeLine);
+                logWriter.WriteLine("INCOMING: " + line);
                 logWriter.Flush();
-                //Console.WriteLine("INCOMING: " + nodeLine);
-                //Console.WriteLine(fastJSON.Json.Instance.Beautify(nodeLine));
+                //Console.WriteLine("INCOMING: " + line);
+                //Console.WriteLine(fastJSON.Json.Instance.Beautify(line));
 
-                if (nodeLine[0] == '[')
+                if (line[0] == '[')
                 {
                     dispatcher.Invoke(DispatcherPriority.Normal,
-                        (Action)(() => { NodeMessageEvent(nodeLine); })
+                        (Action)(() => { Message(line); })
                     );
                 }
             }
             dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() =>
                 {
                     if (!disposed)
-                        NodeCrash();
+                        Crash();
                 })
             );
         }
