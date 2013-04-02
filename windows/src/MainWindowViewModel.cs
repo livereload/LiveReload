@@ -39,6 +39,12 @@ namespace LiveReload
             }
         }
 
+        public ObservableCollection<ActionGroup> ActionGroups {
+            get {
+                return actionsFiles.Groups;
+            }
+        }
+
         public string Dummy {
             get {
                 return dummy;

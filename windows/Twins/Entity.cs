@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Runtime.Serialization;
 using System.Reflection;
+using D = System.Collections.Generic.Dictionary<string, object>;
 
 namespace Twins
 {
@@ -34,15 +36,51 @@ namespace Twins
         }
     }
 
+    public interface IEntityCollectionParent
+    {
+        IEntityCollectionItem TryCreateItem(string collectionName, string itemId);
+    }
+
+    public interface IEntityCollectionItem
+    {
+        string Id { get; }
+    }
+
     // A facet provides a platform-independent JSON interface to a native object.
     // It turns incoming JSON payloads into native object setters/method calls,
     // and sends outgoing JSON payloads when native events occur.
-    public interface IFacet
+    public interface IFacet : IDisposable
     {
         void AddedTo(Entity entity);
         void Set(Dictionary<string, object> properties);
         bool TryInvoke(string name, object[] args, PayloadDelegate reply);
-        bool TryResolve(string name, Dictionary<string, object> payload, out object obj);
+        bool TryResolve(string name, object payload, out object obj);
+    }
+
+    public interface IEntityOrCollection : IDisposable
+    {
+        RootEntity Root { get; }
+        string Path { get; }
+        string PathPrefix { get; }
+
+        void ProcessIncomingUpdate(object payload, PayloadDelegate reply);
+    }
+
+    public interface IChildEntityOrCollection : IEntityOrCollection
+    {
+        object NativeObject { get; }
+    }
+
+    public interface IEntity : IEntityOrCollection
+    {
+    }
+
+    public interface IChildEntity : IEntity, IChildEntityOrCollection
+    {
+    }
+
+    public interface IEntityCollection : IChildEntityOrCollection
+    {
     }
 
     // Default base class for the facets
@@ -91,7 +129,7 @@ namespace Twins
         }
 
         // The default implementation tries to access a public property of this facet.
-        public virtual bool TryResolve(string name, Dictionary<string, object> payload, out object resolved) {
+        public virtual bool TryResolve(string name, object payload, out object resolved) {
             resolved = null;
 
             PropertyInfo prop = GetType().GetProperty(name.ToCamelCase());
@@ -101,6 +139,9 @@ namespace Twins
             }
 
             return false;
+        }
+
+        public virtual void Dispose() {
         }
     }
 
@@ -138,7 +179,7 @@ namespace Twins
             return false;
         }
 
-        public override bool TryResolve(string name, Dictionary<string, object> payload, out object resolved) {
+        public override bool TryResolve(string name, object payload, out object resolved) {
             resolved = null;
 
             PropertyInfo prop = obj.GetType().GetProperty(name.ToCamelCase());
@@ -157,17 +198,81 @@ namespace Twins
         }
     }
 
-    // Entity represents a single exposed object, and holds information about its exposed children.
-    public abstract class Entity
+    public abstract class EntityOrCollectionBase : IEntityOrCollection
     {
-        private readonly List<IFacet> facets = new List<IFacet>();
-        private readonly Dictionary<string, ChildEntity> children = new Dictionary<string, ChildEntity>();
-
-        public Entity() { }
+        protected readonly Dictionary<string, IChildEntityOrCollection> children = new Dictionary<string, IChildEntityOrCollection>();
 
         public abstract RootEntity Root { get; }
         public abstract string Path { get; }
         public abstract string PathPrefix { get; }
+
+        public abstract void SendUpdate(Dictionary<string, object> payload);
+
+        public IChildEntityOrCollection Expose(string name, object obj) {
+            IChildEntityOrCollection entity;
+            if (!children.TryGetValue(name, out entity)) {
+                entity = CreateChildEntityOrCollection(name, obj);
+                children.Add(name, entity);
+            } else if (entity.NativeObject != obj) {
+                throw new ArgumentException("Attempting to expose different objects under the same name '" + name + "'");
+            }
+            return entity;
+        }
+
+        public void Unexpose(string name) {
+            IChildEntityOrCollection entity;
+            if (children.TryGetValue(name, out entity)) {
+                entity.Dispose();
+                children.Remove(name);
+            }
+        }
+
+        private IChildEntityOrCollection CreateChildEntityOrCollection(string name, object obj) {
+            var type = obj.GetType();
+            if (type.IsGenericType) {
+                var typeDef = type.GetGenericTypeDefinition();
+                if (typeDef == typeof(ObservableCollection<>)) {
+                    return CreateChildCollection(name, obj, type.GetGenericArguments()[0]);
+                }
+            }
+            return CreateChildEntity(name, obj);
+        }
+
+        private IChildEntity CreateChildEntity(string name, object obj) {
+            var entity = new ChildEntity(this, name, obj);
+            foreach (FacetRegistration reg in Root.facetRegistrations) {
+                IFacet facet;
+                if (reg.TryCreate(entity, out facet))
+                    entity.AddFacet(facet);
+            }
+            return entity;
+        }
+
+        private IEntityCollection CreateChildCollection(string name, object obj, Type elementType) {
+            var collectionType = typeof(EntityCollection<>).MakeGenericType(elementType);
+            return (IEntityCollection)Activator.CreateInstance(collectionType, this, name, obj);
+        }
+
+        public virtual void Dispose() {
+        }
+
+
+        public abstract void ProcessIncomingUpdate(object payload, PayloadDelegate reply);
+    }
+
+    // Entity represents a single exposed object, and holds information about its exposed children.
+    public abstract class Entity : EntityOrCollectionBase, IEntity
+    {
+        private readonly List<IFacet> facets = new List<IFacet>();
+
+        public Entity() { }
+
+        public override void Dispose() {
+            base.Dispose();
+            foreach (var facet in facets) {
+                facet.Dispose();
+            }
+        }
 
         public void AddFacet(IFacet facet) {
             facets.Insert(0, facet);
@@ -178,25 +283,7 @@ namespace Twins
             AddFacet(new ReflectionFacet(this, obj));
         }
 
-        public ChildEntity Expose(string name, object obj) {
-            ChildEntity entity;
-            if (!children.TryGetValue(name, out entity)) {
-                entity = new ChildEntity(this, name, obj);
-
-                foreach (FacetRegistration reg in Root.facetRegistrations) {
-                    IFacet facet;
-                    if (reg.TryCreate(entity, out facet))
-                        entity.AddFacet(facet);
-                }
-
-                children.Add(name, entity);
-            } else if (entity.obj != obj) {
-                throw new ArgumentException("Attempting to expose different objects under the same name '" + name + "'");
-            }
-            return entity;
-        }
-
-        public bool TryResolve(string name, Dictionary<string, object> payload, out ChildEntity entity) {
+        public bool TryResolve(string name, object payload, out IChildEntityOrCollection entity) {
             if (children.TryGetValue(name, out entity))
                 return true;
 
@@ -212,7 +299,14 @@ namespace Twins
             return false;
         }
 
-        public void ProcessIncomingUpdate(IDictionary<string, object> payload, PayloadDelegate reply) {
+        public override void ProcessIncomingUpdate(object payload, PayloadDelegate reply) {
+            if (payload is D)
+                ProcessIncomingDictionary((D)payload, reply);
+            else
+                throw new ArgumentException("Unsupported payload");
+        }
+
+        private void ProcessIncomingDictionary(IDictionary<string, object> payload, PayloadDelegate reply) {
             // properties
             var properties = payload.Where(e => !e.Key.StartsWith("#") && !e.Key.StartsWith("!")).ToDictionary(e => e.Key, e => e.Value);
             foreach (IFacet facet in facets)
@@ -227,9 +321,9 @@ namespace Twins
             // children
             foreach (var entry in payload.Where(e => e.Key.StartsWith("#"))) {
                 string name = entry.Key.Substring(1);
-                var childPayload = (Dictionary<string, object>)entry.Value;
+                var childPayload = entry.Value;
 
-                ChildEntity child;
+                IChildEntityOrCollection child;
                 // childPayload can be mutated by this call
                 if (!TryResolve(name, childPayload, out child))
                     throw new PayloadException("Cannot resolve child named: " + name);
@@ -248,19 +342,17 @@ namespace Twins
                 }
             }
         }
-
-        public abstract void SendUpdate(Dictionary<string, object> payload);
     }
 
     // All entites created via Expose or Resolve calls are ChildEntities
     // (that is, all entities except for the root one).
-    public class ChildEntity : Entity
+    public class ChildEntity : Entity, IChildEntity
     {
-        public readonly Entity parent;
+        public readonly EntityOrCollectionBase parent;
         public readonly string name;
         public readonly object obj;
 
-        public ChildEntity(Entity parent, string name, object obj) {
+        public ChildEntity(EntityOrCollectionBase parent, string name, object obj) {
             this.parent = parent;
             this.name = name;
             this.obj = obj;
@@ -282,6 +374,10 @@ namespace Twins
 
         public override void SendUpdate(Dictionary<string, object> payload) {
             parent.SendUpdate(new Dictionary<string, object> { { "#" + name, payload } });
+        }
+
+        public object NativeObject {
+            get { return obj; }
         }
     }
 
@@ -318,6 +414,73 @@ namespace Twins
         }
     }
 
+    public class EntityCollection<T> : EntityOrCollectionBase, IEntityCollection where T : new()
+    {
+        public readonly Entity parent;
+        public readonly string name;
+        public readonly ObservableCollection<T> collection;
+
+        public EntityCollection(Entity parent, string name, ObservableCollection<T> obj) {
+            this.parent = parent;
+            this.name = name;
+            this.collection = obj;
+        }
+
+        public override RootEntity Root {
+            get { return parent.Root; }
+        }
+
+        public override string Path {
+            get { return parent.PathPrefix + "#" + name; }
+        }
+
+        public override string PathPrefix {
+            get { return parent.PathPrefix + "#" + name + " "; }
+        }
+
+        public override void SendUpdate(Dictionary<string, object> payload) {
+            parent.SendUpdate(new D { { "#" + name, payload } });
+        }
+
+        public override void ProcessIncomingUpdate(object payload, PayloadDelegate reply) {
+            if (payload is IList<object>) {
+                ProcessIncomingList((IList<object>)payload, reply);
+            } else if (payload is D) {
+                ProcessIncomingDictionary((D)payload, reply);
+            } else {
+                throw new ArgumentException("Unsupported collection payload");
+            }
+        }
+
+        private void ProcessIncomingList(IList<object> payload, PayloadDelegate reply) {
+            collection.Clear();
+
+            var itemIds = children.Keys.ToArray();
+            foreach (var itemId in itemIds)
+                Unexpose(itemId);
+
+            foreach (var itemRaw in payload) {
+                var itemPayload = (D)itemRaw;
+                var itemId = (string)itemPayload["id"];
+
+                var item = new T();
+                var child = Expose(itemId, item);
+                child.ProcessIncomingUpdate(itemPayload, reply);
+                collection.Add(item);
+            }
+        }
+
+        private void ProcessIncomingDictionary(D payload, PayloadDelegate reply) {
+        }
+
+        private void UpdateSubentities() {
+        }
+
+        public object NativeObject {
+            get { return collection; }
+        }
+    }
+
     public class FacetRegistration
     {
         private readonly Type objType;
@@ -328,9 +491,9 @@ namespace Twins
             this.facetType = facetType;
         }
 
-        public bool TryCreate(ChildEntity obj, out IFacet facet) {
-            if (objType.IsAssignableFrom(obj.obj.GetType())) {
-                facet = (IFacet)Activator.CreateInstance(facetType, obj, obj.obj);
+        public bool TryCreate(IChildEntity entity, out IFacet facet) {
+            if (objType.IsAssignableFrom(entity.NativeObject.GetType())) {
+                facet = (IFacet)Activator.CreateInstance(facetType, entity, entity.NativeObject);
                 return true;
             } else {
                 facet = null;

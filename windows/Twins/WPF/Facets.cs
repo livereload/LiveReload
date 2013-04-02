@@ -185,7 +185,7 @@ namespace Twins.WPF
 
         public TreeViewFacet(Entity entity, TreeView obj)
             : base(entity, obj) {
-            //obj.MouseDoubleClick    += OnMouseDoubleClick;
+            //collection.MouseDoubleClick    += OnMouseDoubleClick;
             obj.SelectedItemChanged += OnSelectedItemChanged;
             obj.ItemsSource = items;
         }
@@ -246,21 +246,21 @@ namespace Twins.WPF
             }
         }
 
-        //private void SelectItemHelper(TreeViewItem item)
+        //private void SelectItemHelper(TreeViewItem itemPayload)
         //{
-        //    if (item == null)
+        //    if (itemPayload == null)
         //        return;
-        //    SelectItemHelper(item.Parent as TreeViewItem);
-        //    if (!item.IsExpanded)
+        //    SelectItemHelper(itemPayload.Parent as TreeViewItem);
+        //    if (!itemPayload.IsExpanded)
         //    {
-        //        item.IsExpanded = true;
-        //        item.UpdateLayout();
+        //        itemPayload.IsExpanded = true;
+        //        itemPayload.UpdateLayout();
         //    }
         //}
-        //private void SelectItem(TreeViewItem item) // QND solution
+        //private void SelectItem(TreeViewItem itemPayload) // QND solution
         //{
-        //    SelectItemHelper(item.Parent as TreeViewItem);
-        //    item.IsSelected = true;
+        //    SelectItemHelper(itemPayload.Parent as TreeViewItem);
+        //    itemPayload.IsSelected = true;
         //}
 
         private void OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e) {
