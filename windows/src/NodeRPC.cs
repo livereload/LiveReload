@@ -20,7 +20,7 @@ namespace LiveReload
         private string nodeDir;
         private string backendDir;
         private TextWriter logWriter;
-        private Thread nodeThread;
+        private Thread runThread;
         private Thread stderrThread;
         private bool disposed = false;
 
@@ -37,12 +37,12 @@ namespace LiveReload
 
         public void Start()
         {
-            nodeThread = new Thread(new ThreadStart(NodeRun));
-            nodeThread.IsBackground = true; // need for thread to close at application exit
-            nodeThread.Start();
+            runThread = new Thread(new ThreadStart(RunThread));
+            runThread.IsBackground = true; // need for thread to close at application exit
+            runThread.Start();
         }
 
-        private void NodeStart()
+        private void StartProcess()
         {
             process.StartInfo.FileName = Path.Combine(nodeDir, @"LiveReloadNodejs.exe");
             process.StartInfo.Arguments = "\"" + (Path.Combine(backendDir, "bin/livereload.js") + "\" " + "rpc server");
@@ -68,14 +68,14 @@ namespace LiveReload
                 (Action)(() => { NodeStartedEvent(); })
             );
 
-            stderrThread = new Thread(new ThreadStart(CopyNodeStderrToLog));
+            stderrThread = new Thread(new ThreadStart(LogStandardErrorThread));
             stderrThread.IsBackground = true;
             stderrThread.Start();
         }
 
-        private void NodeRun()
+        private void RunThread()
         {
-            NodeStart();
+            StartProcess();
             while (!reader.EndOfStream)
             {
                 string nodeLine = reader.ReadLine();
@@ -100,7 +100,7 @@ namespace LiveReload
             );
         }
 
-        private void CopyNodeStderrToLog()
+        private void LogStandardErrorThread()
         {
             while (!stderrReader.EndOfStream)
             {
@@ -110,7 +110,7 @@ namespace LiveReload
             }
         }
 
-        public void NodeMessageSend(string message)
+        public void SendRaw(string message)
         {
             logWriter.WriteLine("OUTGOING: " + message);
             logWriter.Flush();
@@ -123,7 +123,7 @@ namespace LiveReload
 
         public void Send(string command, object arg)
         {
-            NodeMessageSend(Json.Stringify(new object[] { command, arg }));
+            SendRaw(Json.Stringify(new object[] { command, arg }));
         }
 
         public void Dispose()

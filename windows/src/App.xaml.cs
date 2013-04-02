@@ -216,7 +216,7 @@ namespace LiveReload
             }};
 
             string response = Json.Stringify(foo);
-            nodeFoo.NodeMessageSend(response);
+            nodeFoo.SendRaw(response);
         }
 
         public void OpenExplorerWithLog()
