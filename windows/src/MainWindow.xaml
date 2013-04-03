@@ -14,6 +14,7 @@
                         d:DataContext="{d:DesignInstance lr:MainWindowViewModel, IsDesignTimeCreatable=True}"
                         Width="799" Height="643" MinWidth="400" MinHeight="100"
                         Icon="pack://application:,,,/img/LiveReload.ico"
+                        RenderOptions.BitmapScalingMode="HighQuality"
                         ResizeMode="CanResizeWithGrip"
                         Closing="Window_Closing"
                         StateChanged="MetroWindow_StateChanged"
