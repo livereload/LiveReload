@@ -3,11 +3,15 @@ LiveReload 2
 
 LiveReload is an essential tool for web developers, and is currently the top paid developer tool on the Mac App Store in many countries.
 
-Please remember that this is not under a traditional free software license, but under a specific set of moral terms. I'm happy with you forking the source code, sharing your modifications and sharing binaries with your friends, but please don't post the binaries publicly without my permission, and don't fork the project under a different name. I want every user to buy a license by default, though, unless you have a good reason not to pay (in which case just ask me for a free license or copy a binary from someone else, there is no copy protection).
 
-See http://livereload.com for licensing info and an optional backstory on that.
+License to fork (and stuff)
+---------------------------
 
-If you'd like to reuse some of the classes, please contact me and I'm likely to publish those under MIT.
+Please remember that this is not under a traditional free software license, but under a specific set of moral terms. I’m happy with you forking the source code, sharing your modifications, and sharing binaries with your friends—but please don't post the binaries publicly without my permission, and don't fork the project under a different name. I want every user to buy a license by default, though, unless you have a good reason not to pay. (In that case, just ask me for a free license, or copy a binary from someone else. There’s no copy protection.)
+
+See <http://livereload.com> for licensing info (and the backstory on it).
+
+If you’d like to reuse some of the classes, please contact me! I’m likely to publish those under MIT.
 
 
 Setting things up
@@ -15,7 +19,7 @@ Setting things up
 
 (Doc in progress.)
 
-Subdirectories configuration for git-subdir:
+**Subdirectories configuration for git-subdir:**
 
     git subdir node_modules/livereload/ -r cli --url git@github.com:livereload/livereload-cli.git --method squash,linear
     git subdir node_modules/livereload-core/ -r core --url git@github.com:livereload/livereload-core.git --method squash,linear
@@ -31,23 +35,23 @@ Subdirectories configuration for git-subdir:
     git subdir node_modules/vfs-local/ -r vfs-local --url git@github.com:livereload/vfs-local.git --method squash,linear
     git subdir node_modules/vfs-test/ -r vfs-test --url git@github.com:livereload/vfs-test.git --method squash,linear
 
-Then:
+**Then:**
 
     cd scripts
     npm install
     cd ..
     iced scripts/relink.iced
 
-Then:
+**Then:**
 
     for i in node_modules/*; do (echo; echo $i; cd $i; npm install); done
     iced scripts/relink.iced  # relink again because npm install loves to screw things up
 
-Then:
+**Then:**
 
     iced --runtime inline -cw node_modules/*/*.{coffee,iced} node_modules/*/{lib,test,config,rpc-api,bin}/**.{coffee,iced}
 
-Then:
+**Then:**
 
     node node_modules/livereload/bin/livereload.js
     node node_modules/livereload/bin/livereload.js rpc console
@@ -58,51 +62,48 @@ Then:
 Building LiveReload
 -------------------
 
-See `windows/README.md` for Windows build instructions.
+See [`windows/README.md`](windows/README.md) for Windows build instructions.
 
-You need:
+
+### Requirements
 
 * Xcode 4.2.1
-* Node 0.6.x (I'm actually using Node 0.5.5, but that's an accident to be corrected soon)
+* Node 0.6.x *(I’m actually using Node 0.5.5, but that will be corrected soon…)*
 * Ruby 1.8.7 for running Rake
 
-Build process:
+### Build Process 
 
-1. Don't forget to pull all submodules after getting the source code.
-
-2. You need IcedCoffeeScript: `npm install -g iced-coffee-script` (version 1.3.x should be fine).
-
+1. Don’t forget to pull all submodules after getting the source code.
+2. You need IcedCoffeeScript: `npm install -g iced-coffee-script`.
+   - *(Version `1.3.x` should be fine.)*
 3. Compile the backend files: `iced -I inline -c cli`.
-
 4. Run `rake backend` to package the backend into `interim/backend`.
-
-5. Open LiveReload/LiveReload.xcodeproj and build it with Xcode. Alternatively, use `rake mac:release` or a similar task (see `rake -T` for the full list).
+5. Open `LiveReload/LiveReload.xcodeproj` and build it with Xcode.
+   - *(Alternatively, use `rake mac:release` or a similar task. See `rake -T` for the full list.)*
 
 
 Hacking tips
 ------------
 
-1. Add backend/ to LiveReload, enable compilation.
-
-2. Set LRBackendOverride environment variable to `/path/to/LiveReload/cli/bin/livereload.js` so that your changes are picked up without rerunning `rake backend`.
-
-3. To run multiple copies of LiveReload, set LRPortOverride to some unused TCP port.
-
-4. Set LRBundledPluginsOverride to specify a path to the bundled plugins when running on the command line. (Also useful for speeding up Xcode builds by temporarily deleting the bundled plugins from the project and setting this variable so that LiveReload can find them.)
+* Add `backend/` to LiveReload, enable compilation.
+* Set `LRBackendOverride` environment variable to `/path/to/LiveReload/cli/bin/livereload.js`, so your changes are picked up without rerunning `rake backend`.
+* To run multiple copies of LiveReload, set `LRPortOverride` to some unused TCP port.
+* Set `LRBundledPluginsOverride` to specify a path to the bundled plugins when running on the command line.
+  - *(Also useful for speeding up Xcode builds; temporarily deletes bundled plugins from the project, and sets this variable so that LiveReload can find them.)*
 
 
 Signing the bundled Node.js binary
 ----------------------------------
 
-Copy:
+**Copy:**
 
     cp /usr/local/bin/node LiveReload/Resources/LiveReloadNodejs
 
-Sign:
+**Sign:**
 
     codesign -f -s "3rd Party Mac Developer Application: Andrey Tarantsov" --entitlements LiveReload/Resources/LiveReloadNodejs.entitlements LiveReload/Resources/LiveReloadNodejs
 
-Verify:
+**Verify:**
 
     codesign -dvvv ./LiveReload/Resources/LiveReloadNodejs
 
@@ -111,13 +112,14 @@ Verify:
 AppNewsKit
 ==========
 
-(See Stats.h/m. This is a seriously cool shit to communicate with your live users. consider those files to be under MIT; I will extract and document it properly soon.)
+(See `Stats.h/m`. This is a seriously cool shit to communicate with your live users. Consider those files to be under MIT. I’ll extract and document it properly soon.)
 
 * Collect usage statistics
 * Deliver news to your users
 
-Example ping.txt:
+Example `ping.txt`:
 
+```javascript
     {
         "see_explanation_at": "http://help.livereload.com/kb/about-us/usage-statistics-privacy-policy",
         "messages": [
@@ -146,3 +148,4 @@ Example ping.txt:
             }
         ]
     }
+```
