@@ -196,10 +196,10 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <Resource Include="img\clippit-processing-loop.gif" />
-    <Content Include="res\bundled\node-0.10.0.7z">
+    <Content Include="res\bundled\node-0.10.3.7z">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="img\clippit-processing-loop.gif" />
     <Content Include="res\bundled\plugins.7z">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
