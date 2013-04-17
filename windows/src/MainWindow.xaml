@@ -78,10 +78,8 @@
             </Grid.RowDefinitions>
             <Rectangle Name="rectStart" Fill="White" Opacity="0.90" Grid.RowSpan="2" />
             <TextBlock TextWrapping="Wrap" Margin="30">
-                <Bold>v0.8.6 Emergency April Fool's Day Update</Bold><LineBreak /><LineBreak />
-                <Run>* clippy says hi ;-)</Run><LineBreak /><LineBreak />
-                <Run>* a glimpse of the new UI (NOT a joke)</Run><LineBreak /><LineBreak />
-                <Run>* update check at startup is back</Run>
+                <Bold>PRE v0.8.7</Bold><LineBreak /><LineBreak />
+                <Run>* clippy says bye ^^</Run><LineBreak /><LineBreak />
             </TextBlock>
             <StackPanel Grid.Row="1" Name="stackPanelStart" >
                 <Controls:ProgressRing Name="progressStart" IsActive="True" />
