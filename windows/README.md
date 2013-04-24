@@ -10,10 +10,11 @@ WARNING: you must be building from `windows/` folder of the [main LiveReload rep
 
 Prerequisites:
 
-* Microsoft Visual Studio 2010
+* Microsoft Visual Studio 2012 (VS 2010 should work too)
 
 Process:
 
+* Make sure you're
 * Run `powershell bundle-backend.ps1`
 * Run `bundle-ruby.cmd`
 * Run `bundle-node.cmd`
@@ -31,6 +32,8 @@ As [explained on MSDN](http://technet.microsoft.com/library/hh847748.aspx), you 
 
 
 ## Overriding the backend and plugins path
+
+When running LiveReload from LiveReload2 repository, you can have it pick up the backend files from the repository folder.
 
 You can specify an alternative backend path to avoid going through the lengthy packaging and extraction process on every backend change.
 
@@ -63,7 +66,3 @@ Ruby 1.9.3 is ruby-1.9.3-p286-i386-mingw32.7z with the following items removed:
 * MahApps.Metro:         http://mahapps.com/MahApps.Metro/
 * Modern UI Icons:       http://modernuiicons.com/
 * EditableTextBlock:     http://www.codeproject.com/Articles/31592/Editable-TextBlock-in-WPF-for-In-place-Editing
-
-NOTES:
-
-* when updating fastJSON library to newer version, change its Target Framework to match one of LiveReload.

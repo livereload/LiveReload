@@ -1,25 +1,135 @@
-LiveReload 2
+LiveReload 3
 ============
 
 LiveReload is an essential tool for web developers, and is currently the top paid developer tool on the Mac App Store in many countries.
 
 
-License to fork (and stuff)
+License
+-------
+
+Copyright 2012 Andrey Tarantsov — andrey@tarantsov.com
+
+**Purchasing policy notice:** All users of the software are expected to purchase a license from Andrey Tarantsov unless they have a good reason not to pay. Users that don't purchase a license are encouraged to apply for a free one at support@livereload.com. The users are free to:
+
+* download, build and modify the app;
+* share the modified source code;
+* share the purchased or custom-built binaries (with unmodified license and contact info), provided that the purchasing policy is explained to all potential users.
+
+
+This software is available under the **Open Community Indie Software License**:
+
+Permission to use, copy, modify, and/or distribute this software for any purpose is hereby granted, free of charge, subject to the following conditions:
+
+* all copies retain the above copyright notice, the above purchasing policy notice and this permission notice unmodified;
+
+* all copies retain the name of the software (LiveReload), the name of the author (Andrey Tarantsov) and the contact information (including, but not limited to, pointers to support@livereload.com and livereload.com URLs) unmodified;
+
+* no fee is charged for distibution of the software;
+
+* the best effort is made to explain the purchasing policy to all users of the software.
+
+In the event that no new official binary releases of the software are published for two consecutive years, the above conditions are permanently waived, and the software is additionally made available under the terms of the MIT license.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+
+Building LiveReload for Windows
+-------------------------------
+
+1. Build the backend using the instructions below.
+
+2. Follow [windows/README.md](windows/README.md).
+
+
+Building LiveReload for Mac
 ---------------------------
 
-Please remember that this is not under a traditional free software license, but under a specific set of moral terms. I’m happy with you forking the source code, sharing your modifications, and sharing binaries with your friends—but please don't post the binaries publicly without my permission, and don't fork the project under a different name. I want every user to buy a license by default, though, unless you have a good reason not to pay. (In that case, just ask me for a free license, or copy a binary from someone else. There’s no copy protection.)
+Note: right now **it's not a good idea to build a Mac version from this branch**. See the ‘master’ branch for the latest stable Mac version.
 
-See <http://livereload.com> for licensing info (and the backstory on it).
+Prerequisites:
 
-If you’d like to reuse some of the classes, please contact me! I’m likely to publish those under MIT.
+* Xcode 4.2.1
+* Node 0.8 *(probably works with 0.10 too)*
+* IcedCoffeeScript 1.3.x: `npm install -g iced-coffee-script`
+* Ruby 1.8.7 for running Rake
+
+Building:
+
+1. Don’t forget to pull all submodules after getting the source code.
+
+1. Compile the backend files: `iced -I inline -c cli`.
+
+1. Run `rake backend` to package the backend into `interim/backend`.
+
+1. Open `LiveReload/LiveReload.xcodeproj` and build it with Xcode.
+
+    *(Alternatively, use `rake mac:release` or a similar task. See `rake -T` for the full list.)*
 
 
-Setting things up
------------------
 
-(Doc in progress.)
+Building the backend
+--------------------
 
-**Subdirectories configuration for git-subdir:**
+Prerequisites:
+
+* Node 0.10.x with npm
+* IcedCoffeeScript 1.3.3f
+
+Building:
+
+1. Install build script dependencies:
+
+        cd scripts
+        npm install
+        cd ..
+
+2. Use the script to set up symlinks inside node_modules/ repo folder:
+
+        iced scripts/relink.iced
+
+3. Install externel dependencies of each package:
+
+        for i in node_modules/*; do (echo; echo $i; cd $i; npm install); done
+
+4. Relink again, because `npm install` loves to screw things up:
+
+        iced scripts/relink.iced
+
+5. Compile CoffeeScript sources (use `-cw` for watch mode, `-c` for one-time compilation):
+
+        iced --runtime inline -cw node_modules/*/*.{coffee,iced} node_modules/*/{lib,test,config,rpc-api,bin}/**.{coffee,iced}
+
+Verifying:
+
+1. Run and make sure it displays a command-line usage error:
+
+        node node_modules/livereload/bin/livereload.js
+
+2. Run and make sure it starts up, outputs a bunch of stuff and listens for browser connections (Ctrl-C to quit):
+
+        node node_modules/livereload/bin/livereload.js rpc console
+
+3. Run and make sure it outputs nothing (Ctrl-C to quit):
+
+        node node_modules/livereload/bin/livereload.js rpc server
+
+
+LR for Mac hacking tips
+-----------------------
+
+* Add `backend/` to LiveReload, enable compilation.
+* Set `LRBackendOverride` environment variable to `/path/to/LiveReload/cli/bin/livereload.js`, so your changes are picked up without rerunning `rake backend`.
+* To run multiple copies of LiveReload, set `LRPortOverride` to some unused TCP port.
+* Set `LRBundledPluginsOverride` to specify a path to the bundled plugins when running on the command line.
+  - *(Also useful for speeding up Xcode builds; temporarily deletes bundled plugins from the project, and sets this variable so that LiveReload can find them.)*
+
+
+git-subdir
+----------
+
+We're using git-subdir to sync commits between this repository and the repositories of individual projects.
+
+This probably is of no concern to you, but in case you need it, you can run the following commands to set it up:
 
     git subdir node_modules/livereload/ -r cli --url git@github.com:livereload/livereload-cli.git --method squash,linear
     git subdir node_modules/livereload-core/ -r core --url git@github.com:livereload/livereload-core.git --method squash,linear
@@ -35,75 +145,20 @@ Setting things up
     git subdir node_modules/vfs-local/ -r vfs-local --url git@github.com:livereload/vfs-local.git --method squash,linear
     git subdir node_modules/vfs-test/ -r vfs-test --url git@github.com:livereload/vfs-test.git --method squash,linear
 
-**Then:**
-
-    cd scripts
-    npm install
-    cd ..
-    iced scripts/relink.iced
-
-**Then:**
-
-    for i in node_modules/*; do (echo; echo $i; cd $i; npm install); done
-    iced scripts/relink.iced  # relink again because npm install loves to screw things up
-
-**Then:**
-
-    iced --runtime inline -cw node_modules/*/*.{coffee,iced} node_modules/*/{lib,test,config,rpc-api,bin}/**.{coffee,iced}
-
-**Then:**
-
-    node node_modules/livereload/bin/livereload.js
-    node node_modules/livereload/bin/livereload.js rpc console
-    node node_modules/livereload/bin/livereload.js rpc server
-
-
-
-Building LiveReload
--------------------
-
-See [`windows/README.md`](windows/README.md) for Windows build instructions.
-
-
-### Requirements
-
-* Xcode 4.2.1
-* Node 0.6.x *(I’m actually using Node 0.5.5, but that will be corrected soon…)*
-* Ruby 1.8.7 for running Rake
-
-### Build Process 
-
-1. Don’t forget to pull all submodules after getting the source code.
-2. You need IcedCoffeeScript: `npm install -g iced-coffee-script`.
-   - *(Version `1.3.x` should be fine.)*
-3. Compile the backend files: `iced -I inline -c cli`.
-4. Run `rake backend` to package the backend into `interim/backend`.
-5. Open `LiveReload/LiveReload.xcodeproj` and build it with Xcode.
-   - *(Alternatively, use `rake mac:release` or a similar task. See `rake -T` for the full list.)*
-
-
-Hacking tips
-------------
-
-* Add `backend/` to LiveReload, enable compilation.
-* Set `LRBackendOverride` environment variable to `/path/to/LiveReload/cli/bin/livereload.js`, so your changes are picked up without rerunning `rake backend`.
-* To run multiple copies of LiveReload, set `LRPortOverride` to some unused TCP port.
-* Set `LRBundledPluginsOverride` to specify a path to the bundled plugins when running on the command line.
-  - *(Also useful for speeding up Xcode builds; temporarily deletes bundled plugins from the project, and sets this variable so that LiveReload can find them.)*
 
 
 Signing the bundled Node.js binary
 ----------------------------------
 
-**Copy:**
+Copy:
 
     cp /usr/local/bin/node LiveReload/Resources/LiveReloadNodejs
 
-**Sign:**
+Sign:
 
     codesign -f -s "3rd Party Mac Developer Application: Andrey Tarantsov" --entitlements LiveReload/Resources/LiveReloadNodejs.entitlements LiveReload/Resources/LiveReloadNodejs
 
-**Verify:**
+Verify:
 
     codesign -dvvv ./LiveReload/Resources/LiveReloadNodejs
 
