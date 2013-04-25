@@ -113,5 +113,9 @@ namespace LiveReload
             else
                 gridProgress.Visibility = Visibility.Visible;
         }
+
+        private void RevealAppDataFolder_Click(object sender, RoutedEventArgs e) {
+            App.Current.RevealAppDataFolder();
+        }
     }
 }

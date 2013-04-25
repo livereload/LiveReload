@@ -232,6 +232,13 @@ namespace LiveReload
             StartUI();
         }
 
+        public void RevealAppDataFolder() {
+            System.Diagnostics.Process explorerWindowProcess = new System.Diagnostics.Process();
+            explorerWindowProcess.StartInfo.FileName = "explorer.exe";
+            explorerWindowProcess.StartInfo.Arguments = "\"" + appDataDir + "\"";
+            explorerWindowProcess.Start();
+        }
+
         private void HandleMainWindowHideEvent() {
             window.Hide();
         }
