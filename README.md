@@ -36,7 +36,7 @@ THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH RE
 Building LiveReload for Windows
 -------------------------------
 
-1. Build the backend using the instructions below.
+1. Build the backend using the instructions below (“Building the backend for the Windows version”).
 
 2. Follow [windows/README.md](windows/README.md).
 
@@ -44,22 +44,44 @@ Building LiveReload for Windows
 Building LiveReload for Mac
 ---------------------------
 
-Note: right now **it's not a good idea to build a Mac version from this branch**. See the ‘master’ branch for the latest stable Mac version.
+Note: right now this branch is in a transitional state; I'm doing active development of Mac v2.4.x. See the ‘master’ branch for the latest stable Mac version (v2.3.x).
 
 Prerequisites:
 
-* Xcode 4.2.1
-* Node 0.8 *(probably works with 0.10 too)*
+* Xcode 4.6
+* Node 0.10
 * IcedCoffeeScript 1.3.x: `npm install -g iced-coffee-script`
 * Ruby 1.8.7 for running Rake
+
+For running tests:
+
+* Mocha 1.7.0: `npm install -g mocha`
+* Cucumber.js 0.3.0: `npm install -g cucumber`
+* fsmonitor 0.2.2: `npm install -g fsmonitor` (warning: don't rely on `--version`, it lies)
 
 Building:
 
 1. Don’t forget to pull all submodules after getting the source code.
 
-1. Compile the backend files: `iced -I inline -c cli`.
+1. Prepare the backend:
 
-1. Run `rake backend` to package the backend into `interim/backend`.
+        cd node_modules/livereload-new
+        npm install
+        coffee -c lib test
+        mocha
+        cucumber.js
+        mocha
+        cucumber.js
+
+    Or use the watch mode for the latter commands:
+
+        coffee -cw lib test
+        fsmonitor -s '+*.js' '!node_modules' '!.git' mocha -G -R spec
+        fsmonitor -s '+*.js' '+features/**/*.coffee' '+*.feature' '!node_modules' '!.git' cucumber.js
+
+1. CURRENTLY BROKEN: Run `rake backend` to package the backend into `interim/backend`.
+
+    For now (and during develpment) use override mode instead — open Xcode scheme settings and set LRBackendOverride env var to the full path of `node_modules/livereload-new/bin/livereload.js`.)
 
 1. Open `LiveReload/LiveReload.xcodeproj` and build it with Xcode.
 
@@ -67,8 +89,8 @@ Building:
 
 
 
-Building the backend
---------------------
+Building the backend for the Windows version
+--------------------------------------------
 
 Prerequisites:
 
@@ -118,10 +140,10 @@ LR for Mac hacking tips
 -----------------------
 
 * Add `backend/` to LiveReload, enable compilation.
-* Set `LRBackendOverride` environment variable to `/path/to/LiveReload/cli/bin/livereload.js`, so your changes are picked up without rerunning `rake backend`.
+* Set `LRBackendOverride` environment variable to `/path/to/LiveReload/node_modules/livereload-new/bin/livereload.js`, so your changes are picked up without rerunning `rake backend`.
 * To run multiple copies of LiveReload, set `LRPortOverride` to some unused TCP port.
 * Set `LRBundledPluginsOverride` to specify a path to the bundled plugins when running on the command line.
-  - *(Also useful for speeding up Xcode builds; temporarily deletes bundled plugins from the project, and sets this variable so that LiveReload can find them.)*
+  - *(Also useful for speeding up Xcode builds; temporarily delete bundled plugins from the project and set this variable so that LiveReload can find them.)*
 
 
 git-subdir
