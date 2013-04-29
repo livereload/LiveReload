@@ -49,6 +49,10 @@
 @property(nonatomic, readonly) NSArray *options;
 - (NSArray *)optionsForProject:(Project *)project;
 
+- (void)compile:(NSString *)sourceRelPath into:(NSString *)destinationRelPath under:(NSString *)rootPath inProject:(Project *)project with:(CompilationOptions *)options compilerOutput:(ToolOutput **)compilerOutput;
+
 - (NSArray *)pathsOfSourceFilesInTree:(FSTree *)tree;
+
+- (NSSet *)referencedPathFragmentsForPath:(NSString *)path;
 
 @end
