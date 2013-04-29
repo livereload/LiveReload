@@ -406,7 +406,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     }
 }
 
-- (void)processChangeAtPath:(NSString *)relativePath {
+- (void)processChangeAtPath:(NSString *)relativePath reloadRequests:(json_t *)reloadRequests {
     NSString *extension = [relativePath pathExtension];
 
     BOOL compilerFound = NO;
@@ -428,8 +428,8 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
             } else {
                 FileCompilationOptions *fileOptions = [self optionsForFileAtPath:relativePath in:compilationOptions];
                 NSString *derivedName = fileOptions.destinationName;
-                // path = derivedName
-                // originalPath = [_path stringByAppendingPathComponent:relativePath]
+                NSString *originalPath = [_path stringByAppendingPathComponent:relativePath];
+                json_array_append_new(reloadRequests, json_object_2("path", json_nsstring(derivedName), "originalPath", json_nsstring(originalPath)));
                 NSLog(@"Broadcasting a fake change in %@ instead of %@ (compiler %@).", derivedName, relativePath, compiler.name);
                 StatGroupIncrement(CompilerChangeCountStatGroup, compiler.uniqueId, 1);
                 break;
@@ -440,7 +440,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     }
 
     if (!compilerFound) {
-        // path = [_path stringByAppendingPathComponent:relativePath]
+        json_array_append_new(reloadRequests, json_object_2("path", json_nsstring([_path stringByAppendingPathComponent:relativePath]), "originalPath", json_null()));
     }
 }
 
@@ -466,6 +466,8 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
     [self updateImportGraphForPaths:pathes];
 
+    json_t *reloadRequests = json_array();
+
 #ifdef AUTORESCAN_WORKAROUND_ENABLED
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(rescanRecentlyChangedPaths) object:nil];
     [self performSelector:@selector(rescanRecentlyChangedPaths) withObject:nil afterDelay:1.0];
@@ -476,17 +478,24 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         if ([realPaths count] > 0) {
             NSLog(@"Instead of imported file %@, processing changes in %@", relativePath, [[realPaths allObjects] componentsJoinedByString:@", "]);
             for (NSString *path in realPaths) {
-                [self processChangeAtPath:path];
+                [self processChangeAtPath:path reloadRequests:reloadRequests];
             }
         } else {
-            [self processChangeAtPath:relativePath];
+            [self processChangeAtPath:relativePath reloadRequests:reloadRequests];
         }
 
     }
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidDetectChangeNotification object:self];
-    eventbus_post(project_fs_change_event, NULL);
-    StatIncrement(BrowserRefreshCountStat, 1);
+    if (json_array_size(reloadRequests) > 0) {
+        json_t *arg = json_object_3("changes", reloadRequests, "forceFullReload", json_bool(self.disableLiveRefresh), "fullReloadDelay", json_real(_fullPageReloadDelay));
+        S_reloader_reload(arg);
+
+        [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidDetectChangeNotification object:self];
+        eventbus_post(project_fs_change_event, NULL);
+        StatIncrement(BrowserRefreshCountStat, 1);
+    } else {
+        json_decref(reloadRequests);
+    }
 
     S_app_handle_change(json_object_2("root", json_nsstring(_path), "paths", nodeapp_objc_to_json([pathes allObjects])));
 }

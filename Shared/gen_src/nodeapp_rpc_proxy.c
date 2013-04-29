@@ -34,6 +34,10 @@ void S_projects_change_detected(json_t *data) {
     nodeapp_rpc_send("projects.changeDetected", data);
 }
 
+void S_reloader_reload(json_t *data) {
+    nodeapp_rpc_send("reloader.reload", data);
+}
+
 void S_ui_notify(json_t *data) {
     nodeapp_rpc_send("ui.notify", data);
 }
