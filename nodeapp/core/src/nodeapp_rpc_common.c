@@ -33,7 +33,8 @@ static void nodeapp_rpc_received_line(char *line) {
     msg_func_t handler = find_msg_handler(command);
     if (handler == NULL) {
         fprintf(stderr,  "app:  Unknown command received: '%s'", command);
-        exit(1);
+        abort();
+//        exit(1);
     } else {
         json_t *response = handler(arg);
         if (json_array_size(incoming) > 2) {
