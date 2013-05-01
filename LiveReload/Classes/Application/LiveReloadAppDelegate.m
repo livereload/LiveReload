@@ -87,6 +87,7 @@ void C_app__good_time_to_deliver_news(json_t *arg) {
 
 @synthesize statusItemController=_statusItemController;
 @synthesize mainWindowController=_mainWindowController;
+@synthesize port=_port;
 
 
 #pragma mark - Launching
@@ -115,6 +116,17 @@ void C_app__good_time_to_deliver_news(json_t *arg) {
     [self.statusItemController initStatusBarIcon];
 
     _mainWindowController = [[NewMainWindowController alloc] init];
+
+    _port = 35729;
+    if (getenv("LRPortOverride")) {
+        _port = atoi(getenv("LRPortOverride"));
+    } else {
+        int overridePort = (int) [[NSUserDefaults standardUserDefaults] integerForKey:@"HttpPort"];
+        if (overridePort != 0) {
+            setenv("LRPortOverride", [[NSString stringWithFormat:@"%d", overridePort] UTF8String], 1);
+            _port = overridePort;
+        }
+    }
 
     os_init();
     console_init();
