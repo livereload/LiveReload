@@ -63,6 +63,10 @@ namespace :mac do
     zip_name = "#{MAC_ZIP_BASE_NAME}-#{suffix}.zip"
     zip_path = File.join(XCODE_RELEASE_DIR, zip_name)
     zip_path_in_builds = File.join(BUILDS_DIR, zip_name)
+    mac_bundle_path = File.join(XCODE_RELEASE_DIR, MAC_BUNDLE_NAME)
+
+    rm_f zip_path
+    rm_rf MAC_BUNDLE_NAME
 
     Dir.chdir MAC_SRC do
       sh 'xcodebuild clean'
@@ -75,6 +79,15 @@ namespace :mac do
 
     mkdir_p File.dirname(zip_path_in_builds)
     cp zip_path, zip_path_in_builds
+
+    Dir.chdir BUILDS_DIR do
+      rm_rf MAC_BUNDLE_NAME
+      sh 'unzip', '-q', zip_name
+
+      puts
+      puts "Checking code signature after unzipping."
+      sh 'spctl', '-a', MAC_BUNDLE_NAME
+    end
 
     sh 'open', '-R', zip_path_in_builds
 
