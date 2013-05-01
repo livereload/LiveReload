@@ -90,6 +90,10 @@ class LRWebSocketServer extends EventEmitter
 
   start: (callback) ->
     @httpServer ||= http.createServer()  # non-nil when running tests
+
+    @httpServer.on 'error', (err) =>
+      @emit 'error', err
+
     try
       @httpServer.listen @port, (err) =>
         return callback(err) if err

@@ -27,6 +27,8 @@ class LRWebSocketController
         # TODO:
         # browserId: "com.apple.Safari" or "com.google.Chrome" or "org.mozilla.firefox"
 
+    @server.on 'error', (err) => @_handleServerError(err)
+
     @changeCount = 0
 
     @urlOverrideCoordinator = new URLOverrideCoordinator()
@@ -37,17 +39,24 @@ class LRWebSocketController
   init: (callback) ->
     @server.start (err) =>
       if err
-        if err.code && err.code == 'EADDRINUSE'
-          LR.app.displayCriticalError
-            title: "Failed to start: port occupied"
-            text:  "LiveReload cannot listen on port #{@server.port}. You probably have another copy of LiveReload 2.x, a command-line LiveReload 1.x or an alternative tool like guard-livereload running.\n\nPlease quit any other live reloaders and rerun LiveReload."
-            url:   'http://help.livereload.com/kb/troubleshooting/failed-to-start-port-occupied'
-          return callback(null)
-        else
-          return callback(err)
+        return @_handleServerError err, callback
 
       LR.log.fyi "WebSocket server listening on port #{@server.port}."
       callback(null)
+
+  _handleServerError: (err, callback=@_throwServerError.bind(@)) ->
+    if err.code && err.code == 'EADDRINUSE'
+      LR.app.displayCriticalError
+        title: "Failed to start: port occupied"
+        text:  "LiveReload cannot listen on port #{@server.port}. You probably have another copy of LiveReload 2.x, a command-line LiveReload 1.x or an alternative tool like guard-livereload running.\n\nPlease quit any other live reloaders and rerun LiveReload."
+        url:   'http://help.livereload.com/kb/troubleshooting/failed-to-start-port-occupied'
+      return callback(null)
+
+    return callback(err)
+
+  _throwServerError: (err) ->
+    if err
+      throw err
 
   sendReloadCommand: ({ path, originalPath, liveCSS, enableOverride }) ->
     for connection in @server.monitoringConnections()
