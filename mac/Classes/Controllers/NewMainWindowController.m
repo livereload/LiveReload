@@ -211,6 +211,9 @@ void C_mainwnd__set_change_count(json_t *arg) {
 
     _panes = [[NSArray alloc] initWithObjects:_welcomePane, _projectPane, nil];
 
+    LiveReloadAppDelegate *delegate = [NSApp delegate];
+    [_snippetBodyTextField setStringValue:[NSString stringWithFormat:@"<script>document.write('<script src=\"http://' + (location.host || 'localhost').split(':')[0] + ':%d/livereload.js?snipver=1\"></' + 'script>')</script>", delegate.port]];
+
     // MUST be done after initializing _panes
     [_projectOutlineView expandItem:_projectsItem];
     [self restoreSelection];

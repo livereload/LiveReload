@@ -58,6 +58,7 @@ void C_update(json_t *arg) {
 
 @synthesize statusItemController=_statusItemController;
 @synthesize mainWindowController=_mainWindowController;
+@synthesize port=_port;
 
 
 #pragma mark - Launching
@@ -77,7 +78,7 @@ void C_update(json_t *arg) {
 
     [Preferences initDefaults];
     [[PluginManager sharedPluginManager] reloadPlugins];
-    
+
 #ifndef APPSTORE
     [[SUUpdater sharedUpdater] setDelegate:self];
 #endif
@@ -88,6 +89,17 @@ void C_update(json_t *arg) {
     [self.statusItemController initStatusBarIcon];
 
     _mainWindowController = [[NewMainWindowController alloc] init];
+
+    _port = 35729;
+    if (getenv("LRPortOverride")) {
+        _port = atoi(getenv("LRPortOverride"));
+    } else {
+        int overridePort = (int) [[NSUserDefaults standardUserDefaults] integerForKey:@"HttpPort"];
+        if (overridePort != 0) {
+            setenv("LRPortOverride", [[NSString stringWithFormat:@"%d", overridePort] UTF8String], 1);
+            _port = overridePort;
+        }
+    }
 
     console_init();
 
@@ -109,7 +121,7 @@ void C_update(json_t *arg) {
     });
 
     FixUnixPath();
-    
+
     [[DockIcon currentDockIcon] displayDockIconWhenAppHasWindowsWithDelegateClass:[NewMainWindowController class]];
 }
 
