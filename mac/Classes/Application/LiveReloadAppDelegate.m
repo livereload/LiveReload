@@ -20,6 +20,8 @@
 #import "FixUnixPath.h"
 #import "LicenseManager.h"
 #import "DockIcon.h"
+#import "ATSandboxing.h"
+#import "NSData+Base64.h"
 
 #ifndef APPSTORE
 #import "Sparkle/Sparkle.h"
@@ -83,13 +85,6 @@ void C_update(json_t *arg) {
     [[SUUpdater sharedUpdater] setDelegate:self];
 #endif
 
-    [super applicationDidFinishLaunching:aNotification];
-
-    _statusItemController = [[StatusItemController alloc] init];
-    [self.statusItemController initStatusBarIcon];
-
-    _mainWindowController = [[NewMainWindowController alloc] init];
-
     _port = 35729;
     if (getenv("LRPortOverride")) {
         _port = atoi(getenv("LRPortOverride"));
@@ -100,6 +95,58 @@ void C_update(json_t *arg) {
             _port = overridePort;
         }
     }
+
+    const char *backendOverrideRaw = getenv("LRBackendOverride");
+    if (backendOverrideRaw && *backendOverrideRaw) {
+        NSString *backendOverride = [NSString stringWithUTF8String:backendOverrideRaw];
+        NSError *error = nil;
+
+        if (ATIsSandboxed()) {
+            BOOL stale = NO;
+            NSString *bookmark = [[NSUserDefaults standardUserDefaults] stringForKey:@"BackendOverrideBookmark"];
+            if ([bookmark length] > 0) {
+                NSURL *url = [NSURL URLByResolvingBookmarkData:[NSData dataFromBase64String:bookmark] options:NSURLBookmarkResolutionWithSecurityScope relativeToURL:nil bookmarkDataIsStale:&stale error:&error];
+                if (url) {
+                    [url startAccessingSecurityScopedResource];
+                }
+            }
+
+            NSString *data = [NSString stringWithContentsOfFile:backendOverride encoding:NSUTF8StringEncoding error:NULL];
+            if (!data) {
+                // chances are we don't have access
+                NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+                [openPanel setCanChooseDirectories:YES];
+                [openPanel setCanCreateDirectories:NO];
+                [openPanel setTitle:@"Grant Access To Backend"];
+                [openPanel setMessage:@"Choose a root folder of the overridden backend"];
+                [openPanel setPrompt:@"Extend Sandbox"];
+                [openPanel setCanChooseFiles:NO];
+                [openPanel setTreatsFilePackagesAsDirectories:YES];
+                NSInteger result = [openPanel runModal];
+                if (result == NSFileHandlingPanelOKButton) {
+                    NSURL *url = [openPanel URL];
+
+                    bookmark = [[url bookmarkDataWithOptions:NSURLBookmarkCreationWithSecurityScope|NSURLBookmarkCreationSecurityScopeAllowOnlyReadAccess includingResourceValuesForKeys:nil relativeToURL:nil error:&error] base64EncodedString];
+                    if (bookmark) {
+                        [[NSUserDefaults standardUserDefaults] setObject:bookmark forKey:@"BackendOverrideBookmark"];
+                    }
+                }
+            }
+        }
+
+        NSString *data = [NSString stringWithContentsOfFile:backendOverride encoding:NSUTF8StringEncoding error:NULL];
+        if (!data) {
+            [[NSAlert alertWithMessageText:@"LiveReload cannot access its backend" defaultButton:@"Quit" alternateButton:nil otherButton:nil informativeTextWithFormat:@"Cannot read a file at the following path: %@", backendOverride] runModal];
+            exit(0);
+        }
+    }
+
+    [super applicationDidFinishLaunching:aNotification];
+
+    _statusItemController = [[StatusItemController alloc] init];
+    [self.statusItemController initStatusBarIcon];
+
+    _mainWindowController = [[NewMainWindowController alloc] init];
 
     console_init();
 
