@@ -17,8 +17,13 @@ BOOL ATIsSandboxed() {
 }
 
 NSString *ATUserScriptsDirectory() {
-    NSString *signingId = [[[NSBundle mainBundle] bundleIdentifier] lowercaseString];
-    return [[ATRealHomeDirectory() stringByAppendingPathComponent:@"Library/Application Scripts"] stringByAppendingPathComponent:signingId];
+    NSError *error = nil;
+    if (ATIsUserScriptsFolderSupported()) {
+        return [[[NSFileManager defaultManager] URLForDirectory:NSApplicationScriptsDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:&error] path];
+    } else {
+        NSString *bundleId = [[NSBundle mainBundle] bundleIdentifier];
+        return [[ATRealHomeDirectory() stringByAppendingPathComponent:@"Library/Application Scripts"] stringByAppendingPathComponent:bundleId];
+    }
 }
 
 BOOL ATAreSecurityScopedBookmarksSupported() {

@@ -7,6 +7,7 @@ extern NSString *const UserScriptManagerScriptsDidChangeNotification;
 extern NSString *const UserScriptErrorDomain;
 enum {
     UserScriptErrorMissingScript,
+    UserScriptErrorInvalidScript,
 };
 
 
@@ -20,7 +21,9 @@ enum {
 @property(nonatomic, readonly) NSString *path;
 @property(nonatomic, readonly) BOOL exists;
 
-- (BOOL)invokeForProjectAtPath:(NSString *)path withModifiedFiles:(NSSet *)paths output:(ToolOutput **)output error:(NSError **)error;
+typedef void (^UserScriptCompletionHandler)(BOOL invoked, ToolOutput *output, NSError *error);
+
+- (void)invokeForProjectAtPath:(NSString *)projectPath withModifiedFiles:(NSSet *)paths completionHandler:(UserScriptCompletionHandler)completionHandler;
 
 @end
 

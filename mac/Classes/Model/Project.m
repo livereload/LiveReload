@@ -505,17 +505,17 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
             UserScript *userScript = self.postProcessingScript;
             if (invokePostProcessor && userScript.exists) {
                 ToolOutput *toolOutput = nil;
-                NSError *error = nil;
 
                 _runningPostProcessor = YES;
-                [userScript invokeForProjectAtPath:_path withModifiedFiles:pathes output:&toolOutput error:&error];
-                _runningPostProcessor = NO;
-                _lastPostProcessingRunDate = [NSDate timeIntervalSinceReferenceDate];
+                [userScript invokeForProjectAtPath:_path withModifiedFiles:pathes completionHandler:^(BOOL invoked, ToolOutput *output, NSError *error) {
+                    _runningPostProcessor = NO;
+                    _lastPostProcessingRunDate = [NSDate timeIntervalSinceReferenceDate];
 
-                if (toolOutput) {
-                    toolOutput.project = self;
-                    [[[[ToolOutputWindowController alloc] initWithCompilerOutput:toolOutput key:[NSString stringWithFormat:@"%@.postproc", _path]] autorelease] show];
-                }
+                    if (toolOutput) {
+                        toolOutput.project = self;
+                        [[[[ToolOutputWindowController alloc] initWithCompilerOutput:toolOutput key:[NSString stringWithFormat:@"%@.postproc", _path]] autorelease] show];
+                    }
+                }];
             } else {
                 console_printf("Skipping post-processing.");
             }

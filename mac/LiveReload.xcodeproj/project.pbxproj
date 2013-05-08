@@ -78,7 +78,6 @@
 		4310DE3D146DB588003091D1 /* ToolOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4310DE3C146DB588003091D1 /* ToolOptions.m */; };
 		4310DE40146DB6A0003091D1 /* UIBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4310DE3F146DB6A0003091D1 /* UIBuilder.m */; };
 		4313347915BC295B00659B4F /* UserScript.m in Sources */ = {isa = PBXBuildFile; fileRef = 4313347815BC295B00659B4F /* UserScript.m */; };
-		4313347D15BC2CC200659B4F /* ATSandboxing.m in Sources */ = {isa = PBXBuildFile; fileRef = 4313347C15BC2CC200659B4F /* ATSandboxing.m */; };
 		43146699146C5D2100DC075A /* ProjectPaneBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 43146698146C5D2100DC075A /* ProjectPaneBackground.png */; };
 		4314669B146C689500DC075A /* FolderIcon64.png in Resources */ = {isa = PBXBuildFile; fileRef = 4314669A146C689500DC075A /* FolderIcon64.png */; };
 		4314669D146C884800DC075A /* WelcomePaneBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 4314669C146C884800DC075A /* WelcomePaneBackground.png */; };
@@ -120,6 +119,8 @@
 		4379ADCB141D1060008C836F /* livereload.js in Resources */ = {isa = PBXBuildFile; fileRef = 4379ADC9141D00CE008C836F /* livereload.js */; };
 		4398AF0F1731E3DC0092A711 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 4398AF0E1731E3DC0092A711 /* NSData+Base64.m */; };
 		4398AF121731E9070092A711 /* ATSandboxing.m in Sources */ = {isa = PBXBuildFile; fileRef = 4398AF111731E9070092A711 /* ATSandboxing.m */; };
+		4398AF1517321A630092A711 /* PlainUnixTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 4398AF1417321A630092A711 /* PlainUnixTask.m */; };
+		4398AF18173223710092A711 /* TaskOutputReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 4398AF17173223710092A711 /* TaskOutputReader.m */; };
 		439A76B015B28EF100E50057 /* LicenseCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 439A76AE15B28EF100E50057 /* LicenseCodeViewController.m */; };
 		439A76B115B28EF100E50057 /* LicenseCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 439A76AF15B28EF100E50057 /* LicenseCodeViewController.xib */; };
 		439A76B415B28F4300E50057 /* LicenseCodeWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 439A76B315B28F4300E50057 /* LicenseCodeWindowController.m */; };
@@ -408,6 +409,10 @@
 		4398AF0E1731E3DC0092A711 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		4398AF101731E9070092A711 /* ATSandboxing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATSandboxing.h; sourceTree = "<group>"; };
 		4398AF111731E9070092A711 /* ATSandboxing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATSandboxing.m; sourceTree = "<group>"; };
+		4398AF1317321A630092A711 /* PlainUnixTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlainUnixTask.h; sourceTree = "<group>"; };
+		4398AF1417321A630092A711 /* PlainUnixTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlainUnixTask.m; sourceTree = "<group>"; };
+		4398AF16173223700092A711 /* TaskOutputReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskOutputReader.h; sourceTree = "<group>"; };
+		4398AF17173223710092A711 /* TaskOutputReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskOutputReader.m; sourceTree = "<group>"; };
 		439A76AD15B28EF100E50057 /* LicenseCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LicenseCodeViewController.h; sourceTree = "<group>"; };
 		439A76AE15B28EF100E50057 /* LicenseCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LicenseCodeViewController.m; sourceTree = "<group>"; };
 		439A76AF15B28EF100E50057 /* LicenseCodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LicenseCodeViewController.xib; sourceTree = "<group>"; };
@@ -1158,6 +1163,8 @@
 				823DDEA113F8DA3100529AD2 /* ATFunctionalStyle.m */,
 				4398AF101731E9070092A711 /* ATSandboxing.h */,
 				4398AF111731E9070092A711 /* ATSandboxing.m */,
+				4398AF1317321A630092A711 /* PlainUnixTask.h */,
+				4398AF1417321A630092A711 /* PlainUnixTask.m */,
 				823DDEA213F8DA3100529AD2 /* LoginItemController.h */,
 				823DDEA313F8DA3100529AD2 /* LoginItemController.m */,
 				823DDEA413F8DA3100529AD2 /* MAAttachedWindow.h */,
@@ -1189,6 +1196,8 @@
 				43059224151E90DE00CC3F88 /* DockIcon.m */,
 				4313347B15BC2CC200659B4F /* ATSandboxing.h */,
 				4313347C15BC2CC200659B4F /* ATSandboxing.m */,
+				4398AF16173223700092A711 /* TaskOutputReader.h */,
+				4398AF17173223710092A711 /* TaskOutputReader.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1535,6 +1544,8 @@
 				4398AF0F1731E3DC0092A711 /* NSData+Base64.m in Sources */,
 				4398AF121731E9070092A711 /* ATSandboxing.m in Sources */,
 				4313347915BC295B00659B4F /* UserScript.m in Sources */,
+				4398AF1517321A630092A711 /* PlainUnixTask.m in Sources */,
+				4398AF18173223710092A711 /* TaskOutputReader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1612,6 +1623,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_ENTITLEMENTS = LiveReload.entitlements;
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1625,6 +1637,7 @@
 				INSTALL_PATH = "$(HOME)/Applications";
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = LiveReload;
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};

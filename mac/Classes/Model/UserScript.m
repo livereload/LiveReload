@@ -8,6 +8,9 @@
 #import "FixUnixPath.h"
 #import "NSTask+OneLineTasksWithOutput.h"
 
+#import "ATSandboxing.h"
+#import "PlainUnixTask.h"
+#import "TaskOutputReader.h"
 #import "stringutil.h"
 
 
@@ -55,47 +58,62 @@ NSString *const UserScriptErrorDomain = @"com.livereload.LiveReload.UserScript";
     return YES;
 }
 
-- (BOOL)invokeForProjectAtPath:(NSString *)projectPath withModifiedFiles:(NSSet *)paths output:(ToolOutput **)toolOutput error:(NSError **)err {
-    if (toolOutput)
-        *toolOutput = nil;
-    if (err)
-        *err = nil;
-    
+- (void)invokeForProjectAtPath:(NSString *)projectPath withModifiedFiles:(NSSet *)paths completionHandler:(UserScriptCompletionHandler)completionHandler {
     NSString *script = _path;
     NSLog(@"Running post-processing script: %@", script);
+
+    NSArray *args = [[NSArray arrayWithObject:projectPath] arrayByAddingObjectsFromArray:[paths allObjects]];
     
-    NSString *runDirectory = projectPath;
-    NSArray *args = [paths allObjects];
-    
-    NSError *error = nil;
-    NSString *pwd = [[NSFileManager defaultManager] currentDirectoryPath];
-    [[NSFileManager defaultManager] changeCurrentDirectoryPath:runDirectory];
     const char *project_path = [projectPath UTF8String];
     console_printf("Post-proc exec: %s %s", str_collapse_paths([script UTF8String], [projectPath UTF8String]), str_collapse_paths([[args componentsJoinedByString:@" "] UTF8String], [projectPath UTF8String]));
-    NSString *output = [NSTask stringByLaunchingPath:script
-                                       withArguments:args
-                                               error:&error];
-    [[NSFileManager defaultManager] changeCurrentDirectoryPath:pwd];
 
-    if (error) {
-        NSLog(@"Error: %@\nOutput:\n%@", [error description], output);
-        if ([error code] == kNSTaskProcessOutputError) {
-            if (toolOutput)
-                *toolOutput = [[ToolOutput alloc] initWithCompiler:nil type:ToolOutputTypeLog sourcePath:self.friendlyName line:0 message:nil output:output];
+    id userScript;
+    NSError *error = nil;
+    NSURL *scriptURL = [NSURL fileURLWithPath:_path];
+    if (ATIsSandboxed()) {
+        if (ATIsUserScriptsFolderSupported()) {
+            userScript = [[NSUserUnixTask alloc] initWithURL:scriptURL error:&error];
+        } else {
+            userScript = nil; // TODO
         }
-        if (err)
-            *err = error;
+    } else {
+        userScript = [[PlainUnixTask alloc] initWithURL:scriptURL error:&error];
     }
 
-    if ([output length] > 0) {
-        console_printf("\n%s\n\n", str_collapse_paths([output UTF8String], project_path));
-        NSLog(@"Post-processing output:\n%@\n", output);
+    if (userScript == nil) {
+        completionHandler(NO, nil, [NSError errorWithDomain:UserScriptErrorDomain code:UserScriptErrorInvalidScript userInfo:nil]);
+        return;
     }
-    if (error) {
-        console_printf("Post-processor failed.");
-        NSLog(@"Error: %@", [error description]);
-    }
-    return YES;
+
+    TaskOutputReader *outputReader = [[TaskOutputReader alloc] init];
+    [userScript setStandardOutput:outputReader.standardOutputPipe.fileHandleForWriting];
+    [userScript setStandardError:outputReader.standardErrorPipe.fileHandleForWriting];
+    [outputReader startReading];
+
+    [userScript executeWithArguments:args completionHandler:^(NSError *error) {
+        NSString *output = [outputReader.standardOutputText stringByAppendingString:outputReader.standardErrorText];
+        ToolOutput *toolOutput = nil;
+
+        if (error) {
+            NSLog(@"Error: %@\nOutput:\n%@", [error description], output);
+            toolOutput = [[ToolOutput alloc] initWithCompiler:nil type:ToolOutputTypeLog sourcePath:self.friendlyName line:0 message:nil output:output];
+        }
+
+        if ([output length] > 0) {
+            console_printf("\n%s\n\n", str_collapse_paths([output UTF8String], project_path));
+            NSLog(@"Post-processing output:\n%@\n", output);
+        }
+        if (error) {
+            if ([error.domain isEqualToString:NSCocoaErrorDomain] && error.code == NSFileReadNoPermissionError) {
+                console_printf("Post-processor script not supported, please check executable bit.");
+            } else {
+                console_printf("Post-processor failed.");
+            }
+            NSLog(@"Post-processor error: %@", [error description]);
+        }
+
+        completionHandler(YES, toolOutput, error);
+    }];
 }
 
 @end
@@ -129,10 +147,8 @@ NSString *const UserScriptErrorDomain = @"com.livereload.LiveReload.UserScript";
     return NO;
 }
 
-- (BOOL)invokeForProjectAtPath:(NSString *)path withModifiedFiles:(NSSet *)paths output:(ToolOutput **)output error:(NSError **)error {
-    if (error)
-        *error = [NSError errorWithDomain:UserScriptErrorDomain code:UserScriptErrorMissingScript userInfo:nil];
-    return NO;
+- (void)invokeForProjectAtPath:(NSString *)projectPath withModifiedFiles:(NSSet *)paths completionHandler:(UserScriptCompletionHandler)completionHandler {
+    completionHandler(NO, nil, [NSError errorWithDomain:UserScriptErrorDomain code:UserScriptErrorMissingScript userInfo:nil]);
 }
 
 @end

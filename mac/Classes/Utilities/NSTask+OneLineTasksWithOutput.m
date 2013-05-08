@@ -14,7 +14,7 @@
 
 #import "NSTask+OneLineTasksWithOutput.h"
 
-@interface TaskOutputReader :NSObject
+@interface NSTask_OneLineTaskWithOutput_TaskOutputReader :NSObject
 {
     NSMutableData *standardOutput;
     NSMutableData *standardError;
@@ -25,7 +25,7 @@
 }
 @end
 
-@implementation TaskOutputReader
+@implementation NSTask_OneLineTaskWithOutput_TaskOutputReader
 
 //
 // initWithTask:
@@ -247,7 +247,7 @@
     [task setStandardOutput:[NSPipe pipe]];
     [task setStandardError:[NSPipe pipe]];
 
-    TaskOutputReader *outputReader = [[TaskOutputReader alloc] initWithTask:task];
+    NSTask_OneLineTaskWithOutput_TaskOutputReader *outputReader = [[NSTask_OneLineTaskWithOutput_TaskOutputReader alloc] initWithTask:task];
 
     NSString *outputString = nil;
     NSString *errorString = nil;
