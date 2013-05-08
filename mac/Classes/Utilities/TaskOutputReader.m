@@ -8,6 +8,9 @@
 
     NSMutableData *_standardOutputData;
     NSMutableData *_standardErrorData;
+
+    BOOL _outputClosed;
+    BOOL _errorClosed;
 }
 
 @synthesize standardOutputPipe=_standardOutputPipe;
@@ -23,6 +26,22 @@
 
         _standardOutputData = [[NSMutableData alloc] init];
         _standardErrorData = [[NSMutableData alloc] init];
+    }
+    return self;
+}
+
+- (id)initWithTask:(id)task {
+    self = [self init];
+    if (self) {
+        Class _NSUserUnixTask = NSClassFromString(@"NSUserUnixTask");
+        if (_NSUserUnixTask && [task isKindOfClass:_NSUserUnixTask]) {
+            [task setStandardOutput:self.standardOutputPipe.fileHandleForWriting];
+            [task setStandardError:self.standardErrorPipe.fileHandleForWriting];
+        } else {
+            [task setStandardOutput:self.standardOutputPipe];
+            [task setStandardError:self.standardErrorPipe];
+        }
+        [self startReading];
     }
     return self;
 }
@@ -44,38 +63,61 @@
     [super dealloc];
 }
 
--(void)standardOutputNotification:(NSNotification *)notification {
-    NSFileHandle *standardOutputFile = (NSFileHandle *)[notification object];
-
-    NSData *availableData = [standardOutputFile availableData];
+- (void)processPendingOutputData {
+    NSData *availableData = [_standardOutputPipe.fileHandleForReading availableData];
     if ([availableData length] == 0) {
-//        outputClosed = YES;
-        return;
+        _outputClosed = YES;
+    } else {
+        [_standardOutputData appendData:availableData];
     }
+}
 
-    [_standardOutputData appendData:availableData];
-    [standardOutputFile waitForDataInBackgroundAndNotify];
+- (void)processPendingErrorData {
+    NSData *availableData = [_standardErrorPipe.fileHandleForReading availableData];
+    if ([availableData length] == 0) {
+        _errorClosed = YES;
+    } else {
+        [_standardErrorData appendData:availableData];
+    }
+}
+
+- (void)processPendingDataAndClosePipes {
+    if (_standardOutputPipe) {
+        [self processPendingOutputData];
+        [_standardOutputPipe release], _standardOutputPipe = nil;
+    }
+    if (_standardErrorPipe) {
+        [self processPendingErrorData];
+        [_standardErrorPipe release], _standardErrorPipe = nil;
+    }
+}
+
+-(void)standardOutputNotification:(NSNotification *)notification {
+    [self processPendingOutputData];
+
+    if (!_outputClosed)
+        [_standardOutputPipe.fileHandleForReading waitForDataInBackgroundAndNotify];
 }
 
 -(void)standardErrorNotification:(NSNotification *)notification {
-    NSFileHandle *standardErrorFile = (NSFileHandle *)[notification object];
+    [self processPendingErrorData];
 
-    NSData *availableData = [standardErrorFile availableData];
-    if ([availableData length] == 0) {
-//        errorClosed = YES;
-        return;
-    }
-
-    [_standardErrorData appendData:availableData];
-    [standardErrorFile waitForDataInBackgroundAndNotify];
+    if (!_errorClosed)
+        [_standardErrorPipe.fileHandleForReading waitForDataInBackgroundAndNotify];
 }
 
 - (NSString *)standardOutputText {
+    [self processPendingDataAndClosePipes];
     return [[[NSString alloc] initWithData:_standardOutputData encoding:NSUTF8StringEncoding] autorelease];
 }
 
 - (NSString *)standardErrorText {
+    [self processPendingDataAndClosePipes];
     return [[[NSString alloc] initWithData:_standardErrorData encoding:NSUTF8StringEncoding] autorelease];
+}
+
+- (NSString *)combinedOutputText {
+    return [[self standardOutputText] stringByAppendingString:[self standardErrorText]];
 }
 
 @end

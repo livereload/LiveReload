@@ -13,9 +13,10 @@ enum {
 @property(strong, readonly) NSURL *url;
 
 // Standard I/O streams.  Setting them to nil (the default) will bind them to /dev/null.
-@property(strong) NSFileHandle *standardInput;
-@property(strong) NSFileHandle *standardOutput;
-@property(strong) NSFileHandle *standardError;
+// NSFileHandle or NSPipe
+@property(strong) id standardInput;
+@property(strong) id standardOutput;
+@property(strong) id standardError;
 
 // Execute the file with the given arguments.  "arguments" is an array of NSStrings.  The arguments do not undergo shell expansion, so you do not need to do special quoting, and shell variables are not resolved.
 typedef void (^PlainUnixTaskCompletionHandler)(NSError *error);

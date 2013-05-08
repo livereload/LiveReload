@@ -34,10 +34,10 @@
     [task setArguments:arguments];
 
     // standard input is required, otherwise everything just hangs
-    [task setStandardInput:self.standardInput ?: [NSPipe pipe]];
+    [task setStandardInput:self.standardInput ?: [NSFileHandle fileHandleWithNullDevice]];
 
-    [task setStandardOutput:self.standardOutput];
-    [task setStandardError:self.standardError];
+    [task setStandardOutput:self.standardOutput ?: [NSFileHandle fileHandleWithNullDevice]];
+    [task setStandardError:self.standardError ?: [NSFileHandle fileHandleWithNullDevice]];
 
     task.terminationHandler = ^(NSTask *task) {
         NSError *error = nil;

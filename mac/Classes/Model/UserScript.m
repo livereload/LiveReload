@@ -64,7 +64,6 @@ NSString *const UserScriptErrorDomain = @"com.livereload.LiveReload.UserScript";
 
     NSArray *args = [[NSArray arrayWithObject:projectPath] arrayByAddingObjectsFromArray:[paths allObjects]];
     
-    const char *project_path = [projectPath UTF8String];
     console_printf("Post-proc exec: %s %s", str_collapse_paths([script UTF8String], [projectPath UTF8String]), str_collapse_paths([[args componentsJoinedByString:@" "] UTF8String], [projectPath UTF8String]));
 
     id userScript;
@@ -91,28 +90,30 @@ NSString *const UserScriptErrorDomain = @"com.livereload.LiveReload.UserScript";
     [outputReader startReading];
 
     [userScript executeWithArguments:args completionHandler:^(NSError *error) {
-        NSString *output = [outputReader.standardOutputText stringByAppendingString:outputReader.standardErrorText];
-        ToolOutput *toolOutput = nil;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSString *output = [outputReader.standardOutputText stringByAppendingString:outputReader.standardErrorText];
+            ToolOutput *toolOutput = nil;
 
-        if (error) {
-            NSLog(@"Error: %@\nOutput:\n%@", [error description], output);
-            toolOutput = [[ToolOutput alloc] initWithCompiler:nil type:ToolOutputTypeLog sourcePath:self.friendlyName line:0 message:nil output:output];
-        }
-
-        if ([output length] > 0) {
-            console_printf("\n%s\n\n", str_collapse_paths([output UTF8String], project_path));
-            NSLog(@"Post-processing output:\n%@\n", output);
-        }
-        if (error) {
-            if ([error.domain isEqualToString:NSCocoaErrorDomain] && error.code == NSFileReadNoPermissionError) {
-                console_printf("Post-processor script not supported, please check executable bit.");
-            } else {
-                console_printf("Post-processor failed.");
+            if (error) {
+                NSLog(@"Error: %@\nOutput:\n%@", [error description], output);
+                toolOutput = [[ToolOutput alloc] initWithCompiler:nil type:ToolOutputTypeLog sourcePath:self.friendlyName line:0 message:nil output:output];
             }
-            NSLog(@"Post-processor error: %@", [error description]);
-        }
 
-        completionHandler(YES, toolOutput, error);
+            if ([output length] > 0) {
+                console_printf("\n%s\n\n", str_collapse_paths([output UTF8String], [projectPath UTF8String]));
+                NSLog(@"Post-processing output:\n%@\n", output);
+            }
+            if (error) {
+                if ([error.domain isEqualToString:NSCocoaErrorDomain] && error.code == NSFileReadNoPermissionError) {
+                    console_printf("Post-processor script not supported, please check executable bit.");
+                } else {
+                    console_printf("Post-processor failed.");
+                }
+                NSLog(@"Post-processor error: %@", [error description]);
+            }
+            
+            completionHandler(YES, toolOutput, error);
+        });
     }];
 }
 
