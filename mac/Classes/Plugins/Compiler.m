@@ -7,7 +7,7 @@
 #import "CompilationOptions.h"
 #import "ToolOutput.h"
 #import "Project.h"
-#import "RubyVersion.h"
+#import "RubyRuntimes.h"
 #import "ToolOptions.h"
 
 #import "OldFSTree.h"
@@ -166,8 +166,8 @@
     NSString *sourcePath = [rootPath stringByAppendingPathComponent:sourceRelPath];
     NSString *destinationPath = [rootPath stringByAppendingPathComponent:destinationRelPath];
 
-    RubyVersion *rubyVersion = [RubyVersion rubyVersionWithIdentifier:project.rubyVersionIdentifier];
-    NSString *rubyPath = (rubyVersion.valid ? rubyVersion.executablePath : @"__!RUBY_NOT_FOUND!__");
+    RuntimeInstance *rubyInstance = [[RubyManager sharedRubyManager] instanceIdentifiedBy:project.rubyVersionIdentifier];
+    NSString *rubyPath = (rubyInstance.valid ? rubyInstance.executablePath : @"__!RUBY_NOT_FOUND!__");
 
     NSMutableDictionary *info = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                  rubyPath, @"$(ruby)",
@@ -209,7 +209,7 @@
     }
 
     BOOL rubyInUse = [[arguments componentsJoinedByString:@" "] rangeOfString:rubyPath].length > 0;
-    if (rubyInUse && !rubyVersion.valid) {
+    if (rubyInUse && !rubyInstance.valid) {
         NSLog(@"Ruby version '%@' does not exist, refusing to run.", project.rubyVersionIdentifier);
         *compilerOutput = [[ToolOutput alloc] initWithCompiler:self type:ToolOutputTypeError sourcePath:sourcePath line:0 message:@"Ruby not found. Please visit this project's compiler settings and choose another Ruby interpreter" output:@""];
         return;

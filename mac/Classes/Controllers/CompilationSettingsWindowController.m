@@ -3,11 +3,11 @@
 
 #import "PluginManager.h"
 #import "Compiler.h"
-#import "RubyVersion.h"
 #import "ToolOptions.h"
 #import "CompilationOptions.h"
 #import "FileCompilationOptions.h"
 #import "Project.h"
+#import "RubyRuntimes.h"
 
 #import "UIBuilder.h"
 #import "sglib.h"
@@ -47,8 +47,7 @@ void compilable_file_free(compilable_file_t *file) {
 
 @interface CompilationSettingsWindowController () <NSTabViewDelegate, NSTableViewDataSource, NSTableViewDelegate, NSWindowDelegate, NSTextFieldDelegate> {
     NSArray               *_compilerOptions;
-    BOOL                   _populatingRubyVersions;
-    NSArray               *_rubyVersions;
+    NSArray               *_rubyInstances;
 
     CGFloat                _compilerSettingsWindowHeight;
     CGFloat                _outputPathsWindowHeight;
@@ -89,7 +88,6 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
 
 - (void)dealloc {
     [_compilerOptions release], _compilerOptions = nil;
-    [_rubyVersions release], _rubyVersions = nil;
     kv_each(compilable_file_t *, _fileList, file, compilable_file_free(file));
     kv_init(_fileList);
     [super dealloc];
@@ -194,49 +192,41 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
 #pragma mark - Tool Versions
 
 - (void)populateRubyVersions {
-    if (_populatingRubyVersions)
-        return;
-    _populatingRubyVersions = YES;
+    RubyManager *rubyManager = [RubyManager sharedRubyManager];
+    _rubyInstances = [rubyManager.instances copy];
 
-    if (_rubyVersionsPopUpButton.tag != 0x101) {
-        _rubyVersionsPopUpButton.tag = 0x101;
-        [_rubyVersionsPopUpButton removeAllItems];
-        [_rubyVersionsPopUpButton addItemWithTitle:@"Loading…"];
-        [_rubyVersionsPopUpButton setEnabled:NO];
+    // find the selected item
+    NSInteger selectedIndex = -1, index = 0;
+    for (RubyInstance *instance in _rubyInstances) {
+        if ([_project.rubyVersionIdentifier isEqualToString:instance.identifier])
+            selectedIndex = index;
+        ++index;
     }
 
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
-        NSArray *version = [[RubyVersion availableRubyVersions] retain];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [_rubyVersions release], _rubyVersions = version;
+    // add if not found
+    if (selectedIndex < 0) {
+        // TODO: add ‘missing’ item
+//        RubyVersion *version = [RubyVersion rubyVersionWithIdentifier:_project.rubyVersionIdentifier];
+//        [_rubyVersions autorelease];
+//        _rubyVersions = [[[NSArray arrayWithObject:version] arrayByAddingObjectsFromArray:_rubyVersions] retain];
+//        selectedIndex = 0;
+    }
 
-            // find the selected item
-            NSInteger selectedIndex = -1, index = 0;
-            for (RubyVersion *version in _rubyVersions) {
-                if ([_project.rubyVersionIdentifier isEqualToString:version.identifier])
-                    selectedIndex = index;
-                ++index;
-            }
 
-            // add if not found
-            if (selectedIndex < 0) {
-                RubyVersion *version = [RubyVersion rubyVersionWithIdentifier:_project.rubyVersionIdentifier];
-                [_rubyVersions autorelease];
-                _rubyVersions = [[[NSArray arrayWithObject:version] arrayByAddingObjectsFromArray:_rubyVersions] retain];
-                selectedIndex = 0;
-            }
+    NSArray *titles = [_rubyInstances valueForKeyPath:@"title"];
 
-            // might involve invocation of Rubies, so do this before removeAllItems to avoid flicker
-            NSArray *titles = [_rubyVersions valueForKeyPath:@"displayTitle"];
-
-            [_rubyVersionsPopUpButton removeAllItems];
-            [_rubyVersionsPopUpButton addItemsWithTitles:titles];
-            [_rubyVersionsPopUpButton setEnabled:YES];
-            [_rubyVersionsPopUpButton selectItemAtIndex:selectedIndex];
-
-            _populatingRubyVersions = NO;
-        });
-    });
+    [_rubyVersionsPopUpButton removeAllItems];
+    if ([_rubyInstances count] > 0) {
+        [_rubyVersionsPopUpButton addItemsWithTitles:titles];
+        [_rubyVersionsPopUpButton setEnabled:YES];
+//        [_rubyVersionsPopUpButton selectItemAtIndex:selectedIndex];
+    } else {
+        if (_rubyVersionsPopUpButton.tag != 0x101) {
+            _rubyVersionsPopUpButton.tag = 0x101;
+            [_rubyVersionsPopUpButton addItemWithTitle:@"Loading…"];
+            [_rubyVersionsPopUpButton setEnabled:NO];
+        }
+    }
 }
 
 - (void)populateToolVersions {
@@ -250,8 +240,8 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
     NSInteger index = [_rubyVersionsPopUpButton indexOfSelectedItem];
     if (index < 0)
         return;
-    RubyVersion *version = [_rubyVersions objectAtIndex:index];
-    _project.rubyVersionIdentifier = version.identifier;
+    RubyInstance *instance = [_rubyInstances objectAtIndex:index];
+    _project.rubyVersionIdentifier = instance.identifier;
 }
 
 
