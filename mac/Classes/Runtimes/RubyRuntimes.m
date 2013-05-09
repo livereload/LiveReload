@@ -7,17 +7,6 @@
 #import "NSData+Base64.h"
 
 
-NSString *RubyVersionAtPath(NSString *executablePath) {
-    NSError *error = nil;
-    NSArray *components = [[[NSTask stringByLaunchingPath:executablePath withArguments:[NSArray arrayWithObject:@"--version"] error:&error] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    if (error)
-        return nil;
-    if ([[components objectAtIndex:0] isEqualToString:@"ruby"] && components.count > 1)
-        return [components objectAtIndex:1];
-    return nil;
-}
-
-
 @implementation RubyManager {
     NSMutableDictionary *_instancesByIdentifier;
     NSMutableArray *_instances;
@@ -112,18 +101,3 @@ RubyManager *sharedRubyManager;
 }
 
 @end
-
-//- (void)validate {
-//    NSFileManager *fm = [NSFileManager defaultManager];
-//    _valid = [fm fileExistsAtPath:[self executablePath]];
-//}
-//
-//- (NSString *)title {
-//    if (_versionName == nil) {
-//        _versionName = [RubyVersionAtPath(self.executablePath) retain];
-//    }
-//    if (self.valid && _versionName)
-//        return [NSString stringWithFormat:@"System Ruby %@", _versionName];
-//    else
-//        return @"System Ruby";
-//}
