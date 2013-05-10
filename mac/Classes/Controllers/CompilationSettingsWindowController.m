@@ -47,7 +47,9 @@ void compilable_file_free(compilable_file_t *file) {
 
 @interface CompilationSettingsWindowController () <NSTabViewDelegate, NSTableViewDataSource, NSTableViewDelegate, NSWindowDelegate, NSTextFieldDelegate> {
     NSArray               *_compilerOptions;
+
     NSArray               *_rubyInstances;
+    NSInteger              _addRubyMenuItemIndex;
 
     CGFloat                _compilerSettingsWindowHeight;
     CGFloat                _outputPathsWindowHeight;
@@ -97,12 +99,14 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
     _outputPathsWindowHeight = _tabView.frame.size.height;
     [_project requestMonitoring:YES forKey:@"compilationSettings"];
     EVENTBUS_OBJC_SUBSCRIBE(CompilationSettingsWindowController, project_fs_change_event);
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rubiesDidChange:) name:LRRuntimesDidChangeNotification object:nil];
     [super windowDidLoad];
 }
 
 - (IBAction)dismiss:(id)sender {
     [_project requestMonitoring:NO forKey:@"compilationSettings"];
     EVENTBUS_OBJC_UNSUBSCRIBE(CompilationSettingsWindowController, project_fs_change_event);
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:LRRuntimesDidChangeNotification object:nil];
     [super dismiss:sender];
 }
 
@@ -191,40 +195,78 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
 
 #pragma mark - Tool Versions
 
+- (void)rubiesDidChange:(NSNotification *)notification {
+    [self populateRubyVersions];
+}
+
 - (void)populateRubyVersions {
-    RubyManager *rubyManager = [RubyManager sharedRubyManager];
-    _rubyInstances = [rubyManager.instances copy];
+    NSMutableArray *rubyInstancesByIndex = [[NSMutableArray alloc] init];
+    _rubyInstances = rubyInstancesByIndex;
 
-    // find the selected item
-    NSInteger selectedIndex = -1, index = 0;
-    for (RubyInstance *instance in _rubyInstances) {
-        if ([_project.rubyVersionIdentifier isEqualToString:instance.identifier])
-            selectedIndex = index;
-        ++index;
-    }
+    NSArray *rubyInstances = [RubyManager sharedRubyManager].instances;
 
-    // add if not found
-    if (selectedIndex < 0) {
-        // TODO: add ‘missing’ item
-//        RubyVersion *version = [RubyVersion rubyVersionWithIdentifier:_project.rubyVersionIdentifier];
-//        [_rubyVersions autorelease];
-//        _rubyVersions = [[[NSArray arrayWithObject:version] arrayByAddingObjectsFromArray:_rubyVersions] retain];
-//        selectedIndex = 0;
-    }
-
-
-    NSArray *titles = [_rubyInstances valueForKeyPath:@"title"];
+//    NSMutableArray *titles = [_rubyInstances valueForKeyPath:@"title"];
 
     [_rubyVersionsPopUpButton removeAllItems];
-    if ([_rubyInstances count] > 0) {
-        [_rubyVersionsPopUpButton addItemsWithTitles:titles];
+    if ([rubyInstances count] > 0) {
+        for (RubyInstance *instance in rubyInstances) {
+            [_rubyVersionsPopUpButton addItemWithTitle:instance.title];
+            [rubyInstancesByIndex addObject:instance];
+        }
+
+        [[_rubyVersionsPopUpButton menu] addItem:[NSMenuItem separatorItem]];
+        [rubyInstancesByIndex addObject:[NSNull null]];
+
+        _addRubyMenuItemIndex = [_rubyVersionsPopUpButton numberOfItems];
+        [_rubyVersionsPopUpButton addItemWithTitle:@"Add Ruby..."];
+        [rubyInstancesByIndex addObject:[NSNull null]];
+
+        RuntimeInstance *selectedInstance = [[RubyManager sharedRubyManager] instanceIdentifiedBy:_project.rubyVersionIdentifier];
+        NSInteger selectedIndex = [rubyInstancesByIndex indexOfObject:selectedInstance];
+
+        // add if not found
+        if (selectedIndex == NSNotFound) {
+            selectedIndex = 0;
+
+            [_rubyVersionsPopUpButton insertItemWithTitle:selectedInstance.title atIndex:selectedIndex];
+            [rubyInstancesByIndex insertObject:selectedInstance atIndex:selectedIndex];
+        }
+
         [_rubyVersionsPopUpButton setEnabled:YES];
-//        [_rubyVersionsPopUpButton selectItemAtIndex:selectedIndex];
+        [_rubyVersionsPopUpButton selectItemAtIndex:selectedIndex];
     } else {
         if (_rubyVersionsPopUpButton.tag != 0x101) {
             _rubyVersionsPopUpButton.tag = 0x101;
             [_rubyVersionsPopUpButton addItemWithTitle:@"Loading…"];
             [_rubyVersionsPopUpButton setEnabled:NO];
+        }
+    }
+}
+
+- (void)restoreRubySelection {
+    RuntimeInstance *selectedInstance = [[RubyManager sharedRubyManager] instanceIdentifiedBy:_project.rubyVersionIdentifier];
+    NSInteger selectedIndex = [_rubyInstances indexOfObject:selectedInstance];
+    if (selectedIndex != NSNotFound)
+        [_rubyVersionsPopUpButton selectItemAtIndex:selectedIndex];
+}
+
+- (void)addCustomRuby {
+    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+    [openPanel setCanChooseDirectories:YES];
+    [openPanel setCanCreateDirectories:NO];
+    [openPanel setTitle:@"Add Ruby Version"];
+    [openPanel setMessage:@"Choose the ROOT folder of the Ruby installation (with ‘bin’, ‘lib’ etc subfolders)"];
+    [openPanel setPrompt:@"Add Ruby"];
+    [openPanel setCanChooseFiles:NO];
+    [openPanel setTreatsFilePackagesAsDirectories:YES];
+
+    NSInteger result = [openPanel runModal];
+    if (result == NSFileHandlingPanelOKButton) {
+        NSURL *url = [openPanel URL];
+        RuntimeInstance *instance = [[RubyManager sharedRubyManager] addCustomRubyAtURL:url];
+        if (instance) {
+            _project.rubyVersionIdentifier = instance.identifier;
+            [self populateRubyVersions];
         }
     }
 }
@@ -240,8 +282,18 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
     NSInteger index = [_rubyVersionsPopUpButton indexOfSelectedItem];
     if (index < 0)
         return;
+
+    if (index == _addRubyMenuItemIndex) {
+        [self restoreRubySelection];
+        [self addCustomRuby];
+        return;
+    }
+
     RubyInstance *instance = [_rubyInstances objectAtIndex:index];
-    _project.rubyVersionIdentifier = instance.identifier;
+    if ([instance isKindOfClass:[RubyInstance class]])
+        _project.rubyVersionIdentifier = instance.identifier;
+
+    [self populateRubyVersions];
 }
 
 

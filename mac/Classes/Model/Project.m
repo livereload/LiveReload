@@ -171,9 +171,8 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
             _postProcessingEnabled = [_postProcessingScriptName length] > 0 || [_postProcessingCommand length] > 0;
         }
 
-        if ([memento objectForKey:@"rubyVersion"])
-            _rubyVersionIdentifier = [[memento objectForKey:@"rubyVersion"] copy];
-        else
+        _rubyVersionIdentifier = [[memento objectForKey:@"rubyVersion"] copy];
+        if ([_rubyVersionIdentifier length] == 0)
             _rubyVersionIdentifier = @"system";
 
         _importGraph = [[ImportGraph alloc] init];

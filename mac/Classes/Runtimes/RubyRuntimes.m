@@ -5,11 +5,13 @@
 #import "PlainUnixTask.h"
 #import "TaskOutputReader.h"
 #import "NSData+Base64.h"
+#import "ATFunctionalStyle.h"
 
 
 @implementation RubyManager {
     NSMutableDictionary *_instancesByIdentifier;
     NSMutableArray *_instances;
+    NSMutableArray *_customInstances;
 }
 
 RubyManager *sharedRubyManager;
@@ -24,7 +26,9 @@ RubyManager *sharedRubyManager;
 - (void)addInstance:(RuntimeInstance *)instance {
     [_instances addObject:instance];
     [_instancesByIdentifier setObject:instance forKey:instance.identifier];
+    instance.manager = self;
     [instance validate];
+    [self runtimesDidChange];
 }
 
 - (RuntimeInstance *)addCustomRubyAtURL:(NSURL *)url {
@@ -42,6 +46,7 @@ RubyManager *sharedRubyManager;
         @"bookmark": bookmark,
     }];
     [self addInstance:instance];
+    [_customInstances addObject:instance];
     return instance;
 }
 
@@ -50,6 +55,7 @@ RubyManager *sharedRubyManager;
     if (self) {
         _instancesByIdentifier = [[NSMutableDictionary alloc] init];
         _instances = [[NSMutableArray alloc] init];
+        _customInstances = [[NSMutableArray alloc] init];
 
         [self addInstance:[[RubyInstance alloc] initWithDictionary:@{
             @"identifier": @"system",
@@ -58,18 +64,70 @@ RubyManager *sharedRubyManager;
         }]];
 
         sharedRubyManager = [self retain];
+        [self load];
     }
     return self;
 }
 
 - (RuntimeInstance *)instanceIdentifiedBy:(NSString *)identifier {
-    return [_instancesByIdentifier objectForKey:identifier];
+    RuntimeInstance *result = [_instancesByIdentifier objectForKey:identifier];
+    if (!result)
+        result = [[MissingRuntimeInstance alloc] initWithDictionary:@{@"identifier": identifier}];
+    return result;
+}
+
+- (void)runtimesDidChange {
+    [super runtimesDidChange];
+}
+
+- (NSDictionary *)memento {
+    return @{@"customRubies": [_customInstances valueForKey:@"memento"]};
+}
+
+- (RuntimeInstance *)newInstanceWithDictionary:(NSDictionary *)memento {
+    return [[RubyInstance alloc] initWithDictionary:memento];
+}
+
+- (void)setMemento:(NSDictionary *)dictionary {
+    for (NSDictionary *instanceMemento in dictionary[@"customRubies"]) {
+        RubyInstance *instance = (RubyInstance *) [self newInstanceWithDictionary:instanceMemento];
+        if (instance) {
+            [instance resolveBookmark];
+            [_customInstances addObject:instance];
+            [self addInstance:instance];
+        }
+    }
+    [self runtimesDidChange];
 }
 
 @end
 
 
 @implementation RubyInstance
+
+- (void)resolveBookmark {
+    NSString *bookmarkString = self.memento[@"bookmark"];
+    if (bookmarkString) {
+        NSData *bookmark = [NSData dataFromBase64String:bookmarkString];
+
+        BOOL stale = NO;
+        NSError *error;
+        NSURL *url = [NSURL URLByResolvingBookmarkData:bookmark options:NSURLBookmarkResolutionWithSecurityScope relativeToURL:nil bookmarkDataIsStale:&stale error:&error];
+        if (url) {
+            self.executablePath = [[url path] stringByAppendingPathComponent:@"bin/ruby"];
+            self.memento[@"executablePath"] = self.executablePath;
+
+            if (stale) {
+                bookmarkString = [[url bookmarkDataWithOptions:NSURLBookmarkCreationWithSecurityScope|NSURLBookmarkCreationSecurityScopeAllowOnlyReadAccess includingResourceValuesForKeys:nil relativeToURL:nil error:&error] base64EncodedString];
+                if (bookmarkString) {
+                    self.memento[@"bookmark"] = bookmarkString;
+                }
+            }
+
+            [url startAccessingSecurityScopedResource];
+        }
+    }
+}
 
 - (void)doValidate {
     NSError *error;
@@ -81,6 +139,7 @@ RubyManager *sharedRubyManager;
 
     TaskOutputReader *reader = [[TaskOutputReader alloc] initWithTask:task];
     [task executeWithArguments:@[@"--version"] completionHandler:^(NSError *error) {
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2000 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
         dispatch_async(dispatch_get_main_queue(), ^{
             NSArray *components = [[reader.standardOutputText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
             NSString *combinedOutput = reader.combinedOutputText;

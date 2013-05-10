@@ -12,10 +12,20 @@ enum {
     LRRuntimeManagerErrorValidationFailed = 1,
 };
 
+extern NSString *const LRRuntimesDidChangeNotification;
+
+void PostRuntimesDidChangeNotification();
+
 
 @interface RuntimeManager : NSObject
 
+- (void)load;
+
 - (RuntimeInstance *)instanceIdentifiedBy:(NSString *)identifier;
+
+- (void)runtimesDidChange;
+
+- (RuntimeInstance *)newInstanceWithDictionary:(NSDictionary *)memento;
 
 @end
 
@@ -23,9 +33,9 @@ enum {
 @interface RuntimeInstance : NSObject
 
 @property(nonatomic, readonly) NSString *identifier;
-@property(nonatomic, readonly) NSString *executablePath;
+@property(nonatomic, strong) NSString *executablePath;
 @property(nonatomic, readonly) NSURL *executableURL;
-@property(nonatomic, readonly) NSString *basicTitle;  // sans version number
+@property(nonatomic, strong) NSString *basicTitle;  // sans version number
 
 @property(nonatomic, assign) BOOL validationInProgress;
 @property(nonatomic, assign) BOOL validationPerformed;
@@ -34,6 +44,10 @@ enum {
 
 @property(nonatomic, readonly) NSString *statusQualifier;
 @property(nonatomic, readonly) NSString *title;
+
+@property(nonatomic, readonly) NSMutableDictionary *memento;
+
+@property(nonatomic, strong, __unsafe_unretained) RuntimeManager *manager;
 
 - (id)initWithDictionary:(NSDictionary *)data;
 
@@ -46,6 +60,10 @@ enum {
 //@property(nonatomic, readonly) NSArray *librarySets;
 //
 
+@end
+
+
+@interface MissingRuntimeInstance : RuntimeInstance
 @end
 
 //

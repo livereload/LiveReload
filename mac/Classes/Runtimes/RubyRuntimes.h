@@ -19,4 +19,6 @@ NSString *RubyVersionAtPath(NSString *executablePath);
 
 @interface RubyInstance : RuntimeInstance
 
+- (void)resolveBookmark;
+
 @end
