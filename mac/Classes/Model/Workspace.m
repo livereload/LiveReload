@@ -75,7 +75,7 @@ void C_workspace__set_monitoring_enabled(json_t *arg) {
 #pragma mark Persistence
 
 - (NSString *)dataFilePath {
-    return [[NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"Data/livereload.json"];
+    return [[NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"LiveReload/Data/livereload.json"];
 }
 
 - (void)save {
