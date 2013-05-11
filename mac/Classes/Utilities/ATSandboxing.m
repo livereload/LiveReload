@@ -66,3 +66,36 @@ BOOL ATOSVersionAtLeast(int major, int minor, int revision) {
 BOOL ATOSVersionLessThan(int major, int minor, int revision) {
     return ATOSVersion() < ATVersionMake(major, minor, revision);
 }
+
+
+@implementation NSString (ATSandboxing)
+
+- (NSString *)stringByAbbreviatingTildeInPathUsingRealHomeDirectory {
+    NSString *realHome = ATRealHomeDirectory();
+
+    NSUInteger ourLength = self.length;
+    NSUInteger homeLength = realHome.length;
+
+    if (ourLength < realHome.length)
+        return self;
+    if ([[self substringToIndex:homeLength] isEqualToString:realHome]) {
+        if (ourLength == homeLength)
+            return @"~";
+        else if ([self characterAtIndex:homeLength] == '/')
+            return [@"~" stringByAppendingString:[self substringFromIndex:homeLength]];
+    }
+    return self;
+}
+
+- (NSString *)stringByExpandingTildeInPathUsingRealHomeDirectory {
+    NSString *realHome = ATRealHomeDirectory();
+    if ([self length] > 0 && [self characterAtIndex:0] == '~') {
+        if ([self length] == 1)
+            return realHome;
+        else if ([self characterAtIndex:1] == '/')
+            return [realHome stringByAppendingPathComponent:[self substringFromIndex:2]];
+    }
+    return self;
+}
+
+@end

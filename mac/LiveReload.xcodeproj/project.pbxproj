@@ -123,6 +123,8 @@
 		436D734B173DE61400F78A23 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 436D734A173DE61400F78A23 /* PreferencesController.m */; };
 		436D734F173DE74000F78A23 /* RubyPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 436D734D173DE74000F78A23 /* RubyPreferencesViewController.m */; };
 		436D7350173DE74000F78A23 /* RubyPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 436D734E173DE74000F78A23 /* RubyPreferencesViewController.xib */; };
+		436D7357173DF3D200F78A23 /* AddCustomRubySheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 436D7355173DF3D200F78A23 /* AddCustomRubySheet.m */; };
+		436D7358173DF3D200F78A23 /* AddCustomRubySheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 436D7356173DF3D200F78A23 /* AddCustomRubySheet.xib */; };
 		4376A0E2146DF1C800338AD4 /* TitleBarHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */; };
 		4378C8D11515205C003187D5 /* OldFSMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CA1515205C003187D5 /* OldFSMonitor.m */; };
 		4378C8D21515205C003187D5 /* OldFSTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CC1515205C003187D5 /* OldFSTree.m */; };
@@ -430,6 +432,9 @@
 		436D734C173DE74000F78A23 /* RubyPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RubyPreferencesViewController.h; sourceTree = "<group>"; };
 		436D734D173DE74000F78A23 /* RubyPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RubyPreferencesViewController.m; sourceTree = "<group>"; };
 		436D734E173DE74000F78A23 /* RubyPreferencesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RubyPreferencesViewController.xib; sourceTree = "<group>"; };
+		436D7354173DF3D200F78A23 /* AddCustomRubySheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCustomRubySheet.h; sourceTree = "<group>"; };
+		436D7355173DF3D200F78A23 /* AddCustomRubySheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCustomRubySheet.m; sourceTree = "<group>"; };
+		436D7356173DF3D200F78A23 /* AddCustomRubySheet.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddCustomRubySheet.xib; sourceTree = "<group>"; };
 		4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TitleBarHelpTemplate.png; sourceTree = "<group>"; };
 		4378C8C91515205C003187D5 /* OldFSMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldFSMonitor.h; sourceTree = "<group>"; };
 		4378C8CA1515205C003187D5 /* OldFSMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldFSMonitor.m; sourceTree = "<group>"; };
@@ -1037,6 +1042,9 @@
 				436D734C173DE74000F78A23 /* RubyPreferencesViewController.h */,
 				436D734D173DE74000F78A23 /* RubyPreferencesViewController.m */,
 				436D734E173DE74000F78A23 /* RubyPreferencesViewController.xib */,
+				436D7354173DF3D200F78A23 /* AddCustomRubySheet.h */,
+				436D7355173DF3D200F78A23 /* AddCustomRubySheet.m */,
+				436D7356173DF3D200F78A23 /* AddCustomRubySheet.xib */,
 			);
 			path = Rubies;
 			sourceTree = "<group>";
@@ -1555,6 +1563,7 @@
 				431CB53E16D1EF8200034877 /* Stylus.lrplugin in Resources */,
 				436D7340173DE30900F78A23 /* MASPreferencesWindow.xib in Resources */,
 				436D7350173DE74000F78A23 /* RubyPreferencesViewController.xib in Resources */,
+				436D7358173DF3D200F78A23 /* AddCustomRubySheet.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1712,6 +1721,7 @@
 				436D7341173DE30900F78A23 /* MASPreferencesWindowController.m in Sources */,
 				436D734B173DE61400F78A23 /* PreferencesController.m in Sources */,
 				436D734F173DE74000F78A23 /* RubyPreferencesViewController.m in Sources */,
+				436D7357173DF3D200F78A23 /* AddCustomRubySheet.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
