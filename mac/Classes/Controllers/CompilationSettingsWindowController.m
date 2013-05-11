@@ -203,7 +203,7 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
     NSMutableArray *rubyInstancesByIndex = [[NSMutableArray alloc] init];
     _rubyInstances = rubyInstancesByIndex;
 
-    NSArray *rubyInstances = [RubyManager sharedRubyManager].instances;
+    NSArray *rubyInstances = [OldRubyManager sharedRubyManager].instances;
 
 //    NSMutableArray *titles = [_rubyInstances valueForKeyPath:@"title"];
 
@@ -223,7 +223,7 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
         [[_rubyVersionsPopUpButton menu] addItemWithTitle:@"Add Ruby..." action:@selector(addCustomRuby) keyEquivalent:@""];
         [rubyInstancesByIndex addObject:[NSNull null]];
 
-        RuntimeInstance *selectedInstance = [[RubyManager sharedRubyManager] instanceIdentifiedBy:_project.rubyVersionIdentifier];
+        RuntimeInstance *selectedInstance = [[OldRubyManager sharedRubyManager] instanceIdentifiedBy:_project.rubyVersionIdentifier];
         NSInteger selectedIndex = [rubyInstancesByIndex indexOfObject:selectedInstance];
 
         // add if not found
@@ -246,7 +246,7 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
 }
 
 - (void)restoreRubySelection {
-    RuntimeInstance *selectedInstance = [[RubyManager sharedRubyManager] instanceIdentifiedBy:_project.rubyVersionIdentifier];
+    RuntimeInstance *selectedInstance = [[OldRubyManager sharedRubyManager] instanceIdentifiedBy:_project.rubyVersionIdentifier];
     NSInteger selectedIndex = [_rubyInstances indexOfObject:selectedInstance];
     if (selectedIndex != NSNotFound)
         [_rubyVersionsPopUpButton selectItemAtIndex:selectedIndex];
@@ -272,7 +272,7 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
     NSInteger result = [openPanel runModal];
     if (result == NSFileHandlingPanelOKButton) {
         NSURL *url = [openPanel URL];
-        RuntimeInstance *instance = [[RubyManager sharedRubyManager] addCustomRubyAtURL:url];
+        RuntimeInstance *instance = [[OldRubyManager sharedRubyManager] addCustomRubyAtURL:url];
         if (instance) {
             _project.rubyVersionIdentifier = instance.identifier;
             [self populateRubyVersions];
@@ -296,7 +296,7 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
     NSInteger result = [openPanel runModal];
     if (result == NSFileHandlingPanelOKButton) {
         NSURL *url = [openPanel URL];
-        [[RubyManager sharedRubyManager] addRvmContainerAtURL:url];
+//        [[OldRubyManager sharedRubyManager] addRvmContainerAtURL:url];
     }
 }
 

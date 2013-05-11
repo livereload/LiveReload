@@ -5,7 +5,7 @@
 extern NSString *const LRRuntimeContainerDidChangeNotification;
 
 
-@interface NRuntimeContainer : NSObject
+@interface RuntimeContainer : NSObject
 
 - (id)initWithDictionary:(NSDictionary *)data;
 

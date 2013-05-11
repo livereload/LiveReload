@@ -184,32 +184,3 @@ NSString *const LRRuntimesDidChangeNotification = @"LRRuntimesDidChangeNotificat
 }
 
 @end
-
-
-@implementation RuntimeContainer
-
-- (id)initWithDictionary:(NSDictionary *)data {
-    self = [super init];
-    if (self) {
-        _memento = [data mutableCopy];
-    }
-    return self;
-}
-
-- (BOOL)exposedToUser {
-    return YES;
-}
-
-- (NSString *)title {
-    return @"Unnamed";
-}
-
-- (void)validateAndDiscover {
-    
-}
-
-@end
-
-//@implementation RuntimeVariant
-//
-//@end

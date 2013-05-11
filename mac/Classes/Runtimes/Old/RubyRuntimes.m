@@ -15,7 +15,7 @@ NSString *GetDefaultRvmPath() {
 
 
 
-@implementation RubyManager {
+@implementation OldRubyManager {
     NSMutableDictionary *_instancesByIdentifier;
     NSMutableArray *_instances;
     NSMutableArray *_containers;
@@ -24,8 +24,8 @@ NSString *GetDefaultRvmPath() {
     NSMutableArray *_customContainers;
 }
 
-RubyManager *sharedRubyManager;
-+ (RubyManager *)sharedRubyManager {
+OldRubyManager *sharedRubyManager;
++ (OldRubyManager *)sharedRubyManager {
     return sharedRubyManager;
 }
 
@@ -43,7 +43,6 @@ RubyManager *sharedRubyManager;
 
 - (void)addContainer:(RuntimeContainer *)container {
     [_containers addObject:container];
-    container.manager = self;
     [container validateAndDiscover];
     [self runtimesDidChange];
 }
@@ -70,12 +69,6 @@ RubyManager *sharedRubyManager;
     [self addInstance:instance];
     [_customInstances addObject:instance];
     return instance;
-}
-
-- (RuntimeContainer *)addRvmContainerAtURL:(NSURL *)url {
-    RuntimeContainer *container = [[RvmContainer alloc] initWithDictionary:@{@"url": url}];
-    [self addCustomContainer:container];
-    return container;
 }
 
 - (id)init {

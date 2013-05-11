@@ -1,6 +1,6 @@
 
 #import "RuntimeContainer.h"
 
-@interface ComputedRuntimeContainer : NRuntimeContainer
+@interface ComputedRuntimeContainer : RuntimeContainer
 
 @end

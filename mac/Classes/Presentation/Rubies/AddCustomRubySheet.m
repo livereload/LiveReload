@@ -166,6 +166,10 @@ typedef enum {
     [NSApp endSheet:self.window];
 }
 
+- (IBAction)cancelClicked:(id)sender {
+    [NSApp endSheet:self.window];
+}
+
 - (IBAction)helpClicked:(id)sender {
 }
 

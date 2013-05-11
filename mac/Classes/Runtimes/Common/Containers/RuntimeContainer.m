@@ -5,7 +5,7 @@
 NSString *const LRRuntimeContainerDidChangeNotification = @"LRRuntimeContainerDidChangeNotification";
 
 
-@implementation NRuntimeContainer
+@implementation RuntimeContainer
 
 - (id)initWithDictionary:(NSDictionary *)data {
     self = [super init];
