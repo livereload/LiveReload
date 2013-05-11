@@ -118,6 +118,8 @@
 		436D732E173DE05000F78A23 /* RubyRuntimesNew.m in Sources */ = {isa = PBXBuildFile; fileRef = 436D7327173DE05000F78A23 /* RubyRuntimesNew.m */; };
 		436D7334173DE0CD00F78A23 /* RubyRuntimes.m in Sources */ = {isa = PBXBuildFile; fileRef = 436D7331173DE0CD00F78A23 /* RubyRuntimes.m */; };
 		436D7335173DE0CD00F78A23 /* Runtimes.m in Sources */ = {isa = PBXBuildFile; fileRef = 436D7333173DE0CD00F78A23 /* Runtimes.m */; };
+		436D7340173DE30900F78A23 /* MASPreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 436D733B173DE30900F78A23 /* MASPreferencesWindow.xib */; };
+		436D7341173DE30900F78A23 /* MASPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 436D733D173DE30900F78A23 /* MASPreferencesWindowController.m */; };
 		4376A0E2146DF1C800338AD4 /* TitleBarHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */; };
 		4378C8D11515205C003187D5 /* OldFSMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CA1515205C003187D5 /* OldFSMonitor.m */; };
 		4378C8D21515205C003187D5 /* OldFSTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CC1515205C003187D5 /* OldFSTree.m */; };
@@ -416,6 +418,10 @@
 		436D7331173DE0CD00F78A23 /* RubyRuntimes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RubyRuntimes.m; sourceTree = "<group>"; };
 		436D7332173DE0CD00F78A23 /* Runtimes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Runtimes.h; sourceTree = "<group>"; };
 		436D7333173DE0CD00F78A23 /* Runtimes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Runtimes.m; sourceTree = "<group>"; };
+		436D733A173DE30900F78A23 /* MASPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASPreferencesViewController.h; sourceTree = "<group>"; };
+		436D733B173DE30900F78A23 /* MASPreferencesWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MASPreferencesWindow.xib; sourceTree = "<group>"; };
+		436D733C173DE30900F78A23 /* MASPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASPreferencesWindowController.h; sourceTree = "<group>"; };
+		436D733D173DE30900F78A23 /* MASPreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASPreferencesWindowController.m; sourceTree = "<group>"; };
 		4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TitleBarHelpTemplate.png; sourceTree = "<group>"; };
 		4378C8C91515205C003187D5 /* OldFSMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldFSMonitor.h; sourceTree = "<group>"; };
 		4378C8CA1515205C003187D5 /* OldFSMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldFSMonitor.m; sourceTree = "<group>"; };
@@ -1023,6 +1029,17 @@
 			path = Rubies;
 			sourceTree = "<group>";
 		};
+		436D7338173DE30900F78A23 /* MASPreferences */ = {
+			isa = PBXGroup;
+			children = (
+				436D733A173DE30900F78A23 /* MASPreferencesViewController.h */,
+				436D733B173DE30900F78A23 /* MASPreferencesWindow.xib */,
+				436D733C173DE30900F78A23 /* MASPreferencesWindowController.h */,
+				436D733D173DE30900F78A23 /* MASPreferencesWindowController.m */,
+			);
+			path = MASPreferences;
+			sourceTree = "<group>";
+		};
 		437BAB8B173A13F5005AA1C0 /* Runtimes */ = {
 			isa = PBXGroup;
 			children = (
@@ -1038,6 +1055,7 @@
 			children = (
 				4398AF0D1731E3DC0092A711 /* NSData+Base64.h */,
 				4398AF0E1731E3DC0092A711 /* NSData+Base64.m */,
+				436D7338173DE30900F78A23 /* MASPreferences */,
 			);
 			path = Vendor;
 			sourceTree = "<group>";
@@ -1514,6 +1532,7 @@
 				431CB53C16D1EF8200034877 /* SASS.lrplugin in Resources */,
 				431CB53D16D1EF8200034877 /* SLIM.lrplugin in Resources */,
 				431CB53E16D1EF8200034877 /* Stylus.lrplugin in Resources */,
+				436D7340173DE30900F78A23 /* MASPreferencesWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1668,6 +1687,7 @@
 				436D732E173DE05000F78A23 /* RubyRuntimesNew.m in Sources */,
 				436D7334173DE0CD00F78A23 /* RubyRuntimes.m in Sources */,
 				436D7335173DE0CD00F78A23 /* Runtimes.m in Sources */,
+				436D7341173DE30900F78A23 /* MASPreferencesWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
