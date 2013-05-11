@@ -49,7 +49,6 @@ void compilable_file_free(compilable_file_t *file) {
     NSArray               *_compilerOptions;
 
     NSArray               *_rubyInstances;
-    NSInteger              _addRubyMenuItemIndex;
 
     CGFloat                _compilerSettingsWindowHeight;
     CGFloat                _outputPathsWindowHeight;
@@ -217,8 +216,10 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
         [[_rubyVersionsPopUpButton menu] addItem:[NSMenuItem separatorItem]];
         [rubyInstancesByIndex addObject:[NSNull null]];
 
-        _addRubyMenuItemIndex = [_rubyVersionsPopUpButton numberOfItems];
-        [_rubyVersionsPopUpButton addItemWithTitle:@"Add Ruby..."];
+        [[_rubyVersionsPopUpButton menu] addItemWithTitle:@"Add RVM Rubies..." action:@selector(addRvm) keyEquivalent:@""];
+        [rubyInstancesByIndex addObject:[NSNull null]];
+
+        [[_rubyVersionsPopUpButton menu] addItemWithTitle:@"Add Ruby..." action:@selector(addCustomRuby) keyEquivalent:@""];
         [rubyInstancesByIndex addObject:[NSNull null]];
 
         RuntimeInstance *selectedInstance = [[RubyManager sharedRubyManager] instanceIdentifiedBy:_project.rubyVersionIdentifier];
@@ -248,9 +249,13 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
     NSInteger selectedIndex = [_rubyInstances indexOfObject:selectedInstance];
     if (selectedIndex != NSNotFound)
         [_rubyVersionsPopUpButton selectItemAtIndex:selectedIndex];
+    else
+        [self populateRubyVersions];
 }
 
 - (void)addCustomRuby {
+    [self restoreRubySelection];
+    
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     [openPanel setCanChooseDirectories:YES];
     [openPanel setCanCreateDirectories:NO];
@@ -271,6 +276,26 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
     }
 }
 
+- (void)addRvm {
+    [self restoreRubySelection];
+
+    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+    [openPanel setCanChooseDirectories:YES];
+    [openPanel setCanCreateDirectories:NO];
+    [openPanel setTitle:@"Add RVM"];
+    [openPanel setMessage:@"Choose root folder of the RVM installation"];
+    [openPanel setPrompt:@"Add RVM"];
+    [openPanel setDirectoryURL:[NSURL fileURLWithPath:GetDefaultRvmPath()]];
+    [openPanel setCanChooseFiles:NO];
+    [openPanel setTreatsFilePackagesAsDirectories:YES];
+
+    NSInteger result = [openPanel runModal];
+    if (result == NSFileHandlingPanelOKButton) {
+        NSURL *url = [openPanel URL];
+        [[RubyManager sharedRubyManager] addRvmContainerAtURL:url];
+    }
+}
+
 - (void)populateToolVersions {
     [self populateRubyVersions];
 }
@@ -283,17 +308,13 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
     if (index < 0)
         return;
 
-    if (index == _addRubyMenuItemIndex) {
-        [self restoreRubySelection];
-        [self addCustomRuby];
-        return;
-    }
-
     RubyInstance *instance = [_rubyInstances objectAtIndex:index];
-    if ([instance isKindOfClass:[RubyInstance class]])
+    if ([instance isKindOfClass:[RubyInstance class]]) {
         _project.rubyVersionIdentifier = instance.identifier;
-
-    [self populateRubyVersions];
+        [self populateRubyVersions];
+    } else {
+        [self restoreRubySelection];
+    }
 }
 
 

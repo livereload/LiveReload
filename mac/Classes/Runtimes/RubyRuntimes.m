@@ -6,12 +6,22 @@
 #import "TaskOutputReader.h"
 #import "NSData+Base64.h"
 #import "ATFunctionalStyle.h"
+#import "ATSandboxing.h"
+
+
+NSString *GetDefaultRvmPath() {
+    return [ATRealHomeDirectory() stringByAppendingPathComponent:@".rvm"];
+}
+
 
 
 @implementation RubyManager {
     NSMutableDictionary *_instancesByIdentifier;
     NSMutableArray *_instances;
+    NSMutableArray *_containers;
+
     NSMutableArray *_customInstances;
+    NSMutableArray *_customContainers;
 }
 
 RubyManager *sharedRubyManager;
@@ -31,6 +41,18 @@ RubyManager *sharedRubyManager;
     [self runtimesDidChange];
 }
 
+- (void)addContainer:(RuntimeContainer *)container {
+    [_containers addObject:container];
+    container.manager = self;
+    [container validateAndDiscover];
+    [self runtimesDidChange];
+}
+
+- (void)addCustomContainer:(RuntimeContainer *)container {
+    [_customContainers addObject:container];
+    [self addContainer:container];
+}
+
 - (RuntimeInstance *)addCustomRubyAtURL:(NSURL *)url {
     NSError *error;
     NSString *bookmark = [[url bookmarkDataWithOptions:NSURLBookmarkCreationWithSecurityScope|NSURLBookmarkCreationSecurityScopeAllowOnlyReadAccess includingResourceValuesForKeys:nil relativeToURL:nil error:&error] base64EncodedString];
@@ -48,6 +70,12 @@ RubyManager *sharedRubyManager;
     [self addInstance:instance];
     [_customInstances addObject:instance];
     return instance;
+}
+
+- (RuntimeContainer *)addRvmContainerAtURL:(NSURL *)url {
+    RuntimeContainer *container = [[RvmContainer alloc] initWithDictionary:@{@"url": url}];
+    [self addCustomContainer:container];
+    return container;
 }
 
 - (id)init {
@@ -158,5 +186,10 @@ RubyManager *sharedRubyManager;
         });
     }];
 }
+
+@end
+
+
+@implementation RvmContainer
 
 @end

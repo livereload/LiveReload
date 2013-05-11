@@ -66,15 +66,23 @@ void PostRuntimesDidChangeNotification();
 @interface MissingRuntimeInstance : RuntimeInstance
 @end
 
-//
-//@interface RuntimeContainer : NSObject
-//
-//@property(nonatomic, readonly) BOOL visible;
-//@property(nonatomic, readonly) NSString *title;
-//@property(nonatomic, readonly) NSArray *instances;
-//
-//@end
-//
+
+@interface RuntimeContainer : NSObject
+
+- (id)initWithDictionary:(NSDictionary *)data;
+
+@property(nonatomic, readonly) NSMutableDictionary *memento;
+
+@property(nonatomic, readonly) BOOL exposedToUser;  // if NO, container name will not be displayed
+@property(nonatomic, readonly) NSString *title;
+@property(nonatomic, readonly) NSArray *instances;
+
+@property(nonatomic, strong, __unsafe_unretained) RuntimeManager *manager; // FIXME
+
+- (void)validateAndDiscover;
+
+@end
+
 //@interface RuntimeVariant : NSObject
 //
 //@end

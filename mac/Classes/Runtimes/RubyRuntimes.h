@@ -4,6 +4,7 @@
 
 
 NSString *RubyVersionAtPath(NSString *executablePath);
+NSString *GetDefaultRvmPath();
 
 
 @interface RubyManager : RuntimeManager
@@ -11,6 +12,8 @@ NSString *RubyVersionAtPath(NSString *executablePath);
 + (RubyManager *)sharedRubyManager;
 
 - (RuntimeInstance *)addCustomRubyAtURL:(NSURL *)url;
+
+- (RuntimeContainer *)addRvmContainerAtURL:(NSURL *)url;
 
 @property(nonatomic, readonly, strong) NSArray *instances;
 
@@ -20,5 +23,10 @@ NSString *RubyVersionAtPath(NSString *executablePath);
 @interface RubyInstance : RuntimeInstance
 
 - (void)resolveBookmark;
+
+@end
+
+
+@interface RvmContainer : RuntimeContainer
 
 @end
