@@ -8,6 +8,7 @@
 #import "FileCompilationOptions.h"
 #import "Project.h"
 #import "RubyRuntimes.h"
+#import "PreferencesController.h"
 
 #import "UIBuilder.h"
 #import "sglib.h"
@@ -255,6 +256,9 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
 
 - (void)addCustomRuby {
     [self restoreRubySelection];
+
+    [[PreferencesController sharedPreferencesController] showAddRubyInstancePage];
+    return;
     
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     [openPanel setCanChooseDirectories:YES];

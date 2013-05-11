@@ -6,6 +6,7 @@
 #import "PostProcessingSettingsWindowController.h"
 #import "TerminalViewController.h"
 #import "LicenseCodeWindowController.h"
+#import "PreferencesController.h"
 
 #import "LiveReloadAppDelegate.h"
 #import "PluginManager.h"
@@ -635,6 +636,10 @@ void C_mainwnd__set_change_count(json_t *arg) {
 
 - (IBAction)performQuit:(id)sender {
     [NSApp terminate:self];
+}
+
+- (IBAction)showPreferences:(id)sender {
+    [[PreferencesController sharedPreferencesController] show];
 }
 
 
