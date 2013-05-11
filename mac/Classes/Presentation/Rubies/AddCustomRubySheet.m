@@ -2,6 +2,8 @@
 #import "AddCustomRubySheet.h"
 #import "ATSandboxing.h"
 #import "RubyRuntimes.h"
+#import "RuntimeObject.h"
+#import "CustomRubyInstance.h"
 
 typedef enum {
     ProgressStatusNone,
@@ -24,7 +26,7 @@ typedef enum {
 @property (assign) IBOutlet NSButton *addButton;
 
 @property(nonatomic, strong) NSURL *chosenURL;
-@property(nonatomic, assign) BOOL valid;
+@property(nonatomic, strong) id<RuntimeObject> chosenObject;
 
 @end
 
@@ -74,7 +76,7 @@ typedef enum {
                 @"openMessage": @"Choose the root folder of the Ruby installation",
                 @"openButton": @"Add Ruby",
                 @"defaultDir": @"",
-                @"klass": [RvmContainer class],
+                @"klass": [CustomRubyInstance class],
             },
             @{
                 @"name": @"Custom Prefix",
@@ -84,7 +86,7 @@ typedef enum {
                 @"openMessage": @"Choose the prefix folder that contains your Ruby installation",
                 @"openButton": @"Add Ruby",
                 @"defaultDir": @"/usr/local",
-                @"klass": [RvmContainer class],
+                @"klass": [CustomRubyInstance class],
             },
         ] retain];
     }
@@ -93,8 +95,12 @@ typedef enum {
 
 - (void)windowDidLoad {
     [super windowDidLoad];
-    [self setProgressStatus:ProgressStatusNone message:@""];
+
     [self render];
+    [self updateValidationStatus];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(runtimeInstanceDidChange:) name:LRRuntimeInstanceDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(runtimeContainerDidChange:) name:LRRuntimeContainerDidChangeNotification object:nil];
 }
 
 - (NSDictionary *)selectedTypeInfo {
@@ -113,26 +119,20 @@ typedef enum {
     [openPanel setCanChooseFiles:NO];
     [openPanel setTreatsFilePackagesAsDirectories:YES];
 
-    NSString *defaultDir = typeInfo[@"defaultDir"];
-    if ([defaultDir length] > 0) {
-        defaultDir = [defaultDir stringByExpandingTildeInPathUsingRealHomeDirectory];
-        [openPanel setDirectoryURL:[NSURL fileURLWithPath:defaultDir]];
+    if (self.chosenURL)
+        openPanel.directoryURL = self.chosenURL;
+    else {
+        NSString *defaultDir = typeInfo[@"defaultDir"];
+        if ([defaultDir length] > 0) {
+            defaultDir = [defaultDir stringByExpandingTildeInPathUsingRealHomeDirectory];
+            openPanel.directoryURL = [NSURL fileURLWithPath:defaultDir];
+        }
     }
 
     NSInteger result = [openPanel runModal];
     if (result == NSFileHandlingPanelOKButton) {
         NSURL *url = [openPanel URL];
-        self.chosenURL = url;
-        self.valid = NO;
-        [self render];
-
-        [self setProgressStatus:ProgressStatusInProgress message:@"Validating..."];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1500 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
-            self.valid = YES;
-            [self setProgressStatus:ProgressStatusSucceeded message:@"Ruby v1.8.7"];
-            [self render];
-        });
-
+        [self updateChosenURL:url typeInfo:typeInfo];
     }
 }
 
@@ -155,14 +155,53 @@ typedef enum {
 
 - (void)render {
     self.chosenDirectoryField.stringValue = [self.chosenURL path] ?: @"";
-    self.addButton.enabled = self.valid;
+    self.addButton.enabled = self.chosenObject.valid;
 
     NSDictionary *typeInfo = self.selectedTypeInfo;
     self.directoryExplanationField.stringValue = typeInfo[@"hint"];
     self.addButton.title = typeInfo[@"okButton"];
 }
 
+- (void)updateValidationStatus {
+    if (!self.chosenObject)
+        [self setProgressStatus:ProgressStatusNone message:@""];
+    else if (self.chosenObject.validationInProgress)
+        [self setProgressStatus:ProgressStatusInProgress message:@"Validating..."];
+    else if (self.chosenObject.valid)
+        [self setProgressStatus:ProgressStatusSucceeded message:self.chosenObject.validationResultSummary];
+    else
+        [self setProgressStatus:ProgressStatusFailed message:@"Invalid folder."];
+
+    [self render];
+}
+
+- (void)runtimeInstanceDidChange:(NSNotification *)notification {
+    if (notification.object == self.chosenObject)
+        [self updateValidationStatus];
+}
+
+- (void)runtimeContainerDidChange:(NSNotification *)notification {
+    if (notification.object == self.chosenObject)
+        [self updateValidationStatus];
+}
+
+- (void)updateChosenURL:(NSURL *)chosenURL typeInfo:(NSDictionary *)typeInfo {
+    self.chosenURL = chosenURL;
+
+    Class objectClass = typeInfo[@"klass"];
+    self.chosenObject = [[objectClass alloc] initWithURL:self.chosenURL];
+    [self.chosenObject validate];
+    [self updateValidationStatus];
+}
+
 - (IBAction)addClicked:(id)sender {
+    if (!self.chosenObject.valid) {
+        [self updateValidationStatus];
+        return;
+    }
+
+    [[OldRubyManager sharedRubyManager] addCustomRubyAtURL:self.chosenURL];
+
     [NSApp endSheet:self.window];
 }
 

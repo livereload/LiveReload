@@ -45,7 +45,4 @@
     self.modalSheetController = nil;
 }
 
-- (IBAction)displayAddRvmSheet:(id)sender {
-}
-
 @end

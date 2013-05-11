@@ -93,6 +93,14 @@ NSString *const LRRuntimeInstanceDidChangeNotification = @"LRRuntimeInstanceDidC
     NSAssert(NO, @"doValidate must be implemented");
 }
 
+- (NSURL *)url {
+    return self.executableURL;
+}
+
+- (NSString *)validationResultSummary {
+    return [NSString stringWithFormat:@"v%@", self.version];
+}
+
 - (void)didChange {
     [[NSNotificationCenter defaultCenter] postNotificationName:LRRuntimeInstanceDidChangeNotification object:self];
 }

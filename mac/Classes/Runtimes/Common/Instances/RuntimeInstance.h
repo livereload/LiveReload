@@ -1,11 +1,12 @@
 
 #import <Foundation/Foundation.h>
+#import "RuntimeObject.h"
 
 
 extern NSString *const LRRuntimeInstanceDidChangeNotification;
 
 
-@interface NRuntimeInstance : NSObject
+@interface NRuntimeInstance : NSObject <RuntimeObject>
 
 @property(nonatomic, readonly) NSString *identifier;
 @property(nonatomic, strong) NSString *executablePath;
