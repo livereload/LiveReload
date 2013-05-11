@@ -209,7 +209,7 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
 
     [_rubyVersionsPopUpButton removeAllItems];
     if ([rubyInstances count] > 0) {
-        for (RubyInstance *instance in rubyInstances) {
+        for (OldRubyInstance *instance in rubyInstances) {
             [_rubyVersionsPopUpButton addItemWithTitle:instance.title];
             [rubyInstancesByIndex addObject:instance];
         }
@@ -312,8 +312,8 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
     if (index < 0)
         return;
 
-    RubyInstance *instance = [_rubyInstances objectAtIndex:index];
-    if ([instance isKindOfClass:[RubyInstance class]]) {
+    OldRubyInstance *instance = [_rubyInstances objectAtIndex:index];
+    if ([instance isKindOfClass:[OldRubyInstance class]]) {
         _project.rubyVersionIdentifier = instance.identifier;
         [self populateRubyVersions];
     } else {

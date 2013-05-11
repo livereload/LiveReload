@@ -60,7 +60,7 @@ OldRubyManager *sharedRubyManager;
         bookmark = @"";
     }
 
-    RubyInstance *instance = [[RubyInstance alloc] initWithDictionary:@{
+    OldRubyInstance *instance = [[OldRubyInstance alloc] initWithDictionary:@{
         @"identifier": [url path],
         @"executablePath": [[url path] stringByAppendingPathComponent:@"bin/ruby"],
         @"basicTitle": [NSString stringWithFormat:@"Ruby at %@", [url path]],
@@ -78,7 +78,7 @@ OldRubyManager *sharedRubyManager;
         _instances = [[NSMutableArray alloc] init];
         _customInstances = [[NSMutableArray alloc] init];
 
-        [self addInstance:[[RubyInstance alloc] initWithDictionary:@{
+        [self addInstance:[[OldRubyInstance alloc] initWithDictionary:@{
             @"identifier": @"system",
             @"executablePath": @"/usr/bin/ruby",
             @"basicTitle": @"System Ruby",
@@ -106,12 +106,12 @@ OldRubyManager *sharedRubyManager;
 }
 
 - (RuntimeInstance *)newInstanceWithDictionary:(NSDictionary *)memento {
-    return [[RubyInstance alloc] initWithDictionary:memento];
+    return [[OldRubyInstance alloc] initWithDictionary:memento];
 }
 
 - (void)setMemento:(NSDictionary *)dictionary {
     for (NSDictionary *instanceMemento in dictionary[@"customRubies"]) {
-        RubyInstance *instance = (RubyInstance *) [self newInstanceWithDictionary:instanceMemento];
+        OldRubyInstance *instance = (OldRubyInstance *) [self newInstanceWithDictionary:instanceMemento];
         if (instance) {
             [instance resolveBookmark];
             [_customInstances addObject:instance];
@@ -124,7 +124,7 @@ OldRubyManager *sharedRubyManager;
 @end
 
 
-@implementation RubyInstance
+@implementation OldRubyInstance
 
 - (void)resolveBookmark {
     NSString *bookmarkString = self.memento[@"bookmark"];

@@ -19,7 +19,7 @@ NSString *GetDefaultRvmPath();
 @end
 
 
-@interface RubyInstance : RuntimeInstance
+@interface OldRubyInstance : RuntimeInstance
 
 - (void)resolveBookmark;
 
