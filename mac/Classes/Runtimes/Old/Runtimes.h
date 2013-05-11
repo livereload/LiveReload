@@ -6,15 +6,8 @@
 @class RuntimeInstance;
 @class RuntimeVariant;
 
-
-extern NSString *const LRRuntimeManagerErrorDomain;
-enum {
-    LRRuntimeManagerErrorValidationFailed = 1,
-};
-
+#import "RuntimeGlobals.h"
 extern NSString *const LRRuntimesDidChangeNotification;
-
-void PostRuntimesDidChangeNotification();
 
 
 @interface RuntimeManager : NSObject

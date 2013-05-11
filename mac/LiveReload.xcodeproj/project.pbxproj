@@ -110,13 +110,20 @@
 		435BE042141B72A60008FF77 /* NewMainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 435BE041141B72A60008FF77 /* NewMainWindow.xib */; };
 		435BE045141B87920008FF77 /* NewMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 435BE044141B87920008FF77 /* NewMainWindowController.m */; };
 		43693F4115660A8700C453CC /* LiveReloadNodejs in Resources */ = {isa = PBXBuildFile; fileRef = 43693F4015660A8700C453CC /* LiveReloadNodejs */; };
+		436D7329173DE05000F78A23 /* ComputedRuntimeContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 436D731A173DE05000F78A23 /* ComputedRuntimeContainer.m */; };
+		436D732A173DE05000F78A23 /* RuntimeContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 436D731C173DE05000F78A23 /* RuntimeContainer.m */; };
+		436D732B173DE05000F78A23 /* MissingRuntimeInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 436D731F173DE05000F78A23 /* MissingRuntimeInstance.m */; };
+		436D732C173DE05000F78A23 /* RuntimeInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 436D7321173DE05000F78A23 /* RuntimeInstance.m */; };
+		436D732D173DE05000F78A23 /* RuntimeGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 436D7323173DE05000F78A23 /* RuntimeGlobals.m */; };
+		436D732E173DE05000F78A23 /* RubyRuntimesNew.m in Sources */ = {isa = PBXBuildFile; fileRef = 436D7327173DE05000F78A23 /* RubyRuntimesNew.m */; };
+		436D7334173DE0CD00F78A23 /* RubyRuntimes.m in Sources */ = {isa = PBXBuildFile; fileRef = 436D7331173DE0CD00F78A23 /* RubyRuntimes.m */; };
+		436D7335173DE0CD00F78A23 /* Runtimes.m in Sources */ = {isa = PBXBuildFile; fileRef = 436D7333173DE0CD00F78A23 /* Runtimes.m */; };
 		4376A0E2146DF1C800338AD4 /* TitleBarHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */; };
 		4378C8D11515205C003187D5 /* OldFSMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CA1515205C003187D5 /* OldFSMonitor.m */; };
 		4378C8D21515205C003187D5 /* OldFSTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CC1515205C003187D5 /* OldFSTree.m */; };
 		4378C8D31515205C003187D5 /* OldFSTreeDiffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CE1515205C003187D5 /* OldFSTreeDiffer.m */; };
 		4378C8D41515205C003187D5 /* OldFSTreeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8D01515205C003187D5 /* OldFSTreeFilter.m */; };
 		4379ADCB141D1060008C836F /* livereload.js in Resources */ = {isa = PBXBuildFile; fileRef = 4379ADC9141D00CE008C836F /* livereload.js */; };
-		437BAB91173A17F8005AA1C0 /* Runtimes.m in Sources */ = {isa = PBXBuildFile; fileRef = 437BAB90173A17F8005AA1C0 /* Runtimes.m */; };
 		4398AF0F1731E3DC0092A711 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 4398AF0E1731E3DC0092A711 /* NSData+Base64.m */; };
 		4398AF121731E9070092A711 /* ATSandboxing.m in Sources */ = {isa = PBXBuildFile; fileRef = 4398AF111731E9070092A711 /* ATSandboxing.m */; };
 		4398AF1517321A630092A711 /* PlainUnixTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 4398AF1417321A630092A711 /* PlainUnixTask.m */; };
@@ -128,7 +135,6 @@
 		439C093313ADCBDD00119233 /* monitoring.plist in Resources */ = {isa = PBXBuildFile; fileRef = 439C093213ADCBDD00119233 /* monitoring.plist */; };
 		43C0368613CA191D00A01305 /* LiveReload.icns in Resources */ = {isa = PBXBuildFile; fileRef = 43C0368513CA191C00A01305 /* LiveReload.icns */; };
 		43C3D04E15B37B1500BCD2E8 /* LicenseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C3D04D15B37B1500BCD2E8 /* LicenseManager.m */; };
-		43C873E0173C659500A0E5EC /* RubyRuntimes.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C873DF173C659500A0E5EC /* RubyRuntimes.m */; };
 		43E34F9B14705125001641AA /* console.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E34F9714705125001641AA /* console.c */; };
 		43E34F9C14705125001641AA /* eventbus.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E34F9914705125001641AA /* eventbus.c */; };
 		43E34F9F14706D9B001641AA /* osdep.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E34F9E14706D9B001641AA /* osdep.m */; };
@@ -394,6 +400,22 @@
 		435BE043141B87920008FF77 /* NewMainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewMainWindowController.h; sourceTree = "<group>"; };
 		435BE044141B87920008FF77 /* NewMainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewMainWindowController.m; sourceTree = "<group>"; };
 		43693F4015660A8700C453CC /* LiveReloadNodejs */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = LiveReloadNodejs; path = Resources/LiveReloadNodejs; sourceTree = "<group>"; };
+		436D7319173DE05000F78A23 /* ComputedRuntimeContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComputedRuntimeContainer.h; sourceTree = "<group>"; };
+		436D731A173DE05000F78A23 /* ComputedRuntimeContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComputedRuntimeContainer.m; sourceTree = "<group>"; };
+		436D731B173DE05000F78A23 /* RuntimeContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RuntimeContainer.h; sourceTree = "<group>"; };
+		436D731C173DE05000F78A23 /* RuntimeContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RuntimeContainer.m; sourceTree = "<group>"; };
+		436D731E173DE05000F78A23 /* MissingRuntimeInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MissingRuntimeInstance.h; sourceTree = "<group>"; };
+		436D731F173DE05000F78A23 /* MissingRuntimeInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MissingRuntimeInstance.m; sourceTree = "<group>"; };
+		436D7320173DE05000F78A23 /* RuntimeInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RuntimeInstance.h; sourceTree = "<group>"; };
+		436D7321173DE05000F78A23 /* RuntimeInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RuntimeInstance.m; sourceTree = "<group>"; };
+		436D7322173DE05000F78A23 /* RuntimeGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RuntimeGlobals.h; sourceTree = "<group>"; };
+		436D7323173DE05000F78A23 /* RuntimeGlobals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RuntimeGlobals.m; sourceTree = "<group>"; };
+		436D7326173DE05000F78A23 /* RubyRuntimesNew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RubyRuntimesNew.h; sourceTree = "<group>"; };
+		436D7327173DE05000F78A23 /* RubyRuntimesNew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RubyRuntimesNew.m; sourceTree = "<group>"; };
+		436D7330173DE0CD00F78A23 /* RubyRuntimes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RubyRuntimes.h; sourceTree = "<group>"; };
+		436D7331173DE0CD00F78A23 /* RubyRuntimes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RubyRuntimes.m; sourceTree = "<group>"; };
+		436D7332173DE0CD00F78A23 /* Runtimes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Runtimes.h; sourceTree = "<group>"; };
+		436D7333173DE0CD00F78A23 /* Runtimes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Runtimes.m; sourceTree = "<group>"; };
 		4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TitleBarHelpTemplate.png; sourceTree = "<group>"; };
 		4378C8C91515205C003187D5 /* OldFSMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldFSMonitor.h; sourceTree = "<group>"; };
 		4378C8CA1515205C003187D5 /* OldFSMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldFSMonitor.m; sourceTree = "<group>"; };
@@ -404,8 +426,6 @@
 		4378C8CF1515205C003187D5 /* OldFSTreeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldFSTreeFilter.h; sourceTree = "<group>"; };
 		4378C8D01515205C003187D5 /* OldFSTreeFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldFSTreeFilter.m; sourceTree = "<group>"; };
 		4379ADC9141D00CE008C836F /* livereload.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = livereload.js; sourceTree = "<group>"; };
-		437BAB8F173A17F8005AA1C0 /* Runtimes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Runtimes.h; sourceTree = "<group>"; };
-		437BAB90173A17F8005AA1C0 /* Runtimes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Runtimes.m; sourceTree = "<group>"; };
 		4398AF0D1731E3DC0092A711 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
 		4398AF0E1731E3DC0092A711 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		4398AF101731E9070092A711 /* ATSandboxing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATSandboxing.h; sourceTree = "<group>"; };
@@ -425,8 +445,6 @@
 		43C0368513CA191C00A01305 /* LiveReload.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LiveReload.icns; sourceTree = "<group>"; };
 		43C3D04C15B37B1500BCD2E8 /* LicenseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LicenseManager.h; sourceTree = "<group>"; };
 		43C3D04D15B37B1500BCD2E8 /* LicenseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LicenseManager.m; sourceTree = "<group>"; };
-		43C873DE173C659500A0E5EC /* RubyRuntimes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RubyRuntimes.h; sourceTree = "<group>"; };
-		43C873DF173C659500A0E5EC /* RubyRuntimes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RubyRuntimes.m; sourceTree = "<group>"; };
 		43E34F9714705125001641AA /* console.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = console.c; sourceTree = "<group>"; };
 		43E34F9814705125001641AA /* console.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = console.h; sourceTree = "<group>"; };
 		43E34F9914705125001641AA /* eventbus.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eventbus.c; sourceTree = "<group>"; };
@@ -921,13 +939,96 @@
 			name = plugins;
 			sourceTree = "<group>";
 		};
+		436D7317173DE05000F78A23 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				436D731D173DE05000F78A23 /* Instances */,
+				436D7318173DE05000F78A23 /* Containers */,
+				436D7322173DE05000F78A23 /* RuntimeGlobals.h */,
+				436D7323173DE05000F78A23 /* RuntimeGlobals.m */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		436D7318173DE05000F78A23 /* Containers */ = {
+			isa = PBXGroup;
+			children = (
+				436D731B173DE05000F78A23 /* RuntimeContainer.h */,
+				436D731C173DE05000F78A23 /* RuntimeContainer.m */,
+				436D7319173DE05000F78A23 /* ComputedRuntimeContainer.h */,
+				436D731A173DE05000F78A23 /* ComputedRuntimeContainer.m */,
+			);
+			path = Containers;
+			sourceTree = "<group>";
+		};
+		436D731D173DE05000F78A23 /* Instances */ = {
+			isa = PBXGroup;
+			children = (
+				436D7320173DE05000F78A23 /* RuntimeInstance.h */,
+				436D7321173DE05000F78A23 /* RuntimeInstance.m */,
+				436D731E173DE05000F78A23 /* MissingRuntimeInstance.h */,
+				436D731F173DE05000F78A23 /* MissingRuntimeInstance.m */,
+			);
+			path = Instances;
+			sourceTree = "<group>";
+		};
+		436D7324173DE05000F78A23 /* Ruby */ = {
+			isa = PBXGroup;
+			children = (
+				436D7325173DE05000F78A23 /* General */,
+				436D7328173DE05000F78A23 /* RVM */,
+			);
+			path = Ruby;
+			sourceTree = "<group>";
+		};
+		436D7325173DE05000F78A23 /* General */ = {
+			isa = PBXGroup;
+			children = (
+				436D7326173DE05000F78A23 /* RubyRuntimesNew.h */,
+				436D7327173DE05000F78A23 /* RubyRuntimesNew.m */,
+			);
+			path = General;
+			sourceTree = "<group>";
+		};
+		436D7328173DE05000F78A23 /* RVM */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = RVM;
+			sourceTree = "<group>";
+		};
+		436D732F173DE0CD00F78A23 /* Old */ = {
+			isa = PBXGroup;
+			children = (
+				436D7332173DE0CD00F78A23 /* Runtimes.h */,
+				436D7333173DE0CD00F78A23 /* Runtimes.m */,
+				436D7330173DE0CD00F78A23 /* RubyRuntimes.h */,
+				436D7331173DE0CD00F78A23 /* RubyRuntimes.m */,
+			);
+			path = Old;
+			sourceTree = "<group>";
+		};
+		436D7336173DE1C800F78A23 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				436D7337173DE1C800F78A23 /* Rubies */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		436D7337173DE1C800F78A23 /* Rubies */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Rubies;
+			sourceTree = "<group>";
+		};
 		437BAB8B173A13F5005AA1C0 /* Runtimes */ = {
 			isa = PBXGroup;
 			children = (
-				437BAB8F173A17F8005AA1C0 /* Runtimes.h */,
-				437BAB90173A17F8005AA1C0 /* Runtimes.m */,
-				43C873DE173C659500A0E5EC /* RubyRuntimes.h */,
-				43C873DF173C659500A0E5EC /* RubyRuntimes.m */,
+				436D732F173DE0CD00F78A23 /* Old */,
+				436D7317173DE05000F78A23 /* Common */,
+				436D7324173DE05000F78A23 /* Ruby */,
 			);
 			path = Runtimes;
 			sourceTree = "<group>";
@@ -988,6 +1089,7 @@
 			children = (
 				43E34F9614705125001641AA /* Shared */,
 				823DDE2E13F8DA3100529AD2 /* Application */,
+				436D7336173DE1C800F78A23 /* Presentation */,
 				823DDE3413F8DA3100529AD2 /* Controllers */,
 				823DDE4213F8DA3100529AD2 /* Editors */,
 				823DDE5313F8DA3100529AD2 /* JSON */,
@@ -1558,8 +1660,14 @@
 				4313347915BC295B00659B4F /* UserScript.m in Sources */,
 				4398AF1517321A630092A711 /* PlainUnixTask.m in Sources */,
 				4398AF18173223710092A711 /* TaskOutputReader.m in Sources */,
-				437BAB91173A17F8005AA1C0 /* Runtimes.m in Sources */,
-				43C873E0173C659500A0E5EC /* RubyRuntimes.m in Sources */,
+				436D7329173DE05000F78A23 /* ComputedRuntimeContainer.m in Sources */,
+				436D732A173DE05000F78A23 /* RuntimeContainer.m in Sources */,
+				436D732B173DE05000F78A23 /* MissingRuntimeInstance.m in Sources */,
+				436D732C173DE05000F78A23 /* RuntimeInstance.m in Sources */,
+				436D732D173DE05000F78A23 /* RuntimeGlobals.m in Sources */,
+				436D732E173DE05000F78A23 /* RubyRuntimesNew.m in Sources */,
+				436D7334173DE0CD00F78A23 /* RubyRuntimes.m in Sources */,
+				436D7335173DE0CD00F78A23 /* Runtimes.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

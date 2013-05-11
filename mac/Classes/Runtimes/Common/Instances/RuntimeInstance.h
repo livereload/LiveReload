@@ -1,0 +1,37 @@
+
+#import <Foundation/Foundation.h>
+
+
+extern NSString *const LRRuntimeInstanceDidChangeNotification;
+
+
+@interface NRuntimeInstance : NSObject
+
+@property(nonatomic, readonly) NSString *identifier;
+@property(nonatomic, strong) NSString *executablePath;
+@property(nonatomic, readonly) NSURL *executableURL;
+@property(nonatomic, strong) NSString *basicTitle;  // sans version number
+
+@property(nonatomic, assign) BOOL validationInProgress;
+@property(nonatomic, assign) BOOL validationPerformed;
+@property(nonatomic, assign) BOOL valid;
+@property(nonatomic, strong) NSString *version;
+
+@property(nonatomic, readonly) NSString *statusQualifier;
+@property(nonatomic, readonly) NSString *title;
+
+@property(nonatomic, readonly) NSMutableDictionary *memento;
+
+- (id)initWithDictionary:(NSDictionary *)data;
+
+- (void)validate;
+
+- (void)doValidate; // override point, must call one of the methods below
+- (void)validationSucceededWithData:(NSDictionary *)data;
+- (void)validationFailedWithError:(NSError *)error;
+
+//@property(nonatomic, readonly) NSArray *librarySets;
+
+- (void)didChange;
+
+@end

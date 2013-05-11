@@ -1,7 +1,6 @@
 #import "Runtimes.h"
 
 
-NSString *const LRRuntimeManagerErrorDomain = @"LRRuntimeManagerErrorDomain";
 NSString *const LRRuntimesDidChangeNotification = @"LRRuntimesDidChangeNotification";
 
 
