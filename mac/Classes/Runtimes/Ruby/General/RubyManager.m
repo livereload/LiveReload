@@ -1,23 +1,12 @@
-
-#import "RubyRuntimes.h"
-
-#import "NSTask+OneLineTasksWithOutput.h"
-#import "PlainUnixTask.h"
-#import "TaskOutputReader.h"
+#import "RubyManager.h"
+#import "RuntimeContainer.h"
 #import "NSData+Base64.h"
-#import "ATFunctionalStyle.h"
-#import "ATSandboxing.h"
 #import "RubyInstance.h"
 #import "MissingRuntimeInstance.h"
 
 
-NSString *GetDefaultRvmPath() {
-    return [ATRealHomeDirectory() stringByAppendingPathComponent:@".rvm"];
-}
 
-
-
-@implementation OldRubyManager {
+@implementation RubyManager {
     NSMutableDictionary *_instancesByIdentifier;
     NSMutableArray *_instances;
     NSMutableArray *_containers;
@@ -26,8 +15,8 @@ NSString *GetDefaultRvmPath() {
     NSMutableArray *_customContainers;
 }
 
-OldRubyManager *sharedRubyManager;
-+ (OldRubyManager *)sharedRubyManager {
+RubyManager *sharedRubyManager;
++ (RubyManager *)sharedRubyManager {
     return sharedRubyManager;
 }
 
@@ -62,11 +51,11 @@ OldRubyManager *sharedRubyManager;
     }
 
     RubyInstance *instance = [[RubyInstance alloc] initWithDictionary:@{
-        @"identifier": [url path],
-        @"executablePath": [[url path] stringByAppendingPathComponent:@"bin/ruby"],
-        @"basicTitle": [NSString stringWithFormat:@"Ruby at %@", [url path]],
-        @"bookmark": bookmark,
-    }];
+                              @"identifier": [url path],
+                              @"executablePath": [[url path] stringByAppendingPathComponent:@"bin/ruby"],
+                              @"basicTitle": [NSString stringWithFormat:@"Ruby at %@", [url path]],
+                              @"bookmark": bookmark,
+                              }];
     [self addInstance:instance];
     [_customInstances addObject:instance];
     return instance;
@@ -80,10 +69,10 @@ OldRubyManager *sharedRubyManager;
         _customInstances = [[NSMutableArray alloc] init];
 
         [self addInstance:[[RubyInstance alloc] initWithDictionary:@{
-            @"identifier": @"system",
-            @"executablePath": @"/usr/bin/ruby",
-            @"basicTitle": @"System Ruby",
-        }]];
+                           @"identifier": @"system",
+                           @"executablePath": @"/usr/bin/ruby",
+                           @"basicTitle": @"System Ruby",
+                           }]];
 
         sharedRubyManager = [self retain];
         [self load];
@@ -121,10 +110,5 @@ OldRubyManager *sharedRubyManager;
     }
     [self runtimesDidChange];
 }
-
-@end
-
-
-@implementation RvmContainer
 
 @end

@@ -1,9 +1,7 @@
 
 #import "AddCustomRubySheet.h"
 #import "ATSandboxing.h"
-#import "RubyRuntimes.h"
-#import "RuntimeObject.h"
-#import "CustomRubyInstance.h"
+#import "Runtimes.h"
 
 typedef enum {
     ProgressStatusNone,
@@ -200,7 +198,7 @@ typedef enum {
         return;
     }
 
-    [[OldRubyManager sharedRubyManager] addCustomRubyAtURL:self.chosenURL];
+    [[RubyManager sharedRubyManager] addCustomRubyAtURL:self.chosenURL];
 
     [NSApp endSheet:self.window];
 }

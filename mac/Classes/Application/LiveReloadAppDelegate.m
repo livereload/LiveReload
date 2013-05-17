@@ -22,7 +22,7 @@
 #import "DockIcon.h"
 #import "ATSandboxing.h"
 #import "NSData+Base64.h"
-#import "RubyRuntimes.h"
+#import "Runtimes.h"
 
 #ifndef APPSTORE
 #import "Sparkle/Sparkle.h"
@@ -172,7 +172,7 @@ void C_update(json_t *arg) {
 
     [[DockIcon currentDockIcon] displayDockIconWhenAppHasWindowsWithDelegateClass:[NewMainWindowController class]];
 
-    [[OldRubyManager alloc] init];
+    [[RubyManager alloc] init];
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification {

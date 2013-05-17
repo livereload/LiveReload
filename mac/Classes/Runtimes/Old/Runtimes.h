@@ -8,6 +8,6 @@
 #import "RuntimeManager.h"
 
 #import "RubyInstance.h"
-
-// legacy
-#import "RubyRuntimes.h"
+#import "RubyManager.h"
+#import "CustomRubyInstance.h"
+#import "RvmContainer.h"

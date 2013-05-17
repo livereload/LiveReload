@@ -166,7 +166,7 @@
     NSString *sourcePath = [rootPath stringByAppendingPathComponent:sourceRelPath];
     NSString *destinationPath = [rootPath stringByAppendingPathComponent:destinationRelPath];
 
-    RuntimeInstance *rubyInstance = [[OldRubyManager sharedRubyManager] instanceIdentifiedBy:project.rubyVersionIdentifier];
+    RuntimeInstance *rubyInstance = [[RubyManager sharedRubyManager] instanceIdentifiedBy:project.rubyVersionIdentifier];
     NSString *rubyPath = (rubyInstance.valid ? rubyInstance.executablePath : @"__!RUBY_NOT_FOUND!__");
 
     NSMutableDictionary *info = [NSMutableDictionary dictionaryWithObjectsAndKeys:
