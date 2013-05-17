@@ -2,5 +2,5 @@
 #import <Foundation/Foundation.h>
 #import "RuntimeInstance.h"
 
-@interface NMissingRuntimeInstance : NRuntimeInstance
+@interface MissingRuntimeInstance : RuntimeInstance
 @end

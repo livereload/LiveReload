@@ -1,7 +1,7 @@
 
 #import "MissingRuntimeInstance.h"
 
-@implementation NMissingRuntimeInstance
+@implementation MissingRuntimeInstance
 
 - (id)initWithDictionary:(NSDictionary *)data {
     self = [super initWithDictionary:data];

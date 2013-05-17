@@ -1,6 +1,7 @@
 
 #import <Foundation/Foundation.h>
-#import "Runtimes.h"
+
+#import "RuntimeManager.h"
 #import "RuntimeContainer.h"
 
 
@@ -15,13 +16,6 @@ NSString *GetDefaultRvmPath();
 - (RuntimeInstance *)addCustomRubyAtURL:(NSURL *)url;
 
 @property(nonatomic, readonly, strong) NSArray *instances;
-
-@end
-
-
-@interface OldRubyInstance : RuntimeInstance
-
-- (void)resolveBookmark;
 
 @end
 

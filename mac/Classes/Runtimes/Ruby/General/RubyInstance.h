@@ -1,6 +1,8 @@
 
 #import "RuntimeInstance.h"
 
-@interface RubyInstance : NRuntimeInstance
+@interface RubyInstance : RuntimeInstance
+
+- (void)resolveBookmark;
 
 @end

@@ -5,7 +5,7 @@
 NSString *const LRRuntimeInstanceDidChangeNotification = @"LRRuntimeInstanceDidChangeNotification";
 
 
-@implementation NRuntimeInstance {
+@implementation RuntimeInstance {
     NSMutableDictionary *_memento;
 }
 

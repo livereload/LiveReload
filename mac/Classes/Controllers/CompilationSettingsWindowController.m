@@ -7,7 +7,7 @@
 #import "CompilationOptions.h"
 #import "FileCompilationOptions.h"
 #import "Project.h"
-#import "RubyRuntimes.h"
+#import "Runtimes.h"
 #import "PreferencesController.h"
 
 #import "UIBuilder.h"
@@ -209,7 +209,7 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
 
     [_rubyVersionsPopUpButton removeAllItems];
     if ([rubyInstances count] > 0) {
-        for (OldRubyInstance *instance in rubyInstances) {
+        for (RubyInstance *instance in rubyInstances) {
             [_rubyVersionsPopUpButton addItemWithTitle:instance.title];
             [rubyInstancesByIndex addObject:instance];
         }
@@ -312,8 +312,8 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
     if (index < 0)
         return;
 
-    OldRubyInstance *instance = [_rubyInstances objectAtIndex:index];
-    if ([instance isKindOfClass:[OldRubyInstance class]]) {
+    RubyInstance *instance = [_rubyInstances objectAtIndex:index];
+    if ([instance isKindOfClass:[RubyInstance class]]) {
         _project.rubyVersionIdentifier = instance.identifier;
         [self populateRubyVersions];
     } else {

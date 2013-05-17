@@ -117,7 +117,6 @@
 		436D732D173DE05000F78A23 /* RuntimeGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 436D7323173DE05000F78A23 /* RuntimeGlobals.m */; };
 		436D732E173DE05000F78A23 /* RubyRuntimesNew.m in Sources */ = {isa = PBXBuildFile; fileRef = 436D7327173DE05000F78A23 /* RubyRuntimesNew.m */; };
 		436D7334173DE0CD00F78A23 /* RubyRuntimes.m in Sources */ = {isa = PBXBuildFile; fileRef = 436D7331173DE0CD00F78A23 /* RubyRuntimes.m */; };
-		436D7335173DE0CD00F78A23 /* Runtimes.m in Sources */ = {isa = PBXBuildFile; fileRef = 436D7333173DE0CD00F78A23 /* Runtimes.m */; };
 		436D7340173DE30900F78A23 /* MASPreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 436D733B173DE30900F78A23 /* MASPreferencesWindow.xib */; };
 		436D7341173DE30900F78A23 /* MASPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 436D733D173DE30900F78A23 /* MASPreferencesWindowController.m */; };
 		436D734B173DE61400F78A23 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 436D734A173DE61400F78A23 /* PreferencesController.m */; };
@@ -142,6 +141,7 @@
 		439A76B415B28F4300E50057 /* LicenseCodeWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 439A76B315B28F4300E50057 /* LicenseCodeWindowController.m */; };
 		439A76B615B28F8C00E50057 /* LicenseCodeWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 439A76B515B28F8C00E50057 /* LicenseCodeWindowController.xib */; };
 		439C093313ADCBDD00119233 /* monitoring.plist in Resources */ = {isa = PBXBuildFile; fileRef = 439C093213ADCBDD00119233 /* monitoring.plist */; };
+		43B027591746EFBD009874A2 /* RuntimeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B027581746EFBD009874A2 /* RuntimeManager.m */; };
 		43C0368613CA191D00A01305 /* LiveReload.icns in Resources */ = {isa = PBXBuildFile; fileRef = 43C0368513CA191C00A01305 /* LiveReload.icns */; };
 		43C3D04E15B37B1500BCD2E8 /* LicenseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C3D04D15B37B1500BCD2E8 /* LicenseManager.m */; };
 		43E34F9B14705125001641AA /* console.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E34F9714705125001641AA /* console.c */; };
@@ -424,7 +424,6 @@
 		436D7330173DE0CD00F78A23 /* RubyRuntimes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RubyRuntimes.h; sourceTree = "<group>"; };
 		436D7331173DE0CD00F78A23 /* RubyRuntimes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RubyRuntimes.m; sourceTree = "<group>"; };
 		436D7332173DE0CD00F78A23 /* Runtimes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Runtimes.h; sourceTree = "<group>"; };
-		436D7333173DE0CD00F78A23 /* Runtimes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Runtimes.m; sourceTree = "<group>"; };
 		436D733A173DE30900F78A23 /* MASPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASPreferencesViewController.h; sourceTree = "<group>"; };
 		436D733B173DE30900F78A23 /* MASPreferencesWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MASPreferencesWindow.xib; sourceTree = "<group>"; };
 		436D733C173DE30900F78A23 /* MASPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASPreferencesWindowController.h; sourceTree = "<group>"; };
@@ -468,6 +467,8 @@
 		439A76B515B28F8C00E50057 /* LicenseCodeWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LicenseCodeWindowController.xib; sourceTree = "<group>"; };
 		439C093213ADCBDD00119233 /* monitoring.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = monitoring.plist; sourceTree = "<group>"; };
 		43A265E613DCEAE600704BF6 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		43B027571746EFBD009874A2 /* RuntimeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RuntimeManager.h; sourceTree = "<group>"; };
+		43B027581746EFBD009874A2 /* RuntimeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RuntimeManager.m; sourceTree = "<group>"; };
 		43C0368513CA191C00A01305 /* LiveReload.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LiveReload.icns; sourceTree = "<group>"; };
 		43C3D04C15B37B1500BCD2E8 /* LicenseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LicenseManager.h; sourceTree = "<group>"; };
 		43C3D04D15B37B1500BCD2E8 /* LicenseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LicenseManager.m; sourceTree = "<group>"; };
@@ -970,6 +971,7 @@
 			children = (
 				436D731D173DE05000F78A23 /* Instances */,
 				436D7318173DE05000F78A23 /* Containers */,
+				43B027561746EF79009874A2 /* Manager */,
 				436D7322173DE05000F78A23 /* RuntimeGlobals.h */,
 				436D7323173DE05000F78A23 /* RuntimeGlobals.m */,
 				436D735F173E1EC800F78A23 /* RuntimeObject.h */,
@@ -1032,7 +1034,6 @@
 			isa = PBXGroup;
 			children = (
 				436D7332173DE0CD00F78A23 /* Runtimes.h */,
-				436D7333173DE0CD00F78A23 /* Runtimes.m */,
 				436D7330173DE0CD00F78A23 /* RubyRuntimes.h */,
 				436D7331173DE0CD00F78A23 /* RubyRuntimes.m */,
 			);
@@ -1114,6 +1115,15 @@
 				43C3D04D15B37B1500BCD2E8 /* LicenseManager.m */,
 			);
 			path = Licensing;
+			sourceTree = "<group>";
+		};
+		43B027561746EF79009874A2 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				43B027571746EFBD009874A2 /* RuntimeManager.h */,
+				43B027581746EFBD009874A2 /* RuntimeManager.m */,
+			);
+			path = Manager;
 			sourceTree = "<group>";
 		};
 		43E34F9614705125001641AA /* Shared */ = {
@@ -1729,13 +1739,13 @@
 				436D732D173DE05000F78A23 /* RuntimeGlobals.m in Sources */,
 				436D732E173DE05000F78A23 /* RubyRuntimesNew.m in Sources */,
 				436D7334173DE0CD00F78A23 /* RubyRuntimes.m in Sources */,
-				436D7335173DE0CD00F78A23 /* Runtimes.m in Sources */,
 				436D7341173DE30900F78A23 /* MASPreferencesWindowController.m in Sources */,
 				436D734B173DE61400F78A23 /* PreferencesController.m in Sources */,
 				436D734F173DE74000F78A23 /* RubyPreferencesViewController.m in Sources */,
 				436D7357173DF3D200F78A23 /* AddCustomRubySheet.m in Sources */,
 				436D735B173E141400F78A23 /* RubyInstance.m in Sources */,
 				436D735E173E1B3A00F78A23 /* CustomRubyInstance.m in Sources */,
+				43B027591746EFBD009874A2 /* RuntimeManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

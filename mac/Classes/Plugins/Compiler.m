@@ -7,7 +7,7 @@
 #import "CompilationOptions.h"
 #import "ToolOutput.h"
 #import "Project.h"
-#import "RubyRuntimes.h"
+#import "Runtimes.h"
 #import "ToolOptions.h"
 
 #import "OldFSTree.h"

@@ -6,7 +6,7 @@
 extern NSString *const LRRuntimeInstanceDidChangeNotification;
 
 
-@interface NRuntimeInstance : NSObject <RuntimeObject>
+@interface RuntimeInstance : NSObject <RuntimeObject>
 
 @property(nonatomic, readonly) NSString *identifier;
 @property(nonatomic, strong) NSString *executablePath;
