@@ -12,7 +12,7 @@ NSString *const LRRuntimeInstanceDidChangeNotification = @"LRRuntimeInstanceDidC
 - (id)initWithMemento:(NSDictionary *)memento additionalInfo:(NSDictionary *)additionalInfo {
     self = [super init];
     if (self) {
-        _memento = [memento mutableCopy];
+        _memento = [memento mutableCopy] ?: [[NSMutableDictionary alloc] init];
         _identifier = [[memento objectForKey:@"identifier"] copy];
         _executablePath = [[memento objectForKey:@"executablePath"] copy];
         _basicTitle = [[memento objectForKey:@"basicTitle"] copy];

@@ -4,6 +4,7 @@
 #import "RubyInstance.h"
 #import "RuntimeContainer.h"
 #import "RvmContainer.h"
+#import "CustomRubyInstance.h"
 #import "MissingRuntimeInstance.h"
 
 
@@ -121,7 +122,7 @@ RubyManager *sharedRubyManager;
 }
 
 - (RuntimeInstance *)newInstanceWithDictionary:(NSDictionary *)memento {
-    return [[RubyInstance alloc] initWithMemento:memento additionalInfo:nil];
+    return [[CustomRubyInstance alloc] initWithMemento:memento additionalInfo:nil];
 }
 
 - (RuntimeContainer *)newContainerWithMemento:(NSDictionary *)memento {
@@ -139,7 +140,6 @@ RubyManager *sharedRubyManager;
     for (NSDictionary *instanceMemento in dictionary[@"customRubies"]) {
         RubyInstance *instance = (RubyInstance *) [self newInstanceWithDictionary:instanceMemento];
         if (instance) {
-            [instance resolveBookmark];
             [_customInstances addObject:instance];
             [self addInstance:instance];
         }

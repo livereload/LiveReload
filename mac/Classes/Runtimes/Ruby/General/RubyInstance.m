@@ -8,30 +8,6 @@
 
 @implementation RubyInstance
 
-- (void)resolveBookmark {
-    NSString *bookmarkString = self.memento[@"bookmark"];
-    if (bookmarkString) {
-        NSData *bookmark = [NSData dataFromBase64String:bookmarkString];
-
-        BOOL stale = NO;
-        NSError *error;
-        NSURL *url = [NSURL URLByResolvingBookmarkData:bookmark options:NSURLBookmarkResolutionWithSecurityScope relativeToURL:nil bookmarkDataIsStale:&stale error:&error];
-        if (url) {
-            self.executablePath = [[url path] stringByAppendingPathComponent:@"bin/ruby"];
-            self.memento[@"executablePath"] = self.executablePath;
-
-            if (stale) {
-                bookmarkString = [[url bookmarkDataWithOptions:NSURLBookmarkCreationWithSecurityScope|NSURLBookmarkCreationSecurityScopeAllowOnlyReadAccess includingResourceValuesForKeys:nil relativeToURL:nil error:&error] base64EncodedString];
-                if (bookmarkString) {
-                    self.memento[@"bookmark"] = bookmarkString;
-                }
-            }
-
-            [url startAccessingSecurityScopedResource];
-        }
-    }
-}
-
 - (void)doValidate {
     NSError *error;
 
