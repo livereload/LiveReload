@@ -81,7 +81,7 @@ namespace LiveReload
         public void chooseOutputFolder(D options, Twins.PayloadDelegate reply) {
             var dialog = new System.Windows.Forms.FolderBrowserDialog();
 
-            string initial = (string)options["initial"];
+            var initial = (string)options["initial"];
             if (initial != null)
                 dialog.SelectedPath = initial;
 
