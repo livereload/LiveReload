@@ -83,7 +83,7 @@ NSString *const LRRuntimesDidChangeNotification = @"LRRuntimesDidChangeNotificat
 }
 
 - (RuntimeInstance *)newInstanceWithDictionary:(NSDictionary *)memento {
-    return [[RuntimeInstance alloc] initWithDictionary:memento];
+    return [[RuntimeInstance alloc] initWithMemento:memento additionalInfo:nil];
 }
 
 @end

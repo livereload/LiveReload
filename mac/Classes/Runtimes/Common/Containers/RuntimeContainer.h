@@ -11,7 +11,7 @@ extern NSString *const LRRuntimeContainerDidChangeNotification;
 
 @interface RuntimeContainer : NSObject <RuntimeObject>
 
-- (id)initWithMemento:(NSDictionary *)data additionalInfo:(NSDictionary *)additionalInfo;
+- (id)initWithMemento:(NSDictionary *)memento additionalInfo:(NSDictionary *)additionalInfo;
 @property(nonatomic, readonly) NSMutableDictionary *memento;
 
 @property(nonatomic, readonly) NSURL *url;

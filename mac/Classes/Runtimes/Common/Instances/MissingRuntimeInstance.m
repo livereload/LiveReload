@@ -3,8 +3,8 @@
 
 @implementation MissingRuntimeInstance
 
-- (id)initWithDictionary:(NSDictionary *)data {
-    self = [super initWithDictionary:data];
+- (id)initWithMemento:(NSDictionary *)memento additionalInfo:(NSDictionary *)additionalInfo {
+    self = [super initWithMemento:memento additionalInfo:additionalInfo];
     if (self) {
         self.valid = NO;
         self.validationPerformed = YES;

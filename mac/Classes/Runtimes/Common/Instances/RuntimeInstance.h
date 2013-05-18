@@ -8,6 +8,9 @@ extern NSString *const LRRuntimeInstanceDidChangeNotification;
 
 @interface RuntimeInstance : NSObject <RuntimeObject>
 
+- (id)initWithMemento:(NSDictionary *)memento additionalInfo:(NSDictionary *)additionalInfo;
+@property(nonatomic, readonly) NSMutableDictionary *memento;
+
 @property(nonatomic, readonly) NSString *identifier;
 @property(nonatomic, strong) NSString *executablePath;
 @property(nonatomic, readonly) NSURL *executableURL;
@@ -20,10 +23,6 @@ extern NSString *const LRRuntimeInstanceDidChangeNotification;
 
 @property(nonatomic, readonly) NSString *statusQualifier;
 @property(nonatomic, readonly) NSString *title;
-
-@property(nonatomic, readonly) NSMutableDictionary *memento;
-
-- (id)initWithDictionary:(NSDictionary *)data;
 
 - (void)validate;
 

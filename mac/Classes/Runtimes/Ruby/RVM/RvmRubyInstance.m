@@ -8,7 +8,7 @@
 //    NSString *rootPath = [container.rubiesPath stringByAppendingPathComponent:identifier];
     NSString *execPath = [container.binPath stringByAppendingPathComponent:identifier];
 
-    self = [super initWithDictionary:@{@"identifier": identifier, @"executablePath": execPath, @"basicTitle": identifier}];
+    self = [super initWithMemento:@{@"identifier": identifier, @"executablePath": execPath, @"basicTitle": identifier} additionalInfo:nil];
     if (self) {
     }
     return self;

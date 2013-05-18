@@ -63,12 +63,12 @@ RubyManager *sharedRubyManager;
         bookmark = @"";
     }
 
-    RubyInstance *instance = [[RubyInstance alloc] initWithDictionary:@{
+    RubyInstance *instance = [[RubyInstance alloc] initWithMemento:@{
                               @"identifier": [url path],
                               @"executablePath": [[url path] stringByAppendingPathComponent:@"bin/ruby"],
                               @"basicTitle": [NSString stringWithFormat:@"Ruby at %@", [url path]],
                               @"bookmark": bookmark,
-                              }];
+                              } additionalInfo:nil];
     [self addInstance:instance];
     [_customInstances addObject:instance];
     return instance;
@@ -86,11 +86,11 @@ RubyManager *sharedRubyManager;
 
         [self addContainerClass:[RvmContainer class]];
 
-        [self addInstance:[[RubyInstance alloc] initWithDictionary:@{
+        [self addInstance:[[RubyInstance alloc] initWithMemento:@{
                            @"identifier": @"system",
                            @"executablePath": @"/usr/bin/ruby",
                            @"basicTitle": @"System Ruby",
-                           }]];
+                           } additionalInfo:nil]];
 
         sharedRubyManager = [self retain];
         [self load];
@@ -108,7 +108,7 @@ RubyManager *sharedRubyManager;
         }
     }
     if (!result)
-        result = [[MissingRuntimeInstance alloc] initWithDictionary:@{@"identifier": identifier}];
+        result = [[MissingRuntimeInstance alloc] initWithMemento:@{@"identifier": identifier} additionalInfo:nil];
     return result;
 }
 
@@ -121,7 +121,7 @@ RubyManager *sharedRubyManager;
 }
 
 - (RuntimeInstance *)newInstanceWithDictionary:(NSDictionary *)memento {
-    return [[RubyInstance alloc] initWithDictionary:memento];
+    return [[RubyInstance alloc] initWithMemento:memento additionalInfo:nil];
 }
 
 - (RuntimeContainer *)newContainerWithMemento:(NSDictionary *)memento {

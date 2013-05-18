@@ -7,7 +7,7 @@
 - (id)initWithURL:(NSURL *)url {
     NSString *identifier = [NSString stringWithFormat:@"custom:%@", [[url path] stringByAbbreviatingTildeInPathUsingRealHomeDirectory]];
 
-    self = [self initWithDictionary:@{@"identifier": identifier, @"executablePath": [url.path stringByAppendingPathComponent:@"bin/ruby"]}];
+    self = [self initWithMemento:@{@"identifier": identifier, @"executablePath": [url.path stringByAppendingPathComponent:@"bin/ruby"]} additionalInfo:nil];
     if (self) {
         [url startAccessingSecurityScopedResource];
     }

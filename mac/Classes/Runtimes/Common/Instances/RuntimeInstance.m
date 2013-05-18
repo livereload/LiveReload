@@ -9,13 +9,13 @@ NSString *const LRRuntimeInstanceDidChangeNotification = @"LRRuntimeInstanceDidC
     NSMutableDictionary *_memento;
 }
 
-- (id)initWithDictionary:(NSDictionary *)data {
+- (id)initWithMemento:(NSDictionary *)memento additionalInfo:(NSDictionary *)additionalInfo {
     self = [super init];
     if (self) {
-        _memento = [data mutableCopy];
-        _identifier = [[data objectForKey:@"identifier"] copy];
-        _executablePath = [[data objectForKey:@"executablePath"] copy];
-        _basicTitle = [[data objectForKey:@"basicTitle"] copy];
+        _memento = [memento mutableCopy];
+        _identifier = [[memento objectForKey:@"identifier"] copy];
+        _executablePath = [[memento objectForKey:@"executablePath"] copy];
+        _basicTitle = [[memento objectForKey:@"basicTitle"] copy];
     }
     return self;
 }
