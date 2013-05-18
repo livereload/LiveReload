@@ -2,6 +2,7 @@
 #import "RuntimeContainer.h"
 #import "NSData+Base64.h"
 #import "RubyInstance.h"
+#import "RuntimeContainer.h"
 #import "RvmContainer.h"
 #import "MissingRuntimeInstance.h"
 
@@ -14,6 +15,8 @@
 
     NSMutableArray *_customInstances;
     NSMutableArray *_customContainers;
+
+    NSMutableDictionary *_containerTypes;
 }
 
 RubyManager *sharedRubyManager;
@@ -27,6 +30,11 @@ RubyManager *sharedRubyManager;
 
 - (NSArray *)containers {
     return _containers;
+}
+
+- (void)addContainerClass:(Class)containerClass {
+    NSString *typeIdentifier = [containerClass containerTypeIdentifier];
+    _containerTypes[typeIdentifier] = containerClass;
 }
 
 - (void)addInstance:(RuntimeInstance *)instance {
@@ -69,11 +77,14 @@ RubyManager *sharedRubyManager;
 - (id)init {
     self = [super init];
     if (self) {
+        _containerTypes = [[NSMutableDictionary alloc] init];
         _instancesByIdentifier = [[NSMutableDictionary alloc] init];
         _instances = [[NSMutableArray alloc] init];
         _customInstances = [[NSMutableArray alloc] init];
         _containers = [[NSMutableArray alloc] init];
         _customContainers = [[NSMutableArray alloc] init];
+
+        [self addContainerClass:[RvmContainer class]];
 
         [self addInstance:[[RubyInstance alloc] initWithDictionary:@{
                            @"identifier": @"system",
@@ -115,11 +126,13 @@ RubyManager *sharedRubyManager;
 
 - (RuntimeContainer *)newContainerWithMemento:(NSDictionary *)memento {
     NSString *type = memento[@"type"];
-    if ([type isEqualToString:@"rvm"]) {
-        return [[RvmContainer alloc] initWithMemento:memento userInfo:nil];
-    } else {
-        return nil;
+    if ([type length] > 0) {
+        Class containerClass = _containerTypes[type];
+        if (containerClass) {
+            return [[containerClass alloc] initWithMemento:memento additionalInfo:nil];
+        }
     }
+    return nil;
 }
 
 - (void)setMemento:(NSDictionary *)dictionary {

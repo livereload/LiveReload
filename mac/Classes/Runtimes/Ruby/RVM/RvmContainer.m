@@ -26,13 +26,13 @@ NSString *GetDefaultRvmPath() {
 }
 
 - (id)initWithURL:(NSURL *)url {
-    return [self initWithMemento:nil userInfo:@{@"url": url}];
+    return [self initWithMemento:nil additionalInfo:@{@"url": url}];
 }
 
-- (id)initWithMemento:(NSDictionary *)memento userInfo:(NSDictionary *)userInfo {
-    self = [super initWithMemento:memento userInfo:userInfo];
+- (id)initWithMemento:(NSDictionary *)memento additionalInfo:(NSDictionary *)additionalInfo {
+    self = [super initWithMemento:memento additionalInfo:additionalInfo];
     if (self) {
-        self.rootUrl = ATInitOrResolveSecurityScopedURL(self.memento, userInfo[@"url"], ATSecurityScopedURLOptionsReadWrite);
+        self.rootUrl = ATInitOrResolveSecurityScopedURL(self.memento, additionalInfo[@"url"], ATSecurityScopedURLOptionsReadWrite);
         [self.rootUrl startAccessingSecurityScopedResource];
     }
     return self;

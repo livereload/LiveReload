@@ -20,7 +20,7 @@ NSString *const LRRuntimeContainerDidChangeNotification = @"LRRuntimeContainerDi
     NSMutableArray *_instances;
 }
 
-- (id)initWithMemento:(NSDictionary *)memento userInfo:(NSDictionary *)userInfo {
+- (id)initWithMemento:(NSDictionary *)memento additionalInfo:(NSDictionary *)additionalInfo {
     self = [super init];
     if (self) {
         _memento = [(memento ?: @{}) mutableCopy];
