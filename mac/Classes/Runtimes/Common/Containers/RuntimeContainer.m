@@ -20,10 +20,11 @@ NSString *const LRRuntimeContainerDidChangeNotification = @"LRRuntimeContainerDi
     NSMutableArray *_instances;
 }
 
-- (id)initWithDictionary:(NSDictionary *)data {
+- (id)initWithMemento:(NSDictionary *)memento userInfo:(NSDictionary *)userInfo {
     self = [super init];
     if (self) {
-        _memento = [data mutableCopy];
+        _memento = [(memento ?: @{}) mutableCopy];
+        _memento[@"type"] = [[self class] containerTypeIdentifier];
         _instances = [[NSMutableArray alloc] init];
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(runtimeInstanceDidChange:) name:LRRuntimeInstanceDidChangeNotification object:nil];
@@ -96,6 +97,14 @@ NSString *const LRRuntimeContainerDidChangeNotification = @"LRRuntimeContainerDi
     return @"Unnamed";
 }
 
+- (RuntimeInstance *)instanceIdentifiedBy:(NSString *)identifier {
+    for (RuntimeInstance *instance in _instances) {
+        if ([instance.identifier isEqualToString:identifier])
+            return instance;
+    }
+    return nil;
+}
+
 
 #pragma mark - Methods for subclasses
 
@@ -130,6 +139,10 @@ NSString *const LRRuntimeContainerDidChangeNotification = @"LRRuntimeContainerDi
 
 
 #pragma mark - Abstract methods
+
++ (NSString *)containerTypeIdentifier {
+    abort();
+}
 
 - (void)doValidate {
     abort();

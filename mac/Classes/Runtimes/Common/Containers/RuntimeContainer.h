@@ -11,7 +11,8 @@ extern NSString *const LRRuntimeContainerDidChangeNotification;
 
 @interface RuntimeContainer : NSObject <RuntimeObject>
 
-- (id)initWithDictionary:(NSDictionary *)data;
+- (id)initWithMemento:(NSDictionary *)data userInfo:(NSDictionary *)userInfo;
+@property(nonatomic, readonly) NSMutableDictionary *memento;
 
 @property(nonatomic, readonly) NSURL *url;
 @property(nonatomic, readonly) BOOL validationInProgress;
@@ -22,16 +23,17 @@ extern NSString *const LRRuntimeContainerDidChangeNotification;
 @property(nonatomic, readonly) BOOL subtreeValidationInProgress;
 @property(nonatomic, readonly) NSString *subtreeValidationResultSummary;
 
-@property(nonatomic, readonly) NSMutableDictionary *memento;
-
 @property(nonatomic, readonly) BOOL exposedToUser;  // if NO, container name will not be displayed
 @property(nonatomic, readonly) NSString *title;
 @property(nonatomic, readonly) NSArray *instances;
 @property(nonatomic, strong) NSString *version;
 
+- (RuntimeInstance *)instanceIdentifiedBy:(NSString *)identifier; // nil if none
+
 - (void)validate;
 
 // override points
++ (NSString *)containerTypeIdentifier;
 - (RuntimeInstance *)newRuntimeInstanceWithData:(NSDictionary *)data;
 - (void)doValidate;
 

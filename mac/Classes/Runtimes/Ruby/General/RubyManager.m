@@ -2,6 +2,7 @@
 #import "RuntimeContainer.h"
 #import "NSData+Base64.h"
 #import "RubyInstance.h"
+#import "RvmContainer.h"
 #import "MissingRuntimeInstance.h"
 
 
@@ -22,6 +23,10 @@ RubyManager *sharedRubyManager;
 
 - (NSArray *)instances {
     return _instances;
+}
+
+- (NSArray *)containers {
+    return _containers;
 }
 
 - (void)addInstance:(RuntimeInstance *)instance {
@@ -67,6 +72,8 @@ RubyManager *sharedRubyManager;
         _instancesByIdentifier = [[NSMutableDictionary alloc] init];
         _instances = [[NSMutableArray alloc] init];
         _customInstances = [[NSMutableArray alloc] init];
+        _containers = [[NSMutableArray alloc] init];
+        _customContainers = [[NSMutableArray alloc] init];
 
         [self addInstance:[[RubyInstance alloc] initWithDictionary:@{
                            @"identifier": @"system",
@@ -82,6 +89,13 @@ RubyManager *sharedRubyManager;
 
 - (RuntimeInstance *)instanceIdentifiedBy:(NSString *)identifier {
     RuntimeInstance *result = [_instancesByIdentifier objectForKey:identifier];
+    if (!result) {
+        for (RuntimeContainer *container in _containers) {
+            result = [container instanceIdentifiedBy:identifier];
+            if (result)
+                break;
+        }
+    }
     if (!result)
         result = [[MissingRuntimeInstance alloc] initWithDictionary:@{@"identifier": identifier}];
     return result;
@@ -92,11 +106,20 @@ RubyManager *sharedRubyManager;
 }
 
 - (NSDictionary *)memento {
-    return @{@"customRubies": [_customInstances valueForKey:@"memento"]};
+    return @{@"customRubies": [_customInstances valueForKey:@"memento"], @"containers": [_customContainers valueForKey:@"memento"]};
 }
 
 - (RuntimeInstance *)newInstanceWithDictionary:(NSDictionary *)memento {
     return [[RubyInstance alloc] initWithDictionary:memento];
+}
+
+- (RuntimeContainer *)newContainerWithMemento:(NSDictionary *)memento {
+    NSString *type = memento[@"type"];
+    if ([type isEqualToString:@"rvm"]) {
+        return [[RvmContainer alloc] initWithMemento:memento userInfo:nil];
+    } else {
+        return nil;
+    }
 }
 
 - (void)setMemento:(NSDictionary *)dictionary {
@@ -106,6 +129,13 @@ RubyManager *sharedRubyManager;
             [instance resolveBookmark];
             [_customInstances addObject:instance];
             [self addInstance:instance];
+        }
+    }
+    for (NSDictionary *containerMemento in dictionary[@"containers"]) {
+        RuntimeContainer *container = [self newContainerWithMemento:containerMemento];
+        if (container) {
+            [_customContainers addObject:container];
+            [self addContainer:container];
         }
     }
     [self runtimesDidChange];

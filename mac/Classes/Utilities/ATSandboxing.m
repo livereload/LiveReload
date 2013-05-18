@@ -1,5 +1,6 @@
 
 #import "ATSandboxing.h"
+#import "NSData+Base64.h"
 
 #include <unistd.h>
 #include <sys/types.h>
@@ -66,6 +67,69 @@ BOOL ATOSVersionAtLeast(int major, int minor, int revision) {
 BOOL ATOSVersionLessThan(int major, int minor, int revision) {
     return ATOSVersion() < ATVersionMake(major, minor, revision);
 }
+
+
+NSURL *ATInitOrResolveSecurityScopedURL(NSMutableDictionary *memento, NSURL *newURL, ATSecurityScopedURLOptions options) {
+    NSError *error;
+
+    if (newURL) {
+        [memento setObject:[[newURL path] stringByAbbreviatingTildeInPathUsingRealHomeDirectory] forKey:@"path"];  // solely for debugging and identification purposes; we'll always use a bookmark when available
+
+        NSURLBookmarkCreationOptions o = NSURLBookmarkCreationWithSecurityScope;
+        if ((options & ATSecurityScopedURLOptionsReadOnly) == ATSecurityScopedURLOptionsReadOnly)
+            o |= NSURLBookmarkCreationSecurityScopeAllowOnlyReadAccess;
+        NSData *bookmarkData = [newURL bookmarkDataWithOptions:NSURLBookmarkCreationWithSecurityScope includingResourceValuesForKeys:@[NSURLPathKey] relativeToURL:nil error:&error];
+        if (!bookmarkData) {
+            [memento removeObjectForKey:@"bookmark"];
+            NSLog(@"Failed to create a security-scoped bookmark for %@: %@", newURL, error);
+        } else {
+            [memento setObject:[bookmarkData base64EncodedString] forKey:@"bookmark"];
+            NSLog(@"Created security-scoped bookmark for %@", newURL);
+        }
+
+        return newURL;
+    } else {
+        NSString *pathString = memento[@"path"];
+        NSString *bookmarkString = memento[@"bookmark"];
+
+        if (bookmarkString) {
+            NSData *bookmark = [NSData dataFromBase64String:bookmarkString];
+
+            BOOL stale = NO;
+            NSURL *url = [NSURL URLByResolvingBookmarkData:bookmark options:NSURLBookmarkResolutionWithSecurityScope|NSURLBookmarkResolutionWithoutUI relativeToURL:nil bookmarkDataIsStale:&stale error:&error];
+            if (!url) {
+                NSString *bookmarkedPath = [NSURL resourceValuesForKeys:@[NSURLPathKey] fromBookmarkData:bookmark][NSURLPathKey];
+                if (bookmarkedPath) {
+                    NSLog(@"Failed to resolve a security-scoped bookmark for %@", bookmarkedPath);
+                    return [NSURL fileURLWithPath:bookmarkedPath];
+                } else {
+                    NSLog(@"Failed to resolve a security-scoped bookmark for %@ (apparently the bookmark is completely invalid)", pathString);
+                    return [NSURL fileURLWithPath:[pathString stringByExpandingTildeInPathUsingRealHomeDirectory]];
+                }
+            } else {
+                if (stale) {
+                    NSURLBookmarkCreationOptions o = NSURLBookmarkCreationWithSecurityScope;
+                    if ((options & ATSecurityScopedURLOptionsReadOnly) == ATSecurityScopedURLOptionsReadOnly)
+                        o |= NSURLBookmarkCreationSecurityScopeAllowOnlyReadAccess;
+                    NSData *bookmarkData = [newURL bookmarkDataWithOptions:NSURLBookmarkCreationWithSecurityScope includingResourceValuesForKeys:@[NSURLPathKey] relativeToURL:nil error:&error];
+                    if (!bookmarkData) {
+                        NSLog(@"Failed to update a security-scoped bookmark for %@: %@", newURL, error);
+                    } else {
+                        [memento setObject:[bookmarkData base64EncodedString] forKey:@"bookmark"];
+                        NSLog(@"Updated security-scoped bookmark for %@", newURL);
+                    }
+                }
+
+                return url;
+            }
+        } else if (pathString) {
+            return [NSURL fileURLWithPath:[pathString stringByExpandingTildeInPathUsingRealHomeDirectory]];
+        } else {
+            return nil;
+        }
+    }
+}
+
 
 
 @implementation NSString (ATSandboxing)

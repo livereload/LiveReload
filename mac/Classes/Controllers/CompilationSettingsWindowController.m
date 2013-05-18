@@ -100,6 +100,8 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
     [_project requestMonitoring:YES forKey:@"compilationSettings"];
     EVENTBUS_OBJC_SUBSCRIBE(CompilationSettingsWindowController, project_fs_change_event);
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rubiesDidChange:) name:LRRuntimesDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rubiesDidChange:) name:LRRuntimeInstanceDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rubiesDidChange:) name:LRRuntimeContainerDidChangeNotification object:nil];
     [super windowDidLoad];
 }
 
@@ -204,23 +206,40 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
     _rubyInstances = rubyInstancesByIndex;
 
     NSArray *rubyInstances = [RubyManager sharedRubyManager].instances;
+    NSArray *containers = [RubyManager sharedRubyManager].containers;
 
 //    NSMutableArray *titles = [_rubyInstances valueForKeyPath:@"title"];
 
     [_rubyVersionsPopUpButton removeAllItems];
-    if ([rubyInstances count] > 0) {
+    if ([rubyInstances count] > 0 || containers.count > 0) {
         for (RubyInstance *instance in rubyInstances) {
             [_rubyVersionsPopUpButton addItemWithTitle:instance.title];
             [rubyInstancesByIndex addObject:instance];
         }
 
+        for (RuntimeContainer *container in containers) {
+            [[_rubyVersionsPopUpButton menu] addItem:[NSMenuItem separatorItem]];
+            [rubyInstancesByIndex addObject:[NSNull null]];
+
+            if (container.exposedToUser) {
+                NSMenuItem *item = [[_rubyVersionsPopUpButton menu] addItemWithTitle:container.title action:nil keyEquivalent:@""];
+                // item.enabled has no effect; see 'validateMenuItem:' below (which is why we set tag and target here)
+                // item.enabled = NO;
+                item.target = self;
+                item.tag = 0xDEADBEEF;
+                [rubyInstancesByIndex addObject:[NSNull null]];
+            }
+
+            for (RubyInstance *instance in container.instances) {
+                [_rubyVersionsPopUpButton addItemWithTitle:instance.title];
+                [rubyInstancesByIndex addObject:instance];
+            }
+        }
+
         [[_rubyVersionsPopUpButton menu] addItem:[NSMenuItem separatorItem]];
         [rubyInstancesByIndex addObject:[NSNull null]];
 
-        [[_rubyVersionsPopUpButton menu] addItemWithTitle:@"Add RVM Rubies..." action:@selector(addRvm) keyEquivalent:@""];
-        [rubyInstancesByIndex addObject:[NSNull null]];
-
-        [[_rubyVersionsPopUpButton menu] addItemWithTitle:@"Add Ruby..." action:@selector(addCustomRuby) keyEquivalent:@""];
+        [[_rubyVersionsPopUpButton menu] addItemWithTitle:@"Configure Rubies..." action:@selector(manageRubies) keyEquivalent:@""];
         [rubyInstancesByIndex addObject:[NSNull null]];
 
         RuntimeInstance *selectedInstance = [[RubyManager sharedRubyManager] instanceIdentifiedBy:_project.rubyVersionIdentifier];
@@ -245,6 +264,12 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
     }
 }
 
+- (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
+    if (menuItem.tag == 0xDEADBEEF)
+        return NO;
+    return YES;
+}
+
 - (void)restoreRubySelection {
     RuntimeInstance *selectedInstance = [[RubyManager sharedRubyManager] instanceIdentifiedBy:_project.rubyVersionIdentifier];
     NSInteger selectedIndex = [_rubyInstances indexOfObject:selectedInstance];
@@ -254,50 +279,9 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
         [self populateRubyVersions];
 }
 
-- (void)addCustomRuby {
+- (void)manageRubies {
     [self restoreRubySelection];
-
     [[PreferencesController sharedPreferencesController] showAddRubyInstancePage];
-    return;
-    
-    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
-    [openPanel setCanChooseDirectories:YES];
-    [openPanel setCanCreateDirectories:NO];
-    [openPanel setTitle:@"Add Ruby Version"];
-    [openPanel setMessage:@"Choose the ROOT folder of the Ruby installation (with ‘bin’, ‘lib’ etc subfolders)"];
-    [openPanel setPrompt:@"Add Ruby"];
-    [openPanel setCanChooseFiles:NO];
-    [openPanel setTreatsFilePackagesAsDirectories:YES];
-
-    NSInteger result = [openPanel runModal];
-    if (result == NSFileHandlingPanelOKButton) {
-        NSURL *url = [openPanel URL];
-        RuntimeInstance *instance = [[RubyManager sharedRubyManager] addCustomRubyAtURL:url];
-        if (instance) {
-            _project.rubyVersionIdentifier = instance.identifier;
-            [self populateRubyVersions];
-        }
-    }
-}
-
-- (void)addRvm {
-    [self restoreRubySelection];
-
-    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
-    [openPanel setCanChooseDirectories:YES];
-    [openPanel setCanCreateDirectories:NO];
-    [openPanel setTitle:@"Add RVM"];
-    [openPanel setMessage:@"Choose root folder of the RVM installation"];
-    [openPanel setPrompt:@"Add RVM"];
-    [openPanel setDirectoryURL:[NSURL fileURLWithPath:GetDefaultRvmPath()]];
-    [openPanel setCanChooseFiles:NO];
-    [openPanel setTreatsFilePackagesAsDirectories:YES];
-
-    NSInteger result = [openPanel runModal];
-    if (result == NSFileHandlingPanelOKButton) {
-        NSURL *url = [openPanel URL];
-//        [[OldRubyManager sharedRubyManager] addRvmContainerAtURL:url];
-    }
 }
 
 - (void)populateToolVersions {

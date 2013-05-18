@@ -11,14 +11,29 @@ NSString *GetDefaultRvmPath() {
 }
 
 
+@interface RvmContainer ()
+
+@property(nonatomic, strong) NSURL *rootUrl;
+
+@end
+
+
 
 @implementation RvmContainer
 
++ (NSString *)containerTypeIdentifier {
+    return @"rvm";
+}
+
 - (id)initWithURL:(NSURL *)url {
-    self = [super initWithDictionary:@{}];
+    return [self initWithMemento:nil userInfo:@{@"url": url}];
+}
+
+- (id)initWithMemento:(NSDictionary *)memento userInfo:(NSDictionary *)userInfo {
+    self = [super initWithMemento:memento userInfo:userInfo];
     if (self) {
-        self.rootUrl = url;
-        [url startAccessingSecurityScopedResource];
+        self.rootUrl = ATInitOrResolveSecurityScopedURL(self.memento, userInfo[@"url"], ATSecurityScopedURLOptionsReadWrite);
+        [self.rootUrl startAccessingSecurityScopedResource];
     }
     return self;
 }
@@ -41,6 +56,7 @@ NSString *GetDefaultRvmPath() {
     if ([self.version length] > 0) {
         [components addObject:self.version];
     }
+    [components addObject:[NSString stringWithFormat:@"at %@", [self.rootPath stringByAbbreviatingTildeInPathUsingRealHomeDirectory]]];
     return [components componentsJoinedByString:@" "];
 }
 

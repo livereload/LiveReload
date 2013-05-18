@@ -3,4 +3,6 @@
 
 @interface CustomRubyInstance : RubyInstance
 
+- (id)initWithURL:(NSURL *)url;
+
 @end
