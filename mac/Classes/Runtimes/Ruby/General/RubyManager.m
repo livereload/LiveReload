@@ -33,7 +33,7 @@ RubyManager *sharedRubyManager;
 
 - (void)addContainer:(RuntimeContainer *)container {
     [_containers addObject:container];
-    [container validateAndDiscover];
+    [container validate];
     [self runtimesDidChange];
 }
 

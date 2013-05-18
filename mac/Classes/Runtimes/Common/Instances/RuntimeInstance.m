@@ -98,7 +98,18 @@ NSString *const LRRuntimeInstanceDidChangeNotification = @"LRRuntimeInstanceDidC
 }
 
 - (NSString *)validationResultSummary {
-    return [NSString stringWithFormat:@"v%@", self.version];
+    if (self.valid)
+        return [NSString stringWithFormat:@"v%@", self.version];
+    else
+        return @"invalid";
+}
+
+- (BOOL)subtreeValidationInProgress {
+    return self.validationInProgress;
+}
+
+- (NSString *)subtreeValidationResultSummary {
+    return self.validationResultSummary;
 }
 
 - (void)didChange {

@@ -163,10 +163,10 @@ typedef enum {
 - (void)updateValidationStatus {
     if (!self.chosenObject)
         [self setProgressStatus:ProgressStatusNone message:@""];
-    else if (self.chosenObject.validationInProgress)
+    else if (self.chosenObject.subtreeValidationInProgress)
         [self setProgressStatus:ProgressStatusInProgress message:@"Validating..."];
     else if (self.chosenObject.valid)
-        [self setProgressStatus:ProgressStatusSucceeded message:self.chosenObject.validationResultSummary];
+        [self setProgressStatus:ProgressStatusSucceeded message:self.chosenObject.subtreeValidationResultSummary];
     else
         [self setProgressStatus:ProgressStatusFailed message:@"Invalid folder."];
 
