@@ -172,7 +172,7 @@ void C_update(json_t *arg) {
 
     [[DockIcon currentDockIcon] displayDockIconWhenAppHasWindowsWithDelegateClass:[NewMainWindowController class]];
 
-    [[RubyManager alloc] init];
+    [[[RubyManager alloc] init] load];
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification {
