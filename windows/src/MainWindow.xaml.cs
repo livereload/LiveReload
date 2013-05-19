@@ -107,6 +107,13 @@ namespace LiveReload
             ((App)App.Current).InstallUpdateSyncWithInfo();
         }
 
+        private void TestNewWorkspaceClass(object sender, RoutedEventArgs e) {
+            var foo = new LiveReload.Model.Workspace();
+            var bar = new LiveReload.Model.Project("C:\\foobar2000\\");
+            foo.AddProject(bar);
+            Console.WriteLine(foo);
+        }
+
         private void ShowReleaseNotes_Click(object sender, RoutedEventArgs e) {
             if (gridProgress.Visibility == Visibility.Visible)
                 gridProgress.Visibility = Visibility.Hidden;
