@@ -118,6 +118,8 @@
       <DependentUpon>EditableTextBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="src\MainWindow.Update.cs" />
+    <Compile Include="Model\Project.cs" />
+    <Compile Include="Model\Workspace.cs" />
     <Compile Include="Twins\Environment.cs" />
     <Compile Include="Twins\WPF\Facets.cs" />
     <Compile Include="Twins\Entity.cs" />
