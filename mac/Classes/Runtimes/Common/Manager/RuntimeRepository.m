@@ -66,6 +66,12 @@ NSString *const LRRuntimesDidChangeNotification = @"LRRuntimesDidChangeNotificat
     [self addInstance:instance];
 }
 
+- (void)removeInstance:(RuntimeInstance *)instance {
+    [_customInstances removeObject:instance];
+    [_instances removeObject:instance];
+    [self runtimesDidChange];
+}
+
 
 
 #pragma mark - Containers
@@ -90,6 +96,42 @@ NSString *const LRRuntimesDidChangeNotification = @"LRRuntimesDidChangeNotificat
     [self addContainer:container];
 }
 
+- (void)removeContainer:(RuntimeContainer *)container {
+    [_customContainers removeObject:container];
+    [_containers removeObject:container];
+    [self runtimesDidChange];
+}
+
+
+
+#pragma mark - Polymorphic instance/container handling
+
+- (void)addCustomRuntimeObject:(id<RuntimeObject>)object {
+    if ([object isKindOfClass:[RuntimeInstance class]])
+        [self addCustomInstance:object];
+    else if ([object isKindOfClass:[RuntimeContainer class]])
+        [self addCustomContainer:object];
+    else
+        abort();
+}
+
+- (BOOL)canRemoveRuntimeObject:(id<RuntimeObject>)object {
+    if ([object isKindOfClass:[RuntimeInstance class]])
+        return [_customInstances containsObject:object];
+    else if ([object isKindOfClass:[RuntimeContainer class]])
+        return [_customContainers containsObject:object];
+    else
+        abort();
+}
+
+- (void)removeRuntimeObject:(id<RuntimeObject>)object {
+    if ([object isKindOfClass:[RuntimeInstance class]])
+        [self removeInstance:object];
+    else if ([object isKindOfClass:[RuntimeContainer class]])
+        [self removeContainer:object];
+    else
+        abort();
+}
 
 
 #pragma mark - Lookup
