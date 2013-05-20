@@ -26,7 +26,7 @@
     return @"RVM Ruby";
 }
 
-- (NSString *)executableURL {
+- (NSURL *)executableURL {
     return [NSURL fileURLWithPath:[self.container.binPath stringByAppendingPathComponent:self.name]];
 }
 

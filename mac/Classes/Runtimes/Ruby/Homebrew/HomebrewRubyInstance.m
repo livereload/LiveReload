@@ -1,6 +1,7 @@
 
 #import "HomebrewRubyInstance.h"
 #import "HomebrewContainer.h"
+#import "ATSandboxing.h"
 
 
 @interface HomebrewRubyInstance ()
@@ -26,12 +27,16 @@
     return @"Homebrew Ruby";
 }
 
-- (NSString *)executableURL {
-    return [NSURL fileURLWithPath:[self.container.binPath stringByAppendingPathComponent:self.name]];
+- (NSURL *)rootURL {
+    return [NSURL fileURLWithPath:[self.container.rootPath stringByAppendingPathComponent:self.name]];
+}
+
+- (NSURL *)executableURL {
+    return [self.rootURL URLByAppendingPathComponent:@"bin/ruby"];
 }
 
 - (NSString *)detailLabel {
-    return self.name;
+    return [[self.rootURL path] stringByAbbreviatingTildeInPathUsingRealHomeDirectory];
 }
 
 @end

@@ -40,14 +40,6 @@ NSString *GetDefaultHomebrewPath() {
     return [self.rootUrl path];
 }
 
-- (NSString *)rubiesPath {
-    return [self.rootPath stringByAppendingPathComponent:@"rubies"];
-}
-
-- (NSString *)binPath {
-    return [self.rootPath stringByAppendingPathComponent:@"bin"];
-}
-
 - (NSString *)title {
     return [self.rootPath stringByAbbreviatingTildeInPathUsingRealHomeDirectory];
 }
@@ -57,43 +49,20 @@ NSString *GetDefaultHomebrewPath() {
         NSError *error;
         BOOL isDir;
 
-        if (![[NSFileManager defaultManager] fileExistsAtPath:self.rootPath isDirectory:&isDir] || !isDir) {
+        if (![[self.rootUrl lastPathComponent] isEqualToString:@"ruby"]) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self setInvalidWithError:[NSError errorWithDomain:LRRuntimeManagerErrorDomain code:LRRuntimeManagerErrorValidationFailed userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"RVM directory not found at %@", self.rootPath]}]];
+                [self setInvalidWithError:[NSError errorWithDomain:LRRuntimeManagerErrorDomain code:LRRuntimeManagerErrorValidationFailed userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Not a Homebrew Cellar/ruby directory because it does not end with ‘ruby’: %@", self.rootPath]}]];
             });
             return;
         }
 
-        NSString *versionFile = [self.rootPath stringByAppendingPathComponent:@"VERSION"];
-        if (![[NSFileManager defaultManager] fileExistsAtPath:versionFile]) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self setInvalidWithError:[NSError errorWithDomain:LRRuntimeManagerErrorDomain code:LRRuntimeManagerErrorValidationFailed userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"RVM VERSION file not found at %@", versionFile]}]];
-            });
-            return;
-        }
-        if (![[NSFileManager defaultManager] fileExistsAtPath:self.rubiesPath isDirectory:&isDir] || !isDir) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self setInvalidWithError:[NSError errorWithDomain:LRRuntimeManagerErrorDomain code:LRRuntimeManagerErrorValidationFailed userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"RVM rubies subfolder not found at %@", self.rubiesPath]}]];
-            });
-            return;
-        }
-
-        NSString *version = [NSString stringWithContentsOfFile:versionFile encoding:NSUTF8StringEncoding error:&error];
-        if (!version) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self setInvalidWithError:[NSError errorWithDomain:LRRuntimeManagerErrorDomain code:LRRuntimeManagerErrorValidationFailed userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"RVM directory not accessible (sandboxing issue?), cannot read %@", versionFile]}]];
-            });
-            return;
-        }
-        self.version = [version stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-
-        NSArray *rubySubfolders = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.rubiesPath error:&error];
+        NSArray *rubySubfolders = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.rootPath error:&error];
         NSMutableArray *rubyInstancesData = [NSMutableArray array];
         for (NSString *subfolder in rubySubfolders) {
             if ([subfolder isEqualToString:@"default"])
                 continue;
 
-            NSString *rubyPath = [self.rubiesPath stringByAppendingPathComponent:subfolder];
+            NSString *rubyPath = [self.rootPath stringByAppendingPathComponent:subfolder];
             if ([[NSFileManager defaultManager] fileExistsAtPath:rubyPath isDirectory:&isDir] && isDir) {
                 [rubyInstancesData addObject:@{@"name": subfolder, @"identifier": [NSString stringWithFormat:@"homebrew:%@", subfolder]}];
             }
