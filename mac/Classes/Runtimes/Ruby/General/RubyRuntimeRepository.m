@@ -1,10 +1,10 @@
 #import "RubyRuntimeRepository.h"
 #import "RuntimeContainer.h"
 #import "NSData+Base64.h"
-#import "RubyInstance.h"
+#import "SystemRubyInstance.h"
+#import "CustomRubyInstance.h"
 #import "RuntimeContainer.h"
 #import "RvmContainer.h"
-#import "CustomRubyInstance.h"
 
 
 
@@ -38,11 +38,7 @@ RubyRuntimeRepository *sharedRubyManager;
     if (self) {
         [self addContainerClass:[RvmContainer class]];
 
-        [self addInstance:[[RubyInstance alloc] initWithMemento:@{
-                           @"identifier": @"system",
-                           @"executablePath": @"/usr/bin/ruby",
-                           @"basicTitle": @"System Ruby",
-                           } additionalInfo:nil]];
+        [self addInstance:[[SystemRubyInstance alloc] initWithIdentifier:@"system" executableURL:[NSURL fileURLWithPath:@"/usr/bin/ruby"]]];
 
         sharedRubyManager = [self retain];
     }

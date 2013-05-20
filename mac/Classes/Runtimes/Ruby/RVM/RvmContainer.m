@@ -97,7 +97,7 @@ NSString *GetDefaultRvmPath() {
 
             NSString *rubyPath = [self.rubiesPath stringByAppendingPathComponent:subfolder];
             if ([[NSFileManager defaultManager] fileExistsAtPath:rubyPath isDirectory:&isDir] && isDir) {
-                [rubyInstancesData addObject:@{@"identifier": subfolder}];
+                [rubyInstancesData addObject:@{@"name": subfolder, @"identifier": [NSString stringWithFormat:@"rvm:%@", subfolder]}];
             }
         }
 
@@ -109,7 +109,7 @@ NSString *GetDefaultRvmPath() {
 }
 
 - (RuntimeInstance *)newRuntimeInstanceWithData:(NSDictionary *)data {
-    return [[RvmRubyInstance alloc] initWithIdentifier:data[@"identifier"] container:self];
+    return [[RvmRubyInstance alloc] initWithIdentifier:data[@"identifier"] name:data[@"name"] container:self];
 }
 
 - (NSString *)validationResultSummary {

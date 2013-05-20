@@ -205,21 +205,41 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
     NSMutableArray *rubyInstancesByIndex = [[NSMutableArray alloc] init];
     _rubyInstances = rubyInstancesByIndex;
 
-    NSArray *rubyInstances = [RubyRuntimeRepository sharedRubyManager].instances;
+    NSArray *systemInstances = [RubyRuntimeRepository sharedRubyManager].systemInstances;
+    NSArray *customInstances = [RubyRuntimeRepository sharedRubyManager].customInstances;
     NSArray *containers = [RubyRuntimeRepository sharedRubyManager].containers;
 
 //    NSMutableArray *titles = [_rubyInstances valueForKeyPath:@"title"];
 
     [_rubyVersionsPopUpButton removeAllItems];
-    if ([rubyInstances count] > 0 || containers.count > 0) {
-        for (RubyInstance *instance in rubyInstances) {
+    if (systemInstances.count > 0 || customInstances.count > 0 || containers.count > 0) {
+        BOOL separatorRequired = NO;
+        for (RubyInstance *instance in systemInstances) {
             [_rubyVersionsPopUpButton addItemWithTitle:instance.title];
             [rubyInstancesByIndex addObject:instance];
+            separatorRequired = YES;
+        }
+
+        if (customInstances.count > 0) {
+            if (separatorRequired) {
+                [[_rubyVersionsPopUpButton menu] addItem:[NSMenuItem separatorItem]];
+                [rubyInstancesByIndex addObject:[NSNull null]];
+                separatorRequired = NO;
+            }
+
+            for (RubyInstance *instance in customInstances) {
+                [_rubyVersionsPopUpButton addItemWithTitle:instance.title];
+                [rubyInstancesByIndex addObject:instance];
+                separatorRequired = YES;
+            }
         }
 
         for (RuntimeContainer *container in containers) {
-            [[_rubyVersionsPopUpButton menu] addItem:[NSMenuItem separatorItem]];
-            [rubyInstancesByIndex addObject:[NSNull null]];
+            if (separatorRequired) {
+                [[_rubyVersionsPopUpButton menu] addItem:[NSMenuItem separatorItem]];
+                [rubyInstancesByIndex addObject:[NSNull null]];
+                separatorRequired = NO;
+            }
 
             if (container.exposedToUser) {
                 NSMenuItem *item = [[_rubyVersionsPopUpButton menu] addItemWithTitle:container.title action:nil keyEquivalent:@""];
@@ -230,14 +250,26 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
                 [rubyInstancesByIndex addObject:[NSNull null]];
             }
 
-            for (RubyInstance *instance in container.instances) {
-                [_rubyVersionsPopUpButton addItemWithTitle:instance.title];
-                [rubyInstancesByIndex addObject:instance];
+            if (container.instances.count > 0) {
+                for (RubyInstance *instance in container.instances) {
+                    [_rubyVersionsPopUpButton addItemWithTitle:instance.title];
+                    [rubyInstancesByIndex addObject:instance];
+                }
+            } else {
+                NSMenuItem *item = [[_rubyVersionsPopUpButton menu] addItemWithTitle:@"No rubies found." action:nil keyEquivalent:@""];
+                item.target = self;
+                item.tag = 0xDEADBEEF;
+                [rubyInstancesByIndex addObject:[NSNull null]];
             }
+
+            separatorRequired = YES;
         }
 
-        [[_rubyVersionsPopUpButton menu] addItem:[NSMenuItem separatorItem]];
-        [rubyInstancesByIndex addObject:[NSNull null]];
+        if (separatorRequired) {
+            [[_rubyVersionsPopUpButton menu] addItem:[NSMenuItem separatorItem]];
+            [rubyInstancesByIndex addObject:[NSNull null]];
+            separatorRequired = NO;
+        }
 
         [[_rubyVersionsPopUpButton menu] addItemWithTitle:@"Configure Rubies..." action:@selector(manageRubies) keyEquivalent:@""];
         [rubyInstancesByIndex addObject:[NSNull null]];

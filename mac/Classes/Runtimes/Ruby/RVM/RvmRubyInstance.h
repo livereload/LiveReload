@@ -7,6 +7,6 @@
 
 @interface RvmRubyInstance : RubyInstance
 
-- (id)initWithIdentifier:(NSString *)identifier container:(RvmContainer *)container;
+- (id)initWithIdentifier:(NSString *)identifier name:(NSString *)name container:(RvmContainer *)container;
 
 @end

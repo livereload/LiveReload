@@ -2,14 +2,22 @@
 #import "RvmRubyInstance.h"
 #import "RvmContainer.h"
 
+
+@interface RvmRubyInstance ()
+
+@property(nonatomic, __unsafe_unretained) RvmContainer *container;
+@property(nonatomic, strong) NSString *name;
+
+@end
+
+
 @implementation RvmRubyInstance
 
-- (id)initWithIdentifier:(NSString *)identifier container:(RvmContainer *)container {
-//    NSString *rootPath = [container.rubiesPath stringByAppendingPathComponent:identifier];
-    NSString *execPath = [container.binPath stringByAppendingPathComponent:identifier];
-
-    self = [super initWithMemento:@{@"identifier": identifier, @"executablePath": execPath, @"basicTitle": identifier} additionalInfo:nil];
+- (id)initWithIdentifier:(NSString *)identifier name:(NSString *)name container:(RvmContainer *)container {
+    self = [super initWithMemento:@{@"identifier": identifier} additionalInfo:nil];
     if (self) {
+        self.container = container;
+        self.name = name;
     }
     return self;
 }
@@ -18,8 +26,12 @@
     return @"RVM Ruby";
 }
 
+- (NSString *)executableURL {
+    return [NSURL fileURLWithPath:[self.container.binPath stringByAppendingPathComponent:self.name]];
+}
+
 - (NSString *)detailLabel {
-    return self.memento[@"identifier"];
+    return self.name;
 }
 
 @end

@@ -12,6 +12,8 @@ extern NSString *const LRRuntimesDidChangeNotification;
 @interface RuntimeRepository : NSObject
 
 @property(nonatomic, readonly, strong) NSArray *instances;
+@property(nonatomic, readonly, strong) NSArray *systemInstances;
+@property(nonatomic, readonly, strong) NSArray *customInstances;
 @property(nonatomic, readonly, strong) NSArray *containers;
 
 - (RuntimeInstance *)instanceIdentifiedBy:(NSString *)identifier;

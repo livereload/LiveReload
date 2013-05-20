@@ -52,8 +52,4 @@
     return @"RubyRuntime";
 }
 
-- (NSString *)detailLabel {
-    return [self.executablePath stringByAbbreviatingTildeInPathUsingRealHomeDirectory];
-}
-
 @end

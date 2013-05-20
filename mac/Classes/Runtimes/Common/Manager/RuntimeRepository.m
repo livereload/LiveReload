@@ -54,6 +54,18 @@ NSString *const LRRuntimesDidChangeNotification = @"LRRuntimesDidChangeNotificat
     return _instances;
 }
 
+- (NSArray *)systemInstances {
+    return [_instances filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+        return ![evaluatedObject isPersistent];
+    }]];
+}
+
+- (NSArray *)customInstances {
+    return [_instances filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+        return [evaluatedObject isPersistent];
+    }]];
+}
+
 - (void)addInstance:(RuntimeInstance *)instance {
     [_instances addObject:instance];
     [_instancesByIdentifier setObject:instance forKey:instance.identifier];

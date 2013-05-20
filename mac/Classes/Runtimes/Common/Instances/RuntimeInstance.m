@@ -13,9 +13,7 @@ NSString *const LRRuntimeInstanceDidChangeNotification = @"LRRuntimeInstanceDidC
     self = [super init];
     if (self) {
         _memento = [memento mutableCopy] ?: [[NSMutableDictionary alloc] init];
-        _identifier = [[memento objectForKey:@"identifier"] copy];
-        _executablePath = [[memento objectForKey:@"executablePath"] copy];
-        _basicTitle = [[memento objectForKey:@"basicTitle"] copy];
+        self.identifier = memento[@"identifier"];
     }
     return self;
 }
@@ -24,8 +22,8 @@ NSString *const LRRuntimeInstanceDidChangeNotification = @"LRRuntimeInstanceDidC
     return _memento;
 }
 
-- (NSURL *)executableURL {
-    return [NSURL fileURLWithPath:self.executablePath];
+- (NSString *)executablePath {
+    return [self.executableURL path];
 }
 
 - (NSString *)description {
@@ -116,8 +114,16 @@ NSString *const LRRuntimeInstanceDidChangeNotification = @"LRRuntimeInstanceDidC
     [[NSNotificationCenter defaultCenter] postNotificationName:LRRuntimeInstanceDidChangeNotification object:self];
 }
 
+- (BOOL)isPersistent {
+    return NO;
+}
+
 
 #pragma mark - Presentation
+
+- (NSURL *)executableURL {
+    abort();
+}
 
 - (NSString *)imageName {
     abort();

@@ -26,8 +26,8 @@
     return self;
 }
 
-- (NSString *)executablePath {
-    return [[self.rootUrl URLByAppendingPathComponent:@"bin/ruby"] path];
+- (NSURL *)executableURL {
+    return [self.rootUrl URLByAppendingPathComponent:@"bin/ruby"];
 }
 
 - (NSString *)basicTitle {
@@ -36,6 +36,10 @@
 
 - (NSString *)detailLabel {
     return [self.rootUrl.path stringByAbbreviatingTildeInPathUsingRealHomeDirectory];
+}
+
+- (BOOL)isPersistent {
+    return YES;
 }
 
 @end

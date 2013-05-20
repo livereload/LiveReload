@@ -144,6 +144,7 @@
 		43A480651749E39700A0681D /* RvmContainer.png in Resources */ = {isa = PBXBuildFile; fileRef = 43A480631749E39700A0681D /* RvmContainer.png */; };
 		43A480661749E39700A0681D /* RvmContainer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43A480641749E39700A0681D /* RvmContainer@2x.png */; };
 		43A480691749E89600A0681D /* ExpandedOutlineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A480681749E89600A0681D /* ExpandedOutlineView.m */; };
+		43A4806C1749F54700A0681D /* SystemRubyInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A4806B1749F54700A0681D /* SystemRubyInstance.m */; };
 		43B027591746EFBD009874A2 /* RuntimeRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B027581746EFBD009874A2 /* RuntimeRepository.m */; };
 		43B0275C1746F3B2009874A2 /* RubyRuntimeRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B0275B1746F3B1009874A2 /* RubyRuntimeRepository.m */; };
 		43B0275F1746F403009874A2 /* RvmContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B0275E1746F403009874A2 /* RvmContainer.m */; };
@@ -476,6 +477,8 @@
 		43A480641749E39700A0681D /* RvmContainer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RvmContainer@2x.png"; sourceTree = "<group>"; };
 		43A480671749E89600A0681D /* ExpandedOutlineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpandedOutlineView.h; sourceTree = "<group>"; };
 		43A480681749E89600A0681D /* ExpandedOutlineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpandedOutlineView.m; sourceTree = "<group>"; };
+		43A4806A1749F54700A0681D /* SystemRubyInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemRubyInstance.h; sourceTree = "<group>"; };
+		43A4806B1749F54700A0681D /* SystemRubyInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemRubyInstance.m; sourceTree = "<group>"; };
 		43B027571746EFBD009874A2 /* RuntimeRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RuntimeRepository.h; sourceTree = "<group>"; };
 		43B027581746EFBD009874A2 /* RuntimeRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RuntimeRepository.m; sourceTree = "<group>"; };
 		43B0275A1746F3B1009874A2 /* RubyRuntimeRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RubyRuntimeRepository.h; sourceTree = "<group>"; };
@@ -1034,6 +1037,8 @@
 				436D735D173E1B3A00F78A23 /* CustomRubyInstance.m */,
 				43B0275A1746F3B1009874A2 /* RubyRuntimeRepository.h */,
 				43B0275B1746F3B1009874A2 /* RubyRuntimeRepository.m */,
+				43A4806A1749F54700A0681D /* SystemRubyInstance.h */,
+				43A4806B1749F54700A0681D /* SystemRubyInstance.m */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -1788,6 +1793,7 @@
 				43B027651747209E009874A2 /* RvmRubyInstance.m in Sources */,
 				43A480591749D5E700A0681D /* RuntimeInstanceCellView.m in Sources */,
 				43A480691749E89600A0681D /* ExpandedOutlineView.m in Sources */,
+				43A4806C1749F54700A0681D /* SystemRubyInstance.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

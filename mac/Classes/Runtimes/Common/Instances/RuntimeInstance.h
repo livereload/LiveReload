@@ -11,10 +11,12 @@ extern NSString *const LRRuntimeInstanceDidChangeNotification;
 - (id)initWithMemento:(NSDictionary *)memento additionalInfo:(NSDictionary *)additionalInfo;
 @property(nonatomic, readonly) NSMutableDictionary *memento;
 
-@property(nonatomic, readonly) NSString *identifier;
-@property(nonatomic, strong) NSString *executablePath;
-@property(nonatomic, readonly) NSURL *executableURL;
-@property(nonatomic, strong) NSString *basicTitle;  // sans version number
+@property(nonatomic, readonly, getter=isPersistent) BOOL persistent;
+
+@property(nonatomic, strong) NSString *identifier;
+@property(nonatomic, readonly) NSURL *executableURL;  // override point
+@property(nonatomic, readonly) NSString *executablePath;
+@property(nonatomic, readonly) NSString *basicTitle;  // override point; "System Ruby", "RVM Ruby"
 
 @property(nonatomic, assign) BOOL validationInProgress;
 @property(nonatomic, assign) BOOL validationPerformed;
