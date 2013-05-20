@@ -51,13 +51,7 @@ NSString *GetDefaultRvmPath() {
 }
 
 - (NSString *)title {
-    NSMutableArray *components = [NSMutableArray array];
-    [components addObject:@"RVM"];
-    if ([self.version length] > 0) {
-        [components addObject:self.version];
-    }
-    [components addObject:[NSString stringWithFormat:@"at %@", [self.rootPath stringByAbbreviatingTildeInPathUsingRealHomeDirectory]]];
-    return [components componentsJoinedByString:@" "];
+    return [self.rootPath stringByAbbreviatingTildeInPathUsingRealHomeDirectory];
 }
 
 - (void)doValidate {
