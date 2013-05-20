@@ -12,3 +12,4 @@
 #import "CustomRubyInstance.h"
 #import "RvmContainer.h"
 #import "RbenvContainer.h"
+#import "HomebrewContainer.h"

@@ -149,6 +149,10 @@
 		43A48073174A040300A0681D /* RbenvContainer.png in Resources */ = {isa = PBXBuildFile; fileRef = 43A48071174A040300A0681D /* RbenvContainer.png */; };
 		43A48074174A040300A0681D /* RbenvContainer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43A48072174A040300A0681D /* RbenvContainer@2x.png */; };
 		43A48077174A04E700A0681D /* RbenvRubyInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A48076174A04E700A0681D /* RbenvRubyInstance.m */; };
+		43A4807A174A069100A0681D /* HomebrewContainer.png in Resources */ = {isa = PBXBuildFile; fileRef = 43A48078174A069100A0681D /* HomebrewContainer.png */; };
+		43A4807B174A069100A0681D /* HomebrewContainer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43A48079174A069100A0681D /* HomebrewContainer@2x.png */; };
+		43A48081174A070500A0681D /* HomebrewContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A4807E174A070500A0681D /* HomebrewContainer.m */; };
+		43A48082174A070500A0681D /* HomebrewRubyInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A48080174A070500A0681D /* HomebrewRubyInstance.m */; };
 		43B027591746EFBD009874A2 /* RuntimeRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B027581746EFBD009874A2 /* RuntimeRepository.m */; };
 		43B0275C1746F3B2009874A2 /* RubyRuntimeRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B0275B1746F3B1009874A2 /* RubyRuntimeRepository.m */; };
 		43B0275F1746F403009874A2 /* RvmContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B0275E1746F403009874A2 /* RvmContainer.m */; };
@@ -489,6 +493,12 @@
 		43A48072174A040300A0681D /* RbenvContainer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RbenvContainer@2x.png"; sourceTree = "<group>"; };
 		43A48075174A04E700A0681D /* RbenvRubyInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RbenvRubyInstance.h; sourceTree = "<group>"; };
 		43A48076174A04E700A0681D /* RbenvRubyInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RbenvRubyInstance.m; sourceTree = "<group>"; };
+		43A48078174A069100A0681D /* HomebrewContainer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HomebrewContainer.png; sourceTree = "<group>"; };
+		43A48079174A069100A0681D /* HomebrewContainer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HomebrewContainer@2x.png"; sourceTree = "<group>"; };
+		43A4807D174A070500A0681D /* HomebrewContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomebrewContainer.h; sourceTree = "<group>"; };
+		43A4807E174A070500A0681D /* HomebrewContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomebrewContainer.m; sourceTree = "<group>"; };
+		43A4807F174A070500A0681D /* HomebrewRubyInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomebrewRubyInstance.h; sourceTree = "<group>"; };
+		43A48080174A070500A0681D /* HomebrewRubyInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomebrewRubyInstance.m; sourceTree = "<group>"; };
 		43B027571746EFBD009874A2 /* RuntimeRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RuntimeRepository.h; sourceTree = "<group>"; };
 		43B027581746EFBD009874A2 /* RuntimeRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RuntimeRepository.m; sourceTree = "<group>"; };
 		43B0275A1746F3B1009874A2 /* RubyRuntimeRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RubyRuntimeRepository.h; sourceTree = "<group>"; };
@@ -1035,6 +1045,7 @@
 				436D7325173DE05000F78A23 /* General */,
 				436D7328173DE05000F78A23 /* RVM */,
 				43A4806D174A01CC00A0681D /* rbenv */,
+				43A4807C174A070500A0681D /* Homebrew */,
 			);
 			path = Ruby;
 			sourceTree = "<group>";
@@ -1163,6 +1174,8 @@
 				43A480641749E39700A0681D /* RvmContainer@2x.png */,
 				43A48071174A040300A0681D /* RbenvContainer.png */,
 				43A48072174A040300A0681D /* RbenvContainer@2x.png */,
+				43A48078174A069100A0681D /* HomebrewContainer.png */,
+				43A48079174A069100A0681D /* HomebrewContainer@2x.png */,
 			);
 			path = Rubies;
 			sourceTree = "<group>";
@@ -1176,6 +1189,17 @@
 				43A48076174A04E700A0681D /* RbenvRubyInstance.m */,
 			);
 			path = rbenv;
+			sourceTree = "<group>";
+		};
+		43A4807C174A070500A0681D /* Homebrew */ = {
+			isa = PBXGroup;
+			children = (
+				43A4807D174A070500A0681D /* HomebrewContainer.h */,
+				43A4807E174A070500A0681D /* HomebrewContainer.m */,
+				43A4807F174A070500A0681D /* HomebrewRubyInstance.h */,
+				43A48080174A070500A0681D /* HomebrewRubyInstance.m */,
+			);
+			path = Homebrew;
 			sourceTree = "<group>";
 		};
 		43B027561746EF79009874A2 /* Manager */ = {
@@ -1656,6 +1680,8 @@
 				43A480661749E39700A0681D /* RvmContainer@2x.png in Resources */,
 				43A48073174A040300A0681D /* RbenvContainer.png in Resources */,
 				43A48074174A040300A0681D /* RbenvContainer@2x.png in Resources */,
+				43A4807A174A069100A0681D /* HomebrewContainer.png in Resources */,
+				43A4807B174A069100A0681D /* HomebrewContainer@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1822,6 +1848,8 @@
 				43A4806C1749F54700A0681D /* SystemRubyInstance.m in Sources */,
 				43A48070174A01DD00A0681D /* RbenvContainer.m in Sources */,
 				43A48077174A04E700A0681D /* RbenvRubyInstance.m in Sources */,
+				43A48081174A070500A0681D /* HomebrewContainer.m in Sources */,
+				43A48082174A070500A0681D /* HomebrewRubyInstance.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

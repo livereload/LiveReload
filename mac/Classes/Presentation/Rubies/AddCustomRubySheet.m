@@ -64,7 +64,7 @@ typedef enum {
                 @"openMessage": @"Confirm the Homebrew Ruby folder",
                 @"openButton": @"Add Homebrew Rubies",
                 @"defaultDir": @"/usr/local/Cellar/ruby",
-                @"klass": [RvmContainer class],
+                @"klass": [HomebrewContainer class],
             },
             @{
                 @"name": @"Custom Directory",

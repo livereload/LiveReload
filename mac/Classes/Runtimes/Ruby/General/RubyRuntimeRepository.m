@@ -6,6 +6,7 @@
 #import "RuntimeContainer.h"
 #import "RvmContainer.h"
 #import "RbenvContainer.h"
+#import "HomebrewContainer.h"
 
 
 
@@ -39,6 +40,7 @@ RubyRuntimeRepository *sharedRubyManager;
     if (self) {
         [self addContainerClass:[RvmContainer class]];
         [self addContainerClass:[RbenvContainer class]];
+        [self addContainerClass:[HomebrewContainer class]];
 
         [self addInstance:[[SystemRubyInstance alloc] initWithIdentifier:@"system" executableURL:[NSURL fileURLWithPath:@"/usr/bin/ruby"]]];
 
