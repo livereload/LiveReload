@@ -8,7 +8,7 @@ extern NSString *const LRRuntimesDidChangeNotification;
 @class RuntimeInstance, RuntimeContainer;
 
 
-@interface RuntimeManager : NSObject
+@interface RuntimeRepository : NSObject
 
 @property(nonatomic, readonly, strong) NSArray *instances;
 @property(nonatomic, readonly, strong) NSArray *containers;

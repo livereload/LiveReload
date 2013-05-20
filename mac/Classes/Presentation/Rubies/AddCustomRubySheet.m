@@ -199,9 +199,9 @@ typedef enum {
     }
 
     if ([self.chosenObject isKindOfClass:[RuntimeContainer class]]) {
-        [[RubyManager sharedRubyManager] addCustomContainer:self.chosenObject];
+        [[RubyRuntimeRepository sharedRubyManager] addCustomContainer:self.chosenObject];
     } else {
-        [[RubyManager sharedRubyManager] addCustomRubyAtURL:self.chosenURL];
+        [[RubyRuntimeRepository sharedRubyManager] addCustomRubyAtURL:self.chosenURL];
     }
 
     [NSApp endSheet:self.window];

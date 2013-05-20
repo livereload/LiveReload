@@ -1,4 +1,4 @@
-#import "RubyManager.h"
+#import "RubyRuntimeRepository.h"
 #import "RuntimeContainer.h"
 #import "NSData+Base64.h"
 #import "RubyInstance.h"
@@ -8,10 +8,10 @@
 
 
 
-@implementation RubyManager
+@implementation RubyRuntimeRepository
 
-RubyManager *sharedRubyManager;
-+ (RubyManager *)sharedRubyManager {
+RubyRuntimeRepository *sharedRubyManager;
++ (RubyRuntimeRepository *)sharedRubyManager {
     return sharedRubyManager;
 }
 

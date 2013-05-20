@@ -5,9 +5,9 @@
 
 #import "RuntimeInstance.h"
 #import "RuntimeContainer.h"
-#import "RuntimeManager.h"
+#import "RuntimeRepository.h"
 
 #import "RubyInstance.h"
-#import "RubyManager.h"
+#import "RubyRuntimeRepository.h"
 #import "CustomRubyInstance.h"
 #import "RvmContainer.h"

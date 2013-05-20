@@ -1,5 +1,5 @@
 
-#import "RuntimeManager.h"
+#import "RuntimeRepository.h"
 #import "RuntimeInstance.h"
 #import "RuntimeContainer.h"
 #import "MissingRuntimeInstance.h"
@@ -9,13 +9,13 @@ NSString *const LRRuntimesDidChangeNotification = @"LRRuntimesDidChangeNotificat
 
 
 
-@interface RuntimeManager ()
+@interface RuntimeRepository ()
 
 @end
 
 
 
-@implementation RuntimeManager {
+@implementation RuntimeRepository {
     NSMutableDictionary *_instancesByIdentifier;
     NSMutableArray *_instances;
     NSMutableArray *_containers;

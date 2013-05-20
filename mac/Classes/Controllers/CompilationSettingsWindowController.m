@@ -205,8 +205,8 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
     NSMutableArray *rubyInstancesByIndex = [[NSMutableArray alloc] init];
     _rubyInstances = rubyInstancesByIndex;
 
-    NSArray *rubyInstances = [RubyManager sharedRubyManager].instances;
-    NSArray *containers = [RubyManager sharedRubyManager].containers;
+    NSArray *rubyInstances = [RubyRuntimeRepository sharedRubyManager].instances;
+    NSArray *containers = [RubyRuntimeRepository sharedRubyManager].containers;
 
 //    NSMutableArray *titles = [_rubyInstances valueForKeyPath:@"title"];
 
@@ -242,7 +242,7 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
         [[_rubyVersionsPopUpButton menu] addItemWithTitle:@"Configure Rubies..." action:@selector(manageRubies) keyEquivalent:@""];
         [rubyInstancesByIndex addObject:[NSNull null]];
 
-        RuntimeInstance *selectedInstance = [[RubyManager sharedRubyManager] instanceIdentifiedBy:_project.rubyVersionIdentifier];
+        RuntimeInstance *selectedInstance = [[RubyRuntimeRepository sharedRubyManager] instanceIdentifiedBy:_project.rubyVersionIdentifier];
         NSInteger selectedIndex = [rubyInstancesByIndex indexOfObject:selectedInstance];
 
         // add if not found
@@ -271,7 +271,7 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
 }
 
 - (void)restoreRubySelection {
-    RuntimeInstance *selectedInstance = [[RubyManager sharedRubyManager] instanceIdentifiedBy:_project.rubyVersionIdentifier];
+    RuntimeInstance *selectedInstance = [[RubyRuntimeRepository sharedRubyManager] instanceIdentifiedBy:_project.rubyVersionIdentifier];
     NSInteger selectedIndex = [_rubyInstances indexOfObject:selectedInstance];
     if (selectedIndex != NSNotFound)
         [_rubyVersionsPopUpButton selectItemAtIndex:selectedIndex];

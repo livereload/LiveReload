@@ -138,8 +138,8 @@
 		439A76B415B28F4300E50057 /* LicenseCodeWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 439A76B315B28F4300E50057 /* LicenseCodeWindowController.m */; };
 		439A76B615B28F8C00E50057 /* LicenseCodeWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 439A76B515B28F8C00E50057 /* LicenseCodeWindowController.xib */; };
 		439C093313ADCBDD00119233 /* monitoring.plist in Resources */ = {isa = PBXBuildFile; fileRef = 439C093213ADCBDD00119233 /* monitoring.plist */; };
-		43B027591746EFBD009874A2 /* RuntimeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B027581746EFBD009874A2 /* RuntimeManager.m */; };
-		43B0275C1746F3B2009874A2 /* RubyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B0275B1746F3B1009874A2 /* RubyManager.m */; };
+		43B027591746EFBD009874A2 /* RuntimeRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B027581746EFBD009874A2 /* RuntimeRepository.m */; };
+		43B0275C1746F3B2009874A2 /* RubyRuntimeRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B0275B1746F3B1009874A2 /* RubyRuntimeRepository.m */; };
 		43B0275F1746F403009874A2 /* RvmContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B0275E1746F403009874A2 /* RvmContainer.m */; };
 		43B02762174710C3009874A2 /* ArrayDiff.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B02761174710C3009874A2 /* ArrayDiff.m */; };
 		43B027651747209E009874A2 /* RvmRubyInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B027641747209E009874A2 /* RvmRubyInstance.m */; };
@@ -462,10 +462,10 @@
 		439A76B515B28F8C00E50057 /* LicenseCodeWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LicenseCodeWindowController.xib; sourceTree = "<group>"; };
 		439C093213ADCBDD00119233 /* monitoring.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = monitoring.plist; sourceTree = "<group>"; };
 		43A265E613DCEAE600704BF6 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
-		43B027571746EFBD009874A2 /* RuntimeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RuntimeManager.h; sourceTree = "<group>"; };
-		43B027581746EFBD009874A2 /* RuntimeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RuntimeManager.m; sourceTree = "<group>"; };
-		43B0275A1746F3B1009874A2 /* RubyManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RubyManager.h; sourceTree = "<group>"; };
-		43B0275B1746F3B1009874A2 /* RubyManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RubyManager.m; sourceTree = "<group>"; };
+		43B027571746EFBD009874A2 /* RuntimeRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RuntimeRepository.h; sourceTree = "<group>"; };
+		43B027581746EFBD009874A2 /* RuntimeRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RuntimeRepository.m; sourceTree = "<group>"; };
+		43B0275A1746F3B1009874A2 /* RubyRuntimeRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RubyRuntimeRepository.h; sourceTree = "<group>"; };
+		43B0275B1746F3B1009874A2 /* RubyRuntimeRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RubyRuntimeRepository.m; sourceTree = "<group>"; };
 		43B0275D1746F403009874A2 /* RvmContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RvmContainer.h; sourceTree = "<group>"; };
 		43B0275E1746F403009874A2 /* RvmContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RvmContainer.m; sourceTree = "<group>"; };
 		43B02760174710C3009874A2 /* ArrayDiff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArrayDiff.h; sourceTree = "<group>"; };
@@ -1018,8 +1018,8 @@
 				436D735A173E141400F78A23 /* RubyInstance.m */,
 				436D735C173E1B3A00F78A23 /* CustomRubyInstance.h */,
 				436D735D173E1B3A00F78A23 /* CustomRubyInstance.m */,
-				43B0275A1746F3B1009874A2 /* RubyManager.h */,
-				43B0275B1746F3B1009874A2 /* RubyManager.m */,
+				43B0275A1746F3B1009874A2 /* RubyRuntimeRepository.h */,
+				43B0275B1746F3B1009874A2 /* RubyRuntimeRepository.m */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -1123,8 +1123,8 @@
 		43B027561746EF79009874A2 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				43B027571746EFBD009874A2 /* RuntimeManager.h */,
-				43B027581746EFBD009874A2 /* RuntimeManager.m */,
+				43B027571746EFBD009874A2 /* RuntimeRepository.h */,
+				43B027581746EFBD009874A2 /* RuntimeRepository.m */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1747,8 +1747,8 @@
 				436D7357173DF3D200F78A23 /* AddCustomRubySheet.m in Sources */,
 				436D735B173E141400F78A23 /* RubyInstance.m in Sources */,
 				436D735E173E1B3A00F78A23 /* CustomRubyInstance.m in Sources */,
-				43B027591746EFBD009874A2 /* RuntimeManager.m in Sources */,
-				43B0275C1746F3B2009874A2 /* RubyManager.m in Sources */,
+				43B027591746EFBD009874A2 /* RuntimeRepository.m in Sources */,
+				43B0275C1746F3B2009874A2 /* RubyRuntimeRepository.m in Sources */,
 				43B0275F1746F403009874A2 /* RvmContainer.m in Sources */,
 				43B02762174710C3009874A2 /* ArrayDiff.m in Sources */,
 				43B027651747209E009874A2 /* RvmRubyInstance.m in Sources */,

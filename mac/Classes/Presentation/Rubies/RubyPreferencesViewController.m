@@ -2,7 +2,7 @@
 #import "RubyPreferencesViewController.h"
 #import "AddCustomRubySheet.h"
 #import "RuntimeObject.h"
-#import "RubyManager.h"
+#import "RubyRuntimeRepository.h"
 #import "RuntimeInstance.h"
 #import "RuntimeContainer.h"
 
@@ -13,7 +13,7 @@
 
 @property(nonatomic, strong) NSWindowController *modalSheetController;
 
-@property(nonatomic, strong) RuntimeManager *repository;
+@property(nonatomic, strong) RuntimeRepository *repository;
 @property(nonatomic, strong) NSArray *topLevelItems;
 
 @end
@@ -24,7 +24,7 @@
 - (id)init {
     self = [super initWithNibName:NSStringFromClass([self class]) bundle:nil];
     if (self) {
-        self.repository = [RubyManager sharedRubyManager];
+        self.repository = [RubyRuntimeRepository sharedRubyManager];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(runtimeRepositoryDidChange:) name:LRRuntimesDidChangeNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(runtimeRepositoryDidChange:) name:LRRuntimeContainerDidChangeNotification object:nil];
     }
