@@ -1,6 +1,7 @@
 
 #import "RubyPreferencesViewController.h"
 #import "AddCustomRubySheet.h"
+#import "RuntimeInstanceCellView.h"
 #import "RuntimeObject.h"
 #import "RubyRuntimeRepository.h"
 #import "RuntimeInstance.h"
@@ -70,6 +71,12 @@ enum {
     [items addObjectsFromArray:self.repository.containers];
     self.topLevelItems = [NSArray arrayWithArray:items];
     [self.outlineView reloadData];
+
+    [self.outlineView expandItem:nil expandChildren:YES];
+    // items don't get expanded at window open time unless this delay is used
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.outlineView expandItem:nil expandChildren:YES];
+    });
 }
 
 - (void)runtimeRepositoryDidChange:(NSNotification *)notification {
@@ -105,20 +112,23 @@ enum {
 }
 
 - (NSView *)outlineView:(NSOutlineView *)outlineView viewForTableColumn:(NSTableColumn *)tableColumn item:(id)item {
-
     if ([item isKindOfClass:[RuntimeInstance class]]) {
         RuntimeInstance *instance = item;
 
-        NSTableCellView *view = [outlineView makeViewWithIdentifier:@"Main" owner:self];
-        view.textField.stringValue = instance.title;
+        RuntimeInstanceCellView *view = [outlineView makeViewWithIdentifier:@"Main" owner:self];
+        view.textField.stringValue = instance.mainLabel;
+        view.detailTextField.stringValue = instance.detailLabel;
+        view.imageView.image = [NSImage imageNamed:instance.imageName];
         return view;
     }
     
     if ([item isKindOfClass:[RuntimeContainer class]]) {
         RuntimeContainer *container = item;
 
-        NSTableCellView *view = [outlineView makeViewWithIdentifier:@"Main" owner:self];
-        view.textField.stringValue = container.title;
+        RuntimeInstanceCellView *view = [outlineView makeViewWithIdentifier:@"Main" owner:self];
+        view.textField.stringValue = container.mainLabel;
+        view.detailTextField.stringValue = container.detailLabel;
+        view.imageView.image = [NSImage imageNamed:container.imageName];
         return view;
     }
 
@@ -127,8 +137,12 @@ enum {
 
 - (void)outlineViewSelectionDidChange:(NSNotification *)notification {
     [self updateActionButtons];
+    NSLog(@"Selected Ruby identifier: %@", [self.selectedRuntimeObject respondsToSelector:@selector(identifier)] ? [(id)self.selectedRuntimeObject identifier] : @"(unknown)");
 }
 
+- (BOOL)outlineView:(NSOutlineView *)outlineView shouldShowOutlineCellForItem:(id)item {
+    return NO;
+}
 
 
 #pragma mark - Actions

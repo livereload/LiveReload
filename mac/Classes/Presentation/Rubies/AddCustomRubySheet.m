@@ -198,12 +198,12 @@ typedef enum {
         return;
     }
 
-//    [[RubyRuntimeRepository sharedRubyManager] addCustomRuntimeObject:self.chosenObject];
-    if ([self.chosenObject isKindOfClass:[RuntimeContainer class]]) {
-        [[RubyRuntimeRepository sharedRubyManager] addCustomContainer:self.chosenObject];
-    } else {
-        [[RubyRuntimeRepository sharedRubyManager] addCustomRubyAtURL:self.chosenURL];
-    }
+    [[RubyRuntimeRepository sharedRubyManager] addCustomRuntimeObject:self.chosenObject];
+//    if ([self.chosenObject isKindOfClass:[RuntimeContainer class]]) {
+//        [[RubyRuntimeRepository sharedRubyManager] addCustomContainer:self.chosenObject];
+//    } else {
+//        [[RubyRuntimeRepository sharedRubyManager] addCustomRubyAtURL:self.chosenURL];
+//    }
 
     [NSApp endSheet:self.window];
 }

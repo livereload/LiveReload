@@ -116,4 +116,19 @@ NSString *const LRRuntimeInstanceDidChangeNotification = @"LRRuntimeInstanceDidC
     [[NSNotificationCenter defaultCenter] postNotificationName:LRRuntimeInstanceDidChangeNotification object:self];
 }
 
+
+#pragma mark - Presentation
+
+- (NSString *)imageName {
+    abort();
+}
+
+- (NSString *)mainLabel {
+    return self.title;
+}
+
+- (NSString *)detailLabel {
+    abort();
+}
+
 @end

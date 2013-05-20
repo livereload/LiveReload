@@ -138,6 +138,12 @@
 		439A76B415B28F4300E50057 /* LicenseCodeWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 439A76B315B28F4300E50057 /* LicenseCodeWindowController.m */; };
 		439A76B615B28F8C00E50057 /* LicenseCodeWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 439A76B515B28F8C00E50057 /* LicenseCodeWindowController.xib */; };
 		439C093313ADCBDD00119233 /* monitoring.plist in Resources */ = {isa = PBXBuildFile; fileRef = 439C093213ADCBDD00119233 /* monitoring.plist */; };
+		43A480591749D5E700A0681D /* RuntimeInstanceCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A480581749D5E700A0681D /* RuntimeInstanceCellView.m */; };
+		43A480611749DFDC00A0681D /* RubyRuntime.png in Resources */ = {isa = PBXBuildFile; fileRef = 43A4805F1749DFDC00A0681D /* RubyRuntime.png */; };
+		43A480621749DFDC00A0681D /* RubyRuntime@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43A480601749DFDC00A0681D /* RubyRuntime@2x.png */; };
+		43A480651749E39700A0681D /* RvmContainer.png in Resources */ = {isa = PBXBuildFile; fileRef = 43A480631749E39700A0681D /* RvmContainer.png */; };
+		43A480661749E39700A0681D /* RvmContainer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43A480641749E39700A0681D /* RvmContainer@2x.png */; };
+		43A480691749E89600A0681D /* ExpandedOutlineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A480681749E89600A0681D /* ExpandedOutlineView.m */; };
 		43B027591746EFBD009874A2 /* RuntimeRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B027581746EFBD009874A2 /* RuntimeRepository.m */; };
 		43B0275C1746F3B2009874A2 /* RubyRuntimeRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B0275B1746F3B1009874A2 /* RubyRuntimeRepository.m */; };
 		43B0275F1746F403009874A2 /* RvmContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B0275E1746F403009874A2 /* RvmContainer.m */; };
@@ -462,6 +468,14 @@
 		439A76B515B28F8C00E50057 /* LicenseCodeWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LicenseCodeWindowController.xib; sourceTree = "<group>"; };
 		439C093213ADCBDD00119233 /* monitoring.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = monitoring.plist; sourceTree = "<group>"; };
 		43A265E613DCEAE600704BF6 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		43A480571749D5E700A0681D /* RuntimeInstanceCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RuntimeInstanceCellView.h; sourceTree = "<group>"; };
+		43A480581749D5E700A0681D /* RuntimeInstanceCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RuntimeInstanceCellView.m; sourceTree = "<group>"; };
+		43A4805F1749DFDC00A0681D /* RubyRuntime.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RubyRuntime.png; sourceTree = "<group>"; };
+		43A480601749DFDC00A0681D /* RubyRuntime@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RubyRuntime@2x.png"; sourceTree = "<group>"; };
+		43A480631749E39700A0681D /* RvmContainer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RvmContainer.png; sourceTree = "<group>"; };
+		43A480641749E39700A0681D /* RvmContainer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RvmContainer@2x.png"; sourceTree = "<group>"; };
+		43A480671749E89600A0681D /* ExpandedOutlineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpandedOutlineView.h; sourceTree = "<group>"; };
+		43A480681749E89600A0681D /* ExpandedOutlineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpandedOutlineView.m; sourceTree = "<group>"; };
 		43B027571746EFBD009874A2 /* RuntimeRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RuntimeRepository.h; sourceTree = "<group>"; };
 		43B027581746EFBD009874A2 /* RuntimeRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RuntimeRepository.m; sourceTree = "<group>"; };
 		43B0275A1746F3B1009874A2 /* RubyRuntimeRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RubyRuntimeRepository.h; sourceTree = "<group>"; };
@@ -1061,6 +1075,10 @@
 				436D7354173DF3D200F78A23 /* AddCustomRubySheet.h */,
 				436D7355173DF3D200F78A23 /* AddCustomRubySheet.m */,
 				436D7356173DF3D200F78A23 /* AddCustomRubySheet.xib */,
+				43A480571749D5E700A0681D /* RuntimeInstanceCellView.h */,
+				43A480581749D5E700A0681D /* RuntimeInstanceCellView.m */,
+				43A480671749E89600A0681D /* ExpandedOutlineView.h */,
+				43A480681749E89600A0681D /* ExpandedOutlineView.m */,
 			);
 			path = Rubies;
 			sourceTree = "<group>";
@@ -1118,6 +1136,17 @@
 				43C3D04D15B37B1500BCD2E8 /* LicenseManager.m */,
 			);
 			path = Licensing;
+			sourceTree = "<group>";
+		};
+		43A4805A1749DF1400A0681D /* Rubies */ = {
+			isa = PBXGroup;
+			children = (
+				43A4805F1749DFDC00A0681D /* RubyRuntime.png */,
+				43A480601749DFDC00A0681D /* RubyRuntime@2x.png */,
+				43A480631749E39700A0681D /* RvmContainer.png */,
+				43A480641749E39700A0681D /* RvmContainer@2x.png */,
+			);
+			path = Rubies;
 			sourceTree = "<group>";
 		};
 		43B027561746EF79009874A2 /* Manager */ = {
@@ -1429,6 +1458,7 @@
 		823DDF2213F8DA3F00529AD2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				43A4805A1749DF1400A0681D /* Rubies */,
 				4303A4B615B3959D009D732A /* BuyTemplate.png */,
 				43146698146C5D2100DC075A /* ProjectPaneBackground.png */,
 				4314669C146C884800DC075A /* WelcomePaneBackground.png */,
@@ -1591,6 +1621,10 @@
 				436D7340173DE30900F78A23 /* MASPreferencesWindow.xib in Resources */,
 				436D7350173DE74000F78A23 /* RubyPreferencesViewController.xib in Resources */,
 				436D7358173DF3D200F78A23 /* AddCustomRubySheet.xib in Resources */,
+				43A480611749DFDC00A0681D /* RubyRuntime.png in Resources */,
+				43A480621749DFDC00A0681D /* RubyRuntime@2x.png in Resources */,
+				43A480651749E39700A0681D /* RvmContainer.png in Resources */,
+				43A480661749E39700A0681D /* RvmContainer@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1752,6 +1786,8 @@
 				43B0275F1746F403009874A2 /* RvmContainer.m in Sources */,
 				43B02762174710C3009874A2 /* ArrayDiff.m in Sources */,
 				43B027651747209E009874A2 /* RvmRubyInstance.m in Sources */,
+				43A480591749D5E700A0681D /* RuntimeInstanceCellView.m in Sources */,
+				43A480691749E89600A0681D /* ExpandedOutlineView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

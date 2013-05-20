@@ -5,6 +5,7 @@
 #import "PlainUnixTask.h"
 #import "TaskOutputReader.h"
 #import "NSData+Base64.h"
+#import "ATSandboxing.h"
 
 @implementation RubyInstance
 
@@ -42,6 +43,17 @@
             }
         });
     }];
+}
+
+
+#pragma mark - Presentation
+
+- (NSString *)imageName {
+    return @"RubyRuntime";
+}
+
+- (NSString *)detailLabel {
+    return [self.executablePath stringByAbbreviatingTildeInPathUsingRealHomeDirectory];
 }
 
 @end

@@ -152,4 +152,19 @@ NSString *const LRRuntimeContainerDidChangeNotification = @"LRRuntimeContainerDi
     abort();
 }
 
+
+#pragma mark - Presentation
+
+- (NSString *)imageName {
+    abort();
+}
+
+- (NSString *)mainLabel {
+    abort();
+}
+
+- (NSString *)detailLabel {
+    abort();
+}
+
 @end

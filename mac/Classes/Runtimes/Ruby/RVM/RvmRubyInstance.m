@@ -14,4 +14,12 @@
     return self;
 }
 
+- (NSString *)basicTitle {
+    return @"RVM Ruby";
+}
+
+- (NSString *)detailLabel {
+    return self.memento[@"identifier"];
+}
+
 @end

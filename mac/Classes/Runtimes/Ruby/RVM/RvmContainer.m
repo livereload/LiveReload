@@ -122,4 +122,19 @@ NSString *GetDefaultRvmPath() {
     return [NSString stringWithFormat:@"RVM %@, %d %@", self.version, (int)self.instances.count, (self.instances.count == 1 ? @"ruby" : @"rubies")];
 }
 
+
+#pragma mark - Presentation
+
+- (NSString *)imageName {
+    return @"RvmContainer";
+}
+
+- (NSString *)mainLabel {
+    return [NSString stringWithFormat:@"RVM"];
+}
+
+- (NSString *)detailLabel {
+    return [self.rootPath stringByAbbreviatingTildeInPathUsingRealHomeDirectory];
+}
+
 @end

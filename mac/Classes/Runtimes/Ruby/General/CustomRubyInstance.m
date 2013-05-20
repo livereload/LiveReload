@@ -30,4 +30,12 @@
     return [[self.rootUrl URLByAppendingPathComponent:@"bin/ruby"] path];
 }
 
+- (NSString *)basicTitle {
+    return @"Custom Ruby";
+}
+
+- (NSString *)detailLabel {
+    return [self.rootUrl.path stringByAbbreviatingTildeInPathUsingRealHomeDirectory];
+}
+
 @end
