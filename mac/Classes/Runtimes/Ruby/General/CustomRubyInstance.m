@@ -14,7 +14,7 @@
 
 - (id)initWithURL:(NSURL *)url {
     NSString *identifier = [NSString stringWithFormat:@"custom:%@", [[url path] stringByAbbreviatingTildeInPathUsingRealHomeDirectory]];
-    return [self initWithMemento:@{@"identifier": identifier, @"executablePath": [url.path stringByAppendingPathComponent:@"bin/ruby"]} additionalInfo:@{@"url": url}];
+    return [self initWithMemento:@{@"identifier": identifier} additionalInfo:@{@"url": url}];
 }
 
 - (id)initWithMemento:(NSDictionary *)memento additionalInfo:(NSDictionary *)additionalInfo {

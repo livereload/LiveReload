@@ -54,7 +54,7 @@ typedef enum {
                 @"openMessage": @"Confirm the root folder of your rbenv installation",
                 @"openButton": @"Add rbenv",
                 @"defaultDir": @"~/.rbenv",
-                @"klass": [RvmContainer class],
+                @"klass": [RbenvContainer class],
             },
             @{
                 @"name": @"Homebrew",

@@ -11,3 +11,4 @@
 #import "RubyRuntimeRepository.h"
 #import "CustomRubyInstance.h"
 #import "RvmContainer.h"
+#import "RbenvContainer.h"

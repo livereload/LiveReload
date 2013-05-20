@@ -5,6 +5,7 @@
 #import "CustomRubyInstance.h"
 #import "RuntimeContainer.h"
 #import "RvmContainer.h"
+#import "RbenvContainer.h"
 
 
 
@@ -37,6 +38,7 @@ RubyRuntimeRepository *sharedRubyManager;
     self = [super init];
     if (self) {
         [self addContainerClass:[RvmContainer class]];
+        [self addContainerClass:[RbenvContainer class]];
 
         [self addInstance:[[SystemRubyInstance alloc] initWithIdentifier:@"system" executableURL:[NSURL fileURLWithPath:@"/usr/bin/ruby"]]];
 
