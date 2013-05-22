@@ -26,8 +26,12 @@
     return @"rbenv ruby";
 }
 
+- (NSURL *)rootURL {
+    return [NSURL fileURLWithPath:[self.container.rubiesPath stringByAppendingPathComponent:self.name]];
+}
+
 - (NSURL *)executableURL {
-    return [NSURL fileURLWithPath:[self.container.binPath stringByAppendingPathComponent:self.name]];
+    return [self.rootURL URLByAppendingPathComponent:@"bin/ruby"];
 }
 
 - (NSString *)detailLabel {

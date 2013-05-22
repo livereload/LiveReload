@@ -53,7 +53,7 @@ typedef enum {
                 @"openTitle": @"Add rbenv installation",
                 @"openMessage": @"Confirm the root folder of your rbenv installation",
                 @"openButton": @"Add rbenv",
-                @"defaultDir": @"~/.rbenv",
+                @"defaultDir": GetDefaultRbenvPath(),
                 @"klass": [RbenvContainer class],
             },
             @{

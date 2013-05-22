@@ -5,7 +5,13 @@
 #import "ATSandboxing.h"
 
 NSString *GetDefaultRbenvPath() {
-    return [ATRealHomeDirectory() stringByAppendingPathComponent:@".rbenv"];
+    NSString *option1 = [ATRealHomeDirectory() stringByAppendingPathComponent:@".rbenv"];
+    NSString *option2 = @"/usr/local/var/rbenv";
+    NSFileManager *fm = [NSFileManager defaultManager];
+    if (![fm fileExistsAtPath:option1] && [fm fileExistsAtPath:option2])
+        return option2;
+    else
+        return option1;
 }
 
 
@@ -41,11 +47,11 @@ NSString *GetDefaultRbenvPath() {
 }
 
 - (NSString *)rubiesPath {
-    return [self.rootPath stringByAppendingPathComponent:@"rubies"];
+    return [self.rootPath stringByAppendingPathComponent:@"versions"];
 }
 
-- (NSString *)binPath {
-    return [self.rootPath stringByAppendingPathComponent:@"bin"];
+- (NSString *)shimsPath {
+    return [self.rootPath stringByAppendingPathComponent:@"shims"];
 }
 
 - (NSString *)title {
@@ -59,35 +65,33 @@ NSString *GetDefaultRbenvPath() {
 
         if (![[NSFileManager defaultManager] fileExistsAtPath:self.rootPath isDirectory:&isDir] || !isDir) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self setInvalidWithError:[NSError errorWithDomain:LRRuntimeManagerErrorDomain code:LRRuntimeManagerErrorValidationFailed userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"RVM directory not found at %@", self.rootPath]}]];
+                [self setInvalidWithError:[NSError errorWithDomain:LRRuntimeManagerErrorDomain code:LRRuntimeManagerErrorValidationFailed userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"rbenv directory not found at %@", self.rootPath]}]];
             });
             return;
         }
 
-        NSString *versionFile = [self.rootPath stringByAppendingPathComponent:@"VERSION"];
-        if (![[NSFileManager defaultManager] fileExistsAtPath:versionFile]) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self setInvalidWithError:[NSError errorWithDomain:LRRuntimeManagerErrorDomain code:LRRuntimeManagerErrorValidationFailed userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"RVM VERSION file not found at %@", versionFile]}]];
-            });
-            return;
-        }
         if (![[NSFileManager defaultManager] fileExistsAtPath:self.rubiesPath isDirectory:&isDir] || !isDir) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self setInvalidWithError:[NSError errorWithDomain:LRRuntimeManagerErrorDomain code:LRRuntimeManagerErrorValidationFailed userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"RVM rubies subfolder not found at %@", self.rubiesPath]}]];
+                [self setInvalidWithError:[NSError errorWithDomain:LRRuntimeManagerErrorDomain code:LRRuntimeManagerErrorValidationFailed userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"rbenv versions subfolder not found at %@", self.rubiesPath]}]];
             });
             return;
         }
 
-        NSString *version = [NSString stringWithContentsOfFile:versionFile encoding:NSUTF8StringEncoding error:&error];
-        if (!version) {
+        if (![[NSFileManager defaultManager] fileExistsAtPath:self.shimsPath isDirectory:&isDir] || !isDir) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self setInvalidWithError:[NSError errorWithDomain:LRRuntimeManagerErrorDomain code:LRRuntimeManagerErrorValidationFailed userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"RVM directory not accessible (sandboxing issue?), cannot read %@", versionFile]}]];
+                [self setInvalidWithError:[NSError errorWithDomain:LRRuntimeManagerErrorDomain code:LRRuntimeManagerErrorValidationFailed userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"rbenv shims subfolder not found at %@", self.shimsPath]}]];
             });
             return;
         }
-        self.version = [version stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
         NSArray *rubySubfolders = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.rubiesPath error:&error];
+        if (!rubySubfolders) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self setInvalidWithError:[NSError errorWithDomain:LRRuntimeManagerErrorDomain code:LRRuntimeManagerErrorValidationFailed userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"rbenv directory not accessible (sandboxing issue?), cannot list %@", self.rubiesPath]}]];
+            });
+            return;
+        }
+
         NSMutableArray *rubyInstancesData = [NSMutableArray array];
         for (NSString *subfolder in rubySubfolders) {
             if ([subfolder isEqualToString:@"default"])

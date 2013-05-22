@@ -49,6 +49,13 @@ NSString *GetDefaultHomebrewPath() {
         NSError *error;
         BOOL isDir;
 
+        if (![[NSFileManager defaultManager] fileExistsAtPath:self.rootPath isDirectory:&isDir] || !isDir) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self setInvalidWithError:[NSError errorWithDomain:LRRuntimeManagerErrorDomain code:LRRuntimeManagerErrorValidationFailed userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Homebrew Cellar/ruby directory not found at %@", self.rootPath]}]];
+            });
+            return;
+        }
+
         if (![[self.rootUrl lastPathComponent] isEqualToString:@"ruby"]) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self setInvalidWithError:[NSError errorWithDomain:LRRuntimeManagerErrorDomain code:LRRuntimeManagerErrorValidationFailed userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Not a Homebrew Cellar/ruby directory because it does not end with ‘ruby’: %@", self.rootPath]}]];
