@@ -158,6 +158,14 @@ typedef enum {
     NSDictionary *typeInfo = self.selectedTypeInfo;
     self.directoryExplanationField.stringValue = typeInfo[@"hint"];
     self.addButton.title = typeInfo[@"okButton"];
+
+    id defaultCell;
+    if ([self.addButton isEnabled])
+        defaultCell = self.addButton.cell;
+    else
+        defaultCell = self.chooseDirectoryButton.cell;
+    if (self.window.defaultButtonCell != defaultCell)
+        self.window.defaultButtonCell = defaultCell;
 }
 
 - (void)updateValidationStatus {
