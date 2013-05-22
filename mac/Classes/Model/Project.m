@@ -21,7 +21,6 @@
 #import "NSArray+Substitutions.h"
 #import "NSTask+OneLineTasksWithOutput.h"
 #import "ATFunctionalStyle.h"
-#import "FixUnixPath.h"
 
 #include <stdbool.h>
 #include "common.h"

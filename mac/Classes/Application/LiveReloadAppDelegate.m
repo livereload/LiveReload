@@ -168,8 +168,6 @@ void C_update(json_t *arg) {
         [NSTimer scheduledTimerWithTimeInterval:60*60*24 target:self selector:@selector(pingServer) userInfo:nil repeats:YES];
     });
 
-    FixUnixPath();
-
     [[DockIcon currentDockIcon] displayDockIconWhenAppHasWindowsWithDelegateClass:[NewMainWindowController class]];
 
     [[[RubyRuntimeRepository alloc] init] load];

@@ -5,7 +5,6 @@
 #import "UserScript.h"
 #import "ATSandboxing.h"
 #import "OldFSMonitor.h"
-#import "FixUnixPath.h"
 #import "NSTask+OneLineTasksWithOutput.h"
 
 #import "ATSandboxing.h"
