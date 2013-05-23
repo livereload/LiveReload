@@ -221,6 +221,7 @@ typedef enum {
 }
 
 - (IBAction)helpClicked:(id)sender {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://go.livereload.com/reference/preferences/rubies"]];
 }
 
 @end
