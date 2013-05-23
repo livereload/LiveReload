@@ -53,6 +53,7 @@
 						<string key="NSFrame">{{20, 19}, {457, 23}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSSegmentedCell" key="NSCell" id="80868820">
@@ -110,7 +111,7 @@
 										<string key="NSFrameSize">{455, 312}</string>
 										<reference key="NSSuperview" ref="1016555830"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="337454811"/>
+										<reference key="NSNextKeyView" ref="881968292"/>
 										<string key="NSReuseIdentifierKey">_NS:13</string>
 										<bool key="NSEnabled">YES</bool>
 										<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -248,7 +249,7 @@
 						<string key="NSFrame">{{20, 40}, {457, 314}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="1016555830"/>
+						<reference key="NSNextKeyView" ref="337454811"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<int key="NSsFlags">133650</int>
 						<reference key="NSVScroller" ref="959585016"/>

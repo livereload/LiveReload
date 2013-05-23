@@ -58,12 +58,12 @@ typedef enum {
             },
             @{
                 @"name": @"Homebrew",
-                @"hint": @"Choose your Homebrew Ruby folder (typically /usr/local/Cellar/ruby) to give LiveReload access to all brewed rubies.",
+                @"hint": @"Choose your Homebrew prefix folder (typically /usr/local, the one that contains Cellar subfolder) to give LiveReload access to all brewed rubies.",
                 @"okButton": @"Add Rubies",
                 @"openTitle": @"Add Homebrew Rubies",
-                @"openMessage": @"Confirm the Homebrew Ruby folder",
+                @"openMessage": @"Confirm the Homebrew prefix folder",
                 @"openButton": @"Add Homebrew Rubies",
-                @"defaultDir": @"/usr/local/Cellar/ruby",
+                @"defaultDir": GetDefaultHomebrewPath(),
                 @"klass": [HomebrewContainer class],
             },
             @{

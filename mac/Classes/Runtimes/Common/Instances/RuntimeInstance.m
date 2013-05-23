@@ -40,11 +40,19 @@ NSString *const LRRuntimeInstanceDidChangeNotification = @"LRRuntimeInstanceDidC
     //    if (self.executablePath.length > 0)
     //        title = [NSString stringWithFormat:@"%@ at %@", title, self.executablePath];
 
+    NSString *detail = self.titleDetail;
+    if (detail.length > 0)
+        title = [NSString stringWithFormat:@"%@ %@", title, detail];
+
     NSString *qualifier = self.statusQualifier;
     if (qualifier.length > 0)
         title = [NSString stringWithFormat:@"%@ (%@)", title, qualifier];
 
     return title;
+}
+
+- (NSString *)titleDetail {
+    return nil;
 }
 
 - (NSString *)statusQualifier {
@@ -130,7 +138,17 @@ NSString *const LRRuntimeInstanceDidChangeNotification = @"LRRuntimeInstanceDidC
 }
 
 - (NSString *)mainLabel {
-    return self.title;
+    NSString *title;
+    if ([self.version length] > 0)
+        title = [NSString stringWithFormat:@"%@ %@", self.basicTitle, self.version];
+    else
+        title = self.basicTitle;
+
+    NSString *qualifier = self.statusQualifier;
+    if (qualifier.length > 0)
+        title = [NSString stringWithFormat:@"%@ (%@)", title, qualifier];
+
+    return title;
 }
 
 - (NSString *)detailLabel {

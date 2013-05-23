@@ -5,7 +5,7 @@
 #import "ATSandboxing.h"
 
 NSString *GetDefaultHomebrewPath() {
-    return [ATRealHomeDirectory() stringByAppendingPathComponent:@"/usr/local/Cellar/ruby"];
+    return @"/usr/local";
 }
 
 
@@ -40,6 +40,14 @@ NSString *GetDefaultHomebrewPath() {
     return [self.rootUrl path];
 }
 
+- (NSURL *)cellarUrl {
+    return [self.rootUrl URLByAppendingPathComponent:@"Cellar"];
+}
+
+- (NSURL *)rubiesUrl {
+    return [self.rootUrl URLByAppendingPathComponent:@"Cellar/ruby"];
+}
+
 - (NSString *)title {
     return [self.rootPath stringByAbbreviatingTildeInPathUsingRealHomeDirectory];
 }
@@ -49,27 +57,36 @@ NSString *GetDefaultHomebrewPath() {
         NSError *error;
         BOOL isDir;
 
+        // TODO: rewrite using newer FSFileManager URL-based APIs
+
         if (![[NSFileManager defaultManager] fileExistsAtPath:self.rootPath isDirectory:&isDir] || !isDir) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self setInvalidWithError:[NSError errorWithDomain:LRRuntimeManagerErrorDomain code:LRRuntimeManagerErrorValidationFailed userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Homebrew Cellar/ruby directory not found at %@", self.rootPath]}]];
+                [self setInvalidWithError:[NSError errorWithDomain:LRRuntimeManagerErrorDomain code:LRRuntimeManagerErrorValidationFailed userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Homebrew prefix directory not found at %@", self.rootPath]}]];
             });
             return;
         }
 
-        if (![[self.rootUrl lastPathComponent] isEqualToString:@"ruby"]) {
+        if (![[NSFileManager defaultManager] fileExistsAtPath:self.cellarUrl.path isDirectory:&isDir] || !isDir) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self setInvalidWithError:[NSError errorWithDomain:LRRuntimeManagerErrorDomain code:LRRuntimeManagerErrorValidationFailed userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Not a Homebrew Cellar/ruby directory because it does not end with ‘ruby’: %@", self.rootPath]}]];
+                [self setInvalidWithError:[NSError errorWithDomain:LRRuntimeManagerErrorDomain code:LRRuntimeManagerErrorValidationFailed userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Homebrew Cellar subdirectory not found at %@", self.rootPath]}]];
             });
             return;
         }
 
-        NSArray *rubySubfolders = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.rootPath error:&error];
+        if (![[NSFileManager defaultManager] fileExistsAtPath:self.rubiesUrl.path isDirectory:&isDir] || !isDir) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self setInvalidWithError:[NSError errorWithDomain:LRRuntimeManagerErrorDomain code:LRRuntimeManagerErrorValidationFailed userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Homebrew Cellar/ruby subdirectory not found at %@", self.rootPath]}]];
+            });
+            return;
+        }
+
+        NSArray *rubySubfolders = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.rubiesUrl.path error:&error];
         NSMutableArray *rubyInstancesData = [NSMutableArray array];
         for (NSString *subfolder in rubySubfolders) {
             if ([subfolder isEqualToString:@"default"])
                 continue;
 
-            NSString *rubyPath = [self.rootPath stringByAppendingPathComponent:subfolder];
+            NSString *rubyPath = [self.rubiesUrl.path stringByAppendingPathComponent:subfolder];
             if ([[NSFileManager defaultManager] fileExistsAtPath:rubyPath isDirectory:&isDir] && isDir) {
                 [rubyInstancesData addObject:@{@"name": subfolder, @"identifier": [NSString stringWithFormat:@"homebrew:%@", subfolder]}];
             }

@@ -34,6 +34,10 @@
     return @"Custom Ruby";
 }
 
+- (NSString *)titleDetail {
+    return [NSString stringWithFormat:@"at %@", [self.rootUrl.path stringByAbbreviatingTildeInPathUsingRealHomeDirectory]];
+}
+
 - (NSString *)detailLabel {
     return [self.rootUrl.path stringByAbbreviatingTildeInPathUsingRealHomeDirectory];
 }

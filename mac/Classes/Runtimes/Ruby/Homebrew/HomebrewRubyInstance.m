@@ -28,7 +28,7 @@
 }
 
 - (NSURL *)rootURL {
-    return [NSURL fileURLWithPath:[self.container.rootPath stringByAppendingPathComponent:self.name]];
+    return [self.container.rubiesUrl URLByAppendingPathComponent:self.name];
 }
 
 - (NSURL *)executableURL {
