@@ -96,6 +96,9 @@
 		431CB53C16D1EF8200034877 /* SASS.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 431CB53316D1EF8200034877 /* SASS.lrplugin */; };
 		431CB53D16D1EF8200034877 /* SLIM.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 431CB53416D1EF8200034877 /* SLIM.lrplugin */; };
 		431CB53E16D1EF8200034877 /* Stylus.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 431CB53516D1EF8200034877 /* Stylus.lrplugin */; };
+		433253A9174E0B4200C9A76B /* PrefPaneRubies.png in Resources */ = {isa = PBXBuildFile; fileRef = 433253A8174E0B4200C9A76B /* PrefPaneRubies.png */; };
+		433253B2174E0BA200C9A76B /* GeneralPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 433253B0174E0BA200C9A76B /* GeneralPreferencesViewController.m */; };
+		433253B3174E0BA200C9A76B /* GeneralPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 433253B1174E0BA200C9A76B /* GeneralPreferencesViewController.xib */; };
 		43361D4613C30D1400C0E589 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43361D4513C30D1400C0E589 /* libicucore.dylib */; };
 		4346F3A91450D8AD00B133F2 /* ImportGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 4346F3A81450D8AD00B133F2 /* ImportGraph.m */; };
 		4346F3AB1451012A00B133F2 /* StatusItemStateRotation3.png in Resources */ = {isa = PBXBuildFile; fileRef = 4346F3AA1451012A00B133F2 /* StatusItemStateRotation3.png */; };
@@ -403,6 +406,10 @@
 		431CB53516D1EF8200034877 /* Stylus.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Stylus.lrplugin; path = ../plugins/Stylus.lrplugin; sourceTree = "<group>"; };
 		432A6D921476192300144F97 /* sglib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sglib.h; sourceTree = "<group>"; };
 		432A6D93147622A600144F97 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
+		433253A8174E0B4200C9A76B /* PrefPaneRubies.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PrefPaneRubies.png; sourceTree = "<group>"; };
+		433253AF174E0BA200C9A76B /* GeneralPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeneralPreferencesViewController.h; sourceTree = "<group>"; };
+		433253B0174E0BA200C9A76B /* GeneralPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneralPreferencesViewController.m; sourceTree = "<group>"; };
+		433253B1174E0BA200C9A76B /* GeneralPreferencesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GeneralPreferencesViewController.xib; sourceTree = "<group>"; };
 		43361D4513C30D1400C0E589 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		4346F3A71450D8AD00B133F2 /* ImportGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImportGraph.h; sourceTree = "<group>"; };
 		4346F3A81450D8AD00B133F2 /* ImportGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImportGraph.m; sourceTree = "<group>"; };
@@ -1003,6 +1010,14 @@
 			name = plugins;
 			sourceTree = "<group>";
 		};
+		433253A7174E0B4200C9A76B /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				433253A8174E0B4200C9A76B /* PrefPaneRubies.png */,
+			);
+			path = Preferences;
+			sourceTree = "<group>";
+		};
 		436D7317173DE05000F78A23 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -1123,6 +1138,9 @@
 			children = (
 				436D7349173DE61400F78A23 /* PreferencesController.h */,
 				436D734A173DE61400F78A23 /* PreferencesController.m */,
+				433253AF174E0BA200C9A76B /* GeneralPreferencesViewController.h */,
+				433253B0174E0BA200C9A76B /* GeneralPreferencesViewController.m */,
+				433253B1174E0BA200C9A76B /* GeneralPreferencesViewController.xib */,
 			);
 			path = Preferences;
 			sourceTree = "<group>";
@@ -1507,6 +1525,7 @@
 			isa = PBXGroup;
 			children = (
 				43A4805A1749DF1400A0681D /* Rubies */,
+				433253A7174E0B4200C9A76B /* Preferences */,
 				4303A4B615B3959D009D732A /* BuyTemplate.png */,
 				43146698146C5D2100DC075A /* ProjectPaneBackground.png */,
 				4314669C146C884800DC075A /* WelcomePaneBackground.png */,
@@ -1677,6 +1696,8 @@
 				43A48074174A040300A0681D /* RbenvContainer@2x.png in Resources */,
 				43A4807A174A069100A0681D /* HomebrewContainer.png in Resources */,
 				43A4807B174A069100A0681D /* HomebrewContainer@2x.png in Resources */,
+				433253A9174E0B4200C9A76B /* PrefPaneRubies.png in Resources */,
+				433253B3174E0BA200C9A76B /* GeneralPreferencesViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1844,6 +1865,7 @@
 				43A48077174A04E700A0681D /* RbenvRubyInstance.m in Sources */,
 				43A48081174A070500A0681D /* HomebrewContainer.m in Sources */,
 				43A48082174A070500A0681D /* HomebrewRubyInstance.m in Sources */,
+				433253B2174E0BA200C9A76B /* GeneralPreferencesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

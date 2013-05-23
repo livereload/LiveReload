@@ -1,6 +1,7 @@
 
 #import "PreferencesController.h"
 #import "MASPreferencesWindowController.h"
+#import "GeneralPreferencesViewController.h"
 #import "RubyPreferencesViewController.h"
 
 
@@ -8,6 +9,7 @@ static PreferencesController *sharedPreferencesController;
 
 
 @implementation PreferencesController {
+    GeneralPreferencesViewController *_generalPage;
     RubyPreferencesViewController *_rubiesPage;
     MASPreferencesWindowController *_windowController;
 }
@@ -24,8 +26,9 @@ static PreferencesController *sharedPreferencesController;
 {
     self = [super init];
     if (self) {
+        _generalPage = [[GeneralPreferencesViewController alloc] init];
         _rubiesPage = [[RubyPreferencesViewController alloc] init];
-        _windowController = [[MASPreferencesWindowController alloc] initWithViewControllers:@[_rubiesPage]];
+        _windowController = [[MASPreferencesWindowController alloc] initWithViewControllers:@[_generalPage, _rubiesPage]];
     }
     return self;
 }

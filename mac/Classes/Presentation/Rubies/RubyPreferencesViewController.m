@@ -54,7 +54,7 @@ enum {
 }
 
 - (NSImage *)toolbarItemImage {
-    return [NSImage imageNamed:NSImageNamePreferencesGeneral];
+    return [NSImage imageNamed:@"PrefPaneRubies"];
 }
 
 - (NSString *)toolbarItemLabel {
