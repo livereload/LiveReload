@@ -17,7 +17,6 @@
 #import "Preferences.h"
 
 #import "ShitHappens.h"
-#import "FixUnixPath.h"
 #import "LicenseManager.h"
 #import "DockIcon.h"
 #import "ATSandboxing.h"
