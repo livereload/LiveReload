@@ -53,7 +53,6 @@
 						<string key="NSFrame">{{20, 19}, {457, 23}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSSegmentedCell" key="NSCell" id="80868820">
@@ -111,7 +110,7 @@
 										<string key="NSFrameSize">{455, 312}</string>
 										<reference key="NSSuperview" ref="1016555830"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="881968292"/>
+										<reference key="NSNextKeyView" ref="337454811"/>
 										<string key="NSReuseIdentifierKey">_NS:13</string>
 										<bool key="NSEnabled">YES</bool>
 										<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -216,7 +215,7 @@
 								<string key="NSReuseIdentifierKey">_NS:11</string>
 								<reference key="NSDocView" ref="341057373"/>
 								<reference key="NSBGColor" ref="434767574"/>
-								<int key="NScvFlags">4</int>
+								<int key="NScvFlags">6</int>
 							</object>
 							<object class="NSScroller" id="959585016">
 								<reference key="NSNextResponder" ref="397491779"/>
@@ -249,7 +248,7 @@
 						<string key="NSFrame">{{20, 40}, {457, 314}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="337454811"/>
+						<reference key="NSNextKeyView" ref="1016555830"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<int key="NSsFlags">133650</int>
 						<reference key="NSVScroller" ref="959585016"/>
@@ -1170,7 +1169,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">242</int>
+			<int key="maxID">243</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
