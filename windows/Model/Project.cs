@@ -11,13 +11,13 @@ namespace LiveReload.Model {
 
         //FSMonitor* _monitor;
 
-        private bool clientsConnected;
+        //private bool clientsConnected;
         private bool enabled;
 
         private HashSet<Object> monitoringRequests;
 
         private string lastSelectedPane;
-        private bool dirty;
+        //private bool dirty;
 
         private string postProcessingCommand;
         private string postProcessingScriptName;
@@ -30,14 +30,14 @@ namespace LiveReload.Model {
         private bool compilationEnabled;
 
         //ImportGraph* _importGraph;
-        private bool compassDetected;
+        //private bool compassDetected;
 
         private bool disableLiveRefresh;
         private bool enableRemoteServerWorkflow;
         //private TimeSpan fullPageReloadDelay;
         //private TimeSpan eventProcessingDelay;
 
-        private bool brokenPathReported;
+        //private bool brokenPathReported;
 
         //NSMutableArray* _excludedFolderPaths;
 
@@ -47,10 +47,10 @@ namespace LiveReload.Model {
         //NSArray* _urlMasks;
 
         private HashSet<Object> pendingChanges;
-        private bool processingChanges;
+        //private bool processingChanges;
 
-        private bool runningPostProcessor;
-        private bool pendingPostProcessing;
+        //private bool runningPostProcessor;
+        //private bool pendingPostProcessing;
         //private TimeSpan lastPostProcessingRunDate;
 
 
