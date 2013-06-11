@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 
 using System.Diagnostics;
 using System.IO;
+using LiveReload.Model;
 
 using D = System.Collections.Generic.Dictionary<string, object>;
 
@@ -26,9 +27,13 @@ namespace LiveReload
     {
         public event Action MainWindowHideEvent;
 
-        public MainWindow() {
+        //design-time only
+        public MainWindow()
+            : this(new Workspace()) { }
+
+        public MainWindow(Workspace sharedWorkspace) {
             InitializeComponent();
-            DataContext = new MainWindowViewModel(true);
+            DataContext = new MainWindowViewModel(sharedWorkspace);
             tabs.Visibility = Visibility.Collapsed;
         }
 

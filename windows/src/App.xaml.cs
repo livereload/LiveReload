@@ -11,6 +11,7 @@ using System.Text;
 using LiveReload.Properties;
 using System.Diagnostics;
 using Twins;
+using LiveReload.Model;
 
 namespace LiveReload
 {
@@ -28,6 +29,7 @@ namespace LiveReload
         private TrayIconController trayIcon;
         private string logFile;
         private CommandLineOptions options;
+        private Workspace sharedWorkspace = new Workspace();
 
         public static new App Current {
             get {
@@ -117,7 +119,7 @@ namespace LiveReload
         }
 
         private void StartUI() {
-            window = new MainWindow();
+            window = new MainWindow(sharedWorkspace);
             window.MainWindowHideEvent += HandleMainWindowHideEvent;
             window.buttonVersion.Content = "v" + Version + (string.IsNullOrWhiteSpace(options.LRBundledPluginsOverride) ? "" : "*");
             window.gridProgress.Visibility = Visibility.Visible;

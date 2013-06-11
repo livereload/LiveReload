@@ -125,7 +125,7 @@
                     </StackPanel>
                 </Button>
             </StackPanel>
-            <TreeView Name="treeViewProjects" Grid.Row="2" BorderThickness="0" xxx:Background="LightGray" AllowDrop="True" ItemsSource="{Binding SampleItems}" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <TreeView Name="treeViewProjects" Grid.Row="2" BorderThickness="0" xxx:Background="LightGray" AllowDrop="True" ItemsSource="{Binding Projects}" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <TreeView.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Foreground="#FF444444" Text="{Binding Text}" TextTrimming="CharacterEllipsis" />

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+
 using Twins;
+using LiveReload.Model;
 
 namespace LiveReload
 {
@@ -14,17 +16,20 @@ namespace LiveReload
 
     public class MainWindowViewModel : ModelBase
     {
-        private ObservableCollection<ProjectViewModel> projects = new ObservableCollection<ProjectViewModel>();
+        private Workspace workspace;
         private ActionsFilesViewModel actionsFiles = new ActionsFilesViewModel();
         private string dummy = "123";
-        
+
         // design-time only
+        // need to be careful for workspace not to perform any dangerous activity!
         public MainWindowViewModel() {
-            projects.Add(new ProjectViewModel { Text = "LiveReload-less-example-2" });
-            projects.Add(new ProjectViewModel { Text = "Project2" });
+            this.workspace = new Workspace();
+            workspace.AddProject(new Project("", "LiveReload-less-example-2"));
+            workspace.AddProject(new Project("", "Project2"));
         }
 
-        public MainWindowViewModel(bool live) {
+        public MainWindowViewModel(Workspace sharedWorkspace) {
+            this.workspace = sharedWorkspace;
         }
 
         public ActionsFilesViewModel ActionsFiles {
@@ -33,9 +38,9 @@ namespace LiveReload
             }
         }
 
-        public ObservableCollection<ProjectViewModel> SampleItems {
+        public ReadOnlyObservableCollection<Project> Projects {
             get {
-                return projects;
+                return workspace.Projects;
             }
         }
 

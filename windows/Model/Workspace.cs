@@ -5,8 +5,10 @@ using System.Linq;
 using System.Text;
 using Twins;
 
-namespace LiveReload.Model {
-    class Workspace : ModelBase {
+namespace LiveReload.Model
+{
+    public class Workspace : ModelBase
+    {
         private ObservableCollection<Project> projects = new ObservableCollection<Project>();
         private ReadOnlyObservableCollection<Project> projectsRO;
         //NSDictionary* _oldMementos;

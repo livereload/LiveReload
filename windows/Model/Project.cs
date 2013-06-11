@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using Twins;
 
-namespace LiveReload.Model {
-    public class Project : ModelBase {
-
+namespace LiveReload.Model
+{
+    public class Project : ModelBase
+    {
         private string path;
 
         //FSMonitor* _monitor;
@@ -53,6 +54,11 @@ namespace LiveReload.Model {
         //private bool pendingPostProcessing;
         //private TimeSpan lastPostProcessingRunDate;
 
+        public string Text {
+            get {
+                return customName;
+            }
+        }
 
         public Project() {
             path = "";
@@ -64,6 +70,11 @@ namespace LiveReload.Model {
             this.path = path;
             enabled = true;
             customName = "";
+        }
+
+        public Project(string path, string name) { // LOL
+            this.path = path;
+            customName = name;
         }
 
         public Project(string path, Dictionary<string, Object> memento) {
