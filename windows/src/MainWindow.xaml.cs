@@ -136,11 +136,5 @@ namespace LiveReload
                 ViewModel.Workspace.AddProject(newProject);
             }
         }
-
-        private void buttonProjectRemove_Click(object sender, RoutedEventArgs e) {
-            if (MessageBox.Show("The selected project will be removed!", "Confirmation", MessageBoxButton.OKCancel) == MessageBoxResult.OK) {
-                treeViewProjects.SelectedItem
-            }
-        }
     }
 }
