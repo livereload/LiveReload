@@ -29,7 +29,8 @@ namespace LiveReload
 
         //design-time only
         public MainWindow()
-            : this(new Workspace()) { }
+            : this(new Workspace()) {
+        }
 
         public MainWindow(Workspace sharedWorkspace) {
             InitializeComponent();
@@ -113,10 +114,8 @@ namespace LiveReload
         }
 
         private void TestNewWorkspaceClass(object sender, RoutedEventArgs e) {
-            var foo = new LiveReload.Model.Workspace();
-            var bar = new LiveReload.Model.Project("C:\\foobar2000\\");
-            foo.AddProject(bar);
-            Console.WriteLine(foo);
+            var foo = new Project("C:\\foobar2000\\");
+            ViewModel.Workspace.AddProject(foo);
         }
 
         private void ShowReleaseNotes_Click(object sender, RoutedEventArgs e) {
@@ -128,6 +127,20 @@ namespace LiveReload
 
         private void RevealAppDataFolder_Click(object sender, RoutedEventArgs e) {
             App.Current.RevealAppDataFolder();
+        }
+
+        private void ButtonProjectAdd_Click(object sender, RoutedEventArgs e) {
+            var dialog = new System.Windows.Forms.FolderBrowserDialog();
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
+                var newProject = new Project(dialog.SelectedPath);
+                ViewModel.Workspace.AddProject(newProject);
+            }
+        }
+
+        private void buttonProjectRemove_Click(object sender, RoutedEventArgs e) {
+            if (MessageBox.Show("The selected project will be removed!", "Confirmation", MessageBoxButton.OKCancel) == MessageBoxResult.OK) {
+                treeViewProjects.SelectedItem
+            }
         }
     }
 }

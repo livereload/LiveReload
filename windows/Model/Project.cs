@@ -69,7 +69,7 @@ namespace LiveReload.Model
         public Project(string path) { // LOL
             this.path = path;
             enabled = true;
-            customName = "";
+            customName = path; //temporarily
         }
 
         public Project(string path, string name) { // LOL

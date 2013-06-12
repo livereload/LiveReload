@@ -18,7 +18,6 @@ namespace LiveReload
     {
         private Workspace workspace;
         private ActionsFilesViewModel actionsFiles = new ActionsFilesViewModel();
-        private string dummy = "123";
 
         // design-time only
         // need to be careful for workspace not to perform any dangerous activity!
@@ -50,15 +49,9 @@ namespace LiveReload
             }
         }
 
-        public string Dummy {
+        public Workspace Workspace {
             get {
-                return dummy;
-            }
-            set {
-                if (dummy != value) {
-                    dummy = value;
-                    OnPropertyChanged("Dummy");
-                }
+                return workspace;
             }
         }
     }

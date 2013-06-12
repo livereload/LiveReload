@@ -98,7 +98,7 @@
             </Grid.RowDefinitions>
             <TextBlock Text="site folders" Style="{StaticResource LiveReloadTextSidebarHeaderStyle}" />
             <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="25,0,0,8">
-                <Button Name="buttonProjectAdd" Style="{StaticResource LiveReloadCuteButtonStyle}" Background="Transparent" ToolTip="Add folder">
+                <Button Name="buttonProjectAdd" Style="{StaticResource LiveReloadCuteButtonStyle}" Background="Transparent" ToolTip="Add folder" Click="ButtonProjectAdd_Click" >
                     <StackPanel Orientation="Horizontal">
                         <Rectangle Width="10" Height="10" Margin="0,2,4,0">
                             <Rectangle.Resources>
