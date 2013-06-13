@@ -136,5 +136,13 @@ namespace LiveReload
                 ViewModel.Workspace.AddProject(newProject);
             }
         }
+
+        private void treeViewProjects_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e) {
+            ViewModel.SelectedProject = (Project)e.NewValue;
+        }
+
+        private void buttonProjectRemove_Click(object sender, RoutedEventArgs e) {
+            ViewModel.Workspace.RemoveProject(ViewModel.SelectedProject);
+        }
     }
 }

@@ -111,7 +111,7 @@
                         <TextBlock Text="add" FontWeight="Bold" Foreground="#FF666666" />
                     </StackPanel>
                 </Button>
-                <Button Name="buttonProjectRemove" Style="{StaticResource LiveReloadCuteButtonStyle}" ToolTip="Remove folder">
+                <Button Name="buttonProjectRemove" Style="{StaticResource LiveReloadCuteButtonStyle}" ToolTip="Remove folder" Click="buttonProjectRemove_Click" IsEnabled="{Binding IsProjectSelected}">
                     <StackPanel Orientation="Horizontal">
                         <Rectangle Width="10" Height="10" Margin="0,2,4,0">
                             <Rectangle.Resources>
@@ -125,7 +125,7 @@
                     </StackPanel>
                 </Button>
             </StackPanel>
-            <TreeView Name="treeViewProjects" Grid.Row="2" BorderThickness="0" xxx:Background="LightGray" AllowDrop="True" ItemsSource="{Binding Projects}" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <TreeView Name="treeViewProjects" Grid.Row="2" BorderThickness="0" xxx:Background="LightGray" AllowDrop="True" ItemsSource="{Binding Projects}" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectedItemChanged="treeViewProjects_SelectedItemChanged">
                 <TreeView.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Foreground="#FF444444" Text="{Binding Text}" TextTrimming="CharacterEllipsis" />

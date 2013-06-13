@@ -18,6 +18,7 @@ namespace LiveReload
     {
         private Workspace workspace;
         private ActionsFilesViewModel actionsFiles = new ActionsFilesViewModel();
+        private Project selectedProject;
 
         // design-time only
         // need to be careful for workspace not to perform any dangerous activity!
@@ -34,6 +35,23 @@ namespace LiveReload
         public ActionsFilesViewModel ActionsFiles {
             get {
                 return actionsFiles;
+            }
+        }
+
+        public bool IsProjectSelected {
+            get {
+                return (SelectedProject != null);
+            }
+        }
+
+        public Project SelectedProject {
+            get {
+                return selectedProject;
+            }
+            set {
+                selectedProject = value;
+                OnPropertyChanged("SelectedProject");
+                OnPropertyChanged("IsProjectSelected");
             }
         }
 
