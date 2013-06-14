@@ -128,7 +128,7 @@
             <TreeView Name="treeViewProjects" Grid.Row="2" BorderThickness="0" xxx:Background="LightGray" AllowDrop="True" ItemsSource="{Binding Projects}" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectedItemChanged="treeViewProjects_SelectedItemChanged">
                 <TreeView.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Foreground="#FF444444" Text="{Binding Text}" TextTrimming="CharacterEllipsis" />
+                        <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Foreground="#FF444444" Text="{Binding CustomName}" TextTrimming="CharacterEllipsis" />
                     </DataTemplate>
                 </TreeView.ItemTemplate>
                 <TreeView.ItemContainerStyle>
@@ -188,7 +188,7 @@
 
         <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Grid.Column="2" Height="23" Margin="35,0,12,6" Name="textBlockStatus" VerticalAlignment="Bottom" />
 
-        <Grid Name="tabs" Grid.Column="2" Margin="0,12,10,35">
+        <Grid Name="tabs" Grid.Column="2" Margin="0,12,10,35" DataContext="{Binding SelectedProject}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
@@ -204,8 +204,8 @@
                     </Rectangle.Fill>
                 </Rectangle>
                 <StackPanel Margin="64,0,0,0" VerticalAlignment="Center">
-                    <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Margin="0,0,0,0" Name="projectName" Text="LiveReload" FontWeight="Bold" FontSize="14" />
-                    <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Name="projectPath" Text="C:/Dev/livereload-examples" />
+                    <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Text="{Binding FolderName}" Margin="0,0,0,0" Name="projectName" FontWeight="Bold" FontSize="14" />
+                    <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Text="{Binding ParentPath}" Name="projectPath" />
                 </StackPanel>
             </Grid>
 

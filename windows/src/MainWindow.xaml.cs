@@ -35,7 +35,6 @@ namespace LiveReload
         public MainWindow(Workspace sharedWorkspace) {
             InitializeComponent();
             DataContext = new MainWindowViewModel(sharedWorkspace);
-            tabs.Visibility = Visibility.Collapsed;
         }
 
         public MainWindowViewModel ViewModel {

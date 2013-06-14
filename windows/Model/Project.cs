@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using Twins;
@@ -54,9 +55,21 @@ namespace LiveReload.Model
         //private bool pendingPostProcessing;
         //private TimeSpan lastPostProcessingRunDate;
 
-        public string Text {
+        public string CustomName {
             get {
                 return customName;
+            }
+        }
+
+        public string FolderName {
+            get {
+                return Path.GetFileName(path);
+            }
+        }
+
+        public string ParentPath {
+            get {
+                return Path.GetDirectoryName(path);
             }
         }
 
