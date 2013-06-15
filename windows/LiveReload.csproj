@@ -103,6 +103,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="FSMonitor\FSMonitor.cs" />
+    <Compile Include="FSMonitor\IFSMonitor.cs" />
     <Compile Include="src\MainWindowViewModel.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="src\ActionsFilesHub.xaml.cs">
@@ -134,6 +136,7 @@
       <DependentUpon>TwinsDebugger.xaml</DependentUpon>
     </Compile>
     <Compile Include="Twins\WPF\WindowLocationPersistence.cs" />
+    <Compile Include="Utilities\ThreadingUtils.cs" />
     <Page Include="Resources\AppStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

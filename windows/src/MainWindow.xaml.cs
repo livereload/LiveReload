@@ -112,9 +112,8 @@ namespace LiveReload
             ((App)App.Current).InstallUpdateSyncWithInfo();
         }
 
-        private void TestNewWorkspaceClass(object sender, RoutedEventArgs e) {
-            var foo = new Project("C:\\foobar2000\\");
-            ViewModel.Workspace.AddProject(foo);
+        private void TestNewFeature(object sender, RoutedEventArgs e) {
+            ViewModel.Workspace.AddProject(new Project(@"C:\Bin\temp\fsmonitor\", "fsmonitor"));
         }
 
         private void ShowReleaseNotes_Click(object sender, RoutedEventArgs e) {

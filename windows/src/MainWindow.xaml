@@ -17,10 +17,6 @@
                         Closing="Window_Closing"
                         StateChanged="MetroWindow_StateChanged"
                         Loaded="MetroWindow_Loaded" KeyDown="MetroWindow_KeyDown">
-    <Window.DataContext>
-        <lr:MainWindowViewModel />
-    </Window.DataContext>
-    
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -58,7 +54,7 @@
                         <MenuItem Header="Twins Debugger"  Click="ShowTwinsDebugger_Click" />
                         <MenuItem Name="DevMode" Header="Development mode (running from repository)" IsCheckable="True" IsChecked="{Binding Default.DevMode, Source={StaticResource Settings}}" />
                         <MenuItem Header="Open App Data Folder" Click="RevealAppDataFolder_Click" />
-                        <MenuItem Header="Test New Workspace Class" Click="TestNewWorkspaceClass" />
+                        <MenuItem Header="Test New Feature" Click="TestNewFeature" />
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>

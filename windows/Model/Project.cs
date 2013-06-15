@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows;
 using Twins;
+
+using LiveReload.FSMonitor;
 
 namespace LiveReload.Model
 {
-    public class Project : ModelBase
+    public class Project : ModelBase, IFSMonitorOwner
     {
         private string path;
 
-        //FSMonitor* _monitor;
+        private IFSMonitor monitor;
 
         //private bool clientsConnected;
         private bool enabled;
@@ -53,7 +56,7 @@ namespace LiveReload.Model
 
         //private bool runningPostProcessor;
         //private bool pendingPostProcessing;
-        //private TimeSpan lastPostProcessingRunDate;
+        //private TimeSpan lastPostProcessingRunDate; 
 
         public string CustomName {
             get {
@@ -85,9 +88,11 @@ namespace LiveReload.Model
             customName = path; //temporarily
         }
 
-        public Project(string path, string name) { // LOL
+        public Project(string path, string name) { // LOL :-)
             this.path = path;
             customName = name;
+            monitor = new FSMonitorService(Application.Current.Dispatcher, this, path, TimeSpan.FromMilliseconds(500));
+            monitor.Enabled = true;
         }
 
         public Project(string path, Dictionary<string, Object> memento) {
@@ -189,7 +194,9 @@ namespace LiveReload.Model
             //this.handleCompilationOptionsEnablementChanged;
         }
 
-
+        void IFSMonitorOwner.OnFileChange(ICollection<string> relativePaths) {
+            Console.WriteLine("Project has received changes:\n" + string.Join("\n", relativePaths) + "\n");
+        }
     }
 }
 

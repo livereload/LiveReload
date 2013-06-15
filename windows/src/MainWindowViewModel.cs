@@ -24,8 +24,8 @@ namespace LiveReload
         // need to be careful for workspace not to perform any dangerous activity!
         public MainWindowViewModel() {
             this.workspace = new Workspace();
-            workspace.AddProject(new Project("", "LiveReload-less-example-2"));
-            workspace.AddProject(new Project("", "Project2"));
+            //workspace.AddProject(new Project("", "LiveReload-less-example-2"));
+            //workspace.AddProject(new Project("", "Project2"));
         }
 
         public MainWindowViewModel(Workspace sharedWorkspace) {
