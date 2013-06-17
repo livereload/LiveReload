@@ -21,13 +21,13 @@ namespace LiveReload.Model
 
         private HashSet<Object> monitoringRequests;
 
-        private string lastSelectedPane;
+        private string lastSelectedPane = "";
         //private bool dirty;
 
-        private string postProcessingCommand;
-        private string postProcessingScriptName;
+        private string postProcessingCommand = "";
+        private string postProcessingScriptName = "";
         private bool postProcessingEnabled;
-        //TimeSpan postProcessingGracePeriod;
+        TimeSpan postProcessingGracePeriod;
 
         private string rubyVersionIdentifier;
 
@@ -39,8 +39,8 @@ namespace LiveReload.Model
 
         private bool disableLiveRefresh;
         private bool enableRemoteServerWorkflow;
-        //private TimeSpan fullPageReloadDelay;
-        //private TimeSpan eventProcessingDelay;
+        private TimeSpan fullPageReloadDelay;
+        private TimeSpan eventProcessingDelay;
 
         //private bool brokenPathReported;
 
@@ -58,6 +58,14 @@ namespace LiveReload.Model
         //private bool pendingPostProcessing;
         //private TimeSpan lastPostProcessingRunDate; 
 
+        private readonly TimeSpan DefaultPostProcessingGracePeriod = TimeSpan.FromMilliseconds(500);
+
+        public string Path {
+            get {
+                return path;
+            }
+        }
+
         public string CustomName {
             get {
                 return customName;
@@ -66,13 +74,13 @@ namespace LiveReload.Model
 
         public string FolderName {
             get {
-                return Path.GetFileName(path);
+                return System.IO.Path.GetFileName(path);
             }
         }
 
         public string ParentPath {
             get {
-                return Path.GetDirectoryName(path);
+                return System.IO.Path.GetDirectoryName(path);
             }
         }
 
@@ -98,8 +106,6 @@ namespace LiveReload.Model
         public Project(string path, Dictionary<string, Object> memento) {
             // we cannot monitor through symlink boundaries anyway
             //        _path = [[path stringByResolvingSymlinksInPath] copy];
-
-            customName = "";
 
             enabled = true;
 
@@ -128,8 +134,7 @@ namespace LiveReload.Model
 
             if (memento.ContainsKey("compilationEnabled")) {
                 compilationEnabled = (bool)memento["compilationEnabled"];
-            }
-            else {
+            } else {
                 compilationEnabled = false;
                 //        [[memento objectForKey:@"compilers"] enumerateKeysAndObjectsUsingBlock:^(id uniqueId, id compilerMemento, BOOL *stop) {
                 //            if ([[compilerMemento objectForKey:@"mode"] isEqualToString:@"compile"]) {
@@ -141,25 +146,25 @@ namespace LiveReload.Model
             disableLiveRefresh = (bool)memento["disableLiveRefresh"];
             enableRemoteServerWorkflow = (bool)memento["enableRemoteServerWorkflow"];
 
-            //    if ([memento objectForKey:@"fullPageReloadDelay"])
-            //        _fullPageReloadDelay = [[memento objectForKey:@"fullPageReloadDelay"] doubleValue];
-            //    else
-            //        _fullPageReloadDelay = 0.0;
+            if (memento.ContainsKey("fullPageReloadDelay"))
+                fullPageReloadDelay = TimeSpan.FromSeconds((double)memento["fullPageReloadDelay"]);
+            else
+                fullPageReloadDelay = TimeSpan.FromSeconds(0.0);
 
-            //if (memento.ContainsKey("eventProcessingDelay"))
-            //    eventProcessingDelay = (TimeSpan) memento["eventProcessingDelay"];
-            //else
-            //    eventProcessingDelay = new TimeSpan(0.0);
+            if (memento.ContainsKey("eventProcessingDelay"))
+                eventProcessingDelay = TimeSpan.FromSeconds((double)memento["eventProcessingDelay"]);
+            else
+                eventProcessingDelay = TimeSpan.FromSeconds(0.0);
+
             //_monitor.eventProcessingDelay = _eventProcessingDelay;
 
             postProcessingCommand = (string)memento["postproc"];
             postProcessingScriptName = (string)memento["postprocScript"];
-            if (memento.ContainsKey("postprocEnabled")) {
+
+            if (memento.ContainsKey("postprocEnabled"))
                 postProcessingEnabled = (bool)memento["postprocEnabled"];
-            }
-            else {
+            else
                 postProcessingEnabled = (postProcessingScriptName.Length > 0) || (postProcessingCommand.Length > 0);
-            }
 
             rubyVersionIdentifier = (string)memento["rubyVersion"];
             if (rubyVersionIdentifier.Length == 0)
@@ -181,21 +186,64 @@ namespace LiveReload.Model
             if (numberOfPathComponentsToUseAsName == 0)
                 numberOfPathComponentsToUseAsName = 1;
 
-            //    _customName = [memento objectForKey:@"customName"] ?: @"";
-
+            if (memento.ContainsKey("customName"))
+                customName = (string)memento["customName"];
+            else
+                customName = "";
 
             pendingChanges = new HashSet<Object>();
 
-            //if (memento.ContainsKey("postProcessingGracePeriod"))
-            //    postProcessingGracePeriod = new TimeSpan( (double) memento["postProcessingGracePeriod"]));
-            //else
-            //    postProcessingGracePeriod = DefaultPostProcessingGracePeriod;
+            if (memento.ContainsKey("postProcessingGracePeriod"))
+                postProcessingGracePeriod = TimeSpan.FromSeconds((double)memento["postProcessingGracePeriod"]);
+            else
+                postProcessingGracePeriod = DefaultPostProcessingGracePeriod;
 
             //this.handleCompilationOptionsEnablementChanged;
         }
 
         void IFSMonitorOwner.OnFileChange(ICollection<string> relativePaths) {
             Console.WriteLine("Project has received changes:\n" + string.Join("\n", relativePaths) + "\n");
+        }
+
+        public Dictionary<string, Object> Memento {
+            get {
+                var memento = new Dictionary<string, Object>();
+
+                if (customName.Length > 0)
+                    memento.Add("customName", customName);
+
+                //    [memento setObject:[_compilerOptions dictionaryByMappingValuesToSelector:@selector(memento)] forKey:@"compilers"];
+                if (lastSelectedPane.Length > 0)
+                    memento.Add("last_pane", lastSelectedPane);
+                if (postProcessingCommand.Length > 0)
+                    memento.Add("postproc", postProcessingCommand);
+                if (postProcessingScriptName.Length > 0) {
+                    memento.Add("postprocScript", postProcessingScriptName);
+                    memento.Add("postprocEnabled", postProcessingEnabled);
+                }
+                memento.Add("disableLiveRefresh", disableLiveRefresh);
+                memento.Add("enableRemoteServerWorkflow", enableRemoteServerWorkflow);
+
+                if (TimeSpan.Compare(fullPageReloadDelay, TimeSpan.FromMilliseconds(1)) == 1)
+                    memento.Add("fullPageReloadDelay", fullPageReloadDelay.TotalSeconds);
+                if (TimeSpan.Compare(eventProcessingDelay, TimeSpan.FromMilliseconds(1)) == 1)
+                    memento.Add("eventProcessingDelay", eventProcessingDelay.TotalSeconds);
+
+                if (TimeSpan.Compare((postProcessingGracePeriod - DefaultPostProcessingGracePeriod), TimeSpan.FromMilliseconds(1)) == 1)
+                    memento.Add("postProcessingGracePeriod", postProcessingGracePeriod.TotalSeconds);
+
+                //    if ([_excludedFolderPaths count] > 0) {
+                //        [memento setObject:_excludedFolderPaths forKey:@"excludedPaths"];
+                //    }
+                //    if ([_urlMasks count] > 0) {
+                //        [memento setObject:_urlMasks forKey:@"urls"];
+                //    }
+                memento.Add("rubyVersion", rubyVersionIdentifier);
+                memento.Add("compilationEnabled", compilationEnabled);
+                memento.Add("numberOfPathComponentsToUseAsName", numberOfPathComponentsToUseAsName);
+
+                return memento;
+            }
         }
     }
 }
@@ -296,45 +344,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
 #pragma mark -
 #pragma mark Persistence
-
-- (NSMutableDictionary *)memento {
-    NSMutableDictionary *memento = [NSMutableDictionary dictionary];
-    [memento setObject:[_compilerOptions dictionaryByMappingValuesToSelector:@selector(memento)] forKey:@"compilers"];
-    if (_lastSelectedPane)
-        [memento setObject:_lastSelectedPane forKey:@"last_pane"];
-    if ([_postProcessingCommand length] > 0) {
-        [memento setObject:_postProcessingCommand forKey:@"postproc"];
-    }
-    if ([_postProcessingScriptName length] > 0) {
-        [memento setObject:_postProcessingScriptName forKey:@"postprocScript"];
-        [memento setObject:[NSNumber numberWithBool:_postProcessingEnabled] forKey:@"postprocEnabled"];
-    }
-    [memento setObject:[NSNumber numberWithBool:_disableLiveRefresh] forKey:@"disableLiveRefresh"];
-    [memento setObject:[NSNumber numberWithBool:_enableRemoteServerWorkflow] forKey:@"enableRemoteServerWorkflow"];
-    if (_fullPageReloadDelay > 0.001) {
-        [memento setObject:[NSNumber numberWithDouble:_fullPageReloadDelay] forKey:@"fullPageReloadDelay"];
-    }
-    if (_eventProcessingDelay > 0.001) {
-        [memento setObject:[NSNumber numberWithDouble:_eventProcessingDelay] forKey:@"eventProcessingDelay"];
-    }
-    if (fabs(_postProcessingGracePeriod - DefaultPostProcessingGracePeriod) > 0.01) {
-        [memento setObject:[NSNumber numberWithDouble:_postProcessingGracePeriod] forKey:@"postProcessingGracePeriod"];
-    }
-    if ([_excludedFolderPaths count] > 0) {
-        [memento setObject:_excludedFolderPaths forKey:@"excludedPaths"];
-    }
-    if ([_urlMasks count] > 0) {
-        [memento setObject:_urlMasks forKey:@"urls"];
-    }
-    [memento setObject:_rubyVersionIdentifier forKey:@"rubyVersion"];
-    [memento setObject:[NSNumber numberWithBool:_compilationEnabled ] forKey:@"compilationEnabled"];
-
-    [memento setObject:[NSNumber numberWithInteger:_numberOfPathComponentsToUseAsName] forKey:@"numberOfPathComponentsToUseAsName"];
-    if (_customName.length > 0)
-        [memento setObject:_customName forKey:@"customName"];
-
-    return memento;
-}
 
 
 #pragma mark - Displaying
