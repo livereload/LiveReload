@@ -37,6 +37,12 @@ namespace LiveReload
             }
         }
 
+        public string AppDataDir {
+            get {
+                return appDataDir;
+            }
+        }
+
         public void SendCommand(string command, object arg) {
             twins.Send(command, arg);
         }

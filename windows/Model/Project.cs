@@ -29,7 +29,7 @@ namespace LiveReload.Model
         private bool postProcessingEnabled;
         TimeSpan postProcessingGracePeriod;
 
-        private string rubyVersionIdentifier;
+        private string rubyVersionIdentifier = "";
 
         //NSMutableDictionary* _compilerOptions;
         private bool compilationEnabled;
@@ -106,6 +106,7 @@ namespace LiveReload.Model
         public Project(string path, Dictionary<string, Object> memento) {
             // we cannot monitor through symlink boundaries anyway
             //        _path = [[path stringByResolvingSymlinksInPath] copy];
+            this.path = path;
 
             enabled = true;
 
@@ -117,7 +118,10 @@ namespace LiveReload.Model
             //    _compilerOptions = [[NSMutableDictionary alloc] init];
             monitoringRequests = new HashSet<Object>();
 
-            lastSelectedPane = (string)memento["last_pane"];
+            if (memento.ContainsKey("last_pane"))
+                lastSelectedPane = (string)memento["last_pane"];
+            else
+                lastSelectedPane = "";
 
             //    id raw = [memento objectForKey:@"compilers"];
             //    if (raw) {
@@ -158,8 +162,15 @@ namespace LiveReload.Model
 
             //_monitor.eventProcessingDelay = _eventProcessingDelay;
 
-            postProcessingCommand = (string)memento["postproc"];
-            postProcessingScriptName = (string)memento["postprocScript"];
+            if (memento.ContainsKey("postProcessingCommand"))
+                postProcessingCommand = (string)memento["postproc"];
+            else
+                postProcessingCommand = "";
+
+            if (memento.ContainsKey("postProcessingScriptName"))
+                postProcessingScriptName = (string)memento["postprocScript"];
+            else
+                postProcessingScriptName = "";
 
             if (memento.ContainsKey("postprocEnabled"))
                 postProcessingEnabled = (bool)memento["postprocEnabled"];
@@ -182,7 +193,7 @@ namespace LiveReload.Model
             //        urlMasks = [NSArray array];
             //    _urlMasks = [urlMasks copy];
 
-            numberOfPathComponentsToUseAsName = (int)memento["numberOfPathComponentsToUseAsName"];
+            numberOfPathComponentsToUseAsName = Convert.ToInt32(memento["numberOfPathComponentsToUseAsName"]);
             if (numberOfPathComponentsToUseAsName == 0)
                 numberOfPathComponentsToUseAsName = 1;
 

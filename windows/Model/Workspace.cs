@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using Twins;
@@ -58,15 +59,6 @@ namespace LiveReload.Model
             }
         }
 
-        private void SetNeedsSaving() {
-            if (savingScheduled)
-                return;
-            savingScheduled = true;
-            //[self performSelector:@selector(save) withObject:nil afterDelay:0.1];
-        }
-    }
-}
-
 
 
 /*
@@ -112,71 +104,74 @@ void C_workspace__set_monitoring_enabled(json_t *arg) {
 #pragma mark -
 #pragma mark Persistence
 
-- (NSString *)dataFilePath {
-    return [[NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"LiveReload/Data/livereload.json"];
-}
-
-- (void)save {
-    NSString *dataFilePath = [self dataFilePath];
-    [[NSFileManager defaultManager] createDirectoryAtPath:[dataFilePath stringByDeletingLastPathComponent] withIntermediateDirectories:YES attributes:nil error:NULL];
-    
-    NSMutableArray *projectMementos = [NSMutableArray array];
-    for (Project *project in _projects) {
-        NSMutableDictionary *memento = [project memento];
-        NSError *error = nil;
-        NSString *bookmark = [[[NSURL fileURLWithPath:project.path] bookmarkDataWithOptions:NSURLBookmarkCreationWithSecurityScope includingResourceValuesForKeys:nil relativeToURL:nil error:&error] base64EncodedString];
-        [memento setObject:project.path forKey:@"path"];
-        [memento setObject:bookmark forKey:@"bookmark"];
-        [projectMementos addObject:memento];
-    }
-    json_t *json = nodeapp_objc_to_json(projectMementos);
-    char *dump = json_dumps(json, JSON_INDENT(2));
-    [[NSData dataWithBytesNoCopy:dump length:strlen(dump) freeWhenDone:NO] writeToFile:dataFilePath options:NSDataWritingAtomic error:NULL];
-    free(dump);
-    json_decref(json);
-    
-//    [[NSUserDefaults standardUserDefaults] setObject:projectMementos forKey:ProjectListKey];
-//    [[NSUserDefaults standardUserDefaults] synchronize];
-    _savingScheduled = NO;
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(save) object:nil];
-    NSLog(@"Workspace saved.");
-    [self sendModelToBackend];
-}
-
-- (void)setNeedsSaving {
-    if (_savingScheduled)
-        return;
-    _savingScheduled = YES;
-    [self performSelector:@selector(save) withObject:nil afterDelay:0.1];
-}
-
-- (void)load {
-    _oldMementos = [[[NSUserDefaults standardUserDefaults] objectForKey:ProjectListKey] retain];
-    
-    NSArray *projectMementos = nil;
-
-    NSString *data = [NSString stringWithContentsOfFile:[self dataFilePath] encoding:NSUTF8StringEncoding error:NULL];
-    if (data) {
-        json_error_t err;
-        json_t *json = json_loads([data UTF8String], 0, &err);
-        projectMementos = nodeapp_json_to_objc(json, YES);
-        json_decref(json);
-    }
-
-    [_projects removeAllObjects];
-    for (NSDictionary *projectMemento in projectMementos) {
-        NSString *bookmark = [projectMemento objectForKey:@"bookmark"];
-        BOOL stale = NO;
-        NSError *error = nil;
-        NSURL *url = [NSURL URLByResolvingBookmarkData:[NSData dataFromBase64String:bookmark] options:NSURLBookmarkResolutionWithSecurityScope relativeToURL:nil bookmarkDataIsStale:&stale error:&error];
-        if ([url isFileURL]) {
-            [url startAccessingSecurityScopedResource];                       
-            NSString *path = [url path];
-            [_projects addObject:[[[Project alloc] initWithPath:path memento:projectMemento] autorelease]];
+*/
+        private string DataFilePath {
+            get {
+                return Path.Combine(App.Current.AppDataDir, @"projects.json");
+            }
         }
-    }
-}
 
+        public void Save() {
+            string dataFilePath = this.DataFilePath;
+ 
+            var projectMementos = new List<Dictionary<string, Object>>();
+            foreach (Project project in projectsRO) {
+                var memento = project.Memento;
+                //NSError *error = nil;
+                //NSString *bookmark = [[[NSURL fileURLWithPath:project.path] bookmarkDataWithOptions:NSURLBookmarkCreationWithSecurityScope includingResourceValuesForKeys:nil relativeToURL:nil error:&error] base64EncodedString];
+                memento.Add("path", project.Path);
+                //[memento setObject:bookmark forKey:@"bookmark"];
+                projectMementos.Add(memento);
+            }
+            //json_t *json = nodeapp_objc_to_json(projectMementos);
+            string dump = Twins.JSON.Json.Stringify(projectMementos, true);
+            File.WriteAllText(dataFilePath, dump, Encoding.UTF8);
+        
+            // //[[NSUserDefaults standardUserDefaults] setObject:projectMementos forKey:ProjectListKey];
+            // //[[NSUserDefaults standardUserDefaults] synchronize];
+            savingScheduled = false;
+            // [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(save) object:nil];
+            // NSLog(@"Workspace saved.");
+            // [self sendModelToBackend];
+        }
+
+
+        private void SetNeedsSaving() {
+            if (savingScheduled)
+                return;
+            savingScheduled = true;
+            //[self performSelector:@selector(save) withObject:nil afterDelay:0.1];
+        }
+
+        public void Load() {
+        //    _oldMementos = [[[NSUserDefaults standardUserDefaults] objectForKey:ProjectListKey] retain];
+    
+            List<Dictionary<string, Object>> projectMementos = null;
+        //    NSArray *projectMementos = nil;
+
+            string data = File.ReadAllText(DataFilePath, Encoding.UTF8);
+            if (data.Length > 0) {
+                var json = Twins.JSON.Json.Parse(data);
+                projectMementos = ((IEnumerable<object>)json).Cast<Dictionary<string, object>>().ToList();
+                Console.WriteLine("foo " + (projectMementos.GetType()).Name);
+            }
+
+            projects.Clear();
+            foreach (Dictionary<string, Object> projectMemento in projectMementos) {
+                // NSString *bookmark = [projectMemento objectForKey:@"bookmark"];
+                // BOOL stale = NO;
+                // NSError *error = nil;
+                // NSURL *url = [NSURL URLByResolvingBookmarkData:[NSData dataFromBase64String:bookmark] options:NSURLBookmarkResolutionWithSecurityScope relativeToURL:nil bookmarkDataIsStale:&stale error:&error];
+                // if ([url isFileURL]) {
+                //     [url startAccessingSecurityScopedResource];                       
+                //     NSString *path = [url path];
+                //     [_projects addObject:[[[Project alloc] initWithPath:path memento:projectMemento] autorelease]];
+                // }
+                projects.Add(new Project((string)projectMemento["path"], projectMemento));
+            }
+        }
+
+/*
 - (void)handleSomethingChanged:(NSNotification *)notification {
     [self setNeedsSaving];
 }
@@ -238,3 +233,5 @@ json_t *C_project__path_of_best_file_matching_path_suffix(json_t *arg) {
 @end
 
 */
+    }
+}
