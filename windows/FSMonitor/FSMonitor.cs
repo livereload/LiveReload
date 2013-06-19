@@ -58,6 +58,9 @@ namespace LiveReload.FSMonitor {
         }
 
         private void CreateMonitor() {
+            if (!Directory.Exists(path))
+                return;
+
             watcher = new FileSystemWatcher(path);
             watcher.IncludeSubdirectories = true;
             watcher.Created += Watcher_Created;
