@@ -494,6 +494,9 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
             NSString *runDirectory = _path;
             NSString *prefix = @"which rvm >/dev/null || source \"$HOME/.rvm/scripts/rvm\"; ";
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"DisableRvmSnippet"]) {
+                prefix = @"";
+            }
             NSArray *shArgs = [NSArray arrayWithObjects:@"--login",@"-i",@"-c", [prefix stringByAppendingString:command], nil];
 
             NSError *error = nil;
