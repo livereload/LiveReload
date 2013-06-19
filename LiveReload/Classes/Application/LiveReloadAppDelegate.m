@@ -105,6 +105,17 @@ void C_app__good_time_to_deliver_news(json_t *arg) {
     // I can imagine there any many more cases when it comes in handy.
     putenv("INVOKED_FROM_LIVERELOAD=1");
 
+    // fish does not work well with our rvm shenanigans
+    const char *shell = getenv("SHELL");
+    if (shell) {
+        NSString *shellName = [[NSString stringWithUTF8String:shell] lastPathComponent];
+        if ([shellName rangeOfString:@"fish"].location == 0) {
+            if (![[NSUserDefaults standardUserDefaults] boolForKey:@"DisableRvmSnippet"]) {
+                putenv("SHELL=/bin/bash");
+            }
+        }
+    }
+
     [Preferences initDefaults];
     [[PluginManager sharedPluginManager] reloadPlugins];
     
@@ -361,8 +372,10 @@ void C_app__good_time_to_deliver_news(json_t *arg) {
 
 #pragma mark - Sparkle
 
+#ifndef APPSTORE
 - (IBAction)checkForUpdates:(id)sender {
     [[SUUpdater sharedUpdater] checkForUpdates:sender];
 }
+#endif
 
 @end
