@@ -81,9 +81,11 @@ static void os_compute_paths() {
 }
 
 static void os_init_logging() {
-    int fd = open(os_log_file, O_WRONLY | O_CREAT | O_TRUNC, 0664);
-    dup2(fd, 2);
-    close(fd);
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"LogToConsole"]) {
+        int fd = open(os_log_file, O_WRONLY | O_CREAT | O_TRUNC, 0664);
+        dup2(fd, 2);
+        close(fd);
+    }
 }
 
 void os_init() {
