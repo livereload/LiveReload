@@ -8,10 +8,8 @@ exports.api =
     LR.version = version || '0.0.0'
 
     async.series [
-      # (cb) -> LR.preferences.init preferencesFolder, cb
       (cb) -> LR.plugins.init pluginFolders, cb
       (cb) -> LR.websockets.init cb
-      # (cb) -> LR.projects.init cb
     ], (err) ->
       if err
         LR.client.app.failedToStart(message: "#{err.stack or err.message or err}")

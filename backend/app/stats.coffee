@@ -41,5 +41,5 @@ pingServer = (force) ->
 
 
 exports.startup = ->
-  pingServer(yes)
-  setInterval (-> pingServer(no)), (Debug && DebugCheckInterval || CheckInterval) * 1000
+  # pingServer(yes)
+  # setInterval (-> pingServer(no)), (Debug && DebugCheckInterval || CheckInterval) * 1000

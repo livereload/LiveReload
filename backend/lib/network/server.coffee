@@ -99,6 +99,7 @@ class LRWebSocketServer extends EventEmitter
         return callback(err) if err
 
         @httpServer.on 'request', (request, response) =>
+          request.on 'data', =>
           request.on 'end', =>
             url = Url.parse(request.url, yes)
             @emit 'httprequest', url, request, response

@@ -3,7 +3,7 @@ Path = require 'path'
 fs   = require 'fs'
 
 _categories = {}
-_path = {}
+_path = null
 _savingDelay = 100
 
 class PreferenceCategory
@@ -37,9 +37,9 @@ class PreferenceCategory
       @doLoad()
 
   saveNow: ->
-    fs.writeFile @path, JSON.stringify(@data, null, 2), 'utf8', (err) =>
-      if err
-        LR.log.wtf "Failed to save preferences file #{@path}"
+    # fs.writeFile @path, JSON.stringify(@data, null, 2), 'utf8', (err) =>
+    #   if err
+    #     LR.log.wtf "Failed to save preferences file #{@path}"
 
   save: ->
     unless @savingTimer
