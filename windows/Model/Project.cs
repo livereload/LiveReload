@@ -66,9 +66,115 @@ namespace LiveReload.Model
             }
         }
 
+        public bool CompilationEnabled {
+            get {
+                return compilationEnabled;
+            }
+            set {
+                if (compilationEnabled != value) {
+                    compilationEnabled = value;
+                    this.handleCompilationOptionsEnablementChanged();
+                    //[[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+                }
+            }
+        }
+
+        public string RubyVersionIdentifier {
+            get {
+                return rubyVersionIdentifier;
+            }
+            set {
+                if (rubyVersionIdentifier != value) {
+                    rubyVersionIdentifier = value;
+                    //[[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+                }
+            }
+        }
+
+        public bool DisableLiveRefresh {
+            get {
+                return disableLiveRefresh;
+            }
+            set {
+                if (disableLiveRefresh != value) {
+                    disableLiveRefresh = value;
+                    //[[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+                }
+            }
+        }
+
+        public bool EnableRemoteServerWorkflow {
+            get {
+                return enableRemoteServerWorkflow;
+            }
+            set {
+                if (enableRemoteServerWorkflow != value) {
+                    enableRemoteServerWorkflow = value;
+                    //[[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+                }
+            }
+        }
+
+        public int NumberOfPathComponentsToUseAsName {
+            get {
+                return numberOfPathComponentsToUseAsName;
+            }
+            set {
+                if (numberOfPathComponentsToUseAsName != value) {
+                    numberOfPathComponentsToUseAsName = value;
+                    //[[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+                }
+            }
+        }
+
         public string CustomName {
             get {
                 return customName;
+            }
+            set {
+                if (customName != value) {
+                    customName = value;
+                    //[[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+                }
+            }
+        }
+
+        public TimeSpan FullPageReloadDelay {
+            get {
+                return fullPageReloadDelay;
+            }
+            set {
+                if (fullPageReloadDelay != value) {
+                    fullPageReloadDelay = value;
+                    //[[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+                }
+            }
+        }
+
+        public TimeSpan EventProcessingDelay {
+            get {
+                return eventProcessingDelay;
+            }
+            set {
+                if (eventProcessingDelay != value) {
+                    eventProcessingDelay = value;
+                    //_monitor.eventProcessingDelay = _eventProcessingDelay;
+                    //[[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+                }
+            }
+        }
+
+        public TimeSpan PostProcessingGracePeriod {
+            get {
+                return postProcessingGracePeriod;
+            }
+            set {
+                if (TimeSpan.Compare(value, TimeSpan.FromMilliseconds(10)) == -1)
+                    return;
+                if (postProcessingGracePeriod != value) {
+                    postProcessingGracePeriod = value;
+                    //[[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+                }
             }
         }
 
@@ -82,6 +188,10 @@ namespace LiveReload.Model
             get {
                 return System.IO.Path.GetDirectoryName(path);
             }
+        }
+
+        private void handleCompilationOptionsEnablementChanged() {
+            //[self requestMonitoring:_compilationEnabled || _postProcessingEnabled forKey:CompilersEnabledMonitoringKey];
         }
 
         public Project() {
@@ -256,6 +366,18 @@ namespace LiveReload.Model
                 return memento;
             }
         }
+
+        private bool MatchLastPathComponent(string path, string lastComponent) {
+            return String.Equals(System.IO.Path.GetFileName(path), lastComponent);
+        }
+
+        private bool MatchLastPathTwoComponents(string path, string secondToLastComponent, string lastComponent) {
+            string[] components = path.Split(System.IO.Path.DirectorySeparatorChar);
+            return (components.Length >= 2) &&
+                String.Equals(components[components.Length - 2], secondToLastComponent) &&
+                String.Equals(components[components.Length - 1], lastComponent);
+        }
+
     }
 }
 
@@ -290,17 +412,6 @@ void C_projects__notify_compilation_finished(json_t *arg) {
 
 
 
-BOOL MatchLastPathComponent(NSString *path, NSString *lastComponent) {
-    return [[path lastPathComponent] isEqualToString:lastComponent];
-}
-
-BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent, NSString *lastComponent) {
-    NSArray *components = [path pathComponents];
-    return components.count >= 2 && [[components objectAtIndex:components.count - 2] isEqualToString:secondToLastComponent] && [[path lastPathComponent] isEqualToString:lastComponent];
-}
-
-
-
 @interface Project () <FSMonitorDelegate>
 
 - (void)updateFilter;
@@ -320,16 +431,12 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 @synthesize dirty=_dirty;
 @synthesize lastSelectedPane=_lastSelectedPane;
 @synthesize enabled=_enabled;
-@synthesize compilationEnabled=_compilationEnabled;
 @synthesize postProcessingCommand=_postProcessingCommand;
 @synthesize postProcessingScriptName=_postProcessingScriptName;
 @synthesize postProcessingEnabled=_postProcessingEnabled;
-@synthesize disableLiveRefresh=_disableLiveRefresh;
-@synthesize enableRemoteServerWorkflow=_enableRemoteServerWorkflow;
 @synthesize fullPageReloadDelay=_fullPageReloadDelay;
 @synthesize eventProcessingDelay=_eventProcessingDelay;
 @synthesize postProcessingGracePeriod=_postProcessingGracePeriod;
-@synthesize rubyVersionIdentifier=_rubyVersionIdentifier;
 @synthesize numberOfPathComponentsToUseAsName=_numberOfPathComponentsToUseAsName;
 @synthesize customName=_customName;
 @synthesize urlMasks=_urlMasks;
@@ -670,21 +777,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
 #pragma mark - Options
 
-- (void)setCustomName:(NSString *)customName {
-    if (_customName != customName) {
-        [_customName autorelease];
-        _customName = [customName retain];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
-    }
-}
-
-- (void)setNumberOfPathComponentsToUseAsName:(NSInteger)numberOfPathComponentsToUseAsName {
-    if (_numberOfPathComponentsToUseAsName != numberOfPathComponentsToUseAsName) {
-        _numberOfPathComponentsToUseAsName = numberOfPathComponentsToUseAsName;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
-    }
-}
-
 - (CompilationOptions *)optionsForCompiler:(Compiler *)compiler create:(BOOL)create {
     NSString *uniqueId = compiler.uniqueId;
     CompilationOptions *options = [_compilerOptions objectForKey:uniqueId];
@@ -822,63 +914,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 skipGuessing:
     [pool drain];
     return fileOptions;
-}
-
-- (void)handleCompilationOptionsEnablementChanged {
-    [self requestMonitoring:_compilationEnabled || _postProcessingEnabled forKey:CompilersEnabledMonitoringKey];
-}
-
-- (void)setCompilationEnabled:(BOOL)compilationEnabled {
-    if (_compilationEnabled != compilationEnabled) {
-        _compilationEnabled = compilationEnabled;
-        [self handleCompilationOptionsEnablementChanged];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
-    }
-}
-
-- (void)setDisableLiveRefresh:(BOOL)disableLiveRefresh {
-    if (_disableLiveRefresh != disableLiveRefresh) {
-        _disableLiveRefresh = disableLiveRefresh;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
-    }
-}
-
-- (void)setEnableRemoteServerWorkflow:(BOOL)enableRemoteServerWorkflow {
-    if (_enableRemoteServerWorkflow != enableRemoteServerWorkflow) {
-        _enableRemoteServerWorkflow = enableRemoteServerWorkflow;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
-    }
-}
-
-- (void)setFullPageReloadDelay:(NSTimeInterval)fullPageReloadDelay {
-    if (_fullPageReloadDelay != fullPageReloadDelay) {
-        _fullPageReloadDelay = fullPageReloadDelay;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
-    }
-}
-
-- (void)setEventProcessingDelay:(NSTimeInterval)eventProcessingDelay {
-    if (_eventProcessingDelay != eventProcessingDelay) {
-        _eventProcessingDelay = eventProcessingDelay;
-        _monitor.eventProcessingDelay = _eventProcessingDelay;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
-    }
-}
-
-- (void)setPostProcessingGracePeriod:(NSTimeInterval)postProcessingGracePeriod {
-    if (postProcessingGracePeriod < 0.01)
-        return;
-    if (_postProcessingGracePeriod != postProcessingGracePeriod) {
-        _postProcessingGracePeriod = postProcessingGracePeriod;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
-    }
-}
-
-- (void)setRubyVersionIdentifier:(NSString *)rubyVersionIdentifier {
-    if (_rubyVersionIdentifier != rubyVersionIdentifier) {
-        [_rubyVersionIdentifier release], _rubyVersionIdentifier = [rubyVersionIdentifier copy];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
-    }
 }
 
 
