@@ -223,7 +223,7 @@
                                         <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" HorizontalAlignment="Left" Margin="0,0,0,4" VerticalAlignment="Top" Grid.Column="1">
                                         <Run>Insert this tag before &lt;/body&gt;:</Run>
                                         </TextBlock>
-                                        <TextBox Name="textBoxSnippet" FontFamily="{StaticResource LiveReloadFontFamilyNormal}" my:SelectTextOnFocus.Active="True" Height="80" Margin="0" FontSize="10" TextWrapping="Wrap" Controls:TextboxHelper.Watermark="[open a project to see its snippet that corresponds to entered URL(s)]" IsReadOnly="True" />
+                                        <TextBox Name="textBoxSnippet" FontFamily="{StaticResource LiveReloadFontFamilyNormal}" my:SelectTextOnFocus.Active="True" Height="80" Margin="0" FontSize="10" TextWrapping="Wrap" Controls:TextboxHelper.Watermark="[open a project to see its snippet that corresponds to entered URL(s)]" IsReadOnly="True" Text="&lt;script&gt;document.write('&lt;script src=&quot;http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1&quot;&gt;&lt;/' + 'script&gt;')&lt;/script&gt;" />
                                     </StackPanel>
                                 </Grid>
                                 <Grid Width="250" HorizontalAlignment="Right">
