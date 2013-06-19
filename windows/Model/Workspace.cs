@@ -124,7 +124,8 @@ void C_workspace__set_monitoring_enabled(json_t *arg) {
                 projectMementos.Add(memento);
             }
             //json_t *json = nodeapp_objc_to_json(projectMementos);
-            string dump = Twins.JSON.Json.Stringify(projectMementos, true);
+            //string dump = Twins.JSON.Json.Stringify(projectMementos, true);
+            string dump = Twins.JSON.Json.Stringify(projectMementos); // Beautifier in fastJSON is broken as fuck
             File.WriteAllText(dataFilePath, dump, Encoding.UTF8);
         
             // //[[NSUserDefaults standardUserDefaults] setObject:projectMementos forKey:ProjectListKey];
@@ -153,7 +154,6 @@ void C_workspace__set_monitoring_enabled(json_t *arg) {
             if (data.Length > 0) {
                 var json = Twins.JSON.Json.Parse(data);
                 projectMementos = ((IEnumerable<object>)json).Cast<Dictionary<string, object>>().ToList();
-                Console.WriteLine("foo " + (projectMementos.GetType()).Name);
             }
 
             projects.Clear();
