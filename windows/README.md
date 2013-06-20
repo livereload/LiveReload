@@ -11,15 +11,60 @@ WARNING: you must be building from `windows/` folder of the [main LiveReload rep
 Prerequisites:
 
 * Microsoft Visual Studio 2012 (VS 2010 should work too)
+* Node 0.10.x with npm
+* IcedCoffeeScript 1.3.3f
 
-Process:
+Don’t forget to pull all submodules after getting the source code!
 
-* Make sure you're
+Build the backend:
+
+* Install externel dependencies of each package:
+
+        # bash
+        for i in node_modules/*; do (echo; echo $i; cd $i; npm install); done
+        # fish
+        for i in node_modules/*; echo; echo $i; pushd $i; npm install; popd; end
+
+* Check and kill any redundant local packages found. The following folders must _not_ exist:
+
+        livereload-client/node_modules/livereload-protocol
+        livereload-core/node_modules/fsmonitor
+        livereload-core/node_modules/jobqueue
+        livereload-core/node_modules/pathspec
+        livereload-new/node_modules/fsmonitor
+        livereload-new/node_modules/pathspec
+        livereload-server/node_modules/livereload-protocol
+        livereload/node_modules/livereload-core
+        livereload/node_modules/livereload-server
+        livereload/node_modules/pathspec
+        livereload/node_modules/vfs-local
+
+* Compile CoffeeScript sources (use `-cw` for watch mode, `-c` for one-time compilation):
+
+        iced --runtime inline -cw node_modules/*/*.{coffee,iced} node_modules/*/{lib,test,config,rpc-api,bin}/**.{coffee,iced}
+
+Verify that the backend works:
+
+* Run and make sure it displays a command-line usage error:
+
+        node node_modules/livereload/bin/livereload.js
+
+* Run and make sure it starts up, outputs a bunch of stuff and listens for browser connections (Ctrl-C to quit):
+
+        node node_modules/livereload/bin/livereload.js rpc console
+
+* Run and make sure it outputs nothing (Ctrl-C to quit):
+
+        node node_modules/livereload/bin/livereload.js rpc server
+
+Prepare the bundled resources:
+
 * Run `powershell bundle-backend.ps1`
 * Run `bundle-ruby.cmd`
 * Run `bundle-node.cmd`
 * Run `bundle-plugins.cmd`
-* Perform the build in Visual Studio
+
+Finally, open the solution in Visual Studio and perform a build.
 
 
 ## Running PowerShell scripts
@@ -35,9 +80,10 @@ As [explained on MSDN](http://technet.microsoft.com/library/hh847748.aspx), you 
 
 When running LiveReload from LiveReload2 repository, you can have it pick up the backend files from the repository folder.
 
-You can specify an alternative backend path to avoid going through the lengthy packaging and extraction process on every backend change.
+Option A. You can enable the dev mode to run the backend code from the repository. Right-click the version number in the title bar and enable “Development Mode”. This will restart the app. If you've been running from Visual Studio, after doing this step you must restart the app from within Visual Studio manually.
 
-In Visual Studio, open the project properties, switch to Debug tab and specify the following command-line argument:
+
+Option B. You can specify a custom backend path. In Visual Studio, open the project properties, switch to Debug tab and specify the following command-line argument:
 
     -LRBackendOverride C:\livereload-devel\node_modules\livereload
     -LRBundledPluginsOverride C:\livereload-devel\plugins
