@@ -25,7 +25,7 @@ namespace LiveReload
                     bundledBackendDir = extractBundledResourcesFromFile("backend.7z");
                     bundledPluginsDir = extractBundledResourcesFromFile("plugins.7z");
                     bundledRubyDir = extractBundledResourcesFromFile("ruby-1.9.3.7z");
-                    bundledNodeDir = extractBundledResourcesFromFile("node-0.10.3.7z");
+                    bundledNodeDir = extractBundledResourcesFromFile("node-0.10.12.7z");
 
                     App.Current.Dispatcher.Invoke(DispatcherPriority.Normal,
                         (Action)(() => { Callback(); })
