@@ -99,25 +99,13 @@ Prerequisites:
 
 Building:
 
-1. Install build script dependencies:
-
-        cd scripts
-        npm install
-        cd ..
-
-2. Use the script to set up symlinks inside node_modules/ repo folder:
-
-        iced scripts/relink.iced
-
-3. Install externel dependencies of each package:
+1. Install externel dependencies of each package:
 
         for i in node_modules/*; do (echo; echo $i; cd $i; npm install); done
 
-4. Relink again, because `npm install` loves to screw things up:
+2. Check and kill any redundant local packages found. TODO: expand on this.
 
-        iced scripts/relink.iced
-
-5. Compile CoffeeScript sources (use `-cw` for watch mode, `-c` for one-time compilation):
+3. Compile CoffeeScript sources (use `-cw` for watch mode, `-c` for one-time compilation):
 
         iced --runtime inline -cw node_modules/*/*.{coffee,iced} node_modules/*/{lib,test,config,rpc-api,bin}/**.{coffee,iced}
 
