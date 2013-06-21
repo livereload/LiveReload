@@ -91,17 +91,6 @@ void C_workspace__set_monitoring_enabled(json_t *arg) {
 
 
 #pragma mark -
-#pragma mark Singleton
-
-+ (Workspace *)sharedWorkspace {
-    if (sharedWorkspace == nil) {
-        sharedWorkspace = [[Workspace alloc] init];
-    }
-    return sharedWorkspace;
-}
-
-
-#pragma mark -
 #pragma mark Persistence
 
 */
@@ -132,7 +121,7 @@ void C_workspace__set_monitoring_enabled(json_t *arg) {
             // //[[NSUserDefaults standardUserDefaults] synchronize];
             savingScheduled = false;
             // [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(save) object:nil];
-            // NSLog(@"Workspace saved.");
+            Console.WriteLine(@"Workspace saved.");
             // [self sendModelToBackend];
         }
 
