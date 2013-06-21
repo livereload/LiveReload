@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Twins;
+using LiveReload.Utilities;
 
 namespace LiveReload.Model
 {
@@ -33,7 +34,7 @@ namespace LiveReload.Model
         public Workspace() {
             projectsRO = new ReadOnlyObservableCollection<Project>(projects);
             // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSomethingChanged:) name:@"SomethingChanged" object:nil];
-            // [self load];
+            this.Load();
         }
 
         public ReadOnlyObservableCollection<Project> Projects {
@@ -146,7 +147,7 @@ void C_workspace__set_monitoring_enabled(json_t *arg) {
             if (savingScheduled)
                 return;
             savingScheduled = true;
-            //[self performSelector:@selector(save) withObject:nil afterDelay:0.1];
+            App.Current.Dispatcher.InvokeAfterDelay(TimeSpan.FromMilliseconds(100), Save);
         }
 
         public void Load() {

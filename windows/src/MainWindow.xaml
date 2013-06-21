@@ -264,7 +264,7 @@
                         <StackPanel>
                             <Grid Margin="0,4,12,4" Background="#CCEECC" Width="512" MinHeight="70" Focusable="True" KeyboardNavigation.TabNavigation="Once">
                                 <TextBlock Style="{StaticResource LiveReloadTextTitle2Style}" Text="compile sass, less, coffee and others" Margin="12,6,0,0" />
-                                <Controls:ToggleSwitchButton Name="checkBoxCompile" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,16,0" TabIndex="0" />
+                                <Controls:ToggleSwitchButton Name="checkBoxCompile" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,16,0" TabIndex="0" IsChecked="{Binding CompilationEnabled, Mode=TwoWay}" />
                             </Grid>
                             
                             <StackPanel Margin="0,40,0,20">
