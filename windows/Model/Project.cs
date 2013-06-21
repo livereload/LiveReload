@@ -74,7 +74,7 @@ namespace LiveReload.Model
                 if (compilationEnabled != value) {
                     compilationEnabled = value;
                     this.handleCompilationOptionsEnablementChanged();
-                    //[[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+                    OnPropertyChanged("CompilationEnabled");
                 }
             }
         }
@@ -86,7 +86,7 @@ namespace LiveReload.Model
             set {
                 if (rubyVersionIdentifier != value) {
                     rubyVersionIdentifier = value;
-                    //[[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+                    OnPropertyChanged("RubyVersionIdentifier");
                 }
             }
         }
@@ -98,7 +98,7 @@ namespace LiveReload.Model
             set {
                 if (disableLiveRefresh != value) {
                     disableLiveRefresh = value;
-                    //[[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+                    OnPropertyChanged("DisableLiveRefresh");
                 }
             }
         }
@@ -110,7 +110,7 @@ namespace LiveReload.Model
             set {
                 if (enableRemoteServerWorkflow != value) {
                     enableRemoteServerWorkflow = value;
-                    //[[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+                    OnPropertyChanged("EnableRemoteServerWorkflow");
                 }
             }
         }
@@ -122,7 +122,7 @@ namespace LiveReload.Model
             set {
                 if (numberOfPathComponentsToUseAsName != value) {
                     numberOfPathComponentsToUseAsName = value;
-                    //[[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+                    OnPropertyChanged("NumberOfPathComponentsToUseAsName");
                 }
             }
         }
@@ -134,7 +134,7 @@ namespace LiveReload.Model
             set {
                 if (customName != value) {
                     customName = value;
-                    //[[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+                    OnPropertyChanged("CustomName");
                 }
             }
         }
@@ -146,7 +146,7 @@ namespace LiveReload.Model
             set {
                 if (fullPageReloadDelay != value) {
                     fullPageReloadDelay = value;
-                    //[[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+                    OnPropertyChanged("FullPageReloadDelay");
                 }
             }
         }
@@ -159,7 +159,7 @@ namespace LiveReload.Model
                 if (eventProcessingDelay != value) {
                     eventProcessingDelay = value;
                     //_monitor.eventProcessingDelay = _eventProcessingDelay;
-                    //[[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+                    OnPropertyChanged("EventProcessingDelay");
                 }
             }
         }
@@ -173,7 +173,7 @@ namespace LiveReload.Model
                     return;
                 if (postProcessingGracePeriod != value) {
                     postProcessingGracePeriod = value;
-                    //[[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+                    OnPropertyChanged("PostProcessingGracePeriod");
                 }
             }
         }
