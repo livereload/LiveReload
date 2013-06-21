@@ -145,6 +145,8 @@ void C_workspace__set_monitoring_enabled(json_t *arg) {
         }
 
         public void Load() {
+            if (!File.Exists(DataFilePath))
+                return;
         //    _oldMementos = [[[NSUserDefaults standardUserDefaults] objectForKey:ProjectListKey] retain];
     
             List<Dictionary<string, Object>> projectMementos = null;
