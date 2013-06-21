@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -41,11 +42,16 @@ namespace LiveReload.Model
             }
         }
 
+        private void Project_PropertyChanged(object sender, PropertyChangedEventArgs e) {
+            this.SetNeedsSaving();
+        }
+
         /*
           #pragma mark Projects set KVC accessors
          * TODO: Apply KVC here
         */
         public void AddProject(Project project) {
+            InitProject(project);
             projects.Add(project);
             //[project requestMonitoring:_monitoringEnabled forKey:ClientConnectedMonitoringKey];
             //project.checkBrokenPaths(); // in case we don't have monitoring enabled
@@ -54,11 +60,21 @@ namespace LiveReload.Model
 
         public void RemoveProject(Project project) {
             if (projects.Remove(project)) {
+                DisposeProject(project);
                 //project.ceaseAllMonitoring;
                 this.SetNeedsSaving();
             }
         }
 
+
+        private void InitProject(Project project) {
+            project.PropertyChanged += Project_PropertyChanged;
+        }
+
+        private void DisposeProject(Project project) {
+            project.PropertyChanged -= Project_PropertyChanged;
+            project.Dispose();
+        }
 
 
 /*
@@ -147,6 +163,9 @@ void C_workspace__set_monitoring_enabled(json_t *arg) {
                 projectMementos = ((IEnumerable<object>)json).Cast<Dictionary<string, object>>().ToList();
             }
 
+            foreach(Project project in projects) {
+                DisposeProject(project);
+            }
             projects.Clear();
             foreach (Dictionary<string, Object> projectMemento in projectMementos) {
                 // NSString *bookmark = [projectMemento objectForKey:@"bookmark"];
@@ -158,7 +177,9 @@ void C_workspace__set_monitoring_enabled(json_t *arg) {
                 //     NSString *path = [url path];
                 //     [_projects addObject:[[[Project alloc] initWithPath:path memento:projectMemento] autorelease]];
                 // }
-                projects.Add(new Project((string)projectMemento["path"], projectMemento));
+                var project = new Project((string)projectMemento["path"], projectMemento);
+                InitProject(project);
+                projects.Add(project);
             }
         }
 

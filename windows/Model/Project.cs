@@ -322,6 +322,16 @@ namespace LiveReload.Model
             //this.handleCompilationOptionsEnablementChanged;
         }
 
+        protected override void DisposeManagedResources() {
+            base.DisposeManagedResources();
+            if (monitor != null)
+                monitor.Dispose();
+
+            //[[NSNotificationCenter defaultCenter] removeObserver:self];
+            //[_importGraph release], _importGraph = nil;
+            //[super dealloc];
+        }
+
         void IFSMonitorOwner.OnFileChange(ICollection<string> relativePaths) {
             Console.WriteLine("Project has received changes:\n" + string.Join("\n", relativePaths) + "\n");
         }
@@ -440,24 +450,6 @@ void C_projects__notify_compilation_finished(json_t *arg) {
 @synthesize numberOfPathComponentsToUseAsName=_numberOfPathComponentsToUseAsName;
 @synthesize customName=_customName;
 @synthesize urlMasks=_urlMasks;
-
-
-#pragma mark -
-#pragma mark Init/dealloc
-
-
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [_path release], _path = nil;
-    [_monitor release], _monitor = nil;
-    [_compilerOptions release], _compilerOptions = nil;
-    [_monitoringRequests release], _monitoringRequests = nil;
-    [_postProcessingCommand release], _postProcessingCommand = nil;
-    [_importGraph release], _importGraph = nil;
-    [_rubyVersionIdentifier release], _rubyVersionIdentifier = nil;
-    [super dealloc];
-}
 
 
 #pragma mark -
