@@ -29,7 +29,7 @@ namespace LiveReload
         private TrayIconController trayIcon;
         private string logFile;
         private CommandLineOptions options;
-        private Workspace sharedWorkspace = new Workspace();
+        private Workspace sharedWorkspace;
 
         public static new App Current {
             get {
@@ -100,6 +100,8 @@ namespace LiveReload
             Settings.Default.PropertyChanged += Settings_PropertyChanged;
 
             UpdateConfigurationAccordingToSettings();
+
+            sharedWorkspace = new Workspace();
 
             StartUI();
         }
