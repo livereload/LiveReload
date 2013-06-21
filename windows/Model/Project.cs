@@ -200,12 +200,8 @@ namespace LiveReload.Model
             customName = "";
         }
 
-        public Project(string path) { // LOL :)
-            this.path = path;
-            enabled = true;
-            customName = System.IO.Path.GetFileName(path); //temporarily
-            monitor = new FSMonitorService(Application.Current.Dispatcher, this, path, TimeSpan.FromMilliseconds(500));
-            monitor.Enabled = true;
+        public Project(string path)
+            : this(path, new Dictionary<string, Object>()) {
         }
 
         public Project(string path, Dictionary<string, Object> memento) {
@@ -215,6 +211,8 @@ namespace LiveReload.Model
 
             enabled = true;
 
+            monitor = new FSMonitorService(Application.Current.Dispatcher, this, path, TimeSpan.FromMilliseconds(500));
+            monitor.Enabled = true;
             //    _monitor = [[FSMonitor alloc] initWithPath:_path];
             //    _monitor.delegate = self;
             //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFilter) name:PreferencesFilterSettingsChangedNotification object:nil];
@@ -252,8 +250,11 @@ namespace LiveReload.Model
                 //        }];
             }
 
-            disableLiveRefresh = (bool)memento["disableLiveRefresh"];
-            enableRemoteServerWorkflow = (bool)memento["enableRemoteServerWorkflow"];
+            if (memento.ContainsKey("disableLiveRefresh"))
+                disableLiveRefresh = (bool)memento["disableLiveRefresh"];
+
+            if (memento.ContainsKey("enableRemoteServerWorkflow"))
+                enableRemoteServerWorkflow = (bool)memento["enableRemoteServerWorkflow"];
 
             if (memento.ContainsKey("fullPageReloadDelay"))
                 fullPageReloadDelay = TimeSpan.FromSeconds((double)memento["fullPageReloadDelay"]);
@@ -282,7 +283,8 @@ namespace LiveReload.Model
             else
                 postProcessingEnabled = (postProcessingScriptName.Length > 0) || (postProcessingCommand.Length > 0);
 
-            rubyVersionIdentifier = (string)memento["rubyVersion"];
+            if (memento.ContainsKey("rubyVersion"))
+                rubyVersionIdentifier = (string)memento["rubyVersion"];
             if (rubyVersionIdentifier.Length == 0)
                 rubyVersionIdentifier = "system";
 
@@ -298,14 +300,17 @@ namespace LiveReload.Model
             //        urlMasks = [NSArray array];
             //    _urlMasks = [urlMasks copy];
 
-            numberOfPathComponentsToUseAsName = Convert.ToInt32(memento["numberOfPathComponentsToUseAsName"]);
+            if (memento.ContainsKey("numberOfPathComponentsToUseAsName"))
+                numberOfPathComponentsToUseAsName = Convert.ToInt32(memento["numberOfPathComponentsToUseAsName"]);
             if (numberOfPathComponentsToUseAsName == 0)
                 numberOfPathComponentsToUseAsName = 1;
 
             if (memento.ContainsKey("customName"))
                 customName = (string)memento["customName"];
             else
-                customName = "";
+                //customName = "";
+                customName = System.IO.Path.GetFileName(path); //temporarily
+
 
             pendingChanges = new HashSet<Object>();
 
