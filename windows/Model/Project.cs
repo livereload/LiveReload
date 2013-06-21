@@ -200,15 +200,10 @@ namespace LiveReload.Model
             customName = "";
         }
 
-        public Project(string path) { // LOL
+        public Project(string path) { // LOL :)
             this.path = path;
             enabled = true;
-            customName = path; //temporarily
-        }
-
-        public Project(string path, string name) { // LOL :-)
-            this.path = path;
-            customName = name;
+            customName = System.IO.Path.GetFileName(path); //temporarily
             monitor = new FSMonitorService(Application.Current.Dispatcher, this, path, TimeSpan.FromMilliseconds(500));
             monitor.Enabled = true;
         }
