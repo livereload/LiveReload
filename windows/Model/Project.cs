@@ -326,10 +326,6 @@ namespace LiveReload.Model
             base.DisposeManagedResources();
             if (monitor != null)
                 monitor.Dispose();
-
-            //[[NSNotificationCenter defaultCenter] removeObserver:self];
-            //[_importGraph release], _importGraph = nil;
-            //[super dealloc];
         }
 
         void IFSMonitorOwner.OnFileChange(ICollection<string> relativePaths) {

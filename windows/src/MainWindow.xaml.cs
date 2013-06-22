@@ -32,9 +32,9 @@ namespace LiveReload
             : this(new Workspace()) {
         }
 
-        public MainWindow(Workspace sharedWorkspace) {
+        public MainWindow(Workspace workspace) {
             InitializeComponent();
-            DataContext = new MainWindowViewModel(sharedWorkspace);
+            DataContext = new MainWindowViewModel(workspace);
         }
 
         public MainWindowViewModel ViewModel {

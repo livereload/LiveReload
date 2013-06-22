@@ -29,7 +29,7 @@ namespace LiveReload
         private TrayIconController trayIcon;
         private string logFile;
         private CommandLineOptions options;
-        private Workspace sharedWorkspace;
+        private Workspace workspace;
 
         public static new App Current {
             get {
@@ -101,7 +101,7 @@ namespace LiveReload
 
             UpdateConfigurationAccordingToSettings();
 
-            sharedWorkspace = new Workspace();
+            workspace = new Workspace();
 
             StartUI();
         }
@@ -127,7 +127,7 @@ namespace LiveReload
         }
 
         private void StartUI() {
-            window = new MainWindow(sharedWorkspace);
+            window = new MainWindow(workspace);
             window.MainWindowHideEvent += HandleMainWindowHideEvent;
             window.buttonVersion.Content = "v" + Version + (string.IsNullOrWhiteSpace(options.LRBundledPluginsOverride) ? "" : "*");
             window.gridProgress.Visibility = Visibility.Visible;
