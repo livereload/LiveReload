@@ -58,16 +58,19 @@ namespace LiveReload.FSMonitor {
         }
 
         private void CreateMonitor() {
-            if (!Directory.Exists(path))
-                return;
-
-            watcher = new FileSystemWatcher(path);
-            watcher.IncludeSubdirectories = true;
-            watcher.Created += Watcher_Created;
-            watcher.Renamed += Watcher_Renamed;
-            watcher.Changed += Watcher_Changed;
-            watcher.Deleted += Watcher_Deleted;
-            watcher.EnableRaisingEvents = true;
+            try {
+                watcher = new FileSystemWatcher(path);
+                watcher.Path = path;
+                watcher.IncludeSubdirectories = true;
+                watcher.Created += Watcher_Created;
+                watcher.Renamed += Watcher_Renamed;
+                watcher.Changed += Watcher_Changed;
+                watcher.Deleted += Watcher_Deleted;
+                watcher.EnableRaisingEvents = true;
+            }
+            catch (ArgumentException ex) {
+                Console.WriteLine("FSMonitor Exception: " + ex.Message);
+            }
         }
 
         private void DisposeMonitor() {
