@@ -20,6 +20,8 @@ namespace LiveReload
         private ActionsFilesViewModel actionsFiles = new ActionsFilesViewModel();
         private Project selectedProject;
 
+        private string dummy = "123";
+
         // design-time only
         // need to be careful for workspace not to perform any dangerous activity!
         public MainWindowViewModel() {
@@ -35,6 +37,15 @@ namespace LiveReload
         public ActionsFilesViewModel ActionsFiles {
             get {
                 return actionsFiles;
+            }
+        }
+
+        private string Dummy {
+            get {
+                return dummy;
+            }
+            set {
+                dummy = value;
             }
         }
 
