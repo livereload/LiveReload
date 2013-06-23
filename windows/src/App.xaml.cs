@@ -101,7 +101,7 @@ namespace LiveReload
 
             UpdateConfigurationAccordingToSettings();
 
-            workspace = new Workspace();
+            workspace = new Workspace(App.Current.Dispatcher);
 
             StartUI();
         }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using Twins;
 using LiveReload.Utilities;
+using System.Windows.Threading;
 
 namespace LiveReload.Model
 {
@@ -14,6 +15,9 @@ namespace LiveReload.Model
     {
         private ObservableCollection<Project> projects = new ObservableCollection<Project>();
         private ReadOnlyObservableCollection<Project> projectsRO;
+
+        private Dispatcher dispatcher;
+
         //NSDictionary* _oldMementos;
 
         private bool monitoringEnabled;
@@ -31,7 +35,15 @@ namespace LiveReload.Model
             }
         }
 
+        //design-time only!!
         public Workspace() {
+            projectsRO = new ReadOnlyObservableCollection<Project>(projects);
+            // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSomethingChanged:) name:@"SomethingChanged" object:nil];
+            this.Load();
+        }
+
+        public Workspace(Dispatcher dispatcher) {
+            this.dispatcher = dispatcher;
             projectsRO = new ReadOnlyObservableCollection<Project>(projects);
             // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSomethingChanged:) name:@"SomethingChanged" object:nil];
             this.Load();
@@ -147,7 +159,7 @@ void C_workspace__set_monitoring_enabled(json_t *arg) {
             if (savingScheduled)
                 return;
             savingScheduled = true;
-            App.Current.Dispatcher.InvokeAfterDelay(TimeSpan.FromMilliseconds(100), Save);
+            dispatcher.InvokeAfterDelay(TimeSpan.FromMilliseconds(100), Save);
         }
 
         public void Load() {

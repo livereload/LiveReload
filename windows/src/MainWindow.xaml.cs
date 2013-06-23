@@ -27,7 +27,7 @@ namespace LiveReload
     {
         public event Action MainWindowHideEvent;
 
-        //design-time only
+        //design-time only!!
         public MainWindow()
             : this(new Workspace()) {
         }
