@@ -640,14 +640,6 @@ void C_projects__notify_compilation_finished(json_t *arg) {
     }
 }
 
-// I don't think this will ever be needed, but not throwing the code away yet
-#ifdef AUTORESCAN_WORKAROUND_ENABLED
-- (void)rescanRecentlyChangedPaths {
-    NSLog(@"Rescanning %@ again in case some compiler was slow to write the changes.", _path);
-    [_monitor rescan];
-}
-#endif
-
 - (void)fileSystemMonitor:(FSMonitor *)monitor detectedChangeAtPathes:(NSSet *)paths {
     [_pendingChanges unionSet:paths];
 
@@ -671,11 +663,6 @@ void C_projects__notify_compilation_finished(json_t *arg) {
     [self updateImportGraphForPaths:pathes];
 
     json_t *reloadRequests = json_array();
-
-#ifdef AUTORESCAN_WORKAROUND_ENABLED
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(rescanRecentlyChangedPaths) object:nil];
-    [self performSelector:@selector(rescanRecentlyChangedPaths) withObject:nil afterDelay:1.0];
-#endif
 
     for (NSString *relativePath in pathes) {
         NSSet *realPaths = [_importGraph rootReferencingPathsForPath:relativePath];
