@@ -5,7 +5,7 @@
 
 *.asp      # 1995 is on the line as well
 
-# Note sure what good comes from monitoring these; don't you need to rebuild before seeing changes?
+# Not sure what good comes from monitoring these; don't you need to rebuild before seeing changes?
 *.aspx
 *.ascx
 *.master
