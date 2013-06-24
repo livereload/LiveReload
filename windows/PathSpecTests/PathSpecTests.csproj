@@ -58,7 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PathSpec\PathSpec.csproj">
-      <Project>{574ce776-1275-4340-abb0-10c3f6cec275}</Project>
+      <Project>{99d44d2f-979e-4e19-bb5a-cdd4c9842b41}</Project>
       <Name>PathSpec</Name>
     </ProjectReference>
   </ItemGroup>
