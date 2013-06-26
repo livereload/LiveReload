@@ -10,6 +10,9 @@
 
 /PubConfig.cmd
 
+/tools/compiler/node_modules
+/compile-backend-files.cmd
+
 obj
 *.suo
 *.csproj.user
