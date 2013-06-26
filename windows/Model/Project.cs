@@ -332,6 +332,7 @@ namespace LiveReload.Model
 
         void IFSMonitorOwner.OnFileChange(ICollection<string> relativePaths) {
             Console.WriteLine("Project has received changes:\n" + string.Join("\n", relativePaths) + "\n");
+            App.Current.SendCommand("projects.changeDetected", new Dictionary<string, object> { { "absolutePaths", relativePaths } });
         }
 
         public Dictionary<string, Object> Memento {
