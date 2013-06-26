@@ -17,7 +17,6 @@ namespace LiveReload
     public class MainWindowViewModel : ModelBase
     {
         private Workspace workspace;
-        private ActionsFilesViewModel actionsFiles = new ActionsFilesViewModel();
         private Project selectedProject;
 
         private string statusMessage = "Starting up...";
@@ -32,12 +31,6 @@ namespace LiveReload
 
         public MainWindowViewModel(Workspace sharedWorkspace) {
             this.workspace = sharedWorkspace;
-        }
-
-        public ActionsFilesViewModel ActionsFiles {
-            get {
-                return actionsFiles;
-            }
         }
 
         public string StatusMessage {
@@ -70,12 +63,6 @@ namespace LiveReload
         public ReadOnlyObservableCollection<Project> Projects {
             get {
                 return workspace.Projects;
-            }
-        }
-
-        public ObservableCollection<ActionGroup> ActionGroups {
-            get {
-                return actionsFiles.Groups;
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,8 @@ namespace LiveReload.Model
         private string path;
 
         private IFSMonitor monitor;
+
+        private ActionsFilesViewModel actionsFiles = new ActionsFilesViewModel();
 
         //private bool clientsConnected;
         private bool enabled;
@@ -65,6 +68,18 @@ namespace LiveReload.Model
         public string Path {
             get {
                 return path;
+            }
+        }
+
+        public ActionsFilesViewModel ActionsFiles {
+            get {
+                return actionsFiles;
+            }
+        }
+
+        public ObservableCollection<ActionGroup> ActionGroups {
+            get {
+                return actionsFiles.Groups;
             }
         }
 
