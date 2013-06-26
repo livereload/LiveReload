@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using Twins;
+using D = System.Collections.Generic.IDictionary<string, object>;
+using L = System.Collections.Generic.IList<object>;
 
 using LiveReload.FSMonitor;
 
@@ -204,7 +206,7 @@ namespace LiveReload.Model
             : this(path, new Dictionary<string, Object>()) {
         }
 
-        public Project(string path, Dictionary<string, Object> memento) {
+        public Project(string path, D memento) {
             // we cannot monitor through symlink boundaries anyway
             //        _path = [[path stringByResolvingSymlinksInPath] copy];
             this.path = path;

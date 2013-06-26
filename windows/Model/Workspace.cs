@@ -8,6 +8,8 @@ using System.Text;
 using Twins;
 using LiveReload.Utilities;
 using System.Windows.Threading;
+using D = System.Collections.Generic.IDictionary<string, object>;
+using L = System.Collections.Generic.IList<object>;
 
 namespace LiveReload.Model
 {
@@ -132,24 +134,17 @@ void C_workspace__set_monitoring_enabled(json_t *arg) {
         public void Save() {
             string dataFilePath = this.DataFilePath;
  
-            var projectMementos = new List<Dictionary<string, Object>>();
+            var projectMementos = new List<D>();
             foreach (Project project in projectsRO) {
-                var memento = project.Memento;
-                //NSError *error = nil;
-                //NSString *bookmark = [[[NSURL fileURLWithPath:project.path] bookmarkDataWithOptions:NSURLBookmarkCreationWithSecurityScope includingResourceValuesForKeys:nil relativeToURL:nil error:&error] base64EncodedString];
-                memento.Add("path", project.Path);
-                //[memento setObject:bookmark forKey:@"bookmark"];
-                projectMementos.Add(memento);
+                var projectMemento = project.Memento;
+                projectMemento.Add("path", project.Path);
+                projectMementos.Add(projectMemento);
             }
-            //json_t *json = nodeapp_objc_to_json(projectMementos);
-            //string dump = Twins.JSON.Json.Stringify(projectMementos, true);
-            string dump = Twins.JSON.Json.Stringify(projectMementos); // Beautifier in fastJSON is broken as fuck
+            var memento = new Dictionary<string, object> { {"projects", projectMementos} };
+            string dump = Twins.JSON.Json.Stringify(memento); // Beautifier in fastJSON is broken as fuck
             File.WriteAllText(dataFilePath, dump, Encoding.UTF8);
         
-            // //[[NSUserDefaults standardUserDefaults] setObject:projectMementos forKey:ProjectListKey];
-            // //[[NSUserDefaults standardUserDefaults] synchronize];
             savingScheduled = false;
-            // [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(save) object:nil];
             Console.WriteLine(@"Workspace saved.");
             // [self sendModelToBackend];
         }
@@ -165,31 +160,23 @@ void C_workspace__set_monitoring_enabled(json_t *arg) {
         public void Load() {
             if (!File.Exists(DataFilePath))
                 return;
-        //    _oldMementos = [[[NSUserDefaults standardUserDefaults] objectForKey:ProjectListKey] retain];
     
-            List<Dictionary<string, Object>> projectMementos = null;
-        //    NSArray *projectMementos = nil;
+            List<D> projectMementos = new List<D>();
 
             string data = File.ReadAllText(DataFilePath, Encoding.UTF8);
             if (data.Length > 0) {
-                var json = Twins.JSON.Json.Parse(data);
-                projectMementos = ((IEnumerable<object>)json).Cast<Dictionary<string, object>>().ToList();
+                var json = (D)Twins.JSON.Json.Parse(data);
+                var projectsJson = (L)json.GetValueOrDefault("projects");
+                if (projectsJson != null) {
+                    projectMementos = projectsJson.Cast<D>().ToList();
+                }
             }
 
             foreach(Project project in projects) {
                 DisposeProject(project);
             }
             projects.Clear();
-            foreach (Dictionary<string, Object> projectMemento in projectMementos) {
-                // NSString *bookmark = [projectMemento objectForKey:@"bookmark"];
-                // BOOL stale = NO;
-                // NSError *error = nil;
-                // NSURL *url = [NSURL URLByResolvingBookmarkData:[NSData dataFromBase64String:bookmark] options:NSURLBookmarkResolutionWithSecurityScope relativeToURL:nil bookmarkDataIsStale:&stale error:&error];
-                // if ([url isFileURL]) {
-                //     [url startAccessingSecurityScopedResource];                       
-                //     NSString *path = [url path];
-                //     [_projects addObject:[[[Project alloc] initWithPath:path memento:projectMemento] autorelease]];
-                // }
+            foreach (D projectMemento in projectMementos) {
                 var project = new Project((string)projectMemento["path"], projectMemento);
                 InitProject(project);
                 projects.Add(project);
