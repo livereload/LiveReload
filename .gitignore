@@ -6,6 +6,7 @@ xcuserdata
 /LiveReload/build
 /interim/node_modules
 /dist
+/node_modules/.bin
 
 # Windows
 /WinApp
