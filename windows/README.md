@@ -8,6 +8,8 @@ LiveReload for Windows
 
 WARNING: you must be building from `windows/` folder of the [main LiveReload repository](https://github.com/livereload/LiveReload2) (branch “devel”). If you are running from `livereload-windows` repository, `bundle-plugins.cmd` won't work.
 
+WARNING 2: you must be building from a folder without funny characters in the path (esp spaces).
+
 Prerequisites:
 
 * Microsoft Visual Studio 2012 (VS 2010 should work too)
@@ -20,12 +22,17 @@ Build the backend:
 
 * Install externel dependencies of each package:
 
+    On a Mac:
+
         # bash
         for i in node_modules/*; do (echo; echo $i; cd $i; npm install); done
         # fish
         for i in node_modules/*; echo; echo $i; pushd $i; npm install; popd; end
 
-* Check and kill any redundant local packages found. The following folders must _not_ exist:
+    On Windows (from 'windows' folder): invoke `install-npm-modules.cmd`
+        
+
+* On a Mac, check and kill any redundant local packages found. The following folders must _not_ exist:
 
         livereload-client/node_modules/livereload-protocol
         livereload-core/node_modules/fsmonitor
@@ -39,9 +46,18 @@ Build the backend:
         livereload/node_modules/pathspec
         livereload/node_modules/vfs-local
 
-* Compile CoffeeScript sources (use `-cw` for watch mode, `-c` for one-time compilation):
+* Compile CoffeeScript sources.
+
+    On a Mac (use `-cw` for watch mode, `-c` for one-time compilation):
 
         iced --runtime inline -cw node_modules/*/*.{coffee,iced} node_modules/*/{lib,test,config,rpc-api,bin}/**.{coffee,iced}
+
+    On Windows (from 'windows' folder):
+
+        cd tools\compiler
+        npm install
+
+    then invoke `compile-backend.cmd`, and then invoke the generated `compile-backend-files.cmd` (only one-time compilation is supported).
 
 Verify that the backend works:
 
