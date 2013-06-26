@@ -113,10 +113,6 @@ namespace LiveReload
         }
 
         private void TestNewFeature(object sender, RoutedEventArgs e) {
-            ViewModel.Workspace.AddProject(new Project(@"C:\Bin\temp\fsmonitor"));
-            ViewModel.Workspace.AddProject(new Project(@"C:\Bin\temp\fsmonitor2"));
-            ViewModel.Workspace.Save();
-            ViewModel.Workspace.Load();
         }
 
         private void ShowReleaseNotes_Click(object sender, RoutedEventArgs e) {
