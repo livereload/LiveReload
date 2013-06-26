@@ -21,6 +21,7 @@ namespace LiveReload
         private Project selectedProject;
 
         private string dummy = "123";
+        private string statusMessage = "Starting up...";
 
         // design-time only
         // need to be careful for workspace not to perform any dangerous activity!
@@ -46,6 +47,18 @@ namespace LiveReload
             }
             set {
                 dummy = value;
+            }
+        }
+
+        public string StatusMessage {
+            get {
+                Console.WriteLine("StatusMessage get, returning " + statusMessage);
+                return statusMessage;
+            }
+            set {
+                statusMessage = value;
+                Console.WriteLine("StatusMessage set to " + statusMessage);
+                OnPropertyChanged("StatusMessage");
             }
         }
 

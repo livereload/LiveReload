@@ -93,7 +93,7 @@ namespace Twins
                     reply = (payload => rpc.Send(callback, payload));
                 }
 
-                //root.ProcessIncomingUpdate(arg, reply);
+                root.ProcessIncomingUpdate(arg, reply);
             }
         }
 

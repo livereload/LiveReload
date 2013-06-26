@@ -20,6 +20,7 @@ namespace LiveReload
     /// </summary>
     public partial class App : Application
     {
+        private MainWindowViewModel windowViewModel;
         private MainWindow window;
         private TwinsEnvironment twins;
         private string baseDir, logDir, resourcesDir, appDataDir;
@@ -43,8 +44,15 @@ namespace LiveReload
             }
         }
 
+        public string Status {
+            set {
+                windowViewModel.StatusMessage = value;
+            }
+        }
+
         public void SendCommand(string command, object arg) {
-            twins.Send(command, arg);
+            if (twins != null)
+                twins.Send(command, arg);
         }
 
         public void ShowTwinsDebugger() {
@@ -102,6 +110,7 @@ namespace LiveReload
             UpdateConfigurationAccordingToSettings();
 
             workspace = new Workspace(App.Current.Dispatcher);
+            windowViewModel = new MainWindowViewModel(workspace);
 
             StartUI();
         }
@@ -127,7 +136,7 @@ namespace LiveReload
         }
 
         private void StartUI() {
-            window = new MainWindow(workspace);
+            window = new MainWindow(windowViewModel);
             window.MainWindowHideEvent += HandleMainWindowHideEvent;
             window.buttonVersion.Content = "v" + Version + (string.IsNullOrWhiteSpace(options.LRBundledPluginsOverride) ? "" : "*");
             window.gridProgress.Visibility = Visibility.Visible;

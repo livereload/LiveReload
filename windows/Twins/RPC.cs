@@ -104,11 +104,16 @@ namespace Twins
         }
 
         public void SendRaw(string message) {
-            logWriter.WriteLine("OUTGOING: " + message);
-            logWriter.Flush();
+            if (writer != null) {
+                logWriter.WriteLine("OUTGOING: " + message);
+                logWriter.Flush();
 
-            writer.WriteLine(message);
-            writer.Flush();
+                writer.WriteLine(message);
+                writer.Flush();
+            } else {
+                logWriter.WriteLine("IGNORING OUTGOING (too early): " + message);
+                logWriter.Flush();
+            }
         }
 
         public void Send(string command, object arg) {

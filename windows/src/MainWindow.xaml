@@ -182,7 +182,7 @@
             </StackPanel>
         </Grid>
 
-        <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Grid.Column="2" Height="23" Margin="35,0,12,6" Name="textBlockStatus" VerticalAlignment="Bottom" />
+        <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Grid.Column="2" Height="23" Margin="35,0,12,6" Name="textBlockStatus" VerticalAlignment="Bottom" Text="{Binding StatusMessage}" />
 
         <Grid Name="tabs" Grid.Column="2" Margin="0,12,10,35" DataContext="{Binding SelectedProject}">
             <Grid.RowDefinitions>

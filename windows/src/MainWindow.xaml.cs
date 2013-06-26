@@ -29,12 +29,12 @@ namespace LiveReload
 
         //design-time only!!
         public MainWindow()
-            : this(new Workspace()) {
+            : this(new MainWindowViewModel(new Workspace())) {
         }
 
-        public MainWindow(Workspace workspace) {
+        public MainWindow(MainWindowViewModel viewModel) {
             InitializeComponent();
-            DataContext = new MainWindowViewModel(workspace);
+            DataContext = viewModel;
         }
 
         public MainWindowViewModel ViewModel {
