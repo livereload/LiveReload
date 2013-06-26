@@ -77,8 +77,10 @@
             </Grid.RowDefinitions>
             <Rectangle Name="rectStart" Fill="White" Opacity="0.90" Grid.RowSpan="2" />
             <TextBlock TextWrapping="Wrap" Margin="30">
-                <Bold>PRE v0.8.7</Bold><LineBreak /><LineBreak />
-                <Run>* clippy says bye ^^</Run><LineBreak /><LineBreak />
+                <Bold>v0.9</Bold><LineBreak /><LineBreak />
+                <Run>* More efficient file system monitoring</Run><LineBreak />
+                <Run>* Bug fixes</Run><LineBreak />
+                <Run>* Extensive internal changes, aka new bugs expected :-)</Run><LineBreak />
             </TextBlock>
             <StackPanel Grid.Row="1" Name="stackPanelStart" >
                 <Controls:ProgressRing Name="progressStart" IsActive="True" />
