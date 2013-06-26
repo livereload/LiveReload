@@ -105,6 +105,7 @@
     </ApplicationDefinition>
     <Compile Include="FSMonitor\FSMonitor.cs" />
     <Compile Include="FSMonitor\IFSMonitor.cs" />
+    <Compile Include="src\MainWindowConverters.cs" />
     <Compile Include="src\MainWindowViewModel.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="src\ActionsFilesHub.xaml.cs">

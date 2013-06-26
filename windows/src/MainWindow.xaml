@@ -19,6 +19,7 @@
                         Loaded="MetroWindow_Loaded" KeyDown="MetroWindow_KeyDown">
     <Window.Resources>
         <ResourceDictionary>
+            <lr:SelectedProjectConverter x:Key="SelectedProjectConverter"/>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/MahApps.Metro;component/Styles/Colours.xaml" />
                 <ResourceDictionary Source="/MahApps.Metro;component/Styles/Fonts.xaml" />
@@ -179,7 +180,7 @@
 
         <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Grid.Column="2" Height="23" Margin="35,0,12,6" Name="textBlockStatus" VerticalAlignment="Bottom" Text="{Binding StatusMessage}" />
 
-        <Grid Name="tabs" Grid.Column="2" Margin="0,12,10,35" DataContext="{Binding SelectedProject}">
+        <Grid Name="tabs" Grid.Column="2" Margin="0,12,10,35" Visibility="{Binding DataContext.SelectedProject, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource SelectedProjectConverter}}" DataContext="{Binding SelectedProject}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
