@@ -79,6 +79,8 @@
             <TextBlock TextWrapping="Wrap" Margin="30">
                 <Bold>v0.9</Bold><LineBreak /><LineBreak />
                 <Run>* More efficient file system monitoring</Run><LineBreak />
+                <Run>* All compilers updated to the latest versions</Run><LineBreak />
+                <Run>* TypeScript added</Run><LineBreak />
                 <Run>* Bug fixes</Run><LineBreak />
                 <Run>* Extensive internal changes, aka new bugs expected :-)</Run><LineBreak />
             </TextBlock>
