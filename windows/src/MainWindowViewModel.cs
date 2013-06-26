@@ -52,12 +52,10 @@ namespace LiveReload
 
         public string StatusMessage {
             get {
-                Console.WriteLine("StatusMessage get, returning " + statusMessage);
                 return statusMessage;
             }
             set {
                 statusMessage = value;
-                Console.WriteLine("StatusMessage set to " + statusMessage);
                 OnPropertyChanged("StatusMessage");
             }
         }
