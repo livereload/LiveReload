@@ -20,7 +20,6 @@ namespace LiveReload
         private ActionsFilesViewModel actionsFiles = new ActionsFilesViewModel();
         private Project selectedProject;
 
-        private string dummy = "123";
         private string statusMessage = "Starting up...";
 
         // design-time only
@@ -38,15 +37,6 @@ namespace LiveReload
         public ActionsFilesViewModel ActionsFiles {
             get {
                 return actionsFiles;
-            }
-        }
-
-        private string Dummy {
-            get {
-                return dummy;
-            }
-            set {
-                dummy = value;
             }
         }
 
