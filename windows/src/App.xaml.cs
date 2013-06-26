@@ -191,6 +191,7 @@ namespace LiveReload
                 {"platform",     platform}
             };
             twins.Send("app.init", arg);
+            workspace.SendModelToBackend();
         }
 
         private void Twins_Crash() {

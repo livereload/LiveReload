@@ -133,22 +133,25 @@ void C_workspace__set_monitoring_enabled(json_t *arg) {
 
         public void Save() {
             string dataFilePath = this.DataFilePath;
- 
-            var projectMementos = new List<D>();
-            foreach (Project project in projectsRO) {
-                var projectMemento = project.Memento;
-                projectMemento.Add("path", project.Path);
-                projectMementos.Add(projectMemento);
-            }
-            var memento = new Dictionary<string, object> { {"projects", projectMementos} };
+
+            var memento = CreateMemento();
             string dump = Twins.JSON.Json.Stringify(memento); // Beautifier in fastJSON is broken as fuck
             File.WriteAllText(dataFilePath, dump, Encoding.UTF8);
         
             savingScheduled = false;
             Console.WriteLine(@"Workspace saved.");
-            // [self sendModelToBackend];
+            SendModelToBackend();
         }
 
+        private D CreateMemento() {
+            var projectMementos = new List<D>();
+            foreach (Project project in projects) {
+                var projectMemento = project.Memento;
+                projectMemento.Add("path", project.Path);
+                projectMementos.Add(projectMemento);
+            }
+            return new Dictionary<string, object> { { "projects", projectMementos } };
+        }
 
         private void SetNeedsSaving() {
             if (savingScheduled)
@@ -183,6 +186,10 @@ void C_workspace__set_monitoring_enabled(json_t *arg) {
             }
         }
 
+        public void SendModelToBackend() {
+            App.Current.SendCommand("projects.updateModelFromNative", CreateMemento());
+        }
+
 /*
 - (void)handleSomethingChanged:(NSNotification *)notification {
     [self setNeedsSaving];
@@ -214,14 +221,6 @@ void C_workspace__set_monitoring_enabled(json_t *arg) {
 
 
 #pragma mark - Backend sync
-
-- (void)sendModelToBackend {
-    id memento = [[NSUserDefaults standardUserDefaults] objectForKey:ProjectListKey];
-    if (!memento)
-        memento = [NSDictionary dictionary];
-    json_t *memento_json = nodeapp_objc_to_json(memento);
-    S_app_reload_legacy_projects(memento_json);
-}
 
 void C_app__request_model(json_t *arg) {
     [[Workspace sharedWorkspace] sendModelToBackend];
