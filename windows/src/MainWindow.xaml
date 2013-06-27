@@ -77,7 +77,12 @@
             </Grid.RowDefinitions>
             <Rectangle Name="rectStart" Fill="White" Opacity="0.90" Grid.RowSpan="2" />
             <TextBlock TextWrapping="Wrap" Margin="30">
-                <Bold>v0.9</Bold><LineBreak /><LineBreak />
+                <Bold>What's New</Bold><LineBreak /><LineBreak />
+                <Bold>v0.9.1</Bold><LineBreak />
+                <Run>* Fixed white/black lists for FS monitoring</Run><LineBreak />
+                <Run>* Disabled URL field for now</Run><LineBreak /><LineBreak />
+
+                <Bold>v0.9</Bold><LineBreak />
                 <Run>* More efficient file system monitoring</Run><LineBreak />
                 <Run>* All compilers updated to the latest versions</Run><LineBreak />
                 <Run>* TypeScript added</Run><LineBreak />
