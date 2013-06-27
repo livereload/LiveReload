@@ -1,6 +1,7 @@
 'use strict';
 
-var ChunkSize = 20;
+// see http://stackoverflow.com/questions/3205027/maximum-length-of-command-line-string
+var ChunkSize = 60;
 
 var fs = require('fs');
 var pathspec = require('pathspec');
