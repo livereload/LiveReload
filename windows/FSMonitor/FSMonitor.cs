@@ -11,7 +11,6 @@ namespace LiveReload.FSMonitor {
     public class FSMonitorService : IFSMonitor {
         private readonly Dispatcher dispatcher;
         private readonly IFSMonitorOwner owner;
-        private readonly TimeSpan coalescencePeriod;
         private readonly DispatcherTimer coalescenceTimer;
         private readonly string path;
         private bool disposed;

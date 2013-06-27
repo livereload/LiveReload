@@ -22,7 +22,7 @@ namespace LiveReload.Model
         private ActionsFilesViewModel actionsFiles = new ActionsFilesViewModel();
 
         //private bool clientsConnected;
-        private bool enabled;
+        //private bool enabled;
 
         private HashSet<Object> monitoringRequests;
 
@@ -213,7 +213,7 @@ namespace LiveReload.Model
 
         public Project() {
             path = "";
-            enabled = true;
+            //enabled = true;
             customName = "";
         }
 
@@ -226,7 +226,7 @@ namespace LiveReload.Model
             //        _path = [[path stringByResolvingSymlinksInPath] copy];
             this.path = path;
 
-            enabled = true;
+            //enabled = true;
 
             monitor = new FSMonitorService(Application.Current.Dispatcher, this, path, TimeSpan.FromMilliseconds(500));
             monitor.Enabled = true;
