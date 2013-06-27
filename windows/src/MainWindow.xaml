@@ -212,8 +212,8 @@
                             <Grid Style="{StaticResource IntegrationTileGrid}" Height="71">
                                 <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Text="1" FontSize="28" Margin="12,8,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
                                 <StackPanel Margin="40,12,12,0">
-                                    <TextBlock Text="Site URL you use for development:" Style="{StaticResource LiveReloadTextNormalStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,4" Grid.Column="0" />
-                                    <TextBox Name="textBoxUrl" FontFamily="{StaticResource LiveReloadFontFamilyNormal}" VerticalContentAlignment="Center" Height="23" VerticalAlignment="Center" Margin="0" Foreground="Black" Controls:TextboxHelper.Watermark="localhost:3000, site.local, dev.example.com" Grid.Column="1" />
+                                    <TextBlock Text="Site URL you use for development (does not work yet):" Style="{StaticResource LiveReloadTextNormalStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,4" Grid.Column="0" />
+                                    <TextBox Name="textBoxUrl" FontFamily="{StaticResource LiveReloadFontFamilyNormal}" VerticalContentAlignment="Center" Height="23" VerticalAlignment="Center" Margin="0" Foreground="Black" Controls:TextboxHelper.Watermark="localhost:3000, site.local, dev.example.com" Grid.Column="1" IsEnabled="False" />
                                 </StackPanel>
                             </Grid>
                             <Grid Style="{StaticResource IntegrationTileGrid}" Height="126">
