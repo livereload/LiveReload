@@ -78,6 +78,10 @@
             <Rectangle Name="rectStart" Fill="White" Opacity="0.90" Grid.RowSpan="2" />
             <TextBlock TextWrapping="Wrap" Margin="30">
                 <Bold>What's New</Bold><LineBreak /><LineBreak />
+                
+                <Bold>v0.9.2</Bold><LineBreak />
+                <Run>* Fixed a startup crash affecting most Windows XP users</Run><LineBreak /><LineBreak />
+
                 <Bold>v0.9.1</Bold><LineBreak />
                 <Run>* Fixed white/black lists for FS monitoring</Run><LineBreak />
                 <Run>* Disabled URL field for now</Run><LineBreak /><LineBreak />
