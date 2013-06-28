@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using System.Windows;
 using System.Windows.Forms;
 using System.Drawing;
 
@@ -20,24 +15,24 @@ namespace LiveReload
         public event Action MainWindowToggleEvent;
 
         public TrayIconController() {
-            MenuItem menuItemShow = new MenuItem("&Show LiveReload");
+            var menuItemShow = new MenuItem("&Show LiveReload");
             menuItemShow.DefaultItem = true;
-            MenuItem menuItemExit = new MenuItem("E&xit");
+            var menuItemExit = new MenuItem("E&xit");
 
-            menuItemShow.Click += new EventHandler(menuItemShow_Click);
-            menuItemExit.Click += new EventHandler(menuItemExit_Click);
+            menuItemShow.Click += menuItemShow_Click;
+            menuItemExit.Click += menuItemExit_Click;
 
             contextMenuTray.MenuItems.Add(menuItemShow);
             contextMenuTray.MenuItems.Add(menuItemExit);
 
-            Uri iconUri = new Uri("pack://application:,,,/img/LiveReload.ico", UriKind.RelativeOrAbsolute);
+            var iconUri = new Uri("pack://application:,,,/img/LiveReload.ico", UriKind.RelativeOrAbsolute);
             System.IO.Stream iconStream = System.Windows.Application.GetResourceStream(iconUri).Stream;
 
             //NotifyIcon icon = new NotifyIcon();
 
             myNotifyIcon = new NotifyIcon();
             myNotifyIcon.Icon = new Icon(iconStream);
-            myNotifyIcon.MouseClick += new MouseEventHandler(MyNotifyIcon_MouseClick);
+            myNotifyIcon.MouseClick += MyNotifyIcon_MouseClick;
             myNotifyIcon.ContextMenu = contextMenuTray;
             myNotifyIcon.Visible = true;
         }

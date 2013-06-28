@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Threading;
-using LiveReload.Utilities;
 
 namespace LiveReload.FSMonitor {
     // unless specified otherwise, all methods are invoked
@@ -81,12 +80,12 @@ namespace LiveReload.FSMonitor {
 
         // caution: called from thread pool
         private void Watcher_Deleted(object sender, FileSystemEventArgs e) {
-            dispatcher.BeginInvoke((Action)delegate { OnChange(e.FullPath); });
+            dispatcher.BeginInvoke((Action)(() => OnChange(e.FullPath)));
         }
 
         // caution: called from thread pool
         private void Watcher_Changed(object sender, FileSystemEventArgs e) {
-            dispatcher.BeginInvoke((Action)delegate { OnChange(e.FullPath); });
+            dispatcher.BeginInvoke((Action)(() => OnChange(e.FullPath)));
         }
 
         // caution: called from thread pool
@@ -99,7 +98,7 @@ namespace LiveReload.FSMonitor {
 
         // caution: called from thread pool
         private void Watcher_Created(object sender, FileSystemEventArgs e) {
-            dispatcher.BeginInvoke((Action)delegate { OnChange(e.FullPath); });
+            dispatcher.BeginInvoke((Action)(() => OnChange(e.FullPath)));
         }
 
         private void OnChange(string path) {

@@ -15,7 +15,7 @@
 
         private static void ActivePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
             if (d is TextBox) {
-                TextBox textBox = d as TextBox;
+                var textBox = d as TextBox;
                 if ((e.NewValue as bool?).GetValueOrDefault(false)) {
                     textBox.GotKeyboardFocus += OnKeyboardFocusSelectText;
                     textBox.PreviewMouseLeftButtonDown += OnMouseLeftButtonDown;
@@ -50,7 +50,7 @@
         }
 
         private static void OnKeyboardFocusSelectText(object sender, KeyboardFocusChangedEventArgs e) {
-            TextBox textBox = e.OriginalSource as TextBox;
+            var textBox = e.OriginalSource as TextBox;
             if (textBox != null) {
                 textBox.SelectAll();
             }

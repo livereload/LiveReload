@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows;
 using Twins;
+using LiveReload.FSMonitor;
+
 using D = System.Collections.Generic.IDictionary<string, object>;
 using L = System.Collections.Generic.IList<object>;
-
-using LiveReload.FSMonitor;
 
 namespace LiveReload.Model
 {
@@ -273,32 +272,27 @@ namespace LiveReload.Model
             if (memento.ContainsKey("enableRemoteServerWorkflow"))
                 enableRemoteServerWorkflow = (bool)memento["enableRemoteServerWorkflow"];
 
-            if (memento.ContainsKey("fullPageReloadDelay"))
-                fullPageReloadDelay = TimeSpan.FromSeconds((double)memento["fullPageReloadDelay"]);
-            else
-                fullPageReloadDelay = TimeSpan.FromSeconds(0.0);
+            fullPageReloadDelay = memento.ContainsKey("fullPageReloadDelay")
+                                        ? TimeSpan.FromSeconds((double)memento["fullPageReloadDelay"])
+                                        : TimeSpan.FromSeconds(0.0);
 
-            if (memento.ContainsKey("eventProcessingDelay"))
-                eventProcessingDelay = TimeSpan.FromSeconds((double)memento["eventProcessingDelay"]);
-            else
-                eventProcessingDelay = TimeSpan.FromSeconds(0.0);
+            eventProcessingDelay = memento.ContainsKey("eventProcessingDelay")
+                                        ? TimeSpan.FromSeconds((double)memento["eventProcessingDelay"])
+                                        : TimeSpan.FromSeconds(0.0);
 
             //_monitor.eventProcessingDelay = _eventProcessingDelay;
 
-            if (memento.ContainsKey("postProcessingCommand"))
-                postProcessingCommand = (string)memento["postproc"];
-            else
-                postProcessingCommand = "";
+            postProcessingCommand = memento.ContainsKey("postProcessingCommand")
+                                        ? (string)memento["postproc"]
+                                        : "";
 
-            if (memento.ContainsKey("postProcessingScriptName"))
-                postProcessingScriptName = (string)memento["postprocScript"];
-            else
-                postProcessingScriptName = "";
+            postProcessingScriptName = memento.ContainsKey("postProcessingScriptName")
+                                        ? (string)memento["postprocScript"]
+                                        : "";
 
-            if (memento.ContainsKey("postprocEnabled"))
-                postProcessingEnabled = (bool)memento["postprocEnabled"];
-            else
-                postProcessingEnabled = (postProcessingScriptName.Length > 0) || (postProcessingCommand.Length > 0);
+            postProcessingEnabled = memento.ContainsKey("postprocEnabled")
+                                        ? (bool)memento["postprocEnabled"]
+                                        : (postProcessingScriptName.Length > 0) || (postProcessingCommand.Length > 0);
 
             if (memento.ContainsKey("rubyVersion"))
                 rubyVersionIdentifier = (string)memento["rubyVersion"];
@@ -331,10 +325,9 @@ namespace LiveReload.Model
 
             pendingChanges = new HashSet<Object>();
 
-            if (memento.ContainsKey("postProcessingGracePeriod"))
-                postProcessingGracePeriod = TimeSpan.FromSeconds((double)memento["postProcessingGracePeriod"]);
-            else
-                postProcessingGracePeriod = DefaultPostProcessingGracePeriod;
+            postProcessingGracePeriod = memento.ContainsKey("postProcessingGracePeriod")
+                                        ? TimeSpan.FromSeconds((double)memento["postProcessingGracePeriod"])
+                                        : DefaultPostProcessingGracePeriod;
 
             //this.handleCompilationOptionsEnablementChanged;
         }

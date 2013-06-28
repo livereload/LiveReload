@@ -164,7 +164,7 @@ void C_workspace__set_monitoring_enabled(json_t *arg) {
             if (!File.Exists(DataFilePath))
                 return;
     
-            List<D> projectMementos = new List<D>();
+            var projectMementos = new List<D>();
 
             string data = File.ReadAllText(DataFilePath, Encoding.UTF8);
             if (data.Length > 0) {

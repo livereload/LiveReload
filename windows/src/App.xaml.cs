@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
 using System.Windows;
 
 using System.Windows.Threading;
@@ -63,19 +60,19 @@ namespace LiveReload
             get {
                 System.Reflection.Assembly asm = System.Reflection.Assembly.GetExecutingAssembly();
 
-                System.Diagnostics.FileVersionInfo fvi = System.Diagnostics.FileVersionInfo.GetVersionInfo(asm.Location);
+                FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(asm.Location);
                 //return String.Format("{0}.{1}", fvi.ProductMajorPart, fvi.ProductMinorPart);
                 return fvi.FileVersion;
             }
         }
 
         private void Application_Startup(object sender, StartupEventArgs e) {
-            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
             Environment.SetEnvironmentVariable("DEBUG", "*");
 
             // root dirs
-            baseDir = System.AppDomain.CurrentDomain.BaseDirectory;
+            baseDir = AppDomain.CurrentDomain.BaseDirectory;
             localAppDataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "LiveReload");
             appDataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"LiveReload\");
 
@@ -182,8 +179,8 @@ namespace LiveReload
 
         private void Twins_LaunchComplete() {
             string version = Version;
-            string build = "beta";
-            string platform = "windows";
+            const string build = "beta";
+            const string platform = "windows";
 
             var arg = new Dictionary<string, object> {
                 {"resourcesDir", resourcesDir},
@@ -217,7 +214,7 @@ namespace LiveReload
         }
 
         public void OpenExplorerWithLog() {
-            System.Diagnostics.Process explorerWindowProcess = new System.Diagnostics.Process();
+            var explorerWindowProcess = new Process();
             explorerWindowProcess.StartInfo.FileName = "explorer.exe";
             explorerWindowProcess.StartInfo.Arguments = "/select,\"" + logFile + "\"";
             explorerWindowProcess.Start();
@@ -227,8 +224,8 @@ namespace LiveReload
             string message = reason + "\n\nPress OK to report the crash, reveal the log file, check for a possible app update and quit the app.";
             MessageBoxResult result = MessageBox.Show(message, "LiveReload crash", MessageBoxButton.OK, MessageBoxImage.Error);
             if (result == MessageBoxResult.OK) {
-                string crashUrl = @"http://go.livereload.com/crashed/windows/";
-                System.Diagnostics.Process.Start(crashUrl);
+                const string crashUrl = @"http://go.livereload.com/crashed/windows/";
+                Process.Start(crashUrl);
                 OpenExplorerWithLog();
                 InstallUpdateSyncWithInfo(); // Check for updates
             }
@@ -253,7 +250,7 @@ namespace LiveReload
         }
 
         public void RevealAppDataFolder() {
-            System.Diagnostics.Process explorerWindowProcess = new System.Diagnostics.Process();
+            var explorerWindowProcess = new Process();
             explorerWindowProcess.StartInfo.FileName = "explorer.exe";
             explorerWindowProcess.StartInfo.Arguments = "\"" + appDataDir + "\"";
             explorerWindowProcess.Start();
@@ -305,14 +302,14 @@ namespace LiveReload
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e) {
             // No idea why the fuck e.ExceptionObject is declared as 'object'; MSDN docs seem to imply the cast is safe.
-            Exception exception = (Exception)e.ExceptionObject;
-            App.Current.Dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() => {
-                ReportUnhandledException(exception, "non-UI thread");
-            }));
+            var exception = (Exception)e.ExceptionObject;
+            App.Current.Dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() =>
+                ReportUnhandledException(exception, "non-UI thread"))
+            );
         }
 
         private void ReportUnhandledException(Exception exception, string threadName) {
-            StringBuilder builder = new StringBuilder();
+            var builder = new StringBuilder();
             builder.AppendLine();
             builder.AppendLine("************************************************************************");
             builder.AppendLine("Unhandled Exception in " + threadName + ": " + CreateStackTrace(exception));
@@ -326,8 +323,8 @@ namespace LiveReload
         }
 
         private String CreateStackTrace(Exception exception) {
-            StringBuilder builder = new StringBuilder();
-            builder.Append(exception.GetType().ToString());
+            var builder = new StringBuilder();
+            builder.Append(exception.GetType());
             builder.Append(": ");
             builder.Append(string.IsNullOrEmpty(exception.Message) ? "No reason" : exception.Message);
             builder.AppendLine();

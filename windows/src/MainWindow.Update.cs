@@ -8,7 +8,7 @@ using System.Deployment.Application;
 
 namespace LiveReload
 {
-    public partial class App : Application
+    public partial class App
     {
         public void InstallUpdateSyncWithInfo() {
             UpdateCheckInfo info = null;
@@ -36,13 +36,13 @@ namespace LiveReload
                     Boolean doUpdate = true;
 
                     if (!info.IsUpdateRequired) {
-                        if (!(MessageBoxResult.OK == MessageBox.Show("An update is available. Would you like to update the application now?", "Update Available", MessageBoxButton.OKCancel))) {
+                        if (MessageBoxResult.OK != MessageBox.Show("An update is available. Would you like to update the application now?", "Update Available", MessageBoxButton.OKCancel)) {
                             doUpdate = false;
                         }
                     } else {
                         // Display a message that the app MUST reboot. Display the minimum required version.
                         MessageBox.Show("This application has detected a mandatory update from your current " +
-                            "version to version " + info.MinimumRequiredVersion.ToString() +
+                            "version to version " + info.MinimumRequiredVersion +
                             ". The application will now install the update and restart.",
                             "Update Available", MessageBoxButton.OK,
                             MessageBoxImage.Information);
