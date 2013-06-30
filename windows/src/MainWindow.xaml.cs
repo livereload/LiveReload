@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Diagnostics;
 using System.IO;
 using LiveReload.Model;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 using D = System.Collections.Generic.Dictionary<string, object>;
 
@@ -127,11 +128,23 @@ namespace LiveReload
         }
 
         private void ButtonProjectAdd_Click(object sender, RoutedEventArgs e) {
-            var dialog = new System.Windows.Forms.FolderBrowserDialog();
-            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
-                var newProject = new Project(dialog.SelectedPath);
-                ViewModel.Workspace.AddProject(newProject);
+            string selectedFolder;
+            if (CommonFileDialog.IsPlatformSupported)
+            {
+                var dialog = new CommonOpenFileDialog {IsFolderPicker = true};
+                if (dialog.ShowDialog() == CommonFileDialogResult.Ok) {
+                    selectedFolder = dialog.FileName;
+                } else return;
             }
+            else
+            {
+                var dialog = new System.Windows.Forms.FolderBrowserDialog();
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
+                    selectedFolder = dialog.SelectedPath;
+                } else return;
+            }
+            var newProject = new Project(selectedFolder);
+            ViewModel.Workspace.AddProject(newProject);
         }
 
         private void treeViewProjects_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e) {
