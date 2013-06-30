@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>SevenZipSharp</id>
+    <version>0.64</version>
+    <title>SevenZipSharp</title>
+    <authors>markhor</authors>
+    <owners>markhor</owners>
+    <licenseUrl>http://www.gnu.org/licenses/lgpl.html</licenseUrl>
+    <projectUrl>http://sevenzipsharp.codeplex.com/</projectUrl>
+    <iconUrl>http://7-zip.org/7ziplogo.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Managed 7-zip library written in C# that provides data (self-)extraction and compression (all 7-zip formats are supported). It wraps 7z.dll or any compatible one and makes use of LZMA SDK.</description>
+    <summary>Managed 7-zip library written in C# that provides data (self-)extraction and compression (all 7-zip formats are supported). It wraps 7z.dll or any compatible one and makes use of LZMA SDK.</summary>
+    <releaseNotes />
+    <copyright />
+    <language />
+    <tags>7z 7zip 7-Zip</tags>
+  </metadata>
+</package>
