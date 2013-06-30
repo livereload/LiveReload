@@ -135,7 +135,7 @@ void C_workspace__set_monitoring_enabled(json_t *arg) {
             string dataFilePath = this.DataFilePath;
 
             var memento = CreateMemento();
-            string dump = Twins.JSON.Json.Stringify(memento); // Beautifier in fastJSON is broken as fuck
+            string dump = Twins.JSON.Json.Stringify(memento, pretty:true);
             File.WriteAllText(dataFilePath, dump, Encoding.UTF8);
         
             savingScheduled = false;
