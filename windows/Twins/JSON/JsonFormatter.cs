@@ -20,26 +20,28 @@ namespace Twins.JSON
             {
                 char ch = input[i];
 
+                if (ch == '\"') // found string span
+                {
+                    bool str = true;
+                    while (str)
+                    {
+                        output.Append(ch);
+                        ch = input[++i];
+                        if (ch == '\\')
+                        {
+                            if (input[i + 1] == '\"')
+                            {
+                                output.Append(ch);
+                                ch = input[++i];
+                            }
+                        }
+                        else if (ch == '\"')
+                            str = false;
+                    }
+                }
+
                 switch (ch)
                 {
-                    case '\"': // found string span
-                        bool str = true;
-                        while (str)
-                        {
-                            output.Append(ch);
-                            ch = input[++i];
-                            if (ch == '\\')
-                            {
-                                if (input[i + 1] == '\"')
-                                {
-                                    output.Append(ch);
-                                    ch = input[++i];
-                                }
-                            }
-                            else if (ch == '\"')
-                                str = false;
-                        }
-                        break;
                     case '{':
                     case '[':
                         output.Append(ch);
