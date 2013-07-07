@@ -1,5 +1,6 @@
 *.pbxuser
 *.perspectivev3
+*.xcworkspace
 *.sublime-*
 *.swp
 xcuserdata
