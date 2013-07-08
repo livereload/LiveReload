@@ -44,6 +44,17 @@ void C_update(json_t *arg) {
     // ignored for compatibility with the Windows version
 }
 
+json_t *C_kernel__on_port_occupied_error(json_t *message) {
+    int port = json_integer_value(json_object_get(message, "port"));
+
+    NSInteger response = [[NSAlert alertWithMessageText:@"Failed to start: port occupied" defaultButton:@"Quit" alternateButton:@"More Info" otherButton:nil informativeTextWithFormat:@"LiveReload tried to listen on port %d, but it was occupied by another app.\n\nThe following tools are incompatible with LiveReload: guard-livereload; rack-livereload; Sublime Text LiveReload plugin; any other tools that use LiveReload browser extensions.\n\nPlease make sure you're not running any of those tools, and restart LiveReload. If in doubt, contact support@livereload.com.", port] runModal];
+    if (response == NSAlertAlternateReturn) {
+        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://go.livereload.com/err/port-occupied"]];
+    }
+    [NSApp terminate:nil];
+    return NULL;
+}
+
 
 @interface LiveReloadAppDelegate ()
 

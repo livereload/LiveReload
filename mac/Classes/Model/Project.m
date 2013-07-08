@@ -519,8 +519,13 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
             }
         }
 
-        json_t *arg = json_object_3("changes", reloadRequests, "forceFullReload", json_bool(self.disableLiveRefresh), "fullReloadDelay", json_real(_fullPageReloadDelay));
-        S_reloader_reload(arg);
+        json_t *message = json_object();
+        json_object_set_new(message, "service", json_string("reloader"));
+        json_object_set_new(message, "command", json_string("reload"));
+        json_object_set_new(message, "changes", reloadRequests);
+        json_object_set_new(message, "forceFullReload", json_bool(self.disableLiveRefresh));
+        json_object_set_new(message, "fullReloadDelay", json_real(_fullPageReloadDelay));
+        nodeapp_rpc_send_json(message);
 
         [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidDetectChangeNotification object:self];
         eventbus_post(project_fs_change_event, NULL);

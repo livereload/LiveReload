@@ -20,4 +20,10 @@ void nodeapp_rpc_send_init(void *dummy) {
 #endif
 
     nodeapp_rpc_send("app.init", data);
+
+    json_t *message = json_object();
+    json_object_set_new(message, "service", json_string("server"));
+    json_object_set_new(message, "command", json_string("init"));
+    json_object_set_new(message, "appVersion", json_string(NODEAPP_VERSION));
+    nodeapp_rpc_send_json(message);
 }

@@ -7,7 +7,6 @@
 #include <assert.h>
 #include <time.h>
 
-static void nodeapp_rpc_send_json(json_t *array);
 static char nodeapp_rpc_receive_buf[1024 * 1024];
 
 //static void nodeapp_rpc_send_ping(void *dummy) {
@@ -26,17 +25,22 @@ static void nodeapp_rpc_received_line(char *line) {
         free(line);
         return;
     }
-    const char *command = json_string_value(json_array_get(incoming, 0));
-    assert(command);
-    json_t *arg = json_array_get(incoming, 1);
+    const char *service = json_string_value(json_object_get(incoming, "service"));
+    const char *command = json_string_value(json_object_get(incoming, "command"));
+    if (!service)
+        return;
 
-    msg_func_t handler = find_msg_handler(command);
+    assert(command);
+
+    char *full_name = str_printf("%s.%s", service, command);
+
+    msg_func_t handler = find_msg_handler(full_name);
     if (handler == NULL) {
-        fprintf(stderr,  "app:  Unknown command received: '%s'", command);
-        abort();
+        fprintf(stderr,  "\n**************************************\napp:  Unknown command received: '%s'\n**************************************\n\n", full_name);
+//        abort();
 //        exit(1);
     } else {
-        json_t *response = handler(arg);
+        json_t *response = handler(incoming);
         if (json_array_size(incoming) > 2) {
             json_t *response_command = json_array_get(incoming, 2);
             json_t *array = json_array();
@@ -53,6 +57,7 @@ static void nodeapp_rpc_received_line(char *line) {
     }
 
     json_decref(incoming);
+    free(full_name);
     free(line);
 }
 
@@ -76,7 +81,7 @@ static int dump_to_strbuffer(const char *buffer, size_t size, void *data) {
     return strbuffer_append_bytes((strbuffer_t *)data, buffer, size);
 }
 
-static void nodeapp_rpc_send_json(json_t *array) {
+void nodeapp_rpc_send_json(json_t *array) {
     strbuffer_t strbuff;
     int rv = strbuffer_init(&strbuff);
     assert(rv == 0);
@@ -95,5 +100,18 @@ void nodeapp_rpc_send(const char *command, json_t *json) {
     json_t *array = json_array();
     json_array_append_new(array, json_string(command));
     json_array_append_new(array, json);
-    nodeapp_rpc_send_json(array);
+
+//    nodeapp_rpc_send_json(array);
+
+    strbuffer_t strbuff;
+    int rv = strbuffer_init(&strbuff);
+    assert(rv == 0);
+
+    if (0 == json_dump_callback(array, dump_to_strbuffer, (void *)&strbuff, 0)) {
+        strbuffer_append(&strbuff, "\n");
+        fprintf(stderr, "App ignoring send: %s\n", strbuffer_value(&strbuff));
+    }
+
+    strbuffer_close(&strbuff);
+    json_decref(array);
 }
