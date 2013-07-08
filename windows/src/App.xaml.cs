@@ -163,7 +163,7 @@ namespace LiveReload
             window.gridProgress.Visibility = Visibility.Hidden;
 
             InitializeTwins(new Twins.Configuration {
-                ExecutablePath = Path.Combine(bundledNodeDir, @"LiveReloadNodejs.exe"),
+                ExecutablePath = Path.Combine(resourcesDir, @"LiveReloadNodejs.exe"),
                 ExecutableArguments = "\"" + (Path.Combine(bundledBackendDir, "bin/livereload.js") + "\" " + "rpc server"),
             });
         }

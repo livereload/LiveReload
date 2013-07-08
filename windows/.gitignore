@@ -21,3 +21,5 @@ TestResults
 
 #temp files
 livereload-state.json
+
+/res/LiveReloadNodejs.exe
