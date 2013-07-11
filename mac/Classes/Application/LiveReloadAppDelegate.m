@@ -22,6 +22,7 @@
 #import "ATSandboxing.h"
 #import "NSData+Base64.h"
 #import "Runtimes.h"
+#import "EditorManager.h"
 
 #ifndef APPSTORE
 #import "Sparkle/Sparkle.h"
@@ -88,6 +89,8 @@ json_t *C_kernel__on_port_occupied_error(json_t *message) {
     // At least one of ours users has to test this var in his .bash_profile;
     // I can imagine there any many more cases when it comes in handy.
     putenv("INVOKED_FROM_LIVERELOAD=1");
+
+    [EditorManager sharedEditorManager];
 
     [Preferences initDefaults];
     [[PluginManager sharedPluginManager] reloadPlugins];

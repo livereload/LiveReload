@@ -1,29 +1,50 @@
 
 #import "Editor.h"
 
+
+static NSString *EditorStateStrings[] = {
+    @"EditorStateNotFound",
+    @"EditorStateBroken",
+    @"EditorStateFound",
+    @"EditorStateRunning",
+};
+
+
+@interface Editor ()
+
+@property(nonatomic, assign) EditorState state;
+@property(nonatomic, assign, getter=isStateStale) BOOL stateStale;
+
+@end
+
 @implementation Editor
 
-- (id)init {
-    self = [super init];
-    if (self) {
-    }
-    return self;
-}
+@synthesize state = _state;
+@synthesize stateStale = _stateStale;
 
-+ (Editor *)detectEditor {
-    return nil;
-}
-
-+ (NSString *)editorDisplayName {
-    return NSStringFromClass(self);
-}
-
-- (NSString *)name {
-    return [[self class] editorDisplayName];
+- (NSString *)displayName {
+    MustOverride();
 }
 
 - (BOOL)jumpToFile:(NSString *)file line:(NSInteger)line {
-    return NO;
+    MustOverride();
+}
+
+- (void)updateStateSoon {
+    if (self.stateStale)
+        return;
+    self.stateStale = YES;
+    [self doUpdateStateInBackground];
+}
+
+- (void)updateState:(EditorState)state error:(NSError *)error {
+    NSLog(@"Editor '%@' state is %@, error = %@", self.displayName, EditorStateStrings[state], [error localizedDescription]);
+    self.state = state;
+    self.stateStale = NO;
+}
+
+- (void)doUpdateStateInBackground {
+    MustOverride();
 }
 
 @end

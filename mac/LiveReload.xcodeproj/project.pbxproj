@@ -162,6 +162,8 @@
 		43B027651747209E009874A2 /* RvmRubyInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B027641747209E009874A2 /* RvmRubyInstance.m */; };
 		43C0368613CA191D00A01305 /* LiveReload.icns in Resources */ = {isa = PBXBuildFile; fileRef = 43C0368513CA191C00A01305 /* LiveReload.icns */; };
 		43C3D04E15B37B1500BCD2E8 /* LicenseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C3D04D15B37B1500BCD2E8 /* LicenseManager.m */; };
+		43DB9FD4178EDF2E007BEA36 /* Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD3178EDF2E007BEA36 /* Errors.m */; };
+		43DB9FD7178EFA64007BEA36 /* ExternalEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD6178EFA64007BEA36 /* ExternalEditor.m */; };
 		43E34F9B14705125001641AA /* console.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E34F9714705125001641AA /* console.c */; };
 		43E34F9C14705125001641AA /* eventbus.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E34F9914705125001641AA /* eventbus.c */; };
 		43E34F9F14706D9B001641AA /* osdep.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E34F9E14706D9B001641AA /* osdep.m */; };
@@ -516,6 +518,10 @@
 		43C0368513CA191C00A01305 /* LiveReload.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LiveReload.icns; sourceTree = "<group>"; };
 		43C3D04C15B37B1500BCD2E8 /* LicenseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LicenseManager.h; sourceTree = "<group>"; };
 		43C3D04D15B37B1500BCD2E8 /* LicenseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LicenseManager.m; sourceTree = "<group>"; };
+		43DB9FD2178EDF2E007BEA36 /* Errors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Errors.h; sourceTree = "<group>"; };
+		43DB9FD3178EDF2E007BEA36 /* Errors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Errors.m; sourceTree = "<group>"; };
+		43DB9FD5178EFA64007BEA36 /* ExternalEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExternalEditor.h; sourceTree = "<group>"; };
+		43DB9FD6178EFA64007BEA36 /* ExternalEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExternalEditor.m; sourceTree = "<group>"; };
 		43E34F9714705125001641AA /* console.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = console.c; sourceTree = "<group>"; };
 		43E34F9814705125001641AA /* console.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = console.h; sourceTree = "<group>"; };
 		43E34F9914705125001641AA /* eventbus.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eventbus.c; sourceTree = "<group>"; };
@@ -1288,6 +1294,8 @@
 				434DB81E1514F71400C62042 /* app_version.h */,
 				43059207151DF2DE00CC3F88 /* MASReceipt.h */,
 				43059208151DF2DE00CC3F88 /* MASReceipt.m */,
+				43DB9FD2178EDF2E007BEA36 /* Errors.h */,
+				43DB9FD3178EDF2E007BEA36 /* Errors.m */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -1346,6 +1354,8 @@
 				823DDE5213F8DA3100529AD2 /* TextMateEditor.m */,
 				821AFEFE14270B5200B61760 /* BBEditEditor.h */,
 				821AFEFF14270B5200B61760 /* BBEditEditor.m */,
+				43DB9FD5178EFA64007BEA36 /* ExternalEditor.h */,
+				43DB9FD6178EFA64007BEA36 /* ExternalEditor.m */,
 			);
 			path = Editors;
 			sourceTree = "<group>";
@@ -1866,6 +1876,8 @@
 				43A48081174A070500A0681D /* HomebrewContainer.m in Sources */,
 				43A48082174A070500A0681D /* HomebrewRubyInstance.m in Sources */,
 				433253B2174E0BA200C9A76B /* GeneralPreferencesViewController.m in Sources */,
+				43DB9FD4178EDF2E007BEA36 /* Errors.m in Sources */,
+				43DB9FD7178EFA64007BEA36 /* ExternalEditor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

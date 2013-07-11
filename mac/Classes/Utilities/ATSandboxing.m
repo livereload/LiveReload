@@ -27,6 +27,16 @@ NSString *ATUserScriptsDirectory() {
     }
 }
 
+NSURL *ATUserScriptsDirectoryURL() {
+    NSError *error = nil;
+    if (ATIsUserScriptsFolderSupported()) {
+        return [[NSFileManager defaultManager] URLForDirectory:NSApplicationScriptsDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:&error];
+    } else {
+        NSString *bundleId = [[NSBundle mainBundle] bundleIdentifier];
+        return [NSURL fileURLWithPath:[[ATRealHomeDirectory() stringByAppendingPathComponent:@"Library/Application Scripts"] stringByAppendingPathComponent:bundleId]];
+    }
+}
+
 BOOL ATAreSecurityScopedBookmarksSupported() {
     return ATOSVersionAtLeast(10, 7, 3);
 }

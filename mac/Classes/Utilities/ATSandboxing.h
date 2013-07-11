@@ -4,6 +4,7 @@
 NSString *ATRealHomeDirectory();
 
 NSString *ATUserScriptsDirectory();
+NSURL *ATUserScriptsDirectoryURL();
 
 BOOL ATIsSandboxed();
 BOOL ATAreSecurityScopedBookmarksSupported();

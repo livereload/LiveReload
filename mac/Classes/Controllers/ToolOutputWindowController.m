@@ -270,7 +270,7 @@ static ToolOutputWindowController *lastOutputController = nil;
     _editor = [[[EditorManager sharedEditorManager] activeEditor] retain];
     if (_editor) {
         [_jumpToErrorButton setEnabled:YES];
-        [_jumpToErrorButton setTitle:[NSString stringWithFormat:@"Edit in %@", _editor.name]];
+        [_jumpToErrorButton setTitle:[NSString stringWithFormat:@"Edit in %@", _editor.displayName]];
     } else {
         [_jumpToErrorButton setEnabled:NO];
         [_jumpToErrorButton setTitle:@"Edit"];

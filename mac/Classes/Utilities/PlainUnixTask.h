@@ -1,6 +1,11 @@
 
 #import <Foundation/Foundation.h>
 
+
+// returns NSUserUnixTask or PlainUnixTask or nil
+id CreateUserUnixTask(NSURL *scriptURL, NSError **error);
+
+
 enum {
     kPlainUnixTaskErrNonZeroExit = 1,
 };

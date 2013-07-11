@@ -1,5 +1,22 @@
 
 #import "PlainUnixTask.h"
+#import "Errors.h"
+#import "ATSandboxing.h"
+
+
+id CreateUserUnixTask(NSURL *scriptURL, NSError **error) {
+    if (ATIsSandboxed()) {
+        if (ATIsUserScriptsFolderSupported()) {
+            return [[NSUserUnixTask alloc] initWithURL:scriptURL error:error];
+        } else {
+            if (error)
+                *error = [NSError errorWithDomain:LRErrorDomain code:LRErrorSandboxedTasksNotSupportedBefore10_8 userInfo:@{NSURLErrorKey:scriptURL}];
+            return nil; // TODO
+        }
+    } else {
+        return [[PlainUnixTask alloc] initWithURL:scriptURL error:error];
+    }
+}
 
 
 
