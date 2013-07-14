@@ -1,5 +1,6 @@
 
 #import "Editor.h"
+#import "Errors.h"
 
 
 static NSString *EditorStateStrings[] = {
@@ -21,6 +22,21 @@ static NSString *EditorStateStrings[] = {
 
 @synthesize state = _state;
 @synthesize stateStale = _stateStale;
+@synthesize mruPosition = _mruPosition;
+@synthesize defaultPriority = _defaultPriority;
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        _mruPosition = NSNotFound;
+    }
+    return self;
+}
+
+- (NSString *)identifier {
+    MustOverride();
+}
 
 - (NSString *)displayName {
     MustOverride();
@@ -28,6 +44,10 @@ static NSString *EditorStateStrings[] = {
 
 - (BOOL)jumpToFile:(NSString *)file line:(NSInteger)line {
     MustOverride();
+}
+
+- (BOOL)isRunning {
+    return self.state == EditorStateRunning;
 }
 
 - (void)updateStateSoon {
@@ -45,6 +65,19 @@ static NSString *EditorStateStrings[] = {
 
 - (void)doUpdateStateInBackground {
     MustOverride();
+}
+
+- (NSInteger)effectivePriority {
+    NSInteger base = 0;
+    if (self.state == EditorStateRunning)
+        base = 10000;
+    else if (self.state != EditorStateFound)
+        base = -10000;
+    
+    if (_mruPosition != NSNotFound)
+        return base + 1000 - _mruPosition;
+    else
+        return base + _defaultPriority;
 }
 
 @end

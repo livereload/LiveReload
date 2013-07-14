@@ -21,4 +21,6 @@ NSDictionary *LRParseKeyValueOutput(NSString *output);
 
 - (id)invokeWithArguments:(NSArray *)arguments options:(LaunchUnixTaskAndCaptureOutputOptions)options completionHandler:(LaunchUnixTaskAndCaptureOutputCompletionHandler)completionHandler;
 
+- (BOOL)updateProperties:(NSDictionary *)newProperties;
+
 @end

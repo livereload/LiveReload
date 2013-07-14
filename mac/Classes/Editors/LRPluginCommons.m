@@ -91,4 +91,14 @@ NSArray *LRFindPluginsInFolder(NSURL *folder, NSArray *validApiValues) {
     return LaunchUnixTaskAndCaptureOutput(self.scriptFileURL, arguments, options, completionHandler);
 }
 
+- (BOOL)updateProperties:(NSDictionary *)newProperties {
+    if ([_properties isEqualToDictionary:newProperties])
+        return NO;
+    else {
+        [_properties release];
+        _properties = [newProperties copy];
+        return YES;
+    }
+}
+
 @end

@@ -5,12 +5,14 @@
 @class Editor;
 
 
-@interface EditorManager : NSObject {
-    NSMutableArray        *_editorClasses;
-}
+@interface EditorManager : NSObject
 
 + (EditorManager *)sharedEditorManager;
 
-- (Editor *)activeEditor;
+@property(nonatomic, readonly, strong) Editor *activeEditor;
+@property(nonatomic, readonly, strong) NSArray *sortedEditors;
+
+- (void)updateEditors;
+- (void)moveEditorToFrontOfMostRecentlyUsedList:(Editor *)editor;
 
 @end

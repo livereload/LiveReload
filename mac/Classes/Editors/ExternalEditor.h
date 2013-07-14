@@ -8,4 +8,6 @@
 
 @property(nonatomic, readonly, strong) SingleFilePlugin *script;
 
+- (void)updateScript:(SingleFilePlugin *)script;
+
 @end

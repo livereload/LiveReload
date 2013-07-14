@@ -14,12 +14,29 @@
     self = [super init];
     if (self) {
         _script = [aScript retain];
+        [self updateDerivedProperties];
     }
     return self;
 }
 
+- (NSString *)identifier {
+    return self.script.properties[@"editor-id"];
+}
+
 - (NSString *)displayName {
     return self.script.properties[@"editor-name"];
+}
+
+- (void)updateScript:(SingleFilePlugin *)script {
+    if ([_script updateProperties:script.properties]) {
+        [self updateDerivedProperties];
+        [self updateStateSoon];
+    }
+}
+
+- (void)updateDerivedProperties {
+    // gives 0 for missing keys, which is exactly what we want
+    self.defaultPriority = [self.script.properties[@"editor-default-priotity"] integerValue];
 }
 
 - (void)doUpdateStateInBackground {
