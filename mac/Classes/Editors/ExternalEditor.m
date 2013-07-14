@@ -40,9 +40,16 @@
 
         NSString *message = output[@"message"];
 
-        if ([result isEqualToString:@"found"])
+        if ([result isEqualToString:@"found"]) {
+            NSString *appId = self.script.properties[@"editor-app-id"];
+            if (appId) {
+                if ([[NSRunningApplication runningApplicationsWithBundleIdentifier:appId] count] > 0) {
+                    [self updateState:EditorStateRunning error:nil];
+                    return;
+                }
+            }
             [self updateState:EditorStateFound error:nil];
-        else if ([result isEqualToString:@"running"])
+        } else if ([result isEqualToString:@"running"])
             [self updateState:EditorStateRunning error:nil];
         else if ([result isEqualToString:@"broken"])
             [self updateState:EditorStateBroken error:[NSError errorWithDomain:LRErrorDomain code:LRErrorEditorPluginReturnedBrokenState userInfo:@{NSLocalizedDescriptionKey: message}]];

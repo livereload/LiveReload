@@ -2,6 +2,7 @@
 # LR-plugin-api: editor v1
 # LR-plugin-author: Andrey Tarantsov <andrey@tarantsov.com>
 # LR-editor-name: Sublime Text 2
+# LR-editor-app-id: com.sublimetext.2
 
 app_path="/Applications/Sublime Text 2.app"
 subl_path="$app_path/Contents/SharedSupport/bin/subl"
