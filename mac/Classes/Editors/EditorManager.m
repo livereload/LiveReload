@@ -3,10 +3,8 @@
 #import "ATSandboxing.h"
 #import "RegexKitLite.h"
 
-#import "CustomEditor.h"
 #import "CodaEditor.h"
 #import "EspressoEditor.h"
-#import "SublimeText2Editor.h"
 #import "SubEthaEditEditor.h"
 #import "TextMateEditor.h"
 #import "BBEditEditor.h"
