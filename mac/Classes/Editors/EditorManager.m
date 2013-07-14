@@ -3,11 +3,6 @@
 #import "ATSandboxing.h"
 #import "RegexKitLite.h"
 
-#import "CodaEditor.h"
-#import "EspressoEditor.h"
-#import "SubEthaEditEditor.h"
-#import "TextMateEditor.h"
-#import "BBEditEditor.h"
 #import "ExternalEditor.h"
 #import "LRPluginCommons.h"
 #import "ArrayDiff.h"

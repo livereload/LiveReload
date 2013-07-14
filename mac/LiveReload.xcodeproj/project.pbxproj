@@ -187,18 +187,13 @@
 		43F50BFC146706B0004FD951 /* BaseProjectSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F50BFB146706B0004FD951 /* BaseProjectSettingsWindowController.m */; };
 		43F50BFF14670A9F004FD951 /* CompilationSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F50BFE14670A9F004FD951 /* CompilationSettingsWindowController.m */; };
 		43F50C0114670AAF004FD951 /* CompilationSettingsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43F50C0014670AAF004FD951 /* CompilationSettingsWindowController.xib */; };
-		821AFF0014270B5200B61760 /* BBEditEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 821AFEFF14270B5200B61760 /* BBEditEditor.m */; };
 		823DDED313F8DA3100529AD2 /* LiveReloadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3013F8DA3100529AD2 /* LiveReloadAppDelegate.m */; };
 		823DDED513F8DA3100529AD2 /* ExtensionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3613F8DA3100529AD2 /* ExtensionsController.m */; };
 		823DDEDA13F8DA3100529AD2 /* StatusItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3E13F8DA3100529AD2 /* StatusItemController.m */; };
 		823DDEDB13F8DA3100529AD2 /* ToolOutputWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE4013F8DA3100529AD2 /* ToolOutputWindowController.m */; };
 		823DDEDC13F8DA3100529AD2 /* ToolOutputWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 823DDE4113F8DA3100529AD2 /* ToolOutputWindowController.xib */; };
-		823DDEDD13F8DA3100529AD2 /* CodaEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE4413F8DA3100529AD2 /* CodaEditor.m */; };
 		823DDEDF13F8DA3100529AD2 /* Editor.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE4813F8DA3100529AD2 /* Editor.m */; };
 		823DDEE013F8DA3100529AD2 /* EditorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE4A13F8DA3100529AD2 /* EditorManager.m */; };
-		823DDEE113F8DA3100529AD2 /* EspressoEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE4C13F8DA3100529AD2 /* EspressoEditor.m */; };
-		823DDEE213F8DA3100529AD2 /* SubEthaEditEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE4E13F8DA3100529AD2 /* SubEthaEditEditor.m */; };
-		823DDEE413F8DA3100529AD2 /* TextMateEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE5213F8DA3100529AD2 /* TextMateEditor.m */; };
 		823DDEE513F8DA3100529AD2 /* NSObject+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE5613F8DA3100529AD2 /* NSObject+JSON.m */; };
 		823DDEE613F8DA3100529AD2 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE5813F8DA3100529AD2 /* SBJsonParser.m */; };
 		823DDEE713F8DA3100529AD2 /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE5A13F8DA3100529AD2 /* SBJsonStreamParser.m */; };
@@ -556,8 +551,6 @@
 		43F50BFD14670A9F004FD951 /* CompilationSettingsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompilationSettingsWindowController.h; sourceTree = "<group>"; };
 		43F50BFE14670A9F004FD951 /* CompilationSettingsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompilationSettingsWindowController.m; sourceTree = "<group>"; };
 		43F50C0014670AAF004FD951 /* CompilationSettingsWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompilationSettingsWindowController.xib; sourceTree = "<group>"; };
-		821AFEFE14270B5200B61760 /* BBEditEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBEditEditor.h; sourceTree = "<group>"; };
-		821AFEFF14270B5200B61760 /* BBEditEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBEditEditor.m; sourceTree = "<group>"; };
 		823DDE2F13F8DA3100529AD2 /* LiveReloadAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveReloadAppDelegate.h; sourceTree = "<group>"; };
 		823DDE3013F8DA3100529AD2 /* LiveReloadAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveReloadAppDelegate.m; sourceTree = "<group>"; };
 		823DDE3513F8DA3100529AD2 /* ExtensionsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtensionsController.h; sourceTree = "<group>"; };
@@ -567,18 +560,10 @@
 		823DDE3F13F8DA3100529AD2 /* ToolOutputWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolOutputWindowController.h; sourceTree = "<group>"; };
 		823DDE4013F8DA3100529AD2 /* ToolOutputWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolOutputWindowController.m; sourceTree = "<group>"; };
 		823DDE4113F8DA3100529AD2 /* ToolOutputWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ToolOutputWindowController.xib; sourceTree = "<group>"; };
-		823DDE4313F8DA3100529AD2 /* CodaEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodaEditor.h; sourceTree = "<group>"; };
-		823DDE4413F8DA3100529AD2 /* CodaEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodaEditor.m; sourceTree = "<group>"; };
 		823DDE4713F8DA3100529AD2 /* Editor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Editor.h; sourceTree = "<group>"; };
 		823DDE4813F8DA3100529AD2 /* Editor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Editor.m; sourceTree = "<group>"; };
 		823DDE4913F8DA3100529AD2 /* EditorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditorManager.h; sourceTree = "<group>"; };
 		823DDE4A13F8DA3100529AD2 /* EditorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditorManager.m; sourceTree = "<group>"; };
-		823DDE4B13F8DA3100529AD2 /* EspressoEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EspressoEditor.h; sourceTree = "<group>"; };
-		823DDE4C13F8DA3100529AD2 /* EspressoEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EspressoEditor.m; sourceTree = "<group>"; };
-		823DDE4D13F8DA3100529AD2 /* SubEthaEditEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubEthaEditEditor.h; sourceTree = "<group>"; };
-		823DDE4E13F8DA3100529AD2 /* SubEthaEditEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubEthaEditEditor.m; sourceTree = "<group>"; };
-		823DDE5113F8DA3100529AD2 /* TextMateEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextMateEditor.h; sourceTree = "<group>"; };
-		823DDE5213F8DA3100529AD2 /* TextMateEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextMateEditor.m; sourceTree = "<group>"; };
 		823DDE5413F8DA3100529AD2 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
 		823DDE5513F8DA3100529AD2 /* NSObject+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+JSON.h"; sourceTree = "<group>"; };
 		823DDE5613F8DA3100529AD2 /* NSObject+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+JSON.m"; sourceTree = "<group>"; };
@@ -1333,20 +1318,10 @@
 		823DDE4213F8DA3100529AD2 /* Editors */ = {
 			isa = PBXGroup;
 			children = (
-				823DDE4313F8DA3100529AD2 /* CodaEditor.h */,
-				823DDE4413F8DA3100529AD2 /* CodaEditor.m */,
 				823DDE4713F8DA3100529AD2 /* Editor.h */,
 				823DDE4813F8DA3100529AD2 /* Editor.m */,
 				823DDE4913F8DA3100529AD2 /* EditorManager.h */,
 				823DDE4A13F8DA3100529AD2 /* EditorManager.m */,
-				823DDE4B13F8DA3100529AD2 /* EspressoEditor.h */,
-				823DDE4C13F8DA3100529AD2 /* EspressoEditor.m */,
-				823DDE4D13F8DA3100529AD2 /* SubEthaEditEditor.h */,
-				823DDE4E13F8DA3100529AD2 /* SubEthaEditEditor.m */,
-				823DDE5113F8DA3100529AD2 /* TextMateEditor.h */,
-				823DDE5213F8DA3100529AD2 /* TextMateEditor.m */,
-				821AFEFE14270B5200B61760 /* BBEditEditor.h */,
-				821AFEFF14270B5200B61760 /* BBEditEditor.m */,
 				43DB9FD5178EFA64007BEA36 /* ExternalEditor.h */,
 				43DB9FD6178EFA64007BEA36 /* ExternalEditor.m */,
 				43DB9FD81792545E007BEA36 /* LRPluginCommons.h */,
@@ -1718,12 +1693,8 @@
 				823DDED513F8DA3100529AD2 /* ExtensionsController.m in Sources */,
 				823DDEDA13F8DA3100529AD2 /* StatusItemController.m in Sources */,
 				823DDEDB13F8DA3100529AD2 /* ToolOutputWindowController.m in Sources */,
-				823DDEDD13F8DA3100529AD2 /* CodaEditor.m in Sources */,
 				823DDEDF13F8DA3100529AD2 /* Editor.m in Sources */,
 				823DDEE013F8DA3100529AD2 /* EditorManager.m in Sources */,
-				823DDEE113F8DA3100529AD2 /* EspressoEditor.m in Sources */,
-				823DDEE213F8DA3100529AD2 /* SubEthaEditEditor.m in Sources */,
-				823DDEE413F8DA3100529AD2 /* TextMateEditor.m in Sources */,
 				823DDEE513F8DA3100529AD2 /* NSObject+JSON.m in Sources */,
 				823DDEE613F8DA3100529AD2 /* SBJsonParser.m in Sources */,
 				823DDEE713F8DA3100529AD2 /* SBJsonStreamParser.m in Sources */,
@@ -1760,7 +1731,6 @@
 				823DDF1413F8DA3100529AD2 /* KeyWindow.m in Sources */,
 				823DDF1713F8DA3100529AD2 /* StatusItemView.m in Sources */,
 				435BE045141B87920008FF77 /* NewMainWindowController.m in Sources */,
-				821AFF0014270B5200B61760 /* BBEditEditor.m in Sources */,
 				4304FC2D144B2BEB00D650DF /* NSDictionaryAndArray+SafeAccess.m in Sources */,
 				4346F3A91450D8AD00B133F2 /* ImportGraph.m in Sources */,
 				435729171452267C00947B2E /* Stats.m in Sources */,
