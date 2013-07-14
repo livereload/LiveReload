@@ -194,12 +194,10 @@
 		823DDEDB13F8DA3100529AD2 /* ToolOutputWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE4013F8DA3100529AD2 /* ToolOutputWindowController.m */; };
 		823DDEDC13F8DA3100529AD2 /* ToolOutputWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 823DDE4113F8DA3100529AD2 /* ToolOutputWindowController.xib */; };
 		823DDEDD13F8DA3100529AD2 /* CodaEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE4413F8DA3100529AD2 /* CodaEditor.m */; };
-		823DDEDE13F8DA3100529AD2 /* CustomEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE4613F8DA3100529AD2 /* CustomEditor.m */; };
 		823DDEDF13F8DA3100529AD2 /* Editor.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE4813F8DA3100529AD2 /* Editor.m */; };
 		823DDEE013F8DA3100529AD2 /* EditorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE4A13F8DA3100529AD2 /* EditorManager.m */; };
 		823DDEE113F8DA3100529AD2 /* EspressoEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE4C13F8DA3100529AD2 /* EspressoEditor.m */; };
 		823DDEE213F8DA3100529AD2 /* SubEthaEditEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE4E13F8DA3100529AD2 /* SubEthaEditEditor.m */; };
-		823DDEE313F8DA3100529AD2 /* SublimeText2Editor.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE5013F8DA3100529AD2 /* SublimeText2Editor.m */; };
 		823DDEE413F8DA3100529AD2 /* TextMateEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE5213F8DA3100529AD2 /* TextMateEditor.m */; };
 		823DDEE513F8DA3100529AD2 /* NSObject+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE5613F8DA3100529AD2 /* NSObject+JSON.m */; };
 		823DDEE613F8DA3100529AD2 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE5813F8DA3100529AD2 /* SBJsonParser.m */; };
@@ -571,8 +569,6 @@
 		823DDE4113F8DA3100529AD2 /* ToolOutputWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ToolOutputWindowController.xib; sourceTree = "<group>"; };
 		823DDE4313F8DA3100529AD2 /* CodaEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodaEditor.h; sourceTree = "<group>"; };
 		823DDE4413F8DA3100529AD2 /* CodaEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodaEditor.m; sourceTree = "<group>"; };
-		823DDE4513F8DA3100529AD2 /* CustomEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomEditor.h; sourceTree = "<group>"; };
-		823DDE4613F8DA3100529AD2 /* CustomEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomEditor.m; sourceTree = "<group>"; };
 		823DDE4713F8DA3100529AD2 /* Editor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Editor.h; sourceTree = "<group>"; };
 		823DDE4813F8DA3100529AD2 /* Editor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Editor.m; sourceTree = "<group>"; };
 		823DDE4913F8DA3100529AD2 /* EditorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditorManager.h; sourceTree = "<group>"; };
@@ -581,8 +577,6 @@
 		823DDE4C13F8DA3100529AD2 /* EspressoEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EspressoEditor.m; sourceTree = "<group>"; };
 		823DDE4D13F8DA3100529AD2 /* SubEthaEditEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubEthaEditEditor.h; sourceTree = "<group>"; };
 		823DDE4E13F8DA3100529AD2 /* SubEthaEditEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubEthaEditEditor.m; sourceTree = "<group>"; };
-		823DDE4F13F8DA3100529AD2 /* SublimeText2Editor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SublimeText2Editor.h; sourceTree = "<group>"; };
-		823DDE5013F8DA3100529AD2 /* SublimeText2Editor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SublimeText2Editor.m; sourceTree = "<group>"; };
 		823DDE5113F8DA3100529AD2 /* TextMateEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextMateEditor.h; sourceTree = "<group>"; };
 		823DDE5213F8DA3100529AD2 /* TextMateEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextMateEditor.m; sourceTree = "<group>"; };
 		823DDE5413F8DA3100529AD2 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
@@ -1341,8 +1335,6 @@
 			children = (
 				823DDE4313F8DA3100529AD2 /* CodaEditor.h */,
 				823DDE4413F8DA3100529AD2 /* CodaEditor.m */,
-				823DDE4513F8DA3100529AD2 /* CustomEditor.h */,
-				823DDE4613F8DA3100529AD2 /* CustomEditor.m */,
 				823DDE4713F8DA3100529AD2 /* Editor.h */,
 				823DDE4813F8DA3100529AD2 /* Editor.m */,
 				823DDE4913F8DA3100529AD2 /* EditorManager.h */,
@@ -1351,8 +1343,6 @@
 				823DDE4C13F8DA3100529AD2 /* EspressoEditor.m */,
 				823DDE4D13F8DA3100529AD2 /* SubEthaEditEditor.h */,
 				823DDE4E13F8DA3100529AD2 /* SubEthaEditEditor.m */,
-				823DDE4F13F8DA3100529AD2 /* SublimeText2Editor.h */,
-				823DDE5013F8DA3100529AD2 /* SublimeText2Editor.m */,
 				823DDE5113F8DA3100529AD2 /* TextMateEditor.h */,
 				823DDE5213F8DA3100529AD2 /* TextMateEditor.m */,
 				821AFEFE14270B5200B61760 /* BBEditEditor.h */,
@@ -1729,12 +1719,10 @@
 				823DDEDA13F8DA3100529AD2 /* StatusItemController.m in Sources */,
 				823DDEDB13F8DA3100529AD2 /* ToolOutputWindowController.m in Sources */,
 				823DDEDD13F8DA3100529AD2 /* CodaEditor.m in Sources */,
-				823DDEDE13F8DA3100529AD2 /* CustomEditor.m in Sources */,
 				823DDEDF13F8DA3100529AD2 /* Editor.m in Sources */,
 				823DDEE013F8DA3100529AD2 /* EditorManager.m in Sources */,
 				823DDEE113F8DA3100529AD2 /* EspressoEditor.m in Sources */,
 				823DDEE213F8DA3100529AD2 /* SubEthaEditEditor.m in Sources */,
-				823DDEE313F8DA3100529AD2 /* SublimeText2Editor.m in Sources */,
 				823DDEE413F8DA3100529AD2 /* TextMateEditor.m in Sources */,
 				823DDEE513F8DA3100529AD2 /* NSObject+JSON.m in Sources */,
 				823DDEE613F8DA3100529AD2 /* SBJsonParser.m in Sources */,
