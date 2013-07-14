@@ -2,6 +2,7 @@
 #import "PlainUnixTask.h"
 #import "Errors.h"
 #import "ATSandboxing.h"
+#import "TaskOutputReader.h"
 
 
 id CreateUserUnixTask(NSURL *scriptURL, NSError **error) {
@@ -16,6 +17,36 @@ id CreateUserUnixTask(NSURL *scriptURL, NSError **error) {
     } else {
         return [[PlainUnixTask alloc] initWithURL:scriptURL error:error];
     }
+}
+
+id LaunchUnixTaskAndCaptureOutput(NSURL *scriptURL, NSArray *arguments, LaunchUnixTaskAndCaptureOutputOptions options, LaunchUnixTaskAndCaptureOutputCompletionHandler handler) {
+    NSError *error = nil;
+    id task = CreateUserUnixTask(scriptURL, &error);
+    if (!task) {
+        handler(nil, nil, error);
+        return nil;
+    }
+
+    BOOL merge = !!(options & LaunchUnixTaskAndCaptureOutputOptionsMergeStdoutAndStderr);
+
+    TaskOutputReader *outputReader = [[TaskOutputReader alloc] init];
+    [task setStandardOutput:outputReader.standardOutputPipe.fileHandleForWriting];
+    if (merge) {
+        [task setStandardError:outputReader.standardOutputPipe.fileHandleForWriting];
+        [outputReader.standardErrorPipe.fileHandleForWriting closeFile];
+    } else {
+        [task setStandardError:outputReader.standardErrorPipe.fileHandleForWriting];
+    }
+    [outputReader startReading];
+
+    [task executeWithArguments:arguments completionHandler:^(NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSString *outputText = outputReader.standardOutputText;
+            NSString *stderrText = (merge ? outputText : outputReader.standardErrorText);
+            handler(outputText, stderrText, error);
+        });
+    }];
+    return task;
 }
 
 

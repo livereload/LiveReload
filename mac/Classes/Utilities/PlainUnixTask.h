@@ -6,6 +6,16 @@
 id CreateUserUnixTask(NSURL *scriptURL, NSError **error);
 
 
+typedef enum {
+    LaunchUnixTaskAndCaptureOutputOptionsNone = 0,
+    LaunchUnixTaskAndCaptureOutputOptionsMergeStdoutAndStderr = 0x01,
+} LaunchUnixTaskAndCaptureOutputOptions;
+
+typedef void (^LaunchUnixTaskAndCaptureOutputCompletionHandler)(NSString *outputText, NSString *stderrText, NSError *error);
+
+id LaunchUnixTaskAndCaptureOutput(NSURL *scriptURL, NSArray *arguments, LaunchUnixTaskAndCaptureOutputOptions options, LaunchUnixTaskAndCaptureOutputCompletionHandler handler);
+
+
 enum {
     kPlainUnixTaskErrNonZeroExit = 1,
 };

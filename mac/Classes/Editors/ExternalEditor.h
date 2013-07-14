@@ -1,11 +1,11 @@
 
 #import "Editor.h"
+#import "LRPluginCommons.h"
 
 @interface ExternalEditor : Editor
 
-- (id)initWithScriptFileURL:(NSURL*)aScriptFileURL properties:(NSDictionary*)aProperties;
+- (id)initWithScript:(SingleFilePlugin*)aScript;
 
-@property(nonatomic, readonly, copy) NSURL *scriptFileURL;
-@property(nonatomic, readonly, copy) NSDictionary *properties;
+@property(nonatomic, readonly, strong) SingleFilePlugin *script;
 
 @end

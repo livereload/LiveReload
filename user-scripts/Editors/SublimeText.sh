@@ -9,15 +9,15 @@ subl_path="$app_path/Contents/SharedSupport/bin/subl"
 case "$1" in
     --check)
         if ! test -d "$app_path"; then
-            echo "check not-found"
+            echo "result: not-found"
             echo "'$app_path' does not exist."
             exit 1
         elif ! test -f "$subl_path"; then
-            echo "check broken"
+            echo "result: broken"
             echo "'$subl_path' does not exist."
             exit 1
         else
-            echo "check found"
+            echo "result: found"
             echo "$app_path"
             exit 0
         fi;;
@@ -32,14 +32,14 @@ line="$2"
 
 if test -n "$line"; then
     "$subl_path" "$file:$line" || {
-        echo "open failed"
+        echo "result: failed"
         exit 2
     }
 else
     "$subl_path" "$file" || {
-        echo "open failed"
+        echo "result: failed"
         exit 2
     }
 fi
 
-echo "open ok"
+echo "result: ok"
