@@ -77,4 +77,15 @@
     }];
 }
 
+- (BOOL)jumpToFile:(NSString *)file line:(NSInteger)line {
+    NSArray *arguments = @[file];
+    if (line >= 0)
+        arguments = [arguments arrayByAddingObject:[NSString stringWithFormat:@"%d", (int)line]];
+
+    [self.script invokeWithArguments:arguments options:LaunchUnixTaskAndCaptureOutputOptionsMergeStdoutAndStderr completionHandler:^(NSString *outputText, NSString *stderrText, NSError *error) {
+        NSLog(@"Editor jump call complete, error = %@, output = %@", [error localizedDescription], outputText);
+    }];
+    return YES;
+}
+
 @end
