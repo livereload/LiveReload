@@ -184,7 +184,7 @@
     return result;
 }
 
-- (NSArray *)arrayByMergingDictionaryValuesGroupedByKeyPath:(NSString *)keyPath withArray:(NSArray *)peer {
+- (NSArray *)arrayByMergingDictionaryValuesWithArray:(NSArray *)peer groupedByKeyPath:(NSString *)keyPath {
     NSDictionary *first = [self dictionaryWithElementsGroupedByKeyPath:keyPath];
     NSDictionary *second = [peer dictionaryWithElementsGroupedByKeyPath:keyPath];
     NSDictionary *merged = [first dictionaryByMergingDictionaryValuesWithDictionary:second];

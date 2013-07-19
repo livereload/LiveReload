@@ -41,7 +41,7 @@
 
 - (NSArray *)filteredArrayUsingBlock:(BOOL(^)(id value))block;
 
-- (NSArray *)arrayByMergingDictionaryValuesGroupedByKeyPath:(NSString *)keyPath withArray:(NSArray *)peer;
+- (NSArray *)arrayByMergingDictionaryValuesWithArray:(NSArray *)peer groupedByKeyPath:(NSString *)keyPath;
 
 @end
 

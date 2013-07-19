@@ -73,7 +73,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         NSArray *plugins1 = [self loadBundledEditors];
         NSArray *plugins2 = [self loadExternalEditors];
-        NSArray *plugins = [plugins1 arrayByMergingDictionaryValuesGroupedByKeyPath:@"id" withArray:plugins2];
+        NSArray *plugins = [plugins1 arrayByMergingDictionaryValuesWithArray:plugins2 groupedByKeyPath:@"id"];
 
         dispatch_async(dispatch_get_main_queue(), ^{
             [ModelDiffs updateMutableObjectsArray:_editors usingAttributesPropertyWithNewAttributeValueDictionaries:plugins identityKeyPath:@"identifier" identityAttributeKey:@"id" create:^(NSDictionary *attributes) {
