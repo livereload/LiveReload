@@ -28,8 +28,10 @@
 @interface NSArray (ATFunctionalStyleAdditions)
 
 - (NSDictionary *)dictionaryWithElementsGroupedByKeyPath:(NSString *)keyPath;
+- (NSDictionary *)dictionaryWithElementsGroupedByBlock:(id(^)(id value))block;
 
 - (NSDictionary *)dictionaryWithElementsMultiGroupedByKeyPath:(NSString *)keyPath;
+- (NSDictionary *)dictionaryWithElementsMultiGroupedByBlock:(NSArray *(^)(id value))block;
 
 - (NSSet *)setWithElementsGroupedByKeyPath:(NSString *)keyPath;
 
@@ -39,14 +41,25 @@
 
 - (NSArray *)filteredArrayUsingBlock:(BOOL(^)(id value))block;
 
+- (NSArray *)arrayByMergingDictionaryValuesGroupedByKeyPath:(NSString *)keyPath withArray:(NSArray *)peer;
+
 @end
 
 
 @interface NSDictionary (ATFunctionalStyleAdditions)
 
+- (NSDictionary *)dictionaryByReversingKeysAndValues;
+
 - (NSDictionary *)dictionaryByMappingKeysToSelector:(SEL)selector;
 - (NSDictionary *)dictionaryByMappingValuesToSelector:(SEL)selector;
 - (NSDictionary *)dictionaryByMappingValuesToSelector:(SEL)selector withObject:(id)object;
 - (NSDictionary *)dictionaryByMappingValuesToKeyPath:(NSString *)valueKeyPath;
+- (NSDictionary *)dictionaryByMappingValuesToBlock:(id(^)(id key, id value))block;
+
+- (NSDictionary *)dictionaryByMappingValuesAccordingToSchema:(NSDictionary *)schema;
+
+- (NSDictionary *)dictionaryByAddingEntriesFromDictionary:(NSDictionary *)peer;
+
+- (NSDictionary *)dictionaryByMergingDictionaryValuesWithDictionary:(NSDictionary *)peer;
 
 @end

@@ -99,10 +99,37 @@
     return grouped;
 }
 
+- (NSDictionary *)dictionaryWithElementsGroupedByBlock:(id(^)(id value))block {
+    NSMutableDictionary *grouped = [NSMutableDictionary dictionary];
+    for (id element in self) {
+        id key = block(element);
+        if (key == nil)
+            continue;
+        [grouped setObject:element forKey:key];
+    }
+    return grouped;
+}
+
 - (NSDictionary *)dictionaryWithElementsMultiGroupedByKeyPath:(NSString *)keyPath {
     NSMutableDictionary *grouped = [NSMutableDictionary dictionary];
     for (id element in self) {
         NSArray *keys = [element valueForKeyPath:keyPath];
+        for (id key in keys) {
+            NSMutableArray *array = [grouped objectForKey:key];
+            if (!array) {
+                array = [NSMutableArray array];
+                [grouped setObject:array forKey:key];
+            }
+            [array addObject:element];
+        }
+    }
+    return grouped;
+}
+
+- (NSDictionary *)dictionaryWithElementsMultiGroupedByBlock:(NSArray *(^)(id value))block {
+    NSMutableDictionary *grouped = [NSMutableDictionary dictionary];
+    for (id element in self) {
+        NSArray *keys = block(element);
         for (id key in keys) {
             NSMutableArray *array = [grouped objectForKey:key];
             if (!array) {
@@ -157,10 +184,25 @@
     return result;
 }
 
+- (NSArray *)arrayByMergingDictionaryValuesGroupedByKeyPath:(NSString *)keyPath withArray:(NSArray *)peer {
+    NSDictionary *first = [self dictionaryWithElementsGroupedByKeyPath:keyPath];
+    NSDictionary *second = [peer dictionaryWithElementsGroupedByKeyPath:keyPath];
+    NSDictionary *merged = [first dictionaryByMergingDictionaryValuesWithDictionary:second];
+    return [merged allValues];
+}
+
 @end
 
 
 @implementation NSDictionary (ATFunctionalStyleAdditions)
+
+- (NSDictionary *)dictionaryByReversingKeysAndValues {
+    NSMutableDictionary *result = [NSMutableDictionary dictionaryWithCapacity:[self count]];
+    [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        result[obj] = key;
+    }];
+    return result;
+}
 
 - (NSDictionary *)dictionaryByMappingKeysToSelector:(SEL)selector {
     NSMutableDictionary *result = [NSMutableDictionary dictionaryWithCapacity:[self count]];
@@ -190,6 +232,46 @@
     NSMutableDictionary *result = [NSMutableDictionary dictionaryWithCapacity:[self count]];
     [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         [result setObject:[obj valueForKeyPath:valueKeyPath] forKey:key];
+    }];
+    return result;
+}
+
+- (NSDictionary *)dictionaryByMappingValuesToBlock:(id(^)(id key, id value))block {
+    NSMutableDictionary *result = [NSMutableDictionary dictionaryWithCapacity:[self count]];
+    [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        id newValue = block(key, obj);
+        if (newValue)
+            result[key] = newValue;
+    }];
+    return result;
+}
+
+- (NSDictionary *)dictionaryByMappingValuesAccordingToSchema:(NSDictionary *)schema {
+    schema = [schema dictionaryByReversingKeysAndValues];
+
+    NSMutableDictionary *result = [NSMutableDictionary dictionaryWithCapacity:[self count]];
+    [self enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
+        id outputKey = schema[key];
+        if (outputKey)
+            result[outputKey] = value;
+    }];
+    return result;
+}
+
+- (NSDictionary *)dictionaryByAddingEntriesFromDictionary:(NSDictionary *)peer {
+    NSMutableDictionary *result = [self mutableCopy];
+    [result addEntriesFromDictionary:peer];
+    return result;
+}
+
+- (NSDictionary *)dictionaryByMergingDictionaryValuesWithDictionary:(NSDictionary *)peer {
+    NSMutableDictionary *result = [self mutableCopy];
+    [peer enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
+        id oldValue = result[key];
+        if ([oldValue isKindOfClass:[NSDictionary class]] && [value isKindOfClass:[NSDictionary class]]) {
+            value = [oldValue dictionaryByMergingDictionaryValuesWithDictionary:value];
+        }
+        result[key] = value;
     }];
     return result;
 }

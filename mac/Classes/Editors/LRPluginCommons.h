@@ -6,6 +6,11 @@
 @class SingleFilePlugin;
 
 
+@interface NSDictionary (LRPluginCommons)
+
++ (NSDictionary *)LR_dictionaryWithContentsOfJSONFileURL:(NSURL *)fileURL error:(NSError **)error;
+
+@end
 NSDictionary *LRExtractMetadata(NSString *content);
 NSDictionary *LRExtractFileMetadata(NSURL *file);
 NSArray *LRFindPluginsInFolder(NSURL *folder, NSArray *validApiValues);

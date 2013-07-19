@@ -1,5 +1,6 @@
 
 #import <Foundation/Foundation.h>
+#import "ArrayDiff.h"
 
 typedef enum {
     EditorStateNotFound,
@@ -9,10 +10,10 @@ typedef enum {
 } EditorState;
 
 
-@interface Editor : NSObject
+@interface Editor : NSObject <ObjectWithAttributes>
 
-@property(nonatomic, readonly, copy) NSString *identifier;
-@property(nonatomic, readonly, copy) NSString *displayName;
+@property(nonatomic, copy) NSString *identifier;
+@property(nonatomic, copy) NSString *displayName;
 @property(nonatomic, readonly, assign) EditorState state;
 @property(nonatomic, readonly, assign, getter=isStateStale) BOOL stateStale;
 @property(nonatomic, readonly, assign, getter=isRunning) BOOL running;

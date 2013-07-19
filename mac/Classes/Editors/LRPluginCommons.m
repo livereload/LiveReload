@@ -1,16 +1,60 @@
 
 #import "LRPluginCommons.h"
 #import "RegexKitLite.h"
+#import "Errors.h"
 
+
+
+@implementation NSDictionary (LRPluginCommons)
+
++ (NSDictionary *)LR_dictionaryWithContentsOfJSONFileURL:(NSURL *)fileURL error:(NSError **)outError {
+    NSError *error = nil;
+    NSData *raw = [NSData dataWithContentsOfURL:fileURL options:0 error:&error];
+    if (!raw)
+        return_error(nil, outError, error);
+
+    id object = [NSJSONSerialization JSONObjectWithData:raw options:0 error:&error];
+    if (!object)
+        return_error(nil, outError, error);
+
+    if (![object isKindOfClass:[NSDictionary class]])
+        return_error(nil, outError, [NSError errorWithDomain:LRErrorDomain code:LRErrorJsonParsingError userInfo:nil]);
+
+    return object;
+}
+
+@end
+
+
+void LRSetDottedKey(NSMutableDictionary *dictionary, NSString *key, id value) {
+    NSRange range = [key rangeOfString:@"."];
+    if (range.location == NSNotFound) {
+        dictionary[key] = value;
+    } else {
+        NSString *folderKey = [key substringToIndex:range.location];
+        NSString *subkey = [key substringFromIndex:range.location + range.length];
+
+        NSMutableDictionary *folder;
+        id folderRaw = dictionary[folderKey];
+        if ([folderRaw isKindOfClass:[NSMutableDictionary class]])
+            folder = folderRaw;
+        else if ([folderRaw isKindOfClass:[NSDictionary class]])
+            dictionary[folderKey] = folder = [folderRaw mutableCopy];
+        else
+            dictionary[folderKey] = folder = [[NSMutableDictionary alloc] init];
+
+        LRSetDottedKey(folder, subkey, value);
+    }
+}
 
 NSDictionary *LRExtractMetadata(NSString *content) {
     NSMutableDictionary *properties = [NSMutableDictionary dictionary];
-
-    [content enumerateStringsMatchedByRegex:@"^(?:#|//|--)\\s*LR-([a-zA-Z0-9-]+):(.*)$" options:RKLMultiline inRange:NSMakeRange(0, NSUIntegerMax) error:nil enumerationOptions:0 usingBlock:^(NSInteger captureCount, NSString *const *capturedStrings, const NSRange *capturedRanges, volatile BOOL *const stop) {
+    [properties setValue:@"foo" forKeyPath:@"bar.boz"];
+    [content enumerateStringsMatchedByRegex:@"^(?:[^a-z\\s]*)\\s*LR ([a-zA-Z0-9.-]+)\\s*:(.*)$" options:RKLMultiline|RKLCaseless inRange:NSMakeRange(0, NSUIntegerMax) error:nil enumerationOptions:0 usingBlock:^(NSInteger captureCount, NSString *const *capturedStrings, const NSRange *capturedRanges, volatile BOOL *const stop) {
         //        NSLog(@"Match: %@  :::  %@  :::  %@", capturedStrings[0], capturedStrings[1], capturedStrings[2]);
         NSString *key = [capturedStrings[1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         NSString *value = [capturedStrings[2] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-        properties[key] = value;
+        LRSetDottedKey(properties, key, value);
     }];
 
     return properties;
@@ -54,12 +98,12 @@ NSArray *LRFindPluginsInFolder(NSURL *folder, NSArray *validApiValues) {
         NSDictionary *attrs = [item resourceValuesForKeys:@[NSURLIsRegularFileKey, NSURLIsSymbolicLinkKey, NSURLIsReadableKey, NSURLIsExecutableKey] error:nil];
         if ([attrs[NSURLIsRegularFileKey] boolValue] || [attrs[NSURLIsSymbolicLinkKey ] boolValue]) {
             NSDictionary *props = LRExtractFileMetadata(item);
-            if (!props[@"plugin-api"]) {
-                NSLog(@"LRFindPluginsInFolder: Not a plugin (missing LR-plugin-api key): %@", item);
+            if (!props[@"api"]) {
+                NSLog(@"LRFindPluginsInFolder: Not a plugin (missing LR api key): %@", item);
                 continue;
             }
-            if (![validApiValues containsObject:props[@"plugin-api"]]) {
-                NSLog(@"LRFindPluginsInFolder: Unsupported LR-plugin-api value '%@' in '%@', looking for LR-plugin-api values: %@", props[@"plugin-api"], item, [validApiValues componentsJoinedByString:@", or "]);
+            if (![validApiValues containsObject:props[@"api"]]) {
+                NSLog(@"LRFindPluginsInFolder: Unsupported api value '%@' in '%@', looking for api values: %@", props[@"api"], item, [validApiValues componentsJoinedByString:@", or "]);
                 continue;
             }
             NSLog(@"LRFindPluginsInFolder: Props of %@: %@", item, props);

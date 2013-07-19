@@ -4,10 +4,6 @@
 
 @interface ExternalEditor : Editor
 
-- (id)initWithScript:(SingleFilePlugin*)aScript;
-
-@property(nonatomic, readonly, strong) SingleFilePlugin *script;
-
-- (void)updateScript:(SingleFilePlugin *)script;
+@property(nonatomic, strong) SingleFilePlugin *script;
 
 @end

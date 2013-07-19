@@ -1,0 +1,25 @@
+{
+  "api-version": 1,
+
+  "author": "Andrey Tarantsov <andrey@tarantsov.com>",
+  "version": "1.0.0",
+
+  "editors": [
+    {
+      "id": "com.sublimetext.2",
+      "name": "Sublime Text 2",
+      "default-priority": 2,
+      "mac-bundle-id": "com.sublimetext.2",
+      "mac-sandbox-friendly": false
+    },
+    {
+      "id": "com.macromates.textmate",
+      "name": "TextMate 1",
+      "default-priority": 1,
+      "mac-bundle-id": "com.macromates.textmate",
+      "open-url-1": "txmt://open/?url=file://((file))",
+      "open-url-2": "txmt://open/?url=file://((file))&line=((line))",
+      "open-url-3": "txmt://open/?url=file://((file))&line=((line))&column=((column))"
+    }
+  ]
+}

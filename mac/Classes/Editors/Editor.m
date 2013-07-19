@@ -19,7 +19,8 @@ static NSString *EditorStateStrings[] = {
 @end
 
 @implementation Editor
-
+@synthesize identifier = _identifier;
+@synthesize displayName = _displayName;
 @synthesize state = _state;
 @synthesize stateStale = _stateStale;
 @synthesize mruPosition = _mruPosition;
@@ -30,16 +31,10 @@ static NSString *EditorStateStrings[] = {
     self = [super init];
     if (self) {
         _mruPosition = NSNotFound;
+
+        [self updateStateSoon];
     }
     return self;
-}
-
-- (NSString *)identifier {
-    MustOverride();
-}
-
-- (NSString *)displayName {
-    MustOverride();
 }
 
 - (BOOL)jumpToFile:(NSString *)file line:(NSInteger)line {
@@ -50,11 +45,20 @@ static NSString *EditorStateStrings[] = {
     return self.state == EditorStateRunning;
 }
 
+- (void)setAttributesDictionary:(NSDictionary *)attributes {
+    self.identifier = attributes[@"id"];
+    self.displayName = attributes[@"name"];
+
+    [self updateStateSoon];
+}
+
 - (void)updateStateSoon {
     if (self.stateStale)
         return;
     self.stateStale = YES;
-    [self doUpdateStateInBackground];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
+        [self doUpdateStateInBackground];
+    });
 }
 
 - (void)updateState:(EditorState)state error:(NSError *)error {
