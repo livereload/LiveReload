@@ -14,6 +14,15 @@
       "open-url-2": "txmt://open/?url=((fileURL))&line=((line))",
       "open-url-3": "txmt://open/?url=((fileURL))&line=((line))&column=((column))",
       "default-priority": 1
+    },
+    {
+      "id": "com.barebones.bbedit",
+      "name": "BBEdit",
+      "cocoa-bundle-id": "com.barebones.bbedit",
+      "open-url-1": "txmt://open/?url=((fileURL))",
+      "open-url-2": "txmt://open/?url=((fileURL))&line=((line))",
+      "open-url-3": "txmt://open/?url=((fileURL))&line=((line))&column=((column))",
+      "default-priority": 1
     }
   ]
 }
