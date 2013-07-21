@@ -1,6 +1,15 @@
 
 #import "ExternalEditor.h"
 #import "Errors.h"
+#import "NSString+ProperURLEncoding.h"
+
+
+static NSURL *ExpandFileURLTemplate(NSString *template, NSURL *fileURL, NSInteger line) {
+    template = [template stringByReplacingOccurrencesOfString:@"((file))" withString:[[fileURL path] stringByApplyingURLEncoding]];
+    template = [template stringByReplacingOccurrencesOfString:@"((fileURL))" withString:[[fileURL absoluteString] stringByApplyingURLEncoding]];
+    template = [template stringByReplacingOccurrencesOfString:@"((line))" withString:[NSString stringWithFormat:@"%d", (int)line]];
+    return [NSURL URLWithString:template];
+}
 
 
 @interface ExternalEditor ()
@@ -10,6 +19,9 @@
 
 @synthesize script = _script;
 @synthesize cocoaBundleId = _cocoaBundleId;
+@synthesize magicURL1 = _magicURL1;
+@synthesize magicURL2 = _magicURL2;
+@synthesize magicURL3 = _magicURL3;
 
 - (void)setAttributesDictionary:(NSDictionary *)attributes {
     [super setAttributesDictionary:attributes];
@@ -17,6 +29,9 @@
     self.defaultPriority = [attributes[@"default-priority"] integerValue]; // gives 0 for missing keys, which is exactly what we want
     self.script = attributes[@"script"];
     self.cocoaBundleId = attributes[@"cocoa-bundle-id"];
+    self.magicURL1 = attributes[@"open-url-1"];
+    self.magicURL2 = attributes[@"open-url-2"];
+    self.magicURL3 = attributes[@"open-url-3"];
 }
 
 - (void)doUpdateStateInBackground {
@@ -59,6 +74,18 @@
 
 - (BOOL)jumpToFile:(NSString *)file line:(NSInteger)line {
     if (!self.script) {
+        NSString *magicURLTemplate = nil;
+        if (line >= 1)
+            magicURLTemplate = self.magicURL2;
+        else
+            magicURLTemplate = self.magicURL1;
+
+        if (magicURLTemplate) {
+            NSURL *magicURL = ExpandFileURLTemplate(magicURLTemplate, [NSURL fileURLWithPath:file], line);
+            if ([[NSWorkspace sharedWorkspace] openURLs:@[magicURL] withAppBundleIdentifier:self.cocoaBundleId options:0 additionalEventParamDescriptor:nil launchIdentifiers:NULL])
+                return YES;
+        }
+
         if (self.cocoaBundleId) {
             NSURL *fileURL = [NSURL fileURLWithPath:file];
             if ([[NSWorkspace sharedWorkspace] openURLs:@[fileURL] withAppBundleIdentifier:self.cocoaBundleId options:0 additionalEventParamDescriptor:nil launchIdentifiers:NULL])

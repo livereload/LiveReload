@@ -29,10 +29,10 @@ void ArrayDiffWithKeyCallbacks(NSArray *oldObjects, NSArray *newObjects, ArrayDi
 + (void)updateObject:(id)object withAttributeValues:(NSDictionary *)attributeValues;
 
 
-+ (void)updateMutableObjectsArray:(NSMutableArray *)objects withNewAttributeValueDictionaries:(NSArray *)attributeValueDictionaries identityKeyPath:(NSString *)identityKeyPath identityAttributeKey:(NSString *)identityKey create:(id(^)(NSDictionary *attributes))create update:(void(^)(id object, NSDictionary *attributes))update;
++ (void)updateMutableObjectsArray:(NSMutableArray *)objects withNewAttributeValueDictionaries:(NSArray *)attributeValueDictionaries identityKeyPath:(NSString *)identityKeyPath identityAttributeKey:(NSString *)identityKey create:(id(^)(NSDictionary *attributes))create update:(void(^)(id object, NSDictionary *attributes))update delete:(void(^)(id object))delete;
 
-+ (void)updateMutableObjectsArray:(NSMutableArray *)objects withNewAttributeValueDictionaries:(NSArray *)attributeValueDictionaries identityKeyPath:(NSString *)identityKeyPath create:(id(^)(NSDictionary *attributes))create;
++ (void)updateMutableObjectsArray:(NSMutableArray *)objects withNewAttributeValueDictionaries:(NSArray *)attributeValueDictionaries identityKeyPath:(NSString *)identityKeyPath create:(id(^)(NSDictionary *attributes))create delete:(void(^)(id object))delete;
 
-+ (void)updateMutableObjectsArray:(NSMutableArray *)objects usingAttributesPropertyWithNewAttributeValueDictionaries:(NSArray *)attributeValueDictionaries identityKeyPath:(NSString *)identityKeyPath identityAttributeKey:(NSString *)identityKey create:(id<ObjectWithAttributes>(^)(NSDictionary *attributes))create;
++ (void)updateMutableObjectsArray:(NSMutableArray *)objects usingAttributesPropertyWithNewAttributeValueDictionaries:(NSArray *)attributeValueDictionaries identityKeyPath:(NSString *)identityKeyPath identityAttributeKey:(NSString *)identityKey create:(id<ObjectWithAttributes>(^)(NSDictionary *attributes))create delete:(void(^)(id object))delete;
 
 @end

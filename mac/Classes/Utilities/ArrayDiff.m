@@ -69,7 +69,7 @@ static const char *UpdateObjectPreviousKeysAttachment = "UpdateObjectPreviousKey
     }
 }
 
-+ (void)updateMutableObjectsArray:(NSMutableArray *)objects withNewAttributeValueDictionaries:(NSArray *)attributeValueDictionaries identityKeyPath:(NSString *)identityKeyPath identityAttributeKey:(NSString *)identityKey create:(id(^)(NSDictionary *attributes))create update:(void(^)(id object, NSDictionary *attributes))update {
++ (void)updateMutableObjectsArray:(NSMutableArray *)objects withNewAttributeValueDictionaries:(NSArray *)attributeValueDictionaries identityKeyPath:(NSString *)identityKeyPath identityAttributeKey:(NSString *)identityKey create:(id(^)(NSDictionary *attributes))create update:(void(^)(id object, NSDictionary *attributes))update delete:(void(^)(id))delete {
     [self computeDifferenceFromArray:objects withKeys:^id(id object) {
         return [object valueForKeyPath:identityKeyPath];
     } toArray:attributeValueDictionaries withKeys:^id(NSDictionary *attributes) {
@@ -79,20 +79,21 @@ static const char *UpdateObjectPreviousKeysAttachment = "UpdateObjectPreviousKey
         update(object, newAttributes);
         [objects addObject:object];
     } removed:^(id oldObject) {
+        delete(oldObject);
         [objects removeObject:oldObject];
     } updated:update];
 }
 
-+ (void)updateMutableObjectsArray:(NSMutableArray *)objects withNewAttributeValueDictionaries:(NSArray *)attributeValueDictionaries identityKeyPath:(NSString *)identityKeyPath create:(id(^)(NSDictionary *attributes))create {
++ (void)updateMutableObjectsArray:(NSMutableArray *)objects withNewAttributeValueDictionaries:(NSArray *)attributeValueDictionaries identityKeyPath:(NSString *)identityKeyPath create:(id(^)(NSDictionary *attributes))create delete:(void(^)(id))delete {
     return [self updateMutableObjectsArray:objects withNewAttributeValueDictionaries:attributeValueDictionaries identityKeyPath:identityKeyPath identityAttributeKey:identityKeyPath create:create update:^(id object, NSDictionary *attributes) {
         [self updateObject:object withAttributeValues:attributes];
-    }];
+    } delete:delete];
 }
 
-+ (void)updateMutableObjectsArray:(NSMutableArray *)objects usingAttributesPropertyWithNewAttributeValueDictionaries:(NSArray *)attributeValueDictionaries identityKeyPath:(NSString *)identityKeyPath identityAttributeKey:(NSString *)identityKey create:(id<ObjectWithAttributes>(^)(NSDictionary *attributes))create {
++ (void)updateMutableObjectsArray:(NSMutableArray *)objects usingAttributesPropertyWithNewAttributeValueDictionaries:(NSArray *)attributeValueDictionaries identityKeyPath:(NSString *)identityKeyPath identityAttributeKey:(NSString *)identityKey create:(id<ObjectWithAttributes>(^)(NSDictionary *attributes))create delete:(void(^)(id))delete {
     return [self updateMutableObjectsArray:objects withNewAttributeValueDictionaries:attributeValueDictionaries identityKeyPath:identityKeyPath identityAttributeKey:identityKey create:create update:^(id<ObjectWithAttributes> object, NSDictionary *attributes) {
         [object setAttributesDictionary:attributes];
-    }];
+    } delete:delete];
 }
 
 @end

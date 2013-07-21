@@ -101,6 +101,7 @@
 		433253B3174E0BA200C9A76B /* GeneralPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 433253B1174E0BA200C9A76B /* GeneralPreferencesViewController.xib */; };
 		43361D4613C30D1400C0E589 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43361D4513C30D1400C0E589 /* libicucore.dylib */; };
 		4344CE1C1798DB9100CB8658 /* editors.json in Resources */ = {isa = PBXBuildFile; fileRef = 4344CE1B1798DB9100CB8658 /* editors.json */; };
+		4344CE39179C2C5700CB8658 /* NSString+ProperURLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 4344CE38179C2C5700CB8658 /* NSString+ProperURLEncoding.m */; };
 		4346F3A91450D8AD00B133F2 /* ImportGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 4346F3A81450D8AD00B133F2 /* ImportGraph.m */; };
 		4346F3AB1451012A00B133F2 /* StatusItemStateRotation3.png in Resources */ = {isa = PBXBuildFile; fileRef = 4346F3AA1451012A00B133F2 /* StatusItemStateRotation3.png */; };
 		4353196F1465B52D005FA59F /* ShitHappens.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353196E1465B52D005FA59F /* ShitHappens.m */; };
@@ -409,6 +410,8 @@
 		433253B1174E0BA200C9A76B /* GeneralPreferencesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GeneralPreferencesViewController.xib; sourceTree = "<group>"; };
 		43361D4513C30D1400C0E589 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		4344CE1B1798DB9100CB8658 /* editors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = editors.json; path = Resources/editors.json; sourceTree = "<group>"; };
+		4344CE37179C2C5600CB8658 /* NSString+ProperURLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ProperURLEncoding.h"; sourceTree = "<group>"; };
+		4344CE38179C2C5700CB8658 /* NSString+ProperURLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ProperURLEncoding.m"; sourceTree = "<group>"; };
 		4346F3A71450D8AD00B133F2 /* ImportGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImportGraph.h; sourceTree = "<group>"; };
 		4346F3A81450D8AD00B133F2 /* ImportGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImportGraph.m; sourceTree = "<group>"; };
 		4346F3AA1451012A00B133F2 /* StatusItemStateRotation3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemStateRotation3.png; sourceTree = "<group>"; };
@@ -1451,6 +1454,8 @@
 				823DDEB713F8DA3100529AD2 /* RegexKitLite.m */,
 				823DDEB813F8DA3100529AD2 /* VersionNumber.h */,
 				823DDEB913F8DA3100529AD2 /* VersionNumber.m */,
+				4344CE37179C2C5600CB8658 /* NSString+ProperURLEncoding.h */,
+				4344CE38179C2C5700CB8658 /* NSString+ProperURLEncoding.m */,
 				4304FC2B144B2BEB00D650DF /* NSDictionaryAndArray+SafeAccess.h */,
 				4304FC2C144B2BEB00D650DF /* NSDictionaryAndArray+SafeAccess.m */,
 				4310DE3E146DB6A0003091D1 /* UIBuilder.h */,
@@ -1846,6 +1851,7 @@
 				43DB9FD4178EDF2E007BEA36 /* Errors.m in Sources */,
 				43DB9FD7178EFA64007BEA36 /* ExternalEditor.m in Sources */,
 				43DB9FDA1792545E007BEA36 /* LRPluginCommons.m in Sources */,
+				4344CE39179C2C5700CB8658 /* NSString+ProperURLEncoding.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

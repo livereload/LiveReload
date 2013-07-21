@@ -77,7 +77,11 @@
 
         dispatch_async(dispatch_get_main_queue(), ^{
             [ModelDiffs updateMutableObjectsArray:_editors usingAttributesPropertyWithNewAttributeValueDictionaries:plugins identityKeyPath:@"identifier" identityAttributeKey:@"id" create:^(NSDictionary *attributes) {
-                return [[ExternalEditor alloc] init];
+                ExternalEditor *editor = [[ExternalEditor alloc] init];
+                [editor addObserver:self forKeyPath:@"state" options:0 context:NULL];
+                return editor;
+            } delete:^(ExternalEditor *editor) {
+                [editor removeObserver:self forKeyPath:@"state"];
             }];
             for (Editor *editor in _editors) {
                 [editor updateStateSoon];
@@ -95,6 +99,10 @@
 }
 
 - (void)resortEditors {
+    NSLog(@"resortEditors");
+    for (Editor *editor in _editors) {
+        NSLog(@"editor %@: effectivePriority=%d, defaultPriority=%d, mruPosition=%d", editor.displayName, (int)editor.effectivePriority, (int)editor.defaultPriority, (int)editor.mruPosition);
+    }
     _sortedEditors = [[_editors sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"effectivePriority" ascending:NO]]] copy];
 }
 
@@ -106,6 +114,10 @@
     [_mostRecentlyUsedEditorIdentifiers insertObject:identifier atIndex:0];
     [[NSUserDefaults standardUserDefaults] setObject:_mostRecentlyUsedEditorIdentifiers forKey:@"EditorMRU"];
 
+    [self resortEditors];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     [self resortEditors];
 }
 
