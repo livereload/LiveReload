@@ -9,15 +9,24 @@
 @implementation ExternalEditor
 
 @synthesize script = _script;
+@synthesize cocoaBundleId = _cocoaBundleId;
 
 - (void)setAttributesDictionary:(NSDictionary *)attributes {
     [super setAttributesDictionary:attributes];
 
     self.defaultPriority = [attributes[@"default-priotity"] integerValue]; // gives 0 for missing keys, which is exactly what we want
     self.script = attributes[@"script"];
+    self.cocoaBundleId = attributes[@"cocoa-bundle-id"];
 }
 
 - (void)doUpdateStateInBackground {
+    if (self.cocoaBundleId) {
+        if ([[NSRunningApplication runningApplicationsWithBundleIdentifier:self.cocoaBundleId] count] > 0) {
+            [self updateState:EditorStateRunning error:nil];
+            return;
+        }
+    }
+
     [self.script invokeWithArguments:@[@"--check"] options:LaunchUnixTaskAndCaptureOutputOptionsMergeStdoutAndStderr completionHandler:^(NSString *outputText, NSString *stderrText, NSError *error) {
         NSLog(@"--check complete, error = %@, output = %@", [error localizedDescription], outputText);
 
@@ -36,13 +45,6 @@
         NSString *message = output[@"message"];
 
         if ([result isEqualToString:@"found"]) {
-            NSString *appId = self.script.properties[@"editor-app-id"];
-            if (appId) {
-                if ([[NSRunningApplication runningApplicationsWithBundleIdentifier:appId] count] > 0) {
-                    [self updateState:EditorStateRunning error:nil];
-                    return;
-                }
-            }
             [self updateState:EditorStateFound error:nil];
         } else if ([result isEqualToString:@"running"])
             [self updateState:EditorStateRunning error:nil];
@@ -56,6 +58,15 @@
 }
 
 - (BOOL)jumpToFile:(NSString *)file line:(NSInteger)line {
+    if (!self.script) {
+        if (self.cocoaBundleId) {
+            NSURL *fileURL = [NSURL fileURLWithPath:file];
+            if ([[NSWorkspace sharedWorkspace] openURLs:@[fileURL] withAppBundleIdentifier:self.cocoaBundleId options:0 additionalEventParamDescriptor:nil launchIdentifiers:NULL])
+                return YES;
+        }
+        return NO;
+    }
+
     NSArray *arguments = @[file];
     if (line >= 0)
         arguments = [arguments arrayByAddingObject:[NSString stringWithFormat:@"%d", (int)line]];

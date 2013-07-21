@@ -2,7 +2,9 @@
   "editors": [
     {
       "id": "com.sublimetext.2",
-      "name": "Sublime Text 2"
+      "name": "Sublime Text 2",
+      "cocoa-bundle-id": "com.sublimetext.2",
+      "default-priority": 2
     }
   ]
 }
