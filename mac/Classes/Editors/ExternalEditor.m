@@ -14,7 +14,7 @@
 - (void)setAttributesDictionary:(NSDictionary *)attributes {
     [super setAttributesDictionary:attributes];
 
-    self.defaultPriority = [attributes[@"default-priotity"] integerValue]; // gives 0 for missing keys, which is exactly what we want
+    self.defaultPriority = [attributes[@"default-priority"] integerValue]; // gives 0 for missing keys, which is exactly what we want
     self.script = attributes[@"script"];
     self.cocoaBundleId = attributes[@"cocoa-bundle-id"];
 }
