@@ -283,6 +283,7 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
     [self.window setContentMinSize:minViewRect.size];
     [self.window setContentMaxSize:NSMakeSize(sizableWidth ? CGFLOAT_MAX : NSWidth(oldViewRect), sizableHeight ? CGFLOAT_MAX : NSHeight(oldViewRect))];
     [self.window setShowsResizeIndicator:sizableWidth || sizableHeight];
+    [[self.window standardWindowButton:NSWindowZoomButton] setEnabled:sizableWidth || sizableHeight];
 
     [self.window setFrame:newFrame display:YES animate:[self.window isVisible]];
     
