@@ -100,6 +100,7 @@
 		433253B2174E0BA200C9A76B /* GeneralPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 433253B0174E0BA200C9A76B /* GeneralPreferencesViewController.m */; };
 		433253B3174E0BA200C9A76B /* GeneralPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 433253B1174E0BA200C9A76B /* GeneralPreferencesViewController.xib */; };
 		43361D4613C30D1400C0E589 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43361D4513C30D1400C0E589 /* libicucore.dylib */; };
+		433B66E717A0914400A41848 /* streamline.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 433B66E617A0914400A41848 /* streamline.lrplugin */; };
 		4344CE1C1798DB9100CB8658 /* editors.json in Resources */ = {isa = PBXBuildFile; fileRef = 4344CE1B1798DB9100CB8658 /* editors.json */; };
 		4344CE39179C2C5700CB8658 /* NSString+ProperURLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 4344CE38179C2C5700CB8658 /* NSString+ProperURLEncoding.m */; };
 		4346F3A91450D8AD00B133F2 /* ImportGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 4346F3A81450D8AD00B133F2 /* ImportGraph.m */; };
@@ -409,6 +410,7 @@
 		433253B0174E0BA200C9A76B /* GeneralPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneralPreferencesViewController.m; sourceTree = "<group>"; };
 		433253B1174E0BA200C9A76B /* GeneralPreferencesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GeneralPreferencesViewController.xib; sourceTree = "<group>"; };
 		43361D4513C30D1400C0E589 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		433B66E617A0914400A41848 /* streamline.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = streamline.lrplugin; path = ../plugins/streamline.lrplugin; sourceTree = "<group>"; };
 		4344CE1B1798DB9100CB8658 /* editors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = editors.json; path = Resources/editors.json; sourceTree = "<group>"; };
 		4344CE37179C2C5600CB8658 /* NSString+ProperURLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ProperURLEncoding.h"; sourceTree = "<group>"; };
 		4344CE38179C2C5700CB8658 /* NSString+ProperURLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ProperURLEncoding.m"; sourceTree = "<group>"; };
@@ -991,6 +993,7 @@
 		431CB52C16D1EF7200034877 /* plugins */ = {
 			isa = PBXGroup;
 			children = (
+				433B66E617A0914400A41848 /* streamline.lrplugin */,
 				431CB52D16D1EF8200034877 /* CoffeeScript.lrplugin */,
 				431CB52E16D1EF8200034877 /* Eco.lrplugin */,
 				431CB52F16D1EF8200034877 /* HAML.lrplugin */,
@@ -1687,6 +1690,7 @@
 				433253A9174E0B4200C9A76B /* PrefPaneRubies.png in Resources */,
 				433253B3174E0BA200C9A76B /* GeneralPreferencesViewController.xib in Resources */,
 				4344CE1C1798DB9100CB8658 /* editors.json in Resources */,
+				433B66E717A0914400A41848 /* streamline.lrplugin in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
