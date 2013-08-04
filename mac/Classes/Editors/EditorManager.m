@@ -74,6 +74,7 @@
         NSDictionary *editorClasses = @{
             @"com.sublimetext.2": [SublimeText2Editor class],
             @"com.sublimetext.3": [SublimeText3Editor class],
+            @"com.panic.Coda2": [Coda2Editor class],
         };
 
         NSArray *plugins1 = [self loadBundledEditors];

@@ -173,6 +173,8 @@
 		43B5C03417AE99A000F57276 /* EKEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B5C03317AE99A000F57276 /* EKEditor.m */; };
 		43B5C03717AE99B200F57276 /* EKGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B5C03617AE99B200F57276 /* EKGlobals.m */; };
 		43B5C03A17AEA41E00F57276 /* SublimeText3Editor.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B5C03917AEA41E00F57276 /* SublimeText3Editor.m */; };
+		43B5C03D17AEA8C100F57276 /* Coda2Editor.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B5C03C17AEA8C000F57276 /* Coda2Editor.m */; };
+		43B5C04017AEA9F400F57276 /* NSAppleScript+ATInvokeHandlerWithArguments.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B5C03F17AEA9F300F57276 /* NSAppleScript+ATInvokeHandlerWithArguments.m */; };
 		43C0368613CA191D00A01305 /* LiveReload.icns in Resources */ = {isa = PBXBuildFile; fileRef = 43C0368513CA191C00A01305 /* LiveReload.icns */; };
 		43C3D04E15B37B1500BCD2E8 /* LicenseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C3D04D15B37B1500BCD2E8 /* LicenseManager.m */; };
 		43DB9FD4178EDF2E007BEA36 /* Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD3178EDF2E007BEA36 /* Errors.m */; };
@@ -535,6 +537,10 @@
 		43B5C03617AE99B200F57276 /* EKGlobals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EKGlobals.m; sourceTree = "<group>"; };
 		43B5C03817AEA41E00F57276 /* SublimeText3Editor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SublimeText3Editor.h; sourceTree = "<group>"; };
 		43B5C03917AEA41E00F57276 /* SublimeText3Editor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SublimeText3Editor.m; sourceTree = "<group>"; };
+		43B5C03B17AEA8C000F57276 /* Coda2Editor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Coda2Editor.h; sourceTree = "<group>"; };
+		43B5C03C17AEA8C000F57276 /* Coda2Editor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Coda2Editor.m; sourceTree = "<group>"; };
+		43B5C03E17AEA9F300F57276 /* NSAppleScript+ATInvokeHandlerWithArguments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAppleScript+ATInvokeHandlerWithArguments.h"; sourceTree = "<group>"; };
+		43B5C03F17AEA9F300F57276 /* NSAppleScript+ATInvokeHandlerWithArguments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAppleScript+ATInvokeHandlerWithArguments.m"; sourceTree = "<group>"; };
 		43C0368513CA191C00A01305 /* LiveReload.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LiveReload.icns; sourceTree = "<group>"; };
 		43C3D04C15B37B1500BCD2E8 /* LicenseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LicenseManager.h; sourceTree = "<group>"; };
 		43C3D04D15B37B1500BCD2E8 /* LicenseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LicenseManager.m; sourceTree = "<group>"; };
@@ -1246,6 +1252,8 @@
 				43B5C00B17ADF35C00F57276 /* NSString+ATProperURLEncoding.m */,
 				43B5C00E17ADF35C00F57276 /* NSWindowController+ATTextStyling.h */,
 				43B5C00F17ADF35C00F57276 /* NSWindowController+ATTextStyling.m */,
+				43B5C03E17AEA9F300F57276 /* NSAppleScript+ATInvokeHandlerWithArguments.h */,
+				43B5C03F17AEA9F300F57276 /* NSAppleScript+ATInvokeHandlerWithArguments.m */,
 				43B5C01517ADF5FB00F57276 /* RegexKitLite.h */,
 				43B5C01617ADF5FB00F57276 /* RegexKitLite.m */,
 			);
@@ -1277,6 +1285,8 @@
 				43B5C02717AE0BE600F57276 /* SublimeText2Editor.m */,
 				43B5C03817AEA41E00F57276 /* SublimeText3Editor.h */,
 				43B5C03917AEA41E00F57276 /* SublimeText3Editor.m */,
+				43B5C03B17AEA8C000F57276 /* Coda2Editor.h */,
+				43B5C03C17AEA8C000F57276 /* Coda2Editor.m */,
 			);
 			path = SpecificEditors;
 			sourceTree = "<group>";
@@ -1882,6 +1892,8 @@
 				43B5C03417AE99A000F57276 /* EKEditor.m in Sources */,
 				43B5C03717AE99B200F57276 /* EKGlobals.m in Sources */,
 				43B5C03A17AEA41E00F57276 /* SublimeText3Editor.m in Sources */,
+				43B5C03D17AEA8C100F57276 /* Coda2Editor.m in Sources */,
+				43B5C04017AEA9F400F57276 /* NSAppleScript+ATInvokeHandlerWithArguments.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

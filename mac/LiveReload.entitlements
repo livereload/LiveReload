@@ -17,5 +17,9 @@
 		<string>Sublime Text 2</string>
 		<string>Sublime Text</string>
 	</array>
+	<key>com.apple.security.temporary-exception.apple-events</key>
+	<array>
+		<string>com.panic.coda2</string>
+	</array>
 </dict>
 </plist>
