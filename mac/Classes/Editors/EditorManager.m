@@ -71,13 +71,18 @@
 
 - (void)updateEditors {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        NSDictionary *editorClasses = @{
+            @"com.sublimetext.2": [SublimeText2Editor class],
+            @"com.sublimetext.3": [SublimeText3Editor class],
+        };
+
         NSArray *plugins1 = [self loadBundledEditors];
         NSArray *plugins2 = [self loadExternalEditors];
-        NSArray *plugins3 = [NSArray arrayWithObject:@{@"id": @"com.sublimetext.2"}];
+        NSArray *plugins3 = [[editorClasses allKeys] arrayByMappingElementsUsingBlock:^id(NSString *identifier) {
+            return @{@"id": identifier};
+        }];
         NSArray *plugins12 = [plugins1 arrayByMergingDictionaryValuesWithArray:plugins2 groupedByKeyPath:@"id"];
         NSArray *plugins = [plugins12 arrayByMergingDictionaryValuesWithArray:plugins3 groupedByKeyPath:@"id"];
-
-        NSDictionary *editorClasses = @{@"com.sublimetext.2": [SublimeText2Editor class]};
 
         dispatch_async(dispatch_get_main_queue(), ^{
             [ModelDiffs updateMutableObjectsArray:_editors usingAttributesPropertyWithNewAttributeValueDictionaries:plugins identityKeyPath:@"identifier" identityAttributeKey:@"id" create:^(NSDictionary *attributes) {

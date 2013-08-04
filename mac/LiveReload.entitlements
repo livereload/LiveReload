@@ -15,6 +15,7 @@
 	<key>com.apple.security.temporary-exception.mach-lookup.global-name</key>
 	<array>
 		<string>Sublime Text 2</string>
+		<string>Sublime Text</string>
 	</array>
 </dict>
 </plist>

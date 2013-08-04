@@ -1,9 +1,9 @@
 
-#import "SublimeText2Editor.h"
+#import "SublimeText3Editor.h"
 #import "EKJumpRequest.h"
 
 
-@protocol SublimeText2RemoteProxy <NSObject>
+@protocol SublimeText3RemoteProxy <NSObject>
 - (void)remoteCommandLine:(NSData *)commandLine reqId:(int)reqId;
 @end
 
@@ -21,14 +21,14 @@ static void WriteString(NSMutableData *data, NSString *string) {
 }
 
 
-@implementation SublimeText2Editor
+@implementation SublimeText3Editor
 
 - (id)init {
     self = [super init];
     if (self) {
-        self.identifier = @"com.sublimetext.2";
-        self.cocoaBundleId = @"com.sublimetext.2";
-        self.displayName = @"Sublime Text 2";
+        self.identifier = @"com.sublimetext.3";
+        self.cocoaBundleId = @"com.sublimetext.3";
+        self.displayName = @"Sublime Text 3";
         self.defaultPriority = 2;
     }
     return self;
@@ -49,19 +49,21 @@ static void WriteString(NSMutableData *data, NSString *string) {
     if (![[NSWorkspace sharedWorkspace] openURLs:@[request.fileURL] withAppBundleIdentifier:self.cocoaBundleId options:0 additionalEventParamDescriptor:nil launchIdentifiers:NULL])
         return completionHandler([NSError errorWithDomain:EKErrorDomain code:EKErrorCodeLaunchFailed userInfo:nil]);
 
-    id<SublimeText2RemoteProxy> proxy = (id)[NSConnection rootProxyForConnectionWithRegisteredName:@"Sublime Text 2" host:nil];
+    id<SublimeText3RemoteProxy> proxy = (id)[NSConnection rootProxyForConnectionWithRegisteredName:@"Sublime Text" host:nil];
     NSLog(@"proxy = %@", proxy);
     if (!proxy)
         return completionHandler([NSError errorWithDomain:EKErrorDomain code:EKErrorCodeJumpFailed userInfo:nil]);
 
     NSMutableData *data = [NSMutableData data];
 
-    WriteInt32(data, 5); // format version number
+    WriteInt32(data, 6); // format version number
 
     // files
     WriteInt32(data, 1);
     WriteString(data, [request componentsJoinedByString:@":"]);
     // projects
+    WriteInt32(data, 0);
+    // workspaces
     WriteInt32(data, 0);
     // commands
     WriteInt32(data, 0);

@@ -59,7 +59,7 @@ static NSString *EditorStateStrings[] = {
 
 - (void)setAttributesDictionary:(NSDictionary *)attributes {
     self.identifier = attributes[@"id"];
-    self.displayName = attributes[@"name"];
+    self.displayName = attributes[@"name"] ?: self.displayName;
 
     [self updateStateSoon];
 }
