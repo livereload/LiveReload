@@ -8,13 +8,13 @@
 // http://carpeaqua.com/2008/03/01/adding-an-application-to-login-items-in-mac-os-x-leopard/
 // -------------------------------------------------------
 
-#import "LoginItemController.h"
+#import "ATLoginItemController.h"
 
 
-static LoginItemController *sharedController;
+static ATLoginItemController *sharedController;
 
 
-@interface LoginItemController ()
+@interface ATLoginItemController ()
 
 - (NSURL *) applicationPath;
 - (LSSharedFileListRef) getLoginItemList;
@@ -24,11 +24,11 @@ static LoginItemController *sharedController;
 @end
 
 
-@implementation LoginItemController
+@implementation ATLoginItemController
 
-+ (LoginItemController *)sharedController {
++ (ATLoginItemController *)sharedController {
     if (sharedController == nil) {
-        sharedController = [[LoginItemController alloc] init];
+        sharedController = [[ATLoginItemController alloc] init];
     }
     return sharedController;
 }

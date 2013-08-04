@@ -1,6 +1,6 @@
 
 #import "CustomRubyInstance.h"
-#import "ATSandboxing.h"
+#import "ATGlobals.h"
 
 
 @interface CustomRubyInstance ()

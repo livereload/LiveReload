@@ -2,14 +2,14 @@
 #import <Foundation/Foundation.h>
 
 
-@interface NSArray (Substitutions)
+@interface NSArray (ATSubstitutions)
 
 - (NSArray *)arrayBySubstitutingValuesFromDictionary:(NSDictionary *)info;
 
 @end
 
 
-@interface NSString (Substitutions)
+@interface NSString (ATSubstitutions)
 
 - (NSString *)stringBySubstitutingValuesFromDictionary:(NSDictionary *)info;
 

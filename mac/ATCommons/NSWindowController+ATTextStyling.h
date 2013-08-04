@@ -1,7 +1,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSWindowController (TextStyling)
+@interface NSWindowController (ATTextStyling)
 
 - (NSShadow *)subtleWhiteShadow;
 - (void)styleLabel:(NSControl *)label color:(NSColor *)color shadow:(NSShadow *)shadow;

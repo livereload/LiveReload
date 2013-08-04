@@ -1,7 +1,7 @@
 
-#import "NSString+ProperURLEncoding.h"
+#import "NSString+ATProperURLEncoding.h"
 
-@implementation NSString (ProperURLEncoding)
+@implementation NSString (ATProperURLEncoding)
 
 - (NSString *)stringByApplyingURLEncoding {
     return (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(NULL, (__bridge CFStringRef)self, NULL, (CFStringRef)@"!*'\"();:@&=+$,/?%#[]% ", kCFStringEncodingUTF8));

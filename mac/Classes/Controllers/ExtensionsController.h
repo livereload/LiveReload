@@ -1,6 +1,5 @@
 
 #import <Foundation/Foundation.h>
-#import "VersionNumber.h"
 
 
 @interface ExtensionsController : NSObject {

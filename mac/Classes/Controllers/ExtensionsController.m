@@ -1,7 +1,5 @@
 
 #import "ExtensionsController.h"
-#import "MD5OfFile.h"
-#import "VersionNumber.h"
 
 
 static ExtensionsController *sharedExtensionsController;

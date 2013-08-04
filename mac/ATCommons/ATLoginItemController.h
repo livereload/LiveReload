@@ -7,9 +7,9 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface LoginItemController : NSObject {}
+@interface ATLoginItemController : NSObject {}
 
-+ (LoginItemController *)sharedController;
++ (ATLoginItemController *)sharedController;
 
 @property BOOL loginItemEnabled;
 

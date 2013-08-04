@@ -2,7 +2,7 @@
 #import "RbenvContainer.h"
 #import "RuntimeGlobals.h"
 #import "RbenvRubyInstance.h"
-#import "ATSandboxing.h"
+#import "ATGlobals.h"
 
 NSString *GetDefaultRbenvPath() {
     NSString *option1 = [ATRealHomeDirectory() stringByAppendingPathComponent:@".rbenv"];

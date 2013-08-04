@@ -3,13 +3,10 @@
 #import "console.h"
 
 #import "UserScript.h"
-#import "ATSandboxing.h"
+#import "ATGlobals.h"
 #import "OldFSMonitor.h"
 #import "NSTask+OneLineTasksWithOutput.h"
-
-#import "ATSandboxing.h"
-#import "PlainUnixTask.h"
-#import "TaskOutputReader.h"
+#import "ATChildTask.h"
 #import "stringutil.h"
 
 
@@ -75,7 +72,7 @@ NSString *const UserScriptErrorDomain = @"com.livereload.LiveReload.UserScript";
             userScript = nil; // TODO
         }
     } else {
-        userScript = [[PlainUnixTask alloc] initWithURL:scriptURL error:&error];
+        userScript = [[ATPlainUnixTask alloc] initWithURL:scriptURL error:&error];
     }
 
     if (userScript == nil) {
@@ -83,7 +80,7 @@ NSString *const UserScriptErrorDomain = @"com.livereload.LiveReload.UserScript";
         return;
     }
 
-    TaskOutputReader *outputReader = [[TaskOutputReader alloc] init];
+    ATTaskOutputReader *outputReader = [[ATTaskOutputReader alloc] init];
     [userScript setStandardOutput:outputReader.standardOutputPipe.fileHandleForWriting];
     [userScript setStandardError:outputReader.standardErrorPipe.fileHandleForWriting];
     [outputReader startReading];

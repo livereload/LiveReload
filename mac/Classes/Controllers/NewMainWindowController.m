@@ -21,8 +21,7 @@
 
 #import "Stats.h"
 #import "ShitHappens.h"
-#import "VersionChecks.h"
-#import "LoginItemController.h"
+#import "ATLoginItemController.h"
 #import "DockIcon.h"
 #import "LicenseManager.h"
 
@@ -616,7 +615,7 @@ void C_mainwnd__set_change_count(json_t *arg) {
 #pragma mark - Settings menu
 
 - (void)updateItemStates {
-    _openAtLoginMenuItem.state = ([LoginItemController sharedController].loginItemEnabled ? NSOnState : NSOffState);
+    _openAtLoginMenuItem.state = ([ATLoginItemController sharedController].loginItemEnabled ? NSOnState : NSOffState);
 
     AppVisibilityMode visibilityMode = [DockIcon currentDockIcon].visibilityMode;
     [_showInDockMenuItem setState:(visibilityMode == AppVisibilityModeDock ? NSOnState : NSOffState)];
@@ -625,7 +624,7 @@ void C_mainwnd__set_change_count(json_t *arg) {
 }
 
 - (IBAction)toggleOpenAtLogin:(id)sender {
-    [LoginItemController sharedController].loginItemEnabled = ![LoginItemController sharedController].loginItemEnabled;
+    [ATLoginItemController sharedController].loginItemEnabled = ![ATLoginItemController sharedController].loginItemEnabled;
     [self updateItemStates];
 }
 

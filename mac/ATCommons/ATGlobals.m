@@ -1,11 +1,80 @@
 
-#import "ATSandboxing.h"
+#import "ATGlobals.h"
 #import "NSData+Base64.h"
 
 #include <unistd.h>
 #include <sys/types.h>
 #include <pwd.h>
 #include <assert.h>
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+#pragma mark - OS versions
+
+ATVersion ATVersionMake(int major, int minor, int revision) {
+    return major * (100 * 100) + minor * 100 + revision;
+}
+
+ATVersion ATVersionFromNSString(NSString *string) {
+    NSArray *components = [string componentsSeparatedByString:@"."];
+    int major = [[components objectAtIndex:0] intValue];
+    int minor = ([components count] > 1 ? [[components objectAtIndex:1] intValue] : 0);
+    int revision = ([components count] > 2 ? [[components objectAtIndex:2] intValue] : 0);
+    return ATVersionMake(major, minor, revision);
+}
+
+ATVersionComponents ATVersionComponentsFromVersion(ATVersion version) {
+    ATVersionComponents components;
+    components.revision = version % 100;
+    version /= 100;
+    components.minor = version % 100;
+    version /= 100;
+    components.major = version;
+    return components;
+}
+
+NSString *NSStringFromATVersion(ATVersion version) {
+    ATVersionComponents components = ATVersionComponentsFromVersion(version);
+    return [NSString stringWithFormat:@"%d.%d.%d", components.major, components.minor, components.revision];
+}
+
+NSString *ATOSVersionString() {
+    static NSString *result = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        result = [[[NSDictionary dictionaryWithContentsOfFile:@"/System/Library/CoreServices/SystemVersion.plist"] objectForKey:@"ProductVersion"] copy];
+    });
+    return result;
+}
+
+ATVersion ATOSVersion() {
+    static int result;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSArray *components = [[ATOSVersionString() stringByAppendingString:@".0.0.0"] componentsSeparatedByString:@"."];
+        int major = [[components objectAtIndex:0] intValue];
+        int minor = [[components objectAtIndex:1] intValue];
+        int revision = [[components objectAtIndex:2] intValue];
+        result = ATVersionMake(major, minor, revision);
+    });
+    return result;
+}
+
+BOOL ATOSVersionAtLeast(int major, int minor, int revision) {
+    return ATOSVersion() >= ATVersionMake(major, minor, revision);
+}
+BOOL ATOSVersionLessThan(int major, int minor, int revision) {
+    return ATOSVersion() < ATVersionMake(major, minor, revision);
+}
+BOOL ATIsOS107LionOrLater() {
+    return ATOSVersionAtLeast(10, 7, 0);
+}
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Sandboxing
 
 NSString *ATRealHomeDirectory() {
     struct passwd *pw = getpwuid(getuid());
@@ -44,40 +113,42 @@ BOOL ATIsUserScriptsFolderSupported() {
     return ATOSVersionAtLeast(10, 8, 0);
 }
 
+@implementation NSString (ATSandboxing)
 
-NSString *ATOSVersionString() {
-    static NSString *result = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        result = [[[NSDictionary dictionaryWithContentsOfFile:@"/System/Library/CoreServices/SystemVersion.plist"] objectForKey:@"ProductVersion"] copy];
-    });
-    return result;
+- (NSString *)stringByAbbreviatingTildeInPathUsingRealHomeDirectory {
+    NSString *realHome = ATRealHomeDirectory();
+
+    NSUInteger ourLength = self.length;
+    NSUInteger homeLength = realHome.length;
+
+    if (ourLength < realHome.length)
+        return self;
+    if ([[self substringToIndex:homeLength] isEqualToString:realHome]) {
+        if (ourLength == homeLength)
+            return @"~";
+        else if ([self characterAtIndex:homeLength] == '/')
+            return [@"~" stringByAppendingString:[self substringFromIndex:homeLength]];
+    }
+    return self;
 }
 
-int ATVersionMake(int major, int minor, int revision) {
-    return major * (100 * 100) + minor * 100 + revision;
+- (NSString *)stringByExpandingTildeInPathUsingRealHomeDirectory {
+    NSString *realHome = ATRealHomeDirectory();
+    if ([self length] > 0 && [self characterAtIndex:0] == '~') {
+        if ([self length] == 1)
+            return realHome;
+        else if ([self characterAtIndex:1] == '/')
+            return [realHome stringByAppendingPathComponent:[self substringFromIndex:2]];
+    }
+    return self;
 }
 
-int ATOSVersion() {
-    static int result;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSArray *components = [[ATOSVersionString() stringByAppendingString:@".0.0.0"] componentsSeparatedByString:@"."];
-        int major = [[components objectAtIndex:0] intValue];
-        int minor = [[components objectAtIndex:1] intValue];
-        int revision = [[components objectAtIndex:2] intValue];
-        result = ATVersionMake(major, minor, revision);
-    });
-    return result;
-}
+@end
 
-BOOL ATOSVersionAtLeast(int major, int minor, int revision) {
-    return ATOSVersion() >= ATVersionMake(major, minor, revision);
-}
-BOOL ATOSVersionLessThan(int major, int minor, int revision) {
-    return ATOSVersion() < ATVersionMake(major, minor, revision);
-}
 
+
+////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Security-scoped bookmarks
 
 NSURL *ATInitOrResolveSecurityScopedURL(NSMutableDictionary *memento, NSURL *newURL, ATSecurityScopedURLOptions options) {
     NSError *error;
@@ -141,35 +212,3 @@ NSURL *ATInitOrResolveSecurityScopedURL(NSMutableDictionary *memento, NSURL *new
 }
 
 
-
-@implementation NSString (ATSandboxing)
-
-- (NSString *)stringByAbbreviatingTildeInPathUsingRealHomeDirectory {
-    NSString *realHome = ATRealHomeDirectory();
-
-    NSUInteger ourLength = self.length;
-    NSUInteger homeLength = realHome.length;
-
-    if (ourLength < realHome.length)
-        return self;
-    if ([[self substringToIndex:homeLength] isEqualToString:realHome]) {
-        if (ourLength == homeLength)
-            return @"~";
-        else if ([self characterAtIndex:homeLength] == '/')
-            return [@"~" stringByAppendingString:[self substringFromIndex:homeLength]];
-    }
-    return self;
-}
-
-- (NSString *)stringByExpandingTildeInPathUsingRealHomeDirectory {
-    NSString *realHome = ATRealHomeDirectory();
-    if ([self length] > 0 && [self characterAtIndex:0] == '~') {
-        if ([self length] == 1)
-            return realHome;
-        else if ([self characterAtIndex:1] == '/')
-            return [realHome stringByAppendingPathComponent:[self substringFromIndex:2]];
-    }
-    return self;
-}
-
-@end

@@ -1,7 +1,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSString (ProperURLEncoding)
+@interface NSString (ATProperURLEncoding)
 
 - (NSString *)stringByApplyingURLEncoding;
 

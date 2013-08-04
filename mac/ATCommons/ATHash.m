@@ -1,11 +1,11 @@
 
-#import "MD5OfFile.h"
+#import "ATHash.h"
 #import <CommonCrypto/CommonDigest.h>
 
-NSString* MD5OfFile(NSString *pathToFile) {
+NSString *ATComputeMD5HashOfFile(NSString *path) {
     unsigned char outputData[CC_MD5_DIGEST_LENGTH];
 
-    NSData *inputData = [[NSData alloc] initWithContentsOfFile:pathToFile];
+    NSData *inputData = [[NSData alloc] initWithContentsOfFile:path];
     CC_MD5([inputData bytes], [inputData length], outputData);
     [inputData release];
 

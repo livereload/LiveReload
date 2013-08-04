@@ -1,6 +1,6 @@
 
 #import <Foundation/Foundation.h>
-#import "ArrayDiff.h"
+#import "ATModelDiff.h"
 
 typedef enum {
     EditorStateNotFound,

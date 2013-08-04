@@ -2,10 +2,9 @@
 #import "RubyInstance.h"
 
 #import "RuntimeGlobals.h"
-#import "PlainUnixTask.h"
-#import "TaskOutputReader.h"
+#import "ATChildTask.h"
 #import "NSData+Base64.h"
-#import "ATSandboxing.h"
+#import "ATModelDiff.h"
 
 @implementation RubyInstance
 
@@ -17,13 +16,13 @@
         return;
     }
 
-    PlainUnixTask *task = [[PlainUnixTask alloc] initWithURL:self.executableURL error:&error];
+    ATPlainUnixTask *task = [[ATPlainUnixTask alloc] initWithURL:self.executableURL error:&error];
     if (!task) {
         [self validationFailedWithError:[NSError errorWithDomain:LRRuntimeManagerErrorDomain code:LRRuntimeManagerErrorValidationFailed userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Failed to create a task for validation"]}]];
         return;
     }
 
-    TaskOutputReader *reader = [[TaskOutputReader alloc] initWithTask:task];
+    ATTaskOutputReader *reader = [[ATTaskOutputReader alloc] initWithTask:task];
     [task executeWithArguments:@[@"--version"] completionHandler:^(NSError *error) {
         //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2000 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
         dispatch_async(dispatch_get_main_queue(), ^{

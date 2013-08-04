@@ -2,7 +2,7 @@
 #import "HomebrewContainer.h"
 #import "RuntimeGlobals.h"
 #import "HomebrewRubyInstance.h"
-#import "ATSandboxing.h"
+#import "ATGlobals.h"
 
 NSString *GetDefaultHomebrewPath() {
     return @"/usr/local";

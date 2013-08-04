@@ -1,6 +1,6 @@
 
 #import <Foundation/Foundation.h>
-#import "PlainUnixTask.h"
+#import "ATChildTask.h"
 
 
 @class SingleFilePlugin;
@@ -24,7 +24,7 @@ NSDictionary *LRParseKeyValueOutput(NSString *output);
 @property(nonatomic, readonly, copy) NSURL *scriptFileURL;
 @property(nonatomic, readonly, copy) NSDictionary *properties;
 
-- (id)invokeWithArguments:(NSArray *)arguments options:(LaunchUnixTaskAndCaptureOutputOptions)options completionHandler:(LaunchUnixTaskAndCaptureOutputCompletionHandler)completionHandler;
+- (id)invokeWithArguments:(NSArray *)arguments options:(ATLaunchUnixTaskAndCaptureOutputOptions)options completionHandler:(ATLaunchUnixTaskAndCaptureOutputCompletionHandler)completionHandler;
 
 - (BOOL)updateProperties:(NSDictionary *)newProperties;
 

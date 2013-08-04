@@ -1,8 +1,8 @@
 
-#import "NSArray+Substitutions.h"
+#import "NSArray+ATSubstitutions.h"
 
 
-@implementation NSArray (Substitutions)
+@implementation NSArray (ATSubstitutions)
 
 - (NSArray *)arrayBySubstitutingValuesFromDictionary:(NSDictionary *)info {
     NSMutableArray *result = [NSMutableArray arrayWithCapacity:[self count]];
@@ -33,7 +33,7 @@
 @end
 
 
-@implementation NSString (Substitutions)
+@implementation NSString (ATSubstitutions)
 
 - (NSString *)stringBySubstitutingValuesFromDictionary:(NSDictionary *)info {
     __block NSString *mutable = [self copy];

@@ -3,7 +3,6 @@
 extern NSString *const LRErrorDomain;
 
 enum {
-    LRErrorSandboxedTasksNotSupportedBefore10_8,
     LRErrorJsonParsingError,
     LRErrorPluginNotReadable,
     LRErrorPluginNotExecutable,

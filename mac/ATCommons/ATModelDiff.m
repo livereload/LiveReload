@@ -1,5 +1,5 @@
 
-#import "ArrayDiff.h"
+#import "ATModelDiff.h"
 #import <objc/runtime.h>
 
 void ArrayDiffWithKeyPath(NSArray *oldObjects, NSArray *newObjects, NSString *identityKeyPath, ArrayDiffAddCallback add, ArrayDiffRemoveCallback remove, ArrayDiffUpdateCallback update) {

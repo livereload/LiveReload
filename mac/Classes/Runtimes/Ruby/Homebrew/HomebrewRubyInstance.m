@@ -1,7 +1,7 @@
 
 #import "HomebrewRubyInstance.h"
 #import "HomebrewContainer.h"
-#import "ATSandboxing.h"
+#import "ATGlobals.h"
 
 
 @interface HomebrewRubyInstance ()

@@ -1,7 +1,7 @@
 
 #import "ExternalEditor.h"
 #import "Errors.h"
-#import "NSString+ProperURLEncoding.h"
+#import "NSString+ATProperURLEncoding.h"
 
 
 static NSURL *ExpandFileURLTemplate(NSString *template, NSURL *fileURL, NSInteger line) {
@@ -42,7 +42,7 @@ static NSURL *ExpandFileURLTemplate(NSString *template, NSURL *fileURL, NSIntege
         }
     }
 
-    [self.script invokeWithArguments:@[@"--check"] options:LaunchUnixTaskAndCaptureOutputOptionsMergeStdoutAndStderr completionHandler:^(NSString *outputText, NSString *stderrText, NSError *error) {
+    [self.script invokeWithArguments:@[@"--check"] options:ATLaunchUnixTaskAndCaptureOutputOptionsMergeStdoutAndStderr completionHandler:^(NSString *outputText, NSString *stderrText, NSError *error) {
         NSLog(@"--check complete, error = %@, output = %@", [error localizedDescription], outputText);
 
         if (error) {
@@ -98,7 +98,7 @@ static NSURL *ExpandFileURLTemplate(NSString *template, NSURL *fileURL, NSIntege
     if (line >= 0)
         arguments = [arguments arrayByAddingObject:[NSString stringWithFormat:@"%d", (int)line]];
 
-    [self.script invokeWithArguments:arguments options:LaunchUnixTaskAndCaptureOutputOptionsMergeStdoutAndStderr completionHandler:^(NSString *outputText, NSString *stderrText, NSError *error) {
+    [self.script invokeWithArguments:arguments options:ATLaunchUnixTaskAndCaptureOutputOptionsMergeStdoutAndStderr completionHandler:^(NSString *outputText, NSString *stderrText, NSError *error) {
         NSLog(@"Editor jump call complete, error = %@, output = %@", [error localizedDescription], outputText);
     }];
     return YES;

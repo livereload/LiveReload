@@ -18,7 +18,7 @@
 
 #import "Stats.h"
 #import "RegexKitLite.h"
-#import "NSArray+Substitutions.h"
+#import "NSArray+ATSubstitutions.h"
 #import "NSTask+OneLineTasksWithOutput.h"
 #import "ATFunctionalStyle.h"
 

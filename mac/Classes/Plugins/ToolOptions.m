@@ -6,7 +6,7 @@
 #import "CompilationOptions.h"
 #import "UIBuilder.h"
 
-#import "NSArray+Substitutions.h"
+#import "NSArray+ATSubstitutions.h"
 
 
 

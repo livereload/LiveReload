@@ -1,12 +1,12 @@
 
 #import "EditorManager.h"
-#import "ATSandboxing.h"
+#import "ATGlobals.h"
 #import "ATFunctionalStyle.h"
 #import "RegexKitLite.h"
 
 #import "ExternalEditor.h"
 #import "LRPluginCommons.h"
-#import "ArrayDiff.h"
+#import "ATModelDiff.h"
 
 
 @interface EditorManager ()

@@ -13,7 +13,7 @@
 #import "OldFSTree.h"
 #import "RegexKitLite.h"
 #import "NSTask+OneLineTasksWithOutput.h"
-#import "NSArray+Substitutions.h"
+#import "NSArray+ATSubstitutions.h"
 #import "ATFunctionalStyle.h"
 
 @interface NSString (SmartRegexpCaptures)

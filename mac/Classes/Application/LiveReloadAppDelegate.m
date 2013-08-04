@@ -9,7 +9,7 @@
 #import "CompilationOptions.h"
 #import "StatusItemController.h"
 #import "NewMainWindowController.h"
-#import "LoginItemController.h"
+#import "ATLoginItemController.h"
 #import "PluginManager.h"
 
 #import "Stats.h"
@@ -19,7 +19,7 @@
 #import "ShitHappens.h"
 #import "LicenseManager.h"
 #import "DockIcon.h"
-#import "ATSandboxing.h"
+#import "ATGlobals.h"
 #import "NSData+Base64.h"
 #import "Runtimes.h"
 #import "EditorManager.h"

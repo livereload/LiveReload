@@ -1,8 +1,8 @@
 
-#import "NSWindowController+TextStyling.h"
+#import "NSWindowController+ATTextStyling.h"
 
 
-@implementation NSWindowController (TextStyling)
+@implementation NSWindowController (ATTextStyling)
 
 - (NSShadow *)subtleWhiteShadow {
     static NSShadow *shadow = nil;

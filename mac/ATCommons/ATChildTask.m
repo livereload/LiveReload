@@ -1,8 +1,125 @@
 
-#import "TaskOutputReader.h"
+#import "ATChildTask.h"
+#import "ATGlobals.h"
 
 
-@implementation TaskOutputReader {
+
+////////////////////////////////////////////////////////////////////////////////
+
+static id ATPipeOrFileHandleForWriting(id task, NSPipe *pipe) {
+    if ([task isKindOfClass:[NSTask class]])
+        return pipe;
+    else
+        return pipe.fileHandleForWriting;
+}
+
+id ATLaunchUnixTaskAndCaptureOutput(NSURL *scriptURL, NSArray *arguments, ATLaunchUnixTaskAndCaptureOutputOptions options, ATLaunchUnixTaskAndCaptureOutputCompletionHandler handler) {
+    NSError *error = nil;
+    id task = ATCreateUserUnixTask(scriptURL, &error);
+    if (!task) {
+        handler(nil, nil, error);
+        return nil;
+    }
+
+    BOOL merge = !!(options & ATLaunchUnixTaskAndCaptureOutputOptionsMergeStdoutAndStderr);
+
+    ATTaskOutputReader *outputReader = [[ATTaskOutputReader alloc] init];
+    [task setStandardOutput:ATPipeOrFileHandleForWriting(task, outputReader.standardOutputPipe)];
+    if (merge) {
+        [task setStandardError:ATPipeOrFileHandleForWriting(task, outputReader.standardOutputPipe)];
+        [outputReader.standardErrorPipe.fileHandleForWriting closeFile];
+    } else {
+        [task setStandardError:ATPipeOrFileHandleForWriting(task, outputReader.standardErrorPipe)];
+    }
+    [outputReader startReading];
+
+    [task executeWithArguments:arguments completionHandler:^(NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSString *outputText = outputReader.standardOutputText;
+            NSString *stderrText = (merge ? outputText : outputReader.standardErrorText);
+            handler(outputText, stderrText, error);
+        });
+    }];
+    return task;
+}
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+#pragma mark -
+
+NSString *ATPlainUnixTaskErrorDomain = @"PlainUnixTask";
+
+
+id ATCreateUserUnixTask(NSURL *scriptURL, NSError **error) {
+    if (ATIsSandboxed()) {
+        if (ATIsUserScriptsFolderSupported()) {
+            return [[NSUserUnixTask alloc] initWithURL:scriptURL error:error];
+        } else {
+            if (error)
+                *error = [NSError errorWithDomain:ATPlainUnixTaskErrorDomain code:PlainUnixTaskErrSandboxedTasksNotSupportedBefore10_8 userInfo:@{NSURLErrorKey:scriptURL}];
+            return nil; // TODO
+        }
+    } else {
+        return [[ATPlainUnixTask alloc] initWithURL:scriptURL error:error];
+    }
+}
+
+
+@interface ATPlainUnixTask ()
+
+@property(strong) NSURL *url;
+
+@end
+
+
+@implementation ATPlainUnixTask
+
+@synthesize url;
+@synthesize standardInput;
+@synthesize standardOutput;
+@synthesize standardError;
+
+- (id)initWithURL:(NSURL *)aUrl error:(NSError **)error {
+    self = [super init];
+    if (self) {
+        self.url = aUrl;
+        *error = nil;
+    }
+    return self;
+}
+
+- (void)executeWithArguments:(NSArray *)arguments completionHandler:(PlainUnixTaskCompletionHandler)handler {
+    NSTask *task = [[NSTask alloc] init];
+
+    [task setLaunchPath:[url path]];
+    [task setArguments:arguments];
+
+    // standard input is required, otherwise everything just hangs
+    [task setStandardInput:self.standardInput ?: [NSFileHandle fileHandleWithNullDevice]];
+
+    [task setStandardOutput:self.standardOutput ?: [NSFileHandle fileHandleWithNullDevice]];
+    [task setStandardError:self.standardError ?: [NSFileHandle fileHandleWithNullDevice]];
+
+    task.terminationHandler = ^(NSTask *task) {
+        NSError *error = nil;
+        if ([task terminationStatus] != 0) {
+            error = [NSError errorWithDomain:ATPlainUnixTaskErrorDomain code:PlainUnixTaskErrNonZeroExit userInfo:nil];
+        }
+        handler(error);
+    };
+
+    [task launch];
+}
+
+@end
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+#pragma mark -
+
+@implementation ATTaskOutputReader {
     NSPipe *_standardOutputPipe;
     NSPipe *_standardErrorPipe;
 

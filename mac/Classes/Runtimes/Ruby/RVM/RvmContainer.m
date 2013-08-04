@@ -2,7 +2,7 @@
 #import "RvmContainer.h"
 #import "RuntimeGlobals.h"
 #import "RvmRubyInstance.h"
-#import "ATSandboxing.h"
+#import "ATGlobals.h"
 
 
 
