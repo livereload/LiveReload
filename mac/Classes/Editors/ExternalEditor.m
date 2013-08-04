@@ -18,7 +18,6 @@ static NSURL *ExpandFileURLTemplate(NSString *template, NSURL *fileURL, NSIntege
 @implementation ExternalEditor
 
 @synthesize script = _script;
-@synthesize cocoaBundleId = _cocoaBundleId;
 @synthesize magicURL1 = _magicURL1;
 @synthesize magicURL2 = _magicURL2;
 @synthesize magicURL3 = _magicURL3;
@@ -37,7 +36,7 @@ static NSURL *ExpandFileURLTemplate(NSString *template, NSURL *fileURL, NSIntege
 - (void)doUpdateStateInBackground {
     if (self.cocoaBundleId) {
         if ([[NSRunningApplication runningApplicationsWithBundleIdentifier:self.cocoaBundleId] count] > 0) {
-            [self updateState:EditorStateRunning error:nil];
+            [self updateState:EKEditorStateRunning error:nil];
             return;
         }
     }
@@ -46,29 +45,29 @@ static NSURL *ExpandFileURLTemplate(NSString *template, NSURL *fileURL, NSIntege
         NSLog(@"--check complete, error = %@, output = %@", [error localizedDescription], outputText);
 
         if (error) {
-            [self updateState:EditorStateBroken error:error];
+            [self updateState:EKEditorStateBroken error:error];
             return;
         }
 
         NSDictionary *output = LRParseKeyValueOutput(outputText);
         NSString *result = output[@"result"];
         if (!result) {
-            [self updateState:EditorStateBroken error:[NSError errorWithDomain:LRErrorDomain code:LRErrorPluginApiViolation userInfo:@{NSLocalizedDescriptionKey: @"Editor --check must output 'result: running|found|broken|not-found'"}]];
+            [self updateState:EKEditorStateBroken error:[NSError errorWithDomain:LRErrorDomain code:LRErrorPluginApiViolation userInfo:@{NSLocalizedDescriptionKey: @"Editor --check must output 'result: running|found|broken|not-found'"}]];
             return;
         }
 
         NSString *message = output[@"message"];
 
         if ([result isEqualToString:@"found"]) {
-            [self updateState:EditorStateFound error:nil];
+            [self updateState:EKEditorStateFound error:nil];
         } else if ([result isEqualToString:@"running"])
-            [self updateState:EditorStateRunning error:nil];
+            [self updateState:EKEditorStateRunning error:nil];
         else if ([result isEqualToString:@"broken"])
-            [self updateState:EditorStateBroken error:[NSError errorWithDomain:LRErrorDomain code:LRErrorEditorPluginReturnedBrokenState userInfo:@{NSLocalizedDescriptionKey: message}]];
+            [self updateState:EKEditorStateBroken error:[NSError errorWithDomain:LRErrorDomain code:LRErrorEditorPluginReturnedBrokenState userInfo:@{NSLocalizedDescriptionKey: message}]];
         else if ([result isEqualToString:@"not-found"])
-            [self updateState:EditorStateNotFound error:nil];
+            [self updateState:EKEditorStateNotFound error:nil];
         else
-            [self updateState:EditorStateBroken error:[NSError errorWithDomain:LRErrorDomain code:LRErrorPluginApiViolation userInfo:@{NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Editor --check returned unknown state '%@'", result]}]];
+            [self updateState:EKEditorStateBroken error:[NSError errorWithDomain:LRErrorDomain code:LRErrorPluginApiViolation userInfo:@{NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Editor --check returned unknown state '%@'", result]}]];
     }];
 }
 

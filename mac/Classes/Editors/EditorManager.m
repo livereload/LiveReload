@@ -3,7 +3,7 @@
 #import "ATGlobals.h"
 #import "ATFunctionalStyle.h"
 #import "RegexKitLite.h"
-
+#import "EditorKit.h"
 #import "ExternalEditor.h"
 #import "LRPluginCommons.h"
 #import "ATModelDiff.h"
@@ -45,8 +45,8 @@
     return self;
 }
 
-- (Editor *)activeEditor {
-    Editor *topEditor = _sortedEditors[0];
+- (EKEditor *)activeEditor {
+    EKEditor *topEditor = _sortedEditors[0];
     if (topEditor.isRunning)
         return topEditor;
     else
@@ -73,17 +73,22 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         NSArray *plugins1 = [self loadBundledEditors];
         NSArray *plugins2 = [self loadExternalEditors];
-        NSArray *plugins = [plugins1 arrayByMergingDictionaryValuesWithArray:plugins2 groupedByKeyPath:@"id"];
+        NSArray *plugins3 = [NSArray arrayWithObject:@{@"id": @"com.sublimetext.2"}];
+        NSArray *plugins12 = [plugins1 arrayByMergingDictionaryValuesWithArray:plugins2 groupedByKeyPath:@"id"];
+        NSArray *plugins = [plugins12 arrayByMergingDictionaryValuesWithArray:plugins3 groupedByKeyPath:@"id"];
+
+        NSDictionary *editorClasses = @{@"com.sublimetext.2": [SublimeText2Editor class]};
 
         dispatch_async(dispatch_get_main_queue(), ^{
             [ModelDiffs updateMutableObjectsArray:_editors usingAttributesPropertyWithNewAttributeValueDictionaries:plugins identityKeyPath:@"identifier" identityAttributeKey:@"id" create:^(NSDictionary *attributes) {
-                ExternalEditor *editor = [[ExternalEditor alloc] init];
+                Class klass = editorClasses[attributes[@"id"]] ?: [ExternalEditor class];
+                EKEditor *editor = [[klass alloc] init];
                 [editor addObserver:self forKeyPath:@"state" options:0 context:NULL];
                 return editor;
             } delete:^(ExternalEditor *editor) {
                 [editor removeObserver:self forKeyPath:@"state"];
             }];
-            for (Editor *editor in _editors) {
+            for (EKEditor *editor in _editors) {
                 [editor updateStateSoon];
             }
             [self updateMruPositions];
@@ -93,20 +98,20 @@
 }
 
 - (void)updateMruPositions {
-    for (Editor *editor in _editors) {
+    for (EKEditor *editor in _editors) {
         editor.mruPosition = [_mostRecentlyUsedEditorIdentifiers indexOfObject:editor.identifier];
     }
 }
 
 - (void)resortEditors {
     NSLog(@"resortEditors");
-    for (Editor *editor in _editors) {
+    for (EKEditor *editor in _editors) {
         NSLog(@"editor %@: effectivePriority=%d, defaultPriority=%d, mruPosition=%d", editor.displayName, (int)editor.effectivePriority, (int)editor.defaultPriority, (int)editor.mruPosition);
     }
     _sortedEditors = [[_editors sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"effectivePriority" ascending:NO]]] copy];
 }
 
-- (void)moveEditorToFrontOfMostRecentlyUsedList:(Editor *)editor {
+- (void)moveEditorToFrontOfMostRecentlyUsedList:(EKEditor *)editor {
     NSString *identifier = editor.identifier;
     if (_mostRecentlyUsedEditorIdentifiers.count > 0 && [_mostRecentlyUsedEditorIdentifiers[0] isEqual:identifier])
         return;

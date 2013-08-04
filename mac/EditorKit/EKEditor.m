@@ -1,6 +1,6 @@
 
-#import "Editor.h"
-#import "Errors.h"
+#import "EKEditor.h"
+#import "EKJumpRequest.h"
 
 
 static NSString *EditorStateStrings[] = {
@@ -11,23 +11,27 @@ static NSString *EditorStateStrings[] = {
 };
 
 
-@interface Editor ()
+@interface EKEditor ()
 
-@property(nonatomic, assign) EditorState state;
+@property(nonatomic, assign) EKEditorState state;
 @property(nonatomic, assign, getter=isStateStale) BOOL stateStale;
 
 @end
 
-@implementation Editor
+
+@implementation EKEditor
+
 @synthesize identifier = _identifier;
 @synthesize displayName = _displayName;
+@synthesize cocoaBundleId = _cocoaBundleId;
+
 @synthesize state = _state;
 @synthesize stateStale = _stateStale;
+
 @synthesize mruPosition = _mruPosition;
 @synthesize defaultPriority = _defaultPriority;
 
-- (id)init
-{
+- (id)init {
     self = [super init];
     if (self) {
         _mruPosition = NSNotFound;
@@ -37,12 +41,20 @@ static NSString *EditorStateStrings[] = {
     return self;
 }
 
-- (BOOL)jumpToFile:(NSString *)file line:(NSInteger)line {
+- (void)jumpWithRequest:(EKJumpRequest *)request completionHandler:(void(^)(NSError *error))completionHandler {
     MustOverride();
 }
 
+- (BOOL)jumpToFile:(NSString *)file line:(NSInteger)line {
+    [self jumpWithRequest:[[EKJumpRequest alloc] initWithFileURL:[NSURL fileURLWithPath:file] line:(line > 0 ? line : EKJumpRequestValueUnknown) column:EKJumpRequestValueUnknown] completionHandler:^(NSError *error) {
+        if (error) 
+            NSLog(@"Failed to jump to the error position: %@", error.localizedDescription);
+    }];
+    return YES;
+}
+
 - (BOOL)isRunning {
-    return self.state == EditorStateRunning;
+    return self.state == EKEditorStateRunning;
 }
 
 - (void)setAttributesDictionary:(NSDictionary *)attributes {
@@ -61,7 +73,7 @@ static NSString *EditorStateStrings[] = {
     });
 }
 
-- (void)updateState:(EditorState)state error:(NSError *)error {
+- (void)updateState:(EKEditorState)state error:(NSError *)error {
     NSLog(@"Editor '%@' state is %@, error = %@", self.displayName, EditorStateStrings[state], [error localizedDescription]);
     self.state = state;
     self.stateStale = NO;
@@ -73,9 +85,9 @@ static NSString *EditorStateStrings[] = {
 
 - (NSInteger)effectivePriority {
     NSInteger base = 0;
-    if (self.state == EditorStateRunning)
+    if (self.state == EKEditorStateRunning)
         base = 10000;
-    else if (self.state != EditorStateFound)
+    else if (self.state != EKEditorStateFound)
         base = -10000;
     
     if (_mruPosition != NSNotFound)
@@ -83,5 +95,9 @@ static NSString *EditorStateStrings[] = {
     else
         return base + _defaultPriority;
 }
+
+@end
+
+@implementation InternalEditor
 
 @end

@@ -5,7 +5,7 @@
 #import "Project.h"
 
 #import "EditorManager.h"
-#import "Editor.h"
+#import "EKEditor.h"
 
 #import "Compiler.h"
 
@@ -267,6 +267,7 @@ static ToolOutputWindowController *lastOutputController = nil;
     CGFloat defaultWidth = _jumpToErrorButton.frame.size.width;
     NSString *defaultText = _jumpToErrorButton.title;
 
+    [[EditorManager sharedEditorManager] updateEditors];
     _editor = [[[EditorManager sharedEditorManager] activeEditor] retain];
     if (_editor) {
         [_jumpToErrorButton setEnabled:YES];

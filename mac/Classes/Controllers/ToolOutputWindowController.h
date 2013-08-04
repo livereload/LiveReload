@@ -3,7 +3,7 @@
 #import <Foundation/Foundation.h>
 
 @class ToolOutput;
-@class Editor;
+@class EKEditor;
 
 
 enum UnparsedErrorState {
@@ -34,7 +34,7 @@ enum UnparsedErrorState {
     BOOL                   _appearing;
     BOOL                   _suicidal;
 
-    Editor                *_editor;
+    EKEditor                *_editor;
 
     NSInteger              _submissionResponseCode;
     NSMutableData         *_submissionResponseBody;

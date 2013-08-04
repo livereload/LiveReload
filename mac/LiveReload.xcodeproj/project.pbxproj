@@ -166,6 +166,12 @@
 		43B5C01A17ADF93A00F57276 /* ATHash.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B5C01917ADF93A00F57276 /* ATHash.m */; };
 		43B5C01D17ADFA4700F57276 /* ATChildTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B5C01C17ADFA4600F57276 /* ATChildTask.m */; };
 		43B5C02017AE01C500F57276 /* ATLoginItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B5C01F17AE01C500F57276 /* ATLoginItemController.m */; };
+		43B5C02817AE0BE600F57276 /* SublimeText2Editor.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B5C02717AE0BE600F57276 /* SublimeText2Editor.m */; };
+		43B5C02B17AE0C6500F57276 /* EditorKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B5C02A17AE0C6500F57276 /* EditorKit.m */; };
+		43B5C02E17AE0D9200F57276 /* EKIntegration.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B5C02D17AE0D9200F57276 /* EKIntegration.m */; };
+		43B5C03117AE97F700F57276 /* EKJumpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B5C03017AE97F700F57276 /* EKJumpRequest.m */; };
+		43B5C03417AE99A000F57276 /* EKEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B5C03317AE99A000F57276 /* EKEditor.m */; };
+		43B5C03717AE99B200F57276 /* EKGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B5C03617AE99B200F57276 /* EKGlobals.m */; };
 		43C0368613CA191D00A01305 /* LiveReload.icns in Resources */ = {isa = PBXBuildFile; fileRef = 43C0368513CA191C00A01305 /* LiveReload.icns */; };
 		43C3D04E15B37B1500BCD2E8 /* LicenseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C3D04D15B37B1500BCD2E8 /* LicenseManager.m */; };
 		43DB9FD4178EDF2E007BEA36 /* Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD3178EDF2E007BEA36 /* Errors.m */; };
@@ -198,7 +204,6 @@
 		823DDEDA13F8DA3100529AD2 /* StatusItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3E13F8DA3100529AD2 /* StatusItemController.m */; };
 		823DDEDB13F8DA3100529AD2 /* ToolOutputWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE4013F8DA3100529AD2 /* ToolOutputWindowController.m */; };
 		823DDEDC13F8DA3100529AD2 /* ToolOutputWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 823DDE4113F8DA3100529AD2 /* ToolOutputWindowController.xib */; };
-		823DDEDF13F8DA3100529AD2 /* Editor.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE4813F8DA3100529AD2 /* Editor.m */; };
 		823DDEE013F8DA3100529AD2 /* EditorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE4A13F8DA3100529AD2 /* EditorManager.m */; };
 		823DDEE513F8DA3100529AD2 /* NSObject+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE5613F8DA3100529AD2 /* NSObject+JSON.m */; };
 		823DDEE613F8DA3100529AD2 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE5813F8DA3100529AD2 /* SBJsonParser.m */; };
@@ -515,6 +520,18 @@
 		43B5C01C17ADFA4600F57276 /* ATChildTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATChildTask.m; sourceTree = "<group>"; };
 		43B5C01E17AE01C500F57276 /* ATLoginItemController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLoginItemController.h; sourceTree = "<group>"; };
 		43B5C01F17AE01C500F57276 /* ATLoginItemController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLoginItemController.m; sourceTree = "<group>"; };
+		43B5C02617AE0BE600F57276 /* SublimeText2Editor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SublimeText2Editor.h; sourceTree = "<group>"; };
+		43B5C02717AE0BE600F57276 /* SublimeText2Editor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SublimeText2Editor.m; sourceTree = "<group>"; };
+		43B5C02917AE0C6500F57276 /* EditorKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditorKit.h; sourceTree = "<group>"; };
+		43B5C02A17AE0C6500F57276 /* EditorKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditorKit.m; sourceTree = "<group>"; };
+		43B5C02C17AE0D9200F57276 /* EKIntegration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EKIntegration.h; sourceTree = "<group>"; };
+		43B5C02D17AE0D9200F57276 /* EKIntegration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EKIntegration.m; sourceTree = "<group>"; };
+		43B5C02F17AE97F600F57276 /* EKJumpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EKJumpRequest.h; sourceTree = "<group>"; };
+		43B5C03017AE97F700F57276 /* EKJumpRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EKJumpRequest.m; sourceTree = "<group>"; };
+		43B5C03217AE999F00F57276 /* EKEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EKEditor.h; sourceTree = "<group>"; };
+		43B5C03317AE99A000F57276 /* EKEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EKEditor.m; sourceTree = "<group>"; };
+		43B5C03517AE99B200F57276 /* EKGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EKGlobals.h; sourceTree = "<group>"; };
+		43B5C03617AE99B200F57276 /* EKGlobals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EKGlobals.m; sourceTree = "<group>"; };
 		43C0368513CA191C00A01305 /* LiveReload.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LiveReload.icns; sourceTree = "<group>"; };
 		43C3D04C15B37B1500BCD2E8 /* LicenseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LicenseManager.h; sourceTree = "<group>"; };
 		43C3D04D15B37B1500BCD2E8 /* LicenseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LicenseManager.m; sourceTree = "<group>"; };
@@ -566,8 +583,6 @@
 		823DDE3F13F8DA3100529AD2 /* ToolOutputWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolOutputWindowController.h; sourceTree = "<group>"; };
 		823DDE4013F8DA3100529AD2 /* ToolOutputWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolOutputWindowController.m; sourceTree = "<group>"; };
 		823DDE4113F8DA3100529AD2 /* ToolOutputWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ToolOutputWindowController.xib; sourceTree = "<group>"; };
-		823DDE4713F8DA3100529AD2 /* Editor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Editor.h; sourceTree = "<group>"; };
-		823DDE4813F8DA3100529AD2 /* Editor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Editor.m; sourceTree = "<group>"; };
 		823DDE4913F8DA3100529AD2 /* EditorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditorManager.h; sourceTree = "<group>"; };
 		823DDE4A13F8DA3100529AD2 /* EditorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditorManager.m; sourceTree = "<group>"; };
 		823DDE5413F8DA3100529AD2 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
@@ -1234,6 +1249,33 @@
 			path = ATCommons;
 			sourceTree = "<group>";
 		};
+		43B5C02117AE0A1E00F57276 /* EditorKit */ = {
+			isa = PBXGroup;
+			children = (
+				43B5C02917AE0C6500F57276 /* EditorKit.h */,
+				43B5C02A17AE0C6500F57276 /* EditorKit.m */,
+				43B5C03517AE99B200F57276 /* EKGlobals.h */,
+				43B5C03617AE99B200F57276 /* EKGlobals.m */,
+				43B5C02C17AE0D9200F57276 /* EKIntegration.h */,
+				43B5C02D17AE0D9200F57276 /* EKIntegration.m */,
+				43B5C02F17AE97F600F57276 /* EKJumpRequest.h */,
+				43B5C03017AE97F700F57276 /* EKJumpRequest.m */,
+				43B5C03217AE999F00F57276 /* EKEditor.h */,
+				43B5C03317AE99A000F57276 /* EKEditor.m */,
+				43B5C02217AE0AAA00F57276 /* SpecificEditors */,
+			);
+			path = EditorKit;
+			sourceTree = SOURCE_ROOT;
+		};
+		43B5C02217AE0AAA00F57276 /* SpecificEditors */ = {
+			isa = PBXGroup;
+			children = (
+				43B5C02617AE0BE600F57276 /* SublimeText2Editor.h */,
+				43B5C02717AE0BE600F57276 /* SublimeText2Editor.m */,
+			);
+			path = SpecificEditors;
+			sourceTree = "<group>";
+		};
 		43E34F9614705125001641AA /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -1268,6 +1310,7 @@
 				823DDE2E13F8DA3100529AD2 /* Application */,
 				436D7336173DE1C800F78A23 /* Presentation */,
 				823DDE3413F8DA3100529AD2 /* Controllers */,
+				43B5C02117AE0A1E00F57276 /* EditorKit */,
 				823DDE4213F8DA3100529AD2 /* Editors */,
 				823DDE5313F8DA3100529AD2 /* JSON */,
 				437BAB8B173A13F5005AA1C0 /* Runtimes */,
@@ -1338,8 +1381,6 @@
 		823DDE4213F8DA3100529AD2 /* Editors */ = {
 			isa = PBXGroup;
 			children = (
-				823DDE4713F8DA3100529AD2 /* Editor.h */,
-				823DDE4813F8DA3100529AD2 /* Editor.m */,
 				823DDE4913F8DA3100529AD2 /* EditorManager.h */,
 				823DDE4A13F8DA3100529AD2 /* EditorManager.m */,
 				43DB9FD5178EFA64007BEA36 /* ExternalEditor.h */,
@@ -1685,7 +1726,6 @@
 				823DDED513F8DA3100529AD2 /* ExtensionsController.m in Sources */,
 				823DDEDA13F8DA3100529AD2 /* StatusItemController.m in Sources */,
 				823DDEDB13F8DA3100529AD2 /* ToolOutputWindowController.m in Sources */,
-				823DDEDF13F8DA3100529AD2 /* Editor.m in Sources */,
 				823DDEE013F8DA3100529AD2 /* EditorManager.m in Sources */,
 				823DDEE513F8DA3100529AD2 /* NSObject+JSON.m in Sources */,
 				823DDEE613F8DA3100529AD2 /* SBJsonParser.m in Sources */,
@@ -1830,6 +1870,12 @@
 				43B5C01A17ADF93A00F57276 /* ATHash.m in Sources */,
 				43B5C01D17ADFA4700F57276 /* ATChildTask.m in Sources */,
 				43B5C02017AE01C500F57276 /* ATLoginItemController.m in Sources */,
+				43B5C02817AE0BE600F57276 /* SublimeText2Editor.m in Sources */,
+				43B5C02B17AE0C6500F57276 /* EditorKit.m in Sources */,
+				43B5C02E17AE0D9200F57276 /* EKIntegration.m in Sources */,
+				43B5C03117AE97F700F57276 /* EKJumpRequest.m in Sources */,
+				43B5C03417AE99A000F57276 /* EKEditor.m in Sources */,
+				43B5C03717AE99B200F57276 /* EKGlobals.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

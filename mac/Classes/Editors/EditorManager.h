@@ -2,17 +2,17 @@
 #import <Foundation/Foundation.h>
 
 
-@class Editor;
+@class EKEditor;
 
 
 @interface EditorManager : NSObject
 
 + (EditorManager *)sharedEditorManager;
 
-@property(nonatomic, readonly, strong) Editor *activeEditor;
+@property(nonatomic, readonly, strong) EKEditor *activeEditor;
 @property(nonatomic, readonly, strong) NSArray *sortedEditors;
 
 - (void)updateEditors;
-- (void)moveEditorToFrontOfMostRecentlyUsedList:(Editor *)editor;
+- (void)moveEditorToFrontOfMostRecentlyUsedList:(EKEditor *)editor;
 
 @end
