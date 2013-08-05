@@ -13,7 +13,6 @@
 #import "PluginManager.h"
 
 #import "Stats.h"
-#import "NSWindowFlipper.h"
 #import "Preferences.h"
 
 #import "ShitHappens.h"

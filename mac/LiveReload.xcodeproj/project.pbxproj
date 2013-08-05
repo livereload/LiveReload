@@ -232,9 +232,6 @@
 		823DDEFA13F8DA3100529AD2 /* PluginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE8313F8DA3100529AD2 /* PluginManager.m */; };
 		823DDEFB13F8DA3100529AD2 /* ToolOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE8513F8DA3100529AD2 /* ToolOutput.m */; };
 		823DDEFC13F8DA3100529AD2 /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE8813F8DA3100529AD2 /* Preferences.m */; };
-		823DDF0A13F8DA3100529AD2 /* NSWindow+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEAA13F8DA3100529AD2 /* NSWindow+Additions.m */; };
-		823DDF0B13F8DA3100529AD2 /* NSWindowFlipper.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEAC13F8DA3100529AD2 /* NSWindowFlipper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		823DDF0C13F8DA3100529AD2 /* README in Resources */ = {isa = PBXBuildFile; fileRef = 823DDEAD13F8DA3100529AD2 /* README */; };
 		823DDF0F13F8DA3100529AD2 /* NSTask+OneLineTasksWithOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEB313F8DA3100529AD2 /* NSTask+OneLineTasksWithOutput.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		823DDF1313F8DA3100529AD2 /* AuxWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEBC13F8DA3100529AD2 /* AuxWindow.m */; };
 		823DDF1413F8DA3100529AD2 /* KeyWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEBE13F8DA3100529AD2 /* KeyWindow.m */; };
@@ -644,11 +641,6 @@
 		823DDE8513F8DA3100529AD2 /* ToolOutput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolOutput.m; sourceTree = "<group>"; };
 		823DDE8713F8DA3100529AD2 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
 		823DDE8813F8DA3100529AD2 /* Preferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Preferences.m; sourceTree = "<group>"; };
-		823DDEA913F8DA3100529AD2 /* NSWindow+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSWindow+Additions.h"; sourceTree = "<group>"; };
-		823DDEAA13F8DA3100529AD2 /* NSWindow+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSWindow+Additions.m"; sourceTree = "<group>"; };
-		823DDEAB13F8DA3100529AD2 /* NSWindowFlipper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSWindowFlipper.h; sourceTree = "<group>"; };
-		823DDEAC13F8DA3100529AD2 /* NSWindowFlipper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSWindowFlipper.m; sourceTree = "<group>"; };
-		823DDEAD13F8DA3100529AD2 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		823DDEB213F8DA3100529AD2 /* NSTask+OneLineTasksWithOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTask+OneLineTasksWithOutput.h"; sourceTree = "<group>"; };
 		823DDEB313F8DA3100529AD2 /* NSTask+OneLineTasksWithOutput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTask+OneLineTasksWithOutput.m"; sourceTree = "<group>"; };
 		823DDEBB13F8DA3100529AD2 /* AuxWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuxWindow.h; sourceTree = "<group>"; };
@@ -1508,7 +1500,6 @@
 		823DDE9F13F8DA3100529AD2 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				823DDEA813F8DA3100529AD2 /* Mizage Flip Animation */,
 				823DDEB213F8DA3100529AD2 /* NSTask+OneLineTasksWithOutput.h */,
 				823DDEB313F8DA3100529AD2 /* NSTask+OneLineTasksWithOutput.m */,
 				4310DE3E146DB6A0003091D1 /* UIBuilder.h */,
@@ -1519,18 +1510,6 @@
 				43996B4217B001BA00B09954 /* NSString+SmartRegexpCaptures.m */,
 			);
 			path = Utilities;
-			sourceTree = "<group>";
-		};
-		823DDEA813F8DA3100529AD2 /* Mizage Flip Animation */ = {
-			isa = PBXGroup;
-			children = (
-				823DDEA913F8DA3100529AD2 /* NSWindow+Additions.h */,
-				823DDEAA13F8DA3100529AD2 /* NSWindow+Additions.m */,
-				823DDEAB13F8DA3100529AD2 /* NSWindowFlipper.h */,
-				823DDEAC13F8DA3100529AD2 /* NSWindowFlipper.m */,
-				823DDEAD13F8DA3100529AD2 /* README */,
-			);
-			path = "Mizage Flip Animation";
 			sourceTree = "<group>";
 		};
 		823DDEBA13F8DA3100529AD2 /* Views */ = {
@@ -1664,7 +1643,6 @@
 				439C093313ADCBDD00119233 /* monitoring.plist in Resources */,
 				43C0368613CA191D00A01305 /* LiveReload.icns in Resources */,
 				823DDEDC13F8DA3100529AD2 /* ToolOutputWindowController.xib in Resources */,
-				823DDF0C13F8DA3100529AD2 /* README in Resources */,
 				823DDF2F13F8DA3F00529AD2 /* background.png in Resources */,
 				823DDF3013F8DA3F00529AD2 /* Icon-48.png in Resources */,
 				823DDF3213F8DA3F00529AD2 /* preferences-box.png in Resources */,
@@ -1775,8 +1753,6 @@
 				823DDEFA13F8DA3100529AD2 /* PluginManager.m in Sources */,
 				823DDEFB13F8DA3100529AD2 /* ToolOutput.m in Sources */,
 				823DDEFC13F8DA3100529AD2 /* Preferences.m in Sources */,
-				823DDF0A13F8DA3100529AD2 /* NSWindow+Additions.m in Sources */,
-				823DDF0B13F8DA3100529AD2 /* NSWindowFlipper.m in Sources */,
 				823DDF0F13F8DA3100529AD2 /* NSTask+OneLineTasksWithOutput.m in Sources */,
 				823DDF1313F8DA3100529AD2 /* AuxWindow.m in Sources */,
 				823DDF1413F8DA3100529AD2 /* KeyWindow.m in Sources */,
