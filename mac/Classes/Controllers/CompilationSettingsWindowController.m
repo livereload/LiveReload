@@ -31,19 +31,6 @@ typedef enum {
 
 const char *output_paths_table_column_ids[] = { "on", "source", "output" };
 
-typedef struct compilable_file_t {
-    char *source_path;
-    Compiler *compiler;
-    FileCompilationOptions *file_options;
-    struct compilable_file_t *next;
-} compilable_file_t;
-
-void compilable_file_free(compilable_file_t *file) {
-  free(file->source_path);
-  [file->file_options release];
-  free(file);
-}
-
 
 
 @interface CompilationSettingsWindowController () <NSTabViewDelegate, NSTableViewDataSource, NSTableViewDelegate, NSWindowDelegate, NSTextFieldDelegate> {
@@ -54,7 +41,7 @@ void compilable_file_free(compilable_file_t *file) {
     CGFloat                _compilerSettingsWindowHeight;
     CGFloat                _outputPathsWindowHeight;
 
-    kvec_t(compilable_file_t *) _fileList;
+    NSMutableArray        *_fileList;  // of FileCompilationOptions
 
     IBOutlet NSButton     *_changeOutputFileButton;
     IBOutlet NSTextField  *_outputFileNameMask;
@@ -90,8 +77,7 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
 
 - (void)dealloc {
     [_compilerOptions release], _compilerOptions = nil;
-    kv_each(compilable_file_t *, _fileList, file, compilable_file_free(file));
-    kv_init(_fileList);
+    [_fileList release];
     [super dealloc];
 }
 
@@ -398,8 +384,8 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
 #pragma mark - Output Paths Tab
 
 - (void)updateOutputPathsTabData {
-    kv_each(compilable_file_t *, _fileList, file, compilable_file_free(file));
-    kv_init(_fileList);
+    [_fileList release];
+    _fileList = [[NSMutableArray alloc] init];
 
     FSTree *tree = _project.tree;
     for (Compiler *compiler in _project.compilersInUse) {
@@ -408,13 +394,8 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
         for (NSString *path in [compiler pathsOfSourceFilesInTree:tree]) {
             FileCompilationOptions *fileOptions = [_project optionsForFileAtPath
               :path in:options];
-
-            compilable_file_t *file = malloc(sizeof(compilable_file_t));
-            file->next = NULL;
-            file->compiler = compiler;
-            file->source_path = strdup([path UTF8String]);
-            file->file_options = [fileOptions retain];
-            kv_push(compilable_file_t *, _fileList, file);
+            fileOptions.compiler = compiler;
+            [_fileList addObject:fileOptions];
         }
     }
 
@@ -423,50 +404,50 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
 }
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
-    return kv_size(_fileList);
+    return _fileList.count;
 }
 
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-    compilable_file_t *file = kv_A(_fileList, row);
+    FileCompilationOptions *fileOptions = _fileList[row];
     output_paths_table_column_t column = str_static_array_index(output_paths_table_column_ids, [[tableColumn identifier] UTF8String]);
-    BOOL imported = [_project isFileImported:[NSString stringWithUTF8String:file->source_path]];
+    BOOL imported = [_project isFileImported:fileOptions.sourcePath];
     if (column == output_paths_table_column_enable) {
         if (imported)
             return [NSNumber numberWithBool:NO];
-        return [NSNumber numberWithBool:file->file_options.enabled];
+        return [NSNumber numberWithBool:fileOptions.enabled];
     } else if (column == output_paths_table_column_source) {
-        return [NSString stringWithUTF8String:file->source_path];
+        return fileOptions.sourcePath;
     } else if (column == output_paths_table_column_output) {
         if (imported)
             return @"(imported)";
         
         NSString *draftMask = [self draftFileNameMask];
-        if (draftMask.length > 0 && [_bulkMaskEditingFiles containsObject:file->file_options])
-            return [NSString stringWithFormat:@"%@ *", [file->file_options destinationDisplayPathForMask:draftMask]];
+        if (draftMask.length > 0 && [_bulkMaskEditingFiles containsObject:fileOptions])
+            return [NSString stringWithFormat:@"%@ *", [fileOptions destinationDisplayPathForMask:draftMask]];
         else 
-            return file->file_options.destinationPathForDisplay;
+            return fileOptions.destinationPathForDisplay;
     } else {
         return nil;
     }
 }
 
 - (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-    compilable_file_t *file = kv_A(_fileList, row);
+    FileCompilationOptions *fileOptions = _fileList[row];
     output_paths_table_column_t column = str_static_array_index(output_paths_table_column_ids, [[tableColumn identifier] UTF8String]);
     if (column == output_paths_table_column_enable) {
-        file->file_options.enabled = [object boolValue];
+        fileOptions.enabled = [object boolValue];
     } else if (column == output_paths_table_column_source) {
     } else if (column == output_paths_table_column_output) {
-        file->file_options.destinationPathForDisplay = [object stringByExpandingTildeInPath];
+        fileOptions.destinationPathForDisplay = [object stringByExpandingTildeInPath];
     } else {
     }
 }
 
 - (BOOL)tableView:(NSTableView *)tableView shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-    compilable_file_t *file = kv_A(_fileList, row);
+    FileCompilationOptions *fileOptions = _fileList[row];
     output_paths_table_column_t column = str_static_array_index(output_paths_table_column_ids, [[tableColumn identifier] UTF8String]);
     if (column == output_paths_table_column_enable || column == output_paths_table_column_output) {
-        BOOL imported = [_project isFileImported:[NSString stringWithUTF8String:file->source_path]];
+        BOOL imported = [_project isFileImported:fileOptions.sourcePath];
         return !imported;
     }
     return YES;
@@ -474,9 +455,9 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
 
 
 - (void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-    compilable_file_t *file = kv_A(_fileList, row);
+    FileCompilationOptions *fileOptions = _fileList[row];
     output_paths_table_column_t column = str_static_array_index(output_paths_table_column_ids, [[tableColumn identifier] UTF8String]);
-    BOOL imported = [_project isFileImported:[NSString stringWithUTF8String:file->source_path]];
+    BOOL imported = [_project isFileImported:fileOptions.sourcePath];
     if (column == output_paths_table_column_enable) {
         NSButtonCell *theCell = cell;
         [theCell setEnabled:!imported];
@@ -497,20 +478,19 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
     NSIndexSet *indexSet = [_pathTableView selectedRowIndexes];
     NSMutableArray *selection = [NSMutableArray array];
     for (NSUInteger currentIndex = [indexSet firstIndex]; currentIndex != NSNotFound; currentIndex = [indexSet indexGreaterThanIndex:currentIndex]) {
-        compilable_file_t *file = kv_A(_fileList, currentIndex);
-        [selection addObject:file->file_options];
+        [selection addObject:_fileList[currentIndex]];
     }
 
     // no selection => act on all files
     if ([selection count] == 0) {
-        kv_each(compilable_file_t *, _fileList, file, [selection addObject:file->file_options]);
+        [selection addObjectsFromArray:_fileList];
     }
 
     return selection;
 }
 
 - (IBAction)chooseOutputDirectory:(id)sender {
-    if (kv_size(_fileList) == 0) {
+    if (_fileList.count == 0) {
         NSAlert *alert = [[[NSAlert alloc] init] autorelease];
         [alert setMessageText:@"No files yet"];
         [alert setInformativeText:@"Before configuring an output directory, please create some source files first."];
@@ -522,14 +502,13 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
     NSIndexSet *indexSet = [_pathTableView selectedRowIndexes];
     NSMutableArray *selection = [NSMutableArray array];
     for (NSUInteger currentIndex = [indexSet firstIndex]; currentIndex != NSNotFound; currentIndex = [indexSet indexGreaterThanIndex:currentIndex]) {
-        compilable_file_t *file = kv_A(_fileList, currentIndex);
-        [selection addObject:file->file_options];
+        [selection addObject:_fileList[currentIndex]];
     }
 
     NSString *initialPath = _project.path;
     NSString *common;
     if ([selection count] == 0) {
-        kv_each(compilable_file_t *, _fileList, file, [selection addObject:file->file_options]);
+        [selection addObjectsFromArray:_fileList];
 
         NSString *common = [FileCompilationOptions commonOutputDirectoryFor:selection inProject:_project];
         if ([common isEqualToString:@"__NONE_SET__"]) {

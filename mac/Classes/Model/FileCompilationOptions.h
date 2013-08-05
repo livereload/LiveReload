@@ -3,6 +3,7 @@
 
 
 @class Project;
+@class Compiler;
 
 @interface FileCompilationOptions : NSObject {
 @private
@@ -18,6 +19,7 @@
 - (NSDictionary *)memento;
 
 @property (nonatomic) BOOL enabled;
+@property (nonatomic, retain) Compiler *compiler;
 @property (nonatomic, readonly, copy) NSString *sourcePath;
 @property (nonatomic, copy) NSString *destinationDirectory;
 @property (nonatomic, copy) NSString *destinationDirectoryForDisplay;
