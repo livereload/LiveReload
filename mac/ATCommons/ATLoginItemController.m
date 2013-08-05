@@ -72,17 +72,15 @@ static ATLoginItemController *sharedController;
     for (NSInteger i = 0; i < itemCount; i++) {
         LSSharedFileListItemRef item = (LSSharedFileListItemRef) CFArrayGetValueAtIndex(array, i);
         if (LSSharedFileListItemResolve(item, 0, &url, NULL) == noErr) {
-            nsurl = (NSURL *) url;
+            nsurl = CFBridgingRelease(url);
             if ([nsurl isEqual: applicationUrl]) {
                 found = YES;
                 if (remove) {
                     LSSharedFileListItemRemove(list, item);
                 } else {
-                    CFRelease(url);
                     break;
                 }
             }
-            CFRelease(url);
         }
     }
 

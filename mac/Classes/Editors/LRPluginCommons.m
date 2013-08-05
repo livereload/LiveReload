@@ -50,7 +50,7 @@ void LRSetDottedKey(NSMutableDictionary *dictionary, NSString *key, id value) {
 NSDictionary *LRExtractMetadata(NSString *content) {
     NSMutableDictionary *properties = [NSMutableDictionary dictionary];
     [properties setValue:@"foo" forKeyPath:@"bar.boz"];
-    [content enumerateStringsMatchedByRegex:@"^(?:[^a-z\\s]*)\\s*LR ([a-zA-Z0-9.-]+)\\s*:(.*)$" options:RKLMultiline|RKLCaseless inRange:NSMakeRange(0, NSUIntegerMax) error:nil enumerationOptions:0 usingBlock:^(NSInteger captureCount, NSString *const *capturedStrings, const NSRange *capturedRanges, volatile BOOL *const stop) {
+    [content enumerateStringsMatchedByRegex:@"^(?:[^a-z\\s]*)\\s*LR ([a-zA-Z0-9.-]+)\\s*:(.*)$" options:RKLMultiline|RKLCaseless inRange:NSMakeRange(0, NSUIntegerMax) error:nil enumerationOptions:0 usingBlock:^(NSInteger captureCount, NSString *const __unsafe_unretained *capturedStrings, const NSRange *capturedRanges, volatile BOOL *const stop) {
         //        NSLog(@"Match: %@  :::  %@  :::  %@", capturedStrings[0], capturedStrings[1], capturedStrings[2]);
         NSString *key = [capturedStrings[1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         NSString *value = [capturedStrings[2] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];

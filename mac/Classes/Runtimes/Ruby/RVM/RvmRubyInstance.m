@@ -5,7 +5,7 @@
 
 @interface RvmRubyInstance ()
 
-@property(nonatomic, __unsafe_unretained) RvmContainer *container;
+@property(nonatomic, assign) RvmContainer *container;
 @property(nonatomic, strong) NSString *name;
 
 @end
