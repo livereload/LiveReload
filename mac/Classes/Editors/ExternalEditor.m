@@ -5,8 +5,8 @@
 
 
 static NSURL *ExpandFileURLTemplate(NSString *template, NSURL *fileURL, NSInteger line) {
-    template = [template stringByReplacingOccurrencesOfString:@"((file))" withString:[[fileURL path] stringByApplyingURLEncoding]];
-    template = [template stringByReplacingOccurrencesOfString:@"((fileURL))" withString:[[fileURL absoluteString] stringByApplyingURLEncoding]];
+    template = [template stringByReplacingOccurrencesOfString:@"((file))" withString:[[fileURL path] stringByEscapingURLComponent]];
+    template = [template stringByReplacingOccurrencesOfString:@"((fileURL))" withString:[[fileURL absoluteString] stringByEscapingURLComponent]];
     template = [template stringByReplacingOccurrencesOfString:@"((line))" withString:[NSString stringWithFormat:@"%d", (int)line]];
     return [NSURL URLWithString:template];
 }
