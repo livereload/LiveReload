@@ -15,10 +15,6 @@
     return self;
 }
 
-- (void)dealloc {
-    _project = nil;
-}
-
 - (void)windowDidLoad {
     [super windowDidLoad];
 

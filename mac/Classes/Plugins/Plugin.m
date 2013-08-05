@@ -34,10 +34,4 @@
     return self;
 }
 
-- (void)dealloc {
-    _path = nil;
-    _info = nil;
-    _compilers = nil;
-}
-
 @end

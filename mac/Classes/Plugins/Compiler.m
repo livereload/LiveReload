@@ -75,11 +75,6 @@
     return self;
 }
 
-- (void)dealloc {
-    _commandLine = nil;
-    _plugin = nil;
-}
-
 
 #pragma mark - Computed properties
 

@@ -48,10 +48,6 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
     if (_running) {
         [self stop];
     }
-    _path = nil;
-    _filter = nil;
-    _eventCache = nil;
-    _delegate = nil;
 }
 
 

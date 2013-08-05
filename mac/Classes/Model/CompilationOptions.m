@@ -57,13 +57,6 @@
     return self;
 }
 
-- (void)dealloc {
-    _compiler = nil;
-    _additionalArguments = nil;
-    _globalOptions = nil;
-    _fileOptions = nil;
-}
-
 
 #pragma mark - Persistence
 

@@ -17,11 +17,6 @@
     return self;
 }
 
-- (void)dealloc {
-    _enabledExtensions = nil;
-    _excludedNames = nil;
-}
-
 
 #pragma mark - Filtering
 

@@ -66,10 +66,6 @@ void MyDrawNinePartImage(CGRect frame, NSImage *image, CGFloat topSlice, CGFloat
     return self;
 }
 
-- (void)dealloc {
-    _stripeImage = nil;
-}
-
 - (void)drawRect:(NSRect)dirtyRect {
     NSDrawNinePartImage([self bounds], nil, nil, nil, nil, _stripeImage, nil, nil, nil, nil, NSCompositeSourceOver, 1.0, NO);
 }
@@ -146,8 +142,6 @@ static void on_console_message_added(event_name_t event, const char *message, Te
 
 - (void)dealloc {
     eventbus_unsubscribe(console_message_added_event, (event_handler_t)on_console_message_added, (__bridge void *)(self));
-    _backgroundImage = nil;
-    _glareImage = nil;
 }
 
 - (void)drawRect:(NSRect)dirtyRect {

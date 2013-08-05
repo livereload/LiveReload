@@ -52,10 +52,6 @@
     [_observers addObject:observer];
 }
 
-- (void)dealloc {
-    _observers = nil;
-}
-
 @end
 
 @implementation NSObject (ATKeyValueObservingWithBlocks)

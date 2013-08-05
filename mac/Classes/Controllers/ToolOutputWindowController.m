@@ -69,11 +69,6 @@ static ToolOutputWindowController *lastOutputController = nil;
     return self;
 }
 
-- (void)dealloc {
-    _compilerOutput = nil;
-    _editors = nil;
-}
-
 #pragma mark -
 
 - (void)windowDidLoad {

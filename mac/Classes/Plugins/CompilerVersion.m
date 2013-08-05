@@ -14,8 +14,4 @@
     return self;
 }
 
-- (void)dealloc {
-    _name = nil;
-}
-
 @end

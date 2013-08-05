@@ -144,10 +144,6 @@ static ControlTypeInfo CONTROL_TYPE_INFO[] = {
     return self;
 }
 
-- (void)dealloc {
-    _view = nil;
-}
-
 
 #pragma mark - Public methods
 

@@ -36,13 +36,6 @@
     return self;
 }
 
-- (void)dealloc {
-    _sourcePath = nil;
-    _destinationDirectory = nil;
-    _destinationNameMask = nil;
-    _additionalOptions = nil;
-}
-
 
 #pragma mark -
 

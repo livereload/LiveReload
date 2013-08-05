@@ -204,13 +204,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    _path = nil;
-    _monitor = nil;
-    _compilerOptions = nil;
-    _monitoringRequests = nil;
-    _postProcessingCommand = nil;
-    _importGraph = nil;
-    _rubyVersionIdentifier = nil;
 }
 
 

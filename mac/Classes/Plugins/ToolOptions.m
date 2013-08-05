@@ -94,13 +94,6 @@ Class ToolOptionClassByType(NSString *type) {
     return self;
 }
 
-- (void)dealloc {
-    _compiler = nil;
-    _project = nil;
-    _info = nil;
-    _identifier = nil;
-}
-
 
 #pragma mark - Values
 
@@ -176,11 +169,6 @@ Class ToolOptionClassByType(NSString *type) {
     _title = [[_info objectForKey:@"Title"] copy];
 }
 
-- (void)dealloc {
-    _title = nil;
-    _view = nil;
-}
-
 - (id)defaultValue {
     return [NSNumber numberWithBool:NO];
 }
@@ -225,10 +213,6 @@ Class ToolOptionClassByType(NSString *type) {
     NSButton              *_view;
 }
 
-- (void)dealloc {
-    _view = nil;
-}
-
 - (void)renderControlWithBuilder:(UIBuilder *)builder {
     CompilationOptions *options = [_project optionsForCompiler:_compiler create:YES];
     _view = [builder addCheckboxWithTitle:@"Enabled"];
@@ -260,11 +244,6 @@ Class ToolOptionClassByType(NSString *type) {
 
 - (void)parse {
     _items = [[_info objectForKey:@"Items"] copy];
-}
-
-- (void)dealloc {
-    _items = nil;
-    _view = nil;
 }
 
 - (id)defaultValue {
@@ -323,11 +302,6 @@ Class ToolOptionClassByType(NSString *type) {
 
 - (void)parse {
     _placeholder = [[_info objectForKey:@"Placeholder"] copy];
-}
-
-- (void)dealloc {
-    _placeholder = nil;
-    _view = nil;
 }
 
 - (id)defaultValue {
