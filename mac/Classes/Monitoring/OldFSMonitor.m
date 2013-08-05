@@ -14,7 +14,7 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
 - (void)start;
 - (void)stop;
 
-@property (nonatomic, readonly, retain) NSMutableSet * eventCache;
+@property (nonatomic, readonly, strong) NSMutableSet * eventCache;
 @property (nonatomic, assign) NSTimeInterval cacheWaitingTime;
 @end
 
@@ -48,11 +48,10 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
     if (_running) {
         [self stop];
     }
-    [_path release], _path = nil;
-    [_filter release], _filter = nil;
-    [_eventCache release], _eventCache = nil;
+    _path = nil;
+    _filter = nil;
+    _eventCache = nil;
     _delegate = nil;
-    [super dealloc];
 }
 
 
@@ -67,8 +66,7 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
 
 - (void)setFilter:(FSTreeFilter *)filter {
     if (filter != _filter) {
-        [_filter release];
-        _filter = [filter retain];
+        _filter = filter;
 
         [self filterUpdated];
     }
@@ -99,7 +97,7 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
 
     FSEventStreamContext context;
     context.version = 0;
-    context.info = self;
+    context.info = (__bridge void *)(self);
     context.retain = NULL;
     context.release = NULL;
     context.copyDescription = NULL;
@@ -126,7 +124,7 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
     FSEventStreamInvalidate(_streamRef);
     FSEventStreamRelease(_streamRef);
     _streamRef = nil;
-    [_treeDiffer release], _treeDiffer = nil;
+    _treeDiffer = nil;
 }
 
 
@@ -137,7 +135,7 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
     NSMutableSet * cachedPaths;
 
     @synchronized(self){
-        cachedPaths = [[self.eventCache copy] autorelease];
+        cachedPaths = [self.eventCache copy];
         [self.eventCache removeAllObjects];
         NSTimeInterval lastRebuildTime = _treeDiffer.savedTree.buildTime;
 
@@ -190,7 +188,7 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
     if (_treeDiffer)
         return _treeDiffer.savedTree;
     else
-        return [[[FSTree alloc] initWithPath:_path filter:_filter] autorelease];
+        return [[FSTree alloc] initWithPath:_path filter:_filter];
 }
 
 @end

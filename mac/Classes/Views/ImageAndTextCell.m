@@ -79,9 +79,7 @@
 // -------------------------------------------------------------------------------
 - (void)dealloc
 {
-    [image release];
     image = nil;
-    [super dealloc];
 }
 
 // -------------------------------------------------------------------------------
@@ -90,7 +88,7 @@
 - (id)copyWithZone:(NSZone*)zone
 {
     ImageAndTextCell *cell = (ImageAndTextCell*)[super copyWithZone:zone];
-    cell->image = [image retain];
+    cell->image = image;
     return cell;
 }
 
@@ -101,8 +99,7 @@
 {
     if (anImage != image)
     {
-        [image release];
-        image = [anImage retain];
+        image = anImage;
         [image setSize:NSMakeSize(kIconImageSize, kIconImageSize)];
     }
 }

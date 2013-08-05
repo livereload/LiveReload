@@ -6,7 +6,7 @@
 
 @interface HomebrewRubyInstance ()
 
-@property(nonatomic, assign) HomebrewContainer *container;
+@property(nonatomic, weak) HomebrewContainer *container;
 @property(nonatomic, strong) NSString *name;
 
 @end

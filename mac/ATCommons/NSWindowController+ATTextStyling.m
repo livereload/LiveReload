@@ -15,17 +15,17 @@
 }
 
 - (NSParagraphStyle *)paragraphStyleForLabel:(NSControl *)label {
-    NSMutableParagraphStyle *style = [[[NSMutableParagraphStyle alloc] init] autorelease];
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
     [style setAlignment:label.alignment];
     return style;
 }
 
 - (void)styleLabel:(NSControl *)label color:(NSColor *)color shadow:(NSShadow *)shadow {
-    [label setAttributedStringValue:[[[NSAttributedString alloc] initWithString:[label stringValue] attributes:[NSDictionary dictionaryWithObjectsAndKeys:color, NSForegroundColorAttributeName, shadow, NSShadowAttributeName, [self paragraphStyleForLabel:label], NSParagraphStyleAttributeName, label.font, NSFontAttributeName, nil]] autorelease]];
+    [label setAttributedStringValue:[[NSAttributedString alloc] initWithString:[label stringValue] attributes:[NSDictionary dictionaryWithObjectsAndKeys:color, NSForegroundColorAttributeName, shadow, NSShadowAttributeName, [self paragraphStyleForLabel:label], NSParagraphStyleAttributeName, label.font, NSFontAttributeName, nil]]];
 }
 
 - (void)styleButton:(NSButton *)button color:(NSColor *)color shadow:(NSShadow *)shadow {
-    [button setAttributedTitle:[[[NSAttributedString alloc] initWithString:[button title] attributes:[NSDictionary dictionaryWithObjectsAndKeys:color, NSForegroundColorAttributeName, shadow, NSShadowAttributeName, button.font, NSFontAttributeName, nil]] autorelease]];
+    [button setAttributedTitle:[[NSAttributedString alloc] initWithString:[button title] attributes:[NSDictionary dictionaryWithObjectsAndKeys:color, NSForegroundColorAttributeName, shadow, NSShadowAttributeName, button.font, NSFontAttributeName, nil]]];
 }
 
 - (void)styleHyperlink:(NSTextField *)label to:(NSURL *)url color:(NSColor *)color shadow:(NSShadow *)shadow {
@@ -33,7 +33,7 @@
     [label setAllowsEditingTextAttributes:YES];
     [label setSelectable:YES];
 
-    [label setAttributedStringValue:[[[NSAttributedString alloc] initWithString:[label stringValue] attributes:[NSDictionary dictionaryWithObjectsAndKeys:color, NSForegroundColorAttributeName, [NSNumber numberWithInt:NSSingleUnderlineStyle], NSUnderlineStyleAttributeName, url, NSLinkAttributeName, label.font, NSFontAttributeName, shadow, NSShadowAttributeName, [self paragraphStyleForLabel:label], NSParagraphStyleAttributeName, nil]] autorelease]];
+    [label setAttributedStringValue:[[NSAttributedString alloc] initWithString:[label stringValue] attributes:[NSDictionary dictionaryWithObjectsAndKeys:color, NSForegroundColorAttributeName, [NSNumber numberWithInt:NSSingleUnderlineStyle], NSUnderlineStyleAttributeName, url, NSLinkAttributeName, label.font, NSFontAttributeName, shadow, NSShadowAttributeName, [self paragraphStyleForLabel:label], NSParagraphStyleAttributeName, nil]]];
 }
 
 - (void)styleHyperlink:(NSTextField *)label color:(NSColor *)color shadow:(NSShadow *)shadow {

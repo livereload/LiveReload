@@ -51,7 +51,7 @@ static ATLoginItemController *sharedController;
 }
 
 - (void) addApplicationToLoginList: (LSSharedFileListRef) list {
-    CFURLRef url = (CFURLRef) [self applicationPath];
+    CFURLRef url = (__bridge CFURLRef) [self applicationPath];
     LSSharedFileListItemRef item =
     LSSharedFileListInsertItemURL(list, kLSSharedFileListItemLast, NULL, NULL, url, NULL, NULL);
     if (item) {

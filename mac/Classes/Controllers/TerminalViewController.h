@@ -7,6 +7,6 @@
 
 @interface TerminalViewController : NSViewController
 
-@property (assign) IBOutlet TerminalView *terminalView;
+@property (unsafe_unretained) IBOutlet TerminalView *terminalView;
 
 @end

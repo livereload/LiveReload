@@ -66,7 +66,7 @@ BOOL LicenseManagerShouldDisplayPurchasingUI() {
 static NSString *LicenseManagerCleanLicenseCode(NSString *licenseCode) {
     if (!licenseCode)
         return @"";
-    NSMutableString *code = [[[[[licenseCode stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString] stringByReplacingOccurrencesOfString:@"-" withString:@""] mutableCopy] autorelease];
+    NSMutableString *code = [[[[licenseCode stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString] stringByReplacingOccurrencesOfString:@"-" withString:@""] mutableCopy];
     if (code.length == LicenseManagerLicenseCodeLength + LicenseManagerProductCode.length) {
         [code insertString:@"-" atIndex:2 + 4*5];
         [code insertString:@"-" atIndex:2 + 3*5];

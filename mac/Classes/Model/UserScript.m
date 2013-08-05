@@ -180,7 +180,7 @@ static UserScriptManager *sharedUserScriptManager = nil;
     
     NSMutableArray *result = [NSMutableArray array];
     for (NSURL *pathUrl in files) {
-        [result addObject:[[[UserScript alloc] initWithPath:[pathUrl path]] autorelease]];
+        [result addObject:[[UserScript alloc] initWithPath:[pathUrl path]]];
     }
     return result;
 }

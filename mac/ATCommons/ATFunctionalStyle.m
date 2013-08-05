@@ -10,7 +10,7 @@
 - (id)initWithObject:(id)object handler:(void(^)())handler {
     self = [super init];
     if (self) {
-        _object = [object retain];
+        _object = object;
         _handler = [handler copy];
     }
     return self;
@@ -18,13 +18,12 @@
 
 - (void)invalidate {
     [_object removeObserver:self];
-    [_object release], _object = nil;
-    [_handler release], _handler = nil;
+    _object = nil;
+    _handler = nil;
 }
 
 - (void)dealloc {
     [self invalidate];
-    [super dealloc];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -54,8 +53,7 @@
 }
 
 - (void)dealloc {
-    [_observers release], _observers = nil;
-    [super dealloc];
+    _observers = nil;
 }
 
 @end
@@ -65,7 +63,7 @@
 - (ATObserverCollection *)AT_observerCollection {
     ATObserverCollection *collection = objc_getAssociatedObject(self, _cmd);
     if (collection == nil) {
-        collection = [[[ATObserverCollection alloc] init] autorelease];
+        collection = [[ATObserverCollection alloc] init];
         objc_setAssociatedObject(self, _cmd, collection, OBJC_ASSOCIATION_RETAIN);
     }
     return collection;
@@ -76,7 +74,7 @@
 }
 
 - (ATObserver *)addObserverForKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options owner:(id)owner block:(void(^)())block {
-    ATObserver *observer = [[[ATObserver alloc] initWithObject:self handler:block] autorelease];
+    ATObserver *observer = [[ATObserver alloc] initWithObject:self handler:block];
     [[owner AT_observerCollection] addObserver:observer];
     return observer;
 }

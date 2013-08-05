@@ -6,6 +6,6 @@
 
 @interface PostProcessingSettingsWindowController : BaseProjectSettingsWindowController
 
-@property (assign) IBOutlet NSTextField *commandField;
+@property (weak) IBOutlet NSTextField *commandField;
 
 @end

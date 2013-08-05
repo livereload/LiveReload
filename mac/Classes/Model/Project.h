@@ -120,8 +120,8 @@ enum {
 
 @property(nonatomic, getter = isDirty) BOOL dirty;
 
-@property(nonatomic, retain) NSString *postProcessingCommand;
-@property(nonatomic, retain) NSString *postProcessingScriptName;
+@property(nonatomic, strong) NSString *postProcessingCommand;
+@property(nonatomic, strong) NSString *postProcessingScriptName;
 @property(nonatomic, readonly) UserScript *postProcessingScript;
 @property(nonatomic) BOOL postProcessingEnabled;
 

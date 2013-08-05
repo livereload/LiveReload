@@ -17,6 +17,6 @@
 
 - (NSSet *)changedPathsByRescanningSubfolders:(NSSet *)subfolderPathes;
 
-@property(nonatomic, readonly, retain) FSTree *savedTree;
+@property(nonatomic, readonly, strong) FSTree *savedTree;
 
 @end

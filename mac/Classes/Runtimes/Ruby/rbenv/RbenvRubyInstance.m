@@ -5,7 +5,7 @@
 
 @interface RbenvRubyInstance ()
 
-@property(nonatomic, assign) RbenvContainer *container;
+@property(nonatomic, weak) RbenvContainer *container;
 @property(nonatomic, strong) NSString *name;
 
 @end

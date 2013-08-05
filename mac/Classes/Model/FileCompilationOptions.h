@@ -19,7 +19,7 @@
 - (NSDictionary *)memento;
 
 @property (nonatomic) BOOL enabled;
-@property (nonatomic, retain) Compiler *compiler;
+@property (nonatomic, strong) Compiler *compiler;
 @property (nonatomic, readonly, copy) NSString *sourcePath;
 @property (nonatomic, copy) NSString *destinationDirectory;
 @property (nonatomic, copy) NSString *destinationDirectoryForDisplay;
@@ -27,7 +27,7 @@
 @property (nonatomic, copy) NSString *destinationPathForDisplay;
 @property (nonatomic, copy) NSString *destinationName;
 @property (nonatomic, copy) NSString *destinationNameMask;
-@property (nonatomic, readonly, retain) NSMutableDictionary *additionalOptions;
+@property (nonatomic, readonly, strong) NSMutableDictionary *additionalOptions;
 
 - (NSString *)destinationNameForMask:(NSString *)destinationNameMask;
 - (NSString *)destinationDisplayPathForMask:(NSString *)destinationNameMask;

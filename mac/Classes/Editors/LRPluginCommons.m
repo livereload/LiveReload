@@ -139,7 +139,6 @@ NSArray *LRFindPluginsInFolder(NSURL *folder, NSArray *validApiValues) {
     if ([_properties isEqualToDictionary:newProperties])
         return NO;
     else {
-        [_properties release];
         _properties = [newProperties copy];
         return YES;
     }

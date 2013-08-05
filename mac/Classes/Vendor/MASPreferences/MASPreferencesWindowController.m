@@ -15,7 +15,7 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
 - (NSViewController <MASPreferencesViewController> *)viewControllerForIdentifier:(NSString *)identifier;
 
 @property (readonly) NSArray *toolbarItemIdentifiers;
-@property (nonatomic, retain) NSViewController <MASPreferencesViewController> *selectedViewController;
+@property (nonatomic, strong) NSViewController <MASPreferencesViewController> *selectedViewController;
 
 @end
 

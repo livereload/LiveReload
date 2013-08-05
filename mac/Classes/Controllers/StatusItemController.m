@@ -10,8 +10,8 @@
 
 @interface StatusItemController () <StatusItemViewDelegate>
 
-@property(nonatomic, retain) NSStatusItem *statusItem;
-@property(nonatomic, retain) StatusItemView *statusItemView;
+@property(nonatomic, strong) NSStatusItem *statusItem;
+@property(nonatomic, strong) StatusItemView *statusItemView;
 
 - (void)updateStatusIconState;
 - (void)updateStatusIconVisibility;
@@ -44,7 +44,7 @@
     NSRect viewFrame = NSMakeRect(0, 0, width, height);
     
     self.statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:width];
-    self.statusItemView = [[[StatusItemView alloc] initWithFrame:viewFrame] autorelease];
+    self.statusItemView = [[StatusItemView alloc] initWithFrame:viewFrame];
     self.statusItemView.delegate = self;
     [self.statusItem setView:self.statusItemView];
 

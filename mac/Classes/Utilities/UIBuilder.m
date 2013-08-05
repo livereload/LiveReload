@@ -139,14 +139,13 @@ static ControlTypeInfo CONTROL_TYPE_INFO[] = {
 - (id)initWithView:(NSView *)view {
     self = [super init];
     if (self) {
-        _view = [view retain];
+        _view = view;
     }
     return self;
 }
 
 - (void)dealloc {
-    [_view release], _view = nil;
-    [super dealloc];
+    _view = nil;
 }
 
 
@@ -168,19 +167,19 @@ static ControlTypeInfo CONTROL_TYPE_INFO[] = {
         control.frame = frame;
     }
 
-    [_controls release], _controls = nil;
+    _controls = nil;
 
     return (controlsHeight + topInset + bottomInset) - _view.frame.size.height;
 }
 
 - (NSPopUpButton *)addPopUpButton {
-    NSPopUpButton *control = [[[NSPopUpButton alloc] initWithFrame:NSMakeRect(kPopUpControlX, 0, kPopUpControlWidth, kPopUpControlHeight) pullsDown:NO] autorelease];
+    NSPopUpButton *control = [[NSPopUpButton alloc] initWithFrame:NSMakeRect(kPopUpControlX, 0, kPopUpControlWidth, kPopUpControlHeight) pullsDown:NO];
     [self addControl:control ofType:ControlTypePopUp];
     return control;
 }
 
 - (NSButton *)addCheckboxWithTitle:(NSString *)title {
-    NSButton *control = [[[NSButton alloc] initWithFrame:NSMakeRect(kCheckBoxX, 0, kCheckBoxWidth, kCheckBoxHeight)] autorelease];
+    NSButton *control = [[NSButton alloc] initWithFrame:NSMakeRect(kCheckBoxX, 0, kCheckBoxWidth, kCheckBoxHeight)];
     control.buttonType = NSSwitchButton;
     [control setTitle:title];
     [self addControl:control ofType:ControlTypeCheckBox];
@@ -188,13 +187,13 @@ static ControlTypeInfo CONTROL_TYPE_INFO[] = {
 }
 
 - (NSTextField *)addTextField {
-    NSTextField *control = [[[NSTextField alloc] initWithFrame:NSMakeRect(kEditX, 0, kEditWidth, kEditHeight)] autorelease];
+    NSTextField *control = [[NSTextField alloc] initWithFrame:NSMakeRect(kEditX, 0, kEditWidth, kEditHeight)];
     [self addControl:control ofType:ControlTypeEdit];
     return control;
 }
 
 - (NSTextField *)addLabel:(NSString *)label {
-    NSTextField *control = [[[NSTextField alloc] initWithFrame:NSMakeRect(kLabelX, _lastControlY + LAST.labelOffset, kLabelWidth, kLabelHeight)] autorelease];
+    NSTextField *control = [[NSTextField alloc] initWithFrame:NSMakeRect(kLabelX, _lastControlY + LAST.labelOffset, kLabelWidth, kLabelHeight)];
     control.drawsBackground = control.selectable = control.editable = control.bezeled = NO;
     control.alignment = NSRightTextAlignment;
     control.stringValue = label;
@@ -205,7 +204,7 @@ static ControlTypeInfo CONTROL_TYPE_INFO[] = {
 }
 
 - (NSTextField *)addFullWidthLabel:(NSString *)label {
-    NSTextField *control = [[[NSTextField alloc] initWithFrame:NSMakeRect(kLabelX, 0, kFullWidthLabelWidth, kLabelHeight)] autorelease];
+    NSTextField *control = [[NSTextField alloc] initWithFrame:NSMakeRect(kLabelX, 0, kFullWidthLabelWidth, kLabelHeight)];
     control.drawsBackground = control.selectable = control.editable = control.bezeled = NO;
     control.alignment = NSCenterTextAlignment;
     control.stringValue = label;
@@ -215,7 +214,7 @@ static ControlTypeInfo CONTROL_TYPE_INFO[] = {
 }
 
 - (NSTextField *)addRightLabel:(NSString *)label {
-    NSTextField *control = [[[NSTextField alloc] initWithFrame:NSMakeRect(kRightLabelX, 0, kRightLabelWidth, kLabelHeight)] autorelease];
+    NSTextField *control = [[NSTextField alloc] initWithFrame:NSMakeRect(kRightLabelX, 0, kRightLabelWidth, kLabelHeight)];
     control.drawsBackground = control.selectable = control.editable = control.bezeled = NO;
     control.alignment = NSLeftTextAlignment;
     control.stringValue = label;

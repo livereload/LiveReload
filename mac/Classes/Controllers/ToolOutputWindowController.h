@@ -20,14 +20,14 @@ enum UnparsedErrorState {
     NSString              *_key;
     enum UnparsedErrorState _state;
 
-    NSTextField           *_fileNameLabel;
-    NSTextField           *_lineNumberLabel;
-    NSTextView            *_unparsedNotificationView;
-    NSTextView            *_messageView;
-    NSScrollView          *_messageScroller;
-    NSButton              *_jumpToErrorButton;
+    NSTextField           *__weak _fileNameLabel;
+    NSTextField           *__weak _lineNumberLabel;
+    NSTextView            *__unsafe_unretained _unparsedNotificationView;
+    NSTextView            *__unsafe_unretained _messageView;
+    NSScrollView          *__weak _messageScroller;
+    NSButton              *__weak _jumpToErrorButton;
 
-    NSMenuItem            *_showOutputMenuItem;
+    NSMenuItem            *__weak _showOutputMenuItem;
 
     ToolOutputWindowController *_previousWindowController;
     BOOL                   _appearing;
@@ -47,15 +47,15 @@ enum UnparsedErrorState {
 
 - (id)initWithCompilerOutput:(ToolOutput *)compilerOutput key:(NSString *)key;
 
-@property (assign) IBOutlet NSTextField *fileNameLabel;
-@property (assign) IBOutlet NSTextField *lineNumberLabel;
-@property (assign) IBOutlet NSTextView *unparsedNotificationView;
-@property (assign) IBOutlet NSTextView  *messageView;
-@property (assign) IBOutlet NSScrollView  *messageScroller;
-@property (assign) IBOutlet NSButton *jumpToErrorButton;
-@property (assign) IBOutlet NSMenuItem *showOutputMenuItem;
-@property (assign) IBOutlet NSSegmentedControl *actionControl;
-@property (assign) IBOutlet NSMenu *actionMenu;
+@property (weak) IBOutlet NSTextField *fileNameLabel;
+@property (weak) IBOutlet NSTextField *lineNumberLabel;
+@property (unsafe_unretained) IBOutlet NSTextView *unparsedNotificationView;
+@property (unsafe_unretained) IBOutlet NSTextView  *messageView;
+@property (weak) IBOutlet NSScrollView  *messageScroller;
+@property (weak) IBOutlet NSButton *jumpToErrorButton;
+@property (weak) IBOutlet NSMenuItem *showOutputMenuItem;
+@property (weak) IBOutlet NSSegmentedControl *actionControl;
+@property (weak) IBOutlet NSMenu *actionMenu;
 
 - (void)show;
 

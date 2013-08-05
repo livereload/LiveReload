@@ -27,7 +27,7 @@
 - (NSDictionary *)memento;
 
 @property(nonatomic, readonly) NSArray *availableVersions;
-@property(nonatomic, retain) CompilerVersion *version;
+@property(nonatomic, strong) CompilerVersion *version;
 
 @property(nonatomic, getter=isEnabled) BOOL enabled;
 @property(nonatomic, readonly, getter=isActive) BOOL active; // YES if enabled or not optional

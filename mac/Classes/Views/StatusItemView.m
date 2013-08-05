@@ -113,13 +113,13 @@ enum { kAnimationStepCount = StatusItemStateRotation3 - StatusItemStateActive + 
     _animating = YES;
     _animationStep = 1;
     _continueAnimationRequested = NO;
-    _animationTimer = [[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(_animate) userInfo:nil repeats:YES] retain];
+    _animationTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(_animate) userInfo:nil repeats:YES];
     [self display];
 }
 
 - (void)_endAnimation {
     [_animationTimer invalidate];
-    [_animationTimer release], _animationTimer = nil;
+    _animationTimer = nil;
     _animating = NO;
     [self display];
 }

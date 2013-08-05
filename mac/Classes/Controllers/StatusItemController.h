@@ -10,7 +10,7 @@
     MainWindowController *_mainWindowController;
 }
 
-@property(nonatomic, retain) IBOutlet MainWindowController *mainWindowController;
+@property(nonatomic, strong) IBOutlet MainWindowController *mainWindowController;
 
 - (void)initStatusBarIcon;
 

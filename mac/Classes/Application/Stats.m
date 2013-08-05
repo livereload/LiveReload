@@ -788,8 +788,8 @@ void AppNewsKitGoodTimeToDeliverMessages() {
 }
 
 void AppNewsKitSetStringValue(NSString *key, NSString *value) {
-    key = [[key copy] autorelease];
-    value = [[value copy] autorelease];
+    key = [key copy];
+    value = [value copy];
 
     dispatch_async(dispatch_get_main_queue(), ^{
         if (AppNewsKitStringValues == nil)

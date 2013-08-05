@@ -17,7 +17,7 @@
 
 @property(nonatomic, readonly, copy) NSSet *allExtensions;
 @property(nonatomic, readonly, copy) NSArray *builtInExtensions;
-@property(nonatomic, retain) NSArray *additionalExtensions;
+@property(nonatomic, strong) NSArray *additionalExtensions;
 @property(nonatomic) BOOL autoreloadJavascript;
 @property(nonatomic, readonly, copy) NSSet *excludedNames;
 

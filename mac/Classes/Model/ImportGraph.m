@@ -18,7 +18,7 @@
 - (ImportGraphNode *)nodeForPath:(NSString *)path {
     ImportGraphNode *node = [_filesToNodes objectForKey:path];
     if (node == nil) {
-        node = [[[ImportGraphNode alloc] initWithPath:path] autorelease];
+        node = [[ImportGraphNode alloc] initWithPath:path];
         [_filesToNodes setObject:node forKey:path];
     }
     return node;
@@ -140,11 +140,5 @@
     return [_referencedPaths count] > 0 || [_referencingPaths count] > 0;
 }
 
-- (void)dealloc {
-    [_path release];
-    [_referencedPaths release];
-    [_referencingPaths release];
-    [super dealloc];
-}
 
 @end

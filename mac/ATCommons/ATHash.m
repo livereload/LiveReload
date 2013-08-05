@@ -7,7 +7,6 @@ NSString *ATComputeMD5HashOfFile(NSString *path) {
 
     NSData *inputData = [[NSData alloc] initWithContentsOfFile:path];
     CC_MD5([inputData bytes], [inputData length], outputData);
-    [inputData release];
 
     NSMutableString *hash = [[NSMutableString alloc] init];
 

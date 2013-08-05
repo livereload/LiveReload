@@ -27,13 +27,13 @@
 
 @property(nonatomic, readonly, copy) NSString *path;
 
-@property(nonatomic, retain) FSTreeFilter *filter;
+@property(nonatomic, strong) FSTreeFilter *filter;
 
-@property(nonatomic) __weak id<FSMonitorDelegate> delegate;
+@property(weak, nonatomic) id<FSMonitorDelegate> delegate;
 
 @property(nonatomic, getter=isRunning) BOOL running;
 
-@property(nonatomic, readonly, retain) FSTree *tree;
+@property(nonatomic, readonly, strong) FSTree *tree;
 
 @property(nonatomic, assign) NSTimeInterval eventProcessingDelay;
 

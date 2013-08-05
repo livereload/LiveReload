@@ -10,14 +10,13 @@
 - (id)initWithProject:(Project *)project {
     self = [super initWithWindowNibName:NSStringFromClass([self class])];
     if (self) {
-        _project = [project retain];
+        _project = project;
     }
     return self;
 }
 
 - (void)dealloc {
-    [_project release], _project = nil;
-    [super dealloc];
+    _project = nil;
 }
 
 - (void)windowDidLoad {

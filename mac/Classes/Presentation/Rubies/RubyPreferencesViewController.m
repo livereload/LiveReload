@@ -16,8 +16,8 @@ enum {
 
 @interface RubyPreferencesViewController () <NSOutlineViewDataSource, NSOutlineViewDelegate>
 
-@property (assign) IBOutlet NSOutlineView *outlineView;
-@property (assign) IBOutlet NSSegmentedControl *actionButtons;
+@property (weak) IBOutlet NSOutlineView *outlineView;
+@property (weak) IBOutlet NSSegmentedControl *actionButtons;
 
 @property(nonatomic, strong) NSWindowController *modalSheetController;
 

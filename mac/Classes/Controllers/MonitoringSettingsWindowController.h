@@ -5,16 +5,16 @@
 
 @interface MonitoringSettingsWindowController : BaseProjectSettingsWindowController
 
-@property (assign) IBOutlet NSTextField *builtInExtensionsLabelField;
-@property (assign) IBOutlet NSTextField *additionalExtensionsTextField;
+@property (weak) IBOutlet NSTextField *builtInExtensionsLabelField;
+@property (weak) IBOutlet NSTextField *additionalExtensionsTextField;
 
-@property (assign) IBOutlet NSButton *disableLiveRefreshCheckBox;
-@property (assign) IBOutlet NSButton *delayFullRefreshCheckBox;
-@property (assign) IBOutlet NSTextField *fullRefreshDelayTextField;
-@property (assign) IBOutlet NSButton *delayChangeProcessingButton;
-@property (assign) IBOutlet NSTextField *changeProcessingDelayTextField;
-@property (assign) IBOutlet NSButton *remoteServerWorkflowButton;
+@property (weak) IBOutlet NSButton *disableLiveRefreshCheckBox;
+@property (weak) IBOutlet NSButton *delayFullRefreshCheckBox;
+@property (weak) IBOutlet NSTextField *fullRefreshDelayTextField;
+@property (weak) IBOutlet NSButton *delayChangeProcessingButton;
+@property (weak) IBOutlet NSTextField *changeProcessingDelayTextField;
+@property (weak) IBOutlet NSButton *remoteServerWorkflowButton;
 
-@property (assign) IBOutlet NSTableView *excludedPathsTableView;
+@property (weak) IBOutlet NSTableView *excludedPathsTableView;
 
 @end

@@ -47,8 +47,7 @@ static ToolOutputWindowController *lastOutputController = nil;
 
 + (void)setLastOutputController:(ToolOutputWindowController *)controller {
     if (lastOutputController != controller) {
-        [lastOutputController release];
-        lastOutputController = [controller retain];
+        lastOutputController = controller;
     }
 }
 
@@ -64,16 +63,15 @@ static ToolOutputWindowController *lastOutputController = nil;
 - (id)initWithCompilerOutput:(ToolOutput *)compilerOutput key:(NSString *)key {
     self = [super initWithWindowNibName:@"ToolOutputWindowController"];
     if (self) {
-        _compilerOutput = [compilerOutput retain];
+        _compilerOutput = compilerOutput;
         _key = [key copy];
     }
     return self;
 }
 
 - (void)dealloc {
-    [_compilerOutput release], _compilerOutput = nil;
-    [_editors release], _editors = nil;
-    [super dealloc];
+    _compilerOutput = nil;
+    _editors = nil;
 }
 
 #pragma mark -
@@ -128,7 +126,7 @@ static ToolOutputWindowController *lastOutputController = nil;
 
 - (void)show {
     if (lastOutputController) {
-        _previousWindowController = [lastOutputController retain];
+        _previousWindowController = lastOutputController;
     }
     [ToolOutputWindowController setLastOutputController:self];
 
@@ -143,13 +141,13 @@ static ToolOutputWindowController *lastOutputController = nil;
     } else {
         animations = [NSArray arrayWithObject:[self slideInAnimation]];
     }
-    NSViewAnimation *animation = [[[NSViewAnimation alloc] initWithViewAnimations:animations] autorelease];
+    NSViewAnimation *animation = [[NSViewAnimation alloc] initWithViewAnimations:animations];
     [animation setDelegate:self];
     [animation setDuration:0.25];
     [animation startAnimation];
 
     _appearing = YES;
-    _selfReferenceDuringAnimation = [self retain]; // will be released by animation delegate method
+    _selfReferenceDuringAnimation = self; // will be released by animation delegate method
 }
 
 - (void)hide:(BOOL)animated {
@@ -157,9 +155,9 @@ static ToolOutputWindowController *lastOutputController = nil;
         _suicidal = YES;
     } else {
         if (animated) {
-            [self retain]; // will be released by animation delegate method
+             // will be released by animation delegate method
 
-            NSViewAnimation *animation = [[[NSViewAnimation alloc] initWithViewAnimations:[NSArray arrayWithObject:[self fadeOutAnimation]]] autorelease];
+            NSViewAnimation *animation = [[NSViewAnimation alloc] initWithViewAnimations:[NSArray arrayWithObject:[self fadeOutAnimation]]];
             [animation setDelegate:self];
             [animation setDuration:0.25];
             [animation startAnimation];
@@ -174,13 +172,13 @@ static ToolOutputWindowController *lastOutputController = nil;
     if (_appearing) {
         _appearing = NO;
         if (_previousWindowController) {
-            [_previousWindowController release], _previousWindowController = nil;
+            _previousWindowController = nil;
         }
         if (_suicidal) {
             [self.window orderOut:nil];
         }
     }
-    [_selfReferenceDuringAnimation autorelease], _selfReferenceDuringAnimation = nil;
+    _selfReferenceDuringAnimation = nil;
 }
 #pragma mark -
 - (void)loadMessageForOutputType:(enum ToolOutputType)type {
@@ -191,7 +189,7 @@ static ToolOutputWindowController *lastOutputController = nil;
 
         if (type == ToolOutputTypeErrorRaw)
             type = ToolOutputTypeError;
-        _specialMessageURL = [url retain];
+        _specialMessageURL = url;
     } else if (type != ToolOutputTypeErrorRaw) {
         [self hideUnparsedNotificationView];
     }
@@ -263,7 +261,6 @@ static ToolOutputWindowController *lastOutputController = nil;
 - (void)updateActionMenu {
     [[EditorManager sharedEditorManager] updateEditors];
 
-    [_editors release];
     _editors = [[EditorManager sharedEditorManager].sortedEditors copy];
 
     EKEditor *preferredEditor = _editors[0];
@@ -352,13 +349,13 @@ static ToolOutputWindowController *lastOutputController = nil;
     NSString *link = [string substringToIndex:range.location];
     NSString *suffix = [string substringFromIndex:range.location + range.length];
 
-    NSMutableAttributedString *as = [[[NSMutableAttributedString alloc] init] autorelease];
+    NSMutableAttributedString *as = [[NSMutableAttributedString alloc] init];
 
-    [as appendAttributedString:[[[NSAttributedString alloc] initWithString:prefix] autorelease]];
+    [as appendAttributedString:[[NSAttributedString alloc] initWithString:prefix]];
 
-    [as appendAttributedString:[[[NSAttributedString alloc] initWithString:link attributes:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:NSSingleUnderlineStyle], NSUnderlineStyleAttributeName, url, NSLinkAttributeName, nil]] autorelease]];
+    [as appendAttributedString:[[NSAttributedString alloc] initWithString:link attributes:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:NSSingleUnderlineStyle], NSUnderlineStyleAttributeName, url, NSLinkAttributeName, nil]]];
 
-    [as appendAttributedString:[[[NSAttributedString alloc] initWithString:suffix] autorelease]];
+    [as appendAttributedString:[[NSAttributedString alloc] initWithString:suffix]];
 
     return as;
 }
@@ -371,7 +368,7 @@ static ToolOutputWindowController *lastOutputController = nil;
         case UnparsedErrorStateDefault:
             message = @"LiveReload failed to parse this error message. Please submit the message to our server for analysis.";
             range = [message rangeOfString:@"submit the message"];
-            resultString = [[[NSMutableAttributedString alloc] initWithString: message] autorelease];
+            resultString = [[NSMutableAttributedString alloc] initWithString: message];
 
             [resultString beginEditing];
             [resultString addAttribute:NSLinkAttributeName value:[[self errorReportURL] absoluteString] range:range];
@@ -380,13 +377,13 @@ static ToolOutputWindowController *lastOutputController = nil;
 
         case UnparsedErrorStateConnecting :
             message = @"Sending the error message to livereload.com…";
-            resultString = [[[NSMutableAttributedString alloc] initWithString:message] autorelease];
+            resultString = [[NSMutableAttributedString alloc] initWithString:message];
             break;
 
         case UnparsedErrorStateFail :
             message = @"Failed to send the message to livereload.com. Retry";
             range = [message rangeOfString:@"Retry"];
-            resultString = [[[NSMutableAttributedString alloc] initWithString: message] autorelease];
+            resultString = [[NSMutableAttributedString alloc] initWithString: message];
 
             [resultString beginEditing];
             [resultString addAttribute:NSLinkAttributeName value:[[self errorReportURL] absoluteString] range:range];
@@ -395,7 +392,7 @@ static ToolOutputWindowController *lastOutputController = nil;
 
         case UnparsedErrorStateSuccess :
             message = @"The error message has been sent for analysis. Thanks!";
-            resultString = [[[NSMutableAttributedString alloc] initWithString:message] autorelease];
+            resultString = [[NSMutableAttributedString alloc] initWithString:message];
             break;
 
         default: return nil;
@@ -450,7 +447,7 @@ static ToolOutputWindowController *lastOutputController = nil;
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    NSString *responseString = [[[NSString alloc] initWithData:_submissionResponseBody encoding:NSUTF8StringEncoding] autorelease];
+    NSString *responseString = [[NSString alloc] initWithData:_submissionResponseBody encoding:NSUTF8StringEncoding];
     if (_submissionResponseCode == 200 && [responseString isEqualToString:@"OK."]) {
         NSLog(@"Unparsable log submittion succeeded!");
         self.state = UnparsedErrorStateSuccess;
@@ -458,13 +455,13 @@ static ToolOutputWindowController *lastOutputController = nil;
         NSLog(@"Unparsable log submission failed with HTTP response code %ld, body:\n%@", (long)_submissionResponseCode, responseString);
         self.state = UnparsedErrorStateFail;
     }
-    [_submissionResponseBody release], _submissionResponseBody = nil;
+    _submissionResponseBody = nil;
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     self.state = UnparsedErrorStateFail;
     NSLog(@"Unparsable log submission failed with error: %@", [error localizedDescription]);
-    [_submissionResponseBody release], _submissionResponseBody = nil;
+    _submissionResponseBody = nil;
 }
 
 @end

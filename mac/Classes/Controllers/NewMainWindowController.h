@@ -39,38 +39,38 @@
     NSUInteger _firstUserScriptIndex;
 }
 
-@property (assign) IBOutlet NSView *titleBarSideView;
-@property (assign) IBOutlet NSMenuItem *versionMenuItem;
-@property (assign) IBOutlet NSMenuItem *openAtLoginMenuItem;
+@property (weak) IBOutlet NSView *titleBarSideView;
+@property (weak) IBOutlet NSMenuItem *versionMenuItem;
+@property (weak) IBOutlet NSMenuItem *openAtLoginMenuItem;
 
-@property (assign) IBOutlet NSOutlineView *projectOutlineView;
-@property (assign) IBOutlet NSButton *addProjectButton;
-@property (assign) IBOutlet NSButton *removeProjectButton;
-@property (assign) IBOutlet NSView *gettingStartedView;
-@property (assign) IBOutlet NSImageView *gettingStartedIconView;
-@property (assign) IBOutlet NSTextField *gettingStartedLabelField;
+@property (weak) IBOutlet NSOutlineView *projectOutlineView;
+@property (weak) IBOutlet NSButton *addProjectButton;
+@property (weak) IBOutlet NSButton *removeProjectButton;
+@property (weak) IBOutlet NSView *gettingStartedView;
+@property (weak) IBOutlet NSImageView *gettingStartedIconView;
+@property (weak) IBOutlet NSTextField *gettingStartedLabelField;
 
-@property (assign) IBOutlet NSTextField *statusTextField;
-@property (assign) IBOutlet NSButton *terminalButton;
+@property (weak) IBOutlet NSTextField *statusTextField;
+@property (weak) IBOutlet NSButton *terminalButton;
 
-@property (assign) IBOutlet NSBox *paneBorderBox;
-@property (assign) IBOutlet NSView *panePlaceholder;
+@property (weak) IBOutlet NSBox *paneBorderBox;
+@property (weak) IBOutlet NSView *panePlaceholder;
 
 // welcome pane
-@property (assign) IBOutlet NSView *welcomePane;
-@property (assign) IBOutlet NSTextField *welcomeMessageField;
+@property (weak) IBOutlet NSView *welcomePane;
+@property (weak) IBOutlet NSTextField *welcomeMessageField;
 
 // project pane
-@property (assign) IBOutlet NSView *projectPane;
-@property (assign) IBOutlet NSImageView *iconView;
-@property (assign) IBOutlet NSTextField *nameTextField;
-@property (assign) IBOutlet NSTextField *pathTextField;
-@property (assign) IBOutlet NSTextField *snippetLabelField;
-@property (assign) IBOutlet NSTextField *snippetBodyTextField;
-@property (assign) IBOutlet NSTextField *monitoringSummaryLabelField;
-@property (assign) IBOutlet NSButton *compilerEnabledCheckBox;
-@property (assign) IBOutlet NSButton *postProcessingEnabledCheckBox;
-@property (assign) IBOutlet NSTextField *availableCompilersLabel;
+@property (weak) IBOutlet NSView *projectPane;
+@property (weak) IBOutlet NSImageView *iconView;
+@property (weak) IBOutlet NSTextField *nameTextField;
+@property (weak) IBOutlet NSTextField *pathTextField;
+@property (weak) IBOutlet NSTextField *snippetLabelField;
+@property (weak) IBOutlet NSTextField *snippetBodyTextField;
+@property (weak) IBOutlet NSTextField *monitoringSummaryLabelField;
+@property (weak) IBOutlet NSButton *compilerEnabledCheckBox;
+@property (weak) IBOutlet NSButton *postProcessingEnabledCheckBox;
+@property (weak) IBOutlet NSTextField *availableCompilersLabel;
 
 
 - (void)projectAdded:(Project *)project;

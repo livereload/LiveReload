@@ -18,9 +18,8 @@
 }
 
 - (void)dealloc {
-    [_enabledExtensions release], _enabledExtensions = nil;
-    [_excludedNames release], _excludedNames = nil;
-    [super dealloc];
+    _enabledExtensions = nil;
+    _excludedNames = nil;
 }
 
 

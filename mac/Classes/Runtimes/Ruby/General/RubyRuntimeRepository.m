@@ -44,7 +44,7 @@ RubyRuntimeRepository *sharedRubyManager;
 
         [self addInstance:[[SystemRubyInstance alloc] initWithIdentifier:@"system" executableURL:[NSURL fileURLWithPath:@"/usr/bin/ruby"]]];
 
-        sharedRubyManager = [self retain];
+        sharedRubyManager = self;
     }
     return self;
 }

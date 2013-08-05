@@ -29,7 +29,7 @@ void TenderStartDiscussion(NSString *subject, NSString *body) {
 void _ShitHappened(NSString *subject, NSString *format, ...) {
     va_list va;
     va_start(va, format);
-    NSString *message = [[[NSString alloc] initWithFormat:format arguments:va] autorelease];
+    NSString *message = [[NSString alloc] initWithFormat:format arguments:va];
     va_end(va);
 
     NSLog(@"SHIT HAPPENED: %@", message);

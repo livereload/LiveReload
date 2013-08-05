@@ -23,8 +23,8 @@
 
 - (void)parse;
 
-@property(nonatomic, retain) id storedValue;
-@property(nonatomic, readonly) id currentValue;
+@property(nonatomic, strong) id storedValue;
+@property(unsafe_unretained, nonatomic, readonly) id currentValue;
 
 - (id)defaultValue; // subclasses must override
 - (id)newValue;     // subclasses must override
@@ -74,7 +74,7 @@ Class ToolOptionClassByType(NSString *type) {
     NSString *type = [optionInfo objectForKey:@"Type"];
     Class klass = ToolOptionClassByType(type);
     if (klass) {
-        return [[[klass alloc] initWithCompiler:compiler project:project optionInfo:optionInfo] autorelease];
+        return [[klass alloc] initWithCompiler:compiler project:project optionInfo:optionInfo];
     } else {
         return nil;
     }
@@ -83,8 +83,8 @@ Class ToolOptionClassByType(NSString *type) {
 - (id)initWithCompiler:(Compiler *)compiler project:(Project *)project optionInfo:(NSDictionary *)optionInfo {
     self = [super init];
     if (self) {
-        _compiler = [compiler retain];
-        _project = [project retain];
+        _compiler = compiler;
+        _project = project;
         _info = [optionInfo copy];
 
         _identifier = [[optionInfo objectForKey:@"Id"] copy];
@@ -95,11 +95,10 @@ Class ToolOptionClassByType(NSString *type) {
 }
 
 - (void)dealloc {
-    [_compiler release], _compiler = nil;
-    [_project release], _project = nil;
-    [_info release], _info = nil;
-    [_identifier release], _identifier = nil;
-    [super dealloc];
+    _compiler = nil;
+    _project = nil;
+    _info = nil;
+    _identifier = nil;
 }
 
 
@@ -178,9 +177,8 @@ Class ToolOptionClassByType(NSString *type) {
 }
 
 - (void)dealloc {
-    [_title release], _title = nil;
-    [_view release], _view = nil;
-    [super dealloc];
+    _title = nil;
+    _view = nil;
 }
 
 - (id)defaultValue {
@@ -192,7 +190,7 @@ Class ToolOptionClassByType(NSString *type) {
 }
 
 - (void)renderControlWithBuilder:(UIBuilder *)builder {
-    _view = [[builder addCheckboxWithTitle:_title] retain];
+    _view = [builder addCheckboxWithTitle:_title];
     [_view setTarget:self];
     [_view setAction:@selector(checkBoxClicked:)];
     _view.state = [self.currentValue boolValue] ? NSOnState : NSOffState;
@@ -228,13 +226,12 @@ Class ToolOptionClassByType(NSString *type) {
 }
 
 - (void)dealloc {
-    [_view release], _view = nil;
-    [super dealloc];
+    _view = nil;
 }
 
 - (void)renderControlWithBuilder:(UIBuilder *)builder {
     CompilationOptions *options = [_project optionsForCompiler:_compiler create:YES];
-    _view = [[builder addCheckboxWithTitle:@"Enabled"] retain];
+    _view = [builder addCheckboxWithTitle:@"Enabled"];
     [_view setTarget:self];
     [_view setAction:@selector(checkBoxClicked:)];
     _view.state = options.enabled ? NSOnState : NSOffState;
@@ -266,9 +263,8 @@ Class ToolOptionClassByType(NSString *type) {
 }
 
 - (void)dealloc {
-    [_items release], _items = nil;
-    [_view release], _view = nil;
-    [super dealloc];
+    _items = nil;
+    _view = nil;
 }
 
 - (id)defaultValue {
@@ -294,7 +290,7 @@ Class ToolOptionClassByType(NSString *type) {
 }
 
 - (void)renderControlWithBuilder:(UIBuilder *)builder {
-    _view = [[builder addPopUpButton] retain];
+    _view = [builder addPopUpButton];
     [_view addItemsWithTitles:[_items valueForKeyPath:@"Title"]];
     [_view selectItemAtIndex:[self indexOfItemWithIdentifier:self.currentValue]];
 }
@@ -330,9 +326,8 @@ Class ToolOptionClassByType(NSString *type) {
 }
 
 - (void)dealloc {
-    [_placeholder release], _placeholder = nil;
-    [_view release], _view = nil;
-    [super dealloc];
+    _placeholder = nil;
+    _view = nil;
 }
 
 - (id)defaultValue {
@@ -344,7 +339,7 @@ Class ToolOptionClassByType(NSString *type) {
 }
 
 - (void)renderControlWithBuilder:(UIBuilder *)builder {
-    _view = [[builder addTextField] retain];
+    _view = [builder addTextField];
     if (_placeholder.length > 0) {
         [_view.cell setPlaceholderString:_placeholder];
     }

@@ -63,7 +63,7 @@ static BOOL IsBrokenFolder(NSString *path) {
 
 - (id)initWithPath:(NSString *)rootPath filter:(FSTreeFilter *)filter {
     if ((self = [super init])) {
-        _filter = [filter retain];
+        _filter = filter;
         _rootPath = [rootPath copy];
 
         NSInteger maxItems = [[NSUserDefaults standardUserDefaults] integerForKey:@"MaxMonitoredFilesPerProject"];
@@ -72,60 +72,60 @@ static BOOL IsBrokenFolder(NSString *path) {
         _items = calloc(maxItems, sizeof(struct FSTreeItem));
 
         NSFileManager *fm = [NSFileManager defaultManager];
-        NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-        NSDate *start = [NSDate date];
+        @autoreleasepool {
+            NSDate *start = [NSDate date];
 
-        struct stat st;
-        if (0 == lstat([rootPath UTF8String], &st)) {
-            {
-                struct FSTreeItem *item = &_items[_count++];
-                item->name = @"";
-                item->st_mode = st.st_mode & S_IFMT;
-                item->st_dev = st.st_dev;
-                item->st_ino = st.st_ino;
-                item->st_mtimespec = st.st_mtimespec;
-                item->st_ctimespec = st.st_ctimespec;
-                item->st_size = st.st_size;
-            }
+            struct stat st;
+            if (0 == lstat([rootPath UTF8String], &st)) {
+                {
+                    struct FSTreeItem *item = &_items[_count++];
+                    item->name = @"";
+                    item->st_mode = st.st_mode & S_IFMT;
+                    item->st_dev = st.st_dev;
+                    item->st_ino = st.st_ino;
+                    item->st_mtimespec = st.st_mtimespec;
+                    item->st_ctimespec = st.st_ctimespec;
+                    item->st_size = st.st_size;
+                }
 
-            for (NSInteger next = 0; next < _count; ++next) {
-                struct FSTreeItem *item = &_items[next];
-                if (item->st_mode == S_IFDIR) {
+                for (NSInteger next = 0; next < _count; ++next) {
+                    struct FSTreeItem *item = &_items[next];
+                    if (item->st_mode == S_IFDIR) {
 //                    NSLog(@"Listing %@", item->name);
-                    NSString *itemPath = [_rootPath stringByAppendingPathComponent:(__bridge NSString *)(item->name)];
-                    for (NSString *child in [[fm contentsOfDirectoryAtPath:itemPath error:nil] sortedArrayUsingSelector:@selector(compare:)]) {
-                        NSString *subpath = [itemPath stringByAppendingPathComponent:child];
-                        if (0 == lstat([subpath UTF8String], &st)) {
-                            BOOL isDir = (st.st_mode & S_IFMT) == S_IFDIR;
-                            if (![filter acceptsFileName:child isDirectory:isDir])
-                                continue;
-                            NSString *relativeChildPath = (CFStringGetLength(item->name) > 0 ? [(__bridge NSString *)item->name stringByAppendingPathComponent:child] : child);
-                            if (![filter acceptsFile:relativeChildPath isDirectory:isDir])
-                                continue;
-                            if (_count == maxItems) {
-                                NSLog(@"WARNING: Hitting the limit on max monitored files per project. Some files will not be monitored. To increase the limit, use 'defaults write com.livereload.LiveReload MaxMonitoredFilesPerProject %ld'. Current limit is %ld.", MIN(100000, maxItems * 5), maxItems);
-                                break;
+                        NSString *itemPath = [_rootPath stringByAppendingPathComponent:(__bridge NSString *)(item->name)];
+                        for (NSString *child in [[fm contentsOfDirectoryAtPath:itemPath error:nil] sortedArrayUsingSelector:@selector(compare:)]) {
+                            NSString *subpath = [itemPath stringByAppendingPathComponent:child];
+                            if (0 == lstat([subpath UTF8String], &st)) {
+                                BOOL isDir = (st.st_mode & S_IFMT) == S_IFDIR;
+                                if (![filter acceptsFileName:child isDirectory:isDir])
+                                    continue;
+                                NSString *relativeChildPath = (CFStringGetLength(item->name) > 0 ? [(__bridge NSString *)item->name stringByAppendingPathComponent:child] : child);
+                                if (![filter acceptsFile:relativeChildPath isDirectory:isDir])
+                                    continue;
+                                if (_count == maxItems) {
+                                    NSLog(@"WARNING: Hitting the limit on max monitored files per project. Some files will not be monitored. To increase the limit, use 'defaults write com.livereload.LiveReload MaxMonitoredFilesPerProject %ld'. Current limit is %ld.", MIN(100000, maxItems * 5), maxItems);
+                                    break;
+                                }
+                                struct FSTreeItem *subitem = &_items[_count++];
+                                subitem->parent = next;
+                                subitem->name = CFBridgingRetain(relativeChildPath);
+                                subitem->st_mode = st.st_mode & S_IFMT;
+                                subitem->st_dev = st.st_dev;
+                                subitem->st_ino = st.st_ino;
+                                subitem->st_mtimespec = st.st_mtimespec;
+                                subitem->st_ctimespec = st.st_ctimespec;
+                                subitem->st_size = st.st_size;
                             }
-                            struct FSTreeItem *subitem = &_items[_count++];
-                            subitem->parent = next;
-                            subitem->name = [relativeChildPath retain];
-                            subitem->st_mode = st.st_mode & S_IFMT;
-                            subitem->st_dev = st.st_dev;
-                            subitem->st_ino = st.st_ino;
-                            subitem->st_mtimespec = st.st_mtimespec;
-                            subitem->st_ctimespec = st.st_ctimespec;
-                            subitem->st_size = st.st_size;
                         }
                     }
                 }
             }
+
+
+            NSDate *end = [NSDate date];
+            _buildTime = [end timeIntervalSinceReferenceDate] - [start timeIntervalSinceReferenceDate];
+            NSLog(@"Scanned %d items in %.3lfs in directory %@", (int)_count, _buildTime, rootPath);
         }
-
-
-        NSDate *end = [NSDate date];
-        _buildTime = [end timeIntervalSinceReferenceDate] - [start timeIntervalSinceReferenceDate];
-        NSLog(@"Scanned %d items in %.3lfs in directory %@", (int)_count, _buildTime, rootPath);
-        [pool drain];
     }
     return self;
 }
@@ -135,10 +135,7 @@ static BOOL IsBrokenFolder(NSString *path) {
     for (struct FSTreeItem *cur = _items; cur < end; ++cur) {
         CFRelease(cur->name);
     }
-    [_rootPath release];
-    [_filter release];
     free(_items);
-    [super dealloc];
 }
 
 - (NSSet *)differenceFrom:(FSTree *)previous {
@@ -293,28 +290,28 @@ static BOOL IsBrokenFolder(NSString *path) {
 
 - (NSArray *)pathsOfFilesNamed:(NSString *)fileName {
     NSMutableArray *result = [NSMutableArray array];
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    struct FSTreeItem *end = _items + _count;
-    for (struct FSTreeItem *cur = _items; cur < end; ++cur) {
-        if (cur->st_mode == S_IFREG && [[(__bridge NSString *)cur->name lastPathComponent] isEqualToString:fileName]) {
-            [result addObject:(__bridge NSString *)cur->name];
+    @autoreleasepool {
+        struct FSTreeItem *end = _items + _count;
+        for (struct FSTreeItem *cur = _items; cur < end; ++cur) {
+            if (cur->st_mode == S_IFREG && [[(__bridge NSString *)cur->name lastPathComponent] isEqualToString:fileName]) {
+                [result addObject:(__bridge NSString *)cur->name];
+            }
         }
+        return result;
     }
-    [pool drain];
-    return result;
 }
 
 - (NSArray *)pathsOfFilesMatching:(BOOL (^)(NSString *))filter {
     NSMutableArray *result = [NSMutableArray array];
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    struct FSTreeItem *end = _items + _count;
-    for (struct FSTreeItem *cur = _items; cur < end; ++cur) {
-        if (cur->st_mode == S_IFREG && filter((__bridge NSString *)cur->name)) {
-            [result addObject:(__bridge NSString *)cur->name];
+    @autoreleasepool {
+        struct FSTreeItem *end = _items + _count;
+        for (struct FSTreeItem *cur = _items; cur < end; ++cur) {
+            if (cur->st_mode == S_IFREG && filter((__bridge NSString *)cur->name)) {
+                [result addObject:(__bridge NSString *)cur->name];
+            }
         }
+        return result;
     }
-    [pool drain];
-    return result;
 }
 
 - (NSArray *)brokenPaths {
@@ -330,34 +327,34 @@ static BOOL IsBrokenFolder(NSString *path) {
     }
 
     NSMutableArray *result = [NSMutableArray array];
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    @autoreleasepool {
 
-    struct FSTreeItem *end = _items + _count;
-    for (struct FSTreeItem *cur = _items; cur < end; ++cur) {
-        if (cur->st_mode == S_IFDIR) {
-            if (IsBrokenFolder([_rootPath stringByAppendingPathComponent:(__bridge NSString *)cur->name])) {
-                // ignore children of already reported folders
-                for (NSString *peer in result) {
-                    if (CFStringGetLength(cur->name) > [peer length] && [(__bridge NSString *)cur->name characterAtIndex:[peer length]] == '/' && [[(__bridge NSString *)cur->name substringToIndex:[peer length]] isEqualToString:peer]) {
-                        goto skip;
+        struct FSTreeItem *end = _items + _count;
+        for (struct FSTreeItem *cur = _items; cur < end; ++cur) {
+            if (cur->st_mode == S_IFDIR) {
+                if (IsBrokenFolder([_rootPath stringByAppendingPathComponent:(__bridge NSString *)cur->name])) {
+                    // ignore children of already reported folders
+                    for (NSString *peer in result) {
+                        if (CFStringGetLength(cur->name) > [peer length] && [(__bridge NSString *)cur->name characterAtIndex:[peer length]] == '/' && [[(__bridge NSString *)cur->name substringToIndex:[peer length]] isEqualToString:peer]) {
+                            goto skip;
+                        }
                     }
+                    [result addObject:(__bridge NSString *)cur->name];
+                skip: ;
                 }
-                [result addObject:(__bridge NSString *)cur->name];
-            skip: ;
             }
         }
-    }
 
-    // make the paths absolute
-    NSString *root = [_rootPath stringByAbbreviatingWithTildeInPath];
-    NSInteger count = [result count];
-    for (NSInteger index = 0; index < count; ++index) {
-        NSString *item = [result objectAtIndex:index];
-        [result replaceObjectAtIndex:index withObject:[root stringByAppendingPathComponent:item]];
-    }
+        // make the paths absolute
+        NSString *root = [_rootPath stringByAbbreviatingWithTildeInPath];
+        NSInteger count = [result count];
+        for (NSInteger index = 0; index < count; ++index) {
+            NSString *item = [result objectAtIndex:index];
+            [result replaceObjectAtIndex:index withObject:[root stringByAppendingPathComponent:item]];
+        }
 
-    [pool drain];
-    return result;
+        return result;
+    }
 }
 
 @end

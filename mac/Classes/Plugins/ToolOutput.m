@@ -17,7 +17,7 @@
 - (id)initWithCompiler:(Compiler *)compiler type:(enum ToolOutputType)type sourcePath:(NSString *)sourcePath line:(NSInteger)line message:(NSString *)message output:(NSString *)output {
     self = [super init];
     if (self) {
-        _compiler = [compiler retain];
+        _compiler = compiler;
         _type = type;
         _sourcePath = [sourcePath copy];
         _line = line;

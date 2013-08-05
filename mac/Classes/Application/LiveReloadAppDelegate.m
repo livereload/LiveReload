@@ -214,27 +214,27 @@ json_t *C_kernel__on_port_occupied_error(json_t *message) {
 }
 
 - (void)pingServerInBackground {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
-    NSString *internalVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+    @autoreleasepool {
+        NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+        NSString *internalVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
 
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    [params setObject:version forKey:@"v"];
-    [params setObject:internalVersion forKey:@"iv"];
+        NSMutableDictionary *params = [NSMutableDictionary dictionary];
+        [params setObject:version forKey:@"v"];
+        [params setObject:internalVersion forKey:@"iv"];
 
-    StatAllToParams(params);
+        StatAllToParams(params);
 
-    [params setObject:[[Preferences sharedPreferences].additionalExtensions componentsJoinedByString:@","] forKey:@"exts"];
+        [params setObject:[[Preferences sharedPreferences].additionalExtensions componentsJoinedByString:@","] forKey:@"exts"];
 
-    NSMutableString *qs = [NSMutableString string];
-    [params enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        if ([qs length] > 0)
-            [qs appendString:@"&"];
-        [qs appendFormat:@"%@=%@", key, [obj stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    }];
+        NSMutableString *qs = [NSMutableString string];
+        [params enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+            if ([qs length] > 0)
+                [qs appendString:@"&"];
+            [qs appendFormat:@"%@=%@", key, [obj stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        }];
 
-    [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://livereload.com/ping.php?%@", qs]]];
-    [pool drain];
+        [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://livereload.com/ping.php?%@", qs]]];
+    }
 }
 
 

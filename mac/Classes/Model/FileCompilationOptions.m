@@ -37,11 +37,10 @@
 }
 
 - (void)dealloc {
-    [_sourcePath release], _sourcePath = nil;
-    [_destinationDirectory release], _destinationDirectory = nil;
-    [_destinationNameMask release], _destinationNameMask = nil;
-    [_additionalOptions release], _additionalOptions = nil;
-    [super dealloc];
+    _sourcePath = nil;
+    _destinationDirectory = nil;
+    _destinationNameMask = nil;
+    _additionalOptions = nil;
 }
 
 
@@ -63,8 +62,7 @@
 
 - (void)setDestinationDirectory:(NSString *)destinationDirectory {
     if (_destinationDirectory != destinationDirectory) {
-        [_destinationDirectory release];
-        _destinationDirectory = [destinationDirectory retain];
+        _destinationDirectory = destinationDirectory;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
     }
 }
@@ -129,7 +127,6 @@
 
 - (void)setDestinationNameMask:(NSString *)destinationNameMask {
     if (_destinationNameMask != destinationNameMask) {
-        [_destinationNameMask autorelease];
         _destinationNameMask = [destinationNameMask copy];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
     }

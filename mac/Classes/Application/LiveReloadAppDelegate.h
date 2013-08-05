@@ -13,8 +13,8 @@
     int _port;
 }
 
-@property(nonatomic, retain) StatusItemController *statusItemController;
-@property(nonatomic, retain) NewMainWindowController *mainWindowController;
+@property(nonatomic, strong) StatusItemController *statusItemController;
+@property(nonatomic, strong) NewMainWindowController *mainWindowController;
 @property(nonatomic, readonly) int port;
 
 - (IBAction)displayMainWindow:sender;

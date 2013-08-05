@@ -15,11 +15,6 @@
     return self;
 }
 
-- (void)dealloc {
-    [_dictionary release], _dictionary = nil;
-    [super dealloc];
-}
-
 
 #pragma mark -
 

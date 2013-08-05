@@ -27,9 +27,6 @@ static PluginManager *sharedPluginManager;
     return self;
 }
 
-- (void)dealloc {
-    [super dealloc];
-}
 
 - (void)loadPluginFromFolder:(NSString *)pluginFolder into:(NSMutableArray *)plugins {
     NSString *name = [[pluginFolder lastPathComponent] stringByDeletingPathExtension];
@@ -38,7 +35,7 @@ static PluginManager *sharedPluginManager;
         return;
     [_loadedPluginNames addObject:name];
 
-    [plugins addObject:[[[Plugin alloc] initWithPath:pluginFolder] autorelease]];
+    [plugins addObject:[[Plugin alloc] initWithPath:pluginFolder]];
 }
 
 - (void)loadPluginsFromFolder:(NSString *)pluginsFolder into:(NSMutableArray *)plugins {
@@ -58,7 +55,7 @@ static PluginManager *sharedPluginManager;
         [self loadPluginsFromFolder:pluginsFolder into:plugins];
     }
 
-    [_userPluginNames release], _userPluginNames = [[NSArray alloc] initWithArray:[_loadedPluginNames allObjects]];
+    _userPluginNames = [[NSArray alloc] initWithArray:[_loadedPluginNames allObjects]];
 
     NSString *bundledPluginsFolder;
     const char *pluginsOverrideFolder = getenv("LRBundledPluginsOverride");
@@ -69,7 +66,7 @@ static PluginManager *sharedPluginManager;
     }
 
     [self loadPluginsFromFolder:bundledPluginsFolder into:plugins];
-    [_plugins release], _plugins = [plugins copy];
+    _plugins = [plugins copy];
 
     NSLog(@"Plugins loaded:\n%@", [[_plugins valueForKeyPath:@"path"] componentsJoinedByString:@"\n"]);
 }

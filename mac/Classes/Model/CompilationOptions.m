@@ -20,7 +20,7 @@
 - (id)initWithCompiler:(Compiler *)compiler memento:(NSDictionary *)memento {
     self = [super init];
     if (self) {
-        _compiler = [compiler retain];
+        _compiler = compiler;
         _globalOptions = [[NSMutableDictionary alloc] init];
         _fileOptions = [[NSMutableDictionary alloc] init];
 
@@ -32,7 +32,7 @@
         raw = [memento objectForKey:@"files"];
         if (raw) {
             [raw enumerateKeysAndObjectsUsingBlock:^(id filePath, id fileMemento, BOOL *stop) {
-                [_fileOptions setObject:[[[FileCompilationOptions alloc] initWithFile:filePath memento:fileMemento] autorelease] forKey:filePath];
+                [_fileOptions setObject:[[FileCompilationOptions alloc] initWithFile:filePath memento:fileMemento] forKey:filePath];
             }];
         }
 
@@ -58,11 +58,10 @@
 }
 
 - (void)dealloc {
-    [_compiler release], _compiler = nil;
-    [_additionalArguments release], _additionalArguments = nil;
-    [_globalOptions release], _globalOptions = nil;
-    [_fileOptions release], _fileOptions = nil;
-    [super dealloc];
+    _compiler = nil;
+    _additionalArguments = nil;
+    _globalOptions = nil;
+    _fileOptions = nil;
 }
 
 
@@ -78,10 +77,10 @@
 - (NSArray *)availableVersions {
     if (_availableVersions == nil) {
         _availableVersions = [[NSArray alloc] initWithObjects:
-                              [[[CompilerVersion alloc] initWithName:@"0.9"] autorelease],
-                              [[[CompilerVersion alloc] initWithName:@"1.0"] autorelease],
-                              [[[CompilerVersion alloc] initWithName:@"1.1"] autorelease],
-                              [[[CompilerVersion alloc] initWithName:@"1.2"] autorelease],
+                              [[CompilerVersion alloc] initWithName:@"0.9"],
+                              [[CompilerVersion alloc] initWithName:@"1.0"],
+                              [[CompilerVersion alloc] initWithName:@"1.1"],
+                              [[CompilerVersion alloc] initWithName:@"1.2"],
                               nil];
     }
     return _availableVersions;
@@ -89,15 +88,14 @@
 
 - (CompilerVersion *)version {
     if (_version == nil) {
-        _version = [[self.availableVersions objectAtIndex:0] retain];
+        _version = [self.availableVersions objectAtIndex:0];
     }
     return _version;
 }
 
 - (void)setVersion:(CompilerVersion *)version {
     if (_version != version) {
-        [_version release];
-        _version = [version retain];
+        _version = version;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
     }
 }
@@ -107,8 +105,7 @@
 
 - (void)setAdditionalArguments:(NSString *)additionalArguments {
     if (_additionalArguments != additionalArguments) {
-        [_additionalArguments release];
-        _additionalArguments = [additionalArguments retain];
+        _additionalArguments = additionalArguments;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
     }
 }
@@ -129,7 +126,7 @@
 - (FileCompilationOptions *)optionsForFileAtPath:(NSString *)path create:(BOOL)create {
     FileCompilationOptions *result = [_fileOptions objectForKey:path];
     if (result == nil && create) {
-        result = [[[FileCompilationOptions alloc] initWithFile:path memento:nil] autorelease];
+        result = [[FileCompilationOptions alloc] initWithFile:path memento:nil];
         [_fileOptions setObject:result forKey:path];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
     }

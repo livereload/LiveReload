@@ -74,7 +74,7 @@ NSString *PreferencesFilterSettingsChangedNotification = @"PreferencesFilterSett
 #pragma mark - Filter preferences
 
 - (void)updateFilterPreferencesSilently {
-    [_builtInExtensions release], _builtInExtensions = [[_builtinMonitoringSettings objectForKey:@"extensions"] retain];
+    _builtInExtensions = [_builtinMonitoringSettings objectForKey:@"extensions"];
     NSMutableSet *extensions = [NSMutableSet setWithArray:_builtInExtensions];
     [extensions unionSet:[NSSet setWithArray:self.additionalExtensions]];
     [extensions addObjectsFromArray:[PluginManager sharedPluginManager].compilerSourceExtensions];

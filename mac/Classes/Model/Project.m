@@ -128,7 +128,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
             [raw enumerateKeysAndObjectsUsingBlock:^(id uniqueId, id compilerMemento, BOOL *stop) {
                 Compiler *compiler = [pluginManager compilerWithUniqueId:uniqueId];
                 if (compiler) {
-                    [_compilerOptions setObject:[[[CompilationOptions alloc] initWithCompiler:compiler memento:compilerMemento] autorelease] forKey:uniqueId];
+                    [_compilerOptions setObject:[[CompilationOptions alloc] initWithCompiler:compiler memento:compilerMemento] forKey:uniqueId];
                 } else {
                     // TODO: save data for unknown compilers and re-add them when creating a memento
                 }
@@ -204,14 +204,13 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [_path release], _path = nil;
-    [_monitor release], _monitor = nil;
-    [_compilerOptions release], _compilerOptions = nil;
-    [_monitoringRequests release], _monitoringRequests = nil;
-    [_postProcessingCommand release], _postProcessingCommand = nil;
-    [_importGraph release], _importGraph = nil;
-    [_rubyVersionIdentifier release], _rubyVersionIdentifier = nil;
-    [super dealloc];
+    _path = nil;
+    _monitor = nil;
+    _compilerOptions = nil;
+    _monitoringRequests = nil;
+    _postProcessingCommand = nil;
+    _importGraph = nil;
+    _rubyVersionIdentifier = nil;
 }
 
 
@@ -386,7 +385,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         if (compilerOutput) {
             compilerOutput.project = self;
 
-            [[[[ToolOutputWindowController alloc] initWithCompilerOutput:compilerOutput key:path] autorelease] show];
+            [[[ToolOutputWindowController alloc] initWithCompilerOutput:compilerOutput key:path] show];
         } else {
             [ToolOutputWindowController hideOutputWindowWithKey:path];
         }
@@ -509,7 +508,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
                     if (toolOutput) {
                         toolOutput.project = self;
-                        [[[[ToolOutputWindowController alloc] initWithCompilerOutput:toolOutput key:[NSString stringWithFormat:@"%@.postproc", _path]] autorelease] show];
+                        [[[ToolOutputWindowController alloc] initWithCompilerOutput:toolOutput key:[NSString stringWithFormat:@"%@.postproc", _path]] show];
                     }
                 }];
             } else {
@@ -541,7 +540,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     _processingChanges = YES;
 
     while (_pendingChanges.count > 0 || _pendingPostProcessing) {
-        NSSet *paths = [_pendingChanges autorelease];
+        NSSet *paths = _pendingChanges;
         _pendingChanges = [[NSMutableSet alloc] init];
         [self processBatchOfPendingChanges:paths];
     }
@@ -577,8 +576,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
 - (void)setCustomName:(NSString *)customName {
     if (_customName != customName) {
-        [_customName autorelease];
-        _customName = [customName retain];
+        _customName = customName;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
     }
 }
@@ -594,7 +592,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     NSString *uniqueId = compiler.uniqueId;
     CompilationOptions *options = [_compilerOptions objectForKey:uniqueId];
     if (options == nil && create) {
-        options = [[[CompilationOptions alloc] initWithCompiler:compiler memento:nil] autorelease];
+        options = [[CompilationOptions alloc] initWithCompiler:compiler memento:nil];
         [_compilerOptions setObject:options forKey:uniqueId];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
     }
@@ -782,7 +780,7 @@ skipGuessing:
 
 - (void)setRubyVersionIdentifier:(NSString *)rubyVersionIdentifier {
     if (_rubyVersionIdentifier != rubyVersionIdentifier) {
-        [_rubyVersionIdentifier release], _rubyVersionIdentifier = [rubyVersionIdentifier copy];
+        _rubyVersionIdentifier = [rubyVersionIdentifier copy];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
     }
 }
@@ -934,7 +932,6 @@ skipGuessing:
 
 - (void)setPostProcessingCommand:(NSString *)postProcessingCommand {
     if (postProcessingCommand != _postProcessingCommand) {
-        [_postProcessingCommand release];
         _postProcessingCommand = [postProcessingCommand copy];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
     }
@@ -943,7 +940,6 @@ skipGuessing:
 - (void)setPostProcessingScriptName:(NSString *)postProcessingScriptName {
     if (postProcessingScriptName != _postProcessingScriptName) {
         BOOL wasEmpty = (_postProcessingScriptName.length == 0);
-        [_postProcessingScriptName release];
         _postProcessingScriptName = [postProcessingScriptName copy];
         if ([_postProcessingScriptName length] > 0 && wasEmpty && !_postProcessingEnabled) {
             [self setPostProcessingEnabled:YES];
@@ -976,7 +972,7 @@ skipGuessing:
             return userScript;
     }
 
-    return [[[MissingUserScript alloc] initWithName:_postProcessingScriptName] autorelease];
+    return [[MissingUserScript alloc] initWithName:_postProcessingScriptName];
 }
 
 
@@ -1011,7 +1007,6 @@ skipGuessing:
 
 - (void)setUrlMasks:(NSArray *)urlMasks {
     if (_urlMasks != urlMasks) {
-        [_urlMasks release];
         _urlMasks = [urlMasks copy];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
     }

@@ -12,16 +12,16 @@ typedef enum {
 
 @interface AddCustomRubySheet ()
 
-@property (assign) IBOutlet NSMatrix *typeMatrix;
+@property (weak) IBOutlet NSMatrix *typeMatrix;
 
-@property (assign) IBOutlet NSButton *chooseDirectoryButton;
-@property (assign) IBOutlet NSTextField *directoryExplanationField;
-@property (assign) IBOutlet NSTextField *chosenDirectoryField;
+@property (weak) IBOutlet NSButton *chooseDirectoryButton;
+@property (weak) IBOutlet NSTextField *directoryExplanationField;
+@property (weak) IBOutlet NSTextField *chosenDirectoryField;
 
-@property (assign) IBOutlet NSProgressIndicator *progressIndicator;
-@property (assign) IBOutlet NSTextField *progressMessage;
+@property (weak) IBOutlet NSProgressIndicator *progressIndicator;
+@property (weak) IBOutlet NSTextField *progressMessage;
 
-@property (assign) IBOutlet NSButton *addButton;
+@property (weak) IBOutlet NSButton *addButton;
 
 @property(nonatomic, strong) NSURL *chosenURL;
 @property(nonatomic, strong) id<RuntimeObject> chosenObject;
@@ -35,7 +35,7 @@ typedef enum {
 - (id)init {
     self = [super initWithWindowNibName:NSStringFromClass([self class])];
     if (self) {
-        _typeChoices = [@[
+        _typeChoices = @[
             @{
                 @"name": @"RVM",
                 @"hint": @"Choose your RVM installation root folder (typically ~/.rvm) to give LiveReload access to all RVM rubies.",
@@ -86,7 +86,7 @@ typedef enum {
                 @"defaultDir": @"/usr/local",
                 @"klass": [CustomRubyInstance class],
             },
-        ] retain];
+        ];
     }
     return self;
 }

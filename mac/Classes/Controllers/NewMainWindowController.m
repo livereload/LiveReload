@@ -111,7 +111,7 @@ void C_mainwnd__set_change_count(json_t *arg) {
     if (self) {
         _projectsItem = [[NSObject alloc] init];
 
-        _folderImage = [[[NSWorkspace sharedWorkspace] iconForFileType:NSFileTypeForHFSTypeCode(kGenericFolderIcon)] retain];
+        _folderImage = [[NSWorkspace sharedWorkspace] iconForFileType:NSFileTypeForHFSTypeCode(kGenericFolderIcon)];
         [_folderImage setSize:NSMakeSize(16,16)];
     }
     return self;
@@ -132,13 +132,13 @@ void C_mainwnd__set_change_count(json_t *arg) {
 }
 
 - (NSParagraphStyle *)paragraphStyleForLabel:(NSControl *)label {
-    NSMutableParagraphStyle *style = [[[NSMutableParagraphStyle alloc] init] autorelease];
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
     [style setAlignment:label.alignment];
     return style;
 }
 
 - (void)styleLabel:(NSControl *)label color:(NSColor *)color shadow:(NSShadow *)shadow text:(NSString *)text {
-    [label setAttributedStringValue:[[[NSAttributedString alloc] initWithString:text attributes:[NSDictionary dictionaryWithObjectsAndKeys:color, NSForegroundColorAttributeName, shadow, NSShadowAttributeName, [self paragraphStyleForLabel:label], NSParagraphStyleAttributeName, label.font, NSFontAttributeName, nil]] autorelease]];
+    [label setAttributedStringValue:[[NSAttributedString alloc] initWithString:text attributes:[NSDictionary dictionaryWithObjectsAndKeys:color, NSForegroundColorAttributeName, shadow, NSShadowAttributeName, [self paragraphStyleForLabel:label], NSParagraphStyleAttributeName, label.font, NSFontAttributeName, nil]]];
 }
 
 - (void)styleLabel:(NSControl *)label color:(NSColor *)color shadow:(NSShadow *)shadow {
@@ -161,17 +161,17 @@ void C_mainwnd__set_change_count(json_t *arg) {
     NSString *link = [string substringToIndex:range.location];
     NSString *suffix = [string substringFromIndex:range.location + range.length];
 
-    NSMutableAttributedString *as = [[[NSMutableAttributedString alloc] init] autorelease];
+    NSMutableAttributedString *as = [[NSMutableAttributedString alloc] init];
 
     if (shadow == nil) {
-        shadow = [[[NSShadow alloc] init] autorelease];
+        shadow = [[NSShadow alloc] init];
     }
 
-    [as appendAttributedString:[[[NSAttributedString alloc] initWithString:prefix attributes:[NSDictionary dictionaryWithObjectsAndKeys:color, NSForegroundColorAttributeName, shadow, NSShadowAttributeName, [self paragraphStyleForLabel:label], NSParagraphStyleAttributeName, label.font, NSFontAttributeName, nil]] autorelease]];
+    [as appendAttributedString:[[NSAttributedString alloc] initWithString:prefix attributes:[NSDictionary dictionaryWithObjectsAndKeys:color, NSForegroundColorAttributeName, shadow, NSShadowAttributeName, [self paragraphStyleForLabel:label], NSParagraphStyleAttributeName, label.font, NSFontAttributeName, nil]]];
 
-    [as appendAttributedString:[[[NSAttributedString alloc] initWithString:link attributes:[NSDictionary dictionaryWithObjectsAndKeys:linkColor, NSForegroundColorAttributeName, [NSNumber numberWithInt:NSSingleUnderlineStyle], NSUnderlineStyleAttributeName, url, NSLinkAttributeName, label.font, NSFontAttributeName, shadow, NSShadowAttributeName, [self paragraphStyleForLabel:label], NSParagraphStyleAttributeName, nil]] autorelease]];
+    [as appendAttributedString:[[NSAttributedString alloc] initWithString:link attributes:[NSDictionary dictionaryWithObjectsAndKeys:linkColor, NSForegroundColorAttributeName, [NSNumber numberWithInt:NSSingleUnderlineStyle], NSUnderlineStyleAttributeName, url, NSLinkAttributeName, label.font, NSFontAttributeName, shadow, NSShadowAttributeName, [self paragraphStyleForLabel:label], NSParagraphStyleAttributeName, nil]]];
 
-    [as appendAttributedString:[[[NSAttributedString alloc] initWithString:suffix attributes:[NSDictionary dictionaryWithObjectsAndKeys:color, NSForegroundColorAttributeName, shadow, NSShadowAttributeName, [self paragraphStyleForLabel:label], NSParagraphStyleAttributeName, label.font, NSFontAttributeName, nil]] autorelease]];
+    [as appendAttributedString:[[NSAttributedString alloc] initWithString:suffix attributes:[NSDictionary dictionaryWithObjectsAndKeys:color, NSForegroundColorAttributeName, shadow, NSShadowAttributeName, [self paragraphStyleForLabel:label], NSParagraphStyleAttributeName, label.font, NSFontAttributeName, nil]]];
 
     label.attributedStringValue = as;
 }
@@ -202,7 +202,7 @@ void C_mainwnd__set_change_count(json_t *arg) {
     [self stylePartialHyperlink:_snippetLabelField to:[NSURL URLWithString:@"http://help.livereload.com/kb/general-use/browser-extensions"] color:[NSColor blackColor] linkColor:[NSColor colorWithCalibratedRed:0 green:10/255.0 blue:137/255.0 alpha:1.0] shadow:nil];;
 
     NSTableColumn *tableColumn = [_projectOutlineView tableColumnWithIdentifier:@"Name"];
-    ImageAndTextCell *imageAndTextCell = [[[ImageAndTextCell alloc] init] autorelease];
+    ImageAndTextCell *imageAndTextCell = [[ImageAndTextCell alloc] init];
     [imageAndTextCell setEditable:YES];
     [tableColumn setDataCell:imageAndTextCell];
 
@@ -350,7 +350,7 @@ void C_mainwnd__set_change_count(json_t *arg) {
         _terminalViewController.view.frame = startingBounds;
 
         NSDictionary *effect = [NSDictionary dictionaryWithObjectsAndKeys:_terminalViewController.view, NSViewAnimationTargetKey, [NSValue valueWithRect:startingBounds], NSViewAnimationStartFrameKey, [NSValue valueWithRect:bounds], NSViewAnimationEndFrameKey, nil];
-        NSViewAnimation *animation = [[[NSViewAnimation alloc] initWithViewAnimations:[NSArray arrayWithObject:effect]] autorelease];
+        NSViewAnimation *animation = [[NSViewAnimation alloc] initWithViewAnimations:[NSArray arrayWithObject:effect]];
         [animation setAnimationCurve:NSAnimationEaseIn];
         [animation setDuration:0.25];
         [animation startAnimation];
@@ -367,7 +367,7 @@ void C_mainwnd__set_change_count(json_t *arg) {
         finalBounds.origin.y -= finalBounds.size.height;
 
         NSDictionary *effect = [NSDictionary dictionaryWithObjectsAndKeys:_terminalViewController.view, NSViewAnimationTargetKey, [NSValue valueWithRect:bounds], NSViewAnimationStartFrameKey, [NSValue valueWithRect:finalBounds], NSViewAnimationEndFrameKey, nil];
-        NSViewAnimation *animation = [[[NSViewAnimation alloc] initWithViewAnimations:[NSArray arrayWithObject:effect]] autorelease];
+        NSViewAnimation *animation = [[NSViewAnimation alloc] initWithViewAnimations:[NSArray arrayWithObject:effect]];
         [animation setDuration:0.25];
         [animation setDelegate:self];
         [animation startAnimation];
@@ -376,7 +376,7 @@ void C_mainwnd__set_change_count(json_t *arg) {
 
 - (void)animationDidEnd:(NSAnimation*)animation {
     [_terminalViewController.view removeFromSuperview];
-    [_terminalViewController release], _terminalViewController = nil;
+    _terminalViewController = nil;
 }
 
 - (IBAction)toggleTerminal:(id)sender {
@@ -424,13 +424,13 @@ void C_mainwnd__set_change_count(json_t *arg) {
 }
 
 - (void)selectedProjectDidChange {
-    [_selectedProject release], _selectedProject = nil;
+    _selectedProject = nil;
 
     NSInteger row = _projectOutlineView.selectedRow;
     if (row >= 0) {
         id item = [_projectOutlineView itemAtRow:row];
         if ([item isKindOfClass:[Project class]]) {
-            _selectedProject = [item retain];
+            _selectedProject = item;
         }
     }
 
@@ -757,8 +757,8 @@ void C_mainwnd__set_change_count(json_t *arg) {
 #pragma mark - Project settings (general)
 
 - (void)showProjectSettingsSheet:(Class)klass {
-    NSWindowController *controller = [[[klass alloc] initWithProject:_selectedProject] autorelease];
-    _projectSettingsSheetController = [controller retain];
+    NSWindowController *controller = [[klass alloc] initWithProject:_selectedProject];
+    _projectSettingsSheetController = controller;
     [NSApp beginSheet:_projectSettingsSheetController.window
        modalForWindow:self.window
         modalDelegate:self
@@ -772,7 +772,7 @@ void C_mainwnd__set_change_count(json_t *arg) {
     // at least on OS X 10.6, the window position is only persisted on quit
     [[NSUserDefaults standardUserDefaults] performSelector:@selector(synchronize) withObject:nil afterDelay:2.0];
 
-    [_projectSettingsSheetController release], _projectSettingsSheetController = nil;
+    _projectSettingsSheetController = nil;
 
     [self updateProjectPane];
 }
@@ -808,7 +808,7 @@ void C_mainwnd__set_change_count(json_t *arg) {
         return nil;
     NSInteger selectedScriptIndex = [self indexOfScriptNamed:_selectedProject.postProcessingScriptName];
     if (selectedScriptIndex < 0) {
-        [_userScripts insertObject:[[[MissingUserScript alloc] initWithName:selectedScriptName] autorelease] atIndex:0];
+        [_userScripts insertObject:[[MissingUserScript alloc] initWithName:selectedScriptName] atIndex:0];
         selectedScriptIndex = 0;
     }
     return [_userScripts objectAtIndex:selectedScriptIndex];
@@ -841,7 +841,6 @@ void C_mainwnd__set_change_count(json_t *arg) {
 }
 
 - (void)updateUserScripts {
-    [_userScripts autorelease];
     _userScripts = [[UserScriptManager sharedUserScriptManager].userScripts mutableCopy];
 
     [customScriptPopUp removeAllItems];

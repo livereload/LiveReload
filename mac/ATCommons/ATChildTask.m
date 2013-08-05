@@ -138,8 +138,8 @@ id ATCreateUserUnixTask(NSURL *scriptURL, NSError **error) {
 - (id)init {
     self = [super init];
     if (self) {
-        _standardOutputPipe = [[NSPipe pipe] retain];
-        _standardErrorPipe = [[NSPipe pipe] retain];
+        _standardOutputPipe = [NSPipe pipe];
+        _standardErrorPipe = [NSPipe pipe];
 
         _standardOutputData = [[NSMutableData alloc] init];
         _standardErrorData = [[NSMutableData alloc] init];
@@ -173,11 +173,6 @@ id ATCreateUserUnixTask(NSURL *scriptURL, NSError **error) {
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [_standardOutputPipe release];
-    [_standardErrorPipe release];
-    [_standardOutputData release];
-    [_standardErrorData release];
-    [super dealloc];
 }
 
 - (void)processPendingOutputData {
@@ -201,11 +196,11 @@ id ATCreateUserUnixTask(NSURL *scriptURL, NSError **error) {
 - (void)processPendingDataAndClosePipes {
     if (_standardOutputPipe) {
         [self processPendingOutputData];
-        [_standardOutputPipe release], _standardOutputPipe = nil;
+        _standardOutputPipe = nil;
     }
     if (_standardErrorPipe) {
         [self processPendingErrorData];
-        [_standardErrorPipe release], _standardErrorPipe = nil;
+        _standardErrorPipe = nil;
     }
 }
 
@@ -225,12 +220,12 @@ id ATCreateUserUnixTask(NSURL *scriptURL, NSError **error) {
 
 - (NSString *)standardOutputText {
     [self processPendingDataAndClosePipes];
-    return [[[NSString alloc] initWithData:_standardOutputData encoding:NSUTF8StringEncoding] autorelease];
+    return [[NSString alloc] initWithData:_standardOutputData encoding:NSUTF8StringEncoding];
 }
 
 - (NSString *)standardErrorText {
     [self processPendingDataAndClosePipes];
-    return [[[NSString alloc] initWithData:_standardErrorData encoding:NSUTF8StringEncoding] autorelease];
+    return [[NSString alloc] initWithData:_standardErrorData encoding:NSUTF8StringEncoding];
 }
 
 - (NSString *)combinedOutputText {

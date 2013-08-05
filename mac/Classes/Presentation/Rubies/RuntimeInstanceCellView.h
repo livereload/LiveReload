@@ -3,6 +3,6 @@
 
 @interface RuntimeInstanceCellView : NSTableCellView
 
-@property(assign) IBOutlet NSTextField *detailTextField;
+@property(weak) IBOutlet NSTextField *detailTextField;
 
 @end

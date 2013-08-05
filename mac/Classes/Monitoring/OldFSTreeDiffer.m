@@ -14,17 +14,16 @@
 - (id)initWithPath:(NSString *)path filter:(FSTreeFilter *)filter {
     if ((self = [super init])) {
         _path = [path copy];
-        _filter = [filter retain];
+        _filter = filter;
         _previousTree = [[FSTree alloc] initWithPath:_path filter:_filter];
     }
     return self;
 }
 
 - (void)dealloc {
-    [_path release], _path = nil;
-    [_filter release], _filter = nil;
-    [_previousTree release], _previousTree = nil;
-    [super dealloc];
+    _path = nil;
+    _filter = nil;
+    _previousTree = nil;
 }
 
 - (NSSet *)allFiles {
@@ -40,7 +39,6 @@
 
     NSSet *changedPaths = [currentTree differenceFrom:_previousTree];
 
-    [_previousTree release];
     _previousTree = currentTree;
 
     return changedPaths;

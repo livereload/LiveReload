@@ -21,13 +21,12 @@
             NSLog(@"Invalid plugin manifest %@: %@", plist, jsonParser.error);
             _info = [[NSDictionary alloc] init];
         } else {
-            _info = [repr retain];
+            _info = repr;
         }
-        [jsonParser release];
 
         NSMutableArray *compilers = [NSMutableArray array];
         for (NSDictionary *compilerInfo in [_info objectForKey:@"LRCompilers"]) {
-            [compilers addObject:[[[Compiler alloc] initWithDictionary:compilerInfo plugin:self] autorelease]];
+            [compilers addObject:[[Compiler alloc] initWithDictionary:compilerInfo plugin:self]];
         }
         _compilers = [compilers copy];
     }
@@ -36,10 +35,9 @@
 }
 
 - (void)dealloc {
-    [_path release], _path = nil;
-    [_info release], _info = nil;
-    [_compilers release], _compilers = nil;
-    [super dealloc];
+    _path = nil;
+    _info = nil;
+    _compilers = nil;
 }
 
 @end

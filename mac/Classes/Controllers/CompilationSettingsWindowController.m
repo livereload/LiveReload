@@ -73,12 +73,6 @@ const char *output_paths_table_column_ids[] = { "on", "source", "output" };
 @synthesize pathTableView = _pathTableView;
 @synthesize chooseFolderButton = _chooseFolderButton;
 
-- (void)dealloc {
-    [_compilerOptions release], _compilerOptions = nil;
-    [_fileList release];
-    [super dealloc];
-}
-
 - (void)windowDidLoad {
     _outputPathsWindowHeight = _tabView.frame.size.height;
     [_project requestMonitoring:YES forKey:@"compilationSettings"];
@@ -142,7 +136,7 @@ const char *output_paths_table_column_ids[] = { "on", "source", "output" };
             for (Compiler *compiler in compilers) {
                 NSArray *options = [compiler optionsForProject:_project];
 
-                EnabledToolOption *enabledOption = [[[EnabledToolOption alloc] initWithCompiler:compiler project:_project optionInfo:nil] autorelease];
+                EnabledToolOption *enabledOption = [[EnabledToolOption alloc] initWithCompiler:compiler project:_project optionInfo:nil];
                 options = [[NSArray arrayWithObject:enabledOption] arrayByAddingObjectsFromArray:options];
 
                 [self renderOptions:options forCompiler:compiler withBuilder:builder isFirst:&isFirst];
@@ -152,12 +146,10 @@ const char *output_paths_table_column_ids[] = { "on", "source", "output" };
             [builder addFullWidthLabel:@"No compilable files found in this folder."];
         }
     }];
-    [builder release];
 
     _compilerSettingsWindowHeight = _outputPathsWindowHeight + heightDelta;
 
     _compilerOptions = [[NSArray alloc] initWithArray:allOptions];
-    [allOptions release];
 }
 
 - (void)render {
@@ -382,7 +374,6 @@ const char *output_paths_table_column_ids[] = { "on", "source", "output" };
 #pragma mark - Output Paths Tab
 
 - (void)updateOutputPathsTabData {
-    [_fileList release];
     _fileList = [[NSMutableArray alloc] init];
 
     FSTree *tree = _project.tree;
@@ -489,7 +480,7 @@ const char *output_paths_table_column_ids[] = { "on", "source", "output" };
 
 - (IBAction)chooseOutputDirectory:(id)sender {
     if (_fileList.count == 0) {
-        NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+        NSAlert *alert = [[NSAlert alloc] init];
         [alert setMessageText:@"No files yet"];
         [alert setInformativeText:@"Before configuring an output directory, please create some source files first."];
         [alert addButtonWithTitle:@"OK"];
@@ -514,7 +505,7 @@ const char *output_paths_table_column_ids[] = { "on", "source", "output" };
         } else if (common != nil) {
             initialPath = [_project.path stringByAppendingPathComponent:common];
         } else {
-            NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+            NSAlert *alert = [[NSAlert alloc] init];
             [alert setMessageText:@"Change all files?"];
             [alert setInformativeText:@"Files are currently configured with different output directories. Proceeding will set the SAME output directory for ALL files.\n\nYou can configure individual files by selecting them first."];
             [[alert addButtonWithTitle:@"Proceed"] setKeyEquivalent:@""];
@@ -530,7 +521,7 @@ const char *output_paths_table_column_ids[] = { "on", "source", "output" };
         } else if (common != nil) {
             initialPath = [_project.path stringByAppendingPathComponent:common];
         } else {
-            NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+            NSAlert *alert = [[NSAlert alloc] init];
             [alert setMessageText:@"Change all selected files?"];
             [alert setInformativeText:@"Selected files are currently configured with different output directories. Proceeding will set the same output directory for all selected files."];
             [[alert addButtonWithTitle:@"Proceed"] setKeyEquivalent:@""];
@@ -624,7 +615,7 @@ const char *output_paths_table_column_ids[] = { "on", "source", "output" };
     if (!_bulkMaskEditingInProgress)
         return;
     _bulkMaskEditingInProgress = NO;
-    [_bulkMaskEditingFiles release], _bulkMaskEditingFiles = nil;
+    _bulkMaskEditingFiles = nil;
     [self.window setDefaultButtonCell:[_applyButton cell]];
 
     _applyOutputFileNameMaskButton.keyEquivalent = @"";

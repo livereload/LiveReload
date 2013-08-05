@@ -64,12 +64,6 @@ void C_workspace__set_monitoring_enabled(json_t *arg) {
     return self;
 }
 
-// just to make XDry happy; won't ever be deallocated
-- (void)dealloc {
-    [_projects release], _projects = nil;
-    [super dealloc];
-}
-
 
 #pragma mark -
 #pragma mark Persistence
@@ -113,7 +107,7 @@ void C_workspace__set_monitoring_enabled(json_t *arg) {
 }
 
 - (void)load {
-    _oldMementos = [[[NSUserDefaults standardUserDefaults] objectForKey:ProjectListKey] retain];
+    _oldMementos = [[NSUserDefaults standardUserDefaults] objectForKey:ProjectListKey];
     
     NSArray *projectMementos = nil;
 
@@ -134,7 +128,7 @@ void C_workspace__set_monitoring_enabled(json_t *arg) {
         if ([url isFileURL]) {
             [url startAccessingSecurityScopedResource];                       
             NSString *path = [url path];
-            [_projects addObject:[[[Project alloc] initWithPath:path memento:projectMemento] autorelease]];
+            [_projects addObject:[[Project alloc] initWithPath:path memento:projectMemento]];
         }
     }
 }
@@ -174,7 +168,7 @@ void C_workspace__set_monitoring_enabled(json_t *arg) {
         }
     }
     if (create) {
-        Project *project = [[[Project alloc] initWithPath:path memento:nil] autorelease];
+        Project *project = [[Project alloc] initWithPath:path memento:nil];
         [self addProjectsObject:project];
         return project;
     } else {

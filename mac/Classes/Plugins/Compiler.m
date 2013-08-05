@@ -48,7 +48,7 @@
             _needsOutputDirectory = YES;
         }
         _errorFormats = [[info objectForKey:@"Errors"] copy];
-        _uniqueId = [[_name lowercaseString] retain];
+        _uniqueId = [_name lowercaseString];
         _expectedOutputDirectoryNames = [[info objectForKey:@"ExpectedOutputDirectories"] copy];
         if (_expectedOutputDirectoryNames == nil)
             _expectedOutputDirectoryNames = [[NSArray alloc] init];
@@ -76,9 +76,8 @@
 }
 
 - (void)dealloc {
-    [_commandLine release], _commandLine = nil;
+    _commandLine = nil;
     _plugin = nil;
-    [super dealloc];
 }
 
 
@@ -162,7 +161,7 @@
     BOOL rubyInUse = [[arguments componentsJoinedByString:@" "] rangeOfString:rubyPath].length > 0;
     if (rubyInUse && !rubyInstance.valid) {
         NSLog(@"Ruby version '%@' does not exist, refusing to run.", project.rubyVersionIdentifier);
-        *compilerOutput = [[[ToolOutput alloc] initWithCompiler:self type:ToolOutputTypeError sourcePath:sourcePath line:0 message:@"Ruby not found. Please visit this project's compiler settings and choose another Ruby interpreter" output:@""] autorelease];
+        *compilerOutput = [[ToolOutput alloc] initWithCompiler:self type:ToolOutputTypeError sourcePath:sourcePath line:0 message:@"Ruby not found. Please visit this project's compiler settings and choose another Ruby interpreter" output:@""];
         return;
     }
 
@@ -252,7 +251,7 @@
 
             if (compilerOutput) {
                 NSInteger lineNo = [line integerValue];
-                *compilerOutput = [[[ToolOutput alloc] initWithCompiler:self type:errorType sourcePath:file line:lineNo message:message output:cleanOutput] autorelease];
+                *compilerOutput = [[ToolOutput alloc] initWithCompiler:self type:errorType sourcePath:file line:lineNo message:message output:cleanOutput];
             }
         }
     } else {
@@ -316,7 +315,7 @@
             __block NSUInteger start = capturedRanges[0].location + capturedRanges[0].length;
             while (start < text.length) {
                 __block BOOL found = NO;
-                for (NSString *contRegexp in _importContinuationRegExps) {
+                for (__strong NSString *contRegexp in _importContinuationRegExps) {
                     contRegexp = [@"^\\s*" stringByAppendingString:contRegexp];
                     [[text substringFromIndex:start] enumerateStringsMatchedByRegex:contRegexp usingBlock:^(NSInteger captureCount, NSString *const __unsafe_unretained *capturedStrings, const NSRange *capturedRanges, volatile BOOL *const stop) {
                         if (captureCount != 2) {

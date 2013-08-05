@@ -6,12 +6,12 @@
 
 @interface CompilationSettingsWindowController : BaseProjectSettingsWindowController
 
-@property (assign) IBOutlet NSPopUpButton *rubyVersionsPopUpButton;
+@property (weak) IBOutlet NSPopUpButton *rubyVersionsPopUpButton;
 
-@property (assign) IBOutlet NSTabView *tabView;
-@property (assign) IBOutlet NSView *compilerSettingsTabView;
-@property (assign) IBOutlet NSTableView *pathTableView;
-@property (assign) IBOutlet NSButton *chooseFolderButton;
+@property (weak) IBOutlet NSTabView *tabView;
+@property (weak) IBOutlet NSView *compilerSettingsTabView;
+@property (weak) IBOutlet NSTableView *pathTableView;
+@property (weak) IBOutlet NSButton *chooseFolderButton;
 
 - (IBAction)chooseOutputFileName:(id)sender;
 

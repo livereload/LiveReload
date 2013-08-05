@@ -15,8 +15,8 @@ enum ToolOutputType {
 
 - (id)initWithCompiler:(Compiler *)compiler type:(enum ToolOutputType)type sourcePath:(NSString *)sourcePath line:(NSInteger)line message:(NSString *)message output:(NSString *)output;
 
-@property (nonatomic, readonly, retain) Compiler *compiler;
-@property (nonatomic, retain) Project *project;
+@property (nonatomic, readonly, strong) Compiler *compiler;
+@property (nonatomic, strong) Project *project;
 @property (nonatomic, copy) NSString *sourcePath;
 @property (nonatomic) NSInteger line;
 @property (nonatomic, copy) NSString *message;
