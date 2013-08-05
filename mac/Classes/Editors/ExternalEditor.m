@@ -1,5 +1,6 @@
 
 #import "ExternalEditor.h"
+#import "EKJumpRequest.h"
 #import "Errors.h"
 #import "NSString+ATProperURLEncoding.h"
 
@@ -71,36 +72,35 @@ static NSURL *ExpandFileURLTemplate(NSString *template, NSURL *fileURL, NSIntege
     }];
 }
 
-- (BOOL)jumpToFile:(NSString *)file line:(NSInteger)line {
+- (void)jumpWithRequest:(EKJumpRequest *)request completionHandler:(void(^)(NSError *error))completionHandler {
     if (!self.script) {
         NSString *magicURLTemplate = nil;
-        if (line >= 1)
+        if (request.line >= 1)
             magicURLTemplate = self.magicURL2;
         else
             magicURLTemplate = self.magicURL1;
 
         if (magicURLTemplate) {
-            NSURL *magicURL = ExpandFileURLTemplate(magicURLTemplate, [NSURL fileURLWithPath:file], line);
+            NSURL *magicURL = ExpandFileURLTemplate(magicURLTemplate, request.fileURL, request.line);
             if ([[NSWorkspace sharedWorkspace] openURLs:@[magicURL] withAppBundleIdentifier:self.cocoaBundleId options:0 additionalEventParamDescriptor:nil launchIdentifiers:NULL])
-                return YES;
+                return completionHandler(nil);
         }
 
         if (self.cocoaBundleId) {
-            NSURL *fileURL = [NSURL fileURLWithPath:file];
-            if ([[NSWorkspace sharedWorkspace] openURLs:@[fileURL] withAppBundleIdentifier:self.cocoaBundleId options:0 additionalEventParamDescriptor:nil launchIdentifiers:NULL])
-                return YES;
+            if ([[NSWorkspace sharedWorkspace] openURLs:@[request.fileURL] withAppBundleIdentifier:self.cocoaBundleId options:0 additionalEventParamDescriptor:nil launchIdentifiers:NULL])
+                return completionHandler(nil);
         }
-        return NO;
+        return completionHandler(nil); // TODO: return error
     }
 
-    NSArray *arguments = @[file];
-    if (line >= 0)
-        arguments = [arguments arrayByAddingObject:[NSString stringWithFormat:@"%d", (int)line]];
+    NSArray *arguments = @[request.fileURL.path];
+    if (request.line >= 0)
+        arguments = [arguments arrayByAddingObject:[NSString stringWithFormat:@"%d", (int)request.line]];
 
     [self.script invokeWithArguments:arguments options:ATLaunchUnixTaskAndCaptureOutputOptionsMergeStdoutAndStderr completionHandler:^(NSString *outputText, NSString *stderrText, NSError *error) {
         NSLog(@"Editor jump call complete, error = %@, output = %@", [error localizedDescription], outputText);
+        return completionHandler(error);
     }];
-    return YES;
 }
 
 @end
