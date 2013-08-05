@@ -7,7 +7,7 @@
 
 
 struct FSTreeItem {
-    NSString *name;
+    CFStringRef name;
     NSInteger parent;
     mode_t st_mode;
     dev_t st_dev;
@@ -92,14 +92,14 @@ static BOOL IsBrokenFolder(NSString *path) {
                 struct FSTreeItem *item = &_items[next];
                 if (item->st_mode == S_IFDIR) {
 //                    NSLog(@"Listing %@", item->name);
-                    NSString *itemPath = [_rootPath stringByAppendingPathComponent:item->name];
+                    NSString *itemPath = [_rootPath stringByAppendingPathComponent:(__bridge NSString *)(item->name)];
                     for (NSString *child in [[fm contentsOfDirectoryAtPath:itemPath error:nil] sortedArrayUsingSelector:@selector(compare:)]) {
                         NSString *subpath = [itemPath stringByAppendingPathComponent:child];
                         if (0 == lstat([subpath UTF8String], &st)) {
                             BOOL isDir = (st.st_mode & S_IFMT) == S_IFDIR;
                             if (![filter acceptsFileName:child isDirectory:isDir])
                                 continue;
-                            NSString *relativeChildPath = ([item->name length] > 0 ? [item->name stringByAppendingPathComponent:child] : child);
+                            NSString *relativeChildPath = (CFStringGetLength(item->name) > 0 ? [(__bridge NSString *)item->name stringByAppendingPathComponent:child] : child);
                             if (![filter acceptsFile:relativeChildPath isDirectory:isDir])
                                 continue;
                             if (_count == maxItems) {
@@ -133,7 +133,7 @@ static BOOL IsBrokenFolder(NSString *path) {
 - (void)dealloc {
     struct FSTreeItem *end = _items + _count;
     for (struct FSTreeItem *cur = _items; cur < end; ++cur) {
-        [cur->name release];
+        CFRelease(cur->name);
     }
     [_rootPath release];
     [_filter release];
@@ -181,7 +181,7 @@ static BOOL IsBrokenFolder(NSString *path) {
             corresponding[i] = -1;
             ++i;
         } else {
-            NSComparisonResult r = [_items[i].name compare:previtems[j].name];
+            NSComparisonResult r = [(__bridge NSString *)_items[i].name compare:(__bridge NSString *)previtems[j].name];
             if (r == 0) {
                 // same item! compare mod times
                 if (_items[i].st_mode == previtems[j].st_mode && _items[i].st_dev == previtems[j].st_dev && _items[i].st_ino == previtems[j].st_ino && _items[i].st_mtimespec.tv_sec == previtems[j].st_mtimespec.tv_sec && _items[i].st_mtimespec.tv_nsec == previtems[j].st_mtimespec.tv_nsec && _items[i].st_ctimespec.tv_sec == previtems[j].st_ctimespec.tv_sec && _items[i].st_ctimespec.tv_nsec == previtems[j].st_ctimespec.tv_nsec && _items[i].st_size == previtems[j].st_size) {
@@ -191,7 +191,7 @@ static BOOL IsBrokenFolder(NSString *path) {
                     // changed
                     NSLog(@"%@ is changed item", _items[i].name);
                     if (_items[i].st_mode == S_IFREG || previtems[j].st_mode == S_IFREG) {
-                        [differences addObject:_items[i].name];
+                        [differences addObject:(__bridge NSString *)_items[i].name];
                     }
                 }
                 corresponding[i] = j;
@@ -216,14 +216,14 @@ static BOOL IsBrokenFolder(NSString *path) {
     for (i = 0; i < _count; i++) {
         if (corresponding[i] < 0) {
             if (_items[i].st_mode == S_IFREG) {
-                [differences addObject:_items[i].name];
+                [differences addObject:(__bridge NSString *)_items[i].name];
             }
         }
     }
     for (j = 0; j < prevcount; j++) {
         if (rcorresponding[j] < 0) {
             if (previtems[j].st_mode == S_IFREG) {
-                [differences addObject:previtems[j].name];
+                [differences addObject:(__bridge NSString *)previtems[j].name];
             }
         }
     }
@@ -245,8 +245,8 @@ static BOOL IsBrokenFolder(NSString *path) {
     @autoreleasepool {
         struct FSTreeItem *end = _items + _count;
         for (struct FSTreeItem *cur = _items; cur < end; ++cur) {
-            if ([[cur->name lastPathComponent] isEqualToString:fileName]) {
-                return cur->name;
+            if ([[(__bridge NSString *)cur->name lastPathComponent] isEqualToString:fileName]) {
+                return (__bridge NSString *)cur->name;
             }
         }
     }
@@ -296,8 +296,8 @@ static BOOL IsBrokenFolder(NSString *path) {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     struct FSTreeItem *end = _items + _count;
     for (struct FSTreeItem *cur = _items; cur < end; ++cur) {
-        if (cur->st_mode == S_IFREG && [[cur->name lastPathComponent] isEqualToString:fileName]) {
-            [result addObject:cur->name];
+        if (cur->st_mode == S_IFREG && [[(__bridge NSString *)cur->name lastPathComponent] isEqualToString:fileName]) {
+            [result addObject:(__bridge NSString *)cur->name];
         }
     }
     [pool drain];
@@ -309,8 +309,8 @@ static BOOL IsBrokenFolder(NSString *path) {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     struct FSTreeItem *end = _items + _count;
     for (struct FSTreeItem *cur = _items; cur < end; ++cur) {
-        if (cur->st_mode == S_IFREG && filter(cur->name)) {
-            [result addObject:cur->name];
+        if (cur->st_mode == S_IFREG && filter((__bridge NSString *)cur->name)) {
+            [result addObject:(__bridge NSString *)cur->name];
         }
     }
     [pool drain];
@@ -335,14 +335,14 @@ static BOOL IsBrokenFolder(NSString *path) {
     struct FSTreeItem *end = _items + _count;
     for (struct FSTreeItem *cur = _items; cur < end; ++cur) {
         if (cur->st_mode == S_IFDIR) {
-            if (IsBrokenFolder([_rootPath stringByAppendingPathComponent:cur->name])) {
+            if (IsBrokenFolder([_rootPath stringByAppendingPathComponent:(__bridge NSString *)cur->name])) {
                 // ignore children of already reported folders
                 for (NSString *peer in result) {
-                    if ([cur->name length] > [peer length] && [cur->name characterAtIndex:[peer length]] == '/' && [[cur->name substringToIndex:[peer length]] isEqualToString:peer]) {
+                    if (CFStringGetLength(cur->name) > [peer length] && [(__bridge NSString *)cur->name characterAtIndex:[peer length]] == '/' && [[(__bridge NSString *)cur->name substringToIndex:[peer length]] isEqualToString:peer]) {
                         goto skip;
                     }
                 }
-                [result addObject:cur->name];
+                [result addObject:(__bridge NSString *)cur->name];
             skip: ;
             }
         }
