@@ -125,6 +125,7 @@
     [_mostRecentlyUsedEditorIdentifiers insertObject:identifier atIndex:0];
     [[NSUserDefaults standardUserDefaults] setObject:_mostRecentlyUsedEditorIdentifiers forKey:@"EditorMRU"];
 
+    [self updateMruPositions];
     [self resortEditors];
 }
 

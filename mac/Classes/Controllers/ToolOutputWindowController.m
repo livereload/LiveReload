@@ -5,7 +5,7 @@
 #import "Project.h"
 
 #import "EditorManager.h"
-#import "EKEditor.h"
+#import "EditorKit.h"
 
 #import "Compiler.h"
 
@@ -23,7 +23,6 @@ static ToolOutputWindowController *lastOutputController = nil;
 - (void)hideUnparsedNotificationView;
 
 - (void)hide:(BOOL)animated;
-- (void)updateJumpToErrorEditor;
 
 - (NSAttributedString *)prepareSpecialMessage:(NSString *)message url:(NSURL *)url;
 - (NSAttributedString *)prepareMessageForState:(enum UnparsedErrorState)state;
@@ -41,7 +40,6 @@ static ToolOutputWindowController *lastOutputController = nil;
 @synthesize unparsedNotificationView = _unparsedNotificationView;
 @synthesize messageView = _messageView;
 @synthesize messageScroller = _messageScroller;
-@synthesize actionButton = _actionButton;
 @synthesize jumpToErrorButton = _jumpToErrorButton;
 @synthesize showOutputMenuItem = _showOutputMenuItem;
 
@@ -74,7 +72,7 @@ static ToolOutputWindowController *lastOutputController = nil;
 
 - (void)dealloc {
     [_compilerOutput release], _compilerOutput = nil;
-    [_editor release], _editor = nil;
+    [_editors release], _editors = nil;
     [super dealloc];
 }
 
@@ -94,14 +92,10 @@ static ToolOutputWindowController *lastOutputController = nil;
 
     [self loadMessageForOutputType:_compilerOutput.type];
 
-    // add the gears icon to the action button
-    NSMenuItem *menuItem = [[[NSMenuItem alloc] initWithTitle:@"" action:nil keyEquivalent:@""] autorelease];
-    NSImage *actionImage = [NSImage imageNamed:NSImageNameActionTemplate];
-    [actionImage setSize:NSMakeSize(10,10)];
-    [menuItem setImage:actionImage];
-    [[_actionButton menu] insertItem:menuItem atIndex:0];
+    [_actionControl setMenu:_actionMenu forSegment:1];
 
-    [self updateJumpToErrorEditor];
+    _originalActionControlFrame = _actionControl.frame;
+    [self updateActionMenu];
 }
 
 
@@ -262,47 +256,73 @@ static ToolOutputWindowController *lastOutputController = nil;
 
 #pragma mark -
 
-- (void)updateJumpToErrorEditor {
-    [_editor release], _editor = nil;
-    CGFloat defaultWidth = _jumpToErrorButton.frame.size.width;
-    NSString *defaultText = _jumpToErrorButton.title;
-
-    [[EditorManager sharedEditorManager] updateEditors];
-    _editor = [[[EditorManager sharedEditorManager] activeEditor] retain];
-    if (_editor) {
-        [_jumpToErrorButton setEnabled:YES];
-        [_jumpToErrorButton setTitle:[NSString stringWithFormat:@"Edit in %@", _editor.displayName]];
-    } else {
-        [_jumpToErrorButton setEnabled:NO];
-        [_jumpToErrorButton setTitle:@"Edit"];
-    }
-
-    NSSize defaultSize = [defaultText sizeWithAttributes:[NSDictionary dictionaryWithObject:[_jumpToErrorButton font] forKey:NSFontAttributeName]];
-    CGFloat padding = defaultWidth - defaultSize.width;
-
-    NSSize size = [[_jumpToErrorButton title] sizeWithAttributes:[NSDictionary dictionaryWithObject:[_jumpToErrorButton font] forKey:NSFontAttributeName]];
-    CGFloat width = ceil(size.width + padding);
-
-    NSRect frame = [_jumpToErrorButton frame];
-    CGFloat delta = width - frame.size.width;
-    frame.size.width += delta;
-    frame.origin.x -= delta;
-    [_jumpToErrorButton setFrame:frame];
+- (NSString *)labelForEditor:(EKEditor *)editor {
+    return [NSString stringWithFormat:@"Edit in %@", editor.displayName];
 }
 
-- (IBAction)jumpToError:(id)sender {
-    [self updateJumpToErrorEditor];
-    if (_editor == nil)
+- (void)updateActionMenu {
+    [[EditorManager sharedEditorManager] updateEditors];
+
+    [_editors release];
+    _editors = [[EditorManager sharedEditorManager].sortedEditors copy];
+
+    EKEditor *preferredEditor = _editors[0];
+    [_actionControl setLabel:[self labelForEditor:preferredEditor] forSegment:0];  // this triggers autosizing
+    [_actionControl sizeToFit];
+    // move back into place
+    CGRect frame = _actionControl.frame;
+    frame.origin.x = CGRectGetMaxX(_originalActionControlFrame) - frame.size.width;
+    _actionControl.frame = frame;
+
+    NSMenuItem *item;
+    while ((item = [_actionMenu itemAtIndex:0]).action == @selector(editInEditorMenuItemClicked:)) {
+        [_actionMenu removeItemAtIndex:0];
+    }
+
+    NSInteger index = 0;
+    for (EKEditor *editor in _editors) {
+        NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:[self labelForEditor:editor] action:@selector(editInEditorMenuItemClicked:) keyEquivalent:@""];
+        item.representedObject = editor;
+        [_actionMenu insertItem:item atIndex:index++];
+    }
+}
+
+//    CGFloat defaultWidth = _jumpToErrorButton.frame.size.width;
+//    NSString *defaultText = _jumpToErrorButton.title;
+
+//    NSSize defaultSize = [defaultText sizeWithAttributes:[NSDictionary dictionaryWithObject:[_jumpToErrorButton font] forKey:NSFontAttributeName]];
+//    CGFloat padding = defaultWidth - defaultSize.width;
+//
+//    NSSize size = [[_jumpToErrorButton title] sizeWithAttributes:[NSDictionary dictionaryWithObject:[_jumpToErrorButton font] forKey:NSFontAttributeName]];
+//    CGFloat width = ceil(size.width + padding);
+//
+//    NSRect frame = [_jumpToErrorButton frame];
+//    CGFloat delta = width - frame.size.width;
+//    frame.size.width += delta;
+//    frame.origin.x -= delta;
+//    [_jumpToErrorButton setFrame:frame];
+
+- (IBAction)editInEditorMenuItemClicked:(NSMenuItem *)sender {
+    EKEditor *editor = sender.representedObject;
+    [self editInEditor:editor];
+}
+
+- (IBAction)jumpToError:(NSSegmentedControl *)sender {
+    if (sender.selectedSegment != 0)
         return;
+    [self editInEditor:_editors[0]];
+}
+
+- (void)editInEditor:(EKEditor *)editor {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.05 * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void){
-        // TODO: check for success before hiding!
-        if (![_editor jumpToFile:_compilerOutput.sourcePath line:_compilerOutput.line]) {
-            NSLog(@"Failed to jump to the error position.");
-        }
+        [[EditorManager sharedEditorManager] moveEditorToFrontOfMostRecentlyUsedList:editor];
+        [editor jumpWithRequest:[[EKJumpRequest alloc] initWithFileURL:[NSURL fileURLWithPath:_compilerOutput.sourcePath] line:_compilerOutput.line column:EKJumpRequestValueUnknown] completionHandler:^(NSError *error) {
+            if (error)
+                NSLog(@"Failed to jump to the error position: %@", error.localizedDescription);
+        }];
     });
     [self hide:NO];
 }
-
 
 #pragma mark -
 

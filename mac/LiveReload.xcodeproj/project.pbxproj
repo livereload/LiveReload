@@ -132,6 +132,9 @@
 		4378C8D41515205C003187D5 /* OldFSTreeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8D01515205C003187D5 /* OldFSTreeFilter.m */; };
 		4379ADCB141D1060008C836F /* livereload.js in Resources */ = {isa = PBXBuildFile; fileRef = 4379ADC9141D00CE008C836F /* livereload.js */; };
 		4398AF0F1731E3DC0092A711 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 4398AF0E1731E3DC0092A711 /* NSData+Base64.m */; };
+		43996B2E17AF675D00B09954 /* ATMenuEnabledSegmentedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43996B2D17AF675D00B09954 /* ATMenuEnabledSegmentedCell.m */; };
+		43996B3917AF7A4E00B09954 /* ATDropDownArrowTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 43996B3717AF7A4E00B09954 /* ATDropDownArrowTemplate.png */; };
+		43996B3A17AF7A4E00B09954 /* ATDropDownArrowTemplate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43996B3817AF7A4E00B09954 /* ATDropDownArrowTemplate@2x.png */; };
 		439A76B015B28EF100E50057 /* LicenseCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 439A76AE15B28EF100E50057 /* LicenseCodeViewController.m */; };
 		439A76B115B28EF100E50057 /* LicenseCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 439A76AF15B28EF100E50057 /* LicenseCodeViewController.xib */; };
 		439A76B415B28F4300E50057 /* LicenseCodeWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 439A76B315B28F4300E50057 /* LicenseCodeWindowController.m */; };
@@ -465,6 +468,10 @@
 		4379ADC9141D00CE008C836F /* livereload.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = livereload.js; sourceTree = "<group>"; };
 		4398AF0D1731E3DC0092A711 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
 		4398AF0E1731E3DC0092A711 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		43996B2C17AF675D00B09954 /* ATMenuEnabledSegmentedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATMenuEnabledSegmentedCell.h; sourceTree = "<group>"; };
+		43996B2D17AF675D00B09954 /* ATMenuEnabledSegmentedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATMenuEnabledSegmentedCell.m; sourceTree = "<group>"; };
+		43996B3717AF7A4E00B09954 /* ATDropDownArrowTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ATDropDownArrowTemplate.png; sourceTree = "<group>"; };
+		43996B3817AF7A4E00B09954 /* ATDropDownArrowTemplate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ATDropDownArrowTemplate@2x.png"; sourceTree = "<group>"; };
 		439A76AD15B28EF100E50057 /* LicenseCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LicenseCodeViewController.h; sourceTree = "<group>"; };
 		439A76AE15B28EF100E50057 /* LicenseCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LicenseCodeViewController.m; sourceTree = "<group>"; };
 		439A76AF15B28EF100E50057 /* LicenseCodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LicenseCodeViewController.xib; sourceTree = "<group>"; };
@@ -1246,6 +1253,8 @@
 				43B5C01C17ADFA4600F57276 /* ATChildTask.m */,
 				43B5C01E17AE01C500F57276 /* ATLoginItemController.h */,
 				43B5C01F17AE01C500F57276 /* ATLoginItemController.m */,
+				43996B2C17AF675D00B09954 /* ATMenuEnabledSegmentedCell.h */,
+				43996B2D17AF675D00B09954 /* ATMenuEnabledSegmentedCell.m */,
 				43B5C00617ADF35C00F57276 /* NSArray+ATSubstitutions.h */,
 				43B5C00717ADF35C00F57276 /* NSArray+ATSubstitutions.m */,
 				43B5C00A17ADF35C00F57276 /* NSString+ATProperURLEncoding.h */,
@@ -1552,6 +1561,8 @@
 			children = (
 				43A4805A1749DF1400A0681D /* Rubies */,
 				433253A7174E0B4200C9A76B /* Preferences */,
+				43996B3717AF7A4E00B09954 /* ATDropDownArrowTemplate.png */,
+				43996B3817AF7A4E00B09954 /* ATDropDownArrowTemplate@2x.png */,
 				4303A4B615B3959D009D732A /* BuyTemplate.png */,
 				43146698146C5D2100DC075A /* ProjectPaneBackground.png */,
 				4314669C146C884800DC075A /* WelcomePaneBackground.png */,
@@ -1726,6 +1737,8 @@
 				433253B3174E0BA200C9A76B /* GeneralPreferencesViewController.xib in Resources */,
 				4344CE1C1798DB9100CB8658 /* editors.json in Resources */,
 				433B66E717A0914400A41848 /* streamline.lrplugin in Resources */,
+				43996B3917AF7A4E00B09954 /* ATDropDownArrowTemplate.png in Resources */,
+				43996B3A17AF7A4E00B09954 /* ATDropDownArrowTemplate@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1894,6 +1907,7 @@
 				43B5C03A17AEA41E00F57276 /* SublimeText3Editor.m in Sources */,
 				43B5C03D17AEA8C100F57276 /* Coda2Editor.m in Sources */,
 				43B5C04017AEA9F400F57276 /* NSAppleScript+ATInvokeHandlerWithArguments.m in Sources */,
+				43996B2E17AF675D00B09954 /* ATMenuEnabledSegmentedCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

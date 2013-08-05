@@ -25,7 +25,6 @@ enum UnparsedErrorState {
     NSTextView            *_unparsedNotificationView;
     NSTextView            *_messageView;
     NSScrollView          *_messageScroller;
-    NSPopUpButton         *_actionButton;
     NSButton              *_jumpToErrorButton;
 
     NSMenuItem            *_showOutputMenuItem;
@@ -34,12 +33,14 @@ enum UnparsedErrorState {
     BOOL                   _appearing;
     BOOL                   _suicidal;
 
-    EKEditor                *_editor;
+    NSArray               *_editors;
 
     NSInteger              _submissionResponseCode;
     NSMutableData         *_submissionResponseBody;
 
     NSURL                 *_specialMessageURL;
+
+    CGRect                 _originalActionControlFrame;
 }
 
 - (id)initWithCompilerOutput:(ToolOutput *)compilerOutput key:(NSString *)key;
@@ -49,9 +50,10 @@ enum UnparsedErrorState {
 @property (assign) IBOutlet NSTextView *unparsedNotificationView;
 @property (assign) IBOutlet NSTextView  *messageView;
 @property (assign) IBOutlet NSScrollView  *messageScroller;
-@property (assign) IBOutlet NSPopUpButton *actionButton;
 @property (assign) IBOutlet NSButton *jumpToErrorButton;
 @property (assign) IBOutlet NSMenuItem *showOutputMenuItem;
+@property (assign) IBOutlet NSSegmentedControl *actionControl;
+@property (assign) IBOutlet NSMenu *actionMenu;
 
 - (void)show;
 
