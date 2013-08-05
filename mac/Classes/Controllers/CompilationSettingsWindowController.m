@@ -65,8 +65,6 @@ const char *output_paths_table_column_ids[] = { "on", "source", "output" };
 @end
 
 
-EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_event, didDetectChange)
-
 @implementation CompilationSettingsWindowController
 
 @synthesize rubyVersionsPopUpButton = _rubyVersionsPopUpButton;
@@ -84,7 +82,7 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
 - (void)windowDidLoad {
     _outputPathsWindowHeight = _tabView.frame.size.height;
     [_project requestMonitoring:YES forKey:@"compilationSettings"];
-    EVENTBUS_OBJC_SUBSCRIBE(CompilationSettingsWindowController, project_fs_change_event);
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didDetectChange) name:ProjectDidDetectChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rubiesDidChange:) name:LRRuntimesDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rubiesDidChange:) name:LRRuntimeInstanceDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rubiesDidChange:) name:LRRuntimeContainerDidChangeNotification object:nil];
@@ -93,7 +91,7 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
 
 - (IBAction)dismiss:(id)sender {
     [_project requestMonitoring:NO forKey:@"compilationSettings"];
-    EVENTBUS_OBJC_UNSUBSCRIBE(CompilationSettingsWindowController, project_fs_change_event);
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:ProjectDidDetectChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:LRRuntimesDidChangeNotification object:nil];
     [super dismiss:sender];
 }

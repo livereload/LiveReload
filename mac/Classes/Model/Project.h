@@ -24,9 +24,6 @@ enum {
 };
 
 
-EVENTBUS_DECLARE_EVENT(project_fs_change_event);
-
-
 @interface Project : NSObject {
     NSString *_path;
 

@@ -41,13 +41,11 @@ NSString *ProjectWillBeginCompilationNotification = @"ProjectWillBeginCompilatio
 NSString *ProjectDidEndCompilationNotification = @"ProjectDidEndCompilationNotification";
 NSString *ProjectMonitoringStateDidChangeNotification = @"ProjectMonitoringStateDidChangeNotification";
 NSString *ProjectNeedsSavingNotification = @"ProjectNeedsSavingNotification";
-EVENTBUS_DEFINE_EVENT(project_fs_change_event);
 
 static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
 
 void C_projects__notify_changed(json_t *arg) {
     [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidDetectChangeNotification object:nil];
-    eventbus_post(project_fs_change_event, NULL);
 }
 
 void C_projects__notify_compilation_started(json_t *arg) {
@@ -528,7 +526,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         nodeapp_rpc_send_json(message);
 
         [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidDetectChangeNotification object:self];
-        eventbus_post(project_fs_change_event, NULL);
         StatIncrement(BrowserRefreshCountStat, 1);
     } else {
         json_decref(reloadRequests);
