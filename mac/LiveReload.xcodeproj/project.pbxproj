@@ -232,7 +232,6 @@
 		823DDEFA13F8DA3100529AD2 /* PluginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE8313F8DA3100529AD2 /* PluginManager.m */; };
 		823DDEFB13F8DA3100529AD2 /* ToolOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE8513F8DA3100529AD2 /* ToolOutput.m */; };
 		823DDEFC13F8DA3100529AD2 /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE8813F8DA3100529AD2 /* Preferences.m */; };
-		823DDF0813F8DA3100529AD2 /* MAAttachedWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEA513F8DA3100529AD2 /* MAAttachedWindow.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		823DDF0A13F8DA3100529AD2 /* NSWindow+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEAA13F8DA3100529AD2 /* NSWindow+Additions.m */; };
 		823DDF0B13F8DA3100529AD2 /* NSWindowFlipper.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEAC13F8DA3100529AD2 /* NSWindowFlipper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		823DDF0C13F8DA3100529AD2 /* README in Resources */ = {isa = PBXBuildFile; fileRef = 823DDEAD13F8DA3100529AD2 /* README */; };
@@ -645,8 +644,6 @@
 		823DDE8513F8DA3100529AD2 /* ToolOutput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolOutput.m; sourceTree = "<group>"; };
 		823DDE8713F8DA3100529AD2 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
 		823DDE8813F8DA3100529AD2 /* Preferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Preferences.m; sourceTree = "<group>"; };
-		823DDEA413F8DA3100529AD2 /* MAAttachedWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAAttachedWindow.h; sourceTree = "<group>"; };
-		823DDEA513F8DA3100529AD2 /* MAAttachedWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MAAttachedWindow.m; sourceTree = "<group>"; };
 		823DDEA913F8DA3100529AD2 /* NSWindow+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSWindow+Additions.h"; sourceTree = "<group>"; };
 		823DDEAA13F8DA3100529AD2 /* NSWindow+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSWindow+Additions.m"; sourceTree = "<group>"; };
 		823DDEAB13F8DA3100529AD2 /* NSWindowFlipper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSWindowFlipper.h; sourceTree = "<group>"; };
@@ -1511,8 +1508,6 @@
 		823DDE9F13F8DA3100529AD2 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				823DDEA413F8DA3100529AD2 /* MAAttachedWindow.h */,
-				823DDEA513F8DA3100529AD2 /* MAAttachedWindow.m */,
 				823DDEA813F8DA3100529AD2 /* Mizage Flip Animation */,
 				823DDEB213F8DA3100529AD2 /* NSTask+OneLineTasksWithOutput.h */,
 				823DDEB313F8DA3100529AD2 /* NSTask+OneLineTasksWithOutput.m */,
@@ -1780,7 +1775,6 @@
 				823DDEFA13F8DA3100529AD2 /* PluginManager.m in Sources */,
 				823DDEFB13F8DA3100529AD2 /* ToolOutput.m in Sources */,
 				823DDEFC13F8DA3100529AD2 /* Preferences.m in Sources */,
-				823DDF0813F8DA3100529AD2 /* MAAttachedWindow.m in Sources */,
 				823DDF0A13F8DA3100529AD2 /* NSWindow+Additions.m in Sources */,
 				823DDF0B13F8DA3100529AD2 /* NSWindowFlipper.m in Sources */,
 				823DDF0F13F8DA3100529AD2 /* NSTask+OneLineTasksWithOutput.m in Sources */,
