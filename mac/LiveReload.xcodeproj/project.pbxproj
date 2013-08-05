@@ -184,6 +184,7 @@
 		43DB9FD4178EDF2E007BEA36 /* Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD3178EDF2E007BEA36 /* Errors.m */; };
 		43DB9FD7178EFA64007BEA36 /* ExternalEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD6178EFA64007BEA36 /* ExternalEditor.m */; };
 		43DB9FDA1792545E007BEA36 /* LRPluginCommons.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD91792545E007BEA36 /* LRPluginCommons.m */; };
+		43E07EC217B01C4B004DB867 /* ATJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E07EC117B01C4B004DB867 /* ATJson.m */; };
 		43E34F9B14705125001641AA /* console.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E34F9714705125001641AA /* console.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		43E34F9C14705125001641AA /* eventbus.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E34F9914705125001641AA /* eventbus.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		43E34F9F14706D9B001641AA /* osdep.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E34F9E14706D9B001641AA /* osdep.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -556,6 +557,8 @@
 		43DB9FD6178EFA64007BEA36 /* ExternalEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExternalEditor.m; sourceTree = "<group>"; };
 		43DB9FD81792545E007BEA36 /* LRPluginCommons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPluginCommons.h; sourceTree = "<group>"; };
 		43DB9FD91792545E007BEA36 /* LRPluginCommons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPluginCommons.m; sourceTree = "<group>"; };
+		43E07EC017B01C4A004DB867 /* ATJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATJson.h; sourceTree = "<group>"; };
+		43E07EC117B01C4B004DB867 /* ATJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATJson.m; sourceTree = "<group>"; };
 		43E34F9714705125001641AA /* console.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = console.c; sourceTree = "<group>"; };
 		43E34F9814705125001641AA /* console.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = console.h; sourceTree = "<group>"; };
 		43E34F9914705125001641AA /* eventbus.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eventbus.c; sourceTree = "<group>"; };
@@ -1257,6 +1260,8 @@
 				43B5C03F17AEA9F300F57276 /* NSAppleScript+ATInvokeHandlerWithArguments.m */,
 				43B5C01517ADF5FB00F57276 /* RegexKitLite.h */,
 				43B5C01617ADF5FB00F57276 /* RegexKitLite.m */,
+				43E07EC017B01C4A004DB867 /* ATJson.h */,
+				43E07EC117B01C4B004DB867 /* ATJson.m */,
 			);
 			path = ATCommons;
 			sourceTree = "<group>";
@@ -1884,6 +1889,7 @@
 				43B5C04017AEA9F400F57276 /* NSAppleScript+ATInvokeHandlerWithArguments.m in Sources */,
 				43996B2E17AF675D00B09954 /* ATMenuEnabledSegmentedCell.m in Sources */,
 				43996B4317B001BA00B09954 /* NSString+SmartRegexpCaptures.m in Sources */,
+				43E07EC217B01C4B004DB867 /* ATJson.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
