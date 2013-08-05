@@ -107,7 +107,7 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
     _streamRef = FSEventStreamCreate(nil,
                                      (FSEventStreamCallback)FSMonitorEventStreamCallback,
                                      &context,
-                                     (CFArrayRef)paths,
+                                     (__bridge CFArrayRef)paths,
                                      kFSEventStreamEventIdSinceNow,
                                      0.05,
                                      kFSEventStreamCreateFlagUseCFTypes);

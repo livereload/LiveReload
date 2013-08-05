@@ -11,7 +11,6 @@
 
 @interface FSMonitor : NSObject {
     NSString *_path;
-    id<FSMonitorDelegate> _delegate;
     FSTreeFilter *_filter;
 
     BOOL _running;
