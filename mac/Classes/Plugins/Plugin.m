@@ -1,7 +1,7 @@
 
 #import "Plugin.h"
 #import "Compiler.h"
-#import "SBJsonParser.h"
+#import "ATJson.h"
 
 
 @implementation Plugin
@@ -14,14 +14,12 @@
     if (self) {
         _path = [path copy];
 
-        NSString *plist = [path stringByAppendingPathComponent:@"manifest.json"];
-        SBJsonParser *jsonParser = [[SBJsonParser alloc] init];
-        id repr = [jsonParser objectWithData:[NSData dataWithContentsOfFile:plist]];
-        if (!repr) {
-            NSLog(@"Invalid plugin manifest %@: %@", plist, jsonParser.error);
+        NSURL *plist = [NSURL fileURLWithPath:[path stringByAppendingPathComponent:@"manifest.json"]];
+        NSError *error;
+        _info = [NSDictionary LR_dictionaryWithContentsOfJSONFileURL:plist error:&error];
+        if (!_info) {
+            NSLog(@"Invalid plugin manifest %@: %@", plist.path, error.localizedDescription);
             _info = [[NSDictionary alloc] init];
-        } else {
-            _info = repr;
         }
 
         NSMutableArray *compilers = [NSMutableArray array];
