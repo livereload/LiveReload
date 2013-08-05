@@ -15,55 +15,7 @@
 #import "NSTask+OneLineTasksWithOutput.h"
 #import "NSArray+ATSubstitutions.h"
 #import "ATFunctionalStyle.h"
-
-@interface NSString (SmartRegexpCaptures)
-
-- (NSDictionary *)dictionaryByMatchingWithRegexp:(NSString *)regexp withSmartSubstitutions:(NSDictionary *)substitutions options:(RKLRegexOptions)options;
-
-@end
-
-@implementation NSString (SmartRegexpCaptures)
-
-- (NSDictionary *)dictionaryByMatchingWithRegexp:(NSString *)regexp withSmartSubstitutions:(NSDictionary *)substitutions options:(RKLRegexOptions)options {
-
-    int captureIndexes[100];
-    NSString *captureNames[100];
-    NSUInteger captureCount = 0;
-
-    while (1) {
-        NSRange minRange = NSMakeRange(NSNotFound, 0);
-        NSString *minKey = nil;
-
-        for (NSString *key in substitutions) {
-            NSRange range = [regexp rangeOfString:[NSString stringWithFormat:@"((%@))", key]];
-            if (range.length > 0) {
-                if (minRange.location == NSNotFound || range.location < minRange.location) {
-                    minRange = range;
-                    minKey = key;
-                }
-            }
-        }
-
-        if (minRange.length == 0) {
-            break;
-        } else {
-            NSString *value = [substitutions objectForKey:minKey];
-            value = [NSString stringWithFormat:@"(%@)", value];
-            regexp = [regexp stringByReplacingCharactersInRange:minRange withString:value];
-            captureIndexes[captureCount] = captureCount + 1;
-            captureNames[captureCount] = minKey;
-            ++captureCount;
-        }
-    }
-
-    NSLog(@"Matching output against regexp: %@", regexp);
-    if ([self rangeOfRegex:regexp].length == 0) {
-        return nil;
-    }
-    return [self dictionaryByMatchingRegex:regexp options:options range:NSMakeRange(0, [self length]) error:nil withKeys:captureNames forCaptures:captureIndexes count:captureCount];
-}
-
-@end
+#import "NSString+SmartRegexpCaptures.h"
 
 
 @implementation Compiler
@@ -156,12 +108,11 @@
 #pragma mark - Compilation
 
 - (void)compile:(NSString *)sourceRelPath into:(NSString *)destinationRelPath under:(NSString *)rootPath inProject:(Project *)project with:(CompilationOptions *)options compilerOutput:(ToolOutput **)compilerOutput {
+
     if (compilerOutput) *compilerOutput = nil;
 
     // TODO: move this into a more appropriate place
     setenv("COMPASS_FULL_SASS_BACKTRACE", "1", 1);
-
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
     NSString *sourcePath = [rootPath stringByAppendingPathComponent:sourceRelPath];
     NSString *destinationPath = [rootPath stringByAppendingPathComponent:destinationRelPath];
@@ -211,7 +162,7 @@
     BOOL rubyInUse = [[arguments componentsJoinedByString:@" "] rangeOfString:rubyPath].length > 0;
     if (rubyInUse && !rubyInstance.valid) {
         NSLog(@"Ruby version '%@' does not exist, refusing to run.", project.rubyVersionIdentifier);
-        *compilerOutput = [[ToolOutput alloc] initWithCompiler:self type:ToolOutputTypeError sourcePath:sourcePath line:0 message:@"Ruby not found. Please visit this project's compiler settings and choose another Ruby interpreter" output:@""];
+        *compilerOutput = [[[ToolOutput alloc] initWithCompiler:self type:ToolOutputTypeError sourcePath:sourcePath line:0 message:@"Ruby not found. Please visit this project's compiler settings and choose another Ruby interpreter" output:@""] autorelease];
         return;
     }
 
@@ -301,17 +252,13 @@
 
             if (compilerOutput) {
                 NSInteger lineNo = [line integerValue];
-                *compilerOutput = [[ToolOutput alloc] initWithCompiler:self type:errorType sourcePath:file line:lineNo message:message output:cleanOutput] ;
+                *compilerOutput = [[[ToolOutput alloc] initWithCompiler:self type:errorType sourcePath:file line:lineNo message:message output:cleanOutput] autorelease];
             }
         }
     } else {
         NSLog(@"Output:\n%@", strippedOutput);
         console_printf("%s compiled.", [[sourcePath lastPathComponent] UTF8String]);
     }
-    [pool drain];
-
-    //compilerOutput returned by reference and must be autoreleased, but not in local pool
-    [*compilerOutput autorelease];
 }
 
 
@@ -359,7 +306,7 @@
     };
 
     for (NSString *regexp in _importRegExps) {
-        [text enumerateStringsMatchedByRegex:regexp usingBlock:^(NSInteger captureCount, NSString *const *capturedStrings, const NSRange *capturedRanges, volatile BOOL *const stop) {
+        [text enumerateStringsMatchedByRegex:regexp usingBlock:^(NSInteger captureCount, NSString *const __unsafe_unretained *capturedStrings, const NSRange *capturedRanges, volatile BOOL *const stop) {
             if (captureCount != 2) {
                 NSLog(@"Skipping import regexp '%@' for compiler %@ because the regexp does not have exactly one capture group.", regexp, _name);
                 return;
@@ -371,7 +318,7 @@
                 __block BOOL found = NO;
                 for (NSString *contRegexp in _importContinuationRegExps) {
                     contRegexp = [@"^\\s*" stringByAppendingString:contRegexp];
-                    [[text substringFromIndex:start] enumerateStringsMatchedByRegex:contRegexp usingBlock:^(NSInteger captureCount, NSString *const *capturedStrings, const NSRange *capturedRanges, volatile BOOL *const stop) {
+                    [[text substringFromIndex:start] enumerateStringsMatchedByRegex:contRegexp usingBlock:^(NSInteger captureCount, NSString *const __unsafe_unretained *capturedStrings, const NSRange *capturedRanges, volatile BOOL *const stop) {
                         if (captureCount != 2) {
                             NSLog(@"Skipping import continuation regexp '%@' for compiler %@ because the regexp does not have exactly one capture group.", contRegexp, _name);
                             return;

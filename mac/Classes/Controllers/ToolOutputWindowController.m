@@ -149,7 +149,7 @@ static ToolOutputWindowController *lastOutputController = nil;
     [animation startAnimation];
 
     _appearing = YES;
-    [self retain]; // will be released by animation delegate method
+    _selfReferenceDuringAnimation = [self retain]; // will be released by animation delegate method
 }
 
 - (void)hide:(BOOL)animated {
@@ -180,7 +180,7 @@ static ToolOutputWindowController *lastOutputController = nil;
             [self.window orderOut:nil];
         }
     }
-    [self autorelease];
+    [_selfReferenceDuringAnimation autorelease], _selfReferenceDuringAnimation = nil;
 }
 #pragma mark -
 - (void)loadMessageForOutputType:(enum ToolOutputType)type {

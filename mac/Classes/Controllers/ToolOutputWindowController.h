@@ -41,6 +41,8 @@ enum UnparsedErrorState {
     NSURL                 *_specialMessageURL;
 
     CGRect                 _originalActionControlFrame;
+
+    id                     _selfReferenceDuringAnimation;
 }
 
 - (id)initWithCompilerOutput:(ToolOutput *)compilerOutput key:(NSString *)key;

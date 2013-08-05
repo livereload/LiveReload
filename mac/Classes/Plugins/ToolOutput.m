@@ -1,5 +1,7 @@
 
 #import "ToolOutput.h"
+#import "Compiler.h"
+
 
 @implementation ToolOutput
 

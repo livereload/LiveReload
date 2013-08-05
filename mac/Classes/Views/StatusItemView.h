@@ -22,7 +22,7 @@
     NSTimer               *_animationTimer;
 }
 
-@property(nonatomic, assign) __weak id<StatusItemViewDelegate> delegate;
+@property(nonatomic) __weak id<StatusItemViewDelegate> delegate;
 
 @property(nonatomic) BOOL selected;
 @property(nonatomic) BOOL active;

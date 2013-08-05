@@ -622,7 +622,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 - (FileCompilationOptions *)optionsForFileAtPath:(NSString *)sourcePath in:(CompilationOptions *)compilationOptions {
     FileCompilationOptions *fileOptions = [compilationOptions optionsForFileAtPath:sourcePath create:YES];
 
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    @autoreleasepool {
 
     FSTree *tree = self.tree;
     if (fileOptions.destinationNameMask.length == 0) {
@@ -728,7 +728,8 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         }
     }
 skipGuessing:
-    [pool drain];
+        ;
+    }
     return fileOptions;
 }
 
@@ -843,7 +844,7 @@ skipGuessing:
 
 - (NSString *)safeDisplayPath {
     NSString *src = [self displayPath];
-    return [src stringByReplacingOccurrencesOfRegex:@"\\w" usingBlock:^NSString *(NSInteger captureCount, NSString *const *capturedStrings, const NSRange *capturedRanges, volatile BOOL *const stop) {
+    return [src stringByReplacingOccurrencesOfRegex:@"\\w" usingBlock:^NSString *(NSInteger captureCount, NSString *const __unsafe_unretained *capturedStrings, const NSRange *capturedRanges, volatile BOOL *const stop) {
         unichar ch = 'a' + (rand() % ('z' - 'a' + 1));
         return [NSString stringWithCharacters:&ch length:1];
     }];

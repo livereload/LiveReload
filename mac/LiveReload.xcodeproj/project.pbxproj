@@ -135,6 +135,7 @@
 		43996B2E17AF675D00B09954 /* ATMenuEnabledSegmentedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43996B2D17AF675D00B09954 /* ATMenuEnabledSegmentedCell.m */; };
 		43996B3917AF7A4E00B09954 /* ATDropDownArrowTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 43996B3717AF7A4E00B09954 /* ATDropDownArrowTemplate.png */; };
 		43996B3A17AF7A4E00B09954 /* ATDropDownArrowTemplate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43996B3817AF7A4E00B09954 /* ATDropDownArrowTemplate@2x.png */; };
+		43996B4317B001BA00B09954 /* NSString+SmartRegexpCaptures.m in Sources */ = {isa = PBXBuildFile; fileRef = 43996B4217B001BA00B09954 /* NSString+SmartRegexpCaptures.m */; };
 		439A76B015B28EF100E50057 /* LicenseCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 439A76AE15B28EF100E50057 /* LicenseCodeViewController.m */; };
 		439A76B115B28EF100E50057 /* LicenseCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 439A76AF15B28EF100E50057 /* LicenseCodeViewController.xib */; };
 		439A76B415B28F4300E50057 /* LicenseCodeWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 439A76B315B28F4300E50057 /* LicenseCodeWindowController.m */; };
@@ -472,6 +473,8 @@
 		43996B2D17AF675D00B09954 /* ATMenuEnabledSegmentedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATMenuEnabledSegmentedCell.m; sourceTree = "<group>"; };
 		43996B3717AF7A4E00B09954 /* ATDropDownArrowTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ATDropDownArrowTemplate.png; sourceTree = "<group>"; };
 		43996B3817AF7A4E00B09954 /* ATDropDownArrowTemplate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ATDropDownArrowTemplate@2x.png"; sourceTree = "<group>"; };
+		43996B4117B001BA00B09954 /* NSString+SmartRegexpCaptures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SmartRegexpCaptures.h"; sourceTree = "<group>"; };
+		43996B4217B001BA00B09954 /* NSString+SmartRegexpCaptures.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SmartRegexpCaptures.m"; sourceTree = "<group>"; };
 		439A76AD15B28EF100E50057 /* LicenseCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LicenseCodeViewController.h; sourceTree = "<group>"; };
 		439A76AE15B28EF100E50057 /* LicenseCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LicenseCodeViewController.m; sourceTree = "<group>"; };
 		439A76AF15B28EF100E50057 /* LicenseCodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LicenseCodeViewController.xib; sourceTree = "<group>"; };
@@ -1517,6 +1520,8 @@
 				4310DE3F146DB6A0003091D1 /* UIBuilder.m */,
 				43059223151E90DE00CC3F88 /* DockIcon.h */,
 				43059224151E90DE00CC3F88 /* DockIcon.m */,
+				43996B4117B001BA00B09954 /* NSString+SmartRegexpCaptures.h */,
+				43996B4217B001BA00B09954 /* NSString+SmartRegexpCaptures.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1908,6 +1913,7 @@
 				43B5C03D17AEA8C100F57276 /* Coda2Editor.m in Sources */,
 				43B5C04017AEA9F400F57276 /* NSAppleScript+ATInvokeHandlerWithArguments.m in Sources */,
 				43996B2E17AF675D00B09954 /* ATMenuEnabledSegmentedCell.m in Sources */,
+				43996B4317B001BA00B09954 /* NSString+SmartRegexpCaptures.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
