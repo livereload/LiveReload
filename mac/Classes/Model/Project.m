@@ -1,5 +1,6 @@
 
 #import "ToolOutputWindowController.h"
+#import "ATGlobals.h"
 
 #import "PluginManager.h"
 
@@ -463,7 +464,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     switch (pathes.count) {
         case 0:  break;
         case 1:  console_printf("Changed: %s", [[pathes anyObject] UTF8String]); break;
-        default: console_printf("Changed: %s and %d others", [[pathes anyObject] UTF8String], pathes.count - 1); break;
+        default: console_printf("Changed: %s and %d others", [[pathes anyObject] UTF8String], (int)pathes.count - 1); break;
     }
 
     [self updateImportGraphForPaths:pathes];
@@ -748,14 +749,14 @@ skipGuessing:
 }
 
 - (void)setFullPageReloadDelay:(NSTimeInterval)fullPageReloadDelay {
-    if (_fullPageReloadDelay != fullPageReloadDelay) {
+    if (fneq(_fullPageReloadDelay, fullPageReloadDelay, TIME_EPS)) {
         _fullPageReloadDelay = fullPageReloadDelay;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
     }
 }
 
 - (void)setEventProcessingDelay:(NSTimeInterval)eventProcessingDelay {
-    if (_eventProcessingDelay != eventProcessingDelay) {
+    if (fneq(_eventProcessingDelay, eventProcessingDelay, TIME_EPS)) {
         _eventProcessingDelay = eventProcessingDelay;
         _monitor.eventProcessingDelay = _eventProcessingDelay;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
@@ -763,9 +764,9 @@ skipGuessing:
 }
 
 - (void)setPostProcessingGracePeriod:(NSTimeInterval)postProcessingGracePeriod {
-    if (postProcessingGracePeriod < 0.01)
+    if (flt(postProcessingGracePeriod, 0.01, TIME_EPS))
         return;
-    if (_postProcessingGracePeriod != postProcessingGracePeriod) {
+    if (fneq(_postProcessingGracePeriod, postProcessingGracePeriod, TIME_EPS)) {
         _postProcessingGracePeriod = postProcessingGracePeriod;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
     }

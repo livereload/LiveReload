@@ -150,7 +150,7 @@ static time_t appnewskit_unix_time_from_string(const char *value, time_t default
     int result = sscanf(value, "%d-%d-%d %d:%d", &year, &month, &day, &hour, &minute);
     if (result < 3) {
         if (AppNewsKitDebug)
-            NSLog(@"AppNewsKit: Invalid date format: %@.", value);
+            NSLog(@"AppNewsKit: Invalid date format: %s.", value);
         return default_val;
     }
 
@@ -441,7 +441,7 @@ static BOOL AppNewsKitMessageSatisfiesQueueingConditions(json_t *message_json) {
 
         BOOL found = NO;
         size_t count = json_array_size(item);
-        for (int i = 0; i < count; ++i) {
+        for (size_t i = 0; i < count; ++i) {
             const char *rule = json_string_value(json_array_get(item, i));
             if (AppNewsKitAppVersionMatchesSpec(rule)) {
                 found = YES;
@@ -472,7 +472,7 @@ static BOOL AppNewsKitMessageSatisfiesQueueingConditions(json_t *message_json) {
             BOOL found = NO;
 
             size_t count = json_array_size(item);
-            for (int i = 0; i < count; ++i) {
+            for (size_t i = 0; i < count; ++i) {
                 const char *rule = json_string_value(json_array_get(item, i));
                 if (0 == strcmp(value_sz, rule)) {
                     found = YES;
@@ -644,7 +644,7 @@ static BOOL AppNewsKitPickMessageToDeliver(const char *raw_response, char **next
     size_t count = json_array_size(messages_json);
     if (AppNewsKitDebug)
         NSLog(@"AppNewsKit: Choosing matching message among %d candidates.", (int)count);
-    for (int i = 0; i < count; ++i) {
+    for (size_t i = 0; i < count; ++i) {
         json_t *message_json = json_array_get(messages_json, i);
 
         BOOL matched = AppNewsKitMessageSatisfiesQueueingConditions(message_json);
@@ -679,7 +679,7 @@ static void AppNewsKitDoPingServer(BOOL scheduled) {
     [params setObject:version forKey:@"v"];
     [params setObject:internalVersion forKey:@"iv"];
     [params setObject:(scheduled ? @"1" : @"0") forKey:@"scheduled"];
-    [params setObject:[NSString stringWithFormat:@"%d", AppNewsKitRandomValue] forKey:@"random"];
+    [params setObject:[NSString stringWithFormat:@"%ld", (long)AppNewsKitRandomValue] forKey:@"random"];
     [params addEntriesFromDictionary:AppNewsKitStringValues];
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

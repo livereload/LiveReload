@@ -30,6 +30,18 @@ BOOL ATIsOS107LionOrLater();
 
 
 ////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Floating-point comparisons
+
+#define TIME_EPS (1e-6)
+#define feq(a, b, eps) (fabs((a) - (b)) <= (eps))
+#define fneq(a, b, eps) (fabs((a) - (b)) > (eps))
+#define fle(a, b, eps) ((a) <= (b) + (eps))
+#define flt(a, b, eps) ((a) < (b) - (eps))
+#define fge(a, b, eps) ((a) >= (b) - (eps))
+#define fgt(a, b, eps) ((a) > (b) + (eps))
+
+
+////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Sandboxing
 
 BOOL ATIsSandboxed();

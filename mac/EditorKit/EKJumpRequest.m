@@ -52,7 +52,7 @@
         if (curline == line) {
             offset = (int)substringRange.location;
             if (column != EKJumpRequestValueUnknown) {
-                offset += MIN(substringRange.length, (column - 1));
+                offset += MIN((int)substringRange.length, (column - 1));
             }
             *stop = YES;
         }

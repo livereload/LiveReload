@@ -134,7 +134,7 @@
     if (row < 0)
         return;
 
-    if (row >= _project.excludedPaths.count)
+    if (row >= (NSInteger)_project.excludedPaths.count)
         return;
 
     NSString *path = [_project.excludedPaths objectAtIndex:row];

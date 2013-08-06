@@ -12,11 +12,10 @@
             if ([value isKindOfClass:[NSArray class]]) {
                 if ([string isEqualToString:key]) {
                     [result addObjectsFromArray:value];
-                    mutable, mutable = nil;
+                    mutable = nil;
                     *stop = YES;
                 }
             } else {
-                NSString *old = mutable;
                 mutable = [[mutable stringByReplacingOccurrencesOfString:key withString:value] copy];
             }
         }];
@@ -38,7 +37,6 @@
     [info enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
         if ([value isKindOfClass:[NSArray class]]) {
         } else {
-            NSString *old = mutable;
             mutable = [[mutable stringByReplacingOccurrencesOfString:key withString:value] copy];
         }
     }];

@@ -273,7 +273,7 @@ void C_mainwnd__set_change_count(json_t *arg) {
         default: exclusionsString = [NSString stringWithFormat:@"%d exclusions", exclusionCount]; break;
     }
 
-    _monitoringSummaryLabelField.stringValue = [NSString stringWithFormat:@"Monitoring %d file extensions, %@ →", [Preferences sharedPreferences].allExtensions.count, exclusionsString];
+    _monitoringSummaryLabelField.stringValue = [NSString stringWithFormat:@"Monitoring %d file extensions, %@ →", (int)[Preferences sharedPreferences].allExtensions.count, exclusionsString];
     [_compilerEnabledCheckBox setState:_selectedProject.compilationEnabled ? NSOnState : NSOffState];
     [_postProcessingEnabledCheckBox setState:_selectedProject.postProcessingEnabled ? NSOnState : NSOffState];
 
@@ -892,7 +892,7 @@ void C_mainwnd__set_change_count(json_t *arg) {
         } else if (n == 1) {
             text = [NSString stringWithFormat:@"1 browser connected, %d changes detected so far.", changes_processed];
         } else {
-            text = [NSString stringWithFormat:@"%d browsers connected, %d changes detected so far.", n, changes_processed];
+            text = [NSString stringWithFormat:@"%d browsers connected, %d changes detected so far.", (int)n, (int)changes_processed];
         }
     }
     _statusTextField.stringValue = text;

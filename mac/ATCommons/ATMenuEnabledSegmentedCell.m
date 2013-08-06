@@ -1,7 +1,7 @@
 
 #import "ATMenuEnabledSegmentedCell.h"
 
-static NSRect ATCenterSizeInRect(NSSize size, NSRect outer) {
+static NSRect __used ATCenterSizeInRect(NSSize size, NSRect outer) {
     return NSMakeRect(outer.origin.x + (outer.size.width - size.width) / 2,
                       outer.origin.y + (outer.size.height - size.height) / 2,
                       size.width, size.height);

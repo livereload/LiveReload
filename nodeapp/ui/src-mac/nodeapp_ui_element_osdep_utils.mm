@@ -7,7 +7,7 @@
 
 NSColor *NSColorFromStringSpec(NSString *spec) {
     NSCAssert1([spec characterAtIndex:0] == '#', @"Invalid color format: '%@'", spec);
-    unsigned red, green, blue, alpha = 255;
+    unsigned red = 0, green = 0, blue = 0, alpha = 255;
     BOOL ok;
     switch ([spec length]) {
         case 4:

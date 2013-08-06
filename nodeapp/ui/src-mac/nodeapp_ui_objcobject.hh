@@ -39,7 +39,7 @@ public:
     static T *from_id(id obj) {
         return static_cast<T *>(reinterpret_cast<ObjCObject *>(obj));
     }
-private:
+protected:
     // CoreFoundation wants ObjC classes to be at least 16 bytes in length,
     void *_cf_filler[3];
 };

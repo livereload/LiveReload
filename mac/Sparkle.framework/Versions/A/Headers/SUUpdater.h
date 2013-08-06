@@ -25,7 +25,7 @@
 - (NSBundle *)hostBundle;
 
 - (void)setDelegate:(id)delegate;
-- delegate;
+- (id)delegate;
 
 - (void)setAutomaticallyChecksForUpdates:(BOOL)automaticallyChecks;
 - (BOOL)automaticallyChecksForUpdates;

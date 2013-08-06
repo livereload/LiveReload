@@ -27,7 +27,7 @@
 }
 
 // Initializes with data from a dictionary provided by the RSS class.
-- initWithDictionary:(NSDictionary *)dict;
+- (id)initWithDictionary:(NSDictionary *)dict;
 
 - (NSString *)title;
 - (NSString *)versionString;

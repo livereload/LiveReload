@@ -191,7 +191,7 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
 
 
 static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMonitor *monitor, size_t numEvents, NSArray *eventPaths, const FSEventStreamEventFlags eventFlags[], const FSEventStreamEventId eventIds[]) {
-    for (int i = 0; i < numEvents; i++) {
+    for (size_t i = 0; i < numEvents; i++) {
         [monitor sendChangeEventWithPath:[eventPaths objectAtIndex:i] flags:eventFlags[i]];
     }
 }

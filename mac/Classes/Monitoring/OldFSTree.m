@@ -79,7 +79,7 @@ static BOOL IsBrokenFolder(NSString *path) {
             if (0 == lstat([rootPath UTF8String], &st)) {
                 {
                     struct FSTreeItem *item = &_items[_count++];
-                    item->name = @"";
+                    item->name = (__bridge CFStringRef)@"";
                     item->st_mode = st.st_mode & S_IFMT;
                     item->st_dev = st.st_dev;
                     item->st_ino = st.st_ino;
@@ -335,7 +335,7 @@ static BOOL IsBrokenFolder(NSString *path) {
                 if (IsBrokenFolder([_rootPath stringByAppendingPathComponent:(__bridge NSString *)cur->name])) {
                     // ignore children of already reported folders
                     for (NSString *peer in result) {
-                        if (CFStringGetLength(cur->name) > [peer length] && [(__bridge NSString *)cur->name characterAtIndex:[peer length]] == '/' && [[(__bridge NSString *)cur->name substringToIndex:[peer length]] isEqualToString:peer]) {
+                        if ((NSUInteger)CFStringGetLength(cur->name) > [peer length] && [(__bridge NSString *)cur->name characterAtIndex:[peer length]] == '/' && [[(__bridge NSString *)cur->name substringToIndex:[peer length]] isEqualToString:peer]) {
                             goto skip;
                         }
                     }
