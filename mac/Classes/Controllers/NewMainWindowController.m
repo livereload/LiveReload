@@ -25,6 +25,9 @@
 #import "DockIcon.h"
 #import "LicenseManager.h"
 #import "ATAutolayout.h"
+#import "ATStackView.h"
+#import "Action.h"
+#import "ActionRowView.h"
 
 #import "jansson.h"
 
@@ -56,6 +59,9 @@ enum { PANE_COUNT = PaneProject+1 };
 
 - (void)initUserScripts;
 - (void)updateUserScripts;
+
+@property (strong) NSNib *actionsRowNib;
+@property (weak) IBOutlet ATStackView *actionsStackView;
 
 @end
 
@@ -233,6 +239,18 @@ void C_mainwnd__set_change_count(json_t *arg) {
     [projectPaneContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-16-[projectOverview]-16-|" options:0 metrics:nil views:bindings]];
 
 //    [_projectOverviewPlaceholderView replaceWithViewPreservingConstraints:_projectOverviewView];
+
+    _actionsRowNib = [[NSNib alloc] initWithNibNamed:@"ActionRowView" bundle:nil];
+    ActionRowView *actionRowView;
+
+    actionRowView = [_actionsRowNib instantiateWithOwner:self returnTopLevelObjectOfClass:[ActionRowView class]];
+    [_actionsStackView addItem:actionRowView];
+    actionRowView = [_actionsRowNib instantiateWithOwner:self returnTopLevelObjectOfClass:[ActionRowView class]];
+    [_actionsStackView addItem:actionRowView];
+    actionRowView = [_actionsRowNib instantiateWithOwner:self returnTopLevelObjectOfClass:[ActionRowView class]];
+    [_actionsStackView addItem:actionRowView];
+    actionRowView = [_actionsRowNib instantiateWithOwner:self returnTopLevelObjectOfClass:[ActionRowView class]];
+    [_actionsStackView addItem:actionRowView];
 
     // MUST be done after initializing _panes
     [_projectOutlineView expandItem:_projectsItem];

@@ -105,6 +105,10 @@
 		4346F3AB1451012A00B133F2 /* StatusItemStateRotation3.png in Resources */ = {isa = PBXBuildFile; fileRef = 4346F3AA1451012A00B133F2 /* StatusItemStateRotation3.png */; };
 		43508A7E17B3767E00871422 /* ShadowBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A7D17B3767E00871422 /* ShadowBoxView.m */; };
 		43508A8117B3819500871422 /* ATAutolayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A8017B3819500871422 /* ATAutolayout.m */; };
+		43508A8417B392A500871422 /* ATStackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A8317B392A500871422 /* ATStackView.m */; };
+		43508A8817B3931F00871422 /* Action.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A8717B3931F00871422 /* Action.m */; };
+		43508A8C17B3932800871422 /* ActionRowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A8A17B3932800871422 /* ActionRowView.m */; };
+		43508A8D17B3932800871422 /* ActionRowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43508A8B17B3932800871422 /* ActionRowView.xib */; };
 		4353196F1465B52D005FA59F /* ShitHappens.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353196E1465B52D005FA59F /* ShitHappens.m */; };
 		4353197214668E7D005FA59F /* LRHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4353197014668E7D005FA59F /* LRHelpTemplate.png */; };
 		4353197314668E7D005FA59F /* LRSupportTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4353197114668E7D005FA59F /* LRSupportTemplate.png */; };
@@ -414,6 +418,13 @@
 		43508A7D17B3767E00871422 /* ShadowBoxView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowBoxView.m; sourceTree = "<group>"; };
 		43508A7F17B3819500871422 /* ATAutolayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATAutolayout.h; sourceTree = "<group>"; };
 		43508A8017B3819500871422 /* ATAutolayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATAutolayout.m; sourceTree = "<group>"; };
+		43508A8217B392A500871422 /* ATStackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATStackView.h; sourceTree = "<group>"; };
+		43508A8317B392A500871422 /* ATStackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATStackView.m; sourceTree = "<group>"; };
+		43508A8617B3931F00871422 /* Action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Action.h; sourceTree = "<group>"; };
+		43508A8717B3931F00871422 /* Action.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Action.m; sourceTree = "<group>"; };
+		43508A8917B3932800871422 /* ActionRowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionRowView.h; sourceTree = "<group>"; };
+		43508A8A17B3932800871422 /* ActionRowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionRowView.m; sourceTree = "<group>"; };
+		43508A8B17B3932800871422 /* ActionRowView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActionRowView.xib; sourceTree = "<group>"; };
 		4353196D1465B52D005FA59F /* ShitHappens.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShitHappens.h; sourceTree = "<group>"; };
 		4353196E1465B52D005FA59F /* ShitHappens.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShitHappens.m; sourceTree = "<group>"; };
 		4353197014668E7D005FA59F /* LRHelpTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRHelpTemplate.png; sourceTree = "<group>"; };
@@ -1006,6 +1017,16 @@
 			path = Preferences;
 			sourceTree = "<group>";
 		};
+		43508A8517B3931300871422 /* MainWindow */ = {
+			isa = PBXGroup;
+			children = (
+				43508A8917B3932800871422 /* ActionRowView.h */,
+				43508A8A17B3932800871422 /* ActionRowView.m */,
+				43508A8B17B3932800871422 /* ActionRowView.xib */,
+			);
+			path = MainWindow;
+			sourceTree = "<group>";
+		};
 		436D7317173DE05000F78A23 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -1089,6 +1110,7 @@
 			children = (
 				436D7343173DE5B900F78A23 /* Preferences */,
 				436D7337173DE1C800F78A23 /* Rubies */,
+				43508A8517B3931300871422 /* MainWindow */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -1245,6 +1267,8 @@
 				43E07EC117B01C4B004DB867 /* ATJson.m */,
 				43508A7F17B3819500871422 /* ATAutolayout.h */,
 				43508A8017B3819500871422 /* ATAutolayout.m */,
+				43508A8217B392A500871422 /* ATStackView.h */,
+				43508A8317B392A500871422 /* ATStackView.m */,
 			);
 			path = ATCommons;
 			sourceTree = "<group>";
@@ -1411,6 +1435,8 @@
 				4346F3A81450D8AD00B133F2 /* ImportGraph.m */,
 				4313347715BC295B00659B4F /* UserScript.h */,
 				4313347815BC295B00659B4F /* UserScript.m */,
+				43508A8617B3931F00871422 /* Action.h */,
+				43508A8717B3931F00871422 /* Action.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1608,6 +1634,7 @@
 				439C093313ADCBDD00119233 /* monitoring.plist in Resources */,
 				43C0368613CA191D00A01305 /* LiveReload.icns in Resources */,
 				823DDEDC13F8DA3100529AD2 /* ToolOutputWindowController.xib in Resources */,
+				43508A8D17B3932800871422 /* ActionRowView.xib in Resources */,
 				823DDF2F13F8DA3F00529AD2 /* background.png in Resources */,
 				823DDF3013F8DA3F00529AD2 /* Icon-48.png in Resources */,
 				823DDF3213F8DA3F00529AD2 /* preferences-box.png in Resources */,
@@ -1705,6 +1732,7 @@
 				823DDEF213F8DA3100529AD2 /* Workspace.m in Sources */,
 				823DDEF713F8DA3100529AD2 /* Compiler.m in Sources */,
 				823DDEF813F8DA3100529AD2 /* CompilerVersion.m in Sources */,
+				43508A8C17B3932800871422 /* ActionRowView.m in Sources */,
 				823DDEF913F8DA3100529AD2 /* Plugin.m in Sources */,
 				823DDEFA13F8DA3100529AD2 /* PluginManager.m in Sources */,
 				823DDEFB13F8DA3100529AD2 /* ToolOutput.m in Sources */,
@@ -1743,6 +1771,7 @@
 				43059225151E90DE00CC3F88 /* DockIcon.m in Sources */,
 				439A76B015B28EF100E50057 /* LicenseCodeViewController.m in Sources */,
 				439A76B415B28F4300E50057 /* LicenseCodeWindowController.m in Sources */,
+				43508A8817B3931F00871422 /* Action.m in Sources */,
 				43C3D04E15B37B1500BCD2E8 /* LicenseManager.m in Sources */,
 				4303A54015B513FD009D732A /* dump.c in Sources */,
 				4303A54115B513FD009D732A /* error.c in Sources */,
@@ -1833,6 +1862,7 @@
 				43B5C01D17ADFA4700F57276 /* ATChildTask.m in Sources */,
 				43B5C02017AE01C500F57276 /* ATLoginItemController.m in Sources */,
 				43B5C02817AE0BE600F57276 /* SublimeText2Editor.m in Sources */,
+				43508A8417B392A500871422 /* ATStackView.m in Sources */,
 				43B5C02B17AE0C6500F57276 /* EditorKit.m in Sources */,
 				43B5C02E17AE0D9200F57276 /* EKIntegration.m in Sources */,
 				43B5C03117AE97F700F57276 /* EKJumpRequest.m in Sources */,

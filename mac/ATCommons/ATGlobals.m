@@ -239,3 +239,22 @@ CGContextRef NSGraphicsGetCurrentContext() {
 }
 
 @end
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+#pragma mark - UI
+
+@implementation NSNib (ATGlobals)
+
+- (id)instantiateWithOwner:(id)owner returnTopLevelObjectOfClass:(Class)klass {
+    NSArray *topLevelObjects = nil;
+    if ([self instantiateWithOwner:owner topLevelObjects:&topLevelObjects]) {
+        for (id object in topLevelObjects)
+            if ([object isKindOfClass:klass])
+                return object;
+    }
+    return nil;
+}
+
+@end

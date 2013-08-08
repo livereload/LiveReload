@@ -89,3 +89,12 @@ CGContextRef NSGraphicsGetCurrentContext();
 @end
 
 
+
+////////////////////////////////////////////////////////////////////////////////
+#pragma mark - UI
+
+@interface NSNib (ATGlobals)
+
+- (id)instantiateWithOwner:(id)owner returnTopLevelObjectOfClass:(Class)klass;
+
+@end
