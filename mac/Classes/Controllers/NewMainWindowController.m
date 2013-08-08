@@ -28,6 +28,8 @@
 #import "ATStackView.h"
 #import "Action.h"
 #import "ActionRowView.h"
+#import "ATSolidView.h"
+#import "ATFlippedView.h"
 
 #import "jansson.h"
 
@@ -225,7 +227,7 @@ void C_mainwnd__set_change_count(json_t *arg) {
     LiveReloadAppDelegate *delegate = [NSApp delegate];
     [_snippetBodyTextField setStringValue:[NSString stringWithFormat:@"<script>document.write('<script src=\"http://' + (location.host || 'localhost').split(':')[0] + ':%d/livereload.js?snipver=1\"></' + 'script>')</script>", delegate.port]];
 
-    NSView *projectPaneContainer = [NSView new];
+    NSView *projectPaneContainer = [ATFlippedView new];
     NSView *projectOverview = _projectOverviewView;
     projectPaneContainer.translatesAutoresizingMaskIntoConstraints = NO;
     _projectOverviewView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -243,14 +245,12 @@ void C_mainwnd__set_change_count(json_t *arg) {
     _actionsRowNib = [[NSNib alloc] initWithNibNamed:@"ActionRowView" bundle:nil];
     ActionRowView *actionRowView;
 
-    actionRowView = [_actionsRowNib instantiateWithOwner:self returnTopLevelObjectOfClass:[ActionRowView class]];
-    [_actionsStackView addItem:actionRowView];
-    actionRowView = [_actionsRowNib instantiateWithOwner:self returnTopLevelObjectOfClass:[ActionRowView class]];
-    [_actionsStackView addItem:actionRowView];
-    actionRowView = [_actionsRowNib instantiateWithOwner:self returnTopLevelObjectOfClass:[ActionRowView class]];
-    [_actionsStackView addItem:actionRowView];
-    actionRowView = [_actionsRowNib instantiateWithOwner:self returnTopLevelObjectOfClass:[ActionRowView class]];
-    [_actionsStackView addItem:actionRowView];
+    for (int i = 0; i < 10; i++) {
+        actionRowView = [_actionsRowNib instantiateWithOwner:self returnTopLevelObjectOfClass:[ActionRowView class]];
+        [_actionsStackView addItem:actionRowView];
+    }
+
+    _currentPaneView = _panePlaceholder;
 
     // MUST be done after initializing _panes
     [_projectOutlineView expandItem:_projectsItem];
@@ -317,18 +317,6 @@ void C_mainwnd__set_change_count(json_t *arg) {
     [self updateUserScripts];
 }
 
-- (void)setVisibility:(BOOL)visible forPaneView:(NSView *)paneView {
-    if (paneView.superview) {
-        if (!visible)
-            [paneView removeFromSuperview];
-    } else {
-        if (visible) {
-            [self.window.contentView addSubview:paneView positioned:NSWindowBelow relativeTo:_panePlaceholder];
-            paneView.frame = _panePlaceholder.frame;
-        }
-    }
-}
-
 - (Pane)choosePane {
     if (_selectedProject != nil)
         return PaneProject;
@@ -338,9 +326,11 @@ void C_mainwnd__set_change_count(json_t *arg) {
 
 - (void)updatePanes {
     _currentPane = [self choosePane];
+    NSView *paneView = [_panes objectAtIndex:_currentPane];
 
-    for (Pane pane = 0; pane < PANE_COUNT; ++pane) {
-        [self setVisibility:(pane == _currentPane) forPaneView:[_panes objectAtIndex:pane]];
+    if (_currentPaneView != paneView) {
+        [_currentPaneView replaceWithViewPreservingConstraints:paneView];
+        _currentPaneView = paneView;
     }
 
     [self updateWelcomePane];

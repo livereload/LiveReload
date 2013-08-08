@@ -57,7 +57,6 @@
                 <outlet property="monitoringSummaryLabelField" destination="Yfe-oL-9W5" id="a3C-Vq-P8H"/>
                 <outlet property="nameTextField" destination="gad-e8-2qo" id="UBe-BE-xM7"/>
                 <outlet property="openAtLoginMenuItem" destination="569" id="627"/>
-                <outlet property="paneBorderBox" destination="479" id="494"/>
                 <outlet property="panePlaceholder" destination="496" id="499"/>
                 <outlet property="pathTextField" destination="Yhg-by-vjI" id="Ont-oU-DvI"/>
                 <outlet property="projectOutlineView" destination="209" id="468"/>
@@ -84,7 +83,7 @@
         </customObject>
         <customObject id="-3" userLabel="Application"/>
         <window title="LiveReload" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" wantsToBeColor="NO" visibleAtLaunch="NO" animationBehavior="default" id="1" customClass="MainWindow">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="168" width="738" height="492"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1366" height="746"/>
@@ -129,6 +128,9 @@
                             </subviews>
                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </clipView>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="203" id="CfR-zK-rjk"/>
+                        </constraints>
                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" id="208">
                             <rect key="frame" x="1" y="413" width="202" height="15"/>
                             <autoresizingMask key="autoresizingMask"/>
@@ -141,22 +143,12 @@
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="147">
                         <rect key="frame" x="199" y="4" width="496" height="14"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="490" id="i7A-Xb-reC"/>
-                        </constraints>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="2 browsers connected, 105 changes detected so far" id="148">
                             <font key="font" metaFont="smallSystem"/>
                             <color key="textColor" name="windowFrameTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <box autoresizesSubviews="NO" horizontalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="479">
-                        <rect key="frame" x="200" y="22" width="5" height="480"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <font key="titleFont" metaFont="system"/>
-                    </box>
                     <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="496">
                         <rect key="frame" x="202" y="22" width="536" height="470"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -177,6 +169,7 @@
                         <rect key="frame" x="86" y="1" width="36" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <constraints>
+                            <constraint firstAttribute="height" constant="22" id="LdE-oo-u4T"/>
                             <constraint firstAttribute="width" constant="36" id="ZkL-8m-TJ6"/>
                         </constraints>
                         <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="RemoveTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="527">
@@ -231,6 +224,7 @@
                                 <rect key="frame" x="20" y="85" width="128" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <constraints>
+                                    <constraint firstAttribute="width" constant="128" id="Hda-kW-Xgp"/>
                                     <constraint firstAttribute="height" constant="128" id="Vq1-t1-xAV"/>
                                 </constraints>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="PlaceholderTemplate" id="541"/>
@@ -249,12 +243,14 @@
                             </textField>
                         </subviews>
                         <constraints>
+                            <constraint firstAttribute="centerY" secondItem="540" secondAttribute="centerY" constant="17" id="BIc-EL-8bM"/>
                             <constraint firstItem="545" firstAttribute="leading" secondItem="540" secondAttribute="leading" id="BUM-D4-mF4"/>
-                            <constraint firstItem="540" firstAttribute="top" secondItem="544" secondAttribute="top" constant="50" id="Hvp-qH-3XJ"/>
+                            <constraint firstAttribute="height" constant="263" id="GRg-qy-nzp"/>
+                            <constraint firstAttribute="centerX" secondItem="540" secondAttribute="centerX" id="ObM-Pm-D8J"/>
                             <constraint firstItem="545" firstAttribute="trailing" secondItem="540" secondAttribute="trailing" id="coU-yi-wO6"/>
-                            <constraint firstAttribute="bottom" secondItem="545" secondAttribute="bottom" constant="49" id="gAb-AG-gFS"/>
-                            <constraint firstItem="540" firstAttribute="leading" secondItem="544" secondAttribute="leading" constant="20" symbolic="YES" id="rX0-TH-ypV"/>
-                            <constraint firstAttribute="trailing" secondItem="540" secondAttribute="trailing" constant="20" symbolic="YES" id="wJY-G8-mDa"/>
+                            <constraint firstAttribute="width" constant="168" id="dqk-1p-ZLl"/>
+                            <constraint firstAttribute="centerX" secondItem="545" secondAttribute="centerX" id="rZ1-f3-3YD"/>
+                            <constraint firstItem="545" firstAttribute="top" secondItem="540" secondAttribute="bottom" constant="-10" id="tpP-x2-YQK"/>
                         </constraints>
                     </customView>
                     <button translatesAutoresizingMaskIntoConstraints="NO" id="635">
@@ -262,6 +258,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="36" id="kmc-GY-1WM"/>
+                            <constraint firstAttribute="height" constant="22" id="v6s-6B-YZ0"/>
                         </constraints>
                         <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="LRTerminalButtonOff" imagePosition="only" alignment="center" alternateImage="LRTerminalButtonOffHighlight" imageScaling="proportionallyDown" inset="2" id="636">
                             <behavior key="behavior" lightByContents="YES"/>
@@ -270,33 +267,26 @@
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="544" secondAttribute="bottom" constant="135" id="2Rb-vw-BoZ"/>
-                    <constraint firstItem="526" firstAttribute="top" secondItem="635" secondAttribute="top" id="5G2-Kd-W33"/>
-                    <constraint firstItem="526" firstAttribute="bottom" secondItem="635" secondAttribute="bottom" id="Eeb-di-iX3"/>
-                    <constraint firstItem="496" firstAttribute="leading" secondItem="479" secondAttribute="leading" id="GdL-sS-UbG"/>
-                    <constraint firstItem="206" firstAttribute="trailing" secondItem="479" secondAttribute="trailing" id="HqM-LQ-qF7"/>
-                    <constraint firstItem="479" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="202" id="J5G-fE-klh"/>
+                    <constraint firstAttribute="bottom" secondItem="635" secondAttribute="bottom" constant="1" id="57i-UA-gYz"/>
+                    <constraint firstAttribute="bottom" secondItem="526" secondAttribute="bottom" constant="1" id="6YP-Ai-udB"/>
+                    <constraint firstItem="206" firstAttribute="centerX" secondItem="544" secondAttribute="centerX" constant="0.5" id="D2S-K7-f9V"/>
+                    <constraint firstItem="655" firstAttribute="leading" secondItem="526" secondAttribute="trailing" id="LWG-oZ-g3N"/>
+                    <constraint firstItem="206" firstAttribute="centerY" secondItem="544" secondAttribute="centerY" constant="9.5" id="NOg-YB-pcA"/>
                     <constraint firstAttribute="trailing" secondItem="635" secondAttribute="trailing" constant="13" id="PLo-Pt-L7m"/>
                     <constraint firstItem="496" firstAttribute="top" secondItem="2" secondAttribute="top" id="PWs-he-lut"/>
-                    <constraint firstItem="655" firstAttribute="top" secondItem="2" secondAttribute="top" constant="471" id="Rzv-Vn-tpC"/>
-                    <constraint firstItem="206" firstAttribute="bottom" secondItem="479" secondAttribute="bottom" id="Uj2-u2-jys"/>
                     <constraint firstItem="147" firstAttribute="leading" secondItem="496" secondAttribute="leading" id="WkD-UV-Ckg"/>
-                    <constraint firstItem="479" firstAttribute="top" secondItem="2" secondAttribute="top" constant="-10" id="Wtu-nv-0YR"/>
+                    <constraint firstItem="526" firstAttribute="leading" secondItem="524" secondAttribute="trailing" constant="7" id="Z90-Bs-V18"/>
                     <constraint firstItem="524" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="50" id="ZL3-ms-yea"/>
                     <constraint firstItem="496" firstAttribute="trailing" secondItem="2" secondAttribute="trailing" id="eFc-1g-SAD"/>
-                    <constraint firstItem="526" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="86" id="g4G-vB-gQJ"/>
-                    <constraint firstItem="496" firstAttribute="top" secondItem="206" secondAttribute="top" id="gpZ-bB-hzY"/>
-                    <constraint firstItem="524" firstAttribute="bottom" secondItem="526" secondAttribute="bottom" id="kfD-2v-xHN"/>
-                    <constraint firstItem="655" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="122" id="mO2-cL-xJN"/>
-                    <constraint firstItem="479" firstAttribute="bottom" secondItem="496" secondAttribute="bottom" id="mi4-zL-HSN"/>
-                    <constraint firstItem="544" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="17" id="nE7-u8-gL9"/>
-                    <constraint firstItem="206" firstAttribute="centerX" secondItem="544" secondAttribute="centerX" id="nPr-Z0-HKp"/>
-                    <constraint firstItem="526" firstAttribute="top" secondItem="524" secondAttribute="top" id="ngc-Bs-WL0"/>
+                    <constraint firstItem="635" firstAttribute="leading" secondItem="147" secondAttribute="trailing" constant="-3" id="k1E-7Q-fM2"/>
+                    <constraint firstItem="206" firstAttribute="top" secondItem="2" secondAttribute="top" id="kYi-2A-SCh"/>
+                    <constraint firstItem="496" firstAttribute="leading" secondItem="206" secondAttribute="trailing" constant="-1" id="n6j-Tp-gNa"/>
                     <constraint firstAttribute="bottom" secondItem="147" secondAttribute="bottom" constant="4" id="nhy-MR-Xjj"/>
+                    <constraint firstAttribute="bottom" secondItem="496" secondAttribute="bottom" constant="22" id="npB-XX-5et"/>
                     <constraint firstAttribute="bottom" secondItem="524" secondAttribute="bottom" constant="1" id="ouj-1f-wTK"/>
-                    <constraint firstItem="544" firstAttribute="top" secondItem="2" secondAttribute="top" constant="94" id="qtl-vz-Xd6"/>
                     <constraint firstItem="206" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="sVH-bu-0MD"/>
                     <constraint firstAttribute="bottom" secondItem="206" secondAttribute="bottom" constant="22" id="vdT-Dm-AXO"/>
+                    <constraint firstAttribute="bottom" secondItem="655" secondAttribute="bottom" constant="-1" id="z8C-R8-Wpm"/>
                 </constraints>
             </view>
             <contentBorderThickness minY="22"/>
@@ -340,13 +330,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view translatesAutoresizingMaskIntoConstraints="NO" id="oq0-uA-3rw">
-                                <rect key="frame" x="0.0" y="-100" width="536" height="570"/>
+                                <rect key="frame" x="0.0" y="0.0" width="536" height="470"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
                         </subviews>
                         <constraints>
                             <constraint firstItem="oq0-uA-3rw" firstAttribute="leading" secondItem="GUe-q0-flL" secondAttribute="leading" id="OC5-K8-zj5"/>
-                            <constraint firstAttribute="bottom" secondItem="oq0-uA-3rw" secondAttribute="bottom" constant="-100" id="VrD-0h-6qh"/>
+                            <constraint firstAttribute="bottom" secondItem="oq0-uA-3rw" secondAttribute="bottom" id="VrD-0h-6qh"/>
                             <constraint firstItem="oq0-uA-3rw" firstAttribute="trailing" secondItem="GUe-q0-flL" secondAttribute="trailing" id="VrQ-jy-dRv"/>
                             <constraint firstItem="oq0-uA-3rw" firstAttribute="top" secondItem="GUe-q0-flL" secondAttribute="top" id="Zis-9A-mwi"/>
                         </constraints>
@@ -356,7 +346,7 @@
                         <rect key="frame" x="-100" y="-100" width="536" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" id="b4b-fE-yUk">
+                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" id="b4b-fE-yUk">
                         <rect key="frame" x="520" y="0.0" width="16" height="470"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
@@ -703,123 +693,4 @@
         <image name="TitleBarHelpTemplate" width="14" height="14"/>
         <image name="WelcomePaneBackground" width="536" height="470"/>
     </resources>
-    <classes>
-        <class className="ATStackView" superclassName="NSView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ATStackView.h"/>
-        </class>
-        <class className="BackgroundView" superclassName="NSView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BackgroundView.h"/>
-        </class>
-        <class className="ImageAndTextCell" superclassName="NSTextFieldCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ImageAndTextCell.h"/>
-        </class>
-        <class className="LiveReloadAppDelegate" superclassName="NodeAppDelegate">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LiveReloadAppDelegate.h"/>
-            <relationships>
-                <relationship kind="action" name="checkForUpdates:"/>
-                <relationship kind="action" name="displayMainWindow:"/>
-                <relationship kind="action" name="openHelp:"/>
-                <relationship kind="action" name="openSupport:"/>
-                <relationship kind="action" name="toggleMainWindow:"/>
-            </relationships>
-        </class>
-        <class className="MainWindow" superclassName="NSWindow">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MainWindow.h"/>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="NewMainWindowController" superclassName="NSWindowController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NewMainWindowController.h"/>
-            <relationships>
-                <relationship kind="action" name="addProjectClicked:"/>
-                <relationship kind="action" name="customScriptSelected:"/>
-                <relationship kind="action" name="displayLicenseManager:"/>
-                <relationship kind="action" name="doNothingOnShowAs:"/>
-                <relationship kind="action" name="enterLicenseCode:"/>
-                <relationship kind="action" name="helpSupportClicked:" candidateClass="NSSegmentedControl"/>
-                <relationship kind="action" name="performAskQuestion:"/>
-                <relationship kind="action" name="performHelp:"/>
-                <relationship kind="action" name="performKeyboardHelp:"/>
-                <relationship kind="action" name="performQuit:"/>
-                <relationship kind="action" name="performReportProblem:"/>
-                <relationship kind="action" name="performSuggest:"/>
-                <relationship kind="action" name="performWebSite:"/>
-                <relationship kind="action" name="purchaseOutsideMAS:"/>
-                <relationship kind="action" name="purchaseViaMAS:"/>
-                <relationship kind="action" name="removeProjectClicked:"/>
-                <relationship kind="action" name="showCompilationOptions:"/>
-                <relationship kind="action" name="showMonitoringOptions:"/>
-                <relationship kind="action" name="showPreferences:"/>
-                <relationship kind="action" name="showWindow:"/>
-                <relationship kind="action" name="toggleCompilationEnabledCheckboxClicked:" candidateClass="NSButton"/>
-                <relationship kind="action" name="toggleOpenAtLogin:"/>
-                <relationship kind="action" name="togglePostProcessingCheckboxClicked:" candidateClass="NSButton"/>
-                <relationship kind="action" name="toggleTerminal:"/>
-                <relationship kind="action" name="toggleVisibilityMode:" candidateClass="NSMenuItem"/>
-                <relationship kind="action" name="useNewCustomProjectName:" candidateClass="NSMenuItem"/>
-                <relationship kind="action" name="usePreviouslySetCustomProjectName:" candidateClass="NSMenuItem"/>
-                <relationship kind="action" name="useProposedProjectName:" candidateClass="NSMenuItem"/>
-                <relationship kind="outlet" name="_showInDockMenuItem" candidateClass="NSMenuItem"/>
-                <relationship kind="outlet" name="_showInMenuBarMenuItem" candidateClass="NSMenuItem"/>
-                <relationship kind="outlet" name="_showNowhereMenuItem" candidateClass="NSMenuItem"/>
-                <relationship kind="outlet" name="actionsStackView" candidateClass="ATStackView"/>
-                <relationship kind="outlet" name="addProjectButton" candidateClass="NSButton"/>
-                <relationship kind="outlet" name="availableCompilersLabel" candidateClass="NSTextField"/>
-                <relationship kind="outlet" name="checkForUpdatesMenuItem" candidateClass="NSMenuItem"/>
-                <relationship kind="outlet" name="checkForUpdatesMenuItemSeparator" candidateClass="NSMenuItem"/>
-                <relationship kind="outlet" name="compilerEnabledCheckBox" candidateClass="NSButton"/>
-                <relationship kind="outlet" name="customScriptPopUp" candidateClass="NSPopUpButton"/>
-                <relationship kind="outlet" name="displayLicenseManagerMenuItem" candidateClass="NSMenuItem"/>
-                <relationship kind="outlet" name="displayLicenseManagerMenuItemSeparator" candidateClass="NSMenuItem"/>
-                <relationship kind="outlet" name="gettingStartedIconView" candidateClass="NSImageView"/>
-                <relationship kind="outlet" name="gettingStartedLabelField" candidateClass="NSTextField"/>
-                <relationship kind="outlet" name="gettingStartedView" candidateClass="NSView"/>
-                <relationship kind="outlet" name="iconView" candidateClass="NSImageView"/>
-                <relationship kind="outlet" name="licenseStatusMenuItem" candidateClass="NSMenuItem"/>
-                <relationship kind="outlet" name="monitoringSummaryLabelField" candidateClass="NSTextField"/>
-                <relationship kind="outlet" name="nameTextField" candidateClass="NSTextField"/>
-                <relationship kind="outlet" name="openAtLoginMenuItem" candidateClass="NSMenuItem"/>
-                <relationship kind="outlet" name="paneBorderBox" candidateClass="NSBox"/>
-                <relationship kind="outlet" name="panePlaceholder" candidateClass="NSView"/>
-                <relationship kind="outlet" name="pathTextField" candidateClass="NSTextField"/>
-                <relationship kind="outlet" name="postProcessingEnabledCheckBox" candidateClass="NSButton"/>
-                <relationship kind="outlet" name="projectOutlineView" candidateClass="NSOutlineView"/>
-                <relationship kind="outlet" name="projectOverviewPlaceholderView" candidateClass="NSView"/>
-                <relationship kind="outlet" name="projectOverviewView" candidateClass="NSView"/>
-                <relationship kind="outlet" name="projectPane" candidateClass="NSView"/>
-                <relationship kind="outlet" name="projectPaneScrollView" candidateClass="NSScrollView"/>
-                <relationship kind="outlet" name="purchasePopUpButton" candidateClass="NSPopUpButton"/>
-                <relationship kind="outlet" name="removeProjectButton" candidateClass="NSButton"/>
-                <relationship kind="outlet" name="snippetBodyTextField" candidateClass="NSTextField"/>
-                <relationship kind="outlet" name="snippetLabelField" candidateClass="NSTextField"/>
-                <relationship kind="outlet" name="statusTextField" candidateClass="NSTextField"/>
-                <relationship kind="outlet" name="terminalButton" candidateClass="NSButton"/>
-                <relationship kind="outlet" name="titleBarSideView" candidateClass="NSView"/>
-                <relationship kind="outlet" name="urlsTextField" candidateClass="NSTextField"/>
-                <relationship kind="outlet" name="versionMenuItem" candidateClass="NSMenuItem"/>
-                <relationship kind="outlet" name="welcomeMessageField" candidateClass="NSTextField"/>
-                <relationship kind="outlet" name="welcomePane" candidateClass="NSView"/>
-            </relationships>
-        </class>
-        <class className="NodeAppDelegate" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NodeAppDelegate.h"/>
-        </class>
-        <class className="PassThruImageView" superclassName="NSImageView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PassThruImageView.h"/>
-        </class>
-        <class className="PassThruView" superclassName="NSView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PassThruView.h"/>
-        </class>
-        <class className="SUUpdater" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SUUpdater.h"/>
-            <relationships>
-                <relationship kind="action" name="checkForUpdates:"/>
-                <relationship kind="outlet" name="delegate"/>
-            </relationships>
-        </class>
-        <class className="ShadowBoxView" superclassName="NSView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ShadowBoxView.h"/>
-        </class>
-    </classes>
 </document>

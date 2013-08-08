@@ -37,6 +37,8 @@
     IBOutlet NSPopUpButton *customScriptPopUp;
     NSMutableArray *_userScripts;
     NSUInteger _firstUserScriptIndex;
+
+    NSView *_currentPaneView;
 }
 
 @property (weak) IBOutlet NSView *titleBarSideView;

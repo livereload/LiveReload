@@ -109,6 +109,8 @@
 		43508A8817B3931F00871422 /* Action.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A8717B3931F00871422 /* Action.m */; };
 		43508A8C17B3932800871422 /* ActionRowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A8A17B3932800871422 /* ActionRowView.m */; };
 		43508A8D17B3932800871422 /* ActionRowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43508A8B17B3932800871422 /* ActionRowView.xib */; };
+		43508A9017B39C9700871422 /* ATSolidView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A8F17B39C9700871422 /* ATSolidView.m */; };
+		43508A9317B39DBE00871422 /* ATFlippedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A9217B39DBE00871422 /* ATFlippedView.m */; };
 		4353196F1465B52D005FA59F /* ShitHappens.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353196E1465B52D005FA59F /* ShitHappens.m */; };
 		4353197214668E7D005FA59F /* LRHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4353197014668E7D005FA59F /* LRHelpTemplate.png */; };
 		4353197314668E7D005FA59F /* LRSupportTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4353197114668E7D005FA59F /* LRSupportTemplate.png */; };
@@ -425,6 +427,10 @@
 		43508A8917B3932800871422 /* ActionRowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionRowView.h; sourceTree = "<group>"; };
 		43508A8A17B3932800871422 /* ActionRowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionRowView.m; sourceTree = "<group>"; };
 		43508A8B17B3932800871422 /* ActionRowView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActionRowView.xib; sourceTree = "<group>"; };
+		43508A8E17B39C9700871422 /* ATSolidView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATSolidView.h; sourceTree = "<group>"; };
+		43508A8F17B39C9700871422 /* ATSolidView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATSolidView.m; sourceTree = "<group>"; };
+		43508A9117B39DBE00871422 /* ATFlippedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATFlippedView.h; sourceTree = "<group>"; };
+		43508A9217B39DBE00871422 /* ATFlippedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATFlippedView.m; sourceTree = "<group>"; };
 		4353196D1465B52D005FA59F /* ShitHappens.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShitHappens.h; sourceTree = "<group>"; };
 		4353196E1465B52D005FA59F /* ShitHappens.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShitHappens.m; sourceTree = "<group>"; };
 		4353197014668E7D005FA59F /* LRHelpTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRHelpTemplate.png; sourceTree = "<group>"; };
@@ -1269,6 +1275,10 @@
 				43508A8017B3819500871422 /* ATAutolayout.m */,
 				43508A8217B392A500871422 /* ATStackView.h */,
 				43508A8317B392A500871422 /* ATStackView.m */,
+				43508A8E17B39C9700871422 /* ATSolidView.h */,
+				43508A8F17B39C9700871422 /* ATSolidView.m */,
+				43508A9117B39DBE00871422 /* ATFlippedView.h */,
+				43508A9217B39DBE00871422 /* ATFlippedView.m */,
 			);
 			path = ATCommons;
 			sourceTree = "<group>";
@@ -1824,6 +1834,7 @@
 				4303A59215B5275F009D732A /* nodeapp_rpc_proxy.c in Sources */,
 				4303A59315B5275F009D732A /* nodeapp_rpc_router.c in Sources */,
 				4398AF0F1731E3DC0092A711 /* NSData+Base64.m in Sources */,
+				43508A9317B39DBE00871422 /* ATFlippedView.m in Sources */,
 				4313347915BC295B00659B4F /* UserScript.m in Sources */,
 				436D732A173DE05000F78A23 /* RuntimeContainer.m in Sources */,
 				436D732B173DE05000F78A23 /* MissingRuntimeInstance.m in Sources */,
@@ -1858,6 +1869,7 @@
 				43B5C01217ADF35C00F57276 /* NSString+ATProperURLEncoding.m in Sources */,
 				43B5C01417ADF35C00F57276 /* NSWindowController+ATTextStyling.m in Sources */,
 				43B5C01717ADF5FB00F57276 /* RegexKitLite.m in Sources */,
+				43508A9017B39C9700871422 /* ATSolidView.m in Sources */,
 				43B5C01A17ADF93A00F57276 /* ATHash.m in Sources */,
 				43B5C01D17ADFA4700F57276 /* ATChildTask.m in Sources */,
 				43B5C02017AE01C500F57276 /* ATLoginItemController.m in Sources */,
