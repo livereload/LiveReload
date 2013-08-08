@@ -24,6 +24,7 @@
 #import "ATLoginItemController.h"
 #import "DockIcon.h"
 #import "LicenseManager.h"
+#import "ATAutolayout.h"
 
 #import "jansson.h"
 
@@ -217,6 +218,21 @@ void C_mainwnd__set_change_count(json_t *arg) {
 
     LiveReloadAppDelegate *delegate = [NSApp delegate];
     [_snippetBodyTextField setStringValue:[NSString stringWithFormat:@"<script>document.write('<script src=\"http://' + (location.host || 'localhost').split(':')[0] + ':%d/livereload.js?snipver=1\"></' + 'script>')</script>", delegate.port]];
+
+    NSView *projectPaneContainer = [NSView new];
+    NSView *projectOverview = _projectOverviewView;
+    projectPaneContainer.translatesAutoresizingMaskIntoConstraints = NO;
+    _projectOverviewView.translatesAutoresizingMaskIntoConstraints = NO;
+    [projectPaneContainer addSubview:_projectOverviewView];
+    _projectPaneScrollView.documentView = projectPaneContainer;
+
+    NSDictionary *bindings = NSDictionaryOfVariableBindings(projectPaneContainer, projectOverview);
+    [projectPaneContainer.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[projectPaneContainer]-0-|" options:0 metrics:nil views:bindings]];
+    [projectPaneContainer.superview addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[projectPaneContainer]" options:0 metrics:nil views:bindings]];
+    [projectPaneContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[projectOverview]-16-|" options:0 metrics:nil views:bindings]];
+    [projectPaneContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-16-[projectOverview]-16-|" options:0 metrics:nil views:bindings]];
+
+//    [_projectOverviewPlaceholderView replaceWithViewPreservingConstraints:_projectOverviewView];
 
     // MUST be done after initializing _panes
     [_projectOutlineView expandItem:_projectsItem];

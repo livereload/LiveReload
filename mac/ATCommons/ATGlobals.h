@@ -72,3 +72,20 @@ enum {
 typedef NSUInteger ATSecurityScopedURLOptions;
 
 NSURL *ATInitOrResolveSecurityScopedURL(NSMutableDictionary *memento, NSURL *newURL, ATSecurityScopedURLOptions options);
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Colors and graphics
+
+CGContextRef NSGraphicsGetCurrentContext();
+
+@interface NSColor (ATHexColors)
+
++ (NSColor *)colorWithHexValue:(unsigned)color;
++ (NSColor *)colorWithHexValue:(unsigned)color alpha:(CGFloat)alpha;
++ (NSColor *)colorWithHexValueWithAlpha:(unsigned)color;
+
+@end
+
+

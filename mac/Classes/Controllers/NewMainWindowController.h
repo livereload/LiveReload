@@ -71,6 +71,9 @@
 @property (weak) IBOutlet NSButton *compilerEnabledCheckBox;
 @property (weak) IBOutlet NSButton *postProcessingEnabledCheckBox;
 @property (weak) IBOutlet NSTextField *availableCompilersLabel;
+@property (weak) IBOutlet NSView *projectOverviewPlaceholderView;
+@property (strong) IBOutlet NSView *projectOverviewView;
+@property (weak) IBOutlet NSScrollView *projectPaneScrollView;
 
 
 - (void)projectAdded:(Project *)project;

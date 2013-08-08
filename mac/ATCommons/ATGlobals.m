@@ -212,3 +212,30 @@ NSURL *ATInitOrResolveSecurityScopedURL(NSMutableDictionary *memento, NSURL *new
 }
 
 
+
+////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Colors
+
+CGContextRef NSGraphicsGetCurrentContext() {
+    return (CGContextRef)[NSGraphicsContext currentContext].graphicsPort;
+}
+
+@implementation NSColor (ATHexColors)
+
++ (NSColor *)colorWithHexValue:(unsigned)color {
+    return [self colorWithHexValue:color alpha:1.0];
+}
+
++ (NSColor *)colorWithHexValueWithAlpha:(unsigned)color {
+    unsigned alpha = (color >> 24) & 0xFF;
+    return [self colorWithHexValue:color alpha:alpha/255.0];
+}
+
++ (NSColor *)colorWithHexValue:(unsigned)color alpha:(CGFloat)alpha {
+    unsigned blue = color & 0xFF;
+    unsigned green = (color >> 8) & 0xFF;
+    unsigned red = (color >> 16) & 0xFF;
+    return [NSColor colorWithCalibratedRed:red/255.0 green:green/255.0 blue:blue/255.0 alpha:alpha];
+}
+
+@end

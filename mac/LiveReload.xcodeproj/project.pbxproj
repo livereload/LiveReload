@@ -99,9 +99,12 @@
 		433253B3174E0BA200C9A76B /* GeneralPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 433253B1174E0BA200C9A76B /* GeneralPreferencesViewController.xib */; };
 		43361D4613C30D1400C0E589 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43361D4513C30D1400C0E589 /* libicucore.dylib */; };
 		433B66E717A0914400A41848 /* streamline.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 433B66E617A0914400A41848 /* streamline.lrplugin */; };
+		43448D4D17B3735700DCB5A3 /* BackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43448D4C17B3735700DCB5A3 /* BackgroundView.m */; };
 		4344CE1C1798DB9100CB8658 /* editors.json in Resources */ = {isa = PBXBuildFile; fileRef = 4344CE1B1798DB9100CB8658 /* editors.json */; };
 		4346F3A91450D8AD00B133F2 /* ImportGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 4346F3A81450D8AD00B133F2 /* ImportGraph.m */; };
 		4346F3AB1451012A00B133F2 /* StatusItemStateRotation3.png in Resources */ = {isa = PBXBuildFile; fileRef = 4346F3AA1451012A00B133F2 /* StatusItemStateRotation3.png */; };
+		43508A7E17B3767E00871422 /* ShadowBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A7D17B3767E00871422 /* ShadowBoxView.m */; };
+		43508A8117B3819500871422 /* ATAutolayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A8017B3819500871422 /* ATAutolayout.m */; };
 		4353196F1465B52D005FA59F /* ShitHappens.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353196E1465B52D005FA59F /* ShitHappens.m */; };
 		4353197214668E7D005FA59F /* LRHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4353197014668E7D005FA59F /* LRHelpTemplate.png */; };
 		4353197314668E7D005FA59F /* LRSupportTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4353197114668E7D005FA59F /* LRSupportTemplate.png */; };
@@ -400,11 +403,17 @@
 		433253B1174E0BA200C9A76B /* GeneralPreferencesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GeneralPreferencesViewController.xib; sourceTree = "<group>"; };
 		43361D4513C30D1400C0E589 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		433B66E617A0914400A41848 /* streamline.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = streamline.lrplugin; path = ../plugins/streamline.lrplugin; sourceTree = "<group>"; };
+		43448D4B17B3735700DCB5A3 /* BackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundView.h; sourceTree = "<group>"; };
+		43448D4C17B3735700DCB5A3 /* BackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundView.m; sourceTree = "<group>"; };
 		4344CE1B1798DB9100CB8658 /* editors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = editors.json; path = Resources/editors.json; sourceTree = "<group>"; };
 		4346F3A71450D8AD00B133F2 /* ImportGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImportGraph.h; sourceTree = "<group>"; };
 		4346F3A81450D8AD00B133F2 /* ImportGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImportGraph.m; sourceTree = "<group>"; };
 		4346F3AA1451012A00B133F2 /* StatusItemStateRotation3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemStateRotation3.png; sourceTree = "<group>"; };
 		434DB81E1514F71400C62042 /* app_version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = app_version.h; sourceTree = "<group>"; };
+		43508A7C17B3767E00871422 /* ShadowBoxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowBoxView.h; sourceTree = "<group>"; };
+		43508A7D17B3767E00871422 /* ShadowBoxView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowBoxView.m; sourceTree = "<group>"; };
+		43508A7F17B3819500871422 /* ATAutolayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATAutolayout.h; sourceTree = "<group>"; };
+		43508A8017B3819500871422 /* ATAutolayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATAutolayout.m; sourceTree = "<group>"; };
 		4353196D1465B52D005FA59F /* ShitHappens.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShitHappens.h; sourceTree = "<group>"; };
 		4353196E1465B52D005FA59F /* ShitHappens.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShitHappens.m; sourceTree = "<group>"; };
 		4353197014668E7D005FA59F /* LRHelpTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRHelpTemplate.png; sourceTree = "<group>"; };
@@ -1234,6 +1243,8 @@
 				43B5C01617ADF5FB00F57276 /* RegexKitLite.m */,
 				43E07EC017B01C4A004DB867 /* ATJson.h */,
 				43E07EC117B01C4B004DB867 /* ATJson.m */,
+				43508A7F17B3819500871422 /* ATAutolayout.h */,
+				43508A8017B3819500871422 /* ATAutolayout.m */,
 			);
 			path = ATCommons;
 			sourceTree = "<group>";
@@ -1481,6 +1492,10 @@
 				431466A8146CA82200DC075A /* PassThruImageView.m */,
 				43F002D0146F4135005D48A4 /* TerminalView.h */,
 				43F002D1146F4135005D48A4 /* TerminalView.m */,
+				43448D4B17B3735700DCB5A3 /* BackgroundView.h */,
+				43448D4C17B3735700DCB5A3 /* BackgroundView.m */,
+				43508A7C17B3767E00871422 /* ShadowBoxView.h */,
+				43508A7D17B3767E00871422 /* ShadowBoxView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1697,6 +1712,7 @@
 				823DDF0F13F8DA3100529AD2 /* NSTask+OneLineTasksWithOutput.m in Sources */,
 				823DDF1313F8DA3100529AD2 /* AuxWindow.m in Sources */,
 				823DDF1413F8DA3100529AD2 /* KeyWindow.m in Sources */,
+				43448D4D17B3735700DCB5A3 /* BackgroundView.m in Sources */,
 				823DDF1713F8DA3100529AD2 /* StatusItemView.m in Sources */,
 				435BE045141B87920008FF77 /* NewMainWindowController.m in Sources */,
 				4346F3A91450D8AD00B133F2 /* ImportGraph.m in Sources */,
@@ -1770,6 +1786,7 @@
 				4303A58115B513FD009D732A /* nodeapp_ui_element_osdep_table_base.mm in Sources */,
 				4303A58215B513FD009D732A /* nodeapp_ui_element_osdep_textfield.mm in Sources */,
 				4303A58315B513FD009D732A /* nodeapp_ui_element_osdep_utils.mm in Sources */,
+				43508A7E17B3767E00871422 /* ShadowBoxView.m in Sources */,
 				4303A58415B513FD009D732A /* nodeapp_ui_element_osdep_view.mm in Sources */,
 				4303A58515B513FD009D732A /* nodeapp_ui_element_osdep_window.mm in Sources */,
 				4303A58615B513FD009D732A /* nodeapp_ui_image.m in Sources */,
@@ -1784,6 +1801,7 @@
 				436D732C173DE05000F78A23 /* RuntimeInstance.m in Sources */,
 				436D732D173DE05000F78A23 /* RuntimeGlobals.m in Sources */,
 				436D7341173DE30900F78A23 /* MASPreferencesWindowController.m in Sources */,
+				43508A8117B3819500871422 /* ATAutolayout.m in Sources */,
 				436D734B173DE61400F78A23 /* PreferencesController.m in Sources */,
 				436D734F173DE74000F78A23 /* RubyPreferencesViewController.m in Sources */,
 				436D7357173DF3D200F78A23 /* AddCustomRubySheet.m in Sources */,
