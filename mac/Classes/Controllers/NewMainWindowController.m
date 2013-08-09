@@ -41,7 +41,7 @@ typedef enum {
 enum { PANE_COUNT = PaneProject+1 };
 
 
-@interface NewMainWindowController () <NSAnimationDelegate, NSTextFieldDelegate>
+@interface NewMainWindowController () <NSAnimationDelegate, NSTextFieldDelegate, ActionRowViewDelegate>
 
 + (NewMainWindowController *)sharedMainWindowController;
 
@@ -243,12 +243,6 @@ void C_mainwnd__set_change_count(json_t *arg) {
 //    [_projectOverviewPlaceholderView replaceWithViewPreservingConstraints:_projectOverviewView];
 
     _actionsRowNib = [[NSNib alloc] initWithNibNamed:@"ActionRowView" bundle:nil];
-    ActionRowView *actionRowView;
-
-    for (int i = 0; i < 10; i++) {
-        actionRowView = [_actionsRowNib instantiateWithOwner:self returnTopLevelObjectOfClass:[ActionRowView class]];
-        [_actionsStackView addItem:actionRowView];
-    }
 
     _currentPaneView = _panePlaceholder;
 
@@ -271,10 +265,6 @@ void C_mainwnd__set_change_count(json_t *arg) {
     [[Workspace sharedWorkspace] addObserver:self forKeyPath:@"projects" options:0 context:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLicensingUI) name:LicenseManagerStatusDidChangeNotification object:nil];
-}
-
-- (IBAction)showWindow:(id)sender {
-    [super showWindow:sender];
 }
 
 - (void)windowWillClose:(NSNotification *)notification {
@@ -315,6 +305,7 @@ void C_mainwnd__set_change_count(json_t *arg) {
 
     [self updateURLs];
     [self updateUserScripts];
+    [self renderActions];
 }
 
 - (Pane)choosePane {
@@ -898,6 +889,42 @@ void C_mainwnd__set_change_count(json_t *arg) {
 
 - (void)initUserScripts {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserScripts) name:UserScriptManagerScriptsDidChangeNotification object:nil];
+}
+
+- (ActionList *)actionList {
+    return _selectedProject.actionList;
+}
+
+- (void)renderActions {
+    [_actionsStackView removeAllItems];
+    for (Action *action in self.actionList.actions) {
+        [_actionsStackView addItem:[self actionRowViewForAction:action]];
+    }
+}
+
+- (ActionRowView *)actionRowViewForAction:(Action *)action {
+    ActionRowView *rowView = [_actionsRowNib instantiateWithOwner:self returnTopLevelObjectOfClass:[ActionRowView class]];
+    rowView.project = _selectedProject;
+    rowView.representedObject = action;
+    rowView.delegate = self;
+    return rowView;
+}
+
+- (void)didInvokeAddInActionRowView:(ActionRowView *)rowView {
+    NSInteger index = [self.actionList.actions indexOfObject:rowView.representedObject];
+    if (index != NSNotFound) {
+        Action *action = [CustomCommandAction new];
+        [self.actionList insertObject:action inActionsAtIndex:index + 1];
+        [self renderActions];
+    }
+}
+
+- (void)didInvokeRemoveInActionRowView:(ActionRowView *)rowView {
+    NSInteger index = [self.actionList.actions indexOfObject:rowView.representedObject];
+    if (index != NSNotFound) {
+        [self.actionList removeObjectFromActionsAtIndex:index];
+        [self renderActions];
+    }
 }
 
 

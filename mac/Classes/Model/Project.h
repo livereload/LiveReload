@@ -1,6 +1,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "eventbus.h"
+#import "ActionList.h"
 
 
 @class FSMonitor;
@@ -135,5 +136,7 @@ enum {
 
 - (void)addExcludedPath:(NSString *)path;
 - (void)removeExcludedPath:(NSString *)path;
+
+@property(nonatomic, strong, readonly) ActionList *actionList;
 
 @end

@@ -16,6 +16,7 @@
 #import "ImportGraph.h"
 #import "ToolOutput.h"
 #import "UserScript.h"
+#import "ActionType+StandardActionTypes.h"
 
 #import "Stats.h"
 #import "RegexKitLite.h"
@@ -120,6 +121,9 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
         _compilerOptions = [[NSMutableDictionary alloc] init];
         _monitoringRequests = [[NSMutableSet alloc] init];
+
+        _actionList = [[ActionList alloc] initWithActionTypes:[ActionType standardActionTypes]];
+        [_actionList setMemento:@{}];
 
         _lastSelectedPane = [[memento objectForKey:@"last_pane"] copy];
 

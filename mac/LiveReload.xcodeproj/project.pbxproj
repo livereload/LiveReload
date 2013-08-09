@@ -111,6 +111,9 @@
 		43508A8D17B3932800871422 /* ActionRowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43508A8B17B3932800871422 /* ActionRowView.xib */; };
 		43508A9017B39C9700871422 /* ATSolidView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A8F17B39C9700871422 /* ATSolidView.m */; };
 		43508A9317B39DBE00871422 /* ATFlippedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A9217B39DBE00871422 /* ATFlippedView.m */; };
+		43508A9617B4B52300871422 /* ActionList.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A9517B4B52300871422 /* ActionList.m */; };
+		43508A9917B4B53F00871422 /* ActionType.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A9817B4B53F00871422 /* ActionType.m */; };
+		43508A9C17B4B65B00871422 /* ActionType+StandardActionTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A9B17B4B65B00871422 /* ActionType+StandardActionTypes.m */; };
 		4353196F1465B52D005FA59F /* ShitHappens.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353196E1465B52D005FA59F /* ShitHappens.m */; };
 		4353197214668E7D005FA59F /* LRHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4353197014668E7D005FA59F /* LRHelpTemplate.png */; };
 		4353197314668E7D005FA59F /* LRSupportTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4353197114668E7D005FA59F /* LRSupportTemplate.png */; };
@@ -431,6 +434,12 @@
 		43508A8F17B39C9700871422 /* ATSolidView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATSolidView.m; sourceTree = "<group>"; };
 		43508A9117B39DBE00871422 /* ATFlippedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATFlippedView.h; sourceTree = "<group>"; };
 		43508A9217B39DBE00871422 /* ATFlippedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATFlippedView.m; sourceTree = "<group>"; };
+		43508A9417B4B52300871422 /* ActionList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionList.h; sourceTree = "<group>"; };
+		43508A9517B4B52300871422 /* ActionList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionList.m; sourceTree = "<group>"; };
+		43508A9717B4B53F00871422 /* ActionType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionType.h; sourceTree = "<group>"; };
+		43508A9817B4B53F00871422 /* ActionType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionType.m; sourceTree = "<group>"; };
+		43508A9A17B4B65B00871422 /* ActionType+StandardActionTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ActionType+StandardActionTypes.h"; sourceTree = "<group>"; };
+		43508A9B17B4B65B00871422 /* ActionType+StandardActionTypes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ActionType+StandardActionTypes.m"; sourceTree = "<group>"; };
 		4353196D1465B52D005FA59F /* ShitHappens.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShitHappens.h; sourceTree = "<group>"; };
 		4353196E1465B52D005FA59F /* ShitHappens.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShitHappens.m; sourceTree = "<group>"; };
 		4353197014668E7D005FA59F /* LRHelpTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRHelpTemplate.png; sourceTree = "<group>"; };
@@ -1447,6 +1456,12 @@
 				4313347815BC295B00659B4F /* UserScript.m */,
 				43508A8617B3931F00871422 /* Action.h */,
 				43508A8717B3931F00871422 /* Action.m */,
+				43508A9717B4B53F00871422 /* ActionType.h */,
+				43508A9817B4B53F00871422 /* ActionType.m */,
+				43508A9A17B4B65B00871422 /* ActionType+StandardActionTypes.h */,
+				43508A9B17B4B65B00871422 /* ActionType+StandardActionTypes.m */,
+				43508A9417B4B52300871422 /* ActionList.h */,
+				43508A9517B4B52300871422 /* ActionList.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1834,11 +1849,13 @@
 				4303A59215B5275F009D732A /* nodeapp_rpc_proxy.c in Sources */,
 				4303A59315B5275F009D732A /* nodeapp_rpc_router.c in Sources */,
 				4398AF0F1731E3DC0092A711 /* NSData+Base64.m in Sources */,
+				43508A9617B4B52300871422 /* ActionList.m in Sources */,
 				43508A9317B39DBE00871422 /* ATFlippedView.m in Sources */,
 				4313347915BC295B00659B4F /* UserScript.m in Sources */,
 				436D732A173DE05000F78A23 /* RuntimeContainer.m in Sources */,
 				436D732B173DE05000F78A23 /* MissingRuntimeInstance.m in Sources */,
 				436D732C173DE05000F78A23 /* RuntimeInstance.m in Sources */,
+				43508A9917B4B53F00871422 /* ActionType.m in Sources */,
 				436D732D173DE05000F78A23 /* RuntimeGlobals.m in Sources */,
 				436D7341173DE30900F78A23 /* MASPreferencesWindowController.m in Sources */,
 				43508A8117B3819500871422 /* ATAutolayout.m in Sources */,
@@ -1863,6 +1880,7 @@
 				43DB9FD7178EFA64007BEA36 /* ExternalEditor.m in Sources */,
 				43DB9FDA1792545E007BEA36 /* LRPluginCommons.m in Sources */,
 				43B5BFFF17ADF0D600F57276 /* ATGlobals.m in Sources */,
+				43508A9C17B4B65B00871422 /* ActionType+StandardActionTypes.m in Sources */,
 				43B5C00217ADF14700F57276 /* ATFunctionalStyle.m in Sources */,
 				43B5C00517ADF16B00F57276 /* ATModelDiff.m in Sources */,
 				43B5C01017ADF35C00F57276 /* NSArray+ATSubstitutions.m in Sources */,

@@ -5,6 +5,7 @@
 
 @property(nonatomic) CGFloat itemSpacing;
 
+- (void)removeAllItems;
 - (void)addItem:(NSView *)itemView;
 - (void)insertItem:(NSView *)itemView atIndex:(NSInteger)index;
 

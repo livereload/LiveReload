@@ -25,6 +25,13 @@
     return YES;
 }
 
+- (void)removeAllItems {
+    for (NSView *subview in _items) {
+        [subview removeFromSuperview];
+    }
+    [_items removeAllObjects];
+}
+
 - (void)addItem:(NSView *)itemView {
     [self insertItem:itemView atIndex:_items.count];
 }
