@@ -1,15 +1,16 @@
 
 #import <Cocoa/Cocoa.h>
+#import "ATStackView.h"
+
 
 @class Project;
 @class Action;
 @protocol ActionRowViewDelegate;
 
 
-@interface ActionRowView : NSView
+@interface ActionRowView : ATStackViewRow
 
 @property (nonatomic, strong) Project *project;
-@property (nonatomic, strong) IBOutlet Action *representedObject;
 @property (nonatomic, weak) IBOutlet id<ActionRowViewDelegate> delegate;
 
 @end

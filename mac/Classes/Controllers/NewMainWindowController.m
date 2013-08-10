@@ -903,7 +903,8 @@ void C_mainwnd__set_change_count(json_t *arg) {
 }
 
 - (ActionRowView *)actionRowViewForAction:(Action *)action {
-    ActionRowView *rowView = [_actionsRowNib instantiateWithOwner:self returnTopLevelObjectOfClass:[ActionRowView class]];
+//    ActionRowView *rowView = [_actionsRowNib instantiateWithOwner:self returnTopLevelObjectOfClass:[ActionRowView class]];
+    ActionRowView *rowView = [ActionRowView new];
     rowView.project = _selectedProject;
     rowView.representedObject = action;
     rowView.delegate = self;

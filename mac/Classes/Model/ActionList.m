@@ -28,8 +28,12 @@
     _memento = [memento copy];
     [_actions removeAllObjects];
 
+    [self insertPlaceholderAction];
+    [self insertPlaceholderAction];
+}
+
+- (void)insertPlaceholderAction {
     ActionType *type = _actionTypesByIdentifier[@"command"];
-    [_actions addObject:[type.class new]];
     [_actions addObject:[type.class new]];
 }
 
@@ -39,6 +43,9 @@
 
 - (void)removeObjectFromActionsAtIndex:(NSUInteger)index {
     [_actions removeObjectAtIndex:index];
+    if (_actions.count == 0) {
+        [self insertPlaceholderAction];
+    }
 }
 
 - (BOOL)canRemoveObjectFromActionsAtIndex:(NSUInteger)index {
