@@ -27,7 +27,7 @@
 #import "ATAutolayout.h"
 #import "ATStackView.h"
 #import "Action.h"
-#import "ActionRowView.h"
+#import "ActionListView.h"
 #import "ATSolidView.h"
 #import "ATFlippedView.h"
 
@@ -41,7 +41,7 @@ typedef enum {
 enum { PANE_COUNT = PaneProject+1 };
 
 
-@interface NewMainWindowController () <NSAnimationDelegate, NSTextFieldDelegate, ActionRowViewDelegate>
+@interface NewMainWindowController () <NSAnimationDelegate, NSTextFieldDelegate>
 
 + (NewMainWindowController *)sharedMainWindowController;
 
@@ -63,7 +63,7 @@ enum { PANE_COUNT = PaneProject+1 };
 - (void)updateUserScripts;
 
 @property (strong) NSNib *actionsRowNib;
-@property (weak) IBOutlet ATStackView *actionsStackView;
+@property (weak) IBOutlet ActionListView *actionsStackView;
 
 @end
 
@@ -891,41 +891,11 @@ void C_mainwnd__set_change_count(json_t *arg) {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserScripts) name:UserScriptManagerScriptsDidChangeNotification object:nil];
 }
 
-- (ActionList *)actionList {
-    return _selectedProject.actionList;
-}
+
+#pragma mark - Actions Table
 
 - (void)renderActions {
-    [_actionsStackView removeAllItems];
-    for (Action *action in self.actionList.actions) {
-        [_actionsStackView addItem:[self actionRowViewForAction:action]];
-    }
-}
-
-- (ActionRowView *)actionRowViewForAction:(Action *)action {
-//    ActionRowView *rowView = [_actionsRowNib instantiateWithOwner:self returnTopLevelObjectOfClass:[ActionRowView class]];
-    ActionRowView *rowView = [ActionRowView new];
-    rowView.project = _selectedProject;
-    rowView.representedObject = action;
-    rowView.delegate = self;
-    return rowView;
-}
-
-- (void)didInvokeAddInActionRowView:(ActionRowView *)rowView {
-    NSInteger index = [self.actionList.actions indexOfObject:rowView.representedObject];
-    if (index != NSNotFound) {
-        Action *action = [CustomCommandAction new];
-        [self.actionList insertObject:action inActionsAtIndex:index + 1];
-        [self renderActions];
-    }
-}
-
-- (void)didInvokeRemoveInActionRowView:(ActionRowView *)rowView {
-    NSInteger index = [self.actionList.actions indexOfObject:rowView.representedObject];
-    if (index != NSNotFound) {
-        [self.actionList removeObjectFromActionsAtIndex:index];
-        [self renderActions];
-    }
+    self.actionsStackView.actionList = _selectedProject.actionList;
 }
 
 

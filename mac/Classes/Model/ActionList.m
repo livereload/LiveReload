@@ -30,6 +30,7 @@
 
     [self insertPlaceholderAction];
     [self insertPlaceholderAction];
+    [self insertPlaceholderAction];
 }
 
 - (void)insertPlaceholderAction {

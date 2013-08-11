@@ -15,12 +15,6 @@
     return self;
 }
 
-- (void)awakeFromNib {
-    _items = [NSMutableArray new];
-    _itemSpacing = 8.0;
-    [self setContentHuggingPriority:NSLayoutPriorityDefaultHigh forOrientation:NSLayoutConstraintOrientationVertical];
-}
-
 + (BOOL)requiresConstraintBasedLayout {
     return YES;
 }
@@ -97,6 +91,40 @@
     if (self) {
     }
     return self;
+}
+
+@end
+
+@implementation ATStackViewGroup
+
+- (id)init {
+    self = [super init];
+    if (self) {
+    }
+    return self;
+}
+
+- (NSArray *)children {
+    return @[];
+}
+
+@end
+
+@implementation ATStackViewMappedGroup
+
+- (id)init {
+    self = [super init];
+    if (self) {
+    }
+    return self;
+}
+
+- (NSArray *)items {
+    return @[];
+}
+
+- (ATStackViewRow *)newRowForItem:(id)item {
+    return nil;
 }
 
 @end

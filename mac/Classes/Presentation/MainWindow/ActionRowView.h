@@ -3,14 +3,14 @@
 #import "ATStackView.h"
 
 
-@class Project;
+@class ActionList;
 @class Action;
 @protocol ActionRowViewDelegate;
 
 
 @interface ActionRowView : ATStackViewRow
 
-@property (nonatomic, strong) Project *project;
+@property (nonatomic, strong) ActionList *actionList;
 @property (nonatomic, weak) IBOutlet id<ActionRowViewDelegate> delegate;
 
 @end

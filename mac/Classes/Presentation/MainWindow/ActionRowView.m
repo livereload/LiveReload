@@ -3,10 +3,12 @@
 #import "ActionType.h"
 #import "ActionList.h"
 #import "Project.h"
+#import "ATMacViewCreation.h"
 
 
 @interface ActionRowView ()
 
+@property (nonatomic, strong) IBOutlet NSButton *checkbox;
 @property (nonatomic, strong) IBOutlet NSPopUpButton *commandPopUp;
 @property (nonatomic, strong) IBOutlet NSPopUpButton *filterPopUp;
 @property (nonatomic, strong) IBOutlet NSButton *optionsButton;
@@ -26,69 +28,39 @@
 - (id)init {
     self = [super init];
     if (self) {
-        _commandPopUp = [[NSPopUpButton alloc] initWithFrame:CGRectZero pullsDown:NO];
-        _commandPopUp.translatesAutoresizingMaskIntoConstraints = NO;
-        [self addSubview:_commandPopUp];
+        _checkbox = [[NSButton buttonWithTitle:@"" type:NSSwitchButton bezelStyle:NSRoundRectBezelStyle] addedToView:self];
 
-        _whenLabel = [[NSTextField alloc] init];
-        _whenLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        [_whenLabel setEditable:NO];
-        [_whenLabel setBordered:NO];
-        _whenLabel.stringValue = @"when";
-        [self addSubview:_whenLabel];
+        _commandPopUp = [[[NSPopUpButton popUpButton] withBezelStyle:NSRoundRectBezelStyle] addedToView:self];
 
-        _filterPopUp = [[NSPopUpButton alloc] initWithFrame:CGRectZero pullsDown:NO];
-        _filterPopUp.translatesAutoresizingMaskIntoConstraints = NO;
-        [self addSubview:_filterPopUp];
+        _whenLabel = [[NSTextField staticLabelWithString:@"when"] addedToView:self];
 
-        _isChangedLabel = [[NSTextField alloc] init];
-        _isChangedLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        [_isChangedLabel setEditable:NO];
-        [_isChangedLabel setBordered:NO];
-        _isChangedLabel.stringValue = @"is changed.";
-        [self addSubview:_isChangedLabel];
+        _filterPopUp = [[[NSPopUpButton popUpButton] withBezelStyle:NSRoundRectBezelStyle] addedToView:self];
 
-        _optionsButton = [[NSButton alloc] init];
-        _optionsButton.translatesAutoresizingMaskIntoConstraints = NO;
-        [_optionsButton setBezelStyle:NSRoundRectBezelStyle];
-        [_optionsButton setTitle:@"Options"];
-        [self addSubview:_optionsButton];
+        _isChangedLabel = [[NSTextField staticLabelWithString:@"is changed."] addedToView:self];
 
-        _addButton = [[NSButton alloc] init];
-        _addButton.translatesAutoresizingMaskIntoConstraints = NO;
-        [_addButton setBezelStyle:NSRoundRectBezelStyle];
-        [_addButton setImage:[NSImage imageNamed:@"NSAddTemplate"]];
-        _addButton.target = self;
-        _addButton.action = @selector(addClicked:);
-        [self addSubview:_addButton];
+        _optionsButton = [[[NSButton buttonWithImageNamed:@"LROptionsTemplate" type:NSPushOnPushOffButton bezelStyle:NSRecessedBezelStyle] withTarget:self action:@selector(optionsClicked:)] addedToView:self];
 
-        _removeButton = [[NSButton alloc] init];
-        _removeButton.translatesAutoresizingMaskIntoConstraints = NO;
-        [_removeButton setBezelStyle:NSRoundRectBezelStyle];
-        [_removeButton setImage:[NSImage imageNamed:@"NSRemoveTemplate"]];
-        _removeButton.target = self;
-        _removeButton.action = @selector(removeClicked:);
-        [self addSubview:_removeButton];
-
-        NSDictionary *bindings = @{ @"commandPopUp": _commandPopUp, @"whenLabel": _whenLabel, @"filterPopUp": _filterPopUp, @"isChangedLabel": _isChangedLabel, @"optionsButton": _optionsButton, @"removeButton": _removeButton, @"addButton": _addButton };
-
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-(0)-[commandPopUp(>=100,==filterPopUp)]-[whenLabel]-[filterPopUp]-[isChangedLabel]-(20@200,>=20)-[optionsButton]-[removeButton]-(4)-[addButton]-(0)-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:bindings]];
-        [self addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_commandPopUp attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0]];
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(>=0)-[commandPopUp]-(>=0)-|" options:0 metrics:nil views:bindings]];    }
-    return self;
-}
-
-- (void)setProject:(Project *)project {
-    if (_project != project) {
-        _project = project;
-        _actionList = project.actionList;
+        _removeButton = [[[NSButton buttonWithImageNamed:@"NSRemoveTemplate" type:NSPushOnPushOffButton bezelStyle:NSRecessedBezelStyle] withTarget:self action:@selector(removeClicked:)] addedToView:self];
     }
+    return self;
 }
 
 - (void)awakeFromNib {
     NSLog(@"self.constraints = %@", self.constraints);
     [self removeConstraints:self.constraints];
 
+}
+
+- (void)updateConstraints {
+    [super updateConstraints];
+
+    [self removeConstraints:self.constraints];
+
+    NSDictionary *bindings = @{ @"checkbox": _checkbox, @"commandPopUp": _commandPopUp, @"whenLabel": _whenLabel, @"filterPopUp": _filterPopUp, @"isChangedLabel": _isChangedLabel, @"optionsButton": _optionsButton, @"removeButton": _removeButton };
+
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-indentL2-[checkbox]-1-[commandPopUp(>=100,==filterPopUp)]-[whenLabel]-[filterPopUp]-[isChangedLabel]-(20@200,>=20)-[optionsButton]-1-[removeButton]|" options:NSLayoutFormatAlignAllCenterY metrics:self.metrics views:bindings]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_commandPopUp attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(>=0)-[commandPopUp]-(>=0)-|" options:0 metrics:self.metrics views:bindings]];
 }
 
 - (void)renderActionList {
