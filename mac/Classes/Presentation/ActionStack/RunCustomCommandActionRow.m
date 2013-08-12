@@ -10,6 +10,8 @@
 //@property(nonatomic, strong) NSTextField *commandField;
 @property(nonatomic, strong) NSPopUpButton *filterPopUp;
 
+@property(nonatomic, strong) NSTextField *commandLineField;
+
 @end
 
 
@@ -29,6 +31,12 @@
 
     [self alignView:self.checkbox toColumnNamed:@"actionRightEdge" alignment:ATStackViewColumnAlignmentTrailing];
     [self alignView:self.filterPopUp toColumnNamed:@"filter"];
+}
+
+- (void)loadOptionsIntoView:(LROptionsView *)container {
+    _commandLineField = [NSTextField editableField];
+    [_commandLineField makeHeightEqualTo:100];
+    [container addOptionView:_commandLineField label:NSLocalizedString(@"Command line:", nil) flags:LROptionsViewFlagsLabelAlignmentTop];
 }
 
 @end

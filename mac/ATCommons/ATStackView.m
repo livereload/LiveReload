@@ -12,8 +12,6 @@
 
 @interface ATStackViewRow ()
 
-- (void)loadContentIfNeeded;
-
 @property(nonatomic, weak) ATStackView *stackView;
 @property(nonatomic, readonly) NSDictionary *leadingAlignments;
 @property(nonatomic, readonly) NSDictionary *trailingAlignments;

@@ -38,6 +38,8 @@ typedef enum {
 @property(nonatomic) CGFloat topMargin;
 @property(nonatomic) CGFloat bottomMargin;
 
+- (void)loadContentIfNeeded;
+
 - (void)loadContent;  // override point; do not invoke directly
 
 - (void)alignView:(NSView *)view toColumnNamed:(NSString *)columnName;

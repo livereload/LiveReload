@@ -1,11 +1,19 @@
 
 #import <Foundation/Foundation.h>
 
+
 @interface NSTextField (ATMacViewCreation)
 
 + (NSTextField *)staticLabelWithString:(NSString *)text;
 + (NSTextField *)staticLabelWithAttributedString:(NSAttributedString *)text;
 + (NSTextField *)editableField;
+
+@end
+
+
+@interface NSTextView (ATMacViewCreation)
+
++ (NSTextView *)editableTextView;
 
 @end
 
@@ -25,6 +33,7 @@
 
 - (instancetype)withBezelStyle:(NSBezelStyle)bezelStyle;
 - (instancetype)withNoBorder;
+- (instancetype)showingBorderOnlyWhenMouseInside;
 
 @end
 

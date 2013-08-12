@@ -112,6 +112,7 @@
 		434BB25817B8FD3C000BEB1C /* RunCustomCommandActionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB25717B8FD3C000BEB1C /* RunCustomCommandActionRow.m */; };
 		434BB25B17B9097D000BEB1C /* ActionsGroupHeaderRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB25A17B9097D000BEB1C /* ActionsGroupHeaderRow.m */; };
 		434BB25E17B91330000BEB1C /* OptionsRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB25D17B91330000BEB1C /* OptionsRow.m */; };
+		434BB26217B945F0000BEB1C /* LROptionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB26117B945F0000BEB1C /* LROptionsView.m */; };
 		43508A7E17B3767E00871422 /* ShadowBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A7D17B3767E00871422 /* ShadowBoxView.m */; };
 		43508A8117B3819500871422 /* ATAutolayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A8017B3819500871422 /* ATAutolayout.m */; };
 		43508A8417B392A500871422 /* ATStackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A8317B392A500871422 /* ATStackView.m */; };
@@ -443,6 +444,8 @@
 		434BB25A17B9097D000BEB1C /* ActionsGroupHeaderRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionsGroupHeaderRow.m; sourceTree = "<group>"; };
 		434BB25C17B91330000BEB1C /* OptionsRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionsRow.h; sourceTree = "<group>"; };
 		434BB25D17B91330000BEB1C /* OptionsRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionsRow.m; sourceTree = "<group>"; };
+		434BB26017B945F0000BEB1C /* LROptionsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LROptionsView.h; sourceTree = "<group>"; };
+		434BB26117B945F0000BEB1C /* LROptionsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LROptionsView.m; sourceTree = "<group>"; };
 		434DB81E1514F71400C62042 /* app_version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = app_version.h; sourceTree = "<group>"; };
 		43508A7C17B3767E00871422 /* ShadowBoxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowBoxView.h; sourceTree = "<group>"; };
 		43508A7D17B3767E00871422 /* ShadowBoxView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowBoxView.m; sourceTree = "<group>"; };
@@ -1077,6 +1080,15 @@
 			path = ActionStack;
 			sourceTree = "<group>";
 		};
+		434BB25F17B945BB000BEB1C /* Options */ = {
+			isa = PBXGroup;
+			children = (
+				434BB26017B945F0000BEB1C /* LROptionsView.h */,
+				434BB26117B945F0000BEB1C /* LROptionsView.m */,
+			);
+			path = Options;
+			sourceTree = "<group>";
+		};
 		43508A8517B3931300871422 /* MainWindow */ = {
 			isa = PBXGroup;
 			children = (
@@ -1171,6 +1183,7 @@
 				436D7337173DE1C800F78A23 /* Rubies */,
 				43508A8517B3931300871422 /* MainWindow */,
 				434BB24317B68E14000BEB1C /* ActionStack */,
+				434BB25F17B945BB000BEB1C /* Options */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -1818,6 +1831,7 @@
 				435BE045141B87920008FF77 /* NewMainWindowController.m in Sources */,
 				4346F3A91450D8AD00B133F2 /* ImportGraph.m in Sources */,
 				435729171452267C00947B2E /* Stats.m in Sources */,
+				434BB26217B945F0000BEB1C /* LROptionsView.m in Sources */,
 				43E5DF621462829B0016CDA0 /* ImageAndTextCell.m in Sources */,
 				4353196F1465B52D005FA59F /* ShitHappens.m in Sources */,
 				43F50BF71466F7A1004FD951 /* PostProcessingSettingsWindowController.m in Sources */,

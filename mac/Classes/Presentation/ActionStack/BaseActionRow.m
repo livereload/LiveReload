@@ -33,6 +33,11 @@
     if (!_optionsRow) {
         _optionsRow = [OptionsRow rowWithRepresentedObject:self.representedObject metrics:self.metrics delegate:self];
         _optionsRow.collapsed = YES;
+
+        __weak BaseActionRow *myself = self;
+        _optionsRow.loadContentBlock = ^{
+            [myself _loadOptions];
+        };
     }
     return _optionsRow;
 }
@@ -46,6 +51,13 @@
 
 - (IBAction)removeClicked:(id)sender {
     //    [_delegate didInvokeRemoveInActionRowView:self];
+}
+
+- (void)_loadOptions {
+    [self loadOptionsIntoView:_optionsRow.optionsView];
+}
+
+- (void)loadOptionsIntoView:(LROptionsView *)container {
 }
 
 @end

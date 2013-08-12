@@ -1,5 +1,6 @@
 
 #import "ATStackView.h"
+#import "LROptionsView.h"
 
 
 @class OptionsRow;
@@ -12,5 +13,7 @@
 @property (nonatomic, strong) IBOutlet NSButton *removeButton;
 
 @property (nonatomic, strong, readonly) OptionsRow *optionsRow;
+
+- (void)loadOptionsIntoView:(LROptionsView *)container;  // override point
 
 @end

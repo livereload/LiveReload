@@ -31,6 +31,17 @@
 @end
 
 
+@implementation NSTextView (ATMacViewCreation)
+
++ (NSTextView *)editableTextView {
+    NSTextView *view = [[NSTextView alloc] initWithFrame:CGRectZero];
+    view.translatesAutoresizingMaskIntoConstraints = NO;
+    return view;
+}
+
+@end
+
+
 @implementation NSPopUpButton (ATMacViewCreation)
 
 + (NSPopUpButton *)popUpButton {
@@ -55,6 +66,10 @@
     view.translatesAutoresizingMaskIntoConstraints = NO;
     [view setButtonType:type];
     [view setBezelStyle:bezelStyle];
+    if (bezelStyle == NSRecessedBezelStyle) {
+        // Interface Builder sets it up this way automatically
+        [view setShowsBorderOnlyWhileMouseInside:YES];
+    }
     [view setTitle:title];
     return view;
 }
@@ -64,6 +79,10 @@
     view.translatesAutoresizingMaskIntoConstraints = NO;
     [view setButtonType:type];
     [view setBezelStyle:bezelStyle];
+    if (bezelStyle == NSRecessedBezelStyle) {
+        // Interface Builder sets it up this way automatically
+        [view setShowsBorderOnlyWhileMouseInside:YES];
+    }
     [view setImage:[NSImage imageNamed:imageName]];
     return view;
 }
@@ -75,6 +94,11 @@
 
 - (instancetype)withNoBorder {
     [self setBordered:NO];
+    return self;
+}
+
+- (instancetype)showingBorderOnlyWhenMouseInside {
+    [self setShowsBorderOnlyWhileMouseInside:YES];
     return self;
 }
 

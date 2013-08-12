@@ -104,12 +104,21 @@ const void *ATMetricsKey = "ATMetricsKey";
 }
 
 - (NSArray *)addConstraintsWithVisualFormat:(NSString *)format options:(NSLayoutFormatOptions)opts {
-    return [self addAndReturnConstraints:[self constraintsWithVisualFormat:format options:opts]];
+    return [self addConstraintsWithVisualFormat:format options:0 referencingPropertiesOfObject:self];
+}
+
+- (NSArray *)addConstraintsWithVisualFormat:(NSString *)format options:(NSLayoutFormatOptions)opts referencingPropertiesOfObject:(id)owner {
+    return [self addAndReturnConstraints:[owner constraintsWithVisualFormat:format options:opts]];
 }
 
 - (NSArray *)addAndReturnConstraints:(NSArray *)constraints {
     [self addConstraints:constraints];
     return constraints;
+}
+
+- (NSLayoutConstraint *)addAndReturnConstraint:(NSLayoutConstraint *)constraint {
+    [self addConstraint:constraint];
+    return constraint;
 }
 
 - (NSArray *)constraintsWithVisualFormat:(NSString *)format options:(NSLayoutFormatOptions)opts {
@@ -118,6 +127,56 @@ const void *ATMetricsKey = "ATMetricsKey";
 
 - (NSArray *)addFullHeightConstraintsForSubview:(NSView *)subview {
     return [self addAndReturnConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[subview]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(subview)]];
+}
+
+- (NSLayoutConstraint *)constraintMakingWidthEqualTo:(CGFloat)value {
+    return [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0.0 constant:value];
+}
+- (NSLayoutConstraint *)constraintMakingWidthGreaterThanOrEqualTo:(CGFloat)value {
+    return [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0.0 constant:value];
+}
+- (NSLayoutConstraint *)constraintMakingWidthLessThanOrEqualTo:(CGFloat)value {
+    return [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationLessThanOrEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0.0 constant:value];
+}
+
+- (NSLayoutConstraint *)constraintMakingHeightEqualTo:(CGFloat)value {
+    return [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0.0 constant:value];
+}
+- (NSLayoutConstraint *)constraintMakingHeightGreaterThanOrEqualTo:(CGFloat)value {
+    return [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0.0 constant:value];
+}
+- (NSLayoutConstraint *)constraintMakingHeightLessThanOrEqualTo:(CGFloat)value {
+    return [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationLessThanOrEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0.0 constant:value];
+}
+
+- (NSLayoutConstraint *)makeWidthEqualTo:(CGFloat)value {
+    return [self addAndReturnConstraint:[self constraintMakingWidthEqualTo:value]];
+}
+- (NSLayoutConstraint *)makeWidthGreaterThanOrEqualTo:(CGFloat)value {
+    return [self addAndReturnConstraint:[self constraintMakingWidthGreaterThanOrEqualTo:value]];
+}
+- (NSLayoutConstraint *)makeWidthLessThanOrEqualTo:(CGFloat)value {
+    return [self addAndReturnConstraint:[self constraintMakingWidthLessThanOrEqualTo:value]];
+}
+
+- (NSLayoutConstraint *)makeHeightEqualTo:(CGFloat)value {
+    return [self addAndReturnConstraint:[self constraintMakingHeightEqualTo:value]];
+}
+- (NSLayoutConstraint *)makeHeightGreaterThanOrEqualTo:(CGFloat)value {
+    return [self addAndReturnConstraint:[self constraintMakingHeightGreaterThanOrEqualTo:value]];
+}
+- (NSLayoutConstraint *)makeHeightLessThanOrEqualTo:(CGFloat)value {
+    return [self addAndReturnConstraint:[self constraintMakingHeightLessThanOrEqualTo:value]];
+}
+
+@end
+
+
+@implementation NSLayoutConstraint (ATAutolayout)
+
+- (instancetype)withPriority:(NSLayoutPriority)priority {
+    self.priority = priority;
+    return self;
 }
 
 @end
