@@ -43,6 +43,11 @@ typedef enum {
 - (void)alignView:(NSView *)view toColumnNamed:(NSString *)columnName;
 - (void)alignView:(NSView *)view toColumnNamed:(NSString *)columnName alignment:(ATStackViewColumnAlignment)alignment;
 
+@property(nonatomic, strong) NSArray *childRows;
+
+@property(nonatomic, assign) BOOL collapsed;
+- (void)setCollapsed:(BOOL)collapsed animated:(BOOL)animated;
+
 @end
 
 

@@ -15,6 +15,7 @@
 
 
 @implementation ActionListView {
+    BOOL _loaded;
     NSDictionary *_metrics;
 }
 
@@ -34,8 +35,16 @@
 }
 
 - (void)updateConstraints {
-    [self removeAllItems];
+    if (!_loaded) {
+        _loaded = YES;
+        [self removeAllItems];
+        [self loadRows];
+    }
 
+    [super updateConstraints];
+}
+
+- (void)loadRows {
 #if 0
     [self addItem:[[CompilersCategoryRow alloc] initWithTitle:@"Compilers:"]];
     for (Action *action in self.actionList.actions) {
@@ -56,8 +65,7 @@
         [self addItem:[RunCustomCommandActionRow rowWithRepresentedObject:nil metrics:_metrics delegate:self]];
     }
     [self addItem:[self addButtonRowWithPrompt:@"Add action" choices:@[@"Run custom command", @"Run foo.sh", @"Run bar.sh"]]];
-
-    [super updateConstraints];
+        
 }
 
 - (ActionRowView *)actionRowViewForAction:(Action *)action {

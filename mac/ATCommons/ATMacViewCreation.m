@@ -8,6 +8,7 @@
     view.translatesAutoresizingMaskIntoConstraints = NO;
     [view setBordered:NO];
     [view setEditable:NO];
+    [view setDrawsBackground:NO];
     [view setStringValue:text];
     return view;
 }
@@ -75,6 +76,18 @@
 - (instancetype)withNoBorder {
     [self setBordered:NO];
     return self;
+}
+
+@end
+
+
+@implementation NSBox (ATMacViewCreation)
+
++ (NSBox *)box {
+    NSBox *view = [[NSBox alloc] initWithFrame:CGRectZero];
+    view.translatesAutoresizingMaskIntoConstraints = NO;
+    view.titlePosition = NSNoTitle;
+    return view;
 }
 
 @end

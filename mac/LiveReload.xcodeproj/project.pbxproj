@@ -111,6 +111,7 @@
 		434BB25517B8F97E000BEB1C /* BaseActionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB25417B8F97E000BEB1C /* BaseActionRow.m */; };
 		434BB25817B8FD3C000BEB1C /* RunCustomCommandActionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB25717B8FD3C000BEB1C /* RunCustomCommandActionRow.m */; };
 		434BB25B17B9097D000BEB1C /* ActionsGroupHeaderRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB25A17B9097D000BEB1C /* ActionsGroupHeaderRow.m */; };
+		434BB25E17B91330000BEB1C /* OptionsRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB25D17B91330000BEB1C /* OptionsRow.m */; };
 		43508A7E17B3767E00871422 /* ShadowBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A7D17B3767E00871422 /* ShadowBoxView.m */; };
 		43508A8117B3819500871422 /* ATAutolayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A8017B3819500871422 /* ATAutolayout.m */; };
 		43508A8417B392A500871422 /* ATStackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A8317B392A500871422 /* ATStackView.m */; };
@@ -440,6 +441,8 @@
 		434BB25717B8FD3C000BEB1C /* RunCustomCommandActionRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunCustomCommandActionRow.m; sourceTree = "<group>"; };
 		434BB25917B9097D000BEB1C /* ActionsGroupHeaderRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionsGroupHeaderRow.h; sourceTree = "<group>"; };
 		434BB25A17B9097D000BEB1C /* ActionsGroupHeaderRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionsGroupHeaderRow.m; sourceTree = "<group>"; };
+		434BB25C17B91330000BEB1C /* OptionsRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionsRow.h; sourceTree = "<group>"; };
+		434BB25D17B91330000BEB1C /* OptionsRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionsRow.m; sourceTree = "<group>"; };
 		434DB81E1514F71400C62042 /* app_version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = app_version.h; sourceTree = "<group>"; };
 		43508A7C17B3767E00871422 /* ShadowBoxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowBoxView.h; sourceTree = "<group>"; };
 		43508A7D17B3767E00871422 /* ShadowBoxView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowBoxView.m; sourceTree = "<group>"; };
@@ -1064,6 +1067,8 @@
 				434BB25117B7E1A8000BEB1C /* AddActionRow.m */,
 				434BB25317B8F97E000BEB1C /* BaseActionRow.h */,
 				434BB25417B8F97E000BEB1C /* BaseActionRow.m */,
+				434BB25C17B91330000BEB1C /* OptionsRow.h */,
+				434BB25D17B91330000BEB1C /* OptionsRow.m */,
 				434BB25917B9097D000BEB1C /* ActionsGroupHeaderRow.h */,
 				434BB25A17B9097D000BEB1C /* ActionsGroupHeaderRow.m */,
 				434BB25617B8FD3C000BEB1C /* RunCustomCommandActionRow.h */,
@@ -1894,6 +1899,7 @@
 				4303A58515B513FD009D732A /* nodeapp_ui_element_osdep_window.mm in Sources */,
 				4303A58615B513FD009D732A /* nodeapp_ui_image.m in Sources */,
 				4303A58715B513FD009D732A /* NodeAppWindow.m in Sources */,
+				434BB25E17B91330000BEB1C /* OptionsRow.m in Sources */,
 				4303A58815B513FD009D732A /* nodeapp_url_handler_mac.m in Sources */,
 				4303A59215B5275F009D732A /* nodeapp_rpc_proxy.c in Sources */,
 				4303A59315B5275F009D732A /* nodeapp_rpc_router.c in Sources */,

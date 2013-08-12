@@ -29,6 +29,13 @@
 @end
 
 
+@interface NSBox (ATMacViewCreation)
+
++ (NSBox *)box;
+
+@end
+
+
 @interface NSControl (ATMacViewCreation)
 
 - (instancetype)withTarget:(id)target action:(SEL)action;
