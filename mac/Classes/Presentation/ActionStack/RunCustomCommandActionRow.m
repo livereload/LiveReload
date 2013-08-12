@@ -1,5 +1,6 @@
 
 #import "RunCustomCommandActionRow.h"
+#import "Action.h"
 #import "ATMacViewCreation.h"
 #import "ATAutolayout.h"
 
@@ -20,8 +21,6 @@
 - (void)loadContent {
     [super loadContent];
 
-    [self.checkbox setTitle:@"Run custom command"];
-
 //    self.runLabel = [[NSTextField staticLabelWithString:@"Run"] addedToView:self];
 //    _commandField = [[NSTextField editableField] addedToView:self];
     self.filterPopUp = [[[NSPopUpButton popUpButton] withBezelStyle:NSRoundRectBezelStyle] addedToView:self];
@@ -37,6 +36,18 @@
     _commandLineField = [NSTextField editableField];
     [_commandLineField makeHeightEqualTo:100];
     [container addOptionView:_commandLineField label:NSLocalizedString(@"Command line:", nil) flags:LROptionsViewFlagsLabelAlignmentTop];
+    [_commandLineField bind:@"value" toObject:self.representedObject withKeyPath:@"command" options:@{}];
+}
+
+- (void)updateContent {
+    CustomCommandAction *action = self.representedObject;
+    NSString *command = action.command;
+
+    [self.checkbox setTitle:(command.length > 0 ? [NSString stringWithFormat:NSLocalizedString(@"Run %@", nil), command] : NSLocalizedString(@"Run custom command", nil))];
+}
+
++ (NSArray *)representedObjectKeyPathsToObserve {
+    return @[@"command"];
 }
 
 @end

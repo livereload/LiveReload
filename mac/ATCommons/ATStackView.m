@@ -156,6 +156,8 @@
 @implementation ATStackViewRow {
     BOOL _contentLoaded;
     BOOL _collapsed;
+    BOOL _updateContentRequired;
+    BOOL _updateContentScheduled;
     NSMutableDictionary *_leadingAlignments;
     NSMutableDictionary *_trailingAlignments;
 }
@@ -176,6 +178,7 @@
         _representedObject = representedObject;
         _metrics = metrics;
         _delegate = delegate;
+        [self startObservingRepresentedObject];
     }
     return self;
 }
@@ -186,6 +189,10 @@
     return result;
 }
 
+- (void)dealloc {
+    [self stopObservingRepresentedObject];
+}
+
 - (NSDictionary *)AT_metrics {
     return self.metrics;
 }
@@ -194,6 +201,7 @@
     if (!_contentLoaded) {
         _contentLoaded = YES;
         [self loadContent];
+        [self updateContent];
     }
 }
 
@@ -252,6 +260,59 @@
 - (void)updateConstraints {
     [self loadContentIfNeeded];
     [super updateConstraints];
+}
+
+
+#pragma mark -
+
+void *ATStackViewRowObservationContext = "ATStackViewRowObservationContext";
+
++ (NSArray *)representedObjectKeyPathsToObserve {
+    return @[];
+}
+
+- (void)startObservingRepresentedObject {
+    for (NSString *keyPath in [self.class representedObjectKeyPathsToObserve]) {
+        [self.representedObject addObserver:self forKeyPath:keyPath options:0 context:ATStackViewRowObservationContext];
+    }
+}
+
+- (void)stopObservingRepresentedObject {
+    for (NSString *keyPath in [self.class representedObjectKeyPathsToObserve]) {
+        [self.representedObject removeObserver:self forKeyPath:keyPath context:ATStackViewRowObservationContext];
+    }
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if (context == ATStackViewRowObservationContext) {
+        [self setNeedsUpdateContent];
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
+
+
+#pragma mark -
+
+- (void)updateContentIfNeeded {
+    if (_updateContentRequired) {
+        _updateContentRequired = NO;
+        [self updateContent];
+    }
+}
+
+- (void)setNeedsUpdateContent {
+    _updateContentRequired = YES;
+    if (!_updateContentScheduled) {
+        _updateContentScheduled = YES;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            _updateContentScheduled = NO;
+            [self updateContentIfNeeded];
+        });
+    }
+}
+
+- (void)updateContent {
 }
 
 @end

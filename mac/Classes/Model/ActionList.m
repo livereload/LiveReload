@@ -35,7 +35,7 @@
 
 - (void)insertPlaceholderAction {
     ActionType *type = _actionTypesByIdentifier[@"command"];
-    [_actions addObject:[type.class new]];
+    [_actions addObject:[[type.klass alloc] initWithMemento:nil]];
 }
 
 - (void)insertObject:(Action *)object inActionsAtIndex:(NSUInteger)index {

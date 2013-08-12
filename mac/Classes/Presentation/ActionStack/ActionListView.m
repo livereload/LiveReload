@@ -45,6 +45,7 @@
 }
 
 - (void)loadRows {
+    NSDictionary *rowClassByActionName = @{@"command": [RunCustomCommandActionRow class]};
 #if 0
     [self addItem:[[CompilersCategoryRow alloc] initWithTitle:@"Compilers:"]];
     for (Action *action in self.actionList.actions) {
@@ -62,19 +63,16 @@
     [self addItem:[ActionsGroupHeaderRow rowWithRepresentedObject:@{@"title": @"Other actions:"} metrics:_metrics delegate:self]];
     for (Action *action in self.actionList.actions) {
 //        [self addItem:[self actionRowViewForAction:action]];
-        [self addItem:[RunCustomCommandActionRow rowWithRepresentedObject:nil metrics:_metrics delegate:self]];
+        Class rowClass = rowClassByActionName[action.typeIdentifier];
+        if (rowClass) {
+            [self addItem:[rowClass rowWithRepresentedObject:action metrics:_metrics delegate:self]];
+        }
     }
     [self addItem:[self addButtonRowWithPrompt:@"Add action" choices:@[@"Run custom command", @"Run foo.sh", @"Run bar.sh"]]];
         
 }
 
-- (ActionRowView *)actionRowViewForAction:(Action *)action {
-    ActionRowView *rowView = [ActionRowView new];
-    rowView.actionList = _actionList;
-    rowView.metrics = _metrics;
-    rowView.representedObject = action;
-    rowView.delegate = self;
-    return rowView;
+- (Class)actionRowClassForAction:(Action *)action {
 }
 
 - (AddActionRow *)addButtonRowWithPrompt:(NSString *)prompt choices:(NSArray *)choices {

@@ -5,7 +5,9 @@
 @interface Action : NSObject
 
 + (NSString *)typeIdentifier;
+@property(nonatomic, readonly) NSString *typeIdentifier;
 
+- (id)initWithMemento:(NSDictionary *)memento;
 @property(nonatomic, copy) NSDictionary *memento;
 
 // automatically invoked when reading

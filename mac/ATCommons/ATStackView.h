@@ -39,8 +39,16 @@ typedef enum {
 @property(nonatomic) CGFloat bottomMargin;
 
 - (void)loadContentIfNeeded;
+- (void)loadContent; // override point, do not invoke directly
 
-- (void)loadContent;  // override point; do not invoke directly
+- (void)updateContentIfNeeded;
+- (void)setNeedsUpdateContent;
+- (void)updateContent; // override point, do not invoke directly
+
+// override points
++ (NSArray *)representedObjectKeyPathsToObserve;
+- (void)startObservingRepresentedObject;
+- (void)stopObservingRepresentedObject;
 
 - (void)alignView:(NSView *)view toColumnNamed:(NSString *)columnName;
 - (void)alignView:(NSView *)view toColumnNamed:(NSString *)columnName alignment:(ATStackViewColumnAlignment)alignment;

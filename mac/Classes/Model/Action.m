@@ -9,13 +9,25 @@
     abort();
 }
 
+- (NSString *)typeIdentifier {
+    return [[self class] typeIdentifier];
+}
+
+- (id)initWithMemento:(NSDictionary *)memento {
+    self = [super init];
+    if (self) {
+        [self setMemento:memento];
+    }
+    return self;
+}
+
 - (NSDictionary *)memento {
     [self updateMemento:_memento];
     return _memento;
 }
 
 - (void)setMemento:(NSDictionary *)memento {
-    _memento = [memento mutableCopy];
+    _memento = [(memento ?: @{}) mutableCopy];
     [self loadFromMemento:_memento];
 }
 
@@ -40,6 +52,10 @@
 
 - (void)updateMemento:(NSMutableDictionary *)memento {
     memento[@"command"] = self.command;
+}
+
+- (void)setCommand:(NSString *)command {
+    _command = command;
 }
 
 @end
