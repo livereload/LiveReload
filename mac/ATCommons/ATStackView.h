@@ -5,6 +5,13 @@
 @protocol ATStackViewDelegate;
 
 
+typedef enum {
+    ATStackViewColumnAlignmentLeading,
+    ATStackViewColumnAlignmentTrailing,
+    ATStackViewColumnAlignmentBothSides,
+} ATStackViewColumnAlignment;
+
+
 @interface ATStackView : NSView
 
 @property(nonatomic, weak) IBOutlet id<ATStackViewDelegate> delegate;
@@ -18,14 +25,23 @@
 
 @interface ATStackViewRow : NSView
 
++ (id)rowWithRepresentedObject:(id)representedObject metrics:(NSDictionary*)metrics delegate:(id)delegate;
+
 - (id)init;
+- (id)initWithRepresentedObject:(id)representedObject metrics:(NSDictionary*)metrics delegate:(id)delegate;
 
 @property(nonatomic, strong) id representedObject;
 @property(nonatomic, copy) NSDictionary *metrics;
+@property(nonatomic, weak) id delegate;
 
 // interrow gap (will use a maximum for the adjacent rows; top gap ignored for the first row, bottom gap ignored for the last one)
 @property(nonatomic) CGFloat topMargin;
 @property(nonatomic) CGFloat bottomMargin;
+
+- (void)loadContent;  // override point; do not invoke directly
+
+- (void)alignView:(NSView *)view toColumnNamed:(NSString *)columnName;
+- (void)alignView:(NSView *)view toColumnNamed:(NSString *)columnName alignment:(ATStackViewColumnAlignment)alignment;
 
 @end
 

@@ -21,6 +21,12 @@
     return view;
 }
 
++ (NSTextField *)editableField {
+    NSTextField *view = [[NSTextField alloc] init];
+    view.translatesAutoresizingMaskIntoConstraints = NO;
+    return view;
+}
+
 @end
 
 

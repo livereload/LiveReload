@@ -5,6 +5,7 @@
 
 + (NSTextField *)staticLabelWithString:(NSString *)text;
 + (NSTextField *)staticLabelWithAttributedString:(NSAttributedString *)text;
++ (NSTextField *)editableField;
 
 @end
 

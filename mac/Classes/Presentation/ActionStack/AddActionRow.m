@@ -1,6 +1,7 @@
 
 #import "AddActionRow.h"
 #import "ATMacViewCreation.h"
+#import "ATAutolayout.h"
 
 
 @interface AddActionRow ()
@@ -9,22 +10,21 @@
 
 @implementation AddActionRow
 
-- (id)initWithFrame:(NSRect)frame {
-    self = [super initWithFrame:frame];
-    if (self) {
+- (NSPopUpButton *)actionPullDown {
+    if (!_actionPullDown) {
         _actionPullDown = [[[NSPopUpButton pullDownButton] withBezelStyle:NSRoundRectBezelStyle] addedToView:self];
         _actionPullDown.font = [NSFont systemFontOfSize:12.0];
     }
-    return self;
+    return _actionPullDown;
 }
 
-- (void)updateConstraints {
-    [super updateConstraints];
-    [self removeConstraints:self.constraints];
+- (void)loadContent {
+    [super loadContent];
 
-    NSDictionary *bindings = @{@"actionPullDown": _actionPullDown};
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-indentL3-[actionPullDown(120)]" options:0 metrics:self.metrics views:bindings]];
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[actionPullDown]|" options:0 metrics:self.metrics views:bindings]];
+    [self addConstraintsWithVisualFormat:@"|-indentL3-[actionPullDown(>=120)]"];
+    [self addFullHeightConstraintsForSubview:self.actionPullDown];
+
+    [self alignView:self.actionPullDown toColumnNamed:@"actionRightEdge" alignment:ATStackViewColumnAlignmentTrailing];
 }
 
 

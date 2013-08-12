@@ -104,11 +104,13 @@
 		4346F3A91450D8AD00B133F2 /* ImportGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 4346F3A81450D8AD00B133F2 /* ImportGraph.m */; };
 		4346F3AB1451012A00B133F2 /* StatusItemStateRotation3.png in Resources */ = {isa = PBXBuildFile; fileRef = 4346F3AA1451012A00B133F2 /* StatusItemStateRotation3.png */; };
 		434BB24217B66CBE000BEB1C /* LROptionsTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 434BB24117B66CBE000BEB1C /* LROptionsTemplate.png */; };
-		434BB24617B68E51000BEB1C /* ActionCategoryItems.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB24517B68E4A000BEB1C /* ActionCategoryItems.m */; };
-		434BB24917B690AB000BEB1C /* ActionCategoryRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB24817B690AB000BEB1C /* ActionCategoryRow.m */; };
+		434BB24917B690AB000BEB1C /* GroupHeaderRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB24817B690AB000BEB1C /* GroupHeaderRow.m */; };
 		434BB24C17B6913F000BEB1C /* ATMacViewCreation.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB24B17B6913F000BEB1C /* ATMacViewCreation.m */; };
 		434BB24F17B7A680000BEB1C /* ActionListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB24E17B7A680000BEB1C /* ActionListView.m */; };
 		434BB25217B7E1A8000BEB1C /* AddActionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB25117B7E1A8000BEB1C /* AddActionRow.m */; };
+		434BB25517B8F97E000BEB1C /* BaseActionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB25417B8F97E000BEB1C /* BaseActionRow.m */; };
+		434BB25817B8FD3C000BEB1C /* RunCustomCommandActionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB25717B8FD3C000BEB1C /* RunCustomCommandActionRow.m */; };
+		434BB25B17B9097D000BEB1C /* ActionsGroupHeaderRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB25A17B9097D000BEB1C /* ActionsGroupHeaderRow.m */; };
 		43508A7E17B3767E00871422 /* ShadowBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A7D17B3767E00871422 /* ShadowBoxView.m */; };
 		43508A8117B3819500871422 /* ATAutolayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A8017B3819500871422 /* ATAutolayout.m */; };
 		43508A8417B392A500871422 /* ATStackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A8317B392A500871422 /* ATStackView.m */; };
@@ -424,16 +426,20 @@
 		4346F3A81450D8AD00B133F2 /* ImportGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImportGraph.m; sourceTree = "<group>"; };
 		4346F3AA1451012A00B133F2 /* StatusItemStateRotation3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemStateRotation3.png; sourceTree = "<group>"; };
 		434BB24117B66CBE000BEB1C /* LROptionsTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LROptionsTemplate.png; sourceTree = "<group>"; };
-		434BB24417B68E4A000BEB1C /* ActionCategoryItems.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActionCategoryItems.h; sourceTree = "<group>"; };
-		434BB24517B68E4A000BEB1C /* ActionCategoryItems.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActionCategoryItems.m; sourceTree = "<group>"; };
-		434BB24717B690AB000BEB1C /* ActionCategoryRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionCategoryRow.h; sourceTree = "<group>"; };
-		434BB24817B690AB000BEB1C /* ActionCategoryRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionCategoryRow.m; sourceTree = "<group>"; };
+		434BB24717B690AB000BEB1C /* GroupHeaderRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupHeaderRow.h; sourceTree = "<group>"; };
+		434BB24817B690AB000BEB1C /* GroupHeaderRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupHeaderRow.m; sourceTree = "<group>"; };
 		434BB24A17B6913F000BEB1C /* ATMacViewCreation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATMacViewCreation.h; sourceTree = "<group>"; };
 		434BB24B17B6913F000BEB1C /* ATMacViewCreation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATMacViewCreation.m; sourceTree = "<group>"; };
 		434BB24D17B7A680000BEB1C /* ActionListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionListView.h; sourceTree = "<group>"; };
 		434BB24E17B7A680000BEB1C /* ActionListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionListView.m; sourceTree = "<group>"; };
 		434BB25017B7E1A8000BEB1C /* AddActionRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddActionRow.h; sourceTree = "<group>"; };
 		434BB25117B7E1A8000BEB1C /* AddActionRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddActionRow.m; sourceTree = "<group>"; };
+		434BB25317B8F97E000BEB1C /* BaseActionRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseActionRow.h; sourceTree = "<group>"; };
+		434BB25417B8F97E000BEB1C /* BaseActionRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseActionRow.m; sourceTree = "<group>"; };
+		434BB25617B8FD3C000BEB1C /* RunCustomCommandActionRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunCustomCommandActionRow.h; sourceTree = "<group>"; };
+		434BB25717B8FD3C000BEB1C /* RunCustomCommandActionRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunCustomCommandActionRow.m; sourceTree = "<group>"; };
+		434BB25917B9097D000BEB1C /* ActionsGroupHeaderRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionsGroupHeaderRow.h; sourceTree = "<group>"; };
+		434BB25A17B9097D000BEB1C /* ActionsGroupHeaderRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionsGroupHeaderRow.m; sourceTree = "<group>"; };
 		434DB81E1514F71400C62042 /* app_version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = app_version.h; sourceTree = "<group>"; };
 		43508A7C17B3767E00871422 /* ShadowBoxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowBoxView.h; sourceTree = "<group>"; };
 		43508A7D17B3767E00871422 /* ShadowBoxView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowBoxView.m; sourceTree = "<group>"; };
@@ -1050,14 +1056,18 @@
 		434BB24317B68E14000BEB1C /* ActionStack */ = {
 			isa = PBXGroup;
 			children = (
-				434BB24417B68E4A000BEB1C /* ActionCategoryItems.h */,
-				434BB24517B68E4A000BEB1C /* ActionCategoryItems.m */,
-				434BB24717B690AB000BEB1C /* ActionCategoryRow.h */,
-				434BB24817B690AB000BEB1C /* ActionCategoryRow.m */,
+				434BB24717B690AB000BEB1C /* GroupHeaderRow.h */,
+				434BB24817B690AB000BEB1C /* GroupHeaderRow.m */,
 				434BB24D17B7A680000BEB1C /* ActionListView.h */,
 				434BB24E17B7A680000BEB1C /* ActionListView.m */,
 				434BB25017B7E1A8000BEB1C /* AddActionRow.h */,
 				434BB25117B7E1A8000BEB1C /* AddActionRow.m */,
+				434BB25317B8F97E000BEB1C /* BaseActionRow.h */,
+				434BB25417B8F97E000BEB1C /* BaseActionRow.m */,
+				434BB25917B9097D000BEB1C /* ActionsGroupHeaderRow.h */,
+				434BB25A17B9097D000BEB1C /* ActionsGroupHeaderRow.m */,
+				434BB25617B8FD3C000BEB1C /* RunCustomCommandActionRow.h */,
+				434BB25717B8FD3C000BEB1C /* RunCustomCommandActionRow.m */,
 			);
 			path = ActionStack;
 			sourceTree = "<group>";
@@ -1810,7 +1820,7 @@
 				43F50BFF14670A9F004FD951 /* CompilationSettingsWindowController.m in Sources */,
 				431466A6146CA68500DC075A /* PassThruView.m in Sources */,
 				431466A9146CA82200DC075A /* PassThruImageView.m in Sources */,
-				434BB24617B68E51000BEB1C /* ActionCategoryItems.m in Sources */,
+				434BB25517B8F97E000BEB1C /* BaseActionRow.m in Sources */,
 				4353403A146CC7E600DD66B0 /* MonitoringSettingsWindowController.m in Sources */,
 				4310DE3D146DB588003091D1 /* ToolOptions.m in Sources */,
 				4310DE40146DB6A0003091D1 /* UIBuilder.m in Sources */,
@@ -1834,9 +1844,10 @@
 				43508A8817B3931F00871422 /* Action.m in Sources */,
 				43C3D04E15B37B1500BCD2E8 /* LicenseManager.m in Sources */,
 				4303A54015B513FD009D732A /* dump.c in Sources */,
+				434BB25817B8FD3C000BEB1C /* RunCustomCommandActionRow.m in Sources */,
 				4303A54115B513FD009D732A /* error.c in Sources */,
 				4303A54215B513FD009D732A /* hashtable.c in Sources */,
-				434BB24917B690AB000BEB1C /* ActionCategoryRow.m in Sources */,
+				434BB24917B690AB000BEB1C /* GroupHeaderRow.m in Sources */,
 				4303A54315B513FD009D732A /* load.c in Sources */,
 				434BB24F17B7A680000BEB1C /* ActionListView.m in Sources */,
 				4303A54415B513FD009D732A /* memory.c in Sources */,
@@ -1864,6 +1875,7 @@
 				4303A55D15B513FD009D732A /* nodeapp_rpc_osdep.c in Sources */,
 				4303A55E15B513FD009D732A /* nodeapp_threading.c in Sources */,
 				4303A55F15B513FD009D732A /* NodeAppDelegate.m in Sources */,
+				434BB25B17B9097D000BEB1C /* ActionsGroupHeaderRow.m in Sources */,
 				4303A56015B513FD009D732A /* NodeAppWindowController.m in Sources */,
 				4303A57715B513FD009D732A /* nodeapp_licensing.m in Sources */,
 				4303A57915B513FD009D732A /* nodeapp_ui_element.cc in Sources */,

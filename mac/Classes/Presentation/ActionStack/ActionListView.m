@@ -2,9 +2,11 @@
 #import "ActionListView.h"
 #import "ActionList.h"
 #import "Action.h"
-#import "ActionCategoryRow.h"
+#import "GroupHeaderRow.h"
 #import "ActionRowView.h"
 #import "AddActionRow.h"
+#import "ActionsGroupHeaderRow.h"
+#import "RunCustomCommandActionRow.h"
 
 
 @interface ActionListView () <ActionRowViewDelegate>
@@ -19,7 +21,7 @@
 - (id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        _metrics = @{@"indentL2": @16.0, @"indentL3": @38.0 };
+        _metrics = @{@"indentL2": @18.0, @"indentL3": @36.0, @"checkboxToControl": @1.0, @"buttonBarGapMin": @20.0, @"buttonGap": @1.0, @"columnGapMin": @8.0};
     }
     return self;
 }
@@ -48,9 +50,10 @@
     [self addItem:[self addButtonRowWithPrompt:@"Add filter" choices:@[@"autoprefix"]]];
 #endif
 
-    [self addItem:[[ActionsCategoryRow alloc] initWithTitle:@"Other actions:"]];
+    [self addItem:[ActionsGroupHeaderRow rowWithRepresentedObject:@{@"title": @"Other actions:"} metrics:_metrics delegate:self]];
     for (Action *action in self.actionList.actions) {
-        [self addItem:[self actionRowViewForAction:action]];
+//        [self addItem:[self actionRowViewForAction:action]];
+        [self addItem:[RunCustomCommandActionRow rowWithRepresentedObject:nil metrics:_metrics delegate:self]];
     }
     [self addItem:[self addButtonRowWithPrompt:@"Add action" choices:@[@"Run custom command", @"Run foo.sh", @"Run bar.sh"]]];
 

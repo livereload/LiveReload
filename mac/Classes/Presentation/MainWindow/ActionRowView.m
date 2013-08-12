@@ -53,6 +53,10 @@
     [self removeConstraints:self.constraints];
 }
 
+- (void)loadContent {
+    
+}
+
 - (void)updateConstraints {
     [super updateConstraints];
 
@@ -86,11 +90,11 @@
 }
 
 - (IBAction)addClicked:(id)sender {
-    [_delegate didInvokeAddInActionRowView:self];
+//    [_delegate didInvokeAddInActionRowView:self];
 }
 
 - (IBAction)removeClicked:(id)sender {
-    [_delegate didInvokeRemoveInActionRowView:self];
+//    [_delegate didInvokeRemoveInActionRowView:self];
 }
 
 - (IBAction)optionsClicked:(id)sender {
