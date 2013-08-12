@@ -46,7 +46,7 @@
         [self addItem:[self actionRowViewForAction:action]];
     }
     [self addItem:[self addButtonRowWithPrompt:@"Add filter" choices:@[@"autoprefix"]]];
-#endif≥
+#endif
 
     [self addItem:[[ActionsCategoryRow alloc] initWithTitle:@"Other actions:"]];
     for (Action *action in self.actionList.actions) {
