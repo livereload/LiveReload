@@ -4,6 +4,7 @@
 #import "Action.h"
 #import "ActionCategoryRow.h"
 #import "ActionRowView.h"
+#import "AddActionRow.h"
 
 
 @interface ActionListView () <ActionRowViewDelegate>
@@ -18,7 +19,7 @@
 - (id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        _metrics = @{@"indentL2": @16, @"indentL3": @38};
+        _metrics = @{@"indentL2": @16.0, @"indentL3": @38.0 };
     }
     return self;
 }
@@ -36,6 +37,19 @@
     for (Action *action in self.actionList.actions) {
         [self addItem:[self actionRowViewForAction:action]];
     }
+    [self addItem:[self addButtonRowWithPrompt:@"Add compiler" choices:@[@"SASS", @"Compass", @"LESS"]]];
+
+    [self addItem:[[FiltersCategoryRow alloc] initWithTitle:@"Filters:"]];
+    for (Action *action in self.actionList.actions) {
+        [self addItem:[self actionRowViewForAction:action]];
+    }
+    [self addItem:[self addButtonRowWithPrompt:@"Add filter" choices:@[@"autoprefix"]]];
+
+    [self addItem:[[ActionsCategoryRow alloc] initWithTitle:@"Other actions:"]];
+    for (Action *action in self.actionList.actions) {
+        [self addItem:[self actionRowViewForAction:action]];
+    }
+    [self addItem:[self addButtonRowWithPrompt:@"Add action" choices:@[@"Run custom command", @"Run foo.sh", @"Run bar.sh"]]];
 
     [super updateConstraints];
 }
@@ -47,6 +61,14 @@
     rowView.representedObject = action;
     rowView.delegate = self;
     return rowView;
+}
+
+- (AddActionRow *)addButtonRowWithPrompt:(NSString *)prompt choices:(NSArray *)choices {
+    AddActionRow *row = [AddActionRow new];
+    row.metrics = _metrics;
+    [row.actionPullDown addItemWithTitle:prompt];
+    [row.actionPullDown addItemsWithTitles:choices];
+    return row;
 }
 
 - (void)didInvokeAddInActionRowView:(ActionRowView *)rowView {

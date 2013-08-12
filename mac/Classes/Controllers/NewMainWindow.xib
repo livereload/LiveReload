@@ -1436,4 +1436,126 @@
         <image name="TitleBarHelpTemplate" width="14" height="14"/>
         <image name="WelcomePaneBackground" width="536" height="470"/>
     </resources>
+    <classes>
+        <class className="ATStackView" superclassName="NSView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ATStackView.h"/>
+            <relationships>
+                <relationship kind="outlet" name="delegate"/>
+            </relationships>
+        </class>
+        <class className="ActionListView" superclassName="ATStackView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ActionListView.h"/>
+        </class>
+        <class className="BackgroundView" superclassName="NSView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BackgroundView.h"/>
+        </class>
+        <class className="ImageAndTextCell" superclassName="NSTextFieldCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ImageAndTextCell.h"/>
+        <class className="LiveReloadAppDelegate" superclassName="NodeAppDelegate">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LiveReloadAppDelegate.h"/>
+            <relationships>
+                <relationship kind="action" name="displayMainWindow:"/>
+                <relationship kind="action" name="openHelp:"/>
+                <relationship kind="action" name="openSupport:"/>
+                <relationship kind="action" name="toggleMainWindow:"/>
+            </relationships>
+        </class>
+        <class className="MainWindow" superclassName="NSWindow">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MainWindow.h"/>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="NewMainWindowController" superclassName="NSWindowController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NewMainWindowController.h"/>
+            <relationships>
+                <relationship kind="action" name="addProjectClicked:"/>
+                <relationship kind="action" name="customScriptSelected:"/>
+                <relationship kind="action" name="displayLicenseManager:"/>
+                <relationship kind="action" name="doNothingOnShowAs:"/>
+                <relationship kind="action" name="enterLicenseCode:"/>
+                <relationship kind="action" name="helpSupportClicked:" candidateClass="NSSegmentedControl"/>
+                <relationship kind="action" name="performAskQuestion:"/>
+                <relationship kind="action" name="performHelp:"/>
+                <relationship kind="action" name="performKeyboardHelp:"/>
+                <relationship kind="action" name="performQuit:"/>
+                <relationship kind="action" name="performReportProblem:"/>
+                <relationship kind="action" name="performSuggest:"/>
+                <relationship kind="action" name="performWebSite:"/>
+                <relationship kind="action" name="purchaseOutsideMAS:"/>
+                <relationship kind="action" name="purchaseViaMAS:"/>
+                <relationship kind="action" name="removeProjectClicked:"/>
+                <relationship kind="action" name="showCompilationOptions:"/>
+                <relationship kind="action" name="showMonitoringOptions:"/>
+                <relationship kind="action" name="showPreferences:"/>
+                <relationship kind="action" name="toggleCompilationEnabledCheckboxClicked:" candidateClass="NSButton"/>
+                <relationship kind="action" name="toggleOpenAtLogin:"/>
+                <relationship kind="action" name="togglePostProcessingCheckboxClicked:" candidateClass="NSButton"/>
+                <relationship kind="action" name="toggleTerminal:"/>
+                <relationship kind="action" name="toggleVisibilityMode:" candidateClass="NSMenuItem"/>
+                <relationship kind="action" name="useNewCustomProjectName:" candidateClass="NSMenuItem"/>
+                <relationship kind="action" name="usePreviouslySetCustomProjectName:" candidateClass="NSMenuItem"/>
+                <relationship kind="action" name="useProposedProjectName:" candidateClass="NSMenuItem"/>
+                <relationship kind="outlet" name="_showInDockMenuItem" candidateClass="NSMenuItem"/>
+                <relationship kind="outlet" name="_showInMenuBarMenuItem" candidateClass="NSMenuItem"/>
+                <relationship kind="outlet" name="_showNowhereMenuItem" candidateClass="NSMenuItem"/>
+                <relationship kind="outlet" name="actionsStackView" candidateClass="ActionListView"/>
+                <relationship kind="outlet" name="addProjectButton" candidateClass="NSButton"/>
+                <relationship kind="outlet" name="availableCompilersLabel" candidateClass="NSTextField"/>
+                <relationship kind="outlet" name="checkForUpdatesMenuItem" candidateClass="NSMenuItem"/>
+                <relationship kind="outlet" name="checkForUpdatesMenuItemSeparator" candidateClass="NSMenuItem"/>
+                <relationship kind="outlet" name="compilerEnabledCheckBox" candidateClass="NSButton"/>
+                <relationship kind="outlet" name="customScriptPopUp" candidateClass="NSPopUpButton"/>
+                <relationship kind="outlet" name="displayLicenseManagerMenuItem" candidateClass="NSMenuItem"/>
+                <relationship kind="outlet" name="displayLicenseManagerMenuItemSeparator" candidateClass="NSMenuItem"/>
+                <relationship kind="outlet" name="gettingStartedIconView" candidateClass="NSImageView"/>
+                <relationship kind="outlet" name="gettingStartedLabelField" candidateClass="NSTextField"/>
+                <relationship kind="outlet" name="gettingStartedView" candidateClass="NSView"/>
+                <relationship kind="outlet" name="iconView" candidateClass="NSImageView"/>
+                <relationship kind="outlet" name="licenseStatusMenuItem" candidateClass="NSMenuItem"/>
+                <relationship kind="outlet" name="monitoringSummaryLabelField" candidateClass="NSTextField"/>
+                <relationship kind="outlet" name="nameTextField" candidateClass="NSTextField"/>
+                <relationship kind="outlet" name="openAtLoginMenuItem" candidateClass="NSMenuItem"/>
+                <relationship kind="outlet" name="paneBorderBox" candidateClass="NSBox"/>
+                <relationship kind="outlet" name="panePlaceholder" candidateClass="NSView"/>
+                <relationship kind="outlet" name="pathTextField" candidateClass="NSTextField"/>
+                <relationship kind="outlet" name="postProcessingEnabledCheckBox" candidateClass="NSButton"/>
+                <relationship kind="outlet" name="projectOutlineView" candidateClass="NSOutlineView"/>
+                <relationship kind="outlet" name="projectOverviewPlaceholderView" candidateClass="NSView"/>
+                <relationship kind="outlet" name="projectOverviewView" candidateClass="NSView"/>
+                <relationship kind="outlet" name="projectPane" candidateClass="NSView"/>
+                <relationship kind="outlet" name="projectPaneScrollView" candidateClass="NSScrollView"/>
+                <relationship kind="outlet" name="purchasePopUpButton" candidateClass="NSPopUpButton"/>
+                <relationship kind="outlet" name="removeProjectButton" candidateClass="NSButton"/>
+                <relationship kind="outlet" name="snippetBodyTextField" candidateClass="NSTextField"/>
+                <relationship kind="outlet" name="snippetLabelField" candidateClass="NSTextField"/>
+                <relationship kind="outlet" name="statusTextField" candidateClass="NSTextField"/>
+                <relationship kind="outlet" name="terminalButton" candidateClass="NSButton"/>
+                <relationship kind="outlet" name="titleBarSideView" candidateClass="NSView"/>
+                <relationship kind="outlet" name="urlsTextField" candidateClass="NSTextField"/>
+                <relationship kind="outlet" name="versionMenuItem" candidateClass="NSMenuItem"/>
+                <relationship kind="outlet" name="welcomeMessageField" candidateClass="NSTextField"/>
+                <relationship kind="outlet" name="welcomePane" candidateClass="NSView"/>
+            </relationships>
+        </class>
+        <class className="NodeAppDelegate" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NodeAppDelegate.h"/>
+        </class>
+        <class className="PassThruImageView" superclassName="NSImageView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PassThruImageView.h"/>
+        </class>
+        <class className="PassThruView" superclassName="NSView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PassThruView.h"/>
+        </class>
+        <class className="SUUpdater" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SUUpdater.h"/>
+            <relationships>
+                <relationship kind="action" name="checkForUpdates:"/>
+                <relationship kind="outlet" name="delegate"/>
+            </relationships>
+        </class>
+        <class className="ShadowBoxView" superclassName="NSView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ShadowBoxView.h"/>
+        </class>
+    </classes>
 </document>

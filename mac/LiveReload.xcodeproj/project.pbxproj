@@ -108,6 +108,7 @@
 		434BB24917B690AB000BEB1C /* ActionCategoryRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB24817B690AB000BEB1C /* ActionCategoryRow.m */; };
 		434BB24C17B6913F000BEB1C /* ATMacViewCreation.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB24B17B6913F000BEB1C /* ATMacViewCreation.m */; };
 		434BB24F17B7A680000BEB1C /* ActionListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB24E17B7A680000BEB1C /* ActionListView.m */; };
+		434BB25217B7E1A8000BEB1C /* AddActionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB25117B7E1A8000BEB1C /* AddActionRow.m */; };
 		43508A7E17B3767E00871422 /* ShadowBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A7D17B3767E00871422 /* ShadowBoxView.m */; };
 		43508A8117B3819500871422 /* ATAutolayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A8017B3819500871422 /* ATAutolayout.m */; };
 		43508A8417B392A500871422 /* ATStackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A8317B392A500871422 /* ATStackView.m */; };
@@ -431,6 +432,8 @@
 		434BB24B17B6913F000BEB1C /* ATMacViewCreation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATMacViewCreation.m; sourceTree = "<group>"; };
 		434BB24D17B7A680000BEB1C /* ActionListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionListView.h; sourceTree = "<group>"; };
 		434BB24E17B7A680000BEB1C /* ActionListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionListView.m; sourceTree = "<group>"; };
+		434BB25017B7E1A8000BEB1C /* AddActionRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddActionRow.h; sourceTree = "<group>"; };
+		434BB25117B7E1A8000BEB1C /* AddActionRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddActionRow.m; sourceTree = "<group>"; };
 		434DB81E1514F71400C62042 /* app_version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = app_version.h; sourceTree = "<group>"; };
 		43508A7C17B3767E00871422 /* ShadowBoxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowBoxView.h; sourceTree = "<group>"; };
 		43508A7D17B3767E00871422 /* ShadowBoxView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowBoxView.m; sourceTree = "<group>"; };
@@ -1053,6 +1056,8 @@
 				434BB24817B690AB000BEB1C /* ActionCategoryRow.m */,
 				434BB24D17B7A680000BEB1C /* ActionListView.h */,
 				434BB24E17B7A680000BEB1C /* ActionListView.m */,
+				434BB25017B7E1A8000BEB1C /* AddActionRow.h */,
+				434BB25117B7E1A8000BEB1C /* AddActionRow.m */,
 			);
 			path = ActionStack;
 			sourceTree = "<group>";
@@ -1818,6 +1823,7 @@
 				43E34FA5147071E9001641AA /* stringutil.c in Sources */,
 				C01FCF5008A954540054247E /* RSVerticallyCenteredTextFieldCell.m in Sources */,
 				4378C8D11515205C003187D5 /* OldFSMonitor.m in Sources */,
+				434BB25217B7E1A8000BEB1C /* AddActionRow.m in Sources */,
 				4378C8D21515205C003187D5 /* OldFSTree.m in Sources */,
 				4378C8D31515205C003187D5 /* OldFSTreeDiffer.m in Sources */,
 				4378C8D41515205C003187D5 /* OldFSTreeFilter.m in Sources */,

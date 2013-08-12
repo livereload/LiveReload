@@ -12,6 +12,9 @@
         NSDictionary *bindings = NSDictionaryOfVariableBindings(_titleLabel);
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[_titleLabel]|" options:0 metrics:nil views:bindings]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_titleLabel]|" options:0 metrics:nil views:bindings]];
+
+        self.topMargin = 30.0;
+        self.bottomMargin = 8.0;
     }
     return self;
 }

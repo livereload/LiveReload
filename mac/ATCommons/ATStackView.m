@@ -9,7 +9,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         _items = [NSMutableArray new];
-        _itemSpacing = 8.0;
         [self setContentHuggingPriority:NSLayoutPriorityDefaultHigh forOrientation:NSLayoutConstraintOrientationVertical];
     }
     return self;
@@ -38,11 +37,6 @@
     [self setNeedsUpdateConstraints:YES];
 }
 
-- (void)setItemSpacing:(CGFloat)itemSpacing {
-    _itemSpacing = itemSpacing;
-    [self setNeedsUpdateConstraints:YES];
-}
-
 //- (void)drawRect:(NSRect)dirtyRect {
 //    [[NSColor redColor] set];
 //    NSRectFill(self.bounds);
@@ -53,15 +47,16 @@
     
     [self removeConstraints:self.constraints];
 
-    NSView *previous = nil;
-    for (NSView *subview in _items) {
+    ATStackViewRow *previous = nil;
+    for (ATStackViewRow *subview in _items) {
         CGSize fittingSize = subview.fittingSize;
 //        NSLog(@"fittingSize = %@", NSStringFromSize(subview.fittingSize));
         [self addConstraint:[NSLayoutConstraint constraintWithItem:subview attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0.0 constant:fittingSize.height]];
 
-        if (previous)
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:subview attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:previous attribute:NSLayoutAttributeBottom multiplier:1.0 constant:_itemSpacing]];
-        else
+        if (previous) {
+            CGFloat spacing = MAX(previous.bottomMargin, subview.topMargin);
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:subview attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:previous attribute:NSLayoutAttributeBottom multiplier:1.0 constant:spacing]];
+        } else
 //            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[subview]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(subview)]];
             [self addConstraint:[NSLayoutConstraint constraintWithItem:subview attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1.0 constant:0.0]];
 

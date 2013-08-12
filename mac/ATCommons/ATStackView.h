@@ -9,8 +9,6 @@
 
 @property(nonatomic, weak) IBOutlet id<ATStackViewDelegate> delegate;
 
-@property(nonatomic) CGFloat itemSpacing;
-
 - (void)removeAllItems;
 - (void)addItem:(NSView *)itemView;
 - (void)insertItem:(NSView *)itemView atIndex:(NSInteger)index;
@@ -24,6 +22,10 @@
 
 @property(nonatomic, strong) id representedObject;
 @property(nonatomic, copy) NSDictionary *metrics;
+
+// interrow gap (will use a maximum for the adjacent rows; top gap ignored for the first row, bottom gap ignored for the last one)
+@property(nonatomic) CGFloat topMargin;
+@property(nonatomic) CGFloat bottomMargin;
 
 @end
 

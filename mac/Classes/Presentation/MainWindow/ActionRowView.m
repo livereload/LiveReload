@@ -41,6 +41,9 @@
         _optionsButton = [[[NSButton buttonWithImageNamed:@"LROptionsTemplate" type:NSPushOnPushOffButton bezelStyle:NSRecessedBezelStyle] withTarget:self action:@selector(optionsClicked:)] addedToView:self];
 
         _removeButton = [[[NSButton buttonWithImageNamed:@"NSRemoveTemplate" type:NSPushOnPushOffButton bezelStyle:NSRecessedBezelStyle] withTarget:self action:@selector(removeClicked:)] addedToView:self];
+
+        self.topMargin = 8.0;
+        self.bottomMargin = 8.0;
     }
     return self;
 }
@@ -48,7 +51,6 @@
 - (void)awakeFromNib {
     NSLog(@"self.constraints = %@", self.constraints);
     [self removeConstraints:self.constraints];
-
 }
 
 - (void)updateConstraints {
