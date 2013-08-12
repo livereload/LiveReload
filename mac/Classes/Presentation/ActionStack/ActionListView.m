@@ -33,6 +33,8 @@
 
 - (void)updateConstraints {
     [self removeAllItems];
+
+#if 0
     [self addItem:[[CompilersCategoryRow alloc] initWithTitle:@"Compilers:"]];
     for (Action *action in self.actionList.actions) {
         [self addItem:[self actionRowViewForAction:action]];
@@ -44,6 +46,7 @@
         [self addItem:[self actionRowViewForAction:action]];
     }
     [self addItem:[self addButtonRowWithPrompt:@"Add filter" choices:@[@"autoprefix"]]];
+#endif≥
 
     [self addItem:[[ActionsCategoryRow alloc] initWithTitle:@"Other actions:"]];
     for (Action *action in self.actionList.actions) {
