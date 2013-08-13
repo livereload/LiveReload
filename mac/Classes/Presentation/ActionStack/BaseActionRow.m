@@ -26,7 +26,7 @@
 }
 
 - (NSButton *)removeButton {
-    return _removeButton ?: (_removeButton = [[[NSButton buttonWithImageNamed:@"NSRemoveTemplate" type:NSPushOnPushOffButton bezelStyle:NSRecessedBezelStyle] withTarget:self action:@selector(removeClicked:)] addedToView:self]);
+    return _removeButton ?: (_removeButton = [[[NSButton buttonWithImageNamed:@"NSRemoveTemplate" type:NSMomentaryPushInButton bezelStyle:NSRecessedBezelStyle] withTarget:self action:@selector(removeClicked:)] addedToView:self]);
 }
 
 - (OptionsRow *)optionsRow {
@@ -50,7 +50,7 @@
 }
 
 - (IBAction)removeClicked:(id)sender {
-    //    [_delegate didInvokeRemoveInActionRowView:self];
+    [self.delegate removeActionClicked:self.representedObject];
 }
 
 - (void)_loadOptions {
@@ -58,6 +58,11 @@
 }
 
 - (void)loadOptionsIntoView:(LROptionsView *)container {
+}
+
+- (void)setDelegate:(id)delegate {
+    NSAssert([delegate conformsToProtocol:@protocol(BaseActionRowDelegate)], @"Delegate must conform to BaseActionRowDelegate");
+    [super setDelegate:delegate];
 }
 
 @end

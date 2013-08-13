@@ -17,3 +17,11 @@
 - (void)loadOptionsIntoView:(LROptionsView *)container;  // override point
 
 @end
+
+
+
+@protocol BaseActionRowDelegate <NSObject>
+
+- (void)removeActionClicked:(id)action;
+
+@end

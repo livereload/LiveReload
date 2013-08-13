@@ -12,7 +12,7 @@
 static void *ActionListView_Action_Context = "ActionListView_Action_Context";
 
 
-@interface ActionListView () <ActionRowViewDelegate>
+@interface ActionListView () <ActionRowViewDelegate, BaseActionRowDelegate>
 
 @end
 
@@ -95,40 +95,12 @@ static void *ActionListView_Action_Context = "ActionListView_Action_Context";
     [self addItem:_actionsAddRow];
 
     [self updateActionRows];
-
-//    for (Action *action in self.actionList.actions) {
-////        [self addItem:[self actionRowViewForAction:action]];
-//        Class rowClass = rowClassByActionName[action.typeIdentifier];
-//        if (rowClass) {
-//            [self addItem:[rowClass rowWithRepresentedObject:action metrics:_metrics delegate:self]];
-//        }
-//    }
-        
 }
 
-- (BaseAddRow *)addButtonRowWithPrompt:(NSString *)prompt choices:(NSArray *)choices {
-    BaseAddRow *row = [BaseAddRow new];
-    row.metrics = _metrics;
-    [row.menuPullDown addItemWithTitle:prompt];
-    [row.menuPullDown addItemsWithTitles:choices];
-    return row;
-}
-
-- (void)didInvokeAddInActionRowView:(ActionRowView *)rowView {
-    NSInteger index = [self.actionList.actions indexOfObject:rowView.representedObject];
-    if (index != NSNotFound) {
-        Action *action = [CustomCommandAction new];
-        [self.actionList insertObject:action inActionsAtIndex:index + 1];
-        [self setNeedsUpdateConstraints:YES];
-    }
-}
-
-- (void)didInvokeRemoveInActionRowView:(ActionRowView *)rowView {
-    NSInteger index = [self.actionList.actions indexOfObject:rowView.representedObject];
-    if (index != NSNotFound) {
+- (void)removeActionClicked:(id)action {
+    NSInteger index = [self.actionList.actions indexOfObject:action];
+    if (index != NSNotFound)
         [self.actionList removeObjectFromActionsAtIndex:index];
-        [self setNeedsUpdateConstraints:YES];
-    }
 }
 
 @end
