@@ -26,10 +26,10 @@
     self.filterPopUp = [[[NSPopUpButton popUpButton] withBezelStyle:NSRoundRectBezelStyle] addedToView:self];
     [self.filterPopUp addItemWithTitle:@"any file"];
 
-    [self addConstraintsWithVisualFormat:@"|-indentL2-[checkbox]-[filterPopUp(>=120)]-(>=buttonBarGapMin)-[optionsButton]-buttonGap-[removeButton]|" options:NSLayoutFormatAlignAllCenterY];
+    [self addConstraintsWithVisualFormat:@"|-indentL2-[checkbox(>=200)]-[filterPopUp(>=120)]-(>=buttonBarGapMin)-[optionsButton]-buttonGap-[removeButton]|" options:NSLayoutFormatAlignAllCenterY];
     [self addFullHeightConstraintsForSubview:self.filterPopUp];
 
-    [self alignView:self.checkbox toColumnNamed:@"actionRightEdge" alignment:ATStackViewColumnAlignmentTrailing];
+//    [self alignView:self.checkbox toColumnNamed:@"actionRightEdge" alignment:ATStackViewColumnAlignmentTrailing];
     [self alignView:self.filterPopUp toColumnNamed:@"filter"];
 
     [self.checkbox bind:@"value" toObject:self.representedObject withKeyPath:@"enabled" options:nil];
@@ -45,7 +45,7 @@
 
 - (void)updateContent {
     CustomCommandAction *action = self.representedObject;
-    NSString *command = action.command;
+    NSString *command = action.singleLineCommand;
 
     [self.checkbox setTitle:(command.length > 0 ? [NSString stringWithFormat:NSLocalizedString(@"Run %@", nil), command] : NSLocalizedString(@"Run custom command", nil))];
 }

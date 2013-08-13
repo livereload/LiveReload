@@ -21,10 +21,13 @@
 - (void)loadContent {
     [super loadContent];
 
+    [self.menuPullDown makeWidthEqualTo:150];
+
     [self addConstraintsWithVisualFormat:@"|-indentL2-[menuPullDown(>=120)]"];
     [self addFullHeightConstraintsForSubview:self.menuPullDown];
 
-    [self alignView:self.menuPullDown toColumnNamed:@"actionRightEdge" alignment:ATStackViewColumnAlignmentTrailing];
+//    [self alignView:self.menuPullDown toColumnNamed:@"actionRightEdge" alignment:ATStackViewColumnAlignmentTrailing];
+    [self alignView:self.menuPullDown toColumnNamed:@"add"];
 }
 
 @end

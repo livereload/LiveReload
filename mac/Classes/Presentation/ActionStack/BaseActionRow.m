@@ -9,13 +9,22 @@
 }
 
 - (void)loadContent {
+//    [self.checkbox makeWidthLessThanOrEqualTo:[self.metrics[@"actionWidthMax"] doubleValue]];
+
+    // more than 250 to make it actually expand, but less than 500 to avoid affecting the window size
+    [self.checkbox setContentCompressionResistancePriority:400 forOrientation:NSLayoutConstraintOrientationHorizontal];
+
     self.topMargin = self.bottomMargin = 8;
 
     self.childRows = @[self.optionsRow];
 }
 
 - (NSButton *)checkbox {
-    return _checkbox ?: (_checkbox = [[NSButton buttonWithTitle:@"" type:NSSwitchButton bezelStyle:NSRoundRectBezelStyle] addedToView:self]);
+    if (!_checkbox) {
+        _checkbox = [[NSButton buttonWithTitle:@"" type:NSSwitchButton bezelStyle:NSRoundRectBezelStyle] addedToView:self];
+        [[_checkbox cell] setLineBreakMode:NSLineBreakByTruncatingTail];
+    }
+    return _checkbox;
 }
 
 - (NSButton *)optionsButton {

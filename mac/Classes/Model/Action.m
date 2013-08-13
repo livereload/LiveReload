@@ -90,7 +90,15 @@
 }
 
 + (NSSet *)keyPathsForValuesAffectingNonEmpty {
-    return [NSSet setWithArray:@[@"command"]];
+    return [NSSet setWithObject:@"command"];
+}
+
+- (NSString *)singleLineCommand {
+    return [_command stringByReplacingOccurrencesOfString:@"\n" withString:@"; "];
+}
+
++ (NSSet *)keyPathsForValuesAffectingSingleLineCommand {
+    return [NSSet setWithObject:@"command"];
 }
 
 //NSString *DetermineShell() {
