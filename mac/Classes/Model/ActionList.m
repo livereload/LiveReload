@@ -53,7 +53,7 @@
     if (!typeIdentifier)
         return nil;
 
-    ActionType *type = _actionTypesByIdentifier[@"command"];
+    ActionType *type = _actionTypesByIdentifier[typeIdentifier];
     if (!type)
         return nil;
 

@@ -59,9 +59,6 @@ enum { PANE_COUNT = PaneProject+1 };
 - (void)updateLicensingUI;
 - (void)updateURLs;
 
-- (void)initUserScripts;
-- (void)updateUserScripts;
-
 @property (strong) NSNib *actionsRowNib;
 @property (weak) IBOutlet ActionListView *actionsStackView;
 
@@ -250,8 +247,6 @@ void C_mainwnd__set_change_count(json_t *arg) {
     [_projectOutlineView expandItem:_projectsItem];
     [self restoreSelection];
 
-    [self initUserScripts];
-
     [self selectedProjectDidChange];
     [self updateItemStates];
 
@@ -304,7 +299,6 @@ void C_mainwnd__set_change_count(json_t *arg) {
     _availableCompilersLabel.stringValue = [NSString stringWithFormat:@"%@", [[[PluginManager sharedPluginManager].compilers valueForKeyPath:@"name"] componentsJoinedByString:@", "]];
 
     [self updateURLs];
-    [self updateUserScripts];
     [self renderActions];
 }
 
@@ -836,7 +830,6 @@ void C_mainwnd__set_change_count(json_t *arg) {
         _selectedProject.postProcessingScriptName = @"";
         _selectedProject.postProcessingEnabled = NO;
     } if (index == count - 1) {
-        [[UserScriptManager sharedUserScriptManager] revealUserScriptsFolderSelectingScript:[self selectedUserScript]];
     } else if (index >= _firstUserScriptIndex && index < _firstUserScriptIndex + _userScripts.count) {
         UserScript *userScript = [_userScripts objectAtIndex:index - _firstUserScriptIndex];
         _selectedProject.postProcessingScriptName = userScript.uniqueName;
@@ -853,42 +846,6 @@ void C_mainwnd__set_change_count(json_t *arg) {
         ++index;
     }
     return -1;
-}
-
-- (void)updateUserScripts {
-    _userScripts = [[UserScriptManager sharedUserScriptManager].userScripts mutableCopy];
-
-    [customScriptPopUp removeAllItems];
-
-    UserScript *userScript = [self selectedUserScript];
-
-    if (_userScripts.count > 0) {
-        [customScriptPopUp addItemWithTitle:@"None"];
-        [[customScriptPopUp menu] addItem:[NSMenuItem separatorItem]];
-
-        _firstUserScriptIndex = [customScriptPopUp numberOfItems];
-
-        for (UserScript *userScript in _userScripts) {
-            [customScriptPopUp addItemWithTitle:userScript.friendlyName];
-        }
-    } else {
-        _firstUserScriptIndex = 0; // does not really matter, but just in case
-        [customScriptPopUp addItemWithTitle:@"No Scripts Installed"];
-//        [[customScriptPopUp lastItem] setEnabled:NO];
-    }
-
-    [[customScriptPopUp menu] addItem:[NSMenuItem separatorItem]];
-    [customScriptPopUp addItemWithTitle:@"Show in Finder"];
-
-    if (userScript) {
-        [customScriptPopUp selectItemAtIndex:_firstUserScriptIndex + [self indexOfScriptNamed:userScript.uniqueName]];
-    } else {
-        [customScriptPopUp selectItemAtIndex:0];
-    }
-}
-
-- (void)initUserScripts {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserScripts) name:UserScriptManagerScriptsDidChangeNotification object:nil];
 }
 
 

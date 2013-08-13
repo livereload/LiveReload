@@ -5,6 +5,7 @@
 #import "GroupHeaderRow.h"
 #import "ActionsGroupHeaderRow.h"
 #import "RunCustomCommandActionRow.h"
+#import "RunScriptActionRow.h"
 #import "AddActionRow.h"
 
 
@@ -30,7 +31,7 @@ static void *ActionListView_Action_Context = "ActionListView_Action_Context";
     self = [super initWithFrame:frame];
     if (self) {
         _metrics = @{@"indentL2": @18.0, @"indentL3": @36.0, @"checkboxToControl": @1.0, @"buttonBarGapMin": @20.0, @"buttonGap": @1.0, @"columnGapMin": @8.0, @"actionWidthMax": @180.0};
-        _rowClassByActionName = @{@"command": [RunCustomCommandActionRow class]};
+        _rowClassByActionName = @{@"command": [RunCustomCommandActionRow class], @"script": [RunScriptActionRow class]};
     }
     return self;
 }

@@ -116,6 +116,7 @@
 		434BB26517BA238B000BEB1C /* AddActionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB26417BA238B000BEB1C /* AddActionRow.m */; };
 		434BB26817BA7139000BEB1C /* CustomCommandAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB26717BA7139000BEB1C /* CustomCommandAction.m */; };
 		434BB26B17BA716C000BEB1C /* UserScriptAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB26A17BA716C000BEB1C /* UserScriptAction.m */; };
+		434BB26E17BA71FA000BEB1C /* RunScriptActionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB26D17BA71FA000BEB1C /* RunScriptActionRow.m */; };
 		43508A7E17B3767E00871422 /* ShadowBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A7D17B3767E00871422 /* ShadowBoxView.m */; };
 		43508A8117B3819500871422 /* ATAutolayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A8017B3819500871422 /* ATAutolayout.m */; };
 		43508A8417B392A500871422 /* ATStackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A8317B392A500871422 /* ATStackView.m */; };
@@ -454,6 +455,8 @@
 		434BB26717BA7139000BEB1C /* CustomCommandAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCommandAction.m; sourceTree = "<group>"; };
 		434BB26917BA716C000BEB1C /* UserScriptAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserScriptAction.h; sourceTree = "<group>"; };
 		434BB26A17BA716C000BEB1C /* UserScriptAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserScriptAction.m; sourceTree = "<group>"; };
+		434BB26C17BA71FA000BEB1C /* RunScriptActionRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunScriptActionRow.h; sourceTree = "<group>"; };
+		434BB26D17BA71FA000BEB1C /* RunScriptActionRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunScriptActionRow.m; sourceTree = "<group>"; };
 		434DB81E1514F71400C62042 /* app_version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = app_version.h; sourceTree = "<group>"; };
 		43508A7C17B3767E00871422 /* ShadowBoxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowBoxView.h; sourceTree = "<group>"; };
 		43508A7D17B3767E00871422 /* ShadowBoxView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowBoxView.m; sourceTree = "<group>"; };
@@ -1084,6 +1087,8 @@
 				434BB26417BA238B000BEB1C /* AddActionRow.m */,
 				434BB25617B8FD3C000BEB1C /* RunCustomCommandActionRow.h */,
 				434BB25717B8FD3C000BEB1C /* RunCustomCommandActionRow.m */,
+				434BB26C17BA71FA000BEB1C /* RunScriptActionRow.h */,
+				434BB26D17BA71FA000BEB1C /* RunScriptActionRow.m */,
 			);
 			path = ActionStack;
 			sourceTree = "<group>";
@@ -1950,6 +1955,7 @@
 				43B0275F1746F403009874A2 /* RvmContainer.m in Sources */,
 				43B027651747209E009874A2 /* RvmRubyInstance.m in Sources */,
 				43A480591749D5E700A0681D /* RuntimeInstanceCellView.m in Sources */,
+				434BB26E17BA71FA000BEB1C /* RunScriptActionRow.m in Sources */,
 				43A480691749E89600A0681D /* ExpandedOutlineView.m in Sources */,
 				43A4806C1749F54700A0681D /* SystemRubyInstance.m in Sources */,
 				43A48070174A01DD00A0681D /* RbenvContainer.m in Sources */,
