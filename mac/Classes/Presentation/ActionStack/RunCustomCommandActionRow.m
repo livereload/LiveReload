@@ -1,5 +1,6 @@
 
 #import "RunCustomCommandActionRow.h"
+#import "CustomCommandAction.h"
 #import "Action.h"
 #import "ATMacViewCreation.h"
 #import "ATAutolayout.h"

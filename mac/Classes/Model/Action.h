@@ -22,18 +22,3 @@
 - (void)invokeForProjectAtPath:(NSString *)projectPath withModifiedFiles:(NSSet *)paths completionHandler:(UserScriptCompletionHandler)completionHandler;
 
 @end
-
-
-@interface CustomCommandAction : Action
-
-@property(nonatomic, copy) NSString *command;
-@property(nonatomic, readonly) NSString *singleLineCommand;
-
-@end
-
-
-@interface UserScriptAction : Action
-
-@property(nonatomic, copy) NSString *scriptName;
-
-@end

@@ -114,6 +114,8 @@
 		434BB25E17B91330000BEB1C /* OptionsRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB25D17B91330000BEB1C /* OptionsRow.m */; };
 		434BB26217B945F0000BEB1C /* LROptionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB26117B945F0000BEB1C /* LROptionsView.m */; };
 		434BB26517BA238B000BEB1C /* AddActionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB26417BA238B000BEB1C /* AddActionRow.m */; };
+		434BB26817BA7139000BEB1C /* CustomCommandAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB26717BA7139000BEB1C /* CustomCommandAction.m */; };
+		434BB26B17BA716C000BEB1C /* UserScriptAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB26A17BA716C000BEB1C /* UserScriptAction.m */; };
 		43508A7E17B3767E00871422 /* ShadowBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A7D17B3767E00871422 /* ShadowBoxView.m */; };
 		43508A8117B3819500871422 /* ATAutolayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A8017B3819500871422 /* ATAutolayout.m */; };
 		43508A8417B392A500871422 /* ATStackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A8317B392A500871422 /* ATStackView.m */; };
@@ -448,6 +450,10 @@
 		434BB26117B945F0000BEB1C /* LROptionsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LROptionsView.m; sourceTree = "<group>"; };
 		434BB26317BA238B000BEB1C /* AddActionRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddActionRow.h; sourceTree = "<group>"; };
 		434BB26417BA238B000BEB1C /* AddActionRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddActionRow.m; sourceTree = "<group>"; };
+		434BB26617BA7139000BEB1C /* CustomCommandAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCommandAction.h; sourceTree = "<group>"; };
+		434BB26717BA7139000BEB1C /* CustomCommandAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCommandAction.m; sourceTree = "<group>"; };
+		434BB26917BA716C000BEB1C /* UserScriptAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserScriptAction.h; sourceTree = "<group>"; };
+		434BB26A17BA716C000BEB1C /* UserScriptAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserScriptAction.m; sourceTree = "<group>"; };
 		434DB81E1514F71400C62042 /* app_version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = app_version.h; sourceTree = "<group>"; };
 		43508A7C17B3767E00871422 /* ShadowBoxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowBoxView.h; sourceTree = "<group>"; };
 		43508A7D17B3767E00871422 /* ShadowBoxView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowBoxView.m; sourceTree = "<group>"; };
@@ -1516,6 +1522,10 @@
 				4313347815BC295B00659B4F /* UserScript.m */,
 				43508A8617B3931F00871422 /* Action.h */,
 				43508A8717B3931F00871422 /* Action.m */,
+				434BB26617BA7139000BEB1C /* CustomCommandAction.h */,
+				434BB26717BA7139000BEB1C /* CustomCommandAction.m */,
+				434BB26917BA716C000BEB1C /* UserScriptAction.h */,
+				434BB26A17BA716C000BEB1C /* UserScriptAction.m */,
 				43508A9717B4B53F00871422 /* ActionType.h */,
 				43508A9817B4B53F00871422 /* ActionType.m */,
 				43508A9A17B4B65B00871422 /* ActionType+StandardActionTypes.h */,
@@ -1867,6 +1877,8 @@
 				4303A54115B513FD009D732A /* error.c in Sources */,
 				4303A54215B513FD009D732A /* hashtable.c in Sources */,
 				434BB24917B690AB000BEB1C /* GroupHeaderRow.m in Sources */,
+				434BB26817BA7139000BEB1C /* CustomCommandAction.m in Sources */,
+				434BB26B17BA716C000BEB1C /* UserScriptAction.m in Sources */,
 				4303A54315B513FD009D732A /* load.c in Sources */,
 				434BB24F17B7A680000BEB1C /* ActionListView.m in Sources */,
 				4303A54415B513FD009D732A /* memory.c in Sources */,

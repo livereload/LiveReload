@@ -1,6 +1,8 @@
 
 #import "ActionType+StandardActionTypes.h"
 #import "Action.h"
+#import "CustomCommandAction.h"
+#import "UserScriptAction.h"
 
 @implementation ActionType (StandardActionTypes)
 
