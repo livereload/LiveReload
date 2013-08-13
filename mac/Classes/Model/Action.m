@@ -32,9 +32,23 @@
 }
 
 - (void)loadFromMemento:(NSDictionary *)memento {
+    self.enabled = [(memento[@"enabled"] ?: @YES) boolValue];
 }
 
 - (void)updateMemento:(NSMutableDictionary *)memento {
+    memento[@"action"] = self.typeIdentifier;
+    memento[@"enabled"] = (self.enabled ? @1 : @0);
+}
+
+- (void)setEnabled:(BOOL)enabled {
+    if (_enabled != enabled) {
+        _enabled = enabled;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+    }
+}
+
+- (BOOL)isNonEmpty {
+    return YES;
 }
 
 @end
@@ -47,15 +61,28 @@
 }
 
 - (void)loadFromMemento:(NSDictionary *)memento {
+    [super loadFromMemento:memento];
     self.command = memento[@"command"] ?: @"";
 }
 
 - (void)updateMemento:(NSMutableDictionary *)memento {
+    [super updateMemento:memento];
     memento[@"command"] = self.command;
 }
 
 - (void)setCommand:(NSString *)command {
-    _command = command;
+    if (_command != command) {
+        _command = command;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+    }
+}
+
+- (BOOL)isNonEmpty {
+    return _command.length > 0;
+}
+
++ (NSSet *)keyPathsForValuesAffectingNonEmpty {
+    return [NSSet setWithArray:@[@"command"]];
 }
 
 @end

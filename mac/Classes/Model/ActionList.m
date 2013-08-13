@@ -7,7 +7,6 @@
 @implementation ActionList {
     NSDictionary *_actionTypesByIdentifier;
     NSMutableArray *_actions;
-    NSMutableDictionary *_memento;
 }
 
 - (id)initWithActionTypes:(NSArray *)actionTypes {
@@ -21,21 +20,38 @@
 }
 
 - (NSDictionary *)memento {
-    return _memento;
+    NSMutableArray *actionMementos = [NSMutableArray new];
+    for (Action *action in _actions) {
+        if (!action.isNonEmpty)
+            continue;
+        
+        NSDictionary *actionMemento = action.memento;
+        if (actionMemento)
+            [actionMementos addObject:actionMemento];
+    }
+
+    return @{@"actions": actionMementos};
 }
 
 - (void)setMemento:(NSDictionary *)memento {
-    _memento = [memento copy];
+    [self willChangeValueForKey:@"actions"];
+    
     [_actions removeAllObjects];
 
-    [self insertPlaceholderAction];
-    [self insertPlaceholderAction];
-    [self insertPlaceholderAction];
-}
+    NSArray *actionMementos = memento[@"actions"] ?: @[];
+    for (NSDictionary *actionMemento in actionMementos) {
+        NSString *typeIdentifier = actionMemento[@"action"];
+        if (!typeIdentifier)
+            continue;
 
-- (void)insertPlaceholderAction {
-    ActionType *type = _actionTypesByIdentifier[@"command"];
-    [_actions addObject:[[type.klass alloc] initWithMemento:nil]];
+        ActionType *type = _actionTypesByIdentifier[@"command"];
+        if (!type)
+            continue;
+
+        [_actions addObject:[[type.klass alloc] initWithMemento:actionMemento]];
+    }
+
+    [self didChangeValueForKey:@"actions"];
 }
 
 - (void)insertObject:(Action *)object inActionsAtIndex:(NSUInteger)index {
@@ -44,9 +60,6 @@
 
 - (void)removeObjectFromActionsAtIndex:(NSUInteger)index {
     [_actions removeObjectAtIndex:index];
-    if (_actions.count == 0) {
-        [self insertPlaceholderAction];
-    }
 }
 
 - (BOOL)canRemoveObjectFromActionsAtIndex:(NSUInteger)index {

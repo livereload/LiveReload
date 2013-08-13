@@ -14,6 +14,10 @@
 - (void)loadFromMemento:(NSDictionary *)memento;
 - (void)updateMemento:(NSMutableDictionary *)memento;
 
+@property(nonatomic) BOOL enabled;
+
+@property(nonatomic, readonly, getter = isNonEmpty) BOOL nonEmpty;
+
 @end
 
 

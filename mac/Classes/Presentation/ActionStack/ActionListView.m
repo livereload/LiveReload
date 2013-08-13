@@ -30,6 +30,7 @@
 - (void)setActionList:(ActionList *)actionList {
     if (_actionList != actionList) {
         _actionList = actionList;
+        _loaded = NO;
         [self setNeedsUpdateConstraints:YES];
     }
 }

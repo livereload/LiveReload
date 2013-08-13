@@ -37,7 +37,8 @@
 }
 
 - (void)removeAllItems {
-    for (ATStackViewRow *subview in _items) {
+    NSArray *allLoadedRows = [self.subviews copy];
+    for (ATStackViewRow *subview in allLoadedRows) {
         [subview removeFromSuperview];
         subview.stackView = nil;
     }

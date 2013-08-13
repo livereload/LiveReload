@@ -123,7 +123,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         _monitoringRequests = [[NSMutableSet alloc] init];
 
         _actionList = [[ActionList alloc] initWithActionTypes:[ActionType standardActionTypes]];
-        [_actionList setMemento:@{}];
+        [_actionList setMemento:memento];
 
         _lastSelectedPane = [[memento objectForKey:@"last_pane"] copy];
 
@@ -250,6 +250,8 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     [memento setObject:[NSNumber numberWithInteger:_numberOfPathComponentsToUseAsName] forKey:@"numberOfPathComponentsToUseAsName"];
     if (_customName.length > 0)
         [memento setObject:_customName forKey:@"customName"];
+
+    [memento setValuesForKeysWithDictionary:_actionList.memento];
 
     return memento;
 }
