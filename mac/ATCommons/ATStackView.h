@@ -3,6 +3,7 @@
 
 
 @protocol ATStackViewDelegate;
+@class ATStackViewRow;
 
 
 typedef enum {
@@ -12,13 +13,18 @@ typedef enum {
 } ATStackViewColumnAlignment;
 
 
+typedef ATStackViewRow *(^ATStackViewCreateRowBlock)(id representedObject);
+
+
 @interface ATStackView : NSView
 
 @property(nonatomic, weak) IBOutlet id<ATStackViewDelegate> delegate;
 
 - (void)removeAllItems;
-- (void)addItem:(NSView *)itemView;
+- (ATStackViewRow *)addItem:(ATStackViewRow *)itemView;
 - (void)insertItem:(NSView *)itemView atIndex:(NSInteger)index;
+
+- (void)updateRowsOfClass:(Class)rowClass betweenRow:(ATStackViewRow *)leadingRow andRow:(ATStackViewRow *)trailingRow newRepresentedObjects:(NSArray *)representedObjects create:(ATStackViewCreateRowBlock)createBlock;
 
 @end
 

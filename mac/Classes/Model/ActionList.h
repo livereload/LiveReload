@@ -15,4 +15,6 @@
 - (void)removeObjectFromActionsAtIndex:(NSUInteger)index;
 - (BOOL)canRemoveObjectFromActionsAtIndex:(NSUInteger)index;
 
+- (void)addActionWithPrototype:(NSDictionary *)prototype;
+
 @end

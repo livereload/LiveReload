@@ -40,30 +40,44 @@
 
     NSArray *actionMementos = memento[@"actions"] ?: @[];
     for (NSDictionary *actionMemento in actionMementos) {
-        NSString *typeIdentifier = actionMemento[@"action"];
-        if (!typeIdentifier)
-            continue;
-
-        ActionType *type = _actionTypesByIdentifier[@"command"];
-        if (!type)
-            continue;
-
-        [_actions addObject:[[type.klass alloc] initWithMemento:actionMemento]];
+        Action *action = [self actionWithMemento:actionMemento];
+        if (action)
+            [_actions addObject:action];
     }
 
     [self didChangeValueForKey:@"actions"];
 }
 
+- (Action *)actionWithMemento:(NSDictionary *)actionMemento {
+    NSString *typeIdentifier = actionMemento[@"action"];
+    if (!typeIdentifier)
+        return nil;
+
+    ActionType *type = _actionTypesByIdentifier[@"command"];
+    if (!type)
+        return nil;
+
+    return [[type.klass alloc] initWithMemento:actionMemento];
+}
+
 - (void)insertObject:(Action *)object inActionsAtIndex:(NSUInteger)index {
     [_actions insertObject:object atIndex:index];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
 }
 
 - (void)removeObjectFromActionsAtIndex:(NSUInteger)index {
     [_actions removeObjectAtIndex:index];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
 }
 
 - (BOOL)canRemoveObjectFromActionsAtIndex:(NSUInteger)index {
     return YES;
+}
+
+- (void)addActionWithPrototype:(NSDictionary *)prototype {
+    Action *action = [self actionWithMemento:prototype];
+    NSAssert(action != nil, @"Invalid action prototype: %@", prototype);
+    [self insertObject:action inActionsAtIndex:_actions.count];
 }
 
 @end

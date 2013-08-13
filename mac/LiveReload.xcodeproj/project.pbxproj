@@ -107,12 +107,13 @@
 		434BB24917B690AB000BEB1C /* GroupHeaderRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB24817B690AB000BEB1C /* GroupHeaderRow.m */; };
 		434BB24C17B6913F000BEB1C /* ATMacViewCreation.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB24B17B6913F000BEB1C /* ATMacViewCreation.m */; };
 		434BB24F17B7A680000BEB1C /* ActionListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB24E17B7A680000BEB1C /* ActionListView.m */; };
-		434BB25217B7E1A8000BEB1C /* AddActionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB25117B7E1A8000BEB1C /* AddActionRow.m */; };
+		434BB25217B7E1A8000BEB1C /* BaseAddRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB25117B7E1A8000BEB1C /* BaseAddRow.m */; };
 		434BB25517B8F97E000BEB1C /* BaseActionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB25417B8F97E000BEB1C /* BaseActionRow.m */; };
 		434BB25817B8FD3C000BEB1C /* RunCustomCommandActionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB25717B8FD3C000BEB1C /* RunCustomCommandActionRow.m */; };
 		434BB25B17B9097D000BEB1C /* ActionsGroupHeaderRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB25A17B9097D000BEB1C /* ActionsGroupHeaderRow.m */; };
 		434BB25E17B91330000BEB1C /* OptionsRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB25D17B91330000BEB1C /* OptionsRow.m */; };
 		434BB26217B945F0000BEB1C /* LROptionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB26117B945F0000BEB1C /* LROptionsView.m */; };
+		434BB26517BA238B000BEB1C /* AddActionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB26417BA238B000BEB1C /* AddActionRow.m */; };
 		43508A7E17B3767E00871422 /* ShadowBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A7D17B3767E00871422 /* ShadowBoxView.m */; };
 		43508A8117B3819500871422 /* ATAutolayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A8017B3819500871422 /* ATAutolayout.m */; };
 		43508A8417B392A500871422 /* ATStackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A8317B392A500871422 /* ATStackView.m */; };
@@ -434,8 +435,8 @@
 		434BB24B17B6913F000BEB1C /* ATMacViewCreation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATMacViewCreation.m; sourceTree = "<group>"; };
 		434BB24D17B7A680000BEB1C /* ActionListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionListView.h; sourceTree = "<group>"; };
 		434BB24E17B7A680000BEB1C /* ActionListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionListView.m; sourceTree = "<group>"; };
-		434BB25017B7E1A8000BEB1C /* AddActionRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddActionRow.h; sourceTree = "<group>"; };
-		434BB25117B7E1A8000BEB1C /* AddActionRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddActionRow.m; sourceTree = "<group>"; };
+		434BB25017B7E1A8000BEB1C /* BaseAddRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseAddRow.h; sourceTree = "<group>"; };
+		434BB25117B7E1A8000BEB1C /* BaseAddRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseAddRow.m; sourceTree = "<group>"; };
 		434BB25317B8F97E000BEB1C /* BaseActionRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseActionRow.h; sourceTree = "<group>"; };
 		434BB25417B8F97E000BEB1C /* BaseActionRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseActionRow.m; sourceTree = "<group>"; };
 		434BB25617B8FD3C000BEB1C /* RunCustomCommandActionRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunCustomCommandActionRow.h; sourceTree = "<group>"; };
@@ -446,6 +447,8 @@
 		434BB25D17B91330000BEB1C /* OptionsRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionsRow.m; sourceTree = "<group>"; };
 		434BB26017B945F0000BEB1C /* LROptionsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LROptionsView.h; sourceTree = "<group>"; };
 		434BB26117B945F0000BEB1C /* LROptionsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LROptionsView.m; sourceTree = "<group>"; };
+		434BB26317BA238B000BEB1C /* AddActionRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddActionRow.h; sourceTree = "<group>"; };
+		434BB26417BA238B000BEB1C /* AddActionRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddActionRow.m; sourceTree = "<group>"; };
 		434DB81E1514F71400C62042 /* app_version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = app_version.h; sourceTree = "<group>"; };
 		43508A7C17B3767E00871422 /* ShadowBoxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowBoxView.h; sourceTree = "<group>"; };
 		43508A7D17B3767E00871422 /* ShadowBoxView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowBoxView.m; sourceTree = "<group>"; };
@@ -1066,14 +1069,16 @@
 				434BB24817B690AB000BEB1C /* GroupHeaderRow.m */,
 				434BB24D17B7A680000BEB1C /* ActionListView.h */,
 				434BB24E17B7A680000BEB1C /* ActionListView.m */,
-				434BB25017B7E1A8000BEB1C /* AddActionRow.h */,
-				434BB25117B7E1A8000BEB1C /* AddActionRow.m */,
 				434BB25317B8F97E000BEB1C /* BaseActionRow.h */,
 				434BB25417B8F97E000BEB1C /* BaseActionRow.m */,
 				434BB25C17B91330000BEB1C /* OptionsRow.h */,
 				434BB25D17B91330000BEB1C /* OptionsRow.m */,
+				434BB25017B7E1A8000BEB1C /* BaseAddRow.h */,
+				434BB25117B7E1A8000BEB1C /* BaseAddRow.m */,
 				434BB25917B9097D000BEB1C /* ActionsGroupHeaderRow.h */,
 				434BB25A17B9097D000BEB1C /* ActionsGroupHeaderRow.m */,
+				434BB26317BA238B000BEB1C /* AddActionRow.h */,
+				434BB26417BA238B000BEB1C /* AddActionRow.m */,
 				434BB25617B8FD3C000BEB1C /* RunCustomCommandActionRow.h */,
 				434BB25717B8FD3C000BEB1C /* RunCustomCommandActionRow.m */,
 			);
@@ -1841,6 +1846,7 @@
 				431466A9146CA82200DC075A /* PassThruImageView.m in Sources */,
 				434BB25517B8F97E000BEB1C /* BaseActionRow.m in Sources */,
 				4353403A146CC7E600DD66B0 /* MonitoringSettingsWindowController.m in Sources */,
+				434BB26517BA238B000BEB1C /* AddActionRow.m in Sources */,
 				4310DE3D146DB588003091D1 /* ToolOptions.m in Sources */,
 				4310DE40146DB6A0003091D1 /* UIBuilder.m in Sources */,
 				43F002CF146EC97B005D48A4 /* MainWindow.m in Sources */,
@@ -1852,7 +1858,7 @@
 				43E34FA5147071E9001641AA /* stringutil.c in Sources */,
 				C01FCF5008A954540054247E /* RSVerticallyCenteredTextFieldCell.m in Sources */,
 				4378C8D11515205C003187D5 /* OldFSMonitor.m in Sources */,
-				434BB25217B7E1A8000BEB1C /* AddActionRow.m in Sources */,
+				434BB25217B7E1A8000BEB1C /* BaseAddRow.m in Sources */,
 				4378C8D21515205C003187D5 /* OldFSTree.m in Sources */,
 				4378C8D31515205C003187D5 /* OldFSTreeDiffer.m in Sources */,
 				4378C8D41515205C003187D5 /* OldFSTreeFilter.m in Sources */,

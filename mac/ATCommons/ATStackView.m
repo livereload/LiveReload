@@ -1,6 +1,7 @@
 
 #import "ATStackView.h"
 #import "ATAutolayout.h"
+#import "ATFunctionalStyle.h"
 
 
 @interface ATStackView ()
@@ -36,6 +37,13 @@
     return YES;
 }
 
+- (void)removeAllSubviews {
+    NSArray *allLoadedRows = [self.subviews copy];
+    for (ATStackViewRow *subview in allLoadedRows) {
+        [subview removeFromSuperview];
+    }
+}
+
 - (void)removeAllItems {
     NSArray *allLoadedRows = [self.subviews copy];
     for (ATStackViewRow *subview in allLoadedRows) {
@@ -55,14 +63,25 @@
     [row removeFromSuperview];
 }
 
-- (void)addItem:(ATStackViewRow *)itemView {
+- (ATStackViewRow *)addItem:(ATStackViewRow *)itemView {
     [self insertItem:itemView atIndex:_items.count];
+    return itemView;
 }
 
 - (void)insertItem:(ATStackViewRow *)row atIndex:(NSInteger)index {
     [_items insertObject:row atIndex:index];
     [self addRowView:row];
     [self setNeedsUpdateConstraints:YES];
+}
+
+- (void)removeItem:(ATStackViewRow *)itemView {
+    [self removeRowView:itemView];
+    itemView.stackView = nil;
+    [_items removeObject:itemView];
+
+    for (ATStackViewRow *childRow in itemView.childRows) {
+        [self removeItem:childRow];
+    }
 }
 
 
@@ -148,6 +167,58 @@
         [self addRowView:row];
     }
     [self setNeedsUpdateConstraints:YES];
+}
+
+- (NSArray *)rowsOfClass:(Class)rowClass betweenRow:(ATStackViewRow *)leadingRow andRow:(ATStackViewRow *)trailingRow {
+    NSInteger leadingIndex, trailingIndex;
+    leadingIndex = [_items indexOfObject:leadingRow];
+    NSAssert(leadingIndex != NSNotFound, @"Leading row not found: %@", leadingRow);
+    trailingIndex = [_items indexOfObject:trailingRow];
+    NSAssert(trailingIndex != NSNotFound, @"Trailing row not found: %@", leadingRow);
+
+    NSAssert(leadingIndex < trailingIndex, @"Leading row must be before the trailing row, indexes: %d, %d", (int)leadingIndex, (int)trailingIndex);
+
+    // 0 1 2 3 4 5 6 7
+    //   L       T
+    // with L=1, T=5, we want 3 rows (#2, #3, #4), so the count is T-L-1
+    return [[_items subarrayWithRange:NSMakeRange(leadingIndex + 1, trailingIndex - leadingIndex - 1)] filteredArrayUsingBlock:^BOOL(id value) {
+        return [value isKindOfClass:rowClass];
+    }];
+}
+
+- (void)updateRowsOfClass:(Class)rowClass betweenRow:(ATStackViewRow *)leadingRow andRow:(ATStackViewRow *)trailingRow newRepresentedObjects:(NSArray *)representedObjects create:(ATStackViewCreateRowBlock)createBlock {
+
+    NSArray *oldRows = [self rowsOfClass:rowClass betweenRow:leadingRow andRow:trailingRow];
+    NSArray *oldRepresentedObjects = [oldRows arrayByMappingElementsToValueOfKeyPath:@"representedObject"];
+
+    // remove deleted rows
+    for (ATStackViewRow *row in oldRows) {
+        if (![representedObjects containsObject:row.representedObject]) {
+            [self removeItem:row];
+        }
+    }
+
+    NSMutableArray *newRows = [NSMutableArray new];
+
+    for (id representedObject in representedObjects) {
+        NSInteger oldIndex = [oldRepresentedObjects indexOfObject:representedObject];
+        if (oldIndex != NSNotFound) {
+            [newRows addObject:oldRows[oldIndex]];
+        } else {
+            ATStackViewRow *row = createBlock(representedObject);
+            if (row) {
+                NSAssert([row isKindOfClass:rowClass], @"Added rows must be of the specified class %@, added row: %@", NSStringFromClass(rowClass), row);
+                [newRows addObject:row];
+            }
+        }
+    }
+
+    [_items removeObjectsInArray:oldRows];
+    NSInteger insertionIndex = [_items indexOfObject:leadingRow] + 1;
+    [_items insertObjects:newRows atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(insertionIndex, newRows.count)]];
+
+    [self removeAllSubviews];
+    [self setNeedsUpdateConstraints:YES];  // will re-add any necessary row views
 }
 
 @end

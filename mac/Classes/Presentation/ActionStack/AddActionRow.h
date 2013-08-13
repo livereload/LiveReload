@@ -1,8 +1,6 @@
 
-#import "ATStackView.h"
+#import "BaseAddRow.h"
 
-@interface AddActionRow : ATStackViewRow
-
-@property(nonatomic, strong) NSPopUpButton *actionPullDown;
+@interface AddActionRow : BaseAddRow
 
 @end

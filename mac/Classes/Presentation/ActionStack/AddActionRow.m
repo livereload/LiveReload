@@ -1,31 +1,31 @@
 
 #import "AddActionRow.h"
-#import "ATMacViewCreation.h"
-#import "ATAutolayout.h"
-
-
-@interface AddActionRow ()
-@end
-
+#import "ActionList.h"
 
 @implementation AddActionRow
 
-- (NSPopUpButton *)actionPullDown {
-    if (!_actionPullDown) {
-        _actionPullDown = [[[NSPopUpButton pullDownButton] withBezelStyle:NSRoundRectBezelStyle] addedToView:self];
-        _actionPullDown.font = [NSFont systemFontOfSize:12.0];
-    }
-    return _actionPullDown;
-}
-
 - (void)loadContent {
     [super loadContent];
-
-    [self addConstraintsWithVisualFormat:@"|-indentL3-[actionPullDown(>=120)]"];
-    [self addFullHeightConstraintsForSubview:self.actionPullDown];
-
-    [self alignView:self.actionPullDown toColumnNamed:@"actionRightEdge" alignment:ATStackViewColumnAlignmentTrailing];
+    [self updateMenu];
 }
 
+- (void)updateMenu {
+    NSMenu *menu = self.menuPullDown.menu;
+
+    [menu removeAllItems];
+    [menu addItemWithTitle:@"Add action" action:NULL keyEquivalent:@""];
+
+    NSMenuItem *item = [menu addItemWithTitle:@"Run custom command" action:@selector(addItemClicked:) keyEquivalent:@""];
+    item.representedObject = @{@"action": @"command"};
+    item.target = self;
+}
+
+- (void)addItemClicked:(NSMenuItem *)sender {
+    NSDictionary *prototype = sender.representedObject;
+    if (prototype) {
+        ActionList *actionList = self.representedObject;
+        [actionList addActionWithPrototype:prototype];
+    }
+}
 
 @end
