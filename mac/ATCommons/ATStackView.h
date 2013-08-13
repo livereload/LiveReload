@@ -67,31 +67,5 @@ typedef ATStackViewRow *(^ATStackViewCreateRowBlock)(id representedObject);
 @end
 
 
-@interface ATStackViewGroup : NSObject
-
-- (id)init;
-
-@property(nonatomic, strong) NSArray *representedObjects;
-@property(nonatomic, strong, readonly) NSArray *children;
-
-@end
-
-
-@interface ATStackViewMappedGroup : ATStackViewGroup
-
-- (id)init;
-
-@property(nonatomic, strong, readonly) NSArray *items;
-
-- (ATStackViewRow *)newRowForItem:(id)item;
-
-@end
-
-
 @protocol ATStackViewDelegate <NSObject>
-
-- (ATStackViewRow *)newRowForItemAtIndex:(NSUInteger)index;
-
-- (NSArray *)childrenOfRow:(ATStackViewRow *)row;
-
 @end

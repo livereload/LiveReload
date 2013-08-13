@@ -3,7 +3,6 @@
 #import "ActionList.h"
 #import "Action.h"
 #import "GroupHeaderRow.h"
-#import "ActionRowView.h"
 #import "ActionsGroupHeaderRow.h"
 #import "RunCustomCommandActionRow.h"
 #import "AddActionRow.h"
@@ -12,7 +11,7 @@
 static void *ActionListView_Action_Context = "ActionListView_Action_Context";
 
 
-@interface ActionListView () <ActionRowViewDelegate, BaseActionRowDelegate>
+@interface ActionListView () <BaseActionRowDelegate>
 
 @end
 
