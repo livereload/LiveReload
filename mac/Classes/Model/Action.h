@@ -1,5 +1,6 @@
 
 #import <Foundation/Foundation.h>
+#import "UserScript.h"
 
 
 @interface Action : NSObject
@@ -17,6 +18,8 @@
 @property(nonatomic) BOOL enabled;
 
 @property(nonatomic, readonly, getter = isNonEmpty) BOOL nonEmpty;
+
+- (void)invokeForProjectAtPath:(NSString *)projectPath withModifiedFiles:(NSSet *)paths completionHandler:(UserScriptCompletionHandler)completionHandler;
 
 @end
 

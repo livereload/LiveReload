@@ -7,6 +7,7 @@
 
 @property(nonatomic, strong, readonly) NSArray *actionTypes;
 @property(nonatomic, strong, readonly) NSArray *actions;
+@property(nonatomic, strong, readonly) NSArray *activeActions;
 @property(nonatomic, copy) NSDictionary *memento;
 
 - (id)initWithActionTypes:(NSArray *)actionTypes;

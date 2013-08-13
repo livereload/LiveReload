@@ -15,7 +15,12 @@ static id ATPipeOrFileHandleForWriting(id task, NSPipe *pipe) {
 
 id ATLaunchUnixTaskAndCaptureOutput(NSURL *scriptURL, NSArray *arguments, ATLaunchUnixTaskAndCaptureOutputOptions options, ATLaunchUnixTaskAndCaptureOutputCompletionHandler handler) {
     NSError *error = nil;
-    id task = ATCreateUserUnixTask(scriptURL, &error);
+    id task;
+    if ((options & ATLaunchUnixTaskAndCaptureOutputOptionsIgnoreSandbox) == ATLaunchUnixTaskAndCaptureOutputOptionsIgnoreSandbox) {
+        task = [[ATPlainUnixTask alloc] initWithURL:scriptURL error:&error];
+    } else {
+        task = ATCreateUserUnixTask(scriptURL, &error);
+    }
     if (!task) {
         handler(nil, nil, error);
         return nil;
@@ -35,11 +40,14 @@ id ATLaunchUnixTaskAndCaptureOutput(NSURL *scriptURL, NSArray *arguments, ATLaun
 
     [task executeWithArguments:arguments completionHandler:^(NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
+//            [outputReader waitForCompletion:^{
             NSString *outputText = outputReader.standardOutputText;
             NSString *stderrText = (merge ? outputText : outputReader.standardErrorText);
             handler(outputText, stderrText, error);
+//            }];
         });
     }];
+    [outputReader launched];
     return task;
 }
 
@@ -96,7 +104,13 @@ id ATCreateUserUnixTask(NSURL *scriptURL, NSError **error) {
     [task setArguments:arguments];
 
     // standard input is required, otherwise everything just hangs
-    [task setStandardInput:self.standardInput ?: [NSFileHandle fileHandleWithNullDevice]];
+    if (!self.standardInput) {
+        NSPipe *fakeInputPipe = [NSPipe pipe];
+        [task setStandardInput:fakeInputPipe];
+        [fakeInputPipe.fileHandleForWriting closeFile];
+    } else {
+        [task setStandardInput:self.standardInput];
+    }
 
     [task setStandardOutput:self.standardOutput ?: [NSFileHandle fileHandleWithNullDevice]];
     [task setStandardError:self.standardError ?: [NSFileHandle fileHandleWithNullDevice]];
@@ -128,6 +142,8 @@ id ATCreateUserUnixTask(NSURL *scriptURL, NSError **error) {
 
     BOOL _outputClosed;
     BOOL _errorClosed;
+
+    void (^_completionBlock)();
 }
 
 @synthesize standardOutputPipe=_standardOutputPipe;
@@ -163,59 +179,104 @@ id ATCreateUserUnixTask(NSURL *scriptURL, NSError **error) {
     return self;
 }
 
-- (void)startReading {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(standardOutputNotification:) name:NSFileHandleDataAvailableNotification object:_standardOutputPipe.fileHandleForReading];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(standardErrorNotification:)  name:NSFileHandleDataAvailableNotification object:_standardErrorPipe.fileHandleForReading];
+- (void)launched {
+    [_standardOutputPipe.fileHandleForWriting closeFile];
+    [_standardErrorPipe.fileHandleForWriting closeFile];
+}
 
-    [_standardOutputPipe.fileHandleForReading waitForDataInBackgroundAndNotify];
-    [_standardErrorPipe.fileHandleForReading waitForDataInBackgroundAndNotify];
+- (void)startReading {
+    _standardOutputPipe.fileHandleForReading.readabilityHandler = ^(NSFileHandle *file) {
+        NSData *availableData = [file availableData];
+        [_standardOutputData appendData:availableData];
+        if ([availableData length] == 0 || _completionBlock != nil) {
+            _outputClosed = YES;
+            _standardOutputPipe.fileHandleForReading.readabilityHandler = nil;
+            [self executeCompletionBlockIfBothChannelsClosed];
+        }
+    };
+    _standardErrorPipe.fileHandleForReading.readabilityHandler = ^(NSFileHandle *file) {
+        NSData *availableData = [file availableData];
+        [_standardErrorData appendData:availableData];
+        if ([availableData length] == 0 || _completionBlock != nil) {
+            _errorClosed = YES;
+            _standardErrorPipe.fileHandleForReading.readabilityHandler = nil;
+            [self executeCompletionBlockIfBothChannelsClosed];
+        }
+    };
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(standardOutputNotification:) name:NSFileHandleDataAvailableNotification object:_standardOutputPipe.fileHandleForReading];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(standardErrorNotification:)  name:NSFileHandleDataAvailableNotification object:_standardErrorPipe.fileHandleForReading];
+//
+//    [_standardOutputPipe.fileHandleForReading waitForDataInBackgroundAndNotify];
+//    [_standardErrorPipe.fileHandleForReading waitForDataInBackgroundAndNotify];
 }
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (void)waitForCompletion:(void (^)())completionBlock {
+    if (_outputClosed && _errorClosed)
+        dispatch_async(dispatch_get_main_queue(), completionBlock);
+    else
+        _completionBlock = completionBlock;
+}
+
+- (void)executeCompletionBlockIfBothChannelsClosed {
+    if (_outputClosed && _errorClosed && _completionBlock) {
+        dispatch_async(dispatch_get_main_queue(), _completionBlock);
+        _completionBlock = nil;
+    }
+}
+
 - (void)processPendingOutputData {
+    if (_outputClosed)
+        return;
     NSData *availableData = [_standardOutputPipe.fileHandleForReading availableData];
-    if ([availableData length] == 0) {
+    [_standardOutputData appendData:availableData];
+    if ([availableData length] == 0 || _completionBlock != nil) {
         _outputClosed = YES;
-    } else {
-        [_standardOutputData appendData:availableData];
+        [self executeCompletionBlockIfBothChannelsClosed];
     }
 }
 
 - (void)processPendingErrorData {
+    if (_errorClosed)
+        return;
     NSData *availableData = [_standardErrorPipe.fileHandleForReading availableData];
-    if ([availableData length] == 0) {
+    [_standardErrorData appendData:availableData];
+    if ([availableData length] == 0 || _completionBlock != nil) {
         _errorClosed = YES;
-    } else {
-        [_standardErrorData appendData:availableData];
+        [self executeCompletionBlockIfBothChannelsClosed];
     }
 }
 
 - (void)processPendingDataAndClosePipes {
     if (_standardOutputPipe) {
-        [self processPendingOutputData];
+//        [self processPendingOutputData];
         _standardOutputPipe = nil;
     }
     if (_standardErrorPipe) {
-        [self processPendingErrorData];
+//        [self processPendingErrorData];
         _standardErrorPipe = nil;
     }
 }
 
 -(void)standardOutputNotification:(NSNotification *)notification {
-    [self processPendingOutputData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self processPendingOutputData];
 
-    if (!_outputClosed)
-        [_standardOutputPipe.fileHandleForReading waitForDataInBackgroundAndNotify];
+        if (!_outputClosed)
+            [_standardOutputPipe.fileHandleForReading waitForDataInBackgroundAndNotify];
+    });
 }
 
 -(void)standardErrorNotification:(NSNotification *)notification {
-    [self processPendingErrorData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self processPendingErrorData];
 
-    if (!_errorClosed)
-        [_standardErrorPipe.fileHandleForReading waitForDataInBackgroundAndNotify];
+        if (!_errorClosed)
+            [_standardErrorPipe.fileHandleForReading waitForDataInBackgroundAndNotify];
+    });
 }
 
 - (NSString *)standardOutputText {

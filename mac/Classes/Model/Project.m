@@ -497,6 +497,15 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
     if (json_array_size(reloadRequests) > 0) {
         if (_postProcessingScriptName.length > 0 && _postProcessingEnabled) {
+            NSArray *actions = [self.actionList.activeActions copy];
+            if (invokePostProcessor && actions.count > 0) {
+                _runningPostProcessor = YES;
+                [self invokeNextActionInArray:actions withModifiedPaths:pathes];
+            } else {
+                console_printf("Skipping post-processing.");
+            }
+
+#if 0
             UserScript *userScript = self.postProcessingScript;
             if (invokePostProcessor && userScript.exists) {
                 ToolOutput *toolOutput = nil;
@@ -514,6 +523,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
             } else {
                 console_printf("Skipping post-processing.");
             }
+#endif
         }
 
         json_t *message = json_object();
@@ -531,6 +541,29 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     }
 
     S_app_handle_change(json_object_2("root", json_nsstring(_path), "paths", nodeapp_objc_to_json([pathes allObjects])));
+}
+
+- (void)invokeNextActionInArray:(NSArray *)actions withModifiedPaths:(NSSet *)paths {
+    if (actions.count == 0) {
+        _runningPostProcessor = NO;
+        _lastPostProcessingRunDate = [NSDate timeIntervalSinceReferenceDate];
+        return;
+    }
+
+    Action *action = [actions firstObject];
+    actions = [actions subarrayWithRange:NSMakeRange(1, actions.count - 1)];
+
+    [action invokeForProjectAtPath:_path withModifiedFiles:paths completionHandler:^(BOOL invoked, ToolOutput *output, NSError *error) {
+        if (output) {
+            output.project = self;
+            [[[ToolOutputWindowController alloc] initWithCompilerOutput:output key:[NSString stringWithFormat:@"%@.postproc", _path]] show];
+        }
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self invokeNextActionInArray:actions withModifiedPaths:paths];
+        });
+    }];
+
 }
 
 - (void)processPendingChanges {

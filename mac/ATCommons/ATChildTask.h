@@ -7,6 +7,7 @@
 typedef enum {
     ATLaunchUnixTaskAndCaptureOutputOptionsNone = 0,
     ATLaunchUnixTaskAndCaptureOutputOptionsMergeStdoutAndStderr = 0x01,
+    ATLaunchUnixTaskAndCaptureOutputOptionsIgnoreSandbox = 0x02,
 } ATLaunchUnixTaskAndCaptureOutputOptions;
 
 typedef void (^ATLaunchUnixTaskAndCaptureOutputCompletionHandler)(NSString *outputText, NSString *stderrText, NSError *error);
@@ -67,6 +68,9 @@ enum {
 @property(strong, readonly) NSString *standardErrorText;
 @property(strong, readonly) NSString *combinedOutputText;
 
+- (void)launched;
 - (void)startReading;
+
+- (void)waitForCompletion:(void(^)())completionBlock;
 
 @end

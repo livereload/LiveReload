@@ -80,4 +80,14 @@
     [self insertObject:action inActionsAtIndex:_actions.count];
 }
 
+- (NSArray *)activeActions {
+    return [_actions filteredArrayUsingBlock:^BOOL(Action *action) {
+        return action.nonEmpty && action.enabled;
+    }];
+}
+
++ (NSSet *)keyPathsForValuesAffectingActiveActions {
+    return [NSSet setWithObject:@"actions"];
+}
+
 @end
