@@ -5,8 +5,11 @@
 @interface NSTextField (ATMacViewCreation)
 
 + (NSTextField *)staticLabelWithString:(NSString *)text;
++ (NSTextField *)staticLabelWithString:(NSString *)text style:(NSDictionary *)style;
 + (NSTextField *)staticLabelWithAttributedString:(NSAttributedString *)text;
 + (NSTextField *)editableField;
+
+- (instancetype)withStyle:(NSDictionary *)style;
 
 @end
 

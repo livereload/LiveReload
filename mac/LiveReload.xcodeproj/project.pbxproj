@@ -117,6 +117,10 @@
 		434BB26817BA7139000BEB1C /* CustomCommandAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB26717BA7139000BEB1C /* CustomCommandAction.m */; };
 		434BB26B17BA716C000BEB1C /* UserScriptAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB26A17BA716C000BEB1C /* UserScriptAction.m */; };
 		434BB26E17BA71FA000BEB1C /* RunScriptActionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB26D17BA71FA000BEB1C /* RunScriptActionRow.m */; };
+		434BB27117BB7D14000BEB1C /* FiltersGroupHeaderRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB27017BB7D14000BEB1C /* FiltersGroupHeaderRow.m */; };
+		434BB27417BB7F3A000BEB1C /* AddFilterRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB27317BB7F3A000BEB1C /* AddFilterRow.m */; };
+		434BB27717BB97AC000BEB1C /* FilterAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB27617BB97AC000BEB1C /* FilterAction.m */; };
+		434BB27A17BB9B30000BEB1C /* AutoprefixerAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB27917BB9B30000BEB1C /* AutoprefixerAction.m */; };
 		43508A7E17B3767E00871422 /* ShadowBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A7D17B3767E00871422 /* ShadowBoxView.m */; };
 		43508A8117B3819500871422 /* ATAutolayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A8017B3819500871422 /* ATAutolayout.m */; };
 		43508A8417B392A500871422 /* ATStackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A8317B392A500871422 /* ATStackView.m */; };
@@ -457,6 +461,14 @@
 		434BB26A17BA716C000BEB1C /* UserScriptAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserScriptAction.m; sourceTree = "<group>"; };
 		434BB26C17BA71FA000BEB1C /* RunScriptActionRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunScriptActionRow.h; sourceTree = "<group>"; };
 		434BB26D17BA71FA000BEB1C /* RunScriptActionRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunScriptActionRow.m; sourceTree = "<group>"; };
+		434BB26F17BB7D14000BEB1C /* FiltersGroupHeaderRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FiltersGroupHeaderRow.h; sourceTree = "<group>"; };
+		434BB27017BB7D14000BEB1C /* FiltersGroupHeaderRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FiltersGroupHeaderRow.m; sourceTree = "<group>"; };
+		434BB27217BB7F3A000BEB1C /* AddFilterRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddFilterRow.h; sourceTree = "<group>"; };
+		434BB27317BB7F3A000BEB1C /* AddFilterRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddFilterRow.m; sourceTree = "<group>"; };
+		434BB27517BB97AC000BEB1C /* FilterAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterAction.h; sourceTree = "<group>"; };
+		434BB27617BB97AC000BEB1C /* FilterAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterAction.m; sourceTree = "<group>"; };
+		434BB27817BB9B30000BEB1C /* AutoprefixerAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoprefixerAction.h; sourceTree = "<group>"; };
+		434BB27917BB9B30000BEB1C /* AutoprefixerAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoprefixerAction.m; sourceTree = "<group>"; };
 		434DB81E1514F71400C62042 /* app_version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = app_version.h; sourceTree = "<group>"; };
 		43508A7C17B3767E00871422 /* ShadowBoxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowBoxView.h; sourceTree = "<group>"; };
 		43508A7D17B3767E00871422 /* ShadowBoxView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowBoxView.m; sourceTree = "<group>"; };
@@ -1089,6 +1101,10 @@
 				434BB25717B8FD3C000BEB1C /* RunCustomCommandActionRow.m */,
 				434BB26C17BA71FA000BEB1C /* RunScriptActionRow.h */,
 				434BB26D17BA71FA000BEB1C /* RunScriptActionRow.m */,
+				434BB26F17BB7D14000BEB1C /* FiltersGroupHeaderRow.h */,
+				434BB27017BB7D14000BEB1C /* FiltersGroupHeaderRow.m */,
+				434BB27217BB7F3A000BEB1C /* AddFilterRow.h */,
+				434BB27317BB7F3A000BEB1C /* AddFilterRow.m */,
 			);
 			path = ActionStack;
 			sourceTree = "<group>";
@@ -1100,6 +1116,13 @@
 				434BB26117B945F0000BEB1C /* LROptionsView.m */,
 			);
 			path = Options;
+			sourceTree = "<group>";
+		};
+		434BB27B17BBF0AA000BEB1C /* Graph */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Graph;
 			sourceTree = "<group>";
 		};
 		43508A8517B3931300871422 /* MainWindow */ = {
@@ -1433,6 +1456,7 @@
 				437BAB8B173A13F5005AA1C0 /* Runtimes */,
 				823DDE6713F8DA3100529AD2 /* Model */,
 				823DDE7213F8DA3100529AD2 /* Monitoring */,
+				434BB27B17BBF0AA000BEB1C /* Graph */,
 				823DDE7B13F8DA3100529AD2 /* Plugins */,
 				823DDE8613F8DA3100529AD2 /* Preferences */,
 				823DDE9F13F8DA3100529AD2 /* Utilities */,
@@ -1537,6 +1561,10 @@
 				43508A9B17B4B65B00871422 /* ActionType+StandardActionTypes.m */,
 				43508A9417B4B52300871422 /* ActionList.h */,
 				43508A9517B4B52300871422 /* ActionList.m */,
+				434BB27517BB97AC000BEB1C /* FilterAction.h */,
+				434BB27617BB97AC000BEB1C /* FilterAction.m */,
+				434BB27817BB9B30000BEB1C /* AutoprefixerAction.h */,
+				434BB27917BB9B30000BEB1C /* AutoprefixerAction.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1876,6 +1904,7 @@
 				439A76B015B28EF100E50057 /* LicenseCodeViewController.m in Sources */,
 				439A76B415B28F4300E50057 /* LicenseCodeWindowController.m in Sources */,
 				43508A8817B3931F00871422 /* Action.m in Sources */,
+				434BB27117BB7D14000BEB1C /* FiltersGroupHeaderRow.m in Sources */,
 				43C3D04E15B37B1500BCD2E8 /* LicenseManager.m in Sources */,
 				4303A54015B513FD009D732A /* dump.c in Sources */,
 				434BB25817B8FD3C000BEB1C /* RunCustomCommandActionRow.m in Sources */,
@@ -1889,6 +1918,7 @@
 				4303A54415B513FD009D732A /* memory.c in Sources */,
 				4303A54515B513FD009D732A /* pack_unpack.c in Sources */,
 				4303A54615B513FD009D732A /* strbuffer.c in Sources */,
+				434BB27417BB7F3A000BEB1C /* AddFilterRow.m in Sources */,
 				4303A54715B513FD009D732A /* strconv.c in Sources */,
 				4303A54815B513FD009D732A /* utf.c in Sources */,
 				4303A54915B513FD009D732A /* value.c in Sources */,
@@ -1909,6 +1939,7 @@
 				4303A55B15B513FD009D732A /* nodeapp_objc_json.m in Sources */,
 				4303A55C15B513FD009D732A /* nodeapp_paths_osdep.m in Sources */,
 				4303A55D15B513FD009D732A /* nodeapp_rpc_osdep.c in Sources */,
+				434BB27717BB97AC000BEB1C /* FilterAction.m in Sources */,
 				4303A55E15B513FD009D732A /* nodeapp_threading.c in Sources */,
 				4303A55F15B513FD009D732A /* NodeAppDelegate.m in Sources */,
 				434BB25B17B9097D000BEB1C /* ActionsGroupHeaderRow.m in Sources */,
@@ -1940,6 +1971,7 @@
 				4313347915BC295B00659B4F /* UserScript.m in Sources */,
 				436D732A173DE05000F78A23 /* RuntimeContainer.m in Sources */,
 				436D732B173DE05000F78A23 /* MissingRuntimeInstance.m in Sources */,
+				434BB27A17BB9B30000BEB1C /* AutoprefixerAction.m in Sources */,
 				436D732C173DE05000F78A23 /* RuntimeInstance.m in Sources */,
 				43508A9917B4B53F00871422 /* ActionType.m in Sources */,
 				436D732D173DE05000F78A23 /* RuntimeGlobals.m in Sources */,

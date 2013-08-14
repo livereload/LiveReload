@@ -8,9 +8,7 @@
 - (void)loadContent {
     [super loadContent];
 
-    self.filterLabel = [[NSTextField staticLabelWithString:@"When"] addedToView:self];
-    self.filterLabel.font = [NSFont systemFontOfSize:11];
-    self.filterLabel.textColor = [NSColor headerColor];
+    self.filterLabel = [[NSTextField staticLabelWithString:@"When" style:self.metrics[@"columnHeaderStyle"]] addedToView:self];
 
     [self addConstraintsWithVisualFormat:@"|[titleLabel]-(>=columnGapMin)-[filterLabel]" options:NSLayoutFormatAlignAllBaseline];
     [self addFullHeightConstraintsForSubview:self.titleLabel];

@@ -17,7 +17,7 @@
     [menu removeAllItems];
     [menu addItemWithTitle:@"Add action" action:NULL keyEquivalent:@""];
 
-    NSMenuItem *item = [menu addItemWithTitle:@"Run custom command" action:@selector(addItemClicked:) keyEquivalent:@""];
+    NSMenuItem *item = [menu addItemWithTitle:@"Run custom command" action:@selector(addActionClicked:) keyEquivalent:@""];
     item.representedObject = @{@"action": @"command"};
     item.target = self;
 
@@ -26,7 +26,7 @@
     NSArray *userScripts = [UserScriptManager sharedUserScriptManager].userScripts;
     if (userScripts.count > 0) {
         for (UserScript *userScript in userScripts) {
-            NSMenuItem *item = [menu addItemWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Run %@", nil), userScript.friendlyName] action:@selector(addItemClicked:) keyEquivalent:@""];
+            NSMenuItem *item = [menu addItemWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Run %@", nil), userScript.friendlyName] action:@selector(addActionClicked:) keyEquivalent:@""];
             item.representedObject = @{@"action": @"script", @"script": userScript.uniqueName};
             item.target = self;
         }
@@ -39,14 +39,6 @@
     
     item = [menu addItemWithTitle:NSLocalizedString(@"Reveal Scripts Folder in Finder", nil) action:@selector(revealScriptsFolderClicked:) keyEquivalent:@""];
     item.target = self;
-}
-
-- (IBAction)addItemClicked:(NSMenuItem *)sender {
-    NSDictionary *prototype = sender.representedObject;
-    if (prototype) {
-        ActionList *actionList = self.representedObject;
-        [actionList addActionWithPrototype:prototype];
-    }
 }
 
 - (IBAction)revealScriptsFolderClicked:(id)sender {

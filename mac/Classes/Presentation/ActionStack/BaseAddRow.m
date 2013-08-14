@@ -1,5 +1,6 @@
 
 #import "BaseAddRow.h"
+#import "ActionList.h"
 #import "ATMacViewCreation.h"
 #import "ATAutolayout.h"
 
@@ -28,6 +29,14 @@
 
 //    [self alignView:self.menuPullDown toColumnNamed:@"actionRightEdge" alignment:ATStackViewColumnAlignmentTrailing];
     [self alignView:self.menuPullDown toColumnNamed:@"add"];
+}
+
+- (IBAction)addActionClicked:(NSMenuItem *)sender {
+    NSDictionary *prototype = sender.representedObject;
+    if (prototype) {
+        ActionList *actionList = self.representedObject;
+        [actionList addActionWithPrototype:prototype];
+    }
 }
 
 @end

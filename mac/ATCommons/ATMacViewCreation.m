@@ -3,6 +3,10 @@
 
 @implementation NSTextField (ATMacViewCreation)
 
++ (NSTextField *)staticLabelWithString:(NSString *)text style:(NSDictionary *)style {
+    return [[self staticLabelWithString:text] withStyle:style];
+}
+
 + (NSTextField *)staticLabelWithString:(NSString *)text {
     NSTextField *view = [[NSTextField alloc] init];
     view.translatesAutoresizingMaskIntoConstraints = NO;
@@ -26,6 +30,16 @@
     NSTextField *view = [[NSTextField alloc] init];
     view.translatesAutoresizingMaskIntoConstraints = NO;
     return view;
+}
+
+- (instancetype)withStyle:(NSDictionary *)style {
+    NSFont *font = style[NSFontAttributeName];
+    if (font)
+        self.font = font;
+    NSColor *textColor = style[NSForegroundColorAttributeName];
+    if (textColor)
+        self.textColor = textColor;
+    return self;
 }
 
 @end

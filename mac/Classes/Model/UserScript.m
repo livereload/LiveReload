@@ -180,6 +180,13 @@ static UserScriptManager *sharedUserScriptManager = nil;
     
     NSMutableArray *result = [NSMutableArray array];
     for (NSURL *pathUrl in files) {
+        NSDictionary *attrs = [pathUrl resourceValuesForKeys:@[NSURLIsRegularFileKey, NSURLIsExecutableKey] error:NULL];
+        if (![attrs[NSURLIsRegularFileKey] boolValue])
+            continue;
+        if (![attrs[NSURLIsExecutableKey] boolValue]) {
+            NSLog(@"Skipping non-executable script file: %@", pathUrl.path);
+            continue;
+        }
         [result addObject:[[UserScript alloc] initWithPath:[pathUrl path]]];
     }
     return result;
