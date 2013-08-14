@@ -8,7 +8,7 @@
 @class FSTree;
 @class Compiler;
 @class CompilationOptions;
-@class FileCompilationOptions;
+@class LRFile;
 @class ImportGraph;
 @class UserScript;
 
@@ -106,7 +106,7 @@ enum {
 
 - (CompilationOptions *)optionsForCompiler:(Compiler *)compiler create:(BOOL)create;
 
-- (FileCompilationOptions *)optionsForFileAtPath:(NSString *)sourcePath in:(CompilationOptions *)compilationOptions;
+- (LRFile *)optionsForFileAtPath:(NSString *)sourcePath in:(CompilationOptions *)compilationOptions;
 
 - (void)ceaseAllMonitoring;
 - (void)requestMonitoring:(BOOL)monitoringEnabled forKey:(NSString *)key;

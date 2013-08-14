@@ -4,7 +4,7 @@
 
 @class Plugin;
 @class CompilationOptions;
-@class FileCompilationOptions;
+@class LRFile;
 @class FSTree;
 @class ToolOutput;
 @class Project;

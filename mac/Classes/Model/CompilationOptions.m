@@ -1,6 +1,6 @@
 
 #import "CompilationOptions.h"
-#import "FileCompilationOptions.h"
+#import "LRFile.h"
 #import "Compiler.h"
 #import "CompilerVersion.h"
 
@@ -32,7 +32,7 @@
         raw = [memento objectForKey:@"files"];
         if (raw) {
             [raw enumerateKeysAndObjectsUsingBlock:^(id filePath, id fileMemento, BOOL *stop) {
-                [_fileOptions setObject:[[FileCompilationOptions alloc] initWithFile:filePath memento:fileMemento] forKey:filePath];
+                [_fileOptions setObject:[[LRFile alloc] initWithFile:filePath memento:fileMemento] forKey:filePath];
             }];
         }
 
@@ -116,10 +116,10 @@
 
 #pragma mark - File options
 
-- (FileCompilationOptions *)optionsForFileAtPath:(NSString *)path create:(BOOL)create {
-    FileCompilationOptions *result = [_fileOptions objectForKey:path];
+- (LRFile *)optionsForFileAtPath:(NSString *)path create:(BOOL)create {
+    LRFile *result = [_fileOptions objectForKey:path];
     if (result == nil && create) {
-        result = [[FileCompilationOptions alloc] initWithFile:path memento:nil];
+        result = [[LRFile alloc] initWithFile:path memento:nil];
         [_fileOptions setObject:result forKey:path];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
     }
@@ -129,7 +129,7 @@
 - (NSString *)sourcePathThatCompilesInto:(NSString *)outputPath {
     __block NSString *result = nil;
     [_fileOptions enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        FileCompilationOptions *fileOptions = obj;
+        LRFile *fileOptions = obj;
         if (fileOptions.enabled && [fileOptions.destinationPath isEqualToString:outputPath]) {
             result = key;
             *stop = YES;

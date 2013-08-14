@@ -4,7 +4,7 @@
 
 @class Compiler;
 @class CompilerVersion;
-@class FileCompilationOptions;
+@class LRFile;
 
 
 @interface CompilationOptions : NSObject {
@@ -34,7 +34,7 @@
 
 @property(nonatomic, copy) NSString *additionalArguments;
 
-- (FileCompilationOptions *)optionsForFileAtPath:(NSString *)path create:(BOOL)create;
+- (LRFile *)optionsForFileAtPath:(NSString *)path create:(BOOL)create;
 
 - (NSString *)sourcePathThatCompilesInto:(NSString *)outputPath;
 

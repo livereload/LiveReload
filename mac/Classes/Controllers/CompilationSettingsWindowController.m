@@ -5,7 +5,7 @@
 #import "Compiler.h"
 #import "ToolOptions.h"
 #import "CompilationOptions.h"
-#import "FileCompilationOptions.h"
+#import "LRFile.h"
 #import "Project.h"
 #import "Runtimes.h"
 #import "PreferencesController.h"
@@ -381,7 +381,7 @@ const char *output_paths_table_column_ids[] = { "on", "source", "output" };
         CompilationOptions *options = [_project optionsForCompiler:compiler create:YES];
 
         for (NSString *path in [compiler pathsOfSourceFilesInTree:tree]) {
-            FileCompilationOptions *fileOptions = [_project optionsForFileAtPath
+            LRFile *fileOptions = [_project optionsForFileAtPath
               :path in:options];
             fileOptions.compiler = compiler;
             [_fileList addObject:fileOptions];
@@ -397,7 +397,7 @@ const char *output_paths_table_column_ids[] = { "on", "source", "output" };
 }
 
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-    FileCompilationOptions *fileOptions = _fileList[row];
+    LRFile *fileOptions = _fileList[row];
     output_paths_table_column_t column = str_static_array_index(output_paths_table_column_ids, [[tableColumn identifier] UTF8String]);
     BOOL imported = [_project isFileImported:fileOptions.sourcePath];
     if (column == output_paths_table_column_enable) {
@@ -421,7 +421,7 @@ const char *output_paths_table_column_ids[] = { "on", "source", "output" };
 }
 
 - (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-    FileCompilationOptions *fileOptions = _fileList[row];
+    LRFile *fileOptions = _fileList[row];
     output_paths_table_column_t column = str_static_array_index(output_paths_table_column_ids, [[tableColumn identifier] UTF8String]);
     if (column == output_paths_table_column_enable) {
         fileOptions.enabled = [object boolValue];
@@ -433,7 +433,7 @@ const char *output_paths_table_column_ids[] = { "on", "source", "output" };
 }
 
 - (BOOL)tableView:(NSTableView *)tableView shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-    FileCompilationOptions *fileOptions = _fileList[row];
+    LRFile *fileOptions = _fileList[row];
     output_paths_table_column_t column = str_static_array_index(output_paths_table_column_ids, [[tableColumn identifier] UTF8String]);
     if (column == output_paths_table_column_enable || column == output_paths_table_column_output) {
         BOOL imported = [_project isFileImported:fileOptions.sourcePath];
@@ -444,7 +444,7 @@ const char *output_paths_table_column_ids[] = { "on", "source", "output" };
 
 
 - (void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-    FileCompilationOptions *fileOptions = _fileList[row];
+    LRFile *fileOptions = _fileList[row];
     output_paths_table_column_t column = str_static_array_index(output_paths_table_column_ids, [[tableColumn identifier] UTF8String]);
     BOOL imported = [_project isFileImported:fileOptions.sourcePath];
     if (column == output_paths_table_column_enable) {
@@ -499,7 +499,7 @@ const char *output_paths_table_column_ids[] = { "on", "source", "output" };
     if ([selection count] == 0) {
         [selection addObjectsFromArray:_fileList];
 
-        NSString *common = [FileCompilationOptions commonOutputDirectoryFor:selection inProject:_project];
+        NSString *common = [LRFile commonOutputDirectoryFor:selection inProject:_project];
         if ([common isEqualToString:@"__NONE_SET__"]) {
             // do nothing
         } else if (common != nil) {
@@ -515,7 +515,7 @@ const char *output_paths_table_column_ids[] = { "on", "source", "output" };
             }
         }
     } else if ([selection count] > 1) {
-        NSString *common = [FileCompilationOptions commonOutputDirectoryFor:selection inProject:_project];
+        NSString *common = [LRFile commonOutputDirectoryFor:selection inProject:_project];
         if ([common isEqualToString:@"__NONE_SET__"]) {
             // do nothing
         } else if (common != nil) {
@@ -531,7 +531,7 @@ const char *output_paths_table_column_ids[] = { "on", "source", "output" };
             }
         }
     } else {
-        common = ((FileCompilationOptions *)[selection objectAtIndex:0]).destinationDirectory;
+        common = ((LRFile *)[selection objectAtIndex:0]).destinationDirectory;
         if (common != nil) {
             initialPath = [_project.path stringByAppendingPathComponent:common];
         }
@@ -549,7 +549,7 @@ const char *output_paths_table_column_ids[] = { "on", "source", "output" };
         NSURL *url = [openPanel URL];
         NSString *absolutePath = [url path];
         NSString *relativePath = [_project relativePathForPath:absolutePath];
-        for (FileCompilationOptions *options in selection) {
+        for (LRFile *options in selection) {
             options.destinationDirectory = relativePath;
         }
         [_pathTableView reloadData];
@@ -561,7 +561,7 @@ const char *output_paths_table_column_ids[] = { "on", "source", "output" };
     if ([selection count] != 1)
         return;
 
-    FileCompilationOptions *fileOptions = [selection objectAtIndex:0];
+    LRFile *fileOptions = [selection objectAtIndex:0];
     
     NSSavePanel *savePanel = [NSSavePanel savePanel];
     [savePanel setCanCreateDirectories:YES];
@@ -589,7 +589,7 @@ const char *output_paths_table_column_ids[] = { "on", "source", "output" };
     if (selection.count == 0) {
         [_outputFileNameMask setStringValue:@""];
     } else {
-        NSString *commonMask = [FileCompilationOptions commonDestinationNameMaskFor:selection inProject:_project];
+        NSString *commonMask = [LRFile commonDestinationNameMaskFor:selection inProject:_project];
         if (commonMask.length == 0) {
             [[_outputFileNameMask cell] setPlaceholderString:@"(multiple)"];
             [_outputFileNameMask setStringValue:@""];
@@ -634,7 +634,7 @@ const char *output_paths_table_column_ids[] = { "on", "source", "output" };
 }
 
 - (void)updateApplyMaskButton {
-    NSString *commonMask = [FileCompilationOptions commonDestinationNameMaskFor:[_bulkMaskEditingFiles allObjects] inProject:_project];
+    NSString *commonMask = [LRFile commonDestinationNameMaskFor:[_bulkMaskEditingFiles allObjects] inProject:_project];
     _applyOutputFileNameMaskButton.enabled = [self draftFileNameMask].length > 0 && (commonMask.length == 0 || ![commonMask isEqualToString:[self draftFileNameMask]]);
 }
 
@@ -661,7 +661,7 @@ const char *output_paths_table_column_ids[] = { "on", "source", "output" };
     NSString *mask = _outputFileNameMask.stringValue;
 
     NSArray *selection = [self selectedFileOptions];
-    for (FileCompilationOptions *fileOptions in selection) {
+    for (LRFile *fileOptions in selection) {
         fileOptions.destinationNameMask = mask;
     }
 

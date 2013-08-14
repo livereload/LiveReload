@@ -12,7 +12,7 @@
 #import "PluginManager.h"
 #import "Compiler.h"
 #import "CompilationOptions.h"
-#import "FileCompilationOptions.h"
+#import "LRFile.h"
 #import "ImportGraph.h"
 #import "ToolOutput.h"
 #import "UserScript.h"
@@ -375,7 +375,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
     if (![[NSFileManager defaultManager] fileExistsAtPath:path])
         return; // don't try to compile deleted files
-    FileCompilationOptions *fileOptions = [self optionsForFileAtPath:relativePath in:compilationOptions];
+    LRFile *fileOptions = [self optionsForFileAtPath:relativePath in:compilationOptions];
     if (fileOptions.destinationDirectory != nil || !compiler.needsOutputDirectory) {
         NSString *derivedName = fileOptions.destinationName;
         NSString *derivedPath = (compiler.needsOutputDirectory ? [fileOptions.destinationDirectory stringByAppendingPathComponent:derivedName] : [[path stringByDeletingLastPathComponent] stringByAppendingPathComponent:derivedName]);
@@ -427,7 +427,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
                 StatGroupIncrement(CompilerChangeCountEnabledStatGroup, compiler.uniqueId, 1);
                 break;
             } else {
-                FileCompilationOptions *fileOptions = [self optionsForFileAtPath:relativePath in:compilationOptions];
+                LRFile *fileOptions = [self optionsForFileAtPath:relativePath in:compilationOptions];
                 NSString *derivedName = fileOptions.destinationName;
                 NSString *originalPath = [_path stringByAppendingPathComponent:relativePath];
                 json_array_append_new(reloadRequests, json_object_2("path", json_nsstring(derivedName), "originalPath", json_nsstring(originalPath)));
@@ -647,8 +647,8 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     return nil;
 }
 
-- (FileCompilationOptions *)optionsForFileAtPath:(NSString *)sourcePath in:(CompilationOptions *)compilationOptions {
-    FileCompilationOptions *fileOptions = [compilationOptions optionsForFileAtPath:sourcePath create:YES];
+- (LRFile *)optionsForFileAtPath:(NSString *)sourcePath in:(CompilationOptions *)compilationOptions {
+    LRFile *fileOptions = [compilationOptions optionsForFileAtPath:sourcePath create:YES];
 
     @autoreleasepool {
 

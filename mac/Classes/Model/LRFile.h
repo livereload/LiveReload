@@ -5,7 +5,7 @@
 @class Project;
 @class Compiler;
 
-@interface FileCompilationOptions : NSObject {
+@interface LRFile : NSObject {
 @private
     BOOL                   _enabled;
     NSString              *_sourcePath;

@@ -121,6 +121,7 @@
 		434BB27417BB7F3A000BEB1C /* AddFilterRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB27317BB7F3A000BEB1C /* AddFilterRow.m */; };
 		434BB27717BB97AC000BEB1C /* FilterAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB27617BB97AC000BEB1C /* FilterAction.m */; };
 		434BB27A17BB9B30000BEB1C /* AutoprefixerAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB27917BB9B30000BEB1C /* AutoprefixerAction.m */; };
+		434BB28217BBF23A000BEB1C /* Step.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB28117BBF23A000BEB1C /* Step.m */; };
 		43508A7E17B3767E00871422 /* ShadowBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A7D17B3767E00871422 /* ShadowBoxView.m */; };
 		43508A8117B3819500871422 /* ATAutolayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A8017B3819500871422 /* ATAutolayout.m */; };
 		43508A8417B392A500871422 /* ATStackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A8317B392A500871422 /* ATStackView.m */; };
@@ -243,7 +244,7 @@
 		823DDEE013F8DA3100529AD2 /* EditorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE4A13F8DA3100529AD2 /* EditorManager.m */; };
 		823DDEEE13F8DA3100529AD2 /* Bag.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE6913F8DA3100529AD2 /* Bag.m */; };
 		823DDEEF13F8DA3100529AD2 /* CompilationOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE6B13F8DA3100529AD2 /* CompilationOptions.m */; };
-		823DDEF013F8DA3100529AD2 /* FileCompilationOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE6D13F8DA3100529AD2 /* FileCompilationOptions.m */; };
+		823DDEF013F8DA3100529AD2 /* LRFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE6D13F8DA3100529AD2 /* LRFile.m */; };
 		823DDEF113F8DA3100529AD2 /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE6F13F8DA3100529AD2 /* Project.m */; };
 		823DDEF213F8DA3100529AD2 /* Workspace.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE7113F8DA3100529AD2 /* Workspace.m */; };
 		823DDEF713F8DA3100529AD2 /* Compiler.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE7D13F8DA3100529AD2 /* Compiler.m */; };
@@ -469,6 +470,8 @@
 		434BB27617BB97AC000BEB1C /* FilterAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterAction.m; sourceTree = "<group>"; };
 		434BB27817BB9B30000BEB1C /* AutoprefixerAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoprefixerAction.h; sourceTree = "<group>"; };
 		434BB27917BB9B30000BEB1C /* AutoprefixerAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoprefixerAction.m; sourceTree = "<group>"; };
+		434BB28017BBF23A000BEB1C /* Step.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Step.h; sourceTree = "<group>"; };
+		434BB28117BBF23A000BEB1C /* Step.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Step.m; sourceTree = "<group>"; };
 		434DB81E1514F71400C62042 /* app_version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = app_version.h; sourceTree = "<group>"; };
 		43508A7C17B3767E00871422 /* ShadowBoxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowBoxView.h; sourceTree = "<group>"; };
 		43508A7D17B3767E00871422 /* ShadowBoxView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowBoxView.m; sourceTree = "<group>"; };
@@ -681,8 +684,8 @@
 		823DDE6913F8DA3100529AD2 /* Bag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bag.m; sourceTree = "<group>"; };
 		823DDE6A13F8DA3100529AD2 /* CompilationOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompilationOptions.h; sourceTree = "<group>"; };
 		823DDE6B13F8DA3100529AD2 /* CompilationOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompilationOptions.m; sourceTree = "<group>"; };
-		823DDE6C13F8DA3100529AD2 /* FileCompilationOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileCompilationOptions.h; sourceTree = "<group>"; };
-		823DDE6D13F8DA3100529AD2 /* FileCompilationOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileCompilationOptions.m; sourceTree = "<group>"; };
+		823DDE6C13F8DA3100529AD2 /* LRFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRFile.h; sourceTree = "<group>"; };
+		823DDE6D13F8DA3100529AD2 /* LRFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRFile.m; sourceTree = "<group>"; };
 		823DDE6E13F8DA3100529AD2 /* Project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Project.h; sourceTree = "<group>"; };
 		823DDE6F13F8DA3100529AD2 /* Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Project.m; sourceTree = "<group>"; };
 		823DDE7013F8DA3100529AD2 /* Workspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Workspace.h; sourceTree = "<group>"; };
@@ -1118,9 +1121,11 @@
 			path = Options;
 			sourceTree = "<group>";
 		};
-		434BB27B17BBF0AA000BEB1C /* Graph */ = {
+		434BB27F17BBF23A000BEB1C /* Graph */ = {
 			isa = PBXGroup;
 			children = (
+				434BB28017BBF23A000BEB1C /* Step.h */,
+				434BB28117BBF23A000BEB1C /* Step.m */,
 			);
 			path = Graph;
 			sourceTree = "<group>";
@@ -1455,8 +1460,8 @@
 				823DDE4213F8DA3100529AD2 /* Editors */,
 				437BAB8B173A13F5005AA1C0 /* Runtimes */,
 				823DDE6713F8DA3100529AD2 /* Model */,
+				434BB27F17BBF23A000BEB1C /* Graph */,
 				823DDE7213F8DA3100529AD2 /* Monitoring */,
-				434BB27B17BBF0AA000BEB1C /* Graph */,
 				823DDE7B13F8DA3100529AD2 /* Plugins */,
 				823DDE8613F8DA3100529AD2 /* Preferences */,
 				823DDE9F13F8DA3100529AD2 /* Utilities */,
@@ -1539,8 +1544,8 @@
 				823DDE6913F8DA3100529AD2 /* Bag.m */,
 				823DDE6A13F8DA3100529AD2 /* CompilationOptions.h */,
 				823DDE6B13F8DA3100529AD2 /* CompilationOptions.m */,
-				823DDE6C13F8DA3100529AD2 /* FileCompilationOptions.h */,
-				823DDE6D13F8DA3100529AD2 /* FileCompilationOptions.m */,
+				823DDE6C13F8DA3100529AD2 /* LRFile.h */,
+				823DDE6D13F8DA3100529AD2 /* LRFile.m */,
 				823DDE6E13F8DA3100529AD2 /* Project.h */,
 				823DDE6F13F8DA3100529AD2 /* Project.m */,
 				823DDE7013F8DA3100529AD2 /* Workspace.h */,
@@ -1856,7 +1861,7 @@
 				823DDEE013F8DA3100529AD2 /* EditorManager.m in Sources */,
 				823DDEEE13F8DA3100529AD2 /* Bag.m in Sources */,
 				823DDEEF13F8DA3100529AD2 /* CompilationOptions.m in Sources */,
-				823DDEF013F8DA3100529AD2 /* FileCompilationOptions.m in Sources */,
+				823DDEF013F8DA3100529AD2 /* LRFile.m in Sources */,
 				823DDEF113F8DA3100529AD2 /* Project.m in Sources */,
 				823DDEF213F8DA3100529AD2 /* Workspace.m in Sources */,
 				823DDEF713F8DA3100529AD2 /* Compiler.m in Sources */,
@@ -1888,6 +1893,7 @@
 				4310DE40146DB6A0003091D1 /* UIBuilder.m in Sources */,
 				43F002CF146EC97B005D48A4 /* MainWindow.m in Sources */,
 				43F002D2146F4135005D48A4 /* TerminalView.m in Sources */,
+				434BB28217BBF23A000BEB1C /* Step.m in Sources */,
 				43F002F8146FF584005D48A4 /* TerminalViewController.m in Sources */,
 				43E34F9B14705125001641AA /* console.c in Sources */,
 				43E34F9C14705125001641AA /* eventbus.c in Sources */,
