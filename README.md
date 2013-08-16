@@ -167,6 +167,7 @@ This probably is of no concern to you, but in case you need it, you can run the 
     git subdir node_modules/vfs-local/ -r vfs-local --url git@github.com:livereload/vfs-local.git --method squash,linear
     git subdir node_modules/vfs-test/ -r vfs-test --url git@github.com:livereload/vfs-test.git --method squash,linear
 
+    git-subdir mac/ATPathSpec --url git@github.com:andreyvit/ATPathSpec.git --method squash,linear
 
 
 Signing the bundled Node.js binary
