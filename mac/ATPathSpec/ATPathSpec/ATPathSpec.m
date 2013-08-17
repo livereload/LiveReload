@@ -657,6 +657,17 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
     return [[ATPathMasksPathSpec alloc] initWithMasks:masks type:type];
 }
 
++ (ATPathSpec *)pathSpecMatchingPath:(NSString *)path type:(ATPathSpecEntryType)type {
+    NSArray *components = [path pathComponents];
+    NSMutableArray *masks = [NSMutableArray new];
+    for (NSString *component in components) {
+        ATMask *mask = [ATMask maskWithString:component syntaxOptions:ATPathSpecSyntaxFlavorLiteral];
+        [masks addObject:mask];
+    }
+
+    return [self pathSpecMatchingPathMasks:masks type:type];
+}
+
 - (BOOL)matchesPath:(NSString *)path type:(ATPathSpecEntryType)type {
     return [self matchResultForPath:path type:type] == ATPathSpecMatchResultMatched;
 }

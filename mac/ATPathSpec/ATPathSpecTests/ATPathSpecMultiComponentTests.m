@@ -45,4 +45,9 @@
     XCTAssertTrue(![spec matchesPath:@"moredocs/README.html" type:ATPathSpecEntryTypeFile], "");
 }
 
+- (void)testPathConstructor {
+    ATPathSpec *spec = [ATPathSpec pathSpecMatchingPath:@"docs/readme.txt" type:ATPathSpecEntryTypeFile];
+    XCTAssertEqualObjects([spec description], @"docs/readme.txt", "");
+}
+
 @end
