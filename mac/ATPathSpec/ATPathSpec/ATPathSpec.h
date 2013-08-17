@@ -28,13 +28,14 @@ typedef enum {
     ATPathSpecSyntaxOptionsMatchesAnyFolderWhenNoPathSpecified = 0x400,
     ATPathSpecSyntaxOptionsAllowStarWildcard = 0x800,
     ATPathSpecSyntaxOptionsAllowQuestionMarkWildcard = 0x1000,
+    ATPathSpecSyntaxOptionsFolderMatchesAllFilesInSubtree = 0x2000,
 
     // literal string
     ATPathSpecSyntaxFlavorLiteral = 0,
     // shell-style glob, supporting `*` and `?` wildcards
     ATPathSpecSyntaxFlavorGlob = ATPathSpecSyntaxOptionsAllowStarWildcard | ATPathSpecSyntaxOptionsAllowQuestionMarkWildcard,
     // 100% compatibility with `.gitignore`
-    ATPathSpecSyntaxFlavorGitignore = ATPathSpecSyntaxFlavorGlob | ATPathSpecSyntaxOptionsAllowBackslashEscape | ATPathSpecSyntaxOptionsAllowNewlineSeparator | ATPathSpecSyntaxOptionsAllowBangNegation | ATPathSpecSyntaxOptionsAllowHashComment | ATPathSpecSyntaxOptionsMatchesAnyFolderWhenNoPathSpecified,
+    ATPathSpecSyntaxFlavorGitignore = ATPathSpecSyntaxFlavorGlob | ATPathSpecSyntaxOptionsAllowBackslashEscape | ATPathSpecSyntaxOptionsAllowNewlineSeparator | ATPathSpecSyntaxOptionsAllowBangNegation | ATPathSpecSyntaxOptionsAllowHashComment | ATPathSpecSyntaxOptionsMatchesAnyFolderWhenNoPathSpecified | ATPathSpecSyntaxOptionsFolderMatchesAllFilesInSubtree,
     // enables all ATPathSpec features
     // note that it's not fully compatible with gitignore because it has ATPathSpecSyntaxOptionsRequireTrailingSlashForFolders flag set
     ATPathSpecSyntaxFlavorExtended = ATPathSpecSyntaxFlavorGitignore | ATPathSpecSyntaxOptionsAllowCommaSeparator | ATPathSpecSyntaxOptionsAllowWhitespaceSeparator | ATPathSpecSyntaxOptionsAllowPipeUnion | ATPathSpecSyntaxOptionsAllowAmpersandIntersection | ATPathSpecSyntaxOptionsAllowParen | ATPathSpecSyntaxOptionsRequireTrailingSlashForFolders,
@@ -67,9 +68,9 @@ typedef enum {
 
 + (ATPathSpec *)emptyPathSpec;
 
-+ (ATPathSpec *)pathSpecMatchingNameMask:(ATMask *)mask type:(ATPathSpecEntryType)type;
-+ (ATPathSpec *)pathSpecMatchingPathMasks:(NSArray *)masks type:(ATPathSpecEntryType)type;
-+ (ATPathSpec *)pathSpecMatchingPath:(NSString *)path type:(ATPathSpecEntryType)type;
++ (ATPathSpec *)pathSpecMatchingNameMask:(ATMask *)mask type:(ATPathSpecEntryType)type syntaxOptions:(ATPathSpecSyntaxOptions)options;
++ (ATPathSpec *)pathSpecMatchingPathMasks:(NSArray *)masks type:(ATPathSpecEntryType)type syntaxOptions:(ATPathSpecSyntaxOptions)options;
++ (ATPathSpec *)pathSpecMatchingPath:(NSString *)path type:(ATPathSpecEntryType)type syntaxOptions:(ATPathSpecSyntaxOptions)options;
 + (ATPathSpec *)pathSpecMatchingUnionOf:(NSArray *)specs;
 + (ATPathSpec *)pathSpecMatchingIntersectionOf:(NSArray *)specs;
 

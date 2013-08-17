@@ -633,7 +633,7 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
     if ((options & ATPathSpecSyntaxOptionsMatchesAnyFolderWhenNoPathSpecified) && (components.count == 1)) {
         // no path specified => matches this name in any subfolder
         ATMask *mask = [ATMask maskWithString:string syntaxOptions:options];
-        return [self pathSpecMatchingNameMask:mask type:type];
+        return [self pathSpecMatchingNameMask:mask type:type syntaxOptions:options];
     } else {
         // strip leading slash
         if ([components[0] isEqualToString:@"/"])
@@ -645,19 +645,19 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
             [masks addObject:mask];
         }
 
-        return [self pathSpecMatchingPathMasks:masks type:type];
+        return [self pathSpecMatchingPathMasks:masks type:type syntaxOptions:options];
     }
 }
 
-+ (ATPathSpec *)pathSpecMatchingNameMask:(ATMask *)mask type:(ATPathSpecEntryType)type {
-    return [[ATNameMaskPathSpec alloc] initWithMask:mask type:type];
++ (ATPathSpec *)pathSpecMatchingNameMask:(ATMask *)mask type:(ATPathSpecEntryType)type syntaxOptions:(ATPathSpecSyntaxOptions)options {
+    return [[ATNameMaskPathSpec alloc] initWithMask:mask type:type syntaxOptions:options];
 }
 
-+ (ATPathSpec *)pathSpecMatchingPathMasks:(NSArray *)masks type:(ATPathSpecEntryType)type {
-    return [[ATPathMasksPathSpec alloc] initWithMasks:masks type:type];
++ (ATPathSpec *)pathSpecMatchingPathMasks:(NSArray *)masks type:(ATPathSpecEntryType)type syntaxOptions:(ATPathSpecSyntaxOptions)options {
+    return [[ATPathMasksPathSpec alloc] initWithMasks:masks type:type syntaxOptions:ATPathSpecSyntaxOptionsFolderMatchesAllFilesInSubtree];
 }
 
-+ (ATPathSpec *)pathSpecMatchingPath:(NSString *)path type:(ATPathSpecEntryType)type {
++ (ATPathSpec *)pathSpecMatchingPath:(NSString *)path type:(ATPathSpecEntryType)type syntaxOptions:(ATPathSpecSyntaxOptions)options {
     NSArray *components = [path pathComponents];
     NSMutableArray *masks = [NSMutableArray new];
     for (NSString *component in components) {
@@ -665,7 +665,7 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
         [masks addObject:mask];
     }
 
-    return [self pathSpecMatchingPathMasks:masks type:type];
+    return [self pathSpecMatchingPathMasks:masks type:type syntaxOptions:options];
 }
 
 - (BOOL)matchesPath:(NSString *)path type:(ATPathSpecEntryType)type {
@@ -733,21 +733,36 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
 
 #pragma mark -
 
-@implementation ATNameMaskPathSpec
+@implementation ATNameMaskPathSpec {
+    BOOL _fuzzyEnabled;
+}
 
 @synthesize mask = _mask;
 @synthesize type = _type;
 
-- (id)initWithMask:(ATMask *)mask type:(ATPathSpecEntryType)type {
+- (id)initWithMask:(ATMask *)mask type:(ATPathSpecEntryType)type syntaxOptions:(ATPathSpecSyntaxOptions)options {
     self = [super init];
     if (self) {
         _mask = mask;
         _type = type;
+        _fuzzyEnabled = !!(options & ATPathSpecSyntaxOptionsFolderMatchesAllFilesInSubtree);
     }
     return self;
 }
 
 - (ATPathSpecMatchResult)matchResultForPath:(NSString *)path type:(ATPathSpecEntryType)type {
+    if (_fuzzyEnabled && (_type == ATPathSpecEntryTypeFolder || _type == ATPathSpecEntryTypeFileOrFolder)) {
+        NSArray *components = path.pathComponents;
+        if (type == ATPathSpecEntryTypeFile)
+            components = [components subarrayWithRange:NSMakeRange(0, components.count - 1)];
+        for (NSString *component in components) {
+            if ([_mask matchesName:component])
+                return ATPathSpecMatchResultMatched;
+        }
+        if (type != ATPathSpecEntryTypeFile)
+            return ATPathSpecMatchResultUnknown;
+    }
+
     if (!ATPathSpecEntryType_Match(_type, type))
         return ATPathSpecMatchResultUnknown;
 
@@ -767,30 +782,43 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
 
 #pragma mark -
 
-@implementation ATPathMasksPathSpec
+@implementation ATPathMasksPathSpec {
+    BOOL _fuzzyEnabled;
+}
 
 @synthesize masks = _masks;
 @synthesize type = _type;
 
-- (id)initWithMasks:(NSArray *)masks type:(ATPathSpecEntryType)type {
+- (id)initWithMasks:(NSArray *)masks type:(ATPathSpecEntryType)type syntaxOptions:(ATPathSpecSyntaxOptions)options {
     self = [super init];
     if (self) {
         _masks = [masks copy];
         _type = type;
+        _fuzzyEnabled = !!(options & ATPathSpecSyntaxOptionsFolderMatchesAllFilesInSubtree);
     }
     return self;
 }
 
 - (ATPathSpecMatchResult)matchResultForPath:(NSString *)path type:(ATPathSpecEntryType)type {
-    if (!ATPathSpecEntryType_Match(_type, type))
+    BOOL fuzzy = (_fuzzyEnabled && (_type == ATPathSpecEntryTypeFolder || _type == ATPathSpecEntryTypeFileOrFolder));
+    BOOL typesCompatible = ATPathSpecEntryType_Match(_type, type);
+
+    if (!typesCompatible && !fuzzy)
         return ATPathSpecMatchResultUnknown;
 
     NSArray *components = path.pathComponents;
     if ([components[0] isEqualToString:@"/"])
         components = [components subarrayWithRange:NSMakeRange(1, components.count - 1)];
 
-    if (components.count != _masks.count)
+    NSUInteger pcount = components.count;
+    NSUInteger mcount = _masks.count;
+
+    if (pcount < mcount)
         return ATPathSpecMatchResultUnknown;
+    if (!fuzzy && pcount != mcount)
+        return ATPathSpecMatchResultUnknown;
+    if (fuzzy && !typesCompatible && pcount == mcount)
+        return ATPathSpecMatchResultUnknown; // full match not possible because the entry types are different
 
     NSInteger index = 0;
     for (ATMask *mask in _masks) {

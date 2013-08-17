@@ -36,6 +36,7 @@ Syntax features (enabled via syntax flavors or individual feature flags):
 * Use `foo/` to match folders only (not configurable).
 * Use `foo` to match files only (if ``ATPathSpecSyntaxOptionsRequireTrailingSlashForFolders` is specified) or to match files and folders (if the flag is not specified)
 * If there's no slash character in the spec (aside from a possible trailing slash) and `ATPathSpecSyntaxOptionsMatchesAnyFolderWhenNoPathSpecified` flag is set, the pattern matches in any subfolder (like in gitignore); otherwise, without this flag set, such patterns only match in the root folder.
+* A folder spec implicitly includes any files and folder under the matched folder's subtree (`ATPathSpecSyntaxOptionsFolderMatchesAllFilesInSubtree`), so a spec like `.git/ | .svn/` will match `.git/foo/bar`.
 
 
 gitignore list semantics

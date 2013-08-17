@@ -46,8 +46,25 @@
 }
 
 - (void)testPathConstructor {
-    ATPathSpec *spec = [ATPathSpec pathSpecMatchingPath:@"docs/readme.txt" type:ATPathSpecEntryTypeFile];
+    ATPathSpec *spec = [ATPathSpec pathSpecMatchingPath:@"docs/readme.txt" type:ATPathSpecEntryTypeFile syntaxOptions:ATPathSpecSyntaxFlavorExtended];
     XCTAssertEqualObjects([spec description], @"docs/readme.txt", "");
+}
+
+- (void)testFolderMatchIncludesFiles {
+    ATPathSpec *spec = [ATPathSpec pathSpecWithString:@"docs/" syntaxOptions:ATPathSpecSyntaxFlavorExtended];
+    XCTAssertEqualObjects([spec description], @"docs/", "");
+    XCTAssertTrue( [spec matchesPath:@"docs" type:ATPathSpecEntryTypeFolder], "");
+    XCTAssertTrue(![spec matchesPath:@"README.txt" type:ATPathSpecEntryTypeFile], "");
+    XCTAssertTrue( [spec matchesPath:@"docs/README.txt" type:ATPathSpecEntryTypeFile], "");
+    XCTAssertTrue(![spec matchesPath:@"moredocs/README.txt" type:ATPathSpecEntryTypeFile], "");
+}
+
+- (void)testFolderNotMatchedWhenTypesDiffer {
+    ATPathSpec *spec = [ATPathSpec pathSpecWithString:@"docs/readme/" syntaxOptions:ATPathSpecSyntaxFlavorExtended];
+    XCTAssertEqualObjects([spec description], @"docs/readme/", "");
+    XCTAssertTrue( [spec matchesPath:@"docs/readme" type:ATPathSpecEntryTypeFolder], "");
+    XCTAssertTrue(![spec matchesPath:@"docs/readme" type:ATPathSpecEntryTypeFile], "");
+    XCTAssertTrue( [spec matchesPath:@"docs/readme/README.txt" type:ATPathSpecEntryTypeFile], "");
 }
 
 @end
