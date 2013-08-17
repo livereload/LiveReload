@@ -26,14 +26,18 @@ typedef enum {
     ATPathSpecSyntaxOptionsAllowHashComment = 0x80,
     ATPathSpecSyntaxOptionsRequireTrailingSlashForFolders = 0x100,
     ATPathSpecSyntaxOptionsMatchesAnyFolderWhenNoPathSpecified = 0x400,
+    ATPathSpecSyntaxOptionsAllowStarWildcard = 0x800,
+    ATPathSpecSyntaxOptionsAllowQuestionMarkWildcard = 0x1000,
 
+    // literal string
+    ATPathSpecSyntaxFlavorLiteral = 0,
     // shell-style glob, supporting `*` and `?` wildcards
-    ATPathSpecSyntaxFlavorGlob = 0,
+    ATPathSpecSyntaxFlavorGlob = ATPathSpecSyntaxOptionsAllowStarWildcard | ATPathSpecSyntaxOptionsAllowQuestionMarkWildcard,
     // 100% compatibility with `.gitignore`
-    ATPathSpecSyntaxFlavorGitignore = ATPathSpecSyntaxOptionsAllowBackslashEscape | ATPathSpecSyntaxOptionsAllowNewlineSeparator | ATPathSpecSyntaxOptionsAllowBangNegation | ATPathSpecSyntaxOptionsAllowHashComment | ATPathSpecSyntaxOptionsMatchesAnyFolderWhenNoPathSpecified,
+    ATPathSpecSyntaxFlavorGitignore = ATPathSpecSyntaxFlavorGlob | ATPathSpecSyntaxOptionsAllowBackslashEscape | ATPathSpecSyntaxOptionsAllowNewlineSeparator | ATPathSpecSyntaxOptionsAllowBangNegation | ATPathSpecSyntaxOptionsAllowHashComment | ATPathSpecSyntaxOptionsMatchesAnyFolderWhenNoPathSpecified,
     // enables all ATPathSpec features
     // note that it's not fully compatible with gitignore because it has ATPathSpecSyntaxOptionsRequireTrailingSlashForFolders flag set
-    ATPathSpecSyntaxFlavorExtended = ATPathSpecSyntaxOptionsAllowBackslashEscape | ATPathSpecSyntaxOptionsAllowNewlineSeparator | ATPathSpecSyntaxOptionsAllowCommaSeparator | ATPathSpecSyntaxOptionsAllowWhitespaceSeparator | ATPathSpecSyntaxOptionsAllowPipeUnion | ATPathSpecSyntaxOptionsAllowAmpersandIntersection | ATPathSpecSyntaxOptionsAllowParen | ATPathSpecSyntaxOptionsAllowBangNegation | ATPathSpecSyntaxOptionsAllowHashComment | ATPathSpecSyntaxOptionsRequireTrailingSlashForFolders | ATPathSpecSyntaxOptionsMatchesAnyFolderWhenNoPathSpecified,
+    ATPathSpecSyntaxFlavorExtended = ATPathSpecSyntaxFlavorGitignore | ATPathSpecSyntaxOptionsAllowCommaSeparator | ATPathSpecSyntaxOptionsAllowWhitespaceSeparator | ATPathSpecSyntaxOptionsAllowPipeUnion | ATPathSpecSyntaxOptionsAllowAmpersandIntersection | ATPathSpecSyntaxOptionsAllowParen | ATPathSpecSyntaxOptionsRequireTrailingSlashForFolders,
 } ATPathSpecSyntaxOptions;
 
 

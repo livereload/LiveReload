@@ -17,12 +17,15 @@ Synopsis:
 
 Syntax flavors:
 
+* `ATPathSpecSyntaxFlavorLiteral`: literal string (no characters are special)
 * `ATPathSpecSyntaxFlavorGlob`: shell-style glob, supporting `*` and `?` wildcards
 * `ATPathSpecSyntaxFlavorGitignore`: 100% compatibility with `.gitignore`
 * `ATPathSpecSyntaxFlavorExtended`: enables all ATPathSpec features; note that it's not fully compatible with gitignore because it has `ATPathSpecSyntaxOptionsRequireTrailingSlashForFolders` flag set
 
 Syntax features (enabled via syntax flavors or individual feature flags):
 
+* `*` stands for any number of file name characters (`ATPathSpecSyntaxOptionsAllowStarWildcard`)
+* `?` stands for exactly one file name character (`ATPathSpecSyntaxOptionsAllowQuestionMarkWildcard`)
 * Escape special characters with backslashes (`ATPathSpecSyntaxOptionsAllowBackslashEscape`): `\!important.txt`
 * Use newlines, commas and/or whitespace to separate multiple patterns with gitignore semantics described below (`ATPathSpecSyntaxOptionsAllowNewlineSeparator`, `ATPathSpecSyntaxOptionsAllowCommaSeparator`, `ATPathSpecSyntaxOptionsAllowWhitespaceSeparator`): `*.txt, *.html, !*READ*, README.txt`
 * Use pipe for a union of several specs (`ATPathSpecSyntaxOptionsAllowPipeUnion`): `*.txt | *.html | (*.xml & !*build*)`

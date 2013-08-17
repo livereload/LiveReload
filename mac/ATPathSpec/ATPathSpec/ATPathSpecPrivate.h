@@ -3,7 +3,7 @@
 
 
 NSString *ATPathSpec_StringByEscapingRegex(NSString *regex);
-NSString *ATPathSpec_RegexFromPatternString(NSString *pattern);
+NSString *ATPathSpec_RegexFromPatternString(NSString *pattern, ATPathSpecSyntaxOptions options);
 NSString *ATPathSpecEntryType_AdjustTrailingSlashInPathString(ATPathSpecEntryType type, NSString *path);
 BOOL ATPathSpecEntryType_Match(ATPathSpecEntryType required, ATPathSpecEntryType actual);
 NSString *ATPathSpecSyntaxOptions_QuoteIfNeeded(NSString *string, ATPathSpecSyntaxOptions options);
@@ -33,7 +33,7 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
 
 @interface ATPatternMask : ATMask
 
-- (id)initWithPattern:(NSString *)pattern;
+- (id)initWithPattern:(NSString *)pattern syntaxOptions:(ATPathSpecSyntaxOptions)options;
 
 @property(nonatomic, readonly) NSString *pattern;
 

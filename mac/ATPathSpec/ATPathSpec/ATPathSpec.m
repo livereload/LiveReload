@@ -87,12 +87,18 @@ NSString *ATPathSpec_StringByEscapingRegex(NSString *regex) {
     return [regex stringByReplacingOccurrencesOfRegex:@"([\\\\.^$\\[|*+?\\{])" withString:@"\\\\$1"];
 }
 
-NSString *ATPathSpec_RegexFromPatternString(NSString *pattern) {
-    pattern = [pattern stringByReplacingOccurrencesOfString:@"*" withString:@"_@,STAR,@_"];
-    pattern = [pattern stringByReplacingOccurrencesOfString:@"?" withString:@"_@,DOT,@_"];
+NSString *ATPathSpec_RegexFromPatternString(NSString *pattern, ATPathSpecSyntaxOptions options) {
+    BOOL star = !!(options & ATPathSpecSyntaxOptionsAllowStarWildcard);
+    BOOL question = !!(options & ATPathSpecSyntaxOptionsAllowQuestionMarkWildcard);
+    if (star)
+        pattern = [pattern stringByReplacingOccurrencesOfString:@"*" withString:@"_@,STAR,@_"];
+    if (question)
+        pattern = [pattern stringByReplacingOccurrencesOfString:@"?" withString:@"_@,DOT,@_"];
     NSString *regex = ATPathSpec_StringByEscapingRegex(pattern);
-    regex = [regex stringByReplacingOccurrencesOfString:@"_@,DOT,@_" withString:@"."];
-    regex = [regex stringByReplacingOccurrencesOfString:@"_@,STAR,@_" withString:@".*"];
+    if (star)
+        regex = [regex stringByReplacingOccurrencesOfString:@"_@,DOT,@_" withString:@"."];
+    if (question)
+        regex = [regex stringByReplacingOccurrencesOfString:@"_@,STAR,@_" withString:@".*"];
     return [NSString stringWithFormat:@"^%@$", regex];
 }
 
@@ -150,23 +156,24 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
 @implementation ATMask
 
 + (ATMask *)maskWithString:(NSString *)string syntaxOptions:(ATPathSpecSyntaxOptions)options {
-    static NSCharacterSet *wildcards;
-    static dispatch_once_t wildcardsToken;
-    dispatch_once(&wildcardsToken, ^{
-        wildcards = [NSCharacterSet characterSetWithCharactersInString:@"*?"];
-    });
+    BOOL star = !!(options & ATPathSpecSyntaxOptionsAllowStarWildcard);
+    BOOL question = !!(options & ATPathSpecSyntaxOptionsAllowQuestionMarkWildcard);
+    if (!star && !question)
+        return [[ATLiteralMask alloc] initWithName:string];
+
+    NSCharacterSet *wildcards = [NSCharacterSet characterSetWithCharactersInString:@"*?"];
 
     NSUInteger wildcardPos = [string rangeOfCharacterFromSet:wildcards].location;
     if (wildcardPos == NSNotFound) {
         return [[ATLiteralMask alloc] initWithName:string];
     } else {
-        if (wildcardPos == 0 && [string characterAtIndex:0] == '*') {
+        if (star && wildcardPos == 0 && [string characterAtIndex:0] == '*') {
             NSString *suffix = [string substringFromIndex:1];
             if ([suffix rangeOfCharacterFromSet:wildcards].location == NSNotFound) {
                 return [[ATSuffixMask alloc] initWithSuffix:suffix];
             }
         }
-        return [[ATPatternMask alloc] initWithPattern:string];
+        return [[ATPatternMask alloc] initWithPattern:string syntaxOptions:options];
     }
 }
 
@@ -243,11 +250,11 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
 
 @synthesize pattern = _pattern;
 
-- (id)initWithPattern:(NSString *)pattern {
+- (id)initWithPattern:(NSString *)pattern syntaxOptions:(ATPathSpecSyntaxOptions)options {
     self = [super init];
     if (self) {
         _pattern = [pattern copy];
-        _regex = ATPathSpec_RegexFromPatternString(_pattern);
+        _regex = ATPathSpec_RegexFromPatternString(_pattern, options);
     }
     return self;
 }
