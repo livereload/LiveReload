@@ -65,6 +65,7 @@ static BOOL IsBrokenFolder(NSString *path) {
     if ((self = [super init])) {
         _filter = filter;
         _rootPath = [rootPath copy];
+        _folders = [NSMutableArray new];
 
         NSInteger maxItems = [[NSUserDefaults standardUserDefaults] integerForKey:@"MaxMonitoredFilesPerProject"];
         if (maxItems < 2)
@@ -91,6 +92,7 @@ static BOOL IsBrokenFolder(NSString *path) {
                 for (NSInteger next = 0; next < _count; ++next) {
                     struct FSTreeItem *item = &_items[next];
                     if (item->st_mode == S_IFDIR) {
+                        [_folders addObject:(__bridge NSString *)item->name];
 //                    NSLog(@"Listing %@", item->name);
                         NSString *itemPath = [_rootPath stringByAppendingPathComponent:(__bridge NSString *)(item->name)];
                         for (NSString *child in [[fm contentsOfDirectoryAtPath:itemPath error:nil] sortedArrayUsingSelector:@selector(compare:)]) {
@@ -233,6 +235,10 @@ static BOOL IsBrokenFolder(NSString *path) {
 
 
 #pragma mark - Querying
+
+- (NSArray *)folderPaths {
+    return _folders;
+}
 
 - (BOOL)containsFileNamed:(NSString *)fileName {
     return nil != [self pathOfFileNamed:fileName];

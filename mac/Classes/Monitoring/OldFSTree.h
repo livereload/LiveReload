@@ -11,6 +11,7 @@
     struct FSTreeItem *_items;
     NSInteger _count;
     NSTimeInterval _buildTime;
+    NSMutableArray *_folders;
 }
 
 - (id)initWithPath:(NSString *)path filter:(FSTreeFilter *)filter;
@@ -27,5 +28,7 @@
 - (NSString *)pathOfBestFileMatchingPathSuffix:(NSString *)pathSuffix preferringSubtree:(NSString *)subtreePath;
 
 - (NSArray *)brokenPaths;
+
+@property(nonatomic, readonly, strong) NSArray *folderPaths;
 
 @end

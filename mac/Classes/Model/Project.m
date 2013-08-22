@@ -1059,7 +1059,7 @@ skipGuessing:
 
 - (NSArray *)pathOptions {
     NSMutableArray *pathOptions = [NSMutableArray new];
-    for (NSString *path in @[@"", @"foo", @"bar"]) {
+    for (NSString *path in self.tree.folderPaths) {
         [pathOptions addObject:[FilterOption filterOptionWithSubfolder:path]];
     }
     return pathOptions;
