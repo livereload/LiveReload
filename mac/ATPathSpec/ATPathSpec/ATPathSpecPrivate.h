@@ -4,7 +4,6 @@
 
 NSString *ATPathSpec_StringByEscapingRegex(NSString *regex);
 NSString *ATPathSpec_RegexFromPatternString(NSString *pattern, ATPathSpecSyntaxOptions options);
-NSString *ATPathSpecEntryType_AdjustTrailingSlashInPathString(ATPathSpecEntryType type, NSString *path);
 BOOL ATPathSpecEntryType_Match(ATPathSpecEntryType required, ATPathSpecEntryType actual);
 NSString *ATPathSpecSyntaxOptions_QuoteIfNeeded(NSString *string, ATPathSpecSyntaxOptions options);
 NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSyntaxOptions options);

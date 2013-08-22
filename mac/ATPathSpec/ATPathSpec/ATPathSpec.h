@@ -42,6 +42,11 @@ typedef enum {
 } ATPathSpecSyntaxOptions;
 
 
+NSString *ATPathSpecAdjustTrailingSlash(NSString *path, ATPathSpecEntryType type);
+NSString *ATPathSpecAddTrailingSlash(NSString *path);
+NSString *ATPathSpecRemoveTrailingSlash(NSString *path);
+
+
 NSString *const ATPathSpecErrorDomain;
 NSString *const ATPathSpecErrorSpecStringKey;
 

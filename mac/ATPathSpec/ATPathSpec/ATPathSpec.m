@@ -102,15 +102,24 @@ NSString *ATPathSpec_RegexFromPatternString(NSString *pattern, ATPathSpecSyntaxO
     return [NSString stringWithFormat:@"^%@$", regex];
 }
 
-NSString *ATPathSpecEntryType_AdjustTrailingSlashInPathString(ATPathSpecEntryType type, NSString *path) {
-    BOOL needsSlash = (type == ATPathSpecEntryTypeFolder);
-    BOOL hasSlash = [path hasSuffix:@"/"];
-    if (needsSlash && !hasSlash)
+NSString *ATPathSpecAdjustTrailingSlash(NSString *path, ATPathSpecEntryType type) {
+    if (type == ATPathSpecEntryTypeFolder)
+        return ATPathSpecAddTrailingSlash(path);
+    else
+        return ATPathSpecRemoveTrailingSlash(path);
+}
+
+NSString *ATPathSpecAddTrailingSlash(NSString *path) {
+    if (![path hasSuffix:@"/"])
         return [path stringByAppendingString:@"/"];
-    else if (!needsSlash && hasSlash)
-        return [path substringToIndex:path.length - 1];
     else
         return path;
+}
+
+NSString *ATPathSpecRemoveTrailingSlash(NSString *path) {
+    while ([path hasSuffix:@"/"])
+        path = [path substringToIndex:path.length - 1];
+    return path;
 }
 
 BOOL ATPathSpecEntryType_Match(ATPathSpecEntryType required, ATPathSpecEntryType actual) {
@@ -770,7 +779,7 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
 }
 
 - (NSString *)stringRepresentationWithSyntaxOptions:(ATPathSpecSyntaxOptions)options {
-    return ATPathSpecEntryType_AdjustTrailingSlashInPathString(_type, [_mask stringRepresentationWithSyntaxOptions:options]);
+    return ATPathSpecAdjustTrailingSlash([_mask stringRepresentationWithSyntaxOptions:options], _type);
 }
 
 - (BOOL)isComplexExpression {
@@ -838,7 +847,7 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
     for (ATMask *mask in _masks) {
         [strings addObject:[mask stringRepresentationWithSyntaxOptions:options]];
     }
-    return ATPathSpecEntryType_AdjustTrailingSlashInPathString(_type, [strings componentsJoinedByString:@"/"]);
+    return ATPathSpecAdjustTrailingSlash([strings componentsJoinedByString:@"/"], _type);
 }
 
 - (BOOL)isComplexExpression {
