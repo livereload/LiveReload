@@ -4,6 +4,7 @@
 #import "ATMacViewCreation.h"
 #import "ATAutolayout.h"
 
+
 @implementation BaseActionRow {
     OptionsRow *_optionsRow;
 }
@@ -40,7 +41,7 @@
 
 - (OptionsRow *)optionsRow {
     if (!_optionsRow) {
-        _optionsRow = [OptionsRow rowWithRepresentedObject:self.representedObject metrics:self.metrics delegate:self];
+        _optionsRow = [OptionsRow rowWithRepresentedObject:self.representedObject metrics:self.metrics userInfo:nil delegate:self];
         _optionsRow.collapsed = YES;
 
         __weak BaseActionRow *myself = self;
@@ -72,6 +73,28 @@
 - (void)setDelegate:(id)delegate {
     NSAssert([delegate conformsToProtocol:@protocol(BaseActionRowDelegate)], @"Delegate must conform to BaseActionRowDelegate");
     [super setDelegate:delegate];
+}
+
+- (void)didUpdateUserInfo {
+    self.project = self.userInfo[@"project"];
+}
+
+- (void)setProject:(Project *)project {
+    if (_project != project) {
+        [self stopObservingProject];
+        _project = project;
+        [self startObservingProject];
+    }
+}
+
+- (Action *)action {
+    return self.representedObject;
+}
+
+- (void)stopObservingProject {
+}
+
+- (void)startObservingProject {
 }
 
 @end

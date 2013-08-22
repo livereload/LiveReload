@@ -1,6 +1,8 @@
 
 #import <Foundation/Foundation.h>
 #import "UserScript.h"
+#import "ATPathSpec.h"
+#import "FilterOption.h"
 
 
 @interface Action : NSObject
@@ -18,6 +20,9 @@
 @property(nonatomic) BOOL enabled;
 
 @property(nonatomic, readonly, getter = isNonEmpty) BOOL nonEmpty;
+
+@property(nonatomic, strong) FilterOption *inputFilterOption;
+@property(nonatomic, strong) ATPathSpec *inputPathSpec;
 
 - (void)invokeForProjectAtPath:(NSString *)projectPath withModifiedFiles:(NSSet *)paths completionHandler:(UserScriptCompletionHandler)completionHandler;
 

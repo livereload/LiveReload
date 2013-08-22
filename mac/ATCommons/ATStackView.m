@@ -239,24 +239,26 @@
 
 
 - (id)init {
-    return [self initWithRepresentedObject:nil metrics:nil delegate:nil];
+    return [self initWithRepresentedObject:nil metrics:nil userInfo:nil delegate:nil];
 }
 
-- (id)initWithRepresentedObject:(id)representedObject metrics:(NSDictionary*)metrics delegate:(id)delegate {
+- (id)initWithRepresentedObject:(id)representedObject metrics:(NSDictionary *)metrics userInfo:(NSDictionary *)userInfo delegate:(id)delegate {
     self = [super init];
     if (self) {
         _leadingAlignments = [NSMutableDictionary new];
         _trailingAlignments = [NSMutableDictionary new];
         _representedObject = representedObject;
         _metrics = metrics;
+        _userInfo = (userInfo ? [userInfo copy] : [NSDictionary new]);
         _delegate = delegate;
         [self startObservingRepresentedObject];
+        [self didUpdateUserInfo];
     }
     return self;
 }
 
-+ (id)rowWithRepresentedObject:(id)representedObject metrics:(NSDictionary*)metrics delegate:(id)delegate  {
-    id result = [[[self class] alloc] initWithRepresentedObject:representedObject metrics:metrics delegate:delegate];
++ (id)rowWithRepresentedObject:(id)representedObject metrics:(NSDictionary *)metrics userInfo:(NSDictionary *)userInfo delegate:(id)delegate  {
+    id result = [[[self class] alloc] initWithRepresentedObject:representedObject metrics:metrics userInfo:userInfo delegate:delegate];
 
     return result;
 }
@@ -267,6 +269,16 @@
 
 - (NSDictionary *)AT_metrics {
     return self.metrics;
+}
+
+- (void)setUserInfo:(NSDictionary *)userInfo {
+    if (_userInfo != userInfo) {
+        _userInfo = (userInfo ? [userInfo copy] : [NSDictionary new]);
+        [self didUpdateUserInfo];
+    }
+}
+
+- (void)didUpdateUserInfo {
 }
 
 - (void)loadContentIfNeeded {

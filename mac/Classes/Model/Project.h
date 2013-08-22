@@ -139,4 +139,6 @@ enum {
 
 @property(nonatomic, strong, readonly) ActionList *actionList;
 
+@property(nonatomic, strong, readonly) NSArray *pathOptions;
+
 @end

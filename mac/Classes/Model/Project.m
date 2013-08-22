@@ -17,6 +17,7 @@
 #import "ToolOutput.h"
 #import "UserScript.h"
 #import "ActionType+StandardActionTypes.h"
+#import "FilterOption.h"
 
 #import "Stats.h"
 #import "RegexKitLite.h"
@@ -1053,5 +1054,15 @@ skipGuessing:
     self.urlMasks = [formattedUrlMaskList componentsSeparatedByRegex:@"\\s*,\\s*|\\s+"];
 }
 
+
+#pragma mark - Path Options
+
+- (NSArray *)pathOptions {
+    NSMutableArray *pathOptions = [NSMutableArray new];
+    for (NSString *path in @[@"", @"foo", @"bar"]) {
+        [pathOptions addObject:[FilterOption filterOptionWithSubfolder:path]];
+    }
+    return pathOptions;
+}
 
 @end

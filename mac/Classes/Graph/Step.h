@@ -7,6 +7,6 @@
 
 @interface Step : NSObject
 
-@property(nonatomic, strong) LRFile
+@property(nonatomic, strong) LRFile *file;
 
 @end

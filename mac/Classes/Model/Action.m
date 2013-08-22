@@ -34,16 +34,25 @@
 
 - (void)loadFromMemento:(NSDictionary *)memento {
     self.enabled = [(memento[@"enabled"] ?: @YES) boolValue];
+    self.inputFilterOption = [FilterOption filterOptionWithMemento:(memento[@"filter"] ?: @"subdir:.")];
 }
 
 - (void)updateMemento:(NSMutableDictionary *)memento {
     memento[@"action"] = self.typeIdentifier;
     memento[@"enabled"] = (self.enabled ? @1 : @0);
+    memento[@"filter"] = self.inputFilterOption.memento;
 }
 
 - (void)setEnabled:(BOOL)enabled {
     if (_enabled != enabled) {
         _enabled = enabled;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+    }
+}
+
+- (void)setInputFilterOption:(FilterOption *)inputFilterOption {
+    if (_inputFilterOption != inputFilterOption) {
+        _inputFilterOption = inputFilterOption;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
     }
 }

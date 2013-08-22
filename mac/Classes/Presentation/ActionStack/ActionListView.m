@@ -3,6 +3,7 @@
 #import "ActionList.h"
 #import "Action.h"
 #import "GroupHeaderRow.h"
+#import "Project.h"
 
 #import "ActionsGroupHeaderRow.h"
 #import "RunCustomCommandActionRow.h"
@@ -55,6 +56,16 @@ static void *ActionListView_Action_Context = "ActionListView_Action_Context";
     }
 }
 
+- (void)setProject:(Project *)project {
+    if (_project != project) {
+        _project = project;
+        self.actionList = project.actionList;
+
+        _loaded = NO;
+        [self setNeedsUpdateConstraints:YES];
+    }
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if (context == ActionListView_Action_Context)
         [self updateActionRows];
@@ -76,7 +87,7 @@ static void *ActionListView_Action_Context = "ActionListView_Action_Context";
     [self updateRowsOfClass:[BaseActionRow class] betweenRow:_filtersHeaderRow andRow:_filtersAddRow newRepresentedObjects:self.actionList.actions create:^ATStackViewRow *(Action *action) {
         Class rowClass = _rowClassByActionName[action.typeIdentifier];
         if (rowClass) {
-            return [rowClass rowWithRepresentedObject:action metrics:_metrics delegate:self];
+            return [rowClass rowWithRepresentedObject:action metrics:_metrics userInfo:@{@"project": self.project} delegate:self];
         } else {
             return nil;
         }
@@ -87,7 +98,7 @@ static void *ActionListView_Action_Context = "ActionListView_Action_Context";
     [self updateRowsOfClass:[BaseActionRow class] betweenRow:_actionsHeaderRow andRow:_actionsAddRow newRepresentedObjects:self.actionList.actions create:^ATStackViewRow *(Action *action) {
         Class rowClass = _rowClassByActionName[action.typeIdentifier];
         if (rowClass) {
-            return [rowClass rowWithRepresentedObject:action metrics:_metrics delegate:self];
+            return [rowClass rowWithRepresentedObject:action metrics:_metrics userInfo:@{@"project": self.project} delegate:self];
         } else {
             return nil;
         }
@@ -103,13 +114,13 @@ static void *ActionListView_Action_Context = "ActionListView_Action_Context";
     [self addItem:[self addButtonRowWithPrompt:@"Add compiler" choices:@[@"SASS", @"Compass", @"LESS"]]];
 #endif
 
-    _filtersHeaderRow = [FiltersGroupHeaderRow rowWithRepresentedObject:@{@"title": @"Filters:"} metrics:_metrics delegate:self];
-    _filtersAddRow = [AddFilterRow rowWithRepresentedObject:self.actionList metrics:_metrics delegate:self];
+    _filtersHeaderRow = [FiltersGroupHeaderRow rowWithRepresentedObject:@{@"title": @"Filters:"} metrics:_metrics userInfo:nil delegate:self];
+    _filtersAddRow = [AddFilterRow rowWithRepresentedObject:self.actionList metrics:_metrics userInfo:nil delegate:self];
     [self addItem:_filtersHeaderRow];
     [self addItem:_filtersAddRow];
 
-    _actionsHeaderRow = [ActionsGroupHeaderRow rowWithRepresentedObject:@{@"title": @"Other actions:"} metrics:_metrics delegate:self];
-    _actionsAddRow = [AddActionRow rowWithRepresentedObject:self.actionList metrics:_metrics delegate:self];
+    _actionsHeaderRow = [ActionsGroupHeaderRow rowWithRepresentedObject:@{@"title": @"Other actions:"} metrics:_metrics userInfo:nil delegate:self];
+    _actionsAddRow = [AddActionRow rowWithRepresentedObject:self.actionList metrics:_metrics userInfo:nil delegate:self];
     [self addItem:_actionsHeaderRow];
     [self addItem:_actionsAddRow];
 

@@ -852,7 +852,7 @@ void C_mainwnd__set_change_count(json_t *arg) {
 #pragma mark - Actions Table
 
 - (void)renderActions {
-    self.actionsStackView.actionList = _selectedProject.actionList;
+    self.actionsStackView.project = _selectedProject;
 }
 
 

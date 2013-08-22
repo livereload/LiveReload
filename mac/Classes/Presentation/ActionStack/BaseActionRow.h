@@ -1,8 +1,10 @@
 
 #import "ATStackView.h"
 #import "LROptionsView.h"
+#import "Action.h"
 
 
+@class Project;
 @class OptionsRow;
 
 
@@ -14,7 +16,14 @@
 
 @property (nonatomic, strong, readonly) OptionsRow *optionsRow;
 
+@property (nonatomic, strong, readonly) Action *action;
+@property (nonatomic, strong) Project *project;
+
 - (void)loadOptionsIntoView:(LROptionsView *)container;  // override point
+
+// override points
+- (void)stopObservingProject;
+- (void)startObservingProject;
 
 @end
 
