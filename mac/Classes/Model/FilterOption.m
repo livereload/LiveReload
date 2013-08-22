@@ -12,6 +12,7 @@
             subfolder = @"";
         _subfolder = [subfolder copy];
         _pathSpec = [ATPathSpec pathSpecMatchingPath:subfolder type:ATPathSpecEntryTypeFolder syntaxOptions:ATPathSpecSyntaxFlavorLiteral];
+        _valid = YES;
     }
     return self;
 }

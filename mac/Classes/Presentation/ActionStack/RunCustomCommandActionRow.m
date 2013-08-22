@@ -6,6 +6,7 @@
 #import "ATAutolayout.h"
 #import "Project.h"
 #import "FilterOption.h"
+#import "ATAttributedStringAdditions.h"
 
 
 @interface RunCustomCommandActionRow ()
@@ -56,19 +57,31 @@
 }
 
 - (void)updateFilterOptions {
-    CustomCommandAction *action = self.representedObject;
+    [self updateFilterOptionsPopUp:self.filterPopUp selectedOption:self.action.inputFilterOption];
+}
 
-    NSMenu *menu = self.filterPopUp.menu;
+- (void)updateFilterOptionsPopUp:(NSPopUpButton *)popUp selectedOption:(FilterOption *)selectedOption {
+    NSMenu *menu = popUp.menu;
     [menu removeAllItems];
+
+    NSMenuItem *selectedItem = nil;
 
     NSArray *filterOptions = self.project.pathOptions;
     for (FilterOption *filterOption in filterOptions) {
         NSMenuItem *item = [menu addItemWithTitle:filterOption.displayName action:NULL keyEquivalent:@""];
         item.representedObject = filterOption;
 
-        if ([filterOption isEqualToFilterOption:action.inputFilterOption])
-            [self.filterPopUp selectItem:item];
+        if (selectedOption && [filterOption isEqualToFilterOption:selectedOption])
+            selectedItem = item;
     }
+
+    if (!selectedItem && selectedOption) {
+        selectedItem = [menu addItemWithTitle:selectedOption.displayName action:NULL keyEquivalent:@""];
+        selectedItem.representedObject = selectedOption;
+        selectedItem.attributedTitle = [NSAttributedString AT_attributedStringWithPrimaryString:selectedOption.displayName secondaryString:NSLocalizedString(@" (missing)", @"Missing suffix for pop ups") primaryStyle:@{NSFontAttributeName:[NSFont menuFontOfSize:0]} secondaryStyle:@{NSForegroundColorAttributeName:[NSColor disabledControlTextColor], NSFontAttributeName:[NSFont menuFontOfSize:10]}];
+    }
+
+    [self.filterPopUp selectItem:selectedItem];
 }
 
 - (IBAction)filterOptionSelected:(id)sender {

@@ -16,4 +16,6 @@
 
 - (BOOL)isEqualToFilterOption:(FilterOption *)peer;
 
+@property(nonatomic) BOOL valid;
+
 @end
