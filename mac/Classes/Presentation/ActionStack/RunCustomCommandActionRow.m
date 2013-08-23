@@ -28,7 +28,6 @@
 //    self.runLabel = [[NSTextField staticLabelWithString:@"Run"] addedToView:self];
 //    _commandField = [[NSTextField editableField] addedToView:self];
     self.filterPopUp = [[[[NSPopUpButton popUpButton] withBezelStyle:NSRoundRectBezelStyle] withTarget:self action:@selector(filterOptionSelected:)] addedToView:self];
-    [self.filterPopUp addItemWithTitle:@"any file"];
 
     [self addConstraintsWithVisualFormat:@"|-indentL2-[checkbox(>=200)]-[filterPopUp(>=120)]-(>=buttonBarGapMin)-[optionsButton]-buttonGap-[removeButton]|" options:NSLayoutFormatAlignAllCenterY];
     [self addFullHeightConstraintsForSubview:self.filterPopUp];
@@ -48,44 +47,21 @@
 }
 
 - (void)updateContent {
+    [super updateContent];
+    [self updateFilterOptions];
+
     CustomCommandAction *action = self.representedObject;
     NSString *command = action.singleLineCommand;
 
     [self.checkbox setTitle:(command.length > 0 ? [NSString stringWithFormat:NSLocalizedString(@"Run %@", nil), command] : NSLocalizedString(@"Run custom command", nil))];
-
-    [self updateFilterOptions];
 }
 
 - (void)updateFilterOptions {
     [self updateFilterOptionsPopUp:self.filterPopUp selectedOption:self.action.inputFilterOption];
 }
 
-- (void)updateFilterOptionsPopUp:(NSPopUpButton *)popUp selectedOption:(FilterOption *)selectedOption {
-    NSMenu *menu = popUp.menu;
-    [menu removeAllItems];
-
-    NSMenuItem *selectedItem = nil;
-
-    NSArray *filterOptions = self.project.pathOptions;
-    for (FilterOption *filterOption in filterOptions) {
-        NSMenuItem *item = [menu addItemWithTitle:filterOption.displayName action:NULL keyEquivalent:@""];
-        item.representedObject = filterOption;
-
-        if (selectedOption && [filterOption isEqualToFilterOption:selectedOption])
-            selectedItem = item;
-    }
-
-    if (!selectedItem && selectedOption) {
-        selectedItem = [menu addItemWithTitle:selectedOption.displayName action:NULL keyEquivalent:@""];
-        selectedItem.representedObject = selectedOption;
-        selectedItem.attributedTitle = [NSAttributedString AT_attributedStringWithPrimaryString:selectedOption.displayName secondaryString:NSLocalizedString(@" (missing)", @"Missing suffix for pop ups") primaryStyle:@{NSFontAttributeName:[NSFont menuFontOfSize:0]} secondaryStyle:@{NSForegroundColorAttributeName:[NSColor disabledControlTextColor], NSFontAttributeName:[NSFont menuFontOfSize:10]}];
-    }
-
-    [self.filterPopUp selectItem:selectedItem];
-}
-
-- (IBAction)filterOptionSelected:(id)sender {
-    FilterOption *filterOption = self.filterPopUp.selectedItem.representedObject;
+- (IBAction)filterOptionSelected:(NSPopUpButton *)sender {
+    FilterOption *filterOption = sender.selectedItem.representedObject;
     self.action.inputFilterOption = filterOption;
 }
 

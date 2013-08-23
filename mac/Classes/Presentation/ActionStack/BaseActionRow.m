@@ -1,8 +1,10 @@
 
 #import "BaseActionRow.h"
 #import "OptionsRow.h"
+#import "Project.h"
 #import "ATMacViewCreation.h"
 #import "ATAutolayout.h"
+#import "ATAttributedStringAdditions.h"
 
 
 @implementation BaseActionRow {
@@ -95,6 +97,30 @@
 }
 
 - (void)startObservingProject {
+}
+
+- (void)updateFilterOptionsPopUp:(NSPopUpButton *)popUp selectedOption:(FilterOption *)selectedOption {
+    NSMenu *menu = popUp.menu;
+    [menu removeAllItems];
+
+    NSMenuItem *selectedItem = nil;
+
+    NSArray *filterOptions = self.project.pathOptions;
+    for (FilterOption *filterOption in filterOptions) {
+        NSMenuItem *item = [menu addItemWithTitle:filterOption.displayName action:NULL keyEquivalent:@""];
+        item.representedObject = filterOption;
+
+        if (selectedOption && [filterOption isEqualToFilterOption:selectedOption])
+            selectedItem = item;
+    }
+
+    if (!selectedItem && selectedOption) {
+        selectedItem = [menu addItemWithTitle:selectedOption.displayName action:NULL keyEquivalent:@""];
+        selectedItem.representedObject = selectedOption;
+        selectedItem.attributedTitle = [NSAttributedString AT_attributedStringWithPrimaryString:selectedOption.displayName secondaryString:NSLocalizedString(@" (missing)", @"Missing suffix for pop ups") primaryStyle:@{NSFontAttributeName:[NSFont menuFontOfSize:0]} secondaryStyle:@{NSForegroundColorAttributeName:[NSColor disabledControlTextColor], NSFontAttributeName:[NSFont menuFontOfSize:10]}];
+    }
+
+    [popUp selectItem:selectedItem];
 }
 
 @end
