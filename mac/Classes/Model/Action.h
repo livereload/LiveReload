@@ -5,6 +5,9 @@
 #import "FilterOption.h"
 
 
+@class Project;
+
+
 @interface Action : NSObject
 
 + (NSString *)typeIdentifier;
@@ -22,7 +25,9 @@
 @property(nonatomic, readonly, getter = isNonEmpty) BOOL nonEmpty;
 
 @property(nonatomic, strong) FilterOption *inputFilterOption;
-@property(nonatomic, strong) ATPathSpec *inputPathSpec;
+@property(nonatomic, readonly, strong) ATPathSpec *inputPathSpec;
+
+- (BOOL)shouldInvokeForModifiedFiles:(NSSet *)paths inProject:(Project *)project;
 
 - (void)invokeForProjectAtPath:(NSString *)projectPath withModifiedFiles:(NSSet *)paths completionHandler:(UserScriptCompletionHandler)completionHandler;
 

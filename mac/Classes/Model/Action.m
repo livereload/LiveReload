@@ -57,8 +57,20 @@
     }
 }
 
+- (ATPathSpec *)inputPathSpec {
+    return _inputFilterOption.pathSpec;
+}
+
 - (BOOL)isNonEmpty {
     return YES;
+}
+
+- (BOOL)shouldInvokeForModifiedFiles:(NSSet *)paths inProject:(Project *)project {
+    for (NSString *path in paths) {
+        if ([self.inputPathSpec matchesPath:path type:ATPathSpecEntryTypeFile])
+            return YES;
+    }
+    return NO;
 }
 
 - (void)invokeForProjectAtPath:(NSString *)projectPath withModifiedFiles:(NSSet *)paths completionHandler:(UserScriptCompletionHandler)completionHandler {

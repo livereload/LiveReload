@@ -554,17 +554,22 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     Action *action = [actions firstObject];
     actions = [actions subarrayWithRange:NSMakeRange(1, actions.count - 1)];
 
-    [action invokeForProjectAtPath:_path withModifiedFiles:paths completionHandler:^(BOOL invoked, ToolOutput *output, NSError *error) {
-        if (output) {
-            output.project = self;
-            [[[ToolOutputWindowController alloc] initWithCompilerOutput:output key:[NSString stringWithFormat:@"%@.postproc", _path]] show];
-        }
+    if ([action shouldInvokeForModifiedFiles:paths inProject:self]) {
+        [action invokeForProjectAtPath:_path withModifiedFiles:paths completionHandler:^(BOOL invoked, ToolOutput *output, NSError *error) {
+            if (output) {
+                output.project = self;
+                [[[ToolOutputWindowController alloc] initWithCompilerOutput:output key:[NSString stringWithFormat:@"%@.postproc", _path]] show];
+            }
 
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self invokeNextActionInArray:actions withModifiedPaths:paths];
+            });
+        }];
+    } else {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self invokeNextActionInArray:actions withModifiedPaths:paths];
         });
-    }];
-
+    }
 }
 
 - (void)processPendingChanges {
