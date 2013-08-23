@@ -1,5 +1,6 @@
 
 #import <Cocoa/Cocoa.h>
+#import "FSChange.h"
 
 
 @class FSTreeDiffer;
@@ -48,6 +49,6 @@
 
 @protocol FSMonitorDelegate <NSObject>
 
-- (void)fileSystemMonitor:(FSMonitor *)monitor detectedChangeAtPathes:(NSSet *)pathes;
+- (void)fileSystemMonitor:(FSMonitor *)monitor detectedChange:(FSChange *)change;
 
 @end

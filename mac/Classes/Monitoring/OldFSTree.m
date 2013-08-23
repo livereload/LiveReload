@@ -128,6 +128,8 @@ static BOOL IsBrokenFolder(NSString *path) {
             _buildTime = [end timeIntervalSinceReferenceDate] - [start timeIntervalSinceReferenceDate];
             NSLog(@"Scanned %d items in %.3lfs in directory %@", (int)_count, _buildTime, rootPath);
         }
+
+        [_folders sortUsingSelector:@selector(compare:)];
     }
     return self;
 }

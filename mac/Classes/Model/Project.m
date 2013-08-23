@@ -454,14 +454,19 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 }
 #endif
 
-- (void)fileSystemMonitor:(FSMonitor *)monitor detectedChangeAtPathes:(NSSet *)paths {
-    [_pendingChanges unionSet:paths];
+- (void)fileSystemMonitor:(FSMonitor *)monitor detectedChange:(FSChange *)change {
+    [_pendingChanges unionSet:change.changedFiles];
 
     if (!(_runningPostProcessor || (_lastPostProcessingRunDate > 0 && [NSDate timeIntervalSinceReferenceDate] < _lastPostProcessingRunDate + _postProcessingGracePeriod))) {
         _pendingPostProcessing = YES;
     }
 
     [self processPendingChanges];
+
+    if (change.folderListChanged) {
+        [self willChangeValueForKey:@"filterOptions"];
+        [self didChangeValueForKey:@"filterOptions"];
+    }
 }
 
 - (void)processBatchOfPendingChanges:(NSSet *)pathes {

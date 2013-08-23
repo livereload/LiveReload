@@ -48,7 +48,6 @@
 
 - (void)updateContent {
     [super updateContent];
-    [self updateFilterOptions];
 
     CustomCommandAction *action = self.representedObject;
     NSString *command = action.singleLineCommand;

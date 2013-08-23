@@ -2,6 +2,7 @@
 #import "OldFSTreeDiffer.h"
 #import "OldFSTree.h"
 #import "OldFSTreeFilter.h"
+#import "FSChange.h"
 
 
 @interface FSTreeDiffer ()
@@ -28,14 +29,15 @@
     return result;
 }
 
-- (NSSet *)changedPathsByRescanningSubfolders:(NSSet *)subfolderPathes {
+- (FSChange *)changedPathsByRescanningSubfolders:(NSSet *)subfolderPathes {
     FSTree *currentTree = [[FSTree alloc] initWithPath:_path filter:_filter];
 
     NSSet *changedPaths = [currentTree differenceFrom:_previousTree];
+    BOOL folderListChanged = ![currentTree.folderPaths isEqualToArray:_previousTree.folderPaths];
 
     _previousTree = currentTree;
 
-    return changedPaths;
+    return [FSChange changeWithFiles:changedPaths folderListChanged:folderListChanged];
 }
 
 - (FSTree *)savedTree {

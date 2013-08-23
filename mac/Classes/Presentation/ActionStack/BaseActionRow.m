@@ -7,6 +7,9 @@
 #import "ATAttributedStringAdditions.h"
 
 
+static void *BaseActionRow_Project_FilterOptions_Context = "BaseActionRow_Project_FilterOptions_Context";
+
+
 @implementation BaseActionRow {
     OptionsRow *_optionsRow;
 }
@@ -94,9 +97,22 @@
 }
 
 - (void)stopObservingProject {
+    [self.project removeObserver:self forKeyPath:@"filterOptions" context:BaseActionRow_Project_FilterOptions_Context];
 }
 
 - (void)startObservingProject {
+    [self.project addObserver:self forKeyPath:@"filterOptions" options:0 context:BaseActionRow_Project_FilterOptions_Context];
+}
+
+- (void)filterOptionsDidChange {
+    [self updateFilterOptions];
+}
+
+- (void)updateContent {
+    [self updateFilterOptions];
+}
+
+- (void)updateFilterOptions {
 }
 
 - (void)updateFilterOptionsPopUp:(NSPopUpButton *)popUp selectedOption:(FilterOption *)selectedOption {
@@ -121,6 +137,14 @@
     }
 
     [popUp selectItem:selectedItem];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if (context == BaseActionRow_Project_FilterOptions_Context) {
+        [self filterOptionsDidChange];
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
 }
 
 @end

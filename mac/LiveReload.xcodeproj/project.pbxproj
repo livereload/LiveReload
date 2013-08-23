@@ -213,6 +213,7 @@
 		43C0368613CA191D00A01305 /* LiveReload.icns in Resources */ = {isa = PBXBuildFile; fileRef = 43C0368513CA191C00A01305 /* LiveReload.icns */; };
 		43C3D04E15B37B1500BCD2E8 /* LicenseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C3D04D15B37B1500BCD2E8 /* LicenseManager.m */; };
 		43CDCF8D17C6082A007B22D9 /* ATAttributedStringAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CDCF8C17C6082A007B22D9 /* ATAttributedStringAdditions.m */; };
+		43CDCF9017C70A94007B22D9 /* FSChange.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CDCF8F17C70A94007B22D9 /* FSChange.m */; };
 		43DB9FD4178EDF2E007BEA36 /* Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD3178EDF2E007BEA36 /* Errors.m */; };
 		43DB9FD7178EFA64007BEA36 /* ExternalEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD6178EFA64007BEA36 /* ExternalEditor.m */; };
 		43DB9FDA1792545E007BEA36 /* LRPluginCommons.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD91792545E007BEA36 /* LRPluginCommons.m */; };
@@ -643,6 +644,8 @@
 		43C3D04D15B37B1500BCD2E8 /* LicenseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LicenseManager.m; sourceTree = "<group>"; };
 		43CDCF8B17C6082A007B22D9 /* ATAttributedStringAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATAttributedStringAdditions.h; sourceTree = "<group>"; };
 		43CDCF8C17C6082A007B22D9 /* ATAttributedStringAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATAttributedStringAdditions.m; sourceTree = "<group>"; };
+		43CDCF8E17C70A94007B22D9 /* FSChange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSChange.h; sourceTree = "<group>"; };
+		43CDCF8F17C70A94007B22D9 /* FSChange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSChange.m; sourceTree = "<group>"; };
 		43DB9FD2178EDF2E007BEA36 /* Errors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Errors.h; sourceTree = "<group>"; };
 		43DB9FD3178EDF2E007BEA36 /* Errors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Errors.m; sourceTree = "<group>"; };
 		43DB9FD5178EFA64007BEA36 /* ExternalEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExternalEditor.h; sourceTree = "<group>"; };
@@ -1637,6 +1640,8 @@
 				4378C8CE1515205C003187D5 /* OldFSTreeDiffer.m */,
 				4378C8CF1515205C003187D5 /* OldFSTreeFilter.h */,
 				4378C8D01515205C003187D5 /* OldFSTreeFilter.m */,
+				43CDCF8E17C70A94007B22D9 /* FSChange.h */,
+				43CDCF8F17C70A94007B22D9 /* FSChange.m */,
 			);
 			path = Monitoring;
 			sourceTree = "<group>";
@@ -2066,6 +2071,7 @@
 				43B5C00517ADF16B00F57276 /* ATModelDiff.m in Sources */,
 				43B5C01017ADF35C00F57276 /* NSArray+ATSubstitutions.m in Sources */,
 				43B5C01217ADF35C00F57276 /* NSString+ATProperURLEncoding.m in Sources */,
+				43CDCF9017C70A94007B22D9 /* FSChange.m in Sources */,
 				43B5C01417ADF35C00F57276 /* NSWindowController+ATTextStyling.m in Sources */,
 				43B5C01717ADF5FB00F57276 /* RegexKitLite.m in Sources */,
 				43508A9017B39C9700871422 /* ATSolidView.m in Sources */,

@@ -25,6 +25,8 @@
 - (void)stopObservingProject;
 - (void)startObservingProject;
 
+- (void)updateFilterOptions; // override point
+
 - (void)updateFilterOptionsPopUp:(NSPopUpButton *)popUp selectedOption:(FilterOption *)selectedOption;
 
 @end

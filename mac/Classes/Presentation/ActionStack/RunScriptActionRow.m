@@ -32,7 +32,6 @@
 
 - (void)updateContent {
     [super updateContent];
-    [self updateFilterOptions];
 
     UserScriptAction *action = self.representedObject;
 

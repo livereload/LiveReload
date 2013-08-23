@@ -4,6 +4,7 @@
 
 @class FSTree;
 @class FSTreeFilter;
+@class FSChange;
 
 
 @interface FSTreeDiffer : NSObject {
@@ -15,7 +16,7 @@
 
 - (id)initWithPath:(NSString *)path filter:(FSTreeFilter *)filter;
 
-- (NSSet *)changedPathsByRescanningSubfolders:(NSSet *)subfolderPathes;
+- (FSChange *)changedPathsByRescanningSubfolders:(NSSet *)subfolderPathes;
 
 @property(nonatomic, readonly, strong) FSTree *savedTree;
 

@@ -139,9 +139,9 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
         _cacheWaitingTime = MAX(lastRebuildTime, minDelay);
     }
 
-    NSSet *changes = [_treeDiffer changedPathsByRescanningSubfolders:cachedPaths];
-    if ([changes count] > 0) {
-        [self.delegate fileSystemMonitor:self detectedChangeAtPathes:changes];
+    FSChange *change = [_treeDiffer changedPathsByRescanningSubfolders:cachedPaths];
+    if (change.isNonEmpty) {
+        [self.delegate fileSystemMonitor:self detectedChange:change];
     }
 }
 
