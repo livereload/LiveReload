@@ -3,6 +3,10 @@
 
 @implementation AutoprefixerAction
 
++ (NSString *)typeIdentifier {
+    return @"autoprefixer";
+}
+
 - (void)invokeForProjectAtPath:(NSString *)projectPath withModifiedFiles:(NSSet *)paths completionHandler:(UserScriptCompletionHandler)completionHandler {
     
 }

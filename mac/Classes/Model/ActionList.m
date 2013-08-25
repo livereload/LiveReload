@@ -90,4 +90,26 @@
     return [NSSet setWithObject:@"actions"];
 }
 
+- (NSArray *)filterActions {
+    return [_actions filteredArrayUsingBlock:^BOOL(Action *action) {
+        ActionType *type = _actionTypesByIdentifier[action.typeIdentifier];
+        return type.kind == ActionKindFilter;
+    }];
+}
+
++ (NSSet *)keyPathsForValuesAffectingFilterActions {
+    return [NSSet setWithObject:@"actions"];
+}
+
+- (NSArray *)postprocActions {
+    return [_actions filteredArrayUsingBlock:^BOOL(Action *action) {
+        ActionType *type = _actionTypesByIdentifier[action.typeIdentifier];
+        return type.kind == ActionKindPostproc;
+    }];
+}
+
++ (NSSet *)keyPathsForValuesAffectingPostprocActions {
+    return [NSSet setWithObject:@"actions"];
+}
+
 @end

@@ -84,7 +84,7 @@ static void *ActionListView_Action_Context = "ActionListView_Action_Context";
 }
 
 - (void)updateFilterRows {
-    [self updateRowsOfClass:[BaseActionRow class] betweenRow:_filtersHeaderRow andRow:_filtersAddRow newRepresentedObjects:self.actionList.actions create:^ATStackViewRow *(Action *action) {
+    [self updateRowsOfClass:[BaseActionRow class] betweenRow:_filtersHeaderRow andRow:_filtersAddRow newRepresentedObjects:self.actionList.filterActions create:^ATStackViewRow *(Action *action) {
         Class rowClass = _rowClassByActionName[action.typeIdentifier];
         if (rowClass) {
             return [rowClass rowWithRepresentedObject:action metrics:_metrics userInfo:@{@"project": self.project} delegate:self];
@@ -95,7 +95,7 @@ static void *ActionListView_Action_Context = "ActionListView_Action_Context";
 }
 
 - (void)updateActionRows {
-    [self updateRowsOfClass:[BaseActionRow class] betweenRow:_actionsHeaderRow andRow:_actionsAddRow newRepresentedObjects:self.actionList.actions create:^ATStackViewRow *(Action *action) {
+    [self updateRowsOfClass:[BaseActionRow class] betweenRow:_actionsHeaderRow andRow:_actionsAddRow newRepresentedObjects:self.actionList.postprocActions create:^ATStackViewRow *(Action *action) {
         Class rowClass = _rowClassByActionName[action.typeIdentifier];
         if (rowClass) {
             return [rowClass rowWithRepresentedObject:action metrics:_metrics userInfo:@{@"project": self.project} delegate:self];
