@@ -714,6 +714,15 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
     return [self stringRepresentationWithSyntaxOptions:ATPathSpecSyntaxFlavorExtended];
 }
 
+- (NSArray *)matchingPathsInArray:(NSArray *)paths type:(ATPathSpecEntryType)type {
+    NSMutableArray *result = [[NSMutableArray alloc] initWithCapacity:paths.count];
+    for (NSString *path in paths) {
+        if ([self matchesPath:path type:type])
+            [result addObject:path];
+    }
+    return [result copy];
+}
+
 @end
 
 

@@ -218,6 +218,8 @@
 		43DB9FD7178EFA64007BEA36 /* ExternalEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD6178EFA64007BEA36 /* ExternalEditor.m */; };
 		43DB9FDA1792545E007BEA36 /* LRPluginCommons.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD91792545E007BEA36 /* LRPluginCommons.m */; };
 		43DFE4DB17CA97A800DEF87B /* FilterActionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DFE4DA17CA97A800DEF87B /* FilterActionRow.m */; };
+		43DFE4DE17CB613100DEF87B /* ATAsync.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DFE4DD17CB613100DEF87B /* ATAsync.m */; };
+		43DFE4E117CB6B4A00DEF87B /* LRFile2.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DFE4E017CB6B4A00DEF87B /* LRFile2.m */; };
 		43E07EC217B01C4B004DB867 /* ATJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E07EC117B01C4B004DB867 /* ATJson.m */; };
 		43E34F9B14705125001641AA /* console.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E34F9714705125001641AA /* console.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		43E34F9C14705125001641AA /* eventbus.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E34F9914705125001641AA /* eventbus.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -655,6 +657,10 @@
 		43DB9FD91792545E007BEA36 /* LRPluginCommons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPluginCommons.m; sourceTree = "<group>"; };
 		43DFE4D917CA97A800DEF87B /* FilterActionRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterActionRow.h; sourceTree = "<group>"; };
 		43DFE4DA17CA97A800DEF87B /* FilterActionRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterActionRow.m; sourceTree = "<group>"; };
+		43DFE4DC17CB613100DEF87B /* ATAsync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATAsync.h; sourceTree = "<group>"; };
+		43DFE4DD17CB613100DEF87B /* ATAsync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATAsync.m; sourceTree = "<group>"; };
+		43DFE4DF17CB6B4A00DEF87B /* LRFile2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRFile2.h; sourceTree = "<group>"; };
+		43DFE4E017CB6B4A00DEF87B /* LRFile2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRFile2.m; sourceTree = "<group>"; };
 		43E07EC017B01C4A004DB867 /* ATJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATJson.h; sourceTree = "<group>"; };
 		43E07EC117B01C4B004DB867 /* ATJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATJson.m; sourceTree = "<group>"; };
 		43E34F9714705125001641AA /* console.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = console.c; sourceTree = "<group>"; };
@@ -1445,6 +1451,8 @@
 				434BB24B17B6913F000BEB1C /* ATMacViewCreation.m */,
 				43CDCF8B17C6082A007B22D9 /* ATAttributedStringAdditions.h */,
 				43CDCF8C17C6082A007B22D9 /* ATAttributedStringAdditions.m */,
+				43DFE4DC17CB613100DEF87B /* ATAsync.h */,
+				43DFE4DD17CB613100DEF87B /* ATAsync.m */,
 			);
 			path = ATCommons;
 			sourceTree = "<group>";
@@ -1630,6 +1638,8 @@
 				434BB27917BB9B30000BEB1C /* AutoprefixerAction.m */,
 				439865AE17C5F16E00EC6471 /* FilterOption.h */,
 				439865AF17C5F16E00EC6471 /* FilterOption.m */,
+				43DFE4DF17CB6B4A00DEF87B /* LRFile2.h */,
+				43DFE4E017CB6B4A00DEF87B /* LRFile2.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1943,6 +1953,7 @@
 				4346F3A91450D8AD00B133F2 /* ImportGraph.m in Sources */,
 				435729171452267C00947B2E /* Stats.m in Sources */,
 				434BB26217B945F0000BEB1C /* LROptionsView.m in Sources */,
+				43DFE4DE17CB613100DEF87B /* ATAsync.m in Sources */,
 				43E5DF621462829B0016CDA0 /* ImageAndTextCell.m in Sources */,
 				4353196F1465B52D005FA59F /* ShitHappens.m in Sources */,
 				43F50BF71466F7A1004FD951 /* PostProcessingSettingsWindowController.m in Sources */,
@@ -2095,6 +2106,7 @@
 				43B5C03A17AEA41E00F57276 /* SublimeText3Editor.m in Sources */,
 				43B5C03D17AEA8C100F57276 /* Coda2Editor.m in Sources */,
 				43B5C04017AEA9F400F57276 /* NSAppleScript+ATInvokeHandlerWithArguments.m in Sources */,
+				43DFE4E117CB6B4A00DEF87B /* LRFile2.m in Sources */,
 				43996B2E17AF675D00B09954 /* ATMenuEnabledSegmentedCell.m in Sources */,
 				43996B4317B001BA00B09954 /* NSString+SmartRegexpCaptures.m in Sources */,
 				43E07EC217B01C4B004DB867 /* ATJson.m in Sources */,

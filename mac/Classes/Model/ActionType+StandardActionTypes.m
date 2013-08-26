@@ -9,10 +9,10 @@
 
 + (NSArray *)standardActionTypes {
     return @[
-        [[ActionType alloc] initWithClass:[AutoprefixerAction class] kind:ActionKindFilter],
+        [[ActionType alloc] initWithClass:[AutoprefixerAction class]],
 
-        [[ActionType alloc] initWithClass:[CustomCommandAction class] kind:ActionKindPostproc],
-        [[ActionType alloc] initWithClass:[UserScriptAction class] kind:ActionKindPostproc],
+        [[ActionType alloc] initWithClass:[CustomCommandAction class]],
+        [[ActionType alloc] initWithClass:[UserScriptAction class]],
     ];
 }
 

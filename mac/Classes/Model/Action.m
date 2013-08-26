@@ -10,8 +10,16 @@
     abort();
 }
 
++ (ActionKind)kind {
+    abort();
+}
+
 - (NSString *)typeIdentifier {
     return [[self class] typeIdentifier];
+}
+
+- (ActionKind)kind {
+    return [[self class] kind];
 }
 
 - (NSString *)label {
@@ -75,6 +83,13 @@
             return YES;
     }
     return NO;
+}
+
+- (void)analyzeFile:(LRFile2 *)file inProject:(Project *)project {
+}
+
+- (void)compileFile:(LRFile2 *)file inProject:(Project *)project completionHandler:(UserScriptCompletionHandler)completionHandler {
+    abort();
 }
 
 - (void)invokeForProjectAtPath:(NSString *)projectPath withModifiedFiles:(NSSet *)paths completionHandler:(UserScriptCompletionHandler)completionHandler {

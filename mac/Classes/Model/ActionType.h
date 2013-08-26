@@ -1,11 +1,6 @@
 
 #import <Foundation/Foundation.h>
-
-
-typedef enum {
-    ActionKindFilter,
-    ActionKindPostproc,
-} ActionKind;
+#import "Action.h"
 
 
 @interface ActionType : NSObject
@@ -14,6 +9,6 @@ typedef enum {
 @property(nonatomic, copy) NSString *identifier;
 @property(nonatomic, assign) Class klass;
 
-- (id)initWithClass:(Class)klass kind:(ActionKind)kind;
+- (id)initWithClass:(Class)klass;
 
 @end

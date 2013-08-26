@@ -84,6 +84,8 @@ typedef enum {
 - (ATPathSpecMatchResult)matchResultForPath:(NSString *)path type:(ATPathSpecEntryType)type;
 - (BOOL)matchesPath:(NSString *)path type:(ATPathSpecEntryType)type;
 
+- (NSArray *)matchingPathsInArray:(NSArray *)paths type:(ATPathSpecEntryType)type;
+
 - (NSString *)stringRepresentationWithSyntaxOptions:(ATPathSpecSyntaxOptions)options;
 - (NSString *)description; // gives a string representation in Extended syntax
 

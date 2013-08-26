@@ -13,6 +13,7 @@
 #import "Compiler.h"
 #import "CompilationOptions.h"
 #import "LRFile.h"
+#import "LRFile2.h"
 #import "ImportGraph.h"
 #import "ToolOutput.h"
 #import "UserScript.h"
@@ -24,6 +25,7 @@
 #import "NSArray+ATSubstitutions.h"
 #import "NSTask+OneLineTasksWithOutput.h"
 #import "ATFunctionalStyle.h"
+#import "ATAsync.h"
 
 #include <stdbool.h>
 #include "common.h"
@@ -498,55 +500,79 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         } else {
             [self processChangeAtPath:relativePath reloadRequests:reloadRequests];
         }
-
     }
 
-    if (json_array_size(reloadRequests) > 0) {
-        if (_postProcessingScriptName.length > 0 && _postProcessingEnabled) {
-            NSArray *actions = [self.actionList.activeActions copy];
-            if (invokePostProcessor && actions.count > 0) {
-                _runningPostProcessor = YES;
-                [self invokeNextActionInArray:actions withModifiedPaths:pathes];
-            } else {
-                console_printf("Skipping post-processing.");
-            }
+    NSArray *actions = [self.actionList.activeActions copy];
+    NSArray *pathArray = [pathes allObjects];
+    NSArray *filterActions = [actions filteredArrayUsingBlock:^BOOL(Action *action) {
+        return action.kind == ActionKindFilter;
+    }];
+
+    [filterActions enumerateObjectsAsynchronouslyUsingBlock:^(Action *action, NSUInteger idx, void (^callback1)(BOOL stop)) {
+        NSArray *matchingPaths = [action.inputPathSpec matchingPathsInArray:pathArray type:ATPathSpecEntryTypeFile];
+        [matchingPaths enumerateObjectsAsynchronouslyUsingBlock:^(NSString *path, NSUInteger idx, void (^callback2)(BOOL stop)) {
+            LRFile2 *file = [LRFile2 fileWithRelativePath:path project:self];
+            [action compileFile:file inProject:self completionHandler:^(BOOL invoked, ToolOutput *output, NSError *error) {
+                if (output) {
+                    [self displayCompilationError:output key:[NSString stringWithFormat:@"%@.%@", _path, path]];
+                }
+                callback2(NO);
+            }];
+        } completionBlock:^{
+            callback1(NO);
+        }];
+    } completionBlock:^{
+        if (json_array_size(reloadRequests) > 0) {
+            if (_postProcessingScriptName.length > 0 && _postProcessingEnabled) {
+                if (invokePostProcessor && actions.count > 0) {
+                    _runningPostProcessor = YES;
+                    [self invokeNextActionInArray:actions withModifiedPaths:pathes];
+                } else {
+                    console_printf("Skipping post-processing.");
+                }
 
 #if 0
-            UserScript *userScript = self.postProcessingScript;
-            if (invokePostProcessor && userScript.exists) {
-                ToolOutput *toolOutput = nil;
+                UserScript *userScript = self.postProcessingScript;
+                if (invokePostProcessor && userScript.exists) {
+                    ToolOutput *toolOutput = nil;
 
-                _runningPostProcessor = YES;
-                [userScript invokeForProjectAtPath:_path withModifiedFiles:pathes completionHandler:^(BOOL invoked, ToolOutput *output, NSError *error) {
-                    _runningPostProcessor = NO;
-                    _lastPostProcessingRunDate = [NSDate timeIntervalSinceReferenceDate];
+                    _runningPostProcessor = YES;
+                    [userScript invokeForProjectAtPath:_path withModifiedFiles:pathes completionHandler:^(BOOL invoked, ToolOutput *output, NSError *error) {
+                        _runningPostProcessor = NO;
+                        _lastPostProcessingRunDate = [NSDate timeIntervalSinceReferenceDate];
 
-                    if (toolOutput) {
-                        toolOutput.project = self;
-                        [[[ToolOutputWindowController alloc] initWithCompilerOutput:toolOutput key:[NSString stringWithFormat:@"%@.postproc", _path]] show];
-                    }
-                }];
-            } else {
-                console_printf("Skipping post-processing.");
-            }
+                        if (toolOutput) {
+                            toolOutput.project = self;
+                            [[[ToolOutputWindowController alloc] initWithCompilerOutput:toolOutput key:[NSString stringWithFormat:@"%@.postproc", _path]] show];
+                        }
+                    }];
+                } else {
+                    console_printf("Skipping post-processing.");
+                }
 #endif
+            }
+
+            json_t *message = json_object();
+            json_object_set_new(message, "service", json_string("reloader"));
+            json_object_set_new(message, "command", json_string("reload"));
+            json_object_set_new(message, "changes", reloadRequests);
+            json_object_set_new(message, "forceFullReload", json_bool(self.disableLiveRefresh));
+            json_object_set_new(message, "fullReloadDelay", json_real(_fullPageReloadDelay));
+            nodeapp_rpc_send_json(message);
+
+            [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidDetectChangeNotification object:self];
+            StatIncrement(BrowserRefreshCountStat, 1);
+        } else {
+            json_decref(reloadRequests);
         }
 
-        json_t *message = json_object();
-        json_object_set_new(message, "service", json_string("reloader"));
-        json_object_set_new(message, "command", json_string("reload"));
-        json_object_set_new(message, "changes", reloadRequests);
-        json_object_set_new(message, "forceFullReload", json_bool(self.disableLiveRefresh));
-        json_object_set_new(message, "fullReloadDelay", json_real(_fullPageReloadDelay));
-        nodeapp_rpc_send_json(message);
+        S_app_handle_change(json_object_2("root", json_nsstring(_path), "paths", nodeapp_objc_to_json([pathes allObjects])));
+    }];
+}
 
-        [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidDetectChangeNotification object:self];
-        StatIncrement(BrowserRefreshCountStat, 1);
-    } else {
-        json_decref(reloadRequests);
-    }
-
-    S_app_handle_change(json_object_2("root", json_nsstring(_path), "paths", nodeapp_objc_to_json([pathes allObjects])));
+- (void)displayCompilationError:(ToolOutput *)output key:(NSString *)key {
+    output.project = self;
+    [[[ToolOutputWindowController alloc] initWithCompilerOutput:output key:key] show];
 }
 
 - (void)invokeNextActionInArray:(NSArray *)actions withModifiedPaths:(NSSet *)paths {
@@ -559,7 +585,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     Action *action = [actions firstObject];
     actions = [actions subarrayWithRange:NSMakeRange(1, actions.count - 1)];
 
-    if ([action shouldInvokeForModifiedFiles:paths inProject:self]) {
+    if (action.kind == ActionKindPostproc && [action shouldInvokeForModifiedFiles:paths inProject:self]) {
         [action invokeForProjectAtPath:_path withModifiedFiles:paths completionHandler:^(BOOL invoked, ToolOutput *output, NSError *error) {
             if (output) {
                 output.project = self;

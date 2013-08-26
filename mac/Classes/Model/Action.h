@@ -6,12 +6,21 @@
 
 
 @class Project;
+@class LRFile2;
+
+
+typedef enum {
+    ActionKindFilter,
+    ActionKindPostproc,
+} ActionKind;
 
 
 @interface Action : NSObject
 
 + (NSString *)typeIdentifier;
++ (ActionKind)kind;
 @property(nonatomic, readonly) NSString *typeIdentifier;
+@property(nonatomic, readonly) ActionKind kind;
 @property(nonatomic, readonly, strong) NSString *label;
 
 - (id)initWithMemento:(NSDictionary *)memento;
@@ -29,6 +38,9 @@
 @property(nonatomic, readonly, strong) ATPathSpec *inputPathSpec;
 
 - (BOOL)shouldInvokeForModifiedFiles:(NSSet *)paths inProject:(Project *)project;
+
+- (void)analyzeFile:(LRFile2 *)file inProject:(Project *)project;
+- (void)compileFile:(LRFile2 *)file inProject:(Project *)project completionHandler:(UserScriptCompletionHandler)completionHandler;
 
 - (void)invokeForProjectAtPath:(NSString *)projectPath withModifiedFiles:(NSSet *)paths completionHandler:(UserScriptCompletionHandler)completionHandler;
 

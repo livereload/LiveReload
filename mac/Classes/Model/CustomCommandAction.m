@@ -11,6 +11,10 @@
     return @"command";
 }
 
++ (ActionKind)kind {
+    return ActionKindPostproc;
+}
+
 - (NSString *)label {
     NSString *command = self.singleLineCommand;
 
