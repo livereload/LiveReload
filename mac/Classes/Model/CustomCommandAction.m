@@ -11,6 +11,19 @@
     return @"command";
 }
 
+- (NSString *)label {
+    NSString *command = self.singleLineCommand;
+
+    if (command.length > 0)
+        return [NSString stringWithFormat:NSLocalizedString(@"Run %@", nil), command];
+    else
+        return NSLocalizedString(@"Run custom command", nil);
+}
+
++ (NSSet *)keyPathsForValuesAffectingLabel {
+    return [NSSet setWithObject:@"command"];
+}
+
 - (void)loadFromMemento:(NSDictionary *)memento {
     [super loadFromMemento:memento];
     self.command = memento[@"command"] ?: @"";

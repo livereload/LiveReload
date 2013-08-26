@@ -14,6 +14,10 @@
     return [[self class] typeIdentifier];
 }
 
+- (NSString *)label {
+    abort();
+}
+
 - (id)initWithMemento:(NSDictionary *)memento {
     self = [super init];
     if (self) {

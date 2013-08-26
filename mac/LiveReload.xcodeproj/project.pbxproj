@@ -217,6 +217,7 @@
 		43DB9FD4178EDF2E007BEA36 /* Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD3178EDF2E007BEA36 /* Errors.m */; };
 		43DB9FD7178EFA64007BEA36 /* ExternalEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD6178EFA64007BEA36 /* ExternalEditor.m */; };
 		43DB9FDA1792545E007BEA36 /* LRPluginCommons.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD91792545E007BEA36 /* LRPluginCommons.m */; };
+		43DFE4DB17CA97A800DEF87B /* FilterActionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DFE4DA17CA97A800DEF87B /* FilterActionRow.m */; };
 		43E07EC217B01C4B004DB867 /* ATJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E07EC117B01C4B004DB867 /* ATJson.m */; };
 		43E34F9B14705125001641AA /* console.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E34F9714705125001641AA /* console.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		43E34F9C14705125001641AA /* eventbus.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E34F9914705125001641AA /* eventbus.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -652,6 +653,8 @@
 		43DB9FD6178EFA64007BEA36 /* ExternalEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExternalEditor.m; sourceTree = "<group>"; };
 		43DB9FD81792545E007BEA36 /* LRPluginCommons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPluginCommons.h; sourceTree = "<group>"; };
 		43DB9FD91792545E007BEA36 /* LRPluginCommons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPluginCommons.m; sourceTree = "<group>"; };
+		43DFE4D917CA97A800DEF87B /* FilterActionRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterActionRow.h; sourceTree = "<group>"; };
+		43DFE4DA17CA97A800DEF87B /* FilterActionRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterActionRow.m; sourceTree = "<group>"; };
 		43E07EC017B01C4A004DB867 /* ATJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATJson.h; sourceTree = "<group>"; };
 		43E07EC117B01C4B004DB867 /* ATJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATJson.m; sourceTree = "<group>"; };
 		43E34F9714705125001641AA /* console.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = console.c; sourceTree = "<group>"; };
@@ -1129,6 +1132,8 @@
 				434BB27017BB7D14000BEB1C /* FiltersGroupHeaderRow.m */,
 				434BB27217BB7F3A000BEB1C /* AddFilterRow.h */,
 				434BB27317BB7F3A000BEB1C /* AddFilterRow.m */,
+				43DFE4D917CA97A800DEF87B /* FilterActionRow.h */,
+				43DFE4DA17CA97A800DEF87B /* FilterActionRow.m */,
 			);
 			path = ActionStack;
 			sourceTree = "<group>";
@@ -1919,6 +1924,7 @@
 				823DDEE013F8DA3100529AD2 /* EditorManager.m in Sources */,
 				823DDEEE13F8DA3100529AD2 /* Bag.m in Sources */,
 				823DDEEF13F8DA3100529AD2 /* CompilationOptions.m in Sources */,
+				43DFE4DB17CA97A800DEF87B /* FilterActionRow.m in Sources */,
 				823DDEF013F8DA3100529AD2 /* LRFile.m in Sources */,
 				823DDEF113F8DA3100529AD2 /* Project.m in Sources */,
 				823DDEF213F8DA3100529AD2 /* Workspace.m in Sources */,

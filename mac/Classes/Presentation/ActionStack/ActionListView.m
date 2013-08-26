@@ -12,6 +12,7 @@
 
 #import "FiltersGroupHeaderRow.h"
 #import "AddFilterRow.h"
+#import "FilterActionRow.h"
 
 
 static void *ActionListView_Action_Context = "ActionListView_Action_Context";
@@ -41,7 +42,11 @@ static void *ActionListView_Action_Context = "ActionListView_Action_Context";
         _metrics = @{@"indentL2": @18.0, @"indentL3": @36.0, @"checkboxToControl": @1.0, @"buttonBarGapMin": @20.0, @"buttonGap": @1.0, @"columnGapMin": @8.0, @"actionWidthMax": @180.0,
              @"columnHeaderStyle": @{NSFontAttributeName: [NSFont systemFontOfSize:11], NSForegroundColorAttributeName: [NSColor headerColor]},
         };
-        _rowClassByActionName = @{@"command": [RunCustomCommandActionRow class], @"script": [RunScriptActionRow class]};
+        _rowClassByActionName = @{
+            @"command": [RunCustomCommandActionRow class],
+            @"script": [RunScriptActionRow class],
+            @"autoprefixer": [FilterActionRow class],
+        };
     }
     return self;
 }
@@ -67,9 +72,10 @@ static void *ActionListView_Action_Context = "ActionListView_Action_Context";
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if (context == ActionListView_Action_Context)
+    if (context == ActionListView_Action_Context) {
+        [self updateFilterRows];
         [self updateActionRows];
-    else
+    } else
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 }
 

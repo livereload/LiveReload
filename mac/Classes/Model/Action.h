@@ -12,6 +12,7 @@
 
 + (NSString *)typeIdentifier;
 @property(nonatomic, readonly) NSString *typeIdentifier;
+@property(nonatomic, readonly, strong) NSString *label;
 
 - (id)initWithMemento:(NSDictionary *)memento;
 @property(nonatomic, copy) NSDictionary *memento;

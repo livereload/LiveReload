@@ -50,9 +50,7 @@
     [super updateContent];
 
     CustomCommandAction *action = self.representedObject;
-    NSString *command = action.singleLineCommand;
-
-    [self.checkbox setTitle:(command.length > 0 ? [NSString stringWithFormat:NSLocalizedString(@"Run %@", nil), command] : NSLocalizedString(@"Run custom command", nil))];
+    [self.checkbox setTitle:action.label];
 }
 
 - (void)updateFilterOptions {

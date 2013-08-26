@@ -8,6 +8,14 @@
     return @"script";
 }
 
+- (NSString *)label {
+    return [NSString stringWithFormat:NSLocalizedString(@"Run %@", nil), self.scriptName];
+}
+
++ (NSSet *)keyPathsForValuesAffectingLabel {
+    return [NSSet setWithObject:@"scriptName"];
+}
+
 - (void)invokeForProjectAtPath:(NSString *)projectPath withModifiedFiles:(NSSet *)paths completionHandler:(UserScriptCompletionHandler)completionHandler {
     [self.script invokeForProjectAtPath:projectPath withModifiedFiles:paths completionHandler:completionHandler];
 }
