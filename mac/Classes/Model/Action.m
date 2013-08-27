@@ -2,6 +2,13 @@
 #import "Action.h"
 
 
+@interface Action ()
+
+@property(nonatomic, strong) ATPathSpec *inputPathSpec;
+
+@end
+
+
 @implementation Action {
     NSMutableDictionary *_memento;
 }
@@ -65,13 +72,28 @@
 - (void)setInputFilterOption:(FilterOption *)inputFilterOption {
     if (_inputFilterOption != inputFilterOption) {
         _inputFilterOption = inputFilterOption;
+        [self updateInputPathSpec];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
     }
 }
 
-- (ATPathSpec *)inputPathSpec {
-    return _inputFilterOption.pathSpec;
+- (void)setIntrinsicInputPathSpec:(ATPathSpec *)intrinsicInputPathSpec {
+    if (_intrinsicInputPathSpec != intrinsicInputPathSpec) {
+        _intrinsicInputPathSpec = intrinsicInputPathSpec;
+        [self updateInputPathSpec];
+    }
 }
+
+- (void)updateInputPathSpec {
+    ATPathSpec *spec = _inputFilterOption.pathSpec;
+    if (spec) {
+        if (_intrinsicInputPathSpec) {
+            spec = [ATPathSpec pathSpecMatchingIntersectionOf:@[spec, _intrinsicInputPathSpec]];
+        }
+    }
+    self.inputPathSpec = spec;
+}
+            
 
 - (BOOL)isNonEmpty {
     return YES;

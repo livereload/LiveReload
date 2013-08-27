@@ -37,6 +37,8 @@ typedef enum {
 @property(nonatomic, strong) FilterOption *inputFilterOption;
 @property(nonatomic, readonly, strong) ATPathSpec *inputPathSpec;
 
+@property(nonatomic, strong) ATPathSpec *intrinsicInputPathSpec;
+
 - (BOOL)shouldInvokeForModifiedFiles:(NSSet *)paths inProject:(Project *)project;
 
 - (void)analyzeFile:(LRFile2 *)file inProject:(Project *)project;
