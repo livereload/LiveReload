@@ -7,9 +7,11 @@
 
 @interface LRFile2 : NSObject
 
-+ (LRFile2 *)fileWithRelativePath:(NSString*)relativePath project:(Project*)project;
++ (LRFile2 *)fileWithRelativePath:(NSString *)relativePath project:(Project *)project;
 
 @property(nonatomic, copy) NSString *relativePath;
 @property(nonatomic, strong) Project *project;
+
+@property(nonatomic, readonly) NSString *absolutePath;
 
 @end

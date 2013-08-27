@@ -1,9 +1,10 @@
 
 #import "LRFile2.h"
+#import "Project.h"
 
 @implementation LRFile2
 
-- (id)initWithRelativePath:(NSString*)relativePath project:(Project*)project {
+- (id)initWithRelativePath:(NSString *)relativePath project:(Project *)project {
     self = [super init];
     if (self) {
         _relativePath = [relativePath copy];
@@ -12,8 +13,12 @@
     return self;
 }
 
-+ (LRFile2 *)fileWithRelativePath:(NSString*)relativePath project:(Project*)project {
++ (LRFile2 *)fileWithRelativePath:(NSString *)relativePath project:(Project *)project {
     return [[[self class] alloc] initWithRelativePath:relativePath project:project];
+}
+
+- (NSString *)absolutePath {
+    return [_project.path stringByAppendingPathComponent:_relativePath];
 }
 
 @end
