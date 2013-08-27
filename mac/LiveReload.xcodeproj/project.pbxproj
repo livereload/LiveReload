@@ -12,8 +12,6 @@
 		4303A4B315B3898E009D732A /* LR-B9BC.public in Resources */ = {isa = PBXBuildFile; fileRef = 4303A4B015B3898D009D732A /* LR-B9BC.public */; };
 		4303A4B415B3898E009D732A /* LR-E9BC.public in Resources */ = {isa = PBXBuildFile; fileRef = 4303A4B115B3898D009D732A /* LR-E9BC.public */; };
 		4303A4B715B3959D009D732A /* BuyTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4303A4B615B3959D009D732A /* BuyTemplate.png */; };
-		4303A4B915B3B438009D732A /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4303A4B815B3B438009D732A /* Sparkle.framework */; };
-		4303A4BB15B3B464009D732A /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4303A4B815B3B438009D732A /* Sparkle.framework */; };
 		4303A54015B513FD009D732A /* dump.c in Sources */ = {isa = PBXBuildFile; fileRef = 4303A4C115B513FD009D732A /* dump.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4303A54115B513FD009D732A /* error.c in Sources */ = {isa = PBXBuildFile; fileRef = 4303A4C215B513FD009D732A /* error.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4303A54215B513FD009D732A /* hashtable.c in Sources */ = {isa = PBXBuildFile; fileRef = 4303A4C315B513FD009D732A /* hashtable.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -221,6 +219,9 @@
 		43DFE4E117CB6B4A00DEF87B /* LRFile2.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DFE4E017CB6B4A00DEF87B /* LRFile2.m */; };
 		43DFE4E617CC6C0D00DEF87B /* autoprefixer.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43DFE4E417CC6C0D00DEF87B /* autoprefixer.lrplugin */; };
 		43DFE4E717CC6C0D00DEF87B /* customscripts.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43DFE4E517CC6C0D00DEF87B /* customscripts.lrplugin */; };
+		43DFE4E917CC967500DEF87B /* TypeScript.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43DFE4E817CC967500DEF87B /* TypeScript.lrplugin */; };
+		43DFE4ED17CCA4F200DEF87B /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43DFE4EC17CCA4F200DEF87B /* Sparkle.framework */; };
+		43DFE4F117CCA56400DEF87B /* com.andymatuschak.Sparkle.SandboxService.xpc in CopyFiles */ = {isa = PBXBuildFile; fileRef = 43DFE4F017CCA56300DEF87B /* com.andymatuschak.Sparkle.SandboxService.xpc */; };
 		43E07EC217B01C4B004DB867 /* ATJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E07EC117B01C4B004DB867 /* ATJson.m */; };
 		43E34F9B14705125001641AA /* console.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E34F9714705125001641AA /* console.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		43E34F9C14705125001641AA /* eventbus.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E34F9914705125001641AA /* eventbus.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -285,10 +286,10 @@
 		4303A4BA15B3B450009D732A /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices";
+			dstSubfolderSpec = 16;
 			files = (
-				4303A4BB15B3B464009D732A /* Sparkle.framework in CopyFiles */,
+				43DFE4F117CCA56400DEF87B /* com.andymatuschak.Sparkle.SandboxService.xpc in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,7 +308,6 @@
 		4303A4B015B3898D009D732A /* LR-B9BC.public */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "LR-B9BC.public"; sourceTree = "<group>"; };
 		4303A4B115B3898D009D732A /* LR-E9BC.public */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "LR-E9BC.public"; sourceTree = "<group>"; };
 		4303A4B615B3959D009D732A /* BuyTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BuyTemplate.png; sourceTree = "<group>"; };
-		4303A4B815B3B438009D732A /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		4303A4C115B513FD009D732A /* dump.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dump.c; sourceTree = "<group>"; };
 		4303A4C215B513FD009D732A /* error.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = error.c; sourceTree = "<group>"; };
 		4303A4C315B513FD009D732A /* hashtable.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hashtable.c; sourceTree = "<group>"; };
@@ -662,6 +662,9 @@
 		43DFE4E017CB6B4A00DEF87B /* LRFile2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRFile2.m; sourceTree = "<group>"; };
 		43DFE4E417CC6C0D00DEF87B /* autoprefixer.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = autoprefixer.lrplugin; path = ../plugins/autoprefixer.lrplugin; sourceTree = "<group>"; };
 		43DFE4E517CC6C0D00DEF87B /* customscripts.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = customscripts.lrplugin; path = ../plugins/customscripts.lrplugin; sourceTree = "<group>"; };
+		43DFE4E817CC967500DEF87B /* TypeScript.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = TypeScript.lrplugin; path = ../plugins/TypeScript.lrplugin; sourceTree = "<group>"; };
+		43DFE4EC17CCA4F200DEF87B /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
+		43DFE4F017CCA56300DEF87B /* com.andymatuschak.Sparkle.SandboxService.xpc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = com.andymatuschak.Sparkle.SandboxService.xpc; sourceTree = "<group>"; };
 		43E07EC017B01C4A004DB867 /* ATJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATJson.h; sourceTree = "<group>"; };
 		43E07EC117B01C4B004DB867 /* ATJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATJson.m; sourceTree = "<group>"; };
 		43E34F9714705125001641AA /* console.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = console.c; sourceTree = "<group>"; };
@@ -760,10 +763,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				43059222151E8FA400CC3F88 /* CoreServices.framework in Frameworks */,
+				43DFE4ED17CCA4F200DEF87B /* Sparkle.framework in Frameworks */,
 				43594AF413D3BB34004175B2 /* QuartzCore.framework in Frameworks */,
 				43361D4613C30D1400C0E589 /* libicucore.dylib in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
-				4303A4B915B3B438009D732A /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -814,6 +817,7 @@
 				434BB2A117BBF512000BEB1C /* ATPathSpecTests */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				43DFE4EB17CCA4DE00DEF87B /* Sparkle */,
 			);
 			name = LiveReload;
 			sourceTree = "<group>";
@@ -848,7 +852,6 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4303A4B815B3B438009D732A /* Sparkle.framework */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				434BB29F17BBF512000BEB1C /* XCTest.framework */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
@@ -1104,6 +1107,7 @@
 				431CB53516D1EF8200034877 /* Stylus.lrplugin */,
 				43DFE4E417CC6C0D00DEF87B /* autoprefixer.lrplugin */,
 				43DFE4E517CC6C0D00DEF87B /* customscripts.lrplugin */,
+				43DFE4E817CC967500DEF87B /* TypeScript.lrplugin */,
 			);
 			name = plugins;
 			sourceTree = "<group>";
@@ -1489,6 +1493,16 @@
 				43B5C03C17AEA8C000F57276 /* Coda2Editor.m */,
 			);
 			path = SpecificEditors;
+			sourceTree = "<group>";
+		};
+		43DFE4EB17CCA4DE00DEF87B /* Sparkle */ = {
+			isa = PBXGroup;
+			children = (
+				43DFE4EC17CCA4F200DEF87B /* Sparkle.framework */,
+				43DFE4F017CCA56300DEF87B /* com.andymatuschak.Sparkle.SandboxService.xpc */,
+			);
+			name = Sparkle;
+			path = vendor/Sparkle;
 			sourceTree = "<group>";
 		};
 		43E34F9614705125001641AA /* Shared */ = {
@@ -1913,6 +1927,7 @@
 				43A48074174A040300A0681D /* RbenvContainer@2x.png in Resources */,
 				43A4807A174A069100A0681D /* HomebrewContainer.png in Resources */,
 				43A4807B174A069100A0681D /* HomebrewContainer@2x.png in Resources */,
+				43DFE4E917CC967500DEF87B /* TypeScript.lrplugin in Resources */,
 				433253A9174E0B4200C9A76B /* PrefPaneRubies.png in Resources */,
 				433253B3174E0BA200C9A76B /* GeneralPreferencesViewController.xib in Resources */,
 				4344CE1C1798DB9100CB8658 /* editors.json in Resources */,
@@ -2182,7 +2197,8 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					"$(SRCROOT)/vendor/Sparkle",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = LiveReload_Prefix.pch;
@@ -2204,7 +2220,8 @@
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					"$(SRCROOT)/vendor/Sparkle",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -2229,7 +2246,8 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					"$(SRCROOT)/vendor/Sparkle",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = LiveReload_Prefix.pch;
