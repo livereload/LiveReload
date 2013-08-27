@@ -65,7 +65,7 @@
 	<key>SUEnableSystemProfiling</key>
 	<true/>
 	<key>SUFeedURL</key>
-	<string>https://s3.amazonaws.com/download.livereload.com/LiveReload-Mac-appcast.xml</string>
+	<string>https://s3.amazonaws.com/download.livereload.com/LiveReload-v3-Mac-appcast.xml</string>
 	<key>UTExportedTypeDeclarations</key>
 	<array/>
 	<key>UTImportedTypeDeclarations</key>
