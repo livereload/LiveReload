@@ -1,5 +1,6 @@
 
 #import <Foundation/Foundation.h>
+#import "ActionType.h"
 #import "UserScript.h"
 #import "ATPathSpec.h"
 #import "FilterOption.h"
@@ -9,22 +10,15 @@
 @class LRFile2;
 
 
-typedef enum {
-    ActionKindFilter,
-    ActionKindPostproc,
-} ActionKind;
-
-
 @interface Action : NSObject
 
-+ (NSString *)typeIdentifier;
-+ (ActionKind)kind;
-@property(nonatomic, readonly) NSString *typeIdentifier;
-@property(nonatomic, readonly) ActionKind kind;
-@property(nonatomic, readonly, strong) NSString *label;
+- (id)initWithType:(ActionType *)type memento:(NSDictionary *)memento;
 
-- (id)initWithMemento:(NSDictionary *)memento;
+@property(nonatomic, readonly) ActionType *type;
+@property(nonatomic, readonly) ActionKind kind; // derived from type
 @property(nonatomic, copy) NSDictionary *memento;
+
+@property(nonatomic, readonly, strong) NSString *label;
 
 // automatically invoked when reading
 - (void)loadFromMemento:(NSDictionary *)memento;

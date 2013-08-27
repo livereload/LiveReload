@@ -93,6 +93,23 @@
     return grouped;
 }
 
+- (NSDictionary *)dictionaryWithElementsGroupedIntoArraysByKeyPath:(NSString *)keyPath {
+    NSMutableDictionary *grouped = [NSMutableDictionary dictionary];
+    for (id element in self) {
+        id key = [element valueForKeyPath:keyPath];
+        if (key == nil)
+            continue;
+
+        NSMutableArray *array = grouped[key];
+        if (!array) {
+            array = [NSMutableArray new];
+            grouped[key] = array;
+        }
+        [array addObject:element];
+    }
+    return grouped;
+}
+
 - (NSDictionary *)dictionaryWithElementsGroupedByBlock:(id(^)(id value))block {
     NSMutableDictionary *grouped = [NSMutableDictionary dictionary];
     for (id element in self) {

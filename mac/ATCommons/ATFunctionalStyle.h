@@ -30,6 +30,8 @@
 - (NSDictionary *)dictionaryWithElementsGroupedByKeyPath:(NSString *)keyPath;
 - (NSDictionary *)dictionaryWithElementsGroupedByBlock:(id(^)(id value))block;
 
+- (NSDictionary *)dictionaryWithElementsGroupedIntoArraysByKeyPath:(NSString *)keyPath;
+
 - (NSDictionary *)dictionaryWithElementsMultiGroupedByKeyPath:(NSString *)keyPath;
 - (NSDictionary *)dictionaryWithElementsMultiGroupedByBlock:(NSArray *(^)(id value))block;
 

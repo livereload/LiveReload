@@ -130,7 +130,6 @@
 		43508A9317B39DBE00871422 /* ATFlippedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A9217B39DBE00871422 /* ATFlippedView.m */; };
 		43508A9617B4B52300871422 /* ActionList.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A9517B4B52300871422 /* ActionList.m */; };
 		43508A9917B4B53F00871422 /* ActionType.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A9817B4B53F00871422 /* ActionType.m */; };
-		43508A9C17B4B65B00871422 /* ActionType+StandardActionTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A9B17B4B65B00871422 /* ActionType+StandardActionTypes.m */; };
 		4353196F1465B52D005FA59F /* ShitHappens.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353196E1465B52D005FA59F /* ShitHappens.m */; };
 		4353197214668E7D005FA59F /* LRHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4353197014668E7D005FA59F /* LRHelpTemplate.png */; };
 		4353197314668E7D005FA59F /* LRSupportTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4353197114668E7D005FA59F /* LRSupportTemplate.png */; };
@@ -220,6 +219,8 @@
 		43DFE4DB17CA97A800DEF87B /* FilterActionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DFE4DA17CA97A800DEF87B /* FilterActionRow.m */; };
 		43DFE4DE17CB613100DEF87B /* ATAsync.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DFE4DD17CB613100DEF87B /* ATAsync.m */; };
 		43DFE4E117CB6B4A00DEF87B /* LRFile2.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DFE4E017CB6B4A00DEF87B /* LRFile2.m */; };
+		43DFE4E617CC6C0D00DEF87B /* autoprefixer.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43DFE4E417CC6C0D00DEF87B /* autoprefixer.lrplugin */; };
+		43DFE4E717CC6C0D00DEF87B /* customscripts.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43DFE4E517CC6C0D00DEF87B /* customscripts.lrplugin */; };
 		43E07EC217B01C4B004DB867 /* ATJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E07EC117B01C4B004DB867 /* ATJson.m */; };
 		43E34F9B14705125001641AA /* console.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E34F9714705125001641AA /* console.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		43E34F9C14705125001641AA /* eventbus.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E34F9914705125001641AA /* eventbus.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -501,8 +502,6 @@
 		43508A9517B4B52300871422 /* ActionList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionList.m; sourceTree = "<group>"; };
 		43508A9717B4B53F00871422 /* ActionType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionType.h; sourceTree = "<group>"; };
 		43508A9817B4B53F00871422 /* ActionType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionType.m; sourceTree = "<group>"; };
-		43508A9A17B4B65B00871422 /* ActionType+StandardActionTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ActionType+StandardActionTypes.h"; sourceTree = "<group>"; };
-		43508A9B17B4B65B00871422 /* ActionType+StandardActionTypes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ActionType+StandardActionTypes.m"; sourceTree = "<group>"; };
 		4353196D1465B52D005FA59F /* ShitHappens.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShitHappens.h; sourceTree = "<group>"; };
 		4353196E1465B52D005FA59F /* ShitHappens.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShitHappens.m; sourceTree = "<group>"; };
 		4353197014668E7D005FA59F /* LRHelpTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRHelpTemplate.png; sourceTree = "<group>"; };
@@ -661,6 +660,8 @@
 		43DFE4DD17CB613100DEF87B /* ATAsync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATAsync.m; sourceTree = "<group>"; };
 		43DFE4DF17CB6B4A00DEF87B /* LRFile2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRFile2.h; sourceTree = "<group>"; };
 		43DFE4E017CB6B4A00DEF87B /* LRFile2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRFile2.m; sourceTree = "<group>"; };
+		43DFE4E417CC6C0D00DEF87B /* autoprefixer.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = autoprefixer.lrplugin; path = ../plugins/autoprefixer.lrplugin; sourceTree = "<group>"; };
+		43DFE4E517CC6C0D00DEF87B /* customscripts.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = customscripts.lrplugin; path = ../plugins/customscripts.lrplugin; sourceTree = "<group>"; };
 		43E07EC017B01C4A004DB867 /* ATJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATJson.h; sourceTree = "<group>"; };
 		43E07EC117B01C4B004DB867 /* ATJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATJson.m; sourceTree = "<group>"; };
 		43E34F9714705125001641AA /* console.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = console.c; sourceTree = "<group>"; };
@@ -1101,6 +1102,8 @@
 				431CB53316D1EF8200034877 /* SASS.lrplugin */,
 				431CB53416D1EF8200034877 /* SLIM.lrplugin */,
 				431CB53516D1EF8200034877 /* Stylus.lrplugin */,
+				43DFE4E417CC6C0D00DEF87B /* autoprefixer.lrplugin */,
+				43DFE4E517CC6C0D00DEF87B /* customscripts.lrplugin */,
 			);
 			name = plugins;
 			sourceTree = "<group>";
@@ -1628,8 +1631,6 @@
 				434BB26A17BA716C000BEB1C /* UserScriptAction.m */,
 				43508A9717B4B53F00871422 /* ActionType.h */,
 				43508A9817B4B53F00871422 /* ActionType.m */,
-				43508A9A17B4B65B00871422 /* ActionType+StandardActionTypes.h */,
-				43508A9B17B4B65B00871422 /* ActionType+StandardActionTypes.m */,
 				43508A9417B4B52300871422 /* ActionList.h */,
 				43508A9517B4B52300871422 /* ActionList.m */,
 				434BB27517BB97AC000BEB1C /* FilterAction.h */,
@@ -1843,6 +1844,7 @@
 				823DDEDC13F8DA3100529AD2 /* ToolOutputWindowController.xib in Resources */,
 				823DDF2F13F8DA3F00529AD2 /* background.png in Resources */,
 				823DDF3013F8DA3F00529AD2 /* Icon-48.png in Resources */,
+				43DFE4E617CC6C0D00DEF87B /* autoprefixer.lrplugin in Resources */,
 				823DDF3213F8DA3F00529AD2 /* preferences-box.png in Resources */,
 				823DDF3313F8DA3F00529AD2 /* settings.png in Resources */,
 				823DDF3413F8DA3F00529AD2 /* StatusItemActive.png in Resources */,
@@ -1865,6 +1867,7 @@
 				431466A3146CA23F00DC075A /* PlaceholderTemplate.png in Resources */,
 				4353403C146CC8A400DD66B0 /* MonitoringSettingsWindowController.xib in Resources */,
 				4376A0E2146DF1C800338AD4 /* TitleBarHelpTemplate.png in Resources */,
+				43DFE4E717CC6C0D00DEF87B /* customscripts.lrplugin in Resources */,
 				43F002D4146F4144005D48A4 /* TerminalStripes.png in Resources */,
 				43F002E8146F4877005D48A4 /* TerminalBackground.png in Resources */,
 				43F002EA146F5382005D48A4 /* TerminalGlare.png in Resources */,
@@ -2083,7 +2086,6 @@
 				43DB9FD7178EFA64007BEA36 /* ExternalEditor.m in Sources */,
 				43DB9FDA1792545E007BEA36 /* LRPluginCommons.m in Sources */,
 				43B5BFFF17ADF0D600F57276 /* ATGlobals.m in Sources */,
-				43508A9C17B4B65B00871422 /* ActionType+StandardActionTypes.m in Sources */,
 				43B5C00217ADF14700F57276 /* ATFunctionalStyle.m in Sources */,
 				43B5C00517ADF16B00F57276 /* ATModelDiff.m in Sources */,
 				43B5C01017ADF35C00F57276 /* NSArray+ATSubstitutions.m in Sources */,

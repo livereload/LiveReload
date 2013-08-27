@@ -1,10 +1,14 @@
 
 #import "Plugin.h"
 #import "Compiler.h"
+#import "ActionType.h"
 #import "ATJson.h"
+#import "Errors.h"
 
 
-@implementation Plugin
+@implementation Plugin {
+    NSMutableArray *_errors;
+}
 
 @synthesize path=_path;
 @synthesize compilers=_compilers;
@@ -13,6 +17,7 @@
     self = [super init];
     if (self) {
         _path = [path copy];
+        _errors = [NSMutableArray new];
 
         NSURL *plist = [NSURL fileURLWithPath:[path stringByAppendingPathComponent:@"manifest.json"]];
         NSError *error;
@@ -27,9 +32,19 @@
             [compilers addObject:[[Compiler alloc] initWithDictionary:compilerInfo plugin:self]];
         }
         _compilers = [compilers copy];
+
+        NSMutableArray *actionTypes = [NSMutableArray array];
+        for (NSDictionary *options in [_info objectForKey:@"actions"]) {
+            [actionTypes addObject:[ActionType actionTypeWithOptions:options plugin:self]];
+        }
+        _actionTypes = [actionTypes copy];
     }
 
     return self;
+}
+
+- (void)addErrorMessage:(NSString *)message {
+    [_errors addObject:[NSError errorWithDomain:LRErrorDomain code:LRErrorPluginApiViolation userInfo:@{NSLocalizedDescriptionKey: message}]];
 }
 
 @end

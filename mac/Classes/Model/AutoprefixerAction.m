@@ -6,14 +6,6 @@
 
 @implementation AutoprefixerAction
 
-+ (NSString *)typeIdentifier {
-    return @"autoprefixer";
-}
-
-+ (ActionKind)kind {
-    return ActionKindFilter;
-}
-
 - (NSString *)label {
     return NSLocalizedString(@"autoprefixer", nil);
 }

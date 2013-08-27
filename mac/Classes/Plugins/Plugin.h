@@ -13,5 +13,9 @@
 
 @property(nonatomic, readonly) NSString *path;
 @property(nonatomic, readonly) NSArray *compilers;
+@property(nonatomic, readonly) NSArray *actionTypes;
+
+@property(nonatomic, readonly) NSArray *errors;
+- (void)addErrorMessage:(NSString *)message;
 
 @end

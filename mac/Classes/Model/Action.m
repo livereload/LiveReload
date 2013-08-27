@@ -13,29 +13,18 @@
     NSMutableDictionary *_memento;
 }
 
-+ (NSString *)typeIdentifier {
-    abort();
-}
-
-+ (ActionKind)kind {
-    abort();
-}
-
-- (NSString *)typeIdentifier {
-    return [[self class] typeIdentifier];
-}
-
 - (ActionKind)kind {
-    return [[self class] kind];
+    return _type.kind;
 }
 
 - (NSString *)label {
     abort();
 }
 
-- (id)initWithMemento:(NSDictionary *)memento {
+- (id)initWithType:(ActionType *)type memento:(NSDictionary *)memento {
     self = [super init];
     if (self) {
+        _type = type;
         [self setMemento:memento];
     }
     return self;
@@ -57,7 +46,7 @@
 }
 
 - (void)updateMemento:(NSMutableDictionary *)memento {
-    memento[@"action"] = self.typeIdentifier;
+    memento[@"action"] = self.type.identifier;
     memento[@"enabled"] = (self.enabled ? @1 : @0);
     memento[@"filter"] = self.inputFilterOption.memento;
 }

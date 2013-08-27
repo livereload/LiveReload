@@ -2,12 +2,17 @@
 #import "PluginManager.h"
 #import "Plugin.h"
 #import "Compiler.h"
+#import "ActionType.h"
+#import "ATFunctionalStyle.h"
 
 
 static PluginManager *sharedPluginManager;
 
 
-@implementation PluginManager
+@implementation PluginManager {
+    NSMutableDictionary *_actionTypesByIdentifier;
+    NSMutableArray *_actionTypes;
+}
 
 @synthesize userPluginNames=_userPluginNames;
 
@@ -46,7 +51,23 @@ static PluginManager *sharedPluginManager;
     }
 }
 
+- (void)addActionType:(ActionType *)actionType {
+    NSString *identifier = actionType.identifier;
+    if (_actionTypesByIdentifier[identifier])
+        return;
+
+    if (actionType.valid) {
+        [_actionTypes addObject:actionType];
+        _actionTypesByIdentifier[identifier] = actionType;
+    } else {
+        NSLog(@"Skipped invalid action type def: %@", identifier);
+    }
+}
+
 - (void)reloadPlugins {
+    _actionTypes = [NSMutableArray new];
+    _actionTypesByIdentifier = [NSMutableDictionary new];
+
     NSMutableArray *plugins = [NSMutableArray array];
 
     NSArray *libraryFolderPaths = [NSArray arrayWithObjects:@"~/Library/LiveReload", @"~/Dropbox/Library/LiveReload", nil];
@@ -68,7 +89,22 @@ static PluginManager *sharedPluginManager;
     [self loadPluginsFromFolder:bundledPluginsFolder into:plugins];
     _plugins = [plugins copy];
 
-    NSLog(@"Plugins loaded:\n%@", [[_plugins valueForKeyPath:@"path"] componentsJoinedByString:@"\n"]);
+    for (Plugin *plugin in _plugins) {
+        for (ActionType *item in plugin.actionTypes) {
+            [self addActionType:item];
+        }
+    }
+
+    NSDictionary *pluginNamesByPath = [[(NSArray *)[_plugins valueForKeyPath:@"path"] dictionaryWithElementsGroupedIntoArraysByKeyPath:@"stringByDeletingLastPathComponent"] dictionaryByMappingValuesToKeyPath:@"lastPathComponent"];
+
+    NSLog(@"Plugins loaded: %@", pluginNamesByPath);
+    NSLog(@"Action types: %@", _actionTypes);
+
+    NSArray *badPlugins = [_plugins filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"errors[SIZE] > 0"]];
+    NSLog(@"Number of plugins with errors: %d", (int)badPlugins.count);
+    for (Plugin *plugin in badPlugins) {
+        NSLog(@"Error messages for %@:\n%@", plugin.path.lastPathComponent, plugin.errors);
+    }
 }
 
 - (NSArray *)plugins {
@@ -100,6 +136,10 @@ static PluginManager *sharedPluginManager;
         }
     }
     return nil;
+}
+
+- (ActionType *)actionTypeWithIdentifier:(NSString *)identifier {
+    return _actionTypesByIdentifier[identifier];
 }
 
 @end

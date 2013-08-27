@@ -27,8 +27,6 @@ static void *ActionListView_Action_Context = "ActionListView_Action_Context";
     BOOL _loaded;
     NSDictionary *_metrics;
 
-    NSDictionary *_rowClassByActionName;
-
     ActionsGroupHeaderRow *_actionsHeaderRow;
     AddActionRow *_actionsAddRow;
 
@@ -41,11 +39,6 @@ static void *ActionListView_Action_Context = "ActionListView_Action_Context";
     if (self) {
         _metrics = @{@"indentL2": @18.0, @"indentL3": @36.0, @"checkboxToControl": @1.0, @"buttonBarGapMin": @20.0, @"buttonGap": @1.0, @"columnGapMin": @8.0, @"actionWidthMax": @180.0,
              @"columnHeaderStyle": @{NSFontAttributeName: [NSFont systemFontOfSize:11], NSForegroundColorAttributeName: [NSColor headerColor]},
-        };
-        _rowClassByActionName = @{
-            @"command": [RunCustomCommandActionRow class],
-            @"script": [RunScriptActionRow class],
-            @"autoprefixer": [FilterActionRow class],
         };
     }
     return self;
@@ -91,7 +84,7 @@ static void *ActionListView_Action_Context = "ActionListView_Action_Context";
 
 - (void)updateFilterRows {
     [self updateRowsOfClass:[BaseActionRow class] betweenRow:_filtersHeaderRow andRow:_filtersAddRow newRepresentedObjects:self.actionList.filterActions create:^ATStackViewRow *(Action *action) {
-        Class rowClass = _rowClassByActionName[action.typeIdentifier];
+        Class rowClass = action.type.rowClass;
         if (rowClass) {
             return [rowClass rowWithRepresentedObject:action metrics:_metrics userInfo:@{@"project": self.project} delegate:self];
         } else {
@@ -102,7 +95,7 @@ static void *ActionListView_Action_Context = "ActionListView_Action_Context";
 
 - (void)updateActionRows {
     [self updateRowsOfClass:[BaseActionRow class] betweenRow:_actionsHeaderRow andRow:_actionsAddRow newRepresentedObjects:self.actionList.postprocActions create:^ATStackViewRow *(Action *action) {
-        Class rowClass = _rowClassByActionName[action.typeIdentifier];
+        Class rowClass = action.type.rowClass;
         if (rowClass) {
             return [rowClass rowWithRepresentedObject:action metrics:_metrics userInfo:@{@"project": self.project} delegate:self];
         } else {

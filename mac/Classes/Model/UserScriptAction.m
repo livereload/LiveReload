@@ -4,14 +4,6 @@
 
 @implementation UserScriptAction
 
-+ (NSString *)typeIdentifier {
-    return @"script";
-}
-
-+ (ActionKind)kind {
-    return ActionKindPostproc;
-}
-
 - (NSString *)label {
     return [NSString stringWithFormat:NSLocalizedString(@"Run %@", nil), self.scriptName];
 }

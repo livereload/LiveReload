@@ -57,7 +57,7 @@
     if (!type)
         return nil;
 
-    return [[type.klass alloc] initWithMemento:actionMemento];
+    return [type newInstanceWithMemento:actionMemento];
 }
 
 - (void)insertObject:(Action *)object inActionsAtIndex:(NSUInteger)index {
@@ -92,8 +92,7 @@
 
 - (NSArray *)filterActions {
     return [_actions filteredArrayUsingBlock:^BOOL(Action *action) {
-        ActionType *type = _actionTypesByIdentifier[action.typeIdentifier];
-        return type.kind == ActionKindFilter;
+        return action.type.kind == ActionKindFilter;
     }];
 }
 
@@ -103,8 +102,7 @@
 
 - (NSArray *)postprocActions {
     return [_actions filteredArrayUsingBlock:^BOOL(Action *action) {
-        ActionType *type = _actionTypesByIdentifier[action.typeIdentifier];
-        return type.kind == ActionKindPostproc;
+        return action.type.kind == ActionKindPostproc;
     }];
 }
 
