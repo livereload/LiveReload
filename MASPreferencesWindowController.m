@@ -26,7 +26,7 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
 @synthesize viewControllers = _viewControllers;
 @synthesize selectedViewController = _selectedViewController;
 @synthesize title = _title;
-
+@synthesize toolbar = _toolbar;
 #pragma mark -
 
 - (id)initWithViewControllers:(NSArray *)viewControllers
@@ -38,10 +38,9 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
 {
     if ((self = [super initWithWindowNibName:@"MASPreferencesWindow"]))
     {
-#if __has_feature(objc_arc)
-        _viewControllers = viewControllers;
-#else
-        _viewControllers = [viewControllers retain];
+		_viewControllers = [NSMutableArray arrayWithArray: viewControllers];
+#if !__has_feature(objc_arc)
+        _viewControllers = [_viewControllers retain];
 #endif
         _minimumViewRects = [[NSMutableDictionary alloc] init];
         _title = [title copy];
@@ -60,6 +59,13 @@ static NSString *const PreferencesKeyForViewBounds (NSString *identifier)
     [_title release];
     [super dealloc];
 #endif
+}
+
+- (void)addViewController: (NSViewController <MASPreferencesViewController> *) viewController
+{
+	[_viewControllers addObject: viewController];
+	[_toolbar insertItemWithItemIdentifier: [viewController identifier] atIndex: ([_viewControllers count] - 1)];
+	[_toolbar validateVisibleItems];
 }
 
 #pragma mark -
