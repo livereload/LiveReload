@@ -1,3 +1,3 @@
 #!/usr/bin/env node
-require('../lib/cli').run(process.argv.slice(2));
-
+process.env.DEBUG || (process.env.DEBUG = 'livereload:*')
+require('../lib/main').run(process.argv.slice(2));

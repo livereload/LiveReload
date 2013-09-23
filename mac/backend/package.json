@@ -1,44 +1,24 @@
 {
-  "author": {
-    "name": "Andrey Tarantsov",
-    "email": "andrey@tarantsov.com"
-  },
-  "name": "livereload",
-  "description": "LiveReload 3 command-line tool / GUI backend",
-  "version": "0.1.0",
-  "homepage": "https://github.com/andreyvit/livereload",
-  "repository": {
-    "url": "git://github.com/andreyvit/livereload"
-  },
-  "main": "lib/index.js",
-  "scripts": {
-    "test": "./node_modules/mocha/bin/mocha -R ${REPORTER-spec}"
-  },
+  "name": "livereload-new",
+  "author": "Andrey Tarantsov <andrey@tarantsov.com>",
+  "version": "0.0.1",
+  "description": "LiveReload",
+  "scripts": {},
   "dependencies": {
-    "debug": "~0.7.0",
-    "dreamopt": "~0.8.0",
-    "livereload-server": "~0.1.1",
-    "apitree": "~1.1.0",
-    "sugar": "=1.1.1"
+    "livereload-soa": "0.0.x",
+    "livereload-service-dummy": "0.0.x",
+    "livereload-service-server": "0.0.x",
+    "livereload-service-reloader": "0.0.x",
+    "debug": "~0.7.0"
   },
   "devDependencies": {
-    "mocha": "~1.0.3"
+    "grunt-simple-mocha": "~0.4.0",
+    "grunt": "~0.4.1",
+    "grunt-contrib-coffee": "~0.7.0",
+    "sinon": "~1.7.3"
   },
   "optionalDependencies": {},
   "engines": {
     "node": "*"
-  },
-  "_npmUser": {
-    "name": "andreyvit",
-    "email": "andreyvit@me.com"
-  },
-  "_id": "livereload@0.1.0",
-  "_engineSupported": true,
-  "_npmVersion": "1.1.16",
-  "_nodeVersion": "v0.6.15",
-  "_defaultsLoaded": true,
-  "dist": {
-    "shasum": "549dea78eda2d3145ff738b56fbf64dbb617fa3e"
-  },
-  "_from": "../cli"
+  }
 }
