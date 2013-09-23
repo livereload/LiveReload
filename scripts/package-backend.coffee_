@@ -1,0 +1,250 @@
+fs     = require 'fs'
+Path   = require 'path'
+mkdirp = require 'mkdirp'
+rimraf = require 'rimraf'
+childp = require 'child_process'
+which  = require 'which'
+zlib   = require 'zlib'
+tar    = require 'tar'
+events = require 'events'
+
+EXITCODE_INVALID_CMDLINE = 10
+EXITCODE_ENV_ERROR = 9
+EXITCODE_EXEC_ERROR = 1
+
+events.EventEmitter::once_ = (event, callback) ->
+  this.once event, (args...) -> callback(null, args...)
+
+expectedError = (exitCode, message) ->
+  error = new Error(message)
+  error.exitCode = exitCode
+  return error
+
+spawn = (file, args, options, callback) ->
+  console.log "$ #{file} #{args.join(' ')}"
+  childp.execFile file, args, options, (err, stdout, stderr) ->
+    callback(err, { stdout, stderr })
+
+fsExists = (path, callback) ->
+  fs.exists path, (result) -> callback(null, result)
+
+fill = (n, string) ->
+  if string.length >= n
+    string
+  else
+    string + new Array(n - string.length + 1).join(' ')
+
+
+class Package
+  constructor: (@packager, @dir) ->
+    @manifestFile = Path.join(@dir, 'package.json')
+    @manifest = null
+    @name = 'UNKNOWN'
+    @localRepository = null
+
+    @queued = no
+    @processed = no
+    @destinationDir = null
+    @destinationDependenciesDir = null
+
+  loadManifest: (_) ->
+    unless @manifest
+      @manifest = JSON.parse(fs.readFile(@manifestFile, 'utf8', _))
+      @name = @manifest.name or throw new Error("Missing 'name' key in manifest file #{@manifestFile}")
+      @tgzName = "#{@manifest.name}-#{@manifest.version}.tgz"
+      @tgzPath = Path.join(@dir, @tgzName)
+    return @manifest
+
+  findLocalPackage: (packageName, _) ->
+    @localRepository or= @packager.obtainModuleLocalRepository(@dir, _)
+    return @localRepository.findPackage(packageName, _)
+
+  setDestinationDir: (dir) ->
+    @destinationDir = dir
+    @destinationDependenciesDir = Path.join(dir, 'node_modules')
+
+  setDestinationDependenciesDir: (dir) ->
+    @destinationDependenciesDir = dir
+    @destinationDir = Path.join(dir, @name)
+
+
+class LocalPackageRepository
+  constructor: (@packager, @packagesDir) ->
+
+  findPackage: (name, _) ->
+    @packager.obtainPackage(Path.join(@packagesDir, name), _)
+
+
+class CompoundRepository
+  constructor: (@repositories) ->
+
+  findPackage: (name, _) ->
+    for repository in @repositories
+      if pkg = repository.findPackage(name, _)
+        return pkg
+    return null
+
+
+class Packager
+  constructor: (@options) ->
+    @pathsToPackages = {}
+    @pathsToRepositories = {}
+    @namesToPackageFamilies = {}
+    @errors = []
+
+    @packagesToProcess = []
+
+
+  obtainPackageFamily: (name) ->
+    if @namesToPackageFamilies.hasOwnProperty(name)
+      @namesToPackageFamilies[name]
+    else
+      @namesToPackageFamilies[name] = new PackageFamily(this, name)
+
+
+  obtainPackage: (dir, _) ->
+    # console.log "obtainPackage(%s)", dir
+    if @pathsToPackages.hasOwnProperty(dir)
+      @pathsToPackages[dir]
+    else
+      @pathsToPackages[dir] = pkg = if fsExists(dir, _) then new Package(this, dir) else null
+      if pkg
+        pkg.loadManifest(_)
+      return pkg
+
+  obtainFolderRepository: (path, _) ->
+    if @pathsToRepositories.hasOwnProperty(path)
+      @pathsToRepositories[path]
+    else
+      @pathsToRepositories[path] = if fsExists(path, _) then new LocalPackageRepository(this, path) else null
+
+  obtainModuleLocalRepository: (moduleFolder, _) ->
+    repositories = []
+    while true
+      repository = @obtainFolderRepository(Path.join(moduleFolder, 'node_modules'), _)
+      repositories.push(repository) if repository
+
+      parentFolder = Path.dirname(moduleFolder)
+      break if !parentFolder or (moduleFolder == parentFolder)
+      moduleFolder = parentFolder
+
+    return new CompoundRepository(repositories)
+
+  addPackageFolder: (sourceDir, destinationDir, _) ->
+    pkg = @obtainPackage(sourceDir, _)
+    if pkg
+      pkg.setDestinationDir(destinationDir)
+      @addPackage(pkg, _)
+    else
+      @addError "Missing source folder #{sourceDir}"
+
+  addPackage: (pkg, _) ->
+    return if pkg.queued
+    pkg.queued = yes
+
+    @packagesToProcess.push pkg
+    console.log "ENQUEUED: #{Path.dirname(pkg.dir)}: #{pkg.manifest.name}@#{pkg.manifest.version}"
+
+    for own depPackageName, depVersionSpec of pkg.manifest.dependencies || {}
+      @addDependency(pkg, depPackageName, depVersionSpec, _)
+
+  addDependency: (parentPackage, packageName, versionSpec, _) ->
+
+
+    pkg = parentPackage.findLocalPackage(packageName, _)
+    if !pkg
+      return @addError("Missing pkg '#{packageName}' required by pkg '#{parentPackage.name}' at #{parentPackage.dir}")
+
+    pkg.setDestinationDependenciesDir(parentPackage.destinationDependenciesDir)
+
+    @addPackage(pkg, _)
+
+  addError: (message) ->
+    @errors.push message
+    return undefined
+
+  processEnqueuedPackages: (_) ->
+    while pkg = @packagesToProcess.shift()
+      @processPackage(pkg, _)
+    @packagesToProcess = []
+    return undefined
+
+  processPackage: (pkg, _) ->
+    return if pkg.processed
+    pkg.processed = yes
+
+    name = "#{pkg.manifest.name}@#{pkg.manifest.version}:"
+    console.log "RUN: #{fill 35, name} #{fill 60, pkg.destinationDir} <- #{fill 90, pkg.dir}".trim()
+
+    if no
+      # rm pkgname-ver.tgz
+      try fs.unlink(pkg.tgzPath, _) catch e then null
+
+      # npm pack
+      [stdout, stderr] = spawn @options.npm, ['pack'], { cwd: pkg.dir }, _
+      unless fs.stat(pkg.tgzPath, _)?.isFile()
+        throw expectedError(EXITCODE_EXEC_ERROR, "Failed to npm pack #{pkg.dir}")
+
+      @untar pkg.tgzPath, pkg.destinationDir, _
+
+  untar: (sourceFile, destinationDir, _) ->
+    mkdirp(destinationDir, 0o600, _)
+
+    read    = fs.createReadStream(sourceFile)
+    extract = zlib.createGunzip()
+    untar   = tar.Extract({ path: destinationDir, strip: 1 })
+
+    read.pipe(extract).pipe(untar).once_ 'end', _
+
+    # spawn @options.tar, ['--strip=1', 'xzf', Path.resolve(sourceFile)], { cwd: destinationDir }, _
+
+
+
+run = (options, _) ->
+  stat = (try fs.statSync(options.sourceDir) catch e then null)
+  unless stat?.isDirectory()
+    throw expectedError(EXITCODE_INVALID_CMDLINE, "Source directory does not exist: '#{options.sourceDir}'")
+
+  try rimraf.sync(options.destinationDir) catch e then null
+
+  mkdirp.sync(options.destinationDir)
+
+  options.npm = which('npm', _) or throw expectedError(EXITCODE_ENV_ERROR, "Cannot find npm executable in PATH")
+  options.tar = which('tar', _) or throw expectedError(EXITCODE_ENV_ERROR, "Cannot find tar executable in PATH")
+
+  console.log "npm: %s", options.npm
+  console.log "tar: %s", options.tar
+
+  packager = new Packager(options )
+  packager.addPackageFolder(options.sourceDir, options.destinationDir, _)
+  packager.processEnqueuedPackages(_)
+
+  if packager.errors.length > 0
+    console.error "Errors:"
+    for message in packager.errors
+      console.error "#{message}"
+    throw new Error("failed")
+
+  undefined
+
+
+options = require('dreamopt') [
+  "Usage: _coffee scripts/package-backend.coffee_ <source-package-dir> <destination-dir>"
+  "Arguments:"
+  "  <source-package-dir>  NPM package directory to bundle #required #var(sourceDir)"
+  "  <destination-dir>     Output directory to bundle into #required #var(destinationDir)"
+]
+
+console.log "options = %j", options
+
+run options, (err) ->
+  if err
+    if err.exitCode?
+      console.error "** Error: #{err.message}"
+      process.exit err.exitCode
+    else
+      console.error "** #{err.stack}"
+      process.exit 1
+  else
+    console.log "see output dir: open #{options.destinationDir}"
+    console.log "ok"
