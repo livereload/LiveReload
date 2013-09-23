@@ -44,14 +44,16 @@ Building LiveReload for Windows
 Building LiveReload for Mac
 ---------------------------
 
-Note: right now this branch is in a transitional state; I'm doing active development of Mac v2.4.x. See the ‘master’ branch for the latest stable Mac version (v2.3.x).
+Note: right now this branch is in a transitional state; I'm doing active development of Mac v3.0.x. See the ‘master’ branch for the latest stable Mac version (v2.3.x).
 
 Prerequisites:
 
-* Xcode 4.6
+* Xcode 5.0
 * Node 0.10
-* IcedCoffeeScript 1.3.x: `npm install -g iced-coffee-script`
-* Ruby 1.8.7 for running Rake
+* CoffeeScript 1.6.x: `npm install -g coffee-script`
+* underscore.js: `npm install -g underscore`
+* grunt
+* optionally, Ruby 1.8.7 with Rake for running Rake tasks
 
 For running tests:
 
@@ -63,25 +65,24 @@ Building:
 
 1. Don’t forget to pull all submodules after getting the source code.
 
-1. Prepare the backend:
+1. Install and compile the backend modules:
 
-        cd node_modules/livereload-new
-        npm install
-        coffee -c lib test
-        mocha
-        cucumber.js
-        mocha
-        cucumber.js
+        cd node_modules/livereload-new     && npm install && grunt &&
+        cd ../livereload-service-dummy     && npm install && grunt
+        cd ../livereload-service-server    && npm install && grunt
+        cd ../livereload-service-reloader  && npm install && grunt
+        cd ../livereload-soa               && npm install && grunt
+        cd ../livereload-server            && coffee -c lib
+        cd ../livereload-protocol          && coffee -c lib
+        cd ../pathspec                     && coffee -c lib
 
-    Or use the watch mode for the latter commands:
+1. Package the backend modules into `mac/backend`:
 
-        coffee -cw lib test
-        fsmonitor -s '+*.js' '!node_modules' '!.git' mocha -G -R spec
-        fsmonitor -s '+*.js' '+features/**/*.coffee' '+*.feature' '!node_modules' '!.git' cucumber.js
+        cd scripts && npm install
+        cd ..
+        scripts/node_modules/.bin/_coffee scripts/package-backend.coffee_ node_modules/livereload-new mac/backend
 
-1. CURRENTLY BROKEN: Run `rake backend` to package the backend into `interim/backend`.
-
-    For now (and during develpment) use override mode instead — open Xcode scheme settings and set LRBackendOverride env var to the full path of `node_modules/livereload-new/bin/livereload.js`.)
+    During development, use override mode instead — open Xcode scheme settings and set LRBackendOverride env var to the full path of `node_modules/livereload-new/bin/livereload.js`.
 
 1. Open `LiveReload/LiveReload.xcodeproj` and build it with Xcode.
 

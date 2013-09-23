@@ -7,6 +7,8 @@ which  = require 'which'
 zlib   = require 'zlib'
 tar    = require 'tar'
 events = require 'events'
+semver = require 'semver'
+U      = require 'underscore'
 
 EXITCODE_INVALID_CMDLINE = 10
 EXITCODE_ENV_ERROR = 9
@@ -41,16 +43,23 @@ class Package
     @manifest = null
     @name = 'UNKNOWN'
     @localRepository = null
+    @family = null
+    @dependencies = []
 
     @queued = no
     @processed = no
     @destinationDir = null
-    @destinationDependenciesDir = null
+    @localDependenciesDir = null
 
   loadManifest: (_) ->
     unless @manifest
       @manifest = JSON.parse(fs.readFile(@manifestFile, 'utf8', _))
       @name = @manifest.name or throw new Error("Missing 'name' key in manifest file #{@manifestFile}")
+      @version = @manifest.version or throw new Error("Missing 'version' key in manifest file #{@manifestFile}")
+      unless (@version = semver.valid(@version))
+        throw new Error("Invalid 'version' key in manifest file #{@manifestFile}")
+      @family = @packager.obtainPackageFamily(@name)
+      @family.addLocalSource(this)
       @tgzName = "#{@manifest.name}-#{@manifest.version}.tgz"
       @tgzPath = Path.join(@dir, @tgzName)
     return @manifest
@@ -59,13 +68,38 @@ class Package
     @localRepository or= @packager.obtainModuleLocalRepository(@dir, _)
     return @localRepository.findPackage(packageName, _)
 
+  addDependency: (requirement) ->
+    @dependencies.push(requirement)
+    @packager.obtainPackageFamily(requirement.name).addRequirement(requirement)
+
   setDestinationDir: (dir) ->
     @destinationDir = dir
-    @destinationDependenciesDir = Path.join(dir, 'node_modules')
+    @localDependenciesDir = Path.join(dir, 'node_modules')
 
-  setDestinationDependenciesDir: (dir) ->
-    @destinationDependenciesDir = dir
-    @destinationDir = Path.join(dir, @name)
+  setDestinationParentDir: (dir) ->
+    @setDestinationDir(Path.join(dir, @name))
+
+
+class PackageRequirement
+  constructor: (@requiringPackage, @name, @versionSpec) ->
+    @resolvedPackage = null
+
+    if @versionSpec is 'latest'
+      @versionSpec = '*'
+
+
+class PackageFamily
+  constructor: (@packager, @name) ->
+    @requirements = []
+    @localSources = []
+    @resolvedSources = []
+
+  addRequirement: (requirement) ->
+    @requirements.push requirement
+
+  addLocalSource: (source) ->
+    if @localSources.indexOf(source) < 0
+      @localSources.push(source)
 
 
 class LocalPackageRepository
@@ -92,14 +126,16 @@ class Packager
     @namesToPackageFamilies = {}
     @errors = []
 
-    @packagesToProcess = []
+    @selectedFamilies = []
 
 
   obtainPackageFamily: (name) ->
     if @namesToPackageFamilies.hasOwnProperty(name)
       @namesToPackageFamilies[name]
     else
-      @namesToPackageFamilies[name] = new PackageFamily(this, name)
+      family = new PackageFamily(this, name)
+      @selectedFamilies.push(family)
+      @namesToPackageFamilies[name] = family
 
 
   obtainPackage: (dir, _) ->
@@ -107,16 +143,21 @@ class Packager
     if @pathsToPackages.hasOwnProperty(dir)
       @pathsToPackages[dir]
     else
-      @pathsToPackages[dir] = pkg = if fsExists(dir, _) then new Package(this, dir) else null
-      if pkg
+      if fsExists(dir, _)
+        pkg = new Package(this, dir)
         pkg.loadManifest(_)
+      else
+        pkg = null
+      @pathsToPackages[dir] = pkg
       return pkg
+
 
   obtainFolderRepository: (path, _) ->
     if @pathsToRepositories.hasOwnProperty(path)
       @pathsToRepositories[path]
     else
       @pathsToRepositories[path] = if fsExists(path, _) then new LocalPackageRepository(this, path) else null
+
 
   obtainModuleLocalRepository: (moduleFolder, _) ->
     repositories = []
@@ -130,43 +171,109 @@ class Packager
 
     return new CompoundRepository(repositories)
 
-  addPackageFolder: (sourceDir, destinationDir, _) ->
-    pkg = @obtainPackage(sourceDir, _)
-    if pkg
-      pkg.setDestinationDir(destinationDir)
-      @addPackage(pkg, _)
-    else
-      @addError "Missing source folder #{sourceDir}"
 
   addPackage: (pkg, _) ->
     return if pkg.queued
     pkg.queued = yes
 
-    @packagesToProcess.push pkg
-    console.log "ENQUEUED: #{Path.dirname(pkg.dir)}: #{pkg.manifest.name}@#{pkg.manifest.version}"
+    console.log "PARSE: #{Path.dirname(pkg.dir)}: #{pkg.manifest.name}@#{pkg.manifest.version}"
 
     for own depPackageName, depVersionSpec of pkg.manifest.dependencies || {}
-      @addDependency(pkg, depPackageName, depVersionSpec, _)
+      requirement = new PackageRequirement(pkg, depPackageName, depVersionSpec)
+      pkg.addDependency(requirement)
+      @resolveDependency(requirement, _)
 
-  addDependency: (parentPackage, packageName, versionSpec, _) ->
 
-
-    pkg = parentPackage.findLocalPackage(packageName, _)
+  resolveDependency: (requirement, _) ->
+    # TODO: tolerate missing packages
+    pkg = requirement.requiringPackage.findLocalPackage(requirement.name, _)
     if !pkg
-      return @addError("Missing pkg '#{packageName}' required by pkg '#{parentPackage.name}' at #{parentPackage.dir}")
+      return @addError("Missing pkg '#{requirement.name}' required by pkg '#{requirement.requiringPackage.name}' at #{requirement.requiringPackage.dir}")
 
-    pkg.setDestinationDependenciesDir(parentPackage.destinationDependenciesDir)
+    if not semver.satisfies(pkg.version, requirement.versionSpec)
+      @addError("Resolved package #{pkg.name}@#{pkg.version} does not satisfy range '#{requirement.versionSpec}' required by pkg '#{requirement.requiringPackage.name}' at #{requirement.requiringPackage.dir}")
 
+    requirement.resolvedPackage = pkg
     @addPackage(pkg, _)
+
 
   addError: (message) ->
     @errors.push message
     return undefined
 
-  processEnqueuedPackages: (_) ->
-    while pkg = @packagesToProcess.shift()
-      @processPackage(pkg, _)
-    @packagesToProcess = []
+
+  installPackage: (rootPackage, rootDestinationDir, _) ->
+    orderedSources = []
+
+    rootPackage.setDestinationDir(rootDestinationDir)
+    orderedSources.push(rootPackage)
+
+    for family in @selectedFamilies
+      console.log "#{family.name}"
+      for requirement in family.requirements
+        console.log "  version #{requirement.versionSpec}"
+      for sourcePackage in family.localSources
+        console.log "  source version #{sourcePackage.manifest.version} at #{sourcePackage.dir}"
+      # console.log "RUN: #{fill 35, name} #{fill 60, pkg.destinationDir} <- #{fill 90, pkg.dir}".trim()
+
+      resolvedSources = []
+
+      # pick source to install
+      if family == rootPackage.family
+        primarySource = rootPackage
+        primarySourceDir = rootDestinationDir
+      else
+        primarySourceDir = rootPackage.localDependenciesDir
+
+        if family.localSources.length > 0
+          for sourcePackage in family.localSources
+            rank = 0
+            for requirement in family.requirements
+              if semver.satisfies(sourcePackage.version, requirement.versionSpec)
+                rank += 1
+            sourcePackage.rank = rank
+
+          primarySource = U.max(family.localSources, (p) => p.rank)
+          primarySource.setDestinationParentDir(primarySourceDir)
+          resolvedSources.push(primarySource)
+          orderedSources.push(primarySource)
+
+      secondarySources = []
+      for requirement in family.requirements
+        if not semver.satisfies(primarySource.version, requirement.versionSpec)
+          source = requirement.resolvedPackage
+          if not semver.eq(primarySource.version, source.version)
+            source.destinationDir = null
+            source.secondarySourceRequirement = requirement
+            resolvedSources.push(source)
+            secondarySources.push(source)
+
+      # set destination dirs iteratively, because inner package dirs depend on outer package dirs
+      progressMade = yes
+      while progressMade
+        progressMade = no
+        for source in secondarySources when !source.destinationDir
+          if dir = source.secondarySourceRequirement.requiringPackage.localDependenciesDir
+            source.setDestinationParentDir(dir)
+            orderedSources.push(source)
+            progressMade = yes
+
+      family.resolvedSources = resolvedSources
+
+      for source in family.resolvedSources
+        console.log "  resolved source #{source.manifest?.version} at #{source.dir}"
+
+
+    console.log "Installation plan:"
+    for source in orderedSources
+      name = "#{source.manifest.name}@#{source.manifest.version}:"
+      console.log "  " + "#{fill 35, name} #{fill 60, source.destinationDir} <- #{fill 90, source.dir}".trim()
+
+
+    console.log "Installation..."
+    for source in orderedSources
+      @processPackage(source, _)
+
     return undefined
 
   processPackage: (pkg, _) ->
@@ -174,9 +281,9 @@ class Packager
     pkg.processed = yes
 
     name = "#{pkg.manifest.name}@#{pkg.manifest.version}:"
-    console.log "RUN: #{fill 35, name} #{fill 60, pkg.destinationDir} <- #{fill 90, pkg.dir}".trim()
+    console.log "  " + "#{fill 35, name} #{fill 60, pkg.destinationDir} <- #{fill 90, pkg.dir}".trim()
 
-    if no
+    if yes
       # rm pkgname-ver.tgz
       try fs.unlink(pkg.tgzPath, _) catch e then null
 
@@ -186,9 +293,11 @@ class Packager
         throw expectedError(EXITCODE_EXEC_ERROR, "Failed to npm pack #{pkg.dir}")
 
       @untar pkg.tgzPath, pkg.destinationDir, _
+      try fs.unlink(pkg.tgzPath, _) catch e then null
+
 
   untar: (sourceFile, destinationDir, _) ->
-    mkdirp(destinationDir, 0o600, _)
+    mkdirp(destinationDir, _)
 
     read    = fs.createReadStream(sourceFile)
     extract = zlib.createGunzip()
@@ -216,14 +325,19 @@ run = (options, _) ->
   console.log "tar: %s", options.tar
 
   packager = new Packager(options )
-  packager.addPackageFolder(options.sourceDir, options.destinationDir, _)
-  packager.processEnqueuedPackages(_)
+
+  pkg = packager.obtainPackage(options.sourceDir, _)
+  if !pkg
+    throw expectedError(EXITCODE_INVALID_CMDLINE, "Missing source folder #{sourceDir}")
+  packager.addPackage(pkg, _)
+
+  packager.installPackage(pkg, options.destinationDir, _)
 
   if packager.errors.length > 0
     console.error "Errors:"
     for message in packager.errors
       console.error "#{message}"
-    throw new Error("failed")
+    throw expectedError(EXITCODE_ENV_ERROR, "failed")
 
   undefined
 
