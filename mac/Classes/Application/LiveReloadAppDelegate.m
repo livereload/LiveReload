@@ -95,7 +95,7 @@ json_t *C_kernel__on_port_occupied_error(json_t *message) {
     [[PluginManager sharedPluginManager] reloadPlugins];
 
 #ifndef APPSTORE
-    [[SUUpdater sharedUpdater] setDelegate:self];
+//    [[SUUpdater sharedUpdater] setDelegate:self];
 #endif
 
     _port = 35729;
@@ -393,7 +393,7 @@ json_t *C_kernel__on_port_occupied_error(json_t *message) {
 #pragma mark - Sparkle
 
 - (IBAction)checkForUpdates:(id)sender {
-    [[SUUpdater sharedUpdater] checkForUpdates:sender];
+//    [[SUUpdater sharedUpdater] checkForUpdates:sender];
 }
 
 @end

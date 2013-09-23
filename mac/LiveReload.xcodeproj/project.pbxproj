@@ -220,7 +220,6 @@
 		43DFE4E617CC6C0D00DEF87B /* autoprefixer.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43DFE4E417CC6C0D00DEF87B /* autoprefixer.lrplugin */; };
 		43DFE4E717CC6C0D00DEF87B /* customscripts.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43DFE4E517CC6C0D00DEF87B /* customscripts.lrplugin */; };
 		43DFE4E917CC967500DEF87B /* TypeScript.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43DFE4E817CC967500DEF87B /* TypeScript.lrplugin */; };
-		43DFE4ED17CCA4F200DEF87B /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43DFE4EC17CCA4F200DEF87B /* Sparkle.framework */; };
 		43DFE4F117CCA56400DEF87B /* com.andymatuschak.Sparkle.SandboxService.xpc in CopyFiles */ = {isa = PBXBuildFile; fileRef = 43DFE4F017CCA56300DEF87B /* com.andymatuschak.Sparkle.SandboxService.xpc */; };
 		43E07EC217B01C4B004DB867 /* ATJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E07EC117B01C4B004DB867 /* ATJson.m */; };
 		43E34F9B14705125001641AA /* console.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E34F9714705125001641AA /* console.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -763,7 +762,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				43059222151E8FA400CC3F88 /* CoreServices.framework in Frameworks */,
-				43DFE4ED17CCA4F200DEF87B /* Sparkle.framework in Frameworks */,
 				43594AF413D3BB34004175B2 /* QuartzCore.framework in Frameworks */,
 				43361D4613C30D1400C0E589 /* libicucore.dylib in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
