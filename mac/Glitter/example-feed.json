@@ -1,0 +1,16 @@
+{
+  "glitterFeedVersion": 1,
+  "versions": [
+    {
+      "versionCode": "1.2.3",
+      "versionDisplayName": "1.2 α3",
+      "channels": ["stable"],
+      "requires": ">=0.0.0",
+      "dist": {
+        "url": "http://download.livereload.com/glitter/GlitterDemo-1.2.3.zip",
+        "size": 728970,
+        "sha1": "7b9a79d873e2cce60b0678a7586f2702e2540ac3"
+      }
+    }
+  ]
+}
