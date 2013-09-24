@@ -1,6 +1,7 @@
 
 #import "Glitter.h"
 #import "GlitterVersionUtilities.h"
+#import "GlitterArchiveUtilities.h"
 
 
 #define GlitterFeedFormatVersionKey @"glitterFeedVersion"
@@ -403,7 +404,7 @@
 - (void)_finishDownload {
     if (_downloadingData) {
         // TODO verify length of data and SHA1 sum
-        
+
         NSError * __autoreleasing error = nil;
         BOOL ok = [_downloadingData writeToURL:_downloadLocalURL options:NSDataWritingAtomic error:&error];
         if (!ok) {
@@ -425,56 +426,34 @@
 
                 NSLog(@"[Glitter] Unzipping %@", [_downloadLocalURL lastPathComponent]);
 
-                // borrowed from Sparkle
-                ok = NO;
-                FILE *fp = fopen([_downloadLocalURL.path fileSystemRepresentation], "r");
-                if (!fp) goto reportError;
-
-                setenv("DESTINATION", [_extractionFolderURL.path fileSystemRepresentation], 1);
-                FILE *cmdFP = popen("ditto -x -k - \"$DESTINATION\"", "w");
-                size_t written;
-                if (!cmdFP) goto reportError;
-
-                char buf[32*1024];
-                size_t len;
-                while((len = fread(buf, 1, 32*1024, fp)))
-                {
-                    written = fwrite(buf, 1, len, cmdFP);
-                    if( written < len )
-                    {
-                        pclose(cmdFP);
-                        goto reportError;
-                    }
-                    
-//                    [self performSelectorOnMainThread:@selector(notifyDelegateOfExtractedLength:) withObject:[NSNumber numberWithUnsignedLong:len] waitUntilDone:NO];
-                }
-                pclose(cmdFP);
-                ok = YES;
-                
-            reportError:
-
-
-//                ok = [SSZipArchive unzipFileAtPath:_downloadLocalURL.path toDestination:_extractionFolderURL.path overwrite:NO password:nil error:&error delegate:nil];
-                if (!ok) {
-//                    NSLog(@"[Glitter] Update extraction failed (version %@ at %@) - cannot unzip %@: %@", _downloadingVersion.version, _downloadingVersion.source.url, _downloadLocalURL.path, error.localizedDescription);
-                    NSLog(@"[Glitter] Update extraction failed (version %@ at %@) - cannot unzip %@", _downloadingVersion.version, _downloadingVersion.source.url, _downloadLocalURL.path);
-                } else {
-                    NSArray *items = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:_extractionFolderURL includingPropertiesForKeys:@[] options:NSDirectoryEnumerationSkipsHiddenFiles error:&error];
-                    if (!items) {
-                        NSLog(@"[Glitter] Update extraction failed (version %@ at %@) - cannot enumerate %@: %@", _downloadingVersion.version, _downloadingVersion.source.url, _extractionFolderURL.path, error.localizedDescription);
+                GlitterUnzip(_downloadLocalURL, _extractionFolderURL, ^(NSError *unzipError) {
+                    if (unzipError) {
+                        NSLog(@"[Glitter] Update extraction failed (version %@ at %@) - cannot unzip %@: %@", _downloadingVersion.version, _downloadingVersion.source.url, _downloadLocalURL.path, unzipError.localizedDescription);
                     } else {
-                        if (items.count != 1) {
-                            NSLog(@"[Glitter] Update extraction failed (version %@ at %@) - multiple items found in %@: %@", _downloadingVersion.version, _downloadingVersion.source.url, _extractionFolderURL.path, items);
+                        NSError * __autoreleasing error = nil;
+                        NSArray *items = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:_extractionFolderURL includingPropertiesForKeys:@[] options:NSDirectoryEnumerationSkipsHiddenFiles error:&error];
+                        if (!items) {
+                            NSLog(@"[Glitter] Update extraction failed (version %@ at %@) - cannot enumerate %@: %@", _downloadingVersion.version, _downloadingVersion.source.url, _extractionFolderURL.path, error.localizedDescription);
                         } else {
-                            _readyToInstallVersion = _downloadingVersion;
-                            _readyToInstallLocalURL = items[0]; //[_updateFolderURL URLByAppendingPathComponent:statusData[GlitterStateFileNameKey]];
-                            NSLog(@"[Glitter] Item to install: %@", _readyToInstallLocalURL.path);
-                            NSLog(@"[Glitter] Version %@ is ready to install.", _readyToInstallVersion.version);
+                            if (items.count != 1) {
+                                NSLog(@"[Glitter] Update extraction failed (version %@ at %@) - multiple items found in %@: %@", _downloadingVersion.version, _downloadingVersion.source.url, _extractionFolderURL.path, items);
+                            } else {
+                                _readyToInstallVersion = _downloadingVersion;
+                                _readyToInstallLocalURL = items[0]; //[_updateFolderURL URLByAppendingPathComponent:statusData[GlitterStateFileNameKey]];
+                                NSLog(@"[Glitter] Item to install: %@", _readyToInstallLocalURL.path);
+                                NSLog(@"[Glitter] Version %@ is ready to install.", _readyToInstallVersion.version);
 
-                            [self installUpdate];
+                                [self installUpdate];
+                            }
                         }
                     }
-                }
+                });
+////                ok = [SSZipArchive unzipFileAtPath:_downloadLocalURL.path toDestination:_extractionFolderURL.path overwrite:NO password:nil error:&error delegate:nil];
+//                if (!ok) {
+////                    NSLog(@"[Glitter] Update extraction failed (version %@ at %@) - cannot unzip %@: %@", _downloadingVersion.version, _downloadingVersion.source.url, _downloadLocalURL.path, error.localizedDescription);
+//                    NSLog(@"[Glitter] Update extraction failed (version %@ at %@) - cannot unzip %@", _downloadingVersion.version, _downloadingVersion.source.url, _downloadLocalURL.path);
+//                } else {
+//                }
             }
         }
     }
