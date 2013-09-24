@@ -5,7 +5,7 @@
 @interface GlitterSource : NSObject
 
 @property(nonatomic, readonly, copy) NSURL *url;
-@property(nonatomic, readonly) unsigned long size;
+@property(nonatomic) unsigned long size;
 @property(nonatomic, readonly, copy) NSString *sha1;
 
 - (id)initWithUrl:(NSURL *)url size:(unsigned long)size sha1:(NSString *)sha1;

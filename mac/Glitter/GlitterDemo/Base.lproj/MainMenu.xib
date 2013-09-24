@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4439" systemVersion="13A451" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4457.6" systemVersion="12E55" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4439"/>
+        <deployment defaultVersion="1080" identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4457.6"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -440,17 +441,68 @@
             </items>
         </menu>
         <window title="GlitterDemo" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="371">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="335" y="390" width="480" height="360"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
+            <rect key="contentRect" x="335" y="390" width="342" height="127"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1366" height="746"/>
             <view key="contentView" id="372">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="360"/>
+                <rect key="frame" x="0.0" y="0.0" width="342" height="127"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BaP-Il-brX">
+                        <rect key="frame" x="20" y="46" width="305" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Action..." id="ebY-oY-f6f">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sfR-t1-rtb">
+                        <rect key="frame" x="14" y="79" width="157" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" title="Check for Updates" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2Tg-Kd-TAE">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                    </button>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xdw-za-I3J">
+                        <rect key="frame" x="171" y="79" width="157" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" title="Install v1.2.3" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="jlU-OD-gSL">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                    </button>
+                    <progressIndicator maxValue="100" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="ofC-Uc-mJ1">
+                        <rect key="frame" x="23" y="19" width="299" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    </progressIndicator>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="BaP-Il-brX" firstAttribute="leading" secondItem="372" secondAttribute="leading" constant="23" id="0JQ-du-I7F"/>
+                    <constraint firstItem="sfR-t1-rtb" firstAttribute="top" secondItem="372" secondAttribute="top" constant="20" id="4bc-jr-q5X"/>
+                    <constraint firstItem="ofC-Uc-mJ1" firstAttribute="trailing" secondItem="BaP-Il-brX" secondAttribute="trailing" id="A5J-Na-MY6"/>
+                    <constraint firstItem="ofC-Uc-mJ1" firstAttribute="leading" secondItem="BaP-Il-brX" secondAttribute="leading" id="GKh-BY-eat"/>
+                    <constraint firstItem="sfR-t1-rtb" firstAttribute="width" secondItem="xdw-za-I3J" secondAttribute="width" id="TLo-Ah-LDh"/>
+                    <constraint firstAttribute="trailing" secondItem="BaP-Il-brX" secondAttribute="trailing" constant="20" id="VqS-I7-RAf"/>
+                    <constraint firstAttribute="trailing" secondItem="xdw-za-I3J" secondAttribute="trailing" constant="20" id="eis-30-1Dk"/>
+                    <constraint firstItem="xdw-za-I3J" firstAttribute="leading" secondItem="sfR-t1-rtb" secondAttribute="trailing" constant="12" id="gMv-Tk-D77"/>
+                    <constraint firstItem="sfR-t1-rtb" firstAttribute="leading" secondItem="372" secondAttribute="leading" constant="20" id="kNV-wX-Str"/>
+                    <constraint firstItem="ofC-Uc-mJ1" firstAttribute="top" secondItem="BaP-Il-brX" secondAttribute="bottom" constant="8" id="sf4-e2-GVy"/>
+                    <constraint firstItem="BaP-Il-brX" firstAttribute="top" secondItem="sfR-t1-rtb" secondAttribute="bottom" constant="23" id="slg-oQ-7LE"/>
+                    <constraint firstItem="sfR-t1-rtb" firstAttribute="baseline" secondItem="xdw-za-I3J" secondAttribute="baseline" id="t4o-FO-las"/>
+                </constraints>
             </view>
         </window>
         <customObject id="494" customClass="GlitterDemoAppDelegate">
             <connections>
+                <action selector="checkForUpdates:" destination="sfR-t1-rtb" id="4DI-12-VLj"/>
+                <action selector="installUpdate:" destination="xdw-za-I3J" id="TgI-jn-6Ku"/>
+                <outlet property="actionField" destination="BaP-Il-brX" id="ucY-rC-YvL"/>
+                <outlet property="checkForUpdatesButton" destination="sfR-t1-rtb" id="5jN-Jm-xxO"/>
+                <outlet property="installUpdateButton" destination="xdw-za-I3J" id="ft3-o4-qBF"/>
+                <outlet property="progressIndicator" destination="ofC-Uc-mJ1" id="Xmc-CC-hVC"/>
                 <outlet property="window" destination="371" id="532"/>
             </connections>
         </customObject>
@@ -464,4 +516,47 @@
             </connections>
         </customObject>
     </objects>
+    <classes>
+        <class className="GlitterDemoAppDelegate" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GlitterDemoAppDelegate.h"/>
+            <relationships>
+                <relationship kind="action" name="checkForUpdates:"/>
+                <relationship kind="action" name="installUpdate:"/>
+                <relationship kind="outlet" name="actionField" candidateClass="NSTextField"/>
+                <relationship kind="outlet" name="checkForUpdatesButton" candidateClass="NSButton"/>
+                <relationship kind="outlet" name="installUpdateButton" candidateClass="NSButton"/>
+                <relationship kind="outlet" name="progressIndicator" candidateClass="NSProgressIndicator"/>
+                <relationship kind="outlet" name="window" candidateClass="NSWindow"/>
+            </relationships>
+        </class>
+        <class className="NSDocument">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSDocument.h"/>
+            <relationships>
+                <relationship kind="action" name="browseDocumentVersions:"/>
+                <relationship kind="action" name="duplicateDocument:"/>
+                <relationship kind="action" name="lockDocument:"/>
+                <relationship kind="action" name="moveDocument:"/>
+                <relationship kind="action" name="moveDocumentToUbiquityContainer:"/>
+                <relationship kind="action" name="printDocument:"/>
+                <relationship kind="action" name="renameDocument:"/>
+                <relationship kind="action" name="revertDocumentToSaved:"/>
+                <relationship kind="action" name="runPageLayout:"/>
+                <relationship kind="action" name="saveDocument:"/>
+                <relationship kind="action" name="saveDocumentAs:"/>
+                <relationship kind="action" name="saveDocumentTo:"/>
+                <relationship kind="action" name="saveDocumentToPDF:"/>
+                <relationship kind="action" name="unlockDocument:"/>
+            </relationships>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="NSTextView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSTextView.h"/>
+            <relationships>
+                <relationship kind="action" name="orderFrontSharingServicePicker:"/>
+                <relationship kind="action" name="toggleQuickLookPreviewPanel:"/>
+            </relationships>
+        </class>
+    </classes>
 </document>

@@ -15,6 +15,11 @@
 
 
 
+NSString *const GlitterStatusDidChangeNotification = @"GlitterStatusDidChangeNotification";
+NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification = @"GlitterUserInitiatedUpdateCheckDidFinishNotification";
+
+
+
 @interface Glitter () <NSURLConnectionDelegate>
 
 @end
@@ -48,6 +53,8 @@
 
     GlitterVersion *_readyToInstallVersion;
     NSURL *_readyToInstallLocalURL;
+
+    BOOL _notificationScheduled;
 }
 
 - (id)initWithMainBundle {
@@ -98,15 +105,19 @@
         [[NSUserDefaults standardUserDefaults] setObject:channelName forKey:key];
 }
 
+
+#pragma mark - Checking
+
 - (void)checkForUpdatesWithOptions:(GlitterCheckOptions)options {
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (options & GlitterCheckOptionUserInitiated)
+        if ((options & GlitterCheckOptionUserInitiated) && !_checkIsUserInitiated) {
             _checkIsUserInitiated = YES;
+            [self statusDidChange];
+        }
         if (_checking) return;
 
-        [self willChangeValueForKey:@"checking"];
         _checking = YES;
-        [self didChangeValueForKey:@"checking"];
+        [self statusDidChange];
 
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             NSError *error = nil;
@@ -140,18 +151,14 @@
                         _lastCheckError = GlitterErrorCodeCheckFailedConnection;  // safer choice
                 }
 
-                BOOL displayMessage = _checkIsUserInitiated;
+                BOOL userInitiated = _checkIsUserInitiated;
 
-                [self willChangeValueForKey:@"checking"];
                 _checking = NO;
-                [self didChangeValueForKey:@"checking"];
                 _checkIsUserInitiated = NO;
+                [self statusDidChange];
 
-                if (displayMessage) {
-                    // give UI a bit of time to update
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
-                        [self _displayLastUpdateCheckResult];
-                    });
+                if (userInitiated) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:GlitterUserInitiatedUpdateCheckDidFinishNotification object:self];
                 }
             });
         });
@@ -191,26 +198,29 @@
     [self downloadUpdate];
 }
 
-- (void)_displayLastUpdateCheckResult {
-//    if (_lastCheckError == GlitterErrorCodeNone) {
-//        if (_nextVersion) {
-//            [[NSAlert alertWithMessageText:@"Update found" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"Found version %@ (you have version %@).", _nextVersion.versionDisplayName, _currentVersionDisplayName]runModal];
-//        } else {
-//            [[NSAlert alertWithMessageText:@"No updates found" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"You are running the latest version."]runModal];
-//        }
-//    } else {
-//        [[NSAlert alertWithMessageText:@"Update check failed" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"There was a problem checking for update."]runModal];
-//    }
-}
-
 
 #pragma mark - Downloading
+
+- (BOOL)isDownloading {
+    return !!_downloadingVersion;
+}
+
+- (NSString *)downloadingVersionDisplayName {
+    return _downloadingVersion.versionDisplayName;
+}
+
+- (void)_cleanupDownload {
+    _downloadingVersion = nil;
+    _downloadStep = GlitterDownloadStepNone;
+    [self statusDidChange];
+}
 
 - (void)_cancelDownload {
     if (_downloadingConnection) {
         [_downloadingConnection cancel];
         _downloadingConnection = nil;
     }
+    [self _cleanupDownload];
 }
 
 - (void)downloadUpdate {
@@ -232,11 +242,14 @@
     _downloadingVersion = _nextVersion;
     _downloadingData = [[NSMutableData alloc] initWithCapacity:(NSUInteger)_downloadingVersion.source.size];
     _downloadLocalURL = [_updateFolderURL URLByAppendingPathComponent:[_downloadingVersion.source.url lastPathComponent]];
+    _downloadProgress = 0.0;
+    _downloadStep = GlitterDownloadStepDownload;
 
-    NSURLRequest *request = [NSURLRequest requestWithURL:_downloadingVersion.source.url];
+    NSURLRequest *request = [NSURLRequest requestWithURL:_downloadingVersion.source.url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:60.0];
     _downloadingConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
 
     NSLog(@"[Glitter] Downloading version %@ from %@", _downloadingVersion.version, _downloadingVersion.source.url);
+    [self statusDidChange];
 }
 
 - (void)_finishDownload {
@@ -264,6 +277,9 @@
 
                 NSLog(@"[Glitter] Unzipping %@", [_downloadLocalURL lastPathComponent]);
 
+                _downloadStep = GlitterDownloadStepUnpack;
+                [self statusDidChange];
+                
                 GlitterUnzip(_downloadLocalURL, _extractionFolderURL, ^(NSError *unzipError) {
                     if (unzipError) {
                         NSLog(@"[Glitter] Update extraction failed (version %@ at %@) - cannot unzip %@: %@", _downloadingVersion.version, _downloadingVersion.source.url, _downloadLocalURL.path, unzipError.localizedDescription);
@@ -281,11 +297,13 @@
                                 NSLog(@"[Glitter] Item to install: %@", _readyToInstallLocalURL.path);
                                 NSLog(@"[Glitter] Version %@ is ready to install.", _readyToInstallVersion.version);
 
-                                [self installUpdate];
+                                [self statusDidChange];
+                                [self _cleanupDownload];
                             }
                         }
                     }
                 });
+                return;
 ////                ok = [SSZipArchive unzipFileAtPath:_downloadLocalURL.path toDestination:_extractionFolderURL.path overwrite:NO password:nil error:&error delegate:nil];
 //                if (!ok) {
 ////                    NSLog(@"[Glitter] Update extraction failed (version %@ at %@) - cannot unzip %@: %@", _downloadingVersion.version, _downloadingVersion.source.url, _downloadLocalURL.path, error.localizedDescription);
@@ -306,13 +324,20 @@
         NSLog(@"[Glitter] Update download failed (version %@ at %@): response code %d", _downloadingVersion.version, _downloadingVersion.source.url, (int)code);
         _downloadingData = nil;
         [self _finishDownload];
+        return;
+    }
+
+    if (response.expectedContentLength > 0) {
+        unsigned long expectedLength = (unsigned long)response.expectedContentLength;
+        _downloadingVersion.source.size = expectedLength;
     }
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
     [_downloadingData appendData:data];
-    double percentage = 100 * (_downloadingData.length / (double)_downloadingVersion.source.size);
-    NSLog(@"[Glitter] Downloading version %@ from %@: %.0lf%% done", _downloadingVersion.version, _downloadingVersion.source.url, percentage);
+    _downloadProgress = 100 * (_downloadingData.length / (double)_downloadingVersion.source.size);
+    NSLog(@"[Glitter] Downloading version %@ from %@: %.0lf%% done", _downloadingVersion.version, _downloadingVersion.source.url, _downloadProgress);
+    [self statusDidChange];
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
@@ -327,6 +352,14 @@
 
 
 #pragma mark - Restart
+
+- (BOOL)isReadyToInstall {
+    return !!_readyToInstallVersion;
+}
+
+- (NSString *)readyToInstallVersionDisplayName {
+    return _readyToInstallVersion.versionDisplayName;
+}
 
 - (void)installUpdate {
     xpc_connection_t connection = xpc_connection_create("com.tarantsov.GlitterInstallationService", dispatch_get_main_queue());
@@ -345,8 +378,6 @@
     });
     xpc_connection_resume(connection);
 
-    [[NSAlert alertWithMessageText:@"Ready to install" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"Click OK to install version %@ (you have version %@).", _nextVersion.versionDisplayName, _currentVersionDisplayName]runModal];
-
     xpc_object_t message = xpc_dictionary_create(NULL, NULL, 0);
     xpc_dictionary_set_string(message, "bundlePath", [[_bundle bundlePath] UTF8String]);
     xpc_dictionary_set_string(message, "updatePath", [_readyToInstallLocalURL.path UTF8String]);
@@ -357,6 +388,19 @@
             exit(0);
         });
     });
+}
+
+
+#pragma mark - Notification
+
+- (void)statusDidChange {
+    if (!_notificationScheduled) {
+        _notificationScheduled = YES;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
+            _notificationScheduled = NO;
+            [[NSNotificationCenter defaultCenter] postNotificationName:GlitterStatusDidChangeNotification object:self];
+        });
+    }
 }
 
 @end
