@@ -1,20 +1,9 @@
 
 #import "Glitter.h"
+#import "GlitterFeed.h"
 #import "GlitterVersionUtilities.h"
 #import "GlitterArchiveUtilities.h"
 
-
-#define GlitterFeedFormatVersionKey @"glitterFeedVersion"
-#define GlitterFeedVersionsKey @"versions"
-#define GlitterFeedVersionCodeKey @"versionCode"
-#define GlitterFeedVersionDisplayNameKey @"versionDisplayName"
-#define GlitterFeedVersionChannelsKey @"channels"
-#define GlitterFeedVersionCompatibleVersionRangeKey @"requires"
-
-#define GlitterFeedVersionDistKey @"dist"
-#define GlitterFeedVersionDistURLKey @"url"
-#define GlitterFeedVersionDistSizeKey @"size"
-#define GlitterFeedVersionDistSha1Key @"sha1"
 
 #define GlitterChannelNamePreferenceKey @"GlitterDefaultChannelName"
 
@@ -25,76 +14,11 @@
 #define GlitterStateStatusValueInstall @"install"
 
 
-#pragma mark -
-
-@interface GlitterSource : NSObject
-
-@property(nonatomic, readonly, copy) NSURL *url;
-@property(nonatomic, readonly) unsigned long size;
-@property(nonatomic, readonly, copy) NSString *sha1;
-
-- (id)initWithUrl:(NSURL *)url size:(unsigned long)size sha1:(NSString *)sha1;
-
-@end
-
-@interface GlitterVersion : NSObject
-
-@property(nonatomic, readonly, copy) NSString *identifier;
-@property(nonatomic, readonly, copy) NSString *version;
-@property(nonatomic, copy) NSString *versionDisplayName;
-@property(nonatomic, copy) NSArray *channelNames;
-@property(nonatomic, copy) NSString *compatibleVersionRange;
-@property(nonatomic, readonly, strong) GlitterSource *source;
-
-- (id)initWithVersion:(NSString *)version versionDisplayName:(NSString *)versionDisplayName channelNames:(NSArray *)channelNames source:(GlitterSource *)source;
-
-@end
 
 @interface Glitter () <NSURLConnectionDelegate>
 
 @end
 
-
-
-@implementation GlitterVersion
-
-- (id)initWithVersion:(NSString *)version versionDisplayName:(NSString *)versionDisplayName channelNames:(NSArray *)channelNames source:(GlitterSource *)source {
-    self = [super init];
-    if (self) {
-        _version = [version copy];
-        _versionDisplayName = [versionDisplayName copy];
-        _channelNames = [channelNames copy];
-        _source = source;
-        _identifier = [NSString stringWithFormat:@"%@:%@", _version, _source.sha1];
-    }
-    return self;
-}
-
-- (NSString *)description {
-    return [NSString stringWithFormat:@"v%@(%@, %@, at %@)", _version, _versionDisplayName, [_channelNames componentsJoinedByString:@"+"], _source.description];
-}
-
-@end
-
-
-
-@implementation GlitterSource
-
-- (id)initWithUrl:(NSURL *)url size:(unsigned long)size sha1:(NSString *)sha1 {
-    self = [super init];
-    if (self) {
-        _url = url;
-        _size = size;
-        _sha1 = [sha1 copy];
-    }
-    return self;
-}
-
-- (NSString *)description {
-    return [NSString stringWithFormat:@"(%@)", _url];
-}
-
-@end
 
 
 @implementation Glitter {
@@ -185,121 +109,35 @@
         [self didChangeValueForKey:@"checking"];
 
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-            NSError * __autoreleasing error = nil;
-            GlitterErrorCode errorCode = GlitterErrorCodeCheckFailedConnection;
-            NSDictionary *feed = nil;
-            NSMutableArray *availableVersions = nil;
-            id rawFeed;
-            NSData *data = [NSData dataWithContentsOfURL:_feedURL options:0 error:&error];
-            if (!data) {
-                NSLog(@"[Glitter] Update check failed (feed URL %@) - failed to download feed: %@", _feedURL, error.localizedDescription);
-                goto finish_check;
-            }
-            rawFeed = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-            if (!rawFeed) {
-                NSLog(@"[Glitter]  check failed (feed URL %@) - failed to parse feed JSON: %@", _feedURL, error.localizedDescription);
-                goto finish_check;
-            }
+            NSError *error = nil;
+            NSArray *availableVersions = nil;
 
-            errorCode = GlitterErrorCodeCheckFailedInvalidFeedFormat;
-
-            if (![rawFeed isKindOfClass:[NSDictionary class]]) {
-                NSLog(@"[Glitter] Update check failed (feed URL %@) - feed JSON is not a dictionary", _feedURL);
-                goto finish_check;
-            }
-            feed = rawFeed;
-
-            data = [NSJSONSerialization dataWithJSONObject:feed options:NSJSONWritingPrettyPrinted error:NULL];
-            if (data) {
-                BOOL ok = [data writeToURL:_feedFileURL options:NSDataWritingAtomic error:&error];
+            NSData *feedData = [NSData dataWithContentsOfURL:_feedURL options:0 error:&error];
+            if (!feedData)
+                error = [NSError errorWithDomain:@"Glitter" code:GlitterErrorCodeCheckFailedConnection userInfo:@{NSLocalizedDescriptionKey:[NSString stringWithFormat:@"failed to download feed: %@", error.localizedDescription], NSUnderlyingErrorKey: error}];
+            else {
+                BOOL ok = [feedData writeToURL:_feedFileURL options:NSDataWritingAtomic error:&error];
                 if (!ok) {
                     NSLog(@"[Glitter] Update check (feed URL %@) - failed to save feed JSON into %@: %@", _feedURL, _feedFileURL, error.localizedDescription);
                 }
+
+                availableVersions = GlitterParseFeedData(feedData, &error);
             }
 
-            {
-                // check format version
-                NSNumber *formatVersionRaw = feed[GlitterFeedFormatVersionKey];
-                if (![formatVersionRaw isKindOfClass:[NSNumber class]]) {
-                    NSLog(@"[Glitter] Update check failed (feed URL %@) - feed format error - " GlitterFeedFormatVersionKey " is not a number", _feedURL);
-                    goto finish_check;
-                }
-                if ([formatVersionRaw intValue] != 1) {
-                    NSLog(@"[Glitter] Update check failed (feed URL %@) - feed format error - " GlitterFeedFormatVersionKey " is not 1", _feedURL);
-                    goto finish_check;
-                }
-
-                NSArray *versionsRaw = feed[GlitterFeedVersionsKey];
-                if (![versionsRaw isKindOfClass:[NSArray class]]) {
-                    NSLog(@"[Glitter] Update check failed (feed URL %@) - feed format error - " GlitterFeedVersionsKey " is missing or not an array", _feedURL);
-                    goto finish_check;
-                }
-
-                availableVersions = [[NSMutableArray alloc] init];
-                for (NSDictionary *versionRaw in versionsRaw) {
-                    NSString *versionNumber = versionRaw[GlitterFeedVersionCodeKey];
-                    if (![versionNumber isKindOfClass:[NSString class]]) {
-                        NSLog(@"[Glitter] Update check failed (feed URL %@) - feed format error - " GlitterFeedVersionCodeKey " is missing or not a string", _feedURL);
-                        goto finish_check;
-                    }
-
-                    NSString *versionDisplayName = versionRaw[GlitterFeedVersionDisplayNameKey];
-                    if (![versionDisplayName isKindOfClass:[NSString class]]) {
-                        NSLog(@"[Glitter] Update check failed (feed URL %@) - feed format error - " GlitterFeedVersionDisplayNameKey " is missing or not a string", _feedURL);
-                        goto finish_check;
-                    }
-
-                    NSString *versionCompatibleRange = versionRaw[GlitterFeedVersionCompatibleVersionRangeKey];
-                    if (![versionCompatibleRange isKindOfClass:[NSString class]]) {
-                        NSLog(@"[Glitter] Update check failed (feed URL %@) - feed format error - " GlitterFeedVersionCompatibleVersionRangeKey " is missing or not a string", _feedURL);
-                        goto finish_check;
-                    }
-
-                    NSArray *versionChannelNames = versionRaw[GlitterFeedVersionChannelsKey];
-                    if (![versionChannelNames isKindOfClass:[NSArray class]]) {
-                        NSLog(@"[Glitter] Update check failed (feed URL %@) - feed format error - " GlitterFeedVersionChannelsKey " is missing or not an array", _feedURL);
-                        goto finish_check;
-                    }
-
-                    NSDictionary *distRaw = versionRaw[GlitterFeedVersionDistKey];
-                    if (![distRaw isKindOfClass:[NSDictionary class]]) {
-                        NSLog(@"[Glitter] Update check failed (feed URL %@) - feed format error - " GlitterFeedVersionDistKey " is missing or not a dictionary", _feedURL);
-                        goto finish_check;
-                    }
-
-                    NSString *distURL = distRaw[GlitterFeedVersionDistURLKey];
-                    if (![distURL isKindOfClass:[NSString class]]) {
-                        NSLog(@"[Glitter] Update check failed (feed URL %@) - feed format error - " GlitterFeedVersionDistURLKey " is missing or not a string", _feedURL);
-                        goto finish_check;
-                    }
-
-                    NSNumber *distSize = distRaw[GlitterFeedVersionDistSizeKey];
-                    if (![distSize isKindOfClass:[NSNumber class]]) {
-                        NSLog(@"[Glitter] Update check failed (feed URL %@) - feed format error - " GlitterFeedVersionDistSizeKey " is missing or not a number", _feedURL);
-                        goto finish_check;
-                    }
-
-                    NSString *distSha1 = distRaw[GlitterFeedVersionDistSha1Key];
-                    if (![distSha1 isKindOfClass:[NSString class]]) {
-                        NSLog(@"[Glitter] Update check failed (feed URL %@) - feed format error - " GlitterFeedVersionDistSha1Key " is missing or not a string", _feedURL);
-                        goto finish_check;
-                    }
-
-                    GlitterSource *source = [[GlitterSource alloc] initWithUrl:[NSURL URLWithString:distURL] size:[distSize longValue] sha1:distSha1];
-                    GlitterVersion *version = [[GlitterVersion alloc] initWithVersion:versionNumber versionDisplayName:versionDisplayName channelNames:versionChannelNames source:source];
-                    version.compatibleVersionRange = versionCompatibleRange;
-                    [availableVersions addObject:version];
-                }
+            if (!availableVersions) {
+                NSLog(@"[Glitter] Update check failed (feed URL %@) - %@", _feedURL, error.localizedDescription);
             }
 
-            errorCode = GlitterErrorCodeNone;
-
-        finish_check:
             dispatch_async(dispatch_get_main_queue(), ^{
-                _lastCheckError = errorCode;
-                if (errorCode == GlitterErrorCodeNone) {
+                if (availableVersions) {
+                    _lastCheckError = GlitterErrorCodeNone;
                     _availableVersions = availableVersions;
                     [self updateAvailability];
+                } else {
+                    if ([error.domain isEqualToString:@"Glitter"])
+                        _lastCheckError = (GlitterErrorCode)error.code;
+                    else
+                        _lastCheckError = GlitterErrorCodeCheckFailedConnection;  // safer choice
                 }
 
                 BOOL displayMessage = _checkIsUserInitiated;

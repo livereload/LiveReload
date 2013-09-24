@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		431DEA7317F1663C00BB0735 /* GlitterArchiveUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 431DEA7217F1663C00BB0735 /* GlitterArchiveUtilities.m */; };
+		431DEA7617F175F200BB0735 /* GlitterFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 431DEA7517F175F200BB0735 /* GlitterFeed.m */; };
 		436CF9D017F090E80043241D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D6402B17F065C800EF444A /* Cocoa.framework */; };
 		43A60A4717F08B8400503694 /* com.tarantsov.GlitterInstallationService.xpc in CopyFiles */ = {isa = PBXBuildFile; fileRef = 43D6406A17F0885200EF444A /* com.tarantsov.GlitterInstallationService.xpc */; };
 		43D6402C17F065C800EF444A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D6402B17F065C800EF444A /* Cocoa.framework */; };
@@ -52,6 +53,9 @@
 /* Begin PBXFileReference section */
 		431DEA7117F1663C00BB0735 /* GlitterArchiveUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlitterArchiveUtilities.h; sourceTree = "<group>"; };
 		431DEA7217F1663C00BB0735 /* GlitterArchiveUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlitterArchiveUtilities.m; sourceTree = "<group>"; };
+		431DEA7417F175F200BB0735 /* GlitterFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlitterFeed.h; sourceTree = "<group>"; };
+		431DEA7517F175F200BB0735 /* GlitterFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlitterFeed.m; sourceTree = "<group>"; };
+		431DEA7717F1764600BB0735 /* GlitterGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlitterGlobals.h; sourceTree = "<group>"; };
 		436CF9E317F0A2420043241D /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		43A60A4317F08A8300503694 /* GlitterDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = GlitterDemo.entitlements; sourceTree = "<group>"; };
 		43D6402817F065C800EF444A /* GlitterDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GlitterDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -189,6 +193,9 @@
 				43D6408F17F088A900EF444A /* GlitterVersionUtilities.m */,
 				431DEA7117F1663C00BB0735 /* GlitterArchiveUtilities.h */,
 				431DEA7217F1663C00BB0735 /* GlitterArchiveUtilities.m */,
+				431DEA7417F175F200BB0735 /* GlitterFeed.h */,
+				431DEA7517F175F200BB0735 /* GlitterFeed.m */,
+				431DEA7717F1764600BB0735 /* GlitterGlobals.h */,
 			);
 			path = GlitterCommon;
 			sourceTree = "<group>";
@@ -303,6 +310,7 @@
 				43D6409217F088A900EF444A /* GlitterVersionUtilities.m in Sources */,
 				43D6409017F088A900EF444A /* Glitter.m in Sources */,
 				43D6403F17F065C800EF444A /* GlitterDemoAppDelegate.m in Sources */,
+				431DEA7617F175F200BB0735 /* GlitterFeed.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
