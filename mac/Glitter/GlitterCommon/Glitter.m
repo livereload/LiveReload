@@ -93,16 +93,33 @@ NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification = @"Glitter
     return self;
 }
 
+- (NSString *)channelNamePreferenceKey {
+    return [NSString stringWithFormat:@"%@.%@", _preferenceKeyPrefix, GlitterChannelNamePreferenceKey];
+}
+
 - (NSString *)channelName {
-    return [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@.%@", _preferenceKeyPrefix, GlitterChannelNamePreferenceKey]] ?: _defaultChannelName;
+    return [[NSUserDefaults standardUserDefaults] objectForKey:self.channelNamePreferenceKey] ?: _defaultChannelName;
+}
+
+- (BOOL)isChannelNameSet {
+    return !![[NSUserDefaults standardUserDefaults] objectForKey:self.channelNamePreferenceKey];
+}
+
+- (void)setChannelNameSet:(BOOL)channelNameSet {
+    if (channelNameSet) {
+        if (![[NSUserDefaults standardUserDefaults] objectForKey:self.channelNamePreferenceKey]) {
+            [[NSUserDefaults standardUserDefaults] setObject:_defaultChannelName forKey:self.channelNamePreferenceKey]
+        }
+    } else {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:self.channelNamePreferenceKey];
+    }
 }
 
 - (void)setChannelName:(NSString *)channelName {
-    NSString *key = [NSString stringWithFormat:@"%@.%@", _preferenceKeyPrefix, GlitterChannelNamePreferenceKey];
     if (channelName.length == 0)
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:self.channelNamePreferenceKey];
     else
-        [[NSUserDefaults standardUserDefaults] setObject:channelName forKey:key];
+        [[NSUserDefaults standardUserDefaults] setObject:channelName forKey:self.channelNamePreferenceKey];
 }
 
 

@@ -20,6 +20,7 @@ typedef enum {
 - (id)initWithMainBundle;
 
 @property(nonatomic, copy) NSString *channelName;
+@property(nonatomic, getter=isChannelNameSet) BOOL channelNameSet;
 
 - (void)checkForUpdatesWithOptions:(GlitterCheckOptions)options;
 - (void)installUpdate;
