@@ -8,16 +8,17 @@ Features:
 * automatic background downloading of updates
 * no built-in UI, but very easy to integrate your own one (see GlitterDemoAppDelegate for an example)
 * XML-free feed format (uses JSON; see example-feed.json)
+* automatically checks for updates on launch plus every 24 hours (retries every hour if the last check has failed)
 
 Upcoming features:
 
-* automatic daily checking for updates (we don' need no stinkin' questions)
 * automatic installation of pending updates on next launch
-* automatic update installation when the app is not in use
-* verification of the size and SHA1 sum of the downloaded update
+* UI for “What's New” screen
 * verification of the new versions's code signature against the previous version's designated requirements
 * reporting for failed checks, downloads and installations
 * automatic cleanup of downloaded updates
+* automatic update installation when the app is not in use
+* verification of the size and SHA1 sum of the downloaded update
 
 Future ideas:
 

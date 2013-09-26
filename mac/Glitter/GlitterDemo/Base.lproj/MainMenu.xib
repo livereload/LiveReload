@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4457.6" systemVersion="12E55" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4457.6" systemVersion="12F37" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment defaultVersion="1080" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4457.6"/>
@@ -443,14 +443,14 @@
         <window title="GlitterDemo" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="371">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="335" y="390" width="342" height="127"/>
+            <rect key="contentRect" x="335" y="390" width="344" height="160"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1366" height="746"/>
             <view key="contentView" id="372">
-                <rect key="frame" x="0.0" y="0.0" width="342" height="127"/>
+                <rect key="frame" x="0.0" y="0.0" width="344" height="160"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BaP-Il-brX">
-                        <rect key="frame" x="20" y="46" width="305" height="17"/>
+                        <rect key="frame" x="20" y="79" width="307" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Action..." id="ebY-oY-f6f">
                             <font key="font" metaFont="system"/>
@@ -459,7 +459,7 @@
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sfR-t1-rtb">
-                        <rect key="frame" x="14" y="79" width="157" height="32"/>
+                        <rect key="frame" x="14" y="112" width="158" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Check for Updates" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2Tg-Kd-TAE">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -467,7 +467,7 @@
                         </buttonCell>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xdw-za-I3J">
-                        <rect key="frame" x="171" y="79" width="157" height="32"/>
+                        <rect key="frame" x="172" y="112" width="158" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Install v1.2.3" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="jlU-OD-gSL">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -475,9 +475,20 @@
                         </buttonCell>
                     </button>
                     <progressIndicator maxValue="100" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="ofC-Uc-mJ1">
-                        <rect key="frame" x="23" y="19" width="299" height="20"/>
+                        <rect key="frame" x="23" y="52" width="301" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     </progressIndicator>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nZE-3p-hwm">
+                        <rect key="frame" x="21" y="18" width="305" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Check for updates automatically" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="lZK-2X-J3g">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <binding destination="lyE-Ck-LxR" name="value" keyPath="values.GlitterAutomaticCheckingEnabled" id="4Sh-JB-m1I"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="BaP-Il-brX" firstAttribute="leading" secondItem="372" secondAttribute="leading" constant="23" id="0JQ-du-I7F"/>
@@ -515,6 +526,7 @@
                 <action selector="orderFrontFontPanel:" destination="389" id="424"/>
             </connections>
         </customObject>
+        <userDefaultsController id="lyE-Ck-LxR"/>
     </objects>
     <classes>
         <class className="GlitterDemoAppDelegate" superclassName="NSObject">

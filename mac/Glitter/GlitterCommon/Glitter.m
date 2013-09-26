@@ -5,7 +5,10 @@
 #import "GlitterArchiveUtilities.h"
 
 
-#define GlitterChannelNamePreferenceKey @"GlitterDefaultChannelName"
+#define GlitterChannelNamePreferenceKey @"DefaultChannelName"
+#define GlitterAutomaticCheckingEnabledPreferenceKey @"AutomaticCheckingEnabled"
+
+#define GlitterDebugModePreferenceKey @"Debug"
 
 #define GlitterStateFileNameKey @"file"
 #define GlitterStateVersionKey @"version"
@@ -55,13 +58,25 @@ NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification = @"Glitter
     NSURL *_readyToInstallLocalURL;
 
     BOOL _notificationScheduled;
+
+    NSTimeInterval _automaticCheckInterval;
+    NSTimeInterval _automaticCheckRetryInterval;
+    NSTimeInterval _lastCheckTime;
+    dispatch_source_t _automaticCheckTimer;
+
+    BOOL _debug;
 }
 
 - (id)initWithMainBundle {
     self = [super init];
     if (self) {
         _bundle = [NSBundle mainBundle];
-        _preferenceKeyPrefix = [NSString stringWithFormat:@"Glitter.%@", _bundle.bundleIdentifier];
+
+        if (_bundle == [NSBundle mainBundle]) {
+            _preferenceKeyPrefix = @"Glitter";
+        } else {
+            _preferenceKeyPrefix = [NSString stringWithFormat:@"Glitter.%@.", _bundle.bundleIdentifier];
+        }
         _currentVersion = [[_bundle infoDictionary] objectForKey:@"CFBundleVersion"];
         _currentVersionDisplayName = [[_bundle infoDictionary] objectForKey:@"CFBundleShortVersionString"] ?: _currentVersion;
 
@@ -89,13 +104,54 @@ NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification = @"Glitter
         _extractionFolderURL = [_updateFolderURL URLByAppendingPathComponent:@"extracted"];
 
         _availableVersions = [NSArray array];
+
+        [[NSUserDefaults standardUserDefaults] registerDefaults:@{
+            self.automaticCheckingEnabledPreferenceKey: @YES,
+        }];
+
+        [[NSUserDefaults standardUserDefaults] addObserver:self forKeyPath:self.automaticCheckingEnabledPreferenceKey options:0 context:0];
+
+        [self _updateDebugMode];
+        [self _updateAutomaticCheckingTimer];
     }
     return self;
 }
 
-- (NSString *)channelNamePreferenceKey {
-    return [NSString stringWithFormat:@"%@.%@", _preferenceKeyPrefix, GlitterChannelNamePreferenceKey];
+- (void)dealloc {
+    [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:self.automaticCheckingEnabledPreferenceKey];
 }
+
+
+#pragma mark - Preference keys
+
+- (NSString *)channelNamePreferenceKey {
+    return [NSString stringWithFormat:@"%@%@", _preferenceKeyPrefix, GlitterChannelNamePreferenceKey];
+}
+
+- (NSString *)automaticCheckingEnabledPreferenceKey {
+    return [NSString stringWithFormat:@"%@%@", _preferenceKeyPrefix, GlitterAutomaticCheckingEnabledPreferenceKey];
+}
+
+- (NSString *)debugModePreferenceKey {
+    return [NSString stringWithFormat:@"%@%@", _preferenceKeyPrefix, GlitterDebugModePreferenceKey];
+}
+
+
+#pragma mark - Debug mode
+
+- (void)_updateDebugMode {
+    _debug = [[NSUserDefaults standardUserDefaults] boolForKey:self.debugModePreferenceKey];
+    if (_debug) {
+        _automaticCheckInterval = 30;            // 30 sec
+        _automaticCheckRetryInterval = 5;        // 5 sec
+    } else {
+        _automaticCheckInterval = 60 * 60 * 24;  // 1 day
+        _automaticCheckRetryInterval = 60 * 60;  // 1 hour
+    }
+}
+
+
+#pragma mark - Channels
 
 - (NSString *)channelName {
     return [[NSUserDefaults standardUserDefaults] objectForKey:self.channelNamePreferenceKey] ?: _defaultChannelName;
@@ -120,6 +176,49 @@ NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification = @"Glitter
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:self.channelNamePreferenceKey];
     else
         [[NSUserDefaults standardUserDefaults] setObject:channelName forKey:self.channelNamePreferenceKey];
+}
+
+
+#pragma mark - Automatic checking
+
+- (BOOL)isAutomaticCheckingEnabled {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:self.automaticCheckingEnabledPreferenceKey];
+}
+
+- (void)setAutomaticCheckingEnabled:(BOOL)automaticCheckingEnabled {
+    [[NSUserDefaults standardUserDefaults] setBool:automaticCheckingEnabled forKey:self.automaticCheckingEnabledPreferenceKey];
+//    [self _updateAutomaticCheckingTimer];
+}
+
+- (void)_updateAutomaticCheckingTimer {
+    BOOL enabled = self.automaticCheckingEnabled;
+    if (enabled) {
+        NSTimeInterval nextTime = _lastCheckTime + (_lastCheckError == GlitterErrorCodeNone ? _automaticCheckInterval : _automaticCheckRetryInterval);
+        NSTimeInterval untilNext = nextTime - [NSDate timeIntervalSinceReferenceDate];
+
+        if (untilNext <= 0.1) {
+            // time to check is right now; don't schedule a timer
+            [self checkForUpdatesWithOptions:0];
+            return;
+        }
+
+        if (!_automaticCheckTimer) {
+            _automaticCheckTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_main_queue());
+            dispatch_source_set_event_handler(_automaticCheckTimer, ^{
+                [self checkForUpdatesWithOptions:0];
+            });
+            dispatch_resume(_automaticCheckTimer);
+        }
+
+        NSLog(@"Glitter: next automatic check in %.0lf s", untilNext);
+
+        // this will reschedule the timer if it has been already set
+        dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, untilNext * NSEC_PER_SEC);
+        dispatch_source_set_timer(_automaticCheckTimer, time, DISPATCH_TIME_FOREVER, _automaticCheckInterval * NSEC_PER_SEC / 20);
+    } else if (_automaticCheckTimer) {
+        dispatch_source_cancel(_automaticCheckTimer);
+        _automaticCheckTimer = nil;
+    }
 }
 
 
@@ -172,7 +271,10 @@ NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification = @"Glitter
 
                 _checking = NO;
                 _checkIsUserInitiated = NO;
+                _lastCheckTime = [NSDate timeIntervalSinceReferenceDate];
                 [self statusDidChange];
+
+                [self _updateAutomaticCheckingTimer];
 
                 if (userInitiated) {
                     [[NSNotificationCenter defaultCenter] postNotificationName:GlitterUserInitiatedUpdateCheckDidFinishNotification object:self];
@@ -417,6 +519,15 @@ NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification = @"Glitter
             _notificationScheduled = NO;
             [[NSNotificationCenter defaultCenter] postNotificationName:GlitterStatusDidChangeNotification object:self];
         });
+    }
+}
+
+
+#pragma mark - KVO
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqualToString:self.automaticCheckingEnabledPreferenceKey]) {
+        [self _updateAutomaticCheckingTimer];
     }
 }
 

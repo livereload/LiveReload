@@ -27,11 +27,15 @@ typedef enum {
 
 @property(nonatomic, readonly, getter = isChecking) BOOL checking;
 @property(nonatomic, readonly, getter = isCheckUserInitiated) BOOL checkIsUserInitiated;
+
+@property(nonatomic, getter=isAutomaticCheckingEnabled) BOOL automaticCheckingEnabled;
+
 @property(nonatomic, readonly, getter = isDownloading) BOOL downloading;
 @property(nonatomic, readonly) GlitterDownloadStep downloadStep;
 @property(nonatomic, readonly) double downloadProgress;
-@property(nonatomic, readonly, getter = isReadyToInstall) BOOL readyToInstall;
 @property(nonatomic, readonly, copy) NSString *downloadingVersionDisplayName;
+
+@property(nonatomic, readonly, getter = isReadyToInstall) BOOL readyToInstall;
 @property(nonatomic, readonly, copy) NSString *readyToInstallVersionDisplayName;
 
 @end
