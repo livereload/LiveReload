@@ -108,7 +108,7 @@ NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification = @"Glitter
 - (void)setChannelNameSet:(BOOL)channelNameSet {
     if (channelNameSet) {
         if (![[NSUserDefaults standardUserDefaults] objectForKey:self.channelNamePreferenceKey]) {
-            [[NSUserDefaults standardUserDefaults] setObject:_defaultChannelName forKey:self.channelNamePreferenceKey]
+            [[NSUserDefaults standardUserDefaults] setObject:_defaultChannelName forKey:self.channelNamePreferenceKey];
         }
     } else {
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:self.channelNamePreferenceKey];
