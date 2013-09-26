@@ -13,8 +13,7 @@
 #define GlitterStateFileNameKey @"file"
 #define GlitterStateVersionKey @"version"
 #define GlitterStateVersionDisplayNameKey @"versionDisplayName"
-#define GlitterStateStatusKey @"status"
-#define GlitterStateStatusValueInstall @"install"
+#define GlitterStateVersionIdentifierKey @"id"
 
 
 
@@ -39,7 +38,6 @@ NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification = @"Glitter
 
     NSURL *_updateFolderURL;
     NSURL *_extractionFolderURL;
-    NSURL *_feedFileURL;
     NSURL *_statusFileURL;
 
     BOOL _checking;
@@ -54,7 +52,10 @@ NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification = @"Glitter
     NSURLConnection *_downloadingConnection;
     NSMutableData *_downloadingData;
 
-    GlitterVersion *_readyToInstallVersion;
+    BOOL _readyToInstall;
+    NSString *_readyToInstallVersion;
+    NSString *_readyToInstallVersionDisplayName;
+    NSString *_readyToInstallVersionIdentifier;
     NSURL *_readyToInstallLocalURL;
 
     BOOL _notificationScheduled;
@@ -94,12 +95,9 @@ NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification = @"Glitter
         NSFileManager *fm = [NSFileManager defaultManager];
 
         NSError * __autoreleasing error = nil;
-        _updateFolderURL = [[fm URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:&error] URLByAppendingPathComponent:appSupportSubfolder];
+        _updateFolderURL = [[fm URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:&error] URLByAppendingPathComponent:appSupportSubfolder];
         NSAssert(!!_updateFolderURL, @"Glitter initialization error - cannot obtain Application Support folder: %@", error.localizedDescription);
 
-        [fm createDirectoryAtURL:_updateFolderURL withIntermediateDirectories:YES attributes:nil error:NULL];
-
-        _feedFileURL = [_updateFolderURL URLByAppendingPathComponent:@"feed.json"];
         _statusFileURL = [_updateFolderURL URLByAppendingPathComponent:@"status.json"];
         _extractionFolderURL = [_updateFolderURL URLByAppendingPathComponent:@"extracted"];
 
@@ -112,6 +110,8 @@ NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification = @"Glitter
         [[NSUserDefaults standardUserDefaults] addObserver:self forKeyPath:self.automaticCheckingEnabledPreferenceKey options:0 context:0];
 
         [self _updateDebugMode];
+        [self _loadReadyToInstallVersionIfAny];
+        [self installUpdate];
         [self _updateAutomaticCheckingTimer];
     }
     return self;
@@ -243,11 +243,6 @@ NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification = @"Glitter
             if (!feedData)
                 error = [NSError errorWithDomain:@"Glitter" code:GlitterErrorCodeCheckFailedConnection userInfo:@{NSLocalizedDescriptionKey:[NSString stringWithFormat:@"failed to download feed: %@", error.localizedDescription], NSUnderlyingErrorKey: error}];
             else {
-                BOOL ok = [feedData writeToURL:_feedFileURL options:NSDataWritingAtomic error:&error];
-                if (!ok) {
-                    NSLog(@"[Glitter] Update check (feed URL %@) - failed to save feed JSON into %@: %@", _feedURL, _feedFileURL, error.localizedDescription);
-                }
-
                 availableVersions = GlitterParseFeedData(feedData, &error);
             }
 
@@ -331,6 +326,9 @@ NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification = @"Glitter
 - (void)_cleanupDownload {
     _downloadingVersion = nil;
     _downloadStep = GlitterDownloadStepNone;
+    _downloadingConnection = nil;
+    _downloadLocalURL = nil;
+    [self _deleteUnnecessaryState];
     [self statusDidChange];
 }
 
@@ -349,7 +347,7 @@ NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification = @"Glitter
         }
         return;
     }
-    if ([_readyToInstallVersion.identifier isEqualToString:_nextVersion.identifier]) {
+    if (_readyToInstall && [_readyToInstallVersionIdentifier isEqualToString:_nextVersion.identifier]) {
         return; // nothing to do
     }
     if ([_downloadingVersion.identifier isEqualToString:_nextVersion.identifier]) {
@@ -372,68 +370,54 @@ NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification = @"Glitter
 }
 
 - (void)_finishDownload {
-    if (_downloadingData) {
-        // TODO verify length of data and SHA1 sum
-
-        NSError * __autoreleasing error = nil;
-        BOOL ok = [_downloadingData writeToURL:_downloadLocalURL options:NSDataWritingAtomic error:&error];
-        if (!ok) {
-            NSLog(@"[Glitter] Update download failed (version %@ at %@) - cannot save binary file %@: %@", _downloadingVersion.version, _downloadingVersion.source.url, _downloadLocalURL.path, error.localizedDescription);
-        } else {
-            NSDictionary *statusData = @{
-                GlitterStateFileNameKey: [_downloadLocalURL lastPathComponent],
-                GlitterStateVersionKey: _downloadingVersion.version,
-                GlitterStateVersionDisplayNameKey: _downloadingVersion.versionDisplayName,
-                GlitterStateStatusKey: GlitterStateStatusValueInstall,
-            };
-            NSData *data = [NSJSONSerialization dataWithJSONObject:statusData options:NSJSONWritingPrettyPrinted error:NULL];
-            ok = [data writeToURL:_statusFileURL options:NSDataWritingAtomic error:&error];
-            if (!ok) {
-                NSLog(@"[Glitter] Update download failed (version %@ at %@) - cannot save status file %@: %@", _downloadingVersion.version, _downloadingVersion.source.url, _statusFileURL.path, error.localizedDescription);
-            } else {
-                [[NSFileManager defaultManager] removeItemAtURL:_extractionFolderURL error:NULL];
-                [[NSFileManager defaultManager] createDirectoryAtURL:_extractionFolderURL withIntermediateDirectories:YES attributes:nil error:NULL];
-
-                NSLog(@"[Glitter] Unzipping %@", [_downloadLocalURL lastPathComponent]);
-
-                _downloadStep = GlitterDownloadStepUnpack;
-                [self statusDidChange];
-                
-                GlitterUnzip(_downloadLocalURL, _extractionFolderURL, ^(NSError *unzipError) {
-                    if (unzipError) {
-                        NSLog(@"[Glitter] Update extraction failed (version %@ at %@) - cannot unzip %@: %@", _downloadingVersion.version, _downloadingVersion.source.url, _downloadLocalURL.path, unzipError.localizedDescription);
-                    } else {
-                        NSError * __autoreleasing error = nil;
-                        NSArray *items = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:_extractionFolderURL includingPropertiesForKeys:@[] options:NSDirectoryEnumerationSkipsHiddenFiles error:&error];
-                        if (!items) {
-                            NSLog(@"[Glitter] Update extraction failed (version %@ at %@) - cannot enumerate %@: %@", _downloadingVersion.version, _downloadingVersion.source.url, _extractionFolderURL.path, error.localizedDescription);
-                        } else {
-                            if (items.count != 1) {
-                                NSLog(@"[Glitter] Update extraction failed (version %@ at %@) - multiple items found in %@: %@", _downloadingVersion.version, _downloadingVersion.source.url, _extractionFolderURL.path, items);
-                            } else {
-                                _readyToInstallVersion = _downloadingVersion;
-                                _readyToInstallLocalURL = items[0]; //[_updateFolderURL URLByAppendingPathComponent:statusData[GlitterStateFileNameKey]];
-                                NSLog(@"[Glitter] Item to install: %@", _readyToInstallLocalURL.path);
-                                NSLog(@"[Glitter] Version %@ is ready to install.", _readyToInstallVersion.version);
-
-                                [self statusDidChange];
-                                [self _cleanupDownload];
-                            }
-                        }
-                    }
-                });
-                return;
-////                ok = [SSZipArchive unzipFileAtPath:_downloadLocalURL.path toDestination:_extractionFolderURL.path overwrite:NO password:nil error:&error delegate:nil];
-//                if (!ok) {
-////                    NSLog(@"[Glitter] Update extraction failed (version %@ at %@) - cannot unzip %@: %@", _downloadingVersion.version, _downloadingVersion.source.url, _downloadLocalURL.path, error.localizedDescription);
-//                    NSLog(@"[Glitter] Update extraction failed (version %@ at %@) - cannot unzip %@", _downloadingVersion.version, _downloadingVersion.source.url, _downloadLocalURL.path);
-//                } else {
-//                }
-            }
-        }
+    if (!_downloadingData) {
+        [self _cleanupDownload];
+        return;
     }
 
-    _downloadingVersion = nil;
+    // TODO verify length of data and SHA1 sum
+
+    NSError * __autoreleasing error = nil;
+    [[NSFileManager defaultManager] createDirectoryAtURL:[_downloadLocalURL URLByDeletingLastPathComponent] withIntermediateDirectories:YES attributes:nil error:NULL];
+    BOOL ok = [_downloadingData writeToURL:_downloadLocalURL options:NSDataWritingAtomic error:&error];
+    if (!ok) {
+        NSLog(@"[Glitter] Update download failed (version %@ at %@) - cannot save binary file %@: %@", _downloadingVersion.version, _downloadingVersion.source.url, _downloadLocalURL.path, error.localizedDescription);
+        [self _cleanupDownload];
+        return;
+    }
+
+    [[NSFileManager defaultManager] removeItemAtURL:_extractionFolderURL error:NULL];
+    [[NSFileManager defaultManager] createDirectoryAtURL:_extractionFolderURL withIntermediateDirectories:YES attributes:nil error:NULL];
+
+    NSLog(@"[Glitter] Unzipping %@", [_downloadLocalURL lastPathComponent]);
+
+    _downloadStep = GlitterDownloadStepUnpack;
+    [self statusDidChange];
+
+    GlitterUnzip(_downloadLocalURL, _extractionFolderURL, ^(NSError *unzipError) {
+        if (unzipError) {
+            NSLog(@"[Glitter] Update extraction failed (version %@ at %@) - cannot unzip %@: %@", _downloadingVersion.version, _downloadingVersion.source.url, _downloadLocalURL.path, unzipError.localizedDescription);
+            [self _cleanupDownload];
+            return;
+        }
+
+        NSError * __autoreleasing error = nil;
+        NSArray *items = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:_extractionFolderURL includingPropertiesForKeys:@[] options:NSDirectoryEnumerationSkipsHiddenFiles error:&error];
+        if (!items) {
+            NSLog(@"[Glitter] Update extraction failed (version %@ at %@) - cannot enumerate %@: %@", _downloadingVersion.version, _downloadingVersion.source.url, _extractionFolderURL.path, error.localizedDescription);
+            [self _cleanupDownload];
+            return;
+        }
+
+        if (items.count != 1) {
+            NSLog(@"[Glitter] Update extraction failed (version %@ at %@) - multiple items found in %@: %@", _downloadingVersion.version, _downloadingVersion.source.url, _extractionFolderURL.path, items);
+            [self _cleanupDownload];
+            return;
+        }
+
+        [self _commitReadyToInstallVersion:_downloadingVersion updateURL:items[0]];
+        [self _cleanupDownload];
+    });
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
@@ -470,17 +454,129 @@ NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification = @"Glitter
 }
 
 
+#pragma mark - Cleanup
+
+- (void)_deleteUnnecessaryState {
+    if (_readyToInstall) {
+        // no cleanup while waiting for an update to be installed
+        return;
+    }
+
+    if ([_updateFolderURL resourceValuesForKeys:@[NSURLIsDirectoryKey] error:NULL]) {
+        NSLog(@"[Glitter] Deleting all update-related files");
+        [[NSFileManager defaultManager] removeItemAtURL:_updateFolderURL error:NULL];
+    }
+}
+
+
+#pragma mark - "Ready to install" state
+
+- (void)_commitReadyToInstallVersion:(GlitterVersion *)release updateURL:(NSURL *)updateURL {
+    NSDictionary *state = @{
+        GlitterStateFileNameKey: [updateURL lastPathComponent],
+        GlitterStateVersionKey: release.version,
+        GlitterStateVersionDisplayNameKey: release.versionDisplayName,
+        GlitterStateVersionIdentifierKey: release.identifier,
+    };
+
+    NSError * __autoreleasing error = nil;
+    NSData *data = [NSJSONSerialization dataWithJSONObject:state options:NSJSONWritingPrettyPrinted error:&error];
+    if (!data) {
+        NSLog(@"[Glitter] Failed to save ready-to-install data - cannot serialize status: %@", error.localizedDescription);
+        goto finished;
+    }
+
+    [[NSFileManager defaultManager] createDirectoryAtURL:[_statusFileURL URLByDeletingLastPathComponent] withIntermediateDirectories:YES attributes:nil error:NULL];
+    BOOL ok = [data writeToURL:_statusFileURL options:NSDataWritingAtomic error:&error];
+    if (!ok) {
+        NSLog(@"[Glitter] Failed to save ready-to-install data - cannot write status file %@: %@", _statusFileURL.path, error.localizedDescription);
+        goto finished;
+    }
+
+finished:
+    [self _loadReadyToInstallVersionIfAny];
+}
+
+- (void)_loadReadyToInstallVersionIfAny {
+    NSDictionary *state;
+
+    NSError * __autoreleasing error = nil;
+    NSData *data = [NSData dataWithContentsOfURL:_statusFileURL options:0 error:&error];
+    if (!data) {
+        NSLog(@"[Glitter] Failed to read state: %@", error.localizedDescription);
+        goto bail;
+    }
+
+    state = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+    if (!state) {
+        NSLog(@"[Glitter] Failed to parse state: %@", error.localizedDescription);
+        goto bail;
+    }
+
+    if (![state isKindOfClass:[NSDictionary class]]) {
+        NSLog(@"[Glitter] Failed to parse state: not a dictionary");
+        goto bail;
+    }
+
+    {
+        _readyToInstallVersion = state[GlitterStateVersionKey];
+        _readyToInstallVersionDisplayName = state[GlitterStateVersionDisplayNameKey];
+        _readyToInstallVersionIdentifier = state[GlitterStateVersionIdentifierKey];
+        NSString *fileName = state[GlitterStateFileNameKey];
+
+        if (_readyToInstallVersion.length == 0)
+            goto bail;
+        if (_readyToInstallVersionIdentifier.length == 0)
+            goto bail;
+        if (_readyToInstallVersionDisplayName.length == 0)
+            goto bail;
+        if (fileName.length == 0)
+            goto bail;
+
+        if (GlitterCompareVersions(_currentVersion, _readyToInstallVersion) != NSOrderedAscending)
+            goto bail;
+
+        _readyToInstallLocalURL = [_extractionFolderURL URLByAppendingPathComponent:fileName];
+        NSDictionary *stat = [_readyToInstallLocalURL resourceValuesForKeys:@[NSURLIsDirectoryKey] error:&error];
+        if (!stat) {
+            NSLog(@"[Glitter] Local update folder not found at %@: %@", _readyToInstallLocalURL.path, error.localizedDescription);
+            goto bail;
+        }
+    }
+
+    _readyToInstall = YES;
+    NSLog(@"[Glitter] Ready to install update %@ (\"%@\") at %@", _readyToInstallVersion, _readyToInstallVersionDisplayName, _readyToInstallLocalURL.path);
+    goto finished;
+
+bail:
+    _readyToInstall = NO;
+    _readyToInstallVersion = nil;
+    _readyToInstallVersionDisplayName = nil;
+    _readyToInstallVersionIdentifier = nil;
+    _readyToInstallLocalURL = nil;
+
+finished:
+    [self statusDidChange];
+
+    [self _deleteUnnecessaryState];  // now that we know if readyToInstall is NO, we can run the cleanup
+}
+
+
+
 #pragma mark - Restart
 
 - (BOOL)isReadyToInstall {
-    return !!_readyToInstallVersion;
+    return _readyToInstall;
 }
 
 - (NSString *)readyToInstallVersionDisplayName {
-    return _readyToInstallVersion.versionDisplayName;
+    return _readyToInstallVersionDisplayName;
 }
 
 - (void)installUpdate {
+    if (!_readyToInstall)
+        return;
+    
     xpc_connection_t connection = xpc_connection_create("com.tarantsov.GlitterInstallationService", dispatch_get_main_queue());
     xpc_connection_set_event_handler(connection, ^(xpc_object_t event) {
         xpc_type_t type = xpc_get_type(event);

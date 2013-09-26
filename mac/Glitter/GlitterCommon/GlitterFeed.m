@@ -19,7 +19,7 @@
 #define return_error(returnValue, outError, error)  \
     do { \
         if (outError) *outError = error; \
-        return nil; \
+        return returnValue; \
     } while(0)
 
 
