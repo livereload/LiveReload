@@ -6,15 +6,14 @@ Features:
 
 * sandbox-friendly (contains a non-sandboxed XPC service that installs the updates)
 * automatic background downloading of updates
-* no built-in UI, but very easy to integrate your own one (see GlitterDemoAppDelegate for an example)
 * XML-free feed format (uses JSON; see example-feed.json)
 * automatically checks for updates on launch plus every 24 hours (retries every hour if the last check has failed)
 * automatic installation of pending updates on next launch
 * automatic cleanup of downloaded updates
+* GitHub.app-style popover UI (“Update is ready to be installed” + “Relaunch” + What's New”)
 
 Upcoming features:
 
-* UI for “What's New” screen
 * verification of the new versions's code signature against the previous version's designated requirements
 * reporting for failed checks, downloads and installations
 * automatic update installation when the app is not in use

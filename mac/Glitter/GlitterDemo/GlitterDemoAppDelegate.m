@@ -1,6 +1,7 @@
 
 #import "GlitterDemoAppDelegate.h"
 #import "Glitter.h"
+#import "GlitterUpdateInfoViewController.h"
 
 extern Glitter *sharedGlitter;
 
@@ -30,8 +31,12 @@ extern Glitter *sharedGlitter;
     [sharedGlitter checkForUpdatesWithOptions:GlitterCheckOptionUserInitiated];
 }
 
-- (IBAction)installUpdate:(id)sender {
-    [sharedGlitter installUpdate];
+- (IBAction)installUpdate:(NSButton *)sender {
+//    [sharedGlitter installUpdate];
+    NSPopover *popover = [NSPopover new];
+    popover.behavior = NSPopoverBehaviorTransient;
+    popover.contentViewController = [[GlitterUpdateInfoViewController alloc] initWithGlitter:sharedGlitter];
+    [popover showRelativeToRect:sender.bounds ofView:sender preferredEdge:NSMaxYEdge];
 }
 
 - (void)updateStatus {
@@ -67,10 +72,10 @@ extern Glitter *sharedGlitter;
     }
 
     if (sharedGlitter.readyToInstall) {
-        [_installUpdateButton setTitle:[NSString stringWithFormat:@"Install v%@", sharedGlitter.readyToInstallVersionDisplayName]];
+        [_installUpdateButton setTitle:[NSString stringWithFormat:@"v%@", sharedGlitter.readyToInstallVersionDisplayName]];
         [_installUpdateButton setEnabled:YES];
     } else {
-        [_installUpdateButton setTitle:@"Install"];
+        [_installUpdateButton setTitle:@"No updates"];
         [_installUpdateButton setEnabled:NO];
     }
 }

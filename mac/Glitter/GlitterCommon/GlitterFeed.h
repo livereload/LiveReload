@@ -20,6 +20,8 @@
 @property(nonatomic, copy) NSString *versionDisplayName;
 @property(nonatomic, copy) NSArray *channelNames;
 @property(nonatomic, copy) NSString *compatibleVersionRange;
+@property(nonatomic, copy) NSString *news;
+@property(nonatomic, copy) NSArray *combinedNews;
 @property(nonatomic, readonly, strong) GlitterSource *source;
 
 - (id)initWithVersion:(NSString *)version versionDisplayName:(NSString *)versionDisplayName channelNames:(NSArray *)channelNames source:(GlitterSource *)source;

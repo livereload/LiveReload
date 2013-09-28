@@ -14,6 +14,7 @@
 #define GlitterStateVersionKey @"version"
 #define GlitterStateVersionDisplayNameKey @"versionDisplayName"
 #define GlitterStateVersionIdentifierKey @"id"
+#define GlitterStateCombinedNewsKey @"news"
 
 
 
@@ -46,6 +47,7 @@ NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification = @"Glitter
     NSArray *_availableVersions;
     GlitterErrorCode _lastCheckError;
     GlitterVersion *_nextVersion;
+    NSArray *_priorVersions;
 
     GlitterVersion *_downloadingVersion;
     NSURL *_downloadLocalURL;
@@ -56,6 +58,7 @@ NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification = @"Glitter
     NSString *_readyToInstallVersion;
     NSString *_readyToInstallVersionDisplayName;
     NSString *_readyToInstallVersionIdentifier;
+    NSArray *_readyToInstallCombinedNews;
     NSURL *_readyToInstallLocalURL;
 
     BOOL _notificationScheduled;
@@ -285,6 +288,9 @@ NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification = @"Glitter
     
     NSLog(@"currentVersion = %@, availableVersions = %@", currentVersion, _availableVersions);
     GlitterVersion *nextVersion = nil;
+
+    NSMutableArray *priorVersions = [NSMutableArray new];
+
     for (GlitterVersion *version in _availableVersions) {
         NSString *whyNot = nil;
         if (![version.channelNames containsObject:channelName]) {
@@ -300,13 +306,25 @@ NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification = @"Glitter
             goto not_matched;
         }
 
-        nextVersion = version;
-        break;
+        if (nextVersion == nil) {
+            nextVersion = version;
+        }
+
+        [priorVersions addObject:version];
+        continue;
 
     not_matched:
         NSLog(@"Version %@ does not match: %@", version, whyNot);
     }
 
+    NSMutableArray *combinedNews = [NSMutableArray new];
+    for (GlitterVersion *version in priorVersions) {
+        if (version.news.length > 0) {
+            [combinedNews addObject:@{@"version": version.version, @"versionDisplayName": version.versionDisplayName, @"news": version.news}];
+        }
+    }
+
+    nextVersion.combinedNews = combinedNews;
     _nextVersion = nextVersion;
 
     [self downloadUpdate];
@@ -477,6 +495,7 @@ NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification = @"Glitter
         GlitterStateVersionKey: release.version,
         GlitterStateVersionDisplayNameKey: release.versionDisplayName,
         GlitterStateVersionIdentifierKey: release.identifier,
+        GlitterStateCombinedNewsKey: release.combinedNews,
     };
 
     NSError * __autoreleasing error = nil;
@@ -522,6 +541,7 @@ finished:
         _readyToInstallVersion = state[GlitterStateVersionKey];
         _readyToInstallVersionDisplayName = state[GlitterStateVersionDisplayNameKey];
         _readyToInstallVersionIdentifier = state[GlitterStateVersionIdentifierKey];
+        _readyToInstallCombinedNews = state[GlitterStateCombinedNewsKey];
         NSString *fileName = state[GlitterStateFileNameKey];
 
         if (_readyToInstallVersion.length == 0)
@@ -529,6 +549,8 @@ finished:
         if (_readyToInstallVersionIdentifier.length == 0)
             goto bail;
         if (_readyToInstallVersionDisplayName.length == 0)
+            goto bail;
+        if (_readyToInstallCombinedNews == nil)
             goto bail;
         if (fileName.length == 0)
             goto bail;
@@ -554,6 +576,7 @@ bail:
     _readyToInstallVersionDisplayName = nil;
     _readyToInstallVersionIdentifier = nil;
     _readyToInstallLocalURL = nil;
+    _readyToInstallCombinedNews = nil;
 
 finished:
     [self statusDidChange];

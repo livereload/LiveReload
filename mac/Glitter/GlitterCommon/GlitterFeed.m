@@ -9,6 +9,7 @@
 #define GlitterFeedVersionDisplayNameKey @"versionDisplayName"
 #define GlitterFeedVersionChannelsKey @"channels"
 #define GlitterFeedVersionCompatibleVersionRangeKey @"requires"
+#define GlitterFeedVersionNewsKey @"news"
 
 #define GlitterFeedVersionDistKey @"dist"
 #define GlitterFeedVersionDistURLKey @"url"
@@ -105,6 +106,10 @@ NSArray *GlitterParseFeedData(NSData *feedData, NSError **outError) {
         if (![versionChannelNames isKindOfClass:[NSArray class]])
             return_error(nil, outError, ([NSError errorWithDomain:@"Glitter" code:GlitterErrorCodeCheckFailedInvalidFeedFormat userInfo:@{NSLocalizedDescriptionKey:@"feed format error - " GlitterFeedVersionChannelsKey " is missing or not an array", NSUnderlyingErrorKey: error}]));
 
+        NSString *versionNews = versionRaw[GlitterFeedVersionNewsKey];
+        if (versionNews && ![versionNews isKindOfClass:[NSString class]])
+            return_error(nil, outError, ([NSError errorWithDomain:@"Glitter" code:GlitterErrorCodeCheckFailedInvalidFeedFormat userInfo:@{NSLocalizedDescriptionKey:@"feed format error - " GlitterFeedVersionNewsKey " is not a string", NSUnderlyingErrorKey: error}]));
+
         NSDictionary *distRaw = versionRaw[GlitterFeedVersionDistKey];
         if (![distRaw isKindOfClass:[NSDictionary class]])
             return_error(nil, outError, ([NSError errorWithDomain:@"Glitter" code:GlitterErrorCodeCheckFailedInvalidFeedFormat userInfo:@{NSLocalizedDescriptionKey:@"feed format error - " GlitterFeedVersionDistKey " is missing or not a dictionary", NSUnderlyingErrorKey: error}]));
@@ -124,6 +129,7 @@ NSArray *GlitterParseFeedData(NSData *feedData, NSError **outError) {
         GlitterSource *source = [[GlitterSource alloc] initWithUrl:[NSURL URLWithString:distURL] size:[distSize longValue] sha1:distSha1];
         GlitterVersion *version = [[GlitterVersion alloc] initWithVersion:versionNumber versionDisplayName:versionDisplayName channelNames:versionChannelNames source:source];
         version.compatibleVersionRange = versionCompatibleRange;
+        version.news = versionNews;
         [availableVersions addObject:version];
     }
 

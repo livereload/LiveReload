@@ -7,6 +7,10 @@
 extern NSString *const GlitterStatusDidChangeNotification;
 extern NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification;
 
+#define GlitterCombinedNewsVersionKey @"version"
+#define GlitterCombinedNewsVersionDisplayNameKey @"versionDisplayName"
+#define GlitterCombinedNewsVersionNewsKey @"news"
+
 
 typedef enum {
     GlitterDownloadStepNone = 0,
@@ -37,5 +41,6 @@ typedef enum {
 
 @property(nonatomic, readonly, getter = isReadyToInstall) BOOL readyToInstall;
 @property(nonatomic, readonly, copy) NSString *readyToInstallVersionDisplayName;
+@property(nonatomic, readonly, copy) NSArray *readyToInstallCombinedNews;
 
 @end
