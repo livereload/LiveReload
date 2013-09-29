@@ -165,6 +165,7 @@
 		4396F1E017F8112F00AA8200 /* GlitterFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 4396F1D717F8112F00AA8200 /* GlitterFeed.m */; };
 		4396F1E117F8112F00AA8200 /* GlitterVersionUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4396F1DA17F8112F00AA8200 /* GlitterVersionUtilities.m */; };
 		4396F1E217F8112F00AA8200 /* GlitterUpdateInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4396F1DD17F8112F00AA8200 /* GlitterUpdateInfoViewController.m */; };
+		4396F1E417F84C2B00AA8200 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4396F1E317F84C2B00AA8200 /* Security.framework */; };
 		439865AC17BE394D00EC6471 /* ATPathSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 439865A817BE394D00EC6471 /* ATPathSpec.m */; };
 		439865B017C5F16E00EC6471 /* FilterOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 439865AF17C5F16E00EC6471 /* FilterOption.m */; };
 		4398AF0F1731E3DC0092A711 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 4398AF0E1731E3DC0092A711 /* NSData+Base64.m */; };
@@ -584,6 +585,7 @@
 		4396F1DA17F8112F00AA8200 /* GlitterVersionUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlitterVersionUtilities.m; sourceTree = "<group>"; };
 		4396F1DC17F8112F00AA8200 /* GlitterUpdateInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlitterUpdateInfoViewController.h; sourceTree = "<group>"; };
 		4396F1DD17F8112F00AA8200 /* GlitterUpdateInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlitterUpdateInfoViewController.m; sourceTree = "<group>"; };
+		4396F1E317F84C2B00AA8200 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		439865A717BE394D00EC6471 /* ATPathSpec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATPathSpec.h; sourceTree = "<group>"; };
 		439865A817BE394D00EC6471 /* ATPathSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATPathSpec.m; sourceTree = "<group>"; };
 		439865A917BE394D00EC6471 /* ATPathSpecPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATPathSpecPrivate.h; sourceTree = "<group>"; };
@@ -794,6 +796,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4396F1E417F84C2B00AA8200 /* Security.framework in Frameworks */,
 				4396F1BA17F77A8900AA8200 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -893,6 +896,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4396F1E317F84C2B00AA8200 /* Security.framework */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				434BB29F17BBF512000BEB1C /* XCTest.framework */,
 				4396F1B917F77A8900AA8200 /* Foundation.framework */,

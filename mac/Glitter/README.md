@@ -11,10 +11,10 @@ Features:
 * automatic installation of pending updates on next launch
 * automatic cleanup of downloaded updates
 * GitHub.app-style popover UI (“Update is ready to be installed” + “Relaunch” + What's New”)
+* verification of the new versions's code signature against the previous version's designated requirements
 
 Upcoming features:
 
-* verification of the new versions's code signature against the previous version's designated requirements
 * reporting for failed checks, downloads and installations
 * automatic update installation when the app is not in use
 * verification of the size and SHA1 sum of the downloaded update

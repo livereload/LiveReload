@@ -1,5 +1,6 @@
 
 #import <Cocoa/Cocoa.h>
+#import <Security/Security.h>
 #include <xpc/xpc.h>
 #include <sys/xattr.h>
 
@@ -44,6 +45,49 @@ void GlitterReleaseFromQuarantine(NSString *root) {
 }
 
 
+BOOL GlitterVerifyCodeSignature(NSURL *oldBundle, NSURL *newBundle, NSError **outError) {
+    OSStatus status = errSecSuccess;
+
+    void (^handleError)(OSStatus status, NSString *action) = ^(OSStatus status, NSString *action) {
+        NSString *errorDescription = CFBridgingRelease(SecCopyErrorMessageString(status, NULL));
+        NSError *error = [NSError errorWithDomain:@"GlitterVerifyCodeSignature" code:0 userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"%@: %d - %@", action, status, errorDescription]}];
+        if (outError)
+            *outError = error;
+        else
+            NSLog(@"GlitterVerifyCodeSignature failed: %@", [error localizedDescription]);
+    };
+
+    SecStaticCodeRef oldCodeRef;
+    status = SecStaticCodeCreateWithPath((__bridge CFURLRef)oldBundle, kSecCSDefaultFlags, &oldCodeRef);
+    if (status != errSecSuccess) {
+        handleError(status, @"Cannot load the previous version bundle (SecStaticCodeCreateWithPath failed)");
+        return NO;
+    }
+
+    SecStaticCodeRef newCodeRef;
+    status = SecStaticCodeCreateWithPath((__bridge CFURLRef)newBundle, kSecCSDefaultFlags, &newCodeRef);
+    if (status != errSecSuccess) {
+        handleError(status, @"Cannot load the new version bundle (SecStaticCodeCreateWithPath failed)");
+        return NO;
+    }
+
+    SecRequirementRef requirementRef;
+    status = SecCodeCopyDesignatedRequirement(oldCodeRef, kSecCSDefaultFlags, &requirementRef);
+    if (status != errSecSuccess) {
+        handleError(status, @"Cannot obtain designed requirements of the previous version (SecCodeCopyDesignatedRequirement)");
+        return NO;
+    }
+                    
+    status = SecStaticCodeCheckValidity(newCodeRef, kSecCSDefaultFlags, requirementRef);
+    if (status != errSecSuccess) {
+        handleError(status, @"The new version's code signature is invalid or does not meet the previous version's designated requirements");
+        return NO;
+    }
+
+    return YES;
+}
+
+
 static void GlitterInstallationService_peer_event_handler(xpc_connection_t peer, xpc_object_t event) {
 	xpc_type_t type = xpc_get_type(event);
 	if (type == XPC_TYPE_ERROR) {
@@ -71,35 +115,68 @@ static void GlitterInstallationService_peer_event_handler(xpc_connection_t peer,
         xpc_transaction_begin();
 
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 500 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
-            NSLog(@"GlitterInstallationService: installing %@", updatePath);
+            NSLog(@"GlitterInstallationService: start of update installation");
+            NSLog(@"GlitterInstallationService: previous version path: %@", bundlePath);
+            NSLog(@"GlitterInstallationService: new version path: %@", updatePath);
+
+            void (^completed)() = ^{
+                xpc_transaction_end();
+            };
+
+            void (^failed)(NSString *action, NSError *error) = ^(NSString *action, NSError *inError){
+                NSLog(@"GlitterInstallationService: %@: %@ - %ld - %@", action, inError.domain, (long)inError.code, inError.localizedDescription);
+                
+                NSError * __autoreleasing error;
+                NSLog(@"GlitterInstallationService: deleting the invalid update bundle");
+                BOOL ok = [[NSFileManager defaultManager] removeItemAtPath:updatePath error:&error];
+                if (!ok) {
+                    NSLog(@"GlitterInstallationService: error deleting the invalid update bundle: %@ - %ld - %@", error.domain, (long)error.code, error.localizedDescription);
+                }
+
+                NSLog(@"GlitterInstallationService: launching old bundle");
+                if ([[NSWorkspace sharedWorkspace] openFile:bundlePath]) {
+                    NSLog(@"GlitterInstallationService: launching succeeded");
+                } else {
+                    NSLog(@"GlitterInstallationService: launching failed :-(");
+                }
+                completed();
+            };
+
+            NSLog(@"GlitterInstallationService: verifying code signature...");
+            NSError * __autoreleasing error = nil;
+            BOOL valid = GlitterVerifyCodeSignature(bundleURL, updateURL, &error);
+            if (valid) {
+                NSLog(@"GlitterInstallationService: code signature is valid.");
+            } else {
+                failed(@"Code signature not valid", error);
+                return;
+            }
 
             NSLog(@"GlitterInstallationService: releasing from quarantine...");
             GlitterReleaseFromQuarantine(updatePath);
 
-            NSLog(@"GlitterInstallationService: moving old bundle (%@) to trash", bundlePath);
+            NSLog(@"GlitterInstallationService: moving the previous version to trash");
             [[NSWorkspace sharedWorkspace] recycleURLs:@[bundleURL] completionHandler:^(NSDictionary *newURLs, NSError *recyceError) {
                 if (recyceError) {
-                    NSLog(@"GlitterInstallationService: error moving to trash: %@", recyceError.localizedDescription);
+                    failed(@"Error moving the previous version to trash", recyceError);
+                    return;
                 }
 
                 NSError * __autoreleasing error;
-                BOOL ok = [[NSFileManager defaultManager] removeItemAtURL:bundleURL error:&error];
+                BOOL ok = [[NSFileManager defaultManager] moveItemAtURL:updateURL toURL:bundleURL error:&error];
                 if (!ok) {
-                    NSLog(@"GlitterInstallationService: error deleting old bundle: %@", error.localizedDescription);
+                    failed(@"Error copying the new version over the previous one", error);
+                    return;
                 }
 
-                ok = [[NSFileManager defaultManager] moveItemAtURL:updateURL toURL:bundleURL error:&error];
-                if (!ok) {
-                    NSLog(@"GlitterInstallationService: error deleting old bundle: %@", error.localizedDescription);
-                    goto finish;
+                NSLog(@"GlitterInstallationService: launching the updated app");
+                if (![[NSWorkspace sharedWorkspace] openFile:bundlePath]) {
+                    failed(@"Error launching the updated app", nil);
+                    return;
                 }
 
-                NSLog(@"GlitterInstallationService: launching %@", bundlePath);
-                [[NSWorkspace sharedWorkspace] openFile:bundlePath];
-
-            finish:
-                NSLog(@"GlitterInstallationService: done");
-                xpc_transaction_end();
+                NSLog(@"GlitterInstallationService: completed successfully.");
+                completed();
             }];
         });
 	}
