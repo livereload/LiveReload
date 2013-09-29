@@ -19,7 +19,7 @@ __attribute__((__visibility__("default")))
 #endif
 {
 @private
-    NSArray *__weak _viewControllers;
+    NSArray *_viewControllers;
     NSMutableDictionary *_minimumViewRects;
     NSString *_title;
     NSViewController <MASPreferencesViewController> *_selectedViewController;
