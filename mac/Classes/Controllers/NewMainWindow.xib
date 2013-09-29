@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4457.6" systemVersion="12E55" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4457.6" systemVersion="12F37" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment defaultVersion="1070" identifier="macosx"/>
+        <deployment defaultVersion="1080" identifier="macosx"/>
         <development version="5000" identifier="xcode"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4457.6"/>
     </dependencies>
@@ -421,7 +421,7 @@
                     <constraints>
                         <constraint firstAttribute="width" constant="28" id="IVF-mf-w3v"/>
                     </constraints>
-                    <popUpButtonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" imagePosition="only" alignment="left" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" autoenablesItems="NO" altersStateOfSelectedItem="NO" id="596">
+                    <popUpButtonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" imagePosition="only" alignment="left" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" autoenablesItems="NO" altersStateOfSelectedItem="NO" selectedItem="714" id="596">
                         <behavior key="behavior" lightByContents="YES"/>
                         <font key="font" metaFont="menu"/>
                         <menu key="menu" title="OtherViews" autoenablesItems="NO" id="597">
@@ -719,7 +719,7 @@
                     </constraints>
                     <buttonCell key="cell" type="roundRect" title="Advanced Options…" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="u2P-0g-xgD">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="12" name="LucidaGrande"/>
+                        <font key="font" metaFont="cellTitle"/>
                     </buttonCell>
                 </button>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2eW-cY-I3b">
@@ -808,7 +808,7 @@
                     </constraints>
                     <popUpButtonCell key="cell" type="roundRect" title="Add compiler" bezelStyle="roundedRect" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" id="Hxr-M4-OY9">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="12" name="LucidaGrande"/>
+                        <font key="font" metaFont="cellTitle"/>
                         <menu key="menu" title="OtherViews" id="9CU-2z-CNT">
                             <items>
                                 <menuItem title="Add compiler" state="on" hidden="YES" id="8cQ-Pn-pfx"/>
@@ -844,7 +844,7 @@
                     </constraints>
                     <popUpButtonCell key="cell" type="roundRect" title="app/sass/**/" bezelStyle="roundedRect" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="nkR-qM-KeH" id="aI5-hx-30Z">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="12" name="LucidaGrande"/>
+                        <font key="font" metaFont="cellTitle"/>
                         <menu key="menu" title="OtherViews" id="WRM-rX-V1U">
                             <items>
                                 <menuItem title="app/sass/**/" state="on" id="nkR-qM-KeH"/>
@@ -862,7 +862,7 @@
                     </constraints>
                     <popUpButtonCell key="cell" type="roundRect" title="SASS alpha" bezelStyle="roundedRect" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="Lya-9M-VGC" id="l8d-Gb-Ywy">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="12" name="LucidaGrande"/>
+                        <font key="font" metaFont="cellTitle"/>
                         <menu key="menu" title="OtherViews" id="X5D-lm-R2p">
                             <items>
                                 <menuItem title="SASS alpha" state="on" id="Lya-9M-VGC"/>
@@ -887,7 +887,7 @@
                     </constraints>
                     <popUpButtonCell key="cell" type="roundRect" title="Eco stable" bezelStyle="roundedRect" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="S2L-jF-Fq2" id="1xo-75-Zky">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="12" name="LucidaGrande"/>
+                        <font key="font" metaFont="cellTitle"/>
                         <menu key="menu" title="OtherViews" id="vhP-rB-KA0">
                             <items>
                                 <menuItem title="Eco stable" state="on" id="S2L-jF-Fq2"/>
@@ -906,7 +906,7 @@
                     </constraints>
                     <popUpButtonCell key="cell" type="roundRect" title="CoffeeScript stable" bezelStyle="roundedRect" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="tBp-wS-RTb" id="ulE-zH-pSJ">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="12" name="LucidaGrande"/>
+                        <font key="font" metaFont="cellTitle"/>
                         <menu key="menu" title="OtherViews" id="mj7-cw-fGp">
                             <items>
                                 <menuItem title="CoffeeScript stable" state="on" id="tBp-wS-RTb"/>
@@ -934,7 +934,7 @@
                     </constraints>
                     <popUpButtonCell key="cell" type="roundRect" title="public/styles/**/" bezelStyle="roundedRect" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="ysP-2m-hzq" id="S0D-zT-GAn">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="12" name="LucidaGrande"/>
+                        <font key="font" metaFont="cellTitle"/>
                         <menu key="menu" title="OtherViews" id="KEG-8s-aXK">
                             <items>
                                 <menuItem title="public/styles/**/" state="on" id="ysP-2m-hzq"/>
@@ -952,7 +952,7 @@
                     </constraints>
                     <popUpButtonCell key="cell" type="roundRect" title="public/styles/**/" bezelStyle="roundedRect" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="yLk-oD-Z6h" id="auR-4B-uZ8">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="12" name="LucidaGrande"/>
+                        <font key="font" metaFont="cellTitle"/>
                         <menu key="menu" title="OtherViews" id="Fqd-pC-Jcr">
                             <items>
                                 <menuItem title="public/styles/**/" state="on" id="yLk-oD-Z6h">
@@ -972,7 +972,7 @@
                     </constraints>
                     <popUpButtonCell key="cell" type="roundRect" title="app/js/**/" bezelStyle="roundedRect" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="2UQ-mw-mCj" id="9Oj-aV-wKf">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="12" name="LucidaGrande"/>
+                        <font key="font" metaFont="cellTitle"/>
                         <menu key="menu" title="OtherViews" id="9ap-js-Tad">
                             <items>
                                 <menuItem title="app/js/**/" state="on" id="2UQ-mw-mCj"/>
@@ -990,7 +990,7 @@
                     </constraints>
                     <popUpButtonCell key="cell" type="roundRect" title="public/scripts/**/" bezelStyle="roundedRect" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="IX2-uT-VuU" id="9Fw-eX-vlA">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="12" name="LucidaGrande"/>
+                        <font key="font" metaFont="cellTitle"/>
                         <menu key="menu" title="OtherViews" id="f2m-5Y-TbO">
                             <items>
                                 <menuItem title="lib/**" id="rGc-HK-qPL"/>
@@ -1032,7 +1032,7 @@
                     </constraints>
                     <popUpButtonCell key="cell" type="roundRect" title="app/views/**/" bezelStyle="roundedRect" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="uUR-52-KK0" id="eGK-9C-0RZ">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="12" name="LucidaGrande"/>
+                        <font key="font" metaFont="cellTitle"/>
                         <menu key="menu" title="OtherViews" id="QTq-L8-EBi">
                             <items>
                                 <menuItem title="app/views/**/" state="on" id="uUR-52-KK0"/>
@@ -1050,7 +1050,7 @@
                     </constraints>
                     <popUpButtonCell key="cell" type="roundRect" title="public/styles/**/" bezelStyle="roundedRect" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="fUd-nT-T9g" id="yiL-0r-3et">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="12" name="LucidaGrande"/>
+                        <font key="font" metaFont="cellTitle"/>
                         <menu key="menu" title="OtherViews" id="iBe-ke-lj6">
                             <items>
                                 <menuItem title="public/styles/**/" state="on" id="fUd-nT-T9g"/>
@@ -1108,7 +1108,7 @@
                     </constraints>
                     <popUpButtonCell key="cell" type="roundRect" title="Add filter" bezelStyle="roundedRect" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" selectedItem="tO2-py-R42" id="gve-3I-0hE">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="12" name="LucidaGrande"/>
+                        <font key="font" metaFont="cellTitle"/>
                         <menu key="menu" title="OtherViews" id="h7f-2v-jne">
                             <items>
                                 <menuItem title="Add filter" state="on" hidden="YES" id="tO2-py-R42"/>
@@ -1135,7 +1135,7 @@
                     </constraints>
                     <popUpButtonCell key="cell" type="roundRect" title="same folder" bezelStyle="roundedRect" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="6Ep-1r-EPi" id="Gdr-Qe-oeQ">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="12" name="LucidaGrande"/>
+                        <font key="font" metaFont="cellTitle"/>
                         <menu key="menu" title="OtherViews" id="EHr-55-YIf">
                             <items>
                                 <menuItem title="same folder" state="on" id="6Ep-1r-EPi">
@@ -1188,7 +1188,7 @@
                     </constraints>
                     <popUpButtonCell key="cell" type="roundRect" title="Add action" bezelStyle="roundedRect" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" selectedItem="cnl-dL-o4C" id="If5-el-ABE">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="12" name="LucidaGrande"/>
+                        <font key="font" metaFont="cellTitle"/>
                         <menu key="menu" title="OtherViews" id="Um2-MW-97V">
                             <items>
                                 <menuItem title="Add action" state="on" hidden="YES" id="cnl-dL-o4C"/>
@@ -1221,7 +1221,7 @@
                     </constraints>
                     <popUpButtonCell key="cell" type="roundRect" title="any output CSS file" bezelStyle="roundedRect" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="cnZ-8v-pId" id="5Ja-ZW-FaR">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="12" name="LucidaGrande"/>
+                        <font key="font" metaFont="cellTitle"/>
                         <menu key="menu" title="OtherViews" id="cZK-iM-Amu">
                             <items>
                                 <menuItem title="any output CSS file" state="on" id="cnZ-8v-pId">

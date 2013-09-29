@@ -48,6 +48,12 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>3.0.0</string>
+	<key>GlitterApplicationSupportSubfolder</key>
+	<string>LiveReload/Updates</string>
+	<key>GlitterDefaultChannelName</key>
+	<string>stable</string>
+	<key>GlitterFeedURL</key>
+	<string>https://s3.amazonaws.com/download.livereload.com/LiveReload-v3-Mac-updates.json</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.developer-tools</string>
 	<key>LSMinimumSystemVersion</key>
@@ -60,12 +66,6 @@
 	<string>NSApplication</string>
 	<key>NSServices</key>
 	<array/>
-	<key>SUEnableAutomaticChecks</key>
-	<true/>
-	<key>SUEnableSystemProfiling</key>
-	<true/>
-	<key>SUFeedURL</key>
-	<string>https://s3.amazonaws.com/download.livereload.com/LiveReload-v3-Mac-appcast.xml</string>
 	<key>UTExportedTypeDeclarations</key>
 	<array/>
 	<key>UTImportedTypeDeclarations</key>

@@ -16,4 +16,6 @@
 
 @property(nonatomic, readonly) NSPoint statusItemPosition;
 
+@property(nonatomic, readonly) NSView *statusItemView;
+
 @end

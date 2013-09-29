@@ -157,6 +157,14 @@
 		4378C8D31515205C003187D5 /* OldFSTreeDiffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CE1515205C003187D5 /* OldFSTreeDiffer.m */; };
 		4378C8D41515205C003187D5 /* OldFSTreeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8D01515205C003187D5 /* OldFSTreeFilter.m */; };
 		4379ADCB141D1060008C836F /* livereload.js in Resources */ = {isa = PBXBuildFile; fileRef = 4379ADC9141D00CE008C836F /* livereload.js */; };
+		4396F1BA17F77A8900AA8200 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4396F1B917F77A8900AA8200 /* Foundation.framework */; };
+		4396F1CD17F80E6F00AA8200 /* GlitterInstallationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4396F1CB17F80E6F00AA8200 /* GlitterInstallationService.m */; };
+		4396F1D017F8109000AA8200 /* com.tarantsov.GlitterInstallationService.xpc in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4396F1B817F77A8900AA8200 /* com.tarantsov.GlitterInstallationService.xpc */; };
+		4396F1DE17F8112F00AA8200 /* Glitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4396F1D317F8112F00AA8200 /* Glitter.m */; };
+		4396F1DF17F8112F00AA8200 /* GlitterArchiveUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4396F1D517F8112F00AA8200 /* GlitterArchiveUtilities.m */; };
+		4396F1E017F8112F00AA8200 /* GlitterFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 4396F1D717F8112F00AA8200 /* GlitterFeed.m */; };
+		4396F1E117F8112F00AA8200 /* GlitterVersionUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4396F1DA17F8112F00AA8200 /* GlitterVersionUtilities.m */; };
+		4396F1E217F8112F00AA8200 /* GlitterUpdateInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4396F1DD17F8112F00AA8200 /* GlitterUpdateInfoViewController.m */; };
 		439865AC17BE394D00EC6471 /* ATPathSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 439865A817BE394D00EC6471 /* ATPathSpec.m */; };
 		439865B017C5F16E00EC6471 /* FilterOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 439865AF17C5F16E00EC6471 /* FilterOption.m */; };
 		4398AF0F1731E3DC0092A711 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 4398AF0E1731E3DC0092A711 /* NSData+Base64.m */; };
@@ -220,7 +228,6 @@
 		43DFE4E617CC6C0D00DEF87B /* autoprefixer.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43DFE4E417CC6C0D00DEF87B /* autoprefixer.lrplugin */; };
 		43DFE4E717CC6C0D00DEF87B /* customscripts.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43DFE4E517CC6C0D00DEF87B /* customscripts.lrplugin */; };
 		43DFE4E917CC967500DEF87B /* TypeScript.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43DFE4E817CC967500DEF87B /* TypeScript.lrplugin */; };
-		43DFE4F117CCA56400DEF87B /* com.andymatuschak.Sparkle.SandboxService.xpc in CopyFiles */ = {isa = PBXBuildFile; fileRef = 43DFE4F017CCA56300DEF87B /* com.andymatuschak.Sparkle.SandboxService.xpc */; };
 		43E07EC217B01C4B004DB867 /* ATJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E07EC117B01C4B004DB867 /* ATJson.m */; };
 		43E34F9B14705125001641AA /* console.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E34F9714705125001641AA /* console.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		43E34F9C14705125001641AA /* eventbus.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E34F9914705125001641AA /* eventbus.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -281,6 +288,16 @@
 		C01FCF5008A954540054247E /* RSVerticallyCenteredTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C01FCF5008A954540054247D /* RSVerticallyCenteredTextFieldCell.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		4396F1CE17F8107C00AA8200 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4396F1B717F77A8900AA8200;
+			remoteInfo = GlitterInstallationService;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		4303A4BA15B3B450009D732A /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -288,7 +305,7 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices";
 			dstSubfolderSpec = 16;
 			files = (
-				43DFE4F117CCA56400DEF87B /* com.andymatuschak.Sparkle.SandboxService.xpc in CopyFiles */,
+				4396F1D017F8109000AA8200 /* com.tarantsov.GlitterInstallationService.xpc in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -551,6 +568,22 @@
 		4378C8CF1515205C003187D5 /* OldFSTreeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldFSTreeFilter.h; sourceTree = "<group>"; };
 		4378C8D01515205C003187D5 /* OldFSTreeFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldFSTreeFilter.m; sourceTree = "<group>"; };
 		4379ADC9141D00CE008C836F /* livereload.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = livereload.js; sourceTree = "<group>"; };
+		4396F1B817F77A8900AA8200 /* com.tarantsov.GlitterInstallationService.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = com.tarantsov.GlitterInstallationService.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
+		4396F1B917F77A8900AA8200 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		4396F1C917F80E6F00AA8200 /* GlitterInstallationService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GlitterInstallationService-Info.plist"; sourceTree = "<group>"; };
+		4396F1CA17F80E6F00AA8200 /* GlitterInstallationService-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GlitterInstallationService-Prefix.pch"; sourceTree = "<group>"; };
+		4396F1CB17F80E6F00AA8200 /* GlitterInstallationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlitterInstallationService.m; sourceTree = "<group>"; };
+		4396F1D217F8112F00AA8200 /* Glitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Glitter.h; sourceTree = "<group>"; };
+		4396F1D317F8112F00AA8200 /* Glitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Glitter.m; sourceTree = "<group>"; };
+		4396F1D417F8112F00AA8200 /* GlitterArchiveUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlitterArchiveUtilities.h; sourceTree = "<group>"; };
+		4396F1D517F8112F00AA8200 /* GlitterArchiveUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlitterArchiveUtilities.m; sourceTree = "<group>"; };
+		4396F1D617F8112F00AA8200 /* GlitterFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlitterFeed.h; sourceTree = "<group>"; };
+		4396F1D717F8112F00AA8200 /* GlitterFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlitterFeed.m; sourceTree = "<group>"; };
+		4396F1D817F8112F00AA8200 /* GlitterGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlitterGlobals.h; sourceTree = "<group>"; };
+		4396F1D917F8112F00AA8200 /* GlitterVersionUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlitterVersionUtilities.h; sourceTree = "<group>"; };
+		4396F1DA17F8112F00AA8200 /* GlitterVersionUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlitterVersionUtilities.m; sourceTree = "<group>"; };
+		4396F1DC17F8112F00AA8200 /* GlitterUpdateInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlitterUpdateInfoViewController.h; sourceTree = "<group>"; };
+		4396F1DD17F8112F00AA8200 /* GlitterUpdateInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlitterUpdateInfoViewController.m; sourceTree = "<group>"; };
 		439865A717BE394D00EC6471 /* ATPathSpec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATPathSpec.h; sourceTree = "<group>"; };
 		439865A817BE394D00EC6471 /* ATPathSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATPathSpec.m; sourceTree = "<group>"; };
 		439865A917BE394D00EC6471 /* ATPathSpecPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATPathSpecPrivate.h; sourceTree = "<group>"; };
@@ -757,6 +790,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4396F1B517F77A8900AA8200 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4396F1BA17F77A8900AA8200 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D11072E0486CEB800E47090 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -795,6 +836,7 @@
 			isa = PBXGroup;
 			children = (
 				8D1107320486CEB800E47090 /* LiveReload.app */,
+				4396F1B817F77A8900AA8200 /* com.tarantsov.GlitterInstallationService.xpc */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -807,6 +849,7 @@
 				823DDE2D13F8DA3100529AD2 /* Classes */,
 				43B5BFFC17ADF0D600F57276 /* ATCommons */,
 				439865A617BE394D00EC6471 /* ATPathSpec */,
+				4396F1B317F77A5600AA8200 /* Glitter */,
 				4303A4BC15B513FD009D732A /* nodeapp */,
 				43C0368513CA191C00A01305 /* LiveReload.icns */,
 				43361D4513C30D1400C0E589 /* libicucore.dylib */,
@@ -852,6 +895,7 @@
 			children = (
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				434BB29F17BBF512000BEB1C /* XCTest.framework */,
+				4396F1B917F77A8900AA8200 /* Foundation.framework */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -1333,6 +1377,54 @@
 			path = Runtimes;
 			sourceTree = "<group>";
 		};
+		4396F1B317F77A5600AA8200 /* Glitter */ = {
+			isa = PBXGroup;
+			children = (
+				4396F1D117F8112F00AA8200 /* GlitterCommon */,
+				4396F1DB17F8112F00AA8200 /* GlitterUI */,
+				4396F1C817F80E6F00AA8200 /* GlitterInstallationService */,
+			);
+			name = Glitter;
+			sourceTree = "<group>";
+		};
+		4396F1C817F80E6F00AA8200 /* GlitterInstallationService */ = {
+			isa = PBXGroup;
+			children = (
+				4396F1C917F80E6F00AA8200 /* GlitterInstallationService-Info.plist */,
+				4396F1CA17F80E6F00AA8200 /* GlitterInstallationService-Prefix.pch */,
+				4396F1CB17F80E6F00AA8200 /* GlitterInstallationService.m */,
+			);
+			name = GlitterInstallationService;
+			path = Glitter/GlitterInstallationService;
+			sourceTree = "<group>";
+		};
+		4396F1D117F8112F00AA8200 /* GlitterCommon */ = {
+			isa = PBXGroup;
+			children = (
+				4396F1D217F8112F00AA8200 /* Glitter.h */,
+				4396F1D317F8112F00AA8200 /* Glitter.m */,
+				4396F1D417F8112F00AA8200 /* GlitterArchiveUtilities.h */,
+				4396F1D517F8112F00AA8200 /* GlitterArchiveUtilities.m */,
+				4396F1D617F8112F00AA8200 /* GlitterFeed.h */,
+				4396F1D717F8112F00AA8200 /* GlitterFeed.m */,
+				4396F1D817F8112F00AA8200 /* GlitterGlobals.h */,
+				4396F1D917F8112F00AA8200 /* GlitterVersionUtilities.h */,
+				4396F1DA17F8112F00AA8200 /* GlitterVersionUtilities.m */,
+			);
+			name = GlitterCommon;
+			path = Glitter/GlitterCommon;
+			sourceTree = "<group>";
+		};
+		4396F1DB17F8112F00AA8200 /* GlitterUI */ = {
+			isa = PBXGroup;
+			children = (
+				4396F1DC17F8112F00AA8200 /* GlitterUpdateInfoViewController.h */,
+				4396F1DD17F8112F00AA8200 /* GlitterUpdateInfoViewController.m */,
+			);
+			name = GlitterUI;
+			path = Glitter/GlitterUI;
+			sourceTree = "<group>";
+		};
 		439865A617BE394D00EC6471 /* ATPathSpec */ = {
 			isa = PBXGroup;
 			children = (
@@ -1796,6 +1888,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		4396F1B717F77A8900AA8200 /* GlitterInstallationService */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4396F1C417F77A8900AA8200 /* Build configuration list for PBXNativeTarget "GlitterInstallationService" */;
+			buildPhases = (
+				4396F1B417F77A8900AA8200 /* Sources */,
+				4396F1B517F77A8900AA8200 /* Frameworks */,
+				4396F1B617F77A8900AA8200 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GlitterInstallationService;
+			productName = GlitterInstallationService;
+			productReference = 4396F1B817F77A8900AA8200 /* com.tarantsov.GlitterInstallationService.xpc */;
+			productType = "com.apple.product-type.bundle";
+		};
 		8D1107260486CEB800E47090 /* LiveReload */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "LiveReload" */;
@@ -1808,6 +1917,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				4396F1CF17F8107C00AA8200 /* PBXTargetDependency */,
 			);
 			name = LiveReload;
 			productInstallPath = "$(HOME)/Applications";
@@ -1839,11 +1949,19 @@
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* LiveReload */,
+				4396F1B717F77A8900AA8200 /* GlitterInstallationService */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4396F1B617F77A8900AA8200 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D1107290486CEB800E47090 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1938,6 +2056,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4396F1B417F77A8900AA8200 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4396F1CD17F80E6F00AA8200 /* GlitterInstallationService.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D11072C0486CEB800E47090 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1983,11 +2109,13 @@
 				4310DE3D146DB588003091D1 /* ToolOptions.m in Sources */,
 				4310DE40146DB6A0003091D1 /* UIBuilder.m in Sources */,
 				43F002CF146EC97B005D48A4 /* MainWindow.m in Sources */,
+				4396F1E017F8112F00AA8200 /* GlitterFeed.m in Sources */,
 				43F002D2146F4135005D48A4 /* TerminalView.m in Sources */,
 				434BB28217BBF23A000BEB1C /* Step.m in Sources */,
 				43F002F8146FF584005D48A4 /* TerminalViewController.m in Sources */,
 				43E34F9B14705125001641AA /* console.c in Sources */,
 				43E34F9C14705125001641AA /* eventbus.c in Sources */,
+				4396F1E217F8112F00AA8200 /* GlitterUpdateInfoViewController.m in Sources */,
 				43E34F9F14706D9B001641AA /* osdep.m in Sources */,
 				43E34FA5147071E9001641AA /* stringutil.c in Sources */,
 				C01FCF5008A954540054247E /* RSVerticallyCenteredTextFieldCell.m in Sources */,
@@ -2046,6 +2174,7 @@
 				4303A57915B513FD009D732A /* nodeapp_ui_element.cc in Sources */,
 				4303A57A15B513FD009D732A /* nodeapp_ui_element_osdep.mm in Sources */,
 				4303A57B15B513FD009D732A /* nodeapp_ui_element_osdep_application.mm in Sources */,
+				4396F1E117F8112F00AA8200 /* GlitterVersionUtilities.m in Sources */,
 				4303A57C15B513FD009D732A /* nodeapp_ui_element_osdep_button.mm in Sources */,
 				4303A57D15B513FD009D732A /* nodeapp_ui_element_osdep_control.mm in Sources */,
 				4303A57E15B513FD009D732A /* nodeapp_ui_element_osdep_generic.mm in Sources */,
@@ -2103,6 +2232,7 @@
 				43B5C00517ADF16B00F57276 /* ATModelDiff.m in Sources */,
 				43B5C01017ADF35C00F57276 /* NSArray+ATSubstitutions.m in Sources */,
 				43B5C01217ADF35C00F57276 /* NSString+ATProperURLEncoding.m in Sources */,
+				4396F1DF17F8112F00AA8200 /* GlitterArchiveUtilities.m in Sources */,
 				43CDCF9017C70A94007B22D9 /* FSChange.m in Sources */,
 				43B5C01417ADF35C00F57276 /* NSWindowController+ATTextStyling.m in Sources */,
 				43B5C01717ADF5FB00F57276 /* RegexKitLite.m in Sources */,
@@ -2125,10 +2255,19 @@
 				43996B2E17AF675D00B09954 /* ATMenuEnabledSegmentedCell.m in Sources */,
 				43996B4317B001BA00B09954 /* NSString+SmartRegexpCaptures.m in Sources */,
 				43E07EC217B01C4B004DB867 /* ATJson.m in Sources */,
+				4396F1DE17F8112F00AA8200 /* Glitter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4396F1CF17F8107C00AA8200 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4396F1B717F77A8900AA8200 /* GlitterInstallationService */;
+			targetProxy = 4396F1CE17F8107C00AA8200 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
@@ -2158,6 +2297,124 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		4396F1C517F77A8900AA8200 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Glitter/GlitterInstallationService/GlitterInstallationService-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Glitter/GlitterInstallationService/GlitterInstallationService-Info.plist";
+				MACH_O_TYPE = mh_execute;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = "com.tarantsov.$(TARGET_NAME:rfc1034identifier)";
+				WRAPPER_EXTENSION = xpc;
+			};
+			name = Debug;
+		};
+		4396F1C617F77A8900AA8200 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Glitter/GlitterInstallationService/GlitterInstallationService-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Glitter/GlitterInstallationService/GlitterInstallationService-Info.plist";
+				MACH_O_TYPE = mh_execute;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = "com.tarantsov.$(TARGET_NAME:rfc1034identifier)";
+				WRAPPER_EXTENSION = xpc;
+			};
+			name = Release;
+		};
+		4396F1C717F77A8900AA8200 /* AppStore */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Glitter/GlitterInstallationService/GlitterInstallationService-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Glitter/GlitterInstallationService/GlitterInstallationService-Info.plist";
+				MACH_O_TYPE = mh_execute;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				PRODUCT_NAME = "com.tarantsov.$(TARGET_NAME:rfc1034identifier)";
+				WRAPPER_EXTENSION = xpc;
+			};
+			name = AppStore;
+		};
 		43D28C60147D30E900606069 /* AppStore */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2317,6 +2574,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4396F1C417F77A8900AA8200 /* Build configuration list for PBXNativeTarget "GlitterInstallationService" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4396F1C517F77A8900AA8200 /* Debug */,
+				4396F1C617F77A8900AA8200 /* Release */,
+				4396F1C717F77A8900AA8200 /* AppStore */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "LiveReload" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

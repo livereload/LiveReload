@@ -24,7 +24,8 @@
 #import "EditorManager.h"
 
 #ifndef APPSTORE
-#import "Sparkle/Sparkle.h"
+#import "Glitter.h"
+#import "GlitterUpdateInfoViewController.h"
 #endif
 
 
@@ -56,7 +57,7 @@ json_t *C_kernel__on_port_occupied_error(json_t *message) {
 }
 
 
-@interface LiveReloadAppDelegate ()
+@interface LiveReloadAppDelegate () <NSPopoverDelegate>
 
 - (void)pingServer;
 - (void)considerShowingWindowOnAppStartup;
@@ -67,7 +68,13 @@ json_t *C_kernel__on_port_occupied_error(json_t *message) {
 @end
 
 
-@implementation LiveReloadAppDelegate
+@implementation LiveReloadAppDelegate {
+    StatusItemController  *_statusItemController;
+    NewMainWindowController  *_mainWindowController;
+    int _port;
+    Glitter *_glitter;
+}
+
 
 @synthesize statusItemController=_statusItemController;
 @synthesize mainWindowController=_mainWindowController;
@@ -81,6 +88,8 @@ json_t *C_kernel__on_port_occupied_error(json_t *message) {
 }
 
 - (void)applicationWillFinishLaunching:(NSNotification *)notification {
+    _glitter = [[Glitter alloc] initWithMainBundle];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateStatusDidChange) name:GlitterStatusDidChangeNotification object:_glitter];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
@@ -390,10 +399,33 @@ json_t *C_kernel__on_port_occupied_error(json_t *message) {
 }
 
 
-#pragma mark - Sparkle
+#pragma mark - Glitter
 
 - (IBAction)checkForUpdates:(id)sender {
-//    [[SUUpdater sharedUpdater] checkForUpdates:sender];
+    [_glitter checkForUpdatesWithOptions:GlitterCheckOptionUserInitiated];
+}
+
+- (void)updateStatusDidChange {
+    static NSString *lastVersion = nil;
+    if (_glitter.readyToInstall) {
+        NSString *version = _glitter.readyToInstallVersionDisplayName;
+        if (lastVersion != nil && [lastVersion isEqualToString:version]) {
+            return;
+        }
+        lastVersion = version;
+
+        [[DockIcon currentDockIcon] setMenuBarIconVisibility:YES forRequestKey:@"update"];
+
+        NSPopover *popover = [[NSPopover alloc] init];
+        popover.contentViewController = [[GlitterUpdateInfoViewController alloc] initWithGlitter:_glitter];
+        popover.behavior = NSPopoverBehaviorTransient;
+        popover.delegate = self;
+        [popover showRelativeToRect:CGRectZero ofView:_statusItemController.statusItemView preferredEdge:NSMaxYEdge];
+    }
+}
+
+- (void)popoverDidClose:(NSNotification *)notification {
+    [[DockIcon currentDockIcon] setMenuBarIconVisibility:NO forRequestKey:@"update"];
 }
 
 @end

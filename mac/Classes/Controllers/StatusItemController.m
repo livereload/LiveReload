@@ -11,7 +11,6 @@
 @interface StatusItemController () <StatusItemViewDelegate>
 
 @property(nonatomic, strong) NSStatusItem *statusItem;
-@property(nonatomic, strong) StatusItemView *statusItemView;
 
 - (void)updateStatusIconState;
 - (void)updateStatusIconVisibility;
@@ -44,17 +43,17 @@
     NSRect viewFrame = NSMakeRect(0, 0, width, height);
     
     self.statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:width];
-    self.statusItemView = [[StatusItemView alloc] initWithFrame:viewFrame];
-    self.statusItemView.delegate = self;
-    [self.statusItem setView:self.statusItemView];
+    _statusItemView = [[StatusItemView alloc] initWithFrame:viewFrame];
+    _statusItemView.delegate = self;
+    [self.statusItem setView:_statusItemView];
 
     [self updateStatusIconState];
 }
 
 - (void)hideStatusBarIcon {
     [[NSStatusBar systemStatusBar] removeStatusItem:self.statusItem];
-    self.statusItemView.delegate = nil;
-    self.statusItemView = nil;
+    _statusItemView.delegate = nil;
+    _statusItemView = nil;
     self.statusItem = nil;
 }
 
@@ -73,26 +72,26 @@
 #pragma mark - Public methods
 
 - (NSPoint)statusItemPosition {
-    NSRect frame = [[self.statusItemView window] frame];
+    NSRect frame = [[_statusItemView window] frame];
     return NSMakePoint(NSMidX(frame), NSMinY(frame));
 }
 
 - (void)updateStatusIconState {
-    self.statusItemView.active = [Workspace sharedWorkspace].monitoringEnabled;
+    _statusItemView.active = [Workspace sharedWorkspace].monitoringEnabled;
 }
 
 - (void)didDetectChange {
     [[DockIcon currentDockIcon] showMenuBarIconForDuration:0.5];
-    [self.statusItemView animateOnce];
+    [_statusItemView animateOnce];
 }
 
 - (void)willBeginCompilation {
     [[DockIcon currentDockIcon] setMenuBarIconVisibility:YES forRequestKey:@"compilation"];
-    [self.statusItemView startAnimation];
+    [_statusItemView startAnimation];
 }
 
 - (void)didEndCompilation {
-    [self.statusItemView endAnimation];
+    [_statusItemView endAnimation];
     [[DockIcon currentDockIcon] setMenuBarIconVisibility:NO forRequestKey:@"compilation" gracePeriod:0.5];
 }
 

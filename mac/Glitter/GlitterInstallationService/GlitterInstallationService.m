@@ -1,5 +1,4 @@
 
-#import <Foundation/Foundation.h>
 #import <Cocoa/Cocoa.h>
 #include <xpc/xpc.h>
 #include <sys/xattr.h>

@@ -47,6 +47,7 @@
 
 - (void)loadView {
     NSDictionary *metrics = @{@"hpad": @16.0, @"vpad": @12.0, @"vspace": @12.0};
+    CGFloat textWidth = 350.0;
     CGFloat maxAllowedTextHeight = 300.0;
 
     self.view = [[NSView alloc] init];
@@ -70,7 +71,8 @@
 //    [whatsNewLabel setContentHuggingPriority:NSLayoutPriorityDefaultLow forOrientation:NSLayoutConstraintOrientationVertical];
 //    [self.view addSubview:whatsNewLabel];
 
-    CGSize textSize = [as boundingRectWithSize:CGSizeMake(350, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading].size;
+    CGSize textSize = [as boundingRectWithSize:CGSizeMake(textWidth, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading].size;
+    textSize.width = textWidth;
 
     whatsNewLabel = [[NSTextView alloc] initWithFrame:CGRectZero];
     whatsNewLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -96,6 +98,7 @@
         [whatsNewScrollView setDocumentView:whatsNewLabel];
         [self.view addSubview:whatsNewScrollView];
 
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:whatsNewScrollView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:textSize.width]];
         [self.view addConstraint:[NSLayoutConstraint constraintWithItem:whatsNewScrollView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:maxAllowedTextHeight]];
         whatsNewView = whatsNewScrollView;
     } else {

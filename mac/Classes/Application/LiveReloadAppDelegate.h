@@ -7,11 +7,7 @@
 @class StatusItemController;
 @class NewMainWindowController;
 
-@interface LiveReloadAppDelegate : NodeAppDelegate <NSApplicationDelegate> {
-    StatusItemController  *_statusItemController;
-    NewMainWindowController  *_mainWindowController;
-    int _port;
-}
+@interface LiveReloadAppDelegate : NodeAppDelegate <NSApplicationDelegate>
 
 @property(nonatomic, strong) StatusItemController *statusItemController;
 @property(nonatomic, strong) NewMainWindowController *mainWindowController;
