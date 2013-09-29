@@ -54,6 +54,8 @@
 	<string>stable</string>
 	<key>GlitterFeedURL</key>
 	<string>https://s3.amazonaws.com/download.livereload.com/LiveReload-v3-Mac-updates.json</string>
+	<key>GlitterFailedUpdateSupportURL</key>
+	<string>mailto:support@livereload.com</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.developer-tools</string>
 	<key>LSMinimumSystemVersion</key>

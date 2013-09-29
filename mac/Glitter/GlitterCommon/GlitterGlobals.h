@@ -5,6 +5,7 @@
 #define GlitterFeedURLKey @"GlitterFeedURL"
 #define GlitterApplicationSupportSubfolderKey @"GlitterApplicationSupportSubfolder"
 #define GlitterDefaultChannelNameKey @"GlitterDefaultChannelName"
+#define GlitterFailedUpdateSupportURLKey @"GlitterFailedUpdateSupportURL"
 
 #define GlitterChannelNameStable @"stable"
 #define GlitterChannelNameBeta @"beta"

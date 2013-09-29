@@ -15,6 +15,11 @@
 #define GlitterStateVersionDisplayNameKey @"versionDisplayName"
 #define GlitterStateVersionIdentifierKey @"id"
 #define GlitterStateCombinedNewsKey @"news"
+#define GlitterStatePreviousVersionKey @"previousVersion"
+
+#define GlitterStateStatusKey @"status"
+#define GlitterStateStatusValueReady @"ready"
+#define GlitterStateStatusValueInstalling @"installing"
 
 
 
@@ -34,6 +39,8 @@ NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification = @"Glitter
     NSString *_preferenceKeyPrefix;
     NSURL *_feedURL;
     NSString *_defaultChannelName;
+    NSString *_failedUpdateSupportURL;
+
     NSString *_currentVersion;
     NSString *_currentVersionDisplayName;
 
@@ -41,6 +48,9 @@ NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification = @"Glitter
     NSURL *_downloadFolderURL;
     NSURL *_extractionFolderURL;
     NSURL *_statusFileURL;
+
+    NSURL *_blacklistFileURL;
+    NSMutableArray *_blacklistedVersions;
 
     BOOL _checking;
     BOOL _checkIsUserInitiated;
@@ -56,6 +66,7 @@ NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification = @"Glitter
     NSMutableData *_downloadingData;
 
     BOOL _readyToInstall;
+    NSMutableDictionary *_readyToInstallState;
     NSString *_readyToInstallVersion;
     NSString *_readyToInstallVersionDisplayName;
     NSString *_readyToInstallVersionIdentifier;
@@ -96,12 +107,16 @@ NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification = @"Glitter
         NSString *appSupportSubfolder = [[_bundle infoDictionary] objectForKey:GlitterApplicationSupportSubfolderKey];
         NSAssert(!!appSupportSubfolder, @"Glitter configuration error: " GlitterApplicationSupportSubfolderKey @" must be specified in bundle's Info.plist");
 
+        _failedUpdateSupportURL = [[_bundle infoDictionary] objectForKey:GlitterFailedUpdateSupportURLKey];
+        NSAssert(!!_failedUpdateSupportURL, @"Glitter configuration error: " GlitterFailedUpdateSupportURLKey @" must be specified in bundle's Info.plist");
+
         NSFileManager *fm = [NSFileManager defaultManager];
 
         NSError * __autoreleasing error = nil;
         _updateFolderURL = [[fm URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:&error] URLByAppendingPathComponent:appSupportSubfolder];
         NSAssert(!!_updateFolderURL, @"Glitter initialization error - cannot obtain Application Support folder: %@", error.localizedDescription);
 
+        _blacklistFileURL = [_updateFolderURL URLByAppendingPathComponent:@"blacklist.json"];
         _statusFileURL = [_updateFolderURL URLByAppendingPathComponent:@"status.json"];
         _downloadFolderURL = [_updateFolderURL URLByAppendingPathComponent:@"download"];
         _extractionFolderURL = [_updateFolderURL URLByAppendingPathComponent:@"extracted"];
@@ -115,6 +130,7 @@ NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification = @"Glitter
         [[NSUserDefaults standardUserDefaults] addObserver:self forKeyPath:self.automaticCheckingEnabledPreferenceKey options:0 context:0];
 
         [self _updateDebugMode];
+        [self _loadBlacklist];
         [self _loadReadyToInstallVersionIfAny];
         [self installUpdate];
         [self _updateAutomaticCheckingTimer];
@@ -295,6 +311,7 @@ NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification = @"Glitter
 
     for (GlitterVersion *version in _availableVersions) {
         NSString *whyNot = nil;
+
         if (![version.channelNames containsObject:channelName]) {
             whyNot = [NSString stringWithFormat:@"current channel %@ does not match version's channels %@", channelName, [version.channelNames componentsJoinedByString:@"+"]];
             goto not_matched;
@@ -317,6 +334,13 @@ NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification = @"Glitter
 
     not_matched:
         NSLog(@"Version %@ does not match: %@", version, whyNot);
+    }
+
+
+    if (nextVersion && [_blacklistedVersions containsObject:nextVersion.version]) {
+        NSLog(@"Version %@ has been blacklisted, will not try to install.", nextVersion.version);
+        nextVersion = nil;
+        [priorVersions removeAllObjects];
     }
 
     NSMutableArray *combinedNews = [NSMutableArray new];
@@ -459,7 +483,7 @@ NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification = @"Glitter
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
     [_downloadingData appendData:data];
     _downloadProgress = 100 * (_downloadingData.length / (double)_downloadingVersion.source.size);
-    NSLog(@"[Glitter] Downloading version %@ from %@: %.0lf%% done", _downloadingVersion.version, _downloadingVersion.source.url, _downloadProgress);
+//    NSLog(@"[Glitter] Downloading version %@ from %@: %.0lf%% done", _downloadingVersion.version, _downloadingVersion.source.url, _downloadProgress);
     [self statusDidChange];
 }
 
@@ -500,6 +524,8 @@ NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification = @"Glitter
         GlitterStateVersionDisplayNameKey: release.versionDisplayName,
         GlitterStateVersionIdentifierKey: release.identifier,
         GlitterStateCombinedNewsKey: release.combinedNews,
+        GlitterStateStatusKey: GlitterStateStatusValueReady,
+        GlitterStatePreviousVersionKey: _currentVersion,
     };
 
     NSError * __autoreleasing error = nil;
@@ -521,7 +547,7 @@ finished:
 }
 
 - (void)_loadReadyToInstallVersionIfAny {
-    NSDictionary *state;
+    NSMutableDictionary *state;
 
     NSError * __autoreleasing error = nil;
     NSData *data = [NSData dataWithContentsOfURL:_statusFileURL options:0 error:&error];
@@ -530,7 +556,7 @@ finished:
         goto bail;
     }
 
-    state = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+    state = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
     if (!state) {
         NSLog(@"[Glitter] Failed to parse state: %@", error.localizedDescription);
         goto bail;
@@ -547,6 +573,19 @@ finished:
         _readyToInstallVersionIdentifier = state[GlitterStateVersionIdentifierKey];
         _readyToInstallCombinedNews = state[GlitterStateCombinedNewsKey];
         NSString *fileName = state[GlitterStateFileNameKey];
+        NSString *status = state[GlitterStateStatusKey];
+        NSString *previousVersion = state[GlitterStatePreviousVersionKey];
+
+        if ([status isEqualToString:GlitterStateStatusValueInstalling]) {
+            if ([previousVersion isEqualToString:_currentVersion]) {
+                // installation has failed
+                [self _handleFailedInstallationWithVersion:_readyToInstallVersion versionDisplayName:_readyToInstallVersionDisplayName];
+                goto bail;
+            } else {
+                // installation has succeeded
+                goto bail;
+            }
+        }
 
         if (_readyToInstallVersion.length == 0)
             goto bail;
@@ -571,11 +610,13 @@ finished:
     }
 
     _readyToInstall = YES;
+    _readyToInstallState = state;
     NSLog(@"[Glitter] Ready to install update %@ (\"%@\") at %@", _readyToInstallVersion, _readyToInstallVersionDisplayName, _readyToInstallLocalURL.path);
     goto finished;
 
 bail:
     _readyToInstall = NO;
+    _readyToInstallState = nil;
     _readyToInstallVersion = nil;
     _readyToInstallVersionDisplayName = nil;
     _readyToInstallVersionIdentifier = nil;
@@ -588,6 +629,109 @@ finished:
     [self _deleteUnnecessaryState];  // now that we know if readyToInstall is NO, we can run the cleanup
 }
 
+- (BOOL)_saveInstallationInProgressState {
+    if (!_readyToInstallState)
+        return NO;
+
+    _readyToInstallState[GlitterStateStatusKey] = GlitterStateStatusValueInstalling;
+
+    NSData *data = [NSJSONSerialization dataWithJSONObject:_readyToInstallState options:NSJSONWritingPrettyPrinted error:NULL];
+    if (!data) {
+        NSLog(@"[Glitter] Failed to save installation-in-progress state - cannot serialize status.");
+        return NO;
+    }
+
+    NSError * __autoreleasing error;
+    BOOL ok = [data writeToURL:_statusFileURL options:NSDataWritingAtomic error:&error];
+    if (!ok) {
+        NSLog(@"[Glitter] Failed to save installation-in-progress state - cannot write status file %@: %@", _statusFileURL.path, error.localizedDescription);
+        return NO;
+    }
+
+    return YES;
+}
+
+- (void)_handleFailedInstallationWithVersion:(NSString *)version versionDisplayName:(NSString *)versionDisplayName {
+    [self _setBlacklisted:YES forVersion:version];
+
+    // 100ms delay to let the app finish launching
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 100 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
+        NSString *title = NSLocalizedStringWithDefaultValue(@"Glitter.FailedUpdateAlert.Title", nil, [NSBundle mainBundle], @"Installation failed", @"");
+        NSString *message = [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"Glitter.FailedUpdateAlert.MessageFmt", nil, [NSBundle mainBundle], @"Sorry, version %@ couldn't be installed — perhaps we have borked it? You can try again, or ignore the update and let us know about the problem.", @""), versionDisplayName];
+        NSString *buttonAgain = NSLocalizedStringWithDefaultValue(@"Glitter.FailedUpdateAlert.TryAgainButtonLabel", nil, [NSBundle mainBundle], @"Try Again", @"");
+        NSString *buttonSupport = NSLocalizedStringWithDefaultValue(@"Glitter.FailedUpdateAlert.SupportButtonLabel", nil, [NSBundle mainBundle], @"Contact Support", @"");
+        NSString *supportURL = _failedUpdateSupportURL;
+
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert setMessageText:title];
+        [alert setInformativeText:message];
+        [alert addButtonWithTitle:buttonSupport];
+        [alert addButtonWithTitle:buttonAgain];
+        NSModalResponse response = [alert runModal];
+        if (response == NSAlertFirstButtonReturn) {
+            NSLog(@"[Glitter] Opening support URL: %@", supportURL);
+            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:supportURL]];
+        } else if (response == NSAlertSecondButtonReturn) {
+            NSLog(@"[Glitter] Retrying the update");
+            [self _setBlacklisted:NO forVersion:version];
+            [self checkForUpdatesWithOptions:GlitterCheckOptionUserInitiated];
+        }
+    });
+}
+
+
+#pragma mark - Blacklist
+
+- (void)_loadBlacklist {
+    _blacklistedVersions = [NSMutableArray new];
+
+    NSError * __autoreleasing error = nil;
+    NSData *data = [NSData dataWithContentsOfURL:_blacklistFileURL options:0 error:&error];
+    if (!data) {
+        NSLog(@"[Glitter] Cannot read %@: %@ - %ld - %@", [_blacklistFileURL lastPathComponent], error.domain, (long)error.code, error.localizedDescription);
+        return;
+    }
+
+    NSDictionary *root = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+    if (!root) {
+        return;
+    }
+
+    for (NSString *version in root[@"blacklist"]) {
+        if (![_blacklistedVersions containsObject:version])
+            [_blacklistedVersions addObject:version];
+    }
+}
+
+- (void)_saveBlacklist {
+    NSLog(@"[Glitter] Blacklisted versions = %@", _blacklistedVersions);
+
+    NSData *data = nil;
+    if (_blacklistedVersions.count > 0) {
+        NSDictionary *root = @{@"blacklist": _blacklistedVersions};
+        data = [NSJSONSerialization dataWithJSONObject:root options:NSJSONWritingPrettyPrinted error:NULL];
+    }
+    if (data) {
+        [[NSFileManager defaultManager] createDirectoryAtURL:[_blacklistFileURL URLByDeletingLastPathComponent] withIntermediateDirectories:YES attributes:nil error:NULL];
+        [data writeToURL:_blacklistFileURL options:NSDataWritingAtomic error:NULL];
+    } else {
+        [[NSFileManager defaultManager] removeItemAtURL:_blacklistFileURL error:NULL];
+    }
+}
+
+- (void)_setBlacklisted:(BOOL)blacklisted forVersion:(NSString *)version {
+    if (blacklisted) {
+        if (![_blacklistedVersions containsObject:version]) {
+            [_blacklistedVersions addObject:version];
+            [self _saveBlacklist];
+        }
+    } else {
+        if ([_blacklistedVersions containsObject:version]) {
+            [_blacklistedVersions removeObject:version];
+            [self _saveBlacklist];
+        }
+    }
+}
 
 
 #pragma mark - Restart
@@ -603,6 +747,10 @@ finished:
 - (void)installUpdate {
     if (!_readyToInstall)
         return;
+
+    if (![self _saveInstallationInProgressState]) {
+        return;
+    }
     
     xpc_connection_t connection = xpc_connection_create("com.tarantsov.GlitterInstallationService", dispatch_get_main_queue());
     xpc_connection_set_event_handler(connection, ^(xpc_object_t event) {
