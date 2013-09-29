@@ -660,7 +660,9 @@ finished:
         NSString *message = [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"Glitter.FailedUpdateAlert.MessageFmt", nil, [NSBundle mainBundle], @"Sorry, version %@ couldn't be installed — perhaps we have borked it? You can try again, or ignore the update and let us know about the problem.", @""), versionDisplayName];
         NSString *buttonAgain = NSLocalizedStringWithDefaultValue(@"Glitter.FailedUpdateAlert.TryAgainButtonLabel", nil, [NSBundle mainBundle], @"Try Again", @"");
         NSString *buttonSupport = NSLocalizedStringWithDefaultValue(@"Glitter.FailedUpdateAlert.SupportButtonLabel", nil, [NSBundle mainBundle], @"Contact Support", @"");
-        NSString *supportURL = _failedUpdateSupportURL;
+        NSString *supportURL = [[_failedUpdateSupportURL stringByReplacingOccurrencesOfString:@"(newver)" withString:version] stringByReplacingOccurrencesOfString:@"(oldver)" withString:_currentVersion];
+
+        [NSApp activateIgnoringOtherApps:YES];
 
         NSAlert *alert = [[NSAlert alloc] init];
         [alert setMessageText:title];

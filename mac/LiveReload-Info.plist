@@ -55,7 +55,7 @@
 	<key>GlitterFeedURL</key>
 	<string>https://s3.amazonaws.com/download.livereload.com/LiveReload-v3-Mac-updates.json</string>
 	<key>GlitterFailedUpdateSupportURL</key>
-	<string>mailto:support@livereload.com</string>
+	<string>mailto:support@livereload.com?subject=Cannot+update+from+(oldver)+to+(newver)</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.developer-tools</string>
 	<key>LSMinimumSystemVersion</key>
