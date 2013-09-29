@@ -1,0 +1,15 @@
+// NOTE: this exactly matches Xcode's default requirements, so we don't currently use this file,
+// only keeping the file for informational purposes in case Xcode defaults get changed later
+
+designated =>
+    anchor apple generic
+    and identifier "com.livereload.LiveReload"
+    and (
+        // Mac App Store
+        certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */
+    or
+        // Developer ID
+        certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */
+        and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */
+        and certificate leaf[subject.OU] = D963M2VVCH
+    )
