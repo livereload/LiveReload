@@ -38,6 +38,7 @@ NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification = @"Glitter
     NSString *_currentVersionDisplayName;
 
     NSURL *_updateFolderURL;
+    NSURL *_downloadFolderURL;
     NSURL *_extractionFolderURL;
     NSURL *_statusFileURL;
 
@@ -102,6 +103,7 @@ NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification = @"Glitter
         NSAssert(!!_updateFolderURL, @"Glitter initialization error - cannot obtain Application Support folder: %@", error.localizedDescription);
 
         _statusFileURL = [_updateFolderURL URLByAppendingPathComponent:@"status.json"];
+        _downloadFolderURL = [_updateFolderURL URLByAppendingPathComponent:@"download"];
         _extractionFolderURL = [_updateFolderURL URLByAppendingPathComponent:@"extracted"];
 
         _availableVersions = [NSArray array];
@@ -376,7 +378,7 @@ NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification = @"Glitter
 
     _downloadingVersion = _nextVersion;
     _downloadingData = [[NSMutableData alloc] initWithCapacity:(NSUInteger)_downloadingVersion.source.size];
-    _downloadLocalURL = [_updateFolderURL URLByAppendingPathComponent:[_downloadingVersion.source.url lastPathComponent]];
+    _downloadLocalURL = [_downloadFolderURL URLByAppendingPathComponent:[_downloadingVersion.source.url lastPathComponent]];
     _downloadProgress = 0.0;
     _downloadStep = GlitterDownloadStepDownload;
 
@@ -480,9 +482,11 @@ NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification = @"Glitter
         return;
     }
 
-    if ([_updateFolderURL resourceValuesForKeys:@[NSURLIsDirectoryKey] error:NULL]) {
+    if ([_downloadFolderURL resourceValuesForKeys:@[NSURLIsDirectoryKey] error:NULL] || [_extractionFolderURL resourceValuesForKeys:@[NSURLIsDirectoryKey] error:NULL] || [_statusFileURL resourceValuesForKeys:@[NSURLIsRegularFileKey] error:NULL]) {
         NSLog(@"[Glitter] Deleting all update-related files");
-        [[NSFileManager defaultManager] removeItemAtURL:_updateFolderURL error:NULL];
+        [[NSFileManager defaultManager] removeItemAtURL:_downloadFolderURL error:NULL];
+        [[NSFileManager defaultManager] removeItemAtURL:_extractionFolderURL error:NULL];
+        [[NSFileManager defaultManager] removeItemAtURL:_statusFileURL error:NULL];
     }
 }
 
