@@ -231,7 +231,7 @@ NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification = @"Glitter
             dispatch_resume(_automaticCheckTimer);
         }
 
-        NSLog(@"Glitter: next automatic check in %.0lf s", untilNext);
+        NSLog(@"[Glitter] Next automatic check in %.0lf sec", untilNext);
 
         // this will reschedule the timer if it has been already set
         dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, untilNext * NSEC_PER_SEC);
@@ -304,7 +304,6 @@ NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification = @"Glitter
     NSString *currentVersion = _currentVersion;
     NSString *channelName = self.channelName;
     
-    NSLog(@"currentVersion = %@, availableVersions = %@", currentVersion, _availableVersions);
     GlitterVersion *nextVersion = nil;
 
     NSMutableArray *priorVersions = [NSMutableArray new];
@@ -333,12 +332,13 @@ NSString *const GlitterUserInitiatedUpdateCheckDidFinishNotification = @"Glitter
         continue;
 
     not_matched:
-        NSLog(@"Version %@ does not match: %@", version, whyNot);
+        ;
+//        NSLog(@"[Glitter] Version %@ does not match: %@", version, whyNot);
     }
 
 
     if (nextVersion && [_blacklistedVersions containsObject:nextVersion.version]) {
-        NSLog(@"Version %@ has been blacklisted, will not try to install.", nextVersion.version);
+        NSLog(@"[Glitter] Version %@ has been blacklisted, will not try to install.", nextVersion.version);
         nextVersion = nil;
         [priorVersions removeAllObjects];
     }
@@ -552,7 +552,8 @@ finished:
     NSError * __autoreleasing error = nil;
     NSData *data = [NSData dataWithContentsOfURL:_statusFileURL options:0 error:&error];
     if (!data) {
-        NSLog(@"[Glitter] Failed to read state: %@", error.localizedDescription);
+        if (!([error.domain isEqualToString:NSCocoaErrorDomain] && error.code == NSFileReadNoSuchFileError))
+            NSLog(@"[Glitter] Failed to read state file %@: %@ - %ld - %@", _statusFileURL, error.domain, error.code, error.localizedDescription);
         goto bail;
     }
 
@@ -690,7 +691,8 @@ finished:
     NSError * __autoreleasing error = nil;
     NSData *data = [NSData dataWithContentsOfURL:_blacklistFileURL options:0 error:&error];
     if (!data) {
-        NSLog(@"[Glitter] Cannot read %@: %@ - %ld - %@", [_blacklistFileURL lastPathComponent], error.domain, (long)error.code, error.localizedDescription);
+        if (!([error.domain isEqualToString:NSCocoaErrorDomain] && error.code == NSFileReadNoSuchFileError))
+            NSLog(@"[Glitter] Cannot read %@: %@ - %ld - %@", _blacklistFileURL, error.domain, (long)error.code, error.localizedDescription);
         return;
     }
 
@@ -759,13 +761,13 @@ finished:
         xpc_type_t type = xpc_get_type(event);
         if (type == XPC_TYPE_ERROR) {
             if (event == XPC_ERROR_CONNECTION_INVALID) {
-                NSLog(@"XPC: XPC_ERROR_CONNECTION_INVALID");
+                NSLog(@"[Glitter] Cannot start installation: XPC_ERROR_CONNECTION_INVALID");
             } else if (event == XPC_ERROR_CONNECTION_INTERRUPTED) {
-                NSLog(@"XPC: XPC_ERROR_CONNECTION_INTERRUPTED");
+                NSLog(@"[Glitter] Cannot start installation: XPC_ERROR_CONNECTION_INTERRUPTED");
             }
         } else {
             assert(type == XPC_TYPE_DICTIONARY);
-            NSLog(@"XPC: incoming message");
+            NSLog(@"[Glitter] Unexpected incoming message from XPC service");
         }
     });
     xpc_connection_resume(connection);
