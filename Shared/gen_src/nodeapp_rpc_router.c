@@ -9,6 +9,9 @@ typedef struct {
 } msg_entry_t;
 
 json_t *C_kernel__on_port_occupied_error(json_t *message);
+json_t *C_kernel__server_connection_count_changed(json_t *message);
+json_t *C_kernel__server_refresh_count_changed(json_t *message);
+json_t *C_kernel__on_browser_v6_protocol_connection(json_t *message);
 
 json_t *C_kernel__log(json_t *message) {
     const char *text = json_string_value(json_object_get(message, "text"));
@@ -20,6 +23,9 @@ json_t *C_kernel__log(json_t *message) {
 msg_entry_t entries[] = {
     { "kernel.log", C_kernel__log },
     { "kernel.on-port-occupied-error", C_kernel__on_port_occupied_error },
+    { "kernel.server-connection-count-changed", C_kernel__server_connection_count_changed },
+    { "kernel.server-refresh-count-changed", C_kernel__server_refresh_count_changed },
+    { "kernel.on-browser-v6-protocol-connection", C_kernel__on_browser_v6_protocol_connection },
     { NULL, NULL }
 };
 

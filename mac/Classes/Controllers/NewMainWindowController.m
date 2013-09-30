@@ -68,14 +68,17 @@ enum { PANE_COUNT = PaneProject+1 };
 int browsers_connected = 0;
 int changes_processed = 0;
 
-void C_mainwnd__set_connection_status(json_t *arg) {
-    browsers_connected = json_integer_value(json_object_get(arg, "connectionCount"));
+json_t *C_kernel__server_connection_count_changed(json_t *message) {
+    browsers_connected = json_integer_value(json_object_get(message, "connectionCount"));
     [[NewMainWindowController sharedMainWindowController] updateStatus];
+    [Workspace sharedWorkspace].monitoringEnabled = (browsers_connected > 0);
+    return NULL;
 }
 
-void C_mainwnd__set_change_count(json_t *arg) {
-    changes_processed = json_integer_value(json_object_get(arg, "changeCount"));
+json_t *C_kernel__server_refresh_count_changed(json_t *message) {
+    changes_processed = json_integer_value(json_object_get(message, "refreshCount"));
     [[NewMainWindowController sharedMainWindowController] updateStatus];
+    return NULL;
 }
 
 

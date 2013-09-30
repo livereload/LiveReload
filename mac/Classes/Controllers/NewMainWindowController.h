@@ -41,6 +41,8 @@
     NSView *_currentPaneView;
 }
 
++ (NewMainWindowController *)sharedMainWindowController;
+
 @property (weak) IBOutlet NSView *titleBarSideView;
 @property (weak) IBOutlet NSMenuItem *versionMenuItem;
 @property (weak) IBOutlet NSMenuItem *openAtLoginMenuItem;

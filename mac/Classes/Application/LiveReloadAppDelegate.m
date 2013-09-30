@@ -56,6 +56,14 @@ json_t *C_kernel__on_port_occupied_error(json_t *message) {
     return NULL;
 }
 
+json_t *C_kernel__on_browser_v6_protocol_connection(json_t *message) {
+    NSInteger response = [[NSAlert alertWithMessageText:@"Legacy browser extensions" defaultButton:@"Update Now" alternateButton:@"Ignore" otherButton:nil informativeTextWithFormat:@"LiveReload browser extensions 1.x are no longer supported and won't work with LiveReload 2.\n\nPlease update your browser extensions to version 2.x to get advantage of many bug fixes, automatic reconnection, @import support, in-browser LESS.js support and more."] runModal];
+    if (response == NSAlertAlternateReturn) {
+        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://go.livereload.com/err/port-occupied"]];
+    }
+    return NULL;
+}
+
 
 @interface LiveReloadAppDelegate () <NSPopoverDelegate>
 

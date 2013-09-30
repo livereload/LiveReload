@@ -30,11 +30,6 @@ static NSString *ClientConnectedMonitoringKey = @"clientConnected";
 @end
 
 
-void C_workspace__set_monitoring_enabled(json_t *arg) {
-    [Workspace sharedWorkspace].monitoringEnabled = json_is_true(arg);
-}
-
-
 @implementation Workspace
 
 @synthesize projects=_projects;
