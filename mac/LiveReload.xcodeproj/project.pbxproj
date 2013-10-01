@@ -169,6 +169,8 @@
 		4396F1E717F9E84300AA8200 /* CompileFileAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4396F1E617F9E84300AA8200 /* CompileFileAction.m */; };
 		4396F1EA17FA2D4500AA8200 /* CompileFileActionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4396F1E917FA2D4500AA8200 /* CompileFileActionRow.m */; };
 		4396F1ED17FA2DE600AA8200 /* AddCompilationActionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4396F1EC17FA2DE600AA8200 /* AddCompilationActionRow.m */; };
+		4396F1F017FA9EBA00AA8200 /* ScriptInvocationStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 4396F1EF17FA9EBA00AA8200 /* ScriptInvocationStep.m */; };
+		4396F1F317FAA37000AA8200 /* ScriptInvocationAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4396F1F217FAA37000AA8200 /* ScriptInvocationAction.m */; };
 		439865AC17BE394D00EC6471 /* ATPathSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 439865A817BE394D00EC6471 /* ATPathSpec.m */; };
 		439865B017C5F16E00EC6471 /* FilterOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 439865AF17C5F16E00EC6471 /* FilterOption.m */; };
 		4398AF0F1731E3DC0092A711 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 4398AF0E1731E3DC0092A711 /* NSData+Base64.m */; };
@@ -595,6 +597,10 @@
 		4396F1E917FA2D4500AA8200 /* CompileFileActionRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompileFileActionRow.m; sourceTree = "<group>"; };
 		4396F1EB17FA2DE600AA8200 /* AddCompilationActionRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCompilationActionRow.h; sourceTree = "<group>"; };
 		4396F1EC17FA2DE600AA8200 /* AddCompilationActionRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCompilationActionRow.m; sourceTree = "<group>"; };
+		4396F1EE17FA9EBA00AA8200 /* ScriptInvocationStep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScriptInvocationStep.h; sourceTree = "<group>"; };
+		4396F1EF17FA9EBA00AA8200 /* ScriptInvocationStep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScriptInvocationStep.m; sourceTree = "<group>"; };
+		4396F1F117FAA37000AA8200 /* ScriptInvocationAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScriptInvocationAction.h; sourceTree = "<group>"; };
+		4396F1F217FAA37000AA8200 /* ScriptInvocationAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScriptInvocationAction.m; sourceTree = "<group>"; };
 		439865A717BE394D00EC6471 /* ATPathSpec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATPathSpec.h; sourceTree = "<group>"; };
 		439865A817BE394D00EC6471 /* ATPathSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATPathSpec.m; sourceTree = "<group>"; };
 		439865A917BE394D00EC6471 /* ATPathSpecPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATPathSpecPrivate.h; sourceTree = "<group>"; };
@@ -1762,6 +1768,10 @@
 				439865AF17C5F16E00EC6471 /* FilterOption.m */,
 				43DFE4DF17CB6B4A00DEF87B /* LRFile2.h */,
 				43DFE4E017CB6B4A00DEF87B /* LRFile2.m */,
+				4396F1F117FAA37000AA8200 /* ScriptInvocationAction.h */,
+				4396F1F217FAA37000AA8200 /* ScriptInvocationAction.m */,
+				4396F1EE17FA9EBA00AA8200 /* ScriptInvocationStep.h */,
+				4396F1EF17FA9EBA00AA8200 /* ScriptInvocationStep.m */,
 				4396F1E517F9E84300AA8200 /* CompileFileAction.h */,
 				4396F1E617F9E84300AA8200 /* CompileFileAction.m */,
 			);
@@ -2134,6 +2144,7 @@
 				43F002F8146FF584005D48A4 /* TerminalViewController.m in Sources */,
 				43E34F9B14705125001641AA /* console.c in Sources */,
 				4396F1EA17FA2D4500AA8200 /* CompileFileActionRow.m in Sources */,
+				4396F1F317FAA37000AA8200 /* ScriptInvocationAction.m in Sources */,
 				43E34F9C14705125001641AA /* eventbus.c in Sources */,
 				4396F1E217F8112F00AA8200 /* GlitterUpdateInfoViewController.m in Sources */,
 				43E34F9F14706D9B001641AA /* osdep.m in Sources */,
@@ -2243,6 +2254,7 @@
 				43A48070174A01DD00A0681D /* RbenvContainer.m in Sources */,
 				43A48077174A04E700A0681D /* RbenvRubyInstance.m in Sources */,
 				43A48081174A070500A0681D /* HomebrewContainer.m in Sources */,
+				4396F1F017FA9EBA00AA8200 /* ScriptInvocationStep.m in Sources */,
 				434BB24C17B6913F000BEB1C /* ATMacViewCreation.m in Sources */,
 				43A48082174A070500A0681D /* HomebrewRubyInstance.m in Sources */,
 				433253B2174E0BA200C9A76B /* GeneralPreferencesViewController.m in Sources */,

@@ -503,11 +503,11 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
     NSArray *actions = [self.actionList.activeActions copy];
     NSArray *pathArray = [pathes allObjects];
-    NSArray *filterActions = [actions filteredArrayUsingBlock:^BOOL(Action *action) {
-        return action.kind == ActionKindFilter;
+    NSArray *perFileActions = [actions filteredArrayUsingBlock:^BOOL(Action *action) {
+        return action.kind == ActionKindFilter || action.kind == ActionKindCompiler;
     }];
 
-    [filterActions enumerateObjectsAsynchronouslyUsingBlock:^(Action *action, NSUInteger idx, void (^callback1)(BOOL stop)) {
+    [perFileActions enumerateObjectsAsynchronouslyUsingBlock:^(Action *action, NSUInteger idx, void (^callback1)(BOOL stop)) {
         NSArray *matchingPaths = [action.inputPathSpec matchingPathsInArray:pathArray type:ATPathSpecEntryTypeFile];
         [matchingPaths enumerateObjectsAsynchronouslyUsingBlock:^(NSString *path, NSUInteger idx, void (^callback2)(BOOL stop)) {
             LRFile2 *file = [LRFile2 fileWithRelativePath:path project:self];

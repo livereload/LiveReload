@@ -34,4 +34,8 @@
     self.action.inputFilterOption = filterOption;
 }
 
++ (NSArray *)representedObjectKeyPathsToObserve {
+    return @[@"inputFilterOption"];
+}
+
 @end
