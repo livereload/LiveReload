@@ -90,6 +90,12 @@
     return [NSSet setWithObject:@"actions"];
 }
 
+- (NSArray *)compilerActions {
+    return [_actions filteredArrayUsingBlock:^BOOL(Action *action) {
+        return action.type.kind == ActionKindCompiler;
+    }];
+}
+
 - (NSArray *)filterActions {
     return [_actions filteredArrayUsingBlock:^BOOL(Action *action) {
         return action.type.kind == ActionKindFilter;

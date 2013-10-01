@@ -166,6 +166,9 @@
 		4396F1E117F8112F00AA8200 /* GlitterVersionUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4396F1DA17F8112F00AA8200 /* GlitterVersionUtilities.m */; };
 		4396F1E217F8112F00AA8200 /* GlitterUpdateInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4396F1DD17F8112F00AA8200 /* GlitterUpdateInfoViewController.m */; };
 		4396F1E417F84C2B00AA8200 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4396F1E317F84C2B00AA8200 /* Security.framework */; };
+		4396F1E717F9E84300AA8200 /* CompileFileAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4396F1E617F9E84300AA8200 /* CompileFileAction.m */; };
+		4396F1EA17FA2D4500AA8200 /* CompileFileActionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4396F1E917FA2D4500AA8200 /* CompileFileActionRow.m */; };
+		4396F1ED17FA2DE600AA8200 /* AddCompilationActionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4396F1EC17FA2DE600AA8200 /* AddCompilationActionRow.m */; };
 		439865AC17BE394D00EC6471 /* ATPathSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 439865A817BE394D00EC6471 /* ATPathSpec.m */; };
 		439865B017C5F16E00EC6471 /* FilterOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 439865AF17C5F16E00EC6471 /* FilterOption.m */; };
 		4398AF0F1731E3DC0092A711 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 4398AF0E1731E3DC0092A711 /* NSData+Base64.m */; };
@@ -586,6 +589,12 @@
 		4396F1DC17F8112F00AA8200 /* GlitterUpdateInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlitterUpdateInfoViewController.h; sourceTree = "<group>"; };
 		4396F1DD17F8112F00AA8200 /* GlitterUpdateInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlitterUpdateInfoViewController.m; sourceTree = "<group>"; };
 		4396F1E317F84C2B00AA8200 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		4396F1E517F9E84300AA8200 /* CompileFileAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompileFileAction.h; sourceTree = "<group>"; };
+		4396F1E617F9E84300AA8200 /* CompileFileAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompileFileAction.m; sourceTree = "<group>"; };
+		4396F1E817FA2D4500AA8200 /* CompileFileActionRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompileFileActionRow.h; sourceTree = "<group>"; };
+		4396F1E917FA2D4500AA8200 /* CompileFileActionRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompileFileActionRow.m; sourceTree = "<group>"; };
+		4396F1EB17FA2DE600AA8200 /* AddCompilationActionRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCompilationActionRow.h; sourceTree = "<group>"; };
+		4396F1EC17FA2DE600AA8200 /* AddCompilationActionRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCompilationActionRow.m; sourceTree = "<group>"; };
 		439865A717BE394D00EC6471 /* ATPathSpec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATPathSpec.h; sourceTree = "<group>"; };
 		439865A817BE394D00EC6471 /* ATPathSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATPathSpec.m; sourceTree = "<group>"; };
 		439865A917BE394D00EC6471 /* ATPathSpecPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATPathSpecPrivate.h; sourceTree = "<group>"; };
@@ -1193,6 +1202,10 @@
 				434BB27317BB7F3A000BEB1C /* AddFilterRow.m */,
 				43DFE4D917CA97A800DEF87B /* FilterActionRow.h */,
 				43DFE4DA17CA97A800DEF87B /* FilterActionRow.m */,
+				4396F1EB17FA2DE600AA8200 /* AddCompilationActionRow.h */,
+				4396F1EC17FA2DE600AA8200 /* AddCompilationActionRow.m */,
+				4396F1E817FA2D4500AA8200 /* CompileFileActionRow.h */,
+				4396F1E917FA2D4500AA8200 /* CompileFileActionRow.m */,
 			);
 			path = ActionStack;
 			sourceTree = "<group>";
@@ -1749,6 +1762,8 @@
 				439865AF17C5F16E00EC6471 /* FilterOption.m */,
 				43DFE4DF17CB6B4A00DEF87B /* LRFile2.h */,
 				43DFE4E017CB6B4A00DEF87B /* LRFile2.m */,
+				4396F1E517F9E84300AA8200 /* CompileFileAction.h */,
+				4396F1E617F9E84300AA8200 /* CompileFileAction.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2118,6 +2133,7 @@
 				434BB28217BBF23A000BEB1C /* Step.m in Sources */,
 				43F002F8146FF584005D48A4 /* TerminalViewController.m in Sources */,
 				43E34F9B14705125001641AA /* console.c in Sources */,
+				4396F1EA17FA2D4500AA8200 /* CompileFileActionRow.m in Sources */,
 				43E34F9C14705125001641AA /* eventbus.c in Sources */,
 				4396F1E217F8112F00AA8200 /* GlitterUpdateInfoViewController.m in Sources */,
 				43E34F9F14706D9B001641AA /* osdep.m in Sources */,
@@ -2152,6 +2168,7 @@
 				4303A54715B513FD009D732A /* strconv.c in Sources */,
 				4303A54815B513FD009D732A /* utf.c in Sources */,
 				4303A54915B513FD009D732A /* value.c in Sources */,
+				4396F1ED17FA2DE600AA8200 /* AddCompilationActionRow.m in Sources */,
 				4303A54A15B513FD009D732A /* nodeapp.c in Sources */,
 				4303A54B15B513FD009D732A /* nodeapp_autorelease.c in Sources */,
 				4303A54C15B513FD009D732A /* nodeapp_broker.c in Sources */,
@@ -2169,6 +2186,7 @@
 				4303A55B15B513FD009D732A /* nodeapp_objc_json.m in Sources */,
 				4303A55C15B513FD009D732A /* nodeapp_paths_osdep.m in Sources */,
 				4303A55D15B513FD009D732A /* nodeapp_rpc_osdep.c in Sources */,
+				4396F1E717F9E84300AA8200 /* CompileFileAction.m in Sources */,
 				434BB27717BB97AC000BEB1C /* FilterAction.m in Sources */,
 				4303A55E15B513FD009D732A /* nodeapp_threading.c in Sources */,
 				4303A55F15B513FD009D732A /* NodeAppDelegate.m in Sources */,

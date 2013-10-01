@@ -8,6 +8,7 @@
 
 typedef enum {
     ActionKindUnknown = 0,
+    ActionKindCompiler,
     ActionKindFilter,
     ActionKindPostproc,
     kActionKindCount
@@ -29,6 +30,7 @@ NSArray *LRValidActionKindStrings();
 
 @property(nonatomic) ActionKind kind;
 @property(nonatomic, copy) NSString *identifier;
+@property(nonatomic, copy) NSString *name;
 
 - (id)initWithIdentifier:(NSString *)identifier kind:(ActionKind)kind actionClass:(Class)actionClass rowClass:(Class)rowClass options:(NSDictionary *)options plugin:(Plugin *)plugin;
 + (ActionType *)actionTypeWithOptions:(NSDictionary *)options plugin:(Plugin *)plugin;

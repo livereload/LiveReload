@@ -7,6 +7,7 @@
 
 @property(nonatomic, strong, readonly) NSArray *actionTypes;
 @property(nonatomic, strong, readonly) NSArray *actions;
+@property(nonatomic, strong, readonly) NSArray *compilerActions;
 @property(nonatomic, strong, readonly) NSArray *filterActions;
 @property(nonatomic, strong, readonly) NSArray *postprocActions;
 @property(nonatomic, strong, readonly) NSArray *activeActions;

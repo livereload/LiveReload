@@ -7,6 +7,7 @@
 
 static NSString *ActionKindNames[] = {
     @"unknown",
+    @"compiler",
     @"filter",
     @"postproc",
 };
@@ -16,6 +17,7 @@ ActionKind LRActionKindFromString(NSString *kindString) {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         map = @{
+                @"compiler": @(ActionKindCompiler),
                 @"filter": @(ActionKindFilter),
                 @"postproc": @(ActionKindPostproc),
                 };
@@ -55,6 +57,7 @@ NSArray *LRValidActionKindStrings() {
 + (ActionType *)actionTypeWithOptions:(NSDictionary *)options plugin:(Plugin *)plugin {
     NSString *identifier = [options[@"id"] copy] ?: @"";
     ActionKind kind = LRActionKindFromString(options[@"type"] ?: @"");
+    NSString *name = [options[@"name"] copy] ?: identifier;
 
     NSString *defaultActionClassName = nil;
     NSString *defaultRowClassName = nil;
@@ -73,6 +76,8 @@ NSArray *LRValidActionKindStrings() {
 
     if (identifier.length == 0)
         [result addErrorMessage:@"'id' attribute is required"];
+
+    result.name = name;
 
     if (kind == ActionKindUnknown)
         [result addErrorMessage:[NSString stringWithFormat:@"'kind' attribute is required and must be one of %@", LRValidActionKindStrings()]];
