@@ -194,6 +194,7 @@ json_t *C_kernel__server_refresh_count_changed(json_t *message) {
     NSView *themeFrame = [self.window.contentView superview];
     CGFloat titleBarHeight = [self.window frame].size.height - [self.window contentRectForFrameRect:[self.window frame]].size.height - 2;
     _titleBarSideView.frame = NSMakeRect(themeFrame.frame.size.width - _titleBarSideView.frame.size.width - 16, themeFrame.frame.size.height - titleBarHeight + (titleBarHeight - _titleBarSideView.frame.size.height) / 2, _titleBarSideView.frame.size.width, _titleBarSideView.frame.size.height);
+    _titleBarSideView.autoresizingMask = NSViewMinXMargin | NSViewMinYMargin;
     [themeFrame addSubview:_titleBarSideView];
 
     [_projectOutlineView registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
