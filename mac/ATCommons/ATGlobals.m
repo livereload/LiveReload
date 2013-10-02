@@ -113,6 +113,22 @@ BOOL ATIsUserScriptsFolderSupported() {
     return ATOSVersionAtLeast(10, 8, 0);
 }
 
+BOOL ATIsPathAccessible(NSURL *resourceURL) {
+    NSError * __autoreleasing error = nil;
+    NSDictionary *values = [resourceURL resourceValuesForKeys:@[NSURLIsDirectoryKey, NSURLIsReadableKey, NSURLIsExecutableKey] error:&error];
+    NSLog(@"URL = %@, values = %@", resourceURL, values);
+    if (!values) {
+        return NO;
+    }
+    if (![values[NSURLIsReadableKey] boolValue]) {
+        return NO;
+    }
+    if ([values[NSURLIsDirectoryKey] boolValue] && ![values[NSURLIsExecutableKey] boolValue]) {
+        return NO;
+    }
+    return YES;
+}
+
 @implementation NSString (ATSandboxing)
 
 - (NSString *)stringByAbbreviatingTildeInPathUsingRealHomeDirectory {

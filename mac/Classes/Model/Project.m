@@ -113,7 +113,16 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 - (id)initWithURL:(NSURL *)rootURL memento:(NSDictionary *)memento {
     if ((self = [super init])) {
         _rootURL = rootURL;
-        
+
+        if (ATIsPathAccessible(rootURL)) {
+            _accessible = YES;
+        } else if ([rootURL startAccessingSecurityScopedResource]) {
+            _accessible = YES;
+            _accessingSecurityScopedResource = YES;
+        } else {
+            _accessible = NO;
+        }
+
         // we cannot monitor through symlink boundaries anyway
         _path = [[rootURL path] stringByResolvingSymlinksInPath];
         _enabled = YES;

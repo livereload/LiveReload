@@ -30,6 +30,7 @@
 #import "ActionListView.h"
 #import "ATSolidView.h"
 #import "ATFlippedView.h"
+#import "ATAttributedStringAdditions.h"
 
 #import "jansson.h"
 
@@ -499,7 +500,14 @@ json_t *C_kernel__server_refresh_count_changed(json_t *message) {
     NSParameterAssert(item != nil);
     if (item == _projectsItem)
         return (_projects.count > 0 ? @"MONITORED FOLDERS" : @"");
-    return [(Project *)item displayName];
+
+    Project *project = (Project *)item;
+    NSString *label = project.displayName;
+    if (!project.accessible) {
+        label = [NSString stringWithFormat:@"%@ (no access)", label];
+//        return [NSAttributedString AT_attributedStringWithPrimaryString:label secondaryString:@" (no access)" primaryStyle:@{} secondaryStyle:@{NSForegroundColorAttributeName: [NSColor grayColor]}];
+    }
+    return label;
 }
 
 - (void)outlineView:(NSOutlineView *)outlineView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn byItem:(id)item {

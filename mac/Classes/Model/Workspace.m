@@ -135,7 +135,6 @@ static NSString *ClientConnectedMonitoringKey = @"clientConnected";
             path = [url path];
         }
         if ([url isFileURL]) {
-            [url startAccessingSecurityScopedResource];                       
             [_projects addObject:[[Project alloc] initWithURL:url memento:projectMemento]];
         }
     }

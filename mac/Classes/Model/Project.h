@@ -27,7 +27,9 @@ enum {
 
 @interface Project : NSObject {
     NSURL                   *_rootURL;
-    NSString *_path;
+    NSString                *_path;
+    BOOL                     _accessible;
+    BOOL                     _accessingSecurityScopedResource;
 
     FSMonitor *_monitor;
 
@@ -90,6 +92,8 @@ enum {
 
 @property(nonatomic) NSInteger numberOfPathComponentsToUseAsName;
 @property(nonatomic, copy) NSString *customName;
+
+@property(nonatomic, readonly) BOOL accessible;
 
 @property(nonatomic) BOOL enabled;
 @property(nonatomic) BOOL compilationEnabled;

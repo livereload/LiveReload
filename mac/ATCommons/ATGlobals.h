@@ -47,6 +47,7 @@ BOOL ATIsOS107LionOrLater();
 BOOL ATIsSandboxed();
 BOOL ATAreSecurityScopedBookmarksSupported();
 BOOL ATIsUserScriptsFolderSupported();
+BOOL ATIsPathAccessible(NSURL *resourceURL);
 
 NSString *ATRealHomeDirectory();
 
