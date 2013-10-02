@@ -56,18 +56,35 @@ NSArray *LRValidActionKindStrings() {
 
 + (ActionType *)actionTypeWithOptions:(NSDictionary *)options plugin:(Plugin *)plugin {
     NSString *identifier = [options[@"id"] copy] ?: @"";
-    ActionKind kind = LRActionKindFromString(options[@"type"] ?: @"");
     NSString *name = [options[@"name"] copy] ?: identifier;
 
-    NSString *defaultActionClassName = nil;
-    NSString *defaultRowClassName = nil;
-    if (kind == ActionKindFilter) {
-        defaultActionClassName = @"FilterAction";
-        defaultRowClassName = @"FilterActionRow";
+    NSDictionary *knownTypes = @{
+        @"filter": @{
+            @"kind": @"filter",
+            @"objc_class":    @"FilterAction",
+            @"objc_rowClass": @"FilterActionRow",
+        },
+        @"compile-file": @{
+            @"kind": @"compiler",
+            @"objc_class":    @"CompileFileAction",
+            @"objc_rowClass": @"CompileFileActionRow",
+        },
+    };
+
+    NSString *typeName = options[@"type"];
+    if (typeName) {
+        NSDictionary *typeOptions = knownTypes[typeName];
+
+        NSMutableDictionary *mergedOptions = [NSMutableDictionary new];
+        [mergedOptions addEntriesFromDictionary:typeOptions];
+        [mergedOptions addEntriesFromDictionary:options];
+        options = [mergedOptions copy];
     }
 
-    NSString *actionClassName = options[@"objc_class"] ?: defaultActionClassName;
-    NSString *rowClassName = options[@"objc_rowClass"] ?: defaultRowClassName;
+    ActionKind kind = LRActionKindFromString(options[@"kind"] ?: @"");
+
+    NSString *actionClassName = options[@"objc_class"] ?: @"";
+    NSString *rowClassName = options[@"objc_rowClass"] ?: @"";
 
     Class actionClass = NSClassFromString(actionClassName);
     Class rowClass = NSClassFromString(rowClassName);
