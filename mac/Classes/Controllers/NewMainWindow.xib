@@ -149,6 +149,10 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="hll-hR-dFg" customClass="ShadowBoxView">
+                        <rect key="frame" x="202" y="22" width="536" height="470"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    </customView>
                     <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="496">
                         <rect key="frame" x="202" y="22" width="536" height="470"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -274,13 +278,17 @@
                     <constraint firstItem="206" firstAttribute="centerY" secondItem="544" secondAttribute="centerY" constant="9.5" id="NOg-YB-pcA"/>
                     <constraint firstAttribute="trailing" secondItem="635" secondAttribute="trailing" constant="13" id="PLo-Pt-L7m"/>
                     <constraint firstItem="496" firstAttribute="top" secondItem="2" secondAttribute="top" id="PWs-he-lut"/>
+                    <constraint firstAttribute="bottom" secondItem="hll-hR-dFg" secondAttribute="bottom" constant="22" id="QF8-C8-odI"/>
                     <constraint firstItem="147" firstAttribute="leading" secondItem="496" secondAttribute="leading" id="WkD-UV-Ckg"/>
+                    <constraint firstItem="hll-hR-dFg" firstAttribute="leading" secondItem="206" secondAttribute="trailing" constant="-1" id="YAb-eB-aX6"/>
                     <constraint firstItem="526" firstAttribute="leading" secondItem="524" secondAttribute="trailing" constant="7" id="Z90-Bs-V18"/>
                     <constraint firstItem="524" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="50" id="ZL3-ms-yea"/>
                     <constraint firstItem="496" firstAttribute="trailing" secondItem="2" secondAttribute="trailing" id="eFc-1g-SAD"/>
                     <constraint firstItem="635" firstAttribute="leading" secondItem="147" secondAttribute="trailing" constant="-3" id="k1E-7Q-fM2"/>
                     <constraint firstItem="206" firstAttribute="top" secondItem="2" secondAttribute="top" id="kYi-2A-SCh"/>
+                    <constraint firstItem="hll-hR-dFg" firstAttribute="trailing" secondItem="2" secondAttribute="trailing" id="mtI-rO-EhA"/>
                     <constraint firstItem="496" firstAttribute="leading" secondItem="206" secondAttribute="trailing" constant="-1" id="n6j-Tp-gNa"/>
+                    <constraint firstItem="hll-hR-dFg" firstAttribute="top" secondItem="2" secondAttribute="top" id="nTm-4h-EBR"/>
                     <constraint firstAttribute="bottom" secondItem="147" secondAttribute="bottom" constant="4" id="nhy-MR-Xjj"/>
                     <constraint firstAttribute="bottom" secondItem="496" secondAttribute="bottom" constant="22" id="npB-XX-5et"/>
                     <constraint firstAttribute="bottom" secondItem="524" secondAttribute="bottom" constant="1" id="ouj-1f-wTK"/>
@@ -299,7 +307,7 @@
                 <binding destination="-2" name="contentArray" keyPath="projects" id="87"/>
             </connections>
         </arrayController>
-        <customView id="486" customClass="ShadowBoxView">
+        <customView id="486">
             <rect key="frame" x="0.0" y="0.0" width="536" height="470"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
         </customView>
@@ -307,10 +315,6 @@
             <rect key="frame" x="0.0" y="0.0" width="536" height="470"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="Dwe-Ts-A71" customClass="ShadowBoxView">
-                    <rect key="frame" x="0.0" y="0.0" width="536" height="470"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                </customView>
                 <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sy2-UC-goU">
                     <rect key="frame" x="0.0" y="0.0" width="536" height="470"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -343,13 +347,9 @@
             </subviews>
             <constraints>
                 <constraint firstItem="sy2-UC-goU" firstAttribute="leading" secondItem="495" secondAttribute="leading" id="7tc-P9-1nB"/>
-                <constraint firstItem="Dwe-Ts-A71" firstAttribute="leading" secondItem="495" secondAttribute="leading" id="IVE-55-zRn"/>
-                <constraint firstItem="Dwe-Ts-A71" firstAttribute="trailing" secondItem="495" secondAttribute="trailing" id="QoD-IF-inu"/>
-                <constraint firstItem="Dwe-Ts-A71" firstAttribute="top" secondItem="495" secondAttribute="top" id="Vw3-2K-GIv"/>
                 <constraint firstItem="sy2-UC-goU" firstAttribute="trailing" secondItem="495" secondAttribute="trailing" id="jxl-wV-1Wv"/>
                 <constraint firstItem="sy2-UC-goU" firstAttribute="bottom" secondItem="495" secondAttribute="bottom" id="m5s-qM-JdQ"/>
                 <constraint firstItem="sy2-UC-goU" firstAttribute="top" secondItem="495" secondAttribute="top" id="nW7-df-4kQ"/>
-                <constraint firstItem="Dwe-Ts-A71" firstAttribute="bottom" secondItem="495" secondAttribute="bottom" id="vdp-Yn-tFW"/>
             </constraints>
         </customView>
         <customView id="564">
@@ -1482,7 +1482,6 @@
         <class className="LiveReloadAppDelegate" superclassName="NodeAppDelegate">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LiveReloadAppDelegate.h"/>
             <relationships>
-                <relationship kind="action" name="checkForUpdates:"/>
                 <relationship kind="action" name="displayMainWindow:"/>
                 <relationship kind="action" name="openHelp:"/>
                 <relationship kind="action" name="openSupport:"/>
