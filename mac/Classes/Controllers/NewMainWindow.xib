@@ -606,7 +606,7 @@
                     </textFieldCell>
                 </textField>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="zcg-Y6-iKZ" customClass="ActionListView">
-                    <rect key="frame" x="15" y="66" width="610" height="343"/>
+                    <rect key="frame" x="15" y="66" width="610" height="331"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                 </customView>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="ckF-Kw-Wld">
@@ -628,12 +628,22 @@
                         <font key="font" metaFont="cellTitle"/>
                     </buttonCell>
                 </button>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u0H-Tt-ZIK">
+                    <rect key="frame" x="36" y="417" width="592" height="14"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="left" title="(Will be removed before the 3.0 release; only here in case 3.x-style compilation doesn't work for you yet.)" id="gce-M4-LVm">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
             <constraints>
                 <constraint firstItem="Yfe-oL-9W5" firstAttribute="baseline" secondItem="1bt-Yj-ia1" secondAttribute="baseline" id="1EQ-qQ-p0H"/>
                 <constraint firstItem="dUM-hs-yxg" firstAttribute="baseline" secondItem="sni-al-AEK" secondAttribute="baseline" id="2Df-Ts-Sjb"/>
-                <constraint firstItem="zcg-Y6-iKZ" firstAttribute="top" secondItem="ckF-Kw-Wld" secondAttribute="bottom" constant="30" id="3ag-UQ-eOA"/>
+                <constraint firstItem="zcg-Y6-iKZ" firstAttribute="top" secondItem="ckF-Kw-Wld" secondAttribute="bottom" constant="42" id="3ag-UQ-eOA"/>
                 <constraint firstItem="gad-e8-2qo" firstAttribute="leading" secondItem="RB4-im-jTS" secondAttribute="trailing" constant="13" id="4Xw-JS-FSa"/>
+                <constraint firstItem="ckF-Kw-Wld" firstAttribute="leading" secondItem="u0H-Tt-ZIK" secondAttribute="leading" constant="-19" id="DU0-DZ-jgd"/>
                 <constraint firstAttribute="trailing" secondItem="sni-al-AEK" secondAttribute="trailing" constant="20" symbolic="YES" id="F1o-Ep-sqE"/>
                 <constraint firstItem="jyv-vc-qpF" firstAttribute="leading" secondItem="QlP-li-kRn" secondAttribute="leading" id="HBj-N9-tPZ"/>
                 <constraint firstItem="9tl-I0-bVy" firstAttribute="centerY" secondItem="ckF-Kw-Wld" secondAttribute="centerY" constant="-0.5" id="I5A-D4-wOD"/>
@@ -654,6 +664,7 @@
                 <constraint firstAttribute="bottom" secondItem="1bt-Yj-ia1" secondAttribute="bottom" constant="20" symbolic="YES" id="i55-b0-oRq"/>
                 <constraint firstItem="RB4-im-jTS" firstAttribute="centerY" secondItem="gad-e8-2qo" secondAttribute="centerY" constant="7.5" id="kH6-xx-Wjx"/>
                 <constraint firstItem="Yfe-oL-9W5" firstAttribute="leading" secondItem="b2V-lC-ntk" secondAttribute="leading" id="lDT-TN-KlT"/>
+                <constraint firstAttribute="trailing" secondItem="u0H-Tt-ZIK" secondAttribute="trailing" constant="20" id="m3q-RA-QS0"/>
                 <constraint firstItem="RB4-im-jTS" firstAttribute="leading" secondItem="zcg-Y6-iKZ" secondAttribute="leading" constant="5" id="mSh-D2-e9m"/>
                 <constraint firstItem="b2V-lC-ntk" firstAttribute="centerY" secondItem="jyv-vc-qpF" secondAttribute="centerY" constant="0.5" id="mi3-Bs-9k0"/>
                 <constraint firstItem="dUM-hs-yxg" firstAttribute="top" secondItem="7Ad-g6-mdF" secondAttribute="top" constant="117" id="mrh-wn-znS"/>
@@ -666,6 +677,7 @@
                 <constraint firstAttribute="trailing" secondItem="gad-e8-2qo" secondAttribute="trailing" constant="20" symbolic="YES" id="yjL-kG-Kd5"/>
                 <constraint firstAttribute="trailing" secondItem="9tl-I0-bVy" secondAttribute="trailing" constant="20" id="yla-rU-50G"/>
                 <constraint firstAttribute="trailing" secondItem="zcg-Y6-iKZ" secondAttribute="trailing" constant="20" symbolic="YES" id="zEn-vN-lpz"/>
+                <constraint firstItem="u0H-Tt-ZIK" firstAttribute="top" secondItem="ckF-Kw-Wld" secondAttribute="bottom" constant="8" id="zXf-ZD-7dt"/>
             </constraints>
         </customView>
         <customView id="7Xg-eY-pVK" customClass="BackgroundView">
@@ -1463,4 +1475,128 @@
         <image name="TitleBarHelpTemplate" width="14" height="14"/>
         <image name="WelcomePaneBackground" width="536" height="470"/>
     </resources>
+    <classes>
+        <class className="ATStackView" superclassName="NSView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ATStackView.h"/>
+            <relationships>
+                <relationship kind="outlet" name="delegate"/>
+            </relationships>
+        </class>
+        <class className="ActionListView" superclassName="ATStackView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ActionListView.h"/>
+        </class>
+        <class className="BackgroundView" superclassName="NSView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BackgroundView.h"/>
+        </class>
+        <class className="ImageAndTextCell" superclassName="NSTextFieldCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ImageAndTextCell.h"/>
+        </class>
+        <class className="LiveReloadAppDelegate" superclassName="NodeAppDelegate">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LiveReloadAppDelegate.h"/>
+            <relationships>
+                <relationship kind="action" name="checkForUpdates:"/>
+                <relationship kind="action" name="displayMainWindow:"/>
+                <relationship kind="action" name="openHelp:"/>
+                <relationship kind="action" name="openSupport:"/>
+                <relationship kind="action" name="toggleMainWindow:"/>
+            </relationships>
+        </class>
+        <class className="MainWindow" superclassName="NSWindow">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MainWindow.h"/>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="NewMainWindowController" superclassName="NSWindowController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NewMainWindowController.h"/>
+            <relationships>
+                <relationship kind="action" name="addProjectClicked:"/>
+                <relationship kind="action" name="customScriptSelected:"/>
+                <relationship kind="action" name="displayLicenseManager:"/>
+                <relationship kind="action" name="doNothingOnShowAs:"/>
+                <relationship kind="action" name="enterLicenseCode:"/>
+                <relationship kind="action" name="helpSupportClicked:" candidateClass="NSSegmentedControl"/>
+                <relationship kind="action" name="performAskQuestion:"/>
+                <relationship kind="action" name="performHelp:"/>
+                <relationship kind="action" name="performKeyboardHelp:"/>
+                <relationship kind="action" name="performQuit:"/>
+                <relationship kind="action" name="performReportProblem:"/>
+                <relationship kind="action" name="performSuggest:"/>
+                <relationship kind="action" name="performWebSite:"/>
+                <relationship kind="action" name="purchaseOutsideMAS:"/>
+                <relationship kind="action" name="purchaseViaMAS:"/>
+                <relationship kind="action" name="removeProjectClicked:"/>
+                <relationship kind="action" name="showCompilationOptions:"/>
+                <relationship kind="action" name="showMonitoringOptions:"/>
+                <relationship kind="action" name="showPreferences:"/>
+                <relationship kind="action" name="toggleCompilationEnabledCheckboxClicked:" candidateClass="NSButton"/>
+                <relationship kind="action" name="toggleOpenAtLogin:"/>
+                <relationship kind="action" name="togglePostProcessingCheckboxClicked:" candidateClass="NSButton"/>
+                <relationship kind="action" name="toggleTerminal:"/>
+                <relationship kind="action" name="toggleVisibilityMode:" candidateClass="NSMenuItem"/>
+                <relationship kind="action" name="useNewCustomProjectName:" candidateClass="NSMenuItem"/>
+                <relationship kind="action" name="usePreviouslySetCustomProjectName:" candidateClass="NSMenuItem"/>
+                <relationship kind="action" name="useProposedProjectName:" candidateClass="NSMenuItem"/>
+                <relationship kind="outlet" name="_showInDockMenuItem" candidateClass="NSMenuItem"/>
+                <relationship kind="outlet" name="_showInMenuBarMenuItem" candidateClass="NSMenuItem"/>
+                <relationship kind="outlet" name="_showNowhereMenuItem" candidateClass="NSMenuItem"/>
+                <relationship kind="outlet" name="actionsStackView" candidateClass="ActionListView"/>
+                <relationship kind="outlet" name="addProjectButton" candidateClass="NSButton"/>
+                <relationship kind="outlet" name="availableCompilersLabel" candidateClass="NSTextField"/>
+                <relationship kind="outlet" name="checkForUpdatesMenuItem" candidateClass="NSMenuItem"/>
+                <relationship kind="outlet" name="checkForUpdatesMenuItemSeparator" candidateClass="NSMenuItem"/>
+                <relationship kind="outlet" name="compilerEnabledCheckBox" candidateClass="NSButton"/>
+                <relationship kind="outlet" name="customScriptPopUp" candidateClass="NSPopUpButton"/>
+                <relationship kind="outlet" name="displayLicenseManagerMenuItem" candidateClass="NSMenuItem"/>
+                <relationship kind="outlet" name="displayLicenseManagerMenuItemSeparator" candidateClass="NSMenuItem"/>
+                <relationship kind="outlet" name="gettingStartedIconView" candidateClass="NSImageView"/>
+                <relationship kind="outlet" name="gettingStartedLabelField" candidateClass="NSTextField"/>
+                <relationship kind="outlet" name="gettingStartedView" candidateClass="NSView"/>
+                <relationship kind="outlet" name="iconView" candidateClass="NSImageView"/>
+                <relationship kind="outlet" name="licenseStatusMenuItem" candidateClass="NSMenuItem"/>
+                <relationship kind="outlet" name="monitoringSummaryLabelField" candidateClass="NSTextField"/>
+                <relationship kind="outlet" name="nameTextField" candidateClass="NSTextField"/>
+                <relationship kind="outlet" name="openAtLoginMenuItem" candidateClass="NSMenuItem"/>
+                <relationship kind="outlet" name="paneBorderBox" candidateClass="NSBox"/>
+                <relationship kind="outlet" name="panePlaceholder" candidateClass="NSView"/>
+                <relationship kind="outlet" name="pathTextField" candidateClass="NSTextField"/>
+                <relationship kind="outlet" name="postProcessingEnabledCheckBox" candidateClass="NSButton"/>
+                <relationship kind="outlet" name="projectOutlineView" candidateClass="NSOutlineView"/>
+                <relationship kind="outlet" name="projectOverviewPlaceholderView" candidateClass="NSView"/>
+                <relationship kind="outlet" name="projectOverviewView" candidateClass="NSView"/>
+                <relationship kind="outlet" name="projectPane" candidateClass="NSView"/>
+                <relationship kind="outlet" name="projectPaneScrollView" candidateClass="NSScrollView"/>
+                <relationship kind="outlet" name="purchasePopUpButton" candidateClass="NSPopUpButton"/>
+                <relationship kind="outlet" name="removeProjectButton" candidateClass="NSButton"/>
+                <relationship kind="outlet" name="snippetBodyTextField" candidateClass="NSTextField"/>
+                <relationship kind="outlet" name="snippetLabelField" candidateClass="NSTextField"/>
+                <relationship kind="outlet" name="statusTextField" candidateClass="NSTextField"/>
+                <relationship kind="outlet" name="terminalButton" candidateClass="NSButton"/>
+                <relationship kind="outlet" name="titleBarSideView" candidateClass="NSView"/>
+                <relationship kind="outlet" name="urlsTextField" candidateClass="NSTextField"/>
+                <relationship kind="outlet" name="versionMenuItem" candidateClass="NSMenuItem"/>
+                <relationship kind="outlet" name="welcomeMessageField" candidateClass="NSTextField"/>
+                <relationship kind="outlet" name="welcomePane" candidateClass="NSView"/>
+            </relationships>
+        </class>
+        <class className="NodeAppDelegate" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NodeAppDelegate.h"/>
+        </class>
+        <class className="PassThruImageView" superclassName="NSImageView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PassThruImageView.h"/>
+        </class>
+        <class className="PassThruView" superclassName="NSView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PassThruView.h"/>
+        </class>
+        <class className="SUUpdater" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SUUpdater.h"/>
+            <relationships>
+                <relationship kind="action" name="checkForUpdates:"/>
+                <relationship kind="outlet" name="delegate"/>
+            </relationships>
+        </class>
+        <class className="ShadowBoxView" superclassName="NSView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ShadowBoxView.h"/>
+        </class>
+    </classes>
 </document>

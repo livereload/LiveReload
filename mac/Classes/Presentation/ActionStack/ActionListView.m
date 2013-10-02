@@ -136,7 +136,7 @@ static void *ActionListView_Action_Context = "ActionListView_Action_Context";
     [self addItem:[self addButtonRowWithPrompt:@"Add compiler" choices:@[@"SASS", @"Compass", @"LESS"]]];
 #endif
 
-    _compilersHeaderRow = [FiltersGroupHeaderRow rowWithRepresentedObject:@{@"title": @"Compilers"} metrics:_metrics userInfo:nil delegate:self];
+    _compilersHeaderRow = [FiltersGroupHeaderRow rowWithRepresentedObject:@{@"title": @"Compilers (3.x-style)"} metrics:_metrics userInfo:nil delegate:self];
     _compilersAddRow = [AddCompilationActionRow rowWithRepresentedObject:self.actionList metrics:_metrics userInfo:nil delegate:self];
     [self addItem:_compilersHeaderRow];
     [self addItem:_compilersAddRow];
