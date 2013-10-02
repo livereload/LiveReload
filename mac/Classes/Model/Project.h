@@ -80,6 +80,7 @@ enum {
 
 - (NSMutableDictionary *)memento;
 
+@property(nonatomic, copy) NSURL *rootURL;
 @property(nonatomic, readonly, copy) NSString *path;
 @property(nonatomic, readonly, copy) NSString *displayName;
 @property(nonatomic, readonly, copy) NSString *displayPath;
@@ -93,7 +94,9 @@ enum {
 @property(nonatomic) NSInteger numberOfPathComponentsToUseAsName;
 @property(nonatomic, copy) NSString *customName;
 
+@property(nonatomic, readonly) BOOL exists;
 @property(nonatomic, readonly) BOOL accessible;
+- (void)updateAccessibility;
 
 @property(nonatomic) BOOL enabled;
 @property(nonatomic) BOOL compilationEnabled;

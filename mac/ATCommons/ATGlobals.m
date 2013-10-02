@@ -113,20 +113,23 @@ BOOL ATIsUserScriptsFolderSupported() {
     return ATOSVersionAtLeast(10, 8, 0);
 }
 
-BOOL ATIsPathAccessible(NSURL *resourceURL) {
+ATPathAccessibility ATCheckPathAccessibility(NSURL *resourceURL) {
     NSError * __autoreleasing error = nil;
     NSDictionary *values = [resourceURL resourceValuesForKeys:@[NSURLIsDirectoryKey, NSURLIsReadableKey, NSURLIsExecutableKey] error:&error];
-    NSLog(@"URL = %@, values = %@", resourceURL, values);
+    NSLog(@"URL = %@, values = %@, error = %@ / %ld / %@", resourceURL, values, error.domain, (long)error.code, error.localizedDescription);
     if (!values) {
-        return NO;
+        if (!([error.domain isEqualToString:NSCocoaErrorDomain] && error.code == NSFileReadNoSuchFileError)) {
+            NSLog(@"Cannot read %@ because of unknown error: %@ / %ld / %@", resourceURL, error.domain, (long)error.code, error.localizedDescription);
+        }
+        return ATPathAccessibilityNotFound;
     }
     if (![values[NSURLIsReadableKey] boolValue]) {
-        return NO;
+        return ATPathAccessibilityInaccessible;
     }
     if ([values[NSURLIsDirectoryKey] boolValue] && ![values[NSURLIsExecutableKey] boolValue]) {
-        return NO;
+        return ATPathAccessibilityInaccessible;
     }
-    return YES;
+    return ATPathAccessibilityAccessible;
 }
 
 @implementation NSString (ATSandboxing)

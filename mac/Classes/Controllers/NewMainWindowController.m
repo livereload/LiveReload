@@ -63,6 +63,13 @@ enum { PANE_COUNT = PaneProject+1 };
 @property (strong) NSNib *actionsRowNib;
 @property (weak) IBOutlet ActionListView *actionsStackView;
 
+@property (weak) IBOutlet NSView *placeholderTabView;
+@property (strong) IBOutlet NSView *notFoundTabView;
+
+@property (strong) IBOutlet NSView *noAccessTabView;
+@property (strong) IBOutlet NSView *normalDetailsTabView;
+@property (strong) IBOutlet NSView *currentTabView;
+
 @end
 
 
@@ -247,6 +254,7 @@ json_t *C_kernel__server_refresh_count_changed(json_t *message) {
     _actionsRowNib = [[NSNib alloc] initWithNibNamed:@"ActionRowView" bundle:nil];
 
     _currentPaneView = _panePlaceholder;
+    _currentTabView = _placeholderTabView;
 
     // MUST be done after initializing _panes
     [_projectOutlineView expandItem:_projectsItem];
@@ -288,6 +296,17 @@ json_t *C_kernel__server_refresh_count_changed(json_t *message) {
     _nameTextField.stringValue = [_selectedProject.displayPath lastPathComponent];
     _pathTextField.stringValue = [_selectedProject.displayPath stringByDeletingLastPathComponent];
 //    [self styleLabel:_pathTextField color:[self headerLabelColor] shadow:[self subtleWhiteShadow] text:[_selectedProject.displayPath stringByDeletingLastPathComponent]];
+
+    NSView *tabView = _normalDetailsTabView;
+    if (!_selectedProject.exists)
+        tabView = _notFoundTabView;
+    else if (!_selectedProject.accessible)
+        tabView = _noAccessTabView;
+
+    if (_currentTabView != tabView) {
+        [_currentTabView replaceWithViewPreservingConstraints:tabView];
+        _currentTabView = tabView;
+    }
 
     NSString *exclusionsString;
     int exclusionCount = _selectedProject.excludedPaths.count;
@@ -339,6 +358,40 @@ json_t *C_kernel__server_refresh_count_changed(json_t *message) {
         // not trying to copy automatically because this will require a stupid UI ("copied!" label),
         // and I physically miss pressing Command-C anyway
     }
+}
+
+- (IBAction)allowAccessToProject:(id)sender {
+    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+    [openPanel setCanChooseDirectories:YES];
+    [openPanel setCanCreateDirectories:NO];
+    [openPanel setPrompt:@"Allow Access"];
+    [openPanel setCanChooseFiles:NO];
+    [openPanel setTreatsFilePackagesAsDirectories:YES];
+    [openPanel setDirectoryURL:_selectedProject.rootURL];
+    [openPanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
+        if (result == NSFileHandlingPanelOKButton) {
+            NSURL *url = [openPanel URL];
+            [_selectedProject setRootURL:url];
+            [_selectedProject updateAccessibility];
+        }
+    }];
+}
+
+- (IBAction)changeProjectPath:(id)sender {
+    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+    [openPanel setCanChooseDirectories:YES];
+    [openPanel setCanCreateDirectories:NO];
+    [openPanel setPrompt:@"Set Path"];
+    [openPanel setCanChooseFiles:NO];
+    [openPanel setTreatsFilePackagesAsDirectories:YES];
+    [openPanel setDirectoryURL:_selectedProject.rootURL];
+    [openPanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
+        if (result == NSFileHandlingPanelOKButton) {
+            NSURL *url = [openPanel URL];
+            [_selectedProject setRootURL:url];
+            [_selectedProject updateAccessibility];
+        }
+    }];
 }
 
 
@@ -438,14 +491,21 @@ json_t *C_kernel__server_refresh_count_changed(json_t *message) {
 }
 
 - (void)selectedProjectDidChange {
-    _selectedProject = nil;
+    Project *newSelectedProject = nil;
 
     NSInteger row = _projectOutlineView.selectedRow;
     if (row >= 0) {
         id item = [_projectOutlineView itemAtRow:row];
         if ([item isKindOfClass:[Project class]]) {
-            _selectedProject = item;
+            newSelectedProject = item;
         }
+    }
+
+    if (newSelectedProject != _selectedProject) {
+        [self stopObservingSelectedProject];
+        _selectedProject = newSelectedProject;
+        [_selectedProject updateAccessibility];  // make sure the data is fresh
+        [self startObservingSelectedProject];
     }
 
     if (_selectedProject)
@@ -455,6 +515,20 @@ json_t *C_kernel__server_refresh_count_changed(json_t *message) {
     [[NSUserDefaults standardUserDefaults] synchronize];
 
     [self updatePanes];
+}
+
+- (void)updateOutlineViewForProject:(Project *)project {
+    [_projectOutlineView reloadItem:project];
+}
+
+- (void)startObservingSelectedProject {
+    [_selectedProject addObserver:self forKeyPath:@"accessible" options:0 context:NULL];
+    [_selectedProject addObserver:self forKeyPath:@"exists" options:0 context:NULL];
+}
+
+- (void)stopObservingSelectedProject {
+    [_selectedProject removeObserver:self forKeyPath:@"accessible"];
+    [_selectedProject removeObserver:self forKeyPath:@"exists"];
 }
 
 
@@ -503,10 +577,11 @@ json_t *C_kernel__server_refresh_count_changed(json_t *message) {
 
     Project *project = (Project *)item;
     NSString *label = project.displayName;
-    if (!project.accessible) {
+    if (!project.exists)
+        label = [NSString stringWithFormat:@"%@ (missing)", label];
+    else if (!project.accessible)
         label = [NSString stringWithFormat:@"%@ (no access)", label];
 //        return [NSAttributedString AT_attributedStringWithPrimaryString:label secondaryString:@" (no access)" primaryStyle:@{} secondaryStyle:@{NSForegroundColorAttributeName: [NSColor grayColor]}];
-    }
     return label;
 }
 
@@ -901,6 +976,9 @@ json_t *C_kernel__server_refresh_count_changed(json_t *message) {
         [self projectListDidChange];
     } else if ([keyPath isEqualToString:@"numberOfProcessedChanges"]) {
         [self updateStatus];
+    } else if ([keyPath isEqualToString:@"accessible"] || [keyPath isEqualToString:@"exists"]) {
+        [self updatePanes];
+        [self updateOutlineViewForProject:object];
     }
 }
 

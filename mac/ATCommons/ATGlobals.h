@@ -44,10 +44,16 @@ BOOL ATIsOS107LionOrLater();
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Sandboxing
 
+typedef enum {
+    ATPathAccessibilityNotFound,
+    ATPathAccessibilityInaccessible,
+    ATPathAccessibilityAccessible,
+} ATPathAccessibility;
+
 BOOL ATIsSandboxed();
 BOOL ATAreSecurityScopedBookmarksSupported();
 BOOL ATIsUserScriptsFolderSupported();
-BOOL ATIsPathAccessible(NSURL *resourceURL);
+ATPathAccessibility ATCheckPathAccessibility(NSURL *resourceURL);
 
 NSString *ATRealHomeDirectory();
 

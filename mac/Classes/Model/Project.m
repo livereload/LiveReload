@@ -113,24 +113,9 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 - (id)initWithURL:(NSURL *)rootURL memento:(NSDictionary *)memento {
     if ((self = [super init])) {
         _rootURL = rootURL;
+        [self _updateValuesDerivedFromRootURL];
 
-        if (ATIsPathAccessible(rootURL)) {
-            _accessible = YES;
-        } else if ([rootURL startAccessingSecurityScopedResource]) {
-            _accessible = YES;
-            _accessingSecurityScopedResource = YES;
-        } else {
-            _accessible = NO;
-        }
-
-        // we cannot monitor through symlink boundaries anyway
-        _path = [[rootURL path] stringByResolvingSymlinksInPath];
         _enabled = YES;
-
-        _monitor = [[FSMonitor alloc] initWithPath:_path];
-        _monitor.delegate = self;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFilter) name:PreferencesFilterSettingsChangedNotification object:nil];
-        [self updateFilter];
 
         _compilerOptions = [[NSMutableDictionary alloc] init];
         _monitoringRequests = [[NSMutableSet alloc] init];
@@ -176,7 +161,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
             _eventProcessingDelay = [[memento objectForKey:@"eventProcessingDelay"] doubleValue];
         else
             _eventProcessingDelay = 0.0;
-        _monitor.eventProcessingDelay = _eventProcessingDelay;
 
         _postProcessingCommand = [[memento objectForKey:@"postproc"] copy];
         _postProcessingScriptName = [[memento objectForKey:@"postprocScript"] copy];
@@ -215,8 +199,8 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         else
             _postProcessingGracePeriod = DefaultPostProcessingGracePeriod;
 
+        [self _updateAccessibility:YES];
         [self handleCompilationOptionsEnablementChanged];
-
         [self requestMonitoring:YES forKey:@"ui"];  // always need a folder list for UI
     }
     return self;
@@ -224,6 +208,63 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)setRootURL:(NSURL *)rootURL {
+    if (![_rootURL isEqual:rootURL]) {
+        _rootURL = rootURL;
+        [self _updateValuesDerivedFromRootURL];
+        [self _updateAccessibility:NO];
+    }
+}
+
+- (void)_updateValuesDerivedFromRootURL {
+    // we cannot monitor through symlink boundaries anyway
+    [self willChangeValueForKey:@"path"];
+    _path = [[_rootURL path] stringByResolvingSymlinksInPath];
+    [self didChangeValueForKey:@"path"];
+}
+
+- (void)updateAccessibility {
+    [self _updateAccessibility:NO];
+}
+
+- (void)_updateAccessibility:(BOOL)initially {
+    BOOL wasAccessible = _accessible;
+
+    [self willChangeValueForKey:@"accessible"];
+    [self willChangeValueForKey:@"exists"];
+    ATPathAccessibility acc = ATCheckPathAccessibility(_rootURL);
+    if (acc == ATPathAccessibilityAccessible) {
+        _accessible = YES;
+        _exists = YES;
+    } else if (acc == ATPathAccessibilityNotFound) {
+        _accessible = NO;
+        _exists = NO;
+    } else if ([_rootURL startAccessingSecurityScopedResource]) {
+        _accessible = YES;
+        _accessingSecurityScopedResource = YES;
+        _exists = YES;
+    } else {
+        _accessible = NO;
+        _exists = YES;
+    }
+    [self didChangeValueForKey:@"accessible"];
+    [self didChangeValueForKey:@"exists"];
+
+    if (!initially && (!wasAccessible && _accessible)) {
+        // save to create a bookmark
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+    }
+
+    if (_accessible && !_monitor) {
+        _monitor = [[FSMonitor alloc] initWithPath:_path];
+        _monitor.delegate = self;
+        _monitor.eventProcessingDelay = _eventProcessingDelay;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFilter) name:PreferencesFilterSettingsChangedNotification object:nil];
+        [self updateFilter];
+        [self _updateMonitoringState];
+    }
 }
 
 
@@ -368,20 +409,24 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
             [_monitoringRequests removeObject:key];
         }
 
-        BOOL shouldBeRunning = [_monitoringRequests count] > 0;
-        if (shouldBeRunning != _monitor.running) {
-            if (shouldBeRunning) {
-                NSLog(@"Activated monitoring for %@", [self displayPath]);
-            } else {
-                NSLog(@"Deactivated monitoring for %@", [self displayPath]);
-            }
-            _monitor.running = shouldBeRunning;
-            if (shouldBeRunning) {
-                [self rebuildImportGraph];
-                [self checkBrokenPaths];
-            }
-            [[NSNotificationCenter defaultCenter] postNotificationName:ProjectMonitoringStateDidChangeNotification object:self];
+        [self _updateMonitoringState];
+    }
+}
+
+- (void)_updateMonitoringState {
+    BOOL shouldBeRunning = [_monitoringRequests count] > 0;
+    if (_monitor && (shouldBeRunning != _monitor.running)) {
+        if (shouldBeRunning) {
+            NSLog(@"Activated monitoring for %@", [self displayPath]);
+        } else {
+            NSLog(@"Deactivated monitoring for %@", [self displayPath]);
         }
+        _monitor.running = shouldBeRunning;
+        if (shouldBeRunning) {
+            [self rebuildImportGraph];
+            [self checkBrokenPaths];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:ProjectMonitoringStateDidChangeNotification object:self];
     }
 }
 
