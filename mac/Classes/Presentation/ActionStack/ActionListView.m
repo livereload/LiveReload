@@ -42,7 +42,8 @@ static void *ActionListView_Action_Context = "ActionListView_Action_Context";
 - (id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        _metrics = @{@"indentL2": @0.0, @"indentL3": @18.0, @"checkboxToControl": @1.0, @"buttonBarGapMin": @20.0, @"buttonGap": @1.0, @"columnGapMin": @8.0, @"actionWidthMax": @180.0,
+        CGFloat overhang = 5.0;
+        _metrics = @{@"indentL1": @(overhang), @"indentL2": @(overhang), @"indentL3": @(overhang+18), @"checkboxToControl": @1.0, @"buttonBarGapMin": @20.0, @"buttonGap": @1.0, @"columnGapMin": @8.0, @"actionWidthMax": @180.0,
              @"columnHeaderStyle": @{NSFontAttributeName: [NSFont systemFontOfSize:11], NSForegroundColorAttributeName: [NSColor headerColor]},
         };
     }
@@ -83,6 +84,11 @@ static void *ActionListView_Action_Context = "ActionListView_Action_Context";
         _loaded = YES;
         [self removeAllItems];
         [self loadRows];
+
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 100 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
+            NSLog(@"Action List View hierarchy:\n%@", [self performSelector:NSSelectorFromString(@"_subtreeDescription") withObject:nil]);
+        });
+
     }
 
     [super updateConstraints];

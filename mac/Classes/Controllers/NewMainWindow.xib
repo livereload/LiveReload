@@ -606,24 +606,24 @@
                     </textFieldCell>
                 </textField>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="zcg-Y6-iKZ" customClass="ActionListView">
-                    <rect key="frame" x="20" y="66" width="605" height="343"/>
+                    <rect key="frame" x="15" y="66" width="610" height="343"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                 </customView>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="ckF-Kw-Wld">
-                    <rect key="frame" x="18" y="437" width="226" height="18"/>
+                    <rect key="frame" x="18" y="437" width="377" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Compile scripts, stylesheets, etc" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="qZb-EQ-T5o">
+                    <buttonCell key="cell" type="check" title="Enable 2.x-style compilation for scripts, stylesheets, etc" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="qZb-EQ-T5o">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9tl-I0-bVy">
-                    <rect key="frame" x="525" y="437" width="100" height="19"/>
+                    <rect key="frame" x="422" y="437" width="203" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="v8G-a6-Mo0"/>
                     </constraints>
-                    <buttonCell key="cell" type="roundRect" title="Options..." bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Gc5-Rx-pLB">
+                    <buttonCell key="cell" type="roundRect" title="2.x-style Compilation Options..." bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Gc5-Rx-pLB">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="cellTitle"/>
                     </buttonCell>
@@ -638,6 +638,7 @@
                 <constraint firstItem="jyv-vc-qpF" firstAttribute="leading" secondItem="QlP-li-kRn" secondAttribute="leading" id="HBj-N9-tPZ"/>
                 <constraint firstItem="9tl-I0-bVy" firstAttribute="centerY" secondItem="ckF-Kw-Wld" secondAttribute="centerY" constant="-0.5" id="I5A-D4-wOD"/>
                 <constraint firstItem="RB4-im-jTS" firstAttribute="leading" secondItem="7Ad-g6-mdF" secondAttribute="leading" constant="20" symbolic="YES" id="IMW-l8-ZXJ"/>
+                <constraint firstItem="9tl-I0-bVy" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ckF-Kw-Wld" secondAttribute="trailing" constant="8" symbolic="YES" id="LHO-pc-mSr"/>
                 <constraint firstItem="gad-e8-2qo" firstAttribute="leading" secondItem="Yhg-by-vjI" secondAttribute="leading" id="Mwz-JK-8nr"/>
                 <constraint firstItem="Yfe-oL-9W5" firstAttribute="top" secondItem="zcg-Y6-iKZ" secondAttribute="bottom" constant="30" id="N0f-g8-9RO"/>
                 <constraint firstItem="dUM-hs-yxg" firstAttribute="centerY" secondItem="Ohj-PP-1Ch" secondAttribute="centerY" constant="0.5" id="PdU-sP-fBe"/>
@@ -653,6 +654,7 @@
                 <constraint firstAttribute="bottom" secondItem="1bt-Yj-ia1" secondAttribute="bottom" constant="20" symbolic="YES" id="i55-b0-oRq"/>
                 <constraint firstItem="RB4-im-jTS" firstAttribute="centerY" secondItem="gad-e8-2qo" secondAttribute="centerY" constant="7.5" id="kH6-xx-Wjx"/>
                 <constraint firstItem="Yfe-oL-9W5" firstAttribute="leading" secondItem="b2V-lC-ntk" secondAttribute="leading" id="lDT-TN-KlT"/>
+                <constraint firstItem="RB4-im-jTS" firstAttribute="leading" secondItem="zcg-Y6-iKZ" secondAttribute="leading" constant="5" id="mSh-D2-e9m"/>
                 <constraint firstItem="b2V-lC-ntk" firstAttribute="centerY" secondItem="jyv-vc-qpF" secondAttribute="centerY" constant="0.5" id="mi3-Bs-9k0"/>
                 <constraint firstItem="dUM-hs-yxg" firstAttribute="top" secondItem="7Ad-g6-mdF" secondAttribute="top" constant="117" id="mrh-wn-znS"/>
                 <constraint firstItem="sni-al-AEK" firstAttribute="leading" secondItem="dUM-hs-yxg" secondAttribute="trailing" constant="22" id="oCX-m8-jRt"/>
@@ -664,7 +666,6 @@
                 <constraint firstAttribute="trailing" secondItem="gad-e8-2qo" secondAttribute="trailing" constant="20" symbolic="YES" id="yjL-kG-Kd5"/>
                 <constraint firstAttribute="trailing" secondItem="9tl-I0-bVy" secondAttribute="trailing" constant="20" id="yla-rU-50G"/>
                 <constraint firstAttribute="trailing" secondItem="zcg-Y6-iKZ" secondAttribute="trailing" constant="20" symbolic="YES" id="zEn-vN-lpz"/>
-                <constraint firstItem="zcg-Y6-iKZ" firstAttribute="leading" secondItem="7Ad-g6-mdF" secondAttribute="leading" constant="20" symbolic="YES" id="zeI-8l-sDk"/>
             </constraints>
         </customView>
         <customView id="7Xg-eY-pVK" customClass="BackgroundView">

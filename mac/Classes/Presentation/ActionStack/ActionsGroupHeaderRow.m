@@ -10,7 +10,7 @@
 
     self.filterLabel = [[NSTextField staticLabelWithString:@"For changes in:" style:self.metrics[@"columnHeaderStyle"]] addedToView:self];
 
-    [self addConstraintsWithVisualFormat:@"|[titleLabel]-(>=columnGapMin)-[filterLabel]" options:NSLayoutFormatAlignAllBaseline];
+    [self addConstraintsWithVisualFormat:@"|-indentL1-[titleLabel]-(>=columnGapMin)-[filterLabel]" options:NSLayoutFormatAlignAllBaseline];
     [self addFullHeightConstraintsForSubview:self.titleLabel];
 
     [self alignView:self.titleLabel toColumnNamed:@"actionRightEdge" alignment:ATStackViewColumnAlignmentTrailing];
