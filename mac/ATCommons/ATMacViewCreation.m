@@ -8,7 +8,7 @@
 }
 
 + (NSTextField *)staticLabelWithString:(NSString *)text {
-    NSTextField *view = [[NSTextField alloc] init];
+    NSTextField *view = [[self alloc] init];
     view.translatesAutoresizingMaskIntoConstraints = NO;
     [view setBordered:NO];
     [view setEditable:NO];
@@ -18,7 +18,7 @@
 }
 
 + (NSTextField *)staticLabelWithAttributedString:(NSAttributedString *)text {
-    NSTextField *view = [[NSTextField alloc] init];
+    NSTextField *view = [[self alloc] init];
     view.translatesAutoresizingMaskIntoConstraints = NO;
     [view setBordered:NO];
     [view setEditable:NO];
@@ -27,7 +27,7 @@
 }
 
 + (NSTextField *)editableField {
-    NSTextField *view = [[NSTextField alloc] init];
+    NSTextField *view = [[self alloc] init];
     view.translatesAutoresizingMaskIntoConstraints = NO;
     return view;
 }
@@ -48,7 +48,7 @@
 @implementation NSTextView (ATMacViewCreation)
 
 + (NSTextView *)editableTextView {
-    NSTextView *view = [[NSTextView alloc] initWithFrame:CGRectZero];
+    NSTextView *view = [[self alloc] initWithFrame:CGRectZero];
     view.translatesAutoresizingMaskIntoConstraints = NO;
     return view;
 }
@@ -59,13 +59,13 @@
 @implementation NSPopUpButton (ATMacViewCreation)
 
 + (NSPopUpButton *)popUpButton {
-    NSPopUpButton *view = [[NSPopUpButton alloc] initWithFrame:CGRectZero pullsDown:NO];
+    NSPopUpButton *view = [[self alloc] initWithFrame:CGRectZero pullsDown:NO];
     view.translatesAutoresizingMaskIntoConstraints = NO;
     return view;
 }
 
 + (NSPopUpButton *)pullDownButton {
-    NSPopUpButton *view = [[NSPopUpButton alloc] initWithFrame:CGRectZero pullsDown:YES];
+    NSPopUpButton *view = [[self alloc] initWithFrame:CGRectZero pullsDown:YES];
     view.translatesAutoresizingMaskIntoConstraints = NO;
     return view;
 }
@@ -76,7 +76,7 @@
 @implementation NSButton (ATMacViewCreation)
 
 + (NSButton *)buttonWithTitle:(NSString *)title type:(NSButtonType)type bezelStyle:(NSBezelStyle)bezelStyle {
-    NSButton *view = [[NSButton alloc] initWithFrame:CGRectZero];
+    NSButton *view = [[self alloc] initWithFrame:CGRectZero];
     view.translatesAutoresizingMaskIntoConstraints = NO;
     [view setButtonType:type];
     [view setBezelStyle:bezelStyle];
@@ -89,7 +89,7 @@
 }
 
 + (NSButton *)buttonWithImageNamed:(NSString *)imageName type:(NSButtonType)type bezelStyle:(NSBezelStyle)bezelStyle {
-    NSButton *view = [[NSButton alloc] initWithFrame:CGRectZero];
+    NSButton *view = [[self alloc] initWithFrame:CGRectZero];
     view.translatesAutoresizingMaskIntoConstraints = NO;
     [view setButtonType:type];
     [view setBezelStyle:bezelStyle];
@@ -122,7 +122,7 @@
 @implementation NSBox (ATMacViewCreation)
 
 + (NSBox *)box {
-    NSBox *view = [[NSBox alloc] initWithFrame:CGRectZero];
+    NSBox *view = [[self alloc] initWithFrame:CGRectZero];
     view.translatesAutoresizingMaskIntoConstraints = NO;
     view.titlePosition = NSNoTitle;
     return view;
