@@ -299,20 +299,9 @@
                 <binding destination="-2" name="contentArray" keyPath="projects" id="87"/>
             </connections>
         </arrayController>
-        <customView id="486">
+        <customView id="486" customClass="ShadowBoxView">
             <rect key="frame" x="0.0" y="0.0" width="536" height="470"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <subviews>
-                <imageView translatesAutoresizingMaskIntoConstraints="NO" id="534">
-                    <rect key="frame" x="0.0" y="0.0" width="536" height="470"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="WelcomePaneBackground" id="535"/>
-                </imageView>
-            </subviews>
-            <constraints>
-                <constraint firstItem="534" firstAttribute="leading" secondItem="486" secondAttribute="leading" id="9ud-RN-oDW"/>
-                <constraint firstItem="534" firstAttribute="top" secondItem="486" secondAttribute="top" id="9wL-AK-XOK"/>
-            </constraints>
         </customView>
         <customView id="495">
             <rect key="frame" x="0.0" y="0.0" width="536" height="470"/>
@@ -1473,7 +1462,6 @@
         <image name="PlaceholderTemplate" width="80" height="80"/>
         <image name="RemoveTemplate" width="13" height="13"/>
         <image name="TitleBarHelpTemplate" width="14" height="14"/>
-        <image name="WelcomePaneBackground" width="536" height="470"/>
     </resources>
     <classes>
         <class className="ATStackView" superclassName="NSView">
