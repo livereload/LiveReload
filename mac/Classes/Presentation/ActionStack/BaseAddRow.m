@@ -21,14 +21,15 @@
 
 - (void)loadContent {
     [super loadContent];
+    [self updateMenu];
 
-    [self.menuPullDown makeWidthEqualTo:150];
+    [self.menuPullDown makeWidthEqualTo:32];
 
-    [self addConstraintsWithVisualFormat:@"|-indentL2-[menuPullDown(>=120)]"];
+    [self addConstraintsWithVisualFormat:@"|-indentL2-[menuPullDown]"];
     [self addFullHeightConstraintsForSubview:self.menuPullDown];
 
 //    [self alignView:self.menuPullDown toColumnNamed:@"actionRightEdge" alignment:ATStackViewColumnAlignmentTrailing];
-    [self alignView:self.menuPullDown toColumnNamed:@"add"];
+    [self alignView:self.menuPullDown toColumnNamed:@"add" alignment:ATStackViewColumnAlignmentLeading];
 }
 
 - (IBAction)addActionClicked:(NSMenuItem *)sender {
@@ -37,6 +38,17 @@
         ActionList *actionList = self.representedObject;
         [actionList addActionWithPrototype:prototype];
     }
+}
+
+- (NSMenu *)menu {
+    return self.menuPullDown.menu;
+}
+
+- (void)updateMenu {
+    [self.menu removeAllItems];
+
+    NSMenuItem *first = [self.menu addItemWithTitle:@"" action:NULL keyEquivalent:@""];
+    first.image = [NSImage imageNamed:@"NSAddTemplate"];
 }
 
 @end

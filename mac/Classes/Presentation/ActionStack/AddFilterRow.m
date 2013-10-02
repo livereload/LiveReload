@@ -9,12 +9,9 @@
 }
 
 - (void)updateMenu {
-    NSMenu *menu = self.menuPullDown.menu;
+    [super updateMenu];
 
-    [menu removeAllItems];
-    [menu addItemWithTitle:@"Add filter" action:NULL keyEquivalent:@""];
-
-    NSMenuItem *item = [menu addItemWithTitle:@"autoprefixer" action:@selector(addActionClicked:) keyEquivalent:@""];
+    NSMenuItem *item = [self.menu addItemWithTitle:@"autoprefixer" action:@selector(addActionClicked:) keyEquivalent:@""];
     item.representedObject = @{@"action": @"autoprefixer"};
     item.target = self;
 }

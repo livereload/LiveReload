@@ -42,7 +42,7 @@ static void *ActionListView_Action_Context = "ActionListView_Action_Context";
 - (id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        _metrics = @{@"indentL2": @18.0, @"indentL3": @36.0, @"checkboxToControl": @1.0, @"buttonBarGapMin": @20.0, @"buttonGap": @1.0, @"columnGapMin": @8.0, @"actionWidthMax": @180.0,
+        _metrics = @{@"indentL2": @0.0, @"indentL3": @18.0, @"checkboxToControl": @1.0, @"buttonBarGapMin": @20.0, @"buttonGap": @1.0, @"columnGapMin": @8.0, @"actionWidthMax": @180.0,
              @"columnHeaderStyle": @{NSFontAttributeName: [NSFont systemFontOfSize:11], NSForegroundColorAttributeName: [NSColor headerColor]},
         };
     }
@@ -130,17 +130,17 @@ static void *ActionListView_Action_Context = "ActionListView_Action_Context";
     [self addItem:[self addButtonRowWithPrompt:@"Add compiler" choices:@[@"SASS", @"Compass", @"LESS"]]];
 #endif
 
-    _compilersHeaderRow = [FiltersGroupHeaderRow rowWithRepresentedObject:@{@"title": @"Compilers:"} metrics:_metrics userInfo:nil delegate:self];
+    _compilersHeaderRow = [FiltersGroupHeaderRow rowWithRepresentedObject:@{@"title": @"Compilers"} metrics:_metrics userInfo:nil delegate:self];
     _compilersAddRow = [AddCompilationActionRow rowWithRepresentedObject:self.actionList metrics:_metrics userInfo:nil delegate:self];
     [self addItem:_compilersHeaderRow];
     [self addItem:_compilersAddRow];
 
-    _filtersHeaderRow = [FiltersGroupHeaderRow rowWithRepresentedObject:@{@"title": @"Filters:"} metrics:_metrics userInfo:nil delegate:self];
+    _filtersHeaderRow = [FiltersGroupHeaderRow rowWithRepresentedObject:@{@"title": @"Filters"} metrics:_metrics userInfo:nil delegate:self];
     _filtersAddRow = [AddFilterRow rowWithRepresentedObject:self.actionList metrics:_metrics userInfo:nil delegate:self];
     [self addItem:_filtersHeaderRow];
     [self addItem:_filtersAddRow];
 
-    _actionsHeaderRow = [ActionsGroupHeaderRow rowWithRepresentedObject:@{@"title": @"Other actions:"} metrics:_metrics userInfo:nil delegate:self];
+    _actionsHeaderRow = [ActionsGroupHeaderRow rowWithRepresentedObject:@{@"title": @"Other actions"} metrics:_metrics userInfo:nil delegate:self];
     _actionsAddRow = [AddActionRow rowWithRepresentedObject:self.actionList metrics:_metrics userInfo:nil delegate:self];
     [self addItem:_actionsHeaderRow];
     [self addItem:_actionsAddRow];

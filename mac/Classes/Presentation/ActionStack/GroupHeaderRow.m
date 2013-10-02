@@ -12,6 +12,7 @@
     [super loadContent];
     
     _titleLabel = [[NSTextField staticLabelWithString:self.metaInfo[@"title"]] addedToView:self];
+    _titleLabel.font = [NSFont boldSystemFontOfSize:13.0];
 
     self.topMargin = 30.0;
     self.bottomMargin = 8.0;
