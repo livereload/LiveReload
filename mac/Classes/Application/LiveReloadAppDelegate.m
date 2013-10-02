@@ -333,6 +333,7 @@ json_t *C_kernel__on_browser_v6_protocol_connection(json_t *message) {
 - (void)handleCommand:(NSString *)command params:(NSDictionary *)params {
     NSLog(@"Received command %@ with params %@", command, params);
     if ([command isEqualToString:@"add"]) {
+        // TODO: remove this, won't work with sandbox anyway
         NSString *path = [[[params objectForKey:@"path"] stringByExpandingTildeInPath] stringByStandardizingPath];
         BOOL isDir = NO;
         if (path && [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir] && isDir) {

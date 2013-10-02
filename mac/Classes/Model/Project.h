@@ -26,6 +26,7 @@ enum {
 
 
 @interface Project : NSObject {
+    NSURL                   *_rootURL;
     NSString *_path;
 
     FSMonitor *_monitor;
@@ -73,7 +74,7 @@ enum {
     NSTimeInterval           _lastPostProcessingRunDate;
 }
 
-- (id)initWithPath:(NSString *)path memento:(NSDictionary *)memento;
+- (id)initWithURL:(NSURL *)rootURL memento:(NSDictionary *)memento;
 
 - (NSMutableDictionary *)memento;
 

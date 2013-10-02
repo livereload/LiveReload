@@ -136,7 +136,7 @@ static NSString *ClientConnectedMonitoringKey = @"clientConnected";
         }
         if ([url isFileURL]) {
             [url startAccessingSecurityScopedResource];                       
-            [_projects addObject:[[Project alloc] initWithPath:path memento:projectMemento]];
+            [_projects addObject:[[Project alloc] initWithURL:url memento:projectMemento]];
         }
     }
 }
@@ -176,7 +176,7 @@ static NSString *ClientConnectedMonitoringKey = @"clientConnected";
         }
     }
     if (create) {
-        Project *project = [[Project alloc] initWithPath:path memento:nil];
+        Project *project = [[Project alloc] initWithURL:[NSURL fileURLWithPath:path] memento:nil];
         [self addProjectsObject:project];
         return project;
     } else {

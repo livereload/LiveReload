@@ -110,10 +110,12 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 #pragma mark -
 #pragma mark Init/dealloc
 
-- (id)initWithPath:(NSString *)path memento:(NSDictionary *)memento {
+- (id)initWithURL:(NSURL *)rootURL memento:(NSDictionary *)memento {
     if ((self = [super init])) {
+        _rootURL = rootURL;
+        
         // we cannot monitor through symlink boundaries anyway
-        _path = [[path stringByResolvingSymlinksInPath] copy];
+        _path = [[rootURL path] stringByResolvingSymlinksInPath];
         _enabled = YES;
 
         _monitor = [[FSMonitor alloc] initWithPath:_path];
@@ -205,6 +207,8 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
             _postProcessingGracePeriod = DefaultPostProcessingGracePeriod;
 
         [self handleCompilationOptionsEnablementChanged];
+
+        [self requestMonitoring:YES forKey:@"ui"];  // always need a folder list for UI
     }
     return self;
 }
