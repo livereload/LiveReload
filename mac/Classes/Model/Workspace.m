@@ -79,6 +79,9 @@ static NSString *ClientConnectedMonitoringKey = @"clientConnected";
         [memento setObject:project.path forKey:@"path"];
         if (bookmark != nil)
             [memento setObject:bookmark forKey:@"bookmark"];
+        else {
+            NSLog(@"Failed to create a bookmark for %@: %@ - %ld - %@", project.path, error.domain, error.code, error.localizedDescription);
+        }
         [projectMementos addObject:memento];
     }
     json_t *json = nodeapp_objc_to_json(projectMementos);
@@ -120,10 +123,19 @@ static NSString *ClientConnectedMonitoringKey = @"clientConnected";
         NSString *bookmark = [projectMemento objectForKey:@"bookmark"];
         BOOL stale = NO;
         NSError *error = nil;
-        NSURL *url = [NSURL URLByResolvingBookmarkData:[NSData dataFromBase64String:bookmark] options:NSURLBookmarkResolutionWithSecurityScope relativeToURL:nil bookmarkDataIsStale:&stale error:&error];
+        NSURL *url = nil;
+        NSString *path;
+        if (bookmark) {
+            url = [NSURL URLByResolvingBookmarkData:[NSData dataFromBase64String:bookmark] options:NSURLBookmarkResolutionWithSecurityScope relativeToURL:nil bookmarkDataIsStale:&stale error:&error];
+        }
+        if (!url) {
+            path = projectMemento[@"path"];
+            url = [NSURL fileURLWithPath:path];
+        } else {
+            path = [url path];
+        }
         if ([url isFileURL]) {
             [url startAccessingSecurityScopedResource];                       
-            NSString *path = [url path];
             [_projects addObject:[[Project alloc] initWithPath:path memento:projectMemento]];
         }
     }
