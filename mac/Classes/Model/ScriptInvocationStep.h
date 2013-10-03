@@ -18,6 +18,8 @@
 
 - (void)invoke;
 
+- (LRFile2 *)fileForKey:(NSString *)key;
+
 @property(nonatomic) BOOL finished;
 @property(nonatomic, retain) NSError *error;
 @property(nonatomic, retain) ToolOutput *output;

@@ -8,7 +8,8 @@
 
 @interface ScriptInvocationAction : Action
 
-// override point
+// override points
 - (void)configureStep:(ScriptInvocationStep *)step forFile:(LRFile2 *)file;
+- (void)didCompleteCompilationStep:(ScriptInvocationStep *)step forFile:(LRFile2 *)file;
 
 @end

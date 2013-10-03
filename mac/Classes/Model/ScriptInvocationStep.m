@@ -12,16 +12,22 @@
 
 @implementation ScriptInvocationStep {
     NSMutableDictionary *_substitutions;
+    NSMutableDictionary *_files;
 }
 
 - (id)init {
     self = [super init];
     if (self) {
         _substitutions = [NSMutableDictionary new];
+        _files = [NSMutableDictionary new];
         [self addValue:@"/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/bin/ruby" forSubstitutionKey:@"ruby"];
         [self addValue:[[NSBundle mainBundle] pathForResource:@"LiveReloadNodejs" ofType:nil] forSubstitutionKey:@"node"];
     }
     return self;
+}
+
+- (LRFile2 *)fileForKey:(NSString *)key {
+    return _files[key];
 }
 
 - (void)addValue:(id)value forSubstitutionKey:(NSString *)key {
@@ -29,6 +35,7 @@
 }
 
 - (void)addFileValue:(LRFile2 *)file forSubstitutionKey:(NSString *)key {
+    _files[key] = file;
     [self addValue:[file.relativePath lastPathComponent] forSubstitutionKey:[NSString stringWithFormat:@"%@_file", key]];
     [self addValue:file.absolutePath forSubstitutionKey:[NSString stringWithFormat:@"%@_path", key]];
     [self addValue:[file.absolutePath stringByDeletingLastPathComponent] forSubstitutionKey:[NSString stringWithFormat:@"%@_dir", key]];

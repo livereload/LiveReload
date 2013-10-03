@@ -74,6 +74,8 @@ enum {
     BOOL                     _runningPostProcessor;
     BOOL                     _pendingPostProcessing;
     NSTimeInterval           _lastPostProcessingRunDate;
+
+    NSMutableDictionary     *_fileDatesHack;
 }
 
 - (id)initWithURL:(NSURL *)rootURL memento:(NSDictionary *)memento;
@@ -148,5 +150,9 @@ enum {
 @property(nonatomic, strong, readonly) ActionList *actionList;
 
 @property(nonatomic, strong, readonly) NSArray *pathOptions;
+
+- (BOOL)hackhack_shouldFilterFile:(LRFile2 *)file;
+- (void)hackhack_didFilterFile:(LRFile2 *)file;
+- (void)hackhack_didWriteCompiledFile:(LRFile2 *)file;
 
 @end

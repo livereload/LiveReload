@@ -1,7 +1,7 @@
 
 #import "CompileFileAction.h"
 #import "ScriptInvocationStep.h"
-//#import "Project.h"
+#import "Project.h"
 //#import "Plugin.h"
 #import "LRFile2.h"
 #import "LRFile.h"
@@ -40,6 +40,11 @@
 
     LRFile2 *destinationFile = [LRFile2 fileWithRelativePath:destinationRelativePath project:step.project];
     [step addFileValue:destinationFile forSubstitutionKey:@"dst"];
+}
+
+- (void)didCompleteCompilationStep:(ScriptInvocationStep *)step forFile:(LRFile2 *)file {
+    LRFile2 *outputFile = [step fileForKey:@"dst"];
+    [file.project hackhack_didWriteCompiledFile:outputFile];
 }
 
 @end

@@ -21,4 +21,8 @@
     return [_project.path stringByAppendingPathComponent:_relativePath];
 }
 
+- (NSURL *)absoluteURL {
+    return [NSURL fileURLWithPath:self.absolutePath];
+}
+
 @end

@@ -17,6 +17,7 @@
     [self configureStep:step forFile:file];
 
     step.completionHandler = ^(ScriptInvocationStep *step) {
+        [self didCompleteCompilationStep:step forFile:file];
         completionHandler(YES, step.output, step.error);
     };
 
@@ -27,6 +28,9 @@
 - (void)configureStep:(ScriptInvocationStep *)step forFile:(LRFile2 *)file {
     step.commandLine = self.type.options[@"cmdline"];
     [step addValue:self.type.plugin.path forSubstitutionKey:@"plugin"];
+}
+
+- (void)didCompleteCompilationStep:(ScriptInvocationStep *)step forFile:(LRFile2 *)file {
 }
 
 - (void)invokeForProjectAtPath:(NSString *)projectPath withModifiedFiles:(NSSet *)paths completionHandler:(UserScriptCompletionHandler)completionHandler {

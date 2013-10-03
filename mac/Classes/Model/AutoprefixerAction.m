@@ -24,6 +24,11 @@
 }
 
 - (void)compileFile:(LRFile2 *)file inProject:(Project *)project completionHandler:(UserScriptCompletionHandler)completionHandler {
+    if (![project hackhack_shouldFilterFile:file]) {
+        completionHandler(NO, nil, nil);
+        return;
+    }
+
     NSLog(@"Applying autoprefixer to %@/%@", project.path, file.relativePath);
     NSDictionary *info = @{
                            @"$(ruby)": @"/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/bin/ruby",
@@ -50,6 +55,8 @@
     ATLaunchUnixTaskAndCaptureOutput([NSURL fileURLWithPath:command], args, ATLaunchUnixTaskAndCaptureOutputOptionsIgnoreSandbox|ATLaunchUnixTaskAndCaptureOutputOptionsMergeStdoutAndStderr, ^(NSString *outputText, NSString *stderrText, NSError *error) {
 //        [[NSFileManager defaultManager] changeCurrentDirectoryPath:pwd];
         ToolOutput *toolOutput = nil;
+
+        [project hackhack_didFilterFile:file];
 
         if (error) {
             NSLog(@"Error: %@\nOutput:\n%@", [error description], outputText);

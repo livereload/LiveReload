@@ -13,5 +13,6 @@
 @property(nonatomic, strong) Project *project;
 
 @property(nonatomic, readonly) NSString *absolutePath;
+@property(nonatomic, readonly) NSURL *absoluteURL;
 
 @end

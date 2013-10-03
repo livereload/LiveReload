@@ -117,6 +117,8 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
         _enabled = YES;
 
+        _fileDatesHack = [NSMutableDictionary new];
+
         _compilerOptions = [[NSMutableDictionary alloc] init];
         _monitoringRequests = [[NSMutableSet alloc] init];
 
@@ -1156,6 +1158,31 @@ skipGuessing:
         [pathOptions addObject:[FilterOption filterOptionWithSubfolder:path]];
     }
     return pathOptions;
+}
+
+
+#pragma mark - Filtering loop prevention hack
+
+- (BOOL)hackhack_shouldFilterFile:(LRFile2 *)file {
+    NSDate *date = _fileDatesHack[file.relativePath];
+    if (date) {
+        NSDate *fileDate = nil;
+        BOOL ok = [file.absoluteURL getResourceValue:&fileDate forKey:NSURLContentModificationDateKey error:NULL];
+        if (ok && [fileDate compare:date] != NSOrderedDescending) {
+            // file modification time is not later than the filtering time
+            NSLog(@"NOT applying filter to %@/%@ to avoid an infinite loop", _path, file.relativePath);
+            return NO;
+        }
+    }
+    return YES;
+}
+
+- (void)hackhack_didFilterFile:(LRFile2 *)file {
+    _fileDatesHack[file.relativePath] = [NSDate date];
+}
+
+- (void)hackhack_didWriteCompiledFile:(LRFile2 *)file {
+    [_fileDatesHack removeObjectForKey:file.relativePath];
 }
 
 @end
