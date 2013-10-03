@@ -11,6 +11,7 @@
 		<string>.DS_Store</string>
 		<string>node_modules</string>
 		<string>.sass-cache</string>
+		<string>codekit-config.json</string>
 	</array>
 	<key>extensions</key>
 	<array>
