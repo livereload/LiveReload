@@ -11,9 +11,11 @@
 #import "NewMainWindowController.h"
 #import "ATLoginItemController.h"
 #import "PluginManager.h"
+#import "SandboxAccessModel.h"
 
 #import "Stats.h"
 #import "Preferences.h"
+#import "LRGlobals.h"
 
 #import "ShitHappens.h"
 #import "LicenseManager.h"
@@ -81,6 +83,8 @@ json_t *C_kernel__on_browser_v6_protocol_connection(json_t *message) {
     NewMainWindowController  *_mainWindowController;
     int _port;
     Glitter *_glitter;
+
+    SandboxAccessModel *_sandboxAccessModel;
 }
 
 
@@ -101,6 +105,9 @@ json_t *C_kernel__on_browser_v6_protocol_connection(json_t *message) {
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    // initialize this early to allow the additional folders to be accessed by other initialization code
+    _sandboxAccessModel = [[SandboxAccessModel alloc] initWithDataFileURL:[LRDataFolderURL() URLByAppendingPathComponent:@"sandbox-extensions.json"]];
+
     // Tell everyone we're running their scripts from LiveReload.
     // At least one of ours users has to test this var in his .bash_profile;
     // I can imagine there any many more cases when it comes in handy.
@@ -126,47 +133,26 @@ json_t *C_kernel__on_browser_v6_protocol_connection(json_t *message) {
         }
     }
 
-    const char *backendOverrideRaw = getenv("LRBackendOverride");
-    if (backendOverrideRaw && *backendOverrideRaw) {
-        NSString *backendOverride = [NSString stringWithUTF8String:backendOverrideRaw];
-        NSError *error = nil;
+    NSString *backendOverridePath = [NSProcessInfo processInfo].environment[@"LRBackendOverride"];
+    if (backendOverridePath.length > 0) {
+        NSURL *backendOverrideURL = [NSURL fileURLWithPath:backendOverridePath];
 
-        if (ATIsSandboxed()) {
-            BOOL stale = NO;
-            NSString *bookmark = [[NSUserDefaults standardUserDefaults] stringForKey:@"BackendOverrideBookmark"];
-            if ([bookmark length] > 0) {
-                NSURL *url = [NSURL URLByResolvingBookmarkData:[NSData dataFromBase64String:bookmark] options:NSURLBookmarkResolutionWithSecurityScope relativeToURL:nil bookmarkDataIsStale:&stale error:&error];
-                if (url) {
-                    [url startAccessingSecurityScopedResource];
-                }
-            }
+        [_sandboxAccessModel grantAccessToURL:[backendOverrideURL URLByDeletingLastPathComponent] writeAccess:NO title:@"Grant Access To Backend" message:@"Choose a **ROOT** folder of the overridden backend"];
 
-            NSString *data = [NSString stringWithContentsOfFile:backendOverride encoding:NSUTF8StringEncoding error:NULL];
-            if (!data) {
-                // chances are we don't have access
-                NSOpenPanel *openPanel = [NSOpenPanel openPanel];
-                [openPanel setCanChooseDirectories:YES];
-                [openPanel setCanCreateDirectories:NO];
-                [openPanel setTitle:@"Grant Access To Backend"];
-                [openPanel setMessage:@"Choose a root folder of the overridden backend"];
-                [openPanel setPrompt:@"Extend Sandbox"];
-                [openPanel setCanChooseFiles:NO];
-                [openPanel setTreatsFilePackagesAsDirectories:YES];
-                NSInteger result = [openPanel runModal];
-                if (result == NSFileHandlingPanelOKButton) {
-                    NSURL *url = [openPanel URL];
-
-                    bookmark = [[url bookmarkDataWithOptions:NSURLBookmarkCreationWithSecurityScope|NSURLBookmarkCreationSecurityScopeAllowOnlyReadAccess includingResourceValuesForKeys:nil relativeToURL:nil error:&error] base64EncodedString];
-                    if (bookmark) {
-                        [[NSUserDefaults standardUserDefaults] setObject:bookmark forKey:@"BackendOverrideBookmark"];
-                    }
-                }
-            }
+        if (ATCheckPathAccessibility(backendOverrideURL) != ATPathAccessibilityAccessible) {
+            [[NSAlert alertWithMessageText:@"LiveReload cannot access its backend" defaultButton:@"Quit" alternateButton:nil otherButton:nil informativeTextWithFormat:@"Cannot read a file at the following path: %@", backendOverrideURL.path] runModal];
+            exit(0);
         }
+    }
 
-        NSString *data = [NSString stringWithContentsOfFile:backendOverride encoding:NSUTF8StringEncoding error:NULL];
-        if (!data) {
-            [[NSAlert alertWithMessageText:@"LiveReload cannot access its backend" defaultButton:@"Quit" alternateButton:nil otherButton:nil informativeTextWithFormat:@"Cannot read a file at the following path: %@", backendOverride] runModal];
+    NSString *bundledPluginsOverridePath = [NSProcessInfo processInfo].environment[@"LRBundledPluginsOverride"];
+    if (bundledPluginsOverridePath.length > 0) {
+        NSURL *bundledPluginsOverrideURL = [NSURL fileURLWithPath:bundledPluginsOverridePath];
+
+        [_sandboxAccessModel grantAccessToURL:bundledPluginsOverrideURL writeAccess:NO title:@"Grant Access To Bundled Plugins" message:@"Please confirm access to the bundled plugins"];
+
+        if ( ATCheckPathAccessibility(bundledPluginsOverrideURL) != ATPathAccessibilityAccessible) {
+            [[NSAlert alertWithMessageText:@"LiveReload cannot access its plugins" defaultButton:@"Quit" alternateButton:nil otherButton:nil informativeTextWithFormat:@"Cannot access the following directory: %@", bundledPluginsOverrideURL.path] runModal];
             exit(0);
         }
     }
@@ -435,6 +421,17 @@ json_t *C_kernel__on_browser_v6_protocol_connection(json_t *message) {
 
 - (void)popoverDidClose:(NSNotification *)notification {
     [[DockIcon currentDockIcon] setMenuBarIconVisibility:NO forRequestKey:@"update"];
+}
+
+
+#pragma mark - Sandbox Access Extension
+
+- (IBAction)extendSandboxForReadWriteAccess:(id)sender {
+
+}
+
+- (IBAction)showSandboxExtensions:(id)sender {
+    
 }
 
 @end

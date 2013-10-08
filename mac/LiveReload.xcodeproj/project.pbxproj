@@ -223,6 +223,9 @@
 		43B5C04017AEA9F400F57276 /* NSAppleScript+ATInvokeHandlerWithArguments.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B5C03F17AEA9F300F57276 /* NSAppleScript+ATInvokeHandlerWithArguments.m */; };
 		43C0368613CA191D00A01305 /* LiveReload.icns in Resources */ = {isa = PBXBuildFile; fileRef = 43C0368513CA191C00A01305 /* LiveReload.icns */; };
 		43C3D04E15B37B1500BCD2E8 /* LicenseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C3D04D15B37B1500BCD2E8 /* LicenseManager.m */; };
+		43C611941803BDBD008A707E /* SandboxAccessModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C611931803BDBD008A707E /* SandboxAccessModel.m */; };
+		43C611971803CCF8008A707E /* ATScheduling.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C611961803CCF8008A707E /* ATScheduling.m */; };
+		43C6119A1803D537008A707E /* LRGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C611991803D537008A707E /* LRGlobals.m */; };
 		43CDCF8D17C6082A007B22D9 /* ATAttributedStringAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CDCF8C17C6082A007B22D9 /* ATAttributedStringAdditions.m */; };
 		43CDCF9017C70A94007B22D9 /* FSChange.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CDCF8F17C70A94007B22D9 /* FSChange.m */; };
 		43DB9FD4178EDF2E007BEA36 /* Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD3178EDF2E007BEA36 /* Errors.m */; };
@@ -693,6 +696,12 @@
 		43C0368513CA191C00A01305 /* LiveReload.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LiveReload.icns; sourceTree = "<group>"; };
 		43C3D04C15B37B1500BCD2E8 /* LicenseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LicenseManager.h; sourceTree = "<group>"; };
 		43C3D04D15B37B1500BCD2E8 /* LicenseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LicenseManager.m; sourceTree = "<group>"; };
+		43C611921803BDBD008A707E /* SandboxAccessModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandboxAccessModel.h; sourceTree = "<group>"; };
+		43C611931803BDBD008A707E /* SandboxAccessModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SandboxAccessModel.m; sourceTree = "<group>"; };
+		43C611951803CCF8008A707E /* ATScheduling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATScheduling.h; sourceTree = "<group>"; };
+		43C611961803CCF8008A707E /* ATScheduling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATScheduling.m; sourceTree = "<group>"; };
+		43C611981803D537008A707E /* LRGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRGlobals.h; sourceTree = "<group>"; };
+		43C611991803D537008A707E /* LRGlobals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRGlobals.m; sourceTree = "<group>"; };
 		43CDCF8B17C6082A007B22D9 /* ATAttributedStringAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATAttributedStringAdditions.h; sourceTree = "<group>"; };
 		43CDCF8C17C6082A007B22D9 /* ATAttributedStringAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATAttributedStringAdditions.m; sourceTree = "<group>"; };
 		43CDCF8E17C70A94007B22D9 /* FSChange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSChange.h; sourceTree = "<group>"; };
@@ -1573,6 +1582,8 @@
 				43CDCF8C17C6082A007B22D9 /* ATAttributedStringAdditions.m */,
 				43DFE4DC17CB613100DEF87B /* ATAsync.h */,
 				43DFE4DD17CB613100DEF87B /* ATAsync.m */,
+				43C611951803CCF8008A707E /* ATScheduling.h */,
+				43C611961803CCF8008A707E /* ATScheduling.m */,
 			);
 			path = ATCommons;
 			sourceTree = "<group>";
@@ -1606,6 +1617,15 @@
 				43B5C03C17AEA8C000F57276 /* Coda2Editor.m */,
 			);
 			path = SpecificEditors;
+			sourceTree = "<group>";
+		};
+		43C611911803BD95008A707E /* SandboxAccess */ = {
+			isa = PBXGroup;
+			children = (
+				43C611921803BDBD008A707E /* SandboxAccessModel.h */,
+				43C611931803BDBD008A707E /* SandboxAccessModel.m */,
+			);
+			path = SandboxAccess;
 			sourceTree = "<group>";
 		};
 		43DFE4EB17CCA4DE00DEF87B /* Sparkle */ = {
@@ -1657,6 +1677,7 @@
 				437BAB8B173A13F5005AA1C0 /* Runtimes */,
 				823DDE6713F8DA3100529AD2 /* Model */,
 				434BB27F17BBF23A000BEB1C /* Graph */,
+				43C611911803BD95008A707E /* SandboxAccess */,
 				823DDE7213F8DA3100529AD2 /* Monitoring */,
 				823DDE7B13F8DA3100529AD2 /* Plugins */,
 				823DDE8613F8DA3100529AD2 /* Preferences */,
@@ -1671,6 +1692,8 @@
 		823DDE2E13F8DA3100529AD2 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				43C611981803D537008A707E /* LRGlobals.h */,
+				43C611991803D537008A707E /* LRGlobals.m */,
 				823DDE2F13F8DA3100529AD2 /* LiveReloadAppDelegate.h */,
 				823DDE3013F8DA3100529AD2 /* LiveReloadAppDelegate.m */,
 				435729151452267C00947B2E /* Stats.h */,
@@ -2106,6 +2129,7 @@
 				823DDEEE13F8DA3100529AD2 /* Bag.m in Sources */,
 				823DDEEF13F8DA3100529AD2 /* CompilationOptions.m in Sources */,
 				43DFE4DB17CA97A800DEF87B /* FilterActionRow.m in Sources */,
+				43C611971803CCF8008A707E /* ATScheduling.m in Sources */,
 				823DDEF013F8DA3100529AD2 /* LRFile.m in Sources */,
 				823DDEF113F8DA3100529AD2 /* Project.m in Sources */,
 				823DDEF213F8DA3100529AD2 /* Workspace.m in Sources */,
@@ -2188,6 +2212,7 @@
 				4303A54F15B513FD009D732A /* nodeapp_rpc_protocol.c in Sources */,
 				4303A55315B513FD009D732A /* nodeapp_utils.c in Sources */,
 				4303A55415B513FD009D732A /* nodeapp_api_app.m in Sources */,
+				43C6119A1803D537008A707E /* LRGlobals.m in Sources */,
 				4303A55515B513FD009D732A /* nodeapp_api_preferences.m in Sources */,
 				4303A55615B513FD009D732A /* nodeapp_autorelease_osdep.m in Sources */,
 				4303A55715B513FD009D732A /* nodeapp_broker_osdep.m in Sources */,
@@ -2206,6 +2231,7 @@
 				4303A57715B513FD009D732A /* nodeapp_licensing.m in Sources */,
 				4303A57915B513FD009D732A /* nodeapp_ui_element.cc in Sources */,
 				4303A57A15B513FD009D732A /* nodeapp_ui_element_osdep.mm in Sources */,
+				43C611941803BDBD008A707E /* SandboxAccessModel.m in Sources */,
 				4303A57B15B513FD009D732A /* nodeapp_ui_element_osdep_application.mm in Sources */,
 				4396F1E117F8112F00AA8200 /* GlitterVersionUtilities.m in Sources */,
 				4303A57C15B513FD009D732A /* nodeapp_ui_element_osdep_button.mm in Sources */,
@@ -2616,6 +2642,7 @@
 				4396F1C717F77A8900AA8200 /* AppStore */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "LiveReload" */ = {
 			isa = XCConfigurationList;
