@@ -86,6 +86,8 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder">
             <connections>
                 <action selector="checkForUpdates:" destination="714" id="716"/>
+                <action selector="extendSandboxForReadWriteAccess:" destination="uUy-sI-4pe" id="NQI-wO-jYX"/>
+                <action selector="showSandboxExtensions:" destination="HEg-pE-g2D" id="hbA-Ef-DLe"/>
             </connections>
         </customObject>
         <customObject id="-3" userLabel="Application"/>
@@ -417,7 +419,7 @@
                     <constraints>
                         <constraint firstAttribute="width" constant="28" id="IVF-mf-w3v"/>
                     </constraints>
-                    <popUpButtonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" imagePosition="only" alignment="left" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" autoenablesItems="NO" altersStateOfSelectedItem="NO" selectedItem="714" id="596">
+                    <popUpButtonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" imagePosition="only" alignment="left" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" autoenablesItems="NO" altersStateOfSelectedItem="NO" selectedItem="HEg-pE-g2D" id="596">
                         <behavior key="behavior" lightByContents="YES"/>
                         <font key="font" metaFont="menu"/>
                         <menu key="menu" title="OtherViews" autoenablesItems="NO" id="597">
@@ -430,6 +432,12 @@
                                 </menuItem>
                                 <menuItem isSeparatorItem="YES" id="571"/>
                                 <menuItem title="Preferences..." keyEquivalent="," id="753"/>
+                                <menuItem title="Allow Access to Folder..." id="uUy-sI-4pe">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Show Accessible Folders" alternate="YES" id="HEg-pE-g2D">
+                                    <modifierMask key="keyEquivalentModifierMask" option="YES"/>
+                                </menuItem>
                                 <menuItem isSeparatorItem="YES" id="752"/>
                                 <menuItem title="Show in Dock" tag="1" id="646">
                                     <modifierMask key="keyEquivalentModifierMask"/>

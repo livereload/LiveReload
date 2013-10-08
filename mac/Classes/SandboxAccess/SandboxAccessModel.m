@@ -25,6 +25,12 @@
     return self;
 }
 
+- (NSArray *)accessibleURLs {
+    return [_urls filteredArrayUsingBlock:^BOOL(id value) {
+        return value != [NSNull null];
+    }];
+}
+
 - (void)addURL:(NSURL *)url {
     NSError * __autoreleasing error = nil;
 

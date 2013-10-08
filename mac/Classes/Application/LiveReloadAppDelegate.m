@@ -24,6 +24,7 @@
 #import "NSData+Base64.h"
 #import "Runtimes.h"
 #import "EditorManager.h"
+#import "ATFunctionalStyle.h"
 
 #ifndef APPSTORE
 #import "Glitter.h"
@@ -427,11 +428,33 @@ json_t *C_kernel__on_browser_v6_protocol_connection(json_t *message) {
 #pragma mark - Sandbox Access Extension
 
 - (IBAction)extendSandboxForReadWriteAccess:(id)sender {
+    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+    [openPanel setCanChooseDirectories:YES];
+    [openPanel setCanCreateDirectories:NO];
+    [openPanel setTitle:@"Extend Sandbox"];
+    [openPanel setMessage:@"Choose a folder that should be accessible to LiveReload"];
+    [openPanel setPrompt:@"Allow Access"];
+    [openPanel setCanChooseFiles:NO];
+    [openPanel setTreatsFilePackagesAsDirectories:YES];
 
+    NSInteger result = [openPanel runModal];
+    if (result == NSFileHandlingPanelOKButton) {
+        NSURL *url = [openPanel URL];
+
+        [_sandboxAccessModel addURL:url];
+    }
 }
 
 - (IBAction)showSandboxExtensions:(id)sender {
-    
+    NSArray *urls = [_sandboxAccessModel.accessibleURLs arrayByMappingElementsUsingBlock:^id(NSURL *url) {
+        return [NSString stringWithFormat:@"• %@", url.path];
+    }];
+
+    NSAlert *alert = [NSAlert new];
+    [alert setMessageText:@"Accessible URLs"];
+    [alert setInformativeText:[NSString stringWithFormat:@"The following URLs have been manually added to the LiveReload sandbox:\n\n%@", [urls componentsJoinedByString:@"\n"]]];
+    [alert addButtonWithTitle:@"OK"];
+    [alert runModal];
 }
 
 @end
