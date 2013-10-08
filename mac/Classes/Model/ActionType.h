@@ -35,8 +35,12 @@ NSArray *LRValidActionKindStrings();
 - (id)initWithIdentifier:(NSString *)identifier kind:(ActionKind)kind actionClass:(Class)actionClass rowClass:(Class)rowClass options:(NSDictionary *)options plugin:(Plugin *)plugin;
 + (ActionType *)actionTypeWithOptions:(NSDictionary *)options plugin:(Plugin *)plugin;
 
+- (void)initializeWithOptions;
+
 - (void)addErrorMessage:(NSString *)message;
 
 - (Action *)newInstanceWithMemento:(NSDictionary *)memento;
+
+@property(nonatomic, copy) NSArray *errorSpecs;
 
 @end

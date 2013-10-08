@@ -13,6 +13,10 @@
     NSMutableDictionary *_memento;
 }
 
++ (void)validateActionType:(ActionType *)actionType {
+    // nothing to do here
+}
+
 - (ActionKind)kind {
     return _type.kind;
 }

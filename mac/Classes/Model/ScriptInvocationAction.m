@@ -9,6 +9,10 @@
 
 @implementation ScriptInvocationAction
 
++ (void)validateActionType:(ActionType *)type {
+    // TODO: validate errorSpecs?
+}
+
 - (void)compileFile:(LRFile2 *)file inProject:(Project *)project completionHandler:(UserScriptCompletionHandler)completionHandler {
     ScriptInvocationStep *step = [ScriptInvocationStep new];
     step.project = project;

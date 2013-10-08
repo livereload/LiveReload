@@ -12,6 +12,8 @@
 
 @interface Action : NSObject
 
++ (void)validateActionType:(ActionType *)actionType; // override point
+
 - (id)initWithType:(ActionType *)type memento:(NSDictionary *)memento;
 
 @property(nonatomic, readonly) ActionType *type;

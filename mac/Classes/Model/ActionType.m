@@ -50,8 +50,14 @@ NSArray *LRValidActionKindStrings() {
         _plugin = plugin;
         _errors = [NSMutableArray new];
         _valid = YES;
+
+        [self initializeWithOptions];
     }
     return self;
+}
+
+- (void)initializeWithOptions {
+    _errorSpecs = _options[@"errors"] ?: @[];
 }
 
 + (ActionType *)actionTypeWithOptions:(NSDictionary *)options plugin:(Plugin *)plugin {
@@ -103,6 +109,8 @@ NSArray *LRValidActionKindStrings() {
         [result addErrorMessage:[NSString stringWithFormat:@"Cannot find action class '%@'", actionClassName]];
     if (!rowClass)
         [result addErrorMessage:[NSString stringWithFormat:@"Cannot find row class '%@'", rowClassName]];
+
+    [actionClass validateActionType:result];
 
     return result;
 }
