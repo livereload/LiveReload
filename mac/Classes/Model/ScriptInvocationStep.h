@@ -12,6 +12,7 @@
 @property(nonatomic, retain) Project *project;  // for collapsing the paths in the console log
 
 @property(nonatomic, copy) NSArray *commandLine;
+@property(nonatomic, copy) NSDictionary *manifest;
 
 - (void)addValue:(id)value forSubstitutionKey:(NSString *)key;
 - (void)addFileValue:(LRFile2 *)file forSubstitutionKey:(NSString *)key;

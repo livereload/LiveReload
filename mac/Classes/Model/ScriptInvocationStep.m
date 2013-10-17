@@ -3,6 +3,7 @@
 #import "LRFile2.h"
 #import "Project.h"
 #import "ToolOutput.h"
+#import "Glue.h"
 
 #import "ATChildTask.h"
 #import "NSArray+ATSubstitutions.h"
@@ -57,7 +58,29 @@
         
         if (error) {
             NSLog(@"Error: %@\nOutput:\n%@", [error description], outputText);
-            _output = [[ToolOutput alloc] initWithCompiler:nil type:ToolOutputTypeLog sourcePath:command line:0 message:nil output:outputText];
+            [[Glue glue] postMessage:@{@"service": @"msgparser", @"command": @"parse", @"manifest": self.manifest, @"input": outputText} withReplyHandler:^(NSError *error, NSDictionary *result) {
+
+                NSDictionary *errorMessage = nil;
+                for (NSDictionary *message in result[@"messages"]) {
+                    if ([message[@"type"] isEqualToString:@"error"]) {
+                        errorMessage = message;
+                        break;
+                    }
+                }
+
+                NSString *affectedFile = errorMessage[@"file"] ?: [_files[@"src"] absolutePath];
+                if (errorMessage) {
+                    _output = [[ToolOutput alloc] initWithCompiler:nil type:ToolOutputTypeError sourcePath:affectedFile line:[errorMessage[@"line"] integerValue] message:errorMessage[@"message"] output:outputText];
+                    NSLog(@"Error message: %@", result);
+                } else {
+                    _output = [[ToolOutput alloc] initWithCompiler:nil type:ToolOutputTypeErrorRaw sourcePath:affectedFile line:0 message:nil output:outputText];
+                }
+
+                self.finished = YES;
+                if (self.completionHandler)
+                    self.completionHandler(self);
+            }];
+            return;
         }
 
         self.finished = YES;

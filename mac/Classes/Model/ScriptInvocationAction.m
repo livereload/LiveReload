@@ -31,6 +31,7 @@
 
 - (void)configureStep:(ScriptInvocationStep *)step forFile:(LRFile2 *)file {
     step.commandLine = self.type.options[@"cmdline"];
+    step.manifest = self.type.options;
     [step addValue:self.type.plugin.path forSubstitutionKey:@"plugin"];
 }
 
