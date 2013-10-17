@@ -1,9 +1,6 @@
 
 #include "nodeapp_private.h"
 
-// TODO: invent a hook system to avoid referencing modules from core
-extern void nodeapp_ui_reset();
-
 void nodeapp_init() {
     nodeapp_compute_paths();
     nodeapp_init_logging();
@@ -15,7 +12,7 @@ void nodeapp_shutdown() {
 }
 
 void nodeapp_reset() {
-    nodeapp_ui_reset();
+//    nodeapp_ui_reset();
 //    nodeapp_init_logging();
 }
 

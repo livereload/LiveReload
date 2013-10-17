@@ -10,7 +10,6 @@
 #import "NSData+Base64.h"
 #import "jansson.h"
 #import "nodeapp.h"
-#import "nodeapp_rpc_proxy.h"
 
 
 #define ProjectListKey @"projects20a3"
@@ -204,11 +203,11 @@ static NSString *ClientConnectedMonitoringKey = @"clientConnected";
 #pragma mark - Backend sync
 
 - (void)sendModelToBackend {
-    id memento = [[NSUserDefaults standardUserDefaults] objectForKey:ProjectListKey];
-    if (!memento)
-        memento = [NSDictionary dictionary];
-    json_t *memento_json = nodeapp_objc_to_json(memento);
-    S_app_reload_legacy_projects(memento_json);
+//    id memento = [[NSUserDefaults standardUserDefaults] objectForKey:ProjectListKey];
+//    if (!memento)
+//        memento = [NSDictionary dictionary];
+//    json_t *memento_json = nodeapp_objc_to_json(memento);
+//    S_app_reload_legacy_projects(memento_json);
 }
 
 void C_app__request_model(json_t *arg) {

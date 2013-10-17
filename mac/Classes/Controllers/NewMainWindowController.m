@@ -7,6 +7,7 @@
 #import "TerminalViewController.h"
 #import "LicenseCodeWindowController.h"
 #import "PreferencesController.h"
+#import "AppState.h"
 
 #import "LiveReloadAppDelegate.h"
 #import "PluginManager.h"
@@ -31,6 +32,7 @@
 #import "ATSolidView.h"
 #import "ATFlippedView.h"
 #import "ATAttributedStringAdditions.h"
+#import "ATObservation.h"
 
 #import "jansson.h"
 
@@ -72,22 +74,6 @@ enum { PANE_COUNT = PaneProject+1 };
 
 @end
 
-
-int browsers_connected = 0;
-int changes_processed = 0;
-
-json_t *C_kernel__server_connection_count_changed(json_t *message) {
-    browsers_connected = json_integer_value(json_object_get(message, "connectionCount"));
-    [[NewMainWindowController sharedMainWindowController] updateStatus];
-    [Workspace sharedWorkspace].monitoringEnabled = (browsers_connected > 0);
-    return NULL;
-}
-
-json_t *C_kernel__server_refresh_count_changed(json_t *message) {
-    changes_processed = json_integer_value(json_object_get(message, "refreshCount"));
-    [[NewMainWindowController sharedMainWindowController] updateStatus];
-    return NULL;
-}
 
 
 @implementation NewMainWindowController
@@ -132,6 +118,10 @@ json_t *C_kernel__server_refresh_count_changed(json_t *message) {
         [_folderImage setSize:NSMakeSize(16,16)];
     }
     return self;
+}
+
+- (void)dealloc {
+    [self removeAllObservationsOfObject:[AppState sharedAppState]];
 }
 
 - (NSShadow *)subtleWhiteShadow {
@@ -272,6 +262,8 @@ json_t *C_kernel__server_refresh_count_changed(json_t *message) {
 
     [[Workspace sharedWorkspace] addObserver:self forKeyPath:@"projects" options:0 context:nil];
 
+    [self observeObject:[AppState sharedAppState] properties:@[@"numberOfConnectedBrowsers", @"numberOfRefreshesProcessed"] withSelector:@selector(updateStatus)];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLicensingUI) name:LicenseManagerStatusDidChangeNotification object:nil];
 }
 
@@ -280,6 +272,7 @@ json_t *C_kernel__server_refresh_count_changed(json_t *message) {
         [NSApp endSheet:[_projectSettingsSheetController window]];
     }
 }
+
 
 
 #pragma mark - Panes
@@ -946,19 +939,20 @@ json_t *C_kernel__server_refresh_count_changed(json_t *message) {
 #pragma mark - Status
 
 - (void)updateStatus {
+    AppState *appState = [AppState sharedAppState];
     NSString *text;
     if (_projects.count == 0) {
         text = @"";
         [_gettingStartedView setHidden:NO];
     } else {
         [_gettingStartedView setHidden:YES];
-        NSInteger n = browsers_connected;
+        NSInteger n = appState.numberOfConnectedBrowsers;
         if (n == 0) {
             text = @"Waiting for a browser to connect.";
         } else if (n == 1) {
-            text = [NSString stringWithFormat:@"1 browser connected, %d changes detected so far.", changes_processed];
+            text = [NSString stringWithFormat:@"1 browser connected, %d changes detected so far.", (int)appState.numberOfRefreshesProcessed];
         } else {
-            text = [NSString stringWithFormat:@"%d browsers connected, %d changes detected so far.", (int)n, (int)changes_processed];
+            text = [NSString stringWithFormat:@"%d browsers connected, %d changes detected so far.", (int)n, (int)appState.numberOfRefreshesProcessed];
         }
     }
     _statusTextField.stringValue = text;

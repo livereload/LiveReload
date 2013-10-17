@@ -37,6 +37,7 @@
 
 - (BOOL)shouldInvokeForModifiedFiles:(NSSet *)paths inProject:(Project *)project;
 
+- (BOOL)shouldInvokeForFile:(LRFile2 *)file;
 - (void)analyzeFile:(LRFile2 *)file inProject:(Project *)project;
 - (void)compileFile:(LRFile2 *)file inProject:(Project *)project completionHandler:(UserScriptCompletionHandler)completionHandler;
 

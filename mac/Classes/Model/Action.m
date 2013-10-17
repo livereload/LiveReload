@@ -1,5 +1,6 @@
 
 #import "Action.h"
+#import "LRFile2.h"
 
 
 @interface Action ()
@@ -90,6 +91,10 @@
 
 - (BOOL)isNonEmpty {
     return YES;
+}
+
+- (BOOL)shouldInvokeForFile:(LRFile2 *)file {
+    return [self.inputPathSpec matchesPath:file.relativePath type:ATPathSpecEntryTypeFile];
 }
 
 - (BOOL)shouldInvokeForModifiedFiles:(NSSet *)paths inProject:(Project *)project {

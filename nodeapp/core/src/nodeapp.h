@@ -170,7 +170,6 @@ void nodeapp_shutdown();
 void nodeapp_reset();
 
 void nodeapp_rpc_send(const char *command, json_t *arg);
-void nodeapp_rpc_send_json(json_t *message);
 void nodeapp_rpc_invoke_and_keep_callback(const char *callback, json_t *arg);
 void nodeapp_rpc_invoke_and_dispose_callback(const char *callback, json_t *arg);
 void nodeapp_rpc_dispose_callback(const char *callback);

@@ -26,8 +26,7 @@
 		4303A54B15B513FD009D732A /* nodeapp_autorelease.c in Sources */ = {isa = PBXBuildFile; fileRef = 4303A4D415B513FD009D732A /* nodeapp_autorelease.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4303A54C15B513FD009D732A /* nodeapp_broker.c in Sources */ = {isa = PBXBuildFile; fileRef = 4303A4D515B513FD009D732A /* nodeapp_broker.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4303A54D15B513FD009D732A /* nodeapp_paths_common.c in Sources */ = {isa = PBXBuildFile; fileRef = 4303A4D715B513FD009D732A /* nodeapp_paths_common.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		4303A54E15B513FD009D732A /* nodeapp_rpc_common.c in Sources */ = {isa = PBXBuildFile; fileRef = 4303A4D915B513FD009D732A /* nodeapp_rpc_common.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		4303A54F15B513FD009D732A /* nodeapp_rpc_protocol.c in Sources */ = {isa = PBXBuildFile; fileRef = 4303A4DA15B513FD009D732A /* nodeapp_rpc_protocol.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4303A54E15B513FD009D732A /* nodeapp_rpc_common.m in Sources */ = {isa = PBXBuildFile; fileRef = 4303A4D915B513FD009D732A /* nodeapp_rpc_common.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4303A55015B513FD009D732A /* nodeapp_rpc_proxy.c.erb in Resources */ = {isa = PBXBuildFile; fileRef = 4303A4DB15B513FD009D732A /* nodeapp_rpc_proxy.c.erb */; };
 		4303A55115B513FD009D732A /* nodeapp_rpc_proxy.h.erb in Resources */ = {isa = PBXBuildFile; fileRef = 4303A4DC15B513FD009D732A /* nodeapp_rpc_proxy.h.erb */; };
 		4303A55215B513FD009D732A /* nodeapp_rpc_router.c.erb in Resources */ = {isa = PBXBuildFile; fileRef = 4303A4DD15B513FD009D732A /* nodeapp_rpc_router.c.erb */; };
@@ -50,29 +49,15 @@
 		4303A56515B513FD009D732A /* routing_tasks.rb in Resources */ = {isa = PBXBuildFile; fileRef = 4303A4F715B513FD009D732A /* routing_tasks.rb */; };
 		4303A56615B513FD009D732A /* version_tasks.rb in Resources */ = {isa = PBXBuildFile; fileRef = 4303A4F815B513FD009D732A /* version_tasks.rb */; };
 		4303A57715B513FD009D732A /* nodeapp_licensing.m in Sources */ = {isa = PBXBuildFile; fileRef = 4303A51615B513FD009D732A /* nodeapp_licensing.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		4303A57915B513FD009D732A /* nodeapp_ui_element.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4303A51B15B513FD009D732A /* nodeapp_ui_element.cc */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		4303A57A15B513FD009D732A /* nodeapp_ui_element_osdep.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4303A51E15B513FD009D732A /* nodeapp_ui_element_osdep.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		4303A57B15B513FD009D732A /* nodeapp_ui_element_osdep_application.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4303A52015B513FD009D732A /* nodeapp_ui_element_osdep_application.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		4303A57C15B513FD009D732A /* nodeapp_ui_element_osdep_button.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4303A52215B513FD009D732A /* nodeapp_ui_element_osdep_button.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		4303A57D15B513FD009D732A /* nodeapp_ui_element_osdep_control.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4303A52415B513FD009D732A /* nodeapp_ui_element_osdep_control.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		4303A57E15B513FD009D732A /* nodeapp_ui_element_osdep_generic.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4303A52615B513FD009D732A /* nodeapp_ui_element_osdep_generic.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		4303A57F15B513FD009D732A /* nodeapp_ui_element_osdep_outline.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4303A52815B513FD009D732A /* nodeapp_ui_element_osdep_outline.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		4303A58015B513FD009D732A /* nodeapp_ui_element_osdep_table.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4303A52A15B513FD009D732A /* nodeapp_ui_element_osdep_table.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		4303A58115B513FD009D732A /* nodeapp_ui_element_osdep_table_base.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4303A52C15B513FD009D732A /* nodeapp_ui_element_osdep_table_base.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		4303A58215B513FD009D732A /* nodeapp_ui_element_osdep_textfield.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4303A52E15B513FD009D732A /* nodeapp_ui_element_osdep_textfield.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		4303A58315B513FD009D732A /* nodeapp_ui_element_osdep_utils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4303A53015B513FD009D732A /* nodeapp_ui_element_osdep_utils.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		4303A58415B513FD009D732A /* nodeapp_ui_element_osdep_view.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4303A53215B513FD009D732A /* nodeapp_ui_element_osdep_view.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		4303A58515B513FD009D732A /* nodeapp_ui_element_osdep_window.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4303A53415B513FD009D732A /* nodeapp_ui_element_osdep_window.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		4303A58615B513FD009D732A /* nodeapp_ui_image.m in Sources */ = {isa = PBXBuildFile; fileRef = 4303A53515B513FD009D732A /* nodeapp_ui_image.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		4303A58715B513FD009D732A /* NodeAppWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4303A53815B513FD009D732A /* NodeAppWindow.m */; };
 		4303A58815B513FD009D732A /* nodeapp_url_handler_mac.m in Sources */ = {isa = PBXBuildFile; fileRef = 4303A53E15B513FD009D732A /* nodeapp_url_handler_mac.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		4303A59215B5275F009D732A /* nodeapp_rpc_proxy.c in Sources */ = {isa = PBXBuildFile; fileRef = 4303A58F15B5275F009D732A /* nodeapp_rpc_proxy.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		4303A59315B5275F009D732A /* nodeapp_rpc_router.c in Sources */ = {isa = PBXBuildFile; fileRef = 4303A59115B5275F009D732A /* nodeapp_rpc_router.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		43059209151DF2DE00CC3F88 /* MASReceipt.m in Sources */ = {isa = PBXBuildFile; fileRef = 43059208151DF2DE00CC3F88 /* MASReceipt.m */; };
 		43059222151E8FA400CC3F88 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43059221151E8FA400CC3F88 /* CoreServices.framework */; };
 		43059225151E90DE00CC3F88 /* DockIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 43059224151E90DE00CC3F88 /* DockIcon.m */; };
 		4310DE3D146DB588003091D1 /* ToolOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4310DE3C146DB588003091D1 /* ToolOptions.m */; };
 		4310DE40146DB6A0003091D1 /* UIBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4310DE3F146DB6A0003091D1 /* UIBuilder.m */; };
+		43122BF5180BBA5E00BF8121 /* Glue.m in Sources */ = {isa = PBXBuildFile; fileRef = 43122BF4180BBA5E00BF8121 /* Glue.m */; };
+		43122BF8180FB73200BF8121 /* AppState.m in Sources */ = {isa = PBXBuildFile; fileRef = 43122BF7180FB73200BF8121 /* AppState.m */; };
+		43122BFB180FBEFB00BF8121 /* ATObservation.m in Sources */ = {isa = PBXBuildFile; fileRef = 43122BFA180FBEFB00BF8121 /* ATObservation.m */; };
 		4313347915BC295B00659B4F /* UserScript.m in Sources */ = {isa = PBXBuildFile; fileRef = 4313347815BC295B00659B4F /* UserScript.m */; };
 		43146699146C5D2100DC075A /* ProjectPaneBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 43146698146C5D2100DC075A /* ProjectPaneBackground.png */; };
 		4314669B146C689500DC075A /* FolderIcon64.png in Resources */ = {isa = PBXBuildFile; fileRef = 4314669A146C689500DC075A /* FolderIcon64.png */; };
@@ -356,8 +341,7 @@
 		4303A4D615B513FD009D732A /* nodeapp_broker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nodeapp_broker.h; sourceTree = "<group>"; };
 		4303A4D715B513FD009D732A /* nodeapp_paths_common.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = nodeapp_paths_common.c; sourceTree = "<group>"; };
 		4303A4D815B513FD009D732A /* nodeapp_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nodeapp_private.h; sourceTree = "<group>"; };
-		4303A4D915B513FD009D732A /* nodeapp_rpc_common.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = nodeapp_rpc_common.c; sourceTree = "<group>"; };
-		4303A4DA15B513FD009D732A /* nodeapp_rpc_protocol.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = nodeapp_rpc_protocol.c; sourceTree = "<group>"; };
+		4303A4D915B513FD009D732A /* nodeapp_rpc_common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nodeapp_rpc_common.m; sourceTree = "<group>"; };
 		4303A4DB15B513FD009D732A /* nodeapp_rpc_proxy.c.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nodeapp_rpc_proxy.c.erb; sourceTree = "<group>"; };
 		4303A4DC15B513FD009D732A /* nodeapp_rpc_proxy.h.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nodeapp_rpc_proxy.h.erb; sourceTree = "<group>"; };
 		4303A4DD15B513FD009D732A /* nodeapp_rpc_router.c.erb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nodeapp_rpc_router.c.erb; sourceTree = "<group>"; };
@@ -385,43 +369,10 @@
 		4303A4F815B513FD009D732A /* version_tasks.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = version_tasks.rb; sourceTree = "<group>"; };
 		4303A51415B513FD009D732A /* nodeapp_licensing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nodeapp_licensing.h; sourceTree = "<group>"; };
 		4303A51615B513FD009D732A /* nodeapp_licensing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nodeapp_licensing.m; sourceTree = "<group>"; };
-		4303A51A15B513FD009D732A /* nodeapp_ui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nodeapp_ui.h; sourceTree = "<group>"; };
-		4303A51B15B513FD009D732A /* nodeapp_ui_element.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nodeapp_ui_element.cc; sourceTree = "<group>"; };
-		4303A51C15B513FD009D732A /* nodeapp_ui_element.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = nodeapp_ui_element.hh; sourceTree = "<group>"; };
-		4303A51E15B513FD009D732A /* nodeapp_ui_element_osdep.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = nodeapp_ui_element_osdep.mm; sourceTree = "<group>"; };
-		4303A51F15B513FD009D732A /* nodeapp_ui_element_osdep_application.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = nodeapp_ui_element_osdep_application.hh; sourceTree = "<group>"; };
-		4303A52015B513FD009D732A /* nodeapp_ui_element_osdep_application.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = nodeapp_ui_element_osdep_application.mm; sourceTree = "<group>"; };
-		4303A52115B513FD009D732A /* nodeapp_ui_element_osdep_button.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = nodeapp_ui_element_osdep_button.hh; sourceTree = "<group>"; };
-		4303A52215B513FD009D732A /* nodeapp_ui_element_osdep_button.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = nodeapp_ui_element_osdep_button.mm; sourceTree = "<group>"; };
-		4303A52315B513FD009D732A /* nodeapp_ui_element_osdep_control.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = nodeapp_ui_element_osdep_control.hh; sourceTree = "<group>"; };
-		4303A52415B513FD009D732A /* nodeapp_ui_element_osdep_control.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = nodeapp_ui_element_osdep_control.mm; sourceTree = "<group>"; };
-		4303A52515B513FD009D732A /* nodeapp_ui_element_osdep_generic.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = nodeapp_ui_element_osdep_generic.hh; sourceTree = "<group>"; };
-		4303A52615B513FD009D732A /* nodeapp_ui_element_osdep_generic.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = nodeapp_ui_element_osdep_generic.mm; sourceTree = "<group>"; };
-		4303A52715B513FD009D732A /* nodeapp_ui_element_osdep_outline.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = nodeapp_ui_element_osdep_outline.hh; sourceTree = "<group>"; };
-		4303A52815B513FD009D732A /* nodeapp_ui_element_osdep_outline.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = nodeapp_ui_element_osdep_outline.mm; sourceTree = "<group>"; };
-		4303A52915B513FD009D732A /* nodeapp_ui_element_osdep_table.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = nodeapp_ui_element_osdep_table.hh; sourceTree = "<group>"; };
-		4303A52A15B513FD009D732A /* nodeapp_ui_element_osdep_table.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = nodeapp_ui_element_osdep_table.mm; sourceTree = "<group>"; };
-		4303A52B15B513FD009D732A /* nodeapp_ui_element_osdep_table_base.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = nodeapp_ui_element_osdep_table_base.hh; sourceTree = "<group>"; };
-		4303A52C15B513FD009D732A /* nodeapp_ui_element_osdep_table_base.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = nodeapp_ui_element_osdep_table_base.mm; sourceTree = "<group>"; };
-		4303A52D15B513FD009D732A /* nodeapp_ui_element_osdep_textfield.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = nodeapp_ui_element_osdep_textfield.hh; sourceTree = "<group>"; };
-		4303A52E15B513FD009D732A /* nodeapp_ui_element_osdep_textfield.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = nodeapp_ui_element_osdep_textfield.mm; sourceTree = "<group>"; };
-		4303A52F15B513FD009D732A /* nodeapp_ui_element_osdep_utils.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = nodeapp_ui_element_osdep_utils.hh; sourceTree = "<group>"; };
-		4303A53015B513FD009D732A /* nodeapp_ui_element_osdep_utils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = nodeapp_ui_element_osdep_utils.mm; sourceTree = "<group>"; };
-		4303A53115B513FD009D732A /* nodeapp_ui_element_osdep_view.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = nodeapp_ui_element_osdep_view.hh; sourceTree = "<group>"; };
-		4303A53215B513FD009D732A /* nodeapp_ui_element_osdep_view.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = nodeapp_ui_element_osdep_view.mm; sourceTree = "<group>"; };
-		4303A53315B513FD009D732A /* nodeapp_ui_element_osdep_window.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = nodeapp_ui_element_osdep_window.hh; sourceTree = "<group>"; };
-		4303A53415B513FD009D732A /* nodeapp_ui_element_osdep_window.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = nodeapp_ui_element_osdep_window.mm; sourceTree = "<group>"; };
-		4303A53515B513FD009D732A /* nodeapp_ui_image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nodeapp_ui_image.m; sourceTree = "<group>"; };
-		4303A53615B513FD009D732A /* nodeapp_ui_objcobject.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = nodeapp_ui_objcobject.hh; sourceTree = "<group>"; };
-		4303A53715B513FD009D732A /* NodeAppWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NodeAppWindow.h; sourceTree = "<group>"; };
-		4303A53815B513FD009D732A /* NodeAppWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NodeAppWindow.m; sourceTree = "<group>"; };
 		4303A53B15B513FD009D732A /* nodeapp_url_handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nodeapp_url_handler.h; sourceTree = "<group>"; };
 		4303A53D15B513FD009D732A /* nodeapp_url_handler_mac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nodeapp_url_handler_mac.h; sourceTree = "<group>"; };
 		4303A53E15B513FD009D732A /* nodeapp_url_handler_mac.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nodeapp_url_handler_mac.m; sourceTree = "<group>"; };
 		4303A58D15B5163C009D732A /* app_config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = app_config.h; sourceTree = "<group>"; };
-		4303A58F15B5275F009D732A /* nodeapp_rpc_proxy.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = nodeapp_rpc_proxy.c; sourceTree = "<group>"; };
-		4303A59015B5275F009D732A /* nodeapp_rpc_proxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nodeapp_rpc_proxy.h; sourceTree = "<group>"; };
-		4303A59115B5275F009D732A /* nodeapp_rpc_router.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = nodeapp_rpc_router.c; sourceTree = "<group>"; };
 		4303A59415B53B31009D732A /* LiveReload.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = LiveReload.entitlements; sourceTree = "<group>"; };
 		43059207151DF2DE00CC3F88 /* MASReceipt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASReceipt.h; sourceTree = "<group>"; };
 		43059208151DF2DE00CC3F88 /* MASReceipt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASReceipt.m; sourceTree = "<group>"; };
@@ -432,6 +383,12 @@
 		4310DE3C146DB588003091D1 /* ToolOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolOptions.m; sourceTree = "<group>"; };
 		4310DE3E146DB6A0003091D1 /* UIBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBuilder.h; sourceTree = "<group>"; };
 		4310DE3F146DB6A0003091D1 /* UIBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIBuilder.m; sourceTree = "<group>"; };
+		43122BF3180BBA5E00BF8121 /* Glue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Glue.h; sourceTree = "<group>"; };
+		43122BF4180BBA5E00BF8121 /* Glue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Glue.m; sourceTree = "<group>"; };
+		43122BF6180FB73200BF8121 /* AppState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppState.h; sourceTree = "<group>"; };
+		43122BF7180FB73200BF8121 /* AppState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppState.m; sourceTree = "<group>"; };
+		43122BF9180FBEFB00BF8121 /* ATObservation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATObservation.h; sourceTree = "<group>"; };
+		43122BFA180FBEFB00BF8121 /* ATObservation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATObservation.m; sourceTree = "<group>"; };
 		4313347715BC295B00659B4F /* UserScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserScript.h; sourceTree = "<group>"; };
 		4313347815BC295B00659B4F /* UserScript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserScript.m; sourceTree = "<group>"; };
 		43146698146C5D2100DC075A /* ProjectPaneBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ProjectPaneBackground.png; sourceTree = "<group>"; };
@@ -944,7 +901,6 @@
 			children = (
 				4303A4BE15B513FD009D732A /* core */,
 				4303A51215B513FD009D732A /* licensing */,
-				4303A51815B513FD009D732A /* ui */,
 				4303A53915B513FD009D732A /* url_handler */,
 			);
 			name = nodeapp;
@@ -1003,8 +959,7 @@
 				4303A4D615B513FD009D732A /* nodeapp_broker.h */,
 				4303A4D715B513FD009D732A /* nodeapp_paths_common.c */,
 				4303A4D815B513FD009D732A /* nodeapp_private.h */,
-				4303A4D915B513FD009D732A /* nodeapp_rpc_common.c */,
-				4303A4DA15B513FD009D732A /* nodeapp_rpc_protocol.c */,
+				4303A4D915B513FD009D732A /* nodeapp_rpc_common.m */,
 				4303A4DB15B513FD009D732A /* nodeapp_rpc_proxy.c.erb */,
 				4303A4DC15B513FD009D732A /* nodeapp_rpc_proxy.h.erb */,
 				4303A4DD15B513FD009D732A /* nodeapp_rpc_router.c.erb */,
@@ -1073,59 +1028,6 @@
 			path = "src-mac";
 			sourceTree = "<group>";
 		};
-		4303A51815B513FD009D732A /* ui */ = {
-			isa = PBXGroup;
-			children = (
-				4303A51915B513FD009D732A /* src */,
-				4303A51D15B513FD009D732A /* src-mac */,
-			);
-			path = ui;
-			sourceTree = "<group>";
-		};
-		4303A51915B513FD009D732A /* src */ = {
-			isa = PBXGroup;
-			children = (
-				4303A51A15B513FD009D732A /* nodeapp_ui.h */,
-				4303A51B15B513FD009D732A /* nodeapp_ui_element.cc */,
-				4303A51C15B513FD009D732A /* nodeapp_ui_element.hh */,
-			);
-			path = src;
-			sourceTree = "<group>";
-		};
-		4303A51D15B513FD009D732A /* src-mac */ = {
-			isa = PBXGroup;
-			children = (
-				4303A51E15B513FD009D732A /* nodeapp_ui_element_osdep.mm */,
-				4303A51F15B513FD009D732A /* nodeapp_ui_element_osdep_application.hh */,
-				4303A52015B513FD009D732A /* nodeapp_ui_element_osdep_application.mm */,
-				4303A52115B513FD009D732A /* nodeapp_ui_element_osdep_button.hh */,
-				4303A52215B513FD009D732A /* nodeapp_ui_element_osdep_button.mm */,
-				4303A52315B513FD009D732A /* nodeapp_ui_element_osdep_control.hh */,
-				4303A52415B513FD009D732A /* nodeapp_ui_element_osdep_control.mm */,
-				4303A52515B513FD009D732A /* nodeapp_ui_element_osdep_generic.hh */,
-				4303A52615B513FD009D732A /* nodeapp_ui_element_osdep_generic.mm */,
-				4303A52715B513FD009D732A /* nodeapp_ui_element_osdep_outline.hh */,
-				4303A52815B513FD009D732A /* nodeapp_ui_element_osdep_outline.mm */,
-				4303A52915B513FD009D732A /* nodeapp_ui_element_osdep_table.hh */,
-				4303A52A15B513FD009D732A /* nodeapp_ui_element_osdep_table.mm */,
-				4303A52B15B513FD009D732A /* nodeapp_ui_element_osdep_table_base.hh */,
-				4303A52C15B513FD009D732A /* nodeapp_ui_element_osdep_table_base.mm */,
-				4303A52D15B513FD009D732A /* nodeapp_ui_element_osdep_textfield.hh */,
-				4303A52E15B513FD009D732A /* nodeapp_ui_element_osdep_textfield.mm */,
-				4303A52F15B513FD009D732A /* nodeapp_ui_element_osdep_utils.hh */,
-				4303A53015B513FD009D732A /* nodeapp_ui_element_osdep_utils.mm */,
-				4303A53115B513FD009D732A /* nodeapp_ui_element_osdep_view.hh */,
-				4303A53215B513FD009D732A /* nodeapp_ui_element_osdep_view.mm */,
-				4303A53315B513FD009D732A /* nodeapp_ui_element_osdep_window.hh */,
-				4303A53415B513FD009D732A /* nodeapp_ui_element_osdep_window.mm */,
-				4303A53515B513FD009D732A /* nodeapp_ui_image.m */,
-				4303A53615B513FD009D732A /* nodeapp_ui_objcobject.hh */,
-				4303A53715B513FD009D732A /* NodeAppWindow.h */,
-				4303A53815B513FD009D732A /* NodeAppWindow.m */,
-			);
-			path = "src-mac";
-			sourceTree = "<group>";
-		};
 		4303A53915B513FD009D732A /* url_handler */ = {
 			isa = PBXGroup;
 			children = (
@@ -1150,16 +1052,6 @@
 				4303A53E15B513FD009D732A /* nodeapp_url_handler_mac.m */,
 			);
 			path = "src-mac";
-			sourceTree = "<group>";
-		};
-		4303A58E15B5275F009D732A /* gen_src */ = {
-			isa = PBXGroup;
-			children = (
-				4303A58F15B5275F009D732A /* nodeapp_rpc_proxy.c */,
-				4303A59015B5275F009D732A /* nodeapp_rpc_proxy.h */,
-				4303A59115B5275F009D732A /* nodeapp_rpc_router.c */,
-			);
-			path = gen_src;
 			sourceTree = "<group>";
 		};
 		431CB52C16D1EF7200034877 /* plugins */ = {
@@ -1584,6 +1476,8 @@
 				43DFE4DD17CB613100DEF87B /* ATAsync.m */,
 				43C611951803CCF8008A707E /* ATScheduling.h */,
 				43C611961803CCF8008A707E /* ATScheduling.m */,
+				43122BF9180FBEFB00BF8121 /* ATObservation.h */,
+				43122BFA180FBEFB00BF8121 /* ATObservation.m */,
 			);
 			path = ATCommons;
 			sourceTree = "<group>";
@@ -1641,7 +1535,6 @@
 		43E34F9614705125001641AA /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				4303A58E15B5275F009D732A /* gen_src */,
 				432A6D93147622A600144F97 /* common.h */,
 				43E34F9714705125001641AA /* console.c */,
 				43E34F9814705125001641AA /* console.h */,
@@ -1706,6 +1599,8 @@
 				43059208151DF2DE00CC3F88 /* MASReceipt.m */,
 				43DB9FD2178EDF2E007BEA36 /* Errors.h */,
 				43DB9FD3178EDF2E007BEA36 /* Errors.m */,
+				43122BF3180BBA5E00BF8121 /* Glue.h */,
+				43122BF4180BBA5E00BF8121 /* Glue.m */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -1797,6 +1692,8 @@
 				4396F1EF17FA9EBA00AA8200 /* ScriptInvocationStep.m */,
 				4396F1E517F9E84300AA8200 /* CompileFileAction.h */,
 				4396F1E617F9E84300AA8200 /* CompileFileAction.m */,
+				43122BF6180FB73200BF8121 /* AppState.h */,
+				43122BF7180FB73200BF8121 /* AppState.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2208,8 +2105,7 @@
 				4303A54B15B513FD009D732A /* nodeapp_autorelease.c in Sources */,
 				4303A54C15B513FD009D732A /* nodeapp_broker.c in Sources */,
 				4303A54D15B513FD009D732A /* nodeapp_paths_common.c in Sources */,
-				4303A54E15B513FD009D732A /* nodeapp_rpc_common.c in Sources */,
-				4303A54F15B513FD009D732A /* nodeapp_rpc_protocol.c in Sources */,
+				4303A54E15B513FD009D732A /* nodeapp_rpc_common.m in Sources */,
 				4303A55315B513FD009D732A /* nodeapp_utils.c in Sources */,
 				4303A55415B513FD009D732A /* nodeapp_api_app.m in Sources */,
 				43C6119A1803D537008A707E /* LRGlobals.m in Sources */,
@@ -2229,34 +2125,19 @@
 				434BB25B17B9097D000BEB1C /* ActionsGroupHeaderRow.m in Sources */,
 				4303A56015B513FD009D732A /* NodeAppWindowController.m in Sources */,
 				4303A57715B513FD009D732A /* nodeapp_licensing.m in Sources */,
-				4303A57915B513FD009D732A /* nodeapp_ui_element.cc in Sources */,
-				4303A57A15B513FD009D732A /* nodeapp_ui_element_osdep.mm in Sources */,
 				43C611941803BDBD008A707E /* SandboxAccessModel.m in Sources */,
-				4303A57B15B513FD009D732A /* nodeapp_ui_element_osdep_application.mm in Sources */,
 				4396F1E117F8112F00AA8200 /* GlitterVersionUtilities.m in Sources */,
-				4303A57C15B513FD009D732A /* nodeapp_ui_element_osdep_button.mm in Sources */,
-				4303A57D15B513FD009D732A /* nodeapp_ui_element_osdep_control.mm in Sources */,
-				4303A57E15B513FD009D732A /* nodeapp_ui_element_osdep_generic.mm in Sources */,
-				4303A57F15B513FD009D732A /* nodeapp_ui_element_osdep_outline.mm in Sources */,
-				4303A58015B513FD009D732A /* nodeapp_ui_element_osdep_table.mm in Sources */,
-				4303A58115B513FD009D732A /* nodeapp_ui_element_osdep_table_base.mm in Sources */,
-				4303A58215B513FD009D732A /* nodeapp_ui_element_osdep_textfield.mm in Sources */,
-				4303A58315B513FD009D732A /* nodeapp_ui_element_osdep_utils.mm in Sources */,
 				43508A7E17B3767E00871422 /* ShadowBoxView.m in Sources */,
-				4303A58415B513FD009D732A /* nodeapp_ui_element_osdep_view.mm in Sources */,
-				4303A58515B513FD009D732A /* nodeapp_ui_element_osdep_window.mm in Sources */,
-				4303A58615B513FD009D732A /* nodeapp_ui_image.m in Sources */,
-				4303A58715B513FD009D732A /* NodeAppWindow.m in Sources */,
+				43122BF5180BBA5E00BF8121 /* Glue.m in Sources */,
 				434BB25E17B91330000BEB1C /* OptionsRow.m in Sources */,
 				4303A58815B513FD009D732A /* nodeapp_url_handler_mac.m in Sources */,
-				4303A59215B5275F009D732A /* nodeapp_rpc_proxy.c in Sources */,
-				4303A59315B5275F009D732A /* nodeapp_rpc_router.c in Sources */,
 				4398AF0F1731E3DC0092A711 /* NSData+Base64.m in Sources */,
 				43508A9617B4B52300871422 /* ActionList.m in Sources */,
 				43508A9317B39DBE00871422 /* ATFlippedView.m in Sources */,
 				4313347915BC295B00659B4F /* UserScript.m in Sources */,
 				436D732A173DE05000F78A23 /* RuntimeContainer.m in Sources */,
 				436D732B173DE05000F78A23 /* MissingRuntimeInstance.m in Sources */,
+				43122BFB180FBEFB00BF8121 /* ATObservation.m in Sources */,
 				434BB27A17BB9B30000BEB1C /* AutoprefixerAction.m in Sources */,
 				436D732C173DE05000F78A23 /* RuntimeInstance.m in Sources */,
 				43508A9917B4B53F00871422 /* ActionType.m in Sources */,
@@ -2266,6 +2147,7 @@
 				436D734B173DE61400F78A23 /* PreferencesController.m in Sources */,
 				436D734F173DE74000F78A23 /* RubyPreferencesViewController.m in Sources */,
 				439865B017C5F16E00EC6471 /* FilterOption.m in Sources */,
+				43122BF8180FB73200BF8121 /* AppState.m in Sources */,
 				436D7357173DF3D200F78A23 /* AddCustomRubySheet.m in Sources */,
 				436D735B173E141400F78A23 /* RubyInstance.m in Sources */,
 				436D735E173E1B3A00F78A23 /* CustomRubyInstance.m in Sources */,

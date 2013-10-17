@@ -4,6 +4,7 @@
 #import "NodeAppDelegate.h"
 
 
+@class AppState;
 @class StatusItemController;
 @class NewMainWindowController;
 

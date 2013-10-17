@@ -9,6 +9,7 @@
     "livereload-service-dummy": "0.0.x",
     "livereload-service-server": "0.0.x",
     "livereload-service-reloader": "0.0.x",
+    "livereload-service-msgparser": "0.0.x",
     "debug": "~0.7.0"
   },
   "devDependencies": {

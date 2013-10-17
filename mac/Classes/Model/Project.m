@@ -18,6 +18,7 @@
 #import "ToolOutput.h"
 #import "UserScript.h"
 #import "FilterOption.h"
+#import "Glue.h"
 
 #import "Stats.h"
 #import "RegexKitLite.h"
@@ -33,8 +34,6 @@
 #include "stringutil.h"
 #include "eventbus.h"
 
-#include "nodeapp_rpc_proxy.h"
-
 
 #define PathKey @"path"
 
@@ -47,18 +46,6 @@ NSString *ProjectMonitoringStateDidChangeNotification = @"ProjectMonitoringState
 NSString *ProjectNeedsSavingNotification = @"ProjectNeedsSavingNotification";
 
 static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
-
-void C_projects__notify_changed(json_t *arg) {
-    [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidDetectChangeNotification object:nil];
-}
-
-void C_projects__notify_compilation_started(json_t *arg) {
-    [[NSNotificationCenter defaultCenter] postNotificationName:ProjectWillBeginCompilationNotification object:nil];
-}
-
-void C_projects__notify_compilation_finished(json_t *arg) {
-    [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidEndCompilationNotification object:nil];
-}
 
 
 
@@ -469,7 +456,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     }
 }
 
-- (void)processChangeAtPath:(NSString *)relativePath reloadRequests:(json_t *)reloadRequests {
+- (void)processChangeAtPath:(NSString *)relativePath reloadRequests:(NSMutableArray *)reloadRequests {
     NSString *extension = [relativePath pathExtension];
 
     BOOL compilerFound = NO;
@@ -492,7 +479,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
                 LRFile *fileOptions = [self optionsForFileAtPath:relativePath in:compilationOptions];
                 NSString *derivedName = fileOptions.destinationName;
                 NSString *originalPath = [_path stringByAppendingPathComponent:relativePath];
-                json_array_append_new(reloadRequests, json_object_2("path", json_nsstring(derivedName), "originalPath", json_nsstring(originalPath)));
+                [reloadRequests addObject:@{@"path": derivedName, @"originalPath": originalPath}];
                 NSLog(@"Broadcasting a fake change in %@ instead of %@ (compiler %@).", derivedName, relativePath, compiler.name);
                 StatGroupIncrement(CompilerChangeCountStatGroup, compiler.uniqueId, 1);
                 break;
@@ -503,7 +490,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     }
 
     if (!compilerFound) {
-        json_array_append_new(reloadRequests, json_object_2("path", json_nsstring([_path stringByAppendingPathComponent:relativePath]), "originalPath", json_null()));
+        [reloadRequests addObject:@{@"path": [_path stringByAppendingPathComponent:relativePath], @"originalPath": [NSNull null]}];
     }
 }
 
@@ -542,7 +529,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
     [self updateImportGraphForPaths:pathes];
 
-    json_t *reloadRequests = json_array();
+    NSMutableArray *reloadRequests = [NSMutableArray new];
 
 #ifdef AUTORESCAN_WORKAROUND_ENABLED
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(rescanRecentlyChangedPaths) object:nil];
@@ -571,17 +558,21 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         NSArray *matchingPaths = [action.inputPathSpec matchingPathsInArray:pathArray type:ATPathSpecEntryTypeFile];
         [matchingPaths enumerateObjectsAsynchronouslyUsingBlock:^(NSString *path, NSUInteger idx, void (^callback2)(BOOL stop)) {
             LRFile2 *file = [LRFile2 fileWithRelativePath:path project:self];
-            [action compileFile:file inProject:self completionHandler:^(BOOL invoked, ToolOutput *output, NSError *error) {
-                if (output) {
-                    [self displayCompilationError:output key:[NSString stringWithFormat:@"%@.%@", _path, path]];
-                }
+            if ([action shouldInvokeForFile:file]) {
+                [action compileFile:file inProject:self completionHandler:^(BOOL invoked, ToolOutput *output, NSError *error) {
+                    if (output) {
+                        [self displayCompilationError:output key:[NSString stringWithFormat:@"%@.%@", _path, path]];
+                    }
+                    callback2(NO);
+                }];
+            } else {
                 callback2(NO);
-            }];
+            }
         } completionBlock:^{
             callback1(NO);
         }];
     } completionBlock:^{
-        if (json_array_size(reloadRequests) > 0) {
+        if (reloadRequests.count > 0) {
             if (_postProcessingScriptName.length > 0 && _postProcessingEnabled) {
                 if (invokePostProcessor && actions.count > 0) {
                     _runningPostProcessor = YES;
@@ -611,21 +602,13 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 #endif
             }
 
-            json_t *message = json_object();
-            json_object_set_new(message, "service", json_string("reloader"));
-            json_object_set_new(message, "command", json_string("reload"));
-            json_object_set_new(message, "changes", reloadRequests);
-            json_object_set_new(message, "forceFullReload", json_bool(self.disableLiveRefresh));
-            json_object_set_new(message, "fullReloadDelay", json_real(_fullPageReloadDelay));
-            nodeapp_rpc_send_json(message);
+            [[Glue glue] postMessage:@{@"service": @"reloader", @"command": @"reload", @"changes": reloadRequests, @"forceFullReload": @(self.disableLiveRefresh), @"fullReloadDelay": @(_fullPageReloadDelay)}];
 
             [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidDetectChangeNotification object:self];
             StatIncrement(BrowserRefreshCountStat, 1);
-        } else {
-            json_decref(reloadRequests);
         }
 
-        S_app_handle_change(json_object_2("root", json_nsstring(_path), "paths", nodeapp_objc_to_json([pathes allObjects])));
+//        S_app_handle_change(json_object_2("root", json_nsstring(_path), "paths", nodeapp_objc_to_json([pathes allObjects])));
     }];
 }
 

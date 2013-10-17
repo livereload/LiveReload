@@ -1,7 +1,6 @@
 
 #include "console.h"
 #include "jansson.h"
-#include "nodeapp_rpc_proxy.h"
 
 #import "LiveReloadAppDelegate.h"
 #import "Project.h"
@@ -12,6 +11,8 @@
 #import "ATLoginItemController.h"
 #import "PluginManager.h"
 #import "SandboxAccessModel.h"
+#import "Glue.h"
+#import "AppState.h"
 
 #import "Stats.h"
 #import "Preferences.h"
@@ -30,42 +31,6 @@
 #import "Glitter.h"
 #import "GlitterUpdateInfoViewController.h"
 #endif
-
-
-void C_mainwnd__set_project_list(json_t *arg) {
-    // TODO
-}
-
-void C_mainwnd__rpane__set_data(json_t *arg) {
-    // TODO
-}
-
-void C_app__good_time_to_deliver_news(json_t *arg) {
-    AppNewsKitGoodTimeToDeliverMessages();
-}
-
-void C_update(json_t *arg) {
-    // ignored for compatibility with the Windows version
-}
-
-json_t *C_kernel__on_port_occupied_error(json_t *message) {
-    int port = json_integer_value(json_object_get(message, "port"));
-
-    NSInteger response = [[NSAlert alertWithMessageText:@"Failed to start: port occupied" defaultButton:@"Quit" alternateButton:@"More Info" otherButton:nil informativeTextWithFormat:@"LiveReload tried to listen on port %d, but it was occupied by another app.\n\nThe following tools are incompatible with LiveReload: guard-livereload; rack-livereload; Sublime Text LiveReload plugin; any other tools that use LiveReload browser extensions.\n\nPlease make sure you're not running any of those tools, and restart LiveReload. If in doubt, contact support@livereload.com.", port] runModal];
-    if (response == NSAlertAlternateReturn) {
-        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://go.livereload.com/err/port-occupied"]];
-    }
-    [NSApp terminate:nil];
-    return NULL;
-}
-
-json_t *C_kernel__on_browser_v6_protocol_connection(json_t *message) {
-    NSInteger response = [[NSAlert alertWithMessageText:@"Legacy browser extensions" defaultButton:@"Update Now" alternateButton:@"Ignore" otherButton:nil informativeTextWithFormat:@"LiveReload browser extensions 1.x are no longer supported and won't work with LiveReload 2.\n\nPlease update your browser extensions to version 2.x to get advantage of many bug fixes, automatic reconnection, @import support, in-browser LESS.js support and more."] runModal];
-    if (response == NSAlertAlternateReturn) {
-        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://go.livereload.com/err/port-occupied"]];
-    }
-    return NULL;
-}
 
 
 @interface LiveReloadAppDelegate () <NSPopoverDelegate>
@@ -101,6 +66,12 @@ json_t *C_kernel__on_browser_v6_protocol_connection(json_t *message) {
 }
 
 - (void)applicationWillFinishLaunching:(NSNotification *)notification {
+    [AppState initializeAppState];
+
+    [[Glue glue] registerCommand:@"kernel.log" target:self action:@selector(handleLogMessage:)];
+    [[Glue glue] registerCommand:@"kernel.on-port-occupied-error" target:self action:@selector(handlePortOccupied:)];
+    [[Glue glue] registerCommand:@"kernel.on-browser-v6-protocol-connection" target:self action:@selector(handleVersion6Connection:)];
+
     _glitter = [[Glitter alloc] initWithMainBundle];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateStatusDidChange) name:GlitterStatusDidChangeNotification object:_glitter];
 }
@@ -455,6 +426,30 @@ json_t *C_kernel__on_browser_v6_protocol_connection(json_t *message) {
     [alert setInformativeText:[NSString stringWithFormat:@"The following URLs have been manually added to the LiveReload sandbox:\n\n%@", [urls componentsJoinedByString:@"\n"]]];
     [alert addButtonWithTitle:@"OK"];
     [alert runModal];
+}
+
+
+#pragma mark - Commands
+
+- (void)handleLogMessage:(NSDictionary *)message {
+    NSLog(@"[Node %@] %@", message[@"level"], message[@"text"]);
+}
+
+- (void)handlePortOccupied:(NSDictionary *)message {
+    int port = [message[@"port"] intValue];
+
+    NSInteger response = [[NSAlert alertWithMessageText:@"Failed to start: port occupied" defaultButton:@"Quit" alternateButton:@"More Info" otherButton:nil informativeTextWithFormat:@"LiveReload tried to listen on port %d, but it was occupied by another app.\n\nThe following tools are incompatible with LiveReload: guard-livereload; rack-livereload; Sublime Text LiveReload plugin; any other tools that use LiveReload browser extensions.\n\nPlease make sure you're not running any of those tools, and restart LiveReload. If in doubt, contact support@livereload.com.", port] runModal];
+    if (response == NSAlertAlternateReturn) {
+        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://go.livereload.com/err/port-occupied"]];
+    }
+    [NSApp terminate:nil];
+}
+
+- (void)handleVersion6Connection:(NSDictionary *)message {
+    NSInteger response = [[NSAlert alertWithMessageText:@"Legacy browser extensions" defaultButton:@"Update Now" alternateButton:@"Ignore" otherButton:nil informativeTextWithFormat:@"LiveReload browser extensions 1.x are no longer supported and won't work with LiveReload 2.\n\nPlease update your browser extensions to version 2.x to get advantage of many bug fixes, automatic reconnection, @import support, in-browser LESS.js support and more."] runModal];
+    if (response == NSAlertAlternateReturn) {
+        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://go.livereload.com/err/port-occupied"]];
+    }
 }
 
 @end
