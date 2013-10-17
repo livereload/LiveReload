@@ -10,6 +10,15 @@
 #import "Compiler.h"
 
 
+enum UnparsedErrorState {
+    UnparsedErrorStateNone,
+    UnparsedErrorStateDefault,
+    UnparsedErrorStateConnecting,
+    UnparsedErrorStateFail,
+    UnparsedErrorStateSuccess
+};
+
+
 static ToolOutputWindowController *lastOutputController = nil;
 
 @interface ToolOutputWindowController () <NSAnimationDelegate, NSTextViewDelegate>
@@ -29,19 +38,38 @@ static ToolOutputWindowController *lastOutputController = nil;
 - (NSURL *)errorReportURL;
 - (void)sendErrorReport;
 
+@property (weak) IBOutlet NSTextField *fileNameLabel;
+@property (weak) IBOutlet NSTextField *lineNumberLabel;
+@property (unsafe_unretained) IBOutlet NSTextView *unparsedNotificationView;
+@property (unsafe_unretained) IBOutlet NSTextView  *messageView;
+@property (weak) IBOutlet NSScrollView  *messageScroller;
+@property (weak) IBOutlet NSButton *jumpToErrorButton;
+@property (weak) IBOutlet NSMenuItem *showOutputMenuItem;
+@property (weak) IBOutlet NSSegmentedControl *actionControl;
+@property (weak) IBOutlet NSMenu *actionMenu;
+
 @end
 
-@implementation ToolOutputWindowController
 
-@synthesize key = _key;
-@synthesize state = _state;
-@synthesize fileNameLabel = _fileNameLabel;
-@synthesize lineNumberLabel = _lineNumberLabel;
-@synthesize unparsedNotificationView = _unparsedNotificationView;
-@synthesize messageView = _messageView;
-@synthesize messageScroller = _messageScroller;
-@synthesize jumpToErrorButton = _jumpToErrorButton;
-@synthesize showOutputMenuItem = _showOutputMenuItem;
+@implementation ToolOutputWindowController {
+    ToolOutput            *_compilerOutput;
+
+    ToolOutputWindowController *_previousWindowController;
+    BOOL                   _appearing;
+    BOOL                   _suicidal;
+
+    NSArray               *_editors;
+
+    NSInteger              _submissionResponseCode;
+    NSMutableData         *_submissionResponseBody;
+
+    NSURL                 *_specialMessageURL;
+
+    CGRect                 _originalActionControlFrame;
+
+    id                     _selfReferenceDuringAnimation;
+}
+
 
 #pragma mark -
 
