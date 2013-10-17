@@ -560,9 +560,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
             LRFile2 *file = [LRFile2 fileWithRelativePath:path project:self];
             if ([action shouldInvokeForFile:file]) {
                 [action compileFile:file inProject:self completionHandler:^(BOOL invoked, ToolOutput *output, NSError *error) {
-                    if (output) {
-                        [self displayCompilationError:output key:[NSString stringWithFormat:@"%@.%@", _path, path]];
-                    }
+                    [self displayCompilationError:output key:[NSString stringWithFormat:@"%@.%@", _path, path]];
                     callback2(NO);
                 }];
             } else {
@@ -613,8 +611,12 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 }
 
 - (void)displayCompilationError:(ToolOutput *)output key:(NSString *)key {
-    output.project = self;
-    [[[ToolOutputWindowController alloc] initWithCompilerOutput:output key:key] show];
+    if (output) {
+        output.project = self;
+        [[[ToolOutputWindowController alloc] initWithCompilerOutput:output key:key] show];
+    } else {
+        [ToolOutputWindowController hideOutputWindowWithKey:key];
+    }
 }
 
 - (void)invokeNextActionInArray:(NSArray *)actions withModifiedPaths:(NSSet *)paths {
@@ -629,10 +631,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
     if (action.kind == ActionKindPostproc && [action shouldInvokeForModifiedFiles:paths inProject:self]) {
         [action invokeForProjectAtPath:_path withModifiedFiles:paths completionHandler:^(BOOL invoked, ToolOutput *output, NSError *error) {
-            if (output) {
-                output.project = self;
-                [[[ToolOutputWindowController alloc] initWithCompilerOutput:output key:[NSString stringWithFormat:@"%@.postproc", _path]] show];
-            }
+            [self displayCompilationError:output key:[NSString stringWithFormat:@"%@.postproc", _path]];
 
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self invokeNextActionInArray:actions withModifiedPaths:paths];

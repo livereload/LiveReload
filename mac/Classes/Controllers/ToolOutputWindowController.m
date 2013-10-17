@@ -184,6 +184,7 @@ static ToolOutputWindowController *lastOutputController = nil;
             [animation setDelegate:self];
             [animation setDuration:0.25];
             [animation startAnimation];
+            _selfReferenceDuringAnimation = self;
         } else {
             [self.window orderOut:nil];
         }
