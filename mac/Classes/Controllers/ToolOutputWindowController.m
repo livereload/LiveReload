@@ -103,9 +103,9 @@ static ToolOutputWindowController *lastOutputController = nil;
     [super windowDidLoad];
 
     self.window.level = NSFloatingWindowLevel;
-    [_unparsedNotificationView setEditable:NO];
-    [_unparsedNotificationView setDrawsBackground:NO];
-    [_unparsedNotificationView setDelegate:self];
+//    [_unparsedNotificationView setEditable:NO];
+//    [_unparsedNotificationView setDrawsBackground:NO];
+//    [_unparsedNotificationView setDelegate:self];
 
     [_messageScroller setBorderType:NSNoBorder];
     [_messageScroller setDrawsBackground:NO];
@@ -115,7 +115,7 @@ static ToolOutputWindowController *lastOutputController = nil;
 
     [_actionControl setMenu:_actionMenu forSegment:1];
 
-    _originalActionControlFrame = _actionControl.frame;
+//    _originalActionControlFrame = _actionControl.frame;
     [self updateActionMenu];
 }
 
@@ -205,17 +205,17 @@ static ToolOutputWindowController *lastOutputController = nil;
 }
 #pragma mark -
 - (void)loadMessageForOutputType:(enum ToolOutputType)type {
-    if ([_compilerOutput.output rangeOfString:@"Nothing to compile. If you're trying to start a new project, you have left off the directory argument"].location != NSNotFound) {
-        NSString *message = @"LiveReload knowledge base _[has an article about this error]_.";
-        NSURL *url = [NSURL URLWithString:@"http://help.livereload.com/kb/troubleshooting/compass-nothing-to-compile"];
-        [_unparsedNotificationView textStorage].attributedString = [self prepareSpecialMessage:message url:url];
-
-        if (type == ToolOutputTypeErrorRaw)
-            type = ToolOutputTypeError;
-        _specialMessageURL = url;
-    } else if (type != ToolOutputTypeErrorRaw) {
-        [self hideUnparsedNotificationView];
-    }
+//    if ([_compilerOutput.output rangeOfString:@"Nothing to compile. If you're trying to start a new project, you have left off the directory argument"].location != NSNotFound) {
+//        NSString *message = @"LiveReload knowledge base _[has an article about this error]_.";
+//        NSURL *url = [NSURL URLWithString:@"http://help.livereload.com/kb/troubleshooting/compass-nothing-to-compile"];
+//        [_unparsedNotificationView textStorage].attributedString = [self prepareSpecialMessage:message url:url];
+//
+//        if (type == ToolOutputTypeErrorRaw)
+//            type = ToolOutputTypeError;
+//        _specialMessageURL = url;
+//    } else if (type != ToolOutputTypeErrorRaw) {
+//        [self hideUnparsedNotificationView];
+//    }
 
     CGFloat maxHeight = [[[self window] screen] frame].size.height / 2;
     CGFloat oldHeight = _messageScroller.frame.size.height;
@@ -238,34 +238,35 @@ static ToolOutputWindowController *lastOutputController = nil;
             self.state = UnparsedErrorStateDefault;
             break;
     }
+    [[_messageView textContainer] setLineFragmentPadding:0.0]; // get rid of the default margin
 
     _fileNameLabel.stringValue = [_compilerOutput.sourcePath lastPathComponent] ?: @"";
 
-    [[_messageView layoutManager] glyphRangeForTextContainer:[_messageView textContainer]]; // forces layout manager to relayout container
-    CGFloat windowHeightDelta = _messageView.frame.size.height - oldHeight;
-
-    NSRect windowFrame = self.window.frame;
-    CGFloat finalDelta = MIN(windowFrame.size.height + windowHeightDelta, maxHeight) - windowFrame.size.height;
-    windowFrame.size.height += finalDelta;
-    windowFrame.origin.y -= finalDelta;
-    [self.window setFrame:windowFrame display:YES];
+//    [[_messageView layoutManager] glyphRangeForTextContainer:[_messageView textContainer]]; // forces layout manager to relayout container
+//    CGFloat windowHeightDelta = _messageView.frame.size.height - oldHeight;
+//
+//    NSRect windowFrame = self.window.frame;
+//    CGFloat finalDelta = MIN(windowFrame.size.height + windowHeightDelta, maxHeight) - windowFrame.size.height;
+//    windowFrame.size.height += finalDelta;
+//    windowFrame.origin.y -= finalDelta;
+//    [self.window setFrame:windowFrame display:YES];
 }
 
 - (void)hideUnparsedNotificationView {
-    if ([_unparsedNotificationView isHidden] == NO ) {
-        CGFloat scrollerHeightDelta = _unparsedNotificationView.frame.size.height + 10;
-
-        NSUInteger mask = self.messageScroller.autoresizingMask;
-        self.messageScroller.autoresizingMask = NSViewNotSizable;
-
-        NSRect scrollerFrame = self.messageScroller.frame;
-        scrollerFrame.size.height += scrollerHeightDelta;
-        scrollerFrame.origin.y -= scrollerHeightDelta;
-        self.messageScroller.frame = scrollerFrame;
-
-        [_unparsedNotificationView setHidden:YES];
-        self.messageScroller.autoresizingMask = mask;
-    }
+//    if ([_unparsedNotificationView isHidden] == NO ) {
+//        CGFloat scrollerHeightDelta = _unparsedNotificationView.frame.size.height + 10;
+//
+//        NSUInteger mask = self.messageScroller.autoresizingMask;
+//        self.messageScroller.autoresizingMask = NSViewNotSizable;
+//
+//        NSRect scrollerFrame = self.messageScroller.frame;
+//        scrollerFrame.size.height += scrollerHeightDelta;
+//        scrollerFrame.origin.y -= scrollerHeightDelta;
+//        self.messageScroller.frame = scrollerFrame;
+//
+//        [_unparsedNotificationView setHidden:YES];
+//        self.messageScroller.autoresizingMask = mask;
+//    }
 }
 
 #pragma mark -
@@ -288,11 +289,11 @@ static ToolOutputWindowController *lastOutputController = nil;
 
     EKEditor *preferredEditor = _editors[0];
     [_actionControl setLabel:[self labelForEditor:preferredEditor] forSegment:0];  // this triggers autosizing
-    [_actionControl sizeToFit];
+//    [_actionControl sizeToFit];
     // move back into place
-    CGRect frame = _actionControl.frame;
-    frame.origin.x = CGRectGetMaxX(_originalActionControlFrame) - frame.size.width;
-    _actionControl.frame = frame;
+//    CGRect frame = _actionControl.frame;
+//    frame.origin.x = CGRectGetMaxX(_originalActionControlFrame) - frame.size.width;
+//    _actionControl.frame = frame;
 
     NSMenuItem *item;
     while ((item = [_actionMenu itemAtIndex:0]).action == @selector(editInEditorMenuItemClicked:)) {
@@ -441,7 +442,7 @@ static ToolOutputWindowController *lastOutputController = nil;
 
 - (void)setState:(enum UnparsedErrorState)state {
     _state = state;
-    [[_unparsedNotificationView textStorage] setAttributedString:[self prepareMessageForState:state]];
+//    [[_unparsedNotificationView textStorage] setAttributedString:[self prepareMessageForState:state]];
 }
 
 #pragma mark -
@@ -449,11 +450,11 @@ static ToolOutputWindowController *lastOutputController = nil;
 - (BOOL)textView:(NSTextView *)textView clickedOnLink:(id)link {
     if (_specialMessageURL)
         return NO;
-    if ( textView == _unparsedNotificationView ) {
-        self.state = UnparsedErrorStateConnecting;
-        [self sendErrorReport];
-        return YES;
-    }
+//    if ( textView == _unparsedNotificationView ) {
+//        self.state = UnparsedErrorStateConnecting;
+//        [self sendErrorReport];
+//        return YES;
+//    }
     return NO;
 }
 
