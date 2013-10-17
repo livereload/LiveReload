@@ -232,7 +232,7 @@ static ToolOutputWindowController *lastOutputController = nil;
             _lineNumberLabel.stringValue = (_compilerOutput.line ? [NSString stringWithFormat:@"%d", (int)_compilerOutput.line] : @"");
             break;
         case ToolOutputTypeErrorRaw :
-            [_messageView setString:_compilerOutput.message];
+            [_messageView setString:_compilerOutput.output ?: _compilerOutput.message];
             _lineNumberLabel.textColor = [NSColor redColor];
             _lineNumberLabel.stringValue = @"Unparsed";
             self.state = UnparsedErrorStateDefault;
