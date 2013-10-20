@@ -5,6 +5,7 @@
 #import "CompileFileAction.h"
 #import "LRCheckboxOption.h"
 #import "LRTextFieldOption.h"
+#import "LRPopUpOption.h"
 
 
 @implementation CompileFileActionRow
@@ -63,6 +64,10 @@
     [container addOption:option];
 
     option = [[LRTextFieldOption alloc] initWithOptionManifest:@{@"id": @"foo-boz", @"label": @"Bozz:"}];
+    option.action = self.action;
+    [container addOption:option];
+
+    option = [[LRPopUpOption alloc] initWithOptionManifest:@{@"id": @"fubar", @"label": @"Fubar:", @"items": @[@{@"id": @"abc", @"label": @"Ab C"}, @{@"id": @"def", @"label": @"dEF"}]}];
     option.action = self.action;
     [container addOption:option];
 }

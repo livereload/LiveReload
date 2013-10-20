@@ -6,7 +6,6 @@
 
 @interface LRTextFieldOption () <NSTextFieldDelegate>
 
-@property(nonatomic, copy) NSString *label;
 @property(nonatomic, retain) NSTextField *view;
 
 @end

@@ -61,6 +61,7 @@
 		43122BFE1813DB2D00BF8121 /* LROption.m in Sources */ = {isa = PBXBuildFile; fileRef = 43122BFD1813DB2D00BF8121 /* LROption.m */; };
 		43122C041813DF1100BF8121 /* LRCheckboxOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 43122C031813DF1100BF8121 /* LRCheckboxOption.m */; };
 		43122C0718141F0B00BF8121 /* LRTextFieldOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 43122C0618141F0B00BF8121 /* LRTextFieldOption.m */; };
+		43122C0A1814244E00BF8121 /* LRPopUpOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 43122C091814244E00BF8121 /* LRPopUpOption.m */; };
 		4313347915BC295B00659B4F /* UserScript.m in Sources */ = {isa = PBXBuildFile; fileRef = 4313347815BC295B00659B4F /* UserScript.m */; };
 		43146699146C5D2100DC075A /* ProjectPaneBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 43146698146C5D2100DC075A /* ProjectPaneBackground.png */; };
 		4314669B146C689500DC075A /* FolderIcon64.png in Resources */ = {isa = PBXBuildFile; fileRef = 4314669A146C689500DC075A /* FolderIcon64.png */; };
@@ -398,6 +399,8 @@
 		43122C031813DF1100BF8121 /* LRCheckboxOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRCheckboxOption.m; sourceTree = "<group>"; };
 		43122C0518141F0B00BF8121 /* LRTextFieldOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRTextFieldOption.h; sourceTree = "<group>"; };
 		43122C0618141F0B00BF8121 /* LRTextFieldOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRTextFieldOption.m; sourceTree = "<group>"; };
+		43122C081814244E00BF8121 /* LRPopUpOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPopUpOption.h; sourceTree = "<group>"; };
+		43122C091814244E00BF8121 /* LRPopUpOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPopUpOption.m; sourceTree = "<group>"; };
 		4313347715BC295B00659B4F /* UserScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserScript.h; sourceTree = "<group>"; };
 		4313347815BC295B00659B4F /* UserScript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserScript.m; sourceTree = "<group>"; };
 		43146698146C5D2100DC075A /* ProjectPaneBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ProjectPaneBackground.png; sourceTree = "<group>"; };
@@ -1137,6 +1140,8 @@
 				43122C031813DF1100BF8121 /* LRCheckboxOption.m */,
 				43122C0518141F0B00BF8121 /* LRTextFieldOption.h */,
 				43122C0618141F0B00BF8121 /* LRTextFieldOption.m */,
+				43122C081814244E00BF8121 /* LRPopUpOption.h */,
+				43122C091814244E00BF8121 /* LRPopUpOption.m */,
 			);
 			path = Options;
 			sourceTree = "<group>";
@@ -2072,6 +2077,7 @@
 				4353403A146CC7E600DD66B0 /* MonitoringSettingsWindowController.m in Sources */,
 				434BB26517BA238B000BEB1C /* AddActionRow.m in Sources */,
 				4310DE3D146DB588003091D1 /* ToolOptions.m in Sources */,
+				43122C0A1814244E00BF8121 /* LRPopUpOption.m in Sources */,
 				4310DE40146DB6A0003091D1 /* UIBuilder.m in Sources */,
 				43F002CF146EC97B005D48A4 /* MainWindow.m in Sources */,
 				4396F1E017F8112F00AA8200 /* GlitterFeed.m in Sources */,
