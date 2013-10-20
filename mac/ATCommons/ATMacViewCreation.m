@@ -58,13 +58,13 @@
 
 @implementation NSPopUpButton (ATMacViewCreation)
 
-+ (NSPopUpButton *)popUpButton {
++ (instancetype)popUpButton {
     NSPopUpButton *view = [[self alloc] initWithFrame:CGRectZero pullsDown:NO];
     view.translatesAutoresizingMaskIntoConstraints = NO;
     return view;
 }
 
-+ (NSPopUpButton *)pullDownButton {
++ (instancetype)pullDownButton {
     NSPopUpButton *view = [[self alloc] initWithFrame:CGRectZero pullsDown:YES];
     view.translatesAutoresizingMaskIntoConstraints = NO;
     return view;

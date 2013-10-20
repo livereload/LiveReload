@@ -21,6 +21,7 @@
     if (self) {
         _substitutions = [NSMutableDictionary new];
         _files = [NSMutableDictionary new];
+        // TODO: use the currently selected version of Ruby
         [self addValue:@"/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/bin/ruby" forSubstitutionKey:@"ruby"];
         [self addValue:[[NSBundle mainBundle] pathForResource:@"LiveReloadNodejs" ofType:nil] forSubstitutionKey:@"node"];
     }
