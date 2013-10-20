@@ -45,4 +45,10 @@
 
 //- (void)invokeForFileAtPath:(NSString *)sourceRelPath into:(NSString *)destinationRelPath under:(NSString *)rootPath inProject:(Project *)project completionHandler:(UserScriptCompletionHandler)completionHandler;
 
+// custom options
+@property(nonatomic, copy) NSArray *customArguments;
+@property(nonatomic, copy) NSDictionary *options;
+- (id)optionValueForKey:(NSString *)key;
+- (void)setOptionValue:(id)value forKey:(NSString *)key;
+
 @end

@@ -1,5 +1,6 @@
 
 #import "LROption.h"
+#import "Action.h"
 
 
 @implementation LROption
@@ -24,14 +25,47 @@
 - (void)renderInOptionsView:(LROptionsView *)optionsView {
 }
 
+- (NSString *)optionKeyForPresentedValue {
+    return _identifier;
+}
+
 - (void)loadManifest {
     _identifier = self.manifest[@"id"];
     if (_identifier.length == 0)
         [self addErrorMessage:@"Missing id key"];
+
+    _label = self.manifest[@"label"];
 }
+
 - (void)loadModelValues {
+    if (!_valid)
+        return;
+    id value = [self.action optionValueForKey:self.optionKeyForPresentedValue] ?: self.defaultValue;
+    [self setPresentedValue:value];
 }
+
 - (void)saveModelValues {
+    if (!_valid)
+        return;
+    id value = [self presentedValue];
+    if ([value isEqual:self.defaultValue])
+        value = nil;
+    [self.action setOptionValue:value forKey:self.optionKeyForPresentedValue];
+}
+
+- (void)presentedValueDidChange {
+    [self saveModelValues];
+}
+
+- (id)defaultValue {
+    return nil;
+}
+
+- (id)presentedValue {
+    return nil;
+}
+
+- (void)setPresentedValue:(id)value {
 }
 
 - (void)addErrorMessage:(NSString *)message {

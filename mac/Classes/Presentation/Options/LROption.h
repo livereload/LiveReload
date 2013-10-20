@@ -17,12 +17,21 @@
 @property(nonatomic, copy) NSDictionary *manifest;
 @property(nonatomic, retain) Action *action;
 
+@property(nonatomic, copy) NSString *label;  // courtesy for subclasses, usage is optional
+
 - (void)renderInOptionsView:(LROptionsView *)optionsView;
 
-// override points
 - (void)loadManifest;
 - (void)loadModelValues;
 - (void)saveModelValues;
+
+@property(nonatomic, readonly) NSString *optionKeyForPresentedValue;
+@property(nonatomic, readonly) id defaultValue;
+
+// used by default implementations of loadModelValues/saveModelValues
+- (void)presentedValueDidChange;
+- (id)presentedValue;
+- (void)setPresentedValue:(id)value;
 
 - (void)addErrorMessage:(NSString *)message;
 

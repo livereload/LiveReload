@@ -12,6 +12,7 @@
 
 @implementation Action {
     NSMutableDictionary *_memento;
+    NSMutableDictionary *_options;
 }
 
 + (void)validateActionType:(ActionType *)actionType {
@@ -30,6 +31,7 @@
     self = [super init];
     if (self) {
         _type = type;
+        _options = [NSMutableDictionary new];
         [self setMemento:memento];
     }
     return self;
@@ -48,18 +50,26 @@
 - (void)loadFromMemento:(NSDictionary *)memento {
     self.enabled = [(memento[@"enabled"] ?: @YES) boolValue];
     self.inputFilterOption = [FilterOption filterOptionWithMemento:(memento[@"filter"] ?: @"subdir:.")];
+
+    NSDictionary *options = memento[@"options"];
+    if (options)
+        [_options setValuesForKeysWithDictionary:options];
 }
 
 - (void)updateMemento:(NSMutableDictionary *)memento {
     memento[@"action"] = self.type.identifier;
     memento[@"enabled"] = (self.enabled ? @1 : @0);
     memento[@"filter"] = self.inputFilterOption.memento;
+    if (_options.count > 0)
+        memento[@"options"] = [NSDictionary dictionaryWithDictionary:_options];
+    else
+        [memento removeObjectForKey:@"options"];
 }
 
 - (void)setEnabled:(BOOL)enabled {
     if (_enabled != enabled) {
         _enabled = enabled;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+        [self didChange];
     }
 }
 
@@ -67,7 +77,7 @@
     if (_inputFilterOption != inputFilterOption) {
         _inputFilterOption = inputFilterOption;
         [self updateInputPathSpec];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+        [self didChange];
     }
 }
 
@@ -114,6 +124,42 @@
 
 - (void)invokeForProjectAtPath:(NSString *)projectPath withModifiedFiles:(NSSet *)paths completionHandler:(UserScriptCompletionHandler)completionHandler {
     abort();
+}
+
+
+#pragma mark - Custom options
+
+- (NSArray *)customArguments {
+    return _options[@"custom-args"] ?: @[];
+}
+
+- (void)setCustomArguments:(NSArray *)customArguments {
+    [self setOptionValue:customArguments forKey:@"custom-args"];
+}
+
+- (id)optionValueForKey:(NSString *)key {
+    return _options[key];
+}
+
+- (void)setOptionValue:(id)value forKey:(NSString *)key {
+    if (value) {
+        if (_options[key] != value) {
+            _options[key] = value;
+            [self didChange];
+        }
+    } else {
+        if ([_options objectForKey:key]) {
+            [_options removeObjectForKey:key];
+            [self didChange];
+        }
+    }
+}
+
+
+#pragma mark - Change notification
+
+- (void)didChange {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
 }
 
 @end
