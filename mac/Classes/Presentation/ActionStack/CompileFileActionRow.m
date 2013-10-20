@@ -63,7 +63,7 @@
     option.action = self.action;
     [container addOption:option];
 
-    option = [[LRTextFieldOption alloc] initWithOptionManifest:@{@"id": @"foo-boz", @"label": @"Bozz:"}];
+    option = [[LRTextFieldOption alloc] initWithOptionManifest:@{@"id": @"foo-boz", @"label": @"Bozz:", @"placeholder": @"boo boo"}];
     option.action = self.action;
     [container addOption:option];
 

@@ -6,6 +6,7 @@
 
 @interface LRTextFieldOption () <NSTextFieldDelegate>
 
+@property(nonatomic, copy) NSString *placeholder;
 @property(nonatomic, retain) NSTextField *view;
 
 @end
@@ -15,12 +16,18 @@
 
 - (void)loadManifest {
     [super loadManifest];
+
+    self.placeholder = self.manifest[@"placeholder"];
+
     if (!self.label.length)
         [self addErrorMessage:@"Missing label"];
 }
 
 - (void)renderInOptionsView:(LROptionsView *)optionsView {
     _view = [NSTextField editableField];
+    if (_placeholder.length > 0) {
+        [_view.cell setPlaceholderString:_placeholder];
+    }
     _view.delegate = self;
     [optionsView addOptionView:_view label:self.label flags:LROptionsViewFlagsLabelAlignmentBaseline];
     [self loadModelValues];
