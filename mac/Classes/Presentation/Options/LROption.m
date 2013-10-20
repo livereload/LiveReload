@@ -40,7 +40,7 @@
 - (void)loadModelValues {
     if (!_valid)
         return;
-    id value = [self.action optionValueForKey:self.optionKeyForPresentedValue] ?: self.defaultValue;
+    id value = self.modelValue ?: self.defaultValue;
     [self setPresentedValue:value];
 }
 
@@ -50,7 +50,7 @@
     id value = [self presentedValue];
     if ([value isEqual:self.defaultValue])
         value = nil;
-    [self.action setOptionValue:value forKey:self.optionKeyForPresentedValue];
+    self.modelValue = value;
 }
 
 - (void)presentedValueDidChange {
@@ -66,6 +66,14 @@
 }
 
 - (void)setPresentedValue:(id)value {
+}
+
+- (id)modelValue {
+    return [self.action optionValueForKey:self.optionKeyForPresentedValue];
+}
+
+- (void)setModelValue:(id)value {
+    [self.action setOptionValue:value forKey:self.optionKeyForPresentedValue];
 }
 
 - (void)addErrorMessage:(NSString *)message {

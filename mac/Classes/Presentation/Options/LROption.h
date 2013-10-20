@@ -30,8 +30,9 @@
 
 // used by default implementations of loadModelValues/saveModelValues
 - (void)presentedValueDidChange;
-- (id)presentedValue;
-- (void)setPresentedValue:(id)value;
+
+@property(nonatomic, strong) id presentedValue;
+@property(nonatomic, strong) id modelValue;
 
 - (void)addErrorMessage:(NSString *)message;
 

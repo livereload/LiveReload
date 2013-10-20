@@ -137,6 +137,19 @@
     [self setOptionValue:customArguments forKey:@"custom-args"];
 }
 
+- (NSString *)customArgumentsString {
+    return [self.customArguments componentsJoinedByString:@" "];
+}
+
+- (void)setCustomArgumentsString:(NSString *)customArgumentsString {
+    customArgumentsString = [customArgumentsString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+
+    if (customArgumentsString.length == 0)
+        self.customArguments = @[];
+    else
+        self.customArguments = [customArgumentsString componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+}
+
 - (id)optionValueForKey:(NSString *)key {
     return _options[key];
 }

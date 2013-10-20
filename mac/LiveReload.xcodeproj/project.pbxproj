@@ -62,6 +62,7 @@
 		43122C041813DF1100BF8121 /* LRCheckboxOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 43122C031813DF1100BF8121 /* LRCheckboxOption.m */; };
 		43122C0718141F0B00BF8121 /* LRTextFieldOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 43122C0618141F0B00BF8121 /* LRTextFieldOption.m */; };
 		43122C0A1814244E00BF8121 /* LRPopUpOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 43122C091814244E00BF8121 /* LRPopUpOption.m */; };
+		43122C0D1814286100BF8121 /* LRCustomArgumentsOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 43122C0C1814286100BF8121 /* LRCustomArgumentsOption.m */; };
 		4313347915BC295B00659B4F /* UserScript.m in Sources */ = {isa = PBXBuildFile; fileRef = 4313347815BC295B00659B4F /* UserScript.m */; };
 		43146699146C5D2100DC075A /* ProjectPaneBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 43146698146C5D2100DC075A /* ProjectPaneBackground.png */; };
 		4314669B146C689500DC075A /* FolderIcon64.png in Resources */ = {isa = PBXBuildFile; fileRef = 4314669A146C689500DC075A /* FolderIcon64.png */; };
@@ -401,6 +402,8 @@
 		43122C0618141F0B00BF8121 /* LRTextFieldOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRTextFieldOption.m; sourceTree = "<group>"; };
 		43122C081814244E00BF8121 /* LRPopUpOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPopUpOption.h; sourceTree = "<group>"; };
 		43122C091814244E00BF8121 /* LRPopUpOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPopUpOption.m; sourceTree = "<group>"; };
+		43122C0B1814286100BF8121 /* LRCustomArgumentsOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRCustomArgumentsOption.h; sourceTree = "<group>"; };
+		43122C0C1814286100BF8121 /* LRCustomArgumentsOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRCustomArgumentsOption.m; sourceTree = "<group>"; };
 		4313347715BC295B00659B4F /* UserScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserScript.h; sourceTree = "<group>"; };
 		4313347815BC295B00659B4F /* UserScript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserScript.m; sourceTree = "<group>"; };
 		43146698146C5D2100DC075A /* ProjectPaneBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ProjectPaneBackground.png; sourceTree = "<group>"; };
@@ -1142,6 +1145,8 @@
 				43122C0618141F0B00BF8121 /* LRTextFieldOption.m */,
 				43122C081814244E00BF8121 /* LRPopUpOption.h */,
 				43122C091814244E00BF8121 /* LRPopUpOption.m */,
+				43122C0B1814286100BF8121 /* LRCustomArgumentsOption.h */,
+				43122C0C1814286100BF8121 /* LRCustomArgumentsOption.m */,
 			);
 			path = Options;
 			sourceTree = "<group>";
@@ -2221,6 +2226,7 @@
 				43996B2E17AF675D00B09954 /* ATMenuEnabledSegmentedCell.m in Sources */,
 				43996B4317B001BA00B09954 /* NSString+SmartRegexpCaptures.m in Sources */,
 				43E07EC217B01C4B004DB867 /* ATJson.m in Sources */,
+				43122C0D1814286100BF8121 /* LRCustomArgumentsOption.m in Sources */,
 				4396F1DE17F8112F00AA8200 /* Glitter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
