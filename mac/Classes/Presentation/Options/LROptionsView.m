@@ -2,6 +2,7 @@
 #import "LROptionsView.h"
 #import "ATMacViewCreation.h"
 #import "ATAutolayout.h"
+#import "LROption.h"
 
 
 #define kVerticalPadding 0
@@ -14,12 +15,21 @@
 @implementation LROptionsView {
     NSView *_lastOptionView;
     NSLayoutConstraint *_bottomConstraint;
+    NSMutableArray *_options;
 }
 
 + (LROptionsView *)optionsView {
     LROptionsView *view = [[self alloc] initWithFrame:CGRectZero];
     view.translatesAutoresizingMaskIntoConstraints = NO;
     return view;
+}
+
+- (id)initWithFrame:(NSRect)frameRect {
+    self = [super initWithFrame:frameRect];
+    if (self) {
+        _options = [NSMutableArray new];
+    }
+    return self;
 }
 
 - (void)addOptionView:(NSView *)optionView label:(NSString *)label flags:(LROptionsViewFlags)flags {
@@ -72,6 +82,11 @@
     [self addConstraint:_bottomConstraint];
 
     _lastOptionView = optionView;
+}
+
+- (void)addOption:(LROption *)option {
+    [_options addObject:option];
+    [option renderInOptionsView:self];
 }
 
 @end

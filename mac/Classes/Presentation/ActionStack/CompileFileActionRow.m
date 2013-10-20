@@ -3,6 +3,7 @@
 #import "ATMacViewCreation.h"
 #import "ATAutolayout.h"
 #import "CompileFileAction.h"
+#import "LRCheckboxOption.h"
 
 
 @implementation CompileFileActionRow
@@ -53,6 +54,12 @@
 
 + (NSArray *)representedObjectKeyPathsToObserve {
     return @[@"inputFilterOption", @"outputFilterOption"];
+}
+
+- (void)loadOptionsIntoView:(LROptionsView *)container {
+    LROption *option = [[LRCheckboxOption alloc] initWithOptionManifest:@{@"title": @"Foo bar"}];
+    option.action = self.action;
+    [container addOption:option];
 }
 
 @end

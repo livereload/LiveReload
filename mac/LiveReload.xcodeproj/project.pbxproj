@@ -58,6 +58,8 @@
 		43122BF5180BBA5E00BF8121 /* Glue.m in Sources */ = {isa = PBXBuildFile; fileRef = 43122BF4180BBA5E00BF8121 /* Glue.m */; };
 		43122BF8180FB73200BF8121 /* AppState.m in Sources */ = {isa = PBXBuildFile; fileRef = 43122BF7180FB73200BF8121 /* AppState.m */; };
 		43122BFB180FBEFB00BF8121 /* ATObservation.m in Sources */ = {isa = PBXBuildFile; fileRef = 43122BFA180FBEFB00BF8121 /* ATObservation.m */; };
+		43122BFE1813DB2D00BF8121 /* LROption.m in Sources */ = {isa = PBXBuildFile; fileRef = 43122BFD1813DB2D00BF8121 /* LROption.m */; };
+		43122C041813DF1100BF8121 /* LRCheckboxOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 43122C031813DF1100BF8121 /* LRCheckboxOption.m */; };
 		4313347915BC295B00659B4F /* UserScript.m in Sources */ = {isa = PBXBuildFile; fileRef = 4313347815BC295B00659B4F /* UserScript.m */; };
 		43146699146C5D2100DC075A /* ProjectPaneBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 43146698146C5D2100DC075A /* ProjectPaneBackground.png */; };
 		4314669B146C689500DC075A /* FolderIcon64.png in Resources */ = {isa = PBXBuildFile; fileRef = 4314669A146C689500DC075A /* FolderIcon64.png */; };
@@ -389,6 +391,10 @@
 		43122BF7180FB73200BF8121 /* AppState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppState.m; sourceTree = "<group>"; };
 		43122BF9180FBEFB00BF8121 /* ATObservation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATObservation.h; sourceTree = "<group>"; };
 		43122BFA180FBEFB00BF8121 /* ATObservation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATObservation.m; sourceTree = "<group>"; };
+		43122BFC1813DB2D00BF8121 /* LROption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LROption.h; sourceTree = "<group>"; };
+		43122BFD1813DB2D00BF8121 /* LROption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LROption.m; sourceTree = "<group>"; };
+		43122C021813DF1100BF8121 /* LRCheckboxOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRCheckboxOption.h; sourceTree = "<group>"; };
+		43122C031813DF1100BF8121 /* LRCheckboxOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRCheckboxOption.m; sourceTree = "<group>"; };
 		4313347715BC295B00659B4F /* UserScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserScript.h; sourceTree = "<group>"; };
 		4313347815BC295B00659B4F /* UserScript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserScript.m; sourceTree = "<group>"; };
 		43146698146C5D2100DC075A /* ProjectPaneBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ProjectPaneBackground.png; sourceTree = "<group>"; };
@@ -1122,6 +1128,10 @@
 			children = (
 				434BB26017B945F0000BEB1C /* LROptionsView.h */,
 				434BB26117B945F0000BEB1C /* LROptionsView.m */,
+				43122BFC1813DB2D00BF8121 /* LROption.h */,
+				43122BFD1813DB2D00BF8121 /* LROption.m */,
+				43122C021813DF1100BF8121 /* LRCheckboxOption.h */,
+				43122C031813DF1100BF8121 /* LRCheckboxOption.m */,
 			);
 			path = Options;
 			sourceTree = "<group>";
@@ -2117,6 +2127,7 @@
 				4303A55A15B513FD009D732A /* nodeapp_logging.m in Sources */,
 				4303A55B15B513FD009D732A /* nodeapp_objc_json.m in Sources */,
 				4303A55C15B513FD009D732A /* nodeapp_paths_osdep.m in Sources */,
+				43122BFE1813DB2D00BF8121 /* LROption.m in Sources */,
 				4303A55D15B513FD009D732A /* nodeapp_rpc_osdep.c in Sources */,
 				4396F1E717F9E84300AA8200 /* CompileFileAction.m in Sources */,
 				434BB27717BB97AC000BEB1C /* FilterAction.m in Sources */,
@@ -2143,6 +2154,7 @@
 				43508A9917B4B53F00871422 /* ActionType.m in Sources */,
 				436D732D173DE05000F78A23 /* RuntimeGlobals.m in Sources */,
 				436D7341173DE30900F78A23 /* MASPreferencesWindowController.m in Sources */,
+				43122C041813DF1100BF8121 /* LRCheckboxOption.m in Sources */,
 				43508A8117B3819500871422 /* ATAutolayout.m in Sources */,
 				436D734B173DE61400F78A23 /* PreferencesController.m in Sources */,
 				436D734F173DE74000F78A23 /* RubyPreferencesViewController.m in Sources */,

@@ -16,10 +16,14 @@ typedef enum {
 } LROptionsViewFlags;
 
 
+@class LROption;
+
+
 @interface LROptionsView : NSView
 
 + (LROptionsView *)optionsView;
 
+- (void)addOption:(LROption *)option;
 - (void)addOptionView:(NSView *)optionView label:(NSString *)label flags:(LROptionsViewFlags)flags;
 
 @end
