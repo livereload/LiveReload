@@ -67,6 +67,8 @@ static NSString *ClientConnectedMonitoringKey = @"clientConnected";
 }
 
 - (void)save {
+    NSTimeInterval start = [NSDate timeIntervalSinceReferenceDate];
+    
     NSString *dataFilePath = [self dataFilePath];
     [[NSFileManager defaultManager] createDirectoryAtPath:[dataFilePath stringByDeletingLastPathComponent] withIntermediateDirectories:YES attributes:nil error:NULL];
     
@@ -93,14 +95,18 @@ static NSString *ClientConnectedMonitoringKey = @"clientConnected";
 //    [[NSUserDefaults standardUserDefaults] synchronize];
     _savingScheduled = NO;
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(save) object:nil];
-    NSLog(@"Workspace saved.");
+
+    NSTimeInterval end = [NSDate timeIntervalSinceReferenceDate];
+    NSLog(@"Workspace saved. Saving took %.3lf seconds.", end - start);
+
     [self sendModelToBackend];
 }
 
 - (void)setNeedsSaving {
-    if (_savingScheduled)
-        return;
-    _savingScheduled = YES;
+//    if (_savingScheduled)
+//        return;
+//    _savingScheduled = YES;
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(save) object:nil];
     [self performSelector:@selector(save) withObject:nil afterDelay:0.1];
 }
 

@@ -4,6 +4,7 @@
 #import "ATAutolayout.h"
 #import "CompileFileAction.h"
 #import "LRCheckboxOption.h"
+#import "LRTextFieldOption.h"
 
 
 @implementation CompileFileActionRow
@@ -57,7 +58,11 @@
 }
 
 - (void)loadOptionsIntoView:(LROptionsView *)container {
-    LROption *option = [[LRCheckboxOption alloc] initWithOptionManifest:@{@"title": @"Foo bar"}];
+    LROption *option = [[LRCheckboxOption alloc] initWithOptionManifest:@{@"id": @"foo-bar", @"label": @"Foo Bar"}];
+    option.action = self.action;
+    [container addOption:option];
+
+    option = [[LRTextFieldOption alloc] initWithOptionManifest:@{@"id": @"foo-boz", @"label": @"Bozz:"}];
     option.action = self.action;
     [container addOption:option];
 }
