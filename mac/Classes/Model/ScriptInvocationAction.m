@@ -16,6 +16,7 @@
 - (void)compileFile:(LRFile2 *)file inProject:(Project *)project completionHandler:(UserScriptCompletionHandler)completionHandler {
     ScriptInvocationStep *step = [ScriptInvocationStep new];
     step.project = project;
+
     [step addValue:project.path forSubstitutionKey:@"project_dir"];
 
     [self configureStep:step forFile:file];
@@ -33,6 +34,7 @@
     step.commandLine = self.type.options[@"cmdline"];
     step.manifest = self.type.options;
     [step addValue:self.type.plugin.path forSubstitutionKey:@"plugin"];
+    [step addValue:self.customArguments forSubstitutionKey:@"additional"];
 }
 
 - (void)didCompleteCompilationStep:(ScriptInvocationStep *)step forFile:(LRFile2 *)file {

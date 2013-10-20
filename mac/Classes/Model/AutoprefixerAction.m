@@ -34,7 +34,7 @@
                            @"$(ruby)": @"/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/bin/ruby",
                            @"$(node)": [[NSBundle mainBundle] pathForResource:@"LiveReloadNodejs" ofType:nil],
                            @"$(plugin)": self.type.plugin.path,
-                           @"$(additional)": @[],
+                           @"$(additional)": self.customArguments,
                            @"$(src_file)": [file.relativePath lastPathComponent],
                            @"$(src_path)": file.absolutePath,
                            @"$(src_dir)": [file.absolutePath stringByDeletingLastPathComponent],

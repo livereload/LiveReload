@@ -32,7 +32,6 @@
 - (void)configureStep:(ScriptInvocationStep *)step forFile:(LRFile2 *)file {
     [super configureStep:step forFile:file];
 
-    [step addValue:@[] forSubstitutionKey:@"additional"]; // TODO
     [step addFileValue:file forSubstitutionKey:@"src"];
 
     // we cheat a little, reusing the impl from LRFile (TODO should extract the common helpers)
