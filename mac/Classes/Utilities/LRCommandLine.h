@@ -2,6 +2,9 @@
 #import <Foundation/Foundation.h>
 
 
+NSArray *LRParseCommandLineSpec(id spec);
+
+
 @interface ATQuotingStyle : NSObject
 
 @property(nonatomic, copy) NSString *startString;

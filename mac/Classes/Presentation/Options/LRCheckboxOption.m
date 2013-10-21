@@ -2,11 +2,15 @@
 #import "LRCheckboxOption.h"
 #import "ATMacViewCreation.h"
 #import "LROptionsView.h"
+#import "LRCommandLine.h"
 
 
 @interface LRCheckboxOption ()
 
 @property(nonatomic, retain) NSButton *view;
+
+@property(nonatomic, copy) NSArray *argumentsWhenOn;
+@property(nonatomic, copy) NSArray *argumentsWhenOff;
 
 @end
 
@@ -15,6 +19,10 @@
 
 - (void)loadManifest {
     [super loadManifest];
+
+    _argumentsWhenOn = LRParseCommandLineSpec(self.manifest[@"args"]);
+    _argumentsWhenOff = LRParseCommandLineSpec(self.manifest[@"args-off"]);
+
     if (!self.label.length)
         [self addErrorMessage:@"Missing label"];
 }
@@ -39,6 +47,10 @@
 
 - (void)setPresentedValue:(id)value {
     _view.state = ([value boolValue] ? NSOnState : NSOffState);
+}
+
+- (NSArray *)commandLineArguments {
+    return [self.effectiveValue boolValue] ? _argumentsWhenOn : _argumentsWhenOff;
 }
 
 @end

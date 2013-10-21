@@ -3,6 +3,22 @@
 #import "ATFunctionalStyle.h"
 
 
+
+NSArray *LRParseCommandLineSpec(id spec) {
+    if (spec == nil || spec == [NSNull null])
+        return @[];
+    if ([spec isKindOfClass:NSArray.class]) {
+        return spec;
+    }
+    if ([spec isKindOfClass:NSString.class]) {
+        return [spec argumentsArrayUsingBourneQuotingStyle];
+    }
+    NSCAssert(NO, @"Invalid command line spec: %@", spec);
+    return @[];
+}
+
+
+
 @implementation ATQuotingStyle {
     NSCharacterSet *_safeCharacterSet;
     NSString *_escapeCharacterString;

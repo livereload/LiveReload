@@ -7,6 +7,7 @@
 
 #import "ATChildTask.h"
 #import "NSArray+ATSubstitutions.h"
+#import "LRCommandLine.h"
 #include "console.h"
 #include "stringutil.h"
 
@@ -52,7 +53,7 @@
     //    NSString *pwd = [[NSFileManager defaultManager] currentDirectoryPath];
     //    [[NSFileManager defaultManager] changeCurrentDirectoryPath:projectPath];
 
-    console_printf("Exec: %s", str_collapse_paths([[cmdline componentsJoinedByString:@" "] UTF8String], [_project.path UTF8String]));
+    console_printf("Exec: %s", str_collapse_paths([[cmdline quotedArgumentStringUsingBourneQuotingStyle] UTF8String], [_project.path UTF8String]));
 
     ATLaunchUnixTaskAndCaptureOutput([NSURL fileURLWithPath:command], args, ATLaunchUnixTaskAndCaptureOutputOptionsIgnoreSandbox|ATLaunchUnixTaskAndCaptureOutputOptionsMergeStdoutAndStderr, ^(NSString *outputText, NSString *stderrText, NSError *error) {
         _error = error;

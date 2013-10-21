@@ -52,4 +52,6 @@
 - (id)optionValueForKey:(NSString *)key;
 - (void)setOptionValue:(id)value forKey:(NSString *)key;
 
+- (NSArray *)createOptions;
+
 @end

@@ -5,21 +5,15 @@
 
 @implementation LROption
 
-- (id)initWithOptionManifest:(NSDictionary *)manifest {
+- (id)initWithOptionManifest:(NSDictionary *)manifest action:(Action *)action {
     self = [super init];
     if (self) {
         _manifest = [manifest copy];
+        _action = action;
         _valid = YES;
         [self loadManifest];
     }
     return self;
-}
-
-- (void)setAction:(Action *)action {
-    if (_action != action) {
-        _action = action;
-        [self loadModelValues];
-    }
 }
 
 - (void)renderInOptionsView:(LROptionsView *)optionsView {
@@ -40,8 +34,7 @@
 - (void)loadModelValues {
     if (!_valid)
         return;
-    id value = self.modelValue ?: self.defaultValue;
-    [self setPresentedValue:value];
+    [self setPresentedValue:self.effectiveValue];
 }
 
 - (void)saveModelValues {
@@ -70,6 +63,10 @@
 
 - (id)modelValue {
     return [self.action optionValueForKey:self.optionKeyForPresentedValue];
+}
+
+- (id)effectiveValue {
+    return self.modelValue ?: self.defaultValue;
 }
 
 - (void)setModelValue:(id)value {

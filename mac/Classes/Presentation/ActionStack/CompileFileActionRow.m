@@ -3,10 +3,6 @@
 #import "ATMacViewCreation.h"
 #import "ATAutolayout.h"
 #import "CompileFileAction.h"
-#import "LRCheckboxOption.h"
-#import "LRTextFieldOption.h"
-#import "LRPopUpOption.h"
-#import "LRCustomArgumentsOption.h"
 
 
 @implementation CompileFileActionRow
@@ -60,21 +56,9 @@
 }
 
 - (void)loadOptionsIntoView:(LROptionsView *)container {
-    LROption *option = [[LRCheckboxOption alloc] initWithOptionManifest:@{@"id": @"foo-bar", @"label": @"Foo Bar"}];
-    option.action = self.action;
-    [container addOption:option];
-
-    option = [[LRTextFieldOption alloc] initWithOptionManifest:@{@"id": @"foo-boz", @"label": @"Bozz:", @"placeholder": @"boo boo"}];
-    option.action = self.action;
-    [container addOption:option];
-
-    option = [[LRPopUpOption alloc] initWithOptionManifest:@{@"id": @"fubar", @"label": @"Fubar:", @"items": @[@{@"id": @"abc", @"label": @"Ab C"}, @{@"id": @"def", @"label": @"dEF"}]}];
-    option.action = self.action;
-    [container addOption:option];
-
-    option = [[LRCustomArgumentsOption alloc] initWithOptionManifest:@{@"id": @"custom-args"}];
-    option.action = self.action;
-    [container addOption:option];
+    for (LROption *option in [self.action createOptions]) {
+        [container addOption:option];
+    }
 }
 
 @end

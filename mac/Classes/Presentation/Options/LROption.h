@@ -9,13 +9,13 @@
 // app model layer (a blend of model and controller)
 @interface LROption : NSObject
 
-- (id)initWithOptionManifest:(NSDictionary *)manifest;
+- (id)initWithOptionManifest:(NSDictionary *)manifest action:(Action *)action;
 
 @property(nonatomic, readonly) BOOL valid;
 
 @property(nonatomic, copy) NSString *identifier;
 @property(nonatomic, copy) NSDictionary *manifest;
-@property(nonatomic, retain) Action *action;
+@property(nonatomic, readonly, strong) Action *action;
 
 @property(nonatomic, copy) NSString *label;  // courtesy for subclasses, usage is optional
 
@@ -33,7 +33,10 @@
 
 @property(nonatomic, strong) id presentedValue;
 @property(nonatomic, strong) id modelValue;
+@property(nonatomic, strong) id effectiveValue; // modelValue ?: defaultValue
 
 - (void)addErrorMessage:(NSString *)message;
+
+@property(nonatomic, readonly) NSArray *commandLineArguments;
 
 @end

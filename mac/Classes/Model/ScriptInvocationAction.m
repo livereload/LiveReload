@@ -5,6 +5,7 @@
 #import "Plugin.h"
 #import "LRFile2.h"
 #import "ScriptInvocationStep.h"
+#import "LROption.h"
 
 
 @implementation ScriptInvocationAction
@@ -34,7 +35,14 @@
     step.commandLine = self.type.options[@"cmdline"];
     step.manifest = self.type.options;
     [step addValue:self.type.plugin.path forSubstitutionKey:@"plugin"];
-    [step addValue:self.customArguments forSubstitutionKey:@"additional"];
+
+    NSMutableArray *additionalArguments = [NSMutableArray new];
+    for (LROption *option in [self createOptions]) {
+        [additionalArguments addObjectsFromArray:option.commandLineArguments];
+    }
+    [additionalArguments addObjectsFromArray:self.customArguments];
+
+    [step addValue:[additionalArguments copy] forSubstitutionKey:@"additional"];
 }
 
 - (void)didCompleteCompilationStep:(ScriptInvocationStep *)step forFile:(LRFile2 *)file {

@@ -2,6 +2,35 @@
 #import "LRPopUpOption.h"
 #import "ATMacViewCreation.h"
 #import "LROptionsView.h"
+#import "LRCommandLine.h"
+#import "ATFunctionalStyle.h"
+
+
+@interface LRPopUpItem : NSObject
+
+@property(nonatomic, readonly, copy) NSString *identifier;
+@property(nonatomic, readonly, copy) NSString *label;
+@property(nonatomic, readonly, copy) NSArray *arguments;
+
+@end
+
+@implementation LRPopUpItem
+
+- (id)initWithIdentifier:(NSString *)identifier label:(NSString *)label arguments:(NSArray *)arguments {
+    self = [super init];
+    if (self) {
+        _identifier = [identifier copy];
+        _label = [label copy];
+        _arguments = [arguments copy];
+    }
+    return self;
+}
+
++ (id)popUpItemWithDictionary:(NSDictionary *)manifest {
+    return [[self alloc] initWithIdentifier:manifest[@"id"] label:manifest[@"label"] arguments:LRParseCommandLineSpec(manifest[@"args"])];
+}
+
+@end
 
 
 @interface LRPopUpOption ()
@@ -17,7 +46,13 @@
 - (void)loadManifest {
     [super loadManifest];
 
-    _items = [self.manifest[@"items"] copy];
+    _items = [self.manifest[@"items"] arrayByMappingElementsUsingBlock:^id(NSDictionary *spec) {
+        if (![spec isKindOfClass:NSDictionary.class]) {
+            [self addErrorMessage:@"Pop up item is not a dictionary"];
+            return nil;
+        }
+        return [LRPopUpItem popUpItemWithDictionary:spec];
+    }];
 
     if (!self.label.length)
         [self addErrorMessage:@"Missing label"];
@@ -25,9 +60,13 @@
     if (self.items.count == 0)
         [self addErrorMessage:@"Missing items"];
 
-    [self.items enumerateObjectsUsingBlock:^(id item, NSUInteger idx, BOOL *stop) {
-        if (![item isKindOfClass:NSDictionary.class]) {
-            [self addErrorMessage:[NSString stringWithFormat:@"Item %u is not a dictionary", (unsigned)idx]];
+    [self.items enumerateObjectsUsingBlock:^(LRPopUpItem *item, NSUInteger idx, BOOL *stop) {
+        if (0 == item.identifier.length) {
+            [self addErrorMessage:[NSString stringWithFormat:@"Item %u is missing its identifier", (unsigned)idx]];
+            *stop = YES;
+        }
+        if (0 == item.label.length) {
+            [self addErrorMessage:[NSString stringWithFormat:@"Item %u is missing its label", (unsigned)idx]];
             *stop = YES;
         }
     }];
@@ -40,12 +79,12 @@
     [self loadModelValues];
 }
 
-- (NSDictionary *)itemAtIndex:(NSInteger)index {
+- (LRPopUpItem *)itemAtIndex:(NSInteger)index {
     return _items[index];
 }
 
 - (id)defaultValue {
-    return [self itemAtIndex:0][@"id"];
+    return [self itemAtIndex:0].identifier;
 }
 
 - (NSInteger)indexOfItemWithIdentifier:(NSString *)itemIdentifier {
@@ -53,8 +92,8 @@
         return -1;
     
     NSInteger index = 0;
-    for (NSDictionary *item in _items) {
-        if ([item[@"id"] isEqualToString:itemIdentifier]) {
+    for (LRPopUpItem *item in _items) {
+        if ([item.identifier isEqualToString:itemIdentifier]) {
             return index;
         }
         ++index;
@@ -66,7 +105,7 @@
     NSInteger index = [_view indexOfSelectedItem];
     if (index == -1)
         return self.defaultValue;
-    return [self itemAtIndex:index][@"id"];
+    return [self itemAtIndex:index].identifier;
 }
 
 - (void)setPresentedValue:(id)value {
@@ -75,6 +114,13 @@
 
 - (IBAction)popUpSelectionDidChange:(id)sender {
     [self presentedValueDidChange];
+}
+
+- (NSArray *)commandLineArguments {
+    NSInteger index = [self indexOfItemWithIdentifier:self.effectiveValue];
+    if (index == -1)
+        return @[];
+    return [self itemAtIndex:index].arguments;
 }
 
 @end
