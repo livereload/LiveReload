@@ -3,9 +3,6 @@
 #import "LRFile2.h"
 #import "LRCommandLine.h"
 
-#import "LRCheckboxOption.h"
-#import "LRTextFieldOption.h"
-#import "LRPopUpOption.h"
 #import "LRCustomArgumentsOption.h"
 
 
@@ -176,15 +173,8 @@
 
 - (NSArray *)createOptions {
     NSMutableArray *options = [NSMutableArray new];
-
-    [options addObject:[[LRCheckboxOption alloc] initWithOptionManifest:@{@"id": @"foo-bar", @"label": @"Foo Bar", @"args": @"--foo-bar"} action:self]];
-
-    [options addObject:[[LRTextFieldOption alloc] initWithOptionManifest:@{@"id": @"foo-boz", @"label": @"Bozz:", @"placeholder": @"boo boo", @"args": @"--foo-boz $(value)"} action:self]];
-
-    [options addObject:[[LRPopUpOption alloc] initWithOptionManifest:@{@"id": @"fubar", @"label": @"Fubar:", @"items": @[@{@"id": @"abc", @"label": @"Ab C", @"args": @""}, @{@"id": @"def", @"label": @"dEF", @"args": @"--fubar-def"}]} action:self]];
-
+    [options addObjectsFromArray:[self.type createOptionsWithAction:self]];
     [options addObject:[[LRCustomArgumentsOption alloc] initWithOptionManifest:@{@"id": @"custom-args"} action:self]];
-
     return [options copy];
 }
 

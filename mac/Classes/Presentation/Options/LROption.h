@@ -12,6 +12,7 @@
 - (id)initWithOptionManifest:(NSDictionary *)manifest action:(Action *)action;
 
 @property(nonatomic, readonly) BOOL valid;
+@property(nonatomic, readonly, copy) NSArray *errors;
 
 @property(nonatomic, copy) NSString *identifier;
 @property(nonatomic, copy) NSDictionary *manifest;

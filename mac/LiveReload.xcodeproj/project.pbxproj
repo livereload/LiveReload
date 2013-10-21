@@ -128,6 +128,7 @@
 		43594AF413D3BB34004175B2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43594AF313D3BB34004175B2 /* QuartzCore.framework */; };
 		435BE042141B72A60008FF77 /* NewMainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 435BE041141B72A60008FF77 /* NewMainWindow.xib */; };
 		435BE045141B87920008FF77 /* NewMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 435BE044141B87920008FF77 /* NewMainWindowController.m */; };
+		43629BC518151554006B1B11 /* LROption+Factory.m in Sources */ = {isa = PBXBuildFile; fileRef = 43629BC418151554006B1B11 /* LROption+Factory.m */; };
 		43693F4115660A8700C453CC /* LiveReloadNodejs in Resources */ = {isa = PBXBuildFile; fileRef = 43693F4015660A8700C453CC /* LiveReloadNodejs */; };
 		436D732A173DE05000F78A23 /* RuntimeContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 436D731C173DE05000F78A23 /* RuntimeContainer.m */; };
 		436D732B173DE05000F78A23 /* MissingRuntimeInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 436D731F173DE05000F78A23 /* MissingRuntimeInstance.m */; };
@@ -515,6 +516,8 @@
 		435BE041141B72A60008FF77 /* NewMainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewMainWindow.xib; sourceTree = "<group>"; };
 		435BE043141B87920008FF77 /* NewMainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewMainWindowController.h; sourceTree = "<group>"; };
 		435BE044141B87920008FF77 /* NewMainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewMainWindowController.m; sourceTree = "<group>"; };
+		43629BC318151554006B1B11 /* LROption+Factory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LROption+Factory.h"; sourceTree = "<group>"; };
+		43629BC418151554006B1B11 /* LROption+Factory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LROption+Factory.m"; sourceTree = "<group>"; };
 		43693F4015660A8700C453CC /* LiveReloadNodejs */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = LiveReloadNodejs; path = Resources/LiveReloadNodejs; sourceTree = "<group>"; };
 		436D731B173DE05000F78A23 /* RuntimeContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RuntimeContainer.h; sourceTree = "<group>"; };
 		436D731C173DE05000F78A23 /* RuntimeContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RuntimeContainer.m; sourceTree = "<group>"; };
@@ -1142,6 +1145,8 @@
 				434BB26117B945F0000BEB1C /* LROptionsView.m */,
 				43122BFC1813DB2D00BF8121 /* LROption.h */,
 				43122BFD1813DB2D00BF8121 /* LROption.m */,
+				43629BC318151554006B1B11 /* LROption+Factory.h */,
+				43629BC418151554006B1B11 /* LROption+Factory.m */,
 				43122C021813DF1100BF8121 /* LRCheckboxOption.h */,
 				43122C031813DF1100BF8121 /* LRCheckboxOption.m */,
 				43122C0518141F0B00BF8121 /* LRTextFieldOption.h */,
@@ -2230,6 +2235,7 @@
 				43B5C04017AEA9F400F57276 /* NSAppleScript+ATInvokeHandlerWithArguments.m in Sources */,
 				43DFE4E117CB6B4A00DEF87B /* LRFile2.m in Sources */,
 				43996B2E17AF675D00B09954 /* ATMenuEnabledSegmentedCell.m in Sources */,
+				43629BC518151554006B1B11 /* LROption+Factory.m in Sources */,
 				43996B4317B001BA00B09954 /* NSString+SmartRegexpCaptures.m in Sources */,
 				43E07EC217B01C4B004DB867 /* ATJson.m in Sources */,
 				43122C0D1814286100BF8121 /* LRCustomArgumentsOption.m in Sources */,

@@ -8,6 +8,16 @@
 #import "LROption.h"
 
 
+@implementation ScriptInvocationActionType {
+}
+
+- (void)initializeWithOptions {
+    [super initializeWithOptions];
+}
+
+@end
+
+
 @implementation ScriptInvocationAction
 
 + (void)validateActionType:(ActionType *)type {

@@ -1,9 +1,12 @@
 
+#import "Errors.h"
 #import "LROption.h"
 #import "Action.h"
 
 
-@implementation LROption
+@implementation LROption {
+    NSMutableArray *_errors;
+}
 
 - (id)initWithOptionManifest:(NSDictionary *)manifest action:(Action *)action {
     self = [super init];
@@ -75,7 +78,11 @@
 
 - (void)addErrorMessage:(NSString *)message {
     _valid = NO;
-    NSLog(@"Error: %@ in option %@", message, self.manifest);
+    [_errors addObject:[NSError errorWithDomain:LRErrorDomain code:LRErrorInvalidManifest userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"%@ in option %@", message, self.manifest]}]];
+}
+
+- (NSArray *)errors {
+    return [_errors copy];
 }
 
 @end

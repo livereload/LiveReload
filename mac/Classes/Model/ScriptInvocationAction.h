@@ -6,6 +6,10 @@
 @class LRFile2;
 
 
+@interface ScriptInvocationActionType : ActionType
+@end
+
+
 @interface ScriptInvocationAction : Action
 
 // override points

@@ -43,4 +43,6 @@ NSArray *LRValidActionKindStrings();
 
 @property(nonatomic, copy) NSArray *errorSpecs;
 
+- (NSArray *)createOptionsWithAction:(Action *)action;
+
 @end

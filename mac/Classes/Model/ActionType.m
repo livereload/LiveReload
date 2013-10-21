@@ -3,6 +3,10 @@
 #import "Action.h"
 #import "Errors.h"
 #import "Plugin.h"
+#import "LROption+Factory.h"
+
+#import "ATFunctionalStyle.h"
+
 
 
 static NSString *ActionKindNames[] = {
@@ -37,6 +41,7 @@ NSArray *LRValidActionKindStrings() {
 
 @implementation ActionType {
     NSMutableArray *_errors;
+    NSArray *_optionSpecs;
 }
 
 - (id)initWithIdentifier:(NSString *)identifier kind:(ActionKind)kind actionClass:(Class)actionClass rowClass:(Class)rowClass options:(NSDictionary *)options plugin:(Plugin *)plugin {
@@ -58,6 +63,15 @@ NSArray *LRValidActionKindStrings() {
 
 - (void)initializeWithOptions {
     _errorSpecs = _options[@"errors"] ?: @[];
+
+    _optionSpecs = self.options[@"options"] ?: @[];
+
+    // validate option specs
+    for (LROption *option in [self createOptionsWithAction:nil]) {
+        for (NSError *error in option.errors) {
+            [self addErrorMessage:[NSString stringWithFormat:@"Invalid options for action %@: %@", _identifier, error.localizedDescription]];
+        }
+    }
 }
 
 + (ActionType *)actionTypeWithOptions:(NSDictionary *)options plugin:(Plugin *)plugin {
@@ -130,6 +144,12 @@ NSArray *LRValidActionKindStrings() {
 
 - (Action *)newInstanceWithMemento:(NSDictionary *)memento {
     return [[_actionClass alloc] initWithType:self memento:memento];
+}
+
+- (NSArray *)createOptionsWithAction:(Action *)action {
+    return [_optionSpecs arrayByMappingElementsUsingBlock:^id(NSDictionary *spec) {
+        return [LROption optionWithSpec:spec action:action];
+    }];
 }
 
 @end
