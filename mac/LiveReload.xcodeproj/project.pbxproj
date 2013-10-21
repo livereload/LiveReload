@@ -63,6 +63,7 @@
 		43122C0718141F0B00BF8121 /* LRTextFieldOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 43122C0618141F0B00BF8121 /* LRTextFieldOption.m */; };
 		43122C0A1814244E00BF8121 /* LRPopUpOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 43122C091814244E00BF8121 /* LRPopUpOption.m */; };
 		43122C0D1814286100BF8121 /* LRCustomArgumentsOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 43122C0C1814286100BF8121 /* LRCustomArgumentsOption.m */; };
+		43122C101814E27600BF8121 /* LRCommandLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 43122C0F1814E27600BF8121 /* LRCommandLine.m */; };
 		4313347915BC295B00659B4F /* UserScript.m in Sources */ = {isa = PBXBuildFile; fileRef = 4313347815BC295B00659B4F /* UserScript.m */; };
 		43146699146C5D2100DC075A /* ProjectPaneBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 43146698146C5D2100DC075A /* ProjectPaneBackground.png */; };
 		4314669B146C689500DC075A /* FolderIcon64.png in Resources */ = {isa = PBXBuildFile; fileRef = 4314669A146C689500DC075A /* FolderIcon64.png */; };
@@ -404,6 +405,8 @@
 		43122C091814244E00BF8121 /* LRPopUpOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPopUpOption.m; sourceTree = "<group>"; };
 		43122C0B1814286100BF8121 /* LRCustomArgumentsOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRCustomArgumentsOption.h; sourceTree = "<group>"; };
 		43122C0C1814286100BF8121 /* LRCustomArgumentsOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRCustomArgumentsOption.m; sourceTree = "<group>"; };
+		43122C0E1814E27600BF8121 /* LRCommandLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRCommandLine.h; sourceTree = "<group>"; };
+		43122C0F1814E27600BF8121 /* LRCommandLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRCommandLine.m; sourceTree = "<group>"; };
 		4313347715BC295B00659B4F /* UserScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserScript.h; sourceTree = "<group>"; };
 		4313347815BC295B00659B4F /* UserScript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserScript.m; sourceTree = "<group>"; };
 		43146698146C5D2100DC075A /* ProjectPaneBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ProjectPaneBackground.png; sourceTree = "<group>"; };
@@ -1779,6 +1782,8 @@
 				43059224151E90DE00CC3F88 /* DockIcon.m */,
 				43996B4117B001BA00B09954 /* NSString+SmartRegexpCaptures.h */,
 				43996B4217B001BA00B09954 /* NSString+SmartRegexpCaptures.m */,
+				43122C0E1814E27600BF8121 /* LRCommandLine.h */,
+				43122C0F1814E27600BF8121 /* LRCommandLine.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -2199,6 +2204,7 @@
 				43DB9FD7178EFA64007BEA36 /* ExternalEditor.m in Sources */,
 				43DB9FDA1792545E007BEA36 /* LRPluginCommons.m in Sources */,
 				43B5BFFF17ADF0D600F57276 /* ATGlobals.m in Sources */,
+				43122C101814E27600BF8121 /* LRCommandLine.m in Sources */,
 				43B5C00217ADF14700F57276 /* ATFunctionalStyle.m in Sources */,
 				43B5C00517ADF16B00F57276 /* ATModelDiff.m in Sources */,
 				43B5C01017ADF35C00F57276 /* NSArray+ATSubstitutions.m in Sources */,

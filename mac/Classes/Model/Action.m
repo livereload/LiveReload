@@ -1,6 +1,7 @@
 
 #import "Action.h"
 #import "LRFile2.h"
+#import "LRCommandLine.h"
 
 
 @interface Action ()
@@ -134,20 +135,17 @@
 }
 
 - (void)setCustomArguments:(NSArray *)customArguments {
+    if (customArguments.count == 0)
+        customArguments = nil;
     [self setOptionValue:customArguments forKey:@"custom-args"];
 }
 
 - (NSString *)customArgumentsString {
-    return [self.customArguments componentsJoinedByString:@" "];
+    return [self.customArguments quotedArgumentStringUsingBourneQuotingStyle];
 }
 
 - (void)setCustomArgumentsString:(NSString *)customArgumentsString {
-    customArgumentsString = [customArgumentsString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-
-    if (customArgumentsString.length == 0)
-        self.customArguments = @[];
-    else
-        self.customArguments = [customArgumentsString componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    self.customArguments = [customArgumentsString argumentsArrayUsingBourneQuotingStyle];
 }
 
 - (id)optionValueForKey:(NSString *)key {
