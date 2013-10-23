@@ -108,8 +108,7 @@
 		434BB26E17BA71FA000BEB1C /* RunScriptActionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB26D17BA71FA000BEB1C /* RunScriptActionRow.m */; };
 		434BB27117BB7D14000BEB1C /* FiltersGroupHeaderRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB27017BB7D14000BEB1C /* FiltersGroupHeaderRow.m */; };
 		434BB27417BB7F3A000BEB1C /* AddFilterRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB27317BB7F3A000BEB1C /* AddFilterRow.m */; };
-		434BB27717BB97AC000BEB1C /* FilterAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB27617BB97AC000BEB1C /* FilterAction.m */; };
-		434BB27A17BB9B30000BEB1C /* AutoprefixerAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB27917BB9B30000BEB1C /* AutoprefixerAction.m */; };
+		434BB27A17BB9B30000BEB1C /* FilterAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB27917BB9B30000BEB1C /* FilterAction.m */; };
 		434BB28217BBF23A000BEB1C /* Step.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB28117BBF23A000BEB1C /* Step.m */; };
 		43508A7E17B3767E00871422 /* ShadowBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A7D17B3767E00871422 /* ShadowBoxView.m */; };
 		43508A8117B3819500871422 /* ATAutolayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A8017B3819500871422 /* ATAutolayout.m */; };
@@ -475,10 +474,8 @@
 		434BB27017BB7D14000BEB1C /* FiltersGroupHeaderRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FiltersGroupHeaderRow.m; sourceTree = "<group>"; };
 		434BB27217BB7F3A000BEB1C /* AddFilterRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddFilterRow.h; sourceTree = "<group>"; };
 		434BB27317BB7F3A000BEB1C /* AddFilterRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddFilterRow.m; sourceTree = "<group>"; };
-		434BB27517BB97AC000BEB1C /* FilterAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterAction.h; sourceTree = "<group>"; };
-		434BB27617BB97AC000BEB1C /* FilterAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterAction.m; sourceTree = "<group>"; };
-		434BB27817BB9B30000BEB1C /* AutoprefixerAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoprefixerAction.h; sourceTree = "<group>"; };
-		434BB27917BB9B30000BEB1C /* AutoprefixerAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoprefixerAction.m; sourceTree = "<group>"; };
+		434BB27817BB9B30000BEB1C /* FilterAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterAction.h; sourceTree = "<group>"; };
+		434BB27917BB9B30000BEB1C /* FilterAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterAction.m; sourceTree = "<group>"; };
 		434BB28017BBF23A000BEB1C /* Step.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Step.h; sourceTree = "<group>"; };
 		434BB28117BBF23A000BEB1C /* Step.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Step.m; sourceTree = "<group>"; };
 		434BB29F17BBF512000BEB1C /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -1711,10 +1708,8 @@
 				43508A9817B4B53F00871422 /* ActionType.m */,
 				43508A9417B4B52300871422 /* ActionList.h */,
 				43508A9517B4B52300871422 /* ActionList.m */,
-				434BB27517BB97AC000BEB1C /* FilterAction.h */,
-				434BB27617BB97AC000BEB1C /* FilterAction.m */,
-				434BB27817BB9B30000BEB1C /* AutoprefixerAction.h */,
-				434BB27917BB9B30000BEB1C /* AutoprefixerAction.m */,
+				434BB27817BB9B30000BEB1C /* FilterAction.h */,
+				434BB27917BB9B30000BEB1C /* FilterAction.m */,
 				439865AE17C5F16E00EC6471 /* FilterOption.h */,
 				439865AF17C5F16E00EC6471 /* FilterOption.m */,
 				43DFE4DF17CB6B4A00DEF87B /* LRFile2.h */,
@@ -2157,7 +2152,6 @@
 				43122BFE1813DB2D00BF8121 /* LROption.m in Sources */,
 				4303A55D15B513FD009D732A /* nodeapp_rpc_osdep.c in Sources */,
 				4396F1E717F9E84300AA8200 /* CompileFileAction.m in Sources */,
-				434BB27717BB97AC000BEB1C /* FilterAction.m in Sources */,
 				4303A55E15B513FD009D732A /* nodeapp_threading.c in Sources */,
 				4303A55F15B513FD009D732A /* NodeAppDelegate.m in Sources */,
 				434BB25B17B9097D000BEB1C /* ActionsGroupHeaderRow.m in Sources */,
@@ -2176,7 +2170,7 @@
 				436D732A173DE05000F78A23 /* RuntimeContainer.m in Sources */,
 				436D732B173DE05000F78A23 /* MissingRuntimeInstance.m in Sources */,
 				43122BFB180FBEFB00BF8121 /* ATObservation.m in Sources */,
-				434BB27A17BB9B30000BEB1C /* AutoprefixerAction.m in Sources */,
+				434BB27A17BB9B30000BEB1C /* FilterAction.m in Sources */,
 				436D732C173DE05000F78A23 /* RuntimeInstance.m in Sources */,
 				43508A9917B4B53F00871422 /* ActionType.m in Sources */,
 				436D732D173DE05000F78A23 /* RuntimeGlobals.m in Sources */,

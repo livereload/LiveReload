@@ -1,5 +1,6 @@
 
-#import "Action.h"
+#import "ScriptInvocationAction.h"
 
-@interface FilterAction : Action
+@interface FilterAction : ScriptInvocationAction
+
 @end

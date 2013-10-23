@@ -38,4 +38,10 @@
     return @[@"inputFilterOption"];
 }
 
+- (void)loadOptionsIntoView:(LROptionsView *)container {
+    for (LROption *option in [self.action createOptions]) {
+        [container addOption:option];
+    }
+}
+
 @end
