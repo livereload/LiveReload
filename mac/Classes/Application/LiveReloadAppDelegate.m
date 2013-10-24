@@ -89,6 +89,7 @@
     // At least one of ours users has to test this var in his .bash_profile;
     // I can imagine there any many more cases when it comes in handy.
     putenv("INVOKED_FROM_LIVERELOAD=1");
+    putenv("RUBYOPT=-Ku");
 
     [EditorManager sharedEditorManager];
 
