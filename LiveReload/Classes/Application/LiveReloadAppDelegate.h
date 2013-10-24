@@ -8,6 +8,7 @@
     StatusItemController  *_statusItemController;
     NewMainWindowController  *_mainWindowController;
     int _port;
+    id <NSObject> _activityToken;
 }
 
 @property(nonatomic, retain) StatusItemController *statusItemController;
