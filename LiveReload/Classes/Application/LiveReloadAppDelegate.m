@@ -105,6 +105,10 @@ void C_app__good_time_to_deliver_news(json_t *arg) {
     // I can imagine there any many more cases when it comes in handy.
     putenv("INVOKED_FROM_LIVERELOAD=1");
 
+    if ([[NSProcessInfo processInfo] respondsToSelector:@selector(beginActivityWithOptions:reason:)]) {
+        [[NSProcessInfo processInfo] beginActivityWithOptions:NSActivityAutomaticTerminationDisabled|NSActivityBackground reason:@"Background file monitoring"];
+    }
+
     // fish does not work well with our rvm shenanigans
     const char *shell = getenv("SHELL");
     if (shell) {
