@@ -60,6 +60,10 @@
 	<string>NSApplication</string>
 	<key>NSServices</key>
 	<array/>
+	<key>NSSupportsAutomaticTermination</key>
+	<false/>
+	<key>NSSupportsSuddenTermination</key>
+	<false/>
 	<key>SUEnableAutomaticChecks</key>
 	<true/>
 	<key>SUEnableSystemProfiling</key>
