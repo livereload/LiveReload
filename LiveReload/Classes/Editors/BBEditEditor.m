@@ -18,7 +18,7 @@
 - (BOOL)jumpToFile:(NSString *)file line:(NSInteger)line {
     NSString *argument;
     if (line > 0) {
-        argument = [NSString stringWithFormat:@"%@:%d", file, line];
+        argument = [NSString stringWithFormat:@"%@:%ld", file, (long)line];
     } else {
         argument = file;
     }

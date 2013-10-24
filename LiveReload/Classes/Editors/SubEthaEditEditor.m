@@ -22,7 +22,7 @@
         if ([[NSFileManager defaultManager] fileExistsAtPath:see]) {
             NSTask *task = [[[NSTask alloc] init] autorelease];
             [task setLaunchPath:see];
-            [task setArguments:[NSArray arrayWithObjects:@"-g", [NSString stringWithFormat:@"%d", line], file, nil]];
+            [task setArguments:[NSArray arrayWithObjects:@"-g", [NSString stringWithFormat:@"%ld", (long)line], file, nil]];
             [task launch];
             return YES;
         }

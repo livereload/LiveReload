@@ -65,7 +65,7 @@ static CGKeyCode DIGITS[] = { kVK_ANSI_0, kVK_ANSI_1, kVK_ANSI_2, kVK_ANSI_3, kV
                 CGEventPostToPSN(&psn, event);
                 CFRelease(event);
 
-                NSString *digits = [NSString stringWithFormat:@"%d", line];
+                NSString *digits = [NSString stringWithFormat:@"%ld", (long)line];
                 for (int i = 0; i < [digits length]; i++) {
                     int digit = [digits characterAtIndex:i] - '0';
                     CGKeyCode keyCode = DIGITS[digit];

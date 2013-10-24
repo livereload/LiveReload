@@ -257,7 +257,7 @@ void C_mainwnd__set_change_count(json_t *arg) {
     _nameTextField.stringValue = [_selectedProject.displayPath lastPathComponent];
     _pathTextField.stringValue = [_selectedProject.displayPath stringByDeletingLastPathComponent];
 //    [self styleLabel:_pathTextField color:[self headerLabelColor] shadow:[self subtleWhiteShadow] text:[_selectedProject.displayPath stringByDeletingLastPathComponent]];
-    _monitoringSummaryLabelField.stringValue = [NSString stringWithFormat:@"Monitoring %d file extensions.", [Preferences sharedPreferences].allExtensions.count];
+    _monitoringSummaryLabelField.stringValue = [NSString stringWithFormat:@"Monitoring %lu file extensions.", (unsigned long)[Preferences sharedPreferences].allExtensions.count];
     [_compilerEnabledCheckBox setState:_selectedProject.compilationEnabled ? NSOnState : NSOffState];
     [_postProcessingEnabledCheckBox setState:_selectedProject.postProcessingEnabled ? NSOnState : NSOffState];
 
@@ -803,7 +803,7 @@ void C_mainwnd__set_change_count(json_t *arg) {
         } else if (n == 1) {
             text = [NSString stringWithFormat:@"1 browser connected, %d changes detected so far.", changes_processed];
         } else {
-            text = [NSString stringWithFormat:@"%d browsers connected, %d changes detected so far.", n, changes_processed];
+            text = [NSString stringWithFormat:@"%ld browsers connected, %d changes detected so far.", (long)n, changes_processed];
         }
     }
     _statusTextField.stringValue = text;

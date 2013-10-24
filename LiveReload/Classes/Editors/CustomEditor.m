@@ -25,7 +25,7 @@
     NSTask *task = [[[NSTask alloc] init] autorelease];
     [task setLaunchPath:[@"~/.livereload/edit" stringByExpandingTildeInPath]];
     if (line > 0) {
-        [task setArguments:[NSArray arrayWithObjects:file, [NSString stringWithFormat:@"%d", line], nil]];
+        [task setArguments:[NSArray arrayWithObjects:file, [NSString stringWithFormat:@"%ld", (long)line], nil]];
     } else {
         [task setArguments:[NSArray arrayWithObject:file]];
     }

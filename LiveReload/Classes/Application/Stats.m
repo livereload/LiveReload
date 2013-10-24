@@ -150,7 +150,7 @@ static time_t appnewskit_unix_time_from_string(const char *value, time_t default
     int result = sscanf(value, "%d-%d-%d %d:%d", &year, &month, &day, &hour, &minute);
     if (result < 3) {
         if (AppNewsKitDebug)
-            NSLog(@"AppNewsKit: Invalid date format: %@.", value);
+            NSLog(@"AppNewsKit: Invalid date format: %s.", value);
         return default_val;
     }
 
@@ -679,7 +679,7 @@ static void AppNewsKitDoPingServer(BOOL scheduled) {
     [params setObject:version forKey:@"v"];
     [params setObject:internalVersion forKey:@"iv"];
     [params setObject:(scheduled ? @"1" : @"0") forKey:@"scheduled"];
-    [params setObject:[NSString stringWithFormat:@"%d", AppNewsKitRandomValue] forKey:@"random"];
+    [params setObject:[NSString stringWithFormat:@"%ld", (long)AppNewsKitRandomValue] forKey:@"random"];
     [params addEntriesFromDictionary:AppNewsKitStringValues];
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

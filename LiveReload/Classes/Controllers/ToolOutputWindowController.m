@@ -209,12 +209,12 @@ static ToolOutputWindowController *lastOutputController = nil;
         case ToolOutputTypeLog :
             [_messageView setString:_compilerOutput.output];
             _lineNumberLabel.textColor = [NSColor blackColor];
-            _lineNumberLabel.stringValue = (_compilerOutput.line ? [NSString stringWithFormat:@"%d", _compilerOutput.line] : @"");
+            _lineNumberLabel.stringValue = (_compilerOutput.line ? [NSString stringWithFormat:@"%ld", (long)_compilerOutput.line] : @"");
             break;
         case ToolOutputTypeError :
             [_messageView setString:_compilerOutput.message];
             _lineNumberLabel.textColor = [NSColor blackColor];
-            _lineNumberLabel.stringValue = (_compilerOutput.line ? [NSString stringWithFormat:@"%d", _compilerOutput.line] : @"");
+            _lineNumberLabel.stringValue = (_compilerOutput.line ? [NSString stringWithFormat:@"%ld", (long)_compilerOutput.line] : @"");
             break;
         case ToolOutputTypeErrorRaw :
             [_messageView setString:_compilerOutput.message];
