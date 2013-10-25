@@ -1,6 +1,6 @@
 #ifndef LiveReload_version_h
 #define LiveReload_version_h
 
-#define LIVERELOAD_VERSION "2.3.32"
+#define LIVERELOAD_VERSION "2.3.33"
 
 #endif
