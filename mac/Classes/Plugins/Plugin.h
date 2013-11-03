@@ -18,4 +18,6 @@
 @property(nonatomic, readonly) NSArray *errors;
 - (void)addErrorMessage:(NSString *)message;
 
+@property(nonatomic, readonly) NSArray *bundledPackageContainers;
+
 @end

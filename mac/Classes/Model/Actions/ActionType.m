@@ -5,6 +5,9 @@
 #import "Plugin.h"
 #import "LROption+Factory.h"
 
+#import "LRManifestLayer.h"
+#import "LRActionVersion.h"
+
 #import "ATFunctionalStyle.h"
 
 
@@ -41,6 +44,7 @@ NSArray *LRValidActionKindStrings() {
 
 @implementation ActionType {
     NSMutableArray *_errors;
+    NSArray *_manifestLayers;
     NSArray *_optionSpecs;
 }
 
@@ -56,12 +60,18 @@ NSArray *LRValidActionKindStrings() {
         _errors = [NSMutableArray new];
         _valid = YES;
 
+        _manifestLayers = [_options[@"defaults"] arrayByMappingElementsUsingBlock:^id(NSDictionary *info) {
+            return [[LRManifestLayer alloc] initWithManifest:info];
+        }];
+
         [self initializeWithOptions];
     }
     return self;
 }
 
 - (void)initializeWithOptions {
+    
+
     _errorSpecs = _options[@"errors"] ?: @[];
 
     _optionSpecs = self.options[@"options"] ?: @[];

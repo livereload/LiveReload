@@ -8,10 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+
+@class LRPackageManager;
+
+
 @interface AppState : NSObject
 
 + (AppState *)sharedAppState;
 + (void)initializeAppState;
+
+@property(nonatomic, readonly) LRPackageManager *packageManager;
 
 @property(nonatomic) NSInteger numberOfConnectedBrowsers;
 @property(nonatomic) NSInteger numberOfRefreshesProcessed;

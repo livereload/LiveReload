@@ -2,6 +2,11 @@
 #import "Plugin.h"
 #import "Compiler.h"
 #import "ActionType.h"
+#import "AppState.h"
+#import "LRPackageManager.h"
+#import "LRPackageType.h"
+#import "LRPackageContainer.h"
+
 #import "ATJson.h"
 #import "Errors.h"
 
@@ -16,6 +21,8 @@
 - (id)initWithPath:(NSString *)path {
     self = [super init];
     if (self) {
+        NSURL *folderURL = [NSURL fileURLWithPath:path];
+
         _path = [path copy];
         _errors = [NSMutableArray new];
 
@@ -38,6 +45,19 @@
             [actionTypes addObject:[ActionType actionTypeWithOptions:options plugin:self]];
         }
         _actionTypes = [actionTypes copy];
+
+        // find bundled packages
+        NSMutableArray *bundledPackageContainers = [NSMutableArray new];
+        for (LRPackageType *packageType in [AppState sharedAppState].packageManager.packageTypes) {
+            NSURL *bundledPackagesURL = [folderURL URLByAppendingPathComponent:packageType.bundledPackagesFolderName];
+            NSDictionary *values = [bundledPackagesURL resourceValuesForKeys:@[NSURLIsDirectoryKey] error:NULL];
+            if ([values[NSURLIsDirectoryKey] boolValue]) {
+                LRPackageContainer *container = [packageType packageContainerAtFolderURL:bundledPackagesURL];
+                [bundledPackageContainers addObject:container];
+                [packageType addPackageContainer:container];
+            }
+        }
+        _bundledPackageContainers = [bundledPackageContainers copy];
     }
 
     return self;

@@ -3,6 +3,9 @@
 #import "Glue.h"
 #import "Workspace.h"
 
+#import "LRPackageManager.h"
+#import "NpmPackageType.h"
+
 
 static AppState *sharedAppState = nil;
 
@@ -21,6 +24,9 @@ static AppState *sharedAppState = nil;
     self = [super init];
     if (self) {
         [self _setupCommandHandlers];
+
+        _packageManager = [LRPackageManager new];
+        [_packageManager addPackageType:[NpmPackageType new]];
     }
     return self;
 }
