@@ -6,6 +6,8 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
+NSString *ATCurrentDirectoryPathKey = @"ATCurrentDirectoryPath";
+
 static id ATPipeOrFileHandleForWriting(id task, NSPipe *pipe) {
     if ([task isKindOfClass:[NSTask class]])
         return pipe;
@@ -13,10 +15,10 @@ static id ATPipeOrFileHandleForWriting(id task, NSPipe *pipe) {
         return pipe.fileHandleForWriting;
 }
 
-id ATLaunchUnixTaskAndCaptureOutput(NSURL *scriptURL, NSArray *arguments, ATLaunchUnixTaskAndCaptureOutputOptions options, ATLaunchUnixTaskAndCaptureOutputCompletionHandler handler) {
+id ATLaunchUnixTaskAndCaptureOutput(NSURL *scriptURL, NSArray *arguments, ATLaunchUnixTaskAndCaptureOutputOptions flags, NSDictionary *options, ATLaunchUnixTaskAndCaptureOutputCompletionHandler handler) {
     NSError *error = nil;
     id task;
-    if ((options & ATLaunchUnixTaskAndCaptureOutputOptionsIgnoreSandbox) == ATLaunchUnixTaskAndCaptureOutputOptionsIgnoreSandbox) {
+    if ((flags & ATLaunchUnixTaskAndCaptureOutputOptionsIgnoreSandbox) == ATLaunchUnixTaskAndCaptureOutputOptionsIgnoreSandbox) {
         task = [[ATPlainUnixTask alloc] initWithURL:scriptURL error:&error];
     } else {
         task = ATCreateUserUnixTask(scriptURL, &error);
@@ -26,7 +28,12 @@ id ATLaunchUnixTaskAndCaptureOutput(NSURL *scriptURL, NSArray *arguments, ATLaun
         return nil;
     }
 
-    BOOL merge = !!(options & ATLaunchUnixTaskAndCaptureOutputOptionsMergeStdoutAndStderr);
+    NSString *currentDirectoryPath = options[ATCurrentDirectoryPathKey];
+    if (currentDirectoryPath && [task respondsToSelector:@selector(setCurrentDirectoryPath:)]) {
+        [task setCurrentDirectoryPath:currentDirectoryPath];
+    }
+
+    BOOL merge = !!(flags & ATLaunchUnixTaskAndCaptureOutputOptionsMergeStdoutAndStderr);
 
     ATTaskOutputReader *outputReader = [[ATTaskOutputReader alloc] init];
     [task setStandardOutput:ATPipeOrFileHandleForWriting(task, outputReader.standardOutputPipe)];
@@ -102,6 +109,8 @@ id ATCreateUserUnixTask(NSURL *scriptURL, NSError **error) {
 
     [task setLaunchPath:[url path]];
     [task setArguments:arguments];
+    if (_currentDirectoryPath)
+        [task setCurrentDirectoryPath:_currentDirectoryPath];
 
     // standard input is required, otherwise everything just hangs
     if (!self.standardInput) {

@@ -111,7 +111,7 @@ NSArray *LRFindPluginsInFolder(NSURL *folder, NSArray *validApiValues) {
 }
 
 - (id)invokeWithArguments:(NSArray *)arguments options:(ATLaunchUnixTaskAndCaptureOutputOptions)options completionHandler:(ATLaunchUnixTaskAndCaptureOutputCompletionHandler)completionHandler {
-    return ATLaunchUnixTaskAndCaptureOutput(self.scriptFileURL, arguments, options, completionHandler);
+    return ATLaunchUnixTaskAndCaptureOutput(self.scriptFileURL, arguments, options, @{}, completionHandler);
 }
 
 - (BOOL)updateProperties:(NSDictionary *)newProperties {
