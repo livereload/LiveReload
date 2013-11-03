@@ -22,7 +22,7 @@ void nodeapp_rpc_send_init(void *dummy) {
     [[Glue glue] postMessage:@{
         @"service": @"server",
         @"command": @"init",
-        @"appVersion": @"" NODEAPP_VERSION,
+        @"appVersion": [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"],
     }];
 }
 

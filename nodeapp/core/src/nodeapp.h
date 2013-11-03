@@ -2,7 +2,6 @@
 #define nodeapp_h
 
 #include "app_config.h"
-#include "app_version.h"
 
 #include "jansson.h"
 
