@@ -1,0 +1,390 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C336CFF8178BC2F300D35D67 /* Base.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C336CFF4178BC2F300D35D67 /* Base.xcconfig */; };
+		C336CFFA178BC2F300D35D67 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C336CFF5178BC2F300D35D67 /* Debug.xcconfig */; };
+		C336CFFC178BC2F300D35D67 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C336CFF6178BC2F300D35D67 /* Release.xcconfig */; };
+		C381967817865BA500C5FE78 /* EDSemverParse.m in Sources */ = {isa = PBXBuildFile; fileRef = C381967717865BA500C5FE78 /* EDSemverParse.m */; };
+		C381967F17865CB600C5FE78 /* EDSemverValid.m in Sources */ = {isa = PBXBuildFile; fileRef = C381967E17865CB600C5FE78 /* EDSemverValid.m */; };
+		C38196821786722200C5FE78 /* EDSemverBenchmark.m in Sources */ = {isa = PBXBuildFile; fileRef = C38196811786722200C5FE78 /* EDSemverBenchmark.m */; };
+		C3819685178676E100C5FE78 /* EDSemverEqualTo.m in Sources */ = {isa = PBXBuildFile; fileRef = C3819684178676E100C5FE78 /* EDSemverEqualTo.m */; };
+		C3903838178615E400ECBCAC /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3903837178615E400ECBCAC /* SenTestingKit.framework */; };
+		C3903839178615E400ECBCAC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3903813178615E400ECBCAC /* UIKit.framework */; };
+		C390383A178615E400ECBCAC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3903815178615E400ECBCAC /* Foundation.framework */; };
+		C3903842178615E400ECBCAC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C3903840178615E400ECBCAC /* InfoPlist.strings */; };
+		C39038511786166E00ECBCAC /* EDSemver.m in Sources */ = {isa = PBXBuildFile; fileRef = C390384F1786166E00ECBCAC /* EDSemver.m */; };
+		C3A8AB80178A39A000EE322C /* EDSemverGreaterThan.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A8AB7F178A39A000EE322C /* EDSemverGreaterThan.m */; };
+		C3D242031786843C0019F61A /* EDSemverLessThan.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D242021786843C0019F61A /* EDSemverLessThan.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		C336CFF4178BC2F300D35D67 /* Base.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
+		C336CFF5178BC2F300D35D67 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		C336CFF6178BC2F300D35D67 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		C381967617865BA500C5FE78 /* EDSemverParse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSemverParse.h; sourceTree = "<group>"; };
+		C381967717865BA500C5FE78 /* EDSemverParse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSemverParse.m; sourceTree = "<group>"; };
+		C381967917865C0A00C5FE78 /* EDSemverHarness.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSemverHarness.h; sourceTree = "<group>"; };
+		C381967D17865CB600C5FE78 /* EDSemverValid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSemverValid.h; sourceTree = "<group>"; };
+		C381967E17865CB600C5FE78 /* EDSemverValid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSemverValid.m; sourceTree = "<group>"; };
+		C38196801786722200C5FE78 /* EDSemverBenchmark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSemverBenchmark.h; sourceTree = "<group>"; };
+		C38196811786722200C5FE78 /* EDSemverBenchmark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSemverBenchmark.m; sourceTree = "<group>"; };
+		C3819683178676E100C5FE78 /* EDSemverEqualTo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSemverEqualTo.h; sourceTree = "<group>"; };
+		C3819684178676E100C5FE78 /* EDSemverEqualTo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSemverEqualTo.m; sourceTree = "<group>"; };
+		C381969C178679AF00C5FE78 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
+		C381969E178679AF00C5FE78 /* semver-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "semver-Info.plist"; sourceTree = "<group>"; };
+		C3903813178615E400ECBCAC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		C3903815178615E400ECBCAC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		C3903817178615E400ECBCAC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		C3903836178615E400ECBCAC /* semverTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = semverTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3903837178615E400ECBCAC /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		C390383F178615E400ECBCAC /* semverTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "semverTests-Info.plist"; sourceTree = "<group>"; };
+		C3903841178615E400ECBCAC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C390384E1786166E00ECBCAC /* EDSemver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EDSemver.h; path = ../EDSemver/EDSemver.h; sourceTree = "<group>"; };
+		C390384F1786166E00ECBCAC /* EDSemver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EDSemver.m; path = ../EDSemver/EDSemver.m; sourceTree = "<group>"; };
+		C3903853178616E500ECBCAC /* EDSemver.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = EDSemver.podspec; path = ../EDSemver.podspec; sourceTree = "<group>"; };
+		C3903854178616E500ECBCAC /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = text; name = LICENSE.md; path = ../LICENSE.md; sourceTree = "<group>"; };
+		C3903855178616E500ECBCAC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		C3A8AB7E178A39A000EE322C /* EDSemverGreaterThan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSemverGreaterThan.h; sourceTree = "<group>"; };
+		C3A8AB7F178A39A000EE322C /* EDSemverGreaterThan.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSemverGreaterThan.m; sourceTree = "<group>"; };
+		C3D242011786843C0019F61A /* EDSemverLessThan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSemverLessThan.h; sourceTree = "<group>"; };
+		C3D242021786843C0019F61A /* EDSemverLessThan.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSemverLessThan.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C3903832178615E400ECBCAC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C3903838178615E400ECBCAC /* SenTestingKit.framework in Frameworks */,
+				C3903839178615E400ECBCAC /* UIKit.framework in Frameworks */,
+				C390383A178615E400ECBCAC /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C381967C17865C6C00C5FE78 /* Fixtures */ = {
+			isa = PBXGroup;
+			children = (
+				C381967917865C0A00C5FE78 /* EDSemverHarness.h */,
+			);
+			name = Fixtures;
+			sourceTree = "<group>";
+		};
+		C3819696178679AF00C5FE78 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C381969C178679AF00C5FE78 /* InfoPlist.strings */,
+				C381969E178679AF00C5FE78 /* semver-Info.plist */,
+			);
+			name = Resources;
+			path = semver;
+			sourceTree = "<group>";
+		};
+		C3903807178615E400ECBCAC = {
+			isa = PBXGroup;
+			children = (
+				C3903854178616E500ECBCAC /* LICENSE.md */,
+				C3903855178616E500ECBCAC /* README.md */,
+				C3903853178616E500ECBCAC /* EDSemver.podspec */,
+				C39038521786167B00ECBCAC /* EDSemver */,
+				C390383D178615E400ECBCAC /* Tests */,
+				C3819696178679AF00C5FE78 /* Resources */,
+				C3903812178615E400ECBCAC /* Frameworks */,
+				C3903811178615E400ECBCAC /* Products */,
+				C336CFF4178BC2F300D35D67 /* Base.xcconfig */,
+				C336CFF5178BC2F300D35D67 /* Debug.xcconfig */,
+				C336CFF6178BC2F300D35D67 /* Release.xcconfig */,
+			);
+			sourceTree = "<group>";
+		};
+		C3903811178615E400ECBCAC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C3903836178615E400ECBCAC /* semverTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C3903812178615E400ECBCAC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C3903813178615E400ECBCAC /* UIKit.framework */,
+				C3903815178615E400ECBCAC /* Foundation.framework */,
+				C3903817178615E400ECBCAC /* CoreGraphics.framework */,
+				C3903837178615E400ECBCAC /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C390383D178615E400ECBCAC /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				C38196801786722200C5FE78 /* EDSemverBenchmark.h */,
+				C38196811786722200C5FE78 /* EDSemverBenchmark.m */,
+				C3819683178676E100C5FE78 /* EDSemverEqualTo.h */,
+				C3819684178676E100C5FE78 /* EDSemverEqualTo.m */,
+				C3A8AB7E178A39A000EE322C /* EDSemverGreaterThan.h */,
+				C3A8AB7F178A39A000EE322C /* EDSemverGreaterThan.m */,
+				C3D242011786843C0019F61A /* EDSemverLessThan.h */,
+				C3D242021786843C0019F61A /* EDSemverLessThan.m */,
+				C381967617865BA500C5FE78 /* EDSemverParse.h */,
+				C381967717865BA500C5FE78 /* EDSemverParse.m */,
+				C381967D17865CB600C5FE78 /* EDSemverValid.h */,
+				C381967E17865CB600C5FE78 /* EDSemverValid.m */,
+				C381967C17865C6C00C5FE78 /* Fixtures */,
+				C390383E178615E400ECBCAC /* Supporting Files */,
+			);
+			name = Tests;
+			path = semverTests;
+			sourceTree = "<group>";
+		};
+		C390383E178615E400ECBCAC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C390383F178615E400ECBCAC /* semverTests-Info.plist */,
+				C3903840178615E400ECBCAC /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C39038521786167B00ECBCAC /* EDSemver */ = {
+			isa = PBXGroup;
+			children = (
+				C390384E1786166E00ECBCAC /* EDSemver.h */,
+				C390384F1786166E00ECBCAC /* EDSemver.m */,
+			);
+			name = EDSemver;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C3903835178615E400ECBCAC /* semverTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C390384B178615E400ECBCAC /* Build configuration list for PBXNativeTarget "semverTests" */;
+			buildPhases = (
+				C3903831178615E400ECBCAC /* Sources */,
+				C3903832178615E400ECBCAC /* Frameworks */,
+				C3903833178615E400ECBCAC /* Resources */,
+				C3903834178615E400ECBCAC /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = semverTests;
+			productName = semverTests;
+			productReference = C3903836178615E400ECBCAC /* semverTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C3903808178615E400ECBCAC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = ED;
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = "Andrew Sliwinski";
+			};
+			buildConfigurationList = C390380B178615E400ECBCAC /* Build configuration list for PBXProject "semver" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = C3903807178615E400ECBCAC;
+			productRefGroup = C3903811178615E400ECBCAC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C3903835178615E400ECBCAC /* semverTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C3903833178615E400ECBCAC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C3903842178615E400ECBCAC /* InfoPlist.strings in Resources */,
+				C336CFF8178BC2F300D35D67 /* Base.xcconfig in Resources */,
+				C336CFFA178BC2F300D35D67 /* Debug.xcconfig in Resources */,
+				C336CFFC178BC2F300D35D67 /* Release.xcconfig in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		C3903834178615E400ECBCAC /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C3903831178615E400ECBCAC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C39038511786166E00ECBCAC /* EDSemver.m in Sources */,
+				C381967817865BA500C5FE78 /* EDSemverParse.m in Sources */,
+				C381967F17865CB600C5FE78 /* EDSemverValid.m in Sources */,
+				C38196821786722200C5FE78 /* EDSemverBenchmark.m in Sources */,
+				C3819685178676E100C5FE78 /* EDSemverEqualTo.m in Sources */,
+				C3D242031786843C0019F61A /* EDSemverLessThan.m in Sources */,
+				C3A8AB80178A39A000EE322C /* EDSemverGreaterThan.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		C3903840178615E400ECBCAC /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3903841178615E400ECBCAC /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C3903846178615E400ECBCAC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C336CFF5178BC2F300D35D67 /* Debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		C3903847178615E400ECBCAC /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C336CFF6178BC2F300D35D67 /* Release.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C390384C178615E400ECBCAC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/semver.app/semver";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "semver/semver-Prefix.pch";
+				INFOPLIST_FILE = "semverTests/semverTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		C390384D178615E400ECBCAC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/semver.app/semver";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "semver/semver-Prefix.pch";
+				INFOPLIST_FILE = "semverTests/semverTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C390380B178615E400ECBCAC /* Build configuration list for PBXProject "semver" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C3903846178615E400ECBCAC /* Debug */,
+				C3903847178615E400ECBCAC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C390384B178615E400ECBCAC /* Build configuration list for PBXNativeTarget "semverTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C390384C178615E400ECBCAC /* Debug */,
+				C390384D178615E400ECBCAC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C3903808178615E400ECBCAC /* Project object */;
+}

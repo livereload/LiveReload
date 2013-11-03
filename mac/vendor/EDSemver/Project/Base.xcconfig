@@ -1,0 +1,30 @@
+//
+//  Base.xcconfig
+//  semver
+//
+//  Created by Andrew Sliwinski on 7/8/13.
+//  Copyright (c) 2013 Andrew Sliwinski. All rights reserved.
+//
+
+PRODUCT_NAME = semver
+WRAPPER_EXTENSION = app
+
+ARCHS[sdk=iphoneos*] = $(ARCHS_UNIVERSAL_IPHONE_OS)
+
+SKIP_INSTALL = NO
+
+DEAD_CODE_STRIPPING = YES;
+
+OTHER_CFLAGS = -fconstant-cfstrings
+DEBUG_INFORMATION_FORMAT = dwarf-with-dsym
+
+GCC_PRECOMPILE_PREFIX_HEADER = YES
+GCC_C_LANGUAGE_STANDARD = c99
+GCC_VERSION = com.apple.compilers.llvm.clang.1_0
+
+CLANG_ENABLE_OBJC_ARC = YES
+CLANG_WARN__DUPLICATE_METHOD_MATCH = YES
+CLANG_WARN_EMPTY_BODY = YES
+CLANG_WARN_CONSTANT_CONVERSION = YES
+CLANG_WARN_ENUM_CONVERSION = YES
+CLANG_WARN_INT_CONVERSION = YES

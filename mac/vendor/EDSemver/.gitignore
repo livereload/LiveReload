@@ -1,0 +1,19 @@
+/** MacOS **/
+.DS_Store
+
+/** NPM **/
+*/node_modules
+*npm*
+
+/** XCode **/
+*.swp
+*~.nib
+
+build/
+
+.xcodeproj/
+!*.xcodeproj/project.pbxproj
+*.mode1v3
+*.mode2v3
+
+xcuserdata
