@@ -702,8 +702,6 @@
 		43DFE4E417CC6C0D00DEF87B /* autoprefixer.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = autoprefixer.lrplugin; path = ../plugins/autoprefixer.lrplugin; sourceTree = "<group>"; };
 		43DFE4E517CC6C0D00DEF87B /* customscripts.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = customscripts.lrplugin; path = ../plugins/customscripts.lrplugin; sourceTree = "<group>"; };
 		43DFE4E817CC967500DEF87B /* TypeScript.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = TypeScript.lrplugin; path = ../plugins/TypeScript.lrplugin; sourceTree = "<group>"; };
-		43DFE4EC17CCA4F200DEF87B /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
-		43DFE4F017CCA56300DEF87B /* com.andymatuschak.Sparkle.SandboxService.xpc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = com.andymatuschak.Sparkle.SandboxService.xpc; sourceTree = "<group>"; };
 		43E07EC017B01C4A004DB867 /* ATJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATJson.h; sourceTree = "<group>"; };
 		43E07EC117B01C4B004DB867 /* ATJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATJson.m; sourceTree = "<group>"; };
 		43E34F9714705125001641AA /* console.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = console.c; sourceTree = "<group>"; };
@@ -856,7 +854,6 @@
 				434BB2A117BBF512000BEB1C /* ATPathSpecTests */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				43DFE4EB17CCA4DE00DEF87B /* Sparkle */,
 			);
 			name = LiveReload;
 			sourceTree = "<group>";
@@ -1610,16 +1607,6 @@
 				43C611931803BDBD008A707E /* SandboxAccessModel.m */,
 			);
 			path = SandboxAccess;
-			sourceTree = "<group>";
-		};
-		43DFE4EB17CCA4DE00DEF87B /* Sparkle */ = {
-			isa = PBXGroup;
-			children = (
-				43DFE4EC17CCA4F200DEF87B /* Sparkle.framework */,
-				43DFE4F017CCA56300DEF87B /* com.andymatuschak.Sparkle.SandboxService.xpc */,
-			);
-			name = Sparkle;
-			path = vendor/Sparkle;
 			sourceTree = "<group>";
 		};
 		43E34F9614705125001641AA /* Shared */ = {
@@ -2452,11 +2439,6 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = LiveReload.entitlements;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)",
-					"$(SRCROOT)/vendor/Sparkle",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = LiveReload_Prefix.pch;
 				INFOPLIST_FILE = "LiveReload-Info.plist";
@@ -2475,11 +2457,6 @@
 				CODE_SIGN_ENTITLEMENTS = LiveReload.entitlements;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)",
-					"$(SRCROOT)/vendor/Sparkle",
-				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2501,11 +2478,6 @@
 				CODE_SIGN_ENTITLEMENTS = LiveReload.entitlements;
 				CODE_SIGN_IDENTITY = "Developer ID Application: Andrey Tarantsov";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)",
-					"$(SRCROOT)/vendor/Sparkle",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = LiveReload_Prefix.pch;
 				INFOPLIST_FILE = "LiveReload-Info.plist";
