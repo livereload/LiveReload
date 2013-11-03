@@ -1017,10 +1017,16 @@ enum { PANE_COUNT = PaneProject+1 };
     licenseStatusMenuItem.hidden = !all;
     licenseStatusMenuItem.title = licenseStatus;
 
+    // TODO: re-enable when out of beta
+#if 1
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    self.window.title = [NSString stringWithFormat:@"LiveReload Pro (early preview %@)", version];
+#else
     if (LicenseManagerIsTrialMode())
-        self.window.title = @"LiveReload — unlimited trial, please purchase when ready";
+        self.window.title = @"LiveReload Pro — unlimited trial, please purchase when ready";
     else
-        self.window.title = @"LiveReload";
+        self.window.title = @"LiveReload Pro";
+#endif
 }
 
 - (IBAction)purchaseViaMAS:(id)sender {
