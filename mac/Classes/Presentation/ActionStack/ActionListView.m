@@ -84,11 +84,6 @@ static void *ActionListView_Action_Context = "ActionListView_Action_Context";
         _loaded = YES;
         [self removeAllItems];
         [self loadRows];
-
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 100 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
-            NSLog(@"Action List View hierarchy:\n%@", [self performSelector:NSSelectorFromString(@"_subtreeDescription") withObject:nil]);
-        });
-
     }
 
     [super updateConstraints];
