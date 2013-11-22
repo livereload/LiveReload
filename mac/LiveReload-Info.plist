@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
+	<key>CFBundleDisplayName</key>
+	<string></string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
@@ -52,10 +54,10 @@
 	<string>LiveReload/Updates</string>
 	<key>GlitterDefaultChannelName</key>
 	<string>stable</string>
-	<key>GlitterFeedURL</key>
-	<string>https://s3.amazonaws.com/download.livereload.com/LiveReload-v3-Mac-updates.json</string>
 	<key>GlitterFailedUpdateSupportURL</key>
 	<string>mailto:support@livereload.com?subject=Cannot+update+from+(oldver)+to+(newver)</string>
+	<key>GlitterFeedURL</key>
+	<string>https://s3.amazonaws.com/download.livereload.com/LiveReload-v3-Mac-updates.json</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.developer-tools</string>
 	<key>LSMinimumSystemVersion</key>
@@ -66,11 +68,5 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
-	<key>NSServices</key>
-	<array/>
-	<key>UTExportedTypeDeclarations</key>
-	<array/>
-	<key>UTImportedTypeDeclarations</key>
-	<array/>
 </dict>
 </plist>
