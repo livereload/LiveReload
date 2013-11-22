@@ -50,6 +50,7 @@
     int _port;
     Glitter *_glitter;
 
+    id <NSObject> _activityToken;
     SandboxAccessModel *_sandboxAccessModel;
 }
 
@@ -77,6 +78,10 @@
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    if ([[NSProcessInfo processInfo] respondsToSelector:@selector(beginActivityWithOptions:reason:)]) { // OSX10.9+
+        _activityToken = [[NSProcessInfo processInfo] beginActivityWithOptions:NSActivityUserInitiatedAllowingIdleSystemSleep reason:@"Background file monitoring"];
+    }
+
     // initialize this early to allow the additional folders to be accessed by other initialization code
     _sandboxAccessModel = [[SandboxAccessModel alloc] initWithDataFileURL:[LRDataFolderURL() URLByAppendingPathComponent:@"sandbox-extensions.json"]];
 
