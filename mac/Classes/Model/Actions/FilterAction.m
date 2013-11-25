@@ -14,7 +14,7 @@
 - (void)loadFromMemento:(NSDictionary *)memento {
     [super loadFromMemento:memento];
 
-    NSString *inputFilter = self.type.options[@"input"];
+    NSString *inputFilter = self.type.manifest[@"input"];
     self.intrinsicInputPathSpec = [ATPathSpec pathSpecWithString:inputFilter syntaxOptions:ATPathSpecSyntaxFlavorExtended];
 }
 

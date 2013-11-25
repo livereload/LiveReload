@@ -1,5 +1,6 @@
 
 #import "LRPackageContainer.h"
+#import "LRPackageReference.h"
 
 
 @interface LRPackageContainer ()
@@ -18,7 +19,13 @@
 }
 
 - (NSArray *)packagesMatchingReference:(LRPackageReference *)reference {
-    abort();
+    NSMutableArray *result = [NSMutableArray new];
+    for (LRPackage *package in _packages) {
+        if ([reference matchesPackage:package]) {
+            [result addObject:package];
+        }
+    }
+    return result;
 }
 
 - (LRPackage *)bestPackageMatchingReference:(LRPackageReference *)reference {

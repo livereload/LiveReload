@@ -3,6 +3,12 @@
 #import "Glue.h"
 #import "Workspace.h"
 
+#import "EditorManager.h"
+#import "Preferences.h"
+
+#import "PluginManager.h"
+#import "Plugin.h"
+
 #import "LRPackageManager.h"
 #import "NpmPackageType.h"
 
@@ -18,17 +24,26 @@ static AppState *sharedAppState = nil;
 
 + (void)initializeAppState {
     sharedAppState = [AppState new];
+    [sharedAppState _setup];
 }
 
-- (id)init {
-    self = [super init];
-    if (self) {
-        [self _setupCommandHandlers];
+- (void)_setup {
+    [self _setupCommandHandlers];
 
-        _packageManager = [LRPackageManager new];
-        [_packageManager addPackageType:[NpmPackageType new]];
-    }
-    return self;
+    _packageManager = [LRPackageManager new];
+
+    [EditorManager sharedEditorManager];
+
+    [Preferences initDefaults];
+
+    // needs to happen before scanning for plugins
+    [_packageManager addPackageType:[NpmPackageType new]];
+
+    [[PluginManager sharedPluginManager] reloadPlugins];
+
+    //        for (Plugin *plugin in [PluginManager sharedPluginManager].plugins) {
+    //            plugin.
+    //        }
 }
 
 - (void)_setupCommandHandlers {

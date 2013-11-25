@@ -4,19 +4,19 @@
 #import "Action.h"
 
 
-@implementation LROption {
-    NSMutableArray *_errors;
-}
+@implementation LROption
 
-- (id)initWithOptionManifest:(NSDictionary *)manifest action:(Action *)action {
-    self = [super init];
+- (id)initWithManifest:(NSDictionary *)manifest action:(Action *)action errorSink:(id<LRManifestErrorSink>)errorSink {
+    self = [super initWithManifest:manifest errorSink:errorSink];
     if (self) {
-        _manifest = [manifest copy];
         _action = action;
-        _valid = YES;
         [self loadManifest];
     }
     return self;
+}
+
+- (id)copyWithAction:(Action *)action {
+    return [[self.class alloc] initWithManifest:self.manifest action:action errorSink:self.errorSink];
 }
 
 - (void)renderInOptionsView:(LROptionsView *)optionsView {
@@ -35,13 +35,13 @@
 }
 
 - (void)loadModelValues {
-    if (!_valid)
+    if (!self.valid)
         return;
     [self setPresentedValue:self.effectiveValue];
 }
 
 - (void)saveModelValues {
-    if (!_valid)
+    if (!self.valid)
         return;
     id value = [self presentedValue];
     if ([value isEqual:self.defaultValue])
@@ -74,15 +74,6 @@
 
 - (void)setModelValue:(id)value {
     [self.action setOptionValue:value forKey:self.optionKeyForPresentedValue];
-}
-
-- (void)addErrorMessage:(NSString *)message {
-    _valid = NO;
-    [_errors addObject:[NSError errorWithDomain:LRErrorDomain code:LRErrorInvalidManifest userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"%@ in option %@", message, self.manifest]}]];
-}
-
-- (NSArray *)errors {
-    return [_errors copy];
 }
 
 @end

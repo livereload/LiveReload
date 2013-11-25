@@ -15,6 +15,10 @@
 - (void)addPackageContainer:(LRPackageContainer *)container;
 - (void)removePackageContainer:(LRPackageContainer *)container;
 
+@property(nonatomic, readonly) NSArray *containers;
+
 - (LRPackageContainer *)packageContainerAtFolderURL:(NSURL *)folderURL;
+
+- (NSString *)identifierOfPackageNamed:(NSString *)packageName;
 
 @end

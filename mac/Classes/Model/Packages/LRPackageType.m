@@ -7,7 +7,18 @@
     NSMutableArray *_containers;
 }
 
+- (id)init {
+    if (self = [super init]) {
+        _containers = [NSMutableArray new];
+    }
+    return self;
+}
+
 - (NSString *)name {
+    abort();
+}
+
+- (LRVersionSpace *)versionSpace {
     abort();
 }
 
@@ -27,6 +38,10 @@
 
 - (LRPackageContainer *)packageContainerAtFolderURL:(NSURL *)folderURL {
     return nil;
+}
+
+- (NSString *)identifierOfPackageNamed:(NSString *)packageName {
+    return [NSString stringWithFormat:@"%@:%@", self.name, packageName];
 }
 
 @end

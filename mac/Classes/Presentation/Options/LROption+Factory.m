@@ -21,14 +21,14 @@
     return result;
 }
 
-+ (LROption *)optionWithSpec:(NSDictionary *)spec action:(Action *)action {
++ (LROption *)optionWithSpec:(NSDictionary *)spec action:(Action *)action errorSink:(id<LRManifestErrorSink>)errorSink {
     NSString *typeName = spec[@"type"];
     if (!typeName.length)
         return nil;
     Class klass = [[self standardOptionTypes] objectForKey:typeName];
     if (!klass)
         return nil;;
-    return [[klass alloc] initWithOptionManifest:spec action:action];
+    return [[klass alloc] initWithManifest:spec action:action errorSink:errorSink];
 }
 
 @end

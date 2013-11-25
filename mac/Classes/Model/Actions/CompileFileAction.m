@@ -19,7 +19,7 @@
 //    self.intrinsicInputPathSpec = [ATPathSpec pathSpecWithString:@"*.css" syntaxOptions:ATPathSpecSyntaxFlavorExtended];
     self.outputFilterOption = [FilterOption filterOptionWithMemento:(memento[@"output"] ?: @"subdir:.")];
 
-    NSString *inputFilter = self.type.options[@"input"];
+    NSString *inputFilter = self.type.manifest[@"input"];
     self.intrinsicInputPathSpec = [ATPathSpec pathSpecWithString:inputFilter syntaxOptions:ATPathSpecSyntaxFlavorExtended];
 }
 
@@ -37,7 +37,7 @@
     // we cheat a little, reusing the impl from LRFile (TODO should extract the common helpers)
     LRFile *fakeFile = [[LRFile alloc] initWithFile:file.relativePath memento:nil];
     fakeFile.destinationDirectory = self.outputFilterOption.subfolder;
-    fakeFile.destinationNameMask = self.type.options[@"output"];
+    fakeFile.destinationNameMask = self.type.manifest[@"output"];
     NSString *destinationRelativePath = fakeFile.destinationPath;
 
     LRFile2 *destinationFile = [LRFile2 fileWithRelativePath:destinationRelativePath project:step.project];

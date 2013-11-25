@@ -67,17 +67,6 @@
 }
 
 - (void)applicationWillFinishLaunching:(NSNotification *)notification {
-    [AppState initializeAppState];
-
-    [[Glue glue] registerCommand:@"kernel.log" target:self action:@selector(handleLogMessage:)];
-    [[Glue glue] registerCommand:@"kernel.on-port-occupied-error" target:self action:@selector(handlePortOccupied:)];
-    [[Glue glue] registerCommand:@"kernel.on-browser-v6-protocol-connection" target:self action:@selector(handleVersion6Connection:)];
-
-    _glitter = [[Glitter alloc] initWithMainBundle];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateStatusDidChange) name:GlitterStatusDidChangeNotification object:_glitter];
-}
-
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     if ([[NSProcessInfo processInfo] respondsToSelector:@selector(beginActivityWithOptions:reason:)]) { // OSX10.9+
         _activityToken = [[NSProcessInfo processInfo] beginActivityWithOptions:NSActivityUserInitiatedAllowingIdleSystemSleep reason:@"Background file monitoring"];
     }
@@ -91,10 +80,17 @@
     putenv("INVOKED_FROM_LIVERELOAD=1");
     putenv("RUBYOPT=-Ku");
 
-    [EditorManager sharedEditorManager];
+    [AppState initializeAppState];
 
-    [Preferences initDefaults];
-    [[PluginManager sharedPluginManager] reloadPlugins];
+    [[Glue glue] registerCommand:@"kernel.log" target:self action:@selector(handleLogMessage:)];
+    [[Glue glue] registerCommand:@"kernel.on-port-occupied-error" target:self action:@selector(handlePortOccupied:)];
+    [[Glue glue] registerCommand:@"kernel.on-browser-v6-protocol-connection" target:self action:@selector(handleVersion6Connection:)];
+
+    _glitter = [[Glitter alloc] initWithMainBundle];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateStatusDidChange) name:GlitterStatusDidChangeNotification object:_glitter];
+}
+
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 
 #ifndef APPSTORE
 //    [[SUUpdater sharedUpdater] setDelegate:self];

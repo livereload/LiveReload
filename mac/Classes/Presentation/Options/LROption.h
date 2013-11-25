@@ -1,5 +1,6 @@
 
 #import <Foundation/Foundation.h>
+#import "LRManifestBasedObject.h"
 
 
 @class LROptionsView;
@@ -7,12 +8,11 @@
 
 
 // app model layer (a blend of model and controller)
-@interface LROption : NSObject
+@interface LROption : LRManifestBasedObject
 
-- (id)initWithOptionManifest:(NSDictionary *)manifest action:(Action *)action;
+- (id)initWithManifest:(NSDictionary *)manifest action:(Action *)action errorSink:(id<LRManifestErrorSink>)errorSink;
 
-@property(nonatomic, readonly) BOOL valid;
-@property(nonatomic, readonly, copy) NSArray *errors;
+- (id)copyWithAction:(Action *)action;
 
 @property(nonatomic, copy) NSString *identifier;
 @property(nonatomic, copy) NSDictionary *manifest;
@@ -35,8 +35,6 @@
 @property(nonatomic, strong) id presentedValue;
 @property(nonatomic, strong) id modelValue;
 @property(nonatomic, strong) id effectiveValue; // modelValue ?: defaultValue
-
-- (void)addErrorMessage:(NSString *)message;
 
 @property(nonatomic, readonly) NSArray *commandLineArguments;
 

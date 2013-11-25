@@ -20,6 +20,7 @@
     self = [super init];
     if (self) {
         _packageTypes = [NSMutableArray new];
+        _packageTypesByName = [NSMutableDictionary new];
     }
     return self;
 }

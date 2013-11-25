@@ -53,6 +53,7 @@
 		43059209151DF2DE00CC3F88 /* MASReceipt.m in Sources */ = {isa = PBXBuildFile; fileRef = 43059208151DF2DE00CC3F88 /* MASReceipt.m */; };
 		43059222151E8FA400CC3F88 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43059221151E8FA400CC3F88 /* CoreServices.framework */; };
 		43059225151E90DE00CC3F88 /* DockIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 43059224151E90DE00CC3F88 /* DockIcon.m */; };
+		43097094183F075B00A96442 /* LRActionManifest.m in Sources */ = {isa = PBXBuildFile; fileRef = 43097093183F075B00A96442 /* LRActionManifest.m */; };
 		4310DE3D146DB588003091D1 /* ToolOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4310DE3C146DB588003091D1 /* ToolOptions.m */; };
 		4310DE40146DB6A0003091D1 /* UIBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4310DE3F146DB6A0003091D1 /* UIBuilder.m */; };
 		43122BF5180BBA5E00BF8121 /* Glue.m in Sources */ = {isa = PBXBuildFile; fileRef = 43122BF4180BBA5E00BF8121 /* Glue.m */; };
@@ -81,6 +82,10 @@
 		431CB53C16D1EF8200034877 /* SASS.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 431CB53316D1EF8200034877 /* SASS.lrplugin */; };
 		431CB53D16D1EF8200034877 /* SLIM.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 431CB53416D1EF8200034877 /* SLIM.lrplugin */; };
 		431CB53E16D1EF8200034877 /* Stylus.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 431CB53516D1EF8200034877 /* Stylus.lrplugin */; };
+		432838791842EFF3001FC70E /* LRChildErrorSink.m in Sources */ = {isa = PBXBuildFile; fileRef = 432838781842EFF3001FC70E /* LRChildErrorSink.m */; };
+		4328387C1842FD3A001FC70E /* LRPackageSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4328387B1842FD3A001FC70E /* LRPackageSet.m */; };
+		4328387F184301A3001FC70E /* LRAssetPackageConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4328387E184301A3001FC70E /* LRAssetPackageConfiguration.m */; };
+		4328388218430646001FC70E /* LRPackageResolutionContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 4328388118430646001FC70E /* LRPackageResolutionContext.m */; };
 		433253A9174E0B4200C9A76B /* PrefPaneRubies.png in Resources */ = {isa = PBXBuildFile; fileRef = 433253A8174E0B4200C9A76B /* PrefPaneRubies.png */; };
 		433253B2174E0BA200C9A76B /* GeneralPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 433253B0174E0BA200C9A76B /* GeneralPreferencesViewController.m */; };
 		433253B3174E0BA200C9A76B /* GeneralPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 433253B1174E0BA200C9A76B /* GeneralPreferencesViewController.xib */; };
@@ -402,6 +407,9 @@
 		43059221151E8FA400CC3F88 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		43059223151E90DE00CC3F88 /* DockIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DockIcon.h; sourceTree = "<group>"; };
 		43059224151E90DE00CC3F88 /* DockIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DockIcon.m; sourceTree = "<group>"; };
+		4309708F183F052C00A96442 /* LRManifestErrorSink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRManifestErrorSink.h; sourceTree = "<group>"; };
+		43097092183F075B00A96442 /* LRActionManifest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRActionManifest.h; sourceTree = "<group>"; };
+		43097093183F075B00A96442 /* LRActionManifest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRActionManifest.m; sourceTree = "<group>"; };
 		4310DE3B146DB588003091D1 /* ToolOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolOptions.h; sourceTree = "<group>"; };
 		4310DE3C146DB588003091D1 /* ToolOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolOptions.m; sourceTree = "<group>"; };
 		4310DE3E146DB6A0003091D1 /* UIBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBuilder.h; sourceTree = "<group>"; };
@@ -442,6 +450,14 @@
 		431CB53316D1EF8200034877 /* SASS.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SASS.lrplugin; path = ../plugins/SASS.lrplugin; sourceTree = "<group>"; };
 		431CB53416D1EF8200034877 /* SLIM.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SLIM.lrplugin; path = ../plugins/SLIM.lrplugin; sourceTree = "<group>"; };
 		431CB53516D1EF8200034877 /* Stylus.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Stylus.lrplugin; path = ../plugins/Stylus.lrplugin; sourceTree = "<group>"; };
+		432838771842EFF3001FC70E /* LRChildErrorSink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRChildErrorSink.h; sourceTree = "<group>"; };
+		432838781842EFF3001FC70E /* LRChildErrorSink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRChildErrorSink.m; sourceTree = "<group>"; };
+		4328387A1842FD3A001FC70E /* LRPackageSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPackageSet.h; sourceTree = "<group>"; };
+		4328387B1842FD3A001FC70E /* LRPackageSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPackageSet.m; sourceTree = "<group>"; };
+		4328387D184301A3001FC70E /* LRAssetPackageConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRAssetPackageConfiguration.h; sourceTree = "<group>"; };
+		4328387E184301A3001FC70E /* LRAssetPackageConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRAssetPackageConfiguration.m; sourceTree = "<group>"; };
+		4328388018430646001FC70E /* LRPackageResolutionContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPackageResolutionContext.h; sourceTree = "<group>"; };
+		4328388118430646001FC70E /* LRPackageResolutionContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPackageResolutionContext.m; sourceTree = "<group>"; };
 		432A6D921476192300144F97 /* sglib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sglib.h; sourceTree = "<group>"; };
 		432A6D93147622A600144F97 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
 		433253A8174E0B4200C9A76B /* PrefPaneRubies.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PrefPaneRubies.png; sourceTree = "<group>"; };
@@ -1211,6 +1227,10 @@
 				433D21AE182646FA00E81A09 /* UserScriptAction.m */,
 				433D21D218268ABD00E81A09 /* LRManifestLayer.h */,
 				433D21D318268ABD00E81A09 /* LRManifestLayer.m */,
+				43097092183F075B00A96442 /* LRActionManifest.h */,
+				43097093183F075B00A96442 /* LRActionManifest.m */,
+				4328387D184301A3001FC70E /* LRAssetPackageConfiguration.h */,
+				4328387E184301A3001FC70E /* LRAssetPackageConfiguration.m */,
 			);
 			path = Actions;
 			sourceTree = "<group>";
@@ -1247,6 +1267,10 @@
 				433D21F01826AD9200E81A09 /* LRPackage.m */,
 				433D21F11826AD9200E81A09 /* LRPackageContainer.h */,
 				433D21F21826AD9200E81A09 /* LRPackageContainer.m */,
+				4328387A1842FD3A001FC70E /* LRPackageSet.h */,
+				4328387B1842FD3A001FC70E /* LRPackageSet.m */,
+				4328388018430646001FC70E /* LRPackageResolutionContext.h */,
+				4328388118430646001FC70E /* LRPackageResolutionContext.m */,
 			);
 			path = Packages;
 			sourceTree = "<group>";
@@ -1846,8 +1870,11 @@
 		823DDE6713F8DA3100529AD2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4309708F183F052C00A96442 /* LRManifestErrorSink.h */,
 				433D21E21826A86C00E81A09 /* LRManifestBasedObject.h */,
 				433D21E31826A86C00E81A09 /* LRManifestBasedObject.m */,
+				432838771842EFF3001FC70E /* LRChildErrorSink.h */,
+				432838781842EFF3001FC70E /* LRChildErrorSink.m */,
 				433D21D518268B4600E81A09 /* Versions */,
 				433D217E182646D900E81A09 /* App */,
 				433D2198182646EB00E81A09 /* Environment */,
@@ -2191,6 +2218,7 @@
 				433D21E11826A30600E81A09 /* LRActionVersion.m in Sources */,
 				43DFE4DB17CA97A800DEF87B /* FilterActionRow.m in Sources */,
 				43C611971803CCF8008A707E /* ATScheduling.m in Sources */,
+				4328387C1842FD3A001FC70E /* LRPackageSet.m in Sources */,
 				823DDEF713F8DA3100529AD2 /* Compiler.m in Sources */,
 				823DDEF813F8DA3100529AD2 /* CompilerVersion.m in Sources */,
 				823DDEF913F8DA3100529AD2 /* Plugin.m in Sources */,
@@ -2236,6 +2264,7 @@
 				43E34F9B14705125001641AA /* console.c in Sources */,
 				4396F1EA17FA2D4500AA8200 /* CompileFileActionRow.m in Sources */,
 				43E34F9C14705125001641AA /* eventbus.c in Sources */,
+				4328388218430646001FC70E /* LRPackageResolutionContext.m in Sources */,
 				4396F1E217F8112F00AA8200 /* GlitterUpdateInfoViewController.m in Sources */,
 				43E34F9F14706D9B001641AA /* osdep.m in Sources */,
 				43E34FA5147071E9001641AA /* stringutil.c in Sources */,
@@ -2310,6 +2339,7 @@
 				43122BF5180BBA5E00BF8121 /* Glue.m in Sources */,
 				434BB25E17B91330000BEB1C /* OptionsRow.m in Sources */,
 				4303A58815B513FD009D732A /* nodeapp_url_handler_mac.m in Sources */,
+				43097094183F075B00A96442 /* LRActionManifest.m in Sources */,
 				4398AF0F1731E3DC0092A711 /* NSData+Base64.m in Sources */,
 				433D22081826AD9200E81A09 /* NpmPackage.m in Sources */,
 				43508A9317B39DBE00871422 /* ATFlippedView.m in Sources */,
@@ -2317,6 +2347,7 @@
 				436D732B173DE05000F78A23 /* MissingRuntimeInstance.m in Sources */,
 				43122BFB180FBEFB00BF8121 /* ATObservation.m in Sources */,
 				436D732C173DE05000F78A23 /* RuntimeInstance.m in Sources */,
+				4328387F184301A3001FC70E /* LRAssetPackageConfiguration.m in Sources */,
 				436D732D173DE05000F78A23 /* RuntimeGlobals.m in Sources */,
 				433D22541826C65000E81A09 /* LRVersionSet.m in Sources */,
 				436D7341173DE30900F78A23 /* MASPreferencesWindowController.m in Sources */,
@@ -2346,6 +2377,7 @@
 				433253B2174E0BA200C9A76B /* GeneralPreferencesViewController.m in Sources */,
 				43DB9FD4178EDF2E007BEA36 /* Errors.m in Sources */,
 				43DB9FD7178EFA64007BEA36 /* ExternalEditor.m in Sources */,
+				432838791842EFF3001FC70E /* LRChildErrorSink.m in Sources */,
 				43DB9FDA1792545E007BEA36 /* LRPluginCommons.m in Sources */,
 				43B5BFFF17ADF0D600F57276 /* ATGlobals.m in Sources */,
 				43122C101814E27600BF8121 /* LRCommandLine.m in Sources */,

@@ -42,7 +42,7 @@
 
         NSMutableArray *actionTypes = [NSMutableArray array];
         for (NSDictionary *options in [_info objectForKey:@"actions"]) {
-            [actionTypes addObject:[ActionType actionTypeWithOptions:options plugin:self]];
+            [actionTypes addObject:[[ActionType alloc] initWithManifest:options errorSink:self]];
         }
         _actionTypes = [actionTypes copy];
 
@@ -61,6 +61,10 @@
     }
 
     return self;
+}
+
+- (NSURL *)folderURL {
+    return [NSURL fileURLWithPath:_path];
 }
 
 - (void)addErrorMessage:(NSString *)message {

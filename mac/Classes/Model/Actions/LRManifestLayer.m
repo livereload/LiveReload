@@ -13,8 +13,8 @@
 
 @implementation LRManifestLayer
 
-- (instancetype)initWithManifest:(NSDictionary *)manifest {
-    self = [super initWithManifest:manifest];
+- (instancetype)initWithManifest:(NSDictionary *)manifest errorSink:(id<LRManifestErrorSink>)errorSink {
+    self = [super initWithManifest:manifest errorSink:errorSink];
     if (self) {
         [self initialize];
     }

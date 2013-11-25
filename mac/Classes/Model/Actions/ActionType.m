@@ -4,9 +4,15 @@
 #import "Errors.h"
 #import "Plugin.h"
 #import "LROption+Factory.h"
+#import "LRPackageManager.h"
+#import "LRPackageReference.h"
+#import "LRPackageResolutionContext.h"
+#import "LRPackageSet.h"
 
 #import "LRManifestLayer.h"
 #import "LRActionVersion.h"
+#import "LRActionManifest.h"
+#import "LRAssetPackageConfiguration.h"
 
 #import "ATFunctionalStyle.h"
 
@@ -45,63 +51,36 @@ NSArray *LRValidActionKindStrings() {
 @implementation ActionType {
     NSMutableArray *_errors;
     NSArray *_manifestLayers;
-    NSArray *_optionSpecs;
+    NSArray *_packageConfigurations;
 }
 
-- (id)initWithIdentifier:(NSString *)identifier kind:(ActionKind)kind actionClass:(Class)actionClass rowClass:(Class)rowClass options:(NSDictionary *)options plugin:(Plugin *)plugin {
-    self = [super init];
-    if (self) {
-        _identifier = [identifier copy];
-        _kind = kind;
-        _actionClass = actionClass;
-        _rowClass = rowClass;
-        _options = [options copy];
-        _plugin = plugin;
-        _errors = [NSMutableArray new];
-        _valid = YES;
-
-        _manifestLayers = [_options[@"defaults"] arrayByMappingElementsUsingBlock:^id(NSDictionary *info) {
-            return [[LRManifestLayer alloc] initWithManifest:info];
-        }];
-
+- (instancetype)initWithManifest:(NSDictionary *)manifest errorSink:(id<LRManifestErrorSink>)errorSink {
+    if (self = [super initWithManifest:manifest errorSink:errorSink]) {
         [self initializeWithOptions];
     }
     return self;
 }
 
 - (void)initializeWithOptions {
-    
-
-    _errorSpecs = _options[@"errors"] ?: @[];
-
-    _optionSpecs = self.options[@"options"] ?: @[];
-
-    // validate option specs
-    for (LROption *option in [self createOptionsWithAction:nil]) {
-        for (NSError *error in option.errors) {
-            [self addErrorMessage:[NSString stringWithFormat:@"Invalid options for action %@: %@", _identifier, error.localizedDescription]];
-        }
-    }
-}
-
-+ (ActionType *)actionTypeWithOptions:(NSDictionary *)options plugin:(Plugin *)plugin {
-    NSString *identifier = [options[@"id"] copy] ?: @"";
-    NSString *name = [options[@"name"] copy] ?: identifier;
+    _identifier = [self.manifest[@"id"] copy] ?: @"";
+    _name = [self.manifest[@"name"] copy] ?: _identifier;
 
     NSDictionary *knownTypes = @{
-        @"filter": @{
-            @"kind": @"filter",
-            @"objc_class":    @"FilterAction",
-            @"objc_rowClass": @"FilterActionRow",
-        },
-        @"compile-file": @{
-            @"kind": @"compiler",
-            @"objc_class":    @"CompileFileAction",
-            @"objc_rowClass": @"CompileFileActionRow",
-        },
-    };
+                                 @"filter": @{
+                                         @"kind": @"filter",
+                                         @"objc_class":    @"FilterAction",
+                                         @"objc_rowClass": @"FilterActionRow",
+                                         },
+                                 @"compile-file": @{
+                                         @"kind": @"compiler",
+                                         @"objc_class":    @"CompileFileAction",
+                                         @"objc_rowClass": @"CompileFileActionRow",
+                                         },
+                                 };
 
-    NSString *typeName = options[@"type"];
+    NSDictionary *options = self.manifest;
+
+    NSString *typeName = self.manifest[@"type"];
     if (typeName) {
         NSDictionary *typeOptions = knownTypes[typeName];
 
@@ -111,55 +90,93 @@ NSArray *LRValidActionKindStrings() {
         options = [mergedOptions copy];
     }
 
-    ActionKind kind = LRActionKindFromString(options[@"kind"] ?: @"");
+    _kind = LRActionKindFromString(options[@"kind"] ?: @"");
 
     NSString *actionClassName = options[@"objc_class"] ?: @"";
     NSString *rowClassName = options[@"objc_rowClass"] ?: @"";
 
-    Class actionClass = NSClassFromString(actionClassName);
-    Class rowClass = NSClassFromString(rowClassName);
+    _actionClass = NSClassFromString(actionClassName);
+    _rowClass = NSClassFromString(rowClassName);
 
-    ActionType *result = [[self alloc] initWithIdentifier:identifier kind:kind actionClass:actionClass rowClass:rowClass options:options plugin:plugin];
+    if (_identifier.length == 0)
+        [self addErrorMessage:@"'id' attribute is required"];
 
-    if (identifier.length == 0)
-        [result addErrorMessage:@"'id' attribute is required"];
+    if (_kind == ActionKindUnknown)
+        [self addErrorMessage:[NSString stringWithFormat:@"'kind' attribute is required and must be one of %@", LRValidActionKindStrings()]];
+    
+    if (!_actionClass)
+        [self addErrorMessage:[NSString stringWithFormat:@"Cannot find action class '%@'", actionClassName]];
+    if (!_rowClass)
+        [self addErrorMessage:[NSString stringWithFormat:@"Cannot find row class '%@'", rowClassName]];
+    
+    _manifestLayers = [self.manifest[@"defaults"] arrayByMappingElementsUsingBlock:^id(NSDictionary *info) {
+        return [[LRManifestLayer alloc] initWithManifest:info errorSink:self];
+    }];
 
-    result.name = name;
+    if ([_identifier isEqualToString:@"less"]) {
+        NSLog(@"LESS");
+    }
 
-    if (kind == ActionKindUnknown)
-        [result addErrorMessage:[NSString stringWithFormat:@"'kind' attribute is required and must be one of %@", LRValidActionKindStrings()]];
+    NSMutableArray *packageConfigurations = [NSMutableArray new];
+    NSArray *packageConfigurationManifests = self.manifest[@"packageConfigurations"];
+    if (![packageConfigurationManifests isKindOfClass:NSArray.class] || packageConfigurationManifests.count == 0) {
+        [self addErrorMessage:@"No package configurations defined"];
+    } else {
+        for (NSDictionary *packageConfigurationManifest in packageConfigurationManifests) {
+            if (![packageConfigurationManifest isKindOfClass:NSDictionary.class])
+                [self addErrorMessage:@"Every package configuration must be a dictionary"];
+            [packageConfigurations addObject:[[LRAssetPackageConfiguration alloc] initWithManifest:packageConfigurationManifest errorSink:self]];
+        }
+    }
+    _packageConfigurations = [packageConfigurations copy];
 
-    if (!actionClass)
-        [result addErrorMessage:[NSString stringWithFormat:@"Cannot find action class '%@'", actionClassName]];
-    if (!rowClass)
-        [result addErrorMessage:[NSString stringWithFormat:@"Cannot find row class '%@'", rowClassName]];
+    [self _updateAvailableVersions];
+    // TODO: subscribe and update on events
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 500 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
+        [self _updateAvailableVersions];
+    });
 
-    [actionClass validateActionType:result];
-
-    return result;
-}
-
-- (NSArray *)errors {
-    return [_errors copy];
 }
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"%@ '%@' (%@, %@)", LRStringFromActionKind(_kind), _identifier, NSStringFromClass(_actionClass), NSStringFromClass(_rowClass)];
 }
 
-- (void)addErrorMessage:(NSString *)message {
-    [_plugin addErrorMessage:message];
-    _valid = NO;
-}
-
 - (Action *)newInstanceWithMemento:(NSDictionary *)memento {
     return [[_actionClass alloc] initWithType:self memento:memento];
 }
 
-- (NSArray *)createOptionsWithAction:(Action *)action {
-    return [_optionSpecs arrayByMappingElementsUsingBlock:^id(NSDictionary *spec) {
-        return [LROption optionWithSpec:spec action:action];
-    }];
+- (LRActionManifest *)_actionManifestForPackageSet:(LRPackageSet *)packageSet {
+    NSMutableArray *layers = [NSMutableArray new];
+    for (LRManifestLayer *layer in layers) {
+        if ([packageSet matchesAllPackageReferencesInArray:layer.packageReferences]) {
+            [layers addObject:layer];
+        }
+    }
+    return [[LRActionManifest alloc] initWithLayers:layers];
+}
+
+- (void)_updateAvailableVersions {
+    if (!self.valid) {
+        _versions = @[];
+        return;
+    }
+
+    // TODO: this should depend on the selected package
+    LRPackageResolutionContext *resolutionContext = [LRPackageResolutionContext new];
+
+    NSMutableArray *packageSets = [NSMutableArray new];
+    for (LRAssetPackageConfiguration *configuration in _packageConfigurations) {
+        [packageSets addObjectsFromArray:[resolutionContext packageSetsMatchingConfiguration:configuration]];
+    }
+
+    NSMutableArray *versions = [NSMutableArray new];
+    for (LRPackageSet *packageSet in packageSets) {
+        LRActionManifest *manifest = [self _actionManifestForPackageSet:packageSet];
+        LRActionVersion *version = [[LRActionVersion alloc] initWithType:self manifest:manifest packageSet:packageSet];
+        [versions addObject:version];
+    }
+    _versions = versions;
 }
 
 @end

@@ -1,8 +1,9 @@
 
 #import <Foundation/Foundation.h>
+#import "LRManifestErrorSink.h"
 
 
-@interface Plugin : NSObject {
+@interface Plugin : NSObject <LRManifestErrorSink> {
 @private
     NSString         *_path;
     NSDictionary     *_info;
@@ -11,6 +12,7 @@
 
 - (id)initWithPath:(NSString *)path;
 
+@property(nonatomic, readonly) NSURL *folderURL;
 @property(nonatomic, readonly) NSString *path;
 @property(nonatomic, readonly) NSArray *compilers;
 @property(nonatomic, readonly) NSArray *actionTypes;

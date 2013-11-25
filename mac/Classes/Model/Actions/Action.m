@@ -18,10 +18,6 @@
     NSMutableDictionary *_options;
 }
 
-+ (void)validateActionType:(ActionType *)actionType {
-    // nothing to do here
-}
-
 - (ActionKind)kind {
     return _type.kind;
 }
@@ -173,8 +169,9 @@
 
 - (NSArray *)createOptions {
     NSMutableArray *options = [NSMutableArray new];
-    [options addObjectsFromArray:[self.type createOptionsWithAction:self]];
-    [options addObject:[[LRCustomArgumentsOption alloc] initWithOptionManifest:@{@"id": @"custom-args"} action:self]];
+    // TODO: use version-specific options
+//    [options addObjectsFromArray:[self.type createOptionsWithAction:self]];
+    [options addObject:[[LRCustomArgumentsOption alloc] initWithManifest:@{@"id": @"custom-args"} action:self errorSink:nil]];
     return [options copy];
 }
 

@@ -1,5 +1,7 @@
 
 #import "LRPackage.h"
+#import "LRPackageContainer.h"
+#import "LRPackageType.h"
 
 
 @interface LRPackage ()
@@ -16,6 +18,7 @@
         _version = version;
         _container = container;
         _sourceFolderURL = sourceFolderURL;
+        _identifier = [_container.packageType identifierOfPackageNamed:_name];
     }
     return self;
 }

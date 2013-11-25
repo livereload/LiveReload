@@ -15,4 +15,6 @@
 @property(nonatomic, readonly, weak) LRPackageContainer *container;
 @property(nonatomic, readonly) NSURL *sourceFolderURL;
 
+@property(nonatomic, readonly) NSString *identifier;  // type:name
+
 @end

@@ -11,18 +11,10 @@
 @implementation ScriptInvocationActionType {
 }
 
-- (void)initializeWithOptions {
-    [super initializeWithOptions];
-}
-
 @end
 
 
 @implementation ScriptInvocationAction
-
-+ (void)validateActionType:(ActionType *)type {
-    // TODO: validate errorSpecs?
-}
 
 - (void)compileFile:(LRFile2 *)file inProject:(Project *)project completionHandler:(UserScriptCompletionHandler)completionHandler {
     ScriptInvocationStep *step = [ScriptInvocationStep new];
@@ -42,8 +34,8 @@
 }
 
 - (void)configureStep:(ScriptInvocationStep *)step forFile:(LRFile2 *)file {
-    step.commandLine = self.type.options[@"cmdline"];
-    step.manifest = self.type.options;
+    step.commandLine = self.type.manifest[@"cmdline"];
+    step.manifest = self.type.manifest;
     [step addValue:self.type.plugin.path forSubstitutionKey:@"plugin"];
 
     NSMutableArray *additionalArguments = [NSMutableArray new];

@@ -1,9 +1,11 @@
 
 #import <Foundation/Foundation.h>
+#import "LRManifestBasedObject.h"
 
 
 @class Plugin;
 @class Action;
+@class LRActionVersion;
 
 
 typedef enum {
@@ -19,30 +21,20 @@ NSString *LRStringFromActionKind(ActionKind kind);
 NSArray *LRValidActionKindStrings();
 
 
-@interface ActionType : NSObject
+@interface ActionType : LRManifestBasedObject
 
 @property(nonatomic, strong) Plugin *plugin;
 @property(nonatomic, assign) Class actionClass;
 @property(nonatomic, assign) Class rowClass;
-@property(nonatomic, strong) NSDictionary *options;
-@property(nonatomic, readonly, strong) NSArray *errors;
-@property(nonatomic, readonly) BOOL valid;
 
 @property(nonatomic) ActionKind kind;
 @property(nonatomic, copy) NSString *identifier;
 @property(nonatomic, copy) NSString *name;
 
-- (id)initWithIdentifier:(NSString *)identifier kind:(ActionKind)kind actionClass:(Class)actionClass rowClass:(Class)rowClass options:(NSDictionary *)options plugin:(Plugin *)plugin;
-+ (ActionType *)actionTypeWithOptions:(NSDictionary *)options plugin:(Plugin *)plugin;
+@property(nonatomic, readonly, copy) NSArray *versions;
 
 - (void)initializeWithOptions;
 
-- (void)addErrorMessage:(NSString *)message;
-
 - (Action *)newInstanceWithMemento:(NSDictionary *)memento;
-
-@property(nonatomic, copy) NSArray *errorSpecs;
-
-- (NSArray *)createOptionsWithAction:(Action *)action;
 
 @end
