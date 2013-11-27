@@ -31,10 +31,9 @@ NSArray *LRValidActionKindStrings();
 @property(nonatomic, copy) NSString *identifier;
 @property(nonatomic, copy) NSString *name;
 
-@property(nonatomic, readonly, copy) NSArray *versions;
+@property(nonatomic, readonly, copy) NSArray *packageConfigurations;
+@property(nonatomic, readonly, copy) NSArray *manifestLayers;
 
 - (void)initializeWithOptions;
-
-- (Action *)newInstanceWithMemento:(NSDictionary *)memento;
 
 @end

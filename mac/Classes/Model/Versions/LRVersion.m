@@ -20,6 +20,14 @@ NSString *const LRVersionErrorDomain = @"LRVersionErrorDomain";
     return _error == nil;
 }
 
+- (NSInteger)major {
+    abort();
+}
+
+- (NSInteger)minor {
+    abort();
+}
+
 - (NSComparisonResult)compare:(LRVersion *)aVersion {
     abort();
 }

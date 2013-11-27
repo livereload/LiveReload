@@ -8,13 +8,16 @@
 
 @class Project;
 @class LRFile2;
+@class LRContextActionType;
+@class LRActionVersion;
 
 
 @interface Action : NSObject
 
-- (id)initWithType:(ActionType *)type memento:(NSDictionary *)memento;
+- (id)initWithContextActionType:(LRContextActionType *)contextActionType memento:(NSDictionary *)memento;
 
 @property(nonatomic, readonly) ActionType *type;
+@property(nonatomic, readonly) LRContextActionType *contextActionType;
 @property(nonatomic, readonly) ActionKind kind; // derived from type
 @property(nonatomic, copy) NSDictionary *memento;
 
@@ -51,5 +54,7 @@
 - (void)setOptionValue:(id)value forKey:(NSString *)key;
 
 - (NSArray *)createOptions;
+
+@property(nonatomic, readonly) LRActionVersion *effectiveVersion;
 
 @end

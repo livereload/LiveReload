@@ -18,4 +18,8 @@
     return [LRSemanticVersion semanticVersionWithString:string];
 }
 
+- (LRVersion *)versionWithMajor:(NSInteger)major minor:(NSInteger)minor {
+    return [[LRSemanticVersion alloc] initWithMajor:major minor:minor patch:0 prereleaseComponents:@[] build:@"" error:nil];
+}
+
 @end

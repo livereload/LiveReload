@@ -7,6 +7,10 @@
     NSString *_description;
 }
 
+// synthesize explicitly because the properties are initially declared in the superclass
+@synthesize major=_major;
+@synthesize minor=_minor;
+
 - (id)initWithMajor:(NSInteger)major minor:(NSInteger)minor patch:(NSInteger)patch prereleaseComponents:(NSArray *)prereleaseComponents build:(NSString *)build error:(NSError *)error {
     self = [super initWithVersionSpace:[LRSemanticVersionSpace semanticVersionSpace] error:error];
     if (self) {

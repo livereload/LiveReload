@@ -24,6 +24,9 @@ typedef enum {
 @property(nonatomic, readonly, getter=isValid) BOOL valid;
 @property(nonatomic, readonly) NSError *error;
 
+@property (nonatomic, readonly) NSInteger major;
+@property (nonatomic, readonly) NSInteger minor;
+
 - (NSComparisonResult)compare:(LRVersion *)aVersion; // override point
 
 @end

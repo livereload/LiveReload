@@ -80,4 +80,8 @@ check_end:
     return YES;
 }
 
+- (LRVersion *)versionWithMajor:(NSInteger)major minor:(NSInteger)minor {
+    abort();
+}
+
 @end

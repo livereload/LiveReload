@@ -50,7 +50,6 @@ NSArray *LRValidActionKindStrings() {
 
 @implementation ActionType {
     NSMutableArray *_errors;
-    NSArray *_manifestLayers;
     NSArray *_packageConfigurations;
 }
 
@@ -78,22 +77,22 @@ NSArray *LRValidActionKindStrings() {
                                          },
                                  };
 
-    NSDictionary *options = self.manifest;
+    NSDictionary *manifest = self.manifest;
 
     NSString *typeName = self.manifest[@"type"];
     if (typeName) {
-        NSDictionary *typeOptions = knownTypes[typeName];
+        NSDictionary *defaultTypeManifest = knownTypes[typeName];
 
         NSMutableDictionary *mergedOptions = [NSMutableDictionary new];
-        [mergedOptions addEntriesFromDictionary:typeOptions];
-        [mergedOptions addEntriesFromDictionary:options];
-        options = [mergedOptions copy];
+        [mergedOptions addEntriesFromDictionary:defaultTypeManifest];
+        [mergedOptions addEntriesFromDictionary:manifest];
+        manifest = [mergedOptions copy];
     }
 
-    _kind = LRActionKindFromString(options[@"kind"] ?: @"");
+    _kind = LRActionKindFromString(manifest[@"kind"] ?: @"");
 
-    NSString *actionClassName = options[@"objc_class"] ?: @"";
-    NSString *rowClassName = options[@"objc_rowClass"] ?: @"";
+    NSString *actionClassName = manifest[@"objc_class"] ?: @"";
+    NSString *rowClassName = manifest[@"objc_rowClass"] ?: @"";
 
     _actionClass = NSClassFromString(actionClassName);
     _rowClass = NSClassFromString(rowClassName);
@@ -129,54 +128,10 @@ NSArray *LRValidActionKindStrings() {
         }
     }
     _packageConfigurations = [packageConfigurations copy];
-
-    [self _updateAvailableVersions];
-    // TODO: subscribe and update on events
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 500 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
-        [self _updateAvailableVersions];
-    });
-
 }
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"%@ '%@' (%@, %@)", LRStringFromActionKind(_kind), _identifier, NSStringFromClass(_actionClass), NSStringFromClass(_rowClass)];
-}
-
-- (Action *)newInstanceWithMemento:(NSDictionary *)memento {
-    return [[_actionClass alloc] initWithType:self memento:memento];
-}
-
-- (LRActionManifest *)_actionManifestForPackageSet:(LRPackageSet *)packageSet {
-    NSMutableArray *layers = [NSMutableArray new];
-    for (LRManifestLayer *layer in layers) {
-        if ([packageSet matchesAllPackageReferencesInArray:layer.packageReferences]) {
-            [layers addObject:layer];
-        }
-    }
-    return [[LRActionManifest alloc] initWithLayers:layers];
-}
-
-- (void)_updateAvailableVersions {
-    if (!self.valid) {
-        _versions = @[];
-        return;
-    }
-
-    // TODO: this should depend on the selected package
-    LRPackageResolutionContext *resolutionContext = [LRPackageResolutionContext new];
-
-    NSMutableArray *packageSets = [NSMutableArray new];
-    for (LRAssetPackageConfiguration *configuration in _packageConfigurations) {
-        [packageSets addObjectsFromArray:[resolutionContext packageSetsMatchingConfiguration:configuration]];
-    }
-
-    NSMutableArray *versions = [NSMutableArray new];
-    for (LRPackageSet *packageSet in packageSets) {
-        LRActionManifest *manifest = [self _actionManifestForPackageSet:packageSet];
-        LRActionVersion *version = [[LRActionVersion alloc] initWithType:self manifest:manifest packageSet:packageSet];
-        [versions addObject:version];
-    }
-    _versions = versions;
 }
 
 @end

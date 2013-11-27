@@ -7,6 +7,9 @@
 @class LRPackage;
 
 
+extern NSString *const LRPackageContainerDidChangePackageListNotification;
+
+
 @interface LRPackageContainer : NSObject
 
 - (instancetype)initWithPackageType:(LRPackageType *)packageType;

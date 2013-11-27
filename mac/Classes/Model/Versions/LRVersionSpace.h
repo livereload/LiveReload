@@ -12,4 +12,6 @@
 
 - (LRVersionSet *)versionSetWithString:(NSString *)string;
 
+- (LRVersion *)versionWithMajor:(NSInteger)major minor:(NSInteger)minor;
+
 @end

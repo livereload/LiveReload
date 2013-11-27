@@ -17,6 +17,7 @@
 - (instancetype)initWithLayers:(NSArray *)layers {
     if (self = [super initWithManifest:nil errorSink:nil]) {
         _layers = [layers copy];
+        [self initializeActionManifest];
     }
     return self;
 }

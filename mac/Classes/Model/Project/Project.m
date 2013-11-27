@@ -19,6 +19,7 @@
 #import "UserScript.h"
 #import "FilterOption.h"
 #import "Glue.h"
+#import "LRPackageResolutionContext.h"
 
 #import "Stats.h"
 #import "RegexKitLite.h"
@@ -109,7 +110,9 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         _compilerOptions = [[NSMutableDictionary alloc] init];
         _monitoringRequests = [[NSMutableSet alloc] init];
 
-        _actionList = [[ActionList alloc] initWithActionTypes:[PluginManager sharedPluginManager].actionTypes];
+        _resolutionContext = [[LRPackageResolutionContext alloc] init];
+
+        _actionList = [[ActionList alloc] initWithActionTypes:[PluginManager sharedPluginManager].actionTypes resolutionContext:_resolutionContext];
         [_actionList setMemento:memento];
 
         _lastSelectedPane = [[memento objectForKey:@"last_pane"] copy];

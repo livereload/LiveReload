@@ -2,18 +2,30 @@
 #import "ActionList.h"
 #import "Action.h"
 #import "ActionType.h"
+#import "LRContextActionType.h"
+
 #import "ATFunctionalStyle.h"
+
 
 @implementation ActionList {
     NSDictionary *_actionTypesByIdentifier;
+    NSDictionary *_contextActionTypesByIdentifier;
     NSMutableArray *_actions;
 }
 
-- (id)initWithActionTypes:(NSArray *)actionTypes {
+- (id)initWithActionTypes:(NSArray *)actionTypes resolutionContext:(LRPackageResolutionContext *)resolutionContext {
     self = [super init];
     if (self) {
         _actionTypes = [actionTypes copy];
         _actionTypesByIdentifier = [_actionTypes dictionaryWithElementsGroupedByKeyPath:@"identifier"];
+
+        _resolutionContext = resolutionContext;
+
+        _contextActionTypes = [actionTypes arrayByMappingElementsUsingBlock:^id(ActionType *type) {
+            return [[LRContextActionType alloc] initWithActionType:type resolutionContext:_resolutionContext];
+        }];
+        _contextActionTypesByIdentifier = [_contextActionTypes dictionaryWithElementsGroupedByKeyPath:@"actionType.identifier"];
+
         _actions = [NSMutableArray new];
     }
     return self;
@@ -53,7 +65,7 @@
     if (!typeIdentifier)
         return nil;
 
-    ActionType *type = _actionTypesByIdentifier[typeIdentifier];
+    LRContextActionType *type = _contextActionTypesByIdentifier[typeIdentifier];
     if (!type)
         return nil;
 

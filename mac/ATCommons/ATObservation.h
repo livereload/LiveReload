@@ -206,6 +206,13 @@ extern MTKMappingTransformBlock const MTKMappingURLFromString;      // return [N
 /// Calls `-observeNotification:fromObject:withBlock:` for each combination of name and object. `objects` may be nil, but can not be an empty array, because nothing will be registered.
 - (void)observeNotifications:(NSArray *)names fromObjects:(NSArray *)objects withBlock:(MTKBlockNotify)block;
 
+- (void)observeNotification:(NSString *)name fromObject:(id)object withSelector:(SEL)selector;
+- (void)observeNotification:(NSString *)name withSelector:(SEL)selector;
+- (void)observeNotifications:(NSArray *)names fromObjects:(NSArray *)objects withSelector:(SEL)selector;
+
+- (void)postNotificationName:(NSString *)name;
+- (void)postNotificationName:(NSString *)name userInfo:(NSDictionary *)userInfo;
+
 
 #pragma mark Removing
 

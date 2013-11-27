@@ -2,8 +2,13 @@
 #import "Action.h"
 #import "LRFile2.h"
 #import "LRCommandLine.h"
+#import "LRContextActionType.h"
+#import "LRActionVersion.h"
+#import "LRActionManifest.h"
 
 #import "LRCustomArgumentsOption.h"
+#import "ATScheduling.h"
+#import "ATObservation.h"
 
 
 @interface Action ()
@@ -16,24 +21,37 @@
 @implementation Action {
     NSMutableDictionary *_memento;
     NSMutableDictionary *_options;
+
+    ATCoalescedState _effectiveActionComputationState;
 }
 
 - (ActionKind)kind {
-    return _type.kind;
+    return _contextActionType.actionType.kind;
 }
 
 - (NSString *)label {
     abort();
 }
 
-- (id)initWithType:(ActionType *)type memento:(NSDictionary *)memento {
+- (id)initWithContextActionType:(LRContextActionType *)contextActionType memento:(NSDictionary *)memento {
     self = [super init];
     if (self) {
-        _type = type;
+        _contextActionType = contextActionType;
         _options = [NSMutableDictionary new];
         [self setMemento:memento];
+
+        [self observeNotification:LRContextActionTypeDidChangeVersionsNotification withSelector:@selector(_updateEffectiveVersion)];
+        [self _updateEffectiveVersion];
     }
     return self;
+}
+
+- (void)dealloc {
+    [self removeAllObservations];
+}
+
+- (ActionType *)type {
+    return _contextActionType.actionType;
 }
 
 - (NSDictionary *)memento {
@@ -169,10 +187,24 @@
 
 - (NSArray *)createOptions {
     NSMutableArray *options = [NSMutableArray new];
-    // TODO: use version-specific options
-//    [options addObjectsFromArray:[self.type createOptionsWithAction:self]];
+    [options addObjectsFromArray:[self.effectiveVersion.manifest createOptionsWithAction:self]];
     [options addObject:[[LRCustomArgumentsOption alloc] initWithManifest:@{@"id": @"custom-args"} action:self errorSink:nil]];
     return [options copy];
+}
+
+
+#pragma mark - Versions
+
+- (void)_updateEffectiveVersion {
+    AT_dispatch_coalesced(&_effectiveActionComputationState, 0, ^(dispatch_block_t done) {
+        _effectiveVersion = [self _computeEffectiveVersion];
+        done();
+    });
+}
+
+- (LRActionVersion *)_computeEffectiveVersion {
+    NSArray *versions = self.contextActionType.versions;
+    return [versions firstObject];
 }
 
 

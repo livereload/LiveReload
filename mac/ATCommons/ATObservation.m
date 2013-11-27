@@ -482,6 +482,37 @@
 	}
 }
 
+- (void)observeNotification:(NSString *)name fromObject:(id)object withSelector:(SEL)selector {
+    [self observeNotification:name fromObject:object withBlock:^(__weak id self, NSNotification *notification) {
+        [self performSelector:selector withObject:notification];
+    }];
+}
+
+- (void)observeNotification:(NSString *)name withSelector:(SEL)selector {
+	[self observeNotification:name fromObject:nil withSelector:selector];
+}
+
+- (void)observeNotifications:(NSArray *)names fromObjects:(NSArray *)objects withSelector:(SEL)selector {
+	for (NSString *name in names) {
+		if (objects) {
+			for (id object in objects) {
+				[self observeNotification:name fromObject:object withSelector:selector];
+			}
+		}
+		else {
+			[self observeNotification:name fromObject:nil withSelector:selector];
+		}
+	}
+}
+
+- (void)postNotificationName:(NSString *)name {
+    [[NSNotificationCenter defaultCenter] postNotificationName:name object:self];
+}
+
+- (void)postNotificationName:(NSString *)name userInfo:(NSDictionary *)userInfo {
+    [[NSNotificationCenter defaultCenter] postNotificationName:name object:self userInfo:userInfo];
+}
+
 
 
 

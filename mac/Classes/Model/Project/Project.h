@@ -11,6 +11,7 @@
 @class LRFile;
 @class ImportGraph;
 @class UserScript;
+@class LRPackageResolutionContext;
 
 
 extern NSString *ProjectDidDetectChangeNotification;
@@ -108,6 +109,8 @@ enum {
 @property(nonatomic) NSTimeInterval eventProcessingDelay;
 @property(nonatomic) NSTimeInterval fullPageReloadDelay;
 @property(nonatomic) NSTimeInterval postProcessingGracePeriod;
+
+@property(nonatomic, readonly) LRPackageResolutionContext *resolutionContext;
 
 @property(nonatomic, readonly) FSTree *tree;
 - (FSTree *)obtainTree;

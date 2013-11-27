@@ -3,6 +3,9 @@
 #import "LRPackageReference.h"
 
 
+NSString *const LRPackageContainerDidChangePackageListNotification = @"LRPackageContainerDidChangePackageList";
+
+
 @interface LRPackageContainer ()
 
 @end
@@ -61,6 +64,7 @@
     NSLog(@"%@: update succeeded, found %d packages: %@", self, (int)packages.count, [packages componentsJoinedByString:@", "]);
     _packages = packages;
     _updateInProgress = NO;
+    [[NSNotificationCenter defaultCenter] postNotificationName:LRPackageContainerDidChangePackageListNotification object:self];
 }
 
 - (void)updateFailedWithError:(NSError *)error {
