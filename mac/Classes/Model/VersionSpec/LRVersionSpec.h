@@ -11,7 +11,7 @@
 // specific: 1.2.3
 // latest 1.2.x (stable or beta)
 // latest stable 1.x
-@interface LRVersionSpec : NSObject
+@interface LRVersionSpec : NSObject <NSCopying>
 
 + (instancetype)versionSpecWithString:(NSString *)string inVersionSpace:(LRVersionSpace *)versionSpace;
 
@@ -21,6 +21,8 @@
 + (instancetype)stableVersionSpecWithMajorFromVersion:(LRVersion *)version;
 
 @property(nonatomic, readonly) NSString *stringValue;
+
+@property(nonatomic, readonly) NSString *title;
 
 @property(nonatomic, readonly, getter=isValid) BOOL valid;
 

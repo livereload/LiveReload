@@ -10,6 +10,7 @@
 @class LRFile2;
 @class LRContextActionType;
 @class LRActionVersion;
+@class LRVersionSpec;
 
 
 @interface Action : NSObject
@@ -55,6 +56,7 @@
 
 - (NSArray *)createOptions;
 
+@property(nonatomic) LRVersionSpec *primaryVersionSpec;
 @property(nonatomic, readonly) LRActionVersion *effectiveVersion;
 
 @end

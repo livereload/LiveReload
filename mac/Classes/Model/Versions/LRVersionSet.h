@@ -4,6 +4,7 @@
 
 @class LRVersion;
 @class LRVersionRange;
+@class LRVersionSpace;
 
 
 @interface LRVersionSet : NSObject
@@ -19,5 +20,8 @@
 
 @property(nonatomic, readonly, getter=isValid) BOOL valid;
 @property(nonatomic, readonly) NSError *error;
+
+// currently, this is not always available
+@property(nonatomic, readonly) LRVersionSpace *versionSpace;
 
 @end

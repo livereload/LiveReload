@@ -93,4 +93,8 @@
     return _error == nil;
 }
 
+- (LRVersionSpace *)versionSpace {
+    return _startingVersion.versionSpace ?: _endingVersion.versionSpace;
+}
+
 @end

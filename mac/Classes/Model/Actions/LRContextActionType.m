@@ -8,6 +8,7 @@
 #import "LRActionManifest.h"
 #import "LRManifestLayer.h"
 #import "Action.h"
+#import "LRVersionSpec.h"
 
 #import "ATObservation.h"
 #import "ATScheduling.h"
@@ -43,7 +44,8 @@ NSString *const LRContextActionTypeDidChangeVersionsNotification = @"LRContextAc
 
 - (void)_updateAvailableVersions {
     AT_dispatch_coalesced(&_updateState, 0, ^(dispatch_block_t done) {
-        _versions = [self _computeAvailableVersions];
+        _versions = [[self _computeAvailableVersions] copy];
+        _versionSpecs = [[self _computeAvailableVersionSpecs] copy];
         [self postNotificationName:LRContextActionTypeDidChangeVersionsNotification];
         done();
     });
@@ -66,6 +68,31 @@ NSString *const LRContextActionTypeDidChangeVersionsNotification = @"LRContextAc
         [versions addObject:version];
     }
     return versions;
+}
+
+- (NSArray *)_computeAvailableVersionSpecs {
+    NSMutableArray *specs = [NSMutableArray new];
+    NSMutableSet *set = [NSMutableSet new];
+
+    for (LRActionVersion *version in _versions) {
+        [self _enumerateVersionSpecsForVersion:version block:^(LRVersionSpec *versionSpec) {
+            if (![set containsObject:versionSpec]) {
+                [set addObject:versionSpec];
+                [specs addObject:versionSpec];
+            }
+        }];
+    }
+
+    [specs addObject:[LRVersionSpec stableVersionSpecMatchingAnyVersionInVersionSpace:_actionType.primaryVersionSpace]];
+
+    return specs;
+}
+
+- (void)_enumerateVersionSpecsForVersion:(LRActionVersion *)actionVersion block:(void(^)(LRVersionSpec *versionSpec))block {
+    LRVersion *primaryVersion = actionVersion.primaryVersion;
+    block([LRVersionSpec stableVersionSpecWithMajorFromVersion:primaryVersion]);
+    block([LRVersionSpec versionSpecMatchingMajorMinorFromVersion:primaryVersion]);
+    block([LRVersionSpec versionSpecMatchingVersion:primaryVersion]);
 }
 
 - (LRActionManifest *)_actionManifestForPackageSet:(LRPackageSet *)packageSet {

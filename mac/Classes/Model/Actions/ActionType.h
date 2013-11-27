@@ -6,6 +6,7 @@
 @class Plugin;
 @class Action;
 @class LRActionVersion;
+@class LRVersionSpace;
 
 
 typedef enum {
@@ -33,6 +34,8 @@ NSArray *LRValidActionKindStrings();
 
 @property(nonatomic, readonly, copy) NSArray *packageConfigurations;
 @property(nonatomic, readonly, copy) NSArray *manifestLayers;
+
+@property(nonatomic, readonly) LRVersionSpace *primaryVersionSpace;
 
 - (void)initializeWithOptions;
 

@@ -136,4 +136,33 @@ typedef enum {
     return ((_matchingVersionTags & tag) == tag) && [_matchingVersionSet containsVersion:version];
 }
 
+- (id)copy {
+    return self;
+}
+
+- (BOOL)isEqual:(id)object {
+    return ([object class] == [self class]) && [[object stringValue] isEqualToString:[self stringValue]];
+}
+
+- (NSUInteger)hash {
+    return _versionString.hash;
+}
+
+- (NSString *)title {
+    switch (_type) {
+        case LRVersionSpecTypeUnknown:
+            return [NSString stringWithFormat:@"(unknown) %@", _versionString];
+        case LRVersionSpecTypeSpecific:
+            return [NSString stringWithFormat:@"%@", _version.description];
+        case LRVersionSpecTypeMajorMinor:
+            return [NSString stringWithFormat:@"%d.%d.x", (int)_major, (int)_minor];
+        case LRVersionSpecTypeStableMajor:
+            return [NSString stringWithFormat:@"%d.x stable", (int)_major];
+        case LRVersionSpecTypeStableAny:
+            return [NSString stringWithFormat:@"any stable"];
+        default:
+            abort();
+    }
+}
+
 @end

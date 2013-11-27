@@ -18,6 +18,7 @@ extern NSString *const LRContextActionTypeDidChangeVersionsNotification;
 @property(nonatomic, readonly) LRPackageResolutionContext *resolutionContext;
 
 @property(nonatomic, readonly, copy) NSArray *versions;
+@property(nonatomic, readonly, copy) NSArray *versionSpecs;
 
 - (Action *)newInstanceWithMemento:(NSDictionary *)memento;
 

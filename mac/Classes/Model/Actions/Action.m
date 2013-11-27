@@ -5,7 +5,9 @@
 #import "LRContextActionType.h"
 #import "LRActionVersion.h"
 #import "LRActionManifest.h"
+#import "LRVersionSpec.h"
 
+#import "LRVersionOption.h"
 #import "LRCustomArgumentsOption.h"
 #import "ATScheduling.h"
 #import "ATObservation.h"
@@ -67,6 +69,7 @@
 - (void)loadFromMemento:(NSDictionary *)memento {
     self.enabled = [(memento[@"enabled"] ?: @YES) boolValue];
     self.inputFilterOption = [FilterOption filterOptionWithMemento:(memento[@"filter"] ?: @"subdir:.")];
+    self.primaryVersionSpec = memento[@"version"] ? [LRVersionSpec versionSpecWithString:memento[@"version"] inVersionSpace:self.type.primaryVersionSpace] : [LRVersionSpec stableVersionSpecMatchingAnyVersionInVersionSpace:self.type.primaryVersionSpace];
 
     NSDictionary *options = memento[@"options"];
     if (options)
@@ -77,6 +80,7 @@
     memento[@"action"] = self.type.identifier;
     memento[@"enabled"] = (self.enabled ? @1 : @0);
     memento[@"filter"] = self.inputFilterOption.memento;
+    memento[@"version"] = self.primaryVersionSpec.stringValue;
     if (_options.count > 0)
         memento[@"options"] = [NSDictionary dictionaryWithDictionary:_options];
     else
@@ -187,6 +191,7 @@
 
 - (NSArray *)createOptions {
     NSMutableArray *options = [NSMutableArray new];
+    [options addObject:[[LRVersionOption alloc] initWithManifest:@{@"id": @"version", @"label": @"Version:"} action:self errorSink:nil]];
     [options addObjectsFromArray:[self.effectiveVersion.manifest createOptionsWithAction:self]];
     [options addObject:[[LRCustomArgumentsOption alloc] initWithManifest:@{@"id": @"custom-args"} action:self errorSink:nil]];
     return [options copy];
@@ -194,6 +199,14 @@
 
 
 #pragma mark - Versions
+
+- (void)setPrimaryVersionSpec:(LRVersionSpec *)primaryVersionSpec {
+    if (_primaryVersionSpec != primaryVersionSpec && ![_primaryVersionSpec isEqual:primaryVersionSpec]) {
+        _primaryVersionSpec = primaryVersionSpec;
+        [self didChange];
+        [self _updateEffectiveVersion];
+    }
+}
 
 - (void)_updateEffectiveVersion {
     AT_dispatch_coalesced(&_effectiveActionComputationState, 0, ^(dispatch_block_t done) {

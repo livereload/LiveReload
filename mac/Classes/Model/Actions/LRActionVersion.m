@@ -1,5 +1,7 @@
 
 #import "LRActionVersion.h"
+#import "LRPackageSet.h"
+#import "LRPackage.h"
 
 
 @interface LRActionVersion ()
@@ -16,6 +18,11 @@
         _packageSet = packageSet;
     }
     return self;
+}
+
+- (LRVersion *)primaryVersion {
+    LRPackage *package = [_packageSet.packages firstObject];
+    return package.version;
 }
 
 @end

@@ -8,6 +8,7 @@
 #import "LRPackageReference.h"
 #import "LRPackageResolutionContext.h"
 #import "LRPackageSet.h"
+#import "LRPackageType.h"
 
 #import "LRManifestLayer.h"
 #import "LRActionVersion.h"
@@ -128,6 +129,14 @@ NSArray *LRValidActionKindStrings() {
         }
     }
     _packageConfigurations = [packageConfigurations copy];
+
+    if (_packageConfigurations.count == 0)
+        _primaryVersionSpace = nil;
+    else {
+        LRAssetPackageConfiguration *configuration = [_packageConfigurations firstObject];
+        LRPackageReference *reference = [configuration.packageReferences firstObject];
+        _primaryVersionSpace = reference.type.versionSpace;
+    }
 }
 
 - (NSString *)description {

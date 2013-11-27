@@ -76,4 +76,8 @@
     return _error == nil;
 }
 
+- (LRVersionSpace *)versionSpace {
+    return [[_ranges firstObject] versionSpace];
+}
+
 @end

@@ -3,8 +3,11 @@
 #import "LRVersionSpec.h"
 #import "ATMacViewCreation.h"
 #import "LROptionsView.h"
-//#import "LRCommandLine.h"
+#import "Action.h"
+#import "LRContextActionType.h"
+
 #import "ATFunctionalStyle.h"
+#import "ATObservation.h"
 
 
 @interface LRVersionOption ()
@@ -22,11 +25,13 @@
 
     if (!self.label.length)
         [self addErrorMessage:@"Missing label"];
+
+    [self observeNotification:LRContextActionTypeDidChangeVersionsNotification withSelector:@selector(_updateVersionSpecs)];
 }
 
 - (void)renderInOptionsView:(LROptionsView *)optionsView {
     _view = [[NSPopUpButton popUpButton] withTarget:self action:@selector(popUpSelectionDidChange:)];
-    [_view addItemsWithTitles:[_items valueForKeyPath:@"label"]];
+    [self _updateVersionSpecs];
     [optionsView addOptionView:_view label:self.label flags:LROptionsViewFlagsLabelAlignmentBaseline];
     [self loadModelValues];
 }
@@ -39,13 +44,13 @@
     return self.action;
 }
 
-- (NSInteger)indexOfItemWithIdentifier:(NSString *)itemIdentifier {
-    if (!itemIdentifier.length)
+- (NSInteger)indexOfItem:(LRVersionSpec *)query {
+    if (!query)
         return -1;
 
     NSInteger index = 0;
     for (LRVersionSpec *item in _items) {
-        if ([item.stringValue isEqualToString:itemIdentifier]) {
+        if ([item isEqual:query]) {
             return index;
         }
         ++index;
@@ -57,11 +62,19 @@
     NSInteger index = [_view indexOfSelectedItem];
     if (index == -1)
         return self.defaultValue;
-    return [self itemAtIndex:index].stringValue;
+    return [self itemAtIndex:index];
 }
 
 - (void)setPresentedValue:(id)value {
-    [_view selectItemAtIndex:[self indexOfItemWithIdentifier:value]];
+    [_view selectItemAtIndex:[self indexOfItem:value]];
+}
+
+- (id)modelValue {
+    return self.action.primaryVersionSpec;
+}
+
+- (void)setModelValue:(id)modelValue {
+    self.action.primaryVersionSpec = modelValue;
 }
 
 - (IBAction)popUpSelectionDidChange:(id)sender {
@@ -69,10 +82,18 @@
 }
 
 - (NSArray *)commandLineArguments {
-    NSInteger index = [self indexOfItemWithIdentifier:self.effectiveValue];
+    NSInteger index = [self indexOfItem:self.effectiveValue];
     if (index == -1)
         return @[];
-    return @[@"--botva"]; // [self itemAtIndex:index].arguments; // TODO FIXME
+    return @[];
+}
+
+- (void)_updateVersionSpecs {
+    _items = self.action.contextActionType.versionSpecs;
+
+    [_view removeAllItems];
+    [_view addItemsWithTitles:[_items valueForKeyPath:@"title"]];
+    [self loadModelValues];
 }
 
 @end
