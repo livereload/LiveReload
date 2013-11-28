@@ -13,6 +13,11 @@
 #import "ATObservation.h"
 
 
+
+NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification = @"LRActionPrimaryEffectiveVersionDidChange";
+
+
+
 @interface Action ()
 
 @property(nonatomic, strong) ATPathSpec *inputPathSpec;
@@ -210,14 +215,22 @@
 
 - (void)_updateEffectiveVersion {
     AT_dispatch_coalesced(&_effectiveActionComputationState, 0, ^(dispatch_block_t done) {
+        [self willChangeValueForKey:@"effectiveVersion"];
         _effectiveVersion = [self _computeEffectiveVersion];
+        [self didChangeValueForKey:@"effectiveVersion"];
+        [self postNotificationName:LRActionPrimaryEffectiveVersionDidChangeNotification];
         done();
     });
 }
 
 - (LRActionVersion *)_computeEffectiveVersion {
     NSArray *versions = self.contextActionType.versions;
-    return [versions firstObject];
+    for (LRActionVersion *actionVersion in [versions reverseObjectEnumerator]) {
+        if ([_primaryVersionSpec matchesVersion:actionVersion.primaryVersion withTag:LRVersionTagUnknown]) {
+            return actionVersion;
+        }
+    }
+    return nil;
 }
 
 

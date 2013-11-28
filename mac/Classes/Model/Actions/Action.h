@@ -13,6 +13,9 @@
 @class LRVersionSpec;
 
 
+extern NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification;
+
+
 @interface Action : NSObject
 
 - (id)initWithContextActionType:(LRContextActionType *)contextActionType memento:(NSDictionary *)memento;

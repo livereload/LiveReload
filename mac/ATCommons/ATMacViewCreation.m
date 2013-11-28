@@ -144,6 +144,12 @@
 
 @implementation NSView (ATMacViewCreation)
 
++ (instancetype)containerView {
+    NSView *view = [[self alloc] initWithFrame:CGRectZero];
+    view.translatesAutoresizingMaskIntoConstraints = NO;
+    return view;
+}
+
 - (instancetype)addedToView:(NSView *)superview {
     [superview addSubview:self];
     return self;

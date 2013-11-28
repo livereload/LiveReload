@@ -57,6 +57,8 @@
 
 @interface NSView (ATMacViewCreation)
 
++ (instancetype)containerView;
+
 - (instancetype)addedToView:(NSView *)superview;
 
 @end

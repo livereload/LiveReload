@@ -8,6 +8,7 @@
 #import "LRActionManifest.h"
 #import "LRManifestLayer.h"
 #import "Action.h"
+#import "LRVersion.h"
 #import "LRVersionSpec.h"
 
 #import "ATObservation.h"
@@ -67,6 +68,9 @@ NSString *const LRContextActionTypeDidChangeVersionsNotification = @"LRContextAc
         LRActionVersion *version = [[LRActionVersion alloc] initWithType:_actionType manifest:manifest packageSet:packageSet];
         [versions addObject:version];
     }
+    [versions sortUsingComparator:^NSComparisonResult(LRActionVersion *obj1, LRActionVersion *obj2) {
+        return [obj1.primaryVersion compare:obj2.primaryVersion];
+    }];
     return versions;
 }
 
