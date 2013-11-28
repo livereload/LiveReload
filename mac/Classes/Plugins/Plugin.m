@@ -42,7 +42,7 @@
 
         NSMutableArray *actionTypes = [NSMutableArray array];
         for (NSDictionary *options in [_info objectForKey:@"actions"]) {
-            [actionTypes addObject:[[ActionType alloc] initWithManifest:options errorSink:self]];
+            [actionTypes addObject:[[ActionType alloc] initWithManifest:options plugin:self]];
         }
         _actionTypes = [actionTypes copy];
 

@@ -54,8 +54,9 @@ NSArray *LRValidActionKindStrings() {
     NSArray *_packageConfigurations;
 }
 
-- (instancetype)initWithManifest:(NSDictionary *)manifest errorSink:(id<LRManifestErrorSink>)errorSink {
-    if (self = [super initWithManifest:manifest errorSink:errorSink]) {
+- (instancetype)initWithManifest:(NSDictionary *)manifest plugin:(Plugin *)plugin {
+    if (self = [super initWithManifest:manifest errorSink:plugin]) {
+        _plugin = plugin;
         [self initializeWithOptions];
     }
     return self;

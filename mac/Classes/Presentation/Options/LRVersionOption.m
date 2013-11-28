@@ -35,6 +35,10 @@
     [self observeProperty:@"action.effectiveVersion" withSelector:@selector(_updateEffectiveVersion)];
 }
 
+- (void)dealloc {
+    [self removeAllObservations];
+}
+
 - (void)renderInOptionsView:(LROptionsView *)optionsView {
     _containerView = [NSView containerView];
     _popupView = [[[NSPopUpButton popUpButton] withTarget:self action:@selector(popUpSelectionDidChange:)] addedToView:_containerView];

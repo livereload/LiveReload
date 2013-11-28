@@ -6,6 +6,12 @@
 #import "LRFile2.h"
 #import "ScriptInvocationStep.h"
 #import "LROption.h"
+#import "LRActionVersion.h"
+#import "LRActionManifest.h"
+#import "LRPackageSet.h"
+#import "LRPackage.h"
+#import "LRPackageContainer.h"
+#import "LRPackageType.h"
 
 
 @implementation ScriptInvocationActionType {
@@ -34,9 +40,14 @@
 }
 
 - (void)configureStep:(ScriptInvocationStep *)step forFile:(LRFile2 *)file {
-    step.commandLine = self.type.manifest[@"cmdline"];
-    step.manifest = self.type.manifest;
+    LRActionManifest *manifest = self.effectiveVersion.manifest;
+    step.commandLine = manifest.commandLineSpec;
+    step.manifest = @{@"errors": manifest.errorSpecs};
     [step addValue:self.type.plugin.path forSubstitutionKey:@"plugin"];
+
+    for (LRPackage *package in self.effectiveVersion.packageSet.packages) {
+        [step addValue:package.sourceFolderURL.path forSubstitutionKey:[NSString stringWithFormat:@"%@_%@", package.container.packageType.name, package.name]];
+    }
 
     NSMutableArray *additionalArguments = [NSMutableArray new];
     for (LROption *option in [self createOptions]) {

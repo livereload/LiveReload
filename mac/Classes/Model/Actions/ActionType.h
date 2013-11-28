@@ -24,6 +24,8 @@ NSArray *LRValidActionKindStrings();
 
 @interface ActionType : LRManifestBasedObject
 
+- (instancetype)initWithManifest:(NSDictionary *)manifest plugin:(Plugin *)plugin;
+
 @property(nonatomic, strong) Plugin *plugin;
 @property(nonatomic, assign) Class actionClass;
 @property(nonatomic, assign) Class rowClass;

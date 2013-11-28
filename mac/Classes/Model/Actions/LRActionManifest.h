@@ -22,6 +22,7 @@
 - (NSArray *)createOptionsWithAction:(Action *)action;
 
 @property(nonatomic, copy) NSArray *errorSpecs;
+@property(nonatomic, copy) NSArray *commandLineSpec;
 
 // override point
 - (void)initializeActionManifest;

@@ -32,6 +32,8 @@
         //
         return [LROption optionWithSpec:spec action:nil errorSink:[LRChildErrorSink childErrorSinkWithParentSink:layer context:[NSString stringWithFormat:@"action %@", _identifier] uncleSink:self]];
     }];
+
+    _commandLineSpec = [self simpleArrayForKey:@"cmdline" mappedUsingBlock:nil];
 }
 
 - (NSArray *)simpleArrayForKey:(NSString *)key mappedUsingBlock:(id(^)(id obj, LRManifestLayer *layer))block {
