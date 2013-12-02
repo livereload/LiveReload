@@ -12,6 +12,7 @@
 #import "LRPackage.h"
 #import "LRPackageContainer.h"
 #import "LRPackageType.h"
+#import "LRVersion.h"
 
 
 @implementation ScriptInvocationActionType {
@@ -47,6 +48,7 @@
 
     for (LRPackage *package in self.effectiveVersion.packageSet.packages) {
         [step addValue:package.sourceFolderURL.path forSubstitutionKey:[NSString stringWithFormat:@"%@_%@", package.container.packageType.name, package.name]];
+        [step addValue:package.version.description forSubstitutionKey:[NSString stringWithFormat:@"%@_%@_ver", package.container.packageType.name, package.name]];
     }
 
     NSMutableArray *additionalArguments = [NSMutableArray new];
