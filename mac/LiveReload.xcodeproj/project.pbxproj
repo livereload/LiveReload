@@ -58,6 +58,9 @@
 		430D7F5F18443BC600203400 /* LRVersionTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 430D7F5E18443BC600203400 /* LRVersionTag.m */; };
 		430D7F621845901100203400 /* LRVersionOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 430D7F611845901100203400 /* LRVersionOption.m */; };
 		430D7F651845978500203400 /* LRContextActionType.m in Sources */ = {isa = PBXBuildFile; fileRef = 430D7F641845978500203400 /* LRContextActionType.m */; };
+		430D7F68184712F000203400 /* GemPackageType.m in Sources */ = {isa = PBXBuildFile; fileRef = 430D7F67184712F000203400 /* GemPackageType.m */; };
+		430D7F6B184712FD00203400 /* GemPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 430D7F6A184712FD00203400 /* GemPackage.m */; };
+		430D7F6E1847131B00203400 /* GemPackageContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 430D7F6D1847131B00203400 /* GemPackageContainer.m */; };
 		4310DE3D146DB588003091D1 /* ToolOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4310DE3C146DB588003091D1 /* ToolOptions.m */; };
 		4310DE40146DB6A0003091D1 /* UIBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4310DE3F146DB6A0003091D1 /* UIBuilder.m */; };
 		43122BF5180BBA5E00BF8121 /* Glue.m in Sources */ = {isa = PBXBuildFile; fileRef = 43122BF4180BBA5E00BF8121 /* Glue.m */; };
@@ -276,6 +279,8 @@
 		43F0030514700C96005D48A4 /* LRTerminalButtonOffHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F0030114700C96005D48A4 /* LRTerminalButtonOffHighlight.png */; };
 		43F0030614700C96005D48A4 /* LRTerminalButtonOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F0030214700C96005D48A4 /* LRTerminalButtonOn.png */; };
 		43F0030714700C96005D48A4 /* LRTerminalButtonOnHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F0030314700C96005D48A4 /* LRTerminalButtonOnHighlight.png */; };
+		43F30CA2184C834C008CED4A /* GemVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F30CA1184C834C008CED4A /* GemVersion.m */; };
+		43F30CA5184C84F1008CED4A /* GemVersionSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F30CA4184C84F1008CED4A /* GemVersionSpace.m */; };
 		43F50BF71466F7A1004FD951 /* PostProcessingSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F50BF61466F7A1004FD951 /* PostProcessingSettingsWindowController.m */; };
 		43F50BF91466FAB7004FD951 /* PostProcessingSettingsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43F50BF81466FAB7004FD951 /* PostProcessingSettingsWindowController.xib */; };
 		43F50BFC146706B0004FD951 /* BaseProjectSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F50BFB146706B0004FD951 /* BaseProjectSettingsWindowController.m */; };
@@ -421,6 +426,12 @@
 		430D7F611845901100203400 /* LRVersionOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRVersionOption.m; sourceTree = "<group>"; };
 		430D7F631845978500203400 /* LRContextActionType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRContextActionType.h; sourceTree = "<group>"; };
 		430D7F641845978500203400 /* LRContextActionType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRContextActionType.m; sourceTree = "<group>"; };
+		430D7F66184712F000203400 /* GemPackageType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GemPackageType.h; sourceTree = "<group>"; };
+		430D7F67184712F000203400 /* GemPackageType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GemPackageType.m; sourceTree = "<group>"; };
+		430D7F69184712FD00203400 /* GemPackage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GemPackage.h; sourceTree = "<group>"; };
+		430D7F6A184712FD00203400 /* GemPackage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GemPackage.m; sourceTree = "<group>"; };
+		430D7F6C1847131B00203400 /* GemPackageContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GemPackageContainer.h; sourceTree = "<group>"; };
+		430D7F6D1847131B00203400 /* GemPackageContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GemPackageContainer.m; sourceTree = "<group>"; };
 		4310DE3B146DB588003091D1 /* ToolOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolOptions.h; sourceTree = "<group>"; };
 		4310DE3C146DB588003091D1 /* ToolOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolOptions.m; sourceTree = "<group>"; };
 		4310DE3E146DB6A0003091D1 /* UIBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBuilder.h; sourceTree = "<group>"; };
@@ -808,6 +819,10 @@
 		43F0030214700C96005D48A4 /* LRTerminalButtonOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRTerminalButtonOn.png; sourceTree = "<group>"; };
 		43F0030314700C96005D48A4 /* LRTerminalButtonOnHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRTerminalButtonOnHighlight.png; sourceTree = "<group>"; };
 		43F301D61477A67D0072F324 /* kvec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kvec.h; sourceTree = "<group>"; };
+		43F30CA0184C834C008CED4A /* GemVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GemVersion.h; sourceTree = "<group>"; };
+		43F30CA1184C834C008CED4A /* GemVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GemVersion.m; sourceTree = "<group>"; };
+		43F30CA3184C84F1008CED4A /* GemVersionSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GemVersionSpace.h; sourceTree = "<group>"; };
+		43F30CA4184C84F1008CED4A /* GemVersionSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GemVersionSpace.m; sourceTree = "<group>"; };
 		43F50BF51466F7A1004FD951 /* PostProcessingSettingsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostProcessingSettingsWindowController.h; sourceTree = "<group>"; };
 		43F50BF61466F7A1004FD951 /* PostProcessingSettingsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostProcessingSettingsWindowController.m; sourceTree = "<group>"; };
 		43F50BF81466FAB7004FD951 /* PostProcessingSettingsWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostProcessingSettingsWindowController.xib; sourceTree = "<group>"; };
@@ -1313,6 +1328,16 @@
 		433D22021826AD9200E81A09 /* Packages (Ruby) */ = {
 			isa = PBXGroup;
 			children = (
+				43F30CA0184C834C008CED4A /* GemVersion.h */,
+				43F30CA1184C834C008CED4A /* GemVersion.m */,
+				43F30CA3184C84F1008CED4A /* GemVersionSpace.h */,
+				43F30CA4184C84F1008CED4A /* GemVersionSpace.m */,
+				430D7F66184712F000203400 /* GemPackageType.h */,
+				430D7F67184712F000203400 /* GemPackageType.m */,
+				430D7F69184712FD00203400 /* GemPackage.h */,
+				430D7F6A184712FD00203400 /* GemPackage.m */,
+				430D7F6C1847131B00203400 /* GemPackageContainer.h */,
+				430D7F6D1847131B00203400 /* GemPackageContainer.m */,
 			);
 			path = "Packages (Ruby)";
 			sourceTree = "<group>";
@@ -2257,6 +2282,7 @@
 				823DDF1713F8DA3100529AD2 /* StatusItemView.m in Sources */,
 				435BE045141B87920008FF77 /* NewMainWindowController.m in Sources */,
 				435729171452267C00947B2E /* Stats.m in Sources */,
+				430D7F6E1847131B00203400 /* GemPackageContainer.m in Sources */,
 				433D21B7182646FA00E81A09 /* UserScriptAction.m in Sources */,
 				434BB26217B945F0000BEB1C /* LROptionsView.m in Sources */,
 				43DFE4DE17CB613100DEF87B /* ATAsync.m in Sources */,
@@ -2316,6 +2342,7 @@
 				4303A54015B513FD009D732A /* dump.c in Sources */,
 				434BB25817B8FD3C000BEB1C /* RunCustomCommandActionRow.m in Sources */,
 				4303A54115B513FD009D732A /* error.c in Sources */,
+				43F30CA2184C834C008CED4A /* GemVersion.m in Sources */,
 				433D22071826AD9200E81A09 /* LRPackageType.m in Sources */,
 				4303A54215B513FD009D732A /* hashtable.c in Sources */,
 				434BB24917B690AB000BEB1C /* GroupHeaderRow.m in Sources */,
@@ -2335,6 +2362,8 @@
 				4303A54B15B513FD009D732A /* nodeapp_autorelease.c in Sources */,
 				4303A54C15B513FD009D732A /* nodeapp_broker.c in Sources */,
 				4303A54D15B513FD009D732A /* nodeapp_paths_common.c in Sources */,
+				430D7F68184712F000203400 /* GemPackageType.m in Sources */,
+				43F30CA5184C84F1008CED4A /* GemVersionSpace.m in Sources */,
 				4303A54E15B513FD009D732A /* nodeapp_rpc_common.m in Sources */,
 				4303A55315B513FD009D732A /* nodeapp_utils.c in Sources */,
 				4303A55415B513FD009D732A /* nodeapp_api_app.m in Sources */,
@@ -2412,6 +2441,7 @@
 				43B5C01017ADF35C00F57276 /* NSArray+ATSubstitutions.m in Sources */,
 				43B5C01217ADF35C00F57276 /* NSString+ATProperURLEncoding.m in Sources */,
 				4396F1DF17F8112F00AA8200 /* GlitterArchiveUtilities.m in Sources */,
+				430D7F6B184712FD00203400 /* GemPackage.m in Sources */,
 				43CDCF9017C70A94007B22D9 /* FSChange.m in Sources */,
 				430D7F5C18443AD700203400 /* LRVersionSpec.m in Sources */,
 				43B5C01417ADF35C00F57276 /* NSWindowController+ATTextStyling.m in Sources */,

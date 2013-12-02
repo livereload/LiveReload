@@ -11,6 +11,7 @@
 
 #import "LRPackageManager.h"
 #import "NpmPackageType.h"
+#import "GemPackageType.h"
 
 
 static AppState *sharedAppState = nil;
@@ -38,6 +39,7 @@ static AppState *sharedAppState = nil;
 
     // needs to happen before scanning for plugins
     [_packageManager addPackageType:[NpmPackageType new]];
+    [_packageManager addPackageType:[GemPackageType new]];
 
     [[PluginManager sharedPluginManager] reloadPlugins];
 

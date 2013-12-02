@@ -7,6 +7,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 NSString *ATCurrentDirectoryPathKey = @"ATCurrentDirectoryPath";
+NSString *ATEnvironmentVariablesKey = @"ATEnvironmentVariables";
 
 static id ATPipeOrFileHandleForWriting(id task, NSPipe *pipe) {
     if ([task isKindOfClass:[NSTask class]])
@@ -44,6 +45,10 @@ id ATLaunchUnixTaskAndCaptureOutput(NSURL *scriptURL, NSArray *arguments, ATLaun
         [task setStandardError:ATPipeOrFileHandleForWriting(task, outputReader.standardErrorPipe)];
     }
     [outputReader startReading];
+
+    if (options[ATEnvironmentVariablesKey] && [task respondsToSelector:@selector(setEnvironment:)]) {
+        [task setEnvironment:options[ATEnvironmentVariablesKey]];
+    }
 
     [task executeWithArguments:arguments completionHandler:^(NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -111,6 +116,8 @@ id ATCreateUserUnixTask(NSURL *scriptURL, NSError **error) {
     [task setArguments:arguments];
     if (_currentDirectoryPath)
         [task setCurrentDirectoryPath:_currentDirectoryPath];
+    if (_environment)
+        [task setEnvironment:_environment];
 
     // standard input is required, otherwise everything just hangs
     if (!self.standardInput) {

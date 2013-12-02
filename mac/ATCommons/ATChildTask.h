@@ -13,6 +13,7 @@ typedef enum {
 typedef void (^ATLaunchUnixTaskAndCaptureOutputCompletionHandler)(NSString *outputText, NSString *stderrText, NSError *error);
 
 extern NSString *ATCurrentDirectoryPathKey;
+extern NSString *ATEnvironmentVariablesKey;
 
 id ATLaunchUnixTaskAndCaptureOutput(NSURL *scriptURL, NSArray *arguments, ATLaunchUnixTaskAndCaptureOutputOptions flags, NSDictionary *options, ATLaunchUnixTaskAndCaptureOutputCompletionHandler handler);
 
@@ -39,6 +40,7 @@ id ATCreateUserUnixTask(NSURL *scriptURL, NSError **error);
 @property(strong) id standardError;
 
 @property(strong) NSString *currentDirectoryPath;
+@property(strong) NSDictionary *environment;
 
 // Execute the file with the given arguments.  "arguments" is an array of NSStrings.  The arguments do not undergo shell expansion, so you do not need to do special quoting, and shell variables are not resolved.
 typedef void (^PlainUnixTaskCompletionHandler)(NSError *error);
