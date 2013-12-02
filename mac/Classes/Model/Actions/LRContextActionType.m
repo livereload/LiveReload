@@ -78,13 +78,17 @@ NSString *const LRContextActionTypeDidChangeVersionsNotification = @"LRContextAc
     NSMutableArray *specs = [NSMutableArray new];
     NSMutableSet *set = [NSMutableSet new];
 
-    for (LRActionVersion *version in _versions) {
-        [self _enumerateVersionSpecsForVersion:version block:^(LRVersionSpec *versionSpec) {
-            if (![set containsObject:versionSpec]) {
-                [set addObject:versionSpec];
-                [specs addObject:versionSpec];
-            }
-        }];
+    void (^addSpec)(LRVersionSpec *versionSpec) = ^(LRVersionSpec *versionSpec) {
+        if (![set containsObject:versionSpec]) {
+            [set addObject:versionSpec];
+            [specs addObject:versionSpec];
+        }
+    };
+
+    for (LRActionVersion *actionVersion in _versions) {
+        addSpec([LRVersionSpec stableVersionSpecWithMajorFromVersion:actionVersion.primaryVersion]);
+        addSpec([LRVersionSpec versionSpecMatchingMajorMinorFromVersion:actionVersion.primaryVersion]);
+        addSpec([LRVersionSpec versionSpecMatchingVersion:actionVersion.primaryVersion]);
     }
 
     [specs addObject:[LRVersionSpec stableVersionSpecMatchingAnyVersionInVersionSpace:_actionType.primaryVersionSpace]];
@@ -92,11 +96,7 @@ NSString *const LRContextActionTypeDidChangeVersionsNotification = @"LRContextAc
     return specs;
 }
 
-- (void)_enumerateVersionSpecsForVersion:(LRActionVersion *)actionVersion block:(void(^)(LRVersionSpec *versionSpec))block {
-    LRVersion *primaryVersion = actionVersion.primaryVersion;
-    block([LRVersionSpec stableVersionSpecWithMajorFromVersion:primaryVersion]);
-    block([LRVersionSpec versionSpecMatchingMajorMinorFromVersion:primaryVersion]);
-    block([LRVersionSpec versionSpecMatchingVersion:primaryVersion]);
+- (void)_enumerateVersionSpecsForVersion:(LRActionVersion *)actionVersion block:(void(^)(LRVersionSpec *versionSpec))addSpec {
 }
 
 - (LRActionManifest *)_actionManifestForPackageSet:(LRPackageSet *)packageSet {

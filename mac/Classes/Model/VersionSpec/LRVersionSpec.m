@@ -6,18 +6,8 @@
 #import "LRVersionRange.h"
 
 
-typedef enum {
-    LRVersionSpecTypeUnknown,
-    LRVersionSpecTypeSpecific,
-    LRVersionSpecTypeMajorMinor,
-    LRVersionSpecTypeStableMajor,
-    LRVersionSpecTypeStableAny,
-} LRVersionSpecType;
-
-
 @interface LRVersionSpec ()
 
-@property(nonatomic, readonly) LRVersionSpecType type;
 @property(nonatomic, readonly) NSString *versionString;
 
 @property(nonatomic, readonly) NSUInteger major;

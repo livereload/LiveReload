@@ -77,14 +77,12 @@
 }
 
 - (id)presentedValue {
-    NSInteger index = [_popupView indexOfSelectedItem];
-    if (index == -1)
-        return self.defaultValue;
-    return [self itemAtIndex:index];
+    NSMenuItem *menuItem = _popupView.selectedItem;
+    return menuItem.representedObject;
 }
 
 - (void)setPresentedValue:(id)value {
-    [_popupView selectItemAtIndex:[self indexOfItem:value]];
+    [_popupView selectItemWithTag:1+[self indexOfItem:value]];
 }
 
 - (id)modelValue {
@@ -100,17 +98,66 @@
 }
 
 - (NSArray *)commandLineArguments {
-    NSInteger index = [self indexOfItem:self.effectiveValue];
-    if (index == -1)
-        return @[];
     return @[];
+}
+
+- (NSArray *)menuItemsArrayByAddingSeparatorsBetweenGroups:(NSArray *)menuItemGroups {
+    NSMutableArray *result = [NSMutableArray new];
+    BOOL separatorRequired = NO;
+    for (NSArray *menuItems in menuItemGroups) {
+        if (menuItems.count == 0)
+            continue;
+        if (separatorRequired)
+            [result addObject:[NSMenuItem separatorItem]];
+        [result addObjectsFromArray:menuItems];
+        separatorRequired = YES;
+    }
+    return [result copy];
 }
 
 - (void)_updateVersionSpecs {
     _items = self.action.contextActionType.versionSpecs;
 
+    NSMenuItem *(^createItem)(LRVersionSpec *spec, NSInteger index) = ^NSMenuItem *(LRVersionSpec *spec, NSInteger index) {
+        NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:spec.title action:NULL keyEquivalent:@""];
+        item.representedObject = spec;
+        item.tag = 1+index;
+        return item;
+    };
+
+    NSMutableArray *group1 = [NSMutableArray new];
+    NSMutableArray *group2 = [NSMutableArray new];
+    NSMutableArray *group3 = [NSMutableArray new];
+    NSMutableArray *group4 = [NSMutableArray new];
+    NSMutableArray *group5 = [NSMutableArray new];
+
+    NSInteger index = 0;
+    for (LRVersionSpec *spec in _items) {
+        switch (spec.type) {
+            case LRVersionSpecTypeStableAny:
+                [group1 addObject:createItem(spec, index)];
+                break;
+            case LRVersionSpecTypeStableMajor:
+                [group2 addObject:createItem(spec, index)];
+                break;
+            case LRVersionSpecTypeMajorMinor:
+                [group3 addObject:createItem(spec, index)];
+                break;
+            case LRVersionSpecTypeSpecific:
+                [group4 addObject:createItem(spec, index)];
+                break;
+            case LRVersionSpecTypeUnknown:
+                [group5 addObject:createItem(spec, index)];
+                break;
+        }
+        ++index;
+    }
+
     [_popupView removeAllItems];
-    [_popupView addItemsWithTitles:[_items valueForKeyPath:@"title"]];
+    for (NSMenuItem *menuItem in [self menuItemsArrayByAddingSeparatorsBetweenGroups:@[group1, group2, group3, group4, group5]]) {
+        [_popupView.menu addItem:menuItem];
+    }
+
     [self loadModelValues];
 }
 
