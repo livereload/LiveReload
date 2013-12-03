@@ -3,6 +3,7 @@
 process.title = "LiveReloadHelper";
 
 global.LR = require('../config/env').createEnvironment();
+// require('longjohn');
 
 if (process.argv.indexOf('--console') >= 0) {
     Path = require('path');
