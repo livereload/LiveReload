@@ -20,6 +20,7 @@ class LRWebSocketConnection
   constructor: (@server, @socket, @id) ->
     @socket.on 'message', @_ondata.bind(@)
     @socket.on 'close',   @_onclose.bind(@)
+    @socket.on 'error',   @_onerror.bind(@)
 
     @parser = new Parser
     @parser.on 'connected', @_onHandshakeDone.bind(@)
