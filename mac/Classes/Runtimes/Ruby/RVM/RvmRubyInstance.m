@@ -30,8 +30,35 @@
     return [NSURL fileURLWithPath:[self.container.binPath stringByAppendingPathComponent:self.name]];
 }
 
+- (NSURL *)environmentURL {
+    return [self.container.environmentsURL URLByAppendingPathComponent:self.name];
+}
+
 - (NSString *)detailLabel {
     return self.name;
+}
+
+
+#pragma mark - Gems
+
+- (NSURL *)gemExecutableURL {
+    NSURL *dir = [self.executableURL URLByDeletingLastPathComponent];
+    NSString *fileName = [self.executableURL lastPathComponent];
+    return [dir URLByAppendingPathComponent:[NSString stringWithFormat:@"gem-%@", fileName]];
+}
+
+- (NSArray *)launchArgumentsWithAdditionalRuntimeContainers:(NSArray *)additionalRuntimeContainers environment:(NSMutableDictionary *)environment {
+
+    NSString *gemPath = [[additionalRuntimeContainers valueForKeyPath:@"folderURL.path"] componentsJoinedByString:@":"];
+
+    NSString *command;
+    if (gemPath.length > 0) {
+        command = [NSString stringWithFormat:@"source '%@'; export GEM_PATH=\"%@:$GEM_PATH\"; exec ruby \"$@\"", self.environmentURL.path, gemPath];
+    } else {
+        command = [NSString stringWithFormat:@"source '%@'; exec ruby \"$@\"", self.environmentURL.path];
+    }
+
+    return @[@"/bin/bash", @"-c", command, @"--"];
 }
 
 @end

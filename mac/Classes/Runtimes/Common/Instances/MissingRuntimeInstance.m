@@ -20,4 +20,8 @@
     return self.identifier;
 }
 
+- (NSArray *)launchArguments {
+    return @[@"__MISSING_RUNTIME__"];
+}
+
 @end

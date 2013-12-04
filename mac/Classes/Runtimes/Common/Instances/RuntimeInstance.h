@@ -6,6 +6,9 @@
 extern NSString *const LRRuntimeInstanceDidChangeNotification;
 
 
+@class LRPackageContainer;
+
+
 @interface RuntimeInstance : NSObject <RuntimeObject>
 
 - (id)initWithMemento:(NSDictionary *)memento additionalInfo:(NSDictionary *)additionalInfo;
@@ -25,6 +28,10 @@ extern NSString *const LRRuntimeInstanceDidChangeNotification;
 
 @property(nonatomic, readonly) NSString *statusQualifier;
 @property(nonatomic, readonly) NSString *title;
+
+@property(nonatomic, readonly) NSArray *defaultPackageContainers;
+
+- (NSArray *)launchArgumentsWithAdditionalRuntimeContainers:(NSArray *)additionalRuntimeContainers environment:(NSMutableDictionary *)environment;
 
 - (void)validate;
 

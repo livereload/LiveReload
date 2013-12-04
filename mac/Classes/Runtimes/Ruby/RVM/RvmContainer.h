@@ -12,6 +12,7 @@ NSString *GetDefaultRvmPath();
 @property(nonatomic, readonly) NSURL *rootUrl;
 @property(nonatomic, readonly) NSString *rootPath;
 @property(nonatomic, readonly) NSString *rubiesPath;
+@property(nonatomic, readonly) NSURL *environmentsURL;
 @property(nonatomic, readonly) NSString *binPath;
 
 @end

@@ -5,6 +5,7 @@
 @class Project;
 @class LRFile2;
 @class ToolOutput;
+@class RuntimeInstance;
 
 
 @interface ScriptInvocationStep : NSObject
@@ -13,6 +14,8 @@
 
 @property(nonatomic, copy) NSArray *commandLine;
 @property(nonatomic, copy) NSDictionary *manifest;
+
+@property(nonatomic, retain) RuntimeInstance *rubyInstance;
 
 - (void)addValue:(id)value forSubstitutionKey:(NSString *)key;
 - (void)addFileValue:(LRFile2 *)file forSubstitutionKey:(NSString *)key;

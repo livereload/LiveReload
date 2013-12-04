@@ -53,6 +53,7 @@
             NSDictionary *values = [bundledPackagesURL resourceValuesForKeys:@[NSURLIsDirectoryKey] error:NULL];
             if ([values[NSURLIsDirectoryKey] boolValue]) {
                 LRPackageContainer *container = [packageType packageContainerAtFolderURL:bundledPackagesURL];
+                container.containerType = LRPackageContainerTypeBundled;
                 [bundledPackageContainers addObject:container];
                 [packageType addPackageContainer:container];
             }

@@ -42,6 +42,10 @@ NSString *GetDefaultRvmPath() {
     return [self.rootUrl path];
 }
 
+- (NSURL *)environmentsURL {
+    return [self.rootUrl URLByAppendingPathComponent:@"environments"];
+}
+
 - (NSString *)rubiesPath {
     return [self.rootPath stringByAppendingPathComponent:@"rubies"];
 }

@@ -1,6 +1,11 @@
 
 #import "RubyInstance.h"
 
+#import "AppState.h"
+#import "LRPackageManager.h"
+#import "LRPackageType.h"
+#import "LRPackageContainer.h"
+
 #import "RuntimeGlobals.h"
 #import "ATChildTask.h"
 #import "NSData+Base64.h"
@@ -9,39 +14,46 @@
 @implementation RubyInstance
 
 - (void)doValidate {
-    NSError *error;
-
     if (![[NSFileManager defaultManager] fileExistsAtPath:[self executablePath]]) {
         [self validationFailedWithError:[NSError errorWithDomain:LRRuntimeManagerErrorDomain code:LRRuntimeManagerErrorValidationFailed userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Ruby executable file (bin/ruby) not found at %@", self.executablePath]}]];
         return;
     }
 
-    ATPlainUnixTask *task = [[ATPlainUnixTask alloc] initWithURL:self.executableURL error:&error];
-    if (!task) {
-        [self validationFailedWithError:[NSError errorWithDomain:LRRuntimeManagerErrorDomain code:LRRuntimeManagerErrorValidationFailed userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Failed to create a task for validation"]}]];
-        return;
-    }
+    ATLaunchUnixTaskAndCaptureOutput(self.executableURL, @[@"--version"], ATLaunchUnixTaskAndCaptureOutputOptionsIgnoreSandbox|ATLaunchUnixTaskAndCaptureOutputOptionsMergeStdoutAndStderr, nil, ^(NSString *outputText, NSString *stderrText, NSError *error) {
+        NSArray *components = [[outputText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 
-    ATTaskOutputReader *reader = [[ATTaskOutputReader alloc] initWithTask:task];
-    [task executeWithArguments:@[@"--version"] completionHandler:^(NSError *error) {
-        //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2000 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSArray *components = [[reader.standardOutputText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-            NSString *combinedOutput = reader.combinedOutputText;
-            // reader can be released at this point
+        if (error) {
+            [self validationFailedWithError:error];
+            return;
+        }
+        if ([[components objectAtIndex:0] isEqualToString:@"ruby"] && components.count > 1) {
+            NSString *version = [components objectAtIndex:1];
 
-            if (error) {
-                [self validationFailedWithError:error];
-                return;
-            }
-            if ([[components objectAtIndex:0] isEqualToString:@"ruby"] && components.count > 1) {
-                NSString *version = [components objectAtIndex:1];
-                [self validationSucceededWithData:@{@"version": version}];
-            } else {
-                [self validationFailedWithError:[NSError errorWithDomain:LRRuntimeManagerErrorDomain code:LRRuntimeManagerErrorValidationFailed userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Failed to parse output of --version: '%@'", combinedOutput]}]];
-            }
-        });
-    }];
+            ATLaunchUnixTaskAndCaptureOutput(self.gemExecutableURL, @[@"environment", @"gempath"], ATLaunchUnixTaskAndCaptureOutputOptionsIgnoreSandbox, nil, ^(NSString *outputText, NSString *stderrText, NSError *error) {
+
+                NSMutableArray *defaultPackageContainers = [NSMutableArray new];
+                if (error) {
+                    NSLog(@"Gem validation failed: %@ - %ld - %@", error.domain, (long)error.code, error.localizedDescription);
+                } else {
+                    NSArray *pathComponents = [[[outputText componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] objectAtIndex:0] componentsSeparatedByString:@":"];
+                    for (NSString *pathComponent in pathComponents) {
+                        NSString *trimmed = [pathComponent stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                        NSURL *folderURL = [NSURL fileURLWithPath:trimmed];
+                        if ([folderURL checkResourceIsReachableAndReturnError:NULL]) {
+                            LRPackageContainer *container = [[[AppState sharedAppState].packageManager packageTypeNamed:@"gem"] packageContainerAtFolderURL:folderURL];
+                            container.containerType = LRPackageContainerTypeRuntimeInstance;
+                            container.runtimeInstance = self;
+                            [defaultPackageContainers addObject:container];
+                        }
+                    }
+                }
+
+                [self validationSucceededWithData:@{@"version": version, @"defaultPackageContainers": defaultPackageContainers}];
+            });
+        } else {
+            [self validationFailedWithError:[NSError errorWithDomain:LRRuntimeManagerErrorDomain code:LRRuntimeManagerErrorValidationFailed userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Failed to parse output of --version: '%@'", outputText]}]];
+        }
+    });
 }
 
 
@@ -49,6 +61,22 @@
 
 - (NSString *)imageName {
     return @"RubyRuntime";
+}
+
+
+#pragma mark - Gems
+
+- (NSURL *)gemExecutableURL {
+    NSURL *dir = [self.executableURL URLByDeletingLastPathComponent];
+    NSString *fileName = [self.executableURL lastPathComponent];
+    return [dir URLByAppendingPathComponent:[fileName stringByReplacingOccurrencesOfString:@"ruby" withString:@"gem"]];
+}
+
+- (NSArray *)launchArgumentsWithAdditionalRuntimeContainers:(NSArray *)additionalRuntimeContainers environment:(NSMutableDictionary *)environment {
+    NSString *gemPath = [[[additionalRuntimeContainers arrayByAddingObjectsFromArray:self.defaultPackageContainers] valueForKeyPath:@"folderURL.path"] componentsJoinedByString:@":"];
+    environment[@"GEM_PATH"] = gemPath;
+
+    return @[self.executableURL.path];
 }
 
 @end

@@ -13,6 +13,7 @@ NSString *const LRRuntimeInstanceDidChangeNotification = @"LRRuntimeInstanceDidC
     self = [super init];
     if (self) {
         _memento = [memento mutableCopy] ?: [[NSMutableDictionary alloc] init];
+        _defaultPackageContainers = @[];
         self.identifier = memento[@"identifier"];
     }
     return self;
@@ -81,6 +82,7 @@ NSString *const LRRuntimeInstanceDidChangeNotification = @"LRRuntimeInstanceDidC
 - (void)validationSucceededWithData:(NSDictionary *)data {
     NSLog(@"Validation of %@ succeeded: %@", self, data);
     self.version = [data objectForKey:@"version"];
+    _defaultPackageContainers = [data objectForKey:@"defaultPackageContainers"];
     self.valid = YES;
     self.validationPerformed = YES;
     self.validationInProgress = NO;
@@ -153,6 +155,10 @@ NSString *const LRRuntimeInstanceDidChangeNotification = @"LRRuntimeInstanceDidC
 
 - (NSString *)detailLabel {
     abort();
+}
+
+- (NSArray *)launchArgumentsWithAdditionalRuntimeContainers:(NSArray *)additionalRuntimeContainers environment:(NSMutableDictionary *)environment {
+    return @[self.executableURL.path];
 }
 
 @end

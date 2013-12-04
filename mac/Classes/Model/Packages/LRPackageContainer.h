@@ -5,9 +5,18 @@
 @class LRPackageType;
 @class LRPackageReference;
 @class LRPackage;
+@class RuntimeInstance;
 
 
 extern NSString *const LRPackageContainerDidChangePackageListNotification;
+
+
+typedef enum {
+    LRPackageContainerTypeBundled,
+    LRPackageContainerTypeRuntimeInstance,
+    LRPackageContainerTypeOptionalSet,
+    LRPackageContainerTypeProjectLocal
+} LRPackageContainerType;
 
 
 @interface LRPackageContainer : NSObject
@@ -17,6 +26,9 @@ extern NSString *const LRPackageContainerDidChangePackageListNotification;
 @property(nonatomic, readonly) LRPackageType *packageType;
 
 @property(nonatomic, readonly) NSArray *packages;
+
+@property(nonatomic) LRPackageContainerType containerType;
+@property(nonatomic, strong) RuntimeInstance *runtimeInstance;
 
 - (NSArray *)packagesMatchingReference:(LRPackageReference *)reference;
 - (LRPackage *)bestPackageMatchingReference:(LRPackageReference *)reference;

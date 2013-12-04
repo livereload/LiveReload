@@ -5,7 +5,15 @@
 #import "ToolOutput.h"
 #import "Glue.h"
 
+#import "AppState.h"
+#import "LRPackageManager.h"
+#import "LRPackageType.h"
+#import "LRPackageContainer.h"
+#import "RubyRuntimeRepository.h"
+#import "RubyInstance.h"
+
 #import "ATChildTask.h"
+#import "ATFunctionalStyle.h"
 #import "NSArray+ATSubstitutions.h"
 #import "LRCommandLine.h"
 #include "console.h"
@@ -15,6 +23,7 @@
 @implementation ScriptInvocationStep {
     NSMutableDictionary *_substitutions;
     NSMutableDictionary *_files;
+    NSMutableDictionary *_environment;
 }
 
 - (id)init {
@@ -22,8 +31,8 @@
     if (self) {
         _substitutions = [NSMutableDictionary new];
         _files = [NSMutableDictionary new];
-        // TODO: use the currently selected version of Ruby
-        [self addValue:@"/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/bin/ruby" forSubstitutionKey:@"ruby"];
+        _environment = [[NSProcessInfo processInfo].environment mutableCopy];
+
         [self addValue:[[NSBundle mainBundle] pathForResource:@"LiveReloadNodejs" ofType:nil] forSubstitutionKey:@"node"];
     }
     return self;
@@ -46,16 +55,23 @@
 }
 
 - (void)invoke {
+    NSArray *bundledContainers = [[[AppState sharedAppState].packageManager packageTypeNamed:@"gem"].containers filteredArrayUsingBlock:^BOOL(LRPackageContainer *container) {
+        return container.containerType == LRPackageContainerTypeBundled;
+    }];
+
+    RuntimeInstance *rubyInstance = [[RubyRuntimeRepository sharedRubyManager] instanceIdentifiedBy:_project.rubyVersionIdentifier];
+    [self addValue:[rubyInstance launchArgumentsWithAdditionalRuntimeContainers:bundledContainers environment:_environment] forSubstitutionKey:@"ruby"];
+
     NSArray *cmdline = [_commandLine arrayBySubstitutingValuesFromDictionary:_substitutions];
-    NSString *command = cmdline[0];
-    NSArray *args = [cmdline subarrayWithRange:NSMakeRange(1, cmdline.count - 1)];
 
     //    NSString *pwd = [[NSFileManager defaultManager] currentDirectoryPath];
     //    [[NSFileManager defaultManager] changeCurrentDirectoryPath:projectPath];
 
     console_printf("Exec: %s", str_collapse_paths([[cmdline quotedArgumentStringUsingBourneQuotingStyle] UTF8String], [_project.path UTF8String]));
 
-    ATLaunchUnixTaskAndCaptureOutput([NSURL fileURLWithPath:command], args, ATLaunchUnixTaskAndCaptureOutputOptionsIgnoreSandbox|ATLaunchUnixTaskAndCaptureOutputOptionsMergeStdoutAndStderr, @{ATCurrentDirectoryPathKey: _project.path}, ^(NSString *outputText, NSString *stderrText, NSError *error) {
+    NSString *command = cmdline[0];
+    NSArray *args = [cmdline subarrayWithRange:NSMakeRange(1, cmdline.count - 1)];
+    ATLaunchUnixTaskAndCaptureOutput([NSURL fileURLWithPath:command], args, ATLaunchUnixTaskAndCaptureOutputOptionsIgnoreSandbox|ATLaunchUnixTaskAndCaptureOutputOptionsMergeStdoutAndStderr, @{ATCurrentDirectoryPathKey: _project.path, ATEnvironmentVariablesKey: _environment}, ^(NSString *outputText, NSString *stderrText, NSError *error) {
         _error = error;
         
         if (error) {
