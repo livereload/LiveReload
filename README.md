@@ -5,7 +5,3 @@ This component is intended as a replacement for SS_PrefsController by Matt Legen
 # How to use
 
 You can find a Demo project at [MASPreferencesDemo](https://github.com/shpakovski/MASPreferencesDemo).
-
-# License
-
-MASPreferences is licensed under the BSD license
