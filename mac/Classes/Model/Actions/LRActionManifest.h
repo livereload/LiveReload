@@ -24,6 +24,8 @@
 @property(nonatomic, copy) NSArray *errorSpecs;
 @property(nonatomic, copy) NSArray *commandLineSpec;
 
+@property(nonatomic, readonly) NSString *changeLogSummary;
+
 // override point
 - (void)initializeActionManifest;
 

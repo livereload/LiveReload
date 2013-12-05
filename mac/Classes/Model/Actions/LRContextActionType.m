@@ -78,17 +78,18 @@ NSString *const LRContextActionTypeDidChangeVersionsNotification = @"LRContextAc
     NSMutableArray *specs = [NSMutableArray new];
     NSMutableSet *set = [NSMutableSet new];
 
-    void (^addSpec)(LRVersionSpec *versionSpec) = ^(LRVersionSpec *versionSpec) {
+    void (^addSpec)(LRActionVersion *actionVersion, LRVersionSpec *versionSpec) = ^(LRActionVersion *actionVersion, LRVersionSpec *versionSpec) {
         if (![set containsObject:versionSpec]) {
+            versionSpec.changeLogSummary = actionVersion.manifest.changeLogSummary;
             [set addObject:versionSpec];
             [specs addObject:versionSpec];
         }
     };
 
     for (LRActionVersion *actionVersion in _versions) {
-        addSpec([LRVersionSpec stableVersionSpecWithMajorFromVersion:actionVersion.primaryVersion]);
-        addSpec([LRVersionSpec versionSpecMatchingMajorMinorFromVersion:actionVersion.primaryVersion]);
-        addSpec([LRVersionSpec versionSpecMatchingVersion:actionVersion.primaryVersion]);
+        addSpec(actionVersion, [LRVersionSpec stableVersionSpecWithMajorFromVersion:actionVersion.primaryVersion]);
+        addSpec(actionVersion, [LRVersionSpec versionSpecMatchingMajorMinorFromVersion:actionVersion.primaryVersion]);
+        addSpec(actionVersion, [LRVersionSpec versionSpecMatchingVersion:actionVersion.primaryVersion]);
     }
 
     [specs addObject:[LRVersionSpec stableVersionSpecMatchingAnyVersionInVersionSpace:_actionType.primaryVersionSpace]];

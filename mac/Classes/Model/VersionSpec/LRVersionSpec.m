@@ -139,6 +139,13 @@
 }
 
 - (NSString *)title {
+    NSString *title = [self _title0];
+    if (_changeLogSummary.length > 0)
+        title = [NSString stringWithFormat:@"%@ (%@)", title, _changeLogSummary];
+    return title;
+}
+
+- (NSString *)_title0 {
     switch (_type) {
         case LRVersionSpecTypeUnknown:
             return [NSString stringWithFormat:@"(unknown) %@", _versionString];

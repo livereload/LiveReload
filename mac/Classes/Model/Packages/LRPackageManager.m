@@ -70,4 +70,11 @@
     return [[LRPackageReference alloc] initWithType:type name:name versionSpec:versionSet];
 }
 
+- (LRPackageReference *)packageReferenceWithString:(NSString *)string {
+    NSArray *components = [string componentsSeparatedByString:@":"];
+    if (components.count != 3)
+        return nil;
+    return [self packageReferenceWithDictionary:@{@"type": components[0], @"name": components[1], @"version": components[2]}];
+}
+
 @end

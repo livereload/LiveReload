@@ -24,6 +24,10 @@
     return self;
 }
 
+- (LRPackage *)primaryPackage {
+    return [_packages firstObject];
+}
+
 - (LRPackage *)packageNamed:(NSString *)name type:(LRPackageType *)type {
     NSString *identifier = [type identifierOfPackageNamed:name];
     return _packagesByIdentifier[identifier];

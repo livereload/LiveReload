@@ -4,6 +4,7 @@
 #import "Errors.h"
 #import "Plugin.h"
 #import "LROption+Factory.h"
+#import "AppState.h"
 #import "LRPackageManager.h"
 #import "LRPackageReference.h"
 #import "LRPackageResolutionContext.h"
@@ -109,10 +110,16 @@ NSArray *LRValidActionKindStrings() {
         [self addErrorMessage:[NSString stringWithFormat:@"Cannot find action class '%@'", actionClassName]];
     if (!_rowClass)
         [self addErrorMessage:[NSString stringWithFormat:@"Cannot find row class '%@'", rowClassName]];
-    
-    _manifestLayers = [self.manifest[@"defaults"] arrayByMappingElementsUsingBlock:^id(NSDictionary *info) {
-        return [[LRManifestLayer alloc] initWithManifest:info errorSink:self];
+
+    LRPackageManager *packageManager = [AppState sharedAppState].packageManager;
+    NSArray *versionInfoLayers = [(self.manifest[@"versionInfo"] ?: @{}) arrayByMappingEntriesUsingBlock:^id(NSString *packageRefString, NSDictionary *info) {
+        LRPackageReference *reference = [packageManager packageReferenceWithString:packageRefString];
+        return [[LRManifestLayer alloc] initWithManifest:info requiredPackageReferences:@[reference] errorSink:self];
     }];
+    
+    _manifestLayers = [[self.manifest[@"defaults"] arrayByMappingElementsUsingBlock:^id(NSDictionary *info) {
+        return [[LRManifestLayer alloc] initWithManifest:info errorSink:self];
+    }] arrayByAddingObjectsFromArray:versionInfoLayers];
 
     if ([_identifier isEqualToString:@"less"]) {
         NSLog(@"LESS");

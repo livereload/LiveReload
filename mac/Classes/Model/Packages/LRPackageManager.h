@@ -18,5 +18,6 @@
 - (void)removePackageContainer:(LRPackageContainer *)container;
 
 - (LRPackageReference *)packageReferenceWithDictionary:(NSDictionary *)dictionary;
+- (LRPackageReference *)packageReferenceWithString:(NSString *)string;
 
 @end

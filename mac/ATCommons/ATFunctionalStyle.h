@@ -64,4 +64,6 @@
 
 - (NSDictionary *)dictionaryByMergingDictionaryValuesWithDictionary:(NSDictionary *)peer;
 
+- (NSArray *)arrayByMappingEntriesUsingBlock:(id(^)(id key, id value))block;
+
 @end

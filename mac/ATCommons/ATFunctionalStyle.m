@@ -287,4 +287,15 @@
     return result;
 }
 
+- (NSArray *)arrayByMappingEntriesUsingBlock:(id(^)(id key, id value))block {
+    NSMutableArray *result = [NSMutableArray arrayWithCapacity:[self count]];
+    [self enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
+        id item = block(key, value);
+        if (item == nil)
+            return;
+        [result addObject:item];
+    }];
+    return result;
+}
+
 @end

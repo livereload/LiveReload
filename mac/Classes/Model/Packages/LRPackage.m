@@ -2,6 +2,7 @@
 #import "LRPackage.h"
 #import "LRPackageContainer.h"
 #import "LRPackageType.h"
+#import "LRVersion.h"
 
 
 @interface LRPackage ()
@@ -19,6 +20,7 @@
         _container = container;
         _sourceFolderURL = sourceFolderURL;
         _identifier = [_container.packageType identifierOfPackageNamed:_name];
+        _identifierIncludingVersion = [NSString stringWithFormat:@"%@:%@", _identifier, _version.description];
     }
     return self;
 }

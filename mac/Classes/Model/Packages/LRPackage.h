@@ -16,5 +16,6 @@
 @property(nonatomic, readonly) NSURL *sourceFolderURL;
 
 @property(nonatomic, readonly) NSString *identifier;  // type:name
+@property(nonatomic, readonly) NSString *identifierIncludingVersion;  // type:name:version
 
 @end

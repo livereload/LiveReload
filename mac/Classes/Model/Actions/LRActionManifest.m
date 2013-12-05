@@ -34,6 +34,8 @@
     }];
 
     _commandLineSpec = [self simpleArrayForKey:@"cmdline" mappedUsingBlock:nil];
+
+    _changeLogSummary = [self mergedValueForKey:@"changeLogSummary"];
 }
 
 - (NSArray *)simpleArrayForKey:(NSString *)key mappedUsingBlock:(id(^)(id obj, LRManifestLayer *layer))block {
@@ -50,6 +52,16 @@
         }
     }
     return result;
+}
+
+- (id)mergedValueForKey:(NSString *)key {
+    for (LRManifestLayer *layer in _layers) {
+        id value = layer.manifest[key];
+        if (value) {
+            return value;
+        }
+    }
+    return nil;
 }
 
 - (NSArray *)createOptionsWithAction:(Action *)action {

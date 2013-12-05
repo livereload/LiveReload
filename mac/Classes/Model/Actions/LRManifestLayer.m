@@ -14,9 +14,13 @@
 @implementation LRManifestLayer
 
 - (instancetype)initWithManifest:(NSDictionary *)manifest errorSink:(id<LRManifestErrorSink>)errorSink {
+    return [self initWithManifest:manifest requiredPackageReferences:[LRManifestLayer packageReferencesWithManifest:manifest] errorSink:errorSink];
+}
+
+- (instancetype)initWithManifest:(NSDictionary *)manifest requiredPackageReferences:(NSArray *)requiredPackageReferences errorSink:(id<LRManifestErrorSink>)errorSink {
     self = [super initWithManifest:manifest errorSink:errorSink];
     if (self) {
-        [self initialize];
+        _packageReferences = requiredPackageReferences;
     }
     return self;
 }
@@ -29,9 +33,9 @@
     return [result copy];
 }
 
-- (void)initialize {
++ (NSArray *)packageReferencesWithManifest:(NSDictionary *)manifest {
     LRPackageManager *packageManager = [AppState sharedAppState].packageManager;
-    _packageReferences = [self.manifest[@"packages"] arrayByMappingElementsUsingBlock:^id(NSDictionary *packageInfo) {
+    return [manifest[@"packages"] arrayByMappingElementsUsingBlock:^id(NSDictionary *packageInfo) {
         return [packageManager packageReferenceWithDictionary:packageInfo];
     }];
 }

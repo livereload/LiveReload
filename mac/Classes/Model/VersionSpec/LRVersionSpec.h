@@ -42,4 +42,6 @@ typedef enum {
 
 - (BOOL)matchesVersion:(LRVersion *)version withTag:(LRVersionTag)tag;
 
+@property(nonatomic, strong) NSString *changeLogSummary;  // a quick hack
+
 @end

@@ -14,6 +14,8 @@
 
 @property(nonatomic, readonly, copy) NSArray *packages;
 
+@property(nonatomic, readonly) LRPackage *primaryPackage;
+
 - (LRPackage *)packageNamed:(NSString *)name type:(LRPackageType *)type;
 
 - (LRPackage *)packageMatchingReference:(LRPackageReference *)reference;
