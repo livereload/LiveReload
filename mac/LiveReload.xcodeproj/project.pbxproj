@@ -24,7 +24,6 @@
 		4303A54915B513FD009D732A /* value.c in Sources */ = {isa = PBXBuildFile; fileRef = 4303A4D015B513FD009D732A /* value.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4303A54A15B513FD009D732A /* nodeapp.c in Sources */ = {isa = PBXBuildFile; fileRef = 4303A4D215B513FD009D732A /* nodeapp.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4303A54B15B513FD009D732A /* nodeapp_autorelease.c in Sources */ = {isa = PBXBuildFile; fileRef = 4303A4D415B513FD009D732A /* nodeapp_autorelease.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		4303A54C15B513FD009D732A /* nodeapp_broker.c in Sources */ = {isa = PBXBuildFile; fileRef = 4303A4D515B513FD009D732A /* nodeapp_broker.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4303A54D15B513FD009D732A /* nodeapp_paths_common.c in Sources */ = {isa = PBXBuildFile; fileRef = 4303A4D715B513FD009D732A /* nodeapp_paths_common.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4303A54E15B513FD009D732A /* nodeapp_rpc_common.m in Sources */ = {isa = PBXBuildFile; fileRef = 4303A4D915B513FD009D732A /* nodeapp_rpc_common.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4303A55015B513FD009D732A /* nodeapp_rpc_proxy.c.erb in Resources */ = {isa = PBXBuildFile; fileRef = 4303A4DB15B513FD009D732A /* nodeapp_rpc_proxy.c.erb */; };
@@ -34,7 +33,6 @@
 		4303A55415B513FD009D732A /* nodeapp_api_app.m in Sources */ = {isa = PBXBuildFile; fileRef = 4303A4E115B513FD009D732A /* nodeapp_api_app.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4303A55515B513FD009D732A /* nodeapp_api_preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 4303A4E215B513FD009D732A /* nodeapp_api_preferences.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4303A55615B513FD009D732A /* nodeapp_autorelease_osdep.m in Sources */ = {isa = PBXBuildFile; fileRef = 4303A4E315B513FD009D732A /* nodeapp_autorelease_osdep.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		4303A55715B513FD009D732A /* nodeapp_broker_osdep.m in Sources */ = {isa = PBXBuildFile; fileRef = 4303A4E515B513FD009D732A /* nodeapp_broker_osdep.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4303A55815B513FD009D732A /* nodeapp_callbacks.m in Sources */ = {isa = PBXBuildFile; fileRef = 4303A4E615B513FD009D732A /* nodeapp_callbacks.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4303A55915B513FD009D732A /* nodeapp_crash.m in Sources */ = {isa = PBXBuildFile; fileRef = 4303A4E715B513FD009D732A /* nodeapp_crash.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4303A55A15B513FD009D732A /* nodeapp_logging.m in Sources */ = {isa = PBXBuildFile; fileRef = 4303A4E815B513FD009D732A /* nodeapp_logging.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -389,8 +387,6 @@
 		4303A4D215B513FD009D732A /* nodeapp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = nodeapp.c; sourceTree = "<group>"; };
 		4303A4D315B513FD009D732A /* nodeapp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nodeapp.h; sourceTree = "<group>"; };
 		4303A4D415B513FD009D732A /* nodeapp_autorelease.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = nodeapp_autorelease.c; sourceTree = "<group>"; };
-		4303A4D515B513FD009D732A /* nodeapp_broker.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = nodeapp_broker.c; sourceTree = "<group>"; };
-		4303A4D615B513FD009D732A /* nodeapp_broker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nodeapp_broker.h; sourceTree = "<group>"; };
 		4303A4D715B513FD009D732A /* nodeapp_paths_common.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = nodeapp_paths_common.c; sourceTree = "<group>"; };
 		4303A4D815B513FD009D732A /* nodeapp_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nodeapp_private.h; sourceTree = "<group>"; };
 		4303A4D915B513FD009D732A /* nodeapp_rpc_common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nodeapp_rpc_common.m; sourceTree = "<group>"; };
@@ -402,8 +398,6 @@
 		4303A4E115B513FD009D732A /* nodeapp_api_app.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nodeapp_api_app.m; sourceTree = "<group>"; };
 		4303A4E215B513FD009D732A /* nodeapp_api_preferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nodeapp_api_preferences.m; sourceTree = "<group>"; };
 		4303A4E315B513FD009D732A /* nodeapp_autorelease_osdep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nodeapp_autorelease_osdep.m; sourceTree = "<group>"; };
-		4303A4E415B513FD009D732A /* nodeapp_broker_osdep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nodeapp_broker_osdep.h; sourceTree = "<group>"; };
-		4303A4E515B513FD009D732A /* nodeapp_broker_osdep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nodeapp_broker_osdep.m; sourceTree = "<group>"; };
 		4303A4E615B513FD009D732A /* nodeapp_callbacks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nodeapp_callbacks.m; sourceTree = "<group>"; };
 		4303A4E715B513FD009D732A /* nodeapp_crash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nodeapp_crash.m; sourceTree = "<group>"; };
 		4303A4E815B513FD009D732A /* nodeapp_logging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nodeapp_logging.m; sourceTree = "<group>"; };
@@ -1101,8 +1095,6 @@
 				4303A4D215B513FD009D732A /* nodeapp.c */,
 				4303A4D315B513FD009D732A /* nodeapp.h */,
 				4303A4D415B513FD009D732A /* nodeapp_autorelease.c */,
-				4303A4D515B513FD009D732A /* nodeapp_broker.c */,
-				4303A4D615B513FD009D732A /* nodeapp_broker.h */,
 				4303A4D715B513FD009D732A /* nodeapp_paths_common.c */,
 				4303A4D815B513FD009D732A /* nodeapp_private.h */,
 				4303A4D915B513FD009D732A /* nodeapp_rpc_common.m */,
@@ -1121,8 +1113,6 @@
 				4303A4E115B513FD009D732A /* nodeapp_api_app.m */,
 				4303A4E215B513FD009D732A /* nodeapp_api_preferences.m */,
 				4303A4E315B513FD009D732A /* nodeapp_autorelease_osdep.m */,
-				4303A4E415B513FD009D732A /* nodeapp_broker_osdep.h */,
-				4303A4E515B513FD009D732A /* nodeapp_broker_osdep.m */,
 				4303A4E615B513FD009D732A /* nodeapp_callbacks.m */,
 				4303A4E715B513FD009D732A /* nodeapp_crash.m */,
 				4303A4E815B513FD009D732A /* nodeapp_logging.m */,
@@ -2472,7 +2462,6 @@
 				4396F1ED17FA2DE600AA8200 /* AddCompilationActionRow.m in Sources */,
 				4303A54A15B513FD009D732A /* nodeapp.c in Sources */,
 				4303A54B15B513FD009D732A /* nodeapp_autorelease.c in Sources */,
-				4303A54C15B513FD009D732A /* nodeapp_broker.c in Sources */,
 				4303A54D15B513FD009D732A /* nodeapp_paths_common.c in Sources */,
 				430D7F68184712F000203400 /* GemPackageType.m in Sources */,
 				43F30CA5184C84F1008CED4A /* GemVersionSpace.m in Sources */,
@@ -2483,7 +2472,6 @@
 				4303A55515B513FD009D732A /* nodeapp_api_preferences.m in Sources */,
 				4303A55615B513FD009D732A /* nodeapp_autorelease_osdep.m in Sources */,
 				433D21B5182646FA00E81A09 /* ScriptInvocationAction.m in Sources */,
-				4303A55715B513FD009D732A /* nodeapp_broker_osdep.m in Sources */,
 				4303A55815B513FD009D732A /* nodeapp_callbacks.m in Sources */,
 				4303A55915B513FD009D732A /* nodeapp_crash.m in Sources */,
 				4303A55A15B513FD009D732A /* nodeapp_logging.m in Sources */,

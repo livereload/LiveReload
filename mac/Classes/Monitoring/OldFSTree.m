@@ -41,9 +41,13 @@ static BOOL IsBrokenFolder(NSString *path) {
         }
     }
 
+    // deprecated APIs are required to deal with Apple's bugs
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     FSPathMakeRefWithOptions((unsigned char *)path_buf, kFSPathMakeRefDoNotFollowLeafSymlink, &fsref, NULL);
     FSNewAlias(NULL, &fsref, &itemAlias);
     FSCopyAliasInfo(itemAlias, &targetName, &volumeName, &pathString, &returnedInInfo, &info);
+#pragma clang diagnostic pop
     if (pathString) {
         CFStringGetCString(pathString, real_path_buf, sizeof(real_path_buf), kCFStringEncodingUTF8);
         CFRelease(pathString);

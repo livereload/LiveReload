@@ -205,7 +205,7 @@ static UserScriptManager *sharedUserScriptManager = nil;
     [[NSWorkspace sharedWorkspace] selectFile:selectedScript.path inFileViewerRootedAtPath:path];
 }
 
-- (void)fileSystemMonitor:(FSMonitor *)monitor detectedChangeAtPathes:(NSSet *)pathes {
+- (void)fileSystemMonitor:(FSMonitor *)monitor detectedChange:(FSChange *)change {
     [[NSNotificationCenter defaultCenter] postNotificationName:UserScriptManagerScriptsDidChangeNotification object:self];
 }
 

@@ -126,7 +126,7 @@
     return ((_matchingVersionTags & tag) == tag) && [_matchingVersionSet containsVersion:version];
 }
 
-- (id)copy {
+- (id)copyWithZone:(NSZone *)zone {
     return self;
 }
 

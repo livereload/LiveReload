@@ -218,8 +218,8 @@ static ToolOutputWindowController *lastOutputController = nil;
 //        [self hideUnparsedNotificationView];
 //    }
 
-    CGFloat maxHeight = [[[self window] screen] frame].size.height / 2;
-    CGFloat oldHeight = _messageScroller.frame.size.height;
+//    CGFloat maxHeight = [[[self window] screen] frame].size.height / 2;
+//    CGFloat oldHeight = _messageScroller.frame.size.height;
 
     switch (type) {
         case ToolOutputTypeLog :
