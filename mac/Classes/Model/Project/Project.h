@@ -19,6 +19,7 @@ extern NSString *ProjectWillBeginCompilationNotification;
 extern NSString *ProjectDidEndCompilationNotification;
 extern NSString *ProjectMonitoringStateDidChangeNotification;
 extern NSString *ProjectNeedsSavingNotification;
+extern NSString *ProjectBuildFinishedNotification;
 
 
 enum {
@@ -75,6 +76,8 @@ enum {
     BOOL                     _runningPostProcessor;
     BOOL                     _pendingPostProcessing;
     NSTimeInterval           _lastPostProcessingRunDate;
+
+    NSInteger                _buildsRunning;
 
     NSMutableDictionary     *_fileDatesHack;
 }
@@ -157,5 +160,8 @@ enum {
 - (BOOL)hackhack_shouldFilterFile:(LRFile2 *)file;
 - (void)hackhack_didFilterFile:(LRFile2 *)file;
 - (void)hackhack_didWriteCompiledFile:(LRFile2 *)file;
+
+@property(nonatomic, readonly, getter=isBuildInProgress) BOOL buildInProgress;
+- (void)rebuildAll;
 
 @end

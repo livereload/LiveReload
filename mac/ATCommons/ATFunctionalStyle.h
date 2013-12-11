@@ -45,6 +45,9 @@
 
 - (NSArray *)arrayByMergingDictionaryValuesWithArray:(NSArray *)peer groupedByKeyPath:(NSString *)keyPath;
 
+- (BOOL)all:(BOOL(^)(id object))block;
+- (BOOL)any:(BOOL(^)(id object))block;
+
 @end
 
 

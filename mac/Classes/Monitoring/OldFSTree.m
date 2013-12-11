@@ -242,6 +242,12 @@ static BOOL IsBrokenFolder(NSString *path) {
 
 #pragma mark - Querying
 
+- (NSArray *)filePaths {
+    return [self pathsOfFilesMatching:^BOOL(NSString *name) {
+        return YES;
+    }];
+}
+
 - (NSArray *)folderPaths {
     return _folders;
 }

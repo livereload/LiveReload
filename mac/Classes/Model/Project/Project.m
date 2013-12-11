@@ -27,6 +27,7 @@
 #import "NSTask+OneLineTasksWithOutput.h"
 #import "ATFunctionalStyle.h"
 #import "ATAsync.h"
+#import "ATObservation.h"
 
 #include <stdbool.h>
 #include "common.h"
@@ -45,6 +46,7 @@ NSString *ProjectWillBeginCompilationNotification = @"ProjectWillBeginCompilatio
 NSString *ProjectDidEndCompilationNotification = @"ProjectDidEndCompilationNotification";
 NSString *ProjectMonitoringStateDidChangeNotification = @"ProjectMonitoringStateDidChangeNotification";
 NSString *ProjectNeedsSavingNotification = @"ProjectNeedsSavingNotification";
+NSString *ProjectBuildFinishedNotification = @"ProjectBuildFinishedNotification";
 
 static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
 
@@ -524,6 +526,8 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     BOOL invokePostProcessor = _pendingPostProcessing;
     _pendingPostProcessing = NO;
 
+    ++_buildsRunning;
+
     switch (pathes.count) {
         case 0:  break;
         case 1:  console_printf("Changed: %s", [[pathes anyObject] UTF8String]); break;
@@ -609,8 +613,26 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
             StatIncrement(BrowserRefreshCountStat, 1);
         }
 
+        --_buildsRunning;
+        [self checkIfBuildFinished];
+
 //        S_app_handle_change(json_object_2("root", json_nsstring(_path), "paths", nodeapp_objc_to_json([pathes allObjects])));
     }];
+}
+
+- (void)startBuild {
+    if (!_buildInProgress) {
+        _buildInProgress = YES;
+        NSLog(@"Build starting...");
+    }
+}
+
+- (void)checkIfBuildFinished {
+    if (_buildInProgress && !(_buildsRunning > 0 || _processingChanges)) {
+        _buildInProgress = NO;
+        NSLog(@"Build finished.");
+        [self postNotificationName:ProjectBuildFinishedNotification];
+    }
 }
 
 - (void)displayCompilationError:(ToolOutput *)output key:(NSString *)key {
@@ -651,6 +673,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     if (_processingChanges)
         return;
 
+    [self startBuild];
     _processingChanges = YES;
 
     while (_pendingChanges.count > 0 || _pendingPostProcessing) {
@@ -660,6 +683,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     }
 
     _processingChanges = NO;
+    [self checkIfBuildFinished];
 }
 
 - (FSTree *)tree {
@@ -1168,6 +1192,15 @@ skipGuessing:
 
 - (void)hackhack_didWriteCompiledFile:(LRFile2 *)file {
     [_fileDatesHack removeObjectForKey:file.relativePath];
+}
+
+
+#pragma mark - Rebuilding
+
+- (void)rebuildAll {
+    [_pendingChanges unionSet:[NSSet setWithArray:self.tree.filePaths]];
+    _pendingPostProcessing = YES;
+    [self processPendingChanges];
 }
 
 @end

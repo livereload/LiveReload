@@ -202,6 +202,22 @@
     return [merged allValues];
 }
 
+- (BOOL)all:(BOOL(^)(id object))block {
+    for (id element in self) {
+        if (!block(element))
+            return NO;
+    }
+    return YES;
+}
+
+- (BOOL)any:(BOOL(^)(id object))block {
+    for (id element in self) {
+        if (block(element))
+            return YES;
+    }
+    return NO;
+}
+
 @end
 
 

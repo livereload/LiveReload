@@ -29,6 +29,8 @@
 
 - (NSArray *)brokenPaths;
 
+@property(nonatomic, readonly, strong) NSArray *filePaths;
+
 @property(nonatomic, readonly, strong) NSArray *folderPaths;
 
 @end
