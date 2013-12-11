@@ -31,13 +31,13 @@
     }
 
     NSMutableArray *references = [NSMutableArray new];
-    for (NSDictionary *packageReferenceData in packagesData) {
-        if (![packageReferenceData isKindOfClass:NSDictionary.class]) {
-            [self addErrorMessage:@"Packages key of a package configuration must be an array of JSON objects"];
+    for (NSString *packageReferenceData in packagesData) {
+        if (![packageReferenceData isKindOfClass:NSString.class]) {
+            [self addErrorMessage:@"Packages key of a package configuration must be an array of strings"];
             return;
         }
 
-        LRPackageReference *reference = [packageManager packageReferenceWithDictionary:packageReferenceData];
+        LRPackageReference *reference = [packageManager packageReferenceWithString:packageReferenceData];
         if (reference) {
             [references addObject:reference];
         }

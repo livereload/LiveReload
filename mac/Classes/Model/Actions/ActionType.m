@@ -113,27 +113,25 @@ NSArray *LRValidActionKindStrings() {
 
     LRPackageManager *packageManager = [AppState sharedAppState].packageManager;
     NSArray *versionInfoLayers = [(self.manifest[@"versionInfo"] ?: @{}) arrayByMappingEntriesUsingBlock:^id(NSString *packageRefString, NSDictionary *info) {
+        if ([packageRefString hasPrefix:@"__"])
+            return nil;
         LRPackageReference *reference = [packageManager packageReferenceWithString:packageRefString];
         return [[LRManifestLayer alloc] initWithManifest:info requiredPackageReferences:@[reference] errorSink:self];
     }];
     
-    _manifestLayers = [[self.manifest[@"defaults"] arrayByMappingElementsUsingBlock:^id(NSDictionary *info) {
+    _manifestLayers = [[self.manifest[@"info"] arrayByMappingElementsUsingBlock:^id(NSDictionary *info) {
         return [[LRManifestLayer alloc] initWithManifest:info errorSink:self];
     }] arrayByAddingObjectsFromArray:versionInfoLayers];
 
-    if ([_identifier isEqualToString:@"less"]) {
-        NSLog(@"LESS");
-    }
-
     NSMutableArray *packageConfigurations = [NSMutableArray new];
-    NSArray *packageConfigurationManifests = self.manifest[@"packageConfigurations"];
+    NSArray *packageConfigurationManifests = self.manifest[@"packages"];
     if (![packageConfigurationManifests isKindOfClass:NSArray.class] || packageConfigurationManifests.count == 0) {
         [self addErrorMessage:@"No package configurations defined"];
     } else {
-        for (NSDictionary *packageConfigurationManifest in packageConfigurationManifests) {
-            if (![packageConfigurationManifest isKindOfClass:NSDictionary.class])
-                [self addErrorMessage:@"Every package configuration must be a dictionary"];
-            [packageConfigurations addObject:[[LRAssetPackageConfiguration alloc] initWithManifest:packageConfigurationManifest errorSink:self]];
+        for (NSArray *packagesInfo in packageConfigurationManifests) {
+            if (![packagesInfo isKindOfClass:NSArray.class])
+                [self addErrorMessage:@"Every package configuration must be an array"];
+            [packageConfigurations addObject:[[LRAssetPackageConfiguration alloc] initWithManifest:@{@"packages": packagesInfo} errorSink:self]];
         }
     }
     _packageConfigurations = [packageConfigurations copy];

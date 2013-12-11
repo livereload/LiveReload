@@ -47,8 +47,8 @@
     [step addValue:self.type.plugin.path forSubstitutionKey:@"plugin"];
 
     for (LRPackage *package in self.effectiveVersion.packageSet.packages) {
-        [step addValue:package.sourceFolderURL.path forSubstitutionKey:[NSString stringWithFormat:@"%@_%@", package.container.packageType.name, package.name]];
-        [step addValue:package.version.description forSubstitutionKey:[NSString stringWithFormat:@"%@_%@_ver", package.container.packageType.name, package.name]];
+        [step addValue:package.sourceFolderURL.path forSubstitutionKey:package.identifier];
+        [step addValue:package.version.description forSubstitutionKey:[NSString stringWithFormat:@"%@.ver", package.identifier]];
     }
 
     NSMutableArray *additionalArguments = [NSMutableArray new];

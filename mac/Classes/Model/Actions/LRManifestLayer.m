@@ -35,7 +35,7 @@
 
 + (NSArray *)packageReferencesWithManifest:(NSDictionary *)manifest {
     LRPackageManager *packageManager = [AppState sharedAppState].packageManager;
-    return [manifest[@"packages"] arrayByMappingElementsUsingBlock:^id(NSDictionary *packageInfo) {
+    return [manifest[@"applies_to"] arrayByMappingElementsUsingBlock:^id(NSDictionary *packageInfo) {
         return [packageManager packageReferenceWithDictionary:packageInfo];
     }];
 }
