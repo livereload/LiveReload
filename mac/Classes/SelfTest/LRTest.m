@@ -2,6 +2,7 @@
 #import "LRTest.h"
 #import "Workspace.h"
 #import "Project.h"
+#import "LRTestOutputFile.h"
 
 #import "ATObservation.h"
 
@@ -18,13 +19,16 @@
 @end
 
 
-@implementation LRTest
+@implementation LRTest {
+    NSMutableArray *_outputFiles;
+}
 
 - (id)initWithFolderURL:(NSURL *)folderURL {
     self = [super init];
     if (self) {
         _folderURL = [folderURL copy];
         _manifestURL = [_folderURL URLByAppendingPathComponent:@"livereload-test.json"];
+        _outputFiles = [NSMutableArray new];
 
         [self observeNotification:ProjectBuildFinishedNotification withSelector:@selector(_checkBuildStatus)];
 
@@ -46,9 +50,19 @@
         _valid = NO;
         return;
     }
+
+    NSDictionary *outputs = _manifest[@"outputs"] ?: @{};
+    [outputs enumerateKeysAndObjectsUsingBlock:^(NSString *relativePath, id expectation, BOOL *stop) {
+        NSURL *absoluteURL = [_folderURL URLByAppendingPathComponent:relativePath];
+        [_outputFiles addObject:[[LRTestOutputFile alloc] initWithRelativePath:relativePath absoluteURL:absoluteURL expectation:expectation]];
+    }];
 }
 
 - (void)run {
+    for (LRTestOutputFile *outputFile in _outputFiles) {
+        [outputFile removeOutputFile];
+    }
+
     _project = [[Project alloc] initWithURL:self.folderURL memento:@{@"actions": @[@{@"action": @"haml", @"enabled": @1, @"version": @"*-stable", @"filter": @"subdir:.", @"output": @"subdir:."}]}];
     [[Workspace sharedWorkspace] addProjectsObject:_project];
 
@@ -59,8 +73,21 @@
 
 - (void)_checkBuildStatus {
     if (_running && !_project.buildInProgress) {
-        [self _succeeded];
+        [self _buildFinished];
     }
+}
+
+- (void)_buildFinished {
+    for (LRTestOutputFile *outputFile in _outputFiles) {
+        NSError *__autoreleasing error;
+        if (![outputFile verifyExpectationsWithError:&error]) {
+            return [self _failWithError:error];
+        }
+    }
+    for (LRTestOutputFile *outputFile in _outputFiles) {
+        [outputFile removeOutputFile];
+    }
+    [self _succeeded];
 }
 
 - (void)_succeeded {

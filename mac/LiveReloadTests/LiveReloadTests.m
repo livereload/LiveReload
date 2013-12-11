@@ -70,7 +70,9 @@ static volatile BOOL _ATAsyncTest_done;
 @end
 
 
-@implementation LiveReloadTests
+@implementation LiveReloadTests {
+    NSURL *_baseFolderURL;
+}
 
 + (void)setUp {
     [super setUp];
@@ -78,6 +80,9 @@ static volatile BOOL _ATAsyncTest_done;
 
 - (void)setUp {
     [super setUp];
+
+    _baseFolderURL = [NSURL fileURLWithPath:[@"~/dev/livereload/support/examples" stringByExpandingTildeInPath]];
+
     NSLog(@"Waiting for initialization to finish...");
     [self waitForCondition:^BOOL{
         NSArray *packageContainers = [[PluginManager sharedPluginManager].plugins valueForKeyPath:@"@unionOfArrays.bundledPackageContainers"];
@@ -92,13 +97,16 @@ static volatile BOOL _ATAsyncTest_done;
     [super tearDown];
 }
 
-- (void)testExample {
-    LRTest *test = [[LRTest alloc] initWithFolderURL:[NSURL fileURLWithPath:[@"~/dev/livereload/support/examples/haml_simple" stringByExpandingTildeInPath]]];
+- (NSError *)runProjectTestNamed:(NSString *)name {
+    LRTest *test = [[LRTest alloc] initWithFolderURL:[_baseFolderURL URLByAppendingPathComponent:name]];
     test.completionBlock = self.completionBlock;
     [test run];
-
     [self waitWithTimeout:3.0];
-//    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+    return test.error;
+}
+
+- (void)testHamlSimple {
+    XCTAssertNil([self runProjectTestNamed:@"haml_simple"], @"Failed");
 }
 
 
