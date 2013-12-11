@@ -1,0 +1,15 @@
+{
+  "settings": {
+    "actions": [
+      {
+        "action": "coffee",
+        "enabled": 1,
+        "version": "*-stable"
+      }
+    ]
+  },
+
+  "outputs": {
+    "test.js": "alert(42);"
+  }
+}

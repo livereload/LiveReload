@@ -1,0 +1,15 @@
+{
+  "settings": {
+    "actions": [
+      {
+        "action": "haml",
+        "enabled": 1,
+        "version": "*-stable"
+      }
+    ]
+  },
+
+  "outputs": {
+    "test.html": "<script src=\"css/bar.js\">"
+  }
+}

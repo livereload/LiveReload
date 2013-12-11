@@ -81,7 +81,7 @@ static volatile BOOL _ATAsyncTest_done;
 - (void)setUp {
     [super setUp];
 
-    _baseFolderURL = [NSURL fileURLWithPath:[@"~/dev/livereload/support/examples" stringByExpandingTildeInPath]];
+    _baseFolderURL = [NSURL fileURLWithPath:[@"~/dev/livereload/devel/mac/LiveReloadTestProjects" stringByExpandingTildeInPath]];
 
     NSLog(@"Waiting for initialization to finish...");
     [self waitForCondition:^BOOL{

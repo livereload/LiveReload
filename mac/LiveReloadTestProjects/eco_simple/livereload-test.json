@@ -1,0 +1,15 @@
+{
+  "settings": {
+    "actions": [
+      {
+        "action": "eco",
+        "enabled": 1,
+        "version": "*-stable"
+      }
+    ]
+  },
+
+  "outputs": {
+    "test.js": "__out.push(__sanitize((_ref = this.occupation) != null ? _ref.name : void 0));"
+  }
+}

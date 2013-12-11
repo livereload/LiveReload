@@ -1,0 +1,15 @@
+{
+  "settings": {
+    "actions": [
+      {
+        "action": "less",
+        "enabled": 1,
+        "version": "*-stable"
+      }
+    ]
+  },
+
+  "outputs": {
+    "test.css": "<script src=\"css/bar.js\">"
+  }
+}
