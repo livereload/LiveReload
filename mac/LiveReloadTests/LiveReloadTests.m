@@ -109,5 +109,17 @@ static volatile BOOL _ATAsyncTest_done;
     XCTAssertNil([self runProjectTestNamed:@"haml_simple"], @"Failed");
 }
 
+- (void)testLessSimple {
+    XCTAssertNil([self runProjectTestNamed:@"less_simple"], @"Failed");
+}
+
+- (void)testEcoSimple {
+    XCTAssertNil([self runProjectTestNamed:@"eco_simple"], @"Failed");
+}
+
+- (void)testCoffeeScriptSimple {
+    XCTAssertNil([self runProjectTestNamed:@"coffeescript_simple"], @"Failed");
+}
+
 
 @end
