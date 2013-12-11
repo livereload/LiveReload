@@ -39,6 +39,15 @@
 }
 
 - (void)run {
+    [self _succeeded];
+}
+
+- (void)_succeeded {
+    _error = nil;
+    if (_completionBlock) {
+        _completionBlock();
+        _completionBlock = nil;
+    }
 }
 
 - (void)_failWithError:(NSError *)error {

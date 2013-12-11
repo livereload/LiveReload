@@ -96,6 +96,10 @@
 //    [[SUUpdater sharedUpdater] setDelegate:self];
 #endif
 
+#ifdef TESTING
+    setenv("LRPortOverride", "35728", 1);
+#endif
+
     _port = 35729;
     if (getenv("LRPortOverride")) {
         _port = atoi(getenv("LRPortOverride"));

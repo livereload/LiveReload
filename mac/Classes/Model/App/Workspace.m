@@ -67,6 +67,10 @@ static NSString *ClientConnectedMonitoringKey = @"clientConnected";
 }
 
 - (void)save {
+#ifdef TESTING
+    return;
+#endif
+
     NSTimeInterval start = [NSDate timeIntervalSinceReferenceDate];
     
     NSString *dataFilePath = [self dataFilePath];
@@ -111,10 +115,13 @@ static NSString *ClientConnectedMonitoringKey = @"clientConnected";
 }
 
 - (void)load {
-    _oldMementos = [[NSUserDefaults standardUserDefaults] objectForKey:ProjectListKey];
-    
     NSArray *projectMementos = nil;
 
+#ifdef TESTING
+    _oldMementos = nil;
+#else
+    _oldMementos = [[NSUserDefaults standardUserDefaults] objectForKey:ProjectListKey];
+    
     NSString *data = [NSString stringWithContentsOfFile:[self dataFilePath] encoding:NSUTF8StringEncoding error:NULL];
     if (data) {
         json_error_t err;
@@ -122,6 +129,7 @@ static NSString *ClientConnectedMonitoringKey = @"clientConnected";
         projectMementos = nodeapp_json_to_objc(json, YES);
         json_decref(json);
     }
+#endif
 
     [_projects removeAllObjects];
     for (NSDictionary *projectMemento in projectMementos) {
