@@ -12,6 +12,7 @@
 @property(nonatomic, readonly) NSURL *folderURL;
 @property(nonatomic, readonly) NSURL *manifestURL;
 @property(nonatomic, readonly) NSDictionary *manifest;
+@property(nonatomic, readonly) NSDictionary *projectMemento;
 
 @property(nonatomic, readonly) Project *project;
 @property(nonatomic, readonly, getter=isRunning) BOOL running;
@@ -51,6 +52,8 @@
         return;
     }
 
+    _projectMemento = _manifest[@"settings"] ?: @{};
+
     NSDictionary *outputs = _manifest[@"outputs"] ?: @{};
     [outputs enumerateKeysAndObjectsUsingBlock:^(NSString *relativePath, id expectation, BOOL *stop) {
         NSURL *absoluteURL = [_folderURL URLByAppendingPathComponent:relativePath];
@@ -63,7 +66,7 @@
         [outputFile removeOutputFile];
     }
 
-    _project = [[Project alloc] initWithURL:self.folderURL memento:@{@"actions": @[@{@"action": @"haml", @"enabled": @1, @"version": @"*-stable", @"filter": @"subdir:.", @"output": @"subdir:."}]}];
+    _project = [[Project alloc] initWithURL:self.folderURL memento:_projectMemento];
     [[Workspace sharedWorkspace] addProjectsObject:_project];
 
     _running = YES;
