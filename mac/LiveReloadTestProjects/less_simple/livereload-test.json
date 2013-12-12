@@ -10,6 +10,6 @@
   },
 
   "outputs": {
-    "test.css": "<script src=\"css/bar.js\">"
+    "test.css": "h1 span {\n  border: none;\n}"
   }
 }
