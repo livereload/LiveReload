@@ -10,6 +10,7 @@
 #import "Action.h"
 #import "LRVersion.h"
 #import "LRVersionSpec.h"
+#import "Project.h"
 
 #import "ATObservation.h"
 #import "ATScheduling.h"
@@ -27,10 +28,11 @@ NSString *const LRContextActionTypeDidChangeVersionsNotification = @"LRContextAc
     ATCoalescedState _updateState;
 }
 
-- (id)initWithActionType:(ActionType *)actionType resolutionContext:(LRPackageResolutionContext *)resolutionContext {
+- (id)initWithActionType:(ActionType *)actionType project:(Project *)project resolutionContext:(LRPackageResolutionContext *)resolutionContext {
     self = [super init];
     if (self) {
         _actionType = actionType;
+        _project = project;
         _resolutionContext = resolutionContext;
 
         [self observeNotification:LRPackageContainerDidChangePackageListNotification withSelector:@selector(_updateAvailableVersions)];
@@ -44,11 +46,13 @@ NSString *const LRContextActionTypeDidChangeVersionsNotification = @"LRContextAc
 }
 
 - (void)_updateAvailableVersions {
-    AT_dispatch_coalesced(&_updateState, 0, ^(dispatch_block_t done) {
+    AT_dispatch_coalesced_with_notifications(&_updateState, 0, ^(dispatch_block_t done) {
         _versions = [[self _computeAvailableVersions] copy];
         _versionSpecs = [[self _computeAvailableVersionSpecs] copy];
         [self postNotificationName:LRContextActionTypeDidChangeVersionsNotification];
         done();
+    }, ^{
+        [_project setAnalysisInProgress:(_updateState > 0) forTask:self];
     });
 }
 

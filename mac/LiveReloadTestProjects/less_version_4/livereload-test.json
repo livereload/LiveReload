@@ -4,7 +4,7 @@
       {
         "action": "less",
         "enabled": 1,
-        "version": "4.x-stable"
+        "version": "1.4.x"
       }
     ]
   },
@@ -14,9 +14,6 @@
   },
 
   "outputs": {
-    "test.css": [
-      "font-size: 9em",
-      "transform+: rotateX(30deg);"
-    ]
+    "test.css": "font-size: 9em"
   }
 }

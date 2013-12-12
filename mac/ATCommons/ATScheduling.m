@@ -15,13 +15,23 @@ void AT_dispatch_after_ms_on_queue(int64_t delay_ms, dispatch_queue_t queue, dis
 
 
 void AT_dispatch_coalesced(ATCoalescedState *state, int64_t delay_ms, ATCoalescedBlock block) {
-    AT_dispatch_coalesced_on_queue(state, delay_ms, dispatch_get_main_queue(), block);
+    AT_dispatch_coalesced_on_queue_with_notifications(state, delay_ms, dispatch_get_main_queue(), block, NULL);
+}
+
+void AT_dispatch_coalesced_with_notifications(ATCoalescedState *state, int64_t delay_ms, ATCoalescedBlock block, ATCoalescedStateChangeNotificationBlock notificationBlock) {
+    AT_dispatch_coalesced_on_queue_with_notifications(state, delay_ms, dispatch_get_main_queue(), block, notificationBlock);
 }
 
 void AT_dispatch_coalesced_on_queue(ATCoalescedState *state, int64_t delay_ms, dispatch_queue_t serial_queue, ATCoalescedBlock block) {
+    AT_dispatch_coalesced_on_queue_with_notifications(state, delay_ms, serial_queue, block, NULL);
+}
+
+void AT_dispatch_coalesced_on_queue_with_notifications(ATCoalescedState *state, int64_t delay_ms, dispatch_queue_t serial_queue, ATCoalescedBlock block, ATCoalescedStateChangeNotificationBlock notificationBlock) {
     int64_t requests = OSAtomicIncrement64Barrier(state);
     if (requests != 1)
         return;
+
+    notificationBlock();
 
     void (^start_block)();
     start_block = ^{
@@ -29,6 +39,8 @@ void AT_dispatch_coalesced_on_queue(ATCoalescedState *state, int64_t delay_ms, d
         block(^{
             if (!OSAtomicCompareAndSwap64Barrier(start, 0, state)) {
                 dispatch_async(serial_queue, start_block);
+            } else {
+                notificationBlock();
             }
         });
     };

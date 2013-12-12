@@ -46,6 +46,7 @@ NSString *ProjectWillBeginCompilationNotification = @"ProjectWillBeginCompilatio
 NSString *ProjectDidEndCompilationNotification = @"ProjectDidEndCompilationNotification";
 NSString *ProjectMonitoringStateDidChangeNotification = @"ProjectMonitoringStateDidChangeNotification";
 NSString *ProjectNeedsSavingNotification = @"ProjectNeedsSavingNotification";
+NSString *ProjectAnalysisDidFinishNotification = @"ProjectAnalysisDidFinishNotification";
 NSString *ProjectBuildFinishedNotification = @"ProjectBuildFinishedNotification";
 
 static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
@@ -111,10 +112,11 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
         _compilerOptions = [[NSMutableDictionary alloc] init];
         _monitoringRequests = [[NSMutableSet alloc] init];
+        _runningAnalysisTasks = [NSMutableSet new];
 
         _resolutionContext = [[LRPackageResolutionContext alloc] init];
 
-        _actionList = [[ActionList alloc] initWithActionTypes:[PluginManager sharedPluginManager].actionTypes resolutionContext:_resolutionContext];
+        _actionList = [[ActionList alloc] initWithActionTypes:[PluginManager sharedPluginManager].actionTypes project:self];
         [_actionList setMemento:memento];
 
         _lastSelectedPane = [[memento objectForKey:@"last_pane"] copy];
@@ -570,9 +572,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
                     if (error) {
                         NSLog(@"Error compiling %@: %@ - %ld - %@", path, error.domain, (long)error.code, error.localizedDescription);
                     }
-                    if (output) {
-                        [self displayCompilationError:output key:[NSString stringWithFormat:@"%@.%@", _path, path]];
-                    }
+                    [self displayCompilationError:output key:[NSString stringWithFormat:@"%@.%@", _path, path]];
                     callback2(NO);
                 }];
             } else {
@@ -642,6 +642,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
 - (void)displayCompilationError:(ToolOutput *)output key:(NSString *)key {
     if (output) {
+        NSLog(@"Compilation error in %@:\n%@", key, output.output);
         output.project = self;
         [[[ToolOutputWindowController alloc] initWithCompilerOutput:output key:key] show];
     } else {
@@ -1210,6 +1211,36 @@ skipGuessing:
     [_pendingChanges unionSet:[NSSet setWithArray:self.tree.filePaths]];
     _pendingPostProcessing = YES;
     [self processPendingChanges];
+}
+
+
+#pragma mark - Analysis
+
+- (void)setAnalysisInProgress:(BOOL)analysisInProgress forTask:(id)task {
+    if (analysisInProgress == [_runningAnalysisTasks containsObject:task])
+        return;
+
+    if (analysisInProgress) {
+        [_runningAnalysisTasks addObject:task];
+        NSLog(@"Analysis started (%d): %@", (int)_runningAnalysisTasks.count, task);
+    } else {
+        [_runningAnalysisTasks removeObject:task];
+        NSLog(@"Analysis finished (%d): %@", (int)_runningAnalysisTasks.count, task);
+    }
+
+    BOOL inProgress = (_runningAnalysisTasks.count > 0);
+    if (inProgress && !_analysisInProgress) {
+        _analysisInProgress = YES;
+    } else if (!inProgress && _analysisInProgress) {
+        // delay b/c maybe some other task is going to start very soon
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ((_runningAnalysisTasks.count == 0) && _analysisInProgress) {
+                NSLog(@"Analysis finished notification.");
+                _analysisInProgress = NO;
+                [self postNotificationName:ProjectAnalysisDidFinishNotification];
+            }
+        });
+    }
 }
 
 @end

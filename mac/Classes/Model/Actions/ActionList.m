@@ -3,6 +3,7 @@
 #import "Action.h"
 #import "ActionType.h"
 #import "LRContextActionType.h"
+#import "Project.h"
 
 #import "ATFunctionalStyle.h"
 
@@ -13,16 +14,16 @@
     NSMutableArray *_actions;
 }
 
-- (id)initWithActionTypes:(NSArray *)actionTypes resolutionContext:(LRPackageResolutionContext *)resolutionContext {
+- (id)initWithActionTypes:(NSArray *)actionTypes project:(Project *)project {
     self = [super init];
     if (self) {
         _actionTypes = [actionTypes copy];
         _actionTypesByIdentifier = [_actionTypes dictionaryWithElementsGroupedByKeyPath:@"identifier"];
 
-        _resolutionContext = resolutionContext;
+        _project = project;
 
         _contextActionTypes = [actionTypes arrayByMappingElementsUsingBlock:^id(ActionType *type) {
-            return [[LRContextActionType alloc] initWithActionType:type resolutionContext:_resolutionContext];
+            return [[LRContextActionType alloc] initWithActionType:type project:_project resolutionContext:self.resolutionContext];
         }];
         _contextActionTypesByIdentifier = [_contextActionTypes dictionaryWithElementsGroupedByKeyPath:@"actionType.identifier"];
 
@@ -58,6 +59,10 @@
     }
 
     [self didChangeValueForKey:@"actions"];
+}
+
+- (LRPackageResolutionContext *)resolutionContext {
+    return _project.resolutionContext;
 }
 
 - (Action *)actionWithMemento:(NSDictionary *)actionMemento {

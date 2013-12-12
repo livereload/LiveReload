@@ -16,7 +16,6 @@
 @property(nonatomic, readonly) NSDictionary *projectMemento;
 
 @property(nonatomic, readonly) Project *project;
-@property(nonatomic, readonly, getter=isRunning) BOOL running;
 
 @end
 
@@ -25,6 +24,9 @@
     NSMutableArray *_outputFiles;
     NSSet *_originalFiles;
     NSSet *_sourceFiles;
+
+    BOOL _analysisRunning;
+    BOOL _buildRunning;
 }
 
 - (id)initWithFolderURL:(NSURL *)folderURL {
@@ -34,6 +36,7 @@
         _manifestURL = [_folderURL URLByAppendingPathComponent:@"livereload-test.json"];
         _outputFiles = [NSMutableArray new];
 
+        [self observeNotification:ProjectAnalysisDidFinishNotification withSelector:@selector(_checkAnalysisStatus)];
         [self observeNotification:ProjectBuildFinishedNotification withSelector:@selector(_checkBuildStatus)];
 
         [self analyze];
@@ -72,16 +75,29 @@
         [outputFile removeOutputFile];
     }
 
+    _analysisRunning = YES;
+
     _project = [[Project alloc] initWithURL:self.folderURL memento:_projectMemento];
     [[Workspace sharedWorkspace] addProjectsObject:_project];
 
-    _running = YES;
+    [self _checkAnalysisStatus];
+}
+
+- (void)_checkAnalysisStatus {
+    if (_analysisRunning && !_project.analysisInProgress) {
+        _analysisRunning = NO;
+        [self _startBuild];
+    }
+}
+
+- (void)_startBuild {
+    _buildRunning = YES;
     [_project rebuildAll];
     [self _checkBuildStatus];
 }
 
 - (void)_checkBuildStatus {
-    if (_running && !_project.buildInProgress) {
+    if (_buildRunning && !_project.buildInProgress) {
         [self _buildFinished];
     }
 }
@@ -113,7 +129,7 @@
 }
 
 - (void)_succeeded {
-    _running = NO;
+    _buildRunning = NO;
     _error = nil;
     if (_completionBlock) {
         _completionBlock();
@@ -122,7 +138,7 @@
 }
 
 - (void)_failWithError:(NSError *)error {
-    _running = NO;
+    _buildRunning = NO;
     _error = error;
     if (_completionBlock) {
         _completionBlock();

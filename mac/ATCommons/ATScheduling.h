@@ -12,7 +12,10 @@ typedef volatile int64_t ATCoalescedState;
 
 // Done callback can be called on any queue/thread.
 typedef void (^ATCoalescedBlock)(dispatch_block_t done);
+typedef dispatch_block_t ATCoalescedStateChangeNotificationBlock;
 
 // Can be called on any queue/thread. Will call the given block on the main queue (or the given serial queue).
 void AT_dispatch_coalesced(ATCoalescedState *state, int64_t delay_ms, ATCoalescedBlock block);
+void AT_dispatch_coalesced_with_notifications(ATCoalescedState *state, int64_t delay_ms, ATCoalescedBlock block, ATCoalescedStateChangeNotificationBlock notificationBlock);
 void AT_dispatch_coalesced_on_queue(ATCoalescedState *state, int64_t delay_ms, dispatch_queue_t serial_queue, ATCoalescedBlock block);
+void AT_dispatch_coalesced_on_queue_with_notifications(ATCoalescedState *state, int64_t delay_ms, dispatch_queue_t serial_queue, ATCoalescedBlock block, ATCoalescedStateChangeNotificationBlock notificationBlock);

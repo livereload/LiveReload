@@ -19,6 +19,7 @@ extern NSString *ProjectWillBeginCompilationNotification;
 extern NSString *ProjectDidEndCompilationNotification;
 extern NSString *ProjectMonitoringStateDidChangeNotification;
 extern NSString *ProjectNeedsSavingNotification;
+extern NSString *ProjectAnalysisDidFinishNotification;
 extern NSString *ProjectBuildFinishedNotification;
 
 
@@ -80,6 +81,8 @@ enum {
     NSInteger                _buildsRunning;
 
     NSMutableDictionary     *_fileDatesHack;
+
+    NSMutableSet            *_runningAnalysisTasks;
 }
 
 - (id)initWithURL:(NSURL *)rootURL memento:(NSDictionary *)memento;
@@ -164,5 +167,8 @@ enum {
 
 @property(nonatomic, readonly, getter=isBuildInProgress) BOOL buildInProgress;
 - (void)rebuildAll;
+
+@property(nonatomic, readonly, getter=isAnalysisInProgress) BOOL analysisInProgress;
+- (void)setAnalysisInProgress:(BOOL)analysisInProgress forTask:(id)task;
 
 @end

@@ -22,6 +22,7 @@ extern NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification;
 
 @property(nonatomic, readonly) ActionType *type;
 @property(nonatomic, readonly) LRContextActionType *contextActionType;
+@property(nonatomic, readonly) Project *project;
 @property(nonatomic, readonly) ActionKind kind; // derived from type
 @property(nonatomic, copy) NSDictionary *memento;
 

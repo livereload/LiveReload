@@ -9,6 +9,7 @@
 #import "LRVersionOption.h"
 #import "LRCustomArgumentsOption.h"
 #import "Errors.h"
+#import "Project.h"
 
 #import "ATScheduling.h"
 #import "ATObservation.h"
@@ -45,6 +46,7 @@ NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification = @"LRActio
     self = [super init];
     if (self) {
         _contextActionType = contextActionType;
+        _project = _contextActionType.project;
         _options = [NSMutableDictionary new];
         [self setMemento:memento];
 
@@ -215,12 +217,14 @@ NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification = @"LRActio
 }
 
 - (void)_updateEffectiveVersion {
-    AT_dispatch_coalesced(&_effectiveActionComputationState, 0, ^(dispatch_block_t done) {
+    AT_dispatch_coalesced_with_notifications(&_effectiveActionComputationState, 0, ^(dispatch_block_t done) {
         [self willChangeValueForKey:@"effectiveVersion"];
         _effectiveVersion = [self _computeEffectiveVersion];
         [self didChangeValueForKey:@"effectiveVersion"];
         [self postNotificationName:LRActionPrimaryEffectiveVersionDidChangeNotification];
         done();
+    }, ^{
+        [_project setAnalysisInProgress:(_effectiveActionComputationState > 0) forTask:self];
     });
 }
 

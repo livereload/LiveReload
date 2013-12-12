@@ -4,7 +4,7 @@
       {
         "action": "less",
         "enabled": 1,
-        "version": "5.x-stable"
+        "version": "1.5.x"
       }
     ]
   },
