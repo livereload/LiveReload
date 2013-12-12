@@ -9,6 +9,10 @@
     ]
   },
 
+  "sources": {
+    "test.coffee": true
+  },
+
   "outputs": {
     "test.js": "alert(42);"
   }

@@ -117,6 +117,7 @@ enum {
 
 @property(nonatomic, readonly) FSTree *tree;
 - (FSTree *)obtainTree;
+- (void)rescanTree;
 
 @property(nonatomic, readonly) NSArray *compilersInUse;
 

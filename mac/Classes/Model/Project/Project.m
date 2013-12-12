@@ -694,6 +694,10 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     return [_monitor obtainTree];
 }
 
+- (void)rescanTree {
+    [_monitor rescan];
+}
+
 
 #pragma mark - Compilation
 

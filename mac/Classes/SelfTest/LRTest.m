@@ -2,6 +2,7 @@
 #import "LRTest.h"
 #import "Workspace.h"
 #import "Project.h"
+#import "OldFSTree.h"
 #import "LRTestOutputFile.h"
 
 #import "ATObservation.h"
@@ -22,6 +23,8 @@
 
 @implementation LRTest {
     NSMutableArray *_outputFiles;
+    NSSet *_originalFiles;
+    NSSet *_sourceFiles;
 }
 
 - (id)initWithFolderURL:(NSURL *)folderURL {
@@ -59,6 +62,9 @@
         NSURL *absoluteURL = [_folderURL URLByAppendingPathComponent:relativePath];
         [_outputFiles addObject:[[LRTestOutputFile alloc] initWithRelativePath:relativePath absoluteURL:absoluteURL expectation:expectation]];
     }];
+
+    NSDictionary *sources = _manifest[@"sources"] ?: @{};
+    _sourceFiles = [NSSet setWithArray:[[sources allKeys] arrayByAddingObjectsFromArray:@[@"livereload-test.json"]]];
 }
 
 - (void)run {
@@ -90,6 +96,16 @@
     for (LRTestOutputFile *outputFile in _outputFiles) {
         [outputFile removeOutputFile];
     }
+
+    [_project rescanTree];
+    NSMutableSet *newFiles = [NSMutableSet setWithArray:_project.tree.filePaths];
+    [newFiles minusSet:_sourceFiles];
+    [newFiles minusSet:[NSSet setWithArray:[_outputFiles valueForKeyPath:@"relativePath"]]];
+
+    if (newFiles.count > 0) {
+        return [self _failWithError:[NSError errorWithDomain:@"com.livereload.tests" code:1 userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Extra output files created: %@", [[newFiles allObjects] componentsJoinedByString:@", "]]}]];
+    }
+
     [self _succeeded];
 }
 

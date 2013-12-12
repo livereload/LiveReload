@@ -9,6 +9,10 @@
     ]
   },
 
+  "sources": {
+    "test.haml": true
+  },
+
   "outputs": {
     "test.html": "<script src=\"css/bar.js\">"
   }

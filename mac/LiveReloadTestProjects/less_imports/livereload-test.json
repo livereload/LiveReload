@@ -9,6 +9,11 @@
     ]
   },
 
+  "sources": {
+    "test.less": true,
+    "imported.less": true
+  },
+
   "outputs": {
     "test.css": [
       "h1 span {\n  border: none;\n}",
