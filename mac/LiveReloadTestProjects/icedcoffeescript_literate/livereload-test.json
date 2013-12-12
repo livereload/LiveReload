@@ -1,0 +1,23 @@
+{
+  "settings": {
+    "actions": [
+      {
+        "action": "iced-coffee-script",
+        "enabled": 1,
+        "version": "*-stable"
+      }
+    ]
+  },
+
+  "sources": {
+    "test.litcoffee": true
+  },
+
+  "outputs": {
+    "test.js": [
+      "alert(42)",
+      ".prototype.defer = function(",
+      "setTimeout(__iced_deferrals.defer("
+    ]
+  }
+}

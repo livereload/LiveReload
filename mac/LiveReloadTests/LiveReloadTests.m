@@ -135,9 +135,21 @@ static volatile BOOL _ATAsyncTest_done;
 - (void)testCoffeeScriptSimple {
     XCTAssertNil([self runProjectTestNamed:@"coffeescript_simple"], @"Failed");
 }
+- (void)testCoffeeScriptLiterate {
+    XCTAssertNil([self runProjectTestNamed:@"coffeescript_literate"], @"Failed");
+}
+- (void)testCoffeeScriptLiterateMd {
+    XCTAssertNil([self runProjectTestNamed:@"coffeescript_literate_md"], @"Failed");
+}
 
 - (void)testIcedCoffeeScriptSimple {
     XCTAssertNil([self runProjectTestNamed:@"icedcoffeescript_simple"], @"Failed");
+}
+- (void)testIcedCoffeeScriptLiterate {
+    XCTAssertNil([self runProjectTestNamed:@"icedcoffeescript_literate"], @"Failed");
+}
+- (void)testIcedCoffeeScriptLiterateMd {
+    XCTAssertNil([self runProjectTestNamed:@"icedcoffeescript_literate_md"], @"Failed");
 }
 
 
