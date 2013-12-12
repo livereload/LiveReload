@@ -177,5 +177,8 @@ static volatile BOOL _ATAsyncTest_done;
     XCTAssertNil([self runProjectTestNamed:@"stylus_nib"], @"Failed");
 }
 
+- (void)testTypeScriptSimple {
+    XCTAssertNil([self runProjectTestNamed:@"typescript_simple"], @"Failed");
+}
 
 @end
