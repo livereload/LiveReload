@@ -1,0 +1,19 @@
+{
+  "settings": {
+    "actions": [
+      {
+        "action": "stylus",
+        "enabled": 1,
+        "version": "*-stable"
+      }
+    ]
+  },
+
+  "sources": {
+    "test.styl": true
+  },
+
+  "outputs": {
+    "test.css": ".foo {\n  position: absolute;"
+  }
+}

@@ -166,5 +166,16 @@ static volatile BOOL _ATAsyncTest_done;
     XCTAssertNil([self runProjectTestNamed:@"sass_indented"], @"Failed");
 }
 
+- (void)testSlimSimple {
+    XCTAssertNil([self runProjectTestNamed:@"slim_simple"], @"Failed");
+}
+
+- (void)testStylusSimple {
+    XCTAssertNil([self runProjectTestNamed:@"stylus_simple"], @"Failed");
+}
+- (void)testStylusNib {
+    XCTAssertNil([self runProjectTestNamed:@"stylus_nib"], @"Failed");
+}
+
 
 @end

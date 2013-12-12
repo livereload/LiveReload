@@ -1,0 +1,26 @@
+{
+  "settings": {
+    "actions": [
+      {
+        "action": "stylus",
+        "enabled": 1,
+        "version": "*-stable",
+        "options": {
+          "use-nib": 1
+        }
+      }
+    ]
+  },
+
+  "sources": {
+    "test.styl": true
+  },
+
+  "outputs": {
+    "test.css": [
+      "position: fixed",
+      "bottom: 10px",
+      "right: 5px"
+    ]
+  }
+}
