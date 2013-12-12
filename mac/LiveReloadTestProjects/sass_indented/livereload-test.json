@@ -1,0 +1,22 @@
+{
+  "settings": {
+    "actions": [
+      {
+        "action": "sass",
+        "enabled": 1,
+        "version": "*-stable"
+      }
+    ]
+  },
+
+  "sources": {
+    "test.sass": true
+  },
+
+  "outputs": {
+    "test.css": [
+      "font: 100% Helvetica, sans-serif",
+      "nav ul {"
+    ]
+  }
+}

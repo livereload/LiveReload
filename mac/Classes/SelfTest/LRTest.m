@@ -35,6 +35,7 @@
         _folderURL = [folderURL copy];
         _manifestURL = [_folderURL URLByAppendingPathComponent:@"livereload-test.json"];
         _outputFiles = [NSMutableArray new];
+        _valid = YES;
 
         [self observeNotification:ProjectAnalysisDidFinishNotification withSelector:@selector(_checkAnalysisStatus)];
         [self observeNotification:ProjectBuildFinishedNotification withSelector:@selector(_checkBuildStatus)];
@@ -47,13 +48,13 @@
 - (void)analyze {
     NSData *data = [NSData dataWithContentsOfURL:_manifestURL options:0 error:NULL];
     if (!data) {
-        _error = [NSError errorWithDomain:@"com.livereload.tests" code:1 userInfo:@{}];
+        _error = [NSError errorWithDomain:@"com.livereload.tests" code:1 userInfo:@{NSLocalizedDescriptionKey:@"Test manifest cannot be loaded"}];
         _valid = NO;
         return;
     }
     _manifest = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
     if (!_manifest) {
-        _error = [NSError errorWithDomain:@"com.livereload.tests" code:1 userInfo:@{}];
+        _error = [NSError errorWithDomain:@"com.livereload.tests" code:1 userInfo:@{NSLocalizedDescriptionKey:@"Test manifest is invalid"}];
         _valid = NO;
         return;
     }
@@ -71,6 +72,10 @@
 }
 
 - (void)run {
+    if (!_valid) {
+        return [self _failWithError:_error];
+    }
+
     for (LRTestOutputFile *outputFile in _outputFiles) {
         [outputFile removeOutputFile];
     }

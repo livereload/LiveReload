@@ -159,5 +159,12 @@ static volatile BOOL _ATAsyncTest_done;
     XCTAssertNil([self runProjectTestNamed:@"jade_filter_markdown"], @"Failed");
 }
 
+- (void)testSassSimple {
+    XCTAssertNil([self runProjectTestNamed:@"sass_simple"], @"Failed");
+}
+- (void)testSassIndented {
+    XCTAssertNil([self runProjectTestNamed:@"sass_indented"], @"Failed");
+}
+
 
 @end
