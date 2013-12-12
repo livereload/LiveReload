@@ -68,6 +68,7 @@
     //    [[NSFileManager defaultManager] changeCurrentDirectoryPath:projectPath];
 
     console_printf("Exec: %s", str_collapse_paths([[cmdline quotedArgumentStringUsingBourneQuotingStyle] UTF8String], [_project.path UTF8String]));
+    NSLog(@"Exec: %@", [NSString stringWithUTF8String:str_collapse_paths([[cmdline quotedArgumentStringUsingBourneQuotingStyle] UTF8String], [_project.path UTF8String])]);
 
     NSString *command = cmdline[0];
     NSArray *args = [cmdline subarrayWithRange:NSMakeRange(1, cmdline.count - 1)];

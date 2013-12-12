@@ -152,5 +152,12 @@ static volatile BOOL _ATAsyncTest_done;
     XCTAssertNil([self runProjectTestNamed:@"icedcoffeescript_literate_md"], @"Failed");
 }
 
+- (void)testJadeSimple {
+    XCTAssertNil([self runProjectTestNamed:@"jade_simple"], @"Failed");
+}
+- (void)testJadeFilterMarkdown {
+    XCTAssertNil([self runProjectTestNamed:@"jade_filter_markdown"], @"Failed");
+}
+
 
 @end

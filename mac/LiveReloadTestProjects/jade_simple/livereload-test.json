@@ -1,0 +1,22 @@
+{
+  "settings": {
+    "actions": [
+      {
+        "action": "jade",
+        "enabled": 1,
+        "version": "*-stable"
+      }
+    ]
+  },
+
+  "sources": {
+    "test.jade": true
+  },
+
+  "outputs": {
+    "test.html": [
+      "<!DOCTYPE html>",
+      "<script>alert(42);</script>"
+    ]
+  }
+}
