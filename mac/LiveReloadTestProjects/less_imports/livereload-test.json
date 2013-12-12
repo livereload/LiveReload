@@ -1,0 +1,18 @@
+{
+  "settings": {
+    "actions": [
+      {
+        "action": "less",
+        "enabled": 1,
+        "version": "*-stable"
+      }
+    ]
+  },
+
+  "outputs": {
+    "test.css": [
+      "h1 span {\n  border: none;\n}",
+      ".x {\n  color: red;\n}"
+    ]
+  }
+}

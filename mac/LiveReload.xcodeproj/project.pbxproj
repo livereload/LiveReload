@@ -188,6 +188,7 @@
 		437109B5185879CB00FCB4C2 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43361D4513C30D1400C0E589 /* libicucore.dylib */; };
 		437109B6185879D600FCB4C2 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43059221151E8FA400CC3F88 /* CoreServices.framework */; };
 		437109B918588E0E00FCB4C2 /* LRTestOutputFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 437109B818588E0E00FCB4C2 /* LRTestOutputFile.m */; };
+		437109BC18595B0200FCB4C2 /* LRTestOutputExpectation.m in Sources */ = {isa = PBXBuildFile; fileRef = 437109BB18595B0200FCB4C2 /* LRTestOutputExpectation.m */; };
 		4376A0E2146DF1C800338AD4 /* TitleBarHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */; };
 		4378C8D11515205C003187D5 /* OldFSMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CA1515205C003187D5 /* OldFSMonitor.m */; };
 		4378C8D21515205C003187D5 /* OldFSTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CC1515205C003187D5 /* OldFSTree.m */; };
@@ -671,6 +672,8 @@
 		437109B2185879B300FCB4C2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		437109B718588E0E00FCB4C2 /* LRTestOutputFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRTestOutputFile.h; sourceTree = "<group>"; };
 		437109B818588E0E00FCB4C2 /* LRTestOutputFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRTestOutputFile.m; sourceTree = "<group>"; };
+		437109BA18595B0200FCB4C2 /* LRTestOutputExpectation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRTestOutputExpectation.h; sourceTree = "<group>"; };
+		437109BB18595B0200FCB4C2 /* LRTestOutputExpectation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRTestOutputExpectation.m; sourceTree = "<group>"; };
 		4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TitleBarHelpTemplate.png; sourceTree = "<group>"; };
 		4378C8C91515205C003187D5 /* OldFSMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldFSMonitor.h; sourceTree = "<group>"; };
 		4378C8CA1515205C003187D5 /* OldFSMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldFSMonitor.m; sourceTree = "<group>"; };
@@ -1608,6 +1611,8 @@
 				437109661858651B00FCB4C2 /* LRTest.m */,
 				437109B718588E0E00FCB4C2 /* LRTestOutputFile.h */,
 				437109B818588E0E00FCB4C2 /* LRTestOutputFile.m */,
+				437109BA18595B0200FCB4C2 /* LRTestOutputExpectation.h */,
+				437109BB18595B0200FCB4C2 /* LRTestOutputExpectation.m */,
 			);
 			path = SelfTest;
 			sourceTree = "<group>";
@@ -2516,6 +2521,7 @@
 				43508A8117B3819500871422 /* ATAutolayout.m in Sources */,
 				436D734B173DE61400F78A23 /* PreferencesController.m in Sources */,
 				433D2183182646D900E81A09 /* AppState.m in Sources */,
+				437109BC18595B0200FCB4C2 /* LRTestOutputExpectation.m in Sources */,
 				436D734F173DE74000F78A23 /* RubyPreferencesViewController.m in Sources */,
 				436D7357173DF3D200F78A23 /* AddCustomRubySheet.m in Sources */,
 				436D735B173E141400F78A23 /* RubyInstance.m in Sources */,
