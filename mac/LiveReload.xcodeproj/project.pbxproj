@@ -84,7 +84,6 @@
 		431CB53916D1EF8200034877 /* IcedCoffeeScript.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 431CB53016D1EF8200034877 /* IcedCoffeeScript.lrplugin */; };
 		431CB53A16D1EF8200034877 /* Jade.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 431CB53116D1EF8200034877 /* Jade.lrplugin */; };
 		431CB53B16D1EF8200034877 /* LESS.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 431CB53216D1EF8200034877 /* LESS.lrplugin */; };
-		431CB53C16D1EF8200034877 /* SASS.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 431CB53316D1EF8200034877 /* SASS.lrplugin */; };
 		431CB53D16D1EF8200034877 /* SLIM.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 431CB53416D1EF8200034877 /* SLIM.lrplugin */; };
 		431CB53E16D1EF8200034877 /* Stylus.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 431CB53516D1EF8200034877 /* Stylus.lrplugin */; };
 		432838791842EFF3001FC70E /* LRChildErrorSink.m in Sources */ = {isa = PBXBuildFile; fileRef = 432838781842EFF3001FC70E /* LRChildErrorSink.m */; };
@@ -189,6 +188,7 @@
 		437109B6185879D600FCB4C2 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43059221151E8FA400CC3F88 /* CoreServices.framework */; };
 		437109B918588E0E00FCB4C2 /* LRTestOutputFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 437109B818588E0E00FCB4C2 /* LRTestOutputFile.m */; };
 		437109BC18595B0200FCB4C2 /* LRTestOutputExpectation.m in Sources */ = {isa = PBXBuildFile; fileRef = 437109BB18595B0200FCB4C2 /* LRTestOutputExpectation.m */; };
+		437109BE1859A48700FCB4C2 /* Sass.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 437109BD1859A48700FCB4C2 /* Sass.lrplugin */; };
 		4376A0E2146DF1C800338AD4 /* TitleBarHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */; };
 		4378C8D11515205C003187D5 /* OldFSMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CA1515205C003187D5 /* OldFSMonitor.m */; };
 		4378C8D21515205C003187D5 /* OldFSTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CC1515205C003187D5 /* OldFSTree.m */; };
@@ -481,7 +481,6 @@
 		431CB53016D1EF8200034877 /* IcedCoffeeScript.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = IcedCoffeeScript.lrplugin; path = ../plugins/IcedCoffeeScript.lrplugin; sourceTree = "<group>"; };
 		431CB53116D1EF8200034877 /* Jade.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Jade.lrplugin; path = ../plugins/Jade.lrplugin; sourceTree = "<group>"; };
 		431CB53216D1EF8200034877 /* LESS.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = LESS.lrplugin; path = ../plugins/LESS.lrplugin; sourceTree = "<group>"; };
-		431CB53316D1EF8200034877 /* SASS.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SASS.lrplugin; path = ../plugins/SASS.lrplugin; sourceTree = "<group>"; };
 		431CB53416D1EF8200034877 /* SLIM.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SLIM.lrplugin; path = ../plugins/SLIM.lrplugin; sourceTree = "<group>"; };
 		431CB53516D1EF8200034877 /* Stylus.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Stylus.lrplugin; path = ../plugins/Stylus.lrplugin; sourceTree = "<group>"; };
 		432838771842EFF3001FC70E /* LRChildErrorSink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRChildErrorSink.h; sourceTree = "<group>"; };
@@ -674,6 +673,7 @@
 		437109B818588E0E00FCB4C2 /* LRTestOutputFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRTestOutputFile.m; sourceTree = "<group>"; };
 		437109BA18595B0200FCB4C2 /* LRTestOutputExpectation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRTestOutputExpectation.h; sourceTree = "<group>"; };
 		437109BB18595B0200FCB4C2 /* LRTestOutputExpectation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRTestOutputExpectation.m; sourceTree = "<group>"; };
+		437109BD1859A48700FCB4C2 /* Sass.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Sass.lrplugin; path = ../plugins/Sass.lrplugin; sourceTree = "<group>"; };
 		4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TitleBarHelpTemplate.png; sourceTree = "<group>"; };
 		4378C8C91515205C003187D5 /* OldFSMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldFSMonitor.h; sourceTree = "<group>"; };
 		4378C8CA1515205C003187D5 /* OldFSMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldFSMonitor.m; sourceTree = "<group>"; };
@@ -1217,7 +1217,7 @@
 				431CB53016D1EF8200034877 /* IcedCoffeeScript.lrplugin */,
 				431CB53116D1EF8200034877 /* Jade.lrplugin */,
 				431CB53216D1EF8200034877 /* LESS.lrplugin */,
-				431CB53316D1EF8200034877 /* SASS.lrplugin */,
+				437109BD1859A48700FCB4C2 /* Sass.lrplugin */,
 				431CB53416D1EF8200034877 /* SLIM.lrplugin */,
 				431CB53516D1EF8200034877 /* Stylus.lrplugin */,
 				43DFE4E417CC6C0D00DEF87B /* autoprefixer.lrplugin */,
@@ -2308,6 +2308,7 @@
 				434BB24217B66CBE000BEB1C /* LROptionsTemplate.png in Resources */,
 				4303A4B715B3959D009D732A /* BuyTemplate.png in Resources */,
 				4303A55015B513FD009D732A /* nodeapp_rpc_proxy.c.erb in Resources */,
+				437109BE1859A48700FCB4C2 /* Sass.lrplugin in Resources */,
 				4303A55115B513FD009D732A /* nodeapp_rpc_proxy.h.erb in Resources */,
 				4303A55215B513FD009D732A /* nodeapp_rpc_router.c.erb in Resources */,
 				4303A56315B513FD009D732A /* copy_task.rb in Resources */,
@@ -2321,7 +2322,6 @@
 				431CB53916D1EF8200034877 /* IcedCoffeeScript.lrplugin in Resources */,
 				431CB53A16D1EF8200034877 /* Jade.lrplugin in Resources */,
 				431CB53B16D1EF8200034877 /* LESS.lrplugin in Resources */,
-				431CB53C16D1EF8200034877 /* SASS.lrplugin in Resources */,
 				431CB53D16D1EF8200034877 /* SLIM.lrplugin in Resources */,
 				431CB53E16D1EF8200034877 /* Stylus.lrplugin in Resources */,
 				436D7340173DE30900F78A23 /* MASPreferencesWindow.xib in Resources */,
