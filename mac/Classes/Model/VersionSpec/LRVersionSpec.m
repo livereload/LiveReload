@@ -72,7 +72,7 @@
         ok = ok && [scanner scanString:@".x" intoString:NULL];
         ok = ok && [scanner isAtEnd];
         if (ok) {
-            return [[self alloc] initWithType:LRVersionSpecTypeMajorMinor versionString:string major:major minor:minor versionSpace:nil version:nil];
+            return [[self alloc] initWithType:LRVersionSpecTypeMajorMinor versionString:string major:major minor:minor versionSpace:versionSpace version:nil];
         }
     } else if ([string hasSuffix:@".x-stable"]) {
         NSScanner *scanner = [NSScanner scannerWithString:string];
@@ -82,7 +82,7 @@
         ok = ok && [scanner scanString:@".x-stable" intoString:NULL];
         ok = ok && [scanner isAtEnd];
         if (ok) {
-            return [[self alloc] initWithType:LRVersionSpecTypeStableMajor versionString:string major:major minor:0 versionSpace:nil version:nil];
+            return [[self alloc] initWithType:LRVersionSpecTypeStableMajor versionString:string major:major minor:0 versionSpace:versionSpace version:nil];
         }
     } else {
         LRVersion *version = [versionSpace versionWithString:string];
@@ -90,7 +90,7 @@
             return [[self alloc] initWithType:LRVersionSpecTypeSpecific versionString:string major:version.major minor:version.minor versionSpace:versionSpace version:version];
         }
     }
-    return [[self alloc] initWithType:LRVersionSpecTypeUnknown versionString:string major:0 minor:0 versionSpace:nil version:nil];
+    return [[self alloc] initWithType:LRVersionSpecTypeUnknown versionString:string major:0 minor:0 versionSpace:versionSpace version:nil];
 }
 
 + (instancetype)versionSpecMatchingVersion:(LRVersion *)version {

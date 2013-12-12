@@ -1,0 +1,19 @@
+{
+  "settings": {
+    "actions": [
+      {
+        "action": "less",
+        "enabled": 1,
+        "version": "3.x-stable"
+      }
+    ]
+  },
+
+  "sources": {
+    "test.less": true
+  },
+
+  "outputs": {
+    "test.css": "font-size: 9px"
+  }
+}

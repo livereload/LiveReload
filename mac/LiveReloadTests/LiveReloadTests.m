@@ -115,6 +115,18 @@ static volatile BOOL _ATAsyncTest_done;
 - (void)testLessImports {
     XCTAssertNil([self runProjectTestNamed:@"less_imports"], @"Failed");
 }
+- (void)testLessImportsReference {
+    XCTAssertNil([self runProjectTestNamed:@"less_imports_reference"], @"Failed");
+}
+- (void)testLessVersion3 {
+    XCTAssertNil([self runProjectTestNamed:@"less_version_3"], @"Failed");
+}
+- (void)testLessVersion4 {
+    XCTAssertNil([self runProjectTestNamed:@"less_version_4"], @"Failed");
+}
+- (void)testLessVersion5 {
+    XCTAssertNil([self runProjectTestNamed:@"less_version_5"], @"Failed");
+}
 
 - (void)testEcoSimple {
     XCTAssertNil([self runProjectTestNamed:@"eco_simple"], @"Failed");

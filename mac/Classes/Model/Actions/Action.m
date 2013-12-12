@@ -6,9 +6,10 @@
 #import "LRActionVersion.h"
 #import "LRActionManifest.h"
 #import "LRVersionSpec.h"
-
 #import "LRVersionOption.h"
 #import "LRCustomArgumentsOption.h"
+#import "Errors.h"
+
 #import "ATScheduling.h"
 #import "ATObservation.h"
 
@@ -231,6 +232,10 @@ NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification = @"LRActio
         }
     }
     return nil;
+}
+
+- (NSError *)missingEffectiveVersionError {
+    return [NSError errorWithDomain:LRErrorDomain code:LRErrorNoMatchingVersion userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"No available version matched for version spec %@, available versions: %@", self.primaryVersionSpec, [[self.contextActionType.versions valueForKeyPath:@"primaryVersion"] componentsJoinedByString:@", "]]}];
 }
 
 

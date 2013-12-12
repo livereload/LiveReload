@@ -93,6 +93,8 @@
             return [self _failWithError:error];
         }
     }
+
+    // all expectations are met, so delete the expected files
     for (LRTestOutputFile *outputFile in _outputFiles) {
         [outputFile removeOutputFile];
     }
@@ -103,6 +105,7 @@
     [newFiles minusSet:[NSSet setWithArray:[_outputFiles valueForKeyPath:@"relativePath"]]];
 
     if (newFiles.count > 0) {
+        // any extra files are left in the test folder for inspection
         return [self _failWithError:[NSError errorWithDomain:@"com.livereload.tests" code:1 userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Extra output files created: %@", [[newFiles allObjects] componentsJoinedByString:@", "]]}]];
     }
 

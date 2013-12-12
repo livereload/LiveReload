@@ -9,6 +9,7 @@ enum {
     LRErrorPluginApiViolation,
     LRErrorEditorPluginReturnedBrokenState,
     LRErrorInvalidManifest,
+    LRErrorNoMatchingVersion,
 };
 
 #define return_error(returnValue, outError, error)  do { \

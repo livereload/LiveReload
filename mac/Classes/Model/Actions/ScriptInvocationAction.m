@@ -13,6 +13,7 @@
 #import "LRPackageContainer.h"
 #import "LRPackageType.h"
 #import "LRVersion.h"
+#import "Errors.h"
 
 
 @implementation ScriptInvocationActionType {
@@ -24,6 +25,10 @@
 @implementation ScriptInvocationAction
 
 - (void)compileFile:(LRFile2 *)file inProject:(Project *)project completionHandler:(UserScriptCompletionHandler)completionHandler {
+    if (!self.effectiveVersion) {
+        return completionHandler(NO, nil, [self missingEffectiveVersionError]);
+    }
+
     ScriptInvocationStep *step = [ScriptInvocationStep new];
     step.project = project;
 

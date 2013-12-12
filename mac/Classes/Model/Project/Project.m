@@ -567,7 +567,12 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
             LRFile2 *file = [LRFile2 fileWithRelativePath:path project:self];
             if ([action shouldInvokeForFile:file]) {
                 [action compileFile:file inProject:self completionHandler:^(BOOL invoked, ToolOutput *output, NSError *error) {
-                    [self displayCompilationError:output key:[NSString stringWithFormat:@"%@.%@", _path, path]];
+                    if (error) {
+                        NSLog(@"Error compiling %@: %@ - %ld - %@", path, error.domain, (long)error.code, error.localizedDescription);
+                    }
+                    if (output) {
+                        [self displayCompilationError:output key:[NSString stringWithFormat:@"%@.%@", _path, path]];
+                    }
                     callback2(NO);
                 }];
             } else {

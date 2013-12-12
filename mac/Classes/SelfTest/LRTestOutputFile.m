@@ -46,7 +46,7 @@
         return_error(NO, outError, ([NSError errorWithDomain:@"com.livereload.tests" code:1 userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Output file not found: %@", _relativePath]}]));
     for (LRTestOutputExpectation *expectation in _expectations) {
         if (![expectation validateWithContent:actualContent]) {
-            return_error(NO, outError, ([NSError errorWithDomain:@"com.livereload.tests" code:1 userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Expected content not found in %@, expectation: %@", _relativePath, expectation]}]));
+            return_error(NO, outError, ([NSError errorWithDomain:@"com.livereload.tests" code:1 userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"%@ failed to meet expectation: %@", _relativePath, expectation]}]));
         }
     }
     return YES;
