@@ -899,7 +899,7 @@
 		823DDF2D13F8DA3F00529AD2 /* StatusItemStateRotation1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemStateRotation1.png; sourceTree = "<group>"; };
 		823DDF2E13F8DA3F00529AD2 /* StatusItemStateRotation2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemStateRotation2.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* LiveReload-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "LiveReload-Info.plist"; sourceTree = "<group>"; };
-		8D1107320486CEB800E47090 /* LiveReload.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveReload.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D1107320486CEB800E47090 /* LiveReload Pro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LiveReload Pro.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C01FCF5008A954540054247C /* RSVerticallyCenteredTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSVerticallyCenteredTextFieldCell.h; sourceTree = "<group>"; };
 		C01FCF5008A954540054247D /* RSVerticallyCenteredTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSVerticallyCenteredTextFieldCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -963,7 +963,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D1107320486CEB800E47090 /* LiveReload.app */,
+				8D1107320486CEB800E47090 /* LiveReload Pro.app */,
 				4396F1B817F77A8900AA8200 /* com.tarantsov.GlitterInstallationService.xpc */,
 				4371095118585DB800FCB4C2 /* LiveReloadTests.xctest */,
 			);
@@ -2200,7 +2200,7 @@
 			name = LiveReload;
 			productInstallPath = "$(HOME)/Applications";
 			productName = LiveReload;
-			productReference = 8D1107320486CEB800E47090 /* LiveReload.app */;
+			productReference = 8D1107320486CEB800E47090 /* LiveReload Pro.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -2810,7 +2810,7 @@
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_LDFLAGS = "-lz";
-				PRODUCT_NAME = LiveReload;
+				PRODUCT_NAME = "LiveReload Pro";
 				PROVISIONING_PROFILE = "";
 			};
 			name = Testing;
@@ -3056,7 +3056,7 @@
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_LDFLAGS = "-lz";
-				PRODUCT_NAME = LiveReload;
+				PRODUCT_NAME = "LiveReload Pro";
 			};
 			name = AppStore;
 		};
@@ -3075,7 +3075,7 @@
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_LDFLAGS = "-lz";
-				PRODUCT_NAME = LiveReload;
+				PRODUCT_NAME = "LiveReload Pro";
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
@@ -3093,7 +3093,7 @@
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_LDFLAGS = "-lz";
-				PRODUCT_NAME = LiveReload;
+				PRODUCT_NAME = "LiveReload Pro";
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
