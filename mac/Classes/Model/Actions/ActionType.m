@@ -125,8 +125,8 @@ NSArray *LRValidActionKindStrings() {
 
     NSMutableArray *packageConfigurations = [NSMutableArray new];
     NSArray *packageConfigurationManifests = self.manifest[@"packages"];
-    if (![packageConfigurationManifests isKindOfClass:NSArray.class] || packageConfigurationManifests.count == 0) {
-        [self addErrorMessage:@"No package configurations defined"];
+    if (packageConfigurationManifests && ![packageConfigurationManifests isKindOfClass:NSArray.class]) {
+        [self addErrorMessage:@"Invalid type of 'packages' key"];
     } else {
         for (NSArray *packagesInfo in packageConfigurationManifests) {
             if (![packagesInfo isKindOfClass:NSArray.class])
