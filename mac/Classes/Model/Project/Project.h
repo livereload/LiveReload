@@ -85,6 +85,7 @@ enum {
     NSMutableSet            *_runningAnalysisTasks;
 
     BOOL                     _quuxMode;
+    ATPathSpec              *_forcedStylesheetReloadSpec;
 }
 
 - (id)initWithURL:(NSURL *)rootURL memento:(NSDictionary *)memento;

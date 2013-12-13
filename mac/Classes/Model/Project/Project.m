@@ -20,6 +20,7 @@
 #import "FilterOption.h"
 #import "Glue.h"
 #import "LRPackageResolutionContext.h"
+#import "ATPathSpec.h"
 
 #import "Stats.h"
 #import "RegexKitLite.h"
@@ -507,7 +508,11 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     }
 
     if (!compilerFound) {
-        [reloadRequests addObject:@{@"path": [_path stringByAppendingPathComponent:relativePath], @"originalPath": [NSNull null]}];
+        if (_forcedStylesheetReloadSpec && [_forcedStylesheetReloadSpec matchesPath:relativePath type:ATPathSpecEntryTypeFile]) {
+            [reloadRequests addObject:@{@"path": @"force-reload-all-stylesheets.css", @"originalPath": [NSNull null]}];
+        } else {
+            [reloadRequests addObject:@{@"path": [_path stringByAppendingPathComponent:relativePath], @"originalPath": [NSNull null]}];
+        }
     }
 }
 
@@ -1258,6 +1263,8 @@ skipGuessing:
 
 - (void)_parseSuperAdvancedOptions {
     _quuxMode = NO;
+    _forcedStylesheetReloadSpec = nil;
+
     NSMutableArray *messages = [NSMutableArray new];
 
     NSArray *items = _superAdvancedOptions;
@@ -1266,7 +1273,20 @@ skipGuessing:
         NSString *option = items[i];
         if ([option isEqualToString:@"quux"]) {
             _quuxMode = YES;
-            [messages addObject:@"quux on"];
+            [messages addObject:@"✓ quux on"];
+        } else if ([option isEqualToString:@"reload-all-stylesheets-for"]) {
+            if (++i == count) {
+                [messages addObject:[NSString stringWithFormat:@"%@ requires an argument", option]];
+            } else {
+                NSString *value = items[i];
+                NSError *__autoreleasing error;
+                _forcedStylesheetReloadSpec = [ATPathSpec pathSpecWithString:value syntaxOptions:ATPathSpecSyntaxFlavorExtended error:&error];
+                if (!_forcedStylesheetReloadSpec) {
+                    [messages addObject:[NSString stringWithFormat:@"%@ parse error: %@", option, error.localizedDescription]];
+                } else {
+                    [messages addObject:[NSString stringWithFormat:@"✓ %@ = %@", option, _forcedStylesheetReloadSpec.description]];
+                }
+            }
         } else {
             [messages addObject:[NSString stringWithFormat:@"unknown: %@", option]];
         }
