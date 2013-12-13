@@ -37,7 +37,7 @@
         [_view.cell setPlaceholderString:_placeholder];
     }
     _view.delegate = self;
-    [optionsView addOptionView:_view label:self.label flags:LROptionsViewFlagsLabelAlignmentBaseline];
+    [optionsView addOptionView:_view withLabel:self.label flags:LROptionsViewFlagsLabelAlignmentBaseline];
     [self loadModelValues];
 }
 

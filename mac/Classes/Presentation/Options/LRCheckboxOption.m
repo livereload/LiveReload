@@ -29,7 +29,7 @@
 
 - (void)renderInOptionsView:(LROptionsView *)optionsView {
     _view = [[NSButton buttonWithTitle:self.label type:NSSwitchButton bezelStyle:NSRoundRectBezelStyle] withTarget:self action:@selector(checkboxClicked:)];
-    [optionsView addOptionView:_view label:@"" flags:LROptionsViewFlagsLabelAlignmentBaseline];
+    [optionsView addOptionView:_view withLabel:@"" flags:LROptionsViewFlagsLabelAlignmentBaseline];
     [self loadModelValues];
 }
 

@@ -50,7 +50,7 @@
     [self _updateVersionSpecs];
     [self _updateEffectiveVersion];
 
-    [optionsView addOptionView:_containerView label:self.label flags:LROptionsViewFlagsLabelAlignmentBaseline];
+    [optionsView addOptionView:_containerView withLabel:self.label alignedToView:_popupView flags:LROptionsViewFlagsLabelAlignmentBaseline];
     [self loadModelValues];
 }
 

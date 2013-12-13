@@ -41,7 +41,7 @@
 - (void)loadOptionsIntoView:(LROptionsView *)container {
     _commandLineField = [NSTextField editableField];
     [_commandLineField makeHeightEqualTo:100];
-    [container addOptionView:_commandLineField label:NSLocalizedString(@"Command line:", nil) flags:LROptionsViewFlagsLabelAlignmentTop];
+    [container addOptionView:_commandLineField withLabel:NSLocalizedString(@"Command line:", nil) flags:LROptionsViewFlagsLabelAlignmentTop];
 
     [_commandLineField bind:@"value" toObject:self.representedObject withKeyPath:@"command" options:nil];
 }

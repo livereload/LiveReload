@@ -23,7 +23,7 @@
     [_view.cell setPlaceholderString:@"--foo --bar=boz"];
     _view.delegate = self;
 
-    [optionsView addOptionView:_view label:@"Custom arguments:" flags:LROptionsViewFlagsLabelAlignmentBaseline];
+    [optionsView addOptionView:_view withLabel:@"Custom arguments:" flags:LROptionsViewFlagsLabelAlignmentBaseline];
     [self loadModelValues];
 }
 

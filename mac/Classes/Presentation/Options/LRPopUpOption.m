@@ -75,7 +75,7 @@
 - (void)renderInOptionsView:(LROptionsView *)optionsView {
     _view = [[NSPopUpButton popUpButton] withTarget:self action:@selector(popUpSelectionDidChange:)];
     [_view addItemsWithTitles:[_items valueForKeyPath:@"label"]];
-    [optionsView addOptionView:_view label:self.label flags:LROptionsViewFlagsLabelAlignmentBaseline];
+    [optionsView addOptionView:_view withLabel:self.label flags:LROptionsViewFlagsLabelAlignmentBaseline];
     [self loadModelValues];
 }
 

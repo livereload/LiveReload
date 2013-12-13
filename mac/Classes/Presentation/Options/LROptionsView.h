@@ -24,6 +24,7 @@ typedef enum {
 + (LROptionsView *)optionsView;
 
 - (void)addOption:(LROption *)option;
-- (void)addOptionView:(NSView *)optionView label:(NSString *)label flags:(LROptionsViewFlags)flags;
+- (void)addOptionView:(NSView *)optionView withLabel:(NSString *)label flags:(LROptionsViewFlags)flags;
+- (void)addOptionView:(NSView *)optionView withLabel:(NSString *)label alignedToView:(NSView *)labelAlignmentView flags:(LROptionsViewFlags)flags;
 
 @end

@@ -32,7 +32,11 @@
     return self;
 }
 
-- (void)addOptionView:(NSView *)optionView label:(NSString *)label flags:(LROptionsViewFlags)flags {
+- (void)addOptionView:(NSView *)optionView withLabel:(NSString *)label flags:(LROptionsViewFlags)flags {
+    [self addOptionView:optionView withLabel:label alignedToView:optionView flags:flags];
+}
+
+- (void)addOptionView:(NSView *)optionView withLabel:(NSString *)label alignedToView:(NSView *)labelAlignmentView flags:(LROptionsViewFlags)flags {
     optionView.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:optionView];
 
@@ -63,12 +67,12 @@
         labelView.alignment = NSRightTextAlignment;
         [self addSubview:labelView];
 
-        NSLayoutFormatOptions options = 0;
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-(>=horizontalPadding)-[labelView]-[optionView]" options:0 metrics:metrics views:NSDictionaryOfVariableBindings(labelView, optionView)]];
+
         if ((flags & LROptionsViewFlagsLabelAlignmentMask) == LROptionsViewFlagsLabelAlignmentBaseline)
-            options |= NSLayoutFormatAlignAllBaseline;
+            [self addConstraint:[[NSLayoutConstraint constraintWithItem:labelView attribute:NSLayoutAttributeBaseline relatedBy:NSLayoutRelationEqual toItem:labelAlignmentView attribute:NSLayoutAttributeBaseline multiplier:1.0 constant:0] withPriority:NSLayoutPriorityDefaultHigh]];
         else if ((flags & LROptionsViewFlagsLabelAlignmentMask) == LROptionsViewFlagsLabelAlignmentCenter)
-            options |= NSLayoutFormatAlignAllCenterY;
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-(>=horizontalPadding)-[labelView]-[optionView]" options:options metrics:metrics views:NSDictionaryOfVariableBindings(labelView, optionView)]];
+            [self addConstraint:[[NSLayoutConstraint constraintWithItem:labelView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:labelAlignmentView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0] withPriority:NSLayoutPriorityDefaultHigh]];
 
         if ((flags & LROptionsViewFlagsLabelAlignmentMask) == LROptionsViewFlagsLabelAlignmentTop) {
             [self addConstraint:[NSLayoutConstraint constraintWithItem:labelView attribute:NSLayoutAttributeBaseline relatedBy:NSLayoutRelationEqual toItem:optionView attribute:NSLayoutAttributeTop multiplier:1.0 constant:kTopLabelBaselineOffset]];
