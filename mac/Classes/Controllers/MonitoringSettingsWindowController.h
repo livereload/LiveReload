@@ -17,4 +17,7 @@
 
 @property (weak) IBOutlet NSTableView *excludedPathsTableView;
 
+@property (unsafe_unretained) IBOutlet NSTextView *superAdvancedOptionsTextView;
+@property (weak) IBOutlet NSTextField *superAdvancedOptionsFeedbackTextField;
+
 @end

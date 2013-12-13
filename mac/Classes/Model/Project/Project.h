@@ -83,6 +83,8 @@ enum {
     NSMutableDictionary     *_fileDatesHack;
 
     NSMutableSet            *_runningAnalysisTasks;
+
+    BOOL                     _quuxMode;
 }
 
 - (id)initWithURL:(NSURL *)rootURL memento:(NSDictionary *)memento;
@@ -115,6 +117,11 @@ enum {
 @property(nonatomic) NSTimeInterval eventProcessingDelay;
 @property(nonatomic) NSTimeInterval fullPageReloadDelay;
 @property(nonatomic) NSTimeInterval postProcessingGracePeriod;
+
+@property(nonatomic) NSArray *superAdvancedOptions;
+@property(nonatomic) NSString *superAdvancedOptionsString;
+@property(nonatomic, readonly) NSArray *superAdvancedOptionsFeedback;
+@property(nonatomic, readonly) NSString *superAdvancedOptionsFeedbackString;
 
 @property(nonatomic, readonly) LRPackageResolutionContext *resolutionContext;
 

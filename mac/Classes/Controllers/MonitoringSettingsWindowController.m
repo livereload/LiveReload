@@ -1,5 +1,7 @@
 
 #import "MonitoringSettingsWindowController.h"
+#import "ATObservation.h"
+#import "ATScheduling.h"
 
 #import "Preferences.h"
 #import "RegexKitLite.h"
@@ -10,7 +12,9 @@
 
 
 
-@implementation MonitoringSettingsWindowController
+@implementation MonitoringSettingsWindowController {
+    ATCoalescedState _superAdvancedSavingCoalescense;
+}
 
 @synthesize builtInExtensionsLabelField=_builtInExtensionsLabelField;
 @synthesize additionalExtensionsTextField = _additionalExtensionsTextField;
@@ -24,6 +28,12 @@
 
 - (void)windowDidLoad {
     [super windowDidLoad];
+    [self observeNotification:NSTextDidChangeNotification withSelector:@selector(textDidChange:)];
+    [self observeNotification:NSTextDidEndEditingNotification withSelector:@selector(textDidEndEditing:)];
+}
+
+- (void)dealloc {
+    [self removeAllObservations];
 }
 
 
@@ -56,6 +66,17 @@
     }
 }
 
+- (void)_renderSuperAdvancedOptions:(BOOL)rerenderOptions {
+    if (rerenderOptions)
+        _superAdvancedOptionsTextView.string = _project.superAdvancedOptionsString;
+    _superAdvancedOptionsFeedbackTextField.stringValue = _project.superAdvancedOptionsFeedbackString;
+}
+
+- (void)_saveSuperAdvancedOptions:(BOOL)rerenderOptions {
+    _project.superAdvancedOptionsString = _superAdvancedOptionsTextView.string;
+    [self _renderSuperAdvancedOptions:rerenderOptions];
+}
+
 - (void)render {
     _builtInExtensionsLabelField.stringValue = [[[Preferences sharedPreferences].builtInExtensions sortedArrayUsingSelector:@selector(compare:)] componentsJoinedByString:@" "];
     _additionalExtensionsTextField.stringValue = [[Preferences sharedPreferences].additionalExtensions componentsJoinedByString:@" "];
@@ -65,6 +86,7 @@
     _delayChangeProcessingButton.state = (_project.eventProcessingDelay > 0.001 ? NSOnState : NSOffState);
     [self renderFullPageRefreshDelay];
     [self renderEventProcessingDelay];
+    [self _renderSuperAdvancedOptions:YES];
 }
 
 - (void)save {
@@ -72,6 +94,7 @@
     [Preferences sharedPreferences].additionalExtensions = (extensions.length > 0 ? [extensions componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] : [NSArray array]);
     _project.fullPageReloadDelay = (_delayFullRefreshCheckBox.state == NSOnState ? _fullRefreshDelayTextField.doubleValue : 0.0);
     _project.eventProcessingDelay = (_delayChangeProcessingButton.state == NSOnState ? _changeProcessingDelayTextField.doubleValue : 0.0);
+    [self _saveSuperAdvancedOptions:YES];
 }
 
 
@@ -142,6 +165,24 @@
     [_excludedPathsTableView reloadData];
 
     [_excludedPathsTableView deselectAll:nil];
+}
+
+- (void)textDidChange:(NSNotification *)notification {
+    if (notification.object == _superAdvancedOptionsTextView) {
+        AT_dispatch_coalesced(&_superAdvancedSavingCoalescense, 200, ^(dispatch_block_t done) {
+            [self _saveSuperAdvancedOptions:NO];
+            done();
+        });
+    }
+}
+
+- (void)textDidEndEditing:(NSNotification *)notification {
+    if (notification.object == _superAdvancedOptionsTextView) {
+        AT_dispatch_coalesced(&_superAdvancedSavingCoalescense, 200, ^(dispatch_block_t done) {
+            [self _saveSuperAdvancedOptions:YES];
+            done();
+        });
+    }
 }
 
 @end

@@ -31,7 +31,8 @@ void AT_dispatch_coalesced_on_queue_with_notifications(ATCoalescedState *state, 
     if (requests != 1)
         return;
 
-    notificationBlock();
+    if (notificationBlock)
+        notificationBlock();
 
     void (^start_block)();
     start_block = ^{
@@ -40,7 +41,8 @@ void AT_dispatch_coalesced_on_queue_with_notifications(ATCoalescedState *state, 
             if (!OSAtomicCompareAndSwap64Barrier(start, 0, state)) {
                 dispatch_async(serial_queue, start_block);
             } else {
-                notificationBlock();
+                if (notificationBlock)
+                    notificationBlock();
             }
         });
     };

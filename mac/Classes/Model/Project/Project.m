@@ -28,6 +28,7 @@
 #import "ATFunctionalStyle.h"
 #import "ATAsync.h"
 #import "ATObservation.h"
+#import "LRCommandLine.h"
 
 #include <stdbool.h>
 #include "common.h"
@@ -195,6 +196,12 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         else
             _postProcessingGracePeriod = DefaultPostProcessingGracePeriod;
 
+        if ([[memento objectForKey:@"advanced"] isKindOfClass:NSArray.class])
+            _superAdvancedOptions = [memento objectForKey:@"advanced"];
+        else
+            _superAdvancedOptions = @[];
+        [self _parseSuperAdvancedOptions];
+
         [self _updateAccessibility:YES];
         [self handleCompilationOptionsEnablementChanged];
         [self requestMonitoring:YES forKey:@"ui"];  // always need a folder list for UI
@@ -302,6 +309,9 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     [memento setObject:[NSNumber numberWithInteger:_numberOfPathComponentsToUseAsName] forKey:@"numberOfPathComponentsToUseAsName"];
     if (_customName.length > 0)
         [memento setObject:_customName forKey:@"customName"];
+
+    if (_superAdvancedOptions.count > 0)
+        [memento setObject:_superAdvancedOptions forKey:@"advanced"];
 
     [memento setValuesForKeysWithDictionary:_actionList.memento];
 
@@ -1241,6 +1251,52 @@ skipGuessing:
             }
         });
     }
+}
+
+
+#pragma mark - Super-advanced options
+
+- (void)_parseSuperAdvancedOptions {
+    _quuxMode = NO;
+    NSMutableArray *messages = [NSMutableArray new];
+
+    NSArray *items = _superAdvancedOptions;
+    NSUInteger count = items.count;
+    for (NSUInteger i = 0; i < count; ++i) {
+        NSString *option = items[i];
+        if ([option isEqualToString:@"quux"]) {
+            _quuxMode = YES;
+            [messages addObject:@"quux on"];
+        } else {
+            [messages addObject:[NSString stringWithFormat:@"unknown: %@", option]];
+        }
+    }
+
+    if (messages.count == 0) {
+        [messages addObject:@"No super-advanced options set. Email support to get some? :-)"];
+    }
+
+    _superAdvancedOptionsFeedback = [messages copy];
+}
+
+- (void)setSuperAdvancedOptions:(NSArray *)superAdvancedOptions {
+    if (_superAdvancedOptions != superAdvancedOptions && ![_superAdvancedOptions isEqual:superAdvancedOptions]) {
+        _superAdvancedOptions = [superAdvancedOptions copy];
+        [self _parseSuperAdvancedOptions];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+    }
+}
+
+- (NSString *)superAdvancedOptionsString {
+    return [_superAdvancedOptions quotedArgumentStringUsingBourneQuotingStyle];
+}
+
+- (void)setSuperAdvancedOptionsString:(NSString *)superAdvancedOptionsString {
+    [self setSuperAdvancedOptions:[superAdvancedOptionsString argumentsArrayUsingBourneQuotingStyle]];
+}
+
+- (NSString *)superAdvancedOptionsFeedbackString {
+    return [_superAdvancedOptionsFeedback componentsJoinedByString:@" • "];
 }
 
 @end
