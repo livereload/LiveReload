@@ -539,6 +539,18 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     }
 }
 
+- (NSArray *)rootPathsForPaths:(id<NSFastEnumeration>)paths {
+    NSMutableSet *result = [NSMutableSet new];
+    for (NSString *path in paths) {
+        NSSet *rootPaths = [_importGraph rootReferencingPathsForPath:path];
+        if (rootPaths.count > 0)
+            [result addObjectsFromArray:rootPaths.allObjects];
+        else
+            [result addObject:path];
+    }
+    return [result.allObjects copy];
+}
+
 - (void)processBatchOfPendingChanges:(NSSet *)pathes {
     BOOL invokePostProcessor = _pendingPostProcessing;
     _pendingPostProcessing = NO;
@@ -560,16 +572,9 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     [self performSelector:@selector(rescanRecentlyChangedPaths) withObject:nil afterDelay:1.0];
 #endif
 
-    for (NSString *relativePath in pathes) {
-        NSSet *realPaths = [_importGraph rootReferencingPathsForPath:relativePath];
-        if ([realPaths count] > 0) {
-            NSLog(@"Instead of imported file %@, processing changes in %@", relativePath, [[realPaths allObjects] componentsJoinedByString:@", "]);
-            for (NSString *path in realPaths) {
-                [self processChangeAtPath:path reloadRequests:reloadRequests];
-            }
-        } else {
-            [self processChangeAtPath:relativePath reloadRequests:reloadRequests];
-        }
+    NSArray *pathsToProcess = [self rootPathsForPaths:pathes];
+    for (NSString *relativePath in pathsToProcess) {
+        [self processChangeAtPath:relativePath reloadRequests:reloadRequests];
     }
 
     NSArray *actions = [self.actionList.activeActions copy];
@@ -580,7 +585,10 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
     [perFileActions enumerateObjectsAsynchronouslyUsingBlock:^(Action *action, NSUInteger idx, void (^callback1)(BOOL stop)) {
         NSArray *matchingPaths = [action.inputPathSpec matchingPathsInArray:pathArray type:ATPathSpecEntryTypeFile];
-        [matchingPaths enumerateObjectsAsynchronouslyUsingBlock:^(NSString *path, NSUInteger idx, void (^callback2)(BOOL stop)) {
+        NSArray *rootPaths = [self rootPathsForPaths:matchingPaths];
+        NSArray *matchingRootPaths = [action.inputPathSpec matchingPathsInArray:rootPaths type:ATPathSpecEntryTypeFile];
+
+        [matchingRootPaths enumerateObjectsAsynchronouslyUsingBlock:^(NSString *path, NSUInteger idx, void (^callback2)(BOOL stop)) {
             LRFile2 *file = [LRFile2 fileWithRelativePath:path project:self];
             if ([action shouldInvokeForFile:file]) {
                 [action compileFile:file inProject:self completionHandler:^(BOOL invoked, ToolOutput *output, NSError *error) {
