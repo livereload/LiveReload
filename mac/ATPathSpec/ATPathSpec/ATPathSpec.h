@@ -55,11 +55,15 @@ typedef enum {
 } ATPathSpecErrorCode;
 
 
+extern NSString *const ATPathSpecMatchInfoMatchedSuffix;
+extern NSString *const ATPathSpecMatchInfoMatchedStaticName;
+
+
 @interface ATMask : NSObject
 
 + (ATMask *)maskWithString:(NSString *)string syntaxOptions:(ATPathSpecSyntaxOptions)options;
 
-- (BOOL)matchesName:(NSString *)name;
+- (BOOL)matchesName:(NSString *)name matchInfo:(NSDictionary **)matchInfo;
 
 - (NSString *)stringRepresentationWithSyntaxOptions:(ATPathSpecSyntaxOptions)options;
 
@@ -81,8 +85,9 @@ typedef enum {
 
 - (ATPathSpec *)negatedPathSpec;
 
-- (ATPathSpecMatchResult)matchResultForPath:(NSString *)path type:(ATPathSpecEntryType)type;
+- (ATPathSpecMatchResult)matchResultForPath:(NSString *)path type:(ATPathSpecEntryType)type matchInfo:(NSDictionary **)matchInfo;
 - (BOOL)matchesPath:(NSString *)path type:(ATPathSpecEntryType)type;
+- (NSDictionary *)matchInfoForPath:(NSString *)path type:(ATPathSpecEntryType)type;
 
 - (NSArray *)matchingPathsInArray:(NSArray *)paths type:(ATPathSpecEntryType)type;
 

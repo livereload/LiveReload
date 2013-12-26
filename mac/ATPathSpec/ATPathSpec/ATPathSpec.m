@@ -8,6 +8,10 @@ NSString *const ATPathSpecErrorDomain = @"ATPathSpecErrorDomain";
 NSString *const ATPathSpecErrorSpecStringKey = @"ATPathSpecErrorSpecString";
 
 
+NSString *const ATPathSpecMatchInfoMatchedSuffix = @"MatchedSuffix";
+NSString *const ATPathSpecMatchInfoMatchedStaticName = @"MatchedStaticName";
+
+
 static NSString *ATPathSpecTokenTypeNames[] = {
     @"NONE",
     @"Mask",
@@ -102,6 +106,27 @@ NSString *ATPathSpec_RegexFromPatternString(NSString *pattern, ATPathSpecSyntaxO
     return [NSString stringWithFormat:@"^%@$", regex];
 }
 
+NSString *ATPathSpec_StaticSuffixFromPatternString(NSString *pattern, ATPathSpecSyntaxOptions options) {
+    BOOL star = !!(options & ATPathSpecSyntaxOptionsAllowStarWildcard);
+    BOOL question = !!(options & ATPathSpecSyntaxOptionsAllowQuestionMarkWildcard);
+
+    if (!star)
+        return nil;
+
+    NSRange range = [pattern rangeOfString:@"*" options:NSBackwardsSearch];
+    if (range.location == NSNotFound)
+        return nil;
+
+    NSString *candidate = [pattern substringFromIndex:range.location + range.length];
+    if (candidate.length == 0)
+        return nil;
+
+    if (question && [candidate rangeOfString:@"?"].location != NSNotFound)
+        return nil;
+
+    return candidate;
+}
+
 NSString *ATPathSpecAdjustTrailingSlash(NSString *path, ATPathSpecEntryType type) {
     if (type == ATPathSpecEntryTypeFolder)
         return ATPathSpecAddTrailingSlash(path);
@@ -186,7 +211,7 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
     }
 }
 
-- (BOOL)matchesName:(NSString *)name {
+- (BOOL)matchesName:(NSString *)name matchInfo:(NSDictionary **)matchInfo {
     abort();
 }
 
@@ -215,8 +240,13 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
     return self;
 }
 
-- (BOOL)matchesName:(NSString *)name {
-    return [_name isEqualToString:name];
+- (BOOL)matchesName:(NSString *)name matchInfo:(NSDictionary **)matchInfo {
+    if ([_name isEqualToString:name]) {
+        if (matchInfo)
+            *matchInfo = @{ATPathSpecMatchInfoMatchedStaticName: _name};
+        return YES;
+    }
+    return NO;
 }
 
 - (NSString *)stringRepresentationWithSyntaxOptions:(ATPathSpecSyntaxOptions)options {
@@ -238,12 +268,14 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
     return self;
 }
 
-- (BOOL)matchesName:(NSString *)name {
+- (BOOL)matchesName:(NSString *)name matchInfo:(NSDictionary **)matchInfo {
     NSUInteger nameLen = name.length, suffixLen = _suffix.length;
     if (nameLen < _suffix.length || NSOrderedSame != [name compare:_suffix options:NSLiteralSearch range:NSMakeRange(nameLen - suffixLen, suffixLen)])
-        return ATPathSpecMatchResultUnknown;
+        return NO;
 
-    return ATPathSpecMatchResultMatched;
+    if (matchInfo)
+        *matchInfo = @{ATPathSpecMatchInfoMatchedSuffix: _suffix};
+    return YES;
 }
 
 - (NSString *)stringRepresentationWithSyntaxOptions:(ATPathSpecSyntaxOptions)options {
@@ -255,6 +287,7 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
 
 @implementation ATPatternMask {
     NSString *_regex;
+    NSString *_staticSuffix;
 }
 
 @synthesize pattern = _pattern;
@@ -264,12 +297,22 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
     if (self) {
         _pattern = [pattern copy];
         _regex = ATPathSpec_RegexFromPatternString(_pattern, options);
+        _staticSuffix = ATPathSpec_StaticSuffixFromPatternString(_pattern, options);
     }
     return self;
 }
 
-- (BOOL)matchesName:(NSString *)name {
-    return [name isMatchedByRegex:_regex];
+- (BOOL)matchesName:(NSString *)name matchInfo:(NSDictionary **)matchInfo {
+    if ([name isMatchedByRegex:_regex]) {
+        if (matchInfo) {
+            if (_staticSuffix)
+                *matchInfo = @{ATPathSpecMatchInfoMatchedSuffix: _staticSuffix};
+            else
+                *matchInfo = @{};
+        }
+        return YES;
+    }
+    return NO;
 }
 
 - (NSString *)stringRepresentationWithSyntaxOptions:(ATPathSpecSyntaxOptions)options {
@@ -678,11 +721,19 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
 }
 
 - (BOOL)matchesPath:(NSString *)path type:(ATPathSpecEntryType)type {
-    return [self matchResultForPath:path type:type] == ATPathSpecMatchResultMatched;
+    return [self matchResultForPath:path type:type matchInfo:NULL] == ATPathSpecMatchResultMatched;
 }
 
-- (ATPathSpecMatchResult)matchResultForPath:(NSString *)path type:(ATPathSpecEntryType)type {
+- (ATPathSpecMatchResult)matchResultForPath:(NSString *)path type:(ATPathSpecEntryType)type matchInfo:(NSDictionary **)matchInfo {
     abort();
+}
+
+- (NSDictionary *)matchInfoForPath:(NSString *)path type:(ATPathSpecEntryType)type {
+    NSDictionary *result;
+    if ([self matchResultForPath:path type:type matchInfo:&result] == ATPathSpecMatchResultMatched)
+        return result;
+    else
+        return nil;
 }
 
 - (ATPathSpec *)negatedPathSpec {
@@ -730,7 +781,7 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
 
 @implementation ATEmptyPathSpec : ATPathSpec
 
-- (ATPathSpecMatchResult)matchResultForPath:(NSString *)path type:(ATPathSpecEntryType)type {
+- (ATPathSpecMatchResult)matchResultForPath:(NSString *)path type:(ATPathSpecEntryType)type matchInfo:(NSDictionary **)matchInfo {
     return NO;
 }
 
@@ -768,23 +819,26 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
     return self;
 }
 
-- (ATPathSpecMatchResult)matchResultForPath:(NSString *)path type:(ATPathSpecEntryType)type {
+- (ATPathSpecMatchResult)matchResultForPath:(NSString *)path type:(ATPathSpecEntryType)type matchInfo:(NSDictionary **)matchInfo {
     if (_fuzzyEnabled && (_type == ATPathSpecEntryTypeFolder || _type == ATPathSpecEntryTypeFileOrFolder)) {
         NSArray *components = path.pathComponents;
-        if (type == ATPathSpecEntryTypeFile)
-            components = [components subarrayWithRange:NSMakeRange(0, components.count - 1)];
+        components = [components subarrayWithRange:NSMakeRange(0, components.count - 1)];
         for (NSString *component in components) {
-            if ([_mask matchesName:component])
+            if ([_mask matchesName:component matchInfo:NULL]) {
+                if (matchInfo)
+                    *matchInfo = @{};
                 return ATPathSpecMatchResultMatched;
+            }
         }
-        if (type != ATPathSpecEntryTypeFile)
-            return ATPathSpecMatchResultUnknown;
     }
 
     if (!ATPathSpecEntryType_Match(_type, type))
         return ATPathSpecMatchResultUnknown;
 
-    return [_mask matchesName:[path lastPathComponent]];
+    if ([_mask matchesName:[path lastPathComponent] matchInfo:matchInfo])
+        return ATPathSpecMatchResultMatched;
+    else
+        return ATPathSpecMatchResultUnknown;
 }
 
 - (NSString *)stringRepresentationWithSyntaxOptions:(ATPathSpecSyntaxOptions)options {
@@ -817,7 +871,7 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
     return self;
 }
 
-- (ATPathSpecMatchResult)matchResultForPath:(NSString *)path type:(ATPathSpecEntryType)type {
+- (ATPathSpecMatchResult)matchResultForPath:(NSString *)path type:(ATPathSpecEntryType)type matchInfo:(NSDictionary **)matchInfo {
     BOOL fuzzy = (_fuzzyEnabled && (_type == ATPathSpecEntryTypeFolder || _type == ATPathSpecEntryTypeFileOrFolder));
     BOOL typesCompatible = ATPathSpecEntryType_Match(_type, type);
 
@@ -842,10 +896,13 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
     for (ATMask *mask in _masks) {
         NSString *component = components[index++];
 
-        if (![mask matchesName:component])
+        if (![mask matchesName:component matchInfo:(index == pcount ? matchInfo : NULL)])
             return ATPathSpecMatchResultUnknown;
     }
-    
+
+    if (matchInfo && index < pcount)
+        *matchInfo = @{};
+
     return ATPathSpecMatchResultMatched;
 }
 
@@ -884,8 +941,14 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
     return _spec;
 }
 
-- (ATPathSpecMatchResult)matchResultForPath:(NSString *)path type:(ATPathSpecEntryType)type {
-    return [_spec matchResultForPath:path type:type] != ATPathSpecMatchResultMatched;
+- (ATPathSpecMatchResult)matchResultForPath:(NSString *)path type:(ATPathSpecEntryType)type matchInfo:(NSDictionary **)matchInfo {
+    if ([_spec matchResultForPath:path type:type matchInfo:NULL] != ATPathSpecMatchResultMatched) {
+        if (matchInfo)
+            *matchInfo = @{};
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 - (BOOL)isComplexExpression {
@@ -913,9 +976,9 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
     return self;
 }
 
-- (ATPathSpecMatchResult)matchResultForPath:(NSString *)path type:(ATPathSpecEntryType)type {
+- (ATPathSpecMatchResult)matchResultForPath:(NSString *)path type:(ATPathSpecEntryType)type matchInfo:(NSDictionary **)matchInfo {
     for (ATPathSpec *spec in _specs) {
-        ATPathSpecMatchResult result = [spec matchResultForPath:path type:type];
+        ATPathSpecMatchResult result = [spec matchResultForPath:path type:type matchInfo:matchInfo];
         if (result == ATPathSpecMatchResultMatched)
             return ATPathSpecMatchResultMatched;
     }
@@ -951,12 +1014,34 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
     return self;
 }
 
-- (ATPathSpecMatchResult)matchResultForPath:(NSString *)path type:(ATPathSpecEntryType)type {
+- (ATPathSpecMatchResult)matchResultForPath:(NSString *)path type:(ATPathSpecEntryType)type matchInfo:(NSDictionary **)matchInfo {
+    NSDictionary *mergedMatchInfo;
+    if (matchInfo)
+        mergedMatchInfo = @{};
+
     for (ATPathSpec *spec in _specs) {
-        ATPathSpecMatchResult result = [spec matchResultForPath:path type:type];
+        ATPathSpecMatchResult result;
+        if (matchInfo) {
+            NSDictionary *itemMatchInfo = nil;
+            result = [spec matchResultForPath:path type:type matchInfo:&itemMatchInfo];
+            if (result == ATPathSpecMatchResultMatched && itemMatchInfo.count > 0) {
+                if (mergedMatchInfo.count == 0) {
+                    mergedMatchInfo = itemMatchInfo;
+                } else {
+                    NSMutableDictionary *mutable = [mergedMatchInfo mutableCopy];
+                    [mutable setValuesForKeysWithDictionary:itemMatchInfo];
+                    mergedMatchInfo = [mutable copy];
+                }
+            }
+        } else {
+            result = [spec matchResultForPath:path type:type matchInfo:NULL];
+        }
         if (result != ATPathSpecMatchResultMatched)
             return ATPathSpecMatchResultUnknown;
     }
+    
+    if (matchInfo)
+        *matchInfo = mergedMatchInfo;
     return ATPathSpecMatchResultMatched;
 }
 

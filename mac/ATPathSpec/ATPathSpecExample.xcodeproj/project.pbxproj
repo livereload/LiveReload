@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		430ABDF6186BFE0B00407561 /* ATPathSpecMatchInfoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 430ABDF5186BFE0B00407561 /* ATPathSpecMatchInfoTests.m */; };
 		4398656817BCBF1E00EC6471 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4398656717BCBF1E00EC6471 /* Foundation.framework */; };
 		4398656B17BCBF1E00EC6471 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4398656A17BCBF1E00EC6471 /* main.m */; };
 		4398657B17BCBF6C00EC6471 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4398657A17BCBF6C00EC6471 /* XCTest.framework */; };
@@ -47,6 +48,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		430ABDF5186BFE0B00407561 /* ATPathSpecMatchInfoTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATPathSpecMatchInfoTests.m; sourceTree = "<group>"; };
 		4398656417BCBF1E00EC6471 /* ATPathSpecExample */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ATPathSpecExample; sourceTree = BUILT_PRODUCTS_DIR; };
 		4398656717BCBF1E00EC6471 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4398656A17BCBF1E00EC6471 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 		4398657C17BCBF6C00EC6471 /* ATPathSpecTests */ = {
 			isa = PBXGroup;
 			children = (
+				430ABDF5186BFE0B00407561 /* ATPathSpecMatchInfoTests.m */,
 				439865A417BE1B4900EC6471 /* ATPathSpecIntroTests.m */,
 				4398659017BCF12900EC6471 /* ATPathSpecTokenizerTests.m */,
 				4398658217BCBF6C00EC6471 /* ATPathSpecSingleComponentTests.m */,
@@ -277,6 +280,7 @@
 				439865A317BE186500EC6471 /* ATPathSpecMetadataTests.m in Sources */,
 				4398659117BCF12900EC6471 /* ATPathSpecTokenizerTests.m in Sources */,
 				439865A117BE109E00EC6471 /* ATPathSpecMultiComponentTests.m in Sources */,
+				430ABDF6186BFE0B00407561 /* ATPathSpecMatchInfoTests.m in Sources */,
 				439865A517BE1B4900EC6471 /* ATPathSpecIntroTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -453,6 +457,7 @@
 				4398658917BCBF6C00EC6471 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
