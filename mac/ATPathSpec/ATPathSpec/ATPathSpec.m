@@ -892,7 +892,7 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
     if (fuzzy && !typesCompatible && pcount == mcount)
         return ATPathSpecMatchResultUnknown; // full match not possible because the entry types are different
 
-    NSInteger index = 0;
+    NSUInteger index = 0;
     for (ATMask *mask in _masks) {
         NSString *component = components[index++];
 
