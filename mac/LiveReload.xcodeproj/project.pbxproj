@@ -52,6 +52,8 @@
 		43059222151E8FA400CC3F88 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43059221151E8FA400CC3F88 /* CoreServices.framework */; };
 		43059225151E90DE00CC3F88 /* DockIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 43059224151E90DE00CC3F88 /* DockIcon.m */; };
 		43097094183F075B00A96442 /* LRActionManifest.m in Sources */ = {isa = PBXBuildFile; fileRef = 43097093183F075B00A96442 /* LRActionManifest.m */; };
+		430ABDF1186BF1EA00407561 /* LRPathProcessingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 430ABDF0186BF1EA00407561 /* LRPathProcessingTests.m */; };
+		430ABDF4186BF20500407561 /* LRPathProcessing.m in Sources */ = {isa = PBXBuildFile; fileRef = 430ABDF3186BF20500407561 /* LRPathProcessing.m */; };
 		430D7F5C18443AD700203400 /* LRVersionSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 430D7F5B18443AD700203400 /* LRVersionSpec.m */; };
 		430D7F5F18443BC600203400 /* LRVersionTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 430D7F5E18443BC600203400 /* LRVersionTag.m */; };
 		430D7F621845901100203400 /* LRVersionOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 430D7F611845901100203400 /* LRVersionOption.m */; };
@@ -430,6 +432,9 @@
 		4309708F183F052C00A96442 /* LRManifestErrorSink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRManifestErrorSink.h; sourceTree = "<group>"; };
 		43097092183F075B00A96442 /* LRActionManifest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRActionManifest.h; sourceTree = "<group>"; };
 		43097093183F075B00A96442 /* LRActionManifest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRActionManifest.m; sourceTree = "<group>"; };
+		430ABDF0186BF1EA00407561 /* LRPathProcessingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPathProcessingTests.m; sourceTree = "<group>"; };
+		430ABDF2186BF20500407561 /* LRPathProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPathProcessing.h; sourceTree = "<group>"; };
+		430ABDF3186BF20500407561 /* LRPathProcessing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPathProcessing.m; sourceTree = "<group>"; };
 		430D7F5A18443AD700203400 /* LRVersionSpec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRVersionSpec.h; sourceTree = "<group>"; };
 		430D7F5B18443AD700203400 /* LRVersionSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRVersionSpec.m; sourceTree = "<group>"; };
 		430D7F5D18443BC600203400 /* LRVersionTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRVersionTag.h; sourceTree = "<group>"; };
@@ -1620,6 +1625,7 @@
 		4371095318585DB800FCB4C2 /* LiveReloadTests */ = {
 			isa = PBXGroup;
 			children = (
+				430ABDF0186BF1EA00407561 /* LRPathProcessingTests.m */,
 				4371095918585DB800FCB4C2 /* LiveReloadTests.m */,
 				4371095418585DB800FCB4C2 /* Supporting Files */,
 			);
@@ -2065,6 +2071,8 @@
 				43996B4217B001BA00B09954 /* NSString+SmartRegexpCaptures.m */,
 				43122C0E1814E27600BF8121 /* LRCommandLine.h */,
 				43122C0F1814E27600BF8121 /* LRCommandLine.m */,
+				430ABDF2186BF20500407561 /* LRPathProcessing.h */,
+				430ABDF3186BF20500407561 /* LRPathProcessing.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -2353,6 +2361,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4371095A18585DB800FCB4C2 /* LiveReloadTests.m in Sources */,
+				430ABDF1186BF1EA00407561 /* LRPathProcessingTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2445,6 +2454,7 @@
 				43059209151DF2DE00CC3F88 /* MASReceipt.m in Sources */,
 				433D2197182646E300E81A09 /* Project.m in Sources */,
 				43059225151E90DE00CC3F88 /* DockIcon.m in Sources */,
+				430ABDF4186BF20500407561 /* LRPathProcessing.m in Sources */,
 				439A76B015B28EF100E50057 /* LicenseCodeViewController.m in Sources */,
 				439A76B415B28F4300E50057 /* LicenseCodeWindowController.m in Sources */,
 				433D22041826AD9200E81A09 /* LRPackageContainer.m in Sources */,
