@@ -5,6 +5,7 @@
 //#import "Plugin.h"
 #import "LRFile2.h"
 #import "LRFile.h"
+#import "LRPathProcessing.h"
 
 
 @implementation CompileFileAction
@@ -34,11 +35,11 @@
 
     [step addFileValue:file forSubstitutionKey:@"src"];
 
-    // we cheat a little, reusing the impl from LRFile (TODO should extract the common helpers)
-    LRFile *fakeFile = [[LRFile alloc] initWithFile:file.relativePath memento:nil];
-    fakeFile.destinationDirectory = self.outputFilterOption.subfolder;
-    fakeFile.destinationNameMask = self.type.manifest[@"output"];
-    NSString *destinationRelativePath = fakeFile.destinationPath;
+    NSString *destinationName = LRDeriveDestinationFileName([file.relativePath lastPathComponent], self.type.manifest[@"output"], self.intrinsicInputPathSpec);
+
+    NSString *destinationRelativePath = nil;
+    if (self.outputFilterOption.subfolder)
+        destinationRelativePath = [self.outputFilterOption.subfolder stringByAppendingPathComponent:destinationName];
 
     LRFile2 *destinationFile = [LRFile2 fileWithRelativePath:destinationRelativePath project:step.project];
     [step addFileValue:destinationFile forSubstitutionKey:@"dst"];
