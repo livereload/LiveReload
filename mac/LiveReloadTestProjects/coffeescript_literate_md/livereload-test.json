@@ -9,6 +9,10 @@
     ]
   },
 
+  "2x-settings": {
+    "legacyCompilationEnabled": true
+  },
+
   "sources": {
     "test.coffee.md": true
   },

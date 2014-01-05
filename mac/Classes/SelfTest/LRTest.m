@@ -21,6 +21,11 @@
 
 
 @implementation LRTest {
+    LRTestOptions _options;
+
+    BOOL _skip;
+    BOOL _legacy;
+
     NSMutableArray *_outputFiles;
     NSSet *_originalFiles;
     NSSet *_sourceFiles;
@@ -29,13 +34,16 @@
     BOOL _buildRunning;
 }
 
-- (id)initWithFolderURL:(NSURL *)folderURL {
+- (id)initWithFolderURL:(NSURL *)folderURL options:(LRTestOptions)options {
     self = [super init];
     if (self) {
         _folderURL = [folderURL copy];
+        _options = options;
+
         _manifestURL = [_folderURL URLByAppendingPathComponent:@"livereload-test.json"];
         _outputFiles = [NSMutableArray new];
         _valid = YES;
+        _legacy = !!(_options & LRTestOptionLegacy);
 
         [self observeNotification:ProjectAnalysisDidFinishNotification withSelector:@selector(_checkAnalysisStatus)];
         [self observeNotification:ProjectBuildFinishedNotification withSelector:@selector(_checkBuildStatus)];
@@ -59,7 +67,10 @@
         return;
     }
 
-    _projectMemento = _manifest[@"settings"] ?: @{};
+    NSString *settingsKey = (_legacy ? @"2x-settings" : @"settings");
+    _projectMemento = _manifest[settingsKey] ?: @{};
+    if (_legacy && nil == _manifest[settingsKey])
+        _skip = YES;
 
     NSDictionary *outputs = _manifest[@"outputs"] ?: @{};
     [outputs enumerateKeysAndObjectsUsingBlock:^(NSString *relativePath, id expectation, BOOL *stop) {
@@ -74,6 +85,9 @@
 - (void)run {
     if (!_valid) {
         return [self _failWithError:_error];
+    }
+    if (_skip) {
+        return [self _failWithError:[NSError errorWithDomain:@"com.livereload.tests" code:1 userInfo:@{NSLocalizedDescriptionKey:@"Legacy mode not supported"}]];
     }
 
     for (LRTestOutputFile *outputFile in _outputFiles) {

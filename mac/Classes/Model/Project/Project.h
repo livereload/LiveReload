@@ -53,6 +53,7 @@ enum {
 
     NSMutableDictionary     *_compilerOptions;
     BOOL                     _compilationEnabled;
+    BOOL                     _legacyCompilationEnabled;
 
     ImportGraph             *_importGraph;
     BOOL                     _compassDetected;

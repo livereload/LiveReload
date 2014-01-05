@@ -12,6 +12,17 @@
     ]
   },
 
+  "2x-settings": {
+    "legacyCompilationEnabled": true,
+    "compilers": {
+      "stylus": {
+        "options": {
+          "use-nib": 1
+        }
+      }
+    }
+  },
+
   "sources": {
     "test.styl": true
   },

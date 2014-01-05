@@ -146,6 +146,10 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
                 }
             }];
         }
+        _legacyCompilationEnabled = _compilationEnabled;
+        if ([memento objectForKey:@"legacyCompilationEnabled"]) {
+            _compilationEnabled = _legacyCompilationEnabled = [[memento objectForKey:@"legacyCompilationEnabled"] boolValue];
+        }
 
         _disableLiveRefresh = [[memento objectForKey:@"disableLiveRefresh"] boolValue];
         _enableRemoteServerWorkflow = [[memento objectForKey:@"enableRemoteServerWorkflow"] boolValue];

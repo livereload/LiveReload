@@ -181,7 +181,7 @@
 		436D735E173E1B3A00F78A23 /* CustomRubyInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 436D735D173E1B3A00F78A23 /* CustomRubyInstance.m */; };
 		4371095218585DB800FCB4C2 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 434BB29F17BBF512000BEB1C /* XCTest.framework */; };
 		4371095818585DB800FCB4C2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4371095618585DB800FCB4C2 /* InfoPlist.strings */; };
-		4371095A18585DB800FCB4C2 /* LiveReloadTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4371095918585DB800FCB4C2 /* LiveReloadTests.m */; };
+		4371095A18585DB800FCB4C2 /* LRCompilationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4371095918585DB800FCB4C2 /* LRCompilationTests.m */; };
 		43710964185864E400FCB4C2 /* LRTestDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 43710963185864E400FCB4C2 /* LRTestDriver.m */; };
 		437109671858651B00FCB4C2 /* LRTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 437109661858651B00FCB4C2 /* LRTest.m */; };
 		437109B3185879B300FCB4C2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 437109B2185879B300FCB4C2 /* Cocoa.framework */; };
@@ -262,6 +262,9 @@
 		43C611941803BDBD008A707E /* SandboxAccessModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C611931803BDBD008A707E /* SandboxAccessModel.m */; };
 		43C611971803CCF8008A707E /* ATScheduling.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C611961803CCF8008A707E /* ATScheduling.m */; };
 		43C6119A1803D537008A707E /* LRGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C611991803D537008A707E /* LRGlobals.m */; };
+		43C927791879317D002372B7 /* LRIntegrationTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C927781879317D002372B7 /* LRIntegrationTestCase.m */; };
+		43C9277C187931B1002372B7 /* ATAsyncTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C9277B187931B1002372B7 /* ATAsyncTestCase.m */; };
+		43C9277E187932A9002372B7 /* LRLegacyCompilationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C9277D187932A9002372B7 /* LRLegacyCompilationTests.m */; };
 		43CDCF8D17C6082A007B22D9 /* ATAttributedStringAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CDCF8C17C6082A007B22D9 /* ATAttributedStringAdditions.m */; };
 		43CDCF9017C70A94007B22D9 /* FSChange.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CDCF8F17C70A94007B22D9 /* FSChange.m */; };
 		43DB9FD4178EDF2E007BEA36 /* Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD3178EDF2E007BEA36 /* Errors.m */; };
@@ -667,7 +670,7 @@
 		4371095118585DB800FCB4C2 /* LiveReloadTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiveReloadTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4371095518585DB800FCB4C2 /* LiveReloadTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LiveReloadTests-Info.plist"; sourceTree = "<group>"; };
 		4371095718585DB800FCB4C2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		4371095918585DB800FCB4C2 /* LiveReloadTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LiveReloadTests.m; sourceTree = "<group>"; };
+		4371095918585DB800FCB4C2 /* LRCompilationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LRCompilationTests.m; sourceTree = "<group>"; };
 		4371095B18585DB800FCB4C2 /* LiveReloadTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LiveReloadTests-Prefix.pch"; sourceTree = "<group>"; };
 		43710962185864E400FCB4C2 /* LRTestDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRTestDriver.h; sourceTree = "<group>"; };
 		43710963185864E400FCB4C2 /* LRTestDriver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRTestDriver.m; sourceTree = "<group>"; };
@@ -806,6 +809,11 @@
 		43C611961803CCF8008A707E /* ATScheduling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATScheduling.m; sourceTree = "<group>"; };
 		43C611981803D537008A707E /* LRGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRGlobals.h; sourceTree = "<group>"; };
 		43C611991803D537008A707E /* LRGlobals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRGlobals.m; sourceTree = "<group>"; };
+		43C927771879317D002372B7 /* LRIntegrationTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRIntegrationTestCase.h; sourceTree = "<group>"; };
+		43C927781879317D002372B7 /* LRIntegrationTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRIntegrationTestCase.m; sourceTree = "<group>"; };
+		43C9277A187931B1002372B7 /* ATAsyncTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATAsyncTestCase.h; sourceTree = "<group>"; };
+		43C9277B187931B1002372B7 /* ATAsyncTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATAsyncTestCase.m; sourceTree = "<group>"; };
+		43C9277D187932A9002372B7 /* LRLegacyCompilationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRLegacyCompilationTests.m; sourceTree = "<group>"; };
 		43CDCF8B17C6082A007B22D9 /* ATAttributedStringAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATAttributedStringAdditions.h; sourceTree = "<group>"; };
 		43CDCF8C17C6082A007B22D9 /* ATAttributedStringAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATAttributedStringAdditions.m; sourceTree = "<group>"; };
 		43CDCF8E17C70A94007B22D9 /* FSChange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSChange.h; sourceTree = "<group>"; };
@@ -1626,7 +1634,12 @@
 			isa = PBXGroup;
 			children = (
 				430ABDF0186BF1EA00407561 /* LRPathProcessingTests.m */,
-				4371095918585DB800FCB4C2 /* LiveReloadTests.m */,
+				43C9277A187931B1002372B7 /* ATAsyncTestCase.h */,
+				43C9277B187931B1002372B7 /* ATAsyncTestCase.m */,
+				43C927771879317D002372B7 /* LRIntegrationTestCase.h */,
+				43C927781879317D002372B7 /* LRIntegrationTestCase.m */,
+				4371095918585DB800FCB4C2 /* LRCompilationTests.m */,
+				43C9277D187932A9002372B7 /* LRLegacyCompilationTests.m */,
 				4371095418585DB800FCB4C2 /* Supporting Files */,
 			);
 			path = LiveReloadTests;
@@ -2360,8 +2373,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4371095A18585DB800FCB4C2 /* LiveReloadTests.m in Sources */,
+				4371095A18585DB800FCB4C2 /* LRCompilationTests.m in Sources */,
+				43C927791879317D002372B7 /* LRIntegrationTestCase.m in Sources */,
 				430ABDF1186BF1EA00407561 /* LRPathProcessingTests.m in Sources */,
+				43C9277E187932A9002372B7 /* LRLegacyCompilationTests.m in Sources */,
+				43C9277C187931B1002372B7 /* ATAsyncTestCase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

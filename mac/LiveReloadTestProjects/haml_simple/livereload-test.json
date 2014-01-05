@@ -9,6 +9,15 @@
     ]
   },
 
+  "2x-settings": {
+    "legacyCompilationEnabled": true,
+    "compilers": {
+      "haml": {
+        "enabled2": true
+      }
+    }
+  },
+
   "sources": {
     "test.haml": true
   },

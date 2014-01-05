@@ -2,9 +2,15 @@
 #import <Foundation/Foundation.h>
 
 
+typedef enum {
+    LRTestOptionNone = 0,
+    LRTestOptionLegacy = 0x01,
+} LRTestOptions;
+
+
 @interface LRTest : NSObject
 
-- (id)initWithFolderURL:(NSURL *)folderURL;
+- (id)initWithFolderURL:(NSURL *)folderURL options:(LRTestOptions)options;
 
 @property(nonatomic, readonly) BOOL valid;
 

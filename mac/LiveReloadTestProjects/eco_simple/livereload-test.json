@@ -9,6 +9,15 @@
     ]
   },
 
+  "2x-settings": {
+    "legacyCompilationEnabled": true,
+    "compilers": {
+      "eco": {
+        "enabled2": true
+      }
+    }
+  },
+
   "sources": {
     "test.eco": true
   },
