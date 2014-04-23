@@ -137,6 +137,12 @@ static void *BaseActionRow_Project_FilterOptions_Context = "BaseActionRow_Projec
     }
 
     [popUp selectItem:selectedItem];
+
+    NSMenuItem *item;
+    [menu addItem:[NSMenuItem separatorItem]];
+    item = [menu addItemWithTitle:@"recursive" action:NULL keyEquivalent:@""];
+    [item setState:NSOnState];
+    item = [menu addItemWithTitle:@"flatten" action:NULL keyEquivalent:@""];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

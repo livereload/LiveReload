@@ -37,11 +37,27 @@
 
     NSString *destinationName = LRDeriveDestinationFileName([file.relativePath lastPathComponent], self.type.manifest[@"output"], self.intrinsicInputPathSpec);
 
+    BOOL outputMappingIsRecursive = YES; // TODO: make this conditional
+    if (outputMappingIsRecursive) {
+        NSUInteger folderComponentCount = self.inputFilterOption.folderComponentCount;
+        if (folderComponentCount > 0) {
+            NSArray *components = [[file.relativePath stringByDeletingLastPathComponent] pathComponents];
+            if (components.count > folderComponentCount) {
+                destinationName = [[[components subarrayWithRange:NSMakeRange(folderComponentCount, components.count - folderComponentCount)] componentsJoinedByString:@"/"] stringByAppendingPathComponent:destinationName];
+            }
+        }
+    }
+
     NSString *destinationRelativePath = nil;
     if (self.outputFilterOption.subfolder)
         destinationRelativePath = [self.outputFilterOption.subfolder stringByAppendingPathComponent:destinationName];
 
     LRFile2 *destinationFile = [LRFile2 fileWithRelativePath:destinationRelativePath project:step.project];
+
+    NSURL *destinationFolderURL = [destinationFile.absoluteURL URLByDeletingLastPathComponent];
+    if (![destinationFolderURL checkResourceIsReachableAndReturnError:NULL]) {
+        [[NSFileManager defaultManager] createDirectoryAtURL:destinationFolderURL withIntermediateDirectories:YES attributes:nil error:NULL];
+    }
     [step addFileValue:destinationFile forSubstitutionKey:@"dst"];
 }
 

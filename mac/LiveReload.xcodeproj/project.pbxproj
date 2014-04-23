@@ -71,6 +71,10 @@
 		43122C0A1814244E00BF8121 /* LRPopUpOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 43122C091814244E00BF8121 /* LRPopUpOption.m */; };
 		43122C0D1814286100BF8121 /* LRCustomArgumentsOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 43122C0C1814286100BF8121 /* LRCustomArgumentsOption.m */; };
 		43122C101814E27600BF8121 /* LRCommandLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 43122C0F1814E27600BF8121 /* LRCommandLine.m */; };
+		43124AE318E2FACE0085CEF1 /* LROutputFileMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 43124AE218E2FACE0085CEF1 /* LROutputFileMapping.m */; };
+		43124AE618E413670085CEF1 /* LROutputMappingOptionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43124AE518E413670085CEF1 /* LROutputMappingOptionController.m */; };
+		43124AE918E413740085CEF1 /* LROutputMappingOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 43124AE818E413740085CEF1 /* LROutputMappingOption.m */; };
+		43124AEC18E413A80085CEF1 /* LROptionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43124AEB18E413A80085CEF1 /* LROptionController.m */; };
 		43146699146C5D2100DC075A /* ProjectPaneBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 43146698146C5D2100DC075A /* ProjectPaneBackground.png */; };
 		4314669B146C689500DC075A /* FolderIcon64.png in Resources */ = {isa = PBXBuildFile; fileRef = 4314669A146C689500DC075A /* FolderIcon64.png */; };
 		4314669D146C884800DC075A /* WelcomePaneBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 4314669C146C884800DC075A /* WelcomePaneBackground.png */; };
@@ -472,6 +476,14 @@
 		43122C0C1814286100BF8121 /* LRCustomArgumentsOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRCustomArgumentsOption.m; sourceTree = "<group>"; };
 		43122C0E1814E27600BF8121 /* LRCommandLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRCommandLine.h; sourceTree = "<group>"; };
 		43122C0F1814E27600BF8121 /* LRCommandLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRCommandLine.m; sourceTree = "<group>"; };
+		43124AE118E2FACE0085CEF1 /* LROutputFileMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LROutputFileMapping.h; sourceTree = "<group>"; };
+		43124AE218E2FACE0085CEF1 /* LROutputFileMapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LROutputFileMapping.m; sourceTree = "<group>"; };
+		43124AE418E413670085CEF1 /* LROutputMappingOptionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LROutputMappingOptionController.h; sourceTree = "<group>"; };
+		43124AE518E413670085CEF1 /* LROutputMappingOptionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LROutputMappingOptionController.m; sourceTree = "<group>"; };
+		43124AE718E413740085CEF1 /* LROutputMappingOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LROutputMappingOption.h; sourceTree = "<group>"; };
+		43124AE818E413740085CEF1 /* LROutputMappingOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LROutputMappingOption.m; sourceTree = "<group>"; };
+		43124AEA18E413A80085CEF1 /* LROptionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LROptionController.h; sourceTree = "<group>"; };
+		43124AEB18E413A80085CEF1 /* LROptionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LROptionController.m; sourceTree = "<group>"; };
 		43146698146C5D2100DC075A /* ProjectPaneBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ProjectPaneBackground.png; sourceTree = "<group>"; };
 		4314669A146C689500DC075A /* FolderIcon64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FolderIcon64.png; sourceTree = "<group>"; };
 		4314669C146C884800DC075A /* WelcomePaneBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WelcomePaneBackground.png; sourceTree = "<group>"; };
@@ -1266,6 +1278,8 @@
 				433D2187182646E300E81A09 /* CompilationOptions.m */,
 				433D2188182646E300E81A09 /* FilterOption.h */,
 				433D2189182646E300E81A09 /* FilterOption.m */,
+				43124AE118E2FACE0085CEF1 /* LROutputFileMapping.h */,
+				43124AE218E2FACE0085CEF1 /* LROutputFileMapping.m */,
 				433D218A182646E300E81A09 /* ImportGraph.h */,
 				433D218B182646E300E81A09 /* ImportGraph.m */,
 				433D218C182646E300E81A09 /* LRFile.h */,
@@ -1446,6 +1460,12 @@
 				43122C0C1814286100BF8121 /* LRCustomArgumentsOption.m */,
 				430D7F601845901100203400 /* LRVersionOption.h */,
 				430D7F611845901100203400 /* LRVersionOption.m */,
+				43124AEA18E413A80085CEF1 /* LROptionController.h */,
+				43124AEB18E413A80085CEF1 /* LROptionController.m */,
+				43124AE718E413740085CEF1 /* LROutputMappingOption.h */,
+				43124AE818E413740085CEF1 /* LROutputMappingOption.m */,
+				43124AE418E413670085CEF1 /* LROutputMappingOptionController.h */,
+				43124AE518E413670085CEF1 /* LROutputMappingOptionController.m */,
 			);
 			path = Options;
 			sourceTree = "<group>";
@@ -2417,6 +2437,7 @@
 				43448D4D17B3735700DCB5A3 /* BackgroundView.m in Sources */,
 				433D22061826AD9200E81A09 /* LRPackageReference.m in Sources */,
 				823DDF1713F8DA3100529AD2 /* StatusItemView.m in Sources */,
+				43124AE318E2FACE0085CEF1 /* LROutputFileMapping.m in Sources */,
 				435BE045141B87920008FF77 /* NewMainWindowController.m in Sources */,
 				435729171452267C00947B2E /* Stats.m in Sources */,
 				430D7F6E1847131B00203400 /* GemPackageContainer.m in Sources */,
@@ -2576,9 +2597,11 @@
 				43122C101814E27600BF8121 /* LRCommandLine.m in Sources */,
 				43B5C00217ADF14700F57276 /* ATFunctionalStyle.m in Sources */,
 				43B5C00517ADF16B00F57276 /* ATModelDiff.m in Sources */,
+				43124AE618E413670085CEF1 /* LROutputMappingOptionController.m in Sources */,
 				43B5C01017ADF35C00F57276 /* NSArray+ATSubstitutions.m in Sources */,
 				43B5C01217ADF35C00F57276 /* NSString+ATProperURLEncoding.m in Sources */,
 				437109671858651B00FCB4C2 /* LRTest.m in Sources */,
+				43124AE918E413740085CEF1 /* LROutputMappingOption.m in Sources */,
 				4396F1DF17F8112F00AA8200 /* GlitterArchiveUtilities.m in Sources */,
 				430D7F6B184712FD00203400 /* GemPackage.m in Sources */,
 				43CDCF9017C70A94007B22D9 /* FSChange.m in Sources */,
@@ -2592,6 +2615,7 @@
 				439865AC17BE394D00EC6471 /* ATPathSpec.m in Sources */,
 				43B5C02817AE0BE600F57276 /* SublimeText2Editor.m in Sources */,
 				43508A8417B392A500871422 /* ATStackView.m in Sources */,
+				43124AEC18E413A80085CEF1 /* LROptionController.m in Sources */,
 				43B5C02B17AE0C6500F57276 /* EditorKit.m in Sources */,
 				43B5C02E17AE0D9200F57276 /* EKIntegration.m in Sources */,
 				433D21E41826A86C00E81A09 /* LRManifestBasedObject.m in Sources */,

@@ -169,6 +169,7 @@ enum {
 @property(nonatomic, strong, readonly) ActionList *actionList;
 
 @property(nonatomic, strong, readonly) NSArray *pathOptions;
+@property(nonatomic, strong, readonly) NSArray *availableSubfolders;
 
 - (BOOL)hackhack_shouldFilterFile:(LRFile2 *)file;
 - (void)hackhack_didFilterFile:(LRFile2 *)file;

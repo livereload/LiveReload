@@ -14,6 +14,9 @@
 @property(nonatomic, readonly, strong) NSString *displayName;
 @property(nonatomic, readonly, strong) ATPathSpec *pathSpec;
 
+@property(nonatomic, readonly, copy) NSString *folderRelPath;
+@property(nonatomic, readonly) NSUInteger folderComponentCount;
+
 - (BOOL)isEqualToFilterOption:(FilterOption *)peer;
 
 @property(nonatomic) BOOL valid;

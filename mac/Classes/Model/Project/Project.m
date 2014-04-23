@@ -1206,6 +1206,10 @@ skipGuessing:
     return pathOptions;
 }
 
+- (NSArray *)availableSubfolders {
+    return self.tree.folderPaths;
+}
+
 
 #pragma mark - Filtering loop prevention hack
 
