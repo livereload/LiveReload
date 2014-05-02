@@ -24,7 +24,7 @@ Permission to use, copy, modify, and/or distribute this software for any purpose
 
 * all copies retain the name of the software (LiveReload), the name of the author (Andrey Tarantsov) and the contact information (including, but not limited to, pointers to support@livereload.com and livereload.com URLs) unmodified;
 
-* no fee is charged for distibution of the software;
+* no fee is charged for distribution of the software;
 
 * the best effort is made to explain the purchasing policy to all users of the software.
 
