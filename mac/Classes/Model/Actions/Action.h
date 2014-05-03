@@ -65,4 +65,8 @@ extern NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification;
 @property(nonatomic, readonly) LRActionVersion *effectiveVersion;
 @property(nonatomic, readonly) NSError *missingEffectiveVersionError;
 
+// for overriders
+
+- (void)didChange;
+
 @end

@@ -18,10 +18,17 @@
     [super loadFromMemento:memento];
     self.compilerName = memento[@"compiler"];
 //    self.intrinsicInputPathSpec = [ATPathSpec pathSpecWithString:@"*.css" syntaxOptions:ATPathSpecSyntaxFlavorExtended];
-    self.outputFilterOption = [FilterOption filterOptionWithMemento:(memento[@"output"] ?: @"subdir:.")];
+    _outputFilterOption = [FilterOption filterOptionWithMemento:(memento[@"output"] ?: @"subdir:.")];
 
     NSString *inputFilter = self.type.manifest[@"input"];
     self.intrinsicInputPathSpec = [ATPathSpec pathSpecWithString:inputFilter syntaxOptions:ATPathSpecSyntaxFlavorExtended];
+}
+
+- (void)setOutputFilterOption:(FilterOption *)outputFilterOption {
+    if (_outputFilterOption != outputFilterOption) {
+        _outputFilterOption = outputFilterOption;
+        [self didChange];
+    }
 }
 
 - (void)updateMemento:(NSMutableDictionary *)memento {
