@@ -515,7 +515,8 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         if (_forcedStylesheetReloadSpec && [_forcedStylesheetReloadSpec matchesPath:relativePath type:ATPathSpecEntryTypeFile]) {
             [reloadRequests addObject:@{@"path": @"force-reload-all-stylesheets.css", @"originalPath": [NSNull null]}];
         } else {
-            [reloadRequests addObject:@{@"path": [_path stringByAppendingPathComponent:relativePath], @"originalPath": [NSNull null]}];
+            NSString *fullPath = [_path stringByAppendingPathComponent:relativePath];
+            [reloadRequests addObject:@{@"path": fullPath, @"originalPath": [NSNull null], @"localPath": fullPath}];
         }
     }
 }
@@ -644,7 +645,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 #endif
             }
 
-            [[Glue glue] postMessage:@{@"service": @"reloader", @"command": @"reload", @"changes": reloadRequests, @"forceFullReload": @(self.disableLiveRefresh), @"fullReloadDelay": @(_fullPageReloadDelay)}];
+            [[Glue glue] postMessage:@{@"service": @"reloader", @"command": @"reload", @"changes": reloadRequests, @"forceFullReload": @(self.disableLiveRefresh), @"fullReloadDelay": @(_fullPageReloadDelay), @"enableOverride": @(self.enableRemoteServerWorkflow)}];
 
             [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidDetectChangeNotification object:self];
             StatIncrement(BrowserRefreshCountStat, 1);
