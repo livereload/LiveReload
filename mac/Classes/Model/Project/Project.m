@@ -596,7 +596,8 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
             LRFile2 *file = [LRFile2 fileWithRelativePath:path project:self];
             if ([action shouldInvokeForFile:file]) {
                 if (!file.exists) {
-                    // TODO: delete the output file
+                    [action handleDeletionOfFile:file inProject:self];
+                    callback2(NO);
                 } else {
                     [action compileFile:file inProject:self completionHandler:^(BOOL invoked, ToolOutput *output, NSError *error) {
                         if (error) {

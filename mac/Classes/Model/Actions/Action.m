@@ -151,6 +151,9 @@ NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification = @"LRActio
     abort();
 }
 
+- (void)handleDeletionOfFile:(LRFile2 *)file inProject:(Project *)project {
+}
+
 - (void)invokeForProjectAtPath:(NSString *)projectPath withModifiedFiles:(NSSet *)paths completionHandler:(UserScriptCompletionHandler)completionHandler {
     abort();
 }

@@ -46,6 +46,7 @@ extern NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification;
 - (BOOL)shouldInvokeForFile:(LRFile2 *)file;
 - (void)analyzeFile:(LRFile2 *)file inProject:(Project *)project;
 - (void)compileFile:(LRFile2 *)file inProject:(Project *)project completionHandler:(UserScriptCompletionHandler)completionHandler;
+- (void)handleDeletionOfFile:(LRFile2 *)file inProject:(Project *)project;
 
 - (void)invokeForProjectAtPath:(NSString *)projectPath withModifiedFiles:(NSSet *)paths completionHandler:(UserScriptCompletionHandler)completionHandler;
 
