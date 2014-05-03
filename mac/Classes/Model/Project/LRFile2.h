@@ -15,4 +15,6 @@
 @property(nonatomic, readonly) NSString *absolutePath;
 @property(nonatomic, readonly) NSURL *absoluteURL;
 
+@property(nonatomic, readonly) BOOL exists;
+
 @end

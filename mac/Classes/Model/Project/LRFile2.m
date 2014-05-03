@@ -25,4 +25,8 @@
     return [NSURL fileURLWithPath:self.absolutePath];
 }
 
+- (BOOL)exists {
+    return [self.absoluteURL checkResourceIsReachableAndReturnError:NULL];
+}
+
 @end
