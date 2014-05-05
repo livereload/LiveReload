@@ -1,5 +1,6 @@
 
 #import "UserScriptAction.h"
+#import "Project.h"
 
 
 @implementation UserScriptAction
@@ -12,8 +13,8 @@
     return [NSSet setWithObject:@"scriptName"];
 }
 
-- (void)invokeForProjectAtPath:(NSString *)projectPath withModifiedFiles:(NSSet *)paths completionHandler:(UserScriptCompletionHandler)completionHandler {
-    [self.script invokeForProjectAtPath:projectPath withModifiedFiles:paths completionHandler:completionHandler];
+- (void)invokeForProject:(Project *)project withModifiedFiles:(NSSet *)paths completionHandler:(UserScriptCompletionHandler)completionHandler {
+    [self.script invokeForProjectAtPath:project.rootURL.path withModifiedFiles:paths completionHandler:completionHandler];
 }
 
 - (UserScript *)script {

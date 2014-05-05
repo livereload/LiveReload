@@ -10,6 +10,11 @@
 #import "LRCustomArgumentsOption.h"
 #import "Errors.h"
 #import "Project.h"
+#import "ScriptInvocationStep.h"
+#import "Plugin.h"
+#import "LRPackage.h"
+#import "LRPackageSet.h"
+#import "LRVersion.h"
 
 #import "ATScheduling.h"
 #import "ATObservation.h"
@@ -154,7 +159,7 @@ NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification = @"LRActio
 - (void)handleDeletionOfFile:(LRFile2 *)file inProject:(Project *)project {
 }
 
-- (void)invokeForProjectAtPath:(NSString *)projectPath withModifiedFiles:(NSSet *)paths completionHandler:(UserScriptCompletionHandler)completionHandler {
+- (void)invokeForProject:(Project *)project withModifiedFiles:(NSSet *)paths completionHandler:(UserScriptCompletionHandler)completionHandler {
     abort();
 }
 
@@ -250,6 +255,32 @@ NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification = @"LRActio
 
 - (void)didChange {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+}
+
+
+#pragma mark - Configuration
+
+- (void)configureStep:(ScriptInvocationStep *)step {
+    step.project = self.contextActionType.project;
+    [step addValue:step.project.path forSubstitutionKey:@"project_dir"];
+
+    LRActionManifest *manifest = self.effectiveVersion.manifest;
+    step.commandLine = manifest.commandLineSpec;
+    step.manifest = @{@"errors": manifest.errorSpecs};
+    [step addValue:self.type.plugin.path forSubstitutionKey:@"plugin"];
+
+    for (LRPackage *package in self.effectiveVersion.packageSet.packages) {
+        [step addValue:package.sourceFolderURL.path forSubstitutionKey:package.identifier];
+        [step addValue:package.version.description forSubstitutionKey:[NSString stringWithFormat:@"%@.ver", package.identifier]];
+    }
+
+    NSMutableArray *additionalArguments = [NSMutableArray new];
+    for (LROption *option in [self createOptions]) {
+        [additionalArguments addObjectsFromArray:option.commandLineArguments];
+    }
+    [additionalArguments addObjectsFromArray:self.customArguments];
+
+    [step addValue:[additionalArguments copy] forSubstitutionKey:@"additional"];
 }
 
 @end

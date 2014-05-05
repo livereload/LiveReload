@@ -30,10 +30,6 @@
     }
 
     ScriptInvocationStep *step = [ScriptInvocationStep new];
-    step.project = project;
-
-    [step addValue:project.path forSubstitutionKey:@"project_dir"];
-
     [self configureStep:step forFile:file];
 
     step.completionHandler = ^(ScriptInvocationStep *step) {
@@ -46,29 +42,13 @@
 }
 
 - (void)configureStep:(ScriptInvocationStep *)step forFile:(LRFile2 *)file {
-    LRActionManifest *manifest = self.effectiveVersion.manifest;
-    step.commandLine = manifest.commandLineSpec;
-    step.manifest = @{@"errors": manifest.errorSpecs};
-    [step addValue:self.type.plugin.path forSubstitutionKey:@"plugin"];
-
-    for (LRPackage *package in self.effectiveVersion.packageSet.packages) {
-        [step addValue:package.sourceFolderURL.path forSubstitutionKey:package.identifier];
-        [step addValue:package.version.description forSubstitutionKey:[NSString stringWithFormat:@"%@.ver", package.identifier]];
-    }
-
-    NSMutableArray *additionalArguments = [NSMutableArray new];
-    for (LROption *option in [self createOptions]) {
-        [additionalArguments addObjectsFromArray:option.commandLineArguments];
-    }
-    [additionalArguments addObjectsFromArray:self.customArguments];
-
-    [step addValue:[additionalArguments copy] forSubstitutionKey:@"additional"];
+    [self configureStep:step];
 }
 
 - (void)didCompleteCompilationStep:(ScriptInvocationStep *)step forFile:(LRFile2 *)file {
 }
 
-- (void)invokeForProjectAtPath:(NSString *)projectPath withModifiedFiles:(NSSet *)paths completionHandler:(UserScriptCompletionHandler)completionHandler {
+- (void)invokeForProject:(Project *)project withModifiedFiles:(NSSet *)paths completionHandler:(UserScriptCompletionHandler)completionHandler {
 }
 
 @end

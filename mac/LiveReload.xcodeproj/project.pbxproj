@@ -272,6 +272,8 @@
 		43CE9B65191675F30044D28E /* UserScriptAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B53191675F30044D28E /* UserScriptAction.m */; };
 		43CE9B66191675F30044D28E /* ScriptInvocationAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B56191675F30044D28E /* ScriptInvocationAction.m */; };
 		43CE9B67191675F30044D28E /* ScriptInvocationStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B58191675F30044D28E /* ScriptInvocationStep.m */; };
+		43CE9B6A19172BC40044D28E /* RunTestsAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B6919172BC40044D28E /* RunTestsAction.m */; };
+		43CE9B6C1917338B0044D28E /* Mocha.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43CE9B6B1917338A0044D28E /* Mocha.lrplugin */; };
 		43DB9FD4178EDF2E007BEA36 /* Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD3178EDF2E007BEA36 /* Errors.m */; };
 		43DB9FD7178EFA64007BEA36 /* ExternalEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD6178EFA64007BEA36 /* ExternalEditor.m */; };
 		43DB9FDA1792545E007BEA36 /* LRPluginCommons.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD91792545E007BEA36 /* LRPluginCommons.m */; };
@@ -833,6 +835,9 @@
 		43CE9B56191675F30044D28E /* ScriptInvocationAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScriptInvocationAction.m; sourceTree = "<group>"; };
 		43CE9B57191675F30044D28E /* ScriptInvocationStep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScriptInvocationStep.h; sourceTree = "<group>"; };
 		43CE9B58191675F30044D28E /* ScriptInvocationStep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScriptInvocationStep.m; sourceTree = "<group>"; };
+		43CE9B6819172BC40044D28E /* RunTestsAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunTestsAction.h; sourceTree = "<group>"; };
+		43CE9B6919172BC40044D28E /* RunTestsAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunTestsAction.m; sourceTree = "<group>"; };
+		43CE9B6B1917338A0044D28E /* Mocha.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Mocha.lrplugin; path = ../plugins/Mocha.lrplugin; sourceTree = "<group>"; };
 		43DB9FD2178EDF2E007BEA36 /* Errors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Errors.h; sourceTree = "<group>"; };
 		43DB9FD3178EDF2E007BEA36 /* Errors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Errors.m; sourceTree = "<group>"; };
 		43DB9FD5178EFA64007BEA36 /* ExternalEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExternalEditor.h; sourceTree = "<group>"; };
@@ -1245,6 +1250,7 @@
 				431CB53016D1EF8200034877 /* IcedCoffeeScript.lrplugin */,
 				431CB53116D1EF8200034877 /* Jade.lrplugin */,
 				431CB53216D1EF8200034877 /* LESS.lrplugin */,
+				43CE9B6B1917338A0044D28E /* Mocha.lrplugin */,
 				437109BD1859A48700FCB4C2 /* Sass.lrplugin */,
 				431CB53416D1EF8200034877 /* SLIM.lrplugin */,
 				431CB53516D1EF8200034877 /* Stylus.lrplugin */,
@@ -1920,6 +1926,8 @@
 				43CE9B51191675F30044D28E /* FilterAction.m */,
 				43CE9B52191675F30044D28E /* UserScriptAction.h */,
 				43CE9B53191675F30044D28E /* UserScriptAction.m */,
+				43CE9B6819172BC40044D28E /* RunTestsAction.h */,
+				43CE9B6919172BC40044D28E /* RunTestsAction.m */,
 			);
 			path = Specific;
 			sourceTree = "<group>";
@@ -2398,6 +2406,7 @@
 				436D7350173DE74000F78A23 /* RubyPreferencesViewController.xib in Resources */,
 				436D7358173DF3D200F78A23 /* AddCustomRubySheet.xib in Resources */,
 				43A480611749DFDC00A0681D /* RubyRuntime.png in Resources */,
+				43CE9B6C1917338B0044D28E /* Mocha.lrplugin in Resources */,
 				43A480621749DFDC00A0681D /* RubyRuntime@2x.png in Resources */,
 				43A480651749E39700A0681D /* RvmContainer.png in Resources */,
 				43A480661749E39700A0681D /* RvmContainer@2x.png in Resources */,
@@ -2615,6 +2624,7 @@
 				43A48077174A04E700A0681D /* RbenvRubyInstance.m in Sources */,
 				43A48081174A070500A0681D /* HomebrewContainer.m in Sources */,
 				434BB24C17B6913F000BEB1C /* ATMacViewCreation.m in Sources */,
+				43CE9B6A19172BC40044D28E /* RunTestsAction.m in Sources */,
 				43A48082174A070500A0681D /* HomebrewRubyInstance.m in Sources */,
 				433253B2174E0BA200C9A76B /* GeneralPreferencesViewController.m in Sources */,
 				43DB9FD4178EDF2E007BEA36 /* Errors.m in Sources */,

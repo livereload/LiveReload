@@ -11,6 +11,7 @@
 @class LRContextActionType;
 @class LRActionVersion;
 @class LRVersionSpec;
+@class ScriptInvocationStep;
 
 
 extern NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification;
@@ -48,7 +49,7 @@ extern NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification;
 - (void)compileFile:(LRFile2 *)file inProject:(Project *)project completionHandler:(UserScriptCompletionHandler)completionHandler;
 - (void)handleDeletionOfFile:(LRFile2 *)file inProject:(Project *)project;
 
-- (void)invokeForProjectAtPath:(NSString *)projectPath withModifiedFiles:(NSSet *)paths completionHandler:(UserScriptCompletionHandler)completionHandler;
+- (void)invokeForProject:(Project *)project withModifiedFiles:(NSSet *)paths completionHandler:(UserScriptCompletionHandler)completionHandler;
 
 //- (void)invokeForFileAtPath:(NSString *)sourceRelPath into:(NSString *)destinationRelPath under:(NSString *)rootPath inProject:(Project *)project completionHandler:(UserScriptCompletionHandler)completionHandler;
 
@@ -68,5 +69,5 @@ extern NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification;
 // for overriders
 
 - (void)didChange;
-
+- (void)configureStep:(ScriptInvocationStep *)step;
 @end

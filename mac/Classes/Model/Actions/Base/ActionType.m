@@ -72,12 +72,17 @@ NSArray *LRValidActionKindStrings() {
                                          @"kind": @"filter",
                                          @"objc_class":    @"FilterAction",
                                          @"objc_rowClass": @"FilterActionRow",
-                                         },
+                                     },
                                  @"compile-file": @{
                                          @"kind": @"compiler",
                                          @"objc_class":    @"CompileFileAction",
                                          @"objc_rowClass": @"CompileFileActionRow",
-                                         },
+                                     },
+                                 @"run-tests": @{
+                                         @"kind": @"postproc",
+                                         @"objc_class":    @"RunTestsAction",
+                                         @"objc_rowClass": @"FilterActionRow",
+                                     },
                                  };
 
     NSDictionary *manifest = self.manifest;

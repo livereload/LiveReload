@@ -616,33 +616,11 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         }];
     } completionBlock:^{
         if (reloadRequests.count > 0) {
-            if (_postProcessingScriptName.length > 0 && _postProcessingEnabled) {
-                if (invokePostProcessor && actions.count > 0) {
-                    _runningPostProcessor = YES;
-                    [self invokeNextActionInArray:actions withModifiedPaths:pathes];
-                } else {
-                    console_printf("Skipping post-processing.");
-                }
-
-#if 0
-                UserScript *userScript = self.postProcessingScript;
-                if (invokePostProcessor && userScript.exists) {
-                    ToolOutput *toolOutput = nil;
-
-                    _runningPostProcessor = YES;
-                    [userScript invokeForProjectAtPath:_path withModifiedFiles:pathes completionHandler:^(BOOL invoked, ToolOutput *output, NSError *error) {
-                        _runningPostProcessor = NO;
-                        _lastPostProcessingRunDate = [NSDate timeIntervalSinceReferenceDate];
-
-                        if (toolOutput) {
-                            toolOutput.project = self;
-                            [[[ToolOutputWindowController alloc] initWithCompilerOutput:toolOutput key:[NSString stringWithFormat:@"%@.postproc", _path]] show];
-                        }
-                    }];
-                } else {
-                    console_printf("Skipping post-processing.");
-                }
-#endif
+            if (invokePostProcessor && actions.count > 0) {
+                _runningPostProcessor = YES;
+                [self invokeNextActionInArray:actions withModifiedPaths:pathes];
+            } else {
+                console_printf("Skipping post-processing.");
             }
 
             [[Glue glue] postMessage:@{@"service": @"reloader", @"command": @"reload", @"changes": reloadRequests, @"forceFullReload": @(self.disableLiveRefresh), @"fullReloadDelay": @(_fullPageReloadDelay), @"enableOverride": @(self.enableRemoteServerWorkflow)}];
@@ -694,7 +672,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     actions = [actions subarrayWithRange:NSMakeRange(1, actions.count - 1)];
 
     if (action.kind == ActionKindPostproc && [action shouldInvokeForModifiedFiles:paths inProject:self]) {
-        [action invokeForProjectAtPath:_path withModifiedFiles:paths completionHandler:^(BOOL invoked, ToolOutput *output, NSError *error) {
+        [action invokeForProject:self withModifiedFiles:paths completionHandler:^(BOOL invoked, ToolOutput *output, NSError *error) {
             [self displayCompilationError:output key:[NSString stringWithFormat:@"%@.postproc", _path]];
 
             dispatch_async(dispatch_get_main_queue(), ^{

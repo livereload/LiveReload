@@ -3,6 +3,7 @@
 #import "ToolOutput.h"
 #import "NSArray+ATSubstitutions.h"
 #import "ATChildTask.h"
+#import "Project.h"
 
 
 @implementation CustomCommandAction
@@ -75,11 +76,11 @@
 //}
 
 
-- (void)invokeForProjectAtPath:(NSString *)projectPath withModifiedFiles:(NSSet *)paths completionHandler:(UserScriptCompletionHandler)completionHandler {
+- (void)invokeForProject:(Project *)project withModifiedFiles:(NSSet *)paths completionHandler:(UserScriptCompletionHandler)completionHandler {
     NSDictionary *info = @{
                            @"$(ruby)": @"/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/bin/ruby",
                            @"$(node)": [[NSBundle mainBundle] pathForResource:@"LiveReloadNodejs" ofType:nil],
-                           @"$(project_dir)": projectPath,
+                           @"$(project_dir)": project.rootURL.path,
                            };
     NSString *command = [self.command stringBySubstitutingValuesFromDictionary:info];
 
@@ -89,12 +90,12 @@
     NSArray *shArgs = @[@"-c", command];
 
     NSString *pwd = [[NSFileManager defaultManager] currentDirectoryPath];
-    [[NSFileManager defaultManager] changeCurrentDirectoryPath:projectPath];
+    [[NSFileManager defaultManager] changeCurrentDirectoryPath:project.rootURL.path];
 
     //    const char *project_path = [self.path UTF8String];
     //    console_printf("Post-proc exec: %s --login -c \"%s\"", [shell UTF8String], str_collapse_paths([command UTF8String], project_path));
 
-    ATLaunchUnixTaskAndCaptureOutput([NSURL fileURLWithPath:shell], shArgs, ATLaunchUnixTaskAndCaptureOutputOptionsIgnoreSandbox|ATLaunchUnixTaskAndCaptureOutputOptionsMergeStdoutAndStderr, @{ATCurrentDirectoryPathKey: projectPath}, ^(NSString *outputText, NSString *stderrText, NSError *error) {
+    ATLaunchUnixTaskAndCaptureOutput([NSURL fileURLWithPath:shell], shArgs, ATLaunchUnixTaskAndCaptureOutputOptionsIgnoreSandbox|ATLaunchUnixTaskAndCaptureOutputOptionsMergeStdoutAndStderr, @{ATCurrentDirectoryPathKey: project.rootURL.path}, ^(NSString *outputText, NSString *stderrText, NSError *error) {
         [[NSFileManager defaultManager] changeCurrentDirectoryPath:pwd];
         ToolOutput *toolOutput = nil;
 
