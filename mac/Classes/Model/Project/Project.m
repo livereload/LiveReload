@@ -79,7 +79,66 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 @end
 
 
-@implementation Project
+@implementation Project {
+    NSURL                   *_rootURL;
+    NSString                *_path;
+    BOOL                     _accessible;
+    BOOL                     _accessingSecurityScopedResource;
+
+    FSMonitor *_monitor;
+
+    BOOL _clientsConnected;
+    BOOL                    _enabled;
+
+    NSMutableSet            *_monitoringRequests;
+
+    NSString                *_lastSelectedPane;
+    BOOL                     _dirty;
+
+    NSString                *_postProcessingCommand;
+    NSString                *_postProcessingScriptName;
+    BOOL                     _postProcessingEnabled;
+    NSTimeInterval           _postProcessingGracePeriod;
+
+    NSString                *_rubyVersionIdentifier;
+
+    NSMutableDictionary     *_compilerOptions;
+    BOOL                     _compilationEnabled;
+    BOOL                     _legacyCompilationEnabled;
+
+    ImportGraph             *_importGraph;
+    BOOL                     _compassDetected;
+
+    BOOL                     _disableLiveRefresh;
+    BOOL                     _enableRemoteServerWorkflow;
+    NSTimeInterval           _fullPageReloadDelay;
+    NSTimeInterval           _eventProcessingDelay;
+
+    BOOL                     _brokenPathReported;
+
+    NSMutableArray          *_excludedFolderPaths;
+
+    NSInteger                _numberOfPathComponentsToUseAsName;
+    NSString                *_customName;
+
+    NSArray                 *_urlMasks;
+
+    NSMutableSet            *_pendingChanges;
+    BOOL                     _processingChanges;
+
+    BOOL                     _runningPostProcessor;
+    BOOL                     _pendingPostProcessing;
+    NSTimeInterval           _lastPostProcessingRunDate;
+
+    NSInteger                _buildsRunning;
+
+    NSMutableDictionary     *_fileDatesHack;
+
+    NSMutableSet            *_runningAnalysisTasks;
+
+    BOOL                     _quuxMode;
+    ATPathSpec              *_forcedStylesheetReloadSpec;
+}
 
 @synthesize path=_path;
 @synthesize dirty=_dirty;
