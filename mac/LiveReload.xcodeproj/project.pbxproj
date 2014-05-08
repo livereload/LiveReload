@@ -81,6 +81,11 @@
 		431466A3146CA23F00DC075A /* PlaceholderTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 431466A2146CA23F00DC075A /* PlaceholderTemplate.png */; };
 		431466A6146CA68500DC075A /* PassThruView.m in Sources */ = {isa = PBXBuildFile; fileRef = 431466A5146CA68500DC075A /* PassThruView.m */; };
 		431466A9146CA82200DC075A /* PassThruImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 431466A8146CA82200DC075A /* PassThruImageView.m */; };
+		43158FEC191AA07900DE8A5A /* LRTRGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 43158FE4191AA07900DE8A5A /* LRTRGlobals.m */; };
+		43158FED191AA07900DE8A5A /* LRTRRun.m in Sources */ = {isa = PBXBuildFile; fileRef = 43158FE6191AA07900DE8A5A /* LRTRRun.m */; };
+		43158FEE191AA07900DE8A5A /* LRTRTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 43158FE8191AA07900DE8A5A /* LRTRTest.m */; };
+		43158FEF191AA07900DE8A5A /* LRTRTestAnythingProtocolParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 43158FEB191AA07900DE8A5A /* LRTRTestAnythingProtocolParser.m */; };
+		43158FF3191AA11100DE8A5A /* LRTRProtocolParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 43158FF2191AA11100DE8A5A /* LRTRProtocolParser.m */; };
 		431CB50216D1EEF300034877 /* backend in Resources */ = {isa = PBXBuildFile; fileRef = 431CB50116D1EEF300034877 /* backend */; };
 		431CB53616D1EF8200034877 /* CoffeeScript.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 431CB52D16D1EF8200034877 /* CoffeeScript.lrplugin */; };
 		431CB53716D1EF8200034877 /* Eco.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 431CB52E16D1EF8200034877 /* Eco.lrplugin */; };
@@ -274,6 +279,7 @@
 		43CE9B67191675F30044D28E /* ScriptInvocationStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B58191675F30044D28E /* ScriptInvocationStep.m */; };
 		43CE9B6A19172BC40044D28E /* RunTestsAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B6919172BC40044D28E /* RunTestsAction.m */; };
 		43CE9B6C1917338B0044D28E /* Mocha.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43CE9B6B1917338A0044D28E /* Mocha.lrplugin */; };
+		43CE9B841917B6BE0044D28E /* P2RegularExpressionExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B831917B6BE0044D28E /* P2RegularExpressionExtensions.m */; };
 		43DB9FD4178EDF2E007BEA36 /* Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD3178EDF2E007BEA36 /* Errors.m */; };
 		43DB9FD7178EFA64007BEA36 /* ExternalEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD6178EFA64007BEA36 /* ExternalEditor.m */; };
 		43DB9FDA1792545E007BEA36 /* LRPluginCommons.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD91792545E007BEA36 /* LRPluginCommons.m */; };
@@ -493,6 +499,17 @@
 		431466A5146CA68500DC075A /* PassThruView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassThruView.m; sourceTree = "<group>"; };
 		431466A7146CA82200DC075A /* PassThruImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassThruImageView.h; sourceTree = "<group>"; };
 		431466A8146CA82200DC075A /* PassThruImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassThruImageView.m; sourceTree = "<group>"; };
+		43158FE2191AA07900DE8A5A /* LRTestRunner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRTestRunner.h; sourceTree = "<group>"; };
+		43158FE3191AA07900DE8A5A /* LRTRGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRTRGlobals.h; sourceTree = "<group>"; };
+		43158FE4191AA07900DE8A5A /* LRTRGlobals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRTRGlobals.m; sourceTree = "<group>"; };
+		43158FE5191AA07900DE8A5A /* LRTRRun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRTRRun.h; sourceTree = "<group>"; };
+		43158FE6191AA07900DE8A5A /* LRTRRun.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRTRRun.m; sourceTree = "<group>"; };
+		43158FE7191AA07900DE8A5A /* LRTRTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRTRTest.h; sourceTree = "<group>"; };
+		43158FE8191AA07900DE8A5A /* LRTRTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRTRTest.m; sourceTree = "<group>"; };
+		43158FEA191AA07900DE8A5A /* LRTRTestAnythingProtocolParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRTRTestAnythingProtocolParser.h; sourceTree = "<group>"; };
+		43158FEB191AA07900DE8A5A /* LRTRTestAnythingProtocolParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRTRTestAnythingProtocolParser.m; sourceTree = "<group>"; };
+		43158FF1191AA11100DE8A5A /* LRTRProtocolParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRTRProtocolParser.h; sourceTree = "<group>"; };
+		43158FF2191AA11100DE8A5A /* LRTRProtocolParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRTRProtocolParser.m; sourceTree = "<group>"; };
 		431CB50116D1EEF300034877 /* backend */ = {isa = PBXFileReference; lastKnownFileType = folder; path = backend; sourceTree = "<group>"; };
 		431CB52D16D1EF8200034877 /* CoffeeScript.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = CoffeeScript.lrplugin; path = ../plugins/CoffeeScript.lrplugin; sourceTree = "<group>"; };
 		431CB52E16D1EF8200034877 /* Eco.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Eco.lrplugin; path = ../plugins/Eco.lrplugin; sourceTree = "<group>"; };
@@ -838,6 +855,8 @@
 		43CE9B6819172BC40044D28E /* RunTestsAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunTestsAction.h; sourceTree = "<group>"; };
 		43CE9B6919172BC40044D28E /* RunTestsAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunTestsAction.m; sourceTree = "<group>"; };
 		43CE9B6B1917338A0044D28E /* Mocha.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Mocha.lrplugin; path = ../plugins/Mocha.lrplugin; sourceTree = "<group>"; };
+		43CE9B821917B6BE0044D28E /* P2RegularExpressionExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2RegularExpressionExtensions.h; sourceTree = "<group>"; };
+		43CE9B831917B6BE0044D28E /* P2RegularExpressionExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P2RegularExpressionExtensions.m; sourceTree = "<group>"; };
 		43DB9FD2178EDF2E007BEA36 /* Errors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Errors.h; sourceTree = "<group>"; };
 		43DB9FD3178EDF2E007BEA36 /* Errors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Errors.m; sourceTree = "<group>"; };
 		43DB9FD5178EFA64007BEA36 /* ExternalEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExternalEditor.h; sourceTree = "<group>"; };
@@ -1238,6 +1257,32 @@
 				430D7F5B18443AD700203400 /* LRVersionSpec.m */,
 			);
 			path = VersionSpec;
+			sourceTree = "<group>";
+		};
+		43158FE1191AA07900DE8A5A /* LRTestRunner */ = {
+			isa = PBXGroup;
+			children = (
+				43158FE2191AA07900DE8A5A /* LRTestRunner.h */,
+				43158FE3191AA07900DE8A5A /* LRTRGlobals.h */,
+				43158FE4191AA07900DE8A5A /* LRTRGlobals.m */,
+				43158FE5191AA07900DE8A5A /* LRTRRun.h */,
+				43158FE6191AA07900DE8A5A /* LRTRRun.m */,
+				43158FE7191AA07900DE8A5A /* LRTRTest.h */,
+				43158FE8191AA07900DE8A5A /* LRTRTest.m */,
+				43158FE9191AA07900DE8A5A /* Protocols */,
+			);
+			path = LRTestRunner;
+			sourceTree = "<group>";
+		};
+		43158FE9191AA07900DE8A5A /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				43158FF1191AA11100DE8A5A /* LRTRProtocolParser.h */,
+				43158FF2191AA11100DE8A5A /* LRTRProtocolParser.m */,
+				43158FEA191AA07900DE8A5A /* LRTRTestAnythingProtocolParser.h */,
+				43158FEB191AA07900DE8A5A /* LRTRTestAnythingProtocolParser.m */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		431CB52C16D1EF7200034877 /* plugins */ = {
@@ -2079,6 +2124,7 @@
 				433D21F91826AD9200E81A09 /* Packages (Node.js) */,
 				433D22021826AD9200E81A09 /* Packages (Ruby) */,
 				430D7F5918443AC000203400 /* VersionSpec */,
+				43158FE1191AA07900DE8A5A /* LRTestRunner */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2143,6 +2189,8 @@
 				43122C0F1814E27600BF8121 /* LRCommandLine.m */,
 				430ABDF2186BF20500407561 /* LRPathProcessing.h */,
 				430ABDF3186BF20500407561 /* LRPathProcessing.m */,
+				43CE9B821917B6BE0044D28E /* P2RegularExpressionExtensions.h */,
+				43CE9B831917B6BE0044D28E /* P2RegularExpressionExtensions.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -2459,6 +2507,7 @@
 				823DDEDB13F8DA3100529AD2 /* ToolOutputWindowController.m in Sources */,
 				823DDEE013F8DA3100529AD2 /* EditorManager.m in Sources */,
 				43DFE4DB17CA97A800DEF87B /* FilterActionRow.m in Sources */,
+				43158FEC191AA07900DE8A5A /* LRTRGlobals.m in Sources */,
 				43C611971803CCF8008A707E /* ATScheduling.m in Sources */,
 				430D7F5F18443BC600203400 /* LRVersionTag.m in Sources */,
 				4328387C1842FD3A001FC70E /* LRPackageSet.m in Sources */,
@@ -2484,6 +2533,7 @@
 				433D22091826AD9200E81A09 /* NpmPackageContainer.m in Sources */,
 				43CE9B5B191675F30044D28E /* ActionType.m in Sources */,
 				43E5DF621462829B0016CDA0 /* ImageAndTextCell.m in Sources */,
+				43158FF3191AA11100DE8A5A /* LRTRProtocolParser.m in Sources */,
 				4353196F1465B52D005FA59F /* ShitHappens.m in Sources */,
 				43F50BF71466F7A1004FD951 /* PostProcessingSettingsWindowController.m in Sources */,
 				43F50BFC146706B0004FD951 /* BaseProjectSettingsWindowController.m in Sources */,
@@ -2585,6 +2635,7 @@
 				43508A7E17B3767E00871422 /* ShadowBoxView.m in Sources */,
 				433D224E1826B75800E81A09 /* LRSemanticVersion.m in Sources */,
 				430D7F621845901100203400 /* LRVersionOption.m in Sources */,
+				43158FEF191AA07900DE8A5A /* LRTRTestAnythingProtocolParser.m in Sources */,
 				43122BF5180BBA5E00BF8121 /* Glue.m in Sources */,
 				434BB25E17B91330000BEB1C /* OptionsRow.m in Sources */,
 				4303A58815B513FD009D732A /* nodeapp_url_handler_mac.m in Sources */,
@@ -2607,6 +2658,7 @@
 				436D734F173DE74000F78A23 /* RubyPreferencesViewController.m in Sources */,
 				436D7357173DF3D200F78A23 /* AddCustomRubySheet.m in Sources */,
 				436D735B173E141400F78A23 /* RubyInstance.m in Sources */,
+				43158FEE191AA07900DE8A5A /* LRTRTest.m in Sources */,
 				436D735E173E1B3A00F78A23 /* CustomRubyInstance.m in Sources */,
 				43B027591746EFBD009874A2 /* RuntimeRepository.m in Sources */,
 				43B0275C1746F3B2009874A2 /* RubyRuntimeRepository.m in Sources */,
@@ -2641,6 +2693,7 @@
 				437109671858651B00FCB4C2 /* LRTest.m in Sources */,
 				43124AE918E413740085CEF1 /* LROutputMappingOption.m in Sources */,
 				4396F1DF17F8112F00AA8200 /* GlitterArchiveUtilities.m in Sources */,
+				43158FED191AA07900DE8A5A /* LRTRRun.m in Sources */,
 				430D7F6B184712FD00203400 /* GemPackage.m in Sources */,
 				43CDCF9017C70A94007B22D9 /* FSChange.m in Sources */,
 				430D7F5C18443AD700203400 /* LRVersionSpec.m in Sources */,
@@ -2668,6 +2721,7 @@
 				43710964185864E400FCB4C2 /* LRTestDriver.m in Sources */,
 				43B5C04017AEA9F400F57276 /* NSAppleScript+ATInvokeHandlerWithArguments.m in Sources */,
 				43996B2E17AF675D00B09954 /* ATMenuEnabledSegmentedCell.m in Sources */,
+				43CE9B841917B6BE0044D28E /* P2RegularExpressionExtensions.m in Sources */,
 				433D21D818268B6100E81A09 /* LRVersionSpace.m in Sources */,
 				43629BC518151554006B1B11 /* LROption+Factory.m in Sources */,
 				43996B4317B001BA00B09954 /* NSString+SmartRegexpCaptures.m in Sources */,

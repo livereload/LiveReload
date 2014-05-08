@@ -8,6 +8,9 @@
 @class RuntimeInstance;
 
 
+typedef void (^ScriptInvocationOutputLineBlock)(NSString *line);
+
+
 @interface ScriptInvocationStep : NSObject
 
 @property(nonatomic, retain) Project *project;  // for collapsing the paths in the console log
@@ -30,5 +33,7 @@
 
 typedef void (^ScriptInvocationStepCompletionHandler)(ScriptInvocationStep *step);
 @property(nonatomic, copy) ScriptInvocationStepCompletionHandler completionHandler;
+
+@property(nonatomic, copy) ScriptInvocationOutputLineBlock outputLineBlock;
 
 @end

@@ -72,7 +72,11 @@
 
     NSString *command = cmdline[0];
     NSArray *args = [cmdline subarrayWithRange:NSMakeRange(1, cmdline.count - 1)];
-    ATLaunchUnixTaskAndCaptureOutput([NSURL fileURLWithPath:command], args, ATLaunchUnixTaskAndCaptureOutputOptionsIgnoreSandbox|ATLaunchUnixTaskAndCaptureOutputOptionsMergeStdoutAndStderr, @{ATCurrentDirectoryPathKey: _project.path, ATEnvironmentVariablesKey: _environment}, ^(NSString *outputText, NSString *stderrText, NSError *error) {
+    NSMutableDictionary *options = [@{ATCurrentDirectoryPathKey: _project.path, ATEnvironmentVariablesKey: _environment} mutableCopy];
+    if (_outputLineBlock) {
+        options[ATStandardOutputLineBlockKey] = _outputLineBlock;
+    }
+    ATLaunchUnixTaskAndCaptureOutput([NSURL fileURLWithPath:command], args, ATLaunchUnixTaskAndCaptureOutputOptionsIgnoreSandbox|ATLaunchUnixTaskAndCaptureOutputOptionsMergeStdoutAndStderr, options, ^(NSString *outputText, NSString *stderrText, NSError *error) {
         _error = error;
         
         if (error) {
