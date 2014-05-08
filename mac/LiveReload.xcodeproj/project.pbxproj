@@ -86,6 +86,7 @@
 		43158FEE191AA07900DE8A5A /* LRTRTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 43158FE8191AA07900DE8A5A /* LRTRTest.m */; };
 		43158FEF191AA07900DE8A5A /* LRTRTestAnythingProtocolParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 43158FEB191AA07900DE8A5A /* LRTRTestAnythingProtocolParser.m */; };
 		43158FF3191AA11100DE8A5A /* LRTRProtocolParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 43158FF2191AA11100DE8A5A /* LRTRProtocolParser.m */; };
+		43158FF8191BDC3500DE8A5A /* LRBuildResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 43158FF7191BDC3500DE8A5A /* LRBuildResult.m */; };
 		431CB50216D1EEF300034877 /* backend in Resources */ = {isa = PBXBuildFile; fileRef = 431CB50116D1EEF300034877 /* backend */; };
 		431CB53616D1EF8200034877 /* CoffeeScript.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 431CB52D16D1EF8200034877 /* CoffeeScript.lrplugin */; };
 		431CB53716D1EF8200034877 /* Eco.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 431CB52E16D1EF8200034877 /* Eco.lrplugin */; };
@@ -510,6 +511,8 @@
 		43158FEB191AA07900DE8A5A /* LRTRTestAnythingProtocolParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRTRTestAnythingProtocolParser.m; sourceTree = "<group>"; };
 		43158FF1191AA11100DE8A5A /* LRTRProtocolParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRTRProtocolParser.h; sourceTree = "<group>"; };
 		43158FF2191AA11100DE8A5A /* LRTRProtocolParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRTRProtocolParser.m; sourceTree = "<group>"; };
+		43158FF6191BDC3500DE8A5A /* LRBuildResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRBuildResult.h; sourceTree = "<group>"; };
+		43158FF7191BDC3500DE8A5A /* LRBuildResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRBuildResult.m; sourceTree = "<group>"; };
 		431CB50116D1EEF300034877 /* backend */ = {isa = PBXFileReference; lastKnownFileType = folder; path = backend; sourceTree = "<group>"; };
 		431CB52D16D1EF8200034877 /* CoffeeScript.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = CoffeeScript.lrplugin; path = ../plugins/CoffeeScript.lrplugin; sourceTree = "<group>"; };
 		431CB52E16D1EF8200034877 /* Eco.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Eco.lrplugin; path = ../plugins/Eco.lrplugin; sourceTree = "<group>"; };
@@ -1283,6 +1286,15 @@
 				43158FEB191AA07900DE8A5A /* LRTRTestAnythingProtocolParser.m */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		43158FF5191BDC1700DE8A5A /* Results */ = {
+			isa = PBXGroup;
+			children = (
+				43158FF6191BDC3500DE8A5A /* LRBuildResult.h */,
+				43158FF7191BDC3500DE8A5A /* LRBuildResult.m */,
+			);
+			path = Results;
 			sourceTree = "<group>";
 		};
 		431CB52C16D1EF7200034877 /* plugins */ = {
@@ -2124,6 +2136,7 @@
 				433D21F91826AD9200E81A09 /* Packages (Node.js) */,
 				433D22021826AD9200E81A09 /* Packages (Ruby) */,
 				430D7F5918443AC000203400 /* VersionSpec */,
+				43158FF5191BDC1700DE8A5A /* Results */,
 				43158FE1191AA07900DE8A5A /* LRTestRunner */,
 			);
 			path = Model;
@@ -2637,6 +2650,7 @@
 				430D7F621845901100203400 /* LRVersionOption.m in Sources */,
 				43158FEF191AA07900DE8A5A /* LRTRTestAnythingProtocolParser.m in Sources */,
 				43122BF5180BBA5E00BF8121 /* Glue.m in Sources */,
+				43158FF8191BDC3500DE8A5A /* LRBuildResult.m in Sources */,
 				434BB25E17B91330000BEB1C /* OptionsRow.m in Sources */,
 				4303A58815B513FD009D732A /* nodeapp_url_handler_mac.m in Sources */,
 				4398AF0F1731E3DC0092A711 /* NSData+Base64.m in Sources */,

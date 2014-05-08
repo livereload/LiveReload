@@ -21,6 +21,7 @@
 #import "Glue.h"
 #import "LRPackageResolutionContext.h"
 #import "ATPathSpec.h"
+#import "LRBuildResult.h"
 
 #import "Stats.h"
 #import "RegexKitLite.h"
@@ -131,6 +132,8 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     NSTimeInterval           _lastPostProcessingRunDate;
 
     NSInteger                _buildsRunning;
+    LRBuildResult           *_runningBuild;
+    LRBuildResult           *_lastFinishedBuild;
 
     NSMutableDictionary     *_fileDatesHack;
 
@@ -537,7 +540,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     }
 }
 
-- (void)processChangeAtPath:(NSString *)relativePath reloadRequests:(NSMutableArray *)reloadRequests {
+- (void)processChangeAtPath:(NSString *)relativePath {
     NSString *extension = [relativePath pathExtension];
 
     BOOL compilerFound = NO;
@@ -560,7 +563,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
                 LRFile *fileOptions = [self optionsForFileAtPath:relativePath in:compilationOptions];
                 NSString *derivedName = fileOptions.destinationName;
                 NSString *originalPath = [_path stringByAppendingPathComponent:relativePath];
-                [reloadRequests addObject:@{@"path": derivedName, @"originalPath": originalPath}];
+                [_runningBuild addReloadRequest:@{@"path": derivedName, @"originalPath": originalPath}];
                 NSLog(@"Broadcasting a fake change in %@ instead of %@ (compiler %@).", derivedName, relativePath, compiler.name);
                 StatGroupIncrement(CompilerChangeCountStatGroup, compiler.uniqueId, 1);
                 break;
@@ -572,10 +575,10 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
     if (!compilerFound) {
         if (_forcedStylesheetReloadSpec && [_forcedStylesheetReloadSpec matchesPath:relativePath type:ATPathSpecEntryTypeFile]) {
-            [reloadRequests addObject:@{@"path": @"force-reload-all-stylesheets.css", @"originalPath": [NSNull null]}];
+            [_runningBuild addReloadRequest:@{@"path": @"force-reload-all-stylesheets.css", @"originalPath": [NSNull null]}];
         } else {
             NSString *fullPath = [_path stringByAppendingPathComponent:relativePath];
-            [reloadRequests addObject:@{@"path": fullPath, @"originalPath": [NSNull null], @"localPath": fullPath}];
+            [_runningBuild addReloadRequest:@{@"path": fullPath, @"originalPath": [NSNull null], @"localPath": fullPath}];
         }
     }
 }
@@ -629,8 +632,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
     [self updateImportGraphForPaths:pathes];
 
-    NSMutableArray *reloadRequests = [NSMutableArray new];
-
 #ifdef AUTORESCAN_WORKAROUND_ENABLED
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(rescanRecentlyChangedPaths) object:nil];
     [self performSelector:@selector(rescanRecentlyChangedPaths) withObject:nil afterDelay:1.0];
@@ -638,7 +639,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
     NSArray *pathsToProcess = [self rootPathsForPaths:pathes];
     for (NSString *relativePath in pathsToProcess) {
-        [self processChangeAtPath:relativePath reloadRequests:reloadRequests];
+        [self processChangeAtPath:relativePath];
     }
 
     NSArray *actions = [self.actionList.activeActions copy];
@@ -674,15 +675,14 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
             callback1(NO);
         }];
     } completionBlock:^{
-        if (reloadRequests.count > 0) {
+        // TODO: not clear why postprocessing is bound to existence of reload requests
+        if ([_runningBuild hasReloadRequests]) {
             if (invokePostProcessor && actions.count > 0) {
                 _runningPostProcessor = YES;
                 [self invokeNextActionInArray:actions withModifiedPaths:pathes];
             } else {
                 console_printf("Skipping post-processing.");
             }
-
-            [[Glue glue] postMessage:@{@"service": @"reloader", @"command": @"reload", @"changes": reloadRequests, @"forceFullReload": @(self.disableLiveRefresh), @"fullReloadDelay": @(_fullPageReloadDelay), @"enableOverride": @(self.enableRemoteServerWorkflow)}];
 
             [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidDetectChangeNotification object:self];
             StatIncrement(BrowserRefreshCountStat, 1);
@@ -698,6 +698,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 - (void)startBuild {
     if (!_buildInProgress) {
         _buildInProgress = YES;
+        _runningBuild = [[LRBuildResult alloc] initWithProject:self];
         NSLog(@"Build starting...");
     }
 }
@@ -705,6 +706,9 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 - (void)checkIfBuildFinished {
     if (_buildInProgress && !(_buildsRunning > 0 || _processingChanges)) {
         _buildInProgress = NO;
+        [_runningBuild sendReloadRequests];
+        _lastFinishedBuild = _runningBuild;
+        _runningBuild = nil;
         NSLog(@"Build finished.");
         [self postNotificationName:ProjectBuildFinishedNotification];
     }
