@@ -22,13 +22,14 @@
 #import "LRPackageResolutionContext.h"
 #import "ATPathSpec.h"
 #import "LRBuildResult.h"
+#import "LRTargetResult.h"
 
 #import "Stats.h"
 #import "RegexKitLite.h"
 #import "NSArray+ATSubstitutions.h"
 #import "NSTask+OneLineTasksWithOutput.h"
 #import "ATFunctionalStyle.h"
-#import "ATAsync.h"
+#import "P2AsyncEnumeration.h"
 #import "ATObservation.h"
 #import "LRCommandLine.h"
 
@@ -643,43 +644,15 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     }
 
     NSArray *actions = [self.actionList.activeActions copy];
-    NSArray *pathArray = [pathes allObjects];
-    NSArray *perFileActions = [actions filteredArrayUsingBlock:^BOOL(Action *action) {
-        return action.kind == ActionKindFilter || action.kind == ActionKindCompiler;
-    }];
 
-    [perFileActions enumerateObjectsAsynchronouslyUsingBlock:^(Action *action, NSUInteger idx, void (^callback1)(BOOL stop)) {
-        NSArray *matchingPaths = [action.inputPathSpec matchingPathsInArray:pathArray type:ATPathSpecEntryTypeFile];
-        NSArray *rootPaths = [self rootPathsForPaths:matchingPaths];
-        NSArray *matchingRootPaths = [action.inputPathSpec matchingPathsInArray:rootPaths type:ATPathSpecEntryTypeFile];
-
-        [matchingRootPaths enumerateObjectsAsynchronouslyUsingBlock:^(NSString *path, NSUInteger idx, void (^callback2)(BOOL stop)) {
-            LRFile2 *file = [LRFile2 fileWithRelativePath:path project:self];
-            if ([action shouldInvokeForFile:file]) {
-                if (!file.exists) {
-                    [action handleDeletionOfFile:file inProject:self];
-                    callback2(NO);
-                } else {
-                    [action compileFile:file inProject:self completionHandler:^(BOOL invoked, ToolOutput *output, NSError *error) {
-                        if (error) {
-                            NSLog(@"Error compiling %@: %@ - %ld - %@", path, error.domain, (long)error.code, error.localizedDescription);
-                        }
-                        [self displayCompilationError:output key:[NSString stringWithFormat:@"%@.%@", _path, path]];
-                        callback2(NO);
-                    }];
-                }
-            } else {
-                callback2(NO);
-            }
-        } completionBlock:^{
-            callback1(NO);
-        }];
-    } completionBlock:^{
+    [self invokeFileActions:actions forModifiedPaths:pathes withCompletionBlock:^{
         // TODO: not clear why postprocessing is bound to existence of reload requests
+        // (IMO it's a cheap way to ignore changes that are expected to produce another change later)
         if ([_runningBuild hasReloadRequests]) {
-            if (invokePostProcessor && actions.count > 0) {
-                _runningPostProcessor = YES;
-                [self invokeNextActionInArray:actions withModifiedPaths:pathes];
+            if (invokePostProcessor) {
+                [self invokePostProcessingActions:actions forModifiedPaths:pathes withCompletionBlock:^{
+                    //
+                }];
             } else {
                 console_printf("Skipping post-processing.");
             }
@@ -724,29 +697,36 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     }
 }
 
-- (void)invokeNextActionInArray:(NSArray *)actions withModifiedPaths:(NSSet *)paths {
-    if (actions.count == 0) {
-        _runningPostProcessor = NO;
-        _lastPostProcessingRunDate = [NSDate timeIntervalSinceReferenceDate];
-        return;
+- (void)invokeFileActions:(NSArray *)allActions forModifiedPaths:(NSSet *)paths withCompletionBlock:(dispatch_block_t)completionBlock {
+    NSMutableArray *fileTargets = [NSMutableArray new];
+    for (Action *action in allActions) {
+        [fileTargets addObjectsFromArray:[action fileTargetsForModifiedFiles:paths]];
     }
 
-    Action *action = [actions firstObject];
-    actions = [actions subarrayWithRange:NSMakeRange(1, actions.count - 1)];
+    [self invokeTargers:fileTargets withCompletionBlock:completionBlock];
+}
 
-    if (action.kind == ActionKindPostproc && [action shouldInvokeForModifiedFiles:paths inProject:self]) {
-        [action invokeForProject:self withModifiedFiles:paths completionHandler:^(BOOL invoked, ToolOutput *output, NSError *error) {
-            [self displayCompilationError:output key:[NSString stringWithFormat:@"%@.postproc", _path]];
+- (void)invokePostProcessingActions:(NSArray *)allActions forModifiedPaths:(NSSet *)paths withCompletionBlock:(dispatch_block_t)completionBlock {
+    NSArray *targets = [allActions arrayByMappingElementsUsingBlock:^id(Action *action) {
+        return [action targetForModifiedFiles:paths];
+    }];
 
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self invokeNextActionInArray:actions withModifiedPaths:paths];
-            });
+    if (targets.count > 0) {
+        _runningPostProcessor = YES;
+        [self invokeTargers:targets withCompletionBlock:^{
+            _runningPostProcessor = NO;
+            _lastPostProcessingRunDate = [NSDate timeIntervalSinceReferenceDate];
+            completionBlock();
         }];
     } else {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self invokeNextActionInArray:actions withModifiedPaths:paths];
-        });
+        completionBlock();
     }
+}
+
+- (void)invokeTargers:(NSArray *)targets withCompletionBlock:(dispatch_block_t)completionBlock {
+    [targets p2_enumerateObjectsAsynchronouslyUsingBlock:^(LRTargetResult *target, NSUInteger idx, BOOL *stop, dispatch_block_t callback) {
+        [target invokeWithCompletionBlock:callback];
+    } completionBlock:completionBlock];
 }
 
 - (void)processPendingChanges {

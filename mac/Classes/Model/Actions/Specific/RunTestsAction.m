@@ -3,6 +3,7 @@
 #import "ScriptInvocationStep.h"
 #import "Project.h"
 #import "LRTestRunner.h"
+#import "LRProjectTargetResult.h"
 
 
 @interface RunTestsAction ()
@@ -42,6 +43,14 @@
 
     NSLog(@"%@: %@", self.label, project.rootURL.path);
     [step invoke];
+}
+
+- (LRTargetResult *)targetForModifiedFiles:(NSSet *)paths {
+    if ([self inputPathSpecMatchesPaths:paths]) {
+        return [[LRProjectTargetResult alloc] initWithAction:self modifiedPaths:paths];
+    } else {
+        return nil;
+    }
 }
 
 @end

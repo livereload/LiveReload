@@ -4,6 +4,7 @@
 #import "NSArray+ATSubstitutions.h"
 #import "ATChildTask.h"
 #import "Project.h"
+#import "LRProjectTargetResult.h"
 
 
 @implementation CustomCommandAction
@@ -52,6 +53,14 @@
 
 + (NSSet *)keyPathsForValuesAffectingSingleLineCommand {
     return [NSSet setWithObject:@"command"];
+}
+
+- (LRTargetResult *)targetForModifiedFiles:(NSSet *)paths {
+    if ([self inputPathSpecMatchesPaths:paths]) {
+        return [[LRProjectTargetResult alloc] initWithAction:self modifiedPaths:paths];
+    } else {
+        return nil;
+    }
 }
 
 //NSString *DetermineShell() {

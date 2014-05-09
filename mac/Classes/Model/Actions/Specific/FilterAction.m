@@ -3,6 +3,7 @@
 #import "Project.h"
 #import "LRFile2.h"
 #import "ScriptInvocationStep.h"
+#import "LRFileTargetResult.h"
 
 
 @implementation FilterAction
@@ -41,6 +42,14 @@
     }
 
     [super compileFile:file inProject:project completionHandler:completionHandler];
+}
+
+- (BOOL)supportsFileTargets {
+    return YES;
+}
+
+- (LRTargetResult *)fileTargetForRootFile:(LRFile2 *)sourceFile {
+    return [[LRFileTargetResult alloc] initWithAction:self sourceFile:sourceFile];
 }
 
 

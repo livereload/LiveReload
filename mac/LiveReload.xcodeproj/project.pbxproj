@@ -281,11 +281,16 @@
 		43CE9B6A19172BC40044D28E /* RunTestsAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B6919172BC40044D28E /* RunTestsAction.m */; };
 		43CE9B6C1917338B0044D28E /* Mocha.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43CE9B6B1917338A0044D28E /* Mocha.lrplugin */; };
 		43CE9B841917B6BE0044D28E /* P2RegularExpressionExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B831917B6BE0044D28E /* P2RegularExpressionExtensions.m */; };
+		43D6CA4D191BFD9700DA9FFE /* LRMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D6CA4C191BFD9700DA9FFE /* LRMessage.m */; };
+		43D6CA50191BFF5C00DA9FFE /* LROperationResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D6CA4F191BFF5C00DA9FFE /* LROperationResult.m */; };
+		43D6CA53191C14CF00DA9FFE /* LRTargetResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D6CA52191C14CF00DA9FFE /* LRTargetResult.m */; };
+		43D6CA56191C15B700DA9FFE /* LRFileTargetResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D6CA55191C15B700DA9FFE /* LRFileTargetResult.m */; };
+		43D6CA59191C161D00DA9FFE /* LRProjectTargetResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D6CA58191C161D00DA9FFE /* LRProjectTargetResult.m */; };
 		43DB9FD4178EDF2E007BEA36 /* Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD3178EDF2E007BEA36 /* Errors.m */; };
 		43DB9FD7178EFA64007BEA36 /* ExternalEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD6178EFA64007BEA36 /* ExternalEditor.m */; };
 		43DB9FDA1792545E007BEA36 /* LRPluginCommons.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD91792545E007BEA36 /* LRPluginCommons.m */; };
 		43DFE4DB17CA97A800DEF87B /* FilterActionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DFE4DA17CA97A800DEF87B /* FilterActionRow.m */; };
-		43DFE4DE17CB613100DEF87B /* ATAsync.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DFE4DD17CB613100DEF87B /* ATAsync.m */; };
+		43DFE4DE17CB613100DEF87B /* P2AsyncEnumeration.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DFE4DD17CB613100DEF87B /* P2AsyncEnumeration.m */; };
 		43DFE4E617CC6C0D00DEF87B /* autoprefixer.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43DFE4E417CC6C0D00DEF87B /* autoprefixer.lrplugin */; };
 		43DFE4E717CC6C0D00DEF87B /* customscripts.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43DFE4E517CC6C0D00DEF87B /* customscripts.lrplugin */; };
 		43DFE4E917CC967500DEF87B /* TypeScript.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43DFE4E817CC967500DEF87B /* TypeScript.lrplugin */; };
@@ -860,6 +865,16 @@
 		43CE9B6B1917338A0044D28E /* Mocha.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Mocha.lrplugin; path = ../plugins/Mocha.lrplugin; sourceTree = "<group>"; };
 		43CE9B821917B6BE0044D28E /* P2RegularExpressionExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2RegularExpressionExtensions.h; sourceTree = "<group>"; };
 		43CE9B831917B6BE0044D28E /* P2RegularExpressionExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P2RegularExpressionExtensions.m; sourceTree = "<group>"; };
+		43D6CA4B191BFD9700DA9FFE /* LRMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRMessage.h; sourceTree = "<group>"; };
+		43D6CA4C191BFD9700DA9FFE /* LRMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRMessage.m; sourceTree = "<group>"; };
+		43D6CA4E191BFF5C00DA9FFE /* LROperationResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LROperationResult.h; sourceTree = "<group>"; };
+		43D6CA4F191BFF5C00DA9FFE /* LROperationResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LROperationResult.m; sourceTree = "<group>"; };
+		43D6CA51191C14CF00DA9FFE /* LRTargetResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRTargetResult.h; sourceTree = "<group>"; };
+		43D6CA52191C14CF00DA9FFE /* LRTargetResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRTargetResult.m; sourceTree = "<group>"; };
+		43D6CA54191C15B700DA9FFE /* LRFileTargetResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRFileTargetResult.h; sourceTree = "<group>"; };
+		43D6CA55191C15B700DA9FFE /* LRFileTargetResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRFileTargetResult.m; sourceTree = "<group>"; };
+		43D6CA57191C161D00DA9FFE /* LRProjectTargetResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRProjectTargetResult.h; sourceTree = "<group>"; };
+		43D6CA58191C161D00DA9FFE /* LRProjectTargetResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRProjectTargetResult.m; sourceTree = "<group>"; };
 		43DB9FD2178EDF2E007BEA36 /* Errors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Errors.h; sourceTree = "<group>"; };
 		43DB9FD3178EDF2E007BEA36 /* Errors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Errors.m; sourceTree = "<group>"; };
 		43DB9FD5178EFA64007BEA36 /* ExternalEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExternalEditor.h; sourceTree = "<group>"; };
@@ -868,8 +883,8 @@
 		43DB9FD91792545E007BEA36 /* LRPluginCommons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPluginCommons.m; sourceTree = "<group>"; };
 		43DFE4D917CA97A800DEF87B /* FilterActionRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterActionRow.h; sourceTree = "<group>"; };
 		43DFE4DA17CA97A800DEF87B /* FilterActionRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterActionRow.m; sourceTree = "<group>"; };
-		43DFE4DC17CB613100DEF87B /* ATAsync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATAsync.h; sourceTree = "<group>"; };
-		43DFE4DD17CB613100DEF87B /* ATAsync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATAsync.m; sourceTree = "<group>"; };
+		43DFE4DC17CB613100DEF87B /* P2AsyncEnumeration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2AsyncEnumeration.h; sourceTree = "<group>"; };
+		43DFE4DD17CB613100DEF87B /* P2AsyncEnumeration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P2AsyncEnumeration.m; sourceTree = "<group>"; };
 		43DFE4E417CC6C0D00DEF87B /* autoprefixer.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = autoprefixer.lrplugin; path = ../plugins/autoprefixer.lrplugin; sourceTree = "<group>"; };
 		43DFE4E517CC6C0D00DEF87B /* customscripts.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = customscripts.lrplugin; path = ../plugins/customscripts.lrplugin; sourceTree = "<group>"; };
 		43DFE4E817CC967500DEF87B /* TypeScript.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = TypeScript.lrplugin; path = ../plugins/TypeScript.lrplugin; sourceTree = "<group>"; };
@@ -1293,6 +1308,16 @@
 			children = (
 				43158FF6191BDC3500DE8A5A /* LRBuildResult.h */,
 				43158FF7191BDC3500DE8A5A /* LRBuildResult.m */,
+				43D6CA51191C14CF00DA9FFE /* LRTargetResult.h */,
+				43D6CA52191C14CF00DA9FFE /* LRTargetResult.m */,
+				43D6CA54191C15B700DA9FFE /* LRFileTargetResult.h */,
+				43D6CA55191C15B700DA9FFE /* LRFileTargetResult.m */,
+				43D6CA57191C161D00DA9FFE /* LRProjectTargetResult.h */,
+				43D6CA58191C161D00DA9FFE /* LRProjectTargetResult.m */,
+				43D6CA4E191BFF5C00DA9FFE /* LROperationResult.h */,
+				43D6CA4F191BFF5C00DA9FFE /* LROperationResult.m */,
+				43D6CA4B191BFD9700DA9FFE /* LRMessage.h */,
+				43D6CA4C191BFD9700DA9FFE /* LRMessage.m */,
 			);
 			path = Results;
 			sourceTree = "<group>";
@@ -1887,8 +1912,8 @@
 				434BB24B17B6913F000BEB1C /* ATMacViewCreation.m */,
 				43CDCF8B17C6082A007B22D9 /* ATAttributedStringAdditions.h */,
 				43CDCF8C17C6082A007B22D9 /* ATAttributedStringAdditions.m */,
-				43DFE4DC17CB613100DEF87B /* ATAsync.h */,
-				43DFE4DD17CB613100DEF87B /* ATAsync.m */,
+				43DFE4DC17CB613100DEF87B /* P2AsyncEnumeration.h */,
+				43DFE4DD17CB613100DEF87B /* P2AsyncEnumeration.m */,
 				43C611951803CCF8008A707E /* ATScheduling.h */,
 				43C611961803CCF8008A707E /* ATScheduling.m */,
 				43122BF9180FBEFB00BF8121 /* ATObservation.h */,
@@ -2515,6 +2540,7 @@
 				433D224B1826B6ED00E81A09 /* LRSemanticVersionSpace.m in Sources */,
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				823DDED313F8DA3100529AD2 /* LiveReloadAppDelegate.m in Sources */,
+				43D6CA53191C14CF00DA9FFE /* LRTargetResult.m in Sources */,
 				823DDED513F8DA3100529AD2 /* ExtensionsController.m in Sources */,
 				823DDEDA13F8DA3100529AD2 /* StatusItemController.m in Sources */,
 				823DDEDB13F8DA3100529AD2 /* ToolOutputWindowController.m in Sources */,
@@ -2542,7 +2568,7 @@
 				430D7F6E1847131B00203400 /* GemPackageContainer.m in Sources */,
 				434BB26217B945F0000BEB1C /* LROptionsView.m in Sources */,
 				43CE9B65191675F30044D28E /* UserScriptAction.m in Sources */,
-				43DFE4DE17CB613100DEF87B /* ATAsync.m in Sources */,
+				43DFE4DE17CB613100DEF87B /* P2AsyncEnumeration.m in Sources */,
 				433D22091826AD9200E81A09 /* NpmPackageContainer.m in Sources */,
 				43CE9B5B191675F30044D28E /* ActionType.m in Sources */,
 				43E5DF621462829B0016CDA0 /* ImageAndTextCell.m in Sources */,
@@ -2601,6 +2627,7 @@
 				434BB25817B8FD3C000BEB1C /* RunCustomCommandActionRow.m in Sources */,
 				4303A54115B513FD009D732A /* error.c in Sources */,
 				43F30CA2184C834C008CED4A /* GemVersion.m in Sources */,
+				43D6CA4D191BFD9700DA9FFE /* LRMessage.m in Sources */,
 				433D22071826AD9200E81A09 /* LRPackageType.m in Sources */,
 				43CE9B5D191675F30044D28E /* LRActionVersion.m in Sources */,
 				4303A54215B513FD009D732A /* hashtable.c in Sources */,
@@ -2623,6 +2650,7 @@
 				43F30CA5184C84F1008CED4A /* GemVersionSpace.m in Sources */,
 				4303A54E15B513FD009D732A /* nodeapp_rpc_common.m in Sources */,
 				4303A55315B513FD009D732A /* nodeapp_utils.c in Sources */,
+				43D6CA59191C161D00DA9FFE /* LRProjectTargetResult.m in Sources */,
 				4303A55415B513FD009D732A /* nodeapp_api_app.m in Sources */,
 				43C6119A1803D537008A707E /* LRGlobals.m in Sources */,
 				4303A55515B513FD009D732A /* nodeapp_api_preferences.m in Sources */,
@@ -2716,6 +2744,7 @@
 				43B5C01717ADF5FB00F57276 /* RegexKitLite.m in Sources */,
 				43508A9017B39C9700871422 /* ATSolidView.m in Sources */,
 				43B5C01A17ADF93A00F57276 /* ATHash.m in Sources */,
+				43D6CA56191C15B700DA9FFE /* LRFileTargetResult.m in Sources */,
 				43B5C01D17ADFA4700F57276 /* ATChildTask.m in Sources */,
 				43B5C02017AE01C500F57276 /* ATLoginItemController.m in Sources */,
 				43CE9B61191675F30044D28E /* CompileFileAction.m in Sources */,
@@ -2733,6 +2762,7 @@
 				43B5C03A17AEA41E00F57276 /* SublimeText3Editor.m in Sources */,
 				43B5C03D17AEA8C100F57276 /* Coda2Editor.m in Sources */,
 				43710964185864E400FCB4C2 /* LRTestDriver.m in Sources */,
+				43D6CA50191BFF5C00DA9FFE /* LROperationResult.m in Sources */,
 				43B5C04017AEA9F400F57276 /* NSAppleScript+ATInvokeHandlerWithArguments.m in Sources */,
 				43996B2E17AF675D00B09954 /* ATMenuEnabledSegmentedCell.m in Sources */,
 				43CE9B841917B6BE0044D28E /* P2RegularExpressionExtensions.m in Sources */,

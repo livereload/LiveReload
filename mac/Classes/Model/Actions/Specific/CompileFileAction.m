@@ -6,6 +6,7 @@
 #import "LRFile2.h"
 #import "LRFile.h"
 #import "LRPathProcessing.h"
+#import "LRFileTargetResult.h"
 
 
 @implementation CompileFileAction
@@ -82,6 +83,14 @@
 - (void)didCompleteCompilationStep:(ScriptInvocationStep *)step forFile:(LRFile2 *)file {
     LRFile2 *outputFile = [step fileForKey:@"dst"];
     [file.project hackhack_didWriteCompiledFile:outputFile];
+}
+
+- (BOOL)supportsFileTargets {
+    return YES;
+}
+
+- (LRTargetResult *)fileTargetForRootFile:(LRFile2 *)sourceFile {
+    return [[LRFileTargetResult alloc] initWithAction:self sourceFile:sourceFile];
 }
 
 @end

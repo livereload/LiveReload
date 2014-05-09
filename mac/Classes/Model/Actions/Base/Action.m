@@ -18,6 +18,7 @@
 
 #import "ATScheduling.h"
 #import "ATObservation.h"
+#import "ATFunctionalStyle.h"
 
 
 
@@ -141,12 +142,40 @@ NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification = @"LRActio
     return [self.inputPathSpec matchesPath:file.relativePath type:ATPathSpecEntryTypeFile];
 }
 
-- (BOOL)shouldInvokeForModifiedFiles:(NSSet *)paths inProject:(Project *)project {
+- (LRTargetResult *)targetForModifiedFiles:(NSSet *)paths {
+    return nil;
+}
+
+- (BOOL)supportsFileTargets {
+    return NO;
+}
+
+- (LRTargetResult *)fileTargetForRootFile:(LRFile2 *)file {
+    return nil;
+}
+
+- (NSArray *)fileTargetsForModifiedFiles:(NSSet *)paths {
+    if (![self supportsFileTargets])
+        return @[];
+    NSArray *matchingPaths = [self pathsMatchedByInputPathSpecAmongFilePaths:[paths allObjects]];
+    NSArray *rootPaths = [self.project rootPathsForPaths:matchingPaths];
+    NSArray *matchingRootPaths = [self pathsMatchedByInputPathSpecAmongFilePaths:rootPaths];
+    return [matchingRootPaths arrayByMappingElementsUsingBlock:^id(NSString *relativePath) {
+        LRFile2 *file = [LRFile2 fileWithRelativePath:relativePath project:self.project];
+        return [self fileTargetForRootFile:file];
+    }];
+}
+
+- (BOOL)inputPathSpecMatchesPaths:(NSSet *)paths {
     for (NSString *path in paths) {
         if ([self.inputPathSpec matchesPath:path type:ATPathSpecEntryTypeFile])
             return YES;
     }
     return NO;
+}
+
+- (NSArray *)pathsMatchedByInputPathSpecAmongFilePaths:(NSArray *)paths {
+    return [self.inputPathSpec matchingPathsInArray:paths type:ATPathSpecEntryTypeFile];
 }
 
 - (void)analyzeFile:(LRFile2 *)file inProject:(Project *)project {

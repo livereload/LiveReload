@@ -1,6 +1,7 @@
 
 #import "UserScriptAction.h"
 #import "Project.h"
+#import "LRProjectTargetResult.h"
 
 
 @implementation UserScriptAction
@@ -50,6 +51,14 @@
 - (void)updateMemento:(NSMutableDictionary *)memento {
     [super updateMemento:memento];
     memento[@"script"] = self.scriptName;
+}
+
+- (LRTargetResult *)targetForModifiedFiles:(NSSet *)paths {
+    if ([self inputPathSpecMatchesPaths:paths]) {
+        return [[LRProjectTargetResult alloc] initWithAction:self modifiedPaths:paths];
+    } else {
+        return nil;
+    }
 }
 
 @end
