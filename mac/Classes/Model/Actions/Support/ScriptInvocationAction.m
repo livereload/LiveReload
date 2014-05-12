@@ -14,6 +14,7 @@
 #import "LRPackageType.h"
 #import "LRVersion.h"
 #import "Errors.h"
+#import "LROperationResult.h"
 
 
 @implementation ScriptInvocationActionType {
@@ -24,17 +25,19 @@
 
 @implementation ScriptInvocationAction
 
-- (void)compileFile:(LRFile2 *)file inProject:(Project *)project completionHandler:(UserScriptCompletionHandler)completionHandler {
+- (void)compileFile:(LRFile2 *)file inProject:(Project *)project result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
     if (!self.effectiveVersion) {
-        return completionHandler(NO, nil, [self missingEffectiveVersionError]);
+        [result completedWithInvocationError:[self missingEffectiveVersionError]];
+        return completionHandler();
     }
 
     ScriptInvocationStep *step = [ScriptInvocationStep new];
+    step.result = result;
     [self configureStep:step forFile:file];
 
     step.completionHandler = ^(ScriptInvocationStep *step) {
         [self didCompleteCompilationStep:step forFile:file];
-        completionHandler(YES, step.output, step.error);
+        completionHandler();
     };
 
     NSLog(@"%@: %@", self.label, file.absolutePath);
@@ -48,7 +51,7 @@
 - (void)didCompleteCompilationStep:(ScriptInvocationStep *)step forFile:(LRFile2 *)file {
 }
 
-- (void)invokeForProject:(Project *)project withModifiedFiles:(NSSet *)paths completionHandler:(UserScriptCompletionHandler)completionHandler {
+- (void)invokeForProject:(Project *)project withModifiedFiles:(NSSet *)paths result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
 }
 
 @end

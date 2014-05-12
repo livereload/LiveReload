@@ -1,10 +1,10 @@
 
 #import "CustomCommandAction.h"
-#import "ToolOutput.h"
 #import "NSArray+ATSubstitutions.h"
 #import "ATChildTask.h"
 #import "Project.h"
 #import "LRProjectTargetResult.h"
+#import "LROperationResult.h"
 
 
 @implementation CustomCommandAction
@@ -85,7 +85,7 @@
 //}
 
 
-- (void)invokeForProject:(Project *)project withModifiedFiles:(NSSet *)paths completionHandler:(UserScriptCompletionHandler)completionHandler {
+- (void)invokeForProject:(Project *)project withModifiedFiles:(NSSet *)paths result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
     NSDictionary *info = @{
                            @"$(ruby)": @"/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/bin/ruby",
                            @"$(node)": [[NSBundle mainBundle] pathForResource:@"LiveReloadNodejs" ofType:nil],
@@ -106,13 +106,7 @@
 
     ATLaunchUnixTaskAndCaptureOutput([NSURL fileURLWithPath:shell], shArgs, ATLaunchUnixTaskAndCaptureOutputOptionsIgnoreSandbox|ATLaunchUnixTaskAndCaptureOutputOptionsMergeStdoutAndStderr, @{ATCurrentDirectoryPathKey: project.rootURL.path}, ^(NSString *outputText, NSString *stderrText, NSError *error) {
         [[NSFileManager defaultManager] changeCurrentDirectoryPath:pwd];
-        ToolOutput *toolOutput = nil;
-
-        if (error) {
-            NSLog(@"Error: %@\nOutput:\n%@", [error description], outputText);
-            toolOutput = [[ToolOutput alloc] initWithCompiler:nil type:ToolOutputTypeLog sourcePath:command line:0 message:nil output:outputText];
-        }
-        completionHandler(YES, toolOutput, error);
+        [result completedWithInvocationError:error rawOutput:outputText completionBlock:completionHandler];
     });
 }
 

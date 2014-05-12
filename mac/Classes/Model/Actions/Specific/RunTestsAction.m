@@ -4,6 +4,7 @@
 #import "Project.h"
 #import "LRTestRunner.h"
 #import "LRProjectTargetResult.h"
+#import "LROperationResult.h"
 
 
 @interface RunTestsAction ()
@@ -17,9 +18,10 @@
     return self.type.name;
 }
 
-- (void)invokeForProject:(Project *)project withModifiedFiles:(NSSet *)paths completionHandler:(UserScriptCompletionHandler)completionHandler {
+- (void)invokeForProject:(Project *)project withModifiedFiles:(NSSet *)paths result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
     if (!self.effectiveVersion) {
-        return completionHandler(NO, nil, [self missingEffectiveVersionError]);
+        [result completedWithInvocationError:[self missingEffectiveVersionError]];
+        return completionHandler();
     }
 
     LRTRRun *run = [[LRTRRun alloc] init];
@@ -27,13 +29,14 @@
     parser.delegate = run;
 
     ScriptInvocationStep *step = [ScriptInvocationStep new];
+    step.result = result;
     [self configureStep:step];
 
     step.completionHandler = ^(ScriptInvocationStep *step) {
         [parser finish];
         NSLog(@"Tests = %@", run.tests);
 //        [self didCompleteCompilationStep:step forFile:file];
-        completionHandler(YES, step.output, step.error);
+        completionHandler();
     };
 
     step.outputLineBlock = ^(NSString *line) {

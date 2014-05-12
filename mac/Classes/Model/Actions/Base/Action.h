@@ -13,6 +13,7 @@
 @class LRVersionSpec;
 @class ScriptInvocationStep;
 @class LRTargetResult;
+@class LROperationResult;
 
 
 extern NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification;
@@ -49,12 +50,12 @@ extern NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification;
 
 - (BOOL)shouldInvokeForFile:(LRFile2 *)file;
 - (void)analyzeFile:(LRFile2 *)file inProject:(Project *)project;
-- (void)compileFile:(LRFile2 *)file inProject:(Project *)project completionHandler:(UserScriptCompletionHandler)completionHandler;
+- (void)compileFile:(LRFile2 *)file inProject:(Project *)project result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler;
 - (void)handleDeletionOfFile:(LRFile2 *)file inProject:(Project *)project;
 
-- (void)invokeForProject:(Project *)project withModifiedFiles:(NSSet *)paths completionHandler:(UserScriptCompletionHandler)completionHandler;
+- (void)invokeForProject:(Project *)project withModifiedFiles:(NSSet *)paths result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler;
 
-//- (void)invokeForFileAtPath:(NSString *)sourceRelPath into:(NSString *)destinationRelPath under:(NSString *)rootPath inProject:(Project *)project completionHandler:(UserScriptCompletionHandler)completionHandler;
+//- (void)invokeForFileAtPath:(NSString *)sourceRelPath into:(NSString *)destinationRelPath under:(NSString *)rootPath inProject:(Project *)project completionHandler:(dispatch_block_t)completionHandler;
 
 // custom options
 @property(nonatomic, copy) NSString *customArgumentsString;
@@ -77,5 +78,6 @@ extern NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification;
 
 // override points / for overriders
 - (void)configureStep:(ScriptInvocationStep *)step;
+- (void)configureResult:(LROperationResult *)result;
 
 @end

@@ -122,8 +122,8 @@ enum {
 @property(nonatomic, readonly, getter=isAnalysisInProgress) BOOL analysisInProgress;
 - (void)setAnalysisInProgress:(BOOL)analysisInProgress forTask:(id)task;
 
-// public until we reimplement the notifications system
-- (void)displayCompilationError:(ToolOutput *)output key:(NSString *)key;
+// public until we reimplement the notifications system based on listening for results
+- (void)displayResult:(LROperationResult *)result key:(NSString *)key;
 
 - (NSArray *)rootPathsForPaths:(id<NSFastEnumeration>)paths;
 

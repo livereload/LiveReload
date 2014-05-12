@@ -15,6 +15,7 @@
 #import "LRPackage.h"
 #import "LRPackageSet.h"
 #import "LRVersion.h"
+#import "LROperationResult.h"
 
 #import "ATScheduling.h"
 #import "ATObservation.h"
@@ -181,14 +182,14 @@ NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification = @"LRActio
 - (void)analyzeFile:(LRFile2 *)file inProject:(Project *)project {
 }
 
-- (void)compileFile:(LRFile2 *)file inProject:(Project *)project completionHandler:(UserScriptCompletionHandler)completionHandler {
+- (void)compileFile:(LRFile2 *)file inProject:(Project *)project result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
     abort();
 }
 
 - (void)handleDeletionOfFile:(LRFile2 *)file inProject:(Project *)project {
 }
 
-- (void)invokeForProject:(Project *)project withModifiedFiles:(NSSet *)paths completionHandler:(UserScriptCompletionHandler)completionHandler {
+- (void)invokeForProject:(Project *)project withModifiedFiles:(NSSet *)paths result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
     abort();
 }
 
@@ -295,7 +296,6 @@ NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification = @"LRActio
 
     LRActionManifest *manifest = self.effectiveVersion.manifest;
     step.commandLine = manifest.commandLineSpec;
-    step.manifest = @{@"errors": manifest.errorSpecs};
     [step addValue:self.type.plugin.path forSubstitutionKey:@"plugin"];
 
     for (LRPackage *package in self.effectiveVersion.packageSet.packages) {
@@ -310,6 +310,11 @@ NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification = @"LRActio
     [additionalArguments addObjectsFromArray:self.customArguments];
 
     [step addValue:[additionalArguments copy] forSubstitutionKey:@"additional"];
+}
+
+- (void)configureResult:(LROperationResult *)result {
+    LRActionManifest *manifest = self.effectiveVersion.manifest;
+    result.errorSyntaxManifest = @{@"errors": manifest.errorSpecs, @"warnings": manifest.warningSpecs};
 }
 
 @end

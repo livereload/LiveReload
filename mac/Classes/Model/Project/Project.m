@@ -23,6 +23,8 @@
 #import "ATPathSpec.h"
 #import "LRBuildResult.h"
 #import "LRTargetResult.h"
+#import "LROperationResult.h"
+#import "LRMessage.h"
 
 #import "Stats.h"
 #import "RegexKitLite.h"
@@ -687,11 +689,15 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     }
 }
 
-- (void)displayCompilationError:(ToolOutput *)output key:(NSString *)key {
-    if (output) {
-        NSLog(@"Compilation error in %@:\n%@", key, output.output);
-        output.project = self;
-        [[[ToolOutputWindowController alloc] initWithCompilerOutput:output key:key] show];
+- (void)displayResult:(LROperationResult *)result key:(NSString *)key {
+    if (result.failed) {
+        NSLog(@"Compilation error in %@:\n%@", key, result.rawOutput);
+        LRMessage *error = [result.errors firstObject];
+        if (error) {
+            ToolOutput *output = [[ToolOutput alloc] initWithCompiler:nil type:ToolOutputTypeError sourcePath:error.filePath line:error.line message:error.text output:result.rawOutput];
+            output.project = self;
+            [[[ToolOutputWindowController alloc] initWithCompilerOutput:output key:key] show];
+        }
     } else {
         [ToolOutputWindowController hideOutputWindowWithKey:key];
     }

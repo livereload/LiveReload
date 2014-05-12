@@ -26,6 +26,9 @@
     _errorSpecs = [self simpleArrayForKey:@"errors" mappedUsingBlock:^id(id obj, LRManifestLayer *layer) {
         return obj; // TODO
     }];
+    _warningSpecs = [self simpleArrayForKey:@"warnings" mappedUsingBlock:^id(id obj, LRManifestLayer *layer) {
+        return obj; // TODO
+    }];
 
     _optionSpecs = [self simpleArrayForKey:@"options" mappedUsingBlock:^id(NSDictionary *spec, LRManifestLayer *layer) {
         // TODO: add context to error messages

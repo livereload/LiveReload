@@ -644,6 +644,7 @@
 		43534038146CC7E600DD66B0 /* MonitoringSettingsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonitoringSettingsWindowController.h; sourceTree = "<group>"; };
 		43534039146CC7E600DD66B0 /* MonitoringSettingsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonitoringSettingsWindowController.m; sourceTree = "<group>"; };
 		4353403B146CC8A400DD66B0 /* MonitoringSettingsWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MonitoringSettingsWindowController.xib; sourceTree = "<group>"; };
+		4356A16E19206F260024854E /* P2Warnings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2Warnings.h; sourceTree = "<group>"; };
 		435729151452267C00947B2E /* Stats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stats.h; sourceTree = "<group>"; };
 		435729161452267C00947B2E /* Stats.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stats.m; sourceTree = "<group>"; };
 		43594AF313D3BB34004175B2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -2229,6 +2230,7 @@
 				430ABDF3186BF20500407561 /* LRPathProcessing.m */,
 				43CE9B821917B6BE0044D28E /* P2RegularExpressionExtensions.h */,
 				43CE9B831917B6BE0044D28E /* P2RegularExpressionExtensions.m */,
+				4356A16E19206F260024854E /* P2Warnings.h */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";

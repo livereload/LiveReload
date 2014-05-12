@@ -1,6 +1,7 @@
 
 #import "LRTargetResult.h"
 #import "Action.h"
+#import "LROperationResult.h"
 
 
 @interface LRTargetResult ()
@@ -24,6 +25,12 @@
 
 - (void)invokeWithCompletionBlock:(dispatch_block_t)completionBlock {
     abort();
+}
+
+- (LROperationResult *)newResult {
+    LROperationResult *result = [LROperationResult new];
+    [_action configureResult:result];
+    return result;
 }
 
 @end

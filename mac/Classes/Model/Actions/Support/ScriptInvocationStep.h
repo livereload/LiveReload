@@ -4,8 +4,8 @@
 
 @class Project;
 @class LRFile2;
-@class ToolOutput;
 @class RuntimeInstance;
+@class LROperationResult;
 
 
 typedef void (^ScriptInvocationOutputLineBlock)(NSString *line);
@@ -16,7 +16,7 @@ typedef void (^ScriptInvocationOutputLineBlock)(NSString *line);
 @property(nonatomic, retain) Project *project;  // for collapsing the paths in the console log
 
 @property(nonatomic, copy) NSArray *commandLine;
-@property(nonatomic, copy) NSDictionary *manifest;
+@property(nonatomic) LROperationResult *result;
 
 @property(nonatomic, retain) RuntimeInstance *rubyInstance;
 
@@ -29,7 +29,6 @@ typedef void (^ScriptInvocationOutputLineBlock)(NSString *line);
 
 @property(nonatomic) BOOL finished;
 @property(nonatomic, retain) NSError *error;
-@property(nonatomic, retain) ToolOutput *output;
 
 typedef void (^ScriptInvocationStepCompletionHandler)(ScriptInvocationStep *step);
 @property(nonatomic, copy) ScriptInvocationStepCompletionHandler completionHandler;

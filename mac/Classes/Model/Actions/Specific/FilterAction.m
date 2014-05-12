@@ -35,13 +35,13 @@
     [file.project hackhack_didFilterFile:outputFile];
 }
 
-- (void)compileFile:(LRFile2 *)file inProject:(Project *)project completionHandler:(UserScriptCompletionHandler)completionHandler {
+- (void)compileFile:(LRFile2 *)file inProject:(Project *)project result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
     if (![project hackhack_shouldFilterFile:file]) {
-        completionHandler(NO, nil, nil);
+        completionHandler();
         return;
     }
 
-    [super compileFile:file inProject:project completionHandler:completionHandler];
+    [super compileFile:file inProject:project result:result completionHandler:completionHandler];
 }
 
 - (BOOL)supportsFileTargets {

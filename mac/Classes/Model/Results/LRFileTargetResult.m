@@ -3,6 +3,7 @@
 #import "Action.h"
 #import "LRFile2.h"
 #import "Project.h"
+#import "LROperationResult.h"
 
 
 @interface LRFileTargetResult ()
@@ -26,11 +27,13 @@
             [self.action handleDeletionOfFile:_sourceFile inProject:self.project];
             completionBlock();
         } else {
-            [self.action compileFile:_sourceFile inProject:self.project completionHandler:^(BOOL invoked, ToolOutput *output, NSError *error) {
-                if (error) {
-                    NSLog(@"Error compiling %@: %@ - %ld - %@", _sourceFile.relativePath, error.domain, (long)error.code, error.localizedDescription);
+            LROperationResult *result = [self newResult];
+            result.defaultMessageFile = _sourceFile;
+            [self.action compileFile:_sourceFile inProject:self.project result:(LROperationResult *)result completionHandler:^{
+                if (result.invocationError) {
+                    NSLog(@"Error compiling %@: %@ - %ld - %@", _sourceFile.relativePath, result.invocationError.domain, (long)result.invocationError.code, result.invocationError.localizedDescription);
                 }
-                [self.project displayCompilationError:output key:[NSString stringWithFormat:@"%@.%@", self.project.path, _sourceFile.relativePath]];
+                [self.project displayResult:result key:[NSString stringWithFormat:@"%@.%@", self.project.path, _sourceFile.relativePath]];
                 completionBlock();
             }];
         }

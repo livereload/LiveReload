@@ -20,8 +20,9 @@
 }
 
 - (void)invokeWithCompletionBlock:(dispatch_block_t)completionBlock {
-    [self.action invokeForProject:self.project withModifiedFiles:_modifiedPaths completionHandler:^(BOOL invoked, ToolOutput *output, NSError *error) {
-        [self.project displayCompilationError:output key:[NSString stringWithFormat:@"%@.postproc", self.project.path]];
+    LROperationResult *result = [self newResult];
+    [self.action invokeForProject:self.project withModifiedFiles:_modifiedPaths result:result completionHandler:^{
+        [self.project displayResult:result key:[NSString stringWithFormat:@"%@.postproc", self.project.path]];
         completionBlock();
     }];
 }

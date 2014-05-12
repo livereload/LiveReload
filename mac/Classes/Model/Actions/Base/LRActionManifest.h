@@ -22,6 +22,7 @@
 - (NSArray *)createOptionsWithAction:(Action *)action;
 
 @property(nonatomic, copy) NSArray *errorSpecs;
+@property(nonatomic, copy) NSArray *warningSpecs;
 @property(nonatomic, copy) NSArray *commandLineSpec;
 
 @property(nonatomic, readonly) NSString *changeLogSummary;

@@ -2,7 +2,8 @@
 #import "ScriptInvocationStep.h"
 #import "LRFile2.h"
 #import "Project.h"
-#import "ToolOutput.h"
+#import "LROperationResult.h"
+#import "LRMessage.h"
 #import "Glue.h"
 
 #import "AppState.h"
@@ -18,6 +19,7 @@
 #import "LRCommandLine.h"
 #include "console.h"
 #include "stringutil.h"
+#import "P2Warnings.h"
 
 
 @implementation ScriptInvocationStep {
@@ -78,37 +80,14 @@
     }
     ATLaunchUnixTaskAndCaptureOutput([NSURL fileURLWithPath:command], args, ATLaunchUnixTaskAndCaptureOutputOptionsIgnoreSandbox|ATLaunchUnixTaskAndCaptureOutputOptionsMergeStdoutAndStderr, options, ^(NSString *outputText, NSString *stderrText, NSError *error) {
         _error = error;
-        
-        if (error) {
-            NSLog(@"Error: %@\nOutput:\n%@", [error description], outputText);
-            [[Glue glue] postMessage:@{@"service": @"msgparser", @"command": @"parse", @"manifest": self.manifest, @"input": outputText} withReplyHandler:^(NSError *error, NSDictionary *result) {
-
-                NSDictionary *errorMessage = nil;
-                for (NSDictionary *message in result[@"messages"]) {
-                    if ([message[@"type"] isEqualToString:@"error"]) {
-                        errorMessage = message;
-                        break;
-                    }
-                }
-
-                NSString *affectedFile = errorMessage[@"file"] ?: [_files[@"src"] absolutePath];
-                if (errorMessage) {
-                    _output = [[ToolOutput alloc] initWithCompiler:nil type:ToolOutputTypeError sourcePath:affectedFile line:[errorMessage[@"line"] integerValue] message:errorMessage[@"message"] output:outputText];
-                    NSLog(@"Error message: %@", result);
-                } else {
-                    _output = [[ToolOutput alloc] initWithCompiler:nil type:ToolOutputTypeErrorRaw sourcePath:affectedFile line:0 message:nil output:outputText];
-                }
-
-                self.finished = YES;
-                if (self.completionHandler)
-                    self.completionHandler(self);
-            }];
-            return;
-        }
-
-        self.finished = YES;
-        if (self.completionHandler)
-            self.completionHandler(self);
+        P2DisableARCRetainCyclesWarning()
+        [_result addRawOutput:outputText withCompletionBlock:^{
+            [_result completedWithInvocationError:error];
+            self.finished = YES;
+            if (self.completionHandler)
+                self.completionHandler(self);
+        }];
+        P2ReenableWarning()
     });
 }
 
