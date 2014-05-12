@@ -105,9 +105,6 @@
 
     if (compilerOutput) *compilerOutput = nil;
 
-    // TODO: move this into a more appropriate place
-    setenv("COMPASS_FULL_SASS_BACKTRACE", "1", 1);
-
     NSString *sourcePath = [rootPath stringByAppendingPathComponent:sourceRelPath];
     NSString *destinationPath = [rootPath stringByAppendingPathComponent:destinationRelPath];
 
