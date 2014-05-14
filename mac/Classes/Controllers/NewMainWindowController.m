@@ -2,8 +2,6 @@
 #import "NewMainWindowController.h"
 
 #import "MonitoringSettingsWindowController.h"
-#import "CompilationSettingsWindowController.h"
-#import "PostProcessingSettingsWindowController.h"
 #import "TerminalViewController.h"
 #import "LicenseCodeWindowController.h"
 #import "PreferencesController.h"
@@ -100,8 +98,6 @@ enum { PANE_COUNT = PaneProject+1 };
 @synthesize snippetLabelField = _snippetLabelField;
 @synthesize snippetBodyTextField = _snippetBodyTextField;
 @synthesize monitoringSummaryLabelField = _monitoringSummaryLabelField;
-@synthesize compilerEnabledCheckBox = _compilerEnabledCheckBox;
-@synthesize postProcessingEnabledCheckBox = _postProcessingEnabledCheckBox;
 @synthesize availableCompilersLabel = _availableCompilersLabel;
 
 + (NewMainWindowController *)sharedMainWindowController {
@@ -310,8 +306,6 @@ enum { PANE_COUNT = PaneProject+1 };
     }
 
     _monitoringSummaryLabelField.stringValue = [NSString stringWithFormat:@"Monitoring %d file extensions, %@ →", (int)[Preferences sharedPreferences].allExtensions.count, exclusionsString];
-    [_compilerEnabledCheckBox setState:_selectedProject.compilationEnabled ? NSOnState : NSOffState];
-    [_postProcessingEnabledCheckBox setState:_selectedProject.postProcessingEnabled ? NSOnState : NSOffState];
 
     _availableCompilersLabel.stringValue = [NSString stringWithFormat:@"%@", [[[PluginManager sharedPluginManager].compilers valueForKeyPath:@"name"] componentsJoinedByString:@", "]];
 
@@ -871,61 +865,6 @@ enum { PANE_COUNT = PaneProject+1 };
 
 - (IBAction)showMonitoringOptions:(id)sender {
     [self showProjectSettingsSheet:[MonitoringSettingsWindowController class]];
-}
-
-
-#pragma mark - Project settings (compilation)
-
-- (IBAction)showCompilationOptions:(id)sender {
-    [self showProjectSettingsSheet:[CompilationSettingsWindowController class]];
-}
-
-- (IBAction)toggleCompilationEnabledCheckboxClicked:(NSButton *)sender {
-    _selectedProject.compilationEnabled = !_selectedProject.compilationEnabled;
-}
-
-
-#pragma mark - Project settings (post-processing)
-
-- (IBAction)togglePostProcessingCheckboxClicked:(NSButton *)sender {
-    _selectedProject.postProcessingEnabled = (sender.state == NSOnState);
-}
-
-- (UserScript *)selectedUserScript {
-    NSString *selectedScriptName = _selectedProject.postProcessingScriptName;
-    if (selectedScriptName.length == 0)
-        return nil;
-    NSInteger selectedScriptIndex = [self indexOfScriptNamed:_selectedProject.postProcessingScriptName];
-    if (selectedScriptIndex < 0) {
-        [_userScripts insertObject:[[MissingUserScript alloc] initWithName:selectedScriptName] atIndex:0];
-        selectedScriptIndex = 0;
-    }
-    return [_userScripts objectAtIndex:selectedScriptIndex];
-}
-
-- (IBAction)customScriptSelected:(id)sender {
-    NSUInteger count = [customScriptPopUp numberOfItems];
-    NSUInteger index = [customScriptPopUp indexOfSelectedItem];
-    if (index == 0) {
-        _selectedProject.postProcessingScriptName = @"";
-        _selectedProject.postProcessingEnabled = NO;
-    } if (index == count - 1) {
-    } else if (index >= _firstUserScriptIndex && index < _firstUserScriptIndex + _userScripts.count) {
-        UserScript *userScript = [_userScripts objectAtIndex:index - _firstUserScriptIndex];
-        _selectedProject.postProcessingScriptName = userScript.uniqueName;
-        _selectedProject.postProcessingEnabled = userScript.exists;
-    }
-    [self updateProjectPane];
-}
-
-- (NSInteger)indexOfScriptNamed:(NSString *)name {
-    NSInteger index = 0;
-    for (UserScript *userScript in _userScripts) {
-        if ([userScript.uniqueName isEqualToString:name])
-            return index;
-        ++index;
-    }
-    return -1;
 }
 
 

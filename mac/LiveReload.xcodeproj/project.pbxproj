@@ -59,7 +59,6 @@
 		430D7F68184712F000203400 /* GemPackageType.m in Sources */ = {isa = PBXBuildFile; fileRef = 430D7F67184712F000203400 /* GemPackageType.m */; };
 		430D7F6B184712FD00203400 /* GemPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 430D7F6A184712FD00203400 /* GemPackage.m */; };
 		430D7F6E1847131B00203400 /* GemPackageContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 430D7F6D1847131B00203400 /* GemPackageContainer.m */; };
-		4310DE3D146DB588003091D1 /* ToolOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4310DE3C146DB588003091D1 /* ToolOptions.m */; };
 		4310DE40146DB6A0003091D1 /* UIBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4310DE3F146DB6A0003091D1 /* UIBuilder.m */; };
 		43122BF5180BBA5E00BF8121 /* Glue.m in Sources */ = {isa = PBXBuildFile; fileRef = 43122BF4180BBA5E00BF8121 /* Glue.m */; };
 		43122BFB180FBEFB00BF8121 /* ATObservation.m in Sources */ = {isa = PBXBuildFile; fileRef = 43122BFA180FBEFB00BF8121 /* ATObservation.m */; };
@@ -106,7 +105,7 @@
 		433B66E717A0914400A41848 /* streamline.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 433B66E617A0914400A41848 /* streamline.lrplugin */; };
 		433D2183182646D900E81A09 /* AppState.m in Sources */ = {isa = PBXBuildFile; fileRef = 433D2180182646D900E81A09 /* AppState.m */; };
 		433D2184182646D900E81A09 /* Workspace.m in Sources */ = {isa = PBXBuildFile; fileRef = 433D2182182646D900E81A09 /* Workspace.m */; };
-		433D2192182646E300E81A09 /* CompilationOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 433D2187182646E300E81A09 /* CompilationOptions.m */; };
+		433D2192182646E300E81A09 /* LegacyCompilationOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 433D2187182646E300E81A09 /* LegacyCompilationOptions.m */; };
 		433D2193182646E300E81A09 /* FilterOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 433D2189182646E300E81A09 /* FilterOption.m */; };
 		433D2194182646E300E81A09 /* ImportGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 433D218B182646E300E81A09 /* ImportGraph.m */; };
 		433D2195182646E300E81A09 /* LRFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 433D218D182646E300E81A09 /* LRFile.m */; };
@@ -314,11 +313,7 @@
 		43F0030714700C96005D48A4 /* LRTerminalButtonOnHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F0030314700C96005D48A4 /* LRTerminalButtonOnHighlight.png */; };
 		43F30CA2184C834C008CED4A /* GemVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F30CA1184C834C008CED4A /* GemVersion.m */; };
 		43F30CA5184C84F1008CED4A /* GemVersionSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F30CA4184C84F1008CED4A /* GemVersionSpace.m */; };
-		43F50BF71466F7A1004FD951 /* PostProcessingSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F50BF61466F7A1004FD951 /* PostProcessingSettingsWindowController.m */; };
-		43F50BF91466FAB7004FD951 /* PostProcessingSettingsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43F50BF81466FAB7004FD951 /* PostProcessingSettingsWindowController.xib */; };
 		43F50BFC146706B0004FD951 /* BaseProjectSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F50BFB146706B0004FD951 /* BaseProjectSettingsWindowController.m */; };
-		43F50BFF14670A9F004FD951 /* CompilationSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F50BFE14670A9F004FD951 /* CompilationSettingsWindowController.m */; };
-		43F50C0114670AAF004FD951 /* CompilationSettingsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43F50C0014670AAF004FD951 /* CompilationSettingsWindowController.xib */; };
 		823DDED313F8DA3100529AD2 /* LiveReloadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3013F8DA3100529AD2 /* LiveReloadAppDelegate.m */; };
 		823DDED513F8DA3100529AD2 /* ExtensionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3613F8DA3100529AD2 /* ExtensionsController.m */; };
 		823DDEDA13F8DA3100529AD2 /* StatusItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3E13F8DA3100529AD2 /* StatusItemController.m */; };
@@ -467,8 +462,6 @@
 		430D7F6A184712FD00203400 /* GemPackage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GemPackage.m; sourceTree = "<group>"; };
 		430D7F6C1847131B00203400 /* GemPackageContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GemPackageContainer.h; sourceTree = "<group>"; };
 		430D7F6D1847131B00203400 /* GemPackageContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GemPackageContainer.m; sourceTree = "<group>"; };
-		4310DE3B146DB588003091D1 /* ToolOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolOptions.h; sourceTree = "<group>"; };
-		4310DE3C146DB588003091D1 /* ToolOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolOptions.m; sourceTree = "<group>"; };
 		4310DE3E146DB6A0003091D1 /* UIBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBuilder.h; sourceTree = "<group>"; };
 		4310DE3F146DB6A0003091D1 /* UIBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIBuilder.m; sourceTree = "<group>"; };
 		43122BF3180BBA5E00BF8121 /* Glue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Glue.h; sourceTree = "<group>"; };
@@ -545,8 +538,8 @@
 		433D2180182646D900E81A09 /* AppState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppState.m; sourceTree = "<group>"; };
 		433D2181182646D900E81A09 /* Workspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Workspace.h; sourceTree = "<group>"; };
 		433D2182182646D900E81A09 /* Workspace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Workspace.m; sourceTree = "<group>"; };
-		433D2186182646E300E81A09 /* CompilationOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompilationOptions.h; sourceTree = "<group>"; };
-		433D2187182646E300E81A09 /* CompilationOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompilationOptions.m; sourceTree = "<group>"; };
+		433D2186182646E300E81A09 /* LegacyCompilationOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LegacyCompilationOptions.h; sourceTree = "<group>"; };
+		433D2187182646E300E81A09 /* LegacyCompilationOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LegacyCompilationOptions.m; sourceTree = "<group>"; };
 		433D2188182646E300E81A09 /* FilterOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterOption.h; sourceTree = "<group>"; };
 		433D2189182646E300E81A09 /* FilterOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterOption.m; sourceTree = "<group>"; };
 		433D218A182646E300E81A09 /* ImportGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImportGraph.h; sourceTree = "<group>"; };
@@ -920,14 +913,8 @@
 		43F30CA1184C834C008CED4A /* GemVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GemVersion.m; sourceTree = "<group>"; };
 		43F30CA3184C84F1008CED4A /* GemVersionSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GemVersionSpace.h; sourceTree = "<group>"; };
 		43F30CA4184C84F1008CED4A /* GemVersionSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GemVersionSpace.m; sourceTree = "<group>"; };
-		43F50BF51466F7A1004FD951 /* PostProcessingSettingsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostProcessingSettingsWindowController.h; sourceTree = "<group>"; };
-		43F50BF61466F7A1004FD951 /* PostProcessingSettingsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostProcessingSettingsWindowController.m; sourceTree = "<group>"; };
-		43F50BF81466FAB7004FD951 /* PostProcessingSettingsWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostProcessingSettingsWindowController.xib; sourceTree = "<group>"; };
 		43F50BFA146706B0004FD951 /* BaseProjectSettingsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseProjectSettingsWindowController.h; sourceTree = "<group>"; };
 		43F50BFB146706B0004FD951 /* BaseProjectSettingsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseProjectSettingsWindowController.m; sourceTree = "<group>"; };
-		43F50BFD14670A9F004FD951 /* CompilationSettingsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompilationSettingsWindowController.h; sourceTree = "<group>"; };
-		43F50BFE14670A9F004FD951 /* CompilationSettingsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompilationSettingsWindowController.m; sourceTree = "<group>"; };
-		43F50C0014670AAF004FD951 /* CompilationSettingsWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompilationSettingsWindowController.xib; sourceTree = "<group>"; };
 		823DDE2F13F8DA3100529AD2 /* LiveReloadAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveReloadAppDelegate.h; sourceTree = "<group>"; };
 		823DDE3013F8DA3100529AD2 /* LiveReloadAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveReloadAppDelegate.m; sourceTree = "<group>"; };
 		823DDE3513F8DA3100529AD2 /* ExtensionsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtensionsController.h; sourceTree = "<group>"; };
@@ -1366,8 +1353,8 @@
 		433D2185182646E300E81A09 /* Project */ = {
 			isa = PBXGroup;
 			children = (
-				433D2186182646E300E81A09 /* CompilationOptions.h */,
-				433D2187182646E300E81A09 /* CompilationOptions.m */,
+				433D2186182646E300E81A09 /* LegacyCompilationOptions.h */,
+				433D2187182646E300E81A09 /* LegacyCompilationOptions.m */,
 				433D2188182646E300E81A09 /* FilterOption.h */,
 				433D2189182646E300E81A09 /* FilterOption.m */,
 				43124AE118E2FACE0085CEF1 /* LROutputFileMapping.h */,
@@ -2116,12 +2103,6 @@
 				435BE044141B87920008FF77 /* NewMainWindowController.m */,
 				43F50BFA146706B0004FD951 /* BaseProjectSettingsWindowController.h */,
 				43F50BFB146706B0004FD951 /* BaseProjectSettingsWindowController.m */,
-				43F50BF51466F7A1004FD951 /* PostProcessingSettingsWindowController.h */,
-				43F50BF61466F7A1004FD951 /* PostProcessingSettingsWindowController.m */,
-				43F50BF81466FAB7004FD951 /* PostProcessingSettingsWindowController.xib */,
-				43F50BFD14670A9F004FD951 /* CompilationSettingsWindowController.h */,
-				43F50BFE14670A9F004FD951 /* CompilationSettingsWindowController.m */,
-				43F50C0014670AAF004FD951 /* CompilationSettingsWindowController.xib */,
 				43534038146CC7E600DD66B0 /* MonitoringSettingsWindowController.h */,
 				43534039146CC7E600DD66B0 /* MonitoringSettingsWindowController.m */,
 				4353403B146CC8A400DD66B0 /* MonitoringSettingsWindowController.xib */,
@@ -2198,8 +2179,6 @@
 				823DDE8313F8DA3100529AD2 /* PluginManager.m */,
 				823DDE8413F8DA3100529AD2 /* ToolOutput.h */,
 				823DDE8513F8DA3100529AD2 /* ToolOutput.m */,
-				4310DE3B146DB588003091D1 /* ToolOptions.h */,
-				4310DE3C146DB588003091D1 /* ToolOptions.m */,
 			);
 			path = Plugins;
 			sourceTree = "<group>";
@@ -2445,8 +2424,6 @@
 				4346F3AB1451012A00B133F2 /* StatusItemStateRotation3.png in Resources */,
 				4353197214668E7D005FA59F /* LRHelpTemplate.png in Resources */,
 				4353197314668E7D005FA59F /* LRSupportTemplate.png in Resources */,
-				43F50BF91466FAB7004FD951 /* PostProcessingSettingsWindowController.xib in Resources */,
-				43F50C0114670AAF004FD951 /* CompilationSettingsWindowController.xib in Resources */,
 				43146699146C5D2100DC075A /* ProjectPaneBackground.png in Resources */,
 				4314669B146C689500DC075A /* FolderIcon64.png in Resources */,
 				4314669D146C884800DC075A /* WelcomePaneBackground.png in Resources */,
@@ -2576,16 +2553,13 @@
 				43E5DF621462829B0016CDA0 /* ImageAndTextCell.m in Sources */,
 				43158FF3191AA11100DE8A5A /* LRTRProtocolParser.m in Sources */,
 				4353196F1465B52D005FA59F /* ShitHappens.m in Sources */,
-				43F50BF71466F7A1004FD951 /* PostProcessingSettingsWindowController.m in Sources */,
 				43F50BFC146706B0004FD951 /* BaseProjectSettingsWindowController.m in Sources */,
 				433D2195182646E300E81A09 /* LRFile.m in Sources */,
-				43F50BFF14670A9F004FD951 /* CompilationSettingsWindowController.m in Sources */,
 				431466A6146CA68500DC075A /* PassThruView.m in Sources */,
 				431466A9146CA82200DC075A /* PassThruImageView.m in Sources */,
 				434BB25517B8F97E000BEB1C /* BaseActionRow.m in Sources */,
 				4353403A146CC7E600DD66B0 /* MonitoringSettingsWindowController.m in Sources */,
 				434BB26517BA238B000BEB1C /* AddActionRow.m in Sources */,
-				4310DE3D146DB588003091D1 /* ToolOptions.m in Sources */,
 				43122C0A1814244E00BF8121 /* LRPopUpOption.m in Sources */,
 				433D21DB18268B7E00E81A09 /* LRVersion.m in Sources */,
 				43CE9B64191675F30044D28E /* FilterAction.m in Sources */,
@@ -2775,7 +2749,7 @@
 				43122C0D1814286100BF8121 /* LRCustomArgumentsOption.m in Sources */,
 				4396F1DE17F8112F00AA8200 /* Glitter.m in Sources */,
 				433D22051826AD9200E81A09 /* LRPackageManager.m in Sources */,
-				433D2192182646E300E81A09 /* CompilationOptions.m in Sources */,
+				433D2192182646E300E81A09 /* LegacyCompilationOptions.m in Sources */,
 				433D220A1826AD9200E81A09 /* NpmPackageType.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

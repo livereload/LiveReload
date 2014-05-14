@@ -11,7 +11,7 @@
 #import "Preferences.h"
 #import "PluginManager.h"
 #import "Compiler.h"
-#import "CompilationOptions.h"
+#import "LegacyCompilationOptions.h"
 #import "LRFile.h"
 #import "LRFile2.h"
 #import "ImportGraph.h"
@@ -99,16 +99,15 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     NSString                *_lastSelectedPane;
     BOOL                     _dirty;
 
-    NSString                *_postProcessingCommand;
-    NSString                *_postProcessingScriptName;
-    BOOL                     _postProcessingEnabled;
     NSTimeInterval           _postProcessingGracePeriod;
 
     NSString                *_rubyVersionIdentifier;
 
-    NSMutableDictionary     *_compilerOptions;
-    BOOL                     _compilationEnabled;
+    NSMutableDictionary     *_legacyCompilationOptions;
+
     BOOL                     _legacyCompilationEnabled;
+    NSString                *_legacyPostProcessingCommand;
+    BOOL                     _legacyPostProcessingEnabled;
 
     ImportGraph             *_importGraph;
     BOOL                     _compassDetected;
@@ -150,10 +149,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 @synthesize dirty=_dirty;
 @synthesize lastSelectedPane=_lastSelectedPane;
 @synthesize enabled=_enabled;
-@synthesize compilationEnabled=_compilationEnabled;
-@synthesize postProcessingCommand=_postProcessingCommand;
-@synthesize postProcessingScriptName=_postProcessingScriptName;
-@synthesize postProcessingEnabled=_postProcessingEnabled;
 @synthesize disableLiveRefresh=_disableLiveRefresh;
 @synthesize enableRemoteServerWorkflow=_enableRemoteServerWorkflow;
 @synthesize fullPageReloadDelay=_fullPageReloadDelay;
@@ -177,7 +172,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
         _fileDatesHack = [NSMutableDictionary new];
 
-        _compilerOptions = [[NSMutableDictionary alloc] init];
+        _legacyCompilationOptions = [[NSMutableDictionary alloc] init];
         _monitoringRequests = [[NSMutableSet alloc] init];
         _runningAnalysisTasks = [NSMutableSet new];
 
@@ -194,7 +189,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
             [raw enumerateKeysAndObjectsUsingBlock:^(id uniqueId, id compilerMemento, BOOL *stop) {
                 Compiler *compiler = [pluginManager compilerWithUniqueId:uniqueId];
                 if (compiler) {
-                    [_compilerOptions setObject:[[CompilationOptions alloc] initWithCompiler:compiler memento:compilerMemento] forKey:uniqueId];
+                    [_legacyCompilationOptions setObject:[[LegacyCompilationOptions alloc] initWithCompiler:compiler memento:compilerMemento] forKey:uniqueId];
                 } else {
                     // TODO: save data for unknown compilers and re-add them when creating a memento
                 }
@@ -202,18 +197,9 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         }
 
         if ([memento objectForKey:@"compilationEnabled"]) {
-            _compilationEnabled = [[memento objectForKey:@"compilationEnabled"] boolValue];
+            _legacyCompilationEnabled = [[memento objectForKey:@"compilationEnabled"] boolValue];
         } else {
-            _compilationEnabled = NO;
-            [[memento objectForKey:@"compilers"] enumerateKeysAndObjectsUsingBlock:^(id uniqueId, id compilerMemento, BOOL *stop) {
-                if ([[compilerMemento objectForKey:@"mode"] isEqualToString:@"compile"]) {
-                    _compilationEnabled = YES;
-                }
-            }];
-        }
-        _legacyCompilationEnabled = _compilationEnabled;
-        if ([memento objectForKey:@"legacyCompilationEnabled"]) {
-            _compilationEnabled = _legacyCompilationEnabled = [[memento objectForKey:@"legacyCompilationEnabled"] boolValue];
+            _legacyCompilationEnabled = NO;
         }
 
         _disableLiveRefresh = [[memento objectForKey:@"disableLiveRefresh"] boolValue];
@@ -229,12 +215,11 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         else
             _eventProcessingDelay = 0.0;
 
-        _postProcessingCommand = [[memento objectForKey:@"postproc"] copy];
-        _postProcessingScriptName = [[memento objectForKey:@"postprocScript"] copy];
+        _legacyPostProcessingCommand = [[memento objectForKey:@"postproc"] copy];
         if ([memento objectForKey:@"postprocEnabled"]) {
-            _postProcessingEnabled = [[memento objectForKey:@"postprocEnabled"] boolValue];
+            _legacyPostProcessingEnabled = [[memento objectForKey:@"postprocEnabled"] boolValue];
         } else {
-            _postProcessingEnabled = [_postProcessingScriptName length] > 0 || [_postProcessingCommand length] > 0;
+            _legacyPostProcessingEnabled = [_legacyPostProcessingCommand length] > 0;
         }
 
         _rubyVersionIdentifier = [[memento objectForKey:@"rubyVersion"] copy];
@@ -346,16 +331,8 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
 - (NSMutableDictionary *)memento {
     NSMutableDictionary *memento = [NSMutableDictionary dictionary];
-    [memento setObject:[_compilerOptions dictionaryByMappingValuesToSelector:@selector(memento)] forKey:@"compilers"];
     if (_lastSelectedPane)
         [memento setObject:_lastSelectedPane forKey:@"last_pane"];
-    if ([_postProcessingCommand length] > 0) {
-        [memento setObject:_postProcessingCommand forKey:@"postproc"];
-    }
-    if ([_postProcessingScriptName length] > 0) {
-        [memento setObject:_postProcessingScriptName forKey:@"postprocScript"];
-        [memento setObject:[NSNumber numberWithBool:_postProcessingEnabled] forKey:@"postprocEnabled"];
-    }
     [memento setObject:[NSNumber numberWithBool:_disableLiveRefresh] forKey:@"disableLiveRefresh"];
     [memento setObject:[NSNumber numberWithBool:_enableRemoteServerWorkflow] forKey:@"enableRemoteServerWorkflow"];
     if (_fullPageReloadDelay > 0.001) {
@@ -374,7 +351,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         [memento setObject:_urlMasks forKey:@"urls"];
     }
     [memento setObject:_rubyVersionIdentifier forKey:@"rubyVersion"];
-    [memento setObject:[NSNumber numberWithBool:_compilationEnabled ] forKey:@"compilationEnabled"];
 
     [memento setObject:[NSNumber numberWithInteger:_numberOfPathComponentsToUseAsName] forKey:@"numberOfPathComponentsToUseAsName"];
     if (_customName.length > 0)
@@ -506,30 +482,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     }
 }
 
-- (void)compile:(NSString *)relativePath under:(NSString *)rootPath with:(Compiler *)compiler options:(CompilationOptions *)compilationOptions {
-    NSString *path = [rootPath stringByAppendingPathComponent:relativePath];
-
-    if (![[NSFileManager defaultManager] fileExistsAtPath:path])
-        return; // don't try to compile deleted files
-    LRFile *fileOptions = [self optionsForFileAtPath:relativePath in:compilationOptions];
-    if (fileOptions.destinationDirectory != nil || !compiler.needsOutputDirectory) {
-        NSString *derivedName = fileOptions.destinationName;
-        NSString *derivedPath = (compiler.needsOutputDirectory ? [fileOptions.destinationDirectory stringByAppendingPathComponent:derivedName] : [[path stringByDeletingLastPathComponent] stringByAppendingPathComponent:derivedName]);
-
-        ToolOutput *compilerOutput = nil;
-        [compiler compile:relativePath into:derivedPath under:rootPath inProject:self with:compilationOptions compilerOutput:&compilerOutput];
-        if (compilerOutput) {
-            compilerOutput.project = self;
-
-            [[[ToolOutputWindowController alloc] initWithCompilerOutput:compilerOutput key:path] show];
-        } else {
-            [ToolOutputWindowController hideOutputWindowWithKey:path];
-        }
-    } else {
-        NSLog(@"Ignoring %@ because destination directory is not set.", relativePath);
-    }
-}
-
 - (BOOL)isCompassConfigurationFile:(NSString *)relativePath {
     return MatchLastPathTwoComponents(relativePath, @"config", @"compass.rb") || MatchLastPathTwoComponents(relativePath, @".compass", @"config.rb") || MatchLastPathTwoComponents(relativePath, @"config", @"compass.config") || MatchLastPathComponent(relativePath, @"config.rb") || MatchLastPathTwoComponents(relativePath, @"src", @"config.rb");
 }
@@ -543,56 +495,16 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     }
 }
 
-- (void)processChangeAtPath:(NSString *)relativePath {
+- (void)enqueueReloadRequestAtPath:(NSString *)relativePath {
     NSString *extension = [relativePath pathExtension];
 
-    BOOL compilerFound = NO;
-    for (Compiler *compiler in [PluginManager sharedPluginManager].compilers) {
-        if (_compassDetected && [compiler.uniqueId isEqualToString:@"sass"])
-            continue;
-        else if (!_compassDetected && [compiler.uniqueId isEqualToString:@"compass"])
-            continue;
-        if ([compiler.extensions containsObject:extension]) {
-            compilerFound = YES;
-            CompilationOptions *compilationOptions = [self optionsForCompiler:compiler create:YES];
-            if (_compilationEnabled && compilationOptions.active) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:ProjectWillBeginCompilationNotification object:self];
-                [self compile:relativePath under:_path with:compiler options:compilationOptions];
-                [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidEndCompilationNotification object:self];
-                StatGroupIncrement(CompilerChangeCountStatGroup, compiler.uniqueId, 1);
-                StatGroupIncrement(CompilerChangeCountEnabledStatGroup, compiler.uniqueId, 1);
-                break;
-            } else {
-                LRFile *fileOptions = [self optionsForFileAtPath:relativePath in:compilationOptions];
-                NSString *derivedName = fileOptions.destinationName;
-                NSString *originalPath = [_path stringByAppendingPathComponent:relativePath];
-                [_runningBuild addReloadRequest:@{@"path": derivedName, @"originalPath": originalPath}];
-                NSLog(@"Broadcasting a fake change in %@ instead of %@ (compiler %@).", derivedName, relativePath, compiler.name);
-                StatGroupIncrement(CompilerChangeCountStatGroup, compiler.uniqueId, 1);
-                break;
-//            } else if (compilationOptions.mode == CompilationModeDisabled) {
-//                compilerFound = NO;
-            }
-        }
-    }
-
-    if (!compilerFound) {
-        if (_forcedStylesheetReloadSpec && [_forcedStylesheetReloadSpec matchesPath:relativePath type:ATPathSpecEntryTypeFile]) {
-            [_runningBuild addReloadRequest:@{@"path": @"force-reload-all-stylesheets.css", @"originalPath": [NSNull null]}];
-        } else {
-            NSString *fullPath = [_path stringByAppendingPathComponent:relativePath];
-            [_runningBuild addReloadRequest:@{@"path": fullPath, @"originalPath": [NSNull null], @"localPath": fullPath}];
-        }
+    if (_forcedStylesheetReloadSpec && [_forcedStylesheetReloadSpec matchesPath:relativePath type:ATPathSpecEntryTypeFile]) {
+        [_runningBuild addReloadRequest:@{@"path": @"force-reload-all-stylesheets.css", @"originalPath": [NSNull null]}];
+    } else {
+        NSString *fullPath = [_path stringByAppendingPathComponent:relativePath];
+        [_runningBuild addReloadRequest:@{@"path": fullPath, @"originalPath": [NSNull null], @"localPath": fullPath}];
     }
 }
-
-// I don't think this will ever be needed, but not throwing the code away yet
-#ifdef AUTORESCAN_WORKAROUND_ENABLED
-- (void)rescanRecentlyChangedPaths {
-    NSLog(@"Rescanning %@ again in case some compiler was slow to write the changes.", _path);
-    [_monitor rescan];
-}
-#endif
 
 - (void)fileSystemMonitor:(FSMonitor *)monitor detectedChange:(FSChange *)change {
     [_pendingChanges unionSet:change.changedFiles];
@@ -634,16 +546,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     }
 
     [self updateImportGraphForPaths:pathes];
-
-#ifdef AUTORESCAN_WORKAROUND_ENABLED
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(rescanRecentlyChangedPaths) object:nil];
-    [self performSelector:@selector(rescanRecentlyChangedPaths) withObject:nil afterDelay:1.0];
-#endif
-
-    NSArray *pathsToProcess = [self rootPathsForPaths:pathes];
-    for (NSString *relativePath in pathsToProcess) {
-        [self processChangeAtPath:relativePath];
-    }
 
     NSArray *actions = [self.actionList.activeActions copy];
 
@@ -765,21 +667,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 }
 
 
-#pragma mark - Compilation
-
-- (NSArray *)compilersInUse {
-    FSTree *tree = [_monitor obtainTree];
-    return [[PluginManager sharedPluginManager].compilers filteredArrayUsingBlock:^BOOL(id value) {
-        Compiler *compiler = value;
-        if (_compassDetected && [compiler.uniqueId isEqualToString:@"sass"])
-            return NO;
-        else if (!_compassDetected && [compiler.uniqueId isEqualToString:@"compass"])
-            return NO;
-        return [compiler pathsOfSourceFilesInTree:tree].count > 0;
-    }];
-}
-
-
 #pragma mark - Options
 
 - (void)setCustomName:(NSString *)customName {
@@ -794,17 +681,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         _numberOfPathComponentsToUseAsName = numberOfPathComponentsToUseAsName;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
     }
-}
-
-- (CompilationOptions *)optionsForCompiler:(Compiler *)compiler create:(BOOL)create {
-    NSString *uniqueId = compiler.uniqueId;
-    CompilationOptions *options = [_compilerOptions objectForKey:uniqueId];
-    if (options == nil && create) {
-        options = [[CompilationOptions alloc] initWithCompiler:compiler memento:nil];
-        [_compilerOptions setObject:options forKey:uniqueId];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
-    }
-    return options;
 }
 
 - (id)enumerateParentFoldersFromFolder:(NSString *)folder with:(id(^)(NSString *folder, NSString *relativePath, BOOL *stop))block {
@@ -822,130 +698,9 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     return nil;
 }
 
-- (LRFile *)optionsForFileAtPath:(NSString *)sourcePath in:(CompilationOptions *)compilationOptions {
-    LRFile *fileOptions = [compilationOptions optionsForFileAtPath:sourcePath create:YES];
-
-    @autoreleasepool {
-
-    FSTree *tree = self.tree;
-    if (fileOptions.destinationNameMask.length == 0) {
-        // for a name like foo.php.jade, check if foo.php already exists in the project
-        NSString *bareName = [[sourcePath lastPathComponent] stringByDeletingPathExtension];
-        if ([bareName pathExtension].length > 0 && tree && [tree containsFileNamed:bareName]) {
-            fileOptions.destinationName = bareName;
-        } else {
-            fileOptions.destinationNameMask = [NSString stringWithFormat:@"*.%@", compilationOptions.compiler.destinationExtension];
-        }
-    }
-
-    if (fileOptions.destinationDirectory == nil) {
-        // see if we can guess it
-        NSString *guessedDirectory = nil;
-
-        // 1) destination file already exists?
-        NSString *derivedName = fileOptions.destinationName;
-        NSArray *derivedPaths = [self.tree pathsOfFilesNamed:derivedName];
-        if (derivedPaths.count > 0) {
-            NSString *defaultDerivedFile = [[sourcePath stringByDeletingLastPathComponent] stringByAppendingPathComponent:fileOptions.destinationName];
-
-            if ([derivedPaths containsObject:defaultDerivedFile]) {
-                guessedDirectory = [sourcePath stringByDeletingLastPathComponent];
-                NSLog(@"Guessed output directory for %@ by existing output file in the same folder: %@", sourcePath, defaultDerivedFile);
-            } else {
-                NSArray *unoccupiedPaths = [derivedPaths filteredArrayUsingBlock:^BOOL(id value) {
-                    NSString *derivedPath = value;
-                    return [compilationOptions sourcePathThatCompilesInto:derivedPath] == nil;
-                }];
-                if (unoccupiedPaths.count == 1) {
-                    guessedDirectory = [[unoccupiedPaths objectAtIndex:0] stringByDeletingLastPathComponent];
-                    NSLog(@"Guessed output directory for %@ by existing output file %@", sourcePath, [unoccupiedPaths objectAtIndex:0]);
-                }
-            }
-        }
-
-        // 2) other files in the same folder have a common destination path?
-        if (guessedDirectory == nil) {
-            NSString *sourceDirectory = [sourcePath stringByDeletingLastPathComponent];
-            NSArray *otherFiles = [[compilationOptions.compiler pathsOfSourceFilesInTree:self.tree] filteredArrayUsingBlock:^BOOL(id value) {
-                return ![sourcePath isEqualToString:value] && [sourceDirectory isEqualToString:[value stringByDeletingLastPathComponent]];
-            }];
-            if ([otherFiles count] > 0) {
-                NSArray *otherFileOptions = [otherFiles arrayByMappingElementsUsingBlock:^id(id otherFilePath) {
-                    return [compilationOptions optionsForFileAtPath:otherFilePath create:NO];
-                }];
-                NSString *common = [LRFile commonOutputDirectoryFor:otherFileOptions inProject:self];
-                if ([common isEqualToString:@"__NONE_SET__"]) {
-                    // nothing to figure it from
-                } else if (common == nil) {
-                    // different directories, something complicated is going on here;
-                    // don't try to be too smart and just give up
-                    NSLog(@"Refusing to guess output directory for %@ because other files in the same directory have varying output directories", sourcePath);
-                    goto skipGuessing;
-                } else {
-                    guessedDirectory = common;
-                    NSLog(@"Guessed output directory for %@ based on configuration of other files in the same directory", sourcePath);
-                }
-            }
-        }
-
-        // 3) are we in a subfolder with one of predefined 'output' names? (e.g. css/something.less)
-        if (guessedDirectory == nil) {
-            NSSet *magicNames = [NSSet setWithArray:compilationOptions.compiler.expectedOutputDirectoryNames];
-            guessedDirectory = [self enumerateParentFoldersFromFolder:[sourcePath stringByDeletingLastPathComponent] with:^(NSString *folder, NSString *relativePath, BOOL *stop) {
-                if ([magicNames containsObject:[folder lastPathComponent]]) {
-                    NSLog(@"Guessed output directory for %@ to be its own parent folder (%@) based on being located inside a folder with magical name %@", sourcePath, [sourcePath stringByDeletingLastPathComponent], folder);
-                    return (id)[sourcePath stringByDeletingLastPathComponent];
-                }
-                return (id)nil;
-            }];
-        }
-
-        // 4) is there a sibling directory with one of predefined 'output' names? (e.g. smt/css/ for smt/src/foo/file.styl)
-        if (guessedDirectory == nil) {
-            NSSet *magicNames = [NSSet setWithArray:compilationOptions.compiler.expectedOutputDirectoryNames];
-            guessedDirectory = [self enumerateParentFoldersFromFolder:[sourcePath stringByDeletingLastPathComponent] with:^(NSString *folder, NSString *relativePath, BOOL *stop) {
-                NSString *parent = [folder stringByDeletingLastPathComponent];
-                NSFileManager *fm = [NSFileManager defaultManager];
-                for (NSString *magicName in magicNames) {
-                    NSString *possibleDir = [parent stringByAppendingPathComponent:magicName];
-                    BOOL isDir = NO;
-                    if ([fm fileExistsAtPath:[_path stringByAppendingPathComponent:possibleDir] isDirectory:&isDir])
-                        if (isDir) {
-                            // TODO: decide whether or not to append relativePath based on existence of other files following the same convention
-                            NSString *guess = [possibleDir stringByAppendingPathComponent:relativePath];
-                            NSLog(@"Guessed output directory for %@ to be %@ based on a sibling folder with a magical name %@", sourcePath, guess, possibleDir);
-                            return (id)guess;
-                        }
-                }
-                return (id)nil;
-            }];
-        }
-
-        // 5) if still nothing, put the result in the same folder
-        if (guessedDirectory == nil) {
-            guessedDirectory = [sourcePath stringByDeletingLastPathComponent];
-        }
-
-        if (guessedDirectory) {
-            fileOptions.destinationDirectory = guessedDirectory;
-        }
-    }
-skipGuessing:
-        ;
-    }
-    return fileOptions;
-}
-
 - (void)handleCompilationOptionsEnablementChanged {
-    [self requestMonitoring:_compilationEnabled || _postProcessingEnabled forKey:CompilersEnabledMonitoringKey];
-}
-
-- (void)setCompilationEnabled:(BOOL)compilationEnabled {
-    if (_compilationEnabled != compilationEnabled) {
-        _compilationEnabled = compilationEnabled;
-        [self handleCompilationOptionsEnablementChanged];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
-    }
+    // TODO: update for the new actions system
+    [self requestMonitoring:NO forKey:CompilersEnabledMonitoringKey];
 }
 
 - (void)setDisableLiveRefresh:(BOOL)disableLiveRefresh {
@@ -1089,7 +844,7 @@ skipGuessing:
 
     for (Compiler *compiler in [PluginManager sharedPluginManager].compilers) {
         if ([compiler.extensions containsObject:extension]) {
-//            CompilationOptions *compilationOptions = [self optionsForCompiler:compiler create:NO];
+            // TODO: move import graph handling into actions
             [self updateImportGraphForPath:relativePath compiler:compiler];
             return;
         }
@@ -1114,73 +869,19 @@ skipGuessing:
             return YES;
         }
 
+        // TODO: only analyze files for enabled compilers
         for (Compiler *compiler in [PluginManager sharedPluginManager].compilers) {
             if ([compiler.extensions containsObject:extension]) {
-//                CompilationOptions *compilationOptions = [self optionsForCompiler:compiler create:NO];
-//                CompilationMode mode = compilationOptions.mode;
-                if (YES) { //mode == CompilationModeCompile || mode == CompilationModeMiddleware) {
-                    return YES;
-                }
+                return YES;
             }
         }
+
         return NO;
     }];
     for (NSString *path in paths) {
         [self updateImportGraphForPath:path];
     }
     NSLog(@"Full import graph rebuild finished. %@", _importGraph);
-}
-
-
-#pragma mark - Post-processing
-
-- (NSString *)postProcessingCommand {
-    return _postProcessingCommand ?: @"";
-}
-
-- (void)setPostProcessingCommand:(NSString *)postProcessingCommand {
-    if (postProcessingCommand != _postProcessingCommand) {
-        _postProcessingCommand = [postProcessingCommand copy];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
-    }
-}
-
-- (void)setPostProcessingScriptName:(NSString *)postProcessingScriptName {
-    if (postProcessingScriptName != _postProcessingScriptName) {
-        BOOL wasEmpty = (_postProcessingScriptName.length == 0);
-        _postProcessingScriptName = [postProcessingScriptName copy];
-        if ([_postProcessingScriptName length] > 0 && wasEmpty && !_postProcessingEnabled) {
-            [self setPostProcessingEnabled:YES];
-        } else if ([_postProcessingScriptName length] == 0 && _postProcessingEnabled) {
-            _postProcessingEnabled = NO;
-        }
-        [self handleCompilationOptionsEnablementChanged];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
-    }
-}
-
-- (void)setPostProcessingEnabled:(BOOL)postProcessingEnabled {
-    if ([_postProcessingScriptName length] == 0 && postProcessingEnabled) {
-        return;
-    }
-    if (postProcessingEnabled != _postProcessingEnabled) {
-        _postProcessingEnabled = postProcessingEnabled;
-        [self handleCompilationOptionsEnablementChanged];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
-    }
-}
-
-- (UserScript *)postProcessingScript {
-    if (_postProcessingScriptName.length == 0)
-        return nil;
-
-    NSArray *userScripts = [UserScriptManager sharedUserScriptManager].userScripts;
-    for (UserScript *userScript in userScripts) {
-        if ([userScript.uniqueName isEqualToString:_postProcessingScriptName])
-            return userScript;
-    }
-
-    return [[MissingUserScript alloc] initWithName:_postProcessingScriptName];
 }
 
 

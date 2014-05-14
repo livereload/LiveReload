@@ -7,7 +7,6 @@
 @class FSMonitor;
 @class FSTree;
 @class Compiler;
-@class CompilationOptions;
 @class LRFile;
 @class ImportGraph;
 @class UserScript;
@@ -53,7 +52,6 @@ enum {
 - (void)updateAccessibility;
 
 @property(nonatomic) BOOL enabled;
-@property(nonatomic) BOOL compilationEnabled;
 
 @property(nonatomic) BOOL disableLiveRefresh;
 @property(nonatomic) BOOL enableRemoteServerWorkflow;
@@ -72,12 +70,6 @@ enum {
 - (FSTree *)obtainTree;
 - (void)rescanTree;
 
-@property(nonatomic, readonly) NSArray *compilersInUse;
-
-- (CompilationOptions *)optionsForCompiler:(Compiler *)compiler create:(BOOL)create;
-
-- (LRFile *)optionsForFileAtPath:(NSString *)sourcePath in:(CompilationOptions *)compilationOptions;
-
 - (void)ceaseAllMonitoring;
 - (void)requestMonitoring:(BOOL)monitoringEnabled forKey:(NSString *)key;
 
@@ -90,11 +82,6 @@ enum {
 @property(nonatomic, copy) NSString *lastSelectedPane;
 
 @property(nonatomic, getter = isDirty) BOOL dirty;
-
-@property(nonatomic, strong) NSString *postProcessingCommand;
-@property(nonatomic, strong) NSString *postProcessingScriptName;
-@property(nonatomic, readonly) UserScript *postProcessingScript;
-@property(nonatomic) BOOL postProcessingEnabled;
 
 @property(nonatomic, copy) NSString *rubyVersionIdentifier;
 

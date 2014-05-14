@@ -3,7 +3,6 @@
 
 
 @class Plugin;
-@class CompilationOptions;
 @class LRFile;
 @class FSTree;
 @class ToolOutput;
@@ -43,13 +42,7 @@
 @property(nonatomic, readonly) BOOL needsOutputDirectory;
 @property(nonatomic, readonly, getter=isOptional) BOOL optional;
 
-@property(nonatomic, readonly) NSString *sourceExtensionsForDisplay;
-@property(nonatomic, readonly) NSString *destinationExtensionForDisplay;
-
 @property(nonatomic, readonly) NSArray *options;
-- (NSArray *)optionsForProject:(Project *)project;
-
-- (void)compile:(NSString *)sourceRelPath into:(NSString *)destinationRelPath under:(NSString *)rootPath inProject:(Project *)project with:(CompilationOptions *)options compilerOutput:(ToolOutput **)compilerOutput;
 
 - (NSArray *)pathsOfSourceFilesInTree:(FSTree *)tree;
 

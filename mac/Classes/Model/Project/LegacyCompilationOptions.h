@@ -7,7 +7,7 @@
 @class LRFile;
 
 
-@interface CompilationOptions : NSObject {
+@interface LegacyCompilationOptions : NSObject {
 @private
     Compiler              *_compiler;
     NSMutableDictionary   *_globalOptions;
@@ -26,19 +26,10 @@
 
 - (NSDictionary *)memento;
 
-@property(nonatomic, readonly) NSArray *availableVersions;
-@property(nonatomic, strong) CompilerVersion *version;
-
 @property(nonatomic, getter=isEnabled) BOOL enabled;
 @property(nonatomic, readonly, getter=isActive) BOOL active; // YES if enabled or not optional
 
 @property(nonatomic, copy) NSString *additionalArguments;
-
-- (LRFile *)optionsForFileAtPath:(NSString *)path create:(BOOL)create;
-
-- (NSString *)sourcePathThatCompilesInto:(NSString *)outputPath;
-
-@property(nonatomic, readonly) NSArray *allFileOptions;
 
 - (id)valueForOptionIdentifier:(NSString *)optionIdentifier;
 - (void)setValue:(id)value forOptionIdentifier:(NSString *)optionIdentifier;
