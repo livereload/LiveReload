@@ -35,6 +35,10 @@ Hacking tips
 
 2. Traditional (non-Node.js) LiveReload supports -LRPortNumber 35778 option to override the port number. This is useful to compile backend sources with one copy of LiveReload while debugging another one.
 
+To re-sign the Node.js binary:
+
+    codesign -f -s "3rd Party Mac Developer Application: Andrey Tarantsov" --identifier 'com.livereload.LiveReload.tools.nodejs' --entitlements LiveReload/Resources/LiveReloadNodejs.entitlements LiveReload/Resources/LiveReloadNodejs
+
 
 
 AppNewsKit
