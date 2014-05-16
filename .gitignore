@@ -2,6 +2,7 @@
 *.perspectivev3
 *.sublime-*
 *.swp
+*.xccheckout
 xcuserdata
 /LiveReload/build
 /interim
