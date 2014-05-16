@@ -1332,7 +1332,7 @@
 				INSTALL_PATH = "$(HOME)/Applications";
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = LiveReload;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "E8BEA48E-BF84-4412-A2F8-5CBFF35C4660";
 			};
 			name = AppStore;
 		};
