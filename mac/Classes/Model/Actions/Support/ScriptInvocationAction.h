@@ -3,7 +3,7 @@
 
 
 @class ScriptInvocationStep;
-@class LRFile2;
+@class LRProjectFile;
 
 
 @interface ScriptInvocationActionType : ActionType
@@ -13,7 +13,7 @@
 @interface ScriptInvocationAction : Action
 
 // override points
-- (void)configureStep:(ScriptInvocationStep *)step forFile:(LRFile2 *)file;
-- (void)didCompleteCompilationStep:(ScriptInvocationStep *)step forFile:(LRFile2 *)file;
+- (void)configureStep:(ScriptInvocationStep *)step forFile:(LRProjectFile *)file;
+- (void)didCompleteCompilationStep:(ScriptInvocationStep *)step forFile:(LRProjectFile *)file;
 
 @end

@@ -98,9 +98,9 @@ enum {
 @property(nonatomic, strong, readonly) NSArray *pathOptions;
 @property(nonatomic, strong, readonly) NSArray *availableSubfolders;
 
-- (BOOL)hackhack_shouldFilterFile:(LRFile2 *)file;
-- (void)hackhack_didFilterFile:(LRFile2 *)file;
-- (void)hackhack_didWriteCompiledFile:(LRFile2 *)file;
+- (BOOL)hackhack_shouldFilterFile:(LRProjectFile *)file;
+- (void)hackhack_didFilterFile:(LRProjectFile *)file;
+- (void)hackhack_didWriteCompiledFile:(LRProjectFile *)file;
 
 @property(nonatomic, readonly, getter=isBuildInProgress) BOOL buildInProgress;
 - (void)rebuildAll;

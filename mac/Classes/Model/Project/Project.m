@@ -12,7 +12,7 @@
 #import "PluginManager.h"
 #import "Compiler.h"
 #import "LegacyCompilationOptions.h"
-#import "LRFile2.h"
+#import "LRProjectFile.h"
 #import "ImportGraph.h"
 #import "ToolOutput.h"
 #import "UserScript.h"
@@ -946,7 +946,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
 #pragma mark - Filtering loop prevention hack
 
-- (BOOL)hackhack_shouldFilterFile:(LRFile2 *)file {
+- (BOOL)hackhack_shouldFilterFile:(LRProjectFile *)file {
     NSDate *date = _fileDatesHack[file.relativePath];
     if (date) {
         NSDate *fileDate = nil;
@@ -960,11 +960,11 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     return YES;
 }
 
-- (void)hackhack_didFilterFile:(LRFile2 *)file {
+- (void)hackhack_didFilterFile:(LRProjectFile *)file {
     _fileDatesHack[file.relativePath] = [NSDate date];
 }
 
-- (void)hackhack_didWriteCompiledFile:(LRFile2 *)file {
+- (void)hackhack_didWriteCompiledFile:(LRProjectFile *)file {
     [_fileDatesHack removeObjectForKey:file.relativePath];
 }
 

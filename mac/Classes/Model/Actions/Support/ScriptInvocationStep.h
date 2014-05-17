@@ -3,7 +3,7 @@
 
 
 @class Project;
-@class LRFile2;
+@class LRProjectFile;
 @class RuntimeInstance;
 @class LROperationResult;
 
@@ -21,11 +21,11 @@ typedef void (^ScriptInvocationOutputLineBlock)(NSString *line);
 @property(nonatomic, retain) RuntimeInstance *rubyInstance;
 
 - (void)addValue:(id)value forSubstitutionKey:(NSString *)key;
-- (void)addFileValue:(LRFile2 *)file forSubstitutionKey:(NSString *)key;
+- (void)addFileValue:(LRProjectFile *)file forSubstitutionKey:(NSString *)key;
 
 - (void)invoke;
 
-- (LRFile2 *)fileForKey:(NSString *)key;
+- (LRProjectFile *)fileForKey:(NSString *)key;
 
 @property(nonatomic) BOOL finished;
 @property(nonatomic, retain) NSError *error;

@@ -1,7 +1,7 @@
 
 #import "LRFileTargetResult.h"
 #import "Action.h"
-#import "LRFile2.h"
+#import "LRProjectFile.h"
 #import "Project.h"
 #import "LROperationResult.h"
 
@@ -13,7 +13,7 @@
 
 @implementation LRFileTargetResult
 
-- (instancetype)initWithAction:(Action *)action sourceFile:(LRFile2 *)sourceFile {
+- (instancetype)initWithAction:(Action *)action sourceFile:(LRProjectFile *)sourceFile {
     self = [super initWithAction:action];
     if (self) {
         _sourceFile = sourceFile;

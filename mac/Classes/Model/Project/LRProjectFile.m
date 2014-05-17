@@ -1,8 +1,8 @@
 
-#import "LRFile2.h"
+#import "LRProjectFile.h"
 #import "Project.h"
 
-@implementation LRFile2
+@implementation LRProjectFile
 
 - (id)initWithRelativePath:(NSString *)relativePath project:(Project *)project {
     self = [super init];
@@ -13,7 +13,7 @@
     return self;
 }
 
-+ (LRFile2 *)fileWithRelativePath:(NSString *)relativePath project:(Project *)project {
++ (LRProjectFile *)fileWithRelativePath:(NSString *)relativePath project:(Project *)project {
     return [[[self class] alloc] initWithRelativePath:relativePath project:project];
 }
 

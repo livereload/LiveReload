@@ -1,6 +1,6 @@
 
 #import "ScriptInvocationStep.h"
-#import "LRFile2.h"
+#import "LRProjectFile.h"
 #import "Project.h"
 #import "LROperationResult.h"
 #import "LRMessage.h"
@@ -40,7 +40,7 @@
     return self;
 }
 
-- (LRFile2 *)fileForKey:(NSString *)key {
+- (LRProjectFile *)fileForKey:(NSString *)key {
     return _files[key];
 }
 
@@ -48,7 +48,7 @@
     _substitutions[[NSString stringWithFormat:@"$(%@)", key]] = value;
 }
 
-- (void)addFileValue:(LRFile2 *)file forSubstitutionKey:(NSString *)key {
+- (void)addFileValue:(LRProjectFile *)file forSubstitutionKey:(NSString *)key {
     _files[key] = file;
     [self addValue:[file.relativePath lastPathComponent] forSubstitutionKey:[NSString stringWithFormat:@"%@_file", key]];
     [self addValue:file.absolutePath forSubstitutionKey:[NSString stringWithFormat:@"%@_path", key]];

@@ -1,7 +1,7 @@
 
 #import "FilterAction.h"
 #import "Project.h"
-#import "LRFile2.h"
+#import "LRProjectFile.h"
 #import "ScriptInvocationStep.h"
 #import "LRFileTargetResult.h"
 
@@ -24,18 +24,18 @@
     //    memento[@"output"] = self.outputFilterOption.memento;
 }
 
-- (void)configureStep:(ScriptInvocationStep *)step forFile:(LRFile2 *)file {
+- (void)configureStep:(ScriptInvocationStep *)step forFile:(LRProjectFile *)file {
     [super configureStep:step forFile:file];
 
     [step addFileValue:file forSubstitutionKey:@"src"];
 }
 
-- (void)didCompleteCompilationStep:(ScriptInvocationStep *)step forFile:(LRFile2 *)file {
-    LRFile2 *outputFile = [step fileForKey:@"src"];
+- (void)didCompleteCompilationStep:(ScriptInvocationStep *)step forFile:(LRProjectFile *)file {
+    LRProjectFile *outputFile = [step fileForKey:@"src"];
     [file.project hackhack_didFilterFile:outputFile];
 }
 
-- (void)compileFile:(LRFile2 *)file inProject:(Project *)project result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
+- (void)compileFile:(LRProjectFile *)file inProject:(Project *)project result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
     if (![project hackhack_shouldFilterFile:file]) {
         completionHandler();
         return;
@@ -48,7 +48,7 @@
     return YES;
 }
 
-- (LRTargetResult *)fileTargetForRootFile:(LRFile2 *)sourceFile {
+- (LRTargetResult *)fileTargetForRootFile:(LRProjectFile *)sourceFile {
     return [[LRFileTargetResult alloc] initWithAction:self sourceFile:sourceFile];
 }
 

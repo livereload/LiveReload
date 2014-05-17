@@ -1,6 +1,6 @@
 
 #import "Action.h"
-#import "LRFile2.h"
+#import "LRProjectFile.h"
 #import "LRCommandLine.h"
 #import "LRContextActionType.h"
 #import "LRActionVersion.h"
@@ -139,7 +139,7 @@ NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification = @"LRActio
     return YES;
 }
 
-- (BOOL)shouldInvokeForFile:(LRFile2 *)file {
+- (BOOL)shouldInvokeForFile:(LRProjectFile *)file {
     return [self.inputPathSpec matchesPath:file.relativePath type:ATPathSpecEntryTypeFile];
 }
 
@@ -151,7 +151,7 @@ NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification = @"LRActio
     return NO;
 }
 
-- (LRTargetResult *)fileTargetForRootFile:(LRFile2 *)file {
+- (LRTargetResult *)fileTargetForRootFile:(LRProjectFile *)file {
     return nil;
 }
 
@@ -162,7 +162,7 @@ NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification = @"LRActio
     NSArray *rootPaths = [self.project rootPathsForPaths:matchingPaths];
     NSArray *matchingRootPaths = [self pathsMatchedByInputPathSpecAmongFilePaths:rootPaths];
     return [matchingRootPaths arrayByMappingElementsUsingBlock:^id(NSString *relativePath) {
-        LRFile2 *file = [LRFile2 fileWithRelativePath:relativePath project:self.project];
+        LRProjectFile *file = [LRProjectFile fileWithRelativePath:relativePath project:self.project];
         return [self fileTargetForRootFile:file];
     }];
 }
@@ -179,14 +179,14 @@ NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification = @"LRActio
     return [self.inputPathSpec matchingPathsInArray:paths type:ATPathSpecEntryTypeFile];
 }
 
-- (void)analyzeFile:(LRFile2 *)file inProject:(Project *)project {
+- (void)analyzeFile:(LRProjectFile *)file inProject:(Project *)project {
 }
 
-- (void)compileFile:(LRFile2 *)file inProject:(Project *)project result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
+- (void)compileFile:(LRProjectFile *)file inProject:(Project *)project result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
     abort();
 }
 
-- (void)handleDeletionOfFile:(LRFile2 *)file inProject:(Project *)project {
+- (void)handleDeletionOfFile:(LRProjectFile *)file inProject:(Project *)project {
 }
 
 - (void)invokeForProject:(Project *)project withModifiedFiles:(NSSet *)paths result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {

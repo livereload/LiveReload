@@ -3,7 +3,7 @@
 #import "ScriptInvocationStep.h"
 #import "Project.h"
 //#import "Plugin.h"
-#import "LRFile2.h"
+#import "LRProjectFile.h"
 #import "LRPathProcessing.h"
 #import "LRFileTargetResult.h"
 
@@ -37,7 +37,7 @@
     memento[@"output"] = self.outputFilterOption.memento;
 }
 
-- (LRFile2 *)destinationFileForSourceFile:(LRFile2 *)file inProject:(Project *)project {
+- (LRProjectFile *)destinationFileForSourceFile:(LRProjectFile *)file inProject:(Project *)project {
     NSString *destinationName = LRDeriveDestinationFileName([file.relativePath lastPathComponent], self.type.manifest[@"output"], self.intrinsicInputPathSpec);
 
     BOOL outputMappingIsRecursive = YES; // TODO: make this conditional
@@ -55,22 +55,22 @@
     if (self.outputFilterOption.subfolder)
         destinationRelativePath = [self.outputFilterOption.subfolder stringByAppendingPathComponent:destinationName];
 
-    return [LRFile2 fileWithRelativePath:destinationRelativePath project:project];
+    return [LRProjectFile fileWithRelativePath:destinationRelativePath project:project];
 }
 
-- (void)handleDeletionOfFile:(LRFile2 *)file inProject:(Project *)project {
-    LRFile2 *destinationFile = [self destinationFileForSourceFile:file inProject:project];
+- (void)handleDeletionOfFile:(LRProjectFile *)file inProject:(Project *)project {
+    LRProjectFile *destinationFile = [self destinationFileForSourceFile:file inProject:project];
     if (![destinationFile.absoluteURL isEqual:file.absoluteURL] && destinationFile.exists) {
         [[NSFileManager defaultManager] removeItemAtURL:destinationFile.absoluteURL error:NULL];
     }
 }
 
-- (void)configureStep:(ScriptInvocationStep *)step forFile:(LRFile2 *)file {
+- (void)configureStep:(ScriptInvocationStep *)step forFile:(LRProjectFile *)file {
     [super configureStep:step forFile:file];
 
     [step addFileValue:file forSubstitutionKey:@"src"];
 
-    LRFile2 *destinationFile = [self destinationFileForSourceFile:file inProject:step.project];
+    LRProjectFile *destinationFile = [self destinationFileForSourceFile:file inProject:step.project];
 
     NSURL *destinationFolderURL = [destinationFile.absoluteURL URLByDeletingLastPathComponent];
     if (![destinationFolderURL checkResourceIsReachableAndReturnError:NULL]) {
@@ -79,8 +79,8 @@
     [step addFileValue:destinationFile forSubstitutionKey:@"dst"];
 }
 
-- (void)didCompleteCompilationStep:(ScriptInvocationStep *)step forFile:(LRFile2 *)file {
-    LRFile2 *outputFile = [step fileForKey:@"dst"];
+- (void)didCompleteCompilationStep:(ScriptInvocationStep *)step forFile:(LRProjectFile *)file {
+    LRProjectFile *outputFile = [step fileForKey:@"dst"];
     [file.project hackhack_didWriteCompiledFile:outputFile];
 }
 
@@ -88,7 +88,7 @@
     return YES;
 }
 
-- (LRTargetResult *)fileTargetForRootFile:(LRFile2 *)sourceFile {
+- (LRTargetResult *)fileTargetForRootFile:(LRProjectFile *)sourceFile {
     return [[LRFileTargetResult alloc] initWithAction:self sourceFile:sourceFile];
 }
 
