@@ -4,7 +4,6 @@
 
 @class Compiler;
 @class CompilerVersion;
-@class LRFile;
 
 
 @interface LegacyCompilationOptions : NSObject {

@@ -3,7 +3,6 @@
 
 
 @class Plugin;
-@class LRFile;
 @class FSTree;
 @class ToolOutput;
 @class Project;

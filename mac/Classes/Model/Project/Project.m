@@ -12,7 +12,6 @@
 #import "PluginManager.h"
 #import "Compiler.h"
 #import "LegacyCompilationOptions.h"
-#import "LRFile.h"
 #import "LRFile2.h"
 #import "ImportGraph.h"
 #import "ToolOutput.h"

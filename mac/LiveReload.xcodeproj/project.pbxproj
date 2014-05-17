@@ -108,7 +108,7 @@
 		433D2192182646E300E81A09 /* LegacyCompilationOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 433D2187182646E300E81A09 /* LegacyCompilationOptions.m */; };
 		433D2193182646E300E81A09 /* FilterOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 433D2189182646E300E81A09 /* FilterOption.m */; };
 		433D2194182646E300E81A09 /* ImportGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 433D218B182646E300E81A09 /* ImportGraph.m */; };
-		433D2195182646E300E81A09 /* LRFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 433D218D182646E300E81A09 /* LRFile.m */; };
+		433D2195182646E300E81A09 /* LRLegacyFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 433D218D182646E300E81A09 /* LRLegacyFile.m */; };
 		433D2196182646E300E81A09 /* LRFile2.m in Sources */ = {isa = PBXBuildFile; fileRef = 433D218F182646E300E81A09 /* LRFile2.m */; };
 		433D2197182646E300E81A09 /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 433D2191182646E300E81A09 /* Project.m */; };
 		433D219B182646EB00E81A09 /* UserScript.m in Sources */ = {isa = PBXBuildFile; fileRef = 433D219A182646EB00E81A09 /* UserScript.m */; };
@@ -144,7 +144,6 @@
 		434BB26E17BA71FA000BEB1C /* RunScriptActionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB26D17BA71FA000BEB1C /* RunScriptActionRow.m */; };
 		434BB27117BB7D14000BEB1C /* FiltersGroupHeaderRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB27017BB7D14000BEB1C /* FiltersGroupHeaderRow.m */; };
 		434BB27417BB7F3A000BEB1C /* AddFilterRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB27317BB7F3A000BEB1C /* AddFilterRow.m */; };
-		434BB28217BBF23A000BEB1C /* Step.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB28117BBF23A000BEB1C /* Step.m */; };
 		43508A7E17B3767E00871422 /* ShadowBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A7D17B3767E00871422 /* ShadowBoxView.m */; };
 		43508A8117B3819500871422 /* ATAutolayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A8017B3819500871422 /* ATAutolayout.m */; };
 		43508A8417B392A500871422 /* ATStackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A8317B392A500871422 /* ATStackView.m */; };
@@ -544,8 +543,8 @@
 		433D2189182646E300E81A09 /* FilterOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterOption.m; sourceTree = "<group>"; };
 		433D218A182646E300E81A09 /* ImportGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImportGraph.h; sourceTree = "<group>"; };
 		433D218B182646E300E81A09 /* ImportGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImportGraph.m; sourceTree = "<group>"; };
-		433D218C182646E300E81A09 /* LRFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRFile.h; sourceTree = "<group>"; };
-		433D218D182646E300E81A09 /* LRFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRFile.m; sourceTree = "<group>"; };
+		433D218C182646E300E81A09 /* LRLegacyFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRLegacyFile.h; sourceTree = "<group>"; };
+		433D218D182646E300E81A09 /* LRLegacyFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRLegacyFile.m; sourceTree = "<group>"; };
 		433D218E182646E300E81A09 /* LRFile2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRFile2.h; sourceTree = "<group>"; };
 		433D218F182646E300E81A09 /* LRFile2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRFile2.m; sourceTree = "<group>"; };
 		433D2190182646E300E81A09 /* Project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Project.h; sourceTree = "<group>"; };
@@ -613,8 +612,6 @@
 		434BB27017BB7D14000BEB1C /* FiltersGroupHeaderRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FiltersGroupHeaderRow.m; sourceTree = "<group>"; };
 		434BB27217BB7F3A000BEB1C /* AddFilterRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddFilterRow.h; sourceTree = "<group>"; };
 		434BB27317BB7F3A000BEB1C /* AddFilterRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddFilterRow.m; sourceTree = "<group>"; };
-		434BB28017BBF23A000BEB1C /* Step.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Step.h; sourceTree = "<group>"; };
-		434BB28117BBF23A000BEB1C /* Step.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Step.m; sourceTree = "<group>"; };
 		434BB29F17BBF512000BEB1C /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		434BB2A317BBF512000BEB1C /* ATPathSpecTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ATPathSpecTests-Info.plist"; sourceTree = "<group>"; };
 		434BB2A517BBF512000BEB1C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -1361,8 +1358,8 @@
 				43124AE218E2FACE0085CEF1 /* LROutputFileMapping.m */,
 				433D218A182646E300E81A09 /* ImportGraph.h */,
 				433D218B182646E300E81A09 /* ImportGraph.m */,
-				433D218C182646E300E81A09 /* LRFile.h */,
-				433D218D182646E300E81A09 /* LRFile.m */,
+				433D218C182646E300E81A09 /* LRLegacyFile.h */,
+				433D218D182646E300E81A09 /* LRLegacyFile.m */,
 				433D218E182646E300E81A09 /* LRFile2.h */,
 				433D218F182646E300E81A09 /* LRFile2.m */,
 				433D2190182646E300E81A09 /* Project.h */,
@@ -1512,15 +1509,6 @@
 				43124AE518E413670085CEF1 /* LROutputMappingOptionController.m */,
 			);
 			path = Options;
-			sourceTree = "<group>";
-		};
-		434BB27F17BBF23A000BEB1C /* Graph */ = {
-			isa = PBXGroup;
-			children = (
-				434BB28017BBF23A000BEB1C /* Step.h */,
-				434BB28117BBF23A000BEB1C /* Step.m */,
-			);
-			path = Graph;
 			sourceTree = "<group>";
 		};
 		434BB2A117BBF512000BEB1C /* ATPathSpecTests */ = {
@@ -2050,7 +2038,6 @@
 				823DDE4213F8DA3100529AD2 /* Editors */,
 				437BAB8B173A13F5005AA1C0 /* Runtimes */,
 				823DDE6713F8DA3100529AD2 /* Model */,
-				434BB27F17BBF23A000BEB1C /* Graph */,
 				43C611911803BD95008A707E /* SandboxAccess */,
 				823DDE7213F8DA3100529AD2 /* Monitoring */,
 				823DDE7B13F8DA3100529AD2 /* Plugins */,
@@ -2554,7 +2541,7 @@
 				43158FF3191AA11100DE8A5A /* LRTRProtocolParser.m in Sources */,
 				4353196F1465B52D005FA59F /* ShitHappens.m in Sources */,
 				43F50BFC146706B0004FD951 /* BaseProjectSettingsWindowController.m in Sources */,
-				433D2195182646E300E81A09 /* LRFile.m in Sources */,
+				433D2195182646E300E81A09 /* LRLegacyFile.m in Sources */,
 				431466A6146CA68500DC075A /* PassThruView.m in Sources */,
 				431466A9146CA82200DC075A /* PassThruImageView.m in Sources */,
 				434BB25517B8F97E000BEB1C /* BaseActionRow.m in Sources */,
@@ -2568,7 +2555,6 @@
 				43F002CF146EC97B005D48A4 /* MainWindow.m in Sources */,
 				4396F1E017F8112F00AA8200 /* GlitterFeed.m in Sources */,
 				43F002D2146F4135005D48A4 /* TerminalView.m in Sources */,
-				434BB28217BBF23A000BEB1C /* Step.m in Sources */,
 				43F002F8146FF584005D48A4 /* TerminalViewController.m in Sources */,
 				43122C0718141F0B00BF8121 /* LRTextFieldOption.m in Sources */,
 				43E34F9B14705125001641AA /* console.c in Sources */,

@@ -7,7 +7,6 @@
 @class FSMonitor;
 @class FSTree;
 @class Compiler;
-@class LRFile;
 @class ImportGraph;
 @class UserScript;
 @class LRPackageResolutionContext;

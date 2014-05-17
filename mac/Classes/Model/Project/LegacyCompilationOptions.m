@@ -1,6 +1,6 @@
 
 #import "LegacyCompilationOptions.h"
-#import "LRFile.h"
+#import "LRLegacyFile.h"
 #import "Compiler.h"
 #import "CompilerVersion.h"
 
@@ -31,7 +31,7 @@
         raw = [memento objectForKey:@"files"];
         if (raw) {
             [raw enumerateKeysAndObjectsUsingBlock:^(id filePath, id fileMemento, BOOL *stop) {
-                [_fileOptions setObject:[[LRFile alloc] initWithFile:filePath memento:fileMemento] forKey:filePath];
+                [_fileOptions setObject:[[LRLegacyFile alloc] initWithFile:filePath memento:fileMemento] forKey:filePath];
             }];
         }
 
