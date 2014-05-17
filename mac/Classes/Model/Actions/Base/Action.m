@@ -155,16 +155,24 @@ NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification = @"LRActio
     return nil;
 }
 
-- (NSArray *)fileTargetsForModifiedFiles:(NSSet *)paths {
+- (NSArray *)fileTargetsForModifiedFiles:(NSArray *)modifiedFiles {
     if (![self supportsFileTargets])
         return @[];
-    NSArray *matchingPaths = [self pathsMatchedByInputPathSpecAmongFilePaths:[paths allObjects]];
-    NSArray *rootPaths = [self.project rootPathsForPaths:matchingPaths];
-    NSArray *matchingRootPaths = [self pathsMatchedByInputPathSpecAmongFilePaths:rootPaths];
-    return [matchingRootPaths arrayByMappingElementsUsingBlock:^id(NSString *relativePath) {
-        LRProjectFile *file = [LRProjectFile fileWithRelativePath:relativePath project:self.project];
+    NSArray *matchingFiles = [self filesMatchedByInputPathSpecAmongFiles:modifiedFiles type:ATPathSpecEntryTypeFile];
+    NSArray *rootFiles = [self.project rootFilesForFiles:matchingFiles];
+    NSArray *matchingRootFiles = [self filesMatchedByInputPathSpecAmongFiles:rootFiles type:ATPathSpecEntryTypeFile];
+    return [matchingRootFiles arrayByMappingElementsUsingBlock:^id(LRProjectFile *file) {
         return [self fileTargetForRootFile:file];
     }];
+}
+
+- (NSArray *)filesMatchedByInputPathSpecAmongFiles:(NSArray *)files type:(ATPathSpecEntryType)type {
+    NSMutableArray *result = [[NSMutableArray alloc] initWithCapacity:files.count];
+    for (LRProjectFile *file in files) {
+        if ([self.inputPathSpec matchesPath:file.relativePath type:type])
+            [result addObject:file];
+    }
+    return [result copy];
 }
 
 - (BOOL)inputPathSpecMatchesPaths:(NSSet *)paths {

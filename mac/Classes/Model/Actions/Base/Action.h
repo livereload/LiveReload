@@ -46,7 +46,7 @@ extern NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification;
 
 - (LRTargetResult *)targetForModifiedFiles:(NSSet *)paths;
 
-- (NSArray *)fileTargetsForModifiedFiles:(NSSet *)paths;
+- (NSArray *)fileTargetsForModifiedFiles:(NSArray *)paths;
 
 - (BOOL)shouldInvokeForFile:(LRProjectFile *)file;
 - (void)analyzeFile:(LRProjectFile *)file inProject:(Project *)project;

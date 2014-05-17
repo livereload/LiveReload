@@ -111,6 +111,6 @@ enum {
 // public until we reimplement the notifications system based on listening for results
 - (void)displayResult:(LROperationResult *)result key:(NSString *)key;
 
-- (NSArray *)rootPathsForPaths:(id<NSFastEnumeration>)paths;
+- (NSArray *)rootFilesForFiles:(id<NSFastEnumeration>)paths;
 
 @end

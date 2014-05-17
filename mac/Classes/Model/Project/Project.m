@@ -74,9 +74,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 - (void)updateFilter;
 - (void)handleCompilationOptionsEnablementChanged;
 
-- (void)updateImportGraphForPaths:(NSSet *)paths;
-- (void)rebuildImportGraph;
-
 - (void)processPendingChanges;
 
 @end
@@ -142,6 +139,8 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
     BOOL                     _quuxMode;
     ATPathSpec              *_forcedStylesheetReloadSpec;
+
+    NSMutableDictionary     *_filesByPath;
 }
 
 @synthesize path=_path;
@@ -166,6 +165,8 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     if ((self = [super init])) {
         _rootURL = rootURL;
         [self _updateValuesDerivedFromRootURL];
+
+        _filesByPath = [NSMutableDictionary new];
 
         _enabled = YES;
 
@@ -474,7 +475,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         }
         _monitor.running = shouldBeRunning;
         if (shouldBeRunning) {
-            [self rebuildImportGraph];
+            [self reanalyzeAllFiles];
             [self checkBrokenPaths];
         }
         [[NSNotificationCenter defaultCenter] postNotificationName:ProjectMonitoringStateDidChangeNotification object:self];
@@ -520,16 +521,16 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     }
 }
 
-- (NSArray *)rootPathsForPaths:(id<NSFastEnumeration>)paths {
-    NSMutableSet *result = [NSMutableSet new];
-    for (NSString *path in paths) {
-        NSSet *rootPaths = [_importGraph rootReferencingPathsForPath:path];
+- (NSArray *)rootFilesForFiles:(id<NSFastEnumeration>)files {
+    NSMutableArray *result = [NSMutableArray new];
+    for (LRProjectFile *file in files) {
+        NSSet *rootPaths = [_importGraph rootReferencingPathsForPath:file.relativePath];
         if (rootPaths.count > 0)
-            [result addObjectsFromArray:rootPaths.allObjects];
+            [result addObjectsFromArray:[self filesAtPaths:[rootPaths allObjects]]];
         else
-            [result addObject:path];
+            [result addObject:file];
     }
-    return [result.allObjects copy];
+    return [result copy];
 }
 
 - (void)processBatchOfPendingChanges:(NSSet *)pathes {
@@ -544,11 +545,11 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         default: console_printf("Changed: %s and %d others", [[pathes anyObject] UTF8String], (int)pathes.count - 1); break;
     }
 
-    [self updateImportGraphForPaths:pathes];
+    NSArray *modifiedFiles = [self analyzeFilesAtPaths:pathes];
 
     NSArray *actions = [self.actionList.activeActions copy];
 
-    [self invokeFileActions:actions forModifiedPaths:pathes withCompletionBlock:^{
+    [self invokeFileActions:actions forModifiedFiles:modifiedFiles withCompletionBlock:^{
         // TODO: not clear why postprocessing is bound to existence of reload requests
         // (IMO it's a cheap way to ignore changes that are expected to produce another change later)
         if ([_runningBuild hasReloadRequests]) {
@@ -604,10 +605,10 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     }
 }
 
-- (void)invokeFileActions:(NSArray *)allActions forModifiedPaths:(NSSet *)paths withCompletionBlock:(dispatch_block_t)completionBlock {
+- (void)invokeFileActions:(NSArray *)allActions forModifiedFiles:(NSArray *)modifiedFiles withCompletionBlock:(dispatch_block_t)completionBlock {
     NSMutableArray *fileTargets = [NSMutableArray new];
     for (Action *action in allActions) {
-        [fileTargets addObjectsFromArray:[action fileTargetsForModifiedFiles:paths]];
+        [fileTargets addObjectsFromArray:[action fileTargetsForModifiedFiles:modifiedFiles]];
     }
 
     [self invokeTargers:fileTargets withCompletionBlock:completionBlock];
@@ -828,9 +829,40 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     [_importGraph setRereferencedPaths:referencedPaths forPath:relativePath];
 }
 
-- (void)updateImportGraphForPath:(NSString *)relativePath {
+- (LRProjectFile *)analyzeFileAtPath:(NSString *)relativePath {
     NSString *fullPath = [_path stringByAppendingPathComponent:relativePath];
-    if (![[NSFileManager defaultManager] fileExistsAtPath:fullPath]) {
+    if ([[NSFileManager defaultManager] fileExistsAtPath:fullPath]) {
+        LRProjectFile *file = _filesByPath[relativePath];
+        if (!file) {
+            file = [LRProjectFile fileWithRelativePath:relativePath project:self];
+            _filesByPath[relativePath] = file;
+        }
+        [self updateImportGraphForFile:file];
+        return file;
+    } else {
+        LRProjectFile *file = _filesByPath[relativePath];
+        if (file) {
+            [self updateImportGraphForFile:file];
+            [_filesByPath removeObjectForKey:relativePath];
+        }
+        return file;
+    }
+}
+
+- (LRProjectFile *)fileAtPath:(NSString *)relativePath {
+    return _filesByPath[relativePath];
+}
+
+- (NSArray *)filesAtPaths:(NSArray *)relativePaths {
+    return [relativePaths arrayByMappingElementsUsingBlock:^id(NSString *relativePath) {
+        return [self fileAtPath:relativePath];
+    }];
+}
+
+- (void)updateImportGraphForFile:(LRProjectFile *)file {
+    NSString *relativePath = file.relativePath;
+
+    if (!file.exists) {
         [_importGraph removePath:relativePath collectingPathsToRecomputeInto:nil];
         return;
     }
@@ -850,14 +882,16 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     }
 }
 
-- (void)updateImportGraphForPaths:(NSSet *)paths {
+- (NSArray *)analyzeFilesAtPaths:(NSSet *)paths {
+    NSMutableArray *result = [NSMutableArray new];
     for (NSString *path in paths) {
-        [self updateImportGraphForPath:path];
+        [result addObject:[self analyzeFileAtPath:path]];
     }
-    NSLog(@"Incremental import graph update finished. %@", _importGraph);
+    NSLog(@"Incremental analysis finished.");
+    return [result copy];
 }
 
-- (void)rebuildImportGraph {
+- (void)reanalyzeAllFiles {
     _compassDetected = NO;
     [_importGraph removeAllPaths];
     NSArray *paths = [_monitor.tree pathsOfFilesMatching:^BOOL(NSString *name) {
@@ -878,7 +912,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         return NO;
     }];
     for (NSString *path in paths) {
-        [self updateImportGraphForPath:path];
+        [self analyzeFileAtPath:path];
     }
     NSLog(@"Full import graph rebuild finished. %@", _importGraph);
 }
