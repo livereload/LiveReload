@@ -158,8 +158,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 @synthesize urlMasks=_urlMasks;
 
 
-#pragma mark -
-#pragma mark Init/dealloc
+#pragma mark - Init/dealloc
 
 - (id)initWithURL:(NSURL *)rootURL memento:(NSDictionary *)memento {
     if ((self = [super init])) {
@@ -268,6 +267,47 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+
+#pragma mark - Persistence
+
+- (NSMutableDictionary *)memento {
+    NSMutableDictionary *memento = [NSMutableDictionary dictionary];
+    if (_lastSelectedPane)
+        [memento setObject:_lastSelectedPane forKey:@"last_pane"];
+    [memento setObject:[NSNumber numberWithBool:_disableLiveRefresh] forKey:@"disableLiveRefresh"];
+    [memento setObject:[NSNumber numberWithBool:_enableRemoteServerWorkflow] forKey:@"enableRemoteServerWorkflow"];
+    if (_fullPageReloadDelay > 0.001) {
+        [memento setObject:[NSNumber numberWithDouble:_fullPageReloadDelay] forKey:@"fullPageReloadDelay"];
+    }
+    if (_eventProcessingDelay > 0.001) {
+        [memento setObject:[NSNumber numberWithDouble:_eventProcessingDelay] forKey:@"eventProcessingDelay"];
+    }
+    if (fabs(_postProcessingGracePeriod - DefaultPostProcessingGracePeriod) > 0.01) {
+        [memento setObject:[NSNumber numberWithDouble:_postProcessingGracePeriod] forKey:@"postProcessingGracePeriod"];
+    }
+    if ([_excludedFolderPaths count] > 0) {
+        [memento setObject:_excludedFolderPaths forKey:@"excludedPaths"];
+    }
+    if ([_urlMasks count] > 0) {
+        [memento setObject:_urlMasks forKey:@"urls"];
+    }
+    [memento setObject:_rubyVersionIdentifier forKey:@"rubyVersion"];
+
+    [memento setObject:[NSNumber numberWithInteger:_numberOfPathComponentsToUseAsName] forKey:@"numberOfPathComponentsToUseAsName"];
+    if (_customName.length > 0)
+        [memento setObject:_customName forKey:@"customName"];
+
+    if (_superAdvancedOptions.count > 0)
+        [memento setObject:_superAdvancedOptions forKey:@"advanced"];
+
+    [memento setValuesForKeysWithDictionary:_actionList.memento];
+
+    return memento;
+}
+
+
+#pragma mark - Basic properties
+
 - (void)setRootURL:(NSURL *)rootURL {
     if (![_rootURL isEqual:rootURL]) {
         _rootURL = rootURL;
@@ -323,45 +363,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         [self updateFilter];
         [self _updateMonitoringState];
     }
-}
-
-
-#pragma mark -
-#pragma mark Persistence
-
-- (NSMutableDictionary *)memento {
-    NSMutableDictionary *memento = [NSMutableDictionary dictionary];
-    if (_lastSelectedPane)
-        [memento setObject:_lastSelectedPane forKey:@"last_pane"];
-    [memento setObject:[NSNumber numberWithBool:_disableLiveRefresh] forKey:@"disableLiveRefresh"];
-    [memento setObject:[NSNumber numberWithBool:_enableRemoteServerWorkflow] forKey:@"enableRemoteServerWorkflow"];
-    if (_fullPageReloadDelay > 0.001) {
-        [memento setObject:[NSNumber numberWithDouble:_fullPageReloadDelay] forKey:@"fullPageReloadDelay"];
-    }
-    if (_eventProcessingDelay > 0.001) {
-        [memento setObject:[NSNumber numberWithDouble:_eventProcessingDelay] forKey:@"eventProcessingDelay"];
-    }
-    if (fabs(_postProcessingGracePeriod - DefaultPostProcessingGracePeriod) > 0.01) {
-        [memento setObject:[NSNumber numberWithDouble:_postProcessingGracePeriod] forKey:@"postProcessingGracePeriod"];
-    }
-    if ([_excludedFolderPaths count] > 0) {
-        [memento setObject:_excludedFolderPaths forKey:@"excludedPaths"];
-    }
-    if ([_urlMasks count] > 0) {
-        [memento setObject:_urlMasks forKey:@"urls"];
-    }
-    [memento setObject:_rubyVersionIdentifier forKey:@"rubyVersion"];
-
-    [memento setObject:[NSNumber numberWithInteger:_numberOfPathComponentsToUseAsName] forKey:@"numberOfPathComponentsToUseAsName"];
-    if (_customName.length > 0)
-        [memento setObject:_customName forKey:@"customName"];
-
-    if (_superAdvancedOptions.count > 0)
-        [memento setObject:_superAdvancedOptions forKey:@"advanced"];
-
-    [memento setValuesForKeysWithDictionary:_actionList.memento];
-
-    return memento;
 }
 
 
@@ -422,8 +423,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 }
 
 
-#pragma mark -
-#pragma mark File System Monitoring
+#pragma mark - File system monitoring
 
 - (void)ceaseAllMonitoring {
     [_monitoringRequests removeAllObjects];
@@ -445,11 +445,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         _brokenPathReported = YES;
     }
 }
-
-- (BOOL)isFileImported:(NSString *)path {
-    return [_importGraph hasReferencingPathsForPath:path];
-}
-
 
 - (void)requestMonitoring:(BOOL)monitoringEnabled forKey:(NSString *)key {
     if ([_monitoringRequests containsObject:key] != monitoringEnabled) {
@@ -482,29 +477,20 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     }
 }
 
-- (BOOL)isCompassConfigurationFile:(NSString *)relativePath {
-    return MatchLastPathTwoComponents(relativePath, @"config", @"compass.rb") || MatchLastPathTwoComponents(relativePath, @".compass", @"config.rb") || MatchLastPathTwoComponents(relativePath, @"config", @"compass.config") || MatchLastPathComponent(relativePath, @"config.rb") || MatchLastPathTwoComponents(relativePath, @"src", @"config.rb");
+- (FSTree *)tree {
+    return _monitor.tree;
 }
 
-- (void)scanCompassConfigurationFile:(NSString *)relativePath {
-    NSString *data = [NSString stringWithContentsOfFile:[self.path stringByAppendingPathComponent:relativePath] encoding:NSUTF8StringEncoding error:nil];
-    if (data) {
-        if ([data isMatchedByRegex:@"compass plugins"] || [data isMatchedByRegex:@"^preferred_syntax = :(sass|scss)" options:RKLMultiline inRange:NSMakeRange(0, data.length) error:nil]) {
-            _compassDetected = YES;
-        }
-    }
+- (FSTree *)obtainTree {
+    return [_monitor obtainTree];
 }
 
-- (void)enqueueReloadRequestAtPath:(NSString *)relativePath {
-    NSString *extension = [relativePath pathExtension];
-
-    if (_forcedStylesheetReloadSpec && [_forcedStylesheetReloadSpec matchesPath:relativePath type:ATPathSpecEntryTypeFile]) {
-        [_runningBuild addReloadRequest:@{@"path": @"force-reload-all-stylesheets.css", @"originalPath": [NSNull null]}];
-    } else {
-        NSString *fullPath = [_path stringByAppendingPathComponent:relativePath];
-        [_runningBuild addReloadRequest:@{@"path": fullPath, @"originalPath": [NSNull null], @"localPath": fullPath}];
-    }
+- (void)rescanTree {
+    [_monitor rescan];
 }
+
+
+#pragma mark - File system monitoring (change processing)
 
 - (void)fileSystemMonitor:(FSMonitor *)monitor detectedChange:(FSChange *)change {
     [_pendingChanges unionSet:change.changedFiles];
@@ -519,18 +505,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         [self willChangeValueForKey:@"filterOptions"];
         [self didChangeValueForKey:@"filterOptions"];
     }
-}
-
-- (NSArray *)rootFilesForFiles:(id<NSFastEnumeration>)files {
-    NSMutableArray *result = [NSMutableArray new];
-    for (LRProjectFile *file in files) {
-        NSSet *rootPaths = [_importGraph rootReferencingPathsForPath:file.relativePath];
-        if (rootPaths.count > 0)
-            [result addObjectsFromArray:[self filesAtPaths:[rootPaths allObjects]]];
-        else
-            [result addObject:file];
-    }
-    return [result copy];
 }
 
 - (void)processBatchOfPendingChanges:(NSSet *)pathes {
@@ -572,11 +546,32 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     }];
 }
 
+- (void)processPendingChanges {
+    if (_processingChanges)
+        return;
+
+    [self startBuild];
+    _processingChanges = YES;
+
+    while (_pendingChanges.count > 0 || _pendingPostProcessing) {
+        NSSet *paths = _pendingChanges;
+        _pendingChanges = [[NSMutableSet alloc] init];
+        [self processBatchOfPendingChanges:paths];
+    }
+
+    _processingChanges = NO;
+    [self checkIfBuildFinished];
+}
+
+
+#pragma mark - Build
+
 - (void)startBuild {
     if (!_buildInProgress) {
         _buildInProgress = YES;
         _runningBuild = [[LRBuildResult alloc] initWithProject:self];
         NSLog(@"Build starting...");
+        [self postNotificationName:ProjectBuildStartedNotification];
     }
 }
 
@@ -637,33 +632,27 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     } completionBlock:completionBlock];
 }
 
-- (void)processPendingChanges {
-    if (_processingChanges)
-        return;
 
-    [self startBuild];
-    _processingChanges = YES;
+#pragma mark - Rebuilding
 
-    while (_pendingChanges.count > 0 || _pendingPostProcessing) {
-        NSSet *paths = _pendingChanges;
-        _pendingChanges = [[NSMutableSet alloc] init];
-        [self processBatchOfPendingChanges:paths];
+- (void)rebuildAll {
+    [_pendingChanges unionSet:[NSSet setWithArray:self.tree.filePaths]];
+    _pendingPostProcessing = YES;
+    [self processPendingChanges];
+}
+
+
+#pragma mark - Reloading
+
+- (void)enqueueReloadRequestAtPath:(NSString *)relativePath {
+//    NSString *extension = [relativePath pathExtension];
+
+    if (_forcedStylesheetReloadSpec && [_forcedStylesheetReloadSpec matchesPath:relativePath type:ATPathSpecEntryTypeFile]) {
+        [_runningBuild addReloadRequest:@{@"path": @"force-reload-all-stylesheets.css", @"originalPath": [NSNull null]}];
+    } else {
+        NSString *fullPath = [_path stringByAppendingPathComponent:relativePath];
+        [_runningBuild addReloadRequest:@{@"path": fullPath, @"originalPath": [NSNull null], @"localPath": fullPath}];
     }
-
-    _processingChanges = NO;
-    [self checkIfBuildFinished];
-}
-
-- (FSTree *)tree {
-    return _monitor.tree;
-}
-
-- (FSTree *)obtainTree {
-    return [_monitor obtainTree];
-}
-
-- (void)rescanTree {
-    [_monitor rescan];
 }
 
 
@@ -681,21 +670,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         _numberOfPathComponentsToUseAsName = numberOfPathComponentsToUseAsName;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
     }
-}
-
-- (id)enumerateParentFoldersFromFolder:(NSString *)folder with:(id(^)(NSString *folder, NSString *relativePath, BOOL *stop))block {
-    BOOL stop = NO;
-    NSString *relativePath = @"";
-    id result;
-    if ((result = block(folder, relativePath, &stop)) != nil)
-        return result;
-    while (!stop && [[folder pathComponents] count] > 1) {
-        relativePath = [[folder lastPathComponent] stringByAppendingPathComponent:relativePath];
-        folder = [folder stringByDeletingLastPathComponent];
-        if ((result = block(folder, relativePath, &stop)) != nil)
-            return result;
-    }
-    return nil;
 }
 
 - (void)handleCompilationOptionsEnablementChanged {
@@ -798,6 +772,21 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     [components addObjectsFromArray:[pathComponents subarrayWithRange:NSMakeRange(numberOfIdenticalComponents, numberOfTrailingComponents)]];
 
     return [components componentsJoinedByString:@"/"];
+}
+
+- (id)enumerateParentFoldersFromFolder:(NSString *)folder with:(id(^)(NSString *folder, NSString *relativePath, BOOL *stop))block {
+    BOOL stop = NO;
+    NSString *relativePath = @"";
+    id result;
+    if ((result = block(folder, relativePath, &stop)) != nil)
+        return result;
+    while (!stop && [[folder pathComponents] count] > 1) {
+        relativePath = [[folder lastPathComponent] stringByAppendingPathComponent:relativePath];
+        folder = [folder stringByDeletingLastPathComponent];
+        if ((result = block(folder, relativePath, &stop)) != nil)
+            return result;
+    }
+    return nil;
 }
 
 - (NSString *)safeDisplayPath {
@@ -923,6 +912,38 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     }
 }
 
+- (NSArray *)rootFilesForFiles:(id<NSFastEnumeration>)files {
+    NSMutableArray *result = [NSMutableArray new];
+    for (LRProjectFile *file in files) {
+        NSSet *rootPaths = [_importGraph rootReferencingPathsForPath:file.relativePath];
+        if (rootPaths.count > 0)
+            [result addObjectsFromArray:[self filesAtPaths:[rootPaths allObjects]]];
+        else
+            [result addObject:file];
+    }
+    return [result copy];
+}
+
+- (BOOL)isFileImported:(NSString *)path {
+    return [_importGraph hasReferencingPathsForPath:path];
+}
+
+
+#pragma mark - Analysis (Compass)
+
+- (BOOL)isCompassConfigurationFile:(NSString *)relativePath {
+    return MatchLastPathTwoComponents(relativePath, @"config", @"compass.rb") || MatchLastPathTwoComponents(relativePath, @".compass", @"config.rb") || MatchLastPathTwoComponents(relativePath, @"config", @"compass.config") || MatchLastPathComponent(relativePath, @"config.rb") || MatchLastPathTwoComponents(relativePath, @"src", @"config.rb");
+}
+
+- (void)scanCompassConfigurationFile:(NSString *)relativePath {
+    NSString *data = [NSString stringWithContentsOfFile:[self.path stringByAppendingPathComponent:relativePath] encoding:NSUTF8StringEncoding error:nil];
+    if (data) {
+        if ([data isMatchedByRegex:@"compass plugins"] || [data isMatchedByRegex:@"^preferred_syntax = :(sass|scss)" options:RKLMultiline inRange:NSMakeRange(0, data.length) error:nil]) {
+            _compassDetected = YES;
+        }
+    }
+}
+
 
 #pragma mark - Excluded paths
 
@@ -1006,15 +1027,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
 - (void)hackhack_didWriteCompiledFile:(LRProjectFile *)file {
     [_fileDatesHack removeObjectForKey:file.relativePath];
-}
-
-
-#pragma mark - Rebuilding
-
-- (void)rebuildAll {
-    [_pendingChanges unionSet:[NSSet setWithArray:self.tree.filePaths]];
-    _pendingPostProcessing = YES;
-    [self processPendingChanges];
 }
 
 
