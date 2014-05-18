@@ -137,7 +137,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     NSMutableSet            *_runningAnalysisTasks;
 
     BOOL                     _quuxMode;
-    ATPathSpec              *_forcedStylesheetReloadSpec;
 
     NSMutableDictionary     *_filesByPath;
 }
@@ -519,6 +518,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     }
 
     NSArray *modifiedFiles = [self analyzeFilesAtPaths:pathes];
+    [_runningBuild addModifiedFiles:modifiedFiles];
 
     NSArray *actions = [self.actionList.activeActions copy];
 
@@ -605,7 +605,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         [fileTargets addObjectsFromArray:[action fileTargetsForModifiedFiles:modifiedFiles]];
     }
 
-    [self invokeTargers:fileTargets withCompletionBlock:completionBlock];
+    [self invokeTargets:fileTargets withCompletionBlock:completionBlock];
 }
 
 - (void)invokePostProcessingActions:(NSArray *)allActions forModifiedPaths:(NSSet *)paths withCompletionBlock:(dispatch_block_t)completionBlock {
@@ -615,7 +615,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
     if (targets.count > 0) {
         _runningPostProcessor = YES;
-        [self invokeTargers:targets withCompletionBlock:^{
+        [self invokeTargets:targets withCompletionBlock:^{
             _runningPostProcessor = NO;
             _lastPostProcessingRunDate = [NSDate timeIntervalSinceReferenceDate];
             completionBlock();
@@ -625,7 +625,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     }
 }
 
-- (void)invokeTargers:(NSArray *)targets withCompletionBlock:(dispatch_block_t)completionBlock {
+- (void)invokeTargets:(NSArray *)targets withCompletionBlock:(dispatch_block_t)completionBlock {
     [targets p2_enumerateObjectsAsynchronouslyUsingBlock:^(LRTargetResult *target, NSUInteger idx, BOOL *stop, dispatch_block_t callback) {
         [target invokeWithCompletionBlock:callback];
     } completionBlock:completionBlock];
@@ -638,20 +638,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     [_pendingChanges unionSet:[NSSet setWithArray:self.tree.filePaths]];
     _pendingPostProcessing = YES;
     [self processPendingChanges];
-}
-
-
-#pragma mark - Reloading
-
-- (void)enqueueReloadRequestAtPath:(NSString *)relativePath {
-//    NSString *extension = [relativePath pathExtension];
-
-    if (_forcedStylesheetReloadSpec && [_forcedStylesheetReloadSpec matchesPath:relativePath type:ATPathSpecEntryTypeFile]) {
-        [_runningBuild addReloadRequest:@{@"path": @"force-reload-all-stylesheets.css", @"originalPath": [NSNull null]}];
-    } else {
-        NSString *fullPath = [_path stringByAppendingPathComponent:relativePath];
-        [_runningBuild addReloadRequest:@{@"path": fullPath, @"originalPath": [NSNull null], @"localPath": fullPath}];
-    }
 }
 
 

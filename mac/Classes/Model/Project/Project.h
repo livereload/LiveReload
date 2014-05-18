@@ -10,6 +10,7 @@
 @class ImportGraph;
 @class UserScript;
 @class LRPackageResolutionContext;
+@class ATPathSpec;
 
 
 extern NSString *ProjectDidDetectChangeNotification;
@@ -111,5 +112,7 @@ enum {
 - (void)displayResult:(LROperationResult *)result key:(NSString *)key;
 
 - (NSArray *)rootFilesForFiles:(id<NSFastEnumeration>)paths;
+
+@property(nonatomic, readonly) ATPathSpec *forcedStylesheetReloadSpec;
 
 @end

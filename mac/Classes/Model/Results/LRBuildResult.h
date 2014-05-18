@@ -11,6 +11,8 @@
 
 @property(nonatomic, readonly) Project *project;
 
+- (void)addModifiedFiles:(NSArray *)files;
+
 - (void)addReloadRequest:(NSDictionary *)reloadRequest;
 - (BOOL)hasReloadRequests;
 - (void)sendReloadRequests;
