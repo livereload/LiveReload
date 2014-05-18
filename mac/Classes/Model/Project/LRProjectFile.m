@@ -29,4 +29,8 @@
     return [self.absoluteURL checkResourceIsReachableAndReturnError:NULL];
 }
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"File<%@>", _relativePath];
+}
+
 @end
