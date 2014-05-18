@@ -13,11 +13,10 @@
 
 
 extern NSString *ProjectDidDetectChangeNotification;
-extern NSString *ProjectWillBeginCompilationNotification;
-extern NSString *ProjectDidEndCompilationNotification;
 extern NSString *ProjectMonitoringStateDidChangeNotification;
 extern NSString *ProjectNeedsSavingNotification;
 extern NSString *ProjectAnalysisDidFinishNotification;
+extern NSString *ProjectBuildStartedNotification;
 extern NSString *ProjectBuildFinishedNotification;
 
 

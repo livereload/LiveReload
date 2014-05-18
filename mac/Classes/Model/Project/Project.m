@@ -47,11 +47,10 @@
 #define DefaultPostProcessingGracePeriod 0.5
 
 NSString *ProjectDidDetectChangeNotification = @"ProjectDidDetectChangeNotification";
-NSString *ProjectWillBeginCompilationNotification = @"ProjectWillBeginCompilationNotification";
-NSString *ProjectDidEndCompilationNotification = @"ProjectDidEndCompilationNotification";
 NSString *ProjectMonitoringStateDidChangeNotification = @"ProjectMonitoringStateDidChangeNotification";
 NSString *ProjectNeedsSavingNotification = @"ProjectNeedsSavingNotification";
 NSString *ProjectAnalysisDidFinishNotification = @"ProjectAnalysisDidFinishNotification";
+NSString *ProjectBuildStartedNotification = @"ProjectBuildStartedNotification";
 NSString *ProjectBuildFinishedNotification = @"ProjectBuildFinishedNotification";
 
 static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
