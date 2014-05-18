@@ -809,45 +809,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 }
 
 
-#pragma mark - Import Support
-
-- (void)updateImportGraphForPath:(NSString *)relativePath compiler:(Compiler *)compiler {
-    NSSet *referencedPathFragments = [compiler referencedPathFragmentsForPath:[_path stringByAppendingPathComponent:relativePath]];
-
-    NSMutableSet *referencedPaths = [NSMutableSet set];
-    for (NSString *pathFragment in referencedPathFragments) {
-        if ([pathFragment rangeOfString:@"compass"].location == 0 || [pathFragment rangeOfString:@"ZURB-foundation"].location != NSNotFound) {
-            _compassDetected = YES;
-        }
-
-        NSString *path = [_monitor.tree pathOfBestFileMatchingPathSuffix:pathFragment preferringSubtree:[relativePath stringByDeletingLastPathComponent]];
-        if (path) {
-            [referencedPaths addObject:path];
-        }
-    }
-
-    [_importGraph setRereferencedPaths:referencedPaths forPath:relativePath];
-}
-
-- (LRProjectFile *)analyzeFileAtPath:(NSString *)relativePath {
-    NSString *fullPath = [_path stringByAppendingPathComponent:relativePath];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:fullPath]) {
-        LRProjectFile *file = _filesByPath[relativePath];
-        if (!file) {
-            file = [LRProjectFile fileWithRelativePath:relativePath project:self];
-            _filesByPath[relativePath] = file;
-        }
-        [self updateImportGraphForFile:file];
-        return file;
-    } else {
-        LRProjectFile *file = _filesByPath[relativePath];
-        if (file) {
-            [self updateImportGraphForFile:file];
-            [_filesByPath removeObjectForKey:relativePath];
-        }
-        return file;
-    }
-}
+#pragma mark - LRProjectFile access
 
 - (LRProjectFile *)fileAtPath:(NSString *)relativePath {
     return _filesByPath[relativePath];
@@ -859,28 +821,8 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     }];
 }
 
-- (void)updateImportGraphForFile:(LRProjectFile *)file {
-    NSString *relativePath = file.relativePath;
 
-    if (!file.exists) {
-        [_importGraph removePath:relativePath collectingPathsToRecomputeInto:nil];
-        return;
-    }
-
-    if ([self isCompassConfigurationFile:relativePath]) {
-        [self scanCompassConfigurationFile:relativePath];
-    }
-
-    NSString *extension = [relativePath pathExtension];
-
-    for (Compiler *compiler in [PluginManager sharedPluginManager].compilers) {
-        if ([compiler.extensions containsObject:extension]) {
-            // TODO: move import graph handling into actions
-            [self updateImportGraphForPath:relativePath compiler:compiler];
-            return;
-        }
-    }
-}
+#pragma mark - Analysis
 
 - (NSArray *)analyzeFilesAtPaths:(NSSet *)paths {
     NSMutableArray *result = [NSMutableArray new];
@@ -915,6 +857,70 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         [self analyzeFileAtPath:path];
     }
     NSLog(@"Full import graph rebuild finished. %@", _importGraph);
+}
+
+- (LRProjectFile *)analyzeFileAtPath:(NSString *)relativePath {
+    NSString *fullPath = [_path stringByAppendingPathComponent:relativePath];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:fullPath]) {
+        LRProjectFile *file = _filesByPath[relativePath];
+        if (!file) {
+            file = [LRProjectFile fileWithRelativePath:relativePath project:self];
+            _filesByPath[relativePath] = file;
+        }
+        [self updateImportGraphForExistingFile:file];
+        return file;
+    } else {
+        LRProjectFile *file = _filesByPath[relativePath];
+        if (file) {
+            [self updateImportGraphForMissingFile:file];
+            [_filesByPath removeObjectForKey:relativePath];
+        }
+        return file;
+    }
+}
+
+
+#pragma mark - Analysis (Imports)
+
+- (void)updateImportGraphForPath:(NSString *)relativePath compiler:(Compiler *)compiler {
+    NSSet *referencedPathFragments = [compiler referencedPathFragmentsForPath:[_path stringByAppendingPathComponent:relativePath]];
+
+    NSMutableSet *referencedPaths = [NSMutableSet set];
+    for (NSString *pathFragment in referencedPathFragments) {
+        if ([pathFragment rangeOfString:@"compass"].location == 0 || [pathFragment rangeOfString:@"ZURB-foundation"].location != NSNotFound) {
+            _compassDetected = YES;
+        }
+
+        NSString *path = [_monitor.tree pathOfBestFileMatchingPathSuffix:pathFragment preferringSubtree:[relativePath stringByDeletingLastPathComponent]];
+        if (path) {
+            [referencedPaths addObject:path];
+        }
+    }
+
+    [_importGraph setRereferencedPaths:referencedPaths forPath:relativePath];
+}
+
+- (void)updateImportGraphForMissingFile:(LRProjectFile *)file {
+    [_importGraph removePath:file.relativePath collectingPathsToRecomputeInto:nil];
+}
+
+- (void)updateImportGraphForExistingFile:(LRProjectFile *)file {
+    NSString *relativePath = file.relativePath;
+
+
+    if ([self isCompassConfigurationFile:relativePath]) {
+        [self scanCompassConfigurationFile:relativePath];
+    }
+
+    NSString *extension = [relativePath pathExtension];
+
+    for (Compiler *compiler in [PluginManager sharedPluginManager].compilers) {
+        if ([compiler.extensions containsObject:extension]) {
+            // TODO: move import graph handling into actions
+            [self updateImportGraphForPath:relativePath compiler:compiler];
+            return;
+        }
+    }
 }
 
 
