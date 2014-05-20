@@ -130,7 +130,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
     NSInteger                _buildsRunning;
     LRBuildResult           *_runningBuild;
-    LRBuildResult           *_lastFinishedBuild;
 
     NSMutableDictionary     *_fileDatesHack;
 
@@ -634,10 +633,14 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
 #pragma mark - Rebuilding
 
-- (void)rebuildAll {
-    [_pendingChanges unionSet:[NSSet setWithArray:self.tree.filePaths]];
+- (void)rebuildFilesAtRelativePaths:(NSArray *)relativePaths {
+    [_pendingChanges unionSet:[NSSet setWithArray:relativePaths]];
     _pendingPostProcessing = YES;
     [self processPendingChanges];
+}
+
+- (void)rebuildAll {
+    [self rebuildFilesAtRelativePaths:self.tree.filePaths];
 }
 
 

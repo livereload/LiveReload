@@ -17,4 +17,6 @@
 - (BOOL)hasReloadRequests;
 - (void)sendReloadRequests;
 
+@property(nonatomic, readonly, copy) NSArray *reloadRequests;
+
 @end

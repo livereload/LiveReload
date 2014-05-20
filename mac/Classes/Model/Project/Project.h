@@ -11,6 +11,7 @@
 @class UserScript;
 @class LRPackageResolutionContext;
 @class ATPathSpec;
+@class LRBuildResult;
 
 
 extern NSString *ProjectDidDetectChangeNotification;
@@ -103,6 +104,7 @@ enum {
 - (void)hackhack_didWriteCompiledFile:(LRProjectFile *)file;
 
 @property(nonatomic, readonly, getter=isBuildInProgress) BOOL buildInProgress;
+- (void)rebuildFilesAtRelativePaths:(NSArray *)relativePaths;
 - (void)rebuildAll;
 
 @property(nonatomic, readonly, getter=isAnalysisInProgress) BOOL analysisInProgress;
@@ -114,5 +116,7 @@ enum {
 - (NSArray *)rootFilesForFiles:(id<NSFastEnumeration>)paths;
 
 @property(nonatomic, readonly) ATPathSpec *forcedStylesheetReloadSpec;
+
+@property(nonatomic, readonly) LRBuildResult *lastFinishedBuild;
 
 @end
