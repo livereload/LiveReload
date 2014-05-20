@@ -1,14 +1,14 @@
 
-#import "LRTest.h"
+#import "LRSelfTest.h"
 #import "Workspace.h"
 #import "Project.h"
 #import "OldFSTree.h"
-#import "LRTestOutputFile.h"
+#import "LRSelfTestOutputFile.h"
 
 #import "ATObservation.h"
 
 
-@interface LRTest ()
+@interface LRSelfTest ()
 
 @property(nonatomic, readonly) NSURL *folderURL;
 @property(nonatomic, readonly) NSURL *manifestURL;
@@ -20,7 +20,7 @@
 @end
 
 
-@implementation LRTest {
+@implementation LRSelfTest {
     LRTestOptions _options;
 
     BOOL _skip;
@@ -75,7 +75,7 @@
     NSDictionary *outputs = _manifest[@"outputs"] ?: @{};
     [outputs enumerateKeysAndObjectsUsingBlock:^(NSString *relativePath, id expectation, BOOL *stop) {
         NSURL *absoluteURL = [_folderURL URLByAppendingPathComponent:relativePath];
-        [_outputFiles addObject:[[LRTestOutputFile alloc] initWithRelativePath:relativePath absoluteURL:absoluteURL expectation:expectation]];
+        [_outputFiles addObject:[[LRSelfTestOutputFile alloc] initWithRelativePath:relativePath absoluteURL:absoluteURL expectation:expectation]];
     }];
 
     NSDictionary *sources = _manifest[@"sources"] ?: @{};
@@ -90,7 +90,7 @@
         return [self _failWithError:[NSError errorWithDomain:@"com.livereload.tests" code:1 userInfo:@{NSLocalizedDescriptionKey:@"Legacy mode not supported"}]];
     }
 
-    for (LRTestOutputFile *outputFile in _outputFiles) {
+    for (LRSelfTestOutputFile *outputFile in _outputFiles) {
         [outputFile removeOutputFile];
     }
 
@@ -122,7 +122,7 @@
 }
 
 - (void)_buildFinished {
-    for (LRTestOutputFile *outputFile in _outputFiles) {
+    for (LRSelfTestOutputFile *outputFile in _outputFiles) {
         NSError *__autoreleasing error;
         if (![outputFile verifyExpectationsWithError:&error]) {
             return [self _failWithError:error];
@@ -130,7 +130,7 @@
     }
 
     // all expectations are met, so delete the expected files
-    for (LRTestOutputFile *outputFile in _outputFiles) {
+    for (LRSelfTestOutputFile *outputFile in _outputFiles) {
         [outputFile removeOutputFile];
     }
 

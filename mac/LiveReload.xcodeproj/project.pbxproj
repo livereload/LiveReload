@@ -176,14 +176,13 @@
 		4371095218585DB800FCB4C2 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 434BB29F17BBF512000BEB1C /* XCTest.framework */; };
 		4371095818585DB800FCB4C2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4371095618585DB800FCB4C2 /* InfoPlist.strings */; };
 		4371095A18585DB800FCB4C2 /* LRCompilationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4371095918585DB800FCB4C2 /* LRCompilationTests.m */; };
-		43710964185864E400FCB4C2 /* LRTestDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 43710963185864E400FCB4C2 /* LRTestDriver.m */; };
-		437109671858651B00FCB4C2 /* LRTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 437109661858651B00FCB4C2 /* LRTest.m */; };
+		437109671858651B00FCB4C2 /* LRSelfTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 437109661858651B00FCB4C2 /* LRSelfTest.m */; };
 		437109B3185879B300FCB4C2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 437109B2185879B300FCB4C2 /* Cocoa.framework */; };
 		437109B4185879C600FCB4C2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43594AF313D3BB34004175B2 /* QuartzCore.framework */; };
 		437109B5185879CB00FCB4C2 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43361D4513C30D1400C0E589 /* libicucore.dylib */; };
 		437109B6185879D600FCB4C2 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43059221151E8FA400CC3F88 /* CoreServices.framework */; };
-		437109B918588E0E00FCB4C2 /* LRTestOutputFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 437109B818588E0E00FCB4C2 /* LRTestOutputFile.m */; };
-		437109BC18595B0200FCB4C2 /* LRTestOutputExpectation.m in Sources */ = {isa = PBXBuildFile; fileRef = 437109BB18595B0200FCB4C2 /* LRTestOutputExpectation.m */; };
+		437109B918588E0E00FCB4C2 /* LRSelfTestOutputFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 437109B818588E0E00FCB4C2 /* LRSelfTestOutputFile.m */; };
+		437109BC18595B0200FCB4C2 /* LRSelfTestOutputExpectation.m in Sources */ = {isa = PBXBuildFile; fileRef = 437109BB18595B0200FCB4C2 /* LRSelfTestOutputExpectation.m */; };
 		437109BE1859A48700FCB4C2 /* Sass.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 437109BD1859A48700FCB4C2 /* Sass.lrplugin */; };
 		4376A0E2146DF1C800338AD4 /* TitleBarHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */; };
 		4378C8D11515205C003187D5 /* OldFSMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CA1515205C003187D5 /* OldFSMonitor.m */; };
@@ -675,15 +674,13 @@
 		4371095718585DB800FCB4C2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4371095918585DB800FCB4C2 /* LRCompilationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LRCompilationTests.m; sourceTree = "<group>"; };
 		4371095B18585DB800FCB4C2 /* LiveReloadTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LiveReloadTests-Prefix.pch"; sourceTree = "<group>"; };
-		43710962185864E400FCB4C2 /* LRTestDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRTestDriver.h; sourceTree = "<group>"; };
-		43710963185864E400FCB4C2 /* LRTestDriver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRTestDriver.m; sourceTree = "<group>"; };
-		437109651858651B00FCB4C2 /* LRTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRTest.h; sourceTree = "<group>"; };
-		437109661858651B00FCB4C2 /* LRTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRTest.m; sourceTree = "<group>"; };
+		437109651858651B00FCB4C2 /* LRSelfTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRSelfTest.h; sourceTree = "<group>"; };
+		437109661858651B00FCB4C2 /* LRSelfTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRSelfTest.m; sourceTree = "<group>"; };
 		437109B2185879B300FCB4C2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		437109B718588E0E00FCB4C2 /* LRTestOutputFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRTestOutputFile.h; sourceTree = "<group>"; };
-		437109B818588E0E00FCB4C2 /* LRTestOutputFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRTestOutputFile.m; sourceTree = "<group>"; };
-		437109BA18595B0200FCB4C2 /* LRTestOutputExpectation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRTestOutputExpectation.h; sourceTree = "<group>"; };
-		437109BB18595B0200FCB4C2 /* LRTestOutputExpectation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRTestOutputExpectation.m; sourceTree = "<group>"; };
+		437109B718588E0E00FCB4C2 /* LRSelfTestOutputFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRSelfTestOutputFile.h; sourceTree = "<group>"; };
+		437109B818588E0E00FCB4C2 /* LRSelfTestOutputFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRSelfTestOutputFile.m; sourceTree = "<group>"; };
+		437109BA18595B0200FCB4C2 /* LRSelfTestOutputExpectation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRSelfTestOutputExpectation.h; sourceTree = "<group>"; };
+		437109BB18595B0200FCB4C2 /* LRSelfTestOutputExpectation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRSelfTestOutputExpectation.m; sourceTree = "<group>"; };
 		437109BD1859A48700FCB4C2 /* Sass.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Sass.lrplugin; path = ../plugins/Sass.lrplugin; sourceTree = "<group>"; };
 		4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TitleBarHelpTemplate.png; sourceTree = "<group>"; };
 		4378C8C91515205C003187D5 /* OldFSMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldFSMonitor.h; sourceTree = "<group>"; };
@@ -1670,14 +1667,12 @@
 		4371094C18585D2800FCB4C2 /* SelfTest */ = {
 			isa = PBXGroup;
 			children = (
-				43710962185864E400FCB4C2 /* LRTestDriver.h */,
-				43710963185864E400FCB4C2 /* LRTestDriver.m */,
-				437109651858651B00FCB4C2 /* LRTest.h */,
-				437109661858651B00FCB4C2 /* LRTest.m */,
-				437109B718588E0E00FCB4C2 /* LRTestOutputFile.h */,
-				437109B818588E0E00FCB4C2 /* LRTestOutputFile.m */,
-				437109BA18595B0200FCB4C2 /* LRTestOutputExpectation.h */,
-				437109BB18595B0200FCB4C2 /* LRTestOutputExpectation.m */,
+				437109651858651B00FCB4C2 /* LRSelfTest.h */,
+				437109661858651B00FCB4C2 /* LRSelfTest.m */,
+				437109B718588E0E00FCB4C2 /* LRSelfTestOutputFile.h */,
+				437109B818588E0E00FCB4C2 /* LRSelfTestOutputFile.m */,
+				437109BA18595B0200FCB4C2 /* LRSelfTestOutputExpectation.h */,
+				437109BB18595B0200FCB4C2 /* LRSelfTestOutputExpectation.m */,
 			);
 			path = SelfTest;
 			sourceTree = "<group>";
@@ -2594,7 +2589,7 @@
 				43CE9B5D191675F30044D28E /* LRActionVersion.m in Sources */,
 				4303A54215B513FD009D732A /* hashtable.c in Sources */,
 				434BB24917B690AB000BEB1C /* GroupHeaderRow.m in Sources */,
-				437109B918588E0E00FCB4C2 /* LRTestOutputFile.m in Sources */,
+				437109B918588E0E00FCB4C2 /* LRSelfTestOutputFile.m in Sources */,
 				4303A54315B513FD009D732A /* load.c in Sources */,
 				434BB24F17B7A680000BEB1C /* ActionListView.m in Sources */,
 				4303A54415B513FD009D732A /* memory.c in Sources */,
@@ -2658,7 +2653,7 @@
 				436D734B173DE61400F78A23 /* PreferencesController.m in Sources */,
 				43CE9B63191675F30044D28E /* CustomCommandAction.m in Sources */,
 				433D2183182646D900E81A09 /* AppState.m in Sources */,
-				437109BC18595B0200FCB4C2 /* LRTestOutputExpectation.m in Sources */,
+				437109BC18595B0200FCB4C2 /* LRSelfTestOutputExpectation.m in Sources */,
 				436D734F173DE74000F78A23 /* RubyPreferencesViewController.m in Sources */,
 				436D7357173DF3D200F78A23 /* AddCustomRubySheet.m in Sources */,
 				436D735B173E141400F78A23 /* RubyInstance.m in Sources */,
@@ -2694,7 +2689,7 @@
 				43124AE618E413670085CEF1 /* LROutputMappingOptionController.m in Sources */,
 				43B5C01017ADF35C00F57276 /* NSArray+ATSubstitutions.m in Sources */,
 				43B5C01217ADF35C00F57276 /* NSString+ATProperURLEncoding.m in Sources */,
-				437109671858651B00FCB4C2 /* LRTest.m in Sources */,
+				437109671858651B00FCB4C2 /* LRSelfTest.m in Sources */,
 				43124AE918E413740085CEF1 /* LROutputMappingOption.m in Sources */,
 				4396F1DF17F8112F00AA8200 /* GlitterArchiveUtilities.m in Sources */,
 				43158FED191AA07900DE8A5A /* LRTRRun.m in Sources */,
@@ -2723,7 +2718,6 @@
 				43B5C03717AE99B200F57276 /* EKGlobals.m in Sources */,
 				43B5C03A17AEA41E00F57276 /* SublimeText3Editor.m in Sources */,
 				43B5C03D17AEA8C100F57276 /* Coda2Editor.m in Sources */,
-				43710964185864E400FCB4C2 /* LRTestDriver.m in Sources */,
 				43D6CA50191BFF5C00DA9FFE /* LROperationResult.m in Sources */,
 				43B5C04017AEA9F400F57276 /* NSAppleScript+ATInvokeHandlerWithArguments.m in Sources */,
 				43996B2E17AF675D00B09954 /* ATMenuEnabledSegmentedCell.m in Sources */,

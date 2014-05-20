@@ -1,13 +1,13 @@
 
-#import "LRTestOutputExpectation.h"
+#import "LRSelfTestOutputExpectation.h"
 
 
-@interface LRTestOutputExpectation ()
+@interface LRSelfTestOutputExpectation ()
 
 @end
 
 
-@implementation LRTestOutputExpectation
+@implementation LRSelfTestOutputExpectation
 
 - (id)initWithExpectationData:(id)expectation {
     self = [super init];

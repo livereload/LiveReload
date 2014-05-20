@@ -2,7 +2,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface LRTestOutputExpectation : NSObject
+@interface LRSelfTestOutputExpectation : NSObject
 
 - (id)initWithExpectationData:(id)expectation;
 

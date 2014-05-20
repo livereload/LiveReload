@@ -28,7 +28,7 @@
 }
 
 - (NSError *)runProjectTestNamed:(NSString *)name options:(LRTestOptions)options {
-    LRTest *test = [[LRTest alloc] initWithFolderURL:[_baseFolderURL URLByAppendingPathComponent:name] options:options];
+    LRSelfTest *test = [[LRSelfTest alloc] initWithFolderURL:[_baseFolderURL URLByAppendingPathComponent:name] options:options];
     test.completionBlock = self.completionBlock;
     [test run];
     [self waitWithTimeout:3.0];

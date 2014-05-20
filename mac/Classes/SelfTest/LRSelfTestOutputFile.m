@@ -1,6 +1,6 @@
 
-#import "LRTestOutputFile.h"
-#import "LRTestOutputExpectation.h"
+#import "LRSelfTestOutputFile.h"
+#import "LRSelfTestOutputExpectation.h"
 
 #import "ATFunctionalStyle.h"
 
@@ -11,14 +11,14 @@
     } while(0)
 
 
-@interface LRTestOutputFile ()
+@interface LRSelfTestOutputFile ()
 
 @property(nonatomic, readonly) NSArray *expectations;
 
 @end
 
 
-@implementation LRTestOutputFile
+@implementation LRSelfTestOutputFile
 
 - (id)initWithRelativePath:(NSString *)relativePath absoluteURL:(NSURL *)absoluteURL expectation:(id)expectations {
     self = [super init];
@@ -30,7 +30,7 @@
             expectations = @[expectations];
 
         _expectations = [expectations arrayByMappingElementsUsingBlock:^id(id expectation) {
-            return [[LRTestOutputExpectation alloc] initWithExpectationData:expectation];
+            return [[LRSelfTestOutputExpectation alloc] initWithExpectationData:expectation];
         }];
     }
     return self;
@@ -44,7 +44,7 @@
     NSString *actualContent = [NSString stringWithContentsOfURL:_absoluteURL encoding:NSUTF8StringEncoding error:NULL];
     if (!actualContent)
         return_error(NO, outError, ([NSError errorWithDomain:@"com.livereload.tests" code:1 userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Output file not found: %@", _relativePath]}]));
-    for (LRTestOutputExpectation *expectation in _expectations) {
+    for (LRSelfTestOutputExpectation *expectation in _expectations) {
         if (![expectation validateWithContent:actualContent]) {
             return_error(NO, outError, ([NSError errorWithDomain:@"com.livereload.tests" code:1 userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"%@ failed to meet expectation: %@", _relativePath, expectation]}]));
         }
