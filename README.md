@@ -35,6 +35,18 @@ Hacking tips
 
 2. Traditional (non-Node.js) LiveReload supports -LRPortNumber 35778 option to override the port number. This is useful to compile backend sources with one copy of LiveReload while debugging another one.
 
+
+Updating Node.js
+----------------
+
+To embed an Info.plist into the Node.js binary, use [gimmedebugah](https://github.com/gdbinit/gimmedebugah):
+
+    gimmedebugah -p LiveReload/Resources/LiveReloadNodejsInfo.plist LiveReload/Resources/LiveReloadNodejs
+    mv LiveReload/Resources/LiveReloadNodejs.patched LiveReload/Resources/LiveReloadNodejs
+    chmod +x LiveReload/Resources/LiveReloadNodejs
+
+Note that embedding Info.plist is not required, and in fact the most recent MAS version (2.3.62) does not have it. However, I had to find a way while working on a MAS problem, so it's documented here.
+
 To re-sign the Node.js binary:
 
     codesign -f -s "3rd Party Mac Developer Application: Andrey Tarantsov" --identifier 'com.livereload.LiveReload.tools.nodejs' --entitlements LiveReload/Resources/LiveReloadNodejs.entitlements LiveReload/Resources/LiveReloadNodejs
