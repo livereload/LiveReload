@@ -1,0 +1,27 @@
+{
+  "settings": {
+    "actions": [
+      {
+        "action": "less",
+        "enabled": 1,
+        "version": "*-stable"
+      }
+    ]
+  },
+
+  "sources": {
+    "test.less": true
+  },
+
+  "outputs": {
+    "test.css": []
+  },
+
+  "changes": [
+    "test.less"
+  ],
+
+  "browserRequests": [
+    { "path": "test.css", "localPath": "test.css", "originalPath": null }
+  ]
+}
