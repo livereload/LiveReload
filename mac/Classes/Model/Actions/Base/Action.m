@@ -139,10 +139,6 @@ NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification = @"LRActio
     return YES;
 }
 
-- (BOOL)shouldInvokeForFile:(LRProjectFile *)file {
-    return [self.inputPathSpec matchesPath:file.relativePath type:ATPathSpecEntryTypeFile];
-}
-
 - (LRTargetResult *)targetForModifiedFiles:(NSSet *)paths {
     return nil;
 }

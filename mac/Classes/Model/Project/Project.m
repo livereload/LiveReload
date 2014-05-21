@@ -626,7 +626,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
 - (void)invokeTargets:(NSArray *)targets withCompletionBlock:(dispatch_block_t)completionBlock {
     [targets p2_enumerateObjectsAsynchronouslyUsingBlock:^(LRTargetResult *target, NSUInteger idx, BOOL *stop, dispatch_block_t callback) {
-        [target invokeWithCompletionBlock:callback];
+        [target invokeWithCompletionBlock:callback build:_runningBuild];
     } completionBlock:completionBlock];
 }
 

@@ -4,6 +4,7 @@
 #import "LRProjectFile.h"
 #import "Project.h"
 #import "LROperationResult.h"
+#import "LRBuildResult.h"
 
 
 @interface LRFileTargetResult ()
@@ -21,24 +22,21 @@
     return self;
 }
 
-- (void)invokeWithCompletionBlock:(dispatch_block_t)completionBlock {
-    if ([self.action shouldInvokeForFile:_sourceFile]) {
-        if (!_sourceFile.exists) {
-            [self.action handleDeletionOfFile:_sourceFile inProject:self.project];
-            completionBlock();
-        } else {
-            LROperationResult *result = [self newResult];
-            result.defaultMessageFile = _sourceFile;
-            [self.action compileFile:_sourceFile inProject:self.project result:(LROperationResult *)result completionHandler:^{
-                if (result.invocationError) {
-                    NSLog(@"Error compiling %@: %@ - %ld - %@", _sourceFile.relativePath, result.invocationError.domain, (long)result.invocationError.code, result.invocationError.localizedDescription);
-                }
-                [self.project displayResult:result key:[NSString stringWithFormat:@"%@.%@", self.project.path, _sourceFile.relativePath]];
-                completionBlock();
-            }];
-        }
-    } else {
+- (void)invokeWithCompletionBlock:(dispatch_block_t)completionBlock build:(LRBuildResult *)build {
+    [build markAsConsumedByCompiler:_sourceFile];
+    if (!_sourceFile.exists) {
+        [self.action handleDeletionOfFile:_sourceFile inProject:self.project];
         completionBlock();
+    } else {
+        LROperationResult *result = [self newResult];
+        result.defaultMessageFile = _sourceFile;
+        [self.action compileFile:_sourceFile inProject:self.project result:(LROperationResult *)result completionHandler:^{
+            if (result.invocationError) {
+                NSLog(@"Error compiling %@: %@ - %ld - %@", _sourceFile.relativePath, result.invocationError.domain, (long)result.invocationError.code, result.invocationError.localizedDescription);
+            }
+            [self.project displayResult:result key:[NSString stringWithFormat:@"%@.%@", self.project.path, _sourceFile.relativePath]];
+            completionBlock();
+        }];
     }
 }
 

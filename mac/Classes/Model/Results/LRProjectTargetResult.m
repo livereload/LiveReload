@@ -19,7 +19,7 @@
     return self;
 }
 
-- (void)invokeWithCompletionBlock:(dispatch_block_t)completionBlock {
+- (void)invokeWithCompletionBlock:(dispatch_block_t)completionBlock build:(LRBuildResult *)build {
     LROperationResult *result = [self newResult];
     [self.action invokeForProject:self.project withModifiedFiles:_modifiedPaths result:result completionHandler:^{
         [self.project displayResult:result key:[NSString stringWithFormat:@"%@.postproc", self.project.path]];

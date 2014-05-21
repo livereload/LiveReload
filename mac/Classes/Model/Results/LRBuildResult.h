@@ -3,6 +3,7 @@
 
 
 @class Project;
+@class LRProjectFile;
 
 
 @interface LRBuildResult : NSObject
@@ -18,5 +19,7 @@
 - (void)sendReloadRequests;
 
 @property(nonatomic, readonly, copy) NSArray *reloadRequests;
+
+- (void)markAsConsumedByCompiler:(LRProjectFile *)file;
 
 @end

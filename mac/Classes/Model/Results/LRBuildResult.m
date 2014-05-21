@@ -17,6 +17,7 @@
 @implementation LRBuildResult {
     NSMutableArray *_modifiedFiles;
     NSMutableArray *_reloadRequests;
+    NSMutableSet *_compiledFiles;
 }
 
 - (instancetype)initWithProject:(Project *)project {
@@ -25,6 +26,7 @@
         _project = project;
         _reloadRequests = [NSMutableArray new];
         _modifiedFiles = [NSMutableArray new];
+        _compiledFiles = [NSMutableSet new];
     }
     return self;
 }
@@ -39,6 +41,10 @@
 
 - (BOOL)hasReloadRequests {
     return _reloadRequests.count > 0;
+}
+
+- (void)markAsConsumedByCompiler:(LRProjectFile *)file {
+    [_compiledFiles addObject:file];
 }
 
 - (void)sendReloadRequests {
@@ -57,6 +63,9 @@
     }
 
     for (LRProjectFile *file in filesToReload) {
+        if ([_compiledFiles containsObject:file]) {
+            continue;  // compiled; wait for the destination file change event to send a reload request
+        }
         NSString *fullPath = file.absolutePath;
         [self addReloadRequest:@{@"path": fullPath, @"originalPath": [NSNull null], @"localPath": fullPath}];
     }
