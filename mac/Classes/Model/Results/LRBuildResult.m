@@ -30,6 +30,10 @@ NSString *const LRBuildDidFinishNotification = @"LRBuildDidFinishNotification";
     NSMutableArray *_pendingProjectTargets;
 
     LRTargetResult *_runningTarget;
+    BOOL _waitingForMoreChangesBeforeFinishing;
+
+    NSTimeInterval _gracePeriodWithoutReloadRequests;
+    NSTimeInterval _gracePeriodWithReloadRequests;
 }
 
 - (instancetype)initWithProject:(Project *)project actions:(NSArray *)actions {
@@ -44,6 +48,9 @@ NSString *const LRBuildDidFinishNotification = @"LRBuildDidFinishNotification";
         _compiledFiles = [NSMutableSet new];
         _pendingFileTargets = [NSMutableArray new];
         _pendingProjectTargets = [NSMutableArray new];
+
+        _gracePeriodWithoutReloadRequests = 0.25;
+        _gracePeriodWithReloadRequests = 0.05;
     }
     return self;
 }
@@ -60,16 +67,23 @@ NSString *const LRBuildDidFinishNotification = @"LRBuildDidFinishNotification";
             [newFiles addObject:file];
         }
     }
-    [_modifiedFilesSet addObjectsFromArray:newFiles];
-    [_modifiedFiles addObjectsFromArray:newFiles];
 
-    for (Action *action in _actions) {
-        [_pendingFileTargets addObjectsFromArray:[action fileTargetsForModifiedFiles:newFiles]];
-    }
+    if (newFiles.count > 0) {
+        [_modifiedFilesSet addObjectsFromArray:newFiles];
+        [_modifiedFiles addObjectsFromArray:newFiles];
+
+        for (Action *action in _actions) {
+            [_pendingFileTargets addObjectsFromArray:[action fileTargetsForModifiedFiles:newFiles]];
+        }
 
 //    [_pendingProjectTargets addObjectsFromArray:[_actions arrayByMappingElementsUsingBlock:^id(Action *action) {
 //        return [action targetForModifiedFiles:_modifiedFiles];
 //    }]];
+
+        if (_waitingForMoreChangesBeforeFinishing) {
+            [self executeNextTarget];
+        }
+    }
 }
 
 - (BOOL)hasReloadRequests {
@@ -80,7 +94,9 @@ NSString *const LRBuildDidFinishNotification = @"LRBuildDidFinishNotification";
     [_compiledFiles addObject:file];
 }
 
-- (void)sendReloadRequests {
+- (void)updateReloadRequests {
+    [_reloadRequests removeAllObjects];
+
     NSMutableArray *filesToReload = [_modifiedFiles mutableCopy];
 
     ATPathSpec *forcedStylesheetReloadSpec = _project.forcedStylesheetReloadSpec;
@@ -102,6 +118,10 @@ NSString *const LRBuildDidFinishNotification = @"LRBuildDidFinishNotification";
         NSString *fullPath = file.absolutePath;
         [self addReloadRequest:@{@"path": fullPath, @"originalPath": [NSNull null], @"localPath": fullPath}];
     }
+}
+
+- (void)sendReloadRequests {
+    [self updateReloadRequests];
 
     if (_reloadRequests.count > 0) {
         [[Glue glue] postMessage:@{@"service": @"reloader", @"command": @"reload", @"changes": _reloadRequests, @"forceFullReload": @(_project.disableLiveRefresh), @"fullReloadDelay": @(_project.fullPageReloadDelay), @"enableOverride": @(_project.enableRemoteServerWorkflow)}];
@@ -118,9 +138,7 @@ NSString *const LRBuildDidFinishNotification = @"LRBuildDidFinishNotification";
         return;
     _started = YES;
 
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self executeNextTarget];
-    });
+    [self executeNextTarget];
 }
 
 - (void)finish {
@@ -138,6 +156,11 @@ NSString *const LRBuildDidFinishNotification = @"LRBuildDidFinishNotification";
     if (_runningTarget)
         return;
 
+    if (_waitingForMoreChangesBeforeFinishing) {
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(gracePeriodExpired) object:nil];
+        _waitingForMoreChangesBeforeFinishing = NO;
+    }
+
     LRTargetResult *target = [_pendingFileTargets lastObject];
     if (target) {
         [_pendingFileTargets removeLastObject];
@@ -151,9 +174,17 @@ NSString *const LRBuildDidFinishNotification = @"LRBuildDidFinishNotification";
     if (target) {
         [self executeTarget:target];
     } else {
-        // TODO: grace period
-        [self finish];
+        [self updateReloadRequests];
+        NSTimeInterval gracePeriod = ([self hasReloadRequests] ? _gracePeriodWithReloadRequests : _gracePeriodWithoutReloadRequests);
+
+        [self performSelector:@selector(gracePeriodExpired) withObject:nil afterDelay:gracePeriod];
+        _waitingForMoreChangesBeforeFinishing = YES;
     }
+}
+
+- (void)gracePeriodExpired {
+    _waitingForMoreChangesBeforeFinishing = NO;
+    [self finish];
 }
 
 - (void)executeTarget:(LRTargetResult *)target {
