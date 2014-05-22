@@ -23,7 +23,7 @@
     return _action.project;
 }
 
-- (void)invokeWithCompletionBlock:(dispatch_block_t)completionBlock build:(LRBuildResult *)build build:(LRBuildResult *)build {
+- (void)invokeWithCompletionBlock:(dispatch_block_t)completionBlock build:(LRBuildResult *)build {
     abort();
 }
 

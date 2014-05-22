@@ -139,7 +139,7 @@ NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification = @"LRActio
     return YES;
 }
 
-- (LRTargetResult *)targetForModifiedFiles:(NSSet *)paths {
+- (LRTargetResult *)targetForModifiedFiles:(NSArray *)files {
     return nil;
 }
 
@@ -171,9 +171,9 @@ NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification = @"LRActio
     return [result copy];
 }
 
-- (BOOL)inputPathSpecMatchesPaths:(NSSet *)paths {
-    for (NSString *path in paths) {
-        if ([self.inputPathSpec matchesPath:path type:ATPathSpecEntryTypeFile])
+- (BOOL)inputPathSpecMatchesFiles:(NSArray *)files {
+    for (LRProjectFile *file in files) {
+        if ([self.inputPathSpec matchesPath:file.relativePath type:ATPathSpecEntryTypeFile])
             return YES;
     }
     return NO;
@@ -193,7 +193,7 @@ NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification = @"LRActio
 - (void)handleDeletionOfFile:(LRProjectFile *)file inProject:(Project *)project {
 }
 
-- (void)invokeForProject:(Project *)project withModifiedFiles:(NSSet *)paths result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
+- (void)invokeForProject:(Project *)project withModifiedFiles:(NSArray *)files result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
     abort();
 }
 

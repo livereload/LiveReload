@@ -11,17 +11,17 @@
 
 @implementation LRProjectTargetResult
 
-- (instancetype)initWithAction:(Action *)action modifiedPaths:(NSSet *)modifiedPaths {
+- (instancetype)initWithAction:(Action *)action modifiedFiles:(NSArray *)modifiedFiles {
     self = [super initWithAction:action];
     if (self) {
-        _modifiedPaths = [modifiedPaths copy];
+        _modifiedFiles = [modifiedFiles copy];
     }
     return self;
 }
 
 - (void)invokeWithCompletionBlock:(dispatch_block_t)completionBlock build:(LRBuildResult *)build {
     LROperationResult *result = [self newResult];
-    [self.action invokeForProject:self.project withModifiedFiles:_modifiedPaths result:result completionHandler:^{
+    [self.action invokeForProject:self.project withModifiedFiles:_modifiedFiles result:result completionHandler:^{
         [self.project displayResult:result key:[NSString stringWithFormat:@"%@.postproc", self.project.path]];
         completionBlock();
     }];

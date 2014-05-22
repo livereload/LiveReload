@@ -18,7 +18,7 @@
     return self.type.name;
 }
 
-- (void)invokeForProject:(Project *)project withModifiedFiles:(NSSet *)paths result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
+- (void)invokeForProject:(Project *)project withModifiedFiles:(NSArray *)files result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
     if (!self.effectiveVersion) {
         [result completedWithInvocationError:[self missingEffectiveVersionError]];
         return completionHandler();
@@ -48,9 +48,9 @@
     [step invoke];
 }
 
-- (LRTargetResult *)targetForModifiedFiles:(NSSet *)paths {
-    if ([self inputPathSpecMatchesPaths:paths]) {
-        return [[LRProjectTargetResult alloc] initWithAction:self modifiedPaths:paths];
+- (LRTargetResult *)targetForModifiedFiles:(NSArray *)files {
+    if ([self inputPathSpecMatchesFiles:files]) {
+        return [[LRProjectTargetResult alloc] initWithAction:self modifiedFiles:files];
     } else {
         return nil;
     }

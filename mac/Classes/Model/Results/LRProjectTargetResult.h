@@ -4,8 +4,8 @@
 
 @interface LRProjectTargetResult : LRTargetResult
 
-- (instancetype)initWithAction:(Action *)action modifiedPaths:(NSSet *)modifiedPaths;
+- (instancetype)initWithAction:(Action *)action modifiedFiles:(NSArray *)modifiedFiles;
 
-@property (nonatomic, copy, readonly) NSSet *modifiedPaths;
+@property (nonatomic, copy, readonly) NSArray *modifiedFiles;
 
 @end

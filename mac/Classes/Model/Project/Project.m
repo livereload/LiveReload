@@ -33,6 +33,7 @@
 #import "P2AsyncEnumeration.h"
 #import "ATObservation.h"
 #import "LRCommandLine.h"
+#import "ATModelDiff.h"
 
 #include <stdbool.h>
 #include "common.h"
@@ -72,8 +73,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
 - (void)updateFilter;
 - (void)handleCompilationOptionsEnablementChanged;
-
-- (void)processPendingChanges;
 
 @end
 
@@ -121,14 +120,12 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
     NSArray                 *_urlMasks;
 
-    NSMutableSet            *_pendingChanges;
     BOOL                     _processingChanges;
 
     BOOL                     _runningPostProcessor;
     BOOL                     _pendingPostProcessing;
     NSTimeInterval           _lastPostProcessingRunDate;
 
-    NSInteger                _buildsRunning;
     LRBuildResult           *_runningBuild;
 
     NSMutableDictionary     *_fileDatesHack;
@@ -240,8 +237,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
         _customName = [memento objectForKey:@"customName"] ?: @"";
 
-        _pendingChanges = [[NSMutableSet alloc] init];
-
         if ([memento objectForKey:@"postProcessingGracePeriod"])
             _postProcessingGracePeriod = [[memento objectForKey:@"postProcessingGracePeriod"] doubleValue];
         else
@@ -256,6 +251,8 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         [self _updateAccessibility:YES];
         [self handleCompilationOptionsEnablementChanged];
         [self requestMonitoring:YES forKey:@"ui"];  // always need a folder list for UI
+
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(buildDidFinish:) name:LRBuildDidFinishNotification object:nil];
     }
     return self;
 }
@@ -490,13 +487,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 #pragma mark - File system monitoring (change processing)
 
 - (void)fileSystemMonitor:(FSMonitor *)monitor detectedChange:(FSChange *)change {
-    [_pendingChanges unionSet:change.changedFiles];
-
-    if (!(_runningPostProcessor || (_lastPostProcessingRunDate > 0 && [NSDate timeIntervalSinceReferenceDate] < _lastPostProcessingRunDate + _postProcessingGracePeriod))) {
-        _pendingPostProcessing = YES;
-    }
-
-    [self processPendingChanges];
+    [self processBatchOfPendingChanges:change.changedFiles];
 
     if (change.folderListChanged) {
         [self willChangeValueForKey:@"filterOptions"];
@@ -505,10 +496,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 }
 
 - (void)processBatchOfPendingChanges:(NSSet *)pathes {
-    BOOL invokePostProcessor = _pendingPostProcessing;
-    _pendingPostProcessing = NO;
-
-    ++_buildsRunning;
+    [self startBuild];
 
     switch (pathes.count) {
         case 0:  break;
@@ -518,70 +506,36 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
     NSArray *modifiedFiles = [self analyzeFilesAtPaths:pathes];
     [_runningBuild addModifiedFiles:modifiedFiles];
-
-    NSArray *actions = [self.actionList.activeActions copy];
-
-    [self invokeFileActions:actions forModifiedFiles:modifiedFiles withCompletionBlock:^{
-        // TODO: not clear why postprocessing is bound to existence of reload requests
-        // (IMO it's a cheap way to ignore changes that are expected to produce another change later)
-        if ([_runningBuild hasReloadRequests]) {
-            if (invokePostProcessor) {
-                [self invokePostProcessingActions:actions forModifiedPaths:pathes withCompletionBlock:^{
-                    //
-                }];
-            } else {
-                console_printf("Skipping post-processing.");
-            }
-
-            [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidDetectChangeNotification object:self];
-            StatIncrement(BrowserRefreshCountStat, 1);
-        }
-
-        --_buildsRunning;
-        [self checkIfBuildFinished];
-
-//        S_app_handle_change(json_object_2("root", json_nsstring(_path), "paths", nodeapp_objc_to_json([pathes allObjects])));
-    }];
-}
-
-- (void)processPendingChanges {
-    if (_processingChanges)
-        return;
-
-    [self startBuild];
-    _processingChanges = YES;
-
-    while (_pendingChanges.count > 0 || _pendingPostProcessing) {
-        NSSet *paths = _pendingChanges;
-        _pendingChanges = [[NSMutableSet alloc] init];
-        [self processBatchOfPendingChanges:paths];
-    }
-
-    _processingChanges = NO;
-    [self checkIfBuildFinished];
+    [_runningBuild start];
 }
 
 
 #pragma mark - Build
 
+- (BOOL)isBuildInProgress {
+    return !!_runningBuild;
+}
+
 - (void)startBuild {
-    if (!_buildInProgress) {
-        _buildInProgress = YES;
-        _runningBuild = [[LRBuildResult alloc] initWithProject:self];
+    if (!_runningBuild) {
+        _runningBuild = [[LRBuildResult alloc] initWithProject:self actions:self.actionList.activeActions];
         NSLog(@"Build starting...");
         [self postNotificationName:ProjectBuildStartedNotification];
     }
 }
 
-- (void)checkIfBuildFinished {
-    if (_buildInProgress && !(_buildsRunning > 0 || _processingChanges)) {
-        _buildInProgress = NO;
-        [_runningBuild sendReloadRequests];
-        _lastFinishedBuild = _runningBuild;
-        _runningBuild = nil;
-        NSLog(@"Build finished.");
-        [self postNotificationName:ProjectBuildFinishedNotification];
+- (void)buildDidFinish:(NSNotification *)notification {
+    if (_runningBuild && notification.object == _runningBuild) {
+        [self finishBuild];
     }
+}
+
+- (void)finishBuild {
+    [_runningBuild sendReloadRequests];
+    _lastFinishedBuild = _runningBuild;
+    _runningBuild = nil;
+    NSLog(@"Build finished.");
+    [self postNotificationName:ProjectBuildFinishedNotification];
 }
 
 - (void)displayResult:(LROperationResult *)result key:(NSString *)key {
@@ -598,45 +552,11 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     }
 }
 
-- (void)invokeFileActions:(NSArray *)allActions forModifiedFiles:(NSArray *)modifiedFiles withCompletionBlock:(dispatch_block_t)completionBlock {
-    NSMutableArray *fileTargets = [NSMutableArray new];
-    for (Action *action in allActions) {
-        [fileTargets addObjectsFromArray:[action fileTargetsForModifiedFiles:modifiedFiles]];
-    }
-
-    [self invokeTargets:fileTargets withCompletionBlock:completionBlock];
-}
-
-- (void)invokePostProcessingActions:(NSArray *)allActions forModifiedPaths:(NSSet *)paths withCompletionBlock:(dispatch_block_t)completionBlock {
-    NSArray *targets = [allActions arrayByMappingElementsUsingBlock:^id(Action *action) {
-        return [action targetForModifiedFiles:paths];
-    }];
-
-    if (targets.count > 0) {
-        _runningPostProcessor = YES;
-        [self invokeTargets:targets withCompletionBlock:^{
-            _runningPostProcessor = NO;
-            _lastPostProcessingRunDate = [NSDate timeIntervalSinceReferenceDate];
-            completionBlock();
-        }];
-    } else {
-        completionBlock();
-    }
-}
-
-- (void)invokeTargets:(NSArray *)targets withCompletionBlock:(dispatch_block_t)completionBlock {
-    [targets p2_enumerateObjectsAsynchronouslyUsingBlock:^(LRTargetResult *target, NSUInteger idx, BOOL *stop, dispatch_block_t callback) {
-        [target invokeWithCompletionBlock:callback build:_runningBuild];
-    } completionBlock:completionBlock];
-}
-
 
 #pragma mark - Rebuilding
 
 - (void)rebuildFilesAtRelativePaths:(NSArray *)relativePaths {
-    [_pendingChanges unionSet:[NSSet setWithArray:relativePaths]];
-    _pendingPostProcessing = YES;
-    [self processPendingChanges];
+    [self processBatchOfPendingChanges:[NSSet setWithArray:relativePaths]];
 }
 
 - (void)rebuildAll {

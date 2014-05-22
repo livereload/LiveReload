@@ -55,9 +55,9 @@
     return [NSSet setWithObject:@"command"];
 }
 
-- (LRTargetResult *)targetForModifiedFiles:(NSSet *)paths {
-    if ([self inputPathSpecMatchesPaths:paths]) {
-        return [[LRProjectTargetResult alloc] initWithAction:self modifiedPaths:paths];
+- (LRTargetResult *)targetForModifiedFiles:(NSArray *)files {
+    if ([self inputPathSpecMatchesFiles:files]) {
+        return [[LRProjectTargetResult alloc] initWithAction:self modifiedFiles:files];
     } else {
         return nil;
     }
@@ -85,7 +85,7 @@
 //}
 
 
-- (void)invokeForProject:(Project *)project withModifiedFiles:(NSSet *)paths result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
+- (void)invokeForProject:(Project *)project withModifiedFiles:(NSArray *)files result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
     NSDictionary *info = @{
                            @"$(ruby)": @"/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/bin/ruby",
                            @"$(node)": [[NSBundle mainBundle] pathForResource:@"LiveReloadNodejs" ofType:nil],
