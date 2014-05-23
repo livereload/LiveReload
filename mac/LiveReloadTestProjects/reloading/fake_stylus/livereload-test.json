@@ -5,17 +5,17 @@
   },
 
   "sources": {
-    "test.less": true
+    "test.styl": true
   },
 
   "outputs": {
   },
 
   "changes": [
-    "test.less"
+    "test.styl"
   ],
 
   "browserRequests": [
-    { "path": "test.css", "localPath": null, "originalPath": "test.less" }
+    { "path": "test.css", "localPath": null, "originalPath": "test.styl" }
   ]
 }

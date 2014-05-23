@@ -20,8 +20,7 @@
 //    self.intrinsicInputPathSpec = [ATPathSpec pathSpecWithString:@"*.css" syntaxOptions:ATPathSpecSyntaxFlavorExtended];
     _outputFilterOption = [FilterOption filterOptionWithMemento:(memento[@"output"] ?: @"subdir:.")];
 
-    NSString *inputFilter = self.type.manifest[@"input"];
-    self.intrinsicInputPathSpec = [ATPathSpec pathSpecWithString:inputFilter syntaxOptions:ATPathSpecSyntaxFlavorExtended];
+    self.intrinsicInputPathSpec = self.type.combinedIntrinsicInputPathSpec;
 }
 
 - (void)setOutputFilterOption:(FilterOption *)outputFilterOption {

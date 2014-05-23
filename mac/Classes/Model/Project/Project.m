@@ -135,6 +135,8 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     BOOL                     _quuxMode;
 
     NSMutableDictionary     *_filesByPath;
+
+    NSArray                 *_availableActionTypes;
 }
 
 @synthesize path=_path;
@@ -171,8 +173,10 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
         _resolutionContext = [[LRPackageResolutionContext alloc] init];
 
-        _actionList = [[ActionList alloc] initWithActionTypes:[PluginManager sharedPluginManager].actionTypes project:self];
+        _availableActionTypes = [PluginManager sharedPluginManager].actionTypes;
+        _actionList = [[ActionList alloc] initWithActionTypes:_availableActionTypes project:self];
         [_actionList setMemento:memento];
+        [self updateDataBasedOnAvailableActionTypes];
 
         _lastSelectedPane = [[memento objectForKey:@"last_pane"] copy];
 
@@ -1026,6 +1030,23 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
 - (NSString *)superAdvancedOptionsFeedbackString {
     return [_superAdvancedOptionsFeedback componentsJoinedByString:@" • "];
+}
+
+
+#pragma mark - Actions
+
+- (void)updateDataBasedOnAvailableActionTypes {
+    // nothing to do at the moment
+}
+
+- (void)updateDataBasedOnActionConfiguration {
+    // TODO derive all sorts of data from the current action configuration
+}
+
+- (NSArray *)compilerActionTypesForFile:(LRProjectFile *)file {
+    return [_availableActionTypes filteredArrayUsingBlock:^BOOL(ActionType *actionType) {
+        return (actionType.kind == ActionKindCompiler) && ([actionType.combinedIntrinsicInputPathSpec matchesPath:file.relativePath type:ATPathSpecEntryTypeFile]);
+    }];
 }
 
 @end

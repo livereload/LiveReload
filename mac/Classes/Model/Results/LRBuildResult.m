@@ -4,6 +4,7 @@
 #import "Project.h"
 #import "LRProjectFile.h"
 #import "LRTargetResult.h"
+#import "ActionType.h"
 
 #import "Glue.h"
 #import "Stats.h"
@@ -86,6 +87,9 @@ NSString *const LRBuildDidFinishNotification = @"LRBuildDidFinishNotification";
     }
 }
 
+
+#pragma mark - Reload requests
+
 - (BOOL)hasReloadRequests {
     return _reloadRequests.count > 0;
 }
@@ -115,8 +119,18 @@ NSString *const LRBuildDidFinishNotification = @"LRBuildDidFinishNotification";
         if ([_compiledFiles containsObject:file]) {
             continue;  // compiled; wait for the destination file change event to send a reload request
         }
+
+        NSString *fakeDestinationName = [[[_project compilerActionTypesForFile:file] arrayByMappingElementsUsingBlock:^id(ActionType *actionType) {
+            return [actionType fakeChangeDestinationNameForSourceFile:file];
+        }] firstObject];
+
         NSString *fullPath = file.absolutePath;
-        [self addReloadRequest:@{@"path": fullPath, @"originalPath": [NSNull null], @"localPath": fullPath}];
+        if (fakeDestinationName) {
+            NSString *fakePath = [[fullPath stringByDeletingLastPathComponent] stringByAppendingPathComponent:fakeDestinationName];
+            [self addReloadRequest:@{@"path": fakePath, @"originalPath": fullPath, @"localPath": [NSNull null]}];
+        } else {
+            [self addReloadRequest:@{@"path": fullPath, @"originalPath": [NSNull null], @"localPath": fullPath}];
+        }
     }
 }
 

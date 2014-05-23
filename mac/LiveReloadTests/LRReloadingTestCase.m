@@ -23,6 +23,14 @@
     XCTAssertNil([self runProjectTestNamed:@"reloading/fake_less" options:LRTestOptionNone], @"Failed");
 }
 
+- (void)testFakeScss {
+    XCTAssertNil([self runProjectTestNamed:@"reloading/fake_scss" options:LRTestOptionNone], @"Failed");
+}
+
+- (void)testFakeStylus {
+    XCTAssertNil([self runProjectTestNamed:@"reloading/fake_stylus" options:LRTestOptionNone], @"Failed");
+}
+
 - (void)testSpecialReloadAllStylesheets {
     XCTAssertNil([self runProjectTestNamed:@"reloading/special_reload_all_stylesheets" options:LRTestOptionNone], @"Failed");
 }
