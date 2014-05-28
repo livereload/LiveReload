@@ -53,10 +53,10 @@
         <window title="LiveReload Pro" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="1" customClass="MainWindow">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="168" width="738" height="492"/>
+            <rect key="contentRect" x="196" y="168" width="800" height="492"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1366" height="746"/>
             <view key="contentView" id="2">
-                <rect key="frame" x="0.0" y="0.0" width="738" height="492"/>
+                <rect key="frame" x="0.0" y="0.0" width="800" height="492"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="22" horizontalPageScroll="10" verticalLineScroll="22" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="206">
@@ -109,7 +109,7 @@
                         </scroller>
                     </scrollView>
                     <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="147">
-                        <rect key="frame" x="199" y="4" width="496" height="14"/>
+                        <rect key="frame" x="199" y="4" width="558" height="14"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="2 browsers connected, 105 changes detected so far" id="148">
                             <font key="font" metaFont="smallSystem"/>
@@ -117,11 +117,11 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="hll-hR-dFg" customClass="ShadowBoxView">
+                    <customView misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hll-hR-dFg" customClass="ShadowBoxView">
                         <rect key="frame" x="202" y="22" width="536" height="470"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     </customView>
-                    <customView hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="496">
+                    <customView hidden="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="496">
                         <rect key="frame" x="202" y="22" width="536" height="470"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     </customView>
@@ -256,7 +256,7 @@
                             <constraint firstItem="545" firstAttribute="top" secondItem="540" secondAttribute="bottom" constant="-10" id="tpP-x2-YQK"/>
                         </constraints>
                     </customView>
-                    <button translatesAutoresizingMaskIntoConstraints="NO" id="635">
+                    <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="635">
                         <rect key="frame" x="689" y="1" width="36" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <constraints>

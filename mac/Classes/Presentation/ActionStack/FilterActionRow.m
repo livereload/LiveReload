@@ -9,6 +9,8 @@
     [super loadContent];
 
     self.filterPopUp = [[[[NSPopUpButton popUpButton] withBezelStyle:NSRoundRectBezelStyle] withTarget:self action:@selector(filterOptionSelected:)] addedToView:self];
+    [[self.filterPopUp cell] setLineBreakMode:NSLineBreakByTruncatingHead];
+    [self.filterPopUp setContentCompressionResistancePriority:450 forOrientation:NSLayoutConstraintOrientationHorizontal];
 
     [self addConstraintsWithVisualFormat:@"|-indentL2-[checkbox(>=200)]-[filterPopUp(>=120)]-(>=buttonBarGapMin)-[optionsButton]-buttonGap-[removeButton]|" options:NSLayoutFormatAlignAllCenterY];
     [self addFullHeightConstraintsForSubview:self.filterPopUp];
