@@ -2,13 +2,13 @@
 #import "LRTargetResult.h"
 
 
-@class LRFile2;
+@class LRProjectFile;
 
 
 @interface LRFileTargetResult : LRTargetResult
 
-- (instancetype)initWithAction:(Action *)action sourceFile:(LRFile2 *)sourceFile;
+- (instancetype)initWithAction:(Action *)action sourceFile:(LRProjectFile *)sourceFile;
 
-@property (nonatomic, readonly) LRFile2 *sourceFile;
+@property (nonatomic, readonly) LRProjectFile *sourceFile;
 
 @end

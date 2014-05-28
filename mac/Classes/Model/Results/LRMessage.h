@@ -8,7 +8,7 @@ typedef enum : NSUInteger {
 } LRMessageSeverity;
 
 
-@class LRFile2;
+@class LRProjectFile;
 
 
 @interface LRMessage : NSObject

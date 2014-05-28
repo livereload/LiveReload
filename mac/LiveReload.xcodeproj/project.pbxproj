@@ -59,7 +59,6 @@
 		430D7F68184712F000203400 /* GemPackageType.m in Sources */ = {isa = PBXBuildFile; fileRef = 430D7F67184712F000203400 /* GemPackageType.m */; };
 		430D7F6B184712FD00203400 /* GemPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 430D7F6A184712FD00203400 /* GemPackage.m */; };
 		430D7F6E1847131B00203400 /* GemPackageContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 430D7F6D1847131B00203400 /* GemPackageContainer.m */; };
-		4310DE3D146DB588003091D1 /* ToolOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4310DE3C146DB588003091D1 /* ToolOptions.m */; };
 		4310DE40146DB6A0003091D1 /* UIBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4310DE3F146DB6A0003091D1 /* UIBuilder.m */; };
 		43122BF5180BBA5E00BF8121 /* Glue.m in Sources */ = {isa = PBXBuildFile; fileRef = 43122BF4180BBA5E00BF8121 /* Glue.m */; };
 		43122BFB180FBEFB00BF8121 /* ATObservation.m in Sources */ = {isa = PBXBuildFile; fileRef = 43122BFA180FBEFB00BF8121 /* ATObservation.m */; };
@@ -106,11 +105,11 @@
 		433B66E717A0914400A41848 /* streamline.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 433B66E617A0914400A41848 /* streamline.lrplugin */; };
 		433D2183182646D900E81A09 /* AppState.m in Sources */ = {isa = PBXBuildFile; fileRef = 433D2180182646D900E81A09 /* AppState.m */; };
 		433D2184182646D900E81A09 /* Workspace.m in Sources */ = {isa = PBXBuildFile; fileRef = 433D2182182646D900E81A09 /* Workspace.m */; };
-		433D2192182646E300E81A09 /* CompilationOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 433D2187182646E300E81A09 /* CompilationOptions.m */; };
+		433D2192182646E300E81A09 /* LegacyCompilationOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 433D2187182646E300E81A09 /* LegacyCompilationOptions.m */; };
 		433D2193182646E300E81A09 /* FilterOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 433D2189182646E300E81A09 /* FilterOption.m */; };
 		433D2194182646E300E81A09 /* ImportGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 433D218B182646E300E81A09 /* ImportGraph.m */; };
-		433D2195182646E300E81A09 /* LRFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 433D218D182646E300E81A09 /* LRFile.m */; };
-		433D2196182646E300E81A09 /* LRFile2.m in Sources */ = {isa = PBXBuildFile; fileRef = 433D218F182646E300E81A09 /* LRFile2.m */; };
+		433D2195182646E300E81A09 /* LRLegacyFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 433D218D182646E300E81A09 /* LRLegacyFile.m */; };
+		433D2196182646E300E81A09 /* LRProjectFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 433D218F182646E300E81A09 /* LRProjectFile.m */; };
 		433D2197182646E300E81A09 /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 433D2191182646E300E81A09 /* Project.m */; };
 		433D219B182646EB00E81A09 /* UserScript.m in Sources */ = {isa = PBXBuildFile; fileRef = 433D219A182646EB00E81A09 /* UserScript.m */; };
 		433D21D818268B6100E81A09 /* LRVersionSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 433D21D718268B6100E81A09 /* LRVersionSpace.m */; };
@@ -145,7 +144,6 @@
 		434BB26E17BA71FA000BEB1C /* RunScriptActionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB26D17BA71FA000BEB1C /* RunScriptActionRow.m */; };
 		434BB27117BB7D14000BEB1C /* FiltersGroupHeaderRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB27017BB7D14000BEB1C /* FiltersGroupHeaderRow.m */; };
 		434BB27417BB7F3A000BEB1C /* AddFilterRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB27317BB7F3A000BEB1C /* AddFilterRow.m */; };
-		434BB28217BBF23A000BEB1C /* Step.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB28117BBF23A000BEB1C /* Step.m */; };
 		43508A7E17B3767E00871422 /* ShadowBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A7D17B3767E00871422 /* ShadowBoxView.m */; };
 		43508A8117B3819500871422 /* ATAutolayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A8017B3819500871422 /* ATAutolayout.m */; };
 		43508A8417B392A500871422 /* ATStackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A8317B392A500871422 /* ATStackView.m */; };
@@ -178,14 +176,13 @@
 		4371095218585DB800FCB4C2 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 434BB29F17BBF512000BEB1C /* XCTest.framework */; };
 		4371095818585DB800FCB4C2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4371095618585DB800FCB4C2 /* InfoPlist.strings */; };
 		4371095A18585DB800FCB4C2 /* LRCompilationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4371095918585DB800FCB4C2 /* LRCompilationTests.m */; };
-		43710964185864E400FCB4C2 /* LRTestDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 43710963185864E400FCB4C2 /* LRTestDriver.m */; };
-		437109671858651B00FCB4C2 /* LRTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 437109661858651B00FCB4C2 /* LRTest.m */; };
+		437109671858651B00FCB4C2 /* LRSelfTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 437109661858651B00FCB4C2 /* LRSelfTest.m */; };
 		437109B3185879B300FCB4C2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 437109B2185879B300FCB4C2 /* Cocoa.framework */; };
 		437109B4185879C600FCB4C2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43594AF313D3BB34004175B2 /* QuartzCore.framework */; };
 		437109B5185879CB00FCB4C2 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43361D4513C30D1400C0E589 /* libicucore.dylib */; };
 		437109B6185879D600FCB4C2 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43059221151E8FA400CC3F88 /* CoreServices.framework */; };
-		437109B918588E0E00FCB4C2 /* LRTestOutputFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 437109B818588E0E00FCB4C2 /* LRTestOutputFile.m */; };
-		437109BC18595B0200FCB4C2 /* LRTestOutputExpectation.m in Sources */ = {isa = PBXBuildFile; fileRef = 437109BB18595B0200FCB4C2 /* LRTestOutputExpectation.m */; };
+		437109B918588E0E00FCB4C2 /* LRSelfTestOutputFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 437109B818588E0E00FCB4C2 /* LRSelfTestOutputFile.m */; };
+		437109BC18595B0200FCB4C2 /* LRSelfTestOutputExpectation.m in Sources */ = {isa = PBXBuildFile; fileRef = 437109BB18595B0200FCB4C2 /* LRSelfTestOutputExpectation.m */; };
 		437109BE1859A48700FCB4C2 /* Sass.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 437109BD1859A48700FCB4C2 /* Sass.lrplugin */; };
 		4376A0E2146DF1C800338AD4 /* TitleBarHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */; };
 		4378C8D11515205C003187D5 /* OldFSMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CA1515205C003187D5 /* OldFSMonitor.m */; };
@@ -289,6 +286,8 @@
 		43DB9FD4178EDF2E007BEA36 /* Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD3178EDF2E007BEA36 /* Errors.m */; };
 		43DB9FD7178EFA64007BEA36 /* ExternalEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD6178EFA64007BEA36 /* ExternalEditor.m */; };
 		43DB9FDA1792545E007BEA36 /* LRPluginCommons.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD91792545E007BEA36 /* LRPluginCommons.m */; };
+		43DD7C22192B6AC40070FF55 /* LRReloadingTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DD7C21192B6AC40070FF55 /* LRReloadingTestCase.m */; };
+		43DD7C25192B6D480070FF55 /* LRSelfTestBrowserRequestExpectation.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DD7C24192B6D480070FF55 /* LRSelfTestBrowserRequestExpectation.m */; };
 		43DFE4DB17CA97A800DEF87B /* FilterActionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DFE4DA17CA97A800DEF87B /* FilterActionRow.m */; };
 		43DFE4DE17CB613100DEF87B /* P2AsyncEnumeration.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DFE4DD17CB613100DEF87B /* P2AsyncEnumeration.m */; };
 		43DFE4E617CC6C0D00DEF87B /* autoprefixer.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43DFE4E417CC6C0D00DEF87B /* autoprefixer.lrplugin */; };
@@ -314,11 +313,7 @@
 		43F0030714700C96005D48A4 /* LRTerminalButtonOnHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F0030314700C96005D48A4 /* LRTerminalButtonOnHighlight.png */; };
 		43F30CA2184C834C008CED4A /* GemVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F30CA1184C834C008CED4A /* GemVersion.m */; };
 		43F30CA5184C84F1008CED4A /* GemVersionSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F30CA4184C84F1008CED4A /* GemVersionSpace.m */; };
-		43F50BF71466F7A1004FD951 /* PostProcessingSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F50BF61466F7A1004FD951 /* PostProcessingSettingsWindowController.m */; };
-		43F50BF91466FAB7004FD951 /* PostProcessingSettingsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43F50BF81466FAB7004FD951 /* PostProcessingSettingsWindowController.xib */; };
 		43F50BFC146706B0004FD951 /* BaseProjectSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F50BFB146706B0004FD951 /* BaseProjectSettingsWindowController.m */; };
-		43F50BFF14670A9F004FD951 /* CompilationSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F50BFE14670A9F004FD951 /* CompilationSettingsWindowController.m */; };
-		43F50C0114670AAF004FD951 /* CompilationSettingsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43F50C0014670AAF004FD951 /* CompilationSettingsWindowController.xib */; };
 		823DDED313F8DA3100529AD2 /* LiveReloadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3013F8DA3100529AD2 /* LiveReloadAppDelegate.m */; };
 		823DDED513F8DA3100529AD2 /* ExtensionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3613F8DA3100529AD2 /* ExtensionsController.m */; };
 		823DDEDA13F8DA3100529AD2 /* StatusItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3E13F8DA3100529AD2 /* StatusItemController.m */; };
@@ -467,8 +462,6 @@
 		430D7F6A184712FD00203400 /* GemPackage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GemPackage.m; sourceTree = "<group>"; };
 		430D7F6C1847131B00203400 /* GemPackageContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GemPackageContainer.h; sourceTree = "<group>"; };
 		430D7F6D1847131B00203400 /* GemPackageContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GemPackageContainer.m; sourceTree = "<group>"; };
-		4310DE3B146DB588003091D1 /* ToolOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolOptions.h; sourceTree = "<group>"; };
-		4310DE3C146DB588003091D1 /* ToolOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolOptions.m; sourceTree = "<group>"; };
 		4310DE3E146DB6A0003091D1 /* UIBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBuilder.h; sourceTree = "<group>"; };
 		4310DE3F146DB6A0003091D1 /* UIBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIBuilder.m; sourceTree = "<group>"; };
 		43122BF3180BBA5E00BF8121 /* Glue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Glue.h; sourceTree = "<group>"; };
@@ -545,16 +538,16 @@
 		433D2180182646D900E81A09 /* AppState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppState.m; sourceTree = "<group>"; };
 		433D2181182646D900E81A09 /* Workspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Workspace.h; sourceTree = "<group>"; };
 		433D2182182646D900E81A09 /* Workspace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Workspace.m; sourceTree = "<group>"; };
-		433D2186182646E300E81A09 /* CompilationOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompilationOptions.h; sourceTree = "<group>"; };
-		433D2187182646E300E81A09 /* CompilationOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompilationOptions.m; sourceTree = "<group>"; };
+		433D2186182646E300E81A09 /* LegacyCompilationOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LegacyCompilationOptions.h; sourceTree = "<group>"; };
+		433D2187182646E300E81A09 /* LegacyCompilationOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LegacyCompilationOptions.m; sourceTree = "<group>"; };
 		433D2188182646E300E81A09 /* FilterOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterOption.h; sourceTree = "<group>"; };
 		433D2189182646E300E81A09 /* FilterOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterOption.m; sourceTree = "<group>"; };
 		433D218A182646E300E81A09 /* ImportGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImportGraph.h; sourceTree = "<group>"; };
 		433D218B182646E300E81A09 /* ImportGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImportGraph.m; sourceTree = "<group>"; };
-		433D218C182646E300E81A09 /* LRFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRFile.h; sourceTree = "<group>"; };
-		433D218D182646E300E81A09 /* LRFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRFile.m; sourceTree = "<group>"; };
-		433D218E182646E300E81A09 /* LRFile2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRFile2.h; sourceTree = "<group>"; };
-		433D218F182646E300E81A09 /* LRFile2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRFile2.m; sourceTree = "<group>"; };
+		433D218C182646E300E81A09 /* LRLegacyFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRLegacyFile.h; sourceTree = "<group>"; };
+		433D218D182646E300E81A09 /* LRLegacyFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRLegacyFile.m; sourceTree = "<group>"; };
+		433D218E182646E300E81A09 /* LRProjectFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRProjectFile.h; sourceTree = "<group>"; };
+		433D218F182646E300E81A09 /* LRProjectFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRProjectFile.m; sourceTree = "<group>"; };
 		433D2190182646E300E81A09 /* Project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Project.h; sourceTree = "<group>"; };
 		433D2191182646E300E81A09 /* Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Project.m; sourceTree = "<group>"; };
 		433D2199182646EB00E81A09 /* UserScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserScript.h; sourceTree = "<group>"; };
@@ -620,8 +613,6 @@
 		434BB27017BB7D14000BEB1C /* FiltersGroupHeaderRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FiltersGroupHeaderRow.m; sourceTree = "<group>"; };
 		434BB27217BB7F3A000BEB1C /* AddFilterRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddFilterRow.h; sourceTree = "<group>"; };
 		434BB27317BB7F3A000BEB1C /* AddFilterRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddFilterRow.m; sourceTree = "<group>"; };
-		434BB28017BBF23A000BEB1C /* Step.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Step.h; sourceTree = "<group>"; };
-		434BB28117BBF23A000BEB1C /* Step.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Step.m; sourceTree = "<group>"; };
 		434BB29F17BBF512000BEB1C /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		434BB2A317BBF512000BEB1C /* ATPathSpecTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ATPathSpecTests-Info.plist"; sourceTree = "<group>"; };
 		434BB2A517BBF512000BEB1C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -685,15 +676,13 @@
 		4371095718585DB800FCB4C2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4371095918585DB800FCB4C2 /* LRCompilationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LRCompilationTests.m; sourceTree = "<group>"; };
 		4371095B18585DB800FCB4C2 /* LiveReloadTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LiveReloadTests-Prefix.pch"; sourceTree = "<group>"; };
-		43710962185864E400FCB4C2 /* LRTestDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRTestDriver.h; sourceTree = "<group>"; };
-		43710963185864E400FCB4C2 /* LRTestDriver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRTestDriver.m; sourceTree = "<group>"; };
-		437109651858651B00FCB4C2 /* LRTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRTest.h; sourceTree = "<group>"; };
-		437109661858651B00FCB4C2 /* LRTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRTest.m; sourceTree = "<group>"; };
+		437109651858651B00FCB4C2 /* LRSelfTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRSelfTest.h; sourceTree = "<group>"; };
+		437109661858651B00FCB4C2 /* LRSelfTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRSelfTest.m; sourceTree = "<group>"; };
 		437109B2185879B300FCB4C2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		437109B718588E0E00FCB4C2 /* LRTestOutputFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRTestOutputFile.h; sourceTree = "<group>"; };
-		437109B818588E0E00FCB4C2 /* LRTestOutputFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRTestOutputFile.m; sourceTree = "<group>"; };
-		437109BA18595B0200FCB4C2 /* LRTestOutputExpectation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRTestOutputExpectation.h; sourceTree = "<group>"; };
-		437109BB18595B0200FCB4C2 /* LRTestOutputExpectation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRTestOutputExpectation.m; sourceTree = "<group>"; };
+		437109B718588E0E00FCB4C2 /* LRSelfTestOutputFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRSelfTestOutputFile.h; sourceTree = "<group>"; };
+		437109B818588E0E00FCB4C2 /* LRSelfTestOutputFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRSelfTestOutputFile.m; sourceTree = "<group>"; };
+		437109BA18595B0200FCB4C2 /* LRSelfTestOutputExpectation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRSelfTestOutputExpectation.h; sourceTree = "<group>"; };
+		437109BB18595B0200FCB4C2 /* LRSelfTestOutputExpectation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRSelfTestOutputExpectation.m; sourceTree = "<group>"; };
 		437109BD1859A48700FCB4C2 /* Sass.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Sass.lrplugin; path = ../plugins/Sass.lrplugin; sourceTree = "<group>"; };
 		4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TitleBarHelpTemplate.png; sourceTree = "<group>"; };
 		4378C8C91515205C003187D5 /* OldFSMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldFSMonitor.h; sourceTree = "<group>"; };
@@ -882,6 +871,9 @@
 		43DB9FD6178EFA64007BEA36 /* ExternalEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExternalEditor.m; sourceTree = "<group>"; };
 		43DB9FD81792545E007BEA36 /* LRPluginCommons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPluginCommons.h; sourceTree = "<group>"; };
 		43DB9FD91792545E007BEA36 /* LRPluginCommons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPluginCommons.m; sourceTree = "<group>"; };
+		43DD7C21192B6AC40070FF55 /* LRReloadingTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRReloadingTestCase.m; sourceTree = "<group>"; };
+		43DD7C23192B6D480070FF55 /* LRSelfTestBrowserRequestExpectation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRSelfTestBrowserRequestExpectation.h; sourceTree = "<group>"; };
+		43DD7C24192B6D480070FF55 /* LRSelfTestBrowserRequestExpectation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRSelfTestBrowserRequestExpectation.m; sourceTree = "<group>"; };
 		43DFE4D917CA97A800DEF87B /* FilterActionRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterActionRow.h; sourceTree = "<group>"; };
 		43DFE4DA17CA97A800DEF87B /* FilterActionRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterActionRow.m; sourceTree = "<group>"; };
 		43DFE4DC17CB613100DEF87B /* P2AsyncEnumeration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2AsyncEnumeration.h; sourceTree = "<group>"; };
@@ -920,14 +912,8 @@
 		43F30CA1184C834C008CED4A /* GemVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GemVersion.m; sourceTree = "<group>"; };
 		43F30CA3184C84F1008CED4A /* GemVersionSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GemVersionSpace.h; sourceTree = "<group>"; };
 		43F30CA4184C84F1008CED4A /* GemVersionSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GemVersionSpace.m; sourceTree = "<group>"; };
-		43F50BF51466F7A1004FD951 /* PostProcessingSettingsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostProcessingSettingsWindowController.h; sourceTree = "<group>"; };
-		43F50BF61466F7A1004FD951 /* PostProcessingSettingsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostProcessingSettingsWindowController.m; sourceTree = "<group>"; };
-		43F50BF81466FAB7004FD951 /* PostProcessingSettingsWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostProcessingSettingsWindowController.xib; sourceTree = "<group>"; };
 		43F50BFA146706B0004FD951 /* BaseProjectSettingsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseProjectSettingsWindowController.h; sourceTree = "<group>"; };
 		43F50BFB146706B0004FD951 /* BaseProjectSettingsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseProjectSettingsWindowController.m; sourceTree = "<group>"; };
-		43F50BFD14670A9F004FD951 /* CompilationSettingsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompilationSettingsWindowController.h; sourceTree = "<group>"; };
-		43F50BFE14670A9F004FD951 /* CompilationSettingsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompilationSettingsWindowController.m; sourceTree = "<group>"; };
-		43F50C0014670AAF004FD951 /* CompilationSettingsWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompilationSettingsWindowController.xib; sourceTree = "<group>"; };
 		823DDE2F13F8DA3100529AD2 /* LiveReloadAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveReloadAppDelegate.h; sourceTree = "<group>"; };
 		823DDE3013F8DA3100529AD2 /* LiveReloadAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveReloadAppDelegate.m; sourceTree = "<group>"; };
 		823DDE3513F8DA3100529AD2 /* ExtensionsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtensionsController.h; sourceTree = "<group>"; };
@@ -1366,18 +1352,18 @@
 		433D2185182646E300E81A09 /* Project */ = {
 			isa = PBXGroup;
 			children = (
-				433D2186182646E300E81A09 /* CompilationOptions.h */,
-				433D2187182646E300E81A09 /* CompilationOptions.m */,
+				433D2186182646E300E81A09 /* LegacyCompilationOptions.h */,
+				433D2187182646E300E81A09 /* LegacyCompilationOptions.m */,
 				433D2188182646E300E81A09 /* FilterOption.h */,
 				433D2189182646E300E81A09 /* FilterOption.m */,
 				43124AE118E2FACE0085CEF1 /* LROutputFileMapping.h */,
 				43124AE218E2FACE0085CEF1 /* LROutputFileMapping.m */,
 				433D218A182646E300E81A09 /* ImportGraph.h */,
 				433D218B182646E300E81A09 /* ImportGraph.m */,
-				433D218C182646E300E81A09 /* LRFile.h */,
-				433D218D182646E300E81A09 /* LRFile.m */,
-				433D218E182646E300E81A09 /* LRFile2.h */,
-				433D218F182646E300E81A09 /* LRFile2.m */,
+				433D218C182646E300E81A09 /* LRLegacyFile.h */,
+				433D218D182646E300E81A09 /* LRLegacyFile.m */,
+				433D218E182646E300E81A09 /* LRProjectFile.h */,
+				433D218F182646E300E81A09 /* LRProjectFile.m */,
 				433D2190182646E300E81A09 /* Project.h */,
 				433D2191182646E300E81A09 /* Project.m */,
 			);
@@ -1525,15 +1511,6 @@
 				43124AE518E413670085CEF1 /* LROutputMappingOptionController.m */,
 			);
 			path = Options;
-			sourceTree = "<group>";
-		};
-		434BB27F17BBF23A000BEB1C /* Graph */ = {
-			isa = PBXGroup;
-			children = (
-				434BB28017BBF23A000BEB1C /* Step.h */,
-				434BB28117BBF23A000BEB1C /* Step.m */,
-			);
-			path = Graph;
 			sourceTree = "<group>";
 		};
 		434BB2A117BBF512000BEB1C /* ATPathSpecTests */ = {
@@ -1695,14 +1672,14 @@
 		4371094C18585D2800FCB4C2 /* SelfTest */ = {
 			isa = PBXGroup;
 			children = (
-				43710962185864E400FCB4C2 /* LRTestDriver.h */,
-				43710963185864E400FCB4C2 /* LRTestDriver.m */,
-				437109651858651B00FCB4C2 /* LRTest.h */,
-				437109661858651B00FCB4C2 /* LRTest.m */,
-				437109B718588E0E00FCB4C2 /* LRTestOutputFile.h */,
-				437109B818588E0E00FCB4C2 /* LRTestOutputFile.m */,
-				437109BA18595B0200FCB4C2 /* LRTestOutputExpectation.h */,
-				437109BB18595B0200FCB4C2 /* LRTestOutputExpectation.m */,
+				437109651858651B00FCB4C2 /* LRSelfTest.h */,
+				437109661858651B00FCB4C2 /* LRSelfTest.m */,
+				437109B718588E0E00FCB4C2 /* LRSelfTestOutputFile.h */,
+				437109B818588E0E00FCB4C2 /* LRSelfTestOutputFile.m */,
+				437109BA18595B0200FCB4C2 /* LRSelfTestOutputExpectation.h */,
+				437109BB18595B0200FCB4C2 /* LRSelfTestOutputExpectation.m */,
+				43DD7C23192B6D480070FF55 /* LRSelfTestBrowserRequestExpectation.h */,
+				43DD7C24192B6D480070FF55 /* LRSelfTestBrowserRequestExpectation.m */,
 			);
 			path = SelfTest;
 			sourceTree = "<group>";
@@ -1717,6 +1694,7 @@
 				43C927781879317D002372B7 /* LRIntegrationTestCase.m */,
 				4371095918585DB800FCB4C2 /* LRCompilationTests.m */,
 				43C9277D187932A9002372B7 /* LRLegacyCompilationTests.m */,
+				43DD7C21192B6AC40070FF55 /* LRReloadingTestCase.m */,
 				4371095418585DB800FCB4C2 /* Supporting Files */,
 			);
 			path = LiveReloadTests;
@@ -2063,7 +2041,6 @@
 				823DDE4213F8DA3100529AD2 /* Editors */,
 				437BAB8B173A13F5005AA1C0 /* Runtimes */,
 				823DDE6713F8DA3100529AD2 /* Model */,
-				434BB27F17BBF23A000BEB1C /* Graph */,
 				43C611911803BD95008A707E /* SandboxAccess */,
 				823DDE7213F8DA3100529AD2 /* Monitoring */,
 				823DDE7B13F8DA3100529AD2 /* Plugins */,
@@ -2116,12 +2093,6 @@
 				435BE044141B87920008FF77 /* NewMainWindowController.m */,
 				43F50BFA146706B0004FD951 /* BaseProjectSettingsWindowController.h */,
 				43F50BFB146706B0004FD951 /* BaseProjectSettingsWindowController.m */,
-				43F50BF51466F7A1004FD951 /* PostProcessingSettingsWindowController.h */,
-				43F50BF61466F7A1004FD951 /* PostProcessingSettingsWindowController.m */,
-				43F50BF81466FAB7004FD951 /* PostProcessingSettingsWindowController.xib */,
-				43F50BFD14670A9F004FD951 /* CompilationSettingsWindowController.h */,
-				43F50BFE14670A9F004FD951 /* CompilationSettingsWindowController.m */,
-				43F50C0014670AAF004FD951 /* CompilationSettingsWindowController.xib */,
 				43534038146CC7E600DD66B0 /* MonitoringSettingsWindowController.h */,
 				43534039146CC7E600DD66B0 /* MonitoringSettingsWindowController.m */,
 				4353403B146CC8A400DD66B0 /* MonitoringSettingsWindowController.xib */,
@@ -2198,8 +2169,6 @@
 				823DDE8313F8DA3100529AD2 /* PluginManager.m */,
 				823DDE8413F8DA3100529AD2 /* ToolOutput.h */,
 				823DDE8513F8DA3100529AD2 /* ToolOutput.m */,
-				4310DE3B146DB588003091D1 /* ToolOptions.h */,
-				4310DE3C146DB588003091D1 /* ToolOptions.m */,
 			);
 			path = Plugins;
 			sourceTree = "<group>";
@@ -2445,8 +2414,6 @@
 				4346F3AB1451012A00B133F2 /* StatusItemStateRotation3.png in Resources */,
 				4353197214668E7D005FA59F /* LRHelpTemplate.png in Resources */,
 				4353197314668E7D005FA59F /* LRSupportTemplate.png in Resources */,
-				43F50BF91466FAB7004FD951 /* PostProcessingSettingsWindowController.xib in Resources */,
-				43F50C0114670AAF004FD951 /* CompilationSettingsWindowController.xib in Resources */,
 				43146699146C5D2100DC075A /* ProjectPaneBackground.png in Resources */,
 				4314669B146C689500DC075A /* FolderIcon64.png in Resources */,
 				4314669D146C884800DC075A /* WelcomePaneBackground.png in Resources */,
@@ -2524,6 +2491,7 @@
 				430ABDF1186BF1EA00407561 /* LRPathProcessingTests.m in Sources */,
 				43C9277E187932A9002372B7 /* LRLegacyCompilationTests.m in Sources */,
 				43C9277C187931B1002372B7 /* ATAsyncTestCase.m in Sources */,
+				43DD7C22192B6AC40070FF55 /* LRReloadingTestCase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2576,16 +2544,13 @@
 				43E5DF621462829B0016CDA0 /* ImageAndTextCell.m in Sources */,
 				43158FF3191AA11100DE8A5A /* LRTRProtocolParser.m in Sources */,
 				4353196F1465B52D005FA59F /* ShitHappens.m in Sources */,
-				43F50BF71466F7A1004FD951 /* PostProcessingSettingsWindowController.m in Sources */,
 				43F50BFC146706B0004FD951 /* BaseProjectSettingsWindowController.m in Sources */,
-				433D2195182646E300E81A09 /* LRFile.m in Sources */,
-				43F50BFF14670A9F004FD951 /* CompilationSettingsWindowController.m in Sources */,
+				433D2195182646E300E81A09 /* LRLegacyFile.m in Sources */,
 				431466A6146CA68500DC075A /* PassThruView.m in Sources */,
 				431466A9146CA82200DC075A /* PassThruImageView.m in Sources */,
 				434BB25517B8F97E000BEB1C /* BaseActionRow.m in Sources */,
 				4353403A146CC7E600DD66B0 /* MonitoringSettingsWindowController.m in Sources */,
 				434BB26517BA238B000BEB1C /* AddActionRow.m in Sources */,
-				4310DE3D146DB588003091D1 /* ToolOptions.m in Sources */,
 				43122C0A1814244E00BF8121 /* LRPopUpOption.m in Sources */,
 				433D21DB18268B7E00E81A09 /* LRVersion.m in Sources */,
 				43CE9B64191675F30044D28E /* FilterAction.m in Sources */,
@@ -2594,7 +2559,6 @@
 				43F002CF146EC97B005D48A4 /* MainWindow.m in Sources */,
 				4396F1E017F8112F00AA8200 /* GlitterFeed.m in Sources */,
 				43F002D2146F4135005D48A4 /* TerminalView.m in Sources */,
-				434BB28217BBF23A000BEB1C /* Step.m in Sources */,
 				43F002F8146FF584005D48A4 /* TerminalViewController.m in Sources */,
 				43122C0718141F0B00BF8121 /* LRTextFieldOption.m in Sources */,
 				43E34F9B14705125001641AA /* console.c in Sources */,
@@ -2634,7 +2598,7 @@
 				43CE9B5D191675F30044D28E /* LRActionVersion.m in Sources */,
 				4303A54215B513FD009D732A /* hashtable.c in Sources */,
 				434BB24917B690AB000BEB1C /* GroupHeaderRow.m in Sources */,
-				437109B918588E0E00FCB4C2 /* LRTestOutputFile.m in Sources */,
+				437109B918588E0E00FCB4C2 /* LRSelfTestOutputFile.m in Sources */,
 				4303A54315B513FD009D732A /* load.c in Sources */,
 				434BB24F17B7A680000BEB1C /* ActionListView.m in Sources */,
 				4303A54415B513FD009D732A /* memory.c in Sources */,
@@ -2660,6 +2624,7 @@
 				4303A55815B513FD009D732A /* nodeapp_callbacks.m in Sources */,
 				43CE9B67191675F30044D28E /* ScriptInvocationStep.m in Sources */,
 				4303A55915B513FD009D732A /* nodeapp_crash.m in Sources */,
+				43DD7C25192B6D480070FF55 /* LRSelfTestBrowserRequestExpectation.m in Sources */,
 				4303A55A15B513FD009D732A /* nodeapp_logging.m in Sources */,
 				4303A55B15B513FD009D732A /* nodeapp_objc_json.m in Sources */,
 				43CE9B5E191675F30044D28E /* LRAssetPackageConfiguration.m in Sources */,
@@ -2698,7 +2663,7 @@
 				436D734B173DE61400F78A23 /* PreferencesController.m in Sources */,
 				43CE9B63191675F30044D28E /* CustomCommandAction.m in Sources */,
 				433D2183182646D900E81A09 /* AppState.m in Sources */,
-				437109BC18595B0200FCB4C2 /* LRTestOutputExpectation.m in Sources */,
+				437109BC18595B0200FCB4C2 /* LRSelfTestOutputExpectation.m in Sources */,
 				436D734F173DE74000F78A23 /* RubyPreferencesViewController.m in Sources */,
 				436D7357173DF3D200F78A23 /* AddCustomRubySheet.m in Sources */,
 				436D735B173E141400F78A23 /* RubyInstance.m in Sources */,
@@ -2714,7 +2679,7 @@
 				43A4806C1749F54700A0681D /* SystemRubyInstance.m in Sources */,
 				43A48070174A01DD00A0681D /* RbenvContainer.m in Sources */,
 				43CE9B5A191675F30044D28E /* ActionList.m in Sources */,
-				433D2196182646E300E81A09 /* LRFile2.m in Sources */,
+				433D2196182646E300E81A09 /* LRProjectFile.m in Sources */,
 				433D2184182646D900E81A09 /* Workspace.m in Sources */,
 				43CE9B5F191675F30044D28E /* LRContextActionType.m in Sources */,
 				43A48077174A04E700A0681D /* RbenvRubyInstance.m in Sources */,
@@ -2734,7 +2699,7 @@
 				43124AE618E413670085CEF1 /* LROutputMappingOptionController.m in Sources */,
 				43B5C01017ADF35C00F57276 /* NSArray+ATSubstitutions.m in Sources */,
 				43B5C01217ADF35C00F57276 /* NSString+ATProperURLEncoding.m in Sources */,
-				437109671858651B00FCB4C2 /* LRTest.m in Sources */,
+				437109671858651B00FCB4C2 /* LRSelfTest.m in Sources */,
 				43124AE918E413740085CEF1 /* LROutputMappingOption.m in Sources */,
 				4396F1DF17F8112F00AA8200 /* GlitterArchiveUtilities.m in Sources */,
 				43158FED191AA07900DE8A5A /* LRTRRun.m in Sources */,
@@ -2763,7 +2728,6 @@
 				43B5C03717AE99B200F57276 /* EKGlobals.m in Sources */,
 				43B5C03A17AEA41E00F57276 /* SublimeText3Editor.m in Sources */,
 				43B5C03D17AEA8C100F57276 /* Coda2Editor.m in Sources */,
-				43710964185864E400FCB4C2 /* LRTestDriver.m in Sources */,
 				43D6CA50191BFF5C00DA9FFE /* LROperationResult.m in Sources */,
 				43B5C04017AEA9F400F57276 /* NSAppleScript+ATInvokeHandlerWithArguments.m in Sources */,
 				43996B2E17AF675D00B09954 /* ATMenuEnabledSegmentedCell.m in Sources */,
@@ -2775,7 +2739,7 @@
 				43122C0D1814286100BF8121 /* LRCustomArgumentsOption.m in Sources */,
 				4396F1DE17F8112F00AA8200 /* Glitter.m in Sources */,
 				433D22051826AD9200E81A09 /* LRPackageManager.m in Sources */,
-				433D2192182646E300E81A09 /* CompilationOptions.m in Sources */,
+				433D2192182646E300E81A09 /* LegacyCompilationOptions.m in Sources */,
 				433D220A1826AD9200E81A09 /* NpmPackageType.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

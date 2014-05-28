@@ -10,6 +10,7 @@
 #import "LRPackageResolutionContext.h"
 #import "LRPackageSet.h"
 #import "LRPackageType.h"
+#import "LRProjectFile.h"
 
 #import "LRManifestLayer.h"
 #import "LRActionVersion.h"
@@ -53,6 +54,7 @@ NSArray *LRValidActionKindStrings() {
 @implementation ActionType {
     NSMutableArray *_errors;
     NSArray *_packageConfigurations;
+    NSString *_fakeChangeExtension;
 }
 
 - (instancetype)initWithManifest:(NSDictionary *)manifest plugin:(Plugin *)plugin {
@@ -148,10 +150,35 @@ NSArray *LRValidActionKindStrings() {
         LRPackageReference *reference = [configuration.packageReferences firstObject];
         _primaryVersionSpace = reference.type.versionSpace;
     }
+
+    NSString *inputPathSpecString = self.manifest[@"input"];
+    if (inputPathSpecString) {
+        _combinedIntrinsicInputPathSpec = [ATPathSpec pathSpecWithString:inputPathSpecString syntaxOptions:ATPathSpecSyntaxFlavorExtended];
+    } else {
+        _combinedIntrinsicInputPathSpec = [ATPathSpec emptyPathSpec];
+    }
+
+    NSString *outputSpecString = self.manifest[@"output"];
+
+    // fake-change mode support is currently hard-coded to target compilers that produce CSS files
+    // (everything else triggers a full page reload anyway)
+    if ([outputSpecString isEqualToString:@"*.css"]) {
+        _fakeChangeExtension = @"css";
+    }
 }
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"%@ '%@' (%@, %@)", LRStringFromActionKind(_kind), _identifier, NSStringFromClass(_actionClass), NSStringFromClass(_rowClass)];
+}
+
+- (NSString *)fakeChangeDestinationNameForSourceFile:(LRProjectFile *)file {
+    if (_fakeChangeExtension) {
+        NSString *relativePath = file.relativePath;
+        if (![[relativePath pathExtension] isEqualToString:_fakeChangeExtension]) {
+            return [[relativePath stringByDeletingPathExtension] stringByAppendingPathExtension:_fakeChangeExtension];
+        }
+    }
+    return nil;
 }
 
 @end

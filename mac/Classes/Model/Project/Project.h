@@ -7,19 +7,18 @@
 @class FSMonitor;
 @class FSTree;
 @class Compiler;
-@class CompilationOptions;
-@class LRFile;
 @class ImportGraph;
 @class UserScript;
 @class LRPackageResolutionContext;
+@class ATPathSpec;
+@class LRBuildResult;
 
 
 extern NSString *ProjectDidDetectChangeNotification;
-extern NSString *ProjectWillBeginCompilationNotification;
-extern NSString *ProjectDidEndCompilationNotification;
 extern NSString *ProjectMonitoringStateDidChangeNotification;
 extern NSString *ProjectNeedsSavingNotification;
 extern NSString *ProjectAnalysisDidFinishNotification;
+extern NSString *ProjectBuildStartedNotification;
 extern NSString *ProjectBuildFinishedNotification;
 
 
@@ -53,7 +52,6 @@ enum {
 - (void)updateAccessibility;
 
 @property(nonatomic) BOOL enabled;
-@property(nonatomic) BOOL compilationEnabled;
 
 @property(nonatomic) BOOL disableLiveRefresh;
 @property(nonatomic) BOOL enableRemoteServerWorkflow;
@@ -72,12 +70,6 @@ enum {
 - (FSTree *)obtainTree;
 - (void)rescanTree;
 
-@property(nonatomic, readonly) NSArray *compilersInUse;
-
-- (CompilationOptions *)optionsForCompiler:(Compiler *)compiler create:(BOOL)create;
-
-- (LRFile *)optionsForFileAtPath:(NSString *)sourcePath in:(CompilationOptions *)compilationOptions;
-
 - (void)ceaseAllMonitoring;
 - (void)requestMonitoring:(BOOL)monitoringEnabled forKey:(NSString *)key;
 
@@ -90,11 +82,6 @@ enum {
 @property(nonatomic, copy) NSString *lastSelectedPane;
 
 @property(nonatomic, getter = isDirty) BOOL dirty;
-
-@property(nonatomic, strong) NSString *postProcessingCommand;
-@property(nonatomic, strong) NSString *postProcessingScriptName;
-@property(nonatomic, readonly) UserScript *postProcessingScript;
-@property(nonatomic) BOOL postProcessingEnabled;
 
 @property(nonatomic, copy) NSString *rubyVersionIdentifier;
 
@@ -112,11 +99,12 @@ enum {
 @property(nonatomic, strong, readonly) NSArray *pathOptions;
 @property(nonatomic, strong, readonly) NSArray *availableSubfolders;
 
-- (BOOL)hackhack_shouldFilterFile:(LRFile2 *)file;
-- (void)hackhack_didFilterFile:(LRFile2 *)file;
-- (void)hackhack_didWriteCompiledFile:(LRFile2 *)file;
+- (BOOL)hackhack_shouldFilterFile:(LRProjectFile *)file;
+- (void)hackhack_didFilterFile:(LRProjectFile *)file;
+- (void)hackhack_didWriteCompiledFile:(LRProjectFile *)file;
 
 @property(nonatomic, readonly, getter=isBuildInProgress) BOOL buildInProgress;
+- (void)rebuildFilesAtRelativePaths:(NSArray *)relativePaths;
 - (void)rebuildAll;
 
 @property(nonatomic, readonly, getter=isAnalysisInProgress) BOOL analysisInProgress;
@@ -125,6 +113,12 @@ enum {
 // public until we reimplement the notifications system based on listening for results
 - (void)displayResult:(LROperationResult *)result key:(NSString *)key;
 
-- (NSArray *)rootPathsForPaths:(id<NSFastEnumeration>)paths;
+- (NSArray *)rootFilesForFiles:(id<NSFastEnumeration>)paths;
+
+@property(nonatomic, readonly) ATPathSpec *forcedStylesheetReloadSpec;
+
+@property(nonatomic, readonly) LRBuildResult *lastFinishedBuild;
+
+- (NSArray *)compilerActionTypesForFile:(LRProjectFile *)file;
 
 @end

@@ -1,0 +1,26 @@
+{
+  "description": "This test simulates a case when test.css is actually served by a server-side script that uses test.json as input. When test.json changes, we want all stylesheets to be reloaded.",
+
+  "settings": {
+    "actions": [
+    ],
+    "advanced": ["reload-all-stylesheets-for", "*.json"]
+  },
+
+  "sources": {
+    "test.html": true,
+    "test.css": true,
+    "test.json": true
+  },
+
+  "outputs": {
+  },
+
+  "changes": [
+    "test.json"
+  ],
+
+  "browserRequests": [
+    { "path": "force-reload-all-stylesheets.css", "localPath": null, "originalPath": null }
+  ]
+}

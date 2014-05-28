@@ -8,7 +8,7 @@ typedef enum {
 } LRTestOptions;
 
 
-@interface LRTest : NSObject
+@interface LRSelfTest : NSObject
 
 - (id)initWithFolderURL:(NSURL *)folderURL options:(LRTestOptions)options;
 

@@ -1,0 +1,21 @@
+{
+  "settings": {
+    "actions": [
+    ]
+  },
+
+  "sources": {
+    "test.scss": true
+  },
+
+  "outputs": {
+  },
+
+  "changes": [
+    "test.scss"
+  ],
+
+  "browserRequests": [
+    { "path": "test.css", "localPath": null, "originalPath": "test.scss" }
+  ]
+}

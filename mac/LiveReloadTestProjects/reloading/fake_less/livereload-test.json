@@ -1,0 +1,21 @@
+{
+  "settings": {
+    "actions": [
+    ]
+  },
+
+  "sources": {
+    "test.less": true
+  },
+
+  "outputs": {
+  },
+
+  "changes": [
+    "test.less"
+  ],
+
+  "browserRequests": [
+    { "path": "test.css", "localPath": null, "originalPath": "test.less" }
+  ]
+}

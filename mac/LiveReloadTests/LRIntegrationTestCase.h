@@ -1,7 +1,7 @@
 
 #import <XCTest/XCTest.h>
 
-#import "LRTest.h"
+#import "LRSelfTest.h"
 #import "LiveReloadAppDelegate.h"
 #import "AppState.h"
 #import "LRPackageManager.h"

@@ -8,6 +8,10 @@
 
 @implementation LRLegacyCompilationTests
 
+// TODO re-enable these tests when we can automatically migrate 2.x compilation settings
+
+#if 0
+
 - (void)testHamlSimple {
     XCTAssertNil([self runProjectTestNamed:@"haml_simple" options:LRTestOptionLegacy], @"Failed");
 }
@@ -77,5 +81,7 @@
 - (void)testTypeScriptSimple {
     XCTAssertNil([self runProjectTestNamed:@"typescript_simple" options:LRTestOptionLegacy], @"Failed");
 }
+
+#endif
 
 @end

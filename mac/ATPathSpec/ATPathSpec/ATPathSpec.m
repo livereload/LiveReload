@@ -774,6 +774,10 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
     return [result copy];
 }
 
+- (BOOL)isNonEmpty {
+    return YES;
+}
+
 @end
 
 
@@ -794,6 +798,10 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
 }
 
 - (BOOL)isComplexExpression {
+    return NO;
+}
+
+- (BOOL)isNonEmpty {
     return NO;
 }
 
@@ -918,6 +926,10 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
 
 - (BOOL)isComplexExpression {
     return NO;
+}
+
+- (BOOL)isNonEmpty {
+    return _masks.count > 0;
 }
 
 @end
@@ -1049,6 +1061,19 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
     return YES;
 }
 
+- (BOOL)isNonEmpty {
+    for (ATPathSpec *spec in _specs) {
+        if ([spec isNonEmpty]) {
+            return YES;
+        }
+    }
+
+    if (_specs.count > 0)
+        return NO;
+    else
+        return YES; // currently, an intersection of zero items matches everything
+}
+
 - (NSString *)stringRepresentationWithSyntaxOptions:(ATPathSpecSyntaxOptions)options {
     NSMutableArray *strings = [NSMutableArray new];
     for (ATPathSpec *spec in _specs) {
@@ -1058,9 +1083,3 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
 }
 
 @end
-
-
-
-
-
-

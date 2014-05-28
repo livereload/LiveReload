@@ -2,7 +2,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface LRTestOutputFile : NSObject
+@interface LRSelfTestOutputFile : NSObject
 
 - (id)initWithRelativePath:(NSString *)relativePath absoluteURL:(NSURL *)absoluteURL expectation:(id)expectation;
 

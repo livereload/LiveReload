@@ -14,8 +14,8 @@
     return [NSSet setWithObject:@"scriptName"];
 }
 
-- (void)invokeForProject:(Project *)project withModifiedFiles:(NSSet *)paths result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
-    [self.script invokeForProjectAtPath:project.rootURL.path withModifiedFiles:paths result:result completionHandler:completionHandler];
+- (void)invokeForProject:(Project *)project withModifiedFiles:(NSArray *)files result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
+    [self.script invokeForProjectAtPath:project.rootURL.path withModifiedFiles:[NSSet setWithArray:[files valueForKeyPath:@"relativePath"]] result:result completionHandler:completionHandler];
 }
 
 - (UserScript *)script {
@@ -53,9 +53,9 @@
     memento[@"script"] = self.scriptName;
 }
 
-- (LRTargetResult *)targetForModifiedFiles:(NSSet *)paths {
-    if ([self inputPathSpecMatchesPaths:paths]) {
-        return [[LRProjectTargetResult alloc] initWithAction:self modifiedPaths:paths];
+- (LRTargetResult *)targetForModifiedFiles:(NSArray *)files {
+    if ([self inputPathSpecMatchesFiles:files]) {
+        return [[LRProjectTargetResult alloc] initWithAction:self modifiedFiles:files];
     } else {
         return nil;
     }

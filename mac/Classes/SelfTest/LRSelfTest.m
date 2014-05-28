@@ -1,14 +1,23 @@
 
-#import "LRTest.h"
+#import "LRSelfTest.h"
 #import "Workspace.h"
 #import "Project.h"
 #import "OldFSTree.h"
-#import "LRTestOutputFile.h"
+#import "LRBuildResult.h"
+#import "LRSelfTestOutputFile.h"
+#import "LRSelfTestBrowserRequestExpectation.h"
 
 #import "ATObservation.h"
+#import "ATFunctionalStyle.h"
 
 
-@interface LRTest ()
+#define return_error(returnValue, outError, error)  do { \
+        if (outError) *outError = error; \
+        return returnValue; \
+    } while(0)
+
+
+@interface LRSelfTest ()
 
 @property(nonatomic, readonly) NSURL *folderURL;
 @property(nonatomic, readonly) NSURL *manifestURL;
@@ -20,7 +29,7 @@
 @end
 
 
-@implementation LRTest {
+@implementation LRSelfTest {
     LRTestOptions _options;
 
     BOOL _skip;
@@ -29,6 +38,12 @@
     NSMutableArray *_outputFiles;
     NSSet *_originalFiles;
     NSSet *_sourceFiles;
+
+    NSMutableArray *_browserRequestExpectations;
+    BOOL _browserRequestExpectationsSpecified;
+
+    NSMutableArray *_changedFiles;
+    BOOL _changedFilesSpecified;
 
     BOOL _analysisRunning;
     BOOL _buildRunning;
@@ -42,6 +57,7 @@
 
         _manifestURL = [_folderURL URLByAppendingPathComponent:@"livereload-test.json"];
         _outputFiles = [NSMutableArray new];
+        _browserRequestExpectations = [NSMutableArray new];
         _valid = YES;
         _legacy = !!(_options & LRTestOptionLegacy);
 
@@ -75,8 +91,22 @@
     NSDictionary *outputs = _manifest[@"outputs"] ?: @{};
     [outputs enumerateKeysAndObjectsUsingBlock:^(NSString *relativePath, id expectation, BOOL *stop) {
         NSURL *absoluteURL = [_folderURL URLByAppendingPathComponent:relativePath];
-        [_outputFiles addObject:[[LRTestOutputFile alloc] initWithRelativePath:relativePath absoluteURL:absoluteURL expectation:expectation]];
+        [_outputFiles addObject:[[LRSelfTestOutputFile alloc] initWithRelativePath:relativePath absoluteURL:absoluteURL expectation:expectation]];
     }];
+
+    NSArray *browserRequestExpectations = _manifest[@"browserRequests"];
+    if (browserRequestExpectations) {
+        _browserRequestExpectationsSpecified = YES;
+        [_browserRequestExpectations addObjectsFromArray:[browserRequestExpectations arrayByMappingElementsUsingBlock:^id(id expectationData) {
+            return [[LRSelfTestBrowserRequestExpectation alloc] initWithExpectationData:expectationData];
+        }]];
+    }
+
+    NSArray *changes = _manifest[@"changes"];
+    if (changes) {
+        _changedFilesSpecified = YES;
+        _changedFiles = [changes copy];
+    }
 
     NSDictionary *sources = _manifest[@"sources"] ?: @{};
     _sourceFiles = [NSSet setWithArray:[[sources allKeys] arrayByAddingObjectsFromArray:@[@"livereload-test.json"]]];
@@ -90,7 +120,7 @@
         return [self _failWithError:[NSError errorWithDomain:@"com.livereload.tests" code:1 userInfo:@{NSLocalizedDescriptionKey:@"Legacy mode not supported"}]];
     }
 
-    for (LRTestOutputFile *outputFile in _outputFiles) {
+    for (LRSelfTestOutputFile *outputFile in _outputFiles) {
         [outputFile removeOutputFile];
     }
 
@@ -111,7 +141,11 @@
 
 - (void)_startBuild {
     _buildRunning = YES;
-    [_project rebuildAll];
+    if (_changedFilesSpecified) {
+        [_project rebuildFilesAtRelativePaths:_changedFiles];
+    } else {
+        [_project rebuildAll];
+    }
     [self _checkBuildStatus];
 }
 
@@ -122,15 +156,21 @@
 }
 
 - (void)_buildFinished {
-    for (LRTestOutputFile *outputFile in _outputFiles) {
-        NSError *__autoreleasing error;
+    NSError *__autoreleasing error;
+    for (LRSelfTestOutputFile *outputFile in _outputFiles) {
         if (![outputFile verifyExpectationsWithError:&error]) {
             return [self _failWithError:error];
         }
     }
 
+    LRBuildResult *build = _project.lastFinishedBuild;
+
+    if (![self _verifyBrowserRequestExpectationsWithBuild:build error:&error]) {
+        return [self _failWithError:error];
+    }
+
     // all expectations are met, so delete the expected files
-    for (LRTestOutputFile *outputFile in _outputFiles) {
+    for (LRSelfTestOutputFile *outputFile in _outputFiles) {
         [outputFile removeOutputFile];
     }
 
@@ -145,6 +185,36 @@
     }
 
     [self _succeeded];
+}
+
+- (BOOL)_verifyBrowserRequestExpectationsWithBuild:(LRBuildResult *)build error:(NSError **)error {
+    if (!_browserRequestExpectationsSpecified)
+        return YES;
+
+    if (!build) {
+        return_error(NO, error, ([NSError errorWithDomain:@"com.livereload.tests" code:1 userInfo:@{NSLocalizedDescriptionKey: @"No finished build in LRProject."}]));
+    }
+
+    NSArray *requests = build.reloadRequests;
+    NSArray *expectations = _browserRequestExpectations;
+    NSUInteger minCount = MIN(requests.count, expectations.count);
+    for (NSUInteger i = 0; i < minCount; ++i) {
+        NSDictionary *request = requests[i];
+        LRSelfTestBrowserRequestExpectation *expectation = expectations[i];
+        if (![expectation matchesRequest:request]) {
+            return_error(NO, error, ([NSError errorWithDomain:@"com.livereload.tests" code:1 userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Request R does not match expectation E; R = %@, E = %@, RR = %@, EE = %@", request, expectation, requests, expectations]}]));
+        }
+    }
+
+    if (minCount < expectations.count) {
+        NSArray *unmatched = [expectations subarrayWithRange:NSMakeRange(expectations.count - minCount, minCount)];
+        return_error(NO, error, ([NSError errorWithDomain:@"com.livereload.tests" code:1 userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Not enough requests! Unmatched expectations = %@, RR = %@, EE = %@", unmatched, requests, expectations]}]));
+    } else if (minCount < requests.count) {
+        NSArray *unmatched = [requests subarrayWithRange:NSMakeRange(requests.count - minCount, minCount)];
+        return_error(NO, error, ([NSError errorWithDomain:@"com.livereload.tests" code:1 userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Too many requests! Extra requests = %@, RR = %@, EE = %@", unmatched, requests, expectations]}]));
+    }
+
+    return YES;
 }
 
 - (void)_succeeded {

@@ -5,9 +5,9 @@
 @class Project;
 
 
-@interface LRFile2 : NSObject
+@interface LRProjectFile : NSObject
 
-+ (LRFile2 *)fileWithRelativePath:(NSString *)relativePath project:(Project *)project;
++ (LRProjectFile *)fileWithRelativePath:(NSString *)relativePath project:(Project *)project;
 
 @property(nonatomic, copy) NSString *relativePath;
 @property(nonatomic, strong) Project *project;

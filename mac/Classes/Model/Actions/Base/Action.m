@@ -1,6 +1,6 @@
 
 #import "Action.h"
-#import "LRFile2.h"
+#import "LRProjectFile.h"
 #import "LRCommandLine.h"
 #import "LRContextActionType.h"
 #import "LRActionVersion.h"
@@ -139,11 +139,7 @@ NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification = @"LRActio
     return YES;
 }
 
-- (BOOL)shouldInvokeForFile:(LRFile2 *)file {
-    return [self.inputPathSpec matchesPath:file.relativePath type:ATPathSpecEntryTypeFile];
-}
-
-- (LRTargetResult *)targetForModifiedFiles:(NSSet *)paths {
+- (LRTargetResult *)targetForModifiedFiles:(NSArray *)files {
     return nil;
 }
 
@@ -151,25 +147,33 @@ NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification = @"LRActio
     return NO;
 }
 
-- (LRTargetResult *)fileTargetForRootFile:(LRFile2 *)file {
+- (LRTargetResult *)fileTargetForRootFile:(LRProjectFile *)file {
     return nil;
 }
 
-- (NSArray *)fileTargetsForModifiedFiles:(NSSet *)paths {
+- (NSArray *)fileTargetsForModifiedFiles:(NSArray *)modifiedFiles {
     if (![self supportsFileTargets])
         return @[];
-    NSArray *matchingPaths = [self pathsMatchedByInputPathSpecAmongFilePaths:[paths allObjects]];
-    NSArray *rootPaths = [self.project rootPathsForPaths:matchingPaths];
-    NSArray *matchingRootPaths = [self pathsMatchedByInputPathSpecAmongFilePaths:rootPaths];
-    return [matchingRootPaths arrayByMappingElementsUsingBlock:^id(NSString *relativePath) {
-        LRFile2 *file = [LRFile2 fileWithRelativePath:relativePath project:self.project];
+    NSArray *matchingFiles = [self filesMatchedByInputPathSpecAmongFiles:modifiedFiles type:ATPathSpecEntryTypeFile];
+    NSArray *rootFiles = [self.project rootFilesForFiles:matchingFiles];
+    NSArray *matchingRootFiles = [self filesMatchedByInputPathSpecAmongFiles:rootFiles type:ATPathSpecEntryTypeFile];
+    return [matchingRootFiles arrayByMappingElementsUsingBlock:^id(LRProjectFile *file) {
         return [self fileTargetForRootFile:file];
     }];
 }
 
-- (BOOL)inputPathSpecMatchesPaths:(NSSet *)paths {
-    for (NSString *path in paths) {
-        if ([self.inputPathSpec matchesPath:path type:ATPathSpecEntryTypeFile])
+- (NSArray *)filesMatchedByInputPathSpecAmongFiles:(NSArray *)files type:(ATPathSpecEntryType)type {
+    NSMutableArray *result = [[NSMutableArray alloc] initWithCapacity:files.count];
+    for (LRProjectFile *file in files) {
+        if ([self.inputPathSpec matchesPath:file.relativePath type:type])
+            [result addObject:file];
+    }
+    return [result copy];
+}
+
+- (BOOL)inputPathSpecMatchesFiles:(NSArray *)files {
+    for (LRProjectFile *file in files) {
+        if ([self.inputPathSpec matchesPath:file.relativePath type:ATPathSpecEntryTypeFile])
             return YES;
     }
     return NO;
@@ -179,17 +183,17 @@ NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification = @"LRActio
     return [self.inputPathSpec matchingPathsInArray:paths type:ATPathSpecEntryTypeFile];
 }
 
-- (void)analyzeFile:(LRFile2 *)file inProject:(Project *)project {
+- (void)analyzeFile:(LRProjectFile *)file inProject:(Project *)project {
 }
 
-- (void)compileFile:(LRFile2 *)file inProject:(Project *)project result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
+- (void)compileFile:(LRProjectFile *)file inProject:(Project *)project result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
     abort();
 }
 
-- (void)handleDeletionOfFile:(LRFile2 *)file inProject:(Project *)project {
+- (void)handleDeletionOfFile:(LRProjectFile *)file inProject:(Project *)project {
 }
 
-- (void)invokeForProject:(Project *)project withModifiedFiles:(NSSet *)paths result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
+- (void)invokeForProject:(Project *)project withModifiedFiles:(NSArray *)files result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
     abort();
 }
 

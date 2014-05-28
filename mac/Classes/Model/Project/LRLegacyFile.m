@@ -1,9 +1,9 @@
 
-#import "LRFile.h"
+#import "LRLegacyFile.h"
 #import "Project.h"
 
 
-@implementation LRFile
+@implementation LRLegacyFile
 
 @synthesize enabled=_enabled;
 @synthesize sourcePath=_sourcePath;
@@ -155,7 +155,7 @@
 
 + (NSString *)commonOutputDirectoryFor:(NSArray *)fileOptions inProject:(Project *)project {
     NSString *commonOutputDirectory = nil;
-    for (LRFile *options in fileOptions) {
+    for (LRLegacyFile *options in fileOptions) {
         if (!options.enabled)
             continue;
         if ([project isFileImported:options.sourcePath])
@@ -173,7 +173,7 @@
 
 + (NSString *)commonDestinationNameMaskFor:(NSArray *)fileOptions inProject:(Project *)project {
     NSString *commonMask = nil;
-    for (LRFile *options in fileOptions) {
+    for (LRLegacyFile *options in fileOptions) {
         if (!options.enabled)
             continue;
         if ([project isFileImported:options.sourcePath])

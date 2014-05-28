@@ -1,0 +1,22 @@
+{
+  "settings": {
+    "actions": [
+    ]
+  },
+
+  "sources": {
+    "test.html": true,
+    "test.css": true
+  },
+
+  "outputs": {
+  },
+
+  "changes": [
+    "test.css"
+  ],
+
+  "browserRequests": [
+    { "path": "test.css", "localPath": "test.css", "originalPath": null }
+  ]
+}

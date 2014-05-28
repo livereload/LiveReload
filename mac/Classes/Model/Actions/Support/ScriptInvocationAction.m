@@ -3,7 +3,7 @@
 
 #import "Project.h"
 #import "Plugin.h"
-#import "LRFile2.h"
+#import "LRProjectFile.h"
 #import "ScriptInvocationStep.h"
 #import "LROption.h"
 #import "LRActionVersion.h"
@@ -25,7 +25,7 @@
 
 @implementation ScriptInvocationAction
 
-- (void)compileFile:(LRFile2 *)file inProject:(Project *)project result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
+- (void)compileFile:(LRProjectFile *)file inProject:(Project *)project result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
     if (!self.effectiveVersion) {
         [result completedWithInvocationError:[self missingEffectiveVersionError]];
         return completionHandler();
@@ -44,14 +44,14 @@
     [step invoke];
 }
 
-- (void)configureStep:(ScriptInvocationStep *)step forFile:(LRFile2 *)file {
+- (void)configureStep:(ScriptInvocationStep *)step forFile:(LRProjectFile *)file {
     [self configureStep:step];
 }
 
-- (void)didCompleteCompilationStep:(ScriptInvocationStep *)step forFile:(LRFile2 *)file {
+- (void)didCompleteCompilationStep:(ScriptInvocationStep *)step forFile:(LRProjectFile *)file {
 }
 
-- (void)invokeForProject:(Project *)project withModifiedFiles:(NSSet *)paths result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
+- (void)invokeForProject:(Project *)project withModifiedFiles:(NSArray *)files result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
 }
 
 @end

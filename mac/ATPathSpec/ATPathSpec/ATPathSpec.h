@@ -94,4 +94,6 @@ extern NSString *const ATPathSpecMatchInfoMatchedStaticName;
 - (NSString *)stringRepresentationWithSyntaxOptions:(ATPathSpecSyntaxOptions)options;
 - (NSString *)description; // gives a string representation in Extended syntax
 
+- (BOOL)isNonEmpty;
+
 @end

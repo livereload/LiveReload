@@ -7,6 +7,8 @@
 @class Action;
 @class LRActionVersion;
 @class LRVersionSpace;
+@class ATPathSpec;
+@class LRProjectFile;
 
 
 typedef enum {
@@ -39,6 +41,10 @@ NSArray *LRValidActionKindStrings();
 
 @property(nonatomic, readonly) LRVersionSpace *primaryVersionSpace;
 
+@property(nonatomic, readonly) ATPathSpec *combinedIntrinsicInputPathSpec;
+
 - (void)initializeWithOptions;
+
+- (NSString *)fakeChangeDestinationNameForSourceFile:(LRProjectFile *)file;
 
 @end

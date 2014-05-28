@@ -1,0 +1,13 @@
+$font-stack:    Helvetica, sans-serif;
+$primary-color: #333;
+
+nav {
+  font: 100% $font-stack;
+  color: $primary-color;
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+}
