@@ -2,11 +2,12 @@
   "settings": {
     "actions": [
       {
-        "action": "coffee",
+        "action": "iced-coffee-script",
         "enabled": 1,
         "version": "*-stable"
       }
     ]
+
   },
 
   "2x-settings": {
@@ -14,12 +15,12 @@
   },
 
   "sources": {
-    "test.coffee": true
+    "test.iced": true
   },
 
   "errors": [
     {
-      "file": "test.coffee",
+      "file": "test.iced",
       "line": 3,
       "message": "unmatched )"
     }

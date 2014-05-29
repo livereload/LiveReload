@@ -57,6 +57,17 @@
         _failed = YES;
     }
 
+    if (_failed && _messages.count == 0) {
+        if (_rawOutput.length > 0) {
+            LRMessage *message = [[LRMessage alloc] initWithSeverity:LRMessageSeverityError text:_rawOutput filePath:_defaultMessageFile.absolutePath line:0 column:0];
+            message.rawOutput = _rawOutput;
+            [self addMessage:message];
+        } else {
+            LRMessage *message = [[LRMessage alloc] initWithSeverity:LRMessageSeverityError text:[NSString stringWithFormat:NSLocalizedString(@"Cannot launch compiler: %@", @"User-visible error message when the compiler fails and the output is empty"), error.localizedDescription] filePath:_defaultMessageFile.absolutePath line:0 column:0];
+            [self addMessage:message];
+        }
+    }
+
     _invocationError = error;
 }
 

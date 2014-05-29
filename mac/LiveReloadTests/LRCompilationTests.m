@@ -64,6 +64,9 @@
 - (void)testIcedCoffeeScriptLiterateMd {
     XCTAssertNil([self runProjectTestNamed:@"icedcoffeescript_literate_md" options:LRTestOptionNone], @"Failed");
 }
+- (void)testIcedCoffeeScriptError {
+    XCTAssertNil([self runProjectTestNamed:@"icedcoffeescript_error" options:LRTestOptionNone], @"Failed");
+}
 
 - (void)testJadeSimple {
     XCTAssertNil([self runProjectTestNamed:@"jade_simple" options:LRTestOptionNone], @"Failed");
