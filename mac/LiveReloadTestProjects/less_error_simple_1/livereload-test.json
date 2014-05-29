@@ -1,0 +1,23 @@
+{
+  "settings": {
+    "actions": [
+      {
+        "action": "less",
+        "enabled": 1,
+        "version": "*-stable"
+      }
+    ]
+  },
+
+  "sources": {
+    "test.less": true
+  },
+
+  "errors": [
+    {
+      "file": "test.less",
+      "line": 7,
+      "message": "ABC"
+    }
+  ]
+}

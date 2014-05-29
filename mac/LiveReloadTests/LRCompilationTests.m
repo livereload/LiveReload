@@ -31,6 +31,9 @@
 - (void)testLessVersion5 {
     XCTAssertNil([self runProjectTestNamed:@"less_version_5" options:LRTestOptionNone], @"Failed");
 }
+- (void)testLessErrorSimple1 {
+    XCTAssertNil([self runProjectTestNamed:@"less_error_simple_1" options:LRTestOptionNone], @"Failed");
+}
 
 - (void)testEcoSimple {
     XCTAssertNil([self runProjectTestNamed:@"eco_simple" options:LRTestOptionNone], @"Failed");
