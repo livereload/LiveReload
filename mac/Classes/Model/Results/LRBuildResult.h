@@ -4,6 +4,8 @@
 
 @class Project;
 @class LRProjectFile;
+@class LRTargetResult;
+@class LROperationResult;
 
 
 extern NSString *const LRBuildDidFinishNotification;
@@ -30,5 +32,7 @@ extern NSString *const LRBuildDidFinishNotification;
 @property(nonatomic, readonly, getter = isFinished) BOOL finished;
 
 - (void)start;
+
+- (void)addOperationResult:(LROperationResult *)result forTarget:(LRTargetResult *)target key:(NSString *)key;
 
 @end

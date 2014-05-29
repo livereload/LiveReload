@@ -2,6 +2,7 @@
 #import "LRProjectTargetResult.h"
 #import "Action.h"
 #import "Project.h"
+#import "LRBuildResult.h"
 
 
 @interface LRProjectTargetResult ()
@@ -22,7 +23,7 @@
 - (void)invokeWithCompletionBlock:(dispatch_block_t)completionBlock build:(LRBuildResult *)build {
     LROperationResult *result = [self newResult];
     [self.action invokeForProject:self.project withModifiedFiles:_modifiedFiles result:result completionHandler:^{
-        [self.project displayResult:result key:[NSString stringWithFormat:@"%@.postproc", self.project.path]];
+        [build addOperationResult:result forTarget:self key:[NSString stringWithFormat:@"%@.postproc", self.project.path]];
         completionBlock();
     }];
 }

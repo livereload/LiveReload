@@ -211,4 +211,8 @@ NSString *const LRBuildDidFinishNotification = @"LRBuildDidFinishNotification";
     } build:self];
 }
 
+- (void)addOperationResult:(LROperationResult *)result forTarget:(LRTargetResult *)target key:(NSString *)key {
+    [self.project displayResult:result key:key];
+}
+
 @end
