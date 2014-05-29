@@ -1,0 +1,37 @@
+{
+  "settings": {
+    "actions": [
+      {
+        "action": "slim",
+        "enabled": 1,
+        "version": "*-stable"
+      }
+    ]
+  },
+
+  "2x-settings": {
+    "legacyCompilationEnabled": true,
+    "compilers": {
+      "slim": {
+        "enabled2": true
+      }
+    }
+  },
+
+  "sources": {
+    "test.slim": true
+  },
+
+  "outputs__comment": "Slim creates an empty file even when compilation fails.",
+  "outputs": {
+    "test.html": ""
+  },
+
+  "errors": [
+    {
+      "file": "test.slim",
+      "line": 0,
+      "message": "NameError: undefined local variable or method*boz*"
+    }
+  ]
+}

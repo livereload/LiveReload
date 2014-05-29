@@ -1,0 +1,32 @@
+{
+  "settings": {
+    "actions": [
+      {
+        "action": "jade",
+        "enabled": 1,
+        "version": "*-stable"
+      }
+    ]
+  },
+
+  "2x-settings": {
+    "legacyCompilationEnabled": true,
+    "compilers": {
+      "jade": {
+        "enabled2": true
+      }
+    }
+  },
+
+  "sources": {
+    "test.jade": true
+  },
+
+  "errors": [
+    {
+      "file": "test.jade",
+      "line": 5,
+      "message": "Unexpected token*"
+    }
+  ]
+}
