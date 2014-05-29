@@ -1,0 +1,9 @@
+<div class="person2">
+  <p>Name: <%= @name %></p>
+  <p>Nickname: <%= @nickname %></p>
+  <%= !
+  <p>Occupation: <%=  @occupation?.name %></p>
+  <% if @occupation?.name is "Soldier": %>
+     <p>Rank: <%= @occupation.rank %></p>
+  <% end %>
+</div>

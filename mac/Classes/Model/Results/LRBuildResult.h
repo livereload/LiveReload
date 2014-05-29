@@ -4,6 +4,8 @@
 
 @class Project;
 @class LRProjectFile;
+@class LRTargetResult;
+@class LROperationResult;
 
 
 extern NSString *const LRBuildDidFinishNotification;
@@ -28,7 +30,12 @@ extern NSString *const LRBuildDidFinishNotification;
 
 @property(nonatomic, readonly, getter = isStarted) BOOL started;
 @property(nonatomic, readonly, getter = isFinished) BOOL finished;
+@property(nonatomic, readonly, getter = isFailed) BOOL failed;
+@property(nonatomic, readonly) LROperationResult *firstFailure;
+@property(nonatomic, readonly) NSArray *messages;
 
 - (void)start;
+
+- (void)addOperationResult:(LROperationResult *)result forTarget:(LRTargetResult *)target key:(NSString *)key;
 
 @end

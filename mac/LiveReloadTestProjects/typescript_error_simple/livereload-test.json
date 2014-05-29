@@ -1,0 +1,32 @@
+{
+  "settings": {
+    "actions": [
+      {
+        "action": "typescript",
+        "enabled": 1,
+        "version": "*-stable"
+      }
+    ]
+  },
+
+  "2x-settings": {
+    "legacyCompilationEnabled": true
+  },
+
+  "sources": {
+    "test.ts": true
+  },
+
+  "errors": [
+    {
+      "file": "test.ts",
+      "line": 12,
+      "message": "Identifier expected*"
+    },
+    {
+      "file": "test.ts",
+      "line": 12,
+      "message": "*;*expected*"
+    }
+  ]
+}

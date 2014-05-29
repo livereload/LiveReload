@@ -1,0 +1,29 @@
+{
+  "settings": {
+    "actions": [
+      {
+        "action": "less",
+        "enabled": 1,
+        "version": "*-stable"
+      }
+    ]
+  },
+
+  "sources": {
+    "test.less": true,
+    "imported.less": true
+  },
+
+  "errors": [
+    {
+      "file": "imported.less",
+      "line": 5,
+      "message": "ParseError: *"
+    },
+    {
+      "file": "imported.less",
+      "line": 5,
+      "message": "ParseError: *"
+    }
+  ]
+}

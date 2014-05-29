@@ -9,6 +9,16 @@ static NSRange P2GetFullStringRange(NSString *string) {
 
 @implementation NSRegularExpression (P2RegularExpressionExtensions)
 
+- (BOOL)p2_matchesString:(NSString *)string {
+    return [self p2_matchesString:string options:0];
+}
+- (BOOL)p2_matchesString:(NSString *)string options:(NSMatchingOptions)options {
+    return [self p2_matchesString:string options:options range:P2GetFullStringRange(string)];
+}
+- (BOOL)p2_matchesString:(NSString *)string options:(NSMatchingOptions)options range:(NSRange)searchRange {
+    return !![self firstMatchInString:string options:options range:searchRange];
+}
+
 - (NSTextCheckingResult *)p2_firstMatchInString:(NSString *)string {
     return [self firstMatchInString:string options:0 range:P2GetFullStringRange(string)];
 }

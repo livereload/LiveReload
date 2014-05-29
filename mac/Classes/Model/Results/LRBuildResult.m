@@ -5,6 +5,7 @@
 #import "LRProjectFile.h"
 #import "LRTargetResult.h"
 #import "ActionType.h"
+#import "LROperationResult.h"
 
 #import "Glue.h"
 #import "Stats.h"
@@ -30,6 +31,8 @@ NSString *const LRBuildDidFinishNotification = @"LRBuildDidFinishNotification";
     NSMutableArray *_pendingFileTargets;
     NSMutableArray *_pendingProjectTargets;
 
+    NSMutableArray *_messages;
+
     LRTargetResult *_runningTarget;
     BOOL _waitingForMoreChangesBeforeFinishing;
 
@@ -49,6 +52,7 @@ NSString *const LRBuildDidFinishNotification = @"LRBuildDidFinishNotification";
         _compiledFiles = [NSMutableSet new];
         _pendingFileTargets = [NSMutableArray new];
         _pendingProjectTargets = [NSMutableArray new];
+        _messages = [NSMutableArray new];
 
         _gracePeriodWithoutReloadRequests = 0.25;
         _gracePeriodWithReloadRequests = 0.05;
@@ -209,6 +213,21 @@ NSString *const LRBuildDidFinishNotification = @"LRBuildDidFinishNotification";
             [self executeNextTarget];
         });
     } build:self];
+}
+
+
+#pragma mark - Results
+
+- (BOOL)isFailed {
+    return !!_firstFailure;
+}
+
+- (void)addOperationResult:(LROperationResult *)result forTarget:(LRTargetResult *)target key:(NSString *)key {
+    if (!_firstFailure && [result isFailed]) {
+        _firstFailure = result;
+    }
+    [_messages addObjectsFromArray:result.messages];
+    [self.project displayResult:result key:key];
 }
 
 @end

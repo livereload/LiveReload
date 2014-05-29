@@ -1,0 +1,27 @@
+{
+  "settings": {
+    "actions": [
+      {
+        "action": "sass",
+        "enabled": 1,
+        "version": "*-stable"
+      }
+    ]
+  },
+
+  "2x-settings": {
+    "legacyCompilationEnabled": true
+  },
+
+  "sources": {
+    "test.scss": true
+  },
+
+  "errors": [
+    {
+      "file": "test.scss",
+      "line": 5,
+      "message": "Undefined variable*"
+    }
+  ]
+}

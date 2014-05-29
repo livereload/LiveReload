@@ -1,0 +1,32 @@
+{
+  "settings": {
+    "actions": [
+      {
+        "action": "eco",
+        "enabled": 1,
+        "version": "*-stable"
+      }
+    ]
+  },
+
+  "2x-settings": {
+    "legacyCompilationEnabled": true,
+    "compilers": {
+      "eco": {
+        "enabled2": true
+      }
+    }
+  },
+
+  "sources": {
+    "test.eco": true
+  },
+
+  "errors": [
+    {
+      "file": "test.eco",
+      "line": 4,
+      "message": "unexpected newline in code block"
+    }
+  ]
+}

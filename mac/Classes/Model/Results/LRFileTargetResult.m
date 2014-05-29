@@ -34,7 +34,7 @@
             if (result.invocationError) {
                 NSLog(@"Error compiling %@: %@ - %ld - %@", _sourceFile.relativePath, result.invocationError.domain, (long)result.invocationError.code, result.invocationError.localizedDescription);
             }
-            [self.project displayResult:result key:[NSString stringWithFormat:@"%@.%@", self.project.path, _sourceFile.relativePath]];
+            [build addOperationResult:result forTarget:self key:[NSString stringWithFormat:@"%@.%@", self.project.path, _sourceFile.relativePath]];
             completionBlock();
         }];
     }
