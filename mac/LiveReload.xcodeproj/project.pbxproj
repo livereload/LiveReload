@@ -86,6 +86,8 @@
 		43158FEF191AA07900DE8A5A /* LRTRTestAnythingProtocolParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 43158FEB191AA07900DE8A5A /* LRTRTestAnythingProtocolParser.m */; };
 		43158FF3191AA11100DE8A5A /* LRTRProtocolParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 43158FF2191AA11100DE8A5A /* LRTRProtocolParser.m */; };
 		43158FF8191BDC3500DE8A5A /* LRBuildResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 43158FF7191BDC3500DE8A5A /* LRBuildResult.m */; };
+		431867CE1936FAB100DA9609 /* LRSelfTestMessageExpectation.m in Sources */ = {isa = PBXBuildFile; fileRef = 431867CD1936FAB100DA9609 /* LRSelfTestMessageExpectation.m */; };
+		431867D11936FB1E00DA9609 /* LRSelfTestHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 431867D01936FB1E00DA9609 /* LRSelfTestHelpers.m */; };
 		431CB50216D1EEF300034877 /* backend in Resources */ = {isa = PBXBuildFile; fileRef = 431CB50116D1EEF300034877 /* backend */; };
 		431CB53616D1EF8200034877 /* CoffeeScript.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 431CB52D16D1EF8200034877 /* CoffeeScript.lrplugin */; };
 		431CB53716D1EF8200034877 /* Eco.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 431CB52E16D1EF8200034877 /* Eco.lrplugin */; };
@@ -511,6 +513,10 @@
 		43158FF2191AA11100DE8A5A /* LRTRProtocolParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRTRProtocolParser.m; sourceTree = "<group>"; };
 		43158FF6191BDC3500DE8A5A /* LRBuildResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRBuildResult.h; sourceTree = "<group>"; };
 		43158FF7191BDC3500DE8A5A /* LRBuildResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRBuildResult.m; sourceTree = "<group>"; };
+		431867CC1936FAB100DA9609 /* LRSelfTestMessageExpectation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRSelfTestMessageExpectation.h; sourceTree = "<group>"; };
+		431867CD1936FAB100DA9609 /* LRSelfTestMessageExpectation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRSelfTestMessageExpectation.m; sourceTree = "<group>"; };
+		431867CF1936FB1E00DA9609 /* LRSelfTestHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRSelfTestHelpers.h; sourceTree = "<group>"; };
+		431867D01936FB1E00DA9609 /* LRSelfTestHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRSelfTestHelpers.m; sourceTree = "<group>"; };
 		431CB50116D1EEF300034877 /* backend */ = {isa = PBXFileReference; lastKnownFileType = folder; path = backend; sourceTree = "<group>"; };
 		431CB52D16D1EF8200034877 /* CoffeeScript.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = CoffeeScript.lrplugin; path = ../plugins/CoffeeScript.lrplugin; sourceTree = "<group>"; };
 		431CB52E16D1EF8200034877 /* Eco.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Eco.lrplugin; path = ../plugins/Eco.lrplugin; sourceTree = "<group>"; };
@@ -1680,6 +1686,10 @@
 				437109BB18595B0200FCB4C2 /* LRSelfTestOutputExpectation.m */,
 				43DD7C23192B6D480070FF55 /* LRSelfTestBrowserRequestExpectation.h */,
 				43DD7C24192B6D480070FF55 /* LRSelfTestBrowserRequestExpectation.m */,
+				431867CC1936FAB100DA9609 /* LRSelfTestMessageExpectation.h */,
+				431867CD1936FAB100DA9609 /* LRSelfTestMessageExpectation.m */,
+				431867CF1936FB1E00DA9609 /* LRSelfTestHelpers.h */,
+				431867D01936FB1E00DA9609 /* LRSelfTestHelpers.m */,
 			);
 			path = SelfTest;
 			sourceTree = "<group>";
@@ -2512,6 +2522,7 @@
 				823DDED313F8DA3100529AD2 /* LiveReloadAppDelegate.m in Sources */,
 				43D6CA53191C14CF00DA9FFE /* LRTargetResult.m in Sources */,
 				823DDED513F8DA3100529AD2 /* ExtensionsController.m in Sources */,
+				431867D11936FB1E00DA9609 /* LRSelfTestHelpers.m in Sources */,
 				823DDEDA13F8DA3100529AD2 /* StatusItemController.m in Sources */,
 				823DDEDB13F8DA3100529AD2 /* ToolOutputWindowController.m in Sources */,
 				823DDEE013F8DA3100529AD2 /* EditorManager.m in Sources */,
@@ -2639,6 +2650,7 @@
 				4303A56015B513FD009D732A /* NodeAppWindowController.m in Sources */,
 				4303A57715B513FD009D732A /* nodeapp_licensing.m in Sources */,
 				43C611941803BDBD008A707E /* SandboxAccessModel.m in Sources */,
+				431867CE1936FAB100DA9609 /* LRSelfTestMessageExpectation.m in Sources */,
 				4396F1E117F8112F00AA8200 /* GlitterVersionUtilities.m in Sources */,
 				43508A7E17B3767E00871422 /* ShadowBoxView.m in Sources */,
 				433D224E1826B75800E81A09 /* LRSemanticVersion.m in Sources */,

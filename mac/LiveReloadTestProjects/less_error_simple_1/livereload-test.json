@@ -17,7 +17,7 @@
     {
       "file": "test.less",
       "line": 7,
-      "message": "ABC"
+      "message": "ParseError: Unrecognised input"
     }
   ]
 }

@@ -4,6 +4,10 @@
 
 @interface NSRegularExpression (P2RegularExpressionExtensions)
 
+- (BOOL)p2_matchesString:(NSString *)string;
+- (BOOL)p2_matchesString:(NSString *)string options:(NSMatchingOptions)options;
+- (BOOL)p2_matchesString:(NSString *)string options:(NSMatchingOptions)options range:(NSRange)searchRange;
+
 - (NSTextCheckingResult *)p2_firstMatchInString:(NSString *)string;
 - (NSTextCheckingResult *)p2_firstMatchInString:(NSString *)string options:(NSMatchingOptions)options;
 

@@ -4,9 +4,11 @@
 #import "Project.h"
 #import "OldFSTree.h"
 #import "LRBuildResult.h"
+#import "LROperationResult.h"
 #import "LRSelfTestOutputFile.h"
 #import "LRSelfTestBrowserRequestExpectation.h"
-#import "LROperationResult.h"
+#import "LRSelfTestMessageExpectation.h"
+#import "LRSelfTestHelpers.h"
 
 #import "ATObservation.h"
 #import "ATFunctionalStyle.h"
@@ -46,6 +48,8 @@
     NSMutableArray *_changedFiles;
     BOOL _changedFilesSpecified;
 
+    NSMutableArray *_messageExpectations;
+
     BOOL _analysisRunning;
     BOOL _buildRunning;
 }
@@ -61,6 +65,7 @@
         _browserRequestExpectations = [NSMutableArray new];
         _valid = YES;
         _legacy = !!(_options & LRTestOptionLegacy);
+        _messageExpectations = [NSMutableArray new];
 
         [self observeNotification:ProjectAnalysisDidFinishNotification withSelector:@selector(_checkAnalysisStatus)];
         [self observeNotification:ProjectBuildFinishedNotification withSelector:@selector(_checkBuildStatus)];
@@ -111,6 +116,11 @@
 
     NSDictionary *sources = _manifest[@"sources"] ?: @{};
     _sourceFiles = [NSSet setWithArray:[[sources allKeys] arrayByAddingObjectsFromArray:@[@"livereload-test.json"]]];
+
+    NSArray *errors = _manifest[@"errors"] ?: @[];
+    [_messageExpectations addObjectsFromArray:[errors arrayByMappingElementsUsingBlock:^id(NSDictionary *messageData) {
+        return [LRSelfTestMessageExpectation messageExpectationWithDictionary:messageData severity:LRMessageSeverityError];
+    }]];
 }
 
 - (void)run {
@@ -166,10 +176,16 @@
 
     LRBuildResult *build = _project.lastFinishedBuild;
 
-    if (build.failed) {
+    if (!LRSelfTestMatchUnorderedArrays(_messageExpectations, build.messages, @"Incorrect messages", &error, ^BOOL(LRSelfTestMessageExpectation *expectation, LRMessage *value) {
+        return [expectation matchesMessage:value];
+    })) {
+        return [self _failWithError:error];
+    }
+
+    if (build.failed && _messageExpectations.count == 0) {
         LROperationResult *failure = build.firstFailure;
         LRMessage *firstError = [failure.errors firstObject];
-        return [self _failWithError:([NSError errorWithDomain:@"com.livereload.tests" code:1 userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"%@", firstError]}])];
+        return [self _failWithError:([NSError errorWithDomain:@"com.livereload.tests" code:1 userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Build failed, but the failure hasn't been caught by message checking: %@", firstError]}])];
     }
 
     if (![self _verifyBrowserRequestExpectationsWithBuild:build error:&error]) {

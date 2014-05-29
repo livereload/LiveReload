@@ -32,6 +32,7 @@ extern NSString *const LRBuildDidFinishNotification;
 @property(nonatomic, readonly, getter = isFinished) BOOL finished;
 @property(nonatomic, readonly, getter = isFailed) BOOL failed;
 @property(nonatomic, readonly) LROperationResult *firstFailure;
+@property(nonatomic, readonly) NSArray *messages;
 
 - (void)start;
 
