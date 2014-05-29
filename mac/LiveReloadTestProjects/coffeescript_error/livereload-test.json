@@ -1,0 +1,27 @@
+{
+  "settings": {
+    "actions": [
+      {
+        "action": "coffee",
+        "enabled": 1,
+        "version": "*-stable"
+      }
+    ]
+  },
+
+  "2x-settings": {
+    "legacyCompilationEnabled": true
+  },
+
+  "sources": {
+    "test.coffee": true
+  },
+
+  "errors": [
+    {
+      "file": "test.coffee",
+      "line": 3,
+      "message": "Xxx"
+    }
+  ]
+}
