@@ -21,4 +21,8 @@
     return self;
 }
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"%@ in %@:%d:%d: %@", (_severity == LRMessageSeverityError ? @"Error" : @"Warning"), _filePath, (int)_line, (int)_column, _text];
+}
+
 @end

@@ -5,6 +5,7 @@
 #import "LRProjectFile.h"
 #import "LRTargetResult.h"
 #import "ActionType.h"
+#import "LROperationResult.h"
 
 #import "Glue.h"
 #import "Stats.h"
@@ -211,7 +212,17 @@ NSString *const LRBuildDidFinishNotification = @"LRBuildDidFinishNotification";
     } build:self];
 }
 
+
+#pragma mark - Results
+
+- (BOOL)isFailed {
+    return !!_firstFailure;
+}
+
 - (void)addOperationResult:(LROperationResult *)result forTarget:(LRTargetResult *)target key:(NSString *)key {
+    if (!_firstFailure && [result isFailed]) {
+        _firstFailure = result;
+    }
     [self.project displayResult:result key:key];
 }
 

@@ -6,6 +6,7 @@
 #import "LRBuildResult.h"
 #import "LRSelfTestOutputFile.h"
 #import "LRSelfTestBrowserRequestExpectation.h"
+#import "LROperationResult.h"
 
 #import "ATObservation.h"
 #import "ATFunctionalStyle.h"
@@ -164,6 +165,12 @@
     }
 
     LRBuildResult *build = _project.lastFinishedBuild;
+
+    if (build.failed) {
+        LROperationResult *failure = build.firstFailure;
+        LRMessage *firstError = [failure.errors firstObject];
+        return [self _failWithError:([NSError errorWithDomain:@"com.livereload.tests" code:1 userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"%@", firstError]}])];
+    }
 
     if (![self _verifyBrowserRequestExpectationsWithBuild:build error:&error]) {
         return [self _failWithError:error];
