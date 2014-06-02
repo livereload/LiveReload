@@ -88,6 +88,7 @@
 		43158FF8191BDC3500DE8A5A /* LRBuildResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 43158FF7191BDC3500DE8A5A /* LRBuildResult.m */; };
 		431867CE1936FAB100DA9609 /* LRSelfTestMessageExpectation.m in Sources */ = {isa = PBXBuildFile; fileRef = 431867CD1936FAB100DA9609 /* LRSelfTestMessageExpectation.m */; };
 		431867D11936FB1E00DA9609 /* LRSelfTestHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 431867D01936FB1E00DA9609 /* LRSelfTestHelpers.m */; };
+		431867D3193C19EE00DA9609 /* LRCustomActionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 431867D2193C19EE00DA9609 /* LRCustomActionTests.m */; };
 		431CB50216D1EEF300034877 /* backend in Resources */ = {isa = PBXBuildFile; fileRef = 431CB50116D1EEF300034877 /* backend */; };
 		431CB53616D1EF8200034877 /* CoffeeScript.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 431CB52D16D1EF8200034877 /* CoffeeScript.lrplugin */; };
 		431CB53716D1EF8200034877 /* Eco.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 431CB52E16D1EF8200034877 /* Eco.lrplugin */; };
@@ -517,6 +518,7 @@
 		431867CD1936FAB100DA9609 /* LRSelfTestMessageExpectation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRSelfTestMessageExpectation.m; sourceTree = "<group>"; };
 		431867CF1936FB1E00DA9609 /* LRSelfTestHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRSelfTestHelpers.h; sourceTree = "<group>"; };
 		431867D01936FB1E00DA9609 /* LRSelfTestHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRSelfTestHelpers.m; sourceTree = "<group>"; };
+		431867D2193C19EE00DA9609 /* LRCustomActionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRCustomActionTests.m; sourceTree = "<group>"; };
 		431CB50116D1EEF300034877 /* backend */ = {isa = PBXFileReference; lastKnownFileType = folder; path = backend; sourceTree = "<group>"; };
 		431CB52D16D1EF8200034877 /* CoffeeScript.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = CoffeeScript.lrplugin; path = ../plugins/CoffeeScript.lrplugin; sourceTree = "<group>"; };
 		431CB52E16D1EF8200034877 /* Eco.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Eco.lrplugin; path = ../plugins/Eco.lrplugin; sourceTree = "<group>"; };
@@ -1703,6 +1705,7 @@
 				43C927771879317D002372B7 /* LRIntegrationTestCase.h */,
 				43C927781879317D002372B7 /* LRIntegrationTestCase.m */,
 				4371095918585DB800FCB4C2 /* LRCompilationTests.m */,
+				431867D2193C19EE00DA9609 /* LRCustomActionTests.m */,
 				43C9277D187932A9002372B7 /* LRLegacyCompilationTests.m */,
 				43DD7C21192B6AC40070FF55 /* LRReloadingTestCase.m */,
 				4371095418585DB800FCB4C2 /* Supporting Files */,
@@ -2498,6 +2501,7 @@
 			files = (
 				4371095A18585DB800FCB4C2 /* LRCompilationTests.m in Sources */,
 				43C927791879317D002372B7 /* LRIntegrationTestCase.m in Sources */,
+				431867D3193C19EE00DA9609 /* LRCustomActionTests.m in Sources */,
 				430ABDF1186BF1EA00407561 /* LRPathProcessingTests.m in Sources */,
 				43C9277E187932A9002372B7 /* LRLegacyCompilationTests.m in Sources */,
 				43C9277C187931B1002372B7 /* ATAsyncTestCase.m in Sources */,

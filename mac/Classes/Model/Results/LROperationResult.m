@@ -97,6 +97,7 @@
     P2DisableARCRetainCyclesWarning();
     [self addRawOutput:rawOutput withCompletionBlock:^{
         [self completedWithInvocationError:error];
+        completionBlock();
     }];
     P2ReenableWarning();
 }

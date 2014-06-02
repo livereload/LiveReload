@@ -6,6 +6,8 @@
 #import "LRProjectTargetResult.h"
 #import "LROperationResult.h"
 
+#import "LRCommandLine.h"
+
 
 @implementation CustomCommandAction
 
@@ -103,6 +105,7 @@
 
     //    const char *project_path = [self.path UTF8String];
     //    console_printf("Post-proc exec: %s --login -c \"%s\"", [shell UTF8String], str_collapse_paths([command UTF8String], project_path));
+    NSLog(@"Executing project action command: %@", [[@[shell] arrayByAddingObjectsFromArray:shArgs] quotedArgumentStringUsingBourneQuotingStyle]);
 
     ATLaunchUnixTaskAndCaptureOutput([NSURL fileURLWithPath:shell], shArgs, ATLaunchUnixTaskAndCaptureOutputOptionsIgnoreSandbox|ATLaunchUnixTaskAndCaptureOutputOptionsMergeStdoutAndStderr, @{ATCurrentDirectoryPathKey: project.rootURL.path}, ^(NSString *outputText, NSString *stderrText, NSError *error) {
         [[NSFileManager defaultManager] changeCurrentDirectoryPath:pwd];

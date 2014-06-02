@@ -36,6 +36,9 @@ NSString *const LRBuildDidFinishNotification = @"LRBuildDidFinishNotification";
     LRTargetResult *_runningTarget;
     BOOL _waitingForMoreChangesBeforeFinishing;
 
+    // XXX: a temporary hack
+    BOOL _executingProjectActions;
+
     NSTimeInterval _gracePeriodWithoutReloadRequests;
     NSTimeInterval _gracePeriodWithReloadRequests;
 }
@@ -80,10 +83,6 @@ NSString *const LRBuildDidFinishNotification = @"LRBuildDidFinishNotification";
         for (Action *action in _actions) {
             [_pendingFileTargets addObjectsFromArray:[action fileTargetsForModifiedFiles:newFiles]];
         }
-
-//    [_pendingProjectTargets addObjectsFromArray:[_actions arrayByMappingElementsUsingBlock:^id(Action *action) {
-//        return [action targetForModifiedFiles:_modifiedFiles];
-//    }]];
 
         if (_waitingForMoreChangesBeforeFinishing) {
             [self executeNextTarget];
@@ -183,6 +182,13 @@ NSString *const LRBuildDidFinishNotification = @"LRBuildDidFinishNotification";
     if (target) {
         [_pendingFileTargets removeLastObject];
     } else {
+        // XXX: a temporary hack, need a better time to populate project actions
+        if (!_executingProjectActions) {
+            _executingProjectActions = YES;
+            [self buildProjectActions];
+        }
+        // end hack
+
         target = [_pendingProjectTargets firstObject];
         if (target) {
             [_pendingProjectTargets removeObjectAtIndex:0];
@@ -198,6 +204,12 @@ NSString *const LRBuildDidFinishNotification = @"LRBuildDidFinishNotification";
         [self performSelector:@selector(gracePeriodExpired) withObject:nil afterDelay:gracePeriod];
         _waitingForMoreChangesBeforeFinishing = YES;
     }
+}
+
+- (void)buildProjectActions {
+    [_pendingProjectTargets addObjectsFromArray:[_actions arrayByMappingElementsUsingBlock:^id(Action *action) {
+        return [action targetForModifiedFiles:_modifiedFiles];
+    }]];
 }
 
 - (void)gracePeriodExpired {

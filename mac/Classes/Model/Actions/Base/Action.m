@@ -318,7 +318,9 @@ NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification = @"LRActio
 
 - (void)configureResult:(LROperationResult *)result {
     LRActionManifest *manifest = self.effectiveVersion.manifest;
-    result.errorSyntaxManifest = @{@"errors": manifest.errorSpecs, @"warnings": manifest.warningSpecs};
+    if (manifest) {
+        result.errorSyntaxManifest = @{@"errors": manifest.errorSpecs, @"warnings": manifest.warningSpecs};
+    }
 }
 
 @end
