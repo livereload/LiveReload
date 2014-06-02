@@ -15,5 +15,8 @@
 - (void)testCommandOncePerBuild {
     XCTAssertNil([self runProjectTestNamed:@"custom_actions/command_once_per_build" options:LRTestOptionNone], @"Failed");
 }
+- (void)testCommandLoop {
+    XCTAssertNil([self runProjectTestNamed:@"custom_actions/command_loop" options:LRTestOptionNone], @"Failed");
+}
 
 @end
