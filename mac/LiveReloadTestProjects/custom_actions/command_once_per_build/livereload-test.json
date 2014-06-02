@@ -1,0 +1,20 @@
+{
+  "settings": {
+    "actions": [
+      {
+        "action": "command",
+        "enabled": 1,
+        "command": "echo 42 >>test.txt"
+      }
+    ]
+  },
+
+  "sources": {
+    "test1.less": true,
+    "test2.less": true
+  },
+
+  "outputs": {
+    "test.txt": ["42\n", "!42\n42\n"]
+  }
+}
