@@ -72,8 +72,6 @@
 @property (weak) IBOutlet NSTextField *snippetLabelField;
 @property (weak) IBOutlet NSTextField *snippetBodyTextField;
 @property (weak) IBOutlet NSTextField *monitoringSummaryLabelField;
-@property (weak) IBOutlet NSButton *compilerEnabledCheckBox;
-@property (weak) IBOutlet NSButton *postProcessingEnabledCheckBox;
 @property (weak) IBOutlet NSTextField *availableCompilersLabel;
 @property (weak) IBOutlet NSView *projectOverviewPlaceholderView;
 @property (strong) IBOutlet NSView *projectOverviewView;

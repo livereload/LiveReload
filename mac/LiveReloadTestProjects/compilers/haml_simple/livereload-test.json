@@ -1,0 +1,28 @@
+{
+  "settings": {
+    "actions": [
+      {
+        "action": "haml",
+        "enabled": 1,
+        "version": "*-stable"
+      }
+    ]
+  },
+
+  "2x-settings": {
+    "legacyCompilationEnabled": true,
+    "compilers": {
+      "haml": {
+        "enabled2": true
+      }
+    }
+  },
+
+  "sources": {
+    "test.haml": true
+  },
+
+  "outputs": {
+    "test.html": "<script src=\"css/bar.js\">"
+  }
+}

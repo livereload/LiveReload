@@ -1,0 +1,27 @@
+{
+  "settings": {
+    "actions": [
+      {
+        "action": "stylus",
+        "enabled": 1,
+        "version": "*-stable"
+      }
+    ]
+  },
+
+  "2x-settings": {
+    "legacyCompilationEnabled": true
+  },
+
+  "sources": {
+    "test.styl": true
+  },
+
+  "errors": [
+    {
+      "file": "test.styl",
+      "line": 3,
+      "message": "unexpected \"}\""
+    }
+  ]
+}

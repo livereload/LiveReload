@@ -12,6 +12,11 @@
 
     self.sourcePopUp = [[[[NSPopUpButton popUpButton] withBezelStyle:NSRoundRectBezelStyle] withTarget:self action:@selector(sourceOptionSelected:)] addedToView:self];
     self.destinationPopUp = [[[[NSPopUpButton popUpButton] withBezelStyle:NSRoundRectBezelStyle] withTarget:self action:@selector(destinationOptionSelected:)] addedToView:self];
+    [[self.sourcePopUp cell] setLineBreakMode:NSLineBreakByTruncatingHead];
+    [[self.destinationPopUp cell] setLineBreakMode:NSLineBreakByTruncatingHead];
+    [self.sourcePopUp setContentCompressionResistancePriority:450 forOrientation:NSLayoutConstraintOrientationHorizontal];
+    [self.destinationPopUp setContentCompressionResistancePriority:450 forOrientation:NSLayoutConstraintOrientationHorizontal];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:self.sourcePopUp attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.destinationPopUp attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0]];
 
     [self addConstraintsWithVisualFormat:@"|-indentL2-[checkbox(>=200)]-[sourcePopUp(>=120)]-columnGapMin-[destinationPopUp(>=120)]-(>=buttonBarGapMin)-[optionsButton]-buttonGap-[removeButton]|" options:NSLayoutFormatAlignAllCenterY];
     [self addFullHeightConstraintsForSubview:self.sourcePopUp];

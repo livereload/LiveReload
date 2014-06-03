@@ -11,7 +11,7 @@ enum {
 };
 
 
-@class ToolOutput;
+@class LROperationResult;
 
 
 @interface UserScript : NSObject
@@ -21,9 +21,7 @@ enum {
 @property(nonatomic, readonly) NSString *path;
 @property(nonatomic, readonly) BOOL exists;
 
-typedef void (^UserScriptCompletionHandler)(BOOL invoked, ToolOutput *output, NSError *error);
-
-- (void)invokeForProjectAtPath:(NSString *)projectPath withModifiedFiles:(NSSet *)paths completionHandler:(UserScriptCompletionHandler)completionHandler;
+- (void)invokeForProjectAtPath:(NSString *)projectPath withModifiedFiles:(NSSet *)paths result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler;
 
 @end
 

@@ -14,6 +14,7 @@ typedef void (^ATLaunchUnixTaskAndCaptureOutputCompletionHandler)(NSString *outp
 
 extern NSString *ATCurrentDirectoryPathKey;
 extern NSString *ATEnvironmentVariablesKey;
+extern NSString *ATStandardOutputLineBlockKey;
 
 id ATLaunchUnixTaskAndCaptureOutput(NSURL *scriptURL, NSArray *arguments, ATLaunchUnixTaskAndCaptureOutputOptions flags, NSDictionary *options, ATLaunchUnixTaskAndCaptureOutputCompletionHandler handler);
 
@@ -59,6 +60,8 @@ enum {
 ////////////////////////////////////////////////////////////////////////////////
 #pragma mark -
 
+typedef void (^ATTaskOutputReaderLineBlock)(NSString *line);
+
 @interface ATTaskOutputReader : NSObject
 
 - (id)init;
@@ -73,6 +76,8 @@ enum {
 @property(strong, readonly) NSString *standardOutputText;
 @property(strong, readonly) NSString *standardErrorText;
 @property(strong, readonly) NSString *combinedOutputText;
+
+@property(strong) ATTaskOutputReaderLineBlock standardOutputLineBlock;
 
 - (void)launched;
 - (void)startReading;

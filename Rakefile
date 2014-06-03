@@ -3,8 +3,8 @@
 
 require 'rake/clean'
 
-Dir['tasks/*.rb'].each { |file| require file }
-Dir['nodeapp/*/tasks/*.rb'].each { |file| require file }
+Dir['tasks/*.rb'].each { |file| require_relative file }
+Dir['nodeapp/*/tasks/*.rb'].each { |file| require_relative file }
 
 MacVersion = VersionTasks.new('ver:mac', 'LiveReload/LiveReload-Info.plist', %w(LiveReload/Classes/Application/app_version.h))
 
@@ -143,13 +143,13 @@ end
 file 'extensions/Firefox/content/livereload.js' => ['js/dist/livereload.js'] do |t|
   cp t.prerequisites.first, t.name
 end
-file 'backend/res/livereload.js' => ['js/dist/livereload.js'] do |t|
-  mkdir_p File.dirname(t.name)
+file 'node_modules/livereload-service-server/res/livereload.js' => ['js/dist/livereload.js'] do |t|
   cp t.prerequisites.first, t.name
 end
 
 desc "Update LiveReload.js from js/dist/"
-task :js => ['LiveReload/livereload.js', 'extensions/LiveReload.safariextension/livereload.js', 'extensions/Chrome/LiveReload/livereload.js', 'extensions/Firefox/content/livereload.js', 'backend/res/livereload.js']
+# 'extensions/LiveReload.safariextension/livereload.js', 'extensions/Chrome/LiveReload/livereload.js', 'extensions/Firefox/content/livereload.js'
+task :js => ['node_modules/livereload-service-server/res/livereload.js']
 
 desc "Push all Git changes"
 task :push do

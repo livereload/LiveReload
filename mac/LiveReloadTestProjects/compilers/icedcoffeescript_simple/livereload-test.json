@@ -1,0 +1,28 @@
+{
+  "settings": {
+    "actions": [
+      {
+        "action": "iced-coffee-script",
+        "enabled": 1,
+        "version": "*-stable"
+      }
+    ]
+
+  },
+
+  "2x-settings": {
+    "legacyCompilationEnabled": true
+  },
+
+  "sources": {
+    "test.iced": true
+  },
+
+  "outputs": {
+    "test.js": [
+      "alert(42)",
+      ".prototype.defer = function(",
+      "setTimeout(__iced_deferrals.defer("
+    ]
+  }
+}

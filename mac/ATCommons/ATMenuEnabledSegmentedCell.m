@@ -15,7 +15,9 @@ static NSRect __used ATCenterSizeInRect(NSSize size, NSRect outer) {
 // see: http://stackoverflow.com/questions/1203698/show-nssegmentedcontrol-menu-when-segment-clicked-despite-having-set-action
 
 - (SEL)action {
-    if ([self menuForSegment:self.selectedSegment])
+    if (self.selectedSegment < 0)
+        return [super action];
+    else if ([self menuForSegment:self.selectedSegment])
         return nil;
     else
         return [super action];

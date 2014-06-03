@@ -14,7 +14,13 @@
 - (void)updateMenu {
     [super updateMenu];
 
-    NSMenuItem *item = [self.menu addItemWithTitle:@"Run custom command" action:@selector(addActionClicked:) keyEquivalent:@""];
+    NSMenuItem *item = [self.menu addItemWithTitle:@"mocha" action:@selector(addActionClicked:) keyEquivalent:@""];
+    item.representedObject = @{@"action": @"mocha"};
+    item.target = self;
+
+    [self.menu addItem:[NSMenuItem separatorItem]];
+
+    item = [self.menu addItemWithTitle:@"Run custom command" action:@selector(addActionClicked:) keyEquivalent:@""];
     item.representedObject = @{@"action": @"command"};
     item.target = self;
 

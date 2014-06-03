@@ -1,0 +1,21 @@
+{
+  "settings": {
+    "actions": [
+    ]
+  },
+
+  "sources": {
+    "test.html": true
+  },
+
+  "outputs": {
+  },
+
+  "changes": [
+    "test.html"
+  ],
+
+  "browserRequests": [
+    { "path": "test.html", "localPath": "test.html", "originalPath": null }
+  ]
+}

@@ -28,8 +28,8 @@
     [[Workspace sharedWorkspace] addObserver:self forKeyPath:@"monitoringEnabled" options:0 context:nil];
     [[DockIcon currentDockIcon] addObserver:self forKeyPath:@"menuBarIconVisible" options:0 context:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didDetectChange) name:ProjectDidDetectChangeNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willBeginCompilation) name:ProjectWillBeginCompilationNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEndCompilation) name:ProjectDidEndCompilationNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willBeginCompilation) name:ProjectBuildStartedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEndCompilation) name:ProjectBuildFinishedNotification object:nil];
 
     [self updateStatusIconVisibility];
 }
@@ -100,11 +100,11 @@
 #pragma mark StatusItemViewDelegate methods
 
 - (void)statusItemViewClicked:(StatusItemView *)view {
-    [[NSApp delegate] performSelector:@selector(toggleMainWindow:) withObject:nil afterDelay:0.01];
+    [(id)[NSApp delegate] performSelector:@selector(toggleMainWindow:) withObject:nil afterDelay:0.01];
 }
 
 - (void)statusItemView:(StatusItemView *)view acceptedDroppedDirectories:(NSArray *)pathes {
-    [[NSApp delegate] addProjectsAtPaths:pathes];
+    [(id)[NSApp delegate] addProjectsAtPaths:pathes];
 }
 
 

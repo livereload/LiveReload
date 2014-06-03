@@ -7,19 +7,18 @@
 @class FSMonitor;
 @class FSTree;
 @class Compiler;
-@class CompilationOptions;
-@class LRFile;
 @class ImportGraph;
 @class UserScript;
 @class LRPackageResolutionContext;
+@class ATPathSpec;
+@class LRBuildResult;
 
 
 extern NSString *ProjectDidDetectChangeNotification;
-extern NSString *ProjectWillBeginCompilationNotification;
-extern NSString *ProjectDidEndCompilationNotification;
 extern NSString *ProjectMonitoringStateDidChangeNotification;
 extern NSString *ProjectNeedsSavingNotification;
 extern NSString *ProjectAnalysisDidFinishNotification;
+extern NSString *ProjectBuildStartedNotification;
 extern NSString *ProjectBuildFinishedNotification;
 
 
@@ -28,65 +27,7 @@ enum {
 };
 
 
-@interface Project : NSObject {
-    NSURL                   *_rootURL;
-    NSString                *_path;
-    BOOL                     _accessible;
-    BOOL                     _accessingSecurityScopedResource;
-
-    FSMonitor *_monitor;
-
-    BOOL _clientsConnected;
-    BOOL                    _enabled;
-
-    NSMutableSet            *_monitoringRequests;
-
-    NSString                *_lastSelectedPane;
-    BOOL                     _dirty;
-
-    NSString                *_postProcessingCommand;
-    NSString                *_postProcessingScriptName;
-    BOOL                     _postProcessingEnabled;
-    NSTimeInterval           _postProcessingGracePeriod;
-
-    NSString                *_rubyVersionIdentifier;
-
-    NSMutableDictionary     *_compilerOptions;
-    BOOL                     _compilationEnabled;
-
-    ImportGraph             *_importGraph;
-    BOOL                     _compassDetected;
-
-    BOOL                     _disableLiveRefresh;
-    BOOL                     _enableRemoteServerWorkflow;
-    NSTimeInterval           _fullPageReloadDelay;
-    NSTimeInterval           _eventProcessingDelay;
-
-    BOOL                     _brokenPathReported;
-
-    NSMutableArray          *_excludedFolderPaths;
-    
-    NSInteger                _numberOfPathComponentsToUseAsName;
-    NSString                *_customName;
-    
-    NSArray                 *_urlMasks;
-    
-    NSMutableSet            *_pendingChanges;
-    BOOL                     _processingChanges;
-
-    BOOL                     _runningPostProcessor;
-    BOOL                     _pendingPostProcessing;
-    NSTimeInterval           _lastPostProcessingRunDate;
-
-    NSInteger                _buildsRunning;
-
-    NSMutableDictionary     *_fileDatesHack;
-
-    NSMutableSet            *_runningAnalysisTasks;
-
-    BOOL                     _quuxMode;
-    ATPathSpec              *_forcedStylesheetReloadSpec;
-}
+@interface Project : NSObject
 
 - (id)initWithURL:(NSURL *)rootURL memento:(NSDictionary *)memento;
 
@@ -111,7 +52,6 @@ enum {
 - (void)updateAccessibility;
 
 @property(nonatomic) BOOL enabled;
-@property(nonatomic) BOOL compilationEnabled;
 
 @property(nonatomic) BOOL disableLiveRefresh;
 @property(nonatomic) BOOL enableRemoteServerWorkflow;
@@ -130,12 +70,6 @@ enum {
 - (FSTree *)obtainTree;
 - (void)rescanTree;
 
-@property(nonatomic, readonly) NSArray *compilersInUse;
-
-- (CompilationOptions *)optionsForCompiler:(Compiler *)compiler create:(BOOL)create;
-
-- (LRFile *)optionsForFileAtPath:(NSString *)sourcePath in:(CompilationOptions *)compilationOptions;
-
 - (void)ceaseAllMonitoring;
 - (void)requestMonitoring:(BOOL)monitoringEnabled forKey:(NSString *)key;
 
@@ -148,11 +82,6 @@ enum {
 @property(nonatomic, copy) NSString *lastSelectedPane;
 
 @property(nonatomic, getter = isDirty) BOOL dirty;
-
-@property(nonatomic, strong) NSString *postProcessingCommand;
-@property(nonatomic, strong) NSString *postProcessingScriptName;
-@property(nonatomic, readonly) UserScript *postProcessingScript;
-@property(nonatomic) BOOL postProcessingEnabled;
 
 @property(nonatomic, copy) NSString *rubyVersionIdentifier;
 
@@ -168,15 +97,28 @@ enum {
 @property(nonatomic, strong, readonly) ActionList *actionList;
 
 @property(nonatomic, strong, readonly) NSArray *pathOptions;
+@property(nonatomic, strong, readonly) NSArray *availableSubfolders;
 
-- (BOOL)hackhack_shouldFilterFile:(LRFile2 *)file;
-- (void)hackhack_didFilterFile:(LRFile2 *)file;
-- (void)hackhack_didWriteCompiledFile:(LRFile2 *)file;
+- (BOOL)hackhack_shouldFilterFile:(LRProjectFile *)file;
+- (void)hackhack_didFilterFile:(LRProjectFile *)file;
+- (void)hackhack_didWriteCompiledFile:(LRProjectFile *)file;
 
 @property(nonatomic, readonly, getter=isBuildInProgress) BOOL buildInProgress;
+- (void)rebuildFilesAtRelativePaths:(NSArray *)relativePaths;
 - (void)rebuildAll;
 
 @property(nonatomic, readonly, getter=isAnalysisInProgress) BOOL analysisInProgress;
 - (void)setAnalysisInProgress:(BOOL)analysisInProgress forTask:(id)task;
+
+// public until we reimplement the notifications system based on listening for results
+- (void)displayResult:(LROperationResult *)result key:(NSString *)key;
+
+- (NSArray *)rootFilesForFiles:(id<NSFastEnumeration>)paths;
+
+@property(nonatomic, readonly) ATPathSpec *forcedStylesheetReloadSpec;
+
+@property(nonatomic, readonly) LRBuildResult *lastFinishedBuild;
+
+- (NSArray *)compilerActionTypesForFile:(LRProjectFile *)file;
 
 @end

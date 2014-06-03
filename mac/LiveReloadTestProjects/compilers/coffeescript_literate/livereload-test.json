@@ -1,0 +1,23 @@
+{
+  "settings": {
+    "actions": [
+      {
+        "action": "coffee",
+        "enabled": 1,
+        "version": "*-stable"
+      }
+    ]
+  },
+
+  "2x-settings": {
+    "legacyCompilationEnabled": true
+  },
+
+  "sources": {
+    "test.litcoffee": true
+  },
+
+  "outputs": {
+    "test.js": "alert(42);"
+  }
+}

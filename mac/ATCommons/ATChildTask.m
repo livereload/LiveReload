@@ -8,6 +8,7 @@
 
 NSString *ATCurrentDirectoryPathKey = @"ATCurrentDirectoryPath";
 NSString *ATEnvironmentVariablesKey = @"ATEnvironmentVariables";
+NSString *ATStandardOutputLineBlockKey = @"ATStandardOutputLineBlockKey";
 
 static id ATPipeOrFileHandleForWriting(id task, NSPipe *pipe) {
     if ([task isKindOfClass:[NSTask class]])
@@ -49,6 +50,8 @@ id ATLaunchUnixTaskAndCaptureOutput(NSURL *scriptURL, NSArray *arguments, ATLaun
     if (options[ATEnvironmentVariablesKey] && [task respondsToSelector:@selector(setEnvironment:)]) {
         [task setEnvironment:options[ATEnvironmentVariablesKey]];
     }
+
+    outputReader.standardOutputLineBlock = options[ATStandardOutputLineBlockKey];
 
     [task executeWithArguments:arguments completionHandler:^(NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -253,6 +256,38 @@ id ATCreateUserUnixTask(NSURL *scriptURL, NSError **error) {
         _outputClosed = YES;
         [self executeCompletionBlockIfBothChannelsClosed];
     }
+
+    if (_standardOutputLineBlock) {
+        [self processLinesIncludingLast:NO];
+    }
+}
+
+- (void)processLine:(NSData *)lineChunk {
+    NSString *line = [[NSString alloc] initWithData:lineChunk encoding:NSUTF8StringEncoding];
+    _standardOutputLineBlock(line);
+}
+
+- (void)processLinesIncludingLast:(BOOL)includingLast {
+    static NSData *newLineData;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        newLineData = [@"\n" dataUsingEncoding:NSUTF8StringEncoding];
+    });
+    for (;;) {
+        NSRange range = [_standardOutputData rangeOfData:newLineData options:0 range:NSMakeRange(0, _standardOutputData.length)];
+        if (range.location == NSNotFound)
+            break;
+        NSRange lineRange = NSMakeRange(0, range.location + range.length);
+        NSData *lineChunk = [_standardOutputData subdataWithRange:lineRange];
+        [_standardOutputData replaceBytesInRange:lineRange withBytes:NULL length:0];
+        [self processLine:lineChunk];
+    }
+    if (includingLast) {
+        if (_standardOutputData.length > 0) {
+            [self processLine:_standardOutputData];
+            [_standardOutputData setLength:0];
+        }
+    }
 }
 
 - (void)processPendingErrorData {
@@ -274,6 +309,9 @@ id ATCreateUserUnixTask(NSURL *scriptURL, NSError **error) {
     if (_standardErrorPipe) {
 //        [self processPendingErrorData];
         _standardErrorPipe = nil;
+    }
+    if (_standardOutputLineBlock) {
+        [self processLinesIncludingLast:YES];
     }
 }
 

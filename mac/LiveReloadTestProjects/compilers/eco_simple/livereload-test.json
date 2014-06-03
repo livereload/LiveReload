@@ -1,0 +1,28 @@
+{
+  "settings": {
+    "actions": [
+      {
+        "action": "eco",
+        "enabled": 1,
+        "version": "*-stable"
+      }
+    ]
+  },
+
+  "2x-settings": {
+    "legacyCompilationEnabled": true,
+    "compilers": {
+      "eco": {
+        "enabled2": true
+      }
+    }
+  },
+
+  "sources": {
+    "test.eco": true
+  },
+
+  "outputs": {
+    "test.js": "__out.push(__sanitize((_ref = this.occupation) != null ? _ref.name : void 0));"
+  }
+}

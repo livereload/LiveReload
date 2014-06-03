@@ -1,0 +1,23 @@
+{
+  "settings": {
+    "actions": [
+      {
+        "action": "stylus",
+        "enabled": 1,
+        "version": "*-stable"
+      }
+    ]
+  },
+
+  "2x-settings": {
+    "legacyCompilationEnabled": true
+  },
+
+  "sources": {
+    "test.styl": true
+  },
+
+  "outputs": {
+    "test.css": ".foo {\n  position: absolute;"
+  }
+}

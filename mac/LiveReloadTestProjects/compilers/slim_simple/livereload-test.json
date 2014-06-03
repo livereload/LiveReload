@@ -1,0 +1,28 @@
+{
+  "settings": {
+    "actions": [
+      {
+        "action": "slim",
+        "enabled": 1,
+        "version": "*-stable"
+      }
+    ]
+  },
+
+  "2x-settings": {
+    "legacyCompilationEnabled": true,
+    "compilers": {
+      "slim": {
+        "enabled2": true
+      }
+    }
+  },
+
+  "sources": {
+    "test.slim": true
+  },
+
+  "outputs": {
+    "test.html": "<td class=\"price\">$2.99</td>"
+  }
+}

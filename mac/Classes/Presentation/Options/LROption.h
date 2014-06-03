@@ -34,7 +34,7 @@
 
 @property(nonatomic, strong) id presentedValue;
 @property(nonatomic, strong) id modelValue;
-@property(nonatomic, strong) id effectiveValue; // modelValue ?: defaultValue
+@property(nonatomic, strong, readonly) id effectiveValue; // modelValue ?: defaultValue
 
 @property(nonatomic, readonly) NSArray *commandLineArguments;
 

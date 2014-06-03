@@ -1,5 +1,5 @@
 
-#import "ToolOutput.h"
+#import "LROperationResult.h"
 #import "console.h"
 
 #import "UserScript.h"
@@ -54,7 +54,7 @@ NSString *const UserScriptErrorDomain = @"com.livereload.LiveReload.UserScript";
     return YES;
 }
 
-- (void)invokeForProjectAtPath:(NSString *)projectPath withModifiedFiles:(NSSet *)paths completionHandler:(UserScriptCompletionHandler)completionHandler {
+- (void)invokeForProjectAtPath:(NSString *)projectPath withModifiedFiles:(NSSet *)paths result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
     NSString *script = _path;
     NSLog(@"Running post-processing script: %@", script);
 
@@ -76,7 +76,8 @@ NSString *const UserScriptErrorDomain = @"com.livereload.LiveReload.UserScript";
     }
 
     if (userScript == nil) {
-        completionHandler(NO, nil, [NSError errorWithDomain:UserScriptErrorDomain code:UserScriptErrorInvalidScript userInfo:nil]);
+        [result completedWithInvocationError:[NSError errorWithDomain:UserScriptErrorDomain code:UserScriptErrorInvalidScript userInfo:nil]];
+        completionHandler();
         return;
     }
 
@@ -88,17 +89,12 @@ NSString *const UserScriptErrorDomain = @"com.livereload.LiveReload.UserScript";
     [userScript executeWithArguments:args completionHandler:^(NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             NSString *output = [outputReader.standardOutputText stringByAppendingString:outputReader.standardErrorText];
-            ToolOutput *toolOutput = nil;
-
-            if (error) {
-                NSLog(@"Error: %@\nOutput:\n%@", [error description], output);
-                toolOutput = [[ToolOutput alloc] initWithCompiler:nil type:ToolOutputTypeLog sourcePath:self.friendlyName line:0 message:nil output:output];
-            }
 
             if ([output length] > 0) {
                 console_printf("\n%s\n\n", str_collapse_paths([output UTF8String], [projectPath UTF8String]));
                 NSLog(@"Post-processing output:\n%@\n", output);
             }
+
             if (error) {
                 if ([error.domain isEqualToString:NSCocoaErrorDomain] && error.code == NSFileReadNoPermissionError) {
                     console_printf("Post-processor script not supported, please check executable bit.");
@@ -107,8 +103,8 @@ NSString *const UserScriptErrorDomain = @"com.livereload.LiveReload.UserScript";
                 }
                 NSLog(@"Post-processor error: %@", [error description]);
             }
-            
-            completionHandler(YES, toolOutput, error);
+
+            [result completedWithInvocationError:error rawOutput:output completionBlock:completionHandler];
         });
     }];
 }
@@ -144,8 +140,9 @@ NSString *const UserScriptErrorDomain = @"com.livereload.LiveReload.UserScript";
     return NO;
 }
 
-- (void)invokeForProjectAtPath:(NSString *)projectPath withModifiedFiles:(NSSet *)paths completionHandler:(UserScriptCompletionHandler)completionHandler {
-    completionHandler(NO, nil, [NSError errorWithDomain:UserScriptErrorDomain code:UserScriptErrorMissingScript userInfo:nil]);
+- (void)invokeForProjectAtPath:(NSString *)projectPath withModifiedFiles:(NSSet *)paths result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
+    [result completedWithInvocationError:[NSError errorWithDomain:UserScriptErrorDomain code:UserScriptErrorMissingScript userInfo:nil]];
+    completionHandler();
 }
 
 @end

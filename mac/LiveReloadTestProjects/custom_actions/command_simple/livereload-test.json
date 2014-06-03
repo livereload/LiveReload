@@ -1,0 +1,18 @@
+{
+  "settings": {
+    "actions": [
+      {
+        "action": "command",
+        "enabled": 1,
+        "command": "echo 42 >test.txt"
+      }
+    ]
+  },
+
+  "sources": {
+  },
+
+  "outputs": {
+    "test.txt": "42\n"
+  }
+}

@@ -27,6 +27,17 @@
     return nil;
 }
 
+- (NSString *)folderRelPath {
+    return _subfolder;
+}
+
+- (NSUInteger)folderComponentCount {
+    if (_subfolder.length == 0)
+        return 0;
+    else
+        return _subfolder.pathComponents.count;
+}
+
 - (NSString *)memento {
     NSString *path = (_subfolder.length == 0 ? @"." : _subfolder);
     return [@"subdir:" stringByAppendingString:path];

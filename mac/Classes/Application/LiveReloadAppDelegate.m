@@ -5,7 +5,6 @@
 #import "LiveReloadAppDelegate.h"
 #import "Project.h"
 #import "Workspace.h"
-#import "CompilationOptions.h"
 #import "StatusItemController.h"
 #import "NewMainWindowController.h"
 #import "ATLoginItemController.h"
@@ -274,7 +273,7 @@
     for (NSString *path in paths) {
         newProject = [[Workspace sharedWorkspace] projectWithPath:path create:YES];
     }
-    [[NSApp delegate] displayMainWindow:nil];
+    [(LiveReloadAppDelegate *) [NSApp delegate] displayMainWindow:nil];
     if ([paths count] == 1) {
         [self projectAdded:newProject];
     }
@@ -316,18 +315,7 @@
                 }
             }];
 
-            for (NSString *compilerId in compilerIds) {
-                Compiler *compiler = [[PluginManager sharedPluginManager] compilerWithUniqueId:compilerId];
-                if (compiler) {
-                    NSString *mode = [params objectForKey:[NSString stringWithFormat:@"compiler-%@-mode", compilerId]];
-                    if ([mode length] > 0) {
-//                        CompilationOptions *options = [project optionsForCompiler:compiler create:YES];
-//                        options.mode = CompilationModeFromNSString(mode);
-                    }
-                } else {
-                    NSLog(@"Ignoring options for unknown compiler: '%@'", compilerId);
-                }
-            }
+            // TODO: read compiler-specific options
 
             [self projectAdded:project];
         } else {

@@ -5,7 +5,7 @@
 #import "GlitterArchiveUtilities.h"
 
 
-#define GlitterChannelNamePreferenceKey @"DefaultChannelName"
+#define GlitterChannelNamePreferenceKey @"ChannelName"
 #define GlitterAutomaticCheckingEnabledPreferenceKey @"AutomaticCheckingEnabled"
 
 #define GlitterDebugModePreferenceKey @"Debug"
