@@ -1,6 +1,6 @@
 
 #import <Foundation/Foundation.h>
-#import "LRMessage.h"
+#import "LiveReload-Swift-x.h"
 
 
 @interface LRSelfTestMessageExpectation : NSObject

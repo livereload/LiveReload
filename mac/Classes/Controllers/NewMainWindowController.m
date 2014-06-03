@@ -625,7 +625,7 @@ enum { PANE_COUNT = PaneProject+1 };
         if (result == NSFileHandlingPanelOKButton) {
             NSURL *url = [openPanel URL];
             NSString *path = [url path];
-            [[NSApp delegate] addProjectAtPath:path];
+            [(LiveReloadAppDelegate *)[NSApp delegate] addProjectAtPath:path];
         }
     }];
 }
@@ -753,9 +753,9 @@ enum { PANE_COUNT = PaneProject+1 };
 
 - (IBAction)helpSupportClicked:(NSSegmentedControl *)sender {
     if (sender.selectedSegment == 0) {
-        [[NSApp delegate] openHelp:self];
+        [(LiveReloadAppDelegate *)[NSApp delegate] openHelp:self];
     } else {
-        [[NSApp delegate] openSupport:self];
+        [(LiveReloadAppDelegate *)[NSApp delegate] openSupport:self];
     }
 }
 
@@ -829,7 +829,7 @@ enum { PANE_COUNT = PaneProject+1 };
     BOOL genericSupported = (NSDragOperationGeneric & [info draggingSourceOperationMask]) == NSDragOperationGeneric;
     NSArray *paths = [self sanitizedPathsFrom:[info draggingPasteboard]];
     if (genericSupported && [paths count] > 0) {
-        [[NSApp delegate] addProjectsAtPaths:paths];
+        [(LiveReloadAppDelegate *)[NSApp delegate] addProjectsAtPaths:paths];
         return YES;
     } else {
         return NO;

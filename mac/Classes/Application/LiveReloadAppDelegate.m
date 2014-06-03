@@ -273,7 +273,7 @@
     for (NSString *path in paths) {
         newProject = [[Workspace sharedWorkspace] projectWithPath:path create:YES];
     }
-    [[NSApp delegate] displayMainWindow:nil];
+    [(LiveReloadAppDelegate *) [NSApp delegate] displayMainWindow:nil];
     if ([paths count] == 1) {
         [self projectAdded:newProject];
     }

@@ -3,7 +3,7 @@
 #import "LRProjectFile.h"
 #import "Project.h"
 #import "LROperationResult.h"
-#import "LRMessage.h"
+#import "LiveReload-Swift-x.h"
 #import "Glue.h"
 
 #import "AppState.h"

@@ -23,7 +23,7 @@
 #import "LRBuildResult.h"
 #import "LRTargetResult.h"
 #import "LROperationResult.h"
-#import "LRMessage.h"
+#import "LiveReload-Swift-x.h"
 
 #import "Stats.h"
 #import "RegexKitLite.h"
