@@ -6,7 +6,6 @@
 #import "ScriptInvocationStep.h"
 #import "Plugin.h"
 #import "LRPathProcessing.h"
-#import "LRFileTarget.h"
 #import "Action.h"
 #import "LRBuild.h"
 #import "LROperationResult.h"

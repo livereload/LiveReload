@@ -192,6 +192,8 @@
 		437109BC18595B0200FCB4C2 /* LRSelfTestOutputExpectation.m in Sources */ = {isa = PBXBuildFile; fileRef = 437109BB18595B0200FCB4C2 /* LRSelfTestOutputExpectation.m */; };
 		437109BE1859A48700FCB4C2 /* Sass.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 437109BD1859A48700FCB4C2 /* Sass.lrplugin */; };
 		43740FE8193F2B10006B5F57 /* LRProjectTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43740FE7193F2B10006B5F57 /* LRProjectTarget.swift */; };
+		43740FEA193F2F4A006B5F57 /* LRFileTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43740FE9193F2F4A006B5F57 /* LRFileTarget.swift */; };
+		43740FEC193F39E5006B5F57 /* LRTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43740FEB193F39E5006B5F57 /* LRTarget.swift */; };
 		4376A0E2146DF1C800338AD4 /* TitleBarHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */; };
 		4378C8D11515205C003187D5 /* OldFSMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CA1515205C003187D5 /* OldFSMonitor.m */; };
 		4378C8D21515205C003187D5 /* OldFSTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CC1515205C003187D5 /* OldFSTree.m */; };
@@ -285,8 +287,6 @@
 		43CE9B6C1917338B0044D28E /* Mocha.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43CE9B6B1917338A0044D28E /* Mocha.lrplugin */; };
 		43CE9B841917B6BE0044D28E /* P2RegularExpressionExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B831917B6BE0044D28E /* P2RegularExpressionExtensions.m */; };
 		43D6CA50191BFF5C00DA9FFE /* LROperationResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D6CA4F191BFF5C00DA9FFE /* LROperationResult.m */; };
-		43D6CA53191C14CF00DA9FFE /* LRTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D6CA52191C14CF00DA9FFE /* LRTarget.m */; };
-		43D6CA56191C15B700DA9FFE /* LRFileTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D6CA55191C15B700DA9FFE /* LRFileTarget.m */; };
 		43DB9FD4178EDF2E007BEA36 /* Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD3178EDF2E007BEA36 /* Errors.m */; };
 		43DB9FD7178EFA64007BEA36 /* ExternalEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD6178EFA64007BEA36 /* ExternalEditor.m */; };
 		43DB9FDA1792545E007BEA36 /* LRPluginCommons.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD91792545E007BEA36 /* LRPluginCommons.m */; };
@@ -701,6 +701,8 @@
 		437109BB18595B0200FCB4C2 /* LRSelfTestOutputExpectation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRSelfTestOutputExpectation.m; sourceTree = "<group>"; };
 		437109BD1859A48700FCB4C2 /* Sass.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Sass.lrplugin; path = ../plugins/Sass.lrplugin; sourceTree = "<group>"; };
 		43740FE7193F2B10006B5F57 /* LRProjectTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRProjectTarget.swift; sourceTree = "<group>"; };
+		43740FE9193F2F4A006B5F57 /* LRFileTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRFileTarget.swift; sourceTree = "<group>"; };
+		43740FEB193F39E5006B5F57 /* LRTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRTarget.swift; sourceTree = "<group>"; };
 		4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TitleBarHelpTemplate.png; sourceTree = "<group>"; };
 		4378C8C91515205C003187D5 /* OldFSMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldFSMonitor.h; sourceTree = "<group>"; };
 		4378C8CA1515205C003187D5 /* OldFSMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldFSMonitor.m; sourceTree = "<group>"; };
@@ -870,10 +872,6 @@
 		43CE9B831917B6BE0044D28E /* P2RegularExpressionExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P2RegularExpressionExtensions.m; sourceTree = "<group>"; };
 		43D6CA4E191BFF5C00DA9FFE /* LROperationResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LROperationResult.h; sourceTree = "<group>"; };
 		43D6CA4F191BFF5C00DA9FFE /* LROperationResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LROperationResult.m; sourceTree = "<group>"; };
-		43D6CA51191C14CF00DA9FFE /* LRTarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRTarget.h; sourceTree = "<group>"; };
-		43D6CA52191C14CF00DA9FFE /* LRTarget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRTarget.m; sourceTree = "<group>"; };
-		43D6CA54191C15B700DA9FFE /* LRFileTarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRFileTarget.h; sourceTree = "<group>"; };
-		43D6CA55191C15B700DA9FFE /* LRFileTarget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRFileTarget.m; sourceTree = "<group>"; };
 		43DB9FD2178EDF2E007BEA36 /* Errors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Errors.h; sourceTree = "<group>"; };
 		43DB9FD3178EDF2E007BEA36 /* Errors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Errors.m; sourceTree = "<group>"; };
 		43DB9FD5178EFA64007BEA36 /* ExternalEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExternalEditor.h; sourceTree = "<group>"; };
@@ -1304,10 +1302,8 @@
 			children = (
 				43158FF6191BDC3500DE8A5A /* LRBuild.h */,
 				43158FF7191BDC3500DE8A5A /* LRBuild.m */,
-				43D6CA51191C14CF00DA9FFE /* LRTarget.h */,
-				43D6CA52191C14CF00DA9FFE /* LRTarget.m */,
-				43D6CA54191C15B700DA9FFE /* LRFileTarget.h */,
-				43D6CA55191C15B700DA9FFE /* LRFileTarget.m */,
+				43740FEB193F39E5006B5F57 /* LRTarget.swift */,
+				43740FE9193F2F4A006B5F57 /* LRFileTarget.swift */,
 				43740FE7193F2B10006B5F57 /* LRProjectTarget.swift */,
 				43D6CA4E191BFF5C00DA9FFE /* LROperationResult.h */,
 				43D6CA4F191BFF5C00DA9FFE /* LROperationResult.m */,
@@ -2533,7 +2529,6 @@
 				433D224B1826B6ED00E81A09 /* LRSemanticVersionSpace.m in Sources */,
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				823DDED313F8DA3100529AD2 /* LiveReloadAppDelegate.m in Sources */,
-				43D6CA53191C14CF00DA9FFE /* LRTarget.m in Sources */,
 				823DDED513F8DA3100529AD2 /* ExtensionsController.m in Sources */,
 				431867D11936FB1E00DA9609 /* LRSelfTestHelpers.m in Sources */,
 				823DDEDA13F8DA3100529AD2 /* StatusItemController.m in Sources */,
@@ -2678,6 +2673,7 @@
 				43508A9317B39DBE00871422 /* ATFlippedView.m in Sources */,
 				436D732A173DE05000F78A23 /* RuntimeContainer.m in Sources */,
 				436D732B173DE05000F78A23 /* MissingRuntimeInstance.m in Sources */,
+				43740FEC193F39E5006B5F57 /* LRTarget.swift in Sources */,
 				43122BFB180FBEFB00BF8121 /* ATObservation.m in Sources */,
 				436D732C173DE05000F78A23 /* RuntimeInstance.m in Sources */,
 				436D732D173DE05000F78A23 /* RuntimeGlobals.m in Sources */,
@@ -2736,9 +2732,9 @@
 				43B5C01417ADF35C00F57276 /* NSWindowController+ATTextStyling.m in Sources */,
 				43CE9B66191675F30044D28E /* ScriptInvocationAction.m in Sources */,
 				43B5C01717ADF5FB00F57276 /* RegexKitLite.m in Sources */,
+				43740FEA193F2F4A006B5F57 /* LRFileTarget.swift in Sources */,
 				43508A9017B39C9700871422 /* ATSolidView.m in Sources */,
 				43B5C01A17ADF93A00F57276 /* ATHash.m in Sources */,
-				43D6CA56191C15B700DA9FFE /* LRFileTarget.m in Sources */,
 				43B5C01D17ADFA4700F57276 /* ATChildTask.m in Sources */,
 				43B5C02017AE01C500F57276 /* ATLoginItemController.m in Sources */,
 				439865AC17BE394D00EC6471 /* ATPathSpec.m in Sources */,

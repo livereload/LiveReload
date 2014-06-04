@@ -3,7 +3,7 @@
 #import "Project.h"
 #import "LRProjectFile.h"
 #import "ScriptInvocationStep.h"
-#import "LRFileTarget.h"
+#import "LiveReload-Swift-x.h"
 
 
 @implementation FilterAction

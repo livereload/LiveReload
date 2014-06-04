@@ -3,7 +3,7 @@
 
 #import "Project.h"
 #import "LRProjectFile.h"
-#import "LRTarget.h"
+#import "LiveReload-Swift-x.h"
 #import "ActionType.h"
 #import "LROperationResult.h"
 
@@ -219,12 +219,12 @@ NSString *const LRBuildDidFinishNotification = @"LRBuildDidFinishNotification";
 
 - (void)executeTarget:(LRTarget *)target {
     _runningTarget = target;
-    [target invokeWithCompletionBlock:^{
+    [target invokeWithBuild:self completionBlock:^{
         dispatch_async(dispatch_get_main_queue(), ^{
             _runningTarget = nil;
             [self executeNextTarget];
         });
-    } build:self];
+    }];
 }
 
 
