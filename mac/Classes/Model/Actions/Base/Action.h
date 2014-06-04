@@ -72,7 +72,7 @@ extern NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification;
 // for overriders
 - (void)didChange;
 - (BOOL)inputPathSpecMatchesFiles:(NSArray *)files;
-- (BOOL)supportsFileTargets;
+@property(nonatomic, readonly) BOOL supportsFileTargets;
 - (LRTargetResult *)fileTargetForRootFile:(LRProjectFile *)file;
 
 // override points / for overriders

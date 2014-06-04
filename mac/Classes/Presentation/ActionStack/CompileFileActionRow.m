@@ -2,7 +2,7 @@
 #import "CompileFileActionRow.h"
 #import "ATMacViewCreation.h"
 #import "ATAutolayout.h"
-#import "CompileFileAction.h"
+#import "LiveReload-Swift-x.h"
 
 
 @implementation CompileFileActionRow

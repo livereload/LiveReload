@@ -104,6 +104,7 @@
 		4328387C1842FD3A001FC70E /* LRPackageSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4328387B1842FD3A001FC70E /* LRPackageSet.m */; };
 		4328388218430646001FC70E /* LRPackageResolutionContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 4328388118430646001FC70E /* LRPackageResolutionContext.m */; };
 		433162F6193EFD5600ECB419 /* CompileFolderAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433162F5193EFD5600ECB419 /* CompileFolderAction.swift */; };
+		433162FB193EFECD00ECB419 /* CompileFileAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433162FA193EFECD00ECB419 /* CompileFileAction.swift */; };
 		433253A9174E0B4200C9A76B /* PrefPaneRubies.png in Resources */ = {isa = PBXBuildFile; fileRef = 433253A8174E0B4200C9A76B /* PrefPaneRubies.png */; };
 		433253B2174E0BA200C9A76B /* GeneralPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 433253B0174E0BA200C9A76B /* GeneralPreferencesViewController.m */; };
 		433253B3174E0BA200C9A76B /* GeneralPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 433253B1174E0BA200C9A76B /* GeneralPreferencesViewController.xib */; };
@@ -160,6 +161,7 @@
 		4353197314668E7D005FA59F /* LRSupportTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4353197114668E7D005FA59F /* LRSupportTemplate.png */; };
 		4353403A146CC7E600DD66B0 /* MonitoringSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43534039146CC7E600DD66B0 /* MonitoringSettingsWindowController.m */; };
 		4353403C146CC8A400DD66B0 /* MonitoringSettingsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4353403B146CC8A400DD66B0 /* MonitoringSettingsWindowController.xib */; };
+		43571BD1193F03ED00AC6E76 /* SwiftExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43571BD0193F03ED00AC6E76 /* SwiftExtensions.swift */; };
 		435729171452267C00947B2E /* Stats.m in Sources */ = {isa = PBXBuildFile; fileRef = 435729161452267C00947B2E /* Stats.m */; };
 		43594AF413D3BB34004175B2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43594AF313D3BB34004175B2 /* QuartzCore.framework */; };
 		435BE042141B72A60008FF77 /* NewMainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 435BE041141B72A60008FF77 /* NewMainWindow.xib */; };
@@ -274,7 +276,6 @@
 		43CE9B5E191675F30044D28E /* LRAssetPackageConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B44191675F30044D28E /* LRAssetPackageConfiguration.m */; };
 		43CE9B5F191675F30044D28E /* LRContextActionType.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B46191675F30044D28E /* LRContextActionType.m */; };
 		43CE9B60191675F30044D28E /* LRManifestLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B48191675F30044D28E /* LRManifestLayer.m */; };
-		43CE9B61191675F30044D28E /* CompileFileAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B4B191675F30044D28E /* CompileFileAction.m */; };
 		43CE9B63191675F30044D28E /* CustomCommandAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B4F191675F30044D28E /* CustomCommandAction.m */; };
 		43CE9B64191675F30044D28E /* FilterAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B51191675F30044D28E /* FilterAction.m */; };
 		43CE9B65191675F30044D28E /* UserScriptAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B53191675F30044D28E /* UserScriptAction.m */; };
@@ -543,6 +544,7 @@
 		433162F5193EFD5600ECB419 /* CompileFolderAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompileFolderAction.swift; sourceTree = "<group>"; };
 		433162F8193EFE7B00ECB419 /* LiveReload-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LiveReload-Bridging-Header.h"; sourceTree = "<group>"; };
 		433162F9193EFE7B00ECB419 /* LiveReload-Swift-x.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LiveReload-Swift-x.h"; sourceTree = "<group>"; };
+		433162FA193EFECD00ECB419 /* CompileFileAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompileFileAction.swift; sourceTree = "<group>"; };
 		433253A8174E0B4200C9A76B /* PrefPaneRubies.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PrefPaneRubies.png; sourceTree = "<group>"; };
 		433253AF174E0BA200C9A76B /* GeneralPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeneralPreferencesViewController.h; sourceTree = "<group>"; };
 		433253B0174E0BA200C9A76B /* GeneralPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneralPreferencesViewController.m; sourceTree = "<group>"; };
@@ -651,6 +653,7 @@
 		43534039146CC7E600DD66B0 /* MonitoringSettingsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonitoringSettingsWindowController.m; sourceTree = "<group>"; };
 		4353403B146CC8A400DD66B0 /* MonitoringSettingsWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MonitoringSettingsWindowController.xib; sourceTree = "<group>"; };
 		4356A16E19206F260024854E /* P2Warnings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2Warnings.h; sourceTree = "<group>"; };
+		43571BD0193F03ED00AC6E76 /* SwiftExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftExtensions.swift; sourceTree = "<group>"; };
 		435729151452267C00947B2E /* Stats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stats.h; sourceTree = "<group>"; };
 		435729161452267C00947B2E /* Stats.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stats.m; sourceTree = "<group>"; };
 		43594AF313D3BB34004175B2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -851,8 +854,6 @@
 		43CE9B46191675F30044D28E /* LRContextActionType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRContextActionType.m; sourceTree = "<group>"; };
 		43CE9B47191675F30044D28E /* LRManifestLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRManifestLayer.h; sourceTree = "<group>"; };
 		43CE9B48191675F30044D28E /* LRManifestLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRManifestLayer.m; sourceTree = "<group>"; };
-		43CE9B4A191675F30044D28E /* CompileFileAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompileFileAction.h; sourceTree = "<group>"; };
-		43CE9B4B191675F30044D28E /* CompileFileAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompileFileAction.m; sourceTree = "<group>"; };
 		43CE9B4E191675F30044D28E /* CustomCommandAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCommandAction.h; sourceTree = "<group>"; };
 		43CE9B4F191675F30044D28E /* CustomCommandAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCommandAction.m; sourceTree = "<group>"; };
 		43CE9B50191675F30044D28E /* FilterAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterAction.h; sourceTree = "<group>"; };
@@ -1347,6 +1348,7 @@
 			children = (
 				433162F8193EFE7B00ECB419 /* LiveReload-Bridging-Header.h */,
 				433162F9193EFE7B00ECB419 /* LiveReload-Swift-x.h */,
+				43571BD0193F03ED00AC6E76 /* SwiftExtensions.swift */,
 			);
 			path = "Swift Bridging";
 			sourceTree = "<group>";
@@ -2003,8 +2005,7 @@
 		43CE9B49191675F30044D28E /* Specific */ = {
 			isa = PBXGroup;
 			children = (
-				43CE9B4A191675F30044D28E /* CompileFileAction.h */,
-				43CE9B4B191675F30044D28E /* CompileFileAction.m */,
+				433162FA193EFECD00ECB419 /* CompileFileAction.swift */,
 				433162F5193EFD5600ECB419 /* CompileFolderAction.swift */,
 				43CE9B4E191675F30044D28E /* CustomCommandAction.h */,
 				43CE9B4F191675F30044D28E /* CustomCommandAction.m */,
@@ -2561,6 +2562,7 @@
 				433D22061826AD9200E81A09 /* LRPackageReference.m in Sources */,
 				823DDF1713F8DA3100529AD2 /* StatusItemView.m in Sources */,
 				43124AE318E2FACE0085CEF1 /* LROutputFileMapping.m in Sources */,
+				433162FB193EFECD00ECB419 /* CompileFileAction.swift in Sources */,
 				435BE045141B87920008FF77 /* NewMainWindowController.m in Sources */,
 				435729171452267C00947B2E /* Stats.m in Sources */,
 				430D7F6E1847131B00203400 /* GemPackageContainer.m in Sources */,
@@ -2674,6 +2676,7 @@
 				430D7F621845901100203400 /* LRVersionOption.m in Sources */,
 				43158FEF191AA07900DE8A5A /* LRTRTestAnythingProtocolParser.m in Sources */,
 				43122BF5180BBA5E00BF8121 /* Glue.m in Sources */,
+				43571BD1193F03ED00AC6E76 /* SwiftExtensions.swift in Sources */,
 				43158FF8191BDC3500DE8A5A /* LRBuildResult.m in Sources */,
 				434BB25E17B91330000BEB1C /* OptionsRow.m in Sources */,
 				4303A58815B513FD009D732A /* nodeapp_url_handler_mac.m in Sources */,
@@ -2744,7 +2747,6 @@
 				43D6CA56191C15B700DA9FFE /* LRFileTargetResult.m in Sources */,
 				43B5C01D17ADFA4700F57276 /* ATChildTask.m in Sources */,
 				43B5C02017AE01C500F57276 /* ATLoginItemController.m in Sources */,
-				43CE9B61191675F30044D28E /* CompileFileAction.m in Sources */,
 				439865AC17BE394D00EC6471 /* ATPathSpec.m in Sources */,
 				43B5C02817AE0BE600F57276 /* SublimeText2Editor.m in Sources */,
 				43508A8417B392A500871422 /* ATStackView.m in Sources */,
