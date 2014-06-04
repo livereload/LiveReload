@@ -103,6 +103,7 @@
 		432838791842EFF3001FC70E /* LRChildErrorSink.m in Sources */ = {isa = PBXBuildFile; fileRef = 432838781842EFF3001FC70E /* LRChildErrorSink.m */; };
 		4328387C1842FD3A001FC70E /* LRPackageSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4328387B1842FD3A001FC70E /* LRPackageSet.m */; };
 		4328388218430646001FC70E /* LRPackageResolutionContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 4328388118430646001FC70E /* LRPackageResolutionContext.m */; };
+		433162F6193EFD5600ECB419 /* CompileFolderAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433162F5193EFD5600ECB419 /* CompileFolderAction.swift */; };
 		433253A9174E0B4200C9A76B /* PrefPaneRubies.png in Resources */ = {isa = PBXBuildFile; fileRef = 433253A8174E0B4200C9A76B /* PrefPaneRubies.png */; };
 		433253B2174E0BA200C9A76B /* GeneralPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 433253B0174E0BA200C9A76B /* GeneralPreferencesViewController.m */; };
 		433253B3174E0BA200C9A76B /* GeneralPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 433253B1174E0BA200C9A76B /* GeneralPreferencesViewController.xib */; };
@@ -274,7 +275,6 @@
 		43CE9B5F191675F30044D28E /* LRContextActionType.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B46191675F30044D28E /* LRContextActionType.m */; };
 		43CE9B60191675F30044D28E /* LRManifestLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B48191675F30044D28E /* LRManifestLayer.m */; };
 		43CE9B61191675F30044D28E /* CompileFileAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B4B191675F30044D28E /* CompileFileAction.m */; };
-		43CE9B62191675F30044D28E /* CompileFolderAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B4D191675F30044D28E /* CompileFolderAction.m */; };
 		43CE9B63191675F30044D28E /* CustomCommandAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B4F191675F30044D28E /* CustomCommandAction.m */; };
 		43CE9B64191675F30044D28E /* FilterAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B51191675F30044D28E /* FilterAction.m */; };
 		43CE9B65191675F30044D28E /* UserScriptAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B53191675F30044D28E /* UserScriptAction.m */; };
@@ -542,6 +542,7 @@
 		432A6D93147622A600144F97 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
 		433162F3193E083600ECB419 /* LRMessageSeverity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LRMessageSeverity.h; sourceTree = "<group>"; };
 		433162F4193E0A5D00ECB419 /* LiveReload-Swift-x.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LiveReload-Swift-x.h"; sourceTree = "<group>"; };
+		433162F5193EFD5600ECB419 /* CompileFolderAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompileFolderAction.swift; sourceTree = "<group>"; };
 		433253A8174E0B4200C9A76B /* PrefPaneRubies.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PrefPaneRubies.png; sourceTree = "<group>"; };
 		433253AF174E0BA200C9A76B /* GeneralPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeneralPreferencesViewController.h; sourceTree = "<group>"; };
 		433253B0174E0BA200C9A76B /* GeneralPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneralPreferencesViewController.m; sourceTree = "<group>"; };
@@ -852,8 +853,6 @@
 		43CE9B48191675F30044D28E /* LRManifestLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRManifestLayer.m; sourceTree = "<group>"; };
 		43CE9B4A191675F30044D28E /* CompileFileAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompileFileAction.h; sourceTree = "<group>"; };
 		43CE9B4B191675F30044D28E /* CompileFileAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompileFileAction.m; sourceTree = "<group>"; };
-		43CE9B4C191675F30044D28E /* CompileFolderAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompileFolderAction.h; sourceTree = "<group>"; };
-		43CE9B4D191675F30044D28E /* CompileFolderAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompileFolderAction.m; sourceTree = "<group>"; };
 		43CE9B4E191675F30044D28E /* CustomCommandAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCommandAction.h; sourceTree = "<group>"; };
 		43CE9B4F191675F30044D28E /* CustomCommandAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCommandAction.m; sourceTree = "<group>"; };
 		43CE9B50191675F30044D28E /* FilterAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterAction.h; sourceTree = "<group>"; };
@@ -1999,8 +1998,7 @@
 			children = (
 				43CE9B4A191675F30044D28E /* CompileFileAction.h */,
 				43CE9B4B191675F30044D28E /* CompileFileAction.m */,
-				43CE9B4C191675F30044D28E /* CompileFolderAction.h */,
-				43CE9B4D191675F30044D28E /* CompileFolderAction.m */,
+				433162F5193EFD5600ECB419 /* CompileFolderAction.swift */,
 				43CE9B4E191675F30044D28E /* CustomCommandAction.h */,
 				43CE9B4F191675F30044D28E /* CustomCommandAction.m */,
 				43CE9B50191675F30044D28E /* FilterAction.h */,
@@ -2603,6 +2601,7 @@
 				4378C8D41515205C003187D5 /* OldFSTreeFilter.m in Sources */,
 				43059209151DF2DE00CC3F88 /* MASReceipt.m in Sources */,
 				43CE9B59191675F30044D28E /* Action.m in Sources */,
+				433162F6193EFD5600ECB419 /* CompileFolderAction.swift in Sources */,
 				433D2197182646E300E81A09 /* Project.m in Sources */,
 				43059225151E90DE00CC3F88 /* DockIcon.m in Sources */,
 				430ABDF4186BF20500407561 /* LRPathProcessing.m in Sources */,
@@ -2653,7 +2652,6 @@
 				4303A55C15B513FD009D732A /* nodeapp_paths_osdep.m in Sources */,
 				43122BFE1813DB2D00BF8121 /* LROption.m in Sources */,
 				4303A55D15B513FD009D732A /* nodeapp_rpc_osdep.c in Sources */,
-				43CE9B62191675F30044D28E /* CompileFolderAction.m in Sources */,
 				4303A55E15B513FD009D732A /* nodeapp_threading.c in Sources */,
 				4303A55F15B513FD009D732A /* NodeAppDelegate.m in Sources */,
 				434BB25B17B9097D000BEB1C /* ActionsGroupHeaderRow.m in Sources */,
