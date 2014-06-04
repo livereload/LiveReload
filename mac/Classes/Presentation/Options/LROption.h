@@ -15,7 +15,6 @@
 - (id)copyWithAction:(Action *)action;
 
 @property(nonatomic, copy) NSString *identifier;
-@property(nonatomic, copy) NSDictionary *manifest;
 @property(nonatomic, readonly, strong) Action *action;
 
 @property(nonatomic, copy) NSString *label;  // courtesy for subclasses, usage is optional

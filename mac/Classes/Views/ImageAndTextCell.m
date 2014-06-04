@@ -180,7 +180,15 @@
             imageFrame.origin.y += ceil((cellFrame.size.height + imageFrame.size.height) / 2);
         else
             imageFrame.origin.y += ceil((cellFrame.size.height - imageFrame.size.height) / 2);
+
+        // neither of these new APIs results in a correct image, for an unknown reason
+#if 0
+        [image drawInRect:imageFrame fromRect:CGRectZero operation:NSCompositeSourceOver fraction:1.0 respectFlipped:YES hints:nil];
+#elif 0
+        [image drawAtPoint:imageFrame.origin fromRect:CGRectZero operation:NSCompositeSourceOver fraction:1.0];
+#else
         [image compositeToPoint:imageFrame.origin operation:NSCompositeSourceOver];
+#endif
 
         NSRect newFrame = cellFrame;
         newFrame.origin.x += kTextOriginXOffset;

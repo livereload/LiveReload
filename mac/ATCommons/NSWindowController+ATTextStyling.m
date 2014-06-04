@@ -33,7 +33,7 @@
     [label setAllowsEditingTextAttributes:YES];
     [label setSelectable:YES];
 
-    [label setAttributedStringValue:[[NSAttributedString alloc] initWithString:[label stringValue] attributes:[NSDictionary dictionaryWithObjectsAndKeys:color, NSForegroundColorAttributeName, [NSNumber numberWithInt:NSSingleUnderlineStyle], NSUnderlineStyleAttributeName, url, NSLinkAttributeName, label.font, NSFontAttributeName, shadow, NSShadowAttributeName, [self paragraphStyleForLabel:label], NSParagraphStyleAttributeName, nil]]];
+    [label setAttributedStringValue:[[NSAttributedString alloc] initWithString:[label stringValue] attributes:[NSDictionary dictionaryWithObjectsAndKeys:color, NSForegroundColorAttributeName, [NSNumber numberWithInt:NSUnderlineStyleSingle], NSUnderlineStyleAttributeName, url, NSLinkAttributeName, label.font, NSFontAttributeName, shadow, NSShadowAttributeName, [self paragraphStyleForLabel:label], NSParagraphStyleAttributeName, nil]]];
 }
 
 - (void)styleHyperlink:(NSTextField *)label color:(NSColor *)color shadow:(NSShadow *)shadow {
