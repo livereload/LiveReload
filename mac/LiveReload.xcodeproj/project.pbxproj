@@ -529,7 +529,6 @@
 		431CB53216D1EF8200034877 /* LESS.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = LESS.lrplugin; path = ../plugins/LESS.lrplugin; sourceTree = "<group>"; };
 		431CB53416D1EF8200034877 /* SLIM.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SLIM.lrplugin; path = ../plugins/SLIM.lrplugin; sourceTree = "<group>"; };
 		431CB53516D1EF8200034877 /* Stylus.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Stylus.lrplugin; path = ../plugins/Stylus.lrplugin; sourceTree = "<group>"; };
-		432443AB193DF5F000B1C4D1 /* LiveReload-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LiveReload-Bridging-Header.h"; sourceTree = "<group>"; };
 		432443AC193DF5F100B1C4D1 /* LRMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRMessage.swift; sourceTree = "<group>"; };
 		432443AE193DF87900B1C4D1 /* PiiSwiftly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PiiSwiftly.swift; sourceTree = "<group>"; };
 		432838771842EFF3001FC70E /* LRChildErrorSink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRChildErrorSink.h; sourceTree = "<group>"; };
@@ -541,8 +540,9 @@
 		432A6D921476192300144F97 /* sglib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sglib.h; sourceTree = "<group>"; };
 		432A6D93147622A600144F97 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
 		433162F3193E083600ECB419 /* LRMessageSeverity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LRMessageSeverity.h; sourceTree = "<group>"; };
-		433162F4193E0A5D00ECB419 /* LiveReload-Swift-x.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LiveReload-Swift-x.h"; sourceTree = "<group>"; };
 		433162F5193EFD5600ECB419 /* CompileFolderAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompileFolderAction.swift; sourceTree = "<group>"; };
+		433162F8193EFE7B00ECB419 /* LiveReload-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LiveReload-Bridging-Header.h"; sourceTree = "<group>"; };
+		433162F9193EFE7B00ECB419 /* LiveReload-Swift-x.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LiveReload-Swift-x.h"; sourceTree = "<group>"; };
 		433253A8174E0B4200C9A76B /* PrefPaneRubies.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PrefPaneRubies.png; sourceTree = "<group>"; };
 		433253AF174E0BA200C9A76B /* GeneralPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeneralPreferencesViewController.h; sourceTree = "<group>"; };
 		433253B0174E0BA200C9A76B /* GeneralPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneralPreferencesViewController.m; sourceTree = "<group>"; };
@@ -1316,8 +1316,6 @@
 				43D6CA4F191BFF5C00DA9FFE /* LROperationResult.m */,
 				432443AC193DF5F100B1C4D1 /* LRMessage.swift */,
 				432443AE193DF87900B1C4D1 /* PiiSwiftly.swift */,
-				432443AB193DF5F000B1C4D1 /* LiveReload-Bridging-Header.h */,
-				433162F4193E0A5D00ECB419 /* LiveReload-Swift-x.h */,
 				433162F3193E083600ECB419 /* LRMessageSeverity.h */,
 			);
 			path = Results;
@@ -1342,6 +1340,15 @@
 				43DFE4E817CC967500DEF87B /* TypeScript.lrplugin */,
 			);
 			name = plugins;
+			sourceTree = "<group>";
+		};
+		433162F7193EFE6000ECB419 /* Swift Bridging */ = {
+			isa = PBXGroup;
+			children = (
+				433162F8193EFE7B00ECB419 /* LiveReload-Bridging-Header.h */,
+				433162F9193EFE7B00ECB419 /* LiveReload-Swift-x.h */,
+			);
+			path = "Swift Bridging";
 			sourceTree = "<group>";
 		};
 		433253A7174E0B4200C9A76B /* Preferences */ = {
@@ -2051,6 +2058,7 @@
 		823DDE2D13F8DA3100529AD2 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				433162F7193EFE6000ECB419 /* Swift Bridging */,
 				43E34F9614705125001641AA /* Shared */,
 				823DDE2E13F8DA3100529AD2 /* Application */,
 				436D7336173DE1C800F78A23 /* Presentation */,
@@ -2989,7 +2997,7 @@
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = LiveReload;
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Model/Results/LiveReload-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Swift Bridging/LiveReload-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Testing;
@@ -3237,7 +3245,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = LiveReload;
-				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Model/Results/LiveReload-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Swift Bridging/LiveReload-Bridging-Header.h";
 			};
 			name = AppStore;
 		};
@@ -3260,7 +3268,7 @@
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = LiveReload;
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Model/Results/LiveReload-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Swift Bridging/LiveReload-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -3282,7 +3290,7 @@
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = LiveReload;
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Model/Results/LiveReload-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Swift Bridging/LiveReload-Bridging-Header.h";
 			};
 			name = Release;
 		};
