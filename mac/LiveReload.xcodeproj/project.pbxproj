@@ -286,7 +286,7 @@
 		43CE9B841917B6BE0044D28E /* P2RegularExpressionExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B831917B6BE0044D28E /* P2RegularExpressionExtensions.m */; };
 		43D6CA50191BFF5C00DA9FFE /* LROperationResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D6CA4F191BFF5C00DA9FFE /* LROperationResult.m */; };
 		43D6CA53191C14CF00DA9FFE /* LRTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D6CA52191C14CF00DA9FFE /* LRTarget.m */; };
-		43D6CA56191C15B700DA9FFE /* LRFileTargetResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D6CA55191C15B700DA9FFE /* LRFileTargetResult.m */; };
+		43D6CA56191C15B700DA9FFE /* LRFileTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D6CA55191C15B700DA9FFE /* LRFileTarget.m */; };
 		43D6CA59191C161D00DA9FFE /* LRProjectTargetResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D6CA58191C161D00DA9FFE /* LRProjectTargetResult.m */; };
 		43DB9FD4178EDF2E007BEA36 /* Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD3178EDF2E007BEA36 /* Errors.m */; };
 		43DB9FD7178EFA64007BEA36 /* ExternalEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD6178EFA64007BEA36 /* ExternalEditor.m */; };
@@ -873,8 +873,8 @@
 		43D6CA4F191BFF5C00DA9FFE /* LROperationResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LROperationResult.m; sourceTree = "<group>"; };
 		43D6CA51191C14CF00DA9FFE /* LRTarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRTarget.h; sourceTree = "<group>"; };
 		43D6CA52191C14CF00DA9FFE /* LRTarget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRTarget.m; sourceTree = "<group>"; };
-		43D6CA54191C15B700DA9FFE /* LRFileTargetResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRFileTargetResult.h; sourceTree = "<group>"; };
-		43D6CA55191C15B700DA9FFE /* LRFileTargetResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRFileTargetResult.m; sourceTree = "<group>"; };
+		43D6CA54191C15B700DA9FFE /* LRFileTarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRFileTarget.h; sourceTree = "<group>"; };
+		43D6CA55191C15B700DA9FFE /* LRFileTarget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRFileTarget.m; sourceTree = "<group>"; };
 		43D6CA57191C161D00DA9FFE /* LRProjectTargetResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRProjectTargetResult.h; sourceTree = "<group>"; };
 		43D6CA58191C161D00DA9FFE /* LRProjectTargetResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRProjectTargetResult.m; sourceTree = "<group>"; };
 		43DB9FD2178EDF2E007BEA36 /* Errors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Errors.h; sourceTree = "<group>"; };
@@ -1309,8 +1309,8 @@
 				43158FF7191BDC3500DE8A5A /* LRBuild.m */,
 				43D6CA51191C14CF00DA9FFE /* LRTarget.h */,
 				43D6CA52191C14CF00DA9FFE /* LRTarget.m */,
-				43D6CA54191C15B700DA9FFE /* LRFileTargetResult.h */,
-				43D6CA55191C15B700DA9FFE /* LRFileTargetResult.m */,
+				43D6CA54191C15B700DA9FFE /* LRFileTarget.h */,
+				43D6CA55191C15B700DA9FFE /* LRFileTarget.m */,
 				43D6CA57191C161D00DA9FFE /* LRProjectTargetResult.h */,
 				43D6CA58191C161D00DA9FFE /* LRProjectTargetResult.m */,
 				43D6CA4E191BFF5C00DA9FFE /* LROperationResult.h */,
@@ -2744,7 +2744,7 @@
 				43B5C01717ADF5FB00F57276 /* RegexKitLite.m in Sources */,
 				43508A9017B39C9700871422 /* ATSolidView.m in Sources */,
 				43B5C01A17ADF93A00F57276 /* ATHash.m in Sources */,
-				43D6CA56191C15B700DA9FFE /* LRFileTargetResult.m in Sources */,
+				43D6CA56191C15B700DA9FFE /* LRFileTarget.m in Sources */,
 				43B5C01D17ADFA4700F57276 /* ATChildTask.m in Sources */,
 				43B5C02017AE01C500F57276 /* ATLoginItemController.m in Sources */,
 				439865AC17BE394D00EC6471 /* ATPathSpec.m in Sources */,

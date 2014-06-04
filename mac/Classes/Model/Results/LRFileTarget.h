@@ -5,7 +5,7 @@
 @class LRProjectFile;
 
 
-@interface LRFileTargetResult : LRTarget
+@interface LRFileTarget : LRTarget
 
 - (instancetype)initWithAction:(Action *)action sourceFile:(LRProjectFile *)sourceFile;
 

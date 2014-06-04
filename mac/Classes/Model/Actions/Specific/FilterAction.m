@@ -3,7 +3,7 @@
 #import "Project.h"
 #import "LRProjectFile.h"
 #import "ScriptInvocationStep.h"
-#import "LRFileTargetResult.h"
+#import "LRFileTarget.h"
 
 
 @implementation FilterAction
@@ -49,7 +49,7 @@
 }
 
 - (LRTarget *)fileTargetForRootFile:(LRProjectFile *)sourceFile {
-    return [[LRFileTargetResult alloc] initWithAction:self sourceFile:sourceFile];
+    return [[LRFileTarget alloc] initWithAction:self sourceFile:sourceFile];
 }
 
 

@@ -1,5 +1,5 @@
 
-#import "LRFileTargetResult.h"
+#import "LRFileTarget.h"
 #import "Action.h"
 #import "LRProjectFile.h"
 #import "Project.h"
@@ -7,12 +7,12 @@
 #import "LRBuild.h"
 
 
-@interface LRFileTargetResult ()
+@interface LRFileTarget ()
 
 @end
 
 
-@implementation LRFileTargetResult
+@implementation LRFileTarget
 
 - (instancetype)initWithAction:(Action *)action sourceFile:(LRProjectFile *)sourceFile {
     self = [super initWithAction:action];
