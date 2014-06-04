@@ -1,7 +1,7 @@
 
 #import "UserScriptAction.h"
 #import "Project.h"
-#import "LRProjectTarget.h"
+#import "LiveReload-Swift-x.h"
 
 
 @implementation UserScriptAction

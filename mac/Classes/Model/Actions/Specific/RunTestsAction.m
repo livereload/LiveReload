@@ -3,7 +3,7 @@
 #import "ScriptInvocationStep.h"
 #import "Project.h"
 #import "LRTestRunner.h"
-#import "LRProjectTarget.h"
+#import "LiveReload-Swift-x.h"
 #import "LROperationResult.h"
 
 

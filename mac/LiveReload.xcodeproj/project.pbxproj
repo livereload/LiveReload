@@ -191,6 +191,7 @@
 		437109B918588E0E00FCB4C2 /* LRSelfTestOutputFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 437109B818588E0E00FCB4C2 /* LRSelfTestOutputFile.m */; };
 		437109BC18595B0200FCB4C2 /* LRSelfTestOutputExpectation.m in Sources */ = {isa = PBXBuildFile; fileRef = 437109BB18595B0200FCB4C2 /* LRSelfTestOutputExpectation.m */; };
 		437109BE1859A48700FCB4C2 /* Sass.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 437109BD1859A48700FCB4C2 /* Sass.lrplugin */; };
+		43740FE8193F2B10006B5F57 /* LRProjectTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43740FE7193F2B10006B5F57 /* LRProjectTarget.swift */; };
 		4376A0E2146DF1C800338AD4 /* TitleBarHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */; };
 		4378C8D11515205C003187D5 /* OldFSMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CA1515205C003187D5 /* OldFSMonitor.m */; };
 		4378C8D21515205C003187D5 /* OldFSTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CC1515205C003187D5 /* OldFSTree.m */; };
@@ -286,7 +287,6 @@
 		43D6CA50191BFF5C00DA9FFE /* LROperationResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D6CA4F191BFF5C00DA9FFE /* LROperationResult.m */; };
 		43D6CA53191C14CF00DA9FFE /* LRTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D6CA52191C14CF00DA9FFE /* LRTarget.m */; };
 		43D6CA56191C15B700DA9FFE /* LRFileTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D6CA55191C15B700DA9FFE /* LRFileTarget.m */; };
-		43D6CA59191C161D00DA9FFE /* LRProjectTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D6CA58191C161D00DA9FFE /* LRProjectTarget.m */; };
 		43DB9FD4178EDF2E007BEA36 /* Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD3178EDF2E007BEA36 /* Errors.m */; };
 		43DB9FD7178EFA64007BEA36 /* ExternalEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD6178EFA64007BEA36 /* ExternalEditor.m */; };
 		43DB9FDA1792545E007BEA36 /* LRPluginCommons.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD91792545E007BEA36 /* LRPluginCommons.m */; };
@@ -700,6 +700,7 @@
 		437109BA18595B0200FCB4C2 /* LRSelfTestOutputExpectation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRSelfTestOutputExpectation.h; sourceTree = "<group>"; };
 		437109BB18595B0200FCB4C2 /* LRSelfTestOutputExpectation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRSelfTestOutputExpectation.m; sourceTree = "<group>"; };
 		437109BD1859A48700FCB4C2 /* Sass.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Sass.lrplugin; path = ../plugins/Sass.lrplugin; sourceTree = "<group>"; };
+		43740FE7193F2B10006B5F57 /* LRProjectTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRProjectTarget.swift; sourceTree = "<group>"; };
 		4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TitleBarHelpTemplate.png; sourceTree = "<group>"; };
 		4378C8C91515205C003187D5 /* OldFSMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldFSMonitor.h; sourceTree = "<group>"; };
 		4378C8CA1515205C003187D5 /* OldFSMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldFSMonitor.m; sourceTree = "<group>"; };
@@ -873,8 +874,6 @@
 		43D6CA52191C14CF00DA9FFE /* LRTarget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRTarget.m; sourceTree = "<group>"; };
 		43D6CA54191C15B700DA9FFE /* LRFileTarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRFileTarget.h; sourceTree = "<group>"; };
 		43D6CA55191C15B700DA9FFE /* LRFileTarget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRFileTarget.m; sourceTree = "<group>"; };
-		43D6CA57191C161D00DA9FFE /* LRProjectTarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRProjectTarget.h; sourceTree = "<group>"; };
-		43D6CA58191C161D00DA9FFE /* LRProjectTarget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRProjectTarget.m; sourceTree = "<group>"; };
 		43DB9FD2178EDF2E007BEA36 /* Errors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Errors.h; sourceTree = "<group>"; };
 		43DB9FD3178EDF2E007BEA36 /* Errors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Errors.m; sourceTree = "<group>"; };
 		43DB9FD5178EFA64007BEA36 /* ExternalEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExternalEditor.h; sourceTree = "<group>"; };
@@ -1309,8 +1308,7 @@
 				43D6CA52191C14CF00DA9FFE /* LRTarget.m */,
 				43D6CA54191C15B700DA9FFE /* LRFileTarget.h */,
 				43D6CA55191C15B700DA9FFE /* LRFileTarget.m */,
-				43D6CA57191C161D00DA9FFE /* LRProjectTarget.h */,
-				43D6CA58191C161D00DA9FFE /* LRProjectTarget.m */,
+				43740FE7193F2B10006B5F57 /* LRProjectTarget.swift */,
 				43D6CA4E191BFF5C00DA9FFE /* LROperationResult.h */,
 				43D6CA4F191BFF5C00DA9FFE /* LROperationResult.m */,
 				432443AC193DF5F100B1C4D1 /* LRMessage.swift */,
@@ -2643,7 +2641,6 @@
 				43F30CA5184C84F1008CED4A /* GemVersionSpace.m in Sources */,
 				4303A54E15B513FD009D732A /* nodeapp_rpc_common.m in Sources */,
 				4303A55315B513FD009D732A /* nodeapp_utils.c in Sources */,
-				43D6CA59191C161D00DA9FFE /* LRProjectTarget.m in Sources */,
 				4303A55415B513FD009D732A /* nodeapp_api_app.m in Sources */,
 				43C6119A1803D537008A707E /* LRGlobals.m in Sources */,
 				4303A55515B513FD009D732A /* nodeapp_api_preferences.m in Sources */,
@@ -2688,6 +2685,7 @@
 				436D7341173DE30900F78A23 /* MASPreferencesWindowController.m in Sources */,
 				43122C041813DF1100BF8121 /* LRCheckboxOption.m in Sources */,
 				43508A8117B3819500871422 /* ATAutolayout.m in Sources */,
+				43740FE8193F2B10006B5F57 /* LRProjectTarget.swift in Sources */,
 				436D734B173DE61400F78A23 /* PreferencesController.m in Sources */,
 				43CE9B63191675F30044D28E /* CustomCommandAction.m in Sources */,
 				433D2183182646D900E81A09 /* AppState.m in Sources */,

@@ -3,7 +3,7 @@
 #import "NSArray+ATSubstitutions.h"
 #import "ATChildTask.h"
 #import "Project.h"
-#import "LRProjectTarget.h"
+#import "LiveReload-Swift-x.h"
 #import "LROperationResult.h"
 
 #import "LRCommandLine.h"
