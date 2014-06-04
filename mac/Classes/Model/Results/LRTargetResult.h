@@ -5,7 +5,7 @@
 @class Project;
 @class Action;
 @class LROperationResult;
-@class LRBuildResult;
+@class LRBuild;
 
 
 @interface LRTargetResult : NSObject
@@ -15,7 +15,7 @@
 @property (nonatomic, readonly) Project *project;
 @property (nonatomic, readonly) Action *action;
 
-- (void)invokeWithCompletionBlock:(dispatch_block_t)completionBlock build:(LRBuildResult *)build;
+- (void)invokeWithCompletionBlock:(dispatch_block_t)completionBlock build:(LRBuild *)build;
 
 - (LROperationResult *)newResult;
 

@@ -4,7 +4,7 @@
 #import "LRProjectFile.h"
 #import "Project.h"
 #import "LROperationResult.h"
-#import "LRBuildResult.h"
+#import "LRBuild.h"
 
 
 @interface LRFileTargetResult ()
@@ -22,7 +22,7 @@
     return self;
 }
 
-- (void)invokeWithCompletionBlock:(dispatch_block_t)completionBlock build:(LRBuildResult *)build {
+- (void)invokeWithCompletionBlock:(dispatch_block_t)completionBlock build:(LRBuild *)build {
     [build markAsConsumedByCompiler:_sourceFile];
     if (!_sourceFile.exists) {
         [self.action handleDeletionOfFile:_sourceFile inProject:self.project];

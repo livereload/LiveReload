@@ -11,7 +11,7 @@
 extern NSString *const LRBuildDidFinishNotification;
 
 
-@interface LRBuildResult : NSObject
+@interface LRBuild : NSObject
 
 - (instancetype)initWithProject:(Project *)project actions:(NSArray *)actions;
 

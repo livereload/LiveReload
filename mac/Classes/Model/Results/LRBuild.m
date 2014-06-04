@@ -1,5 +1,5 @@
 
-#import "LRBuildResult.h"
+#import "LRBuild.h"
 
 #import "Project.h"
 #import "LRProjectFile.h"
@@ -17,12 +17,12 @@
 NSString *const LRBuildDidFinishNotification = @"LRBuildDidFinishNotification";
 
 
-@interface LRBuildResult ()
+@interface LRBuild ()
 
 @end
 
 
-@implementation LRBuildResult {
+@implementation LRBuild {
     NSMutableArray *_modifiedFiles;
     NSMutableSet *_modifiedFilesSet;
     NSMutableArray *_reloadRequests;

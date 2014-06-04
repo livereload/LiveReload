@@ -11,7 +11,7 @@
 @class UserScript;
 @class LRPackageResolutionContext;
 @class ATPathSpec;
-@class LRBuildResult;
+@class LRBuild;
 
 
 extern NSString *ProjectDidDetectChangeNotification;
@@ -117,7 +117,7 @@ enum {
 
 @property(nonatomic, readonly) ATPathSpec *forcedStylesheetReloadSpec;
 
-@property(nonatomic, readonly) LRBuildResult *lastFinishedBuild;
+@property(nonatomic, readonly) LRBuild *lastFinishedBuild;
 
 - (NSArray *)compilerActionTypesForFile:(LRProjectFile *)file;
 

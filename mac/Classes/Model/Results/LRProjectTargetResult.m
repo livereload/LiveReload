@@ -2,7 +2,7 @@
 #import "LRProjectTargetResult.h"
 #import "Action.h"
 #import "Project.h"
-#import "LRBuildResult.h"
+#import "LRBuild.h"
 
 
 @interface LRProjectTargetResult ()
@@ -20,7 +20,7 @@
     return self;
 }
 
-- (void)invokeWithCompletionBlock:(dispatch_block_t)completionBlock build:(LRBuildResult *)build {
+- (void)invokeWithCompletionBlock:(dispatch_block_t)completionBlock build:(LRBuild *)build {
     LROperationResult *result = [self newResult];
     [self.action invokeForProject:self.project withModifiedFiles:_modifiedFiles result:result completionHandler:^{
         [build addOperationResult:result forTarget:self key:[NSString stringWithFormat:@"%@.postproc", self.project.path]];
