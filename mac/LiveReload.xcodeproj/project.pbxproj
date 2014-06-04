@@ -99,7 +99,6 @@
 		431CB53D16D1EF8200034877 /* SLIM.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 431CB53416D1EF8200034877 /* SLIM.lrplugin */; };
 		431CB53E16D1EF8200034877 /* Stylus.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 431CB53516D1EF8200034877 /* Stylus.lrplugin */; };
 		432443AD193DF5F100B1C4D1 /* LRMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432443AC193DF5F100B1C4D1 /* LRMessage.swift */; };
-		432443AF193DF87900B1C4D1 /* PiiSwiftly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432443AE193DF87900B1C4D1 /* PiiSwiftly.swift */; };
 		432838791842EFF3001FC70E /* LRChildErrorSink.m in Sources */ = {isa = PBXBuildFile; fileRef = 432838781842EFF3001FC70E /* LRChildErrorSink.m */; };
 		4328387C1842FD3A001FC70E /* LRPackageSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4328387B1842FD3A001FC70E /* LRPackageSet.m */; };
 		4328388218430646001FC70E /* LRPackageResolutionContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 4328388118430646001FC70E /* LRPackageResolutionContext.m */; };
@@ -531,7 +530,6 @@
 		431CB53416D1EF8200034877 /* SLIM.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SLIM.lrplugin; path = ../plugins/SLIM.lrplugin; sourceTree = "<group>"; };
 		431CB53516D1EF8200034877 /* Stylus.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Stylus.lrplugin; path = ../plugins/Stylus.lrplugin; sourceTree = "<group>"; };
 		432443AC193DF5F100B1C4D1 /* LRMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRMessage.swift; sourceTree = "<group>"; };
-		432443AE193DF87900B1C4D1 /* PiiSwiftly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PiiSwiftly.swift; sourceTree = "<group>"; };
 		432838771842EFF3001FC70E /* LRChildErrorSink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRChildErrorSink.h; sourceTree = "<group>"; };
 		432838781842EFF3001FC70E /* LRChildErrorSink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRChildErrorSink.m; sourceTree = "<group>"; };
 		4328387A1842FD3A001FC70E /* LRPackageSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPackageSet.h; sourceTree = "<group>"; };
@@ -1316,7 +1314,6 @@
 				43D6CA4E191BFF5C00DA9FFE /* LROperationResult.h */,
 				43D6CA4F191BFF5C00DA9FFE /* LROperationResult.m */,
 				432443AC193DF5F100B1C4D1 /* LRMessage.swift */,
-				432443AE193DF87900B1C4D1 /* PiiSwiftly.swift */,
 				433162F3193E083600ECB419 /* LRMessageSeverity.h */,
 			);
 			path = Results;
@@ -2587,7 +2584,6 @@
 				4310DE40146DB6A0003091D1 /* UIBuilder.m in Sources */,
 				433D2194182646E300E81A09 /* ImportGraph.m in Sources */,
 				43F002CF146EC97B005D48A4 /* MainWindow.m in Sources */,
-				432443AF193DF87900B1C4D1 /* PiiSwiftly.swift in Sources */,
 				4396F1E017F8112F00AA8200 /* GlitterFeed.m in Sources */,
 				43F002D2146F4135005D48A4 /* TerminalView.m in Sources */,
 				43F002F8146FF584005D48A4 /* TerminalViewController.m in Sources */,
