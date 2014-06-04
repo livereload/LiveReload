@@ -3,7 +3,7 @@
 #import "ScriptInvocationStep.h"
 #import "Project.h"
 #import "LRTestRunner.h"
-#import "LRProjectTargetResult.h"
+#import "LRProjectTarget.h"
 #import "LROperationResult.h"
 
 
@@ -50,7 +50,7 @@
 
 - (LRTarget *)targetForModifiedFiles:(NSArray *)files {
     if ([self inputPathSpecMatchesFiles:files]) {
-        return [[LRProjectTargetResult alloc] initWithAction:self modifiedFiles:files];
+        return [[LRProjectTarget alloc] initWithAction:self modifiedFiles:files];
     } else {
         return nil;
     }

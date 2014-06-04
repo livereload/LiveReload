@@ -1,16 +1,16 @@
 
-#import "LRProjectTargetResult.h"
+#import "LRProjectTarget.h"
 #import "Action.h"
 #import "Project.h"
 #import "LRBuild.h"
 
 
-@interface LRProjectTargetResult ()
+@interface LRProjectTarget ()
 
 @end
 
 
-@implementation LRProjectTargetResult
+@implementation LRProjectTarget
 
 - (instancetype)initWithAction:(Action *)action modifiedFiles:(NSArray *)modifiedFiles {
     self = [super initWithAction:action];

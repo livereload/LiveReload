@@ -1,7 +1,7 @@
 
 #import "UserScriptAction.h"
 #import "Project.h"
-#import "LRProjectTargetResult.h"
+#import "LRProjectTarget.h"
 
 
 @implementation UserScriptAction
@@ -55,7 +55,7 @@
 
 - (LRTarget *)targetForModifiedFiles:(NSArray *)files {
     if ([self inputPathSpecMatchesFiles:files]) {
-        return [[LRProjectTargetResult alloc] initWithAction:self modifiedFiles:files];
+        return [[LRProjectTarget alloc] initWithAction:self modifiedFiles:files];
     } else {
         return nil;
     }

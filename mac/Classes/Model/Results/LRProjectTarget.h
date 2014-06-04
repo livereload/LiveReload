@@ -2,7 +2,7 @@
 #import "LRTarget.h"
 
 
-@interface LRProjectTargetResult : LRTarget
+@interface LRProjectTarget : LRTarget
 
 - (instancetype)initWithAction:(Action *)action modifiedFiles:(NSArray *)modifiedFiles;
 

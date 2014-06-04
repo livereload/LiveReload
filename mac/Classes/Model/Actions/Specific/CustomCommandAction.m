@@ -3,7 +3,7 @@
 #import "NSArray+ATSubstitutions.h"
 #import "ATChildTask.h"
 #import "Project.h"
-#import "LRProjectTargetResult.h"
+#import "LRProjectTarget.h"
 #import "LROperationResult.h"
 
 #import "LRCommandLine.h"
@@ -59,7 +59,7 @@
 
 - (LRTarget *)targetForModifiedFiles:(NSArray *)files {
     if ([self inputPathSpecMatchesFiles:files]) {
-        return [[LRProjectTargetResult alloc] initWithAction:self modifiedFiles:files];
+        return [[LRProjectTarget alloc] initWithAction:self modifiedFiles:files];
     } else {
         return nil;
     }
