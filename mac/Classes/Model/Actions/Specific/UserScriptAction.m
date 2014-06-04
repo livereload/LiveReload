@@ -14,7 +14,7 @@
     return [NSSet setWithObject:@"scriptName"];
 }
 
-- (void)invokeForProject:(Project *)project withModifiedFiles:(NSArray *)files result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
+- (void)invokeWithModifiedFiles:(NSArray *)files result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
     [self.script invokeForProjectAtPath:project.rootURL.path withModifiedFiles:[NSSet setWithArray:[files valueForKeyPath:@"relativePath"]] result:result completionHandler:completionHandler];
 }
 

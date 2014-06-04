@@ -52,7 +52,7 @@ extern NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification;
 - (void)compileFile:(LRProjectFile *)file inProject:(Project *)project result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler;
 - (void)handleDeletionOfFile:(LRProjectFile *)file inProject:(Project *)project;
 
-- (void)invokeForProject:(Project *)project withModifiedFiles:(NSArray *)files result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler;
+- (void)invokeWithModifiedFiles:(NSArray *)files result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler;
 
 //- (void)invokeForFileAtPath:(NSString *)sourceRelPath into:(NSString *)destinationRelPath under:(NSString *)rootPath inProject:(Project *)project completionHandler:(dispatch_block_t)completionHandler;
 

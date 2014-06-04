@@ -18,7 +18,7 @@
     return self.type.name;
 }
 
-- (void)invokeForProject:(Project *)project withModifiedFiles:(NSArray *)files result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
+- (void)invokeWithModifiedFiles:(NSArray *)files result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
     if (!self.effectiveVersion) {
         [result completedWithInvocationError:[self missingEffectiveVersionError]];
         return completionHandler();
@@ -44,7 +44,7 @@
         [parser processLine:line];
     };
 
-    NSLog(@"%@: %@", self.label, project.rootURL.path);
+    NSLog(@"%@: %@", self.label, self.project.rootURL.path);
     [step invoke];
 }
 

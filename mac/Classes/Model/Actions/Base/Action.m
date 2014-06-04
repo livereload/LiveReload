@@ -193,7 +193,7 @@ NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification = @"LRActio
 - (void)handleDeletionOfFile:(LRProjectFile *)file inProject:(Project *)project {
 }
 
-- (void)invokeForProject:(Project *)project withModifiedFiles:(NSArray *)files result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
+- (void)invokeWithModifiedFiles:(NSArray *)files result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
     abort();
 }
 
