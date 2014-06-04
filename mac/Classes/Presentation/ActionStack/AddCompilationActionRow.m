@@ -23,6 +23,13 @@
         item.representedObject = @{@"action": actionType.identifier};
         item.target = self;
     }
+
+    // TODO: remove special treatment of Compass
+    {
+        NSMenuItem *item = [self.menu addItemWithTitle:@"Compass" action:@selector(addActionClicked:) keyEquivalent:@""];
+        item.representedObject = @{@"action": @"compass"};
+        item.target = self;
+    }
 }
 
 @end

@@ -80,11 +80,11 @@ NSArray *LRValidActionKindStrings() {
                                          @"kind": @"compiler",
                                          @"objc_classObj": [CompileFileAction class],
                                          @"objc_rowClass": @"CompileFileActionRow",
+                                     },
                                  @"compile-folder": @{
                                          @"kind": @"postproc",
                                          @"objc_classObj": [CompileFolderAction class],
                                          @"objc_rowClass": @"FilterActionRow",
-                                     },
                                      },
                                  @"run-tests": @{
                                          @"kind": @"postproc",
