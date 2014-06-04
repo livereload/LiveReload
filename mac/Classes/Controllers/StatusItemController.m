@@ -100,11 +100,11 @@
 #pragma mark StatusItemViewDelegate methods
 
 - (void)statusItemViewClicked:(StatusItemView *)view {
-    [(id)[NSApp delegate] performSelector:@selector(toggleMainWindow:) withObject:nil afterDelay:0.01];
+    [LRAppDelegate performSelector:@selector(toggleMainWindow:) withObject:nil afterDelay:0.01];
 }
 
 - (void)statusItemView:(StatusItemView *)view acceptedDroppedDirectories:(NSArray *)pathes {
-    [(id)[NSApp delegate] addProjectsAtPaths:pathes];
+    [LRAppDelegate addProjectsAtPaths:pathes];
 }
 
 

@@ -378,7 +378,7 @@ static ToolOutputWindowController *lastOutputController = nil;
 
     [as appendAttributedString:[[NSAttributedString alloc] initWithString:prefix]];
 
-    [as appendAttributedString:[[NSAttributedString alloc] initWithString:link attributes:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:NSSingleUnderlineStyle], NSUnderlineStyleAttributeName, url, NSLinkAttributeName, nil]]];
+    [as appendAttributedString:[[NSAttributedString alloc] initWithString:link attributes:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:NSUnderlineStyleSingle], NSUnderlineStyleAttributeName, url, NSLinkAttributeName, nil]]];
 
     [as appendAttributedString:[[NSAttributedString alloc] initWithString:suffix]];
 

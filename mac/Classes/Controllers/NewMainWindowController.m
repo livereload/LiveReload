@@ -101,7 +101,7 @@ enum { PANE_COUNT = PaneProject+1 };
 @synthesize availableCompilersLabel = _availableCompilersLabel;
 
 + (NewMainWindowController *)sharedMainWindowController {
-    LiveReloadAppDelegate *delegate = [NSApp delegate];
+    LiveReloadAppDelegate *delegate = LRAppDelegate;
     return delegate.mainWindowController;
 }
 
@@ -219,8 +219,7 @@ enum { PANE_COUNT = PaneProject+1 };
 
     _panes = [[NSArray alloc] initWithObjects:_welcomePane, _projectPane, nil];
 
-    LiveReloadAppDelegate *delegate = [NSApp delegate];
-    [_snippetBodyTextField setStringValue:[NSString stringWithFormat:@"<script>document.write('<script src=\"http://' + (location.host || 'localhost').split(':')[0] + ':%d/livereload.js?snipver=1\"></' + 'script>')</script>", delegate.port]];
+    [_snippetBodyTextField setStringValue:[NSString stringWithFormat:@"<script>document.write('<script src=\"http://' + (location.host || 'localhost').split(':')[0] + ':%d/livereload.js?snipver=1\"></' + 'script>')</script>", LRAppDelegate.port]];
 
     NSView *projectPaneContainer = [ATFlippedView new];
     NSView *projectOverview = _projectOverviewView;
@@ -625,7 +624,7 @@ enum { PANE_COUNT = PaneProject+1 };
         if (result == NSFileHandlingPanelOKButton) {
             NSURL *url = [openPanel URL];
             NSString *path = [url path];
-            [(LiveReloadAppDelegate *)[NSApp delegate] addProjectAtPath:path];
+            [LRAppDelegate addProjectAtPath:path];
         }
     }];
 }
@@ -753,9 +752,9 @@ enum { PANE_COUNT = PaneProject+1 };
 
 - (IBAction)helpSupportClicked:(NSSegmentedControl *)sender {
     if (sender.selectedSegment == 0) {
-        [(LiveReloadAppDelegate *)[NSApp delegate] openHelp:self];
+        [LRAppDelegate openHelp:self];
     } else {
-        [(LiveReloadAppDelegate *)[NSApp delegate] openSupport:self];
+        [LRAppDelegate openSupport:self];
     }
 }
 
@@ -829,7 +828,7 @@ enum { PANE_COUNT = PaneProject+1 };
     BOOL genericSupported = (NSDragOperationGeneric & [info draggingSourceOperationMask]) == NSDragOperationGeneric;
     NSArray *paths = [self sanitizedPathsFrom:[info draggingPasteboard]];
     if (genericSupported && [paths count] > 0) {
-        [(LiveReloadAppDelegate *)[NSApp delegate] addProjectsAtPaths:paths];
+        [LRAppDelegate addProjectsAtPaths:paths];
         return YES;
     } else {
         return NO;
