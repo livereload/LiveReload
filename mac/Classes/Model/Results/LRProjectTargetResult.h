@@ -1,8 +1,8 @@
 
-#import "LRTargetResult.h"
+#import "LRTarget.h"
 
 
-@interface LRProjectTargetResult : LRTargetResult
+@interface LRProjectTargetResult : LRTarget
 
 - (instancetype)initWithAction:(Action *)action modifiedFiles:(NSArray *)modifiedFiles;
 

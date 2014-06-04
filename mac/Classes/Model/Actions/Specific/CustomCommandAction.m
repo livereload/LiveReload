@@ -57,7 +57,7 @@
     return [NSSet setWithObject:@"command"];
 }
 
-- (LRTargetResult *)targetForModifiedFiles:(NSArray *)files {
+- (LRTarget *)targetForModifiedFiles:(NSArray *)files {
     if ([self inputPathSpecMatchesFiles:files]) {
         return [[LRProjectTargetResult alloc] initWithAction:self modifiedFiles:files];
     } else {

@@ -285,7 +285,7 @@
 		43CE9B6C1917338B0044D28E /* Mocha.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43CE9B6B1917338A0044D28E /* Mocha.lrplugin */; };
 		43CE9B841917B6BE0044D28E /* P2RegularExpressionExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B831917B6BE0044D28E /* P2RegularExpressionExtensions.m */; };
 		43D6CA50191BFF5C00DA9FFE /* LROperationResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D6CA4F191BFF5C00DA9FFE /* LROperationResult.m */; };
-		43D6CA53191C14CF00DA9FFE /* LRTargetResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D6CA52191C14CF00DA9FFE /* LRTargetResult.m */; };
+		43D6CA53191C14CF00DA9FFE /* LRTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D6CA52191C14CF00DA9FFE /* LRTarget.m */; };
 		43D6CA56191C15B700DA9FFE /* LRFileTargetResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D6CA55191C15B700DA9FFE /* LRFileTargetResult.m */; };
 		43D6CA59191C161D00DA9FFE /* LRProjectTargetResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D6CA58191C161D00DA9FFE /* LRProjectTargetResult.m */; };
 		43DB9FD4178EDF2E007BEA36 /* Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD3178EDF2E007BEA36 /* Errors.m */; };
@@ -871,8 +871,8 @@
 		43CE9B831917B6BE0044D28E /* P2RegularExpressionExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P2RegularExpressionExtensions.m; sourceTree = "<group>"; };
 		43D6CA4E191BFF5C00DA9FFE /* LROperationResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LROperationResult.h; sourceTree = "<group>"; };
 		43D6CA4F191BFF5C00DA9FFE /* LROperationResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LROperationResult.m; sourceTree = "<group>"; };
-		43D6CA51191C14CF00DA9FFE /* LRTargetResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRTargetResult.h; sourceTree = "<group>"; };
-		43D6CA52191C14CF00DA9FFE /* LRTargetResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRTargetResult.m; sourceTree = "<group>"; };
+		43D6CA51191C14CF00DA9FFE /* LRTarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRTarget.h; sourceTree = "<group>"; };
+		43D6CA52191C14CF00DA9FFE /* LRTarget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRTarget.m; sourceTree = "<group>"; };
 		43D6CA54191C15B700DA9FFE /* LRFileTargetResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRFileTargetResult.h; sourceTree = "<group>"; };
 		43D6CA55191C15B700DA9FFE /* LRFileTargetResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRFileTargetResult.m; sourceTree = "<group>"; };
 		43D6CA57191C161D00DA9FFE /* LRProjectTargetResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRProjectTargetResult.h; sourceTree = "<group>"; };
@@ -1307,8 +1307,8 @@
 			children = (
 				43158FF6191BDC3500DE8A5A /* LRBuild.h */,
 				43158FF7191BDC3500DE8A5A /* LRBuild.m */,
-				43D6CA51191C14CF00DA9FFE /* LRTargetResult.h */,
-				43D6CA52191C14CF00DA9FFE /* LRTargetResult.m */,
+				43D6CA51191C14CF00DA9FFE /* LRTarget.h */,
+				43D6CA52191C14CF00DA9FFE /* LRTarget.m */,
 				43D6CA54191C15B700DA9FFE /* LRFileTargetResult.h */,
 				43D6CA55191C15B700DA9FFE /* LRFileTargetResult.m */,
 				43D6CA57191C161D00DA9FFE /* LRProjectTargetResult.h */,
@@ -2538,7 +2538,7 @@
 				433D224B1826B6ED00E81A09 /* LRSemanticVersionSpace.m in Sources */,
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				823DDED313F8DA3100529AD2 /* LiveReloadAppDelegate.m in Sources */,
-				43D6CA53191C14CF00DA9FFE /* LRTargetResult.m in Sources */,
+				43D6CA53191C14CF00DA9FFE /* LRTarget.m in Sources */,
 				823DDED513F8DA3100529AD2 /* ExtensionsController.m in Sources */,
 				431867D11936FB1E00DA9609 /* LRSelfTestHelpers.m in Sources */,
 				823DDEDA13F8DA3100529AD2 /* StatusItemController.m in Sources */,

@@ -21,7 +21,7 @@
 #import "LRPackageResolutionContext.h"
 #import "ATPathSpec.h"
 #import "LRBuild.h"
-#import "LRTargetResult.h"
+#import "LRTarget.h"
 #import "LROperationResult.h"
 #import "LiveReload-Swift-x.h"
 

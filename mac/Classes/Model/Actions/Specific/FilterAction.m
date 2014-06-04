@@ -48,7 +48,7 @@
     return YES;
 }
 
-- (LRTargetResult *)fileTargetForRootFile:(LRProjectFile *)sourceFile {
+- (LRTarget *)fileTargetForRootFile:(LRProjectFile *)sourceFile {
     return [[LRFileTargetResult alloc] initWithAction:self sourceFile:sourceFile];
 }
 

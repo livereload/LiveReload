@@ -78,7 +78,7 @@ import Foundation
         return true
     }
 
-    override func fileTargetForRootFile(file: LRProjectFile!) -> LRTargetResult! {
+    override func fileTargetForRootFile(file: LRProjectFile!) -> LRTarget! {
         return LRFileTargetResult(action: self, sourceFile: file)
     }
 

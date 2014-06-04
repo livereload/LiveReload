@@ -3,7 +3,7 @@
 
 #import "Project.h"
 #import "LRProjectFile.h"
-#import "LRTargetResult.h"
+#import "LRTarget.h"
 #import "ActionType.h"
 #import "LROperationResult.h"
 
@@ -33,7 +33,7 @@ NSString *const LRBuildDidFinishNotification = @"LRBuildDidFinishNotification";
 
     NSMutableArray *_messages;
 
-    LRTargetResult *_runningTarget;
+    LRTarget *_runningTarget;
     BOOL _waitingForMoreChangesBeforeFinishing;
 
     // XXX: a temporary hack
@@ -178,7 +178,7 @@ NSString *const LRBuildDidFinishNotification = @"LRBuildDidFinishNotification";
         _waitingForMoreChangesBeforeFinishing = NO;
     }
 
-    LRTargetResult *target = [_pendingFileTargets lastObject];
+    LRTarget *target = [_pendingFileTargets lastObject];
     if (target) {
         [_pendingFileTargets removeLastObject];
     } else {
@@ -217,7 +217,7 @@ NSString *const LRBuildDidFinishNotification = @"LRBuildDidFinishNotification";
     [self finish];
 }
 
-- (void)executeTarget:(LRTargetResult *)target {
+- (void)executeTarget:(LRTarget *)target {
     _runningTarget = target;
     [target invokeWithCompletionBlock:^{
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -234,7 +234,7 @@ NSString *const LRBuildDidFinishNotification = @"LRBuildDidFinishNotification";
     return !!_firstFailure;
 }
 
-- (void)addOperationResult:(LROperationResult *)result forTarget:(LRTargetResult *)target key:(NSString *)key {
+- (void)addOperationResult:(LROperationResult *)result forTarget:(LRTarget *)target key:(NSString *)key {
     if (!_firstFailure && [result isFailed]) {
         _firstFailure = result;
     }

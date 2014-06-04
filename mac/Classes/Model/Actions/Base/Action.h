@@ -12,7 +12,7 @@
 @class LRActionVersion;
 @class LRVersionSpec;
 @class ScriptInvocationStep;
-@class LRTargetResult;
+@class LRTarget;
 @class LROperationResult;
 
 
@@ -44,7 +44,7 @@ extern NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification;
 
 @property(nonatomic, strong) ATPathSpec *intrinsicInputPathSpec;
 
-- (LRTargetResult *)targetForModifiedFiles:(NSArray *)files;
+- (LRTarget *)targetForModifiedFiles:(NSArray *)files;
 
 - (NSArray *)fileTargetsForModifiedFiles:(NSArray *)paths;
 
@@ -73,7 +73,7 @@ extern NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification;
 - (void)didChange;
 - (BOOL)inputPathSpecMatchesFiles:(NSArray *)files;
 @property(nonatomic, readonly) BOOL supportsFileTargets;
-- (LRTargetResult *)fileTargetForRootFile:(LRProjectFile *)file;
+- (LRTarget *)fileTargetForRootFile:(LRProjectFile *)file;
 
 // override points / for overriders
 - (void)configureStep:(ScriptInvocationStep *)step;

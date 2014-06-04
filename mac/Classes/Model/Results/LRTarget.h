@@ -8,7 +8,7 @@
 @class LRBuild;
 
 
-@interface LRTargetResult : NSObject
+@interface LRTarget : NSObject
 
 - (instancetype)initWithAction:(Action *)action;
 

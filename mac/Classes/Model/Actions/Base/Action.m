@@ -139,7 +139,7 @@ NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification = @"LRActio
     return YES;
 }
 
-- (LRTargetResult *)targetForModifiedFiles:(NSArray *)files {
+- (LRTarget *)targetForModifiedFiles:(NSArray *)files {
     return nil;
 }
 
@@ -147,7 +147,7 @@ NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification = @"LRActio
     return NO;
 }
 
-- (LRTargetResult *)fileTargetForRootFile:(LRProjectFile *)file {
+- (LRTarget *)fileTargetForRootFile:(LRProjectFile *)file {
     return nil;
 }
 

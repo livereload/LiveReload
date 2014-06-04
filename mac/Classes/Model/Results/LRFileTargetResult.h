@@ -1,11 +1,11 @@
 
-#import "LRTargetResult.h"
+#import "LRTarget.h"
 
 
 @class LRProjectFile;
 
 
-@interface LRFileTargetResult : LRTargetResult
+@interface LRFileTargetResult : LRTarget
 
 - (instancetype)initWithAction:(Action *)action sourceFile:(LRProjectFile *)sourceFile;
 

@@ -1,15 +1,15 @@
 
-#import "LRTargetResult.h"
+#import "LRTarget.h"
 #import "Action.h"
 #import "LROperationResult.h"
 
 
-@interface LRTargetResult ()
+@interface LRTarget ()
 
 @end
 
 
-@implementation LRTargetResult
+@implementation LRTarget
 
 - (instancetype)initWithAction:(Action *)action {
     self = [super init];

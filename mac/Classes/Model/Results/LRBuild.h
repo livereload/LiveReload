@@ -4,7 +4,7 @@
 
 @class Project;
 @class LRProjectFile;
-@class LRTargetResult;
+@class LRTarget;
 @class LROperationResult;
 
 
@@ -36,6 +36,6 @@ extern NSString *const LRBuildDidFinishNotification;
 
 - (void)start;
 
-- (void)addOperationResult:(LROperationResult *)result forTarget:(LRTargetResult *)target key:(NSString *)key;
+- (void)addOperationResult:(LROperationResult *)result forTarget:(LRTarget *)target key:(NSString *)key;
 
 @end
