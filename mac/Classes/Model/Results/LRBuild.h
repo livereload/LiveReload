@@ -4,14 +4,14 @@
 
 @class Project;
 @class LRProjectFile;
-@class LRTargetResult;
+@class LRTarget;
 @class LROperationResult;
 
 
 extern NSString *const LRBuildDidFinishNotification;
 
 
-@interface LRBuildResult : NSObject
+@interface LRBuild : NSObject
 
 - (instancetype)initWithProject:(Project *)project actions:(NSArray *)actions;
 
@@ -36,6 +36,6 @@ extern NSString *const LRBuildDidFinishNotification;
 
 - (void)start;
 
-- (void)addOperationResult:(LROperationResult *)result forTarget:(LRTargetResult *)target key:(NSString *)key;
+- (void)addOperationResult:(LROperationResult *)result forTarget:(LRTarget *)target key:(NSString *)key;
 
 @end

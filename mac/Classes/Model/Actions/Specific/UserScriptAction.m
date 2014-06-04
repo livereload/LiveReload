@@ -1,7 +1,7 @@
 
 #import "UserScriptAction.h"
 #import "Project.h"
-#import "LRProjectTargetResult.h"
+#import "LiveReload-Swift-x.h"
 
 
 @implementation UserScriptAction
@@ -14,7 +14,7 @@
     return [NSSet setWithObject:@"scriptName"];
 }
 
-- (void)invokeForProject:(Project *)project withModifiedFiles:(NSArray *)files result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
+- (void)invokeWithModifiedFiles:(NSArray *)files result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
     [self.script invokeForProjectAtPath:project.rootURL.path withModifiedFiles:[NSSet setWithArray:[files valueForKeyPath:@"relativePath"]] result:result completionHandler:completionHandler];
 }
 
@@ -53,9 +53,9 @@
     memento[@"script"] = self.scriptName;
 }
 
-- (LRTargetResult *)targetForModifiedFiles:(NSArray *)files {
+- (LRTarget *)targetForModifiedFiles:(NSArray *)files {
     if ([self inputPathSpecMatchesFiles:files]) {
-        return [[LRProjectTargetResult alloc] initWithAction:self modifiedFiles:files];
+        return [[LRProjectTarget alloc] initWithAction:self modifiedFiles:files];
     } else {
         return nil;
     }

@@ -139,7 +139,7 @@ NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification = @"LRActio
     return YES;
 }
 
-- (LRTargetResult *)targetForModifiedFiles:(NSArray *)files {
+- (LRTarget *)targetForModifiedFiles:(NSArray *)files {
     return nil;
 }
 
@@ -147,7 +147,7 @@ NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification = @"LRActio
     return NO;
 }
 
-- (LRTargetResult *)fileTargetForRootFile:(LRProjectFile *)file {
+- (LRTarget *)fileTargetForRootFile:(LRProjectFile *)file {
     return nil;
 }
 
@@ -193,7 +193,7 @@ NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification = @"LRActio
 - (void)handleDeletionOfFile:(LRProjectFile *)file inProject:(Project *)project {
 }
 
-- (void)invokeForProject:(Project *)project withModifiedFiles:(NSArray *)files result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
+- (void)invokeWithModifiedFiles:(NSArray *)files result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
     abort();
 }
 

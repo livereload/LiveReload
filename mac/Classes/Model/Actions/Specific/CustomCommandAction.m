@@ -3,7 +3,7 @@
 #import "NSArray+ATSubstitutions.h"
 #import "ATChildTask.h"
 #import "Project.h"
-#import "LRProjectTargetResult.h"
+#import "LiveReload-Swift-x.h"
 #import "LROperationResult.h"
 
 #import "LRCommandLine.h"
@@ -57,9 +57,9 @@
     return [NSSet setWithObject:@"command"];
 }
 
-- (LRTargetResult *)targetForModifiedFiles:(NSArray *)files {
+- (LRTarget *)targetForModifiedFiles:(NSArray *)files {
     if ([self inputPathSpecMatchesFiles:files]) {
-        return [[LRProjectTargetResult alloc] initWithAction:self modifiedFiles:files];
+        return [[LRProjectTarget alloc] initWithAction:self modifiedFiles:files];
     } else {
         return nil;
     }
@@ -87,11 +87,11 @@
 //}
 
 
-- (void)invokeForProject:(Project *)project withModifiedFiles:(NSArray *)files result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
+- (void)invokeWithModifiedFiles:(NSArray *)files result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
     NSDictionary *info = @{
                            @"$(ruby)": @"/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/bin/ruby",
                            @"$(node)": [[NSBundle mainBundle] pathForResource:@"LiveReloadNodejs" ofType:nil],
-                           @"$(project_dir)": project.rootURL.path,
+                           @"$(project_dir)": self.project.rootURL.path,
                            };
     NSString *command = [self.command stringBySubstitutingValuesFromDictionary:info];
 
@@ -101,13 +101,13 @@
     NSArray *shArgs = @[@"-c", command];
 
     NSString *pwd = [[NSFileManager defaultManager] currentDirectoryPath];
-    [[NSFileManager defaultManager] changeCurrentDirectoryPath:project.rootURL.path];
+    [[NSFileManager defaultManager] changeCurrentDirectoryPath:self.project.rootURL.path];
 
     //    const char *project_path = [self.path UTF8String];
     //    console_printf("Post-proc exec: %s --login -c \"%s\"", [shell UTF8String], str_collapse_paths([command UTF8String], project_path));
     NSLog(@"Executing project action command: %@", [[@[shell] arrayByAddingObjectsFromArray:shArgs] quotedArgumentStringUsingBourneQuotingStyle]);
 
-    ATLaunchUnixTaskAndCaptureOutput([NSURL fileURLWithPath:shell], shArgs, ATLaunchUnixTaskAndCaptureOutputOptionsIgnoreSandbox|ATLaunchUnixTaskAndCaptureOutputOptionsMergeStdoutAndStderr, @{ATCurrentDirectoryPathKey: project.rootURL.path}, ^(NSString *outputText, NSString *stderrText, NSError *error) {
+    ATLaunchUnixTaskAndCaptureOutput([NSURL fileURLWithPath:shell], shArgs, ATLaunchUnixTaskAndCaptureOutputOptionsIgnoreSandbox|ATLaunchUnixTaskAndCaptureOutputOptionsMergeStdoutAndStderr, @{ATCurrentDirectoryPathKey: self.project.rootURL.path}, ^(NSString *outputText, NSString *stderrText, NSError *error) {
         [[NSFileManager defaultManager] changeCurrentDirectoryPath:pwd];
         [result completedWithInvocationError:error rawOutput:outputText completionBlock:completionHandler];
     });

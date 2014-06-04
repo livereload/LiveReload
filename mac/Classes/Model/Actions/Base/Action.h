@@ -12,7 +12,7 @@
 @class LRActionVersion;
 @class LRVersionSpec;
 @class ScriptInvocationStep;
-@class LRTargetResult;
+@class LRTarget;
 @class LROperationResult;
 
 
@@ -44,7 +44,7 @@ extern NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification;
 
 @property(nonatomic, strong) ATPathSpec *intrinsicInputPathSpec;
 
-- (LRTargetResult *)targetForModifiedFiles:(NSArray *)files;
+- (LRTarget *)targetForModifiedFiles:(NSArray *)files;
 
 - (NSArray *)fileTargetsForModifiedFiles:(NSArray *)paths;
 
@@ -52,7 +52,7 @@ extern NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification;
 - (void)compileFile:(LRProjectFile *)file inProject:(Project *)project result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler;
 - (void)handleDeletionOfFile:(LRProjectFile *)file inProject:(Project *)project;
 
-- (void)invokeForProject:(Project *)project withModifiedFiles:(NSArray *)files result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler;
+- (void)invokeWithModifiedFiles:(NSArray *)files result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler;
 
 //- (void)invokeForFileAtPath:(NSString *)sourceRelPath into:(NSString *)destinationRelPath under:(NSString *)rootPath inProject:(Project *)project completionHandler:(dispatch_block_t)completionHandler;
 
@@ -72,8 +72,8 @@ extern NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification;
 // for overriders
 - (void)didChange;
 - (BOOL)inputPathSpecMatchesFiles:(NSArray *)files;
-- (BOOL)supportsFileTargets;
-- (LRTargetResult *)fileTargetForRootFile:(LRProjectFile *)file;
+@property(nonatomic, readonly) BOOL supportsFileTargets;
+- (LRTarget *)fileTargetForRootFile:(LRProjectFile *)file;
 
 // override points / for overriders
 - (void)configureStep:(ScriptInvocationStep *)step;

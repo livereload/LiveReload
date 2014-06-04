@@ -5,10 +5,10 @@
 
 @interface FilterOption : NSObject
 
-+ (id)filterOptionWithSubfolder:(NSString *)folderRelPath;
++ (instancetype)filterOptionWithSubfolder:(NSString *)folderRelPath;
 @property(nonatomic, readonly, copy) NSString *subfolder;
 
-+ (id)filterOptionWithMemento:(NSString *)memento;
++ (instancetype)filterOptionWithMemento:(NSString *)memento;
 @property(nonatomic, readonly, copy) NSString *memento;
 
 @property(nonatomic, readonly, strong) NSString *displayName;

@@ -4,7 +4,7 @@
 
 @implementation FilterOption
 
-- (id)initWithSubfolder:(NSString *)subfolder {
+- (instancetype)initWithSubfolder:(NSString *)subfolder {
     self = [super init];
     if (self) {
         subfolder = ATPathSpecRemoveTrailingSlash(subfolder);
@@ -17,11 +17,11 @@
     return self;
 }
 
-+ (id)filterOptionWithSubfolder:(NSString *)subfolder {
++ (instancetype)filterOptionWithSubfolder:(NSString *)subfolder {
     return [[[self class] alloc] initWithSubfolder:subfolder];
 }
 
-+ (id)filterOptionWithMemento:(NSString *)memento {
++ (instancetype)filterOptionWithMemento:(NSString *)memento {
     if ([memento hasPrefix:@"subdir:"])
         return [self filterOptionWithSubfolder:[memento substringFromIndex:[@"subdir:" length]]];
     return nil;

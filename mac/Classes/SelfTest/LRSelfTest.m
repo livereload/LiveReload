@@ -3,7 +3,7 @@
 #import "Workspace.h"
 #import "Project.h"
 #import "OldFSTree.h"
-#import "LRBuildResult.h"
+#import "LRBuild.h"
 #import "LROperationResult.h"
 #import "LRSelfTestOutputFile.h"
 #import "LRSelfTestBrowserRequestExpectation.h"
@@ -174,7 +174,7 @@
         }
     }
 
-    LRBuildResult *build = _project.lastFinishedBuild;
+    LRBuild *build = _project.lastFinishedBuild;
 
     if (!LRSelfTestMatchUnorderedArrays(_messageExpectations, build.messages, @"Incorrect messages", &error, ^BOOL(LRSelfTestMessageExpectation *expectation, LRMessage *value) {
         return [expectation matchesMessage:value];
@@ -210,7 +210,7 @@
     [self _succeeded];
 }
 
-- (BOOL)_verifyBrowserRequestExpectationsWithBuild:(LRBuildResult *)build error:(NSError **)error {
+- (BOOL)_verifyBrowserRequestExpectationsWithBuild:(LRBuild *)build error:(NSError **)error {
     if (!_browserRequestExpectationsSpecified)
         return YES;
 

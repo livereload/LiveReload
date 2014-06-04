@@ -1,11 +1,6 @@
 
 import Foundation
 
-//@objc enum LRMessageSeverity : Int {
-//    case Error = 1
-//    case Warning
-//}
-
 @objc class LRMessage : NSObject, Printable {
     let severity : LRMessageSeverity;
     let text : String;

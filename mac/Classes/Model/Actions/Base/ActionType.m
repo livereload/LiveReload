@@ -11,6 +11,7 @@
 #import "LRPackageSet.h"
 #import "LRPackageType.h"
 #import "LRProjectFile.h"
+#import "LiveReload-Swift-x.h"
 
 #import "LRManifestLayer.h"
 #import "LRActionVersion.h"
@@ -77,8 +78,13 @@ NSArray *LRValidActionKindStrings() {
                                      },
                                  @"compile-file": @{
                                          @"kind": @"compiler",
-                                         @"objc_class":    @"CompileFileAction",
+                                         @"objc_classObj": [CompileFileAction class],
                                          @"objc_rowClass": @"CompileFileActionRow",
+                                 @"compile-folder": @{
+                                         @"kind": @"postproc",
+                                         @"objc_classObj": [CompileFolderAction class],
+                                         @"objc_rowClass": @"FilterActionRow",
+                                     },
                                      },
                                  @"run-tests": @{
                                          @"kind": @"postproc",
@@ -104,7 +110,7 @@ NSArray *LRValidActionKindStrings() {
     NSString *actionClassName = manifest[@"objc_class"] ?: @"";
     NSString *rowClassName = manifest[@"objc_rowClass"] ?: @"";
 
-    _actionClass = NSClassFromString(actionClassName);
+    _actionClass = manifest[@"objc_classObj"] ?: NSClassFromString(actionClassName);
     _rowClass = NSClassFromString(rowClassName);
 
     if (_identifier.length == 0)

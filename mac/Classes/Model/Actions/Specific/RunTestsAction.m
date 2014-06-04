@@ -3,7 +3,7 @@
 #import "ScriptInvocationStep.h"
 #import "Project.h"
 #import "LRTestRunner.h"
-#import "LRProjectTargetResult.h"
+#import "LiveReload-Swift-x.h"
 #import "LROperationResult.h"
 
 
@@ -18,7 +18,7 @@
     return self.type.name;
 }
 
-- (void)invokeForProject:(Project *)project withModifiedFiles:(NSArray *)files result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
+- (void)invokeWithModifiedFiles:(NSArray *)files result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
     if (!self.effectiveVersion) {
         [result completedWithInvocationError:[self missingEffectiveVersionError]];
         return completionHandler();
@@ -44,13 +44,13 @@
         [parser processLine:line];
     };
 
-    NSLog(@"%@: %@", self.label, project.rootURL.path);
+    NSLog(@"%@: %@", self.label, self.project.rootURL.path);
     [step invoke];
 }
 
-- (LRTargetResult *)targetForModifiedFiles:(NSArray *)files {
+- (LRTarget *)targetForModifiedFiles:(NSArray *)files {
     if ([self inputPathSpecMatchesFiles:files]) {
-        return [[LRProjectTargetResult alloc] initWithAction:self modifiedFiles:files];
+        return [[LRProjectTarget alloc] initWithAction:self modifiedFiles:files];
     } else {
         return nil;
     }

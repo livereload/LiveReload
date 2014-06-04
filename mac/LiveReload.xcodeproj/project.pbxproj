@@ -85,7 +85,7 @@
 		43158FEE191AA07900DE8A5A /* LRTRTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 43158FE8191AA07900DE8A5A /* LRTRTest.m */; };
 		43158FEF191AA07900DE8A5A /* LRTRTestAnythingProtocolParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 43158FEB191AA07900DE8A5A /* LRTRTestAnythingProtocolParser.m */; };
 		43158FF3191AA11100DE8A5A /* LRTRProtocolParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 43158FF2191AA11100DE8A5A /* LRTRProtocolParser.m */; };
-		43158FF8191BDC3500DE8A5A /* LRBuildResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 43158FF7191BDC3500DE8A5A /* LRBuildResult.m */; };
+		43158FF8191BDC3500DE8A5A /* LRBuild.m in Sources */ = {isa = PBXBuildFile; fileRef = 43158FF7191BDC3500DE8A5A /* LRBuild.m */; };
 		431867CE1936FAB100DA9609 /* LRSelfTestMessageExpectation.m in Sources */ = {isa = PBXBuildFile; fileRef = 431867CD1936FAB100DA9609 /* LRSelfTestMessageExpectation.m */; };
 		431867D11936FB1E00DA9609 /* LRSelfTestHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 431867D01936FB1E00DA9609 /* LRSelfTestHelpers.m */; };
 		431867D3193C19EE00DA9609 /* LRCustomActionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 431867D2193C19EE00DA9609 /* LRCustomActionTests.m */; };
@@ -99,10 +99,11 @@
 		431CB53D16D1EF8200034877 /* SLIM.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 431CB53416D1EF8200034877 /* SLIM.lrplugin */; };
 		431CB53E16D1EF8200034877 /* Stylus.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 431CB53516D1EF8200034877 /* Stylus.lrplugin */; };
 		432443AD193DF5F100B1C4D1 /* LRMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432443AC193DF5F100B1C4D1 /* LRMessage.swift */; };
-		432443AF193DF87900B1C4D1 /* PiiSwiftly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432443AE193DF87900B1C4D1 /* PiiSwiftly.swift */; };
 		432838791842EFF3001FC70E /* LRChildErrorSink.m in Sources */ = {isa = PBXBuildFile; fileRef = 432838781842EFF3001FC70E /* LRChildErrorSink.m */; };
 		4328387C1842FD3A001FC70E /* LRPackageSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4328387B1842FD3A001FC70E /* LRPackageSet.m */; };
 		4328388218430646001FC70E /* LRPackageResolutionContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 4328388118430646001FC70E /* LRPackageResolutionContext.m */; };
+		433162F6193EFD5600ECB419 /* CompileFolderAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433162F5193EFD5600ECB419 /* CompileFolderAction.swift */; };
+		433162FB193EFECD00ECB419 /* CompileFileAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433162FA193EFECD00ECB419 /* CompileFileAction.swift */; };
 		433253A9174E0B4200C9A76B /* PrefPaneRubies.png in Resources */ = {isa = PBXBuildFile; fileRef = 433253A8174E0B4200C9A76B /* PrefPaneRubies.png */; };
 		433253B2174E0BA200C9A76B /* GeneralPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 433253B0174E0BA200C9A76B /* GeneralPreferencesViewController.m */; };
 		433253B3174E0BA200C9A76B /* GeneralPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 433253B1174E0BA200C9A76B /* GeneralPreferencesViewController.xib */; };
@@ -159,6 +160,7 @@
 		4353197314668E7D005FA59F /* LRSupportTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4353197114668E7D005FA59F /* LRSupportTemplate.png */; };
 		4353403A146CC7E600DD66B0 /* MonitoringSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43534039146CC7E600DD66B0 /* MonitoringSettingsWindowController.m */; };
 		4353403C146CC8A400DD66B0 /* MonitoringSettingsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4353403B146CC8A400DD66B0 /* MonitoringSettingsWindowController.xib */; };
+		43571BD1193F03ED00AC6E76 /* SwiftExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43571BD0193F03ED00AC6E76 /* SwiftExtensions.swift */; };
 		435729171452267C00947B2E /* Stats.m in Sources */ = {isa = PBXBuildFile; fileRef = 435729161452267C00947B2E /* Stats.m */; };
 		43594AF413D3BB34004175B2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43594AF313D3BB34004175B2 /* QuartzCore.framework */; };
 		435BE042141B72A60008FF77 /* NewMainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 435BE041141B72A60008FF77 /* NewMainWindow.xib */; };
@@ -189,6 +191,9 @@
 		437109B918588E0E00FCB4C2 /* LRSelfTestOutputFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 437109B818588E0E00FCB4C2 /* LRSelfTestOutputFile.m */; };
 		437109BC18595B0200FCB4C2 /* LRSelfTestOutputExpectation.m in Sources */ = {isa = PBXBuildFile; fileRef = 437109BB18595B0200FCB4C2 /* LRSelfTestOutputExpectation.m */; };
 		437109BE1859A48700FCB4C2 /* Sass.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 437109BD1859A48700FCB4C2 /* Sass.lrplugin */; };
+		43740FE8193F2B10006B5F57 /* LRProjectTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43740FE7193F2B10006B5F57 /* LRProjectTarget.swift */; };
+		43740FEA193F2F4A006B5F57 /* LRFileTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43740FE9193F2F4A006B5F57 /* LRFileTarget.swift */; };
+		43740FEC193F39E5006B5F57 /* LRTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43740FEB193F39E5006B5F57 /* LRTarget.swift */; };
 		4376A0E2146DF1C800338AD4 /* TitleBarHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */; };
 		4378C8D11515205C003187D5 /* OldFSMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CA1515205C003187D5 /* OldFSMonitor.m */; };
 		4378C8D21515205C003187D5 /* OldFSTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CC1515205C003187D5 /* OldFSTree.m */; };
@@ -197,7 +202,7 @@
 		4379ADCB141D1060008C836F /* livereload.js in Resources */ = {isa = PBXBuildFile; fileRef = 4379ADC9141D00CE008C836F /* livereload.js */; };
 		4396F1BA17F77A8900AA8200 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4396F1B917F77A8900AA8200 /* Foundation.framework */; };
 		4396F1CD17F80E6F00AA8200 /* GlitterInstallationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4396F1CB17F80E6F00AA8200 /* GlitterInstallationService.m */; };
-		4396F1D017F8109000AA8200 /* com.tarantsov.GlitterInstallationService.xpc in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4396F1B817F77A8900AA8200 /* com.tarantsov.GlitterInstallationService.xpc */; };
+		4396F1D017F8109000AA8200 /* com.tarantsov.GlitterInstallationService.xpc in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4396F1B817F77A8900AA8200 /* com.tarantsov.GlitterInstallationService.xpc */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		4396F1DE17F8112F00AA8200 /* Glitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4396F1D317F8112F00AA8200 /* Glitter.m */; };
 		4396F1DF17F8112F00AA8200 /* GlitterArchiveUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4396F1D517F8112F00AA8200 /* GlitterArchiveUtilities.m */; };
 		4396F1E017F8112F00AA8200 /* GlitterFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 4396F1D717F8112F00AA8200 /* GlitterFeed.m */; };
@@ -273,8 +278,6 @@
 		43CE9B5E191675F30044D28E /* LRAssetPackageConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B44191675F30044D28E /* LRAssetPackageConfiguration.m */; };
 		43CE9B5F191675F30044D28E /* LRContextActionType.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B46191675F30044D28E /* LRContextActionType.m */; };
 		43CE9B60191675F30044D28E /* LRManifestLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B48191675F30044D28E /* LRManifestLayer.m */; };
-		43CE9B61191675F30044D28E /* CompileFileAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B4B191675F30044D28E /* CompileFileAction.m */; };
-		43CE9B62191675F30044D28E /* CompileFolderAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B4D191675F30044D28E /* CompileFolderAction.m */; };
 		43CE9B63191675F30044D28E /* CustomCommandAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B4F191675F30044D28E /* CustomCommandAction.m */; };
 		43CE9B64191675F30044D28E /* FilterAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B51191675F30044D28E /* FilterAction.m */; };
 		43CE9B65191675F30044D28E /* UserScriptAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B53191675F30044D28E /* UserScriptAction.m */; };
@@ -284,9 +287,6 @@
 		43CE9B6C1917338B0044D28E /* Mocha.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43CE9B6B1917338A0044D28E /* Mocha.lrplugin */; };
 		43CE9B841917B6BE0044D28E /* P2RegularExpressionExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B831917B6BE0044D28E /* P2RegularExpressionExtensions.m */; };
 		43D6CA50191BFF5C00DA9FFE /* LROperationResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D6CA4F191BFF5C00DA9FFE /* LROperationResult.m */; };
-		43D6CA53191C14CF00DA9FFE /* LRTargetResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D6CA52191C14CF00DA9FFE /* LRTargetResult.m */; };
-		43D6CA56191C15B700DA9FFE /* LRFileTargetResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D6CA55191C15B700DA9FFE /* LRFileTargetResult.m */; };
-		43D6CA59191C161D00DA9FFE /* LRProjectTargetResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D6CA58191C161D00DA9FFE /* LRProjectTargetResult.m */; };
 		43DB9FD4178EDF2E007BEA36 /* Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD3178EDF2E007BEA36 /* Errors.m */; };
 		43DB9FD7178EFA64007BEA36 /* ExternalEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD6178EFA64007BEA36 /* ExternalEditor.m */; };
 		43DB9FDA1792545E007BEA36 /* LRPluginCommons.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB9FD91792545E007BEA36 /* LRPluginCommons.m */; };
@@ -513,8 +513,8 @@
 		43158FEB191AA07900DE8A5A /* LRTRTestAnythingProtocolParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRTRTestAnythingProtocolParser.m; sourceTree = "<group>"; };
 		43158FF1191AA11100DE8A5A /* LRTRProtocolParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRTRProtocolParser.h; sourceTree = "<group>"; };
 		43158FF2191AA11100DE8A5A /* LRTRProtocolParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRTRProtocolParser.m; sourceTree = "<group>"; };
-		43158FF6191BDC3500DE8A5A /* LRBuildResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRBuildResult.h; sourceTree = "<group>"; };
-		43158FF7191BDC3500DE8A5A /* LRBuildResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRBuildResult.m; sourceTree = "<group>"; };
+		43158FF6191BDC3500DE8A5A /* LRBuild.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRBuild.h; sourceTree = "<group>"; };
+		43158FF7191BDC3500DE8A5A /* LRBuild.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRBuild.m; sourceTree = "<group>"; };
 		431867CC1936FAB100DA9609 /* LRSelfTestMessageExpectation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRSelfTestMessageExpectation.h; sourceTree = "<group>"; };
 		431867CD1936FAB100DA9609 /* LRSelfTestMessageExpectation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRSelfTestMessageExpectation.m; sourceTree = "<group>"; };
 		431867CF1936FB1E00DA9609 /* LRSelfTestHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRSelfTestHelpers.h; sourceTree = "<group>"; };
@@ -529,9 +529,7 @@
 		431CB53216D1EF8200034877 /* LESS.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = LESS.lrplugin; path = ../plugins/LESS.lrplugin; sourceTree = "<group>"; };
 		431CB53416D1EF8200034877 /* SLIM.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SLIM.lrplugin; path = ../plugins/SLIM.lrplugin; sourceTree = "<group>"; };
 		431CB53516D1EF8200034877 /* Stylus.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Stylus.lrplugin; path = ../plugins/Stylus.lrplugin; sourceTree = "<group>"; };
-		432443AB193DF5F000B1C4D1 /* LiveReload-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LiveReload-Bridging-Header.h"; sourceTree = "<group>"; };
 		432443AC193DF5F100B1C4D1 /* LRMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRMessage.swift; sourceTree = "<group>"; };
-		432443AE193DF87900B1C4D1 /* PiiSwiftly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PiiSwiftly.swift; sourceTree = "<group>"; };
 		432838771842EFF3001FC70E /* LRChildErrorSink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRChildErrorSink.h; sourceTree = "<group>"; };
 		432838781842EFF3001FC70E /* LRChildErrorSink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRChildErrorSink.m; sourceTree = "<group>"; };
 		4328387A1842FD3A001FC70E /* LRPackageSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPackageSet.h; sourceTree = "<group>"; };
@@ -541,7 +539,10 @@
 		432A6D921476192300144F97 /* sglib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sglib.h; sourceTree = "<group>"; };
 		432A6D93147622A600144F97 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
 		433162F3193E083600ECB419 /* LRMessageSeverity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LRMessageSeverity.h; sourceTree = "<group>"; };
-		433162F4193E0A5D00ECB419 /* LiveReload-Swift-x.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LiveReload-Swift-x.h"; sourceTree = "<group>"; };
+		433162F5193EFD5600ECB419 /* CompileFolderAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompileFolderAction.swift; sourceTree = "<group>"; };
+		433162F8193EFE7B00ECB419 /* LiveReload-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LiveReload-Bridging-Header.h"; sourceTree = "<group>"; };
+		433162F9193EFE7B00ECB419 /* LiveReload-Swift-x.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LiveReload-Swift-x.h"; sourceTree = "<group>"; };
+		433162FA193EFECD00ECB419 /* CompileFileAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompileFileAction.swift; sourceTree = "<group>"; };
 		433253A8174E0B4200C9A76B /* PrefPaneRubies.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PrefPaneRubies.png; sourceTree = "<group>"; };
 		433253AF174E0BA200C9A76B /* GeneralPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeneralPreferencesViewController.h; sourceTree = "<group>"; };
 		433253B0174E0BA200C9A76B /* GeneralPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneralPreferencesViewController.m; sourceTree = "<group>"; };
@@ -650,6 +651,7 @@
 		43534039146CC7E600DD66B0 /* MonitoringSettingsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonitoringSettingsWindowController.m; sourceTree = "<group>"; };
 		4353403B146CC8A400DD66B0 /* MonitoringSettingsWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MonitoringSettingsWindowController.xib; sourceTree = "<group>"; };
 		4356A16E19206F260024854E /* P2Warnings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2Warnings.h; sourceTree = "<group>"; };
+		43571BD0193F03ED00AC6E76 /* SwiftExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftExtensions.swift; sourceTree = "<group>"; };
 		435729151452267C00947B2E /* Stats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stats.h; sourceTree = "<group>"; };
 		435729161452267C00947B2E /* Stats.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stats.m; sourceTree = "<group>"; };
 		43594AF313D3BB34004175B2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -698,6 +700,9 @@
 		437109BA18595B0200FCB4C2 /* LRSelfTestOutputExpectation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRSelfTestOutputExpectation.h; sourceTree = "<group>"; };
 		437109BB18595B0200FCB4C2 /* LRSelfTestOutputExpectation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRSelfTestOutputExpectation.m; sourceTree = "<group>"; };
 		437109BD1859A48700FCB4C2 /* Sass.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Sass.lrplugin; path = ../plugins/Sass.lrplugin; sourceTree = "<group>"; };
+		43740FE7193F2B10006B5F57 /* LRProjectTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRProjectTarget.swift; sourceTree = "<group>"; };
+		43740FE9193F2F4A006B5F57 /* LRFileTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRFileTarget.swift; sourceTree = "<group>"; };
+		43740FEB193F39E5006B5F57 /* LRTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRTarget.swift; sourceTree = "<group>"; };
 		4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TitleBarHelpTemplate.png; sourceTree = "<group>"; };
 		4378C8C91515205C003187D5 /* OldFSMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldFSMonitor.h; sourceTree = "<group>"; };
 		4378C8CA1515205C003187D5 /* OldFSMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldFSMonitor.m; sourceTree = "<group>"; };
@@ -850,10 +855,6 @@
 		43CE9B46191675F30044D28E /* LRContextActionType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRContextActionType.m; sourceTree = "<group>"; };
 		43CE9B47191675F30044D28E /* LRManifestLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRManifestLayer.h; sourceTree = "<group>"; };
 		43CE9B48191675F30044D28E /* LRManifestLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRManifestLayer.m; sourceTree = "<group>"; };
-		43CE9B4A191675F30044D28E /* CompileFileAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompileFileAction.h; sourceTree = "<group>"; };
-		43CE9B4B191675F30044D28E /* CompileFileAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompileFileAction.m; sourceTree = "<group>"; };
-		43CE9B4C191675F30044D28E /* CompileFolderAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompileFolderAction.h; sourceTree = "<group>"; };
-		43CE9B4D191675F30044D28E /* CompileFolderAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompileFolderAction.m; sourceTree = "<group>"; };
 		43CE9B4E191675F30044D28E /* CustomCommandAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCommandAction.h; sourceTree = "<group>"; };
 		43CE9B4F191675F30044D28E /* CustomCommandAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCommandAction.m; sourceTree = "<group>"; };
 		43CE9B50191675F30044D28E /* FilterAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterAction.h; sourceTree = "<group>"; };
@@ -871,12 +872,6 @@
 		43CE9B831917B6BE0044D28E /* P2RegularExpressionExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P2RegularExpressionExtensions.m; sourceTree = "<group>"; };
 		43D6CA4E191BFF5C00DA9FFE /* LROperationResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LROperationResult.h; sourceTree = "<group>"; };
 		43D6CA4F191BFF5C00DA9FFE /* LROperationResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LROperationResult.m; sourceTree = "<group>"; };
-		43D6CA51191C14CF00DA9FFE /* LRTargetResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRTargetResult.h; sourceTree = "<group>"; };
-		43D6CA52191C14CF00DA9FFE /* LRTargetResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRTargetResult.m; sourceTree = "<group>"; };
-		43D6CA54191C15B700DA9FFE /* LRFileTargetResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRFileTargetResult.h; sourceTree = "<group>"; };
-		43D6CA55191C15B700DA9FFE /* LRFileTargetResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRFileTargetResult.m; sourceTree = "<group>"; };
-		43D6CA57191C161D00DA9FFE /* LRProjectTargetResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRProjectTargetResult.h; sourceTree = "<group>"; };
-		43D6CA58191C161D00DA9FFE /* LRProjectTargetResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRProjectTargetResult.m; sourceTree = "<group>"; };
 		43DB9FD2178EDF2E007BEA36 /* Errors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Errors.h; sourceTree = "<group>"; };
 		43DB9FD3178EDF2E007BEA36 /* Errors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Errors.m; sourceTree = "<group>"; };
 		43DB9FD5178EFA64007BEA36 /* ExternalEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExternalEditor.h; sourceTree = "<group>"; };
@@ -1305,20 +1300,14 @@
 		43158FF5191BDC1700DE8A5A /* Results */ = {
 			isa = PBXGroup;
 			children = (
-				43158FF6191BDC3500DE8A5A /* LRBuildResult.h */,
-				43158FF7191BDC3500DE8A5A /* LRBuildResult.m */,
-				43D6CA51191C14CF00DA9FFE /* LRTargetResult.h */,
-				43D6CA52191C14CF00DA9FFE /* LRTargetResult.m */,
-				43D6CA54191C15B700DA9FFE /* LRFileTargetResult.h */,
-				43D6CA55191C15B700DA9FFE /* LRFileTargetResult.m */,
-				43D6CA57191C161D00DA9FFE /* LRProjectTargetResult.h */,
-				43D6CA58191C161D00DA9FFE /* LRProjectTargetResult.m */,
+				43158FF6191BDC3500DE8A5A /* LRBuild.h */,
+				43158FF7191BDC3500DE8A5A /* LRBuild.m */,
+				43740FEB193F39E5006B5F57 /* LRTarget.swift */,
+				43740FE9193F2F4A006B5F57 /* LRFileTarget.swift */,
+				43740FE7193F2B10006B5F57 /* LRProjectTarget.swift */,
 				43D6CA4E191BFF5C00DA9FFE /* LROperationResult.h */,
 				43D6CA4F191BFF5C00DA9FFE /* LROperationResult.m */,
 				432443AC193DF5F100B1C4D1 /* LRMessage.swift */,
-				432443AE193DF87900B1C4D1 /* PiiSwiftly.swift */,
-				432443AB193DF5F000B1C4D1 /* LiveReload-Bridging-Header.h */,
-				433162F4193E0A5D00ECB419 /* LiveReload-Swift-x.h */,
 				433162F3193E083600ECB419 /* LRMessageSeverity.h */,
 			);
 			path = Results;
@@ -1343,6 +1332,16 @@
 				43DFE4E817CC967500DEF87B /* TypeScript.lrplugin */,
 			);
 			name = plugins;
+			sourceTree = "<group>";
+		};
+		433162F7193EFE6000ECB419 /* Swift Bridging */ = {
+			isa = PBXGroup;
+			children = (
+				433162F8193EFE7B00ECB419 /* LiveReload-Bridging-Header.h */,
+				433162F9193EFE7B00ECB419 /* LiveReload-Swift-x.h */,
+				43571BD0193F03ED00AC6E76 /* SwiftExtensions.swift */,
+			);
+			path = "Swift Bridging";
 			sourceTree = "<group>";
 		};
 		433253A7174E0B4200C9A76B /* Preferences */ = {
@@ -1997,10 +1996,8 @@
 		43CE9B49191675F30044D28E /* Specific */ = {
 			isa = PBXGroup;
 			children = (
-				43CE9B4A191675F30044D28E /* CompileFileAction.h */,
-				43CE9B4B191675F30044D28E /* CompileFileAction.m */,
-				43CE9B4C191675F30044D28E /* CompileFolderAction.h */,
-				43CE9B4D191675F30044D28E /* CompileFolderAction.m */,
+				433162FA193EFECD00ECB419 /* CompileFileAction.swift */,
+				433162F5193EFD5600ECB419 /* CompileFolderAction.swift */,
 				43CE9B4E191675F30044D28E /* CustomCommandAction.h */,
 				43CE9B4F191675F30044D28E /* CustomCommandAction.m */,
 				43CE9B50191675F30044D28E /* FilterAction.h */,
@@ -2053,6 +2050,7 @@
 		823DDE2D13F8DA3100529AD2 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				433162F7193EFE6000ECB419 /* Swift Bridging */,
 				43E34F9614705125001641AA /* Shared */,
 				823DDE2E13F8DA3100529AD2 /* Application */,
 				436D7336173DE1C800F78A23 /* Presentation */,
@@ -2364,7 +2362,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0440;
+				LastUpgradeCheck = 0600;
 				TargetAttributes = {
 					4371095018585DB800FCB4C2 = {
 						TestTargetID = 8D1107260486CEB800E47090;
@@ -2531,7 +2529,6 @@
 				433D224B1826B6ED00E81A09 /* LRSemanticVersionSpace.m in Sources */,
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				823DDED313F8DA3100529AD2 /* LiveReloadAppDelegate.m in Sources */,
-				43D6CA53191C14CF00DA9FFE /* LRTargetResult.m in Sources */,
 				823DDED513F8DA3100529AD2 /* ExtensionsController.m in Sources */,
 				431867D11936FB1E00DA9609 /* LRSelfTestHelpers.m in Sources */,
 				823DDEDA13F8DA3100529AD2 /* StatusItemController.m in Sources */,
@@ -2555,6 +2552,7 @@
 				433D22061826AD9200E81A09 /* LRPackageReference.m in Sources */,
 				823DDF1713F8DA3100529AD2 /* StatusItemView.m in Sources */,
 				43124AE318E2FACE0085CEF1 /* LROutputFileMapping.m in Sources */,
+				433162FB193EFECD00ECB419 /* CompileFileAction.swift in Sources */,
 				435BE045141B87920008FF77 /* NewMainWindowController.m in Sources */,
 				435729171452267C00947B2E /* Stats.m in Sources */,
 				430D7F6E1847131B00203400 /* GemPackageContainer.m in Sources */,
@@ -2579,7 +2577,6 @@
 				4310DE40146DB6A0003091D1 /* UIBuilder.m in Sources */,
 				433D2194182646E300E81A09 /* ImportGraph.m in Sources */,
 				43F002CF146EC97B005D48A4 /* MainWindow.m in Sources */,
-				432443AF193DF87900B1C4D1 /* PiiSwiftly.swift in Sources */,
 				4396F1E017F8112F00AA8200 /* GlitterFeed.m in Sources */,
 				43F002D2146F4135005D48A4 /* TerminalView.m in Sources */,
 				43F002F8146FF584005D48A4 /* TerminalViewController.m in Sources */,
@@ -2603,6 +2600,7 @@
 				4378C8D41515205C003187D5 /* OldFSTreeFilter.m in Sources */,
 				43059209151DF2DE00CC3F88 /* MASReceipt.m in Sources */,
 				43CE9B59191675F30044D28E /* Action.m in Sources */,
+				433162F6193EFD5600ECB419 /* CompileFolderAction.swift in Sources */,
 				433D2197182646E300E81A09 /* Project.m in Sources */,
 				43059225151E90DE00CC3F88 /* DockIcon.m in Sources */,
 				430ABDF4186BF20500407561 /* LRPathProcessing.m in Sources */,
@@ -2638,7 +2636,6 @@
 				43F30CA5184C84F1008CED4A /* GemVersionSpace.m in Sources */,
 				4303A54E15B513FD009D732A /* nodeapp_rpc_common.m in Sources */,
 				4303A55315B513FD009D732A /* nodeapp_utils.c in Sources */,
-				43D6CA59191C161D00DA9FFE /* LRProjectTargetResult.m in Sources */,
 				4303A55415B513FD009D732A /* nodeapp_api_app.m in Sources */,
 				43C6119A1803D537008A707E /* LRGlobals.m in Sources */,
 				4303A55515B513FD009D732A /* nodeapp_api_preferences.m in Sources */,
@@ -2653,7 +2650,6 @@
 				4303A55C15B513FD009D732A /* nodeapp_paths_osdep.m in Sources */,
 				43122BFE1813DB2D00BF8121 /* LROption.m in Sources */,
 				4303A55D15B513FD009D732A /* nodeapp_rpc_osdep.c in Sources */,
-				43CE9B62191675F30044D28E /* CompileFolderAction.m in Sources */,
 				4303A55E15B513FD009D732A /* nodeapp_threading.c in Sources */,
 				4303A55F15B513FD009D732A /* NodeAppDelegate.m in Sources */,
 				434BB25B17B9097D000BEB1C /* ActionsGroupHeaderRow.m in Sources */,
@@ -2668,7 +2664,8 @@
 				430D7F621845901100203400 /* LRVersionOption.m in Sources */,
 				43158FEF191AA07900DE8A5A /* LRTRTestAnythingProtocolParser.m in Sources */,
 				43122BF5180BBA5E00BF8121 /* Glue.m in Sources */,
-				43158FF8191BDC3500DE8A5A /* LRBuildResult.m in Sources */,
+				43571BD1193F03ED00AC6E76 /* SwiftExtensions.swift in Sources */,
+				43158FF8191BDC3500DE8A5A /* LRBuild.m in Sources */,
 				434BB25E17B91330000BEB1C /* OptionsRow.m in Sources */,
 				4303A58815B513FD009D732A /* nodeapp_url_handler_mac.m in Sources */,
 				4398AF0F1731E3DC0092A711 /* NSData+Base64.m in Sources */,
@@ -2676,6 +2673,7 @@
 				43508A9317B39DBE00871422 /* ATFlippedView.m in Sources */,
 				436D732A173DE05000F78A23 /* RuntimeContainer.m in Sources */,
 				436D732B173DE05000F78A23 /* MissingRuntimeInstance.m in Sources */,
+				43740FEC193F39E5006B5F57 /* LRTarget.swift in Sources */,
 				43122BFB180FBEFB00BF8121 /* ATObservation.m in Sources */,
 				436D732C173DE05000F78A23 /* RuntimeInstance.m in Sources */,
 				436D732D173DE05000F78A23 /* RuntimeGlobals.m in Sources */,
@@ -2683,6 +2681,7 @@
 				436D7341173DE30900F78A23 /* MASPreferencesWindowController.m in Sources */,
 				43122C041813DF1100BF8121 /* LRCheckboxOption.m in Sources */,
 				43508A8117B3819500871422 /* ATAutolayout.m in Sources */,
+				43740FE8193F2B10006B5F57 /* LRProjectTarget.swift in Sources */,
 				436D734B173DE61400F78A23 /* PreferencesController.m in Sources */,
 				43CE9B63191675F30044D28E /* CustomCommandAction.m in Sources */,
 				433D2183182646D900E81A09 /* AppState.m in Sources */,
@@ -2733,12 +2732,11 @@
 				43B5C01417ADF35C00F57276 /* NSWindowController+ATTextStyling.m in Sources */,
 				43CE9B66191675F30044D28E /* ScriptInvocationAction.m in Sources */,
 				43B5C01717ADF5FB00F57276 /* RegexKitLite.m in Sources */,
+				43740FEA193F2F4A006B5F57 /* LRFileTarget.swift in Sources */,
 				43508A9017B39C9700871422 /* ATSolidView.m in Sources */,
 				43B5C01A17ADF93A00F57276 /* ATHash.m in Sources */,
-				43D6CA56191C15B700DA9FFE /* LRFileTargetResult.m in Sources */,
 				43B5C01D17ADFA4700F57276 /* ATChildTask.m in Sources */,
 				43B5C02017AE01C500F57276 /* ATLoginItemController.m in Sources */,
-				43CE9B61191675F30044D28E /* CompileFileAction.m in Sources */,
 				439865AC17BE394D00EC6471 /* ATPathSpec.m in Sources */,
 				43B5C02817AE0BE600F57276 /* SublimeText2Editor.m in Sources */,
 				43508A8417B392A500871422 /* ATStackView.m in Sources */,
@@ -2946,7 +2944,6 @@
 		437109AC1858704F00FCB4C2 /* Testing */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2992,7 +2989,7 @@
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = LiveReload;
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Model/Results/LiveReload-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Swift Bridging/LiveReload-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Testing;
@@ -3200,7 +3197,6 @@
 		43D28C60147D30E900606069 /* AppStore */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: Andrey Tarantsov";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -3241,7 +3237,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = LiveReload;
-				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Model/Results/LiveReload-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Swift Bridging/LiveReload-Bridging-Header.h";
 			};
 			name = AppStore;
 		};
@@ -3264,7 +3260,7 @@
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = LiveReload;
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Model/Results/LiveReload-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Swift Bridging/LiveReload-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -3286,14 +3282,13 @@
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = LiveReload;
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Model/Results/LiveReload-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Swift Bridging/LiveReload-Bridging-Header.h";
 			};
 			name = Release;
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_IDENTITY = "Developer ID Application: Andrey Tarantsov";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -3322,7 +3317,6 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_IDENTITY = "Developer ID Application: Andrey Tarantsov";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;

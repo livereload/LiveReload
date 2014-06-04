@@ -3,7 +3,7 @@
 #import "Project.h"
 #import "LRProjectFile.h"
 #import "ScriptInvocationStep.h"
-#import "LRFileTargetResult.h"
+#import "LiveReload-Swift-x.h"
 
 
 @implementation FilterAction
@@ -48,8 +48,8 @@
     return YES;
 }
 
-- (LRTargetResult *)fileTargetForRootFile:(LRProjectFile *)sourceFile {
-    return [[LRFileTargetResult alloc] initWithAction:self sourceFile:sourceFile];
+- (LRTarget *)fileTargetForRootFile:(LRProjectFile *)sourceFile {
+    return [[LRFileTarget alloc] initWithAction:self sourceFile:sourceFile];
 }
 
 

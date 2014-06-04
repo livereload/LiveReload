@@ -1,6 +1,7 @@
 
 #import "ATChildTask.h"
 #import "ATGlobals.h"
+#import "P2Warnings.h"
 
 
 
@@ -204,6 +205,7 @@ id ATCreateUserUnixTask(NSURL *scriptURL, NSError **error) {
 }
 
 - (void)startReading {
+    P2DisableARCRetainCyclesWarning()
     _standardOutputPipe.fileHandleForReading.readabilityHandler = ^(NSFileHandle *file) {
         NSData *availableData = [file availableData];
         [_standardOutputData appendData:availableData];
@@ -222,6 +224,7 @@ id ATCreateUserUnixTask(NSURL *scriptURL, NSError **error) {
             [self executeCompletionBlockIfBothChannelsClosed];
         }
     };
+    P2ReenableWarning()
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(standardOutputNotification:) name:NSFileHandleDataAvailableNotification object:_standardOutputPipe.fileHandleForReading];
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(standardErrorNotification:)  name:NSFileHandleDataAvailableNotification object:_standardErrorPipe.fileHandleForReading];
 //

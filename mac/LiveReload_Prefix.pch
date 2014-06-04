@@ -4,3 +4,11 @@
 #endif
 
 #define MustOverride() @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"%s must be overridden in a subclass", __PRETTY_FUNCTION__] userInfo:nil]
+
+#ifdef __OBJC__
+
+@class LiveReloadAppDelegate;
+
+#define LRAppDelegate ((LiveReloadAppDelegate *) ((NSApplication *) NSApp).delegate)
+
+#endif

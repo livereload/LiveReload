@@ -20,8 +20,7 @@
 #import "Glue.h"
 #import "LRPackageResolutionContext.h"
 #import "ATPathSpec.h"
-#import "LRBuildResult.h"
-#import "LRTargetResult.h"
+#import "LRBuild.h"
 #import "LROperationResult.h"
 #import "LiveReload-Swift-x.h"
 
@@ -126,7 +125,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     BOOL                     _pendingPostProcessing;
     NSTimeInterval           _lastPostProcessingRunDate;
 
-    LRBuildResult           *_runningBuild;
+    LRBuild           *_runningBuild;
 
     NSMutableDictionary     *_fileDatesHack;
 
@@ -522,7 +521,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
 - (void)startBuild {
     if (!_runningBuild) {
-        _runningBuild = [[LRBuildResult alloc] initWithProject:self actions:self.actionList.activeActions];
+        _runningBuild = [[LRBuild alloc] initWithProject:self actions:self.actionList.activeActions];
         NSLog(@"Build starting...");
         [self postNotificationName:ProjectBuildStartedNotification];
     }
