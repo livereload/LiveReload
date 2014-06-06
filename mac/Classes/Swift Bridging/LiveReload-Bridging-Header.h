@@ -27,3 +27,6 @@
 #import "LRTRTestAnythingProtocolParser.h"
 
 #import "LRPathProcessing.h"
+#import "ATChildTask.h"
+#import "LRCommandLine.h"
+#import "NSArray+ATSubstitutions.h"

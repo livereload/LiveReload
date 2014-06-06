@@ -154,7 +154,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
 - (id)initWithURL:(NSURL *)rootURL memento:(NSDictionary *)memento {
     if ((self = [super init])) {
-        _rootURL = rootURL;
+        _rootURL = [rootURL copy];
         [self _updateValuesDerivedFromRootURL];
 
         _filesByPath = [NSMutableDictionary new];
@@ -313,7 +313,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 - (void)_updateValuesDerivedFromRootURL {
     // we cannot monitor through symlink boundaries anyway
     [self willChangeValueForKey:@"path"];
-    _path = [[_rootURL path] stringByResolvingSymlinksInPath];
+    _path = [[[_rootURL path] stringByResolvingSymlinksInPath] copy];
     [self didChangeValueForKey:@"path"];
 }
 

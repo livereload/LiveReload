@@ -191,6 +191,7 @@
 		437109B918588E0E00FCB4C2 /* LRSelfTestOutputFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 437109B818588E0E00FCB4C2 /* LRSelfTestOutputFile.m */; };
 		437109BC18595B0200FCB4C2 /* LRSelfTestOutputExpectation.m in Sources */ = {isa = PBXBuildFile; fileRef = 437109BB18595B0200FCB4C2 /* LRSelfTestOutputExpectation.m */; };
 		437109BE1859A48700FCB4C2 /* Sass.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 437109BD1859A48700FCB4C2 /* Sass.lrplugin */; };
+		437189901942500600A685DD /* CustomCommandAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4371898F1942500600A685DD /* CustomCommandAction.swift */; };
 		43740FE8193F2B10006B5F57 /* LRProjectTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43740FE7193F2B10006B5F57 /* LRProjectTarget.swift */; };
 		43740FEA193F2F4A006B5F57 /* LRFileTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43740FE9193F2F4A006B5F57 /* LRFileTarget.swift */; };
 		43740FEC193F39E5006B5F57 /* LRTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43740FEB193F39E5006B5F57 /* LRTarget.swift */; };
@@ -283,7 +284,6 @@
 		43CE9B5E191675F30044D28E /* LRAssetPackageConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B44191675F30044D28E /* LRAssetPackageConfiguration.m */; };
 		43CE9B5F191675F30044D28E /* LRContextActionType.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B46191675F30044D28E /* LRContextActionType.m */; };
 		43CE9B60191675F30044D28E /* LRManifestLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B48191675F30044D28E /* LRManifestLayer.m */; };
-		43CE9B63191675F30044D28E /* CustomCommandAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B4F191675F30044D28E /* CustomCommandAction.m */; };
 		43CE9B67191675F30044D28E /* ScriptInvocationStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B58191675F30044D28E /* ScriptInvocationStep.m */; };
 		43CE9B6C1917338B0044D28E /* Mocha.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43CE9B6B1917338A0044D28E /* Mocha.lrplugin */; };
 		43CE9B841917B6BE0044D28E /* P2RegularExpressionExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B831917B6BE0044D28E /* P2RegularExpressionExtensions.m */; };
@@ -700,6 +700,7 @@
 		437109BA18595B0200FCB4C2 /* LRSelfTestOutputExpectation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRSelfTestOutputExpectation.h; sourceTree = "<group>"; };
 		437109BB18595B0200FCB4C2 /* LRSelfTestOutputExpectation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRSelfTestOutputExpectation.m; sourceTree = "<group>"; };
 		437109BD1859A48700FCB4C2 /* Sass.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Sass.lrplugin; path = ../plugins/Sass.lrplugin; sourceTree = "<group>"; };
+		4371898F1942500600A685DD /* CustomCommandAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCommandAction.swift; sourceTree = "<group>"; };
 		43740FE7193F2B10006B5F57 /* LRProjectTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRProjectTarget.swift; sourceTree = "<group>"; };
 		43740FE9193F2F4A006B5F57 /* LRFileTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRFileTarget.swift; sourceTree = "<group>"; };
 		43740FEB193F39E5006B5F57 /* LRTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRTarget.swift; sourceTree = "<group>"; };
@@ -860,8 +861,6 @@
 		43CE9B46191675F30044D28E /* LRContextActionType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRContextActionType.m; sourceTree = "<group>"; };
 		43CE9B47191675F30044D28E /* LRManifestLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRManifestLayer.h; sourceTree = "<group>"; };
 		43CE9B48191675F30044D28E /* LRManifestLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRManifestLayer.m; sourceTree = "<group>"; };
-		43CE9B4E191675F30044D28E /* CustomCommandAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCommandAction.h; sourceTree = "<group>"; };
-		43CE9B4F191675F30044D28E /* CustomCommandAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCommandAction.m; sourceTree = "<group>"; };
 		43CE9B57191675F30044D28E /* ScriptInvocationStep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScriptInvocationStep.h; sourceTree = "<group>"; };
 		43CE9B58191675F30044D28E /* ScriptInvocationStep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScriptInvocationStep.m; sourceTree = "<group>"; };
 		43CE9B6B1917338A0044D28E /* Mocha.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Mocha.lrplugin; path = ../plugins/Mocha.lrplugin; sourceTree = "<group>"; };
@@ -1993,8 +1992,7 @@
 			children = (
 				433162FA193EFECD00ECB419 /* CompileFileAction.swift */,
 				433162F5193EFD5600ECB419 /* CompileFolderAction.swift */,
-				43CE9B4E191675F30044D28E /* CustomCommandAction.h */,
-				43CE9B4F191675F30044D28E /* CustomCommandAction.m */,
+				4371898F1942500600A685DD /* CustomCommandAction.swift */,
 				437EC4E719424BEF00E7AEF4 /* FilterAction.swift */,
 				438AD81B194220F100C720F0 /* RunTestsAction.swift */,
 				438AD8201942302000C720F0 /* UserScriptAction.swift */,
@@ -2592,6 +2590,7 @@
 				433162F6193EFD5600ECB419 /* CompileFolderAction.swift in Sources */,
 				433D2197182646E300E81A09 /* Project.m in Sources */,
 				4392B3261941EBAA008DF456 /* PluginManager.swift in Sources */,
+				437189901942500600A685DD /* CustomCommandAction.swift in Sources */,
 				43059225151E90DE00CC3F88 /* DockIcon.m in Sources */,
 				430ABDF4186BF20500407561 /* LRPathProcessing.m in Sources */,
 				439A76B015B28EF100E50057 /* LicenseCodeViewController.m in Sources */,
@@ -2674,7 +2673,6 @@
 				43508A8117B3819500871422 /* ATAutolayout.m in Sources */,
 				43740FE8193F2B10006B5F57 /* LRProjectTarget.swift in Sources */,
 				436D734B173DE61400F78A23 /* PreferencesController.m in Sources */,
-				43CE9B63191675F30044D28E /* CustomCommandAction.m in Sources */,
 				433D2183182646D900E81A09 /* AppState.m in Sources */,
 				437109BC18595B0200FCB4C2 /* LRSelfTestOutputExpectation.m in Sources */,
 				436D734F173DE74000F78A23 /* RubyPreferencesViewController.m in Sources */,
