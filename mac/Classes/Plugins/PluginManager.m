@@ -101,9 +101,21 @@ static PluginManager *sharedPluginManager;
     NSLog(@"Action types: %@", _actionTypes);
 
     NSArray *badPlugins = [_plugins filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"errors[SIZE] > 0"]];
-    NSLog(@"Number of plugins with errors: %d", (int)badPlugins.count);
-    for (Plugin *plugin in badPlugins) {
-        NSLog(@"Error messages for %@:\n%@", plugin.path.lastPathComponent, plugin.errors);
+
+    if (badPlugins.count > 0) {
+        NSMutableString *errorMessage = [NSMutableString new];
+        [errorMessage appendFormat:@"Number of plugins with errors: %d\n\n", (int)badPlugins.count];
+        for (Plugin *plugin in badPlugins) {
+            [errorMessage appendFormat:@"Error messages for %@:\n", plugin.path.lastPathComponent];
+            for (NSError *error in plugin.errors) {
+                [errorMessage appendFormat:@"• %@\n", error.localizedDescription];
+            }
+        }
+
+        NSLog(@"%@", errorMessage);
+        if ([[NSAlert alertWithMessageText:@"Plugin errors" defaultButton:@"Continue" alternateButton:@"Quit" otherButton:nil informativeTextWithFormat:@"%@", errorMessage] runModal] == NSAlertAlternateReturn) {
+            exit(0);
+        }
     }
 }
 
