@@ -1,7 +1,6 @@
 
 import Foundation
 
-// the name is referenced in plugin manifest
 @objc(UserScriptAction)
 class UserScriptAction : Action {
 

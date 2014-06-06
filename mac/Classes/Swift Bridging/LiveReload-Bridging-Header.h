@@ -1,4 +1,12 @@
 
+#import "LROption.h"
+#import "LRPackageSet.h"
+#import "LRPackage.h"
+#import "LRPackageContainer.h"
+#import "LRPackageType.h"
+#import "LRVersion.h"
+#import "Errors.h"
+
 #import "Plugin.h"
 #import "LRProjectFile.h"
 #import "Project.h"
@@ -7,8 +15,8 @@
 #import "Action.h"
 #import "ActionType.h"
 #import "LRActionVersion.h"
+#import "LRActionManifest.h"
 
-#import "ScriptInvocationAction.h"
 #import "ScriptInvocationStep.h"
 
 #import "LRBuild.h"

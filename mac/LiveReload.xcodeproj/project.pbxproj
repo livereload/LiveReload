@@ -200,6 +200,8 @@
 		4378C8D31515205C003187D5 /* OldFSTreeDiffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CE1515205C003187D5 /* OldFSTreeDiffer.m */; };
 		4378C8D41515205C003187D5 /* OldFSTreeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8D01515205C003187D5 /* OldFSTreeFilter.m */; };
 		4379ADCB141D1060008C836F /* livereload.js in Resources */ = {isa = PBXBuildFile; fileRef = 4379ADC9141D00CE008C836F /* livereload.js */; };
+		437EC4E61942419900E7AEF4 /* ScriptInvocationAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437EC4E51942419900E7AEF4 /* ScriptInvocationAction.swift */; };
+		437EC4E819424BEF00E7AEF4 /* FilterAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437EC4E719424BEF00E7AEF4 /* FilterAction.swift */; };
 		438AD81C194220F100C720F0 /* RunTestsAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438AD81B194220F100C720F0 /* RunTestsAction.swift */; };
 		438AD8211942302000C720F0 /* UserScriptAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438AD8201942302000C720F0 /* UserScriptAction.swift */; };
 		4392B3261941EBAA008DF456 /* PluginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4392B3251941EBAA008DF456 /* PluginManager.swift */; };
@@ -282,8 +284,6 @@
 		43CE9B5F191675F30044D28E /* LRContextActionType.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B46191675F30044D28E /* LRContextActionType.m */; };
 		43CE9B60191675F30044D28E /* LRManifestLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B48191675F30044D28E /* LRManifestLayer.m */; };
 		43CE9B63191675F30044D28E /* CustomCommandAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B4F191675F30044D28E /* CustomCommandAction.m */; };
-		43CE9B64191675F30044D28E /* FilterAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B51191675F30044D28E /* FilterAction.m */; };
-		43CE9B66191675F30044D28E /* ScriptInvocationAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B56191675F30044D28E /* ScriptInvocationAction.m */; };
 		43CE9B67191675F30044D28E /* ScriptInvocationStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B58191675F30044D28E /* ScriptInvocationStep.m */; };
 		43CE9B6C1917338B0044D28E /* Mocha.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43CE9B6B1917338A0044D28E /* Mocha.lrplugin */; };
 		43CE9B841917B6BE0044D28E /* P2RegularExpressionExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B831917B6BE0044D28E /* P2RegularExpressionExtensions.m */; };
@@ -713,6 +713,8 @@
 		4378C8CF1515205C003187D5 /* OldFSTreeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldFSTreeFilter.h; sourceTree = "<group>"; };
 		4378C8D01515205C003187D5 /* OldFSTreeFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldFSTreeFilter.m; sourceTree = "<group>"; };
 		4379ADC9141D00CE008C836F /* livereload.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = livereload.js; sourceTree = "<group>"; };
+		437EC4E51942419900E7AEF4 /* ScriptInvocationAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptInvocationAction.swift; sourceTree = "<group>"; };
+		437EC4E719424BEF00E7AEF4 /* FilterAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterAction.swift; sourceTree = "<group>"; };
 		438AD81B194220F100C720F0 /* RunTestsAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunTestsAction.swift; sourceTree = "<group>"; };
 		438AD8201942302000C720F0 /* UserScriptAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserScriptAction.swift; sourceTree = "<group>"; };
 		4392B3251941EBAA008DF456 /* PluginManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PluginManager.swift; sourceTree = "<group>"; };
@@ -860,10 +862,6 @@
 		43CE9B48191675F30044D28E /* LRManifestLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRManifestLayer.m; sourceTree = "<group>"; };
 		43CE9B4E191675F30044D28E /* CustomCommandAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCommandAction.h; sourceTree = "<group>"; };
 		43CE9B4F191675F30044D28E /* CustomCommandAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCommandAction.m; sourceTree = "<group>"; };
-		43CE9B50191675F30044D28E /* FilterAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterAction.h; sourceTree = "<group>"; };
-		43CE9B51191675F30044D28E /* FilterAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterAction.m; sourceTree = "<group>"; };
-		43CE9B55191675F30044D28E /* ScriptInvocationAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScriptInvocationAction.h; sourceTree = "<group>"; };
-		43CE9B56191675F30044D28E /* ScriptInvocationAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScriptInvocationAction.m; sourceTree = "<group>"; };
 		43CE9B57191675F30044D28E /* ScriptInvocationStep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScriptInvocationStep.h; sourceTree = "<group>"; };
 		43CE9B58191675F30044D28E /* ScriptInvocationStep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScriptInvocationStep.m; sourceTree = "<group>"; };
 		43CE9B6B1917338A0044D28E /* Mocha.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Mocha.lrplugin; path = ../plugins/Mocha.lrplugin; sourceTree = "<group>"; };
@@ -1997,8 +1995,7 @@
 				433162F5193EFD5600ECB419 /* CompileFolderAction.swift */,
 				43CE9B4E191675F30044D28E /* CustomCommandAction.h */,
 				43CE9B4F191675F30044D28E /* CustomCommandAction.m */,
-				43CE9B50191675F30044D28E /* FilterAction.h */,
-				43CE9B51191675F30044D28E /* FilterAction.m */,
+				437EC4E719424BEF00E7AEF4 /* FilterAction.swift */,
 				438AD81B194220F100C720F0 /* RunTestsAction.swift */,
 				438AD8201942302000C720F0 /* UserScriptAction.swift */,
 			);
@@ -2008,8 +2005,7 @@
 		43CE9B54191675F30044D28E /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				43CE9B55191675F30044D28E /* ScriptInvocationAction.h */,
-				43CE9B56191675F30044D28E /* ScriptInvocationAction.m */,
+				437EC4E51942419900E7AEF4 /* ScriptInvocationAction.swift */,
 				43CE9B57191675F30044D28E /* ScriptInvocationStep.h */,
 				43CE9B58191675F30044D28E /* ScriptInvocationStep.m */,
 			);
@@ -2558,6 +2554,7 @@
 				43158FF3191AA11100DE8A5A /* LRTRProtocolParser.m in Sources */,
 				4353196F1465B52D005FA59F /* ShitHappens.m in Sources */,
 				43F50BFC146706B0004FD951 /* BaseProjectSettingsWindowController.m in Sources */,
+				437EC4E61942419900E7AEF4 /* ScriptInvocationAction.swift in Sources */,
 				433D2195182646E300E81A09 /* LRLegacyFile.m in Sources */,
 				431466A6146CA68500DC075A /* PassThruView.m in Sources */,
 				431466A9146CA82200DC075A /* PassThruImageView.m in Sources */,
@@ -2566,7 +2563,6 @@
 				434BB26517BA238B000BEB1C /* AddActionRow.m in Sources */,
 				43122C0A1814244E00BF8121 /* LRPopUpOption.m in Sources */,
 				433D21DB18268B7E00E81A09 /* LRVersion.m in Sources */,
-				43CE9B64191675F30044D28E /* FilterAction.m in Sources */,
 				4310DE40146DB6A0003091D1 /* UIBuilder.m in Sources */,
 				433D2194182646E300E81A09 /* ImportGraph.m in Sources */,
 				43F002CF146EC97B005D48A4 /* MainWindow.m in Sources */,
@@ -2694,6 +2690,7 @@
 				434BB26E17BA71FA000BEB1C /* RunScriptActionRow.m in Sources */,
 				43A480691749E89600A0681D /* ExpandedOutlineView.m in Sources */,
 				43A4806C1749F54700A0681D /* SystemRubyInstance.m in Sources */,
+				437EC4E819424BEF00E7AEF4 /* FilterAction.swift in Sources */,
 				43A48070174A01DD00A0681D /* RbenvContainer.m in Sources */,
 				43CE9B5A191675F30044D28E /* ActionList.m in Sources */,
 				433D2196182646E300E81A09 /* LRProjectFile.m in Sources */,
@@ -2724,7 +2721,6 @@
 				43CDCF9017C70A94007B22D9 /* FSChange.m in Sources */,
 				430D7F5C18443AD700203400 /* LRVersionSpec.m in Sources */,
 				43B5C01417ADF35C00F57276 /* NSWindowController+ATTextStyling.m in Sources */,
-				43CE9B66191675F30044D28E /* ScriptInvocationAction.m in Sources */,
 				43B5C01717ADF5FB00F57276 /* RegexKitLite.m in Sources */,
 				43740FEA193F2F4A006B5F57 /* LRFileTarget.swift in Sources */,
 				43508A9017B39C9700871422 /* ATSolidView.m in Sources */,
