@@ -200,6 +200,8 @@
 		4378C8D31515205C003187D5 /* OldFSTreeDiffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CE1515205C003187D5 /* OldFSTreeDiffer.m */; };
 		4378C8D41515205C003187D5 /* OldFSTreeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8D01515205C003187D5 /* OldFSTreeFilter.m */; };
 		4379ADCB141D1060008C836F /* livereload.js in Resources */ = {isa = PBXBuildFile; fileRef = 4379ADC9141D00CE008C836F /* livereload.js */; };
+		438AD81C194220F100C720F0 /* RunTestsAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438AD81B194220F100C720F0 /* RunTestsAction.swift */; };
+		438AD81F19422F6D00C720F0 /* UserScriptAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 438AD81E19422F6D00C720F0 /* UserScriptAction.m */; };
 		4392B3261941EBAA008DF456 /* PluginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4392B3251941EBAA008DF456 /* PluginManager.swift */; };
 		4396F1BA17F77A8900AA8200 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4396F1B917F77A8900AA8200 /* Foundation.framework */; };
 		4396F1CD17F80E6F00AA8200 /* GlitterInstallationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4396F1CB17F80E6F00AA8200 /* GlitterInstallationService.m */; };
@@ -281,10 +283,8 @@
 		43CE9B60191675F30044D28E /* LRManifestLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B48191675F30044D28E /* LRManifestLayer.m */; };
 		43CE9B63191675F30044D28E /* CustomCommandAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B4F191675F30044D28E /* CustomCommandAction.m */; };
 		43CE9B64191675F30044D28E /* FilterAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B51191675F30044D28E /* FilterAction.m */; };
-		43CE9B65191675F30044D28E /* UserScriptAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B53191675F30044D28E /* UserScriptAction.m */; };
 		43CE9B66191675F30044D28E /* ScriptInvocationAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B56191675F30044D28E /* ScriptInvocationAction.m */; };
 		43CE9B67191675F30044D28E /* ScriptInvocationStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B58191675F30044D28E /* ScriptInvocationStep.m */; };
-		43CE9B6A19172BC40044D28E /* RunTestsAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B6919172BC40044D28E /* RunTestsAction.m */; };
 		43CE9B6C1917338B0044D28E /* Mocha.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43CE9B6B1917338A0044D28E /* Mocha.lrplugin */; };
 		43CE9B841917B6BE0044D28E /* P2RegularExpressionExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B831917B6BE0044D28E /* P2RegularExpressionExtensions.m */; };
 		43D6CA50191BFF5C00DA9FFE /* LROperationResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D6CA4F191BFF5C00DA9FFE /* LROperationResult.m */; };
@@ -713,6 +713,9 @@
 		4378C8CF1515205C003187D5 /* OldFSTreeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldFSTreeFilter.h; sourceTree = "<group>"; };
 		4378C8D01515205C003187D5 /* OldFSTreeFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldFSTreeFilter.m; sourceTree = "<group>"; };
 		4379ADC9141D00CE008C836F /* livereload.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = livereload.js; sourceTree = "<group>"; };
+		438AD81B194220F100C720F0 /* RunTestsAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunTestsAction.swift; sourceTree = "<group>"; };
+		438AD81D19422F6D00C720F0 /* UserScriptAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserScriptAction.h; sourceTree = "<group>"; };
+		438AD81E19422F6D00C720F0 /* UserScriptAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserScriptAction.m; sourceTree = "<group>"; };
 		4392B3251941EBAA008DF456 /* PluginManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PluginManager.swift; sourceTree = "<group>"; };
 		4396F1B817F77A8900AA8200 /* com.tarantsov.GlitterInstallationService.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = com.tarantsov.GlitterInstallationService.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
 		4396F1B917F77A8900AA8200 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -860,14 +863,10 @@
 		43CE9B4F191675F30044D28E /* CustomCommandAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCommandAction.m; sourceTree = "<group>"; };
 		43CE9B50191675F30044D28E /* FilterAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterAction.h; sourceTree = "<group>"; };
 		43CE9B51191675F30044D28E /* FilterAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterAction.m; sourceTree = "<group>"; };
-		43CE9B52191675F30044D28E /* UserScriptAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserScriptAction.h; sourceTree = "<group>"; };
-		43CE9B53191675F30044D28E /* UserScriptAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserScriptAction.m; sourceTree = "<group>"; };
 		43CE9B55191675F30044D28E /* ScriptInvocationAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScriptInvocationAction.h; sourceTree = "<group>"; };
 		43CE9B56191675F30044D28E /* ScriptInvocationAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScriptInvocationAction.m; sourceTree = "<group>"; };
 		43CE9B57191675F30044D28E /* ScriptInvocationStep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScriptInvocationStep.h; sourceTree = "<group>"; };
 		43CE9B58191675F30044D28E /* ScriptInvocationStep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScriptInvocationStep.m; sourceTree = "<group>"; };
-		43CE9B6819172BC40044D28E /* RunTestsAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunTestsAction.h; sourceTree = "<group>"; };
-		43CE9B6919172BC40044D28E /* RunTestsAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunTestsAction.m; sourceTree = "<group>"; };
 		43CE9B6B1917338A0044D28E /* Mocha.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Mocha.lrplugin; path = ../plugins/Mocha.lrplugin; sourceTree = "<group>"; };
 		43CE9B821917B6BE0044D28E /* P2RegularExpressionExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2RegularExpressionExtensions.h; sourceTree = "<group>"; };
 		43CE9B831917B6BE0044D28E /* P2RegularExpressionExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P2RegularExpressionExtensions.m; sourceTree = "<group>"; };
@@ -2001,10 +2000,9 @@
 				43CE9B4F191675F30044D28E /* CustomCommandAction.m */,
 				43CE9B50191675F30044D28E /* FilterAction.h */,
 				43CE9B51191675F30044D28E /* FilterAction.m */,
-				43CE9B52191675F30044D28E /* UserScriptAction.h */,
-				43CE9B53191675F30044D28E /* UserScriptAction.m */,
-				43CE9B6819172BC40044D28E /* RunTestsAction.h */,
-				43CE9B6919172BC40044D28E /* RunTestsAction.m */,
+				438AD81B194220F100C720F0 /* RunTestsAction.swift */,
+				438AD81D19422F6D00C720F0 /* UserScriptAction.h */,
+				438AD81E19422F6D00C720F0 /* UserScriptAction.m */,
 			);
 			path = Specific;
 			sourceTree = "<group>";
@@ -2554,7 +2552,6 @@
 				435729171452267C00947B2E /* Stats.m in Sources */,
 				430D7F6E1847131B00203400 /* GemPackageContainer.m in Sources */,
 				434BB26217B945F0000BEB1C /* LROptionsView.m in Sources */,
-				43CE9B65191675F30044D28E /* UserScriptAction.m in Sources */,
 				43DFE4DE17CB613100DEF87B /* P2AsyncEnumeration.m in Sources */,
 				433D22091826AD9200E81A09 /* NpmPackageContainer.m in Sources */,
 				43CE9B5B191675F30044D28E /* ActionType.m in Sources */,
@@ -2651,6 +2648,8 @@
 				4303A55E15B513FD009D732A /* nodeapp_threading.c in Sources */,
 				4303A55F15B513FD009D732A /* NodeAppDelegate.m in Sources */,
 				434BB25B17B9097D000BEB1C /* ActionsGroupHeaderRow.m in Sources */,
+				438AD81F19422F6D00C720F0 /* UserScriptAction.m in Sources */,
+				438AD81C194220F100C720F0 /* RunTestsAction.swift in Sources */,
 				433D22031826AD9200E81A09 /* LRPackage.m in Sources */,
 				4303A56015B513FD009D732A /* NodeAppWindowController.m in Sources */,
 				4303A57715B513FD009D732A /* nodeapp_licensing.m in Sources */,
@@ -2705,7 +2704,6 @@
 				43A48077174A04E700A0681D /* RbenvRubyInstance.m in Sources */,
 				43A48081174A070500A0681D /* HomebrewContainer.m in Sources */,
 				434BB24C17B6913F000BEB1C /* ATMacViewCreation.m in Sources */,
-				43CE9B6A19172BC40044D28E /* RunTestsAction.m in Sources */,
 				43A48082174A070500A0681D /* HomebrewRubyInstance.m in Sources */,
 				433253B2174E0BA200C9A76B /* GeneralPreferencesViewController.m in Sources */,
 				43DB9FD4178EDF2E007BEA36 /* Errors.m in Sources */,

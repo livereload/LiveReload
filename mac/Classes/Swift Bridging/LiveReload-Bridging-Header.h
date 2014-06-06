@@ -15,4 +15,7 @@
 #import "LROperationResult.h"
 #import "LRMessageSeverity.h"
 
+#import "LRTRRun.h"
+#import "LRTRTestAnythingProtocolParser.h"
+
 #import "LRPathProcessing.h"
