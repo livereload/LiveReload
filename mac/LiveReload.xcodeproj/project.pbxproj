@@ -2855,6 +2855,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
+				USER_HEADER_SEARCH_PATHS = "$(CONFIGURATION_TEMP_DIR)/LiveReload.build/DerivedSources";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -2895,6 +2896,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
+				USER_HEADER_SEARCH_PATHS = "$(CONFIGURATION_TEMP_DIR)/LiveReload.build/DerivedSources";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
@@ -2935,6 +2937,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
+				USER_HEADER_SEARCH_PATHS = "$(CONFIGURATION_TEMP_DIR)/LiveReload.build/DerivedSources";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = AppStore;
@@ -3073,6 +3076,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
+				USER_HEADER_SEARCH_PATHS = "$(CONFIGURATION_TEMP_DIR)/LiveReload.build/DerivedSources";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Testing;
