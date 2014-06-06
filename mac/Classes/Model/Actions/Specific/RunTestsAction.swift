@@ -1,6 +1,8 @@
 
 import Foundation
 
+// the name is referenced in plugin manifest
+@objc(RunTestsAction)
 class RunTestsAction : Action {
 
     override var label: String {

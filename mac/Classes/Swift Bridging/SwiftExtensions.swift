@@ -9,6 +9,15 @@ func NV<T>(value: T?, defaultValue: T) -> T {
     }
 }
 
+func EmptyToNil(value: String?) -> String? {
+    if value {
+        if (value!.isEmpty) {
+            return nil
+        }
+    }
+    return value
+}
+
 extension String {
 
 }

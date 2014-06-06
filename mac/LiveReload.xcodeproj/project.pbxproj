@@ -201,7 +201,7 @@
 		4378C8D41515205C003187D5 /* OldFSTreeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8D01515205C003187D5 /* OldFSTreeFilter.m */; };
 		4379ADCB141D1060008C836F /* livereload.js in Resources */ = {isa = PBXBuildFile; fileRef = 4379ADC9141D00CE008C836F /* livereload.js */; };
 		438AD81C194220F100C720F0 /* RunTestsAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438AD81B194220F100C720F0 /* RunTestsAction.swift */; };
-		438AD81F19422F6D00C720F0 /* UserScriptAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 438AD81E19422F6D00C720F0 /* UserScriptAction.m */; };
+		438AD8211942302000C720F0 /* UserScriptAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438AD8201942302000C720F0 /* UserScriptAction.swift */; };
 		4392B3261941EBAA008DF456 /* PluginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4392B3251941EBAA008DF456 /* PluginManager.swift */; };
 		4396F1BA17F77A8900AA8200 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4396F1B917F77A8900AA8200 /* Foundation.framework */; };
 		4396F1CD17F80E6F00AA8200 /* GlitterInstallationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4396F1CB17F80E6F00AA8200 /* GlitterInstallationService.m */; };
@@ -714,8 +714,7 @@
 		4378C8D01515205C003187D5 /* OldFSTreeFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldFSTreeFilter.m; sourceTree = "<group>"; };
 		4379ADC9141D00CE008C836F /* livereload.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = livereload.js; sourceTree = "<group>"; };
 		438AD81B194220F100C720F0 /* RunTestsAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunTestsAction.swift; sourceTree = "<group>"; };
-		438AD81D19422F6D00C720F0 /* UserScriptAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserScriptAction.h; sourceTree = "<group>"; };
-		438AD81E19422F6D00C720F0 /* UserScriptAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserScriptAction.m; sourceTree = "<group>"; };
+		438AD8201942302000C720F0 /* UserScriptAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserScriptAction.swift; sourceTree = "<group>"; };
 		4392B3251941EBAA008DF456 /* PluginManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PluginManager.swift; sourceTree = "<group>"; };
 		4396F1B817F77A8900AA8200 /* com.tarantsov.GlitterInstallationService.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = com.tarantsov.GlitterInstallationService.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
 		4396F1B917F77A8900AA8200 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -2001,8 +2000,7 @@
 				43CE9B50191675F30044D28E /* FilterAction.h */,
 				43CE9B51191675F30044D28E /* FilterAction.m */,
 				438AD81B194220F100C720F0 /* RunTestsAction.swift */,
-				438AD81D19422F6D00C720F0 /* UserScriptAction.h */,
-				438AD81E19422F6D00C720F0 /* UserScriptAction.m */,
+				438AD8201942302000C720F0 /* UserScriptAction.swift */,
 			);
 			path = Specific;
 			sourceTree = "<group>";
@@ -2539,6 +2537,7 @@
 				823DDEF813F8DA3100529AD2 /* CompilerVersion.m in Sources */,
 				823DDEF913F8DA3100529AD2 /* Plugin.m in Sources */,
 				823DDEFB13F8DA3100529AD2 /* ToolOutput.m in Sources */,
+				438AD8211942302000C720F0 /* UserScriptAction.swift in Sources */,
 				823DDEFC13F8DA3100529AD2 /* Preferences.m in Sources */,
 				823DDF0F13F8DA3100529AD2 /* NSTask+OneLineTasksWithOutput.m in Sources */,
 				823DDF1313F8DA3100529AD2 /* AuxWindow.m in Sources */,
@@ -2648,7 +2647,6 @@
 				4303A55E15B513FD009D732A /* nodeapp_threading.c in Sources */,
 				4303A55F15B513FD009D732A /* NodeAppDelegate.m in Sources */,
 				434BB25B17B9097D000BEB1C /* ActionsGroupHeaderRow.m in Sources */,
-				438AD81F19422F6D00C720F0 /* UserScriptAction.m in Sources */,
 				438AD81C194220F100C720F0 /* RunTestsAction.swift in Sources */,
 				433D22031826AD9200E81A09 /* LRPackage.m in Sources */,
 				4303A56015B513FD009D732A /* NodeAppWindowController.m in Sources */,
