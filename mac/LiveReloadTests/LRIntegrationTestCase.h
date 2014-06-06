@@ -5,7 +5,7 @@
 #import "LiveReloadAppDelegate.h"
 #import "AppState.h"
 #import "LRPackageManager.h"
-#import "PluginManager.h"
+#import "LiveReload-Swift-x.h"
 #import "Plugin.h"
 #import "LRPackageContainer.h"
 

@@ -161,5 +161,8 @@
     return result;
 }
 
+- (BOOL)usesExtension:(NSString *)extension {
+    return [_extensions containsObject:extension];
+}
 
 @end

@@ -200,6 +200,7 @@
 		4378C8D31515205C003187D5 /* OldFSTreeDiffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CE1515205C003187D5 /* OldFSTreeDiffer.m */; };
 		4378C8D41515205C003187D5 /* OldFSTreeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8D01515205C003187D5 /* OldFSTreeFilter.m */; };
 		4379ADCB141D1060008C836F /* livereload.js in Resources */ = {isa = PBXBuildFile; fileRef = 4379ADC9141D00CE008C836F /* livereload.js */; };
+		4392B3261941EBAA008DF456 /* PluginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4392B3251941EBAA008DF456 /* PluginManager.swift */; };
 		4396F1BA17F77A8900AA8200 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4396F1B917F77A8900AA8200 /* Foundation.framework */; };
 		4396F1CD17F80E6F00AA8200 /* GlitterInstallationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4396F1CB17F80E6F00AA8200 /* GlitterInstallationService.m */; };
 		4396F1D017F8109000AA8200 /* com.tarantsov.GlitterInstallationService.xpc in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4396F1B817F77A8900AA8200 /* com.tarantsov.GlitterInstallationService.xpc */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -327,7 +328,6 @@
 		823DDEF713F8DA3100529AD2 /* Compiler.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE7D13F8DA3100529AD2 /* Compiler.m */; };
 		823DDEF813F8DA3100529AD2 /* CompilerVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE7F13F8DA3100529AD2 /* CompilerVersion.m */; };
 		823DDEF913F8DA3100529AD2 /* Plugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE8113F8DA3100529AD2 /* Plugin.m */; };
-		823DDEFA13F8DA3100529AD2 /* PluginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE8313F8DA3100529AD2 /* PluginManager.m */; };
 		823DDEFB13F8DA3100529AD2 /* ToolOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE8513F8DA3100529AD2 /* ToolOutput.m */; };
 		823DDEFC13F8DA3100529AD2 /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE8813F8DA3100529AD2 /* Preferences.m */; };
 		823DDF0F13F8DA3100529AD2 /* NSTask+OneLineTasksWithOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEB313F8DA3100529AD2 /* NSTask+OneLineTasksWithOutput.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -713,6 +713,7 @@
 		4378C8CF1515205C003187D5 /* OldFSTreeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldFSTreeFilter.h; sourceTree = "<group>"; };
 		4378C8D01515205C003187D5 /* OldFSTreeFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldFSTreeFilter.m; sourceTree = "<group>"; };
 		4379ADC9141D00CE008C836F /* livereload.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = livereload.js; sourceTree = "<group>"; };
+		4392B3251941EBAA008DF456 /* PluginManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PluginManager.swift; sourceTree = "<group>"; };
 		4396F1B817F77A8900AA8200 /* com.tarantsov.GlitterInstallationService.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = com.tarantsov.GlitterInstallationService.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
 		4396F1B917F77A8900AA8200 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4396F1C917F80E6F00AA8200 /* GlitterInstallationService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GlitterInstallationService-Info.plist"; sourceTree = "<group>"; };
@@ -938,8 +939,6 @@
 		823DDE7F13F8DA3100529AD2 /* CompilerVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompilerVersion.m; sourceTree = "<group>"; };
 		823DDE8013F8DA3100529AD2 /* Plugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Plugin.h; sourceTree = "<group>"; };
 		823DDE8113F8DA3100529AD2 /* Plugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Plugin.m; sourceTree = "<group>"; };
-		823DDE8213F8DA3100529AD2 /* PluginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PluginManager.h; sourceTree = "<group>"; };
-		823DDE8313F8DA3100529AD2 /* PluginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PluginManager.m; sourceTree = "<group>"; };
 		823DDE8413F8DA3100529AD2 /* ToolOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolOutput.h; sourceTree = "<group>"; };
 		823DDE8513F8DA3100529AD2 /* ToolOutput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolOutput.m; sourceTree = "<group>"; };
 		823DDE8713F8DA3100529AD2 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
@@ -2183,8 +2182,7 @@
 				823DDE7F13F8DA3100529AD2 /* CompilerVersion.m */,
 				823DDE8013F8DA3100529AD2 /* Plugin.h */,
 				823DDE8113F8DA3100529AD2 /* Plugin.m */,
-				823DDE8213F8DA3100529AD2 /* PluginManager.h */,
-				823DDE8313F8DA3100529AD2 /* PluginManager.m */,
+				4392B3251941EBAA008DF456 /* PluginManager.swift */,
 				823DDE8413F8DA3100529AD2 /* ToolOutput.h */,
 				823DDE8513F8DA3100529AD2 /* ToolOutput.m */,
 			);
@@ -2542,7 +2540,6 @@
 				823DDEF713F8DA3100529AD2 /* Compiler.m in Sources */,
 				823DDEF813F8DA3100529AD2 /* CompilerVersion.m in Sources */,
 				823DDEF913F8DA3100529AD2 /* Plugin.m in Sources */,
-				823DDEFA13F8DA3100529AD2 /* PluginManager.m in Sources */,
 				823DDEFB13F8DA3100529AD2 /* ToolOutput.m in Sources */,
 				823DDEFC13F8DA3100529AD2 /* Preferences.m in Sources */,
 				823DDF0F13F8DA3100529AD2 /* NSTask+OneLineTasksWithOutput.m in Sources */,
@@ -2602,6 +2599,7 @@
 				43CE9B59191675F30044D28E /* Action.m in Sources */,
 				433162F6193EFD5600ECB419 /* CompileFolderAction.swift in Sources */,
 				433D2197182646E300E81A09 /* Project.m in Sources */,
+				4392B3261941EBAA008DF456 /* PluginManager.swift in Sources */,
 				43059225151E90DE00CC3F88 /* DockIcon.m in Sources */,
 				430ABDF4186BF20500407561 /* LRPathProcessing.m in Sources */,
 				439A76B015B28EF100E50057 /* LicenseCodeViewController.m in Sources */,

@@ -2,14 +2,11 @@
 #import "ToolOutputWindowController.h"
 #import "ATGlobals.h"
 
-#import "PluginManager.h"
-
 #import "Project.h"
 #import "OldFSMonitor.h"
 #import "OldFSTreeFilter.h"
 #import "OldFSTree.h"
 #import "Preferences.h"
-#import "PluginManager.h"
 #import "Compiler.h"
 #import "LegacyCompilationOptions.h"
 #import "LRProjectFile.h"

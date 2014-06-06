@@ -8,7 +8,7 @@
 #import "StatusItemController.h"
 #import "NewMainWindowController.h"
 #import "ATLoginItemController.h"
-#import "PluginManager.h"
+#import "LiveReload-Swift-x.h"
 #import "SandboxAccessModel.h"
 #import "Glue.h"
 #import "AppState.h"

@@ -8,7 +8,7 @@
 #import "AppState.h"
 
 #import "LiveReloadAppDelegate.h"
-#import "PluginManager.h"
+#import "LiveReload-Swift-x.h"
 #import "Compiler.h"
 
 #import "ImageAndTextCell.h"

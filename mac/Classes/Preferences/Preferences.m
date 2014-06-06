@@ -1,6 +1,6 @@
 
 #import "Preferences.h"
-#import "PluginManager.h"
+#import "LiveReload-Swift-x.h"
 
 
 #define AdditionalExtensionsKey @"additionalExtensions"

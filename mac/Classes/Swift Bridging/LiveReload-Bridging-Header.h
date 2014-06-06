@@ -2,8 +2,10 @@
 #import "Plugin.h"
 #import "LRProjectFile.h"
 #import "Project.h"
+#import "Compiler.h"
 
 #import "Action.h"
+#import "ActionType.h"
 #import "LRActionVersion.h"
 
 #import "ScriptInvocationAction.h"

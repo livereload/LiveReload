@@ -10,7 +10,7 @@
 
 @interface Compiler : NSObject {
 @private
-    __weak Plugin    *_plugin;
+    Plugin           *_plugin;
     NSString         *_uniqueId;
     NSString         *_name;
     NSArray          *_commandLine;
@@ -46,5 +46,7 @@
 - (NSArray *)pathsOfSourceFilesInTree:(FSTree *)tree;
 
 - (NSSet *)referencedPathFragmentsForPath:(NSString *)path;
+
+- (BOOL)usesExtension:(NSString *)extension;
 
 @end

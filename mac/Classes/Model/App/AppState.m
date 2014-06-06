@@ -6,7 +6,7 @@
 #import "EditorManager.h"
 #import "Preferences.h"
 
-#import "PluginManager.h"
+#import "LiveReload-Swift-x.h"
 #import "Plugin.h"
 
 #import "LRPackageManager.h"
