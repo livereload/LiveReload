@@ -203,6 +203,7 @@
 		4379ADCB141D1060008C836F /* livereload.js in Resources */ = {isa = PBXBuildFile; fileRef = 4379ADC9141D00CE008C836F /* livereload.js */; };
 		437EC4E61942419900E7AEF4 /* ScriptInvocationAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437EC4E51942419900E7AEF4 /* ScriptInvocationAction.swift */; };
 		437EC4E819424BEF00E7AEF4 /* FilterAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437EC4E719424BEF00E7AEF4 /* FilterAction.swift */; };
+		4389F0C31944684600032D6A /* Scheduling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4389F0C21944684600032D6A /* Scheduling.swift */; };
 		438AD81C194220F100C720F0 /* RunTestsAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438AD81B194220F100C720F0 /* RunTestsAction.swift */; };
 		438AD8211942302000C720F0 /* UserScriptAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438AD8201942302000C720F0 /* UserScriptAction.swift */; };
 		4392B3261941EBAA008DF456 /* PluginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4392B3251941EBAA008DF456 /* PluginManager.swift */; };
@@ -243,6 +244,8 @@
 		43A4807B174A069100A0681D /* HomebrewContainer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43A48079174A069100A0681D /* HomebrewContainer@2x.png */; };
 		43A48081174A070500A0681D /* HomebrewContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A4807E174A070500A0681D /* HomebrewContainer.m */; };
 		43A48082174A070500A0681D /* HomebrewRubyInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A48080174A070500A0681D /* HomebrewRubyInstance.m */; };
+		43A7ABC81944580A00DE1028 /* Algorithms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A7ABC71944580A00DE1028 /* Algorithms.swift */; };
+		43ACA22719449E4400C8C702 /* Weakify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43ACA22619449E4400C8C702 /* Weakify.swift */; };
 		43B027591746EFBD009874A2 /* RuntimeRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B027581746EFBD009874A2 /* RuntimeRepository.m */; };
 		43B0275C1746F3B2009874A2 /* RubyRuntimeRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B0275B1746F3B1009874A2 /* RubyRuntimeRepository.m */; };
 		43B0275F1746F403009874A2 /* RvmContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B0275E1746F403009874A2 /* RvmContainer.m */; };
@@ -267,6 +270,8 @@
 		43B5C03D17AEA8C100F57276 /* Coda2Editor.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B5C03C17AEA8C000F57276 /* Coda2Editor.m */; };
 		43B5C04017AEA9F400F57276 /* NSAppleScript+ATInvokeHandlerWithArguments.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B5C03F17AEA9F300F57276 /* NSAppleScript+ATInvokeHandlerWithArguments.m */; };
 		43C0368613CA191D00A01305 /* LiveReload.icns in Resources */ = {isa = PBXBuildFile; fileRef = 43C0368513CA191C00A01305 /* LiveReload.icns */; };
+		43C389A919434FB600D29DD7 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C389A819434FB600D29DD7 /* Action.swift */; };
+		43C389E319441ABB00D29DD7 /* Observation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C389E219441ABB00D29DD7 /* Observation.swift */; };
 		43C3D04E15B37B1500BCD2E8 /* LicenseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C3D04D15B37B1500BCD2E8 /* LicenseManager.m */; };
 		43C611941803BDBD008A707E /* SandboxAccessModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C611931803BDBD008A707E /* SandboxAccessModel.m */; };
 		43C611971803CCF8008A707E /* ATScheduling.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C611961803CCF8008A707E /* ATScheduling.m */; };
@@ -276,7 +281,7 @@
 		43C9277E187932A9002372B7 /* LRLegacyCompilationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C9277D187932A9002372B7 /* LRLegacyCompilationTests.m */; };
 		43CDCF8D17C6082A007B22D9 /* ATAttributedStringAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CDCF8C17C6082A007B22D9 /* ATAttributedStringAdditions.m */; };
 		43CDCF9017C70A94007B22D9 /* FSChange.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CDCF8F17C70A94007B22D9 /* FSChange.m */; };
-		43CE9B59191675F30044D28E /* Action.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B3A191675F30044D28E /* Action.m */; };
+		43CE9B59191675F30044D28E /* ActionGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B3A191675F30044D28E /* ActionGlobals.m */; };
 		43CE9B5A191675F30044D28E /* ActionList.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B3C191675F30044D28E /* ActionList.m */; };
 		43CE9B5B191675F30044D28E /* ActionType.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B3E191675F30044D28E /* ActionType.m */; };
 		43CE9B5C191675F30044D28E /* LRActionManifest.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CE9B40191675F30044D28E /* LRActionManifest.m */; };
@@ -716,6 +721,7 @@
 		4379ADC9141D00CE008C836F /* livereload.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = livereload.js; sourceTree = "<group>"; };
 		437EC4E51942419900E7AEF4 /* ScriptInvocationAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptInvocationAction.swift; sourceTree = "<group>"; };
 		437EC4E719424BEF00E7AEF4 /* FilterAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterAction.swift; sourceTree = "<group>"; };
+		4389F0C21944684600032D6A /* Scheduling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scheduling.swift; sourceTree = "<group>"; };
 		438AD81B194220F100C720F0 /* RunTestsAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunTestsAction.swift; sourceTree = "<group>"; };
 		438AD8201942302000C720F0 /* UserScriptAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserScriptAction.swift; sourceTree = "<group>"; };
 		4392B3251941EBAA008DF456 /* PluginManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PluginManager.swift; sourceTree = "<group>"; };
@@ -781,6 +787,8 @@
 		43A4807E174A070500A0681D /* HomebrewContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomebrewContainer.m; sourceTree = "<group>"; };
 		43A4807F174A070500A0681D /* HomebrewRubyInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomebrewRubyInstance.h; sourceTree = "<group>"; };
 		43A48080174A070500A0681D /* HomebrewRubyInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomebrewRubyInstance.m; sourceTree = "<group>"; };
+		43A7ABC71944580A00DE1028 /* Algorithms.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Algorithms.swift; sourceTree = "<group>"; };
+		43ACA22619449E4400C8C702 /* Weakify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weakify.swift; sourceTree = "<group>"; };
 		43B027571746EFBD009874A2 /* RuntimeRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RuntimeRepository.h; sourceTree = "<group>"; };
 		43B027581746EFBD009874A2 /* RuntimeRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RuntimeRepository.m; sourceTree = "<group>"; };
 		43B0275A1746F3B1009874A2 /* RubyRuntimeRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RubyRuntimeRepository.h; sourceTree = "<group>"; };
@@ -828,6 +836,8 @@
 		43B5C03E17AEA9F300F57276 /* NSAppleScript+ATInvokeHandlerWithArguments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAppleScript+ATInvokeHandlerWithArguments.h"; sourceTree = "<group>"; };
 		43B5C03F17AEA9F300F57276 /* NSAppleScript+ATInvokeHandlerWithArguments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAppleScript+ATInvokeHandlerWithArguments.m"; sourceTree = "<group>"; };
 		43C0368513CA191C00A01305 /* LiveReload.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LiveReload.icns; sourceTree = "<group>"; };
+		43C389A819434FB600D29DD7 /* Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
+		43C389E219441ABB00D29DD7 /* Observation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observation.swift; sourceTree = "<group>"; };
 		43C3D04C15B37B1500BCD2E8 /* LicenseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LicenseManager.h; sourceTree = "<group>"; };
 		43C3D04D15B37B1500BCD2E8 /* LicenseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LicenseManager.m; sourceTree = "<group>"; };
 		43C611921803BDBD008A707E /* SandboxAccessModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandboxAccessModel.h; sourceTree = "<group>"; };
@@ -845,8 +855,8 @@
 		43CDCF8C17C6082A007B22D9 /* ATAttributedStringAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATAttributedStringAdditions.m; sourceTree = "<group>"; };
 		43CDCF8E17C70A94007B22D9 /* FSChange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSChange.h; sourceTree = "<group>"; };
 		43CDCF8F17C70A94007B22D9 /* FSChange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSChange.m; sourceTree = "<group>"; };
-		43CE9B39191675F30044D28E /* Action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Action.h; sourceTree = "<group>"; };
-		43CE9B3A191675F30044D28E /* Action.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Action.m; sourceTree = "<group>"; };
+		43CE9B39191675F30044D28E /* ActionGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionGlobals.h; sourceTree = "<group>"; };
+		43CE9B3A191675F30044D28E /* ActionGlobals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionGlobals.m; sourceTree = "<group>"; };
 		43CE9B3B191675F30044D28E /* ActionList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionList.h; sourceTree = "<group>"; };
 		43CE9B3C191675F30044D28E /* ActionList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionList.m; sourceTree = "<group>"; };
 		43CE9B3D191675F30044D28E /* ActionType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionType.h; sourceTree = "<group>"; };
@@ -1033,6 +1043,7 @@
 			children = (
 				4303A59415B53B31009D732A /* LiveReload.entitlements */,
 				43059221151E8FA400CC3F88 /* CoreServices.framework */,
+				43C389E119441ABB00D29DD7 /* PiiCommons */,
 				823DDE2D13F8DA3100529AD2 /* Classes */,
 				43B5BFFC17ADF0D600F57276 /* ATCommons */,
 				439865A617BE394D00EC6471 /* ATPathSpec */,
@@ -1945,6 +1956,17 @@
 			path = SpecificEditors;
 			sourceTree = "<group>";
 		};
+		43C389E119441ABB00D29DD7 /* PiiCommons */ = {
+			isa = PBXGroup;
+			children = (
+				43C389E219441ABB00D29DD7 /* Observation.swift */,
+				43A7ABC71944580A00DE1028 /* Algorithms.swift */,
+				4389F0C21944684600032D6A /* Scheduling.swift */,
+				43ACA22619449E4400C8C702 /* Weakify.swift */,
+			);
+			path = PiiCommons;
+			sourceTree = "<group>";
+		};
 		43C611911803BD95008A707E /* SandboxAccess */ = {
 			isa = PBXGroup;
 			children = (
@@ -1967,8 +1989,9 @@
 		43CE9B38191675F30044D28E /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				43CE9B39191675F30044D28E /* Action.h */,
-				43CE9B3A191675F30044D28E /* Action.m */,
+				43CE9B39191675F30044D28E /* ActionGlobals.h */,
+				43CE9B3A191675F30044D28E /* ActionGlobals.m */,
+				43C389A819434FB600D29DD7 /* Action.swift */,
 				43CE9B3B191675F30044D28E /* ActionList.h */,
 				43CE9B3C191675F30044D28E /* ActionList.m */,
 				43CE9B3D191675F30044D28E /* ActionType.h */,
@@ -2520,6 +2543,7 @@
 				823DDED513F8DA3100529AD2 /* ExtensionsController.m in Sources */,
 				431867D11936FB1E00DA9609 /* LRSelfTestHelpers.m in Sources */,
 				823DDEDA13F8DA3100529AD2 /* StatusItemController.m in Sources */,
+				43ACA22719449E4400C8C702 /* Weakify.swift in Sources */,
 				823DDEDB13F8DA3100529AD2 /* ToolOutputWindowController.m in Sources */,
 				823DDEE013F8DA3100529AD2 /* EditorManager.m in Sources */,
 				43DFE4DB17CA97A800DEF87B /* FilterActionRow.m in Sources */,
@@ -2567,6 +2591,7 @@
 				4396F1E017F8112F00AA8200 /* GlitterFeed.m in Sources */,
 				43F002D2146F4135005D48A4 /* TerminalView.m in Sources */,
 				43F002F8146FF584005D48A4 /* TerminalViewController.m in Sources */,
+				43A7ABC81944580A00DE1028 /* Algorithms.swift in Sources */,
 				43122C0718141F0B00BF8121 /* LRTextFieldOption.m in Sources */,
 				43E34F9B14705125001641AA /* console.c in Sources */,
 				4396F1EA17FA2D4500AA8200 /* CompileFileActionRow.m in Sources */,
@@ -2586,7 +2611,7 @@
 				4378C8D31515205C003187D5 /* OldFSTreeDiffer.m in Sources */,
 				4378C8D41515205C003187D5 /* OldFSTreeFilter.m in Sources */,
 				43059209151DF2DE00CC3F88 /* MASReceipt.m in Sources */,
-				43CE9B59191675F30044D28E /* Action.m in Sources */,
+				43CE9B59191675F30044D28E /* ActionGlobals.m in Sources */,
 				433162F6193EFD5600ECB419 /* CompileFolderAction.swift in Sources */,
 				433D2197182646E300E81A09 /* Project.m in Sources */,
 				4392B3261941EBAA008DF456 /* PluginManager.swift in Sources */,
@@ -2693,10 +2718,12 @@
 				43CE9B5A191675F30044D28E /* ActionList.m in Sources */,
 				433D2196182646E300E81A09 /* LRProjectFile.m in Sources */,
 				433D2184182646D900E81A09 /* Workspace.m in Sources */,
+				43C389A919434FB600D29DD7 /* Action.swift in Sources */,
 				43CE9B5F191675F30044D28E /* LRContextActionType.m in Sources */,
 				43A48077174A04E700A0681D /* RbenvRubyInstance.m in Sources */,
 				43A48081174A070500A0681D /* HomebrewContainer.m in Sources */,
 				434BB24C17B6913F000BEB1C /* ATMacViewCreation.m in Sources */,
+				4389F0C31944684600032D6A /* Scheduling.swift in Sources */,
 				43A48082174A070500A0681D /* HomebrewRubyInstance.m in Sources */,
 				433253B2174E0BA200C9A76B /* GeneralPreferencesViewController.m in Sources */,
 				43DB9FD4178EDF2E007BEA36 /* Errors.m in Sources */,
@@ -2730,6 +2757,7 @@
 				43508A8417B392A500871422 /* ATStackView.m in Sources */,
 				43124AEC18E413A80085CEF1 /* LROptionController.m in Sources */,
 				43B5C02B17AE0C6500F57276 /* EditorKit.m in Sources */,
+				43C389E319441ABB00D29DD7 /* Observation.swift in Sources */,
 				43B5C02E17AE0D9200F57276 /* EKIntegration.m in Sources */,
 				433D21E41826A86C00E81A09 /* LRManifestBasedObject.m in Sources */,
 				43CE9B5C191675F30044D28E /* LRActionManifest.m in Sources */,

@@ -1,6 +1,6 @@
 
 #import "ActionType.h"
-#import "Action.h"
+#import "LiveReload-Swift-x.h"
 #import "Errors.h"
 #import "Plugin.h"
 #import "LROption+Factory.h"

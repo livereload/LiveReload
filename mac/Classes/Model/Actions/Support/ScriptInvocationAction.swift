@@ -3,10 +3,10 @@ import Foundation
 
 class ScriptInvocationAction : Action {
 
-    override func invokeWithModifiedFiles(files: AnyObject[]!, result: LROperationResult!, completionHandler: dispatch_block_t!) {
+    override func invokeWithModifiedFiles(files: LRProjectFile[], result: LROperationResult, completionHandler: dispatch_block_t) {
     }
 
-    override func compileFile(file: LRProjectFile!, inProject project: Project!, result: LROperationResult!, completionHandler: dispatch_block_t!) {
+    override func compileFile(file: LRProjectFile, result: LROperationResult, completionHandler: dispatch_block_t) {
         if !effectiveVersion {
             result.completedWithInvocationError(missingEffectiveVersionError)
             completionHandler()

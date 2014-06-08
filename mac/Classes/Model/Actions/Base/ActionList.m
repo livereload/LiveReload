@@ -1,6 +1,6 @@
 
 #import "ActionList.h"
-#import "Action.h"
+#import "LiveReload-Swift-x.h"
 #import "ActionType.h"
 #import "LRContextActionType.h"
 #import "Project.h"
@@ -35,7 +35,7 @@
 - (NSDictionary *)memento {
     NSMutableArray *actionMementos = [NSMutableArray new];
     for (Action *action in _actions) {
-        if (!action.isNonEmpty)
+        if (!action.nonEmpty)
             continue;
         
         NSDictionary *actionMemento = action.memento;

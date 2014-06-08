@@ -85,11 +85,11 @@ class PluginManager : NSObject {
     }
 
     func compilerForExtension(ext: String) -> Compiler? {
-        return findWhere(compilers) { $0.usesExtension(ext) }
+        return findIf(compilers) { $0.usesExtension(ext) }
     }
 
     func compilerWithUniqueId(uniqueId: String) -> Compiler? {
-        return findWhere(compilers) { $0.uniqueId == uniqueId }
+        return findIf(compilers) { $0.uniqueId == uniqueId }
     }
 
     func actionTypeWithIdentifier(identifier: String) -> ActionType? {

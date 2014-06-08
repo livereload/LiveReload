@@ -1,6 +1,7 @@
 
 #import "AddActionRow.h"
 #import "ActionList.h"
+#import "UserScript.h"
 
 @implementation AddActionRow
 

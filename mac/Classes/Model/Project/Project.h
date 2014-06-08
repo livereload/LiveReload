@@ -12,6 +12,8 @@
 @class LRPackageResolutionContext;
 @class ATPathSpec;
 @class LRBuild;
+@class LROperationResult;
+@class LRProjectFile;
 
 
 extern NSString *ProjectDidDetectChangeNotification;

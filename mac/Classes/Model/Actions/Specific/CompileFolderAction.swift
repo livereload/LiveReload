@@ -7,7 +7,7 @@ import Foundation
         return type.name
     }
 
-    override func invokeWithModifiedFiles(files: AnyObject[], result: LROperationResult, completionHandler: dispatch_block_t!) {
+    override func invokeWithModifiedFiles(files: LRProjectFile[], result: LROperationResult, completionHandler: dispatch_block_t) {
         if !effectiveVersion {
             result.completedWithInvocationError(missingEffectiveVersionError)
             completionHandler()
@@ -25,9 +25,7 @@ import Foundation
         step.invoke()
     }
 
-    override func targetForModifiedFiles(untypedFiles: AnyObject[]) -> LRTarget? {
-        let files = untypedFiles as LRProjectFile[]
-
+    override func targetForModifiedFiles(files: LRProjectFile[]) -> LRTarget? {
         if inputPathSpecMatchesFiles(files) {
             return LRProjectTarget(action: self, modifiedFiles: files)
         } else {

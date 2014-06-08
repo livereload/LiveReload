@@ -9,16 +9,134 @@ func NV<T>(value: T?, defaultValue: T) -> T {
     }
 }
 
+func NVCast<T>(value: AnyObject?, defaultValue: T) -> T {
+    if let val: AnyObject = value {
+        if let v = val as? T {
+            return v
+        } else {
+            return defaultValue
+        }
+    } else {
+        return defaultValue
+    }
+}
+
+func safeCast<T>(value: AnyObject?, example: T) -> T? {
+    if let v: AnyObject = value {
+        return v as? T
+    } else {
+        return nil
+    }
+}
+
+func stringValue(optionalValue: AnyObject?) -> String? {
+    if let value: AnyObject = optionalValue {
+        if let v = value as? String {
+            return v
+        } else {
+            return "\(value)"
+        }
+    } else {
+        return nil
+    }
+}
+
+func boolValue(optionalValue: AnyObject?) -> Bool? {
+    if let value: AnyObject = optionalValue {
+        if let v = value as? Bool {
+            return v
+        } else if let v = value as? Int {
+            return v != 0
+        } else if let v = value as? String {
+            let u = v.uppercaseString
+            if (u == "YES" || u == "TRUE" || u == "ON" || u == "Y" || u == "1") {
+                return true
+            } else if (u == "NO" || u == "FALSE" || u == "OFF" || u == "N" || u == "0") {
+                return false
+            } else {
+                return nil
+            }
+        } else {
+            return nil
+        }
+    } else {
+        return nil
+    }
+}
+
+func boolValue(value: AnyObject?, #defaultValue: Bool) -> Bool {
+    return NV(boolValue(value), defaultValue)
+}
+
 func EmptyToNil(value: String?) -> String? {
     if value {
         if (value!.isEmpty) {
             return nil
+        } else {
+            return value
         }
     }
-    return value
+    return nil
+}
+
+func EmptyToNilCast(value: AnyObject?) -> String? {
+    if let val: AnyObject = value {
+        if let v = val as? String {
+            return EmptyToNil(v)
+        }
+    }
+    return nil
+}
+
+extension Optional {
+
+    func omap<U>(f: (T) -> U?) -> U? {
+        if let v = self {
+            return f(v)
+        } else {
+            return nil
+        }
+    }
+    
+}
+
+extension NSError {
+
+    convenience init(_ domain: String, _ code: Int, _ description: String) {
+        self.init(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description])
+    }
+
 }
 
 extension String {
+
+    var argumentsArrayUsingBourneQuotingStyle: String[] {
+        let s = self as NSString
+        return s.argumentsArrayUsingBourneQuotingStyle() as String[]
+    }
+
+}
+
+extension Array {
+
+    var quotedArgumentStringUsingBourneQuotingStyle: String {
+        return (self as NSArray).quotedArgumentStringUsingBourneQuotingStyle()
+    }
+
+}
+
+extension Dictionary {
+
+    init(dictionary: NSDictionary) {
+        self.init(minimumCapacity: dictionary.count)
+        updateValues(fromDictionary: dictionary)
+    }
+
+    mutating func updateValues(fromDictionary dictionary: NSDictionary) {
+        for (key: AnyObject, value: AnyObject) in dictionary {
+            self[key as KeyType] = ValueType?(value as ValueType)
+        }
+    }
 
 }
 
@@ -57,25 +175,3 @@ struct IndexedArray<K: Hashable, V> {
     }
 
 }
-
-func flatten<T where T: Sequence, T.GeneratorType.Element: Sequence>(sequence: T) -> T.GeneratorType.Element.GeneratorType.Element[] {
-    var items: T.GeneratorType.Element.GeneratorType.Element[] = []
-    for subsequence in sequence {
-        items.extend(subsequence)
-    }
-    return items
-}
-
-func findWhere<S: Sequence>(sequence: S, test: (S.GeneratorType.Element) -> Bool) -> S.GeneratorType.Element? {
-    for item in sequence {
-        if test(item) {
-            return item
-        }
-    }
-    return nil
-}
-
-func contains<C: Swift.Collection where C.GeneratorType.Element: Equatable>(collection: C, value: C.GeneratorType.Element) -> Bool {
-    return find(collection, value) != nil
-}
-

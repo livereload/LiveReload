@@ -9,7 +9,7 @@ class UserScriptAction : Action {
     var script: UserScript? {
         if let actualScriptName = scriptName {
             let userScripts = UserScriptManager.sharedUserScriptManager().userScripts as UserScript[]
-            if let matchingScript = findWhere(userScripts, { $0.uniqueName == actualScriptName }) {
+            if let matchingScript = findIf(userScripts, { $0.uniqueName == actualScriptName }) {
                 return matchingScript
             } else {
                 return MissingUserScript(name: actualScriptName)
@@ -45,17 +45,17 @@ class UserScriptAction : Action {
         }
     }
 
-    override func loadFromMemento(memento: NSDictionary!) {
-        super.loadFromMemento(memento)
+    override func loadFromMemento() {
+        super.loadFromMemento()
 //        scriptName = EmptyToNil(memento["script"] as? String)
     }
 
-    override func updateMemento(memento: NSMutableDictionary!) {
-        super.updateMemento(memento)
+    override func updateMemento() {
+        super.updateMemento()
         memento["script"] = scriptName
     }
 
-    override func targetForModifiedFiles(files: AnyObject[]!) -> LRTarget! {
+    override func targetForModifiedFiles(files: LRProjectFile[]) -> LRTarget? {
         if inputPathSpecMatchesFiles(files) {
             return LRProjectTarget(action: self, modifiedFiles: files as LRProjectFile[])
         } else {
@@ -63,7 +63,7 @@ class UserScriptAction : Action {
         }
     }
 
-    override func invokeWithModifiedFiles(files: AnyObject[]!, result: LROperationResult!, completionHandler: dispatch_block_t!) {
+    override func invokeWithModifiedFiles(files: LRProjectFile[], result: LROperationResult, completionHandler: dispatch_block_t) {
         let trueFiles = files as LRProjectFile[]
         let filePaths = trueFiles.map { $0.relativePath }
 

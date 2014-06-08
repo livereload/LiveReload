@@ -1,8 +1,7 @@
 
 #import <Foundation/Foundation.h>
-#import "Action.h"
 
-
+@class Action;
 @class Project;
 @class LRPackageResolutionContext;
 @class LRContextActionType;

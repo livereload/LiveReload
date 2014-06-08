@@ -40,17 +40,17 @@ class CustomCommandAction : Action {
         return NSSet(object: "command")
     }
 
-    override func loadFromMemento(memento: NSDictionary!) {
-        super.loadFromMemento(memento)
-        command = EmptyToNil(memento["command"] as? String)
+    override func loadFromMemento() {
+        super.loadFromMemento()
+        command = EmptyToNilCast(memento["command"])
     }
 
-    override func updateMemento(memento: NSMutableDictionary!) {
-        super.updateMemento(memento)
+    override func updateMemento() {
+        super.updateMemento()
         memento["command"] = NV(command, "")
     }
 
-    override func targetForModifiedFiles(files: AnyObject[]!) -> LRTarget! {
+    override func targetForModifiedFiles(files: LRProjectFile[]) -> LRTarget? {
         if inputPathSpecMatchesFiles(files) {
             return LRProjectTarget(action: self, modifiedFiles: files as LRProjectFile[])
         } else {
@@ -58,7 +58,7 @@ class CustomCommandAction : Action {
         }
     }
 
-    override func invokeWithModifiedFiles(files: AnyObject[]!, result: LROperationResult!, completionHandler: dispatch_block_t!) {
+    override func invokeWithModifiedFiles(files: LRProjectFile[], result: LROperationResult, completionHandler: dispatch_block_t) {
         let info = [
             "$(ruby)": "/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/bin/ruby",
             "$(node)": NSBundle.mainBundle().pathForResource("LiveReloadNodejs", ofType: nil)!,

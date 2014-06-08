@@ -2,7 +2,7 @@
 #import "LRVersionOption.h"
 #import "LRVersionSpec.h"
 #import "LROptionsView.h"
-#import "Action.h"
+#import "LiveReload-Swift-x.h"
 #import "LRContextActionType.h"
 #import "LRActionVersion.h"
 #import "LRVersion.h"

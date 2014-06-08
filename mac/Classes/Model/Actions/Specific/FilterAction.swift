@@ -12,18 +12,18 @@ class FilterAction : ScriptInvocationAction {
         return true
     }
 
-    override func loadFromMemento(memento: NSDictionary!) {
-        super.loadFromMemento(memento)
+    override func loadFromMemento() {
+        super.loadFromMemento()
 
         let inputFilter = type.manifest["input"]! as String
-        intrinsicInputPathSpec = ATPathSpec(string: inputFilter, syntaxOptions: ATPathSpecSyntaxFlavorExtended)
+        intrinsicInputPathSpec = ATPathSpec(string: inputFilter, syntaxOptions: ATPathSpecSyntaxOptions.FlavorExtended)
     }
 
-    override func updateMemento(memento: NSMutableDictionary!) {
-        super.updateMemento(memento)
+    override func updateMemento() {
+        super.updateMemento()
     }
 
-    override func fileTargetForRootFile(file: LRProjectFile!) -> LRTarget! {
+    override func fileTargetForRootFile(file: LRProjectFile) -> LRTarget? {
         return LRFileTarget(action: self, sourceFile: file)
     }
 
@@ -37,13 +37,13 @@ class FilterAction : ScriptInvocationAction {
         file.project.hackhack_didFilterFile(outputFile)
     }
 
-    override func compileFile(file: LRProjectFile!, inProject project: Project!, result: LROperationResult!, completionHandler: dispatch_block_t!) {
+    override func compileFile(file: LRProjectFile, result: LROperationResult, completionHandler: dispatch_block_t) {
         if (!project.hackhack_shouldFilterFile(file)) {
             completionHandler()
             return
         }
 
-        super.compileFile(file, inProject: project, result: result, completionHandler: completionHandler)
+        super.compileFile(file, result: result, completionHandler: completionHandler)
     }
 
 }

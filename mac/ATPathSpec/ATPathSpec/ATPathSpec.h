@@ -2,19 +2,19 @@
 #import <Foundation/Foundation.h>
 
 
-typedef enum {
+typedef NS_ENUM(NSInteger, ATPathSpecMatchResult) {
     ATPathSpecMatchResultUnknown = 0,
     ATPathSpecMatchResultMatched = 1,
     ATPathSpecMatchResultExcluded = -1,
-} ATPathSpecMatchResult;
+};
 
-typedef enum {
+typedef NS_ENUM(NSInteger, ATPathSpecEntryType) {
     ATPathSpecEntryTypeFileOrFolder,
     ATPathSpecEntryTypeFile,
     ATPathSpecEntryTypeFolder,
-} ATPathSpecEntryType;
+};
 
-typedef enum {
+typedef NS_OPTIONS(NSUInteger, ATPathSpecSyntaxOptions) {
     ATPathSpecSyntaxOptionsAllowBackslashEscape = 0x01,
     ATPathSpecSyntaxOptionsAllowNewlineSeparator = 0x02,
     ATPathSpecSyntaxOptionsAllowCommaSeparator = 0x04,
@@ -39,7 +39,7 @@ typedef enum {
     // enables all ATPathSpec features
     // note that it's not fully compatible with gitignore because it has ATPathSpecSyntaxOptionsRequireTrailingSlashForFolders flag set
     ATPathSpecSyntaxFlavorExtended = ATPathSpecSyntaxFlavorGitignore | ATPathSpecSyntaxOptionsAllowCommaSeparator | ATPathSpecSyntaxOptionsAllowWhitespaceSeparator | ATPathSpecSyntaxOptionsAllowPipeUnion | ATPathSpecSyntaxOptionsAllowAmpersandIntersection | ATPathSpecSyntaxOptionsAllowParen | ATPathSpecSyntaxOptionsRequireTrailingSlashForFolders,
-} ATPathSpecSyntaxOptions;
+};
 
 
 NSString *ATPathSpecAdjustTrailingSlash(NSString *path, ATPathSpecEntryType type);
@@ -50,9 +50,9 @@ NSString *ATPathSpecRemoveTrailingSlash(NSString *path);
 NSString *const ATPathSpecErrorDomain;
 NSString *const ATPathSpecErrorSpecStringKey;
 
-typedef enum {
+typedef NS_ENUM(NSInteger, ATPathSpecErrorCode) {
     ATPathSpecErrorCodeInvalidSpecString = 1,
-} ATPathSpecErrorCode;
+};
 
 
 extern NSString *const ATPathSpecMatchInfoMatchedSuffix;

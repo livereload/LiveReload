@@ -7,7 +7,7 @@
 #import "LRActionVersion.h"
 #import "LRActionManifest.h"
 #import "LRManifestLayer.h"
-#import "Action.h"
+#import "LiveReload-Swift-x.h"
 #import "LRVersion.h"
 #import "LRVersionSpec.h"
 #import "Project.h"
