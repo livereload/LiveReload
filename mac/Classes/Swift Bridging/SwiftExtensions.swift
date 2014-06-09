@@ -97,7 +97,7 @@ extension Optional {
             return nil
         }
     }
-    
+
 }
 
 extension NSError {
@@ -127,17 +127,35 @@ extension Array {
 
 extension Dictionary {
 
-    init(dictionary: NSDictionary) {
-        self.init(minimumCapacity: dictionary.count)
-        updateValues(fromDictionary: dictionary)
-    }
+//    init(dictionary: NSDictionary) {
+//        self.init(minimumCapacity: dictionary.count)
+//        updateValues(fromDictionary: dictionary)
+//    }
+//
+//    mutating func updateValues(fromDictionary dictionary: NSDictionary) {
+//        NSLog("Dictionary.updateValues %@", dictionary)
+//        for (key: AnyObject, value: AnyObject) in dictionary {
+//            NSLog("key = %@", key as NSObject)
+//            let k = key as KeyType
+//            NSLog("value = %@", value as NSObject)
+//            let v = value as ValueType
+//            self[key as KeyType] = ValueType?(value as ValueType)
+//        }
+//    }
 
-    mutating func updateValues(fromDictionary dictionary: NSDictionary) {
-        for (key: AnyObject, value: AnyObject) in dictionary {
-            self[key as KeyType] = ValueType?(value as ValueType)
-        }
-    }
+}
 
+func swiftify(#dictionary: NSDictionary) -> Dictionary<String, AnyObject> {
+    var result = Dictionary<String, AnyObject>(minimumCapacity: dictionary.count)
+    swiftify(dictionary: dictionary, into: &result)
+    return result
+}
+
+func swiftify(#dictionary: NSDictionary, inout into result: Dictionary<String, AnyObject>) {
+    for (key: AnyObject, value: AnyObject) in dictionary {
+        let k = key as String
+        result[k] = value
+    }
 }
 
 struct IndexedArray<K: Hashable, V> {

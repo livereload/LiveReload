@@ -50,7 +50,7 @@ class Action : NSObject {
         self.contextActionType = contextActionType
         self.primaryVersionSpec = LRVersionSpec.stableVersionSpecMatchingAnyVersionInVersionSpace(contextActionType.actionType.primaryVersionSpace)
         super.init()
-        self.memento = memento ? Dictionary<String, AnyObject>(dictionary: memento!) : [:]
+        self.memento = memento ? swiftify(dictionary: memento!) : [:]
 
         _initEffectiveVersion()
     }
@@ -84,7 +84,7 @@ class Action : NSObject {
             primaryVersionSpec = LRVersionSpec.stableVersionSpecMatchingAnyVersionInVersionSpace(type.primaryVersionSpace)
         }
         if let opt = memento["options"].omap({ $0 as? NSDictionary }) {
-            _options.updateValues(fromDictionary: opt)
+            swiftify(dictionary: opt, into: &_options)
         }
     }
 

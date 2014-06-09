@@ -14,7 +14,7 @@ extension Array {
         return result
     }
 
-func all(test: (Element) -> Bool) -> Bool {
+    func all(test: (Element) -> Bool) -> Bool {
         for item in self {
             if test(item) {
                 return true
