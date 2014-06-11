@@ -52,6 +52,7 @@ class Action : NSObject {
         super.init()
         self.memento = memento ? swiftify(dictionary: memento!) : [:]
 
+        loadFromMemento()
         _initEffectiveVersion()
     }
 
