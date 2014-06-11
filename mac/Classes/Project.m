@@ -308,7 +308,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 - (void)_updateValuesDerivedFromRootURL {
     // we cannot monitor through symlink boundaries anyway
     [self willChangeValueForKey:@"path"];
-    _path = [[[_rootURL path] stringByResolvingSymlinksInPath] copy];
+    _path = [[[[_rootURL path] stringByResolvingSymlinksInPath] mutableCopy] copy];
     [self didChangeValueForKey:@"path"];
 }
 

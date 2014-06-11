@@ -76,4 +76,8 @@
     [self.action setOptionValue:value forKey:self.optionKeyForPresentedValue];
 }
 
+- (NSArray *)commandLineArguments {
+    return @[]; // handled elsewhere
+}
+
 @end

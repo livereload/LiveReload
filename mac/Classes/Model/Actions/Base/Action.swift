@@ -53,6 +53,7 @@ class Action : NSObject {
         self.memento = memento ? swiftify(dictionary: memento!) : [:]
 
         loadFromMemento()
+        updateInputPathSpec()
         _initEffectiveVersion()
     }
 
@@ -218,7 +219,7 @@ class Action : NSObject {
     var effectiveVersion: LRActionVersion?
 
     func _computeEffectiveVersion() -> LRActionVersion? {
-        return findIf(contextActionType.versions as LRActionVersion[]) { self.primaryVersionSpec.matchesVersion($0.primaryVersion, withTag: LRVersionTag.Unknown) }
+        return findIf(reverse(contextActionType.versions as LRActionVersion[])) { self.primaryVersionSpec.matchesVersion($0.primaryVersion, withTag: LRVersionTag.Unknown) }
     }
 
     var _c_updateEffectiveVersion = Coalescence(delayMs: 0)
@@ -254,7 +255,9 @@ class Action : NSObject {
 
     func configureStep(step: ScriptInvocationStep) {
         step.project = project
-        step.addValue(project.path, forSubstitutionKey: "project_dir")
+        println("configureStep: project.path = \(project.path)")
+        let s: NSObject? = project.path
+        step.addValue(s, forSubstitutionKey: "project_dir")
 
         if let eff = effectiveVersion {
             let manifest = eff.manifest
@@ -262,13 +265,14 @@ class Action : NSObject {
             step.addValue(type.plugin.path as String, forSubstitutionKey: "plugin")
 
             for package in eff.packageSet.packages as LRPackage[] {
-                step.addValue(package.sourceFolderURL.path, forSubstitutionKey: package.identifier)
-                step.addValue(package.version.description, forSubstitutionKey: "\(package.identifier).ver")
+                step.addValue(package.sourceFolderURL.path as String, forSubstitutionKey: package.identifier)
+                step.addValue(package.version.description as String, forSubstitutionKey: "\(package.identifier).ver")
             }
         }
 
         var additionalArguments: String[] = []
-        for option in self.createOptions() {
+        let opt = self.createOptions()
+        for option in opt {
             additionalArguments.extend(option.commandLineArguments as String[])
         }
         additionalArguments.extend(customArguments)
