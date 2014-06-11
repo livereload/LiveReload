@@ -1,13 +1,11 @@
 
 #import "LROperationResult.h"
-#import "console.h"
 
 #import "UserScript.h"
 #import "ATGlobals.h"
 #import "OldFSMonitor.h"
 #import "NSTask+OneLineTasksWithOutput.h"
 #import "ATChildTask.h"
-#import "stringutil.h"
 
 
 NSString *const UserScriptManagerScriptsDidChangeNotification = @"UserScriptManagerScriptsDidChangeNotification";
@@ -60,7 +58,8 @@ NSString *const UserScriptErrorDomain = @"com.livereload.LiveReload.UserScript";
 
     NSArray *args = [[NSArray arrayWithObject:projectPath] arrayByAddingObjectsFromArray:[paths allObjects]];
     
-    console_printf("Post-proc exec: %s %s", str_collapse_paths([script UTF8String], [projectPath UTF8String]), str_collapse_paths([[args componentsJoinedByString:@" "] UTF8String], [projectPath UTF8String]));
+    // TODO XXX
+//    console_printf("Post-proc exec: %s %s", str_collapse_paths([script UTF8String], [projectPath UTF8String]), str_collapse_paths([[args componentsJoinedByString:@" "] UTF8String], [projectPath UTF8String]));
 
     id userScript;
     NSError *error = nil;
@@ -91,15 +90,18 @@ NSString *const UserScriptErrorDomain = @"com.livereload.LiveReload.UserScript";
             NSString *output = [outputReader.standardOutputText stringByAppendingString:outputReader.standardErrorText];
 
             if ([output length] > 0) {
-                console_printf("\n%s\n\n", str_collapse_paths([output UTF8String], [projectPath UTF8String]));
+                // TODO XXX
+//                console_printf("\n%s\n\n", str_collapse_paths([output UTF8String], [projectPath UTF8String]));
                 NSLog(@"Post-processing output:\n%@\n", output);
             }
 
             if (error) {
                 if ([error.domain isEqualToString:NSCocoaErrorDomain] && error.code == NSFileReadNoPermissionError) {
-                    console_printf("Post-processor script not supported, please check executable bit.");
+                    // TODO XXX
+//                    console_printf("Post-processor script not supported, please check executable bit.");
                 } else {
-                    console_printf("Post-processor failed.");
+                    // TODO XXX
+//                    console_printf("Post-processor failed.");
                 }
                 NSLog(@"Post-processor error: %@", [error description]);
             }

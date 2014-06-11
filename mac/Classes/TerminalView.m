@@ -1,7 +1,4 @@
 
-#include "eventbus.h"
-#include "console.h"
-
 #import "TerminalView.h"
 
 
@@ -78,9 +75,10 @@ void MyDrawNinePartImage(CGRect frame, NSImage *image, CGFloat topSlice, CGFloat
 
 
 
-static void on_console_message_added(event_name_t event, const char *message, TerminalView *view) {
-    [view update];
-}
+// TODO XXX
+//static void on_console_message_added(event_name_t event, const char *message, TerminalView *view) {
+//    [view update];
+//}
 
 
 @implementation TerminalView {
@@ -121,7 +119,8 @@ static void on_console_message_added(event_name_t event, const char *message, Te
         [_textView setDrawsBackground:NO];
         [_textView setTextColor:[NSColor whiteColor]];
         [_textView setFont:[NSFont fontWithName:@"Monaco" size:13]];
-        [_textView setString:[NSString stringWithUTF8String:console_get()]];
+        // TODO XXX
+//        [_textView setString:[NSString stringWithUTF8String:console_get()]];
 
         [scrollView setDocumentView:_textView];
 
@@ -134,14 +133,16 @@ static void on_console_message_added(event_name_t event, const char *message, Te
         _backgroundImage = [NSImage imageNamed:@"TerminalBackgroundSquare.png"];
         _glareImage = [NSImage imageNamed:@"TerminalGlare.png"];
 
-        eventbus_subscribe(console_message_added_event, (event_handler_t)on_console_message_added, (__bridge void *)(self));
+        // TODO XXX
+//        eventbus_subscribe(console_message_added_event, (event_handler_t)on_console_message_added, (__bridge void *)(self));
         [self update];
     }
     return self;
 }
 
 - (void)dealloc {
-    eventbus_unsubscribe(console_message_added_event, (event_handler_t)on_console_message_added, (__bridge void *)(self));
+    // TODO XXX
+//    eventbus_unsubscribe(console_message_added_event, (event_handler_t)on_console_message_added, (__bridge void *)(self));
 }
 
 - (void)drawRect:(NSRect)dirtyRect {
@@ -159,7 +160,8 @@ static void on_console_message_added(event_name_t event, const char *message, Te
 }
 
 - (void)update {
-    [_textView setString:[NSString stringWithUTF8String:console_get()]];
+    // TODO XXX
+//    [_textView setString:[NSString stringWithUTF8String:console_get()]];
     [_textView scrollToEndOfDocument:nil];
 }
 

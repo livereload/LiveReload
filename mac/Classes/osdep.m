@@ -1,5 +1,4 @@
 
-#include "common.h"
 #include "jansson.h"
 
 #import <Cocoa/Cocoa.h>

@@ -258,7 +258,7 @@ class Action : NSObject {
         if let eff = effectiveVersion {
             let manifest = eff.manifest
             step.commandLine = manifest.commandLineSpec
-            step.addValue(type.plugin.path, forSubstitutionKey: "plugin")
+            step.addValue(type.plugin.path as String, forSubstitutionKey: "plugin")
 
             for package in eff.packageSet.packages as LRPackage[] {
                 step.addValue(package.sourceFolderURL.path, forSubstitutionKey: package.identifier)

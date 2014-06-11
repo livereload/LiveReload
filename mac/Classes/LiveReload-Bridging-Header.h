@@ -22,6 +22,7 @@
 #import "LRActionVersion.h"
 #import "LRActionManifest.h"
 #import "LRContextActionType.h"
+#import "../ATPathSpec/ATPathSpec/ATPathSpec.h"
 #import "FilterOption.h"
 
 #import "ScriptInvocationStep.h"

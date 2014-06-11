@@ -1,5 +1,4 @@
 
-#include "console.h"
 #include "jansson.h"
 
 #import "LiveReloadAppDelegate.h"
@@ -141,7 +140,8 @@
 
     _mainWindowController = [[NewMainWindowController alloc] init];
 
-    console_init();
+    // TODO XXX
+//    console_init();
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
         [self considerShowingWindowOnAppStartup];

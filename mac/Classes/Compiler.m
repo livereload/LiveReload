@@ -1,7 +1,4 @@
 
-#include "console.h"
-#include "stringutil.h"
-
 #import "Compiler.h"
 #import "Plugin.h"
 #import "ToolOutput.h"

@@ -1,6 +1,5 @@
 
 #import <Cocoa/Cocoa.h>
-#import "eventbus.h"
 #import "ActionList.h"
 
 

@@ -32,11 +32,6 @@
 #import "ATModelDiff.h"
 
 #include <stdbool.h>
-#include "common.h"
-#include "sglib.h"
-#include "console.h"
-#include "stringutil.h"
-#include "eventbus.h"
 
 
 #define PathKey @"path"
@@ -498,11 +493,12 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 - (void)processBatchOfPendingChanges:(NSSet *)pathes {
     [self startBuild];
 
-    switch (pathes.count) {
-        case 0:  break;
-        case 1:  console_printf("Changed: %s", [[pathes anyObject] UTF8String]); break;
-        default: console_printf("Changed: %s and %d others", [[pathes anyObject] UTF8String], (int)pathes.count - 1); break;
-    }
+    // TODO XXX
+//    switch (pathes.count) {
+//        case 0:  break;
+//        case 1:  console_printf("Changed: %s", [[pathes anyObject] UTF8String]); break;
+//        default: console_printf("Changed: %s and %d others", [[pathes anyObject] UTF8String], (int)pathes.count - 1); break;
+//    }
 
     NSArray *modifiedFiles = [self analyzeFilesAtPaths:pathes];
     [_runningBuild addModifiedFiles:modifiedFiles];
