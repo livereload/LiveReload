@@ -118,4 +118,8 @@
     XCTAssertNil([self runProjectTestNamed:@"compilers/typescript_error_simple" options:LRTestOptionNone], @"Failed");
 }
 
+- (void)testCompassSimple {
+    XCTAssertNil([self runProjectTestNamed:@"compilers/compass_simple" options:LRTestOptionNone], @"Failed");
+}
+
 @end
