@@ -1,10 +1,18 @@
 import Foundation
 
-let NanosPerMillis: Int64 = 1000000
+let NanosPerMillis: Int64 = 1_000_000
 
 func dispatch_after_ms(delayMs: Int64, queue: dispatch_queue_t = dispatch_get_main_queue(), block: dispatch_block_t) {
     if delayMs > 0 {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delayMs * NanosPerMillis), queue, block)
+    } else {
+        dispatch_async(queue, block)
+    }
+}
+
+func dispatch_after_timeinterval(delay: NSTimeInterval, queue: dispatch_queue_t = dispatch_get_main_queue(), block: dispatch_block_t) {
+    if delay > -1e-8 {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(Double(delay) * Double(NanosPerMillis) * 1000.0)), queue, block)
     } else {
         dispatch_async(queue, block)
     }
@@ -112,4 +120,39 @@ func coalesced<T: AnyObject>(delayMs: Int64 = 0, #weakSelf: T, #monitorBlock: (T
 
 func coalesced<T: AnyObject>(delayMs: Int64 = 0, #weakSelf: T, block: (T) -> Void) -> dispatch_block_t {
     return coalesced(delayMs: delayMs, weakSelf: weakSelf, monitorBlock: { (a, b) in }, block)
+}
+
+
+class Delayed {
+    typealias RequestId = Int64
+
+    var lastRequestId: RequestId = 0
+
+    deinit {
+        cancel()
+    }
+
+    func cancel() {
+        ++lastRequestId
+    }
+
+    func perform(block: dispatch_block_t) {
+        let requestId = ++lastRequestId
+
+        dispatch_async(dispatch_get_main_queue()) {
+            if self.lastRequestId == requestId {
+                block()
+            }
+        }
+    }
+
+    func performAfterDelay(delay: NSTimeInterval, _ block: dispatch_block_t) {
+        let requestId = ++lastRequestId
+
+        dispatch_after_timeinterval(delay, queue: dispatch_get_main_queue()) {
+            if self.lastRequestId == requestId {
+                block()
+            }
+        }
+    }
 }

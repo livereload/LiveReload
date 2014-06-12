@@ -3,7 +3,7 @@
 #import "Workspace.h"
 #import "Project.h"
 #import "OldFSTree.h"
-#import "LRBuild.h"
+#import "LiveReload-Swift-x.h"
 #import "LROperationResult.h"
 #import "LRSelfTestOutputFile.h"
 #import "LRSelfTestBrowserRequestExpectation.h"

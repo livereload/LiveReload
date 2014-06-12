@@ -134,7 +134,6 @@
 		4353416C19489EA8003E51EB /* LRActionManifest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353403A19489EA7003E51EB /* LRActionManifest.m */; };
 		4353416D19489EA8003E51EB /* LRActionVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353403C19489EA7003E51EB /* LRActionVersion.m */; };
 		4353416E19489EA8003E51EB /* LRAssetPackageConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353403E19489EA7003E51EB /* LRAssetPackageConfiguration.m */; };
-		4353416F19489EA8003E51EB /* LRBuild.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353404019489EA7003E51EB /* LRBuild.m */; };
 		4353417019489EA8003E51EB /* LRCheckboxOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353404219489EA7003E51EB /* LRCheckboxOption.m */; };
 		4353417119489EA8003E51EB /* LRChildErrorSink.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353404419489EA7003E51EB /* LRChildErrorSink.m */; };
 		4353417219489EA8003E51EB /* LRCommandLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353404619489EA7003E51EB /* LRCommandLine.m */; };
@@ -269,6 +268,7 @@
 		4353420619489F25003E51EB /* Coda2Editor.m in Sources */ = {isa = PBXBuildFile; fileRef = 435341FC19489F25003E51EB /* Coda2Editor.m */; };
 		4353420719489F25003E51EB /* SublimeText2Editor.m in Sources */ = {isa = PBXBuildFile; fileRef = 435341FE19489F25003E51EB /* SublimeText2Editor.m */; };
 		4353420819489F25003E51EB /* SublimeText3Editor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353420019489F25003E51EB /* SublimeText3Editor.m */; };
+		4353420B1948BBB4003E51EB /* LRBuild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353420A1948BBB4003E51EB /* LRBuild.swift */; };
 		43594AF413D3BB34004175B2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43594AF313D3BB34004175B2 /* QuartzCore.framework */; };
 		43693F4115660A8700C453CC /* LiveReloadNodejs in Resources */ = {isa = PBXBuildFile; fileRef = 43693F4015660A8700C453CC /* LiveReloadNodejs */; };
 		4371095218585DB800FCB4C2 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 434BB29F17BBF512000BEB1C /* XCTest.framework */; };
@@ -597,8 +597,6 @@
 		4353403C19489EA7003E51EB /* LRActionVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRActionVersion.m; sourceTree = "<group>"; };
 		4353403D19489EA7003E51EB /* LRAssetPackageConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRAssetPackageConfiguration.h; sourceTree = "<group>"; };
 		4353403E19489EA7003E51EB /* LRAssetPackageConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRAssetPackageConfiguration.m; sourceTree = "<group>"; };
-		4353403F19489EA7003E51EB /* LRBuild.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRBuild.h; sourceTree = "<group>"; };
-		4353404019489EA7003E51EB /* LRBuild.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRBuild.m; sourceTree = "<group>"; };
 		4353404119489EA7003E51EB /* LRCheckboxOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRCheckboxOption.h; sourceTree = "<group>"; };
 		4353404219489EA7003E51EB /* LRCheckboxOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRCheckboxOption.m; sourceTree = "<group>"; };
 		4353404319489EA7003E51EB /* LRChildErrorSink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRChildErrorSink.h; sourceTree = "<group>"; };
@@ -852,6 +850,7 @@
 		435341FF19489F25003E51EB /* SublimeText3Editor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SublimeText3Editor.h; sourceTree = "<group>"; };
 		4353420019489F25003E51EB /* SublimeText3Editor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SublimeText3Editor.m; sourceTree = "<group>"; };
 		4353420919489F93003E51EB /* app_config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = app_config.h; path = ../Shared/app_config.h; sourceTree = "<group>"; };
+		4353420A1948BBB4003E51EB /* LRBuild.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRBuild.swift; sourceTree = "<group>"; };
 		43594AF313D3BB34004175B2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		43693F4015660A8700C453CC /* LiveReloadNodejs */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = LiveReloadNodejs; path = Resources/LiveReloadNodejs; sourceTree = "<group>"; };
 		4371095118585DB800FCB4C2 /* LiveReloadTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiveReloadTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1702,8 +1701,7 @@
 				4353403C19489EA7003E51EB /* LRActionVersion.m */,
 				4353403D19489EA7003E51EB /* LRAssetPackageConfiguration.h */,
 				4353403E19489EA7003E51EB /* LRAssetPackageConfiguration.m */,
-				4353403F19489EA7003E51EB /* LRBuild.h */,
-				4353404019489EA7003E51EB /* LRBuild.m */,
+				4353420A1948BBB4003E51EB /* LRBuild.swift */,
 				4353404119489EA7003E51EB /* LRCheckboxOption.h */,
 				4353404219489EA7003E51EB /* LRCheckboxOption.m */,
 				4353404319489EA7003E51EB /* LRChildErrorSink.h */,
@@ -2252,7 +2250,7 @@
 				4353417119489EA8003E51EB /* LRChildErrorSink.m in Sources */,
 				4303A54915B513FD009D732A /* value.c in Sources */,
 				4353419F19489EA8003E51EB /* LRVersionSpec.m in Sources */,
-				4353416F19489EA8003E51EB /* LRBuild.m in Sources */,
+				4353420B1948BBB4003E51EB /* LRBuild.swift in Sources */,
 				4303A54A15B513FD009D732A /* nodeapp.c in Sources */,
 				4303A54B15B513FD009D732A /* nodeapp_autorelease.c in Sources */,
 				4353417F19489EA8003E51EB /* LROutputMappingOption.m in Sources */,

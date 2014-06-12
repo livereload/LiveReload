@@ -187,9 +187,20 @@ struct IndexedArray<K: Hashable, V> {
         return true
     }
 
+    mutating func extend(values: V[], overwrite: Bool = false) {
+        for value in values {
+            append(value, overwrite: overwrite)
+        }
+    }
+
     mutating func removeAll() {
         dictionary = [:]
         list = []
+    }
+
+    func contains(value: V) -> Bool {
+        let key = indexFunc(value)
+        return self[key] != nil
     }
 
 }
