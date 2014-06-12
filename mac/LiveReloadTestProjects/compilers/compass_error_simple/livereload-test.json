@@ -1,0 +1,32 @@
+{
+  "settings": {
+    "actions": [
+      {
+        "action": "compass",
+        "enabled": 1,
+        "version": "*-stable"
+      }
+    ]
+  },
+
+  "sources": {
+    "sass/screen.scss": true,
+    "sass/ie.scss": true,
+    "sass/print.scss": true,
+    "config.rb": true
+  },
+
+  "outputs": {
+    "stylesheets/screen.css": "margin: 0",
+    "stylesheets/ie.css": "",
+    "stylesheets/print.css": "color: green"
+  },
+
+  "errors": [
+    {
+      "file": "sass/ie.scss",
+      "line": 8,
+      "message": "*color red*"
+    }
+  ]
+}
