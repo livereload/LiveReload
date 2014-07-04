@@ -1,5 +1,5 @@
 
-#import "BaseActionRow.h"
+#import "BaseRuleRow.h"
 #import "OptionsRow.h"
 #import "Project.h"
 #import "ATMacViewCreation.h"
@@ -10,7 +10,7 @@
 static void *BaseActionRow_Project_FilterOptions_Context = "BaseActionRow_Project_FilterOptions_Context";
 
 
-@implementation BaseActionRow {
+@implementation BaseRuleRow {
     OptionsRow *_optionsRow;
 }
 
@@ -49,7 +49,7 @@ static void *BaseActionRow_Project_FilterOptions_Context = "BaseActionRow_Projec
         _optionsRow = [OptionsRow rowWithRepresentedObject:self.representedObject metrics:self.metrics userInfo:nil delegate:self];
         _optionsRow.collapsed = YES;
 
-        __weak BaseActionRow *myself = self;
+        __weak BaseRuleRow *myself = self;
         _optionsRow.loadContentBlock = ^{
             [myself _loadOptions];
         };
@@ -92,7 +92,7 @@ static void *BaseActionRow_Project_FilterOptions_Context = "BaseActionRow_Projec
     }
 }
 
-- (Rule *)action {
+- (Rule *)rule {
     return self.representedObject;
 }
 

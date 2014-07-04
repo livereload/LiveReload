@@ -19,7 +19,7 @@ typedef void (^GlueReplyHandlerBlock)(NSError *error, id result);
 
 - (void)registerCommand:(NSString *)command asyncHandler:(GlueAsyncCommandBlock)block;
 - (void)registerCommand:(NSString *)command syncHandler:(GlueSyncCommandBlock)block;
-- (void)registerCommand:(NSString *)command target:(id)object action:(SEL)action;
+- (void)registerCommand:(NSString *)command target:(id)object action:(SEL)rule;
 
 - (void)handleJsonString:(NSString *)line;
 - (void)handleMessage:(NSDictionary *)message;

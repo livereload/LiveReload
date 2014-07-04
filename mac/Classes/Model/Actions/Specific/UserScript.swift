@@ -1,7 +1,6 @@
 
 import Foundation
 
-@objc(UserScriptAction)
 class UserScriptRule : Rule {
 
     var scriptName: String?
@@ -57,7 +56,7 @@ class UserScriptRule : Rule {
 
     override func targetForModifiedFiles(files: LRProjectFile[]) -> LRTarget? {
         if inputPathSpecMatchesFiles(files) {
-            return LRProjectTarget(action: self, modifiedFiles: files as LRProjectFile[])
+            return LRProjectTarget(rule: self, modifiedFiles: files as LRProjectFile[])
         } else {
             return nil
         }

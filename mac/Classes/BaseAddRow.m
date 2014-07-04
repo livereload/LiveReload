@@ -1,6 +1,6 @@
 
 #import "BaseAddRow.h"
-#import "ActionList.h"
+#import "Rulebook.h"
 #import "ATMacViewCreation.h"
 #import "ATAutolayout.h"
 
@@ -35,8 +35,8 @@
 - (IBAction)addActionClicked:(NSMenuItem *)sender {
     NSDictionary *prototype = sender.representedObject;
     if (prototype) {
-        ActionList *actionList = self.representedObject;
-        [actionList addActionWithPrototype:prototype];
+        Rulebook *rulebook = self.representedObject;
+        [rulebook addActionWithPrototype:prototype];
     }
 }
 

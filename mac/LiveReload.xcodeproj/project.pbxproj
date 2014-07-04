@@ -81,8 +81,8 @@
 		4353197214668E7D005FA59F /* LRHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4353197014668E7D005FA59F /* LRHelpTemplate.png */; };
 		4353197314668E7D005FA59F /* LRSupportTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4353197114668E7D005FA59F /* LRSupportTemplate.png */; };
 		4353413919489EA8003E51EB /* ActionGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 43533FD619489EA7003E51EB /* ActionGlobals.m */; };
-		4353413A19489EA8003E51EB /* ActionList.m in Sources */ = {isa = PBXBuildFile; fileRef = 43533FD819489EA7003E51EB /* ActionList.m */; };
-		4353413B19489EA8003E51EB /* ActionListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43533FDA19489EA7003E51EB /* ActionListView.m */; };
+		4353413A19489EA8003E51EB /* Rulebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 43533FD819489EA7003E51EB /* Rulebook.m */; };
+		4353413B19489EA8003E51EB /* RulebookView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43533FDA19489EA7003E51EB /* RulebookView.m */; };
 		4353413C19489EA8003E51EB /* ActionsGroupHeaderRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 43533FDC19489EA7003E51EB /* ActionsGroupHeaderRow.m */; };
 		4353413D19489EA8003E51EB /* ActionType.m in Sources */ = {isa = PBXBuildFile; fileRef = 43533FDE19489EA7003E51EB /* ActionType.m */; };
 		4353413E19489EA8003E51EB /* AddActionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 43533FE019489EA7003E51EB /* AddActionRow.m */; };
@@ -93,10 +93,10 @@
 		4353414319489EA8003E51EB /* AppState.m in Sources */ = {isa = PBXBuildFile; fileRef = 43533FE919489EA7003E51EB /* AppState.m */; };
 		4353414419489EA8003E51EB /* AuxWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 43533FEB19489EA7003E51EB /* AuxWindow.m */; };
 		4353414519489EA8003E51EB /* BackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43533FED19489EA7003E51EB /* BackgroundView.m */; };
-		4353414619489EA8003E51EB /* BaseActionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 43533FEF19489EA7003E51EB /* BaseActionRow.m */; };
+		4353414619489EA8003E51EB /* BaseRuleRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 43533FEF19489EA7003E51EB /* BaseRuleRow.m */; };
 		4353414719489EA8003E51EB /* BaseAddRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 43533FF119489EA7003E51EB /* BaseAddRow.m */; };
 		4353414819489EA8003E51EB /* BaseProjectSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43533FF319489EA7003E51EB /* BaseProjectSettingsWindowController.m */; };
-		4353414919489EA8003E51EB /* CompileFileActionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 43533FF519489EA7003E51EB /* CompileFileActionRow.m */; };
+		4353414919489EA8003E51EB /* CompileFileRuleRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 43533FF519489EA7003E51EB /* CompileFileRuleRow.m */; };
 		4353414A19489EA8003E51EB /* Compiler.m in Sources */ = {isa = PBXBuildFile; fileRef = 43533FF719489EA7003E51EB /* Compiler.m */; };
 		4353414B19489EA8003E51EB /* CompilerVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 43533FF919489EA7003E51EB /* CompilerVersion.m */; };
 		4353414C19489EA8003E51EB /* CustomRubyInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 43533FFB19489EA7003E51EB /* CustomRubyInstance.m */; };
@@ -106,7 +106,7 @@
 		4353415019489EA8003E51EB /* ExpandedOutlineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353400319489EA7003E51EB /* ExpandedOutlineView.m */; };
 		4353415119489EA8003E51EB /* ExtensionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353400519489EA7003E51EB /* ExtensionsController.m */; };
 		4353415219489EA8003E51EB /* ExternalEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353400719489EA7003E51EB /* ExternalEditor.m */; };
-		4353415319489EA8003E51EB /* FilterActionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353400919489EA7003E51EB /* FilterActionRow.m */; };
+		4353415319489EA8003E51EB /* FilterRuleRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353400919489EA7003E51EB /* FilterRuleRow.m */; };
 		4353415419489EA8003E51EB /* FilterOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353400B19489EA7003E51EB /* FilterOption.m */; };
 		4353415519489EA8003E51EB /* FiltersGroupHeaderRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353400D19489EA7003E51EB /* FiltersGroupHeaderRow.m */; };
 		4353415619489EA8003E51EB /* FSChange.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353400F19489EA7003E51EB /* FSChange.m */; };
@@ -230,8 +230,8 @@
 		435341CE19489EA8003E51EB /* RubyPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 435340F919489EA7003E51EB /* RubyPreferencesViewController.m */; };
 		435341CF19489EA8003E51EB /* RubyPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 435340FA19489EA7003E51EB /* RubyPreferencesViewController.xib */; };
 		435341D019489EA8003E51EB /* RubyRuntimeRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 435340FC19489EA7003E51EB /* RubyRuntimeRepository.m */; };
-		435341D119489EA8003E51EB /* RunCustomCommandActionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 435340FE19489EA7003E51EB /* RunCustomCommandActionRow.m */; };
-		435341D219489EA8003E51EB /* RunScriptActionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353410019489EA7003E51EB /* RunScriptActionRow.m */; };
+		435341D119489EA8003E51EB /* CustomCommandRuleRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 435340FE19489EA7003E51EB /* CustomCommandRuleRow.m */; };
+		435341D219489EA8003E51EB /* UserScriptRuleRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353410019489EA7003E51EB /* UserScriptRuleRow.m */; };
 		435341D319489EA8003E51EB /* RuntimeContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353410219489EA7003E51EB /* RuntimeContainer.m */; };
 		435341D419489EA8003E51EB /* RuntimeGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353410419489EA7003E51EB /* RuntimeGlobals.m */; };
 		435341D519489EA8003E51EB /* RuntimeInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353410619489EA7003E51EB /* RuntimeInstance.m */; };
@@ -493,37 +493,37 @@
 		4353197114668E7D005FA59F /* LRSupportTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRSupportTemplate.png; sourceTree = "<group>"; };
 		43533FD519489EA7003E51EB /* ActionGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionGlobals.h; sourceTree = "<group>"; };
 		43533FD619489EA7003E51EB /* ActionGlobals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionGlobals.m; sourceTree = "<group>"; };
-		43533FD719489EA7003E51EB /* ActionList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionList.h; sourceTree = "<group>"; };
-		43533FD819489EA7003E51EB /* ActionList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionList.m; sourceTree = "<group>"; };
-		43533FD919489EA7003E51EB /* ActionListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionListView.h; sourceTree = "<group>"; };
-		43533FDA19489EA7003E51EB /* ActionListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionListView.m; sourceTree = "<group>"; };
+		43533FD719489EA7003E51EB /* Rulebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Rulebook.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		43533FD819489EA7003E51EB /* Rulebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Rulebook.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		43533FD919489EA7003E51EB /* RulebookView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RulebookView.h; sourceTree = "<group>"; };
+		43533FDA19489EA7003E51EB /* RulebookView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = RulebookView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		43533FDB19489EA7003E51EB /* ActionsGroupHeaderRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionsGroupHeaderRow.h; sourceTree = "<group>"; };
 		43533FDC19489EA7003E51EB /* ActionsGroupHeaderRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionsGroupHeaderRow.m; sourceTree = "<group>"; };
 		43533FDD19489EA7003E51EB /* ActionType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionType.h; sourceTree = "<group>"; };
 		43533FDE19489EA7003E51EB /* ActionType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionType.m; sourceTree = "<group>"; };
 		43533FDF19489EA7003E51EB /* AddActionRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddActionRow.h; sourceTree = "<group>"; };
-		43533FE019489EA7003E51EB /* AddActionRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddActionRow.m; sourceTree = "<group>"; };
+		43533FE019489EA7003E51EB /* AddActionRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AddActionRow.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		43533FE119489EA7003E51EB /* AddCompilationActionRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCompilationActionRow.h; sourceTree = "<group>"; };
-		43533FE219489EA7003E51EB /* AddCompilationActionRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCompilationActionRow.m; sourceTree = "<group>"; };
+		43533FE219489EA7003E51EB /* AddCompilationActionRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AddCompilationActionRow.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		43533FE319489EA7003E51EB /* AddCustomRubySheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCustomRubySheet.h; sourceTree = "<group>"; };
 		43533FE419489EA7003E51EB /* AddCustomRubySheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCustomRubySheet.m; sourceTree = "<group>"; };
 		43533FE519489EA7003E51EB /* AddCustomRubySheet.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddCustomRubySheet.xib; sourceTree = "<group>"; };
 		43533FE619489EA7003E51EB /* AddFilterRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddFilterRow.h; sourceTree = "<group>"; };
-		43533FE719489EA7003E51EB /* AddFilterRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddFilterRow.m; sourceTree = "<group>"; };
+		43533FE719489EA7003E51EB /* AddFilterRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AddFilterRow.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		43533FE819489EA7003E51EB /* AppState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppState.h; sourceTree = "<group>"; };
 		43533FE919489EA7003E51EB /* AppState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppState.m; sourceTree = "<group>"; };
 		43533FEA19489EA7003E51EB /* AuxWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuxWindow.h; sourceTree = "<group>"; };
 		43533FEB19489EA7003E51EB /* AuxWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuxWindow.m; sourceTree = "<group>"; };
 		43533FEC19489EA7003E51EB /* BackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundView.h; sourceTree = "<group>"; };
 		43533FED19489EA7003E51EB /* BackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundView.m; sourceTree = "<group>"; };
-		43533FEE19489EA7003E51EB /* BaseActionRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseActionRow.h; sourceTree = "<group>"; };
-		43533FEF19489EA7003E51EB /* BaseActionRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseActionRow.m; sourceTree = "<group>"; };
+		43533FEE19489EA7003E51EB /* BaseRuleRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseRuleRow.h; sourceTree = "<group>"; };
+		43533FEF19489EA7003E51EB /* BaseRuleRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseRuleRow.m; sourceTree = "<group>"; };
 		43533FF019489EA7003E51EB /* BaseAddRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseAddRow.h; sourceTree = "<group>"; };
 		43533FF119489EA7003E51EB /* BaseAddRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseAddRow.m; sourceTree = "<group>"; };
 		43533FF219489EA7003E51EB /* BaseProjectSettingsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseProjectSettingsWindowController.h; sourceTree = "<group>"; };
 		43533FF319489EA7003E51EB /* BaseProjectSettingsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseProjectSettingsWindowController.m; sourceTree = "<group>"; };
-		43533FF419489EA7003E51EB /* CompileFileActionRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompileFileActionRow.h; sourceTree = "<group>"; };
-		43533FF519489EA7003E51EB /* CompileFileActionRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompileFileActionRow.m; sourceTree = "<group>"; };
+		43533FF419489EA7003E51EB /* CompileFileRuleRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompileFileRuleRow.h; sourceTree = "<group>"; };
+		43533FF519489EA7003E51EB /* CompileFileRuleRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompileFileRuleRow.m; sourceTree = "<group>"; };
 		43533FF619489EA7003E51EB /* Compiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Compiler.h; sourceTree = "<group>"; };
 		43533FF719489EA7003E51EB /* Compiler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Compiler.m; sourceTree = "<group>"; };
 		43533FF819489EA7003E51EB /* CompilerVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompilerVersion.h; sourceTree = "<group>"; };
@@ -542,8 +542,8 @@
 		4353400519489EA7003E51EB /* ExtensionsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExtensionsController.m; sourceTree = "<group>"; };
 		4353400619489EA7003E51EB /* ExternalEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExternalEditor.h; sourceTree = "<group>"; };
 		4353400719489EA7003E51EB /* ExternalEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExternalEditor.m; sourceTree = "<group>"; };
-		4353400819489EA7003E51EB /* FilterActionRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterActionRow.h; sourceTree = "<group>"; };
-		4353400919489EA7003E51EB /* FilterActionRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterActionRow.m; sourceTree = "<group>"; };
+		4353400819489EA7003E51EB /* FilterRuleRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterRuleRow.h; sourceTree = "<group>"; };
+		4353400919489EA7003E51EB /* FilterRuleRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterRuleRow.m; sourceTree = "<group>"; };
 		4353400A19489EA7003E51EB /* FilterOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterOption.h; sourceTree = "<group>"; };
 		4353400B19489EA7003E51EB /* FilterOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterOption.m; sourceTree = "<group>"; };
 		4353400C19489EA7003E51EB /* FiltersGroupHeaderRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FiltersGroupHeaderRow.h; sourceTree = "<group>"; };
@@ -706,7 +706,7 @@
 		435340AD19489EA7003E51EB /* MASReceipt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASReceipt.m; sourceTree = "<group>"; };
 		435340AE19489EA7003E51EB /* MissingRuntimeInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MissingRuntimeInstance.h; sourceTree = "<group>"; };
 		435340AF19489EA7003E51EB /* MissingRuntimeInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MissingRuntimeInstance.m; sourceTree = "<group>"; };
-		435340B319489EA7003E51EB /* Rule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rule.swift; sourceTree = "<group>"; };
+		435340B319489EA7003E51EB /* Rule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Rule.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		435340B519489EA7003E51EB /* CompileFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompileFile.swift; sourceTree = "<group>"; };
 		435340B619489EA7003E51EB /* CompileFolder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompileFolder.swift; sourceTree = "<group>"; };
 		435340B719489EA7003E51EB /* CustomCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CustomCommand.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -719,7 +719,7 @@
 		435340C019489EA7003E51EB /* LRProjectTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRProjectTarget.swift; sourceTree = "<group>"; };
 		435340C119489EA7003E51EB /* LRTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRTarget.swift; sourceTree = "<group>"; };
 		435340C219489EA7003E51EB /* MonitoringSettingsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonitoringSettingsWindowController.h; sourceTree = "<group>"; };
-		435340C319489EA7003E51EB /* MonitoringSettingsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonitoringSettingsWindowController.m; sourceTree = "<group>"; };
+		435340C319489EA7003E51EB /* MonitoringSettingsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MonitoringSettingsWindowController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		435340C419489EA7003E51EB /* MonitoringSettingsWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MonitoringSettingsWindowController.xib; sourceTree = "<group>"; };
 		435340C519489EA7003E51EB /* NewMainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewMainWindow.xib; sourceTree = "<group>"; };
 		435340C619489EA7003E51EB /* NewMainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewMainWindowController.h; sourceTree = "<group>"; };
@@ -755,14 +755,14 @@
 		435340E419489EA7003E51EB /* PassThruView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassThruView.h; sourceTree = "<group>"; };
 		435340E519489EA7003E51EB /* PassThruView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassThruView.m; sourceTree = "<group>"; };
 		435340E619489EA7003E51EB /* Plugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Plugin.h; sourceTree = "<group>"; };
-		435340E719489EA7003E51EB /* Plugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Plugin.m; sourceTree = "<group>"; };
+		435340E719489EA7003E51EB /* Plugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Plugin.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		435340E919489EA7003E51EB /* PluginManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PluginManager.swift; sourceTree = "<group>"; };
 		435340EA19489EA7003E51EB /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
 		435340EB19489EA7003E51EB /* Preferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Preferences.m; sourceTree = "<group>"; };
 		435340EC19489EA7003E51EB /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
 		435340ED19489EA7003E51EB /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesController.m; sourceTree = "<group>"; };
 		435340EE19489EA7003E51EB /* Project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Project.h; sourceTree = "<group>"; };
-		435340EF19489EA7003E51EB /* Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Project.m; sourceTree = "<group>"; };
+		435340EF19489EA7003E51EB /* Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Project.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		435340F019489EA7003E51EB /* RbenvContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RbenvContainer.h; sourceTree = "<group>"; };
 		435340F119489EA7003E51EB /* RbenvContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RbenvContainer.m; sourceTree = "<group>"; };
 		435340F219489EA7003E51EB /* RbenvRubyInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RbenvRubyInstance.h; sourceTree = "<group>"; };
@@ -776,10 +776,10 @@
 		435340FA19489EA7003E51EB /* RubyPreferencesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RubyPreferencesViewController.xib; sourceTree = "<group>"; };
 		435340FB19489EA7003E51EB /* RubyRuntimeRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RubyRuntimeRepository.h; sourceTree = "<group>"; };
 		435340FC19489EA7003E51EB /* RubyRuntimeRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RubyRuntimeRepository.m; sourceTree = "<group>"; };
-		435340FD19489EA7003E51EB /* RunCustomCommandActionRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunCustomCommandActionRow.h; sourceTree = "<group>"; };
-		435340FE19489EA7003E51EB /* RunCustomCommandActionRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = RunCustomCommandActionRow.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		435340FF19489EA7003E51EB /* RunScriptActionRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunScriptActionRow.h; sourceTree = "<group>"; };
-		4353410019489EA7003E51EB /* RunScriptActionRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = RunScriptActionRow.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		435340FD19489EA7003E51EB /* CustomCommandRuleRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCommandRuleRow.h; sourceTree = "<group>"; };
+		435340FE19489EA7003E51EB /* CustomCommandRuleRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CustomCommandRuleRow.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		435340FF19489EA7003E51EB /* UserScriptRuleRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserScriptRuleRow.h; sourceTree = "<group>"; };
+		4353410019489EA7003E51EB /* UserScriptRuleRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = UserScriptRuleRow.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		4353410119489EA7003E51EB /* RuntimeContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RuntimeContainer.h; sourceTree = "<group>"; };
 		4353410219489EA7003E51EB /* RuntimeContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RuntimeContainer.m; sourceTree = "<group>"; };
 		4353410319489EA7003E51EB /* RuntimeGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RuntimeGlobals.h; sourceTree = "<group>"; };
@@ -848,7 +848,7 @@
 		435341FF19489F25003E51EB /* SublimeText3Editor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SublimeText3Editor.h; sourceTree = "<group>"; };
 		4353420019489F25003E51EB /* SublimeText3Editor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SublimeText3Editor.m; sourceTree = "<group>"; };
 		4353420919489F93003E51EB /* app_config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = app_config.h; path = ../Shared/app_config.h; sourceTree = "<group>"; };
-		4353420A1948BBB4003E51EB /* LRBuild.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRBuild.swift; sourceTree = "<group>"; };
+		4353420A1948BBB4003E51EB /* LRBuild.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = LRBuild.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		43594AF313D3BB34004175B2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		43693F4015660A8700C453CC /* LiveReloadNodejs */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = LiveReloadNodejs; path = Resources/LiveReloadNodejs; sourceTree = "<group>"; };
 		4371095118585DB800FCB4C2 /* LiveReloadTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiveReloadTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1596,10 +1596,10 @@
 			children = (
 				43533FD519489EA7003E51EB /* ActionGlobals.h */,
 				43533FD619489EA7003E51EB /* ActionGlobals.m */,
-				43533FD719489EA7003E51EB /* ActionList.h */,
-				43533FD819489EA7003E51EB /* ActionList.m */,
-				43533FD919489EA7003E51EB /* ActionListView.h */,
-				43533FDA19489EA7003E51EB /* ActionListView.m */,
+				43533FD719489EA7003E51EB /* Rulebook.h */,
+				43533FD819489EA7003E51EB /* Rulebook.m */,
+				43533FD919489EA7003E51EB /* RulebookView.h */,
+				43533FDA19489EA7003E51EB /* RulebookView.m */,
 				43533FDB19489EA7003E51EB /* ActionsGroupHeaderRow.h */,
 				43533FDC19489EA7003E51EB /* ActionsGroupHeaderRow.m */,
 				43533FDD19489EA7003E51EB /* ActionType.h */,
@@ -1619,14 +1619,14 @@
 				43533FEB19489EA7003E51EB /* AuxWindow.m */,
 				43533FEC19489EA7003E51EB /* BackgroundView.h */,
 				43533FED19489EA7003E51EB /* BackgroundView.m */,
-				43533FEE19489EA7003E51EB /* BaseActionRow.h */,
-				43533FEF19489EA7003E51EB /* BaseActionRow.m */,
+				43533FEE19489EA7003E51EB /* BaseRuleRow.h */,
+				43533FEF19489EA7003E51EB /* BaseRuleRow.m */,
 				43533FF019489EA7003E51EB /* BaseAddRow.h */,
 				43533FF119489EA7003E51EB /* BaseAddRow.m */,
 				43533FF219489EA7003E51EB /* BaseProjectSettingsWindowController.h */,
 				43533FF319489EA7003E51EB /* BaseProjectSettingsWindowController.m */,
-				43533FF419489EA7003E51EB /* CompileFileActionRow.h */,
-				43533FF519489EA7003E51EB /* CompileFileActionRow.m */,
+				43533FF419489EA7003E51EB /* CompileFileRuleRow.h */,
+				43533FF519489EA7003E51EB /* CompileFileRuleRow.m */,
 				43533FF619489EA7003E51EB /* Compiler.h */,
 				43533FF719489EA7003E51EB /* Compiler.m */,
 				43533FF819489EA7003E51EB /* CompilerVersion.h */,
@@ -1645,8 +1645,8 @@
 				4353400519489EA7003E51EB /* ExtensionsController.m */,
 				4353400619489EA7003E51EB /* ExternalEditor.h */,
 				4353400719489EA7003E51EB /* ExternalEditor.m */,
-				4353400819489EA7003E51EB /* FilterActionRow.h */,
-				4353400919489EA7003E51EB /* FilterActionRow.m */,
+				4353400819489EA7003E51EB /* FilterRuleRow.h */,
+				4353400919489EA7003E51EB /* FilterRuleRow.m */,
 				4353400A19489EA7003E51EB /* FilterOption.h */,
 				4353400B19489EA7003E51EB /* FilterOption.m */,
 				4353400C19489EA7003E51EB /* FiltersGroupHeaderRow.h */,
@@ -1870,10 +1870,10 @@
 				435340FA19489EA7003E51EB /* RubyPreferencesViewController.xib */,
 				435340FB19489EA7003E51EB /* RubyRuntimeRepository.h */,
 				435340FC19489EA7003E51EB /* RubyRuntimeRepository.m */,
-				435340FD19489EA7003E51EB /* RunCustomCommandActionRow.h */,
-				435340FE19489EA7003E51EB /* RunCustomCommandActionRow.m */,
-				435340FF19489EA7003E51EB /* RunScriptActionRow.h */,
-				4353410019489EA7003E51EB /* RunScriptActionRow.m */,
+				435340FD19489EA7003E51EB /* CustomCommandRuleRow.h */,
+				435340FE19489EA7003E51EB /* CustomCommandRuleRow.m */,
+				435340FF19489EA7003E51EB /* UserScriptRuleRow.h */,
+				4353410019489EA7003E51EB /* UserScriptRuleRow.m */,
 				4353410119489EA7003E51EB /* RuntimeContainer.h */,
 				4353410219489EA7003E51EB /* RuntimeContainer.m */,
 				4353410319489EA7003E51EB /* RuntimeGlobals.h */,
@@ -2212,7 +2212,7 @@
 				435341C919489EA8003E51EB /* Project.m in Sources */,
 				43C611971803CCF8008A707E /* ATScheduling.m in Sources */,
 				4353419119489EA8003E51EB /* LRSelfTestOutputFile.m in Sources */,
-				435341D119489EA8003E51EB /* RunCustomCommandActionRow.m in Sources */,
+				435341D119489EA8003E51EB /* CustomCommandRuleRow.m in Sources */,
 				43DFE4DE17CB613100DEF87B /* P2AsyncEnumeration.m in Sources */,
 				4396F1E017F8112F00AA8200 /* GlitterFeed.m in Sources */,
 				435341D719489EA8003E51EB /* RuntimeRepository.m in Sources */,
@@ -2260,7 +2260,7 @@
 				435341A719489EA8003E51EB /* CompileFile.swift in Sources */,
 				4303A55315B513FD009D732A /* nodeapp_utils.c in Sources */,
 				4303A55415B513FD009D732A /* nodeapp_api_app.m in Sources */,
-				435341D219489EA8003E51EB /* RunScriptActionRow.m in Sources */,
+				435341D219489EA8003E51EB /* UserScriptRuleRow.m in Sources */,
 				4353418819489EA8003E51EB /* LRPathProcessing.m in Sources */,
 				4303A55515B513FD009D732A /* nodeapp_api_preferences.m in Sources */,
 				4303A55615B513FD009D732A /* nodeapp_autorelease_osdep.m in Sources */,
@@ -2296,7 +2296,7 @@
 				4303A55E15B513FD009D732A /* nodeapp_threading.c in Sources */,
 				4353415519489EA8003E51EB /* FiltersGroupHeaderRow.m in Sources */,
 				435341A519489EA8003E51EB /* MissingRuntimeInstance.m in Sources */,
-				4353413A19489EA8003E51EB /* ActionList.m in Sources */,
+				4353413A19489EA8003E51EB /* Rulebook.m in Sources */,
 				4303A55F15B513FD009D732A /* NodeAppDelegate.m in Sources */,
 				4353414719489EA8003E51EB /* BaseAddRow.m in Sources */,
 				4353413E19489EA8003E51EB /* AddActionRow.m in Sources */,
@@ -2312,7 +2312,7 @@
 				4353414C19489EA8003E51EB /* CustomRubyInstance.m in Sources */,
 				4303A58815B513FD009D732A /* nodeapp_url_handler_mac.m in Sources */,
 				4353419C19489EA8003E51EB /* LRVersionRange.m in Sources */,
-				4353413B19489EA8003E51EB /* ActionListView.m in Sources */,
+				4353413B19489EA8003E51EB /* RulebookView.m in Sources */,
 				4353416419489EA8003E51EB /* KeyWindow.m in Sources */,
 				435341DC19489EA8003E51EB /* ScriptInvocationStep.m in Sources */,
 				43508A9317B39DBE00871422 /* ATFlippedView.m in Sources */,
@@ -2323,7 +2323,7 @@
 				4353419D19489EA8003E51EB /* LRVersionSet.m in Sources */,
 				435341B619489EA8003E51EB /* NpmPackage.m in Sources */,
 				4353415E19489EA8003E51EB /* Glue.m in Sources */,
-				4353414919489EA8003E51EB /* CompileFileActionRow.m in Sources */,
+				4353414919489EA8003E51EB /* CompileFileRuleRow.m in Sources */,
 				435341AF19489EA8003E51EB /* LRMessage.swift in Sources */,
 				435341EB19489EA8003E51EB /* UserScript.m in Sources */,
 				435341DB19489EA8003E51EB /* SandboxAccessModel.m in Sources */,
@@ -2419,14 +2419,14 @@
 				4353416819489EA8003E51EB /* LicenseCodeWindowController.m in Sources */,
 				4353414519489EA8003E51EB /* BackgroundView.m in Sources */,
 				43508A8417B392A500871422 /* ATStackView.m in Sources */,
-				4353414619489EA8003E51EB /* BaseActionRow.m in Sources */,
+				4353414619489EA8003E51EB /* BaseRuleRow.m in Sources */,
 				4353417519489EA8003E51EB /* LRGlobals.m in Sources */,
 				4353415819489EA8003E51EB /* GemPackageContainer.m in Sources */,
 				435341A319489EA8003E51EB /* MASPreferencesWindowController.m in Sources */,
 				4353416A19489EA8003E51EB /* LicenseManager.m in Sources */,
 				4353415B19489EA8003E51EB /* GemVersionSpace.m in Sources */,
 				435341BF19489EA8003E51EB /* OldFSTreeFilter.m in Sources */,
-				4353415319489EA8003E51EB /* FilterActionRow.m in Sources */,
+				4353415319489EA8003E51EB /* FilterRuleRow.m in Sources */,
 				4353416519489EA8003E51EB /* LegacyCompilationOptions.m in Sources */,
 				435341C619489EA8003E51EB /* PluginManager.swift in Sources */,
 				43C389E319441ABB00D29DD7 /* Observation.swift in Sources */,

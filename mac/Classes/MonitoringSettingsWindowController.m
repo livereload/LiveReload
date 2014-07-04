@@ -98,7 +98,7 @@
 }
 
 
-#pragma mark - Interim actions
+#pragma mark - Interim rules
 
 - (IBAction)disableLiveRefreshCheckBoxClicked:(NSButton *)sender {
     _project.disableLiveRefresh = (_disableLiveRefreshCheckBox.state == NSOnState);

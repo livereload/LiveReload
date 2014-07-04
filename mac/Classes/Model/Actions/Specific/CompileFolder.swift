@@ -27,7 +27,7 @@ import Foundation
 
     override func targetForModifiedFiles(files: LRProjectFile[]) -> LRTarget? {
         if inputPathSpecMatchesFiles(files) {
-            return LRProjectTarget(action: self, modifiedFiles: files)
+            return LRProjectTarget(rule: self, modifiedFiles: files)
         } else {
             return nil
         }

@@ -5,14 +5,14 @@ import Foundation
 
     let modifiedFiles: LRProjectFile[]
 
-    init(action: Rule, modifiedFiles: LRProjectFile[]) {
+    init(rule: Rule, modifiedFiles: LRProjectFile[]) {
         self.modifiedFiles = modifiedFiles
-        super.init(action: action)
+        super.init(rule: rule)
     }
 
     override func invoke(#build: LRBuild, completionBlock: dispatch_block_t) {
         let result = self.newResult()
-        action.invokeWithModifiedFiles(modifiedFiles, result: result) {
+        rule.invokeWithModifiedFiles(modifiedFiles, result: result) {
             build.addOperationResult(result, forTarget: self, key:"\(self.project.path).postproc")
             completionBlock()
         }

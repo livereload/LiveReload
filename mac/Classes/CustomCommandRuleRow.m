@@ -1,5 +1,5 @@
 
-#import "RunCustomCommandActionRow.h"
+#import "CustomCommandRuleRow.h"
 #import "LiveReload-Swift-x.h"
 #import "ATMacViewCreation.h"
 #import "ATAutolayout.h"
@@ -8,7 +8,7 @@
 #import "ATAttributedStringAdditions.h"
 
 
-@interface RunCustomCommandActionRow ()
+@interface CustomCommandRuleRow ()
 
 //@property(nonatomic, strong) NSTextField *runLabel;
 //@property(nonatomic, strong) NSTextField *commandField;
@@ -19,7 +19,7 @@
 @end
 
 
-@implementation RunCustomCommandActionRow
+@implementation CustomCommandRuleRow
 
 - (void)loadContent {
     [super loadContent];
@@ -48,17 +48,17 @@
 - (void)updateContent {
     [super updateContent];
 
-    CustomCommandRule *action = self.representedObject;
-    [self.checkbox setTitle:action.label];
+    CustomCommandRule *rule = self.representedObject;
+    [self.checkbox setTitle:rule.label];
 }
 
 - (void)updateFilterOptions {
-    [self updateFilterOptionsPopUp:self.filterPopUp selectedOption:self.action.inputFilterOption];
+    [self updateFilterOptionsPopUp:self.filterPopUp selectedOption:self.rule.inputFilterOption];
 }
 
 - (IBAction)filterOptionSelected:(NSPopUpButton *)sender {
     FilterOption *filterOption = sender.selectedItem.representedObject;
-    self.action.inputFilterOption = filterOption;
+    self.rule.inputFilterOption = filterOption;
 }
 
 + (NSArray *)representedObjectKeyPathsToObserve {

@@ -7,6 +7,6 @@
 
 @interface LROption (Factory)
 
-+ (LROption *)optionWithSpec:(NSDictionary *)spec action:(Rule *)action errorSink:(id<LRManifestErrorSink>)errorSink;
++ (LROption *)optionWithSpec:(NSDictionary *)spec rule:(Rule *)rule errorSink:(id<LRManifestErrorSink>)errorSink;
 
 @end

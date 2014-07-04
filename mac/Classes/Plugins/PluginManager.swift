@@ -126,7 +126,7 @@ class PluginManager : NSObject {
         if actionType.valid {
             _actionTypes.append(actionType)
         } else {
-            NSLog("Skipped invalid action type def: \(identifier)")
+            NSLog("Skipped invalid rule type def: \(identifier)")
         }
     }
 

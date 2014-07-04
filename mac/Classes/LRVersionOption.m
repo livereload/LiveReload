@@ -32,7 +32,7 @@
         [self addErrorMessage:@"Missing label"];
 
     [self observeNotification:LRContextActionTypeDidChangeVersionsNotification withSelector:@selector(_updateVersionSpecs)];
-    [self observeProperty:@"action.effectiveVersion" withSelector:@selector(_updateEffectiveVersion)];
+    [self observeProperty:@"rule.effectiveVersion" withSelector:@selector(_updateEffectiveVersion)];
 }
 
 - (void)dealloc {
@@ -59,7 +59,7 @@
 }
 
 - (id)defaultValue {
-    return self.action;
+    return self.rule;
 }
 
 - (NSInteger)indexOfItem:(LRVersionSpec *)query {
@@ -86,11 +86,11 @@
 }
 
 - (id)modelValue {
-    return self.action.primaryVersionSpec;
+    return self.rule.primaryVersionSpec;
 }
 
 - (void)setModelValue:(id)modelValue {
-    self.action.primaryVersionSpec = modelValue;
+    self.rule.primaryVersionSpec = modelValue;
 }
 
 - (IBAction)popUpSelectionDidChange:(id)sender {
@@ -116,7 +116,7 @@
 }
 
 - (void)_updateVersionSpecs {
-    _items = self.action.contextActionType.versionSpecs;
+    _items = self.rule.contextActionType.versionSpecs;
 
     NSMenuItem *(^createItem)(LRVersionSpec *spec, NSInteger index) = ^NSMenuItem *(LRVersionSpec *spec, NSInteger index) {
         NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:spec.title action:NULL keyEquivalent:@""];
@@ -162,7 +162,7 @@
 }
 
 - (void)_updateEffectiveVersion {
-    _labelView.stringValue = [NSString stringWithFormat:@"(in use: %@)", self.action.effectiveVersion.primaryVersion.description ?: @"none"];
+    _labelView.stringValue = [NSString stringWithFormat:@"(in use: %@)", self.rule.effectiveVersion.primaryVersion.description ?: @"none"];
 }
 
 @end

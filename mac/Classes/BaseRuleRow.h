@@ -8,7 +8,7 @@
 @class OptionsRow;
 
 
-@interface BaseActionRow : ATStackViewRow
+@interface BaseRuleRow : ATStackViewRow
 
 @property (nonatomic, strong) IBOutlet NSButton *checkbox;
 @property (nonatomic, strong) IBOutlet NSButton *optionsButton;
@@ -16,7 +16,7 @@
 
 @property (nonatomic, strong, readonly) OptionsRow *optionsRow;
 
-@property (nonatomic, strong, readonly) Rule *action;
+@property (nonatomic, strong, readonly) Rule *rule;
 @property (nonatomic, strong) Project *project;
 
 - (void)loadOptionsIntoView:(LROptionsView *)container;  // override point
@@ -35,6 +35,6 @@
 
 @protocol BaseActionRowDelegate <NSObject>
 
-- (void)removeActionClicked:(id)action;
+- (void)removeActionClicked:(id)rule;
 
 @end

@@ -23,7 +23,7 @@ class FilterRule : ScriptInvocationRule {
     }
 
     override func fileTargetForRootFile(file: LRProjectFile) -> LRTarget? {
-        return LRFileTarget(action: self, sourceFile: file)
+        return LRFileTarget(rule: self, sourceFile: file)
     }
 
     override func configureStep(step: ScriptInvocationStep, forFile file: LRProjectFile) {

@@ -1,5 +1,5 @@
 
-#import "ActionList.h"
+#import "Rulebook.h"
 #import "LiveReload-Swift-x.h"
 #import "ActionType.h"
 #import "LRContextActionType.h"
@@ -8,10 +8,10 @@
 #import "ATFunctionalStyle.h"
 
 
-@implementation ActionList {
+@implementation Rulebook {
     NSDictionary *_actionTypesByIdentifier;
     NSDictionary *_contextActionTypesByIdentifier;
-    NSMutableArray *_actions;
+    NSMutableArray *_rules;
 }
 
 - (id)initWithActionTypes:(NSArray *)actionTypes project:(Project *)project {
@@ -27,38 +27,38 @@
         }];
         _contextActionTypesByIdentifier = [_contextActionTypes dictionaryWithElementsGroupedByKeyPath:@"actionType.identifier"];
 
-        _actions = [NSMutableArray new];
+        _rules = [NSMutableArray new];
     }
     return self;
 }
 
 - (NSDictionary *)memento {
     NSMutableArray *actionMementos = [NSMutableArray new];
-    for (Rule *action in _actions) {
-        if (!action.nonEmpty)
+    for (Rule *rule in _rules) {
+        if (!rule.nonEmpty)
             continue;
         
-        NSDictionary *actionMemento = action.memento;
+        NSDictionary *actionMemento = rule.memento;
         if (actionMemento)
             [actionMementos addObject:actionMemento];
     }
 
-    return @{@"actions": actionMementos};
+    return @{@"rules": actionMementos};
 }
 
 - (void)setMemento:(NSDictionary *)memento {
-    [self willChangeValueForKey:@"actions"];
+    [self willChangeValueForKey:@"rules"];
     
-    [_actions removeAllObjects];
+    [_rules removeAllObjects];
 
-    NSArray *actionMementos = memento[@"actions"] ?: @[];
+    NSArray *actionMementos = memento[@"rules"] ?: (memento[@"actions"] ?: @[]);
     for (NSDictionary *actionMemento in actionMementos) {
-        Rule *action = [self actionWithMemento:actionMemento];
-        if (action)
-            [_actions addObject:action];
+        Rule *rule = [self actionWithMemento:actionMemento];
+        if (rule)
+            [_rules addObject:rule];
     }
 
-    [self didChangeValueForKey:@"actions"];
+    [self didChangeValueForKey:@"rules"];
 }
 
 - (LRPackageResolutionContext *)resolutionContext {
@@ -78,12 +78,12 @@
 }
 
 - (void)insertObject:(Rule *)object inActionsAtIndex:(NSUInteger)index {
-    [_actions insertObject:object atIndex:index];
+    [_rules insertObject:object atIndex:index];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
 }
 
 - (void)removeObjectFromActionsAtIndex:(NSUInteger)index {
-    [_actions removeObjectAtIndex:index];
+    [_rules removeObjectAtIndex:index];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
 }
 
@@ -92,45 +92,45 @@
 }
 
 - (void)addActionWithPrototype:(NSDictionary *)prototype {
-    Rule *action = [self actionWithMemento:prototype];
-    NSAssert(action != nil, @"Invalid action prototype: %@", prototype);
-    [self insertObject:action inActionsAtIndex:_actions.count];
+    Rule *rule = [self actionWithMemento:prototype];
+    NSAssert(rule != nil, @"Invalid rule prototype: %@", prototype);
+    [self insertObject:rule inActionsAtIndex:_rules.count];
 }
 
 - (NSArray *)activeActions {
-    return [_actions filteredArrayUsingBlock:^BOOL(Rule *action) {
-        return action.nonEmpty && action.enabled;
+    return [_rules filteredArrayUsingBlock:^BOOL(Rule *rule) {
+        return rule.nonEmpty && rule.enabled;
     }];
 }
 
 + (NSSet *)keyPathsForValuesAffectingActiveActions {
-    return [NSSet setWithObject:@"actions"];
+    return [NSSet setWithObject:@"rules"];
 }
 
 - (NSArray *)compilerActions {
-    return [_actions filteredArrayUsingBlock:^BOOL(Rule *action) {
-        return action.type.kind == ActionKindCompiler;
+    return [_rules filteredArrayUsingBlock:^BOOL(Rule *rule) {
+        return rule.type.kind == ActionKindCompiler;
     }];
 }
 
 - (NSArray *)filterActions {
-    return [_actions filteredArrayUsingBlock:^BOOL(Rule *action) {
-        return action.type.kind == ActionKindFilter;
+    return [_rules filteredArrayUsingBlock:^BOOL(Rule *rule) {
+        return rule.type.kind == ActionKindFilter;
     }];
 }
 
 + (NSSet *)keyPathsForValuesAffectingFilterActions {
-    return [NSSet setWithObject:@"actions"];
+    return [NSSet setWithObject:@"rules"];
 }
 
 - (NSArray *)postprocActions {
-    return [_actions filteredArrayUsingBlock:^BOOL(Rule *action) {
-        return action.type.kind == ActionKindPostproc;
+    return [_rules filteredArrayUsingBlock:^BOOL(Rule *rule) {
+        return rule.type.kind == ActionKindPostproc;
     }];
 }
 
 + (NSSet *)keyPathsForValuesAffectingPostprocActions {
-    return [NSSet setWithObject:@"actions"];
+    return [NSSet setWithObject:@"rules"];
 }
 
 @end

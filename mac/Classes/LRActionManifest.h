@@ -7,7 +7,7 @@
 @class LRManifestLayer;
 
 
-// specific action types can derive from this, but in most cases
+// specific rule types can derive from this, but in most cases
 // the best choice is to just add all sorts of info here
 @interface LRActionManifest : LRManifestBasedObject
 
@@ -19,7 +19,7 @@
 @property(nonatomic, copy) NSString *name;
 
 @property(nonatomic, strong) NSArray *optionSpecs;
-- (NSArray *)createOptionsWithAction:(Rule *)action;
+- (NSArray *)createOptionsWithAction:(Rule *)rule;
 
 @property(nonatomic, copy) NSArray *errorSpecs;
 @property(nonatomic, copy) NSArray *warningSpecs;

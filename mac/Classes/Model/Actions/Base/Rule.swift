@@ -196,11 +196,11 @@ class Rule : NSObject {
 
     func createOptions() -> LROption[] {
         var options: LROption[] = []
-        options.append(LRVersionOption(manifest: ["id": "version", "label": "Version:"], action: self, errorSink: nil))
+        options.append(LRVersionOption(manifest: ["id": "version", "label": "Version:"], rule: self, errorSink: nil))
         if effectiveVersion {
             options.extend(effectiveVersion!.manifest.createOptionsWithAction(self) as LROption[])
         }
-        options.append(LRCustomArgumentsOption(manifest: ["id": "custom-args"], action: self, errorSink: nil))
+        options.append(LRCustomArgumentsOption(manifest: ["id": "custom-args"], rule: self, errorSink: nil))
         return options
     }
 

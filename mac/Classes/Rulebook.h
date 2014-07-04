@@ -7,7 +7,7 @@
 @class LRContextActionType;
 
 
-@interface ActionList : NSObject
+@interface Rulebook : NSObject
 
 @property(nonatomic, strong, readonly) NSArray *actionTypes;
 @property(nonatomic, strong, readonly) Project *project;
@@ -15,7 +15,7 @@
 
 @property(nonatomic, strong, readonly) NSArray *contextActionTypes;
 
-@property(nonatomic, strong, readonly) NSArray *actions;
+@property(nonatomic, strong, readonly) NSArray *rules;
 @property(nonatomic, strong, readonly) NSArray *compilerActions;
 @property(nonatomic, strong, readonly) NSArray *filterActions;
 @property(nonatomic, strong, readonly) NSArray *postprocActions;

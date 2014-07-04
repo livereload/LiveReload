@@ -15,7 +15,7 @@
 //}
 //
 //- (IBAction)sourceOptionSelected:(NSPopUpButton *)sender {
-//    CompileFileRule *xaction = (CompileFileRule *)self.action;
+//    CompileFileRule *xaction = (CompileFileRule *)self.rule;
 //    FilterOption *filterOption = sender.selectedItem.representedObject;
 //
 //    BOOL same = ([xaction.inputFilterOption.subfolder isEqualToString:xaction.outputFilterOption.subfolder]);
@@ -26,7 +26,7 @@
 //}
 //
 //- (IBAction)destinationOptionSelected:(NSPopUpButton *)sender {
-//    CompileFileRule *xaction = (CompileFileRule *)self.action;
+//    CompileFileRule *xaction = (CompileFileRule *)self.rule;
 //    FilterOption *filterOption = sender.selectedItem.representedObject;
 //    xaction.outputFilterOption = filterOption;
 //}

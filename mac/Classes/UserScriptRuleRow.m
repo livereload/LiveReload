@@ -1,10 +1,10 @@
 
-#import "RunScriptActionRow.h"
+#import "UserScriptRuleRow.h"
 #import "LiveReload-Swift-x.h"
 #import "ATMacViewCreation.h"
 #import "ATAutolayout.h"
 
-@implementation RunScriptActionRow
+@implementation UserScriptRuleRow
 
 - (void)loadContent {
     [super loadContent];
@@ -33,17 +33,17 @@
 - (void)updateContent {
     [super updateContent];
 
-    UserScriptRule *action = self.representedObject;
-    [self.checkbox setTitle:action.label];
+    UserScriptRule *rule = self.representedObject;
+    [self.checkbox setTitle:rule.label];
 }
 
 - (void)updateFilterOptions {
-    [self updateFilterOptionsPopUp:self.filterPopUp selectedOption:self.action.inputFilterOption];
+    [self updateFilterOptionsPopUp:self.filterPopUp selectedOption:self.rule.inputFilterOption];
 }
 
 - (IBAction)filterOptionSelected:(NSPopUpButton *)sender {
     FilterOption *filterOption = sender.selectedItem.representedObject;
-    self.action.inputFilterOption = filterOption;
+    self.rule.inputFilterOption = filterOption;
 }
 
 + (NSArray *)representedObjectKeyPathsToObserve {

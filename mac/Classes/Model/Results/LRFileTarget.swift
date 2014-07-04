@@ -5,21 +5,21 @@ import Foundation
 
     let sourceFile: LRProjectFile
 
-    init(action: Rule, sourceFile: LRProjectFile) {
+    init(rule: Rule, sourceFile: LRProjectFile) {
         self.sourceFile = sourceFile
-        super.init(action: action)
+        super.init(rule: rule)
     }
 
     override func invoke(#build: LRBuild, completionBlock: dispatch_block_t) {
         build.markAsConsumedByCompiler(sourceFile)
         if !sourceFile.exists {
-            action.handleDeletionOfFile(sourceFile)
+            rule.handleDeletionOfFile(sourceFile)
             completionBlock()
         } else {
             let result = newResult()
             result.defaultMessageFile = sourceFile
 
-            action.compileFile(sourceFile, result: result) {
+            rule.compileFile(sourceFile, result: result) {
                 if result.invocationError {
                     NSLog("Error compiling \(self.sourceFile.relativePath): \(result.invocationError.domain) - \(result.invocationError.code) - \(result.invocationError.localizedDescription)")
                 }

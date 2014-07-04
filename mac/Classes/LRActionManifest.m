@@ -33,7 +33,7 @@
     _optionSpecs = [self simpleArrayForKey:@"options" mappedUsingBlock:^id(NSDictionary *spec, LRManifestLayer *layer) {
         // TODO: add context to error messages
         //
-        return [LROption optionWithSpec:spec action:nil errorSink:[LRChildErrorSink childErrorSinkWithParentSink:layer context:[NSString stringWithFormat:@"action %@", _identifier] uncleSink:self]];
+        return [LROption optionWithSpec:spec rule:nil errorSink:[LRChildErrorSink childErrorSinkWithParentSink:layer context:[NSString stringWithFormat:@"rule %@", _identifier] uncleSink:self]];
     }];
 
     _commandLineSpec = [self simpleArrayForKey:@"cmdline" mappedUsingBlock:nil];
@@ -67,9 +67,9 @@
     return nil;
 }
 
-- (NSArray *)createOptionsWithAction:(Rule *)action {
+- (NSArray *)createOptionsWithAction:(Rule *)rule {
     return [_optionSpecs arrayByMappingElementsUsingBlock:^id(LROption *option) {
-        return [option copyWithAction:action];
+        return [option copyWithAction:rule];
     }];
 }
 
