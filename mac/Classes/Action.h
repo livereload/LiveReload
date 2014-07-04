@@ -24,7 +24,7 @@ NSString *LRStringFromActionKind(ActionKind kind);
 NSArray *LRValidActionKindStrings();
 
 
-@interface ActionType : LRManifestBasedObject
+@interface Action : LRManifestBasedObject
 
 - (instancetype)initWithManifest:(NSDictionary *)manifest plugin:(Plugin *)plugin;
 

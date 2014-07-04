@@ -3,10 +3,6 @@ import Foundation
 
 class FilterRule : ScriptInvocationRule {
 
-    override var label: String {
-        return type.name
-    }
-
     override var supportsFileTargets: Bool {
         return true
     }
@@ -14,7 +10,7 @@ class FilterRule : ScriptInvocationRule {
     override func loadFromMemento() {
         super.loadFromMemento()
 
-        let inputFilter = type.manifest["input"]! as String
+        let inputFilter = action.manifest["input"]! as String
         intrinsicInputPathSpec = ATPathSpec(string: inputFilter, syntaxOptions: ATPathSpecSyntaxOptions.FlavorExtended)
     }
 

@@ -84,7 +84,7 @@
 		4353413A19489EA8003E51EB /* Rulebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 43533FD819489EA7003E51EB /* Rulebook.m */; };
 		4353413B19489EA8003E51EB /* RulebookView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43533FDA19489EA7003E51EB /* RulebookView.m */; };
 		4353413C19489EA8003E51EB /* ActionsGroupHeaderRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 43533FDC19489EA7003E51EB /* ActionsGroupHeaderRow.m */; };
-		4353413D19489EA8003E51EB /* ActionType.m in Sources */ = {isa = PBXBuildFile; fileRef = 43533FDE19489EA7003E51EB /* ActionType.m */; };
+		4353413D19489EA8003E51EB /* Action.m in Sources */ = {isa = PBXBuildFile; fileRef = 43533FDE19489EA7003E51EB /* Action.m */; };
 		4353413E19489EA8003E51EB /* AddActionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 43533FE019489EA7003E51EB /* AddActionRow.m */; };
 		4353413F19489EA8003E51EB /* AddCompilationActionRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 43533FE219489EA7003E51EB /* AddCompilationActionRow.m */; };
 		4353414019489EA8003E51EB /* AddCustomRubySheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 43533FE419489EA7003E51EB /* AddCustomRubySheet.m */; };
@@ -137,7 +137,7 @@
 		4353417019489EA8003E51EB /* LRCheckboxOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353404219489EA7003E51EB /* LRCheckboxOption.m */; };
 		4353417119489EA8003E51EB /* LRChildErrorSink.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353404419489EA7003E51EB /* LRChildErrorSink.m */; };
 		4353417219489EA8003E51EB /* LRCommandLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353404619489EA7003E51EB /* LRCommandLine.m */; };
-		4353417319489EA8003E51EB /* LRContextActionType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353404819489EA7003E51EB /* LRContextActionType.m */; };
+		4353417319489EA8003E51EB /* LRContextAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353404819489EA7003E51EB /* LRContextAction.m */; };
 		4353417419489EA8003E51EB /* LRCustomArgumentsOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353404A19489EA7003E51EB /* LRCustomArgumentsOption.m */; };
 		4353417519489EA8003E51EB /* LRGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353404C19489EA7003E51EB /* LRGlobals.m */; };
 		4353417619489EA8003E51EB /* LRLegacyFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353404E19489EA7003E51EB /* LRLegacyFile.m */; };
@@ -499,8 +499,8 @@
 		43533FDA19489EA7003E51EB /* RulebookView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = RulebookView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		43533FDB19489EA7003E51EB /* ActionsGroupHeaderRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionsGroupHeaderRow.h; sourceTree = "<group>"; };
 		43533FDC19489EA7003E51EB /* ActionsGroupHeaderRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionsGroupHeaderRow.m; sourceTree = "<group>"; };
-		43533FDD19489EA7003E51EB /* ActionType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionType.h; sourceTree = "<group>"; };
-		43533FDE19489EA7003E51EB /* ActionType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionType.m; sourceTree = "<group>"; };
+		43533FDD19489EA7003E51EB /* Action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Action.h; sourceTree = "<group>"; };
+		43533FDE19489EA7003E51EB /* Action.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Action.m; sourceTree = "<group>"; };
 		43533FDF19489EA7003E51EB /* AddActionRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddActionRow.h; sourceTree = "<group>"; };
 		43533FE019489EA7003E51EB /* AddActionRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AddActionRow.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		43533FE119489EA7003E51EB /* AddCompilationActionRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCompilationActionRow.h; sourceTree = "<group>"; };
@@ -603,8 +603,8 @@
 		4353404419489EA7003E51EB /* LRChildErrorSink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRChildErrorSink.m; sourceTree = "<group>"; };
 		4353404519489EA7003E51EB /* LRCommandLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRCommandLine.h; sourceTree = "<group>"; };
 		4353404619489EA7003E51EB /* LRCommandLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRCommandLine.m; sourceTree = "<group>"; };
-		4353404719489EA7003E51EB /* LRContextActionType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRContextActionType.h; sourceTree = "<group>"; };
-		4353404819489EA7003E51EB /* LRContextActionType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRContextActionType.m; sourceTree = "<group>"; };
+		4353404719489EA7003E51EB /* LRContextAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRContextAction.h; sourceTree = "<group>"; };
+		4353404819489EA7003E51EB /* LRContextAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRContextAction.m; sourceTree = "<group>"; };
 		4353404919489EA7003E51EB /* LRCustomArgumentsOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRCustomArgumentsOption.h; sourceTree = "<group>"; };
 		4353404A19489EA7003E51EB /* LRCustomArgumentsOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRCustomArgumentsOption.m; sourceTree = "<group>"; };
 		4353404B19489EA7003E51EB /* LRGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRGlobals.h; sourceTree = "<group>"; };
@@ -1602,8 +1602,8 @@
 				43533FDA19489EA7003E51EB /* RulebookView.m */,
 				43533FDB19489EA7003E51EB /* ActionsGroupHeaderRow.h */,
 				43533FDC19489EA7003E51EB /* ActionsGroupHeaderRow.m */,
-				43533FDD19489EA7003E51EB /* ActionType.h */,
-				43533FDE19489EA7003E51EB /* ActionType.m */,
+				43533FDD19489EA7003E51EB /* Action.h */,
+				43533FDE19489EA7003E51EB /* Action.m */,
 				43533FDF19489EA7003E51EB /* AddActionRow.h */,
 				43533FE019489EA7003E51EB /* AddActionRow.m */,
 				43533FE119489EA7003E51EB /* AddCompilationActionRow.h */,
@@ -1707,8 +1707,8 @@
 				4353404419489EA7003E51EB /* LRChildErrorSink.m */,
 				4353404519489EA7003E51EB /* LRCommandLine.h */,
 				4353404619489EA7003E51EB /* LRCommandLine.m */,
-				4353404719489EA7003E51EB /* LRContextActionType.h */,
-				4353404819489EA7003E51EB /* LRContextActionType.m */,
+				4353404719489EA7003E51EB /* LRContextAction.h */,
+				4353404819489EA7003E51EB /* LRContextAction.m */,
 				4353404919489EA7003E51EB /* LRCustomArgumentsOption.h */,
 				4353404A19489EA7003E51EB /* LRCustomArgumentsOption.m */,
 				4353404B19489EA7003E51EB /* LRGlobals.h */,
@@ -2216,7 +2216,7 @@
 				43DFE4DE17CB613100DEF87B /* P2AsyncEnumeration.m in Sources */,
 				4396F1E017F8112F00AA8200 /* GlitterFeed.m in Sources */,
 				435341D719489EA8003E51EB /* RuntimeRepository.m in Sources */,
-				4353413D19489EA8003E51EB /* ActionType.m in Sources */,
+				4353413D19489EA8003E51EB /* Action.m in Sources */,
 				435341E319489EA8003E51EB /* SystemRubyInstance.m in Sources */,
 				43A7ABC81944580A00DE1028 /* Algorithms.swift in Sources */,
 				4353414E19489EA8003E51EB /* EditorManager.m in Sources */,
@@ -2252,7 +2252,7 @@
 				4303A54A15B513FD009D732A /* nodeapp.c in Sources */,
 				4303A54B15B513FD009D732A /* nodeapp_autorelease.c in Sources */,
 				4353417F19489EA8003E51EB /* LROutputMappingOption.m in Sources */,
-				4353417319489EA8003E51EB /* LRContextActionType.m in Sources */,
+				4353417319489EA8003E51EB /* LRContextAction.m in Sources */,
 				435341D419489EA8003E51EB /* RuntimeGlobals.m in Sources */,
 				4303A54D15B513FD009D732A /* nodeapp_paths_common.c in Sources */,
 				4303A54E15B513FD009D732A /* nodeapp_rpc_common.m in Sources */,

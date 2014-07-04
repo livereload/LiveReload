@@ -3,22 +3,22 @@ import Foundation
 
 class Rule : NSObject {
 
-    let contextActionType: LRContextActionType
+    let contextAction: LRContextAction
 
     var kind: ActionKind {
-        return contextActionType.actionType.kind
+        return contextAction.action.kind
     }
 
-    var type: ActionType {
-        return contextActionType.actionType
+    var action: Action {
+        return contextAction.action
     }
 
     var label: String {
-        return type.name
+        return action.name
     }
 
     var project: Project {
-        return contextActionType.project
+        return contextAction.project
     }
 
     var enabled: Bool = true {
@@ -46,9 +46,9 @@ class Rule : NSObject {
         }
     }
 
-    init(contextActionType: LRContextActionType, memento: NSDictionary?) {
-        self.contextActionType = contextActionType
-        self.primaryVersionSpec = LRVersionSpec.stableVersionSpecMatchingAnyVersionInVersionSpace(contextActionType.actionType.primaryVersionSpace)
+    init(contextAction: LRContextAction, memento: NSDictionary?) {
+        self.contextAction = contextAction
+        self.primaryVersionSpec = LRVersionSpec.stableVersionSpecMatchingAnyVersionInVersionSpace(contextAction.action.primaryVersionSpace)
         super.init()
         self.memento = memento ? swiftify(dictionary: memento!) : [:]
 
@@ -81,9 +81,9 @@ class Rule : NSObject {
         enabled = boolValue(memento["enabled"], defaultValue: true)
         inputFilterOption = FilterOption(memento: NVCast(memento["filter"], "subdir:."))
         if let ver = stringValue(memento["version"]) {
-            primaryVersionSpec = LRVersionSpec(string: ver, inVersionSpace:type.primaryVersionSpace)
+            primaryVersionSpec = LRVersionSpec(string: ver, inVersionSpace: action.primaryVersionSpace)
         } else {
-            primaryVersionSpec = LRVersionSpec.stableVersionSpecMatchingAnyVersionInVersionSpace(type.primaryVersionSpace)
+            primaryVersionSpec = LRVersionSpec.stableVersionSpecMatchingAnyVersionInVersionSpace(action.primaryVersionSpace)
         }
         if let opt = memento["options"].omap({ $0 as? NSDictionary }) {
             swiftify(dictionary: opt, into: &_options)
@@ -91,7 +91,7 @@ class Rule : NSObject {
     }
 
     func updateMemento() {
-        memento["action"] = type.identifier
+        memento["action"] = action.identifier
         memento["enabled"] = enabled
         memento["filter"] = inputFilterOption.memento
         memento["version"] = primaryVersionSpec.stringValue
@@ -219,7 +219,7 @@ class Rule : NSObject {
     var effectiveVersion: LRActionVersion?
 
     func _computeEffectiveVersion() -> LRActionVersion? {
-        return findIf(reverse(contextActionType.versions as LRActionVersion[])) { self.primaryVersionSpec.matchesVersion($0.primaryVersion, withTag: LRVersionTag.Unknown) }
+        return findIf(reverse(contextAction.versions as LRActionVersion[])) { self.primaryVersionSpec.matchesVersion($0.primaryVersion, withTag: LRVersionTag.Unknown) }
     }
 
     var _c_updateEffectiveVersion = Coalescence(delayMs: 0)
@@ -233,12 +233,12 @@ class Rule : NSObject {
     func _initEffectiveVersion() {
         _c_updateEffectiveVersion.monitorBlock = weakify(self) { (me, active) in me.project.setAnalysisInProgress(active, forTask: me) }
 
-        observeNotification(LRContextActionTypeDidChangeVersionsNotification, selector: "_updateEffectiveVersion")
+        observeNotification(LRContextActionDidChangeVersionsNotification, selector: "_updateEffectiveVersion")
         _updateEffectiveVersion()
     }
 
     var missingEffectiveVersionError: NSError {
-        var available = join(", ", contextActionType.versions.map { $0.primaryVersion.description })
+        var available = join(", ", contextAction.versions.map { $0.primaryVersion.description })
         return NSError(LRErrorDomain, LRErrorNoMatchingVersion, "No available version matched for version spec \(primaryVersionSpec), available versions: \(available)")
     }
 
@@ -262,7 +262,7 @@ class Rule : NSObject {
         if let eff = effectiveVersion {
             let manifest = eff.manifest
             step.commandLine = manifest.commandLineSpec
-            step.addValue(type.plugin.path as String, forSubstitutionKey: "plugin")
+            step.addValue(action.plugin.path as String, forSubstitutionKey: "plugin")
 
             for package in eff.packageSet.packages as LRPackage[] {
                 step.addValue(package.sourceFolderURL.path as String, forSubstitutionKey: package.identifier)

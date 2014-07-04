@@ -1,5 +1,5 @@
 
-#import "ActionType.h"
+#import "Action.h"
 #import "LiveReload-Swift-x.h"
 #import "Errors.h"
 #import "Plugin.h"
@@ -56,7 +56,7 @@ NSArray *LRValidActionKindStrings() {
 }
 
 
-@implementation ActionType {
+@implementation Action {
     NSMutableArray *_errors;
     NSArray *_packageConfigurations;
     NSString *_fakeChangeExtension;

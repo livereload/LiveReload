@@ -97,8 +97,8 @@ class LRBuild : NSObject {
 
             let fullPath = file.absolutePath as String
 
-            let actionTypes = project.compilerActionTypesForFile(file) as ActionType[]
-            if let fakeDestinationName = actionTypes.findMapIf({ $0.fakeChangeDestinationNameForSourceFile(file) }) {
+            let actions = project.compilerActionsForFile(file) as Action[]
+            if let fakeDestinationName = actions.findMapIf({ $0.fakeChangeDestinationNameForSourceFile(file) }) {
                 let fakePath = fullPath.stringByDeletingLastPathComponent.stringByAppendingPathComponent(fakeDestinationName)
                 addReloadRequest(["path": fakePath, "originalPath": fullPath, "localPath": NSNull()])
             } else {

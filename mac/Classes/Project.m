@@ -125,7 +125,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
     NSMutableDictionary     *_filesByPath;
 
-    NSArray                 *_availableActionTypes;
+    NSArray                 *_availableActions;
 }
 
 @synthesize path=_path;
@@ -162,10 +162,10 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
         _resolutionContext = [[LRPackageResolutionContext alloc] init];
 
-        _availableActionTypes = [PluginManager sharedPluginManager].actionTypes;
-        _rulebook = [[Rulebook alloc] initWithActionTypes:_availableActionTypes project:self];
+        _availableActions = [PluginManager sharedPluginManager].actions;
+        _rulebook = [[Rulebook alloc] initWithActions:_availableActions project:self];
         [_rulebook setMemento:memento];
-        [self updateDataBasedOnAvailableActionTypes];
+        [self updateDataBasedOnAvailableActions];
 
         _lastSelectedPane = [[memento objectForKey:@"last_pane"] copy];
 
@@ -1025,7 +1025,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
 #pragma mark - Actions
 
-- (void)updateDataBasedOnAvailableActionTypes {
+- (void)updateDataBasedOnAvailableActions {
     // nothing to do at the moment
 }
 
@@ -1033,9 +1033,9 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     // TODO derive all sorts of data from the current rule configuration
 }
 
-- (NSArray *)compilerActionTypesForFile:(LRProjectFile *)file {
-    return [_availableActionTypes filteredArrayUsingBlock:^BOOL(ActionType *actionType) {
-        return (actionType.kind == ActionKindCompiler) && ([actionType.combinedIntrinsicInputPathSpec matchesPath:file.relativePath type:ATPathSpecEntryTypeFile]);
+- (NSArray *)compilerActionsForFile:(LRProjectFile *)file {
+    return [_availableActions filteredArrayUsingBlock:^BOOL(Action *action) {
+        return (action.kind == ActionKindCompiler) && ([action.combinedIntrinsicInputPathSpec matchesPath:file.relativePath type:ATPathSpecEntryTypeFile]);
     }];
 }
 

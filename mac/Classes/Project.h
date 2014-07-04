@@ -120,6 +120,6 @@ enum {
 
 @property(nonatomic, readonly) LRBuild *lastFinishedBuild;
 
-- (NSArray *)compilerActionTypesForFile:(LRProjectFile *)file;
+- (NSArray *)compilerActionsForFile:(LRProjectFile *)file;
 
 @end

@@ -1,31 +1,31 @@
 
 #import "Rulebook.h"
 #import "LiveReload-Swift-x.h"
-#import "ActionType.h"
-#import "LRContextActionType.h"
+#import "Action.h"
+#import "LRContextAction.h"
 #import "Project.h"
 
 #import "ATFunctionalStyle.h"
 
 
 @implementation Rulebook {
-    NSDictionary *_actionTypesByIdentifier;
-    NSDictionary *_contextActionTypesByIdentifier;
+    NSDictionary *_actionsByIdentifier;
+    NSDictionary *_contextActionsByIdentifier;
     NSMutableArray *_rules;
 }
 
-- (id)initWithActionTypes:(NSArray *)actionTypes project:(Project *)project {
+- (id)initWithActions:(NSArray *)actions project:(Project *)project {
     self = [super init];
     if (self) {
-        _actionTypes = [actionTypes copy];
-        _actionTypesByIdentifier = [_actionTypes dictionaryWithElementsGroupedByKeyPath:@"identifier"];
+        _actions = [actions copy];
+        _actionsByIdentifier = [_actions dictionaryWithElementsGroupedByKeyPath:@"identifier"];
 
         _project = project;
 
-        _contextActionTypes = [actionTypes arrayByMappingElementsUsingBlock:^id(ActionType *type) {
-            return [[LRContextActionType alloc] initWithActionType:type project:_project resolutionContext:self.resolutionContext];
+        _contextActions = [actions arrayByMappingElementsUsingBlock:^id(Action *type) {
+            return [[LRContextAction alloc] initWithAction:type project:_project resolutionContext:self.resolutionContext];
         }];
-        _contextActionTypesByIdentifier = [_contextActionTypes dictionaryWithElementsGroupedByKeyPath:@"actionType.identifier"];
+        _contextActionsByIdentifier = [_contextActions dictionaryWithElementsGroupedByKeyPath:@"action.identifier"];
 
         _rules = [NSMutableArray new];
     }
@@ -70,7 +70,7 @@
     if (!typeIdentifier)
         return nil;
 
-    LRContextActionType *type = _contextActionTypesByIdentifier[typeIdentifier];
+    LRContextAction *type = _contextActionsByIdentifier[typeIdentifier];
     if (!type)
         return nil;
 
@@ -109,7 +109,7 @@
 
 - (NSArray *)compilationRules {
     return [_rules filteredArrayUsingBlock:^BOOL(Rule *rule) {
-        return rule.type.kind == ActionKindCompiler;
+        return rule.kind == ActionKindCompiler;
     }];
 }
 
@@ -119,7 +119,7 @@
 
 - (NSArray *)filterRules {
     return [_rules filteredArrayUsingBlock:^BOOL(Rule *rule) {
-        return rule.type.kind == ActionKindFilter;
+        return rule.kind == ActionKindFilter;
     }];
 }
 
@@ -129,7 +129,7 @@
 
 - (NSArray *)postprocRules {
     return [_rules filteredArrayUsingBlock:^BOOL(Rule *rule) {
-        return rule.type.kind == ActionKindPostproc;
+        return rule.kind == ActionKindPostproc;
     }];
 }
 

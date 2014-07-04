@@ -3,19 +3,19 @@
 
 
 @class Rule;
-@class ActionType;
+@class Action;
 @class LRPackageResolutionContext;
 @class Project;
 
 
-extern NSString *const LRContextActionTypeDidChangeVersionsNotification;
+extern NSString *const LRContextActionDidChangeVersionsNotification;
 
 
-@interface LRContextActionType : NSObject
+@interface LRContextAction : NSObject
 
-- (id)initWithActionType:(ActionType *)actionType project:(Project *)project resolutionContext:(LRPackageResolutionContext *)resolutionContext;
+- (id)initWithAction:(Action *)action project:(Project *)project resolutionContext:(LRPackageResolutionContext *)resolutionContext;
 
-@property(nonatomic, readonly) ActionType *actionType;
+@property(nonatomic, readonly) Action *action;
 @property(nonatomic, readonly) Project *project;
 @property(nonatomic, readonly) LRPackageResolutionContext *resolutionContext;
 

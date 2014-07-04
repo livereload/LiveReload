@@ -17,10 +17,10 @@
 #import "Compiler.h"
 
 #import "ActionGlobals.h"
-#import "ActionType.h"
+#import "Action.h"
 #import "LRActionVersion.h"
 #import "LRActionManifest.h"
-#import "LRContextActionType.h"
+#import "LRContextAction.h"
 #import "../ATPathSpec/ATPathSpec/ATPathSpec.h"
 #import "FilterOption.h"
 

@@ -3,7 +3,7 @@
 #import "LRVersionSpec.h"
 #import "LROptionsView.h"
 #import "LiveReload-Swift-x.h"
-#import "LRContextActionType.h"
+#import "LRContextAction.h"
 #import "LRActionVersion.h"
 #import "LRVersion.h"
 
@@ -31,7 +31,7 @@
     if (!self.label.length)
         [self addErrorMessage:@"Missing label"];
 
-    [self observeNotification:LRContextActionTypeDidChangeVersionsNotification withSelector:@selector(_updateVersionSpecs)];
+    [self observeNotification:LRContextActionDidChangeVersionsNotification withSelector:@selector(_updateVersionSpecs)];
     [self observeProperty:@"rule.effectiveVersion" withSelector:@selector(_updateEffectiveVersion)];
 }
 
@@ -116,7 +116,7 @@
 }
 
 - (void)_updateVersionSpecs {
-    _items = self.rule.contextActionType.versionSpecs;
+    _items = self.rule.contextAction.versionSpecs;
 
     NSMenuItem *(^createItem)(LRVersionSpec *spec, NSInteger index) = ^NSMenuItem *(LRVersionSpec *spec, NSInteger index) {
         NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:spec.title action:NULL keyEquivalent:@""];

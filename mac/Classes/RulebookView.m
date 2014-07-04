@@ -91,7 +91,7 @@ static void *RulebookView_Action_Context = "RulebookView_Action_Context";
 
 - (void)updateCompilerRows {
     [self updateRowsOfClass:[BaseRuleRow class] betweenRow:_compilersHeaderRow andRow:_compilersAddRow newRepresentedObjects:self.rulebook.compilationRules create:^ATStackViewRow *(Rule *rule) {
-        Class rowClass = rule.type.rowClass;
+        Class rowClass = rule.action.rowClass;
         if (rowClass) {
             return [rowClass rowWithRepresentedObject:rule metrics:_metrics userInfo:@{@"project": self.project} delegate:self];
         } else {
@@ -102,7 +102,7 @@ static void *RulebookView_Action_Context = "RulebookView_Action_Context";
 
 - (void)updateFilterRows {
     [self updateRowsOfClass:[BaseRuleRow class] betweenRow:_filtersHeaderRow andRow:_filtersAddRow newRepresentedObjects:self.rulebook.filterRules create:^ATStackViewRow *(Rule *rule) {
-        Class rowClass = rule.type.rowClass;
+        Class rowClass = rule.action.rowClass;
         if (rowClass) {
             return [rowClass rowWithRepresentedObject:rule metrics:_metrics userInfo:@{@"project": self.project} delegate:self];
         } else {
@@ -113,7 +113,7 @@ static void *RulebookView_Action_Context = "RulebookView_Action_Context";
 
 - (void)updateActionRows {
     [self updateRowsOfClass:[BaseRuleRow class] betweenRow:_actionsHeaderRow andRow:_actionsAddRow newRepresentedObjects:self.rulebook.postprocRules create:^ATStackViewRow *(Rule *rule) {
-        Class rowClass = rule.type.rowClass;
+        Class rowClass = rule.action.rowClass;
         if (rowClass) {
             return [rowClass rowWithRepresentedObject:rule metrics:_metrics userInfo:@{@"project": self.project} delegate:self];
         } else {

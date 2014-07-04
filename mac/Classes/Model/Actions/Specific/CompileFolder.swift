@@ -3,10 +3,6 @@ import Foundation
 
 @objc class CompileFolderRule : ScriptInvocationRule {
 
-    override var label : String {
-        return type.name
-    }
-
     override func invokeWithModifiedFiles(files: LRProjectFile[], result: LROperationResult, completionHandler: dispatch_block_t) {
         if !effectiveVersion {
             result.completedWithInvocationError(missingEffectiveVersionError)
