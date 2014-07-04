@@ -15,7 +15,7 @@
 }
 
 - (void)invokeWithModifiedFiles:(NSArray *)files result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
-    [self.script invokeForProjectAtPath:project.rootURL.path withModifiedFiles:[NSSet setWithArray:[files valueForKeyPath:@"relativePath"]] result:result completionHandler:completionHandler];
+    [self.script invokeForProjectAtPath:self.project.rootURL.path withModifiedFiles:[NSSet setWithArray:[files valueForKeyPath:@"relativePath"]] result:result completionHandler:completionHandler];
 }
 
 - (UserScript *)script {

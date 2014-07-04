@@ -30,7 +30,7 @@
         NSError *error;
         _info = [NSDictionary LR_dictionaryWithContentsOfJSONFileURL:plist error:&error];
         if (!_info) {
-            NSLog(@"Invalid plugin manifest %@: %@", plist.path, error.localizedDescription);
+            [self addErrorMessage:[NSString stringWithFormat:@"Invalid plugin manifest: %@", error.localizedDescription]];
             _info = [[NSDictionary alloc] init];
         }
 
