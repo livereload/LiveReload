@@ -67,7 +67,7 @@
     return nil;
 }
 
-- (NSArray *)createOptionsWithAction:(Action *)action {
+- (NSArray *)createOptionsWithAction:(Rule *)action {
     return [_optionSpecs arrayByMappingElementsUsingBlock:^id(LROption *option) {
         return [option copyWithAction:action];
     }];

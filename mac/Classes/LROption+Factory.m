@@ -21,7 +21,7 @@
     return result;
 }
 
-+ (LROption *)optionWithSpec:(NSDictionary *)spec action:(Action *)action errorSink:(id<LRManifestErrorSink>)errorSink {
++ (LROption *)optionWithSpec:(NSDictionary *)spec action:(Rule *)action errorSink:(id<LRManifestErrorSink>)errorSink {
     NSString *typeName = spec[@"type"];
     if (!typeName.length)
         return nil;

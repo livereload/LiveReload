@@ -4,7 +4,7 @@ import Foundation
 class LRBuild : NSObject {
 
     let project: Project
-    let actions: Action[]
+    let actions: Rule[]
 
     var messages: LRMessage[] = []
 
@@ -33,7 +33,7 @@ class LRBuild : NSObject {
     var firstFailure: LROperationResult? { return _firstFailure }
     var _firstFailure: LROperationResult?
 
-    init(project: Project, actions: Action[]) {
+    init(project: Project, actions: Rule[]) {
         self.project = project
         self.actions = actions
     }

@@ -1,7 +1,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class Action;
+@class Rule;
 @class Project;
 @class LRPackageResolutionContext;
 @class LRContextActionType;
@@ -24,7 +24,7 @@
 
 - (id)initWithActionTypes:(NSArray *)actionTypes project:(Project *)project;
 
-- (void)insertObject:(Action *)object inActionsAtIndex:(NSUInteger)index;
+- (void)insertObject:(Rule *)object inActionsAtIndex:(NSUInteger)index;
 - (void)removeObjectFromActionsAtIndex:(NSUInteger)index;
 - (BOOL)canRemoveObjectFromActionsAtIndex:(NSUInteger)index;
 

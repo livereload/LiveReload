@@ -114,7 +114,7 @@ NSString *const LRContextActionTypeDidChangeVersionsNotification = @"LRContextAc
     return [[LRActionManifest alloc] initWithLayers:layers];
 }
 
-- (Action *)newInstanceWithMemento:(NSDictionary *)memento {
+- (Rule *)newInstanceWithMemento:(NSDictionary *)memento {
     return [[_actionType.actionClass alloc] initWithContextActionType:self memento:memento];
 }
 

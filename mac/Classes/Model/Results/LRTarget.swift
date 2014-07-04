@@ -3,13 +3,13 @@ import Foundation
 
 @objc class LRTarget : NSObject {
 
-    let action : Action
+    let action : Rule
 
     var project : Project {
         return action.project
     }
 
-    init(action: Action) {
+    init(action: Rule) {
         self.action = action
     }
 

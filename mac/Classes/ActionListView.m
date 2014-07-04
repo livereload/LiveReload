@@ -90,7 +90,7 @@ static void *ActionListView_Action_Context = "ActionListView_Action_Context";
 }
 
 - (void)updateCompilerRows {
-    [self updateRowsOfClass:[BaseActionRow class] betweenRow:_compilersHeaderRow andRow:_compilersAddRow newRepresentedObjects:self.actionList.compilerActions create:^ATStackViewRow *(Action *action) {
+    [self updateRowsOfClass:[BaseActionRow class] betweenRow:_compilersHeaderRow andRow:_compilersAddRow newRepresentedObjects:self.actionList.compilerActions create:^ATStackViewRow *(Rule *action) {
         Class rowClass = action.type.rowClass;
         if (rowClass) {
             return [rowClass rowWithRepresentedObject:action metrics:_metrics userInfo:@{@"project": self.project} delegate:self];
@@ -101,7 +101,7 @@ static void *ActionListView_Action_Context = "ActionListView_Action_Context";
 }
 
 - (void)updateFilterRows {
-    [self updateRowsOfClass:[BaseActionRow class] betweenRow:_filtersHeaderRow andRow:_filtersAddRow newRepresentedObjects:self.actionList.filterActions create:^ATStackViewRow *(Action *action) {
+    [self updateRowsOfClass:[BaseActionRow class] betweenRow:_filtersHeaderRow andRow:_filtersAddRow newRepresentedObjects:self.actionList.filterActions create:^ATStackViewRow *(Rule *action) {
         Class rowClass = action.type.rowClass;
         if (rowClass) {
             return [rowClass rowWithRepresentedObject:action metrics:_metrics userInfo:@{@"project": self.project} delegate:self];
@@ -112,7 +112,7 @@ static void *ActionListView_Action_Context = "ActionListView_Action_Context";
 }
 
 - (void)updateActionRows {
-    [self updateRowsOfClass:[BaseActionRow class] betweenRow:_actionsHeaderRow andRow:_actionsAddRow newRepresentedObjects:self.actionList.postprocActions create:^ATStackViewRow *(Action *action) {
+    [self updateRowsOfClass:[BaseActionRow class] betweenRow:_actionsHeaderRow andRow:_actionsAddRow newRepresentedObjects:self.actionList.postprocActions create:^ATStackViewRow *(Rule *action) {
         Class rowClass = action.type.rowClass;
         if (rowClass) {
             return [rowClass rowWithRepresentedObject:action metrics:_metrics userInfo:@{@"project": self.project} delegate:self];
@@ -125,7 +125,7 @@ static void *ActionListView_Action_Context = "ActionListView_Action_Context";
 - (void)loadRows {
 #if 0
     [self addItem:[[CompilersCategoryRow alloc] initWithTitle:@"Compilers:"]];
-    for (Action *action in self.actionList.actions) {
+    for (Rule *action in self.actionList.actions) {
         [self addItem:[self actionRowViewForAction:action]];
     }
     [self addItem:[self addButtonRowWithPrompt:@"Add compiler" choices:@[@"SASS", @"Compass", @"LESS"]]];

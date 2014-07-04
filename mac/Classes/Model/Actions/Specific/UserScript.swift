@@ -2,7 +2,7 @@
 import Foundation
 
 @objc(UserScriptAction)
-class UserScriptAction : Action {
+class UserScriptRule : Rule {
 
     var scriptName: String?
 

@@ -4,7 +4,7 @@
 
 
 @class Plugin;
-@class Action;
+@class Rule;
 @class LRActionVersion;
 @class LRVersionSpace;
 @class ATPathSpec;

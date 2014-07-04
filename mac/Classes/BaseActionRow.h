@@ -16,7 +16,7 @@
 
 @property (nonatomic, strong, readonly) OptionsRow *optionsRow;
 
-@property (nonatomic, strong, readonly) Action *action;
+@property (nonatomic, strong, readonly) Rule *action;
 @property (nonatomic, strong) Project *project;
 
 - (void)loadOptionsIntoView:(LROptionsView *)container;  // override point

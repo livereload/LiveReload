@@ -1,8 +1,7 @@
 
 import Foundation
 
-@objc(FilterAction)
-class FilterAction : ScriptInvocationAction {
+class FilterRule : ScriptInvocationRule {
 
     override var label: String {
         return type.name

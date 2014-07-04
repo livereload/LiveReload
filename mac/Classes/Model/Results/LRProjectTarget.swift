@@ -5,7 +5,7 @@ import Foundation
 
     let modifiedFiles: LRProjectFile[]
 
-    init(action: Action, modifiedFiles: LRProjectFile[]) {
+    init(action: Rule, modifiedFiles: LRProjectFile[]) {
         self.modifiedFiles = modifiedFiles
         super.init(action: action)
     }

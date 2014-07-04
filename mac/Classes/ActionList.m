@@ -34,7 +34,7 @@
 
 - (NSDictionary *)memento {
     NSMutableArray *actionMementos = [NSMutableArray new];
-    for (Action *action in _actions) {
+    for (Rule *action in _actions) {
         if (!action.nonEmpty)
             continue;
         
@@ -53,7 +53,7 @@
 
     NSArray *actionMementos = memento[@"actions"] ?: @[];
     for (NSDictionary *actionMemento in actionMementos) {
-        Action *action = [self actionWithMemento:actionMemento];
+        Rule *action = [self actionWithMemento:actionMemento];
         if (action)
             [_actions addObject:action];
     }
@@ -65,7 +65,7 @@
     return _project.resolutionContext;
 }
 
-- (Action *)actionWithMemento:(NSDictionary *)actionMemento {
+- (Rule *)actionWithMemento:(NSDictionary *)actionMemento {
     NSString *typeIdentifier = actionMemento[@"action"];
     if (!typeIdentifier)
         return nil;
@@ -77,7 +77,7 @@
     return [type newInstanceWithMemento:actionMemento];
 }
 
-- (void)insertObject:(Action *)object inActionsAtIndex:(NSUInteger)index {
+- (void)insertObject:(Rule *)object inActionsAtIndex:(NSUInteger)index {
     [_actions insertObject:object atIndex:index];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
 }
@@ -92,13 +92,13 @@
 }
 
 - (void)addActionWithPrototype:(NSDictionary *)prototype {
-    Action *action = [self actionWithMemento:prototype];
+    Rule *action = [self actionWithMemento:prototype];
     NSAssert(action != nil, @"Invalid action prototype: %@", prototype);
     [self insertObject:action inActionsAtIndex:_actions.count];
 }
 
 - (NSArray *)activeActions {
-    return [_actions filteredArrayUsingBlock:^BOOL(Action *action) {
+    return [_actions filteredArrayUsingBlock:^BOOL(Rule *action) {
         return action.nonEmpty && action.enabled;
     }];
 }
@@ -108,13 +108,13 @@
 }
 
 - (NSArray *)compilerActions {
-    return [_actions filteredArrayUsingBlock:^BOOL(Action *action) {
+    return [_actions filteredArrayUsingBlock:^BOOL(Rule *action) {
         return action.type.kind == ActionKindCompiler;
     }];
 }
 
 - (NSArray *)filterActions {
-    return [_actions filteredArrayUsingBlock:^BOOL(Action *action) {
+    return [_actions filteredArrayUsingBlock:^BOOL(Rule *action) {
         return action.type.kind == ActionKindFilter;
     }];
 }
@@ -124,7 +124,7 @@
 }
 
 - (NSArray *)postprocActions {
-    return [_actions filteredArrayUsingBlock:^BOOL(Action *action) {
+    return [_actions filteredArrayUsingBlock:^BOOL(Rule *action) {
         return action.type.kind == ActionKindPostproc;
     }];
 }

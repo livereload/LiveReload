@@ -92,7 +92,7 @@ static void *BaseActionRow_Project_FilterOptions_Context = "BaseActionRow_Projec
     }
 }
 
-- (Action *)action {
+- (Rule *)action {
     return self.representedObject;
 }
 

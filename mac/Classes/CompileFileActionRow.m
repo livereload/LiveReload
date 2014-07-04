@@ -34,13 +34,13 @@
 }
 
 - (void)updateFilterOptions {
-    CompileFileAction *xaction = (CompileFileAction *)self.action;
+    CompileFileRule *xaction = (CompileFileRule *)self.action;
     [self updateFilterOptionsPopUp:self.sourcePopUp selectedOption:self.action.inputFilterOption];
     [self updateFilterOptionsPopUp:self.destinationPopUp selectedOption:xaction.outputFilterOption];
 }
 
 - (IBAction)sourceOptionSelected:(NSPopUpButton *)sender {
-    CompileFileAction *xaction = (CompileFileAction *)self.action;
+    CompileFileRule *xaction = (CompileFileRule *)self.action;
     FilterOption *filterOption = sender.selectedItem.representedObject;
 
     BOOL same = ([xaction.inputFilterOption.subfolder isEqualToString:xaction.outputFilterOption.subfolder]);
@@ -51,7 +51,7 @@
 }
 
 - (IBAction)destinationOptionSelected:(NSPopUpButton *)sender {
-    CompileFileAction *xaction = (CompileFileAction *)self.action;
+    CompileFileRule *xaction = (CompileFileRule *)self.action;
     FilterOption *filterOption = sender.selectedItem.representedObject;
     xaction.outputFilterOption = filterOption;
 }

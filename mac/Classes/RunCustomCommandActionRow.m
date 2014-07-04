@@ -48,7 +48,7 @@
 - (void)updateContent {
     [super updateContent];
 
-    CustomCommandAction *action = self.representedObject;
+    CustomCommandRule *action = self.representedObject;
     [self.checkbox setTitle:action.label];
 }
 

@@ -33,7 +33,7 @@
 - (void)updateContent {
     [super updateContent];
 
-    UserScriptAction *action = self.representedObject;
+    UserScriptRule *action = self.representedObject;
     [self.checkbox setTitle:action.label];
 }
 

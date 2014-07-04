@@ -2,7 +2,7 @@
 #import <Foundation/Foundation.h>
 
 
-@class Action;
+@class Rule;
 @class ActionType;
 @class LRPackageResolutionContext;
 @class Project;
@@ -22,6 +22,6 @@ extern NSString *const LRContextActionTypeDidChangeVersionsNotification;
 @property(nonatomic, readonly, copy) NSArray *versions;
 @property(nonatomic, readonly, copy) NSArray *versionSpecs;
 
-- (Action *)newInstanceWithMemento:(NSDictionary *)memento;
+- (Rule *)newInstanceWithMemento:(NSDictionary *)memento;
 
 @end

@@ -1,7 +1,7 @@
 
 import Foundation
 
-@objc class CompileFolderAction : ScriptInvocationAction {
+@objc class CompileFolderRule : ScriptInvocationRule {
 
     override var label : String {
         return type.name

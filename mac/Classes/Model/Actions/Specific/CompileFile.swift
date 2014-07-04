@@ -1,7 +1,7 @@
 
 import Foundation
 
-@objc class CompileFileAction : ScriptInvocationAction {
+@objc class CompileFileRule : ScriptInvocationRule {
 
     var compilerName : String?
 

@@ -1,8 +1,7 @@
 
 import Foundation
 
-@objc(RunTestsAction)
-class RunTestsAction : Action {
+class RunTestsRule : Rule {
 
     override var label: String {
         return type.name

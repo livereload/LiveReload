@@ -2,7 +2,7 @@
 import Foundation
 
 @objc(CustomCommandAction)
-class CustomCommandAction : Action {
+class CustomCommandRule : Rule {
 
     var command: String? {
         didSet {

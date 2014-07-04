@@ -5,7 +5,7 @@ import Foundation
 
     let sourceFile: LRProjectFile
 
-    init(action: Action, sourceFile: LRProjectFile) {
+    init(action: Rule, sourceFile: LRProjectFile) {
         self.sourceFile = sourceFile
         super.init(action: action)
     }

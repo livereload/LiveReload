@@ -3,7 +3,7 @@
 #import "LRManifestBasedObject.h"
 
 
-@class Action;
+@class Rule;
 @class LRManifestLayer;
 
 
@@ -19,7 +19,7 @@
 @property(nonatomic, copy) NSString *name;
 
 @property(nonatomic, strong) NSArray *optionSpecs;
-- (NSArray *)createOptionsWithAction:(Action *)action;
+- (NSArray *)createOptionsWithAction:(Rule *)action;
 
 @property(nonatomic, copy) NSArray *errorSpecs;
 @property(nonatomic, copy) NSArray *warningSpecs;

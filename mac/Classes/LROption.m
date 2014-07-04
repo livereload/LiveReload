@@ -6,7 +6,7 @@
 
 @implementation LROption
 
-- (id)initWithManifest:(NSDictionary *)manifest action:(Action *)action errorSink:(id<LRManifestErrorSink>)errorSink {
+- (id)initWithManifest:(NSDictionary *)manifest action:(Rule *)action errorSink:(id<LRManifestErrorSink>)errorSink {
     self = [super initWithManifest:manifest errorSink:errorSink];
     if (self) {
         _action = action;
@@ -15,7 +15,7 @@
     return self;
 }
 
-- (id)copyWithAction:(Action *)action {
+- (id)copyWithAction:(Rule *)action {
     return [[self.class alloc] initWithManifest:self.manifest action:action errorSink:self.errorSink];
 }
 

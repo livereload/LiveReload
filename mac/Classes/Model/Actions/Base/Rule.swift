@@ -1,7 +1,7 @@
 
 import Foundation
 
-class Action : NSObject {
+class Rule : NSObject {
 
     let contextActionType: LRContextActionType
 

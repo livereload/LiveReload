@@ -187,14 +187,14 @@
 		435341A319489EA8003E51EB /* MASPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 435340AB19489EA7003E51EB /* MASPreferencesWindowController.m */; };
 		435341A419489EA8003E51EB /* MASReceipt.m in Sources */ = {isa = PBXBuildFile; fileRef = 435340AD19489EA7003E51EB /* MASReceipt.m */; };
 		435341A519489EA8003E51EB /* MissingRuntimeInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 435340AF19489EA7003E51EB /* MissingRuntimeInstance.m */; };
-		435341A619489EA8003E51EB /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435340B319489EA7003E51EB /* Action.swift */; };
-		435341A719489EA8003E51EB /* CompileFileAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435340B519489EA7003E51EB /* CompileFileAction.swift */; };
-		435341A819489EA8003E51EB /* CompileFolderAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435340B619489EA7003E51EB /* CompileFolderAction.swift */; };
-		435341A919489EA8003E51EB /* CustomCommandAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435340B719489EA7003E51EB /* CustomCommandAction.swift */; };
-		435341AA19489EA8003E51EB /* FilterAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435340B819489EA7003E51EB /* FilterAction.swift */; };
-		435341AB19489EA8003E51EB /* RunTestsAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435340B919489EA7003E51EB /* RunTestsAction.swift */; };
-		435341AC19489EA8003E51EB /* UserScriptAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435340BA19489EA7003E51EB /* UserScriptAction.swift */; };
-		435341AD19489EA8003E51EB /* ScriptInvocationAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435340BC19489EA7003E51EB /* ScriptInvocationAction.swift */; };
+		435341A619489EA8003E51EB /* Rule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435340B319489EA7003E51EB /* Rule.swift */; };
+		435341A719489EA8003E51EB /* CompileFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435340B519489EA7003E51EB /* CompileFile.swift */; };
+		435341A819489EA8003E51EB /* CompileFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435340B619489EA7003E51EB /* CompileFolder.swift */; };
+		435341A919489EA8003E51EB /* CustomCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435340B719489EA7003E51EB /* CustomCommand.swift */; };
+		435341AA19489EA8003E51EB /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435340B819489EA7003E51EB /* Filter.swift */; };
+		435341AB19489EA8003E51EB /* RunTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435340B919489EA7003E51EB /* RunTests.swift */; };
+		435341AC19489EA8003E51EB /* UserScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435340BA19489EA7003E51EB /* UserScript.swift */; };
+		435341AD19489EA8003E51EB /* ScriptInvocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435340BC19489EA7003E51EB /* ScriptInvocation.swift */; };
 		435341AE19489EA8003E51EB /* LRFileTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435340BE19489EA7003E51EB /* LRFileTarget.swift */; };
 		435341AF19489EA8003E51EB /* LRMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435340BF19489EA7003E51EB /* LRMessage.swift */; };
 		435341B019489EA8003E51EB /* LRProjectTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435340C019489EA7003E51EB /* LRProjectTarget.swift */; };
@@ -706,14 +706,14 @@
 		435340AD19489EA7003E51EB /* MASReceipt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASReceipt.m; sourceTree = "<group>"; };
 		435340AE19489EA7003E51EB /* MissingRuntimeInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MissingRuntimeInstance.h; sourceTree = "<group>"; };
 		435340AF19489EA7003E51EB /* MissingRuntimeInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MissingRuntimeInstance.m; sourceTree = "<group>"; };
-		435340B319489EA7003E51EB /* Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
-		435340B519489EA7003E51EB /* CompileFileAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompileFileAction.swift; sourceTree = "<group>"; };
-		435340B619489EA7003E51EB /* CompileFolderAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompileFolderAction.swift; sourceTree = "<group>"; };
-		435340B719489EA7003E51EB /* CustomCommandAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCommandAction.swift; sourceTree = "<group>"; };
-		435340B819489EA7003E51EB /* FilterAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterAction.swift; sourceTree = "<group>"; };
-		435340B919489EA7003E51EB /* RunTestsAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunTestsAction.swift; sourceTree = "<group>"; };
-		435340BA19489EA7003E51EB /* UserScriptAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserScriptAction.swift; sourceTree = "<group>"; };
-		435340BC19489EA7003E51EB /* ScriptInvocationAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptInvocationAction.swift; sourceTree = "<group>"; };
+		435340B319489EA7003E51EB /* Rule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rule.swift; sourceTree = "<group>"; };
+		435340B519489EA7003E51EB /* CompileFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompileFile.swift; sourceTree = "<group>"; };
+		435340B619489EA7003E51EB /* CompileFolder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompileFolder.swift; sourceTree = "<group>"; };
+		435340B719489EA7003E51EB /* CustomCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CustomCommand.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		435340B819489EA7003E51EB /* Filter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
+		435340B919489EA7003E51EB /* RunTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunTests.swift; sourceTree = "<group>"; };
+		435340BA19489EA7003E51EB /* UserScript.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = UserScript.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		435340BC19489EA7003E51EB /* ScriptInvocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptInvocation.swift; sourceTree = "<group>"; };
 		435340BE19489EA7003E51EB /* LRFileTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRFileTarget.swift; sourceTree = "<group>"; };
 		435340BF19489EA7003E51EB /* LRMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRMessage.swift; sourceTree = "<group>"; };
 		435340C019489EA7003E51EB /* LRProjectTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRProjectTarget.swift; sourceTree = "<group>"; };
@@ -777,9 +777,9 @@
 		435340FB19489EA7003E51EB /* RubyRuntimeRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RubyRuntimeRepository.h; sourceTree = "<group>"; };
 		435340FC19489EA7003E51EB /* RubyRuntimeRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RubyRuntimeRepository.m; sourceTree = "<group>"; };
 		435340FD19489EA7003E51EB /* RunCustomCommandActionRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunCustomCommandActionRow.h; sourceTree = "<group>"; };
-		435340FE19489EA7003E51EB /* RunCustomCommandActionRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunCustomCommandActionRow.m; sourceTree = "<group>"; };
+		435340FE19489EA7003E51EB /* RunCustomCommandActionRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = RunCustomCommandActionRow.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		435340FF19489EA7003E51EB /* RunScriptActionRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunScriptActionRow.h; sourceTree = "<group>"; };
-		4353410019489EA7003E51EB /* RunScriptActionRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunScriptActionRow.m; sourceTree = "<group>"; };
+		4353410019489EA7003E51EB /* RunScriptActionRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = RunScriptActionRow.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		4353410119489EA7003E51EB /* RuntimeContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RuntimeContainer.h; sourceTree = "<group>"; };
 		4353410219489EA7003E51EB /* RuntimeContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RuntimeContainer.m; sourceTree = "<group>"; };
 		4353410319489EA7003E51EB /* RuntimeGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RuntimeGlobals.h; sourceTree = "<group>"; };
@@ -1327,7 +1327,7 @@
 		435340B219489EA7003E51EB /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				435340B319489EA7003E51EB /* Action.swift */,
+				435340B319489EA7003E51EB /* Rule.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -1335,12 +1335,12 @@
 		435340B419489EA7003E51EB /* Specific */ = {
 			isa = PBXGroup;
 			children = (
-				435340B519489EA7003E51EB /* CompileFileAction.swift */,
-				435340B619489EA7003E51EB /* CompileFolderAction.swift */,
-				435340B719489EA7003E51EB /* CustomCommandAction.swift */,
-				435340B819489EA7003E51EB /* FilterAction.swift */,
-				435340B919489EA7003E51EB /* RunTestsAction.swift */,
-				435340BA19489EA7003E51EB /* UserScriptAction.swift */,
+				435340B519489EA7003E51EB /* CompileFile.swift */,
+				435340B619489EA7003E51EB /* CompileFolder.swift */,
+				435340B719489EA7003E51EB /* CustomCommand.swift */,
+				435340B819489EA7003E51EB /* Filter.swift */,
+				435340B919489EA7003E51EB /* RunTests.swift */,
+				435340BA19489EA7003E51EB /* UserScript.swift */,
 			);
 			path = Specific;
 			sourceTree = "<group>";
@@ -1348,7 +1348,7 @@
 		435340BB19489EA7003E51EB /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				435340BC19489EA7003E51EB /* ScriptInvocationAction.swift */,
+				435340BC19489EA7003E51EB /* ScriptInvocation.swift */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -2257,7 +2257,7 @@
 				4303A54D15B513FD009D732A /* nodeapp_paths_common.c in Sources */,
 				4303A54E15B513FD009D732A /* nodeapp_rpc_common.m in Sources */,
 				4353415119489EA8003E51EB /* ExtensionsController.m in Sources */,
-				435341A719489EA8003E51EB /* CompileFileAction.swift in Sources */,
+				435341A719489EA8003E51EB /* CompileFile.swift in Sources */,
 				4303A55315B513FD009D732A /* nodeapp_utils.c in Sources */,
 				4303A55415B513FD009D732A /* nodeapp_api_app.m in Sources */,
 				435341D219489EA8003E51EB /* RunScriptActionRow.m in Sources */,
@@ -2277,7 +2277,7 @@
 				435341DD19489EA8003E51EB /* ShadowBoxView.m in Sources */,
 				4303A55915B513FD009D732A /* nodeapp_crash.m in Sources */,
 				435341D619489EA8003E51EB /* RuntimeInstanceCellView.m in Sources */,
-				435341AB19489EA8003E51EB /* RunTestsAction.swift in Sources */,
+				435341AB19489EA8003E51EB /* RunTests.swift in Sources */,
 				4353417E19489EA8003E51EB /* LROutputFileMapping.m in Sources */,
 				43DE6CE51966B85C00E8FDF7 /* LRProjectFile.swift in Sources */,
 				4353420219489F25003E51EB /* EKEditor.m in Sources */,
@@ -2291,7 +2291,7 @@
 				4303A55D15B513FD009D732A /* nodeapp_rpc_osdep.c in Sources */,
 				4353418719489EA8003E51EB /* LRPackageType.m in Sources */,
 				4353416219489EA8003E51EB /* ImageAndTextCell.m in Sources */,
-				435341AD19489EA8003E51EB /* ScriptInvocationAction.swift in Sources */,
+				435341AD19489EA8003E51EB /* ScriptInvocation.swift in Sources */,
 				4353420119489F25003E51EB /* EditorKit.m in Sources */,
 				4303A55E15B513FD009D732A /* nodeapp_threading.c in Sources */,
 				4353415519489EA8003E51EB /* FiltersGroupHeaderRow.m in Sources */,
@@ -2305,7 +2305,7 @@
 				435341BA19489EA8003E51EB /* NSString+SmartRegexpCaptures.m in Sources */,
 				435341E119489EA8003E51EB /* StatusItemView.m in Sources */,
 				4303A57715B513FD009D732A /* nodeapp_licensing.m in Sources */,
-				435341A919489EA8003E51EB /* CustomCommandAction.swift in Sources */,
+				435341A919489EA8003E51EB /* CustomCommand.swift in Sources */,
 				4396F1E117F8112F00AA8200 /* GlitterVersionUtilities.m in Sources */,
 				435341EE19489EA8003E51EB /* Workspace.m in Sources */,
 				4353417019489EA8003E51EB /* LRCheckboxOption.m in Sources */,
@@ -2339,7 +2339,7 @@
 				4353414D19489EA8003E51EB /* DockIcon.m in Sources */,
 				4353418C19489EA8003E51EB /* LRSelfTest.m in Sources */,
 				4353418A19489EA8003E51EB /* LRPopUpOption.m in Sources */,
-				435341A619489EA8003E51EB /* Action.swift in Sources */,
+				435341A619489EA8003E51EB /* Rule.swift in Sources */,
 				4389F0C31944684600032D6A /* Scheduling.swift in Sources */,
 				4353415619489EA8003E51EB /* FSChange.m in Sources */,
 				4353415219489EA8003E51EB /* ExternalEditor.m in Sources */,
@@ -2354,7 +2354,7 @@
 				4353417A19489EA8003E51EB /* LROption.m in Sources */,
 				4353420819489F25003E51EB /* SublimeText3Editor.m in Sources */,
 				435341BE19489EA8003E51EB /* OldFSTreeDiffer.m in Sources */,
-				435341A819489EA8003E51EB /* CompileFolderAction.swift in Sources */,
+				435341A819489EA8003E51EB /* CompileFolder.swift in Sources */,
 				4353417719489EA8003E51EB /* LRManifestBasedObject.m in Sources */,
 				4353416E19489EA8003E51EB /* LRAssetPackageConfiguration.m in Sources */,
 				43B5C00517ADF16B00F57276 /* ATModelDiff.m in Sources */,
@@ -2389,7 +2389,7 @@
 				43508A9017B39C9700871422 /* ATSolidView.m in Sources */,
 				435341B819489EA8003E51EB /* NpmPackageType.m in Sources */,
 				435341A419489EA8003E51EB /* MASReceipt.m in Sources */,
-				435341AA19489EA8003E51EB /* FilterAction.swift in Sources */,
+				435341AA19489EA8003E51EB /* Filter.swift in Sources */,
 				435341C219489EA8003E51EB /* P2RegularExpressionExtensions.m in Sources */,
 				435341C019489EA8003E51EB /* OptionsRow.m in Sources */,
 				4353415419489EA8003E51EB /* FilterOption.m in Sources */,
@@ -2401,7 +2401,7 @@
 				4353417219489EA8003E51EB /* LRCommandLine.m in Sources */,
 				4353418119489EA8003E51EB /* LRPackage.m in Sources */,
 				43B5C01A17ADF93A00F57276 /* ATHash.m in Sources */,
-				435341AC19489EA8003E51EB /* UserScriptAction.swift in Sources */,
+				435341AC19489EA8003E51EB /* UserScript.swift in Sources */,
 				435341CC19489EA8003E51EB /* RSVerticallyCenteredTextFieldCell.m in Sources */,
 				4353418319489EA8003E51EB /* LRPackageManager.m in Sources */,
 				4353418519489EA8003E51EB /* LRPackageResolutionContext.m in Sources */,

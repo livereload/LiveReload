@@ -1,7 +1,7 @@
 
 import Foundation
 
-class ScriptInvocationAction : Action {
+class ScriptInvocationRule : Rule {
 
     override func invokeWithModifiedFiles(files: LRProjectFile[], result: LROperationResult, completionHandler: dispatch_block_t) {
     }

@@ -71,22 +71,22 @@ NSArray *LRValidActionKindStrings() {
     NSDictionary *knownTypes = @{
                                  @"filter": @{
                                          @"kind": @"filter",
-                                         @"objc_class":    @"FilterAction",
+                                         @"objc_classObj": [FilterRule class],
                                          @"objc_rowClass": @"FilterActionRow",
                                      },
                                  @"compile-file": @{
                                          @"kind": @"compiler",
-                                         @"objc_classObj": [CompileFileAction class],
+                                         @"objc_classObj": [CompileFileRule class],
                                          @"objc_rowClass": @"CompileFileActionRow",
                                      },
                                  @"compile-folder": @{
                                          @"kind": @"postproc",
-                                         @"objc_classObj": [CompileFolderAction class],
+                                         @"objc_classObj": [CompileFolderRule class],
                                          @"objc_rowClass": @"FilterActionRow",
                                      },
                                  @"run-tests": @{
                                          @"kind": @"postproc",
-                                         @"objc_class":    @"RunTestsAction",
+                                         @"objc_classObj":    [RunTestsRule class],
                                          @"objc_rowClass": @"FilterActionRow",
                                      },
                                  };
