@@ -9,7 +9,6 @@
 #import "Preferences.h"
 #import "Compiler.h"
 #import "LegacyCompilationOptions.h"
-#import "LRProjectFile.h"
 #import "ImportGraph.h"
 #import "ToolOutput.h"
 #import "UserScript.h"
@@ -756,7 +755,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     if ([[NSFileManager defaultManager] fileExistsAtPath:fullPath]) {
         LRProjectFile *file = _filesByPath[relativePath];
         if (!file) {
-            file = [LRProjectFile fileWithRelativePath:relativePath project:self];
+            file = [[LRProjectFile alloc] initWithRelativePath:relativePath project:self];
             _filesByPath[relativePath] = file;
         }
         [self updateImportGraphForExistingFile:file];

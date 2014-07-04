@@ -13,7 +13,6 @@
 #import "Errors.h"
 
 #import "Plugin.h"
-#import "LRProjectFile.h"
 #import "Project.h"
 #import "Compiler.h"
 

@@ -1,6 +1,5 @@
 
 #import "ScriptInvocationStep.h"
-#import "LRProjectFile.h"
 #import "Project.h"
 #import "LROperationResult.h"
 #import "LiveReload-Swift-x.h"

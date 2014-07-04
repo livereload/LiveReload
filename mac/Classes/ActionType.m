@@ -10,8 +10,6 @@
 #import "LRPackageResolutionContext.h"
 #import "LRPackageSet.h"
 #import "LRPackageType.h"
-#import "LRProjectFile.h"
-#import "LiveReload-Swift-x.h"
 
 #import "LRManifestLayer.h"
 #import "LRActionVersion.h"
