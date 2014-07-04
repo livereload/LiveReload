@@ -4,11 +4,11 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-typedef enum {
+typedef NS_OPTIONS(NSUInteger, ATLaunchUnixTaskAndCaptureOutputOptions) {
     ATLaunchUnixTaskAndCaptureOutputOptionsNone = 0,
     ATLaunchUnixTaskAndCaptureOutputOptionsMergeStdoutAndStderr = 0x01,
     ATLaunchUnixTaskAndCaptureOutputOptionsIgnoreSandbox = 0x02,
-} ATLaunchUnixTaskAndCaptureOutputOptions;
+};
 
 typedef void (^ATLaunchUnixTaskAndCaptureOutputCompletionHandler)(NSString *outputText, NSString *stderrText, NSError *error);
 
@@ -40,8 +40,8 @@ id ATCreateUserUnixTask(NSURL *scriptURL, NSError **error);
 @property(strong) id standardOutput;
 @property(strong) id standardError;
 
-@property(strong) NSString *currentDirectoryPath;
-@property(strong) NSDictionary *environment;
+@property(copy) NSString *currentDirectoryPath;
+@property(copy) NSDictionary *environment;
 
 // Execute the file with the given arguments.  "arguments" is an array of NSStrings.  The arguments do not undergo shell expansion, so you do not need to do special quoting, and shell variables are not resolved.
 typedef void (^PlainUnixTaskCompletionHandler)(NSError *error);

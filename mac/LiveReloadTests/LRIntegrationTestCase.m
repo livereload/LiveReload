@@ -10,6 +10,7 @@
 
 @implementation LRIntegrationTestCase {
     NSURL *_baseFolderURL;
+    LRSelfTest *_currentTest;
 }
 
 - (void)setUp {
@@ -28,10 +29,11 @@
 }
 
 - (NSError *)runProjectTestNamed:(NSString *)name options:(LRTestOptions)options {
-    LRSelfTest *test = [[LRSelfTest alloc] initWithFolderURL:[_baseFolderURL URLByAppendingPathComponent:name] options:options];
+    LRSelfTest *test = _currentTest = [[LRSelfTest alloc] initWithFolderURL:[_baseFolderURL URLByAppendingPathComponent:name] options:options];
     test.completionBlock = self.completionBlock;
     [test run];
     [self waitWithTimeout:3.0];
+    _currentTest = nil;
     return test.error;
 }
 

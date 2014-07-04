@@ -13,13 +13,13 @@ import Foundation
     override func invoke(#build: LRBuild, completionBlock: dispatch_block_t) {
         build.markAsConsumedByCompiler(sourceFile)
         if !sourceFile.exists {
-            action.handleDeletionOfFile(sourceFile, inProject: self.project)
+            action.handleDeletionOfFile(sourceFile)
             completionBlock()
         } else {
             let result = newResult()
             result.defaultMessageFile = sourceFile
 
-            action.compileFile(sourceFile, inProject: project, result: result) {
+            action.compileFile(sourceFile, result: result) {
                 if result.invocationError {
                     NSLog("Error compiling \(self.sourceFile.relativePath): \(result.invocationError.domain) - \(result.invocationError.code) - \(result.invocationError.localizedDescription)")
                 }

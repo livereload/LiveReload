@@ -17,19 +17,19 @@ import Foundation
         return type.name
     }
 
-    override func loadFromMemento(memento: NSDictionary!) {
-        super.loadFromMemento(memento)
-        compilerName = memento["compiler"] as? String
-        outputFilterOption = FilterOption(memento: NV(memento["output"] as? String, "subdir:."))
+    override func loadFromMemento() {
+        super.loadFromMemento()
+        compilerName = stringValue(memento["compiler"])
+        outputFilterOption = FilterOption(memento: NVCast(memento["output"], "subdir:."))
         intrinsicInputPathSpec = type.combinedIntrinsicInputPathSpec
     }
 
-    override func updateMemento(memento: NSMutableDictionary!) {
-        super.updateMemento(memento)
+    override func updateMemento() {
+        super.updateMemento()
         memento["output"] = outputFilterOption.memento
     }
 
-    func destinationFileForSourceFile(file: LRProjectFile, inProject project: Project) -> LRProjectFile {
+    func destinationFileForSourceFile(file: LRProjectFile) -> LRProjectFile {
         var destinationName = LRDeriveDestinationFileName(file.relativePath.lastPathComponent, type.manifest["output"]! as String, intrinsicInputPathSpec)
 
         var outputMappingIsRecursive = true  // TODO: make this conditional
@@ -47,8 +47,8 @@ import Foundation
         return LRProjectFile(relativePath: destinationRelativePath, project: project)
     }
 
-    override func handleDeletionOfFile(file: LRProjectFile!, inProject project: Project!) {
-        let destinationFile = destinationFileForSourceFile(file, inProject: project)
+    override func handleDeletionOfFile(file: LRProjectFile) {
+        let destinationFile = destinationFileForSourceFile(file)
         if (destinationFile.absoluteURL != file.absoluteURL) && destinationFile.exists {
             NSFileManager.defaultManager().removeItemAtURL(destinationFile.absoluteURL, error:nil)
         }
@@ -59,7 +59,7 @@ import Foundation
 
         step.addFileValue(file, forSubstitutionKey: "src")
 
-        let destinationFile = destinationFileForSourceFile(file, inProject: step.project)
+        let destinationFile = destinationFileForSourceFile(file)
         step.addFileValue(destinationFile, forSubstitutionKey: "dst")
 
         let destinationFolderURL = destinationFile.absoluteURL.URLByDeletingLastPathComponent
@@ -78,7 +78,7 @@ import Foundation
         return true
     }
 
-    override func fileTargetForRootFile(file: LRProjectFile!) -> LRTarget! {
+    override func fileTargetForRootFile(file: LRProjectFile) -> LRTarget? {
         return LRFileTarget(action: self, sourceFile: file)
     }
 
