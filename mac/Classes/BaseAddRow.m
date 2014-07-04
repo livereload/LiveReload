@@ -36,7 +36,7 @@
     NSDictionary *prototype = sender.representedObject;
     if (prototype) {
         Rulebook *rulebook = self.representedObject;
-        [rulebook addActionWithPrototype:prototype];
+        [rulebook addRuleWithPrototype:prototype];
     }
 }
 

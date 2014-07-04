@@ -90,7 +90,7 @@ static void *RulebookView_Action_Context = "RulebookView_Action_Context";
 }
 
 - (void)updateCompilerRows {
-    [self updateRowsOfClass:[BaseRuleRow class] betweenRow:_compilersHeaderRow andRow:_compilersAddRow newRepresentedObjects:self.rulebook.compilerActions create:^ATStackViewRow *(Rule *rule) {
+    [self updateRowsOfClass:[BaseRuleRow class] betweenRow:_compilersHeaderRow andRow:_compilersAddRow newRepresentedObjects:self.rulebook.compilationRules create:^ATStackViewRow *(Rule *rule) {
         Class rowClass = rule.type.rowClass;
         if (rowClass) {
             return [rowClass rowWithRepresentedObject:rule metrics:_metrics userInfo:@{@"project": self.project} delegate:self];
@@ -101,7 +101,7 @@ static void *RulebookView_Action_Context = "RulebookView_Action_Context";
 }
 
 - (void)updateFilterRows {
-    [self updateRowsOfClass:[BaseRuleRow class] betweenRow:_filtersHeaderRow andRow:_filtersAddRow newRepresentedObjects:self.rulebook.filterActions create:^ATStackViewRow *(Rule *rule) {
+    [self updateRowsOfClass:[BaseRuleRow class] betweenRow:_filtersHeaderRow andRow:_filtersAddRow newRepresentedObjects:self.rulebook.filterRules create:^ATStackViewRow *(Rule *rule) {
         Class rowClass = rule.type.rowClass;
         if (rowClass) {
             return [rowClass rowWithRepresentedObject:rule metrics:_metrics userInfo:@{@"project": self.project} delegate:self];
@@ -112,7 +112,7 @@ static void *RulebookView_Action_Context = "RulebookView_Action_Context";
 }
 
 - (void)updateActionRows {
-    [self updateRowsOfClass:[BaseRuleRow class] betweenRow:_actionsHeaderRow andRow:_actionsAddRow newRepresentedObjects:self.rulebook.postprocActions create:^ATStackViewRow *(Rule *rule) {
+    [self updateRowsOfClass:[BaseRuleRow class] betweenRow:_actionsHeaderRow andRow:_actionsAddRow newRepresentedObjects:self.rulebook.postprocRules create:^ATStackViewRow *(Rule *rule) {
         Class rowClass = rule.type.rowClass;
         if (rowClass) {
             return [rowClass rowWithRepresentedObject:rule metrics:_metrics userInfo:@{@"project": self.project} delegate:self];
@@ -154,7 +154,7 @@ static void *RulebookView_Action_Context = "RulebookView_Action_Context";
 - (void)removeActionClicked:(id)rule {
     NSInteger index = [self.rulebook.rules indexOfObject:rule];
     if (index != NSNotFound)
-        [self.rulebook removeObjectFromActionsAtIndex:index];
+        [self.rulebook removeObjectFromRulesAtIndex:index];
 }
 
 @end

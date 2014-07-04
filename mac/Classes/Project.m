@@ -512,7 +512,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
 - (void)startBuild {
     if (!_runningBuild) {
-        _runningBuild = [[LRBuild alloc] initWithProject:self rules:self.rulebook.activeActions];
+        _runningBuild = [[LRBuild alloc] initWithProject:self rules:self.rulebook.activeRules];
         NSLog(@"Build starting...");
         [self postNotificationName:ProjectBuildStartedNotification];
     }

@@ -77,59 +77,63 @@
     return [type newInstanceWithMemento:actionMemento];
 }
 
-- (void)insertObject:(Rule *)object inActionsAtIndex:(NSUInteger)index {
+- (void)insertObject:(Rule *)object inRulesAtIndex:(NSUInteger)index {
     [_rules insertObject:object atIndex:index];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
 }
 
-- (void)removeObjectFromActionsAtIndex:(NSUInteger)index {
+- (void)removeObjectFromRulesAtIndex:(NSUInteger)index {
     [_rules removeObjectAtIndex:index];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
 }
 
-- (BOOL)canRemoveObjectFromActionsAtIndex:(NSUInteger)index {
+- (BOOL)canRemoveObjectFromRulesAtIndex:(NSUInteger)index {
     return YES;
 }
 
-- (void)addActionWithPrototype:(NSDictionary *)prototype {
+- (void)addRuleWithPrototype:(NSDictionary *)prototype {
     Rule *rule = [self actionWithMemento:prototype];
     NSAssert(rule != nil, @"Invalid rule prototype: %@", prototype);
-    [self insertObject:rule inActionsAtIndex:_rules.count];
+    [self insertObject:rule inRulesAtIndex:_rules.count];
 }
 
-- (NSArray *)activeActions {
+- (NSArray *)activeRules {
     return [_rules filteredArrayUsingBlock:^BOOL(Rule *rule) {
         return rule.nonEmpty && rule.enabled;
     }];
 }
 
-+ (NSSet *)keyPathsForValuesAffectingActiveActions {
++ (NSSet *)keyPathsForValuesAffectingActiveRules {
     return [NSSet setWithObject:@"rules"];
 }
 
-- (NSArray *)compilerActions {
+- (NSArray *)compilationRules {
     return [_rules filteredArrayUsingBlock:^BOOL(Rule *rule) {
         return rule.type.kind == ActionKindCompiler;
     }];
 }
 
-- (NSArray *)filterActions {
++ (NSSet *)keyPathsForValuesAffectingCompilationRules {
+    return [NSSet setWithObject:@"rules"];
+}
+
+- (NSArray *)filterRules {
     return [_rules filteredArrayUsingBlock:^BOOL(Rule *rule) {
         return rule.type.kind == ActionKindFilter;
     }];
 }
 
-+ (NSSet *)keyPathsForValuesAffectingFilterActions {
++ (NSSet *)keyPathsForValuesAffectingFilterRules {
     return [NSSet setWithObject:@"rules"];
 }
 
-- (NSArray *)postprocActions {
+- (NSArray *)postprocRules {
     return [_rules filteredArrayUsingBlock:^BOOL(Rule *rule) {
         return rule.type.kind == ActionKindPostproc;
     }];
 }
 
-+ (NSSet *)keyPathsForValuesAffectingPostprocActions {
++ (NSSet *)keyPathsForValuesAffectingPostprocRules {
     return [NSSet setWithObject:@"rules"];
 }
 
