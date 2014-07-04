@@ -1,8 +1,8 @@
 
 import Foundation
 
-@objc(CustomCommandAction)
-class CustomCommandAction : Action {
+@objc
+class CustomCommandRule : Rule {
 
     var command: String? {
         didSet {
@@ -52,7 +52,7 @@ class CustomCommandAction : Action {
 
     override func targetForModifiedFiles(files: LRProjectFile[]) -> LRTarget? {
         if inputPathSpecMatchesFiles(files) {
-            return LRProjectTarget(action: self, modifiedFiles: files as LRProjectFile[])
+            return LRProjectTarget(rule: self, modifiedFiles: files as LRProjectFile[])
         } else {
             return nil
         }
@@ -72,7 +72,7 @@ class CustomCommandAction : Action {
         let pwd = NSFileManager.defaultManager().currentDirectoryPath
         NSFileManager.defaultManager().changeCurrentDirectoryPath(project.rootURL.path)
 
-        NSLog("Executing project action command: %@", (([shell] + shArgs) as NSArray).quotedArgumentStringUsingBourneQuotingStyle());
+        NSLog("Executing project rule command: %@", (([shell] + shArgs) as NSArray).quotedArgumentStringUsingBourneQuotingStyle());
 
         let shellUrl = NSURL.fileURLWithPath(shell)
 

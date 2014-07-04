@@ -1,31 +1,31 @@
 
-#import "ActionListView.h"
-#import "ActionList.h"
+#import "RulebookView.h"
+#import "Rulebook.h"
 #import "LiveReload-Swift-x.h"
 #import "GroupHeaderRow.h"
 #import "Project.h"
 
 #import "ActionsGroupHeaderRow.h"
-#import "RunCustomCommandActionRow.h"
-#import "RunScriptActionRow.h"
+#import "CustomCommandRuleRow.h"
+#import "UserScriptRuleRow.h"
 #import "AddActionRow.h"
 
 #import "FiltersGroupHeaderRow.h"
 #import "AddFilterRow.h"
-#import "FilterActionRow.h"
+#import "FilterRuleRow.h"
 
 #import "AddCompilationActionRow.h"
 
 
-static void *ActionListView_Action_Context = "ActionListView_Action_Context";
+static void *RulebookView_Action_Context = "RulebookView_Action_Context";
 
 
-@interface ActionListView () <BaseActionRowDelegate>
+@interface RulebookView () <BaseActionRowDelegate>
 
 @end
 
 
-@implementation ActionListView {
+@implementation RulebookView {
     BOOL _loaded;
     NSDictionary *_metrics;
 
@@ -50,11 +50,11 @@ static void *ActionListView_Action_Context = "ActionListView_Action_Context";
     return self;
 }
 
-- (void)setActionList:(ActionList *)actionList {
-    if (_actionList != actionList) {
-        [_actionList removeObserver:self forKeyPath:@"actions" context:ActionListView_Action_Context];
-        _actionList = actionList;
-        [_actionList addObserver:self forKeyPath:@"actions" options:0 context:ActionListView_Action_Context];
+- (void)setRulebook:(Rulebook *)rulebook {
+    if (_rulebook != rulebook) {
+        [_rulebook removeObserver:self forKeyPath:@"rules" context:RulebookView_Action_Context];
+        _rulebook = rulebook;
+        [_rulebook addObserver:self forKeyPath:@"rules" options:0 context:RulebookView_Action_Context];
         _loaded = NO;
         [self setNeedsUpdateConstraints:YES];
     }
@@ -63,7 +63,7 @@ static void *ActionListView_Action_Context = "ActionListView_Action_Context";
 - (void)setProject:(Project *)project {
     if (_project != project) {
         _project = project;
-        self.actionList = project.actionList;
+        self.rulebook = project.rulebook;
 
         _loaded = NO;
         [self setNeedsUpdateConstraints:YES];
@@ -71,7 +71,7 @@ static void *ActionListView_Action_Context = "ActionListView_Action_Context";
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if (context == ActionListView_Action_Context) {
+    if (context == RulebookView_Action_Context) {
         [self updateCompilerRows];
         [self updateFilterRows];
         [self updateActionRows];
@@ -90,10 +90,10 @@ static void *ActionListView_Action_Context = "ActionListView_Action_Context";
 }
 
 - (void)updateCompilerRows {
-    [self updateRowsOfClass:[BaseActionRow class] betweenRow:_compilersHeaderRow andRow:_compilersAddRow newRepresentedObjects:self.actionList.compilerActions create:^ATStackViewRow *(Action *action) {
-        Class rowClass = action.type.rowClass;
+    [self updateRowsOfClass:[BaseRuleRow class] betweenRow:_compilersHeaderRow andRow:_compilersAddRow newRepresentedObjects:self.rulebook.compilationRules create:^ATStackViewRow *(Rule *rule) {
+        Class rowClass = rule.action.rowClass;
         if (rowClass) {
-            return [rowClass rowWithRepresentedObject:action metrics:_metrics userInfo:@{@"project": self.project} delegate:self];
+            return [rowClass rowWithRepresentedObject:rule metrics:_metrics userInfo:@{@"project": self.project} delegate:self];
         } else {
             return nil;
         }
@@ -101,10 +101,10 @@ static void *ActionListView_Action_Context = "ActionListView_Action_Context";
 }
 
 - (void)updateFilterRows {
-    [self updateRowsOfClass:[BaseActionRow class] betweenRow:_filtersHeaderRow andRow:_filtersAddRow newRepresentedObjects:self.actionList.filterActions create:^ATStackViewRow *(Action *action) {
-        Class rowClass = action.type.rowClass;
+    [self updateRowsOfClass:[BaseRuleRow class] betweenRow:_filtersHeaderRow andRow:_filtersAddRow newRepresentedObjects:self.rulebook.filterRules create:^ATStackViewRow *(Rule *rule) {
+        Class rowClass = rule.action.rowClass;
         if (rowClass) {
-            return [rowClass rowWithRepresentedObject:action metrics:_metrics userInfo:@{@"project": self.project} delegate:self];
+            return [rowClass rowWithRepresentedObject:rule metrics:_metrics userInfo:@{@"project": self.project} delegate:self];
         } else {
             return nil;
         }
@@ -112,10 +112,10 @@ static void *ActionListView_Action_Context = "ActionListView_Action_Context";
 }
 
 - (void)updateActionRows {
-    [self updateRowsOfClass:[BaseActionRow class] betweenRow:_actionsHeaderRow andRow:_actionsAddRow newRepresentedObjects:self.actionList.postprocActions create:^ATStackViewRow *(Action *action) {
-        Class rowClass = action.type.rowClass;
+    [self updateRowsOfClass:[BaseRuleRow class] betweenRow:_actionsHeaderRow andRow:_actionsAddRow newRepresentedObjects:self.rulebook.postprocRules create:^ATStackViewRow *(Rule *rule) {
+        Class rowClass = rule.action.rowClass;
         if (rowClass) {
-            return [rowClass rowWithRepresentedObject:action metrics:_metrics userInfo:@{@"project": self.project} delegate:self];
+            return [rowClass rowWithRepresentedObject:rule metrics:_metrics userInfo:@{@"project": self.project} delegate:self];
         } else {
             return nil;
         }
@@ -125,24 +125,24 @@ static void *ActionListView_Action_Context = "ActionListView_Action_Context";
 - (void)loadRows {
 #if 0
     [self addItem:[[CompilersCategoryRow alloc] initWithTitle:@"Compilers:"]];
-    for (Action *action in self.actionList.actions) {
-        [self addItem:[self actionRowViewForAction:action]];
+    for (Rule *rule in self.rulebook.rules) {
+        [self addItem:[self actionRowViewForAction:rule]];
     }
     [self addItem:[self addButtonRowWithPrompt:@"Add compiler" choices:@[@"SASS", @"Compass", @"LESS"]]];
 #endif
 
     _compilersHeaderRow = [FiltersGroupHeaderRow rowWithRepresentedObject:@{@"title": @"Compilers"} metrics:_metrics userInfo:nil delegate:self];
-    _compilersAddRow = [AddCompilationActionRow rowWithRepresentedObject:self.actionList metrics:_metrics userInfo:nil delegate:self];
+    _compilersAddRow = [AddCompilationActionRow rowWithRepresentedObject:self.rulebook metrics:_metrics userInfo:nil delegate:self];
     [self addItem:_compilersHeaderRow];
     [self addItem:_compilersAddRow];
 
     _filtersHeaderRow = [FiltersGroupHeaderRow rowWithRepresentedObject:@{@"title": @"Filters"} metrics:_metrics userInfo:nil delegate:self];
-    _filtersAddRow = [AddFilterRow rowWithRepresentedObject:self.actionList metrics:_metrics userInfo:nil delegate:self];
+    _filtersAddRow = [AddFilterRow rowWithRepresentedObject:self.rulebook metrics:_metrics userInfo:nil delegate:self];
     [self addItem:_filtersHeaderRow];
     [self addItem:_filtersAddRow];
 
-    _actionsHeaderRow = [ActionsGroupHeaderRow rowWithRepresentedObject:@{@"title": @"Other actions"} metrics:_metrics userInfo:nil delegate:self];
-    _actionsAddRow = [AddActionRow rowWithRepresentedObject:self.actionList metrics:_metrics userInfo:nil delegate:self];
+    _actionsHeaderRow = [ActionsGroupHeaderRow rowWithRepresentedObject:@{@"title": @"Other rules"} metrics:_metrics userInfo:nil delegate:self];
+    _actionsAddRow = [AddActionRow rowWithRepresentedObject:self.rulebook metrics:_metrics userInfo:nil delegate:self];
     [self addItem:_actionsHeaderRow];
     [self addItem:_actionsAddRow];
 
@@ -151,10 +151,10 @@ static void *ActionListView_Action_Context = "ActionListView_Action_Context";
     [self updateActionRows];
 }
 
-- (void)removeActionClicked:(id)action {
-    NSInteger index = [self.actionList.actions indexOfObject:action];
+- (void)removeActionClicked:(id)rule {
+    NSInteger index = [self.rulebook.rules indexOfObject:rule];
     if (index != NSNotFound)
-        [self.actionList removeObjectFromActionsAtIndex:index];
+        [self.rulebook removeObjectFromRulesAtIndex:index];
 }
 
 @end

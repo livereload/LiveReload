@@ -1,9 +1,9 @@
 
-#import "FilterActionRow.h"
+#import "FilterRuleRow.h"
 #import "ATMacViewCreation.h"
 #import "ATAutolayout.h"
 
-@implementation FilterActionRow
+@implementation FilterRuleRow
 
 - (void)loadContent {
     [super loadContent];
@@ -24,16 +24,16 @@
 
 - (void)updateContent {
     [super updateContent];
-    self.checkbox.title = self.action.label;
+    self.checkbox.title = self.rule.label;
 }
 
 - (void)updateFilterOptions {
-    [self updateFilterOptionsPopUp:self.filterPopUp selectedOption:self.action.inputFilterOption];
+    [self updateFilterOptionsPopUp:self.filterPopUp selectedOption:self.rule.inputFilterOption];
 }
 
 - (IBAction)filterOptionSelected:(NSPopUpButton *)sender {
     FilterOption *filterOption = sender.selectedItem.representedObject;
-    self.action.inputFilterOption = filterOption;
+    self.rule.inputFilterOption = filterOption;
 }
 
 + (NSArray *)representedObjectKeyPathsToObserve {
@@ -41,7 +41,7 @@
 }
 
 - (void)loadOptionsIntoView:(LROptionsView *)container {
-    for (LROption *option in [self.action createOptions]) {
+    for (LROption *option in [self.rule createOptions]) {
         [container addOption:option];
     }
 }

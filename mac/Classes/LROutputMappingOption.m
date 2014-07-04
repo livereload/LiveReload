@@ -16,20 +16,20 @@
 //- (void)
 
 - (void)loadManifest {
-//    [self bind:@"availableSubfolders" toObject:self.action.project withKeyPath:@"availableSubfolders" options:nil];
+//    [self bind:@"availableSubfolders" toObject:self.rule.project withKeyPath:@"availableSubfolders" options:nil];
     [self observeProperties:@[@"subfolder", @"recursive", @"mask"] withSelector:@selector(presentedValueDidChange)];
 }
 
 //- (id)defaultValue {
-//    return self.action;
+//    return self.rule;
 //}
 //
 //- (id)modelValue {
-//    return self.action.primaryVersionSpec;
+//    return self.rule.primaryVersionSpec;
 //}
 //
 //- (void)setModelValue:(id)modelValue {
-//    self.action.primaryVersionSpec = modelValue;
+//    self.rule.primaryVersionSpec = modelValue;
 //}
 
 - (id)presentedValue {
@@ -43,7 +43,7 @@
 }
 
 - (NSArray *)availableSubfolders {
-    return self.action.project.availableSubfolders;
+    return self.rule.project.availableSubfolders;
 }
 
 @end

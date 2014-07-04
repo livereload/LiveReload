@@ -89,21 +89,21 @@ void nodeapp_rpc_send_init(void *dummy) {
     }];
 }
 
-- (void)registerCommand:(NSString *)command target:(id)object action:(SEL)action {
-    NSMethodSignature *signature = [object methodSignatureForSelector:action];
+- (void)registerCommand:(NSString *)command target:(id)object action:(SEL)rule {
+    NSMethodSignature *signature = [object methodSignatureForSelector:rule];
 
     NSAssert(signature.numberOfArguments >= 2, @"Objective-C methods should have at least two arguments: self and _cmd!");
     switch (signature.numberOfArguments) {
         case 3: {
             [self registerCommand:command asyncHandler:^(NSDictionary *message, GlueReplyBlock reply) {
-                [object performSelector:action withObject:message];
+                [object performSelector:rule withObject:message];
                 reply(nil, nil);
             }];
             break;
         }
         case 4: {
             [self registerCommand:command asyncHandler:^(NSDictionary *message, GlueReplyBlock reply) {
-                [object performSelector:action withObject:message withObject:reply];
+                [object performSelector:rule withObject:message withObject:reply];
             }];
             break;
         }

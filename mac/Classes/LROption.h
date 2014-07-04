@@ -4,18 +4,18 @@
 
 
 @class LROptionsView;
-@class Action;
+@class Rule;
 
 
 // app model layer (a blend of model and controller)
 @interface LROption : LRManifestBasedObject
 
-- (id)initWithManifest:(NSDictionary *)manifest action:(Action *)action errorSink:(id<LRManifestErrorSink>)errorSink;
+- (id)initWithManifest:(NSDictionary *)manifest rule:(Rule *)rule errorSink:(id<LRManifestErrorSink>)errorSink;
 
-- (id)copyWithAction:(Action *)action;
+- (id)copyWithAction:(Rule *)rule;
 
 @property(nonatomic, copy) NSString *identifier;
-@property(nonatomic, readonly, strong) Action *action;
+@property(nonatomic, readonly, strong) Rule *rule;
 
 @property(nonatomic, copy) NSString *label;  // courtesy for subclasses, usage is optional
 

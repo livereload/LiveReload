@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6154.17" systemVersion="13D65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6154.21" systemVersion="13D65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <development version="5000" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6154.17"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6154.21"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NewMainWindowController">
@@ -1056,12 +1056,12 @@
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="140" id="SRD-ty-wy2"/>
                     </constraints>
-                    <popUpButtonCell key="cell" type="roundRect" title="Add action" bezelStyle="roundedRect" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" selectedItem="cnl-dL-o4C" id="If5-el-ABE">
+                    <popUpButtonCell key="cell" type="roundRect" title="Add rule" bezelStyle="roundedRect" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" pullsDown="YES" selectedItem="cnl-dL-o4C" id="If5-el-ABE">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="cellTitle"/>
                         <menu key="menu" title="OtherViews" id="Um2-MW-97V">
                             <items>
-                                <menuItem title="Add action" state="on" hidden="YES" id="cnl-dL-o4C"/>
+                                <menuItem title="Add rule" state="on" hidden="YES" id="cnl-dL-o4C"/>
                                 <menuItem title="Run custom command..." id="TJf-Hf-WdU"/>
                                 <menuItem isSeparatorItem="YES" id="mLo-1d-OXo"/>
                                 <menuItem title="Run minify_and_concatenate.sh" id="7cc-f0-ByZ"/>
@@ -1117,7 +1117,7 @@
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z0u-6q-a1w">
                     <rect key="frame" x="17" y="132" width="93" height="17"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Other actions:" id="R2F-Fg-FZZ">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Other rules:" id="R2F-Fg-FZZ">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -1399,7 +1399,7 @@
                         <outlet property="delegate" destination="-2" id="jr0-Zh-fVj"/>
                     </connections>
                 </textField>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="zcg-Y6-iKZ" customClass="ActionListView">
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="zcg-Y6-iKZ" customClass="RulebookView">
                     <rect key="frame" x="20" y="66" width="610" height="390"/>
                 </customView>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1bt-Yj-ia1">

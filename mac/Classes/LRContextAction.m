@@ -1,6 +1,6 @@
 
-#import "LRContextActionType.h"
-#import "ActionType.h"
+#import "LRContextAction.h"
+#import "Action.h"
 #import "LRPackageResolutionContext.h"
 #import "LRPackageContainer.h"
 #import "LRPackageSet.h"
@@ -16,22 +16,22 @@
 #import "ATScheduling.h"
 
 
-NSString *const LRContextActionTypeDidChangeVersionsNotification = @"LRContextActionTypeDidChangeVersions";
+NSString *const LRContextActionDidChangeVersionsNotification = @"LRContextActionDidChangeVersions";
 
 
-@interface LRContextActionType ()
+@interface LRContextAction ()
 
 @end
 
 
-@implementation LRContextActionType {
+@implementation LRContextAction {
     ATCoalescedState _updateState;
 }
 
-- (id)initWithActionType:(ActionType *)actionType project:(Project *)project resolutionContext:(LRPackageResolutionContext *)resolutionContext {
+- (id)initWithAction:(Action *)action project:(Project *)project resolutionContext:(LRPackageResolutionContext *)resolutionContext {
     self = [super init];
     if (self) {
-        _actionType = actionType;
+        _action = action;
         _project = project;
         _resolutionContext = resolutionContext;
 
@@ -49,7 +49,7 @@ NSString *const LRContextActionTypeDidChangeVersionsNotification = @"LRContextAc
     AT_dispatch_coalesced_with_notifications(&_updateState, 0, ^(dispatch_block_t done) {
         _versions = [[self _computeAvailableVersions] copy];
         _versionSpecs = [[self _computeAvailableVersionSpecs] copy];
-        [self postNotificationName:LRContextActionTypeDidChangeVersionsNotification];
+        [self postNotificationName:LRContextActionDidChangeVersionsNotification];
         done();
     }, ^{
         [_project setAnalysisInProgress:(_updateState > 0) forTask:self];
@@ -57,19 +57,19 @@ NSString *const LRContextActionTypeDidChangeVersionsNotification = @"LRContextAc
 }
 
 - (NSArray *)_computeAvailableVersions {
-    if (!_actionType.valid) {
+    if (!_action.valid) {
         return @[];
     }
 
     NSMutableArray *packageSets = [NSMutableArray new];
-    for (LRAssetPackageConfiguration *configuration in _actionType.packageConfigurations) {
+    for (LRAssetPackageConfiguration *configuration in _action.packageConfigurations) {
         [packageSets addObjectsFromArray:[_resolutionContext packageSetsMatchingConfiguration:configuration]];
     }
 
     NSMutableArray *versions = [NSMutableArray new];
     for (LRPackageSet *packageSet in packageSets) {
         LRActionManifest *manifest = [self _actionManifestForPackageSet:packageSet];
-        LRActionVersion *version = [[LRActionVersion alloc] initWithType:_actionType manifest:manifest packageSet:packageSet];
+        LRActionVersion *version = [[LRActionVersion alloc] initWithType:_action manifest:manifest packageSet:packageSet];
         [versions addObject:version];
     }
     [versions sortUsingComparator:^NSComparisonResult(LRActionVersion *obj1, LRActionVersion *obj2) {
@@ -96,7 +96,7 @@ NSString *const LRContextActionTypeDidChangeVersionsNotification = @"LRContextAc
         addSpec(actionVersion, [LRVersionSpec versionSpecMatchingVersion:actionVersion.primaryVersion]);
     }
 
-    [specs addObject:[LRVersionSpec stableVersionSpecMatchingAnyVersionInVersionSpace:_actionType.primaryVersionSpace]];
+    [specs addObject:[LRVersionSpec stableVersionSpecMatchingAnyVersionInVersionSpace:_action.primaryVersionSpace]];
 
     return specs;
 }
@@ -106,7 +106,7 @@ NSString *const LRContextActionTypeDidChangeVersionsNotification = @"LRContextAc
 
 - (LRActionManifest *)_actionManifestForPackageSet:(LRPackageSet *)packageSet {
     NSMutableArray *layers = [NSMutableArray new];
-    for (LRManifestLayer *layer in _actionType.manifestLayers) {
+    for (LRManifestLayer *layer in _action.manifestLayers) {
         if ([packageSet matchesAllPackageReferencesInArray:layer.packageReferences]) {
             [layers addObject:layer];
         }
@@ -114,8 +114,8 @@ NSString *const LRContextActionTypeDidChangeVersionsNotification = @"LRContextAc
     return [[LRActionManifest alloc] initWithLayers:layers];
 }
 
-- (Action *)newInstanceWithMemento:(NSDictionary *)memento {
-    return [[_actionType.actionClass alloc] initWithContextActionType:self memento:memento];
+- (Rule *)newInstanceWithMemento:(NSDictionary *)memento {
+    return [[_action.actionClass alloc] initWithContextAction:self memento:memento];
 }
 
 @end

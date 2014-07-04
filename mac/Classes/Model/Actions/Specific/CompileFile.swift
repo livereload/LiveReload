@@ -1,7 +1,7 @@
 
 import Foundation
 
-@objc class CompileFileAction : ScriptInvocationAction {
+@objc class CompileFileRule : ScriptInvocationRule {
 
     var compilerName : String?
 
@@ -13,15 +13,11 @@ import Foundation
         }
     }
 
-    override var label : String {
-        return type.name
-    }
-
     override func loadFromMemento() {
         super.loadFromMemento()
         compilerName = stringValue(memento["compiler"])
         outputFilterOption = FilterOption(memento: NVCast(memento["output"], "subdir:."))
-        intrinsicInputPathSpec = type.combinedIntrinsicInputPathSpec
+        intrinsicInputPathSpec = action.combinedIntrinsicInputPathSpec
     }
 
     override func updateMemento() {
@@ -30,7 +26,7 @@ import Foundation
     }
 
     func destinationFileForSourceFile(file: LRProjectFile) -> LRProjectFile {
-        var destinationName = LRDeriveDestinationFileName(file.relativePath.lastPathComponent, type.manifest["output"]! as String, intrinsicInputPathSpec)
+        var destinationName = LRDeriveDestinationFileName(file.relativePath.lastPathComponent, action.manifest["output"]! as String, intrinsicInputPathSpec)
 
         var outputMappingIsRecursive = true  // TODO: make this conditional
         if outputMappingIsRecursive {
@@ -79,7 +75,7 @@ import Foundation
     }
 
     override func fileTargetForRootFile(file: LRProjectFile) -> LRTarget? {
-        return LRFileTarget(action: self, sourceFile: file)
+        return LRFileTarget(rule: self, sourceFile: file)
     }
 
 }

@@ -26,7 +26,7 @@
 #import "ATAutolayout.h"
 #import "ATStackView.h"
 #import "LiveReload-Swift-x.h"
-#import "ActionListView.h"
+#import "RulebookView.h"
 #import "ATSolidView.h"
 #import "ATFlippedView.h"
 #import "ATAttributedStringAdditions.h"
@@ -61,7 +61,7 @@ enum { PANE_COUNT = PaneProject+1 };
 - (void)updateURLs;
 
 @property (strong) NSNib *actionsRowNib;
-@property (weak) IBOutlet ActionListView *actionsStackView;
+@property (weak) IBOutlet RulebookView *actionsStackView;
 
 @property (weak) IBOutlet NSView *placeholderTabView;
 @property (strong) IBOutlet NSView *notFoundTabView;

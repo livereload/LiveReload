@@ -40,11 +40,11 @@
 }
 
 - (id)modelValue {
-    return self.action.customArgumentsString;
+    return self.rule.customArgumentsString;
 }
 
 - (void)setModelValue:(id)modelValue {
-    self.action.customArgumentsString = modelValue;
+    self.rule.customArgumentsString = modelValue;
 }
 
 - (void)controlTextDidChange:(NSNotification *)obj {

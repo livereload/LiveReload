@@ -3,11 +3,11 @@
 #import "ATStackView.h"
 
 @class Project;
-@class ActionList;
+@class Rulebook;
 
-@interface ActionListView : ATStackView
+@interface RulebookView : ATStackView
 
 @property(nonatomic, strong) Project *project;
-@property(nonatomic, strong) ActionList *actionList;
+@property(nonatomic, strong) Rulebook *rulebook;
 
 @end

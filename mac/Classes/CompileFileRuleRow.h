@@ -1,7 +1,7 @@
 
-#import "BaseActionRow.h"
+#import "BaseRuleRow.h"
 
-@interface CompileFileActionRow : BaseActionRow
+@interface CompileFileRuleRow : BaseRuleRow
 
 @property(nonatomic, strong) NSPopUpButton *sourcePopUp;
 @property(nonatomic, strong) NSPopUpButton *destinationPopUp;

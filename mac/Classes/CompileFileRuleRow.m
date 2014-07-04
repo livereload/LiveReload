@@ -1,11 +1,11 @@
 
-#import "CompileFileActionRow.h"
+#import "CompileFileRuleRow.h"
 #import "ATMacViewCreation.h"
 #import "ATAutolayout.h"
 #import "LiveReload-Swift-x.h"
 
 
-@implementation CompileFileActionRow
+@implementation CompileFileRuleRow
 
 - (void)loadContent {
     [super loadContent];
@@ -30,17 +30,17 @@
 
 - (void)updateContent {
     [super updateContent];
-    self.checkbox.title = self.action.label;
+    self.checkbox.title = self.rule.label;
 }
 
 - (void)updateFilterOptions {
-    CompileFileAction *xaction = (CompileFileAction *)self.action;
-    [self updateFilterOptionsPopUp:self.sourcePopUp selectedOption:self.action.inputFilterOption];
+    CompileFileRule *xaction = (CompileFileRule *)self.rule;
+    [self updateFilterOptionsPopUp:self.sourcePopUp selectedOption:self.rule.inputFilterOption];
     [self updateFilterOptionsPopUp:self.destinationPopUp selectedOption:xaction.outputFilterOption];
 }
 
 - (IBAction)sourceOptionSelected:(NSPopUpButton *)sender {
-    CompileFileAction *xaction = (CompileFileAction *)self.action;
+    CompileFileRule *xaction = (CompileFileRule *)self.rule;
     FilterOption *filterOption = sender.selectedItem.representedObject;
 
     BOOL same = ([xaction.inputFilterOption.subfolder isEqualToString:xaction.outputFilterOption.subfolder]);
@@ -51,7 +51,7 @@
 }
 
 - (IBAction)destinationOptionSelected:(NSPopUpButton *)sender {
-    CompileFileAction *xaction = (CompileFileAction *)self.action;
+    CompileFileRule *xaction = (CompileFileRule *)self.rule;
     FilterOption *filterOption = sender.selectedItem.representedObject;
     xaction.outputFilterOption = filterOption;
 }
@@ -61,7 +61,7 @@
 }
 
 - (void)loadOptionsIntoView:(LROptionsView *)container {
-    for (LROption *option in [self.action createOptions]) {
+    for (LROption *option in [self.rule createOptions]) {
         [container addOption:option];
     }
 }

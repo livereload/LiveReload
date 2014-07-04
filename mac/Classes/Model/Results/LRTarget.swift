@@ -3,14 +3,14 @@ import Foundation
 
 @objc class LRTarget : NSObject {
 
-    let action : Action
+    let rule : Rule
 
     var project : Project {
-        return action.project
+        return rule.project
     }
 
-    init(action: Action) {
-        self.action = action
+    init(rule: Rule) {
+        self.rule = rule
     }
 
     func invoke(#build: LRBuild, completionBlock: dispatch_block_t) {
@@ -19,7 +19,7 @@ import Foundation
 
     func newResult() -> LROperationResult {
         let result = LROperationResult()
-        action.configureResult(result)
+        rule.configureResult(result)
         return result
     }
 

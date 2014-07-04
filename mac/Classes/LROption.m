@@ -6,17 +6,17 @@
 
 @implementation LROption
 
-- (id)initWithManifest:(NSDictionary *)manifest action:(Action *)action errorSink:(id<LRManifestErrorSink>)errorSink {
+- (id)initWithManifest:(NSDictionary *)manifest rule:(Rule *)rule errorSink:(id<LRManifestErrorSink>)errorSink {
     self = [super initWithManifest:manifest errorSink:errorSink];
     if (self) {
-        _action = action;
+        _rule = rule;
         [self loadManifest];
     }
     return self;
 }
 
-- (id)copyWithAction:(Action *)action {
-    return [[self.class alloc] initWithManifest:self.manifest action:action errorSink:self.errorSink];
+- (id)copyWithAction:(Rule *)rule {
+    return [[self.class alloc] initWithManifest:self.manifest rule:rule errorSink:self.errorSink];
 }
 
 - (void)renderInOptionsView:(LROptionsView *)optionsView {
@@ -65,7 +65,7 @@
 }
 
 - (id)modelValue {
-    return [self.action optionValueForKey:self.optionKeyForPresentedValue];
+    return [self.rule optionValueForKey:self.optionKeyForPresentedValue];
 }
 
 - (id)effectiveValue {
@@ -73,7 +73,7 @@
 }
 
 - (void)setModelValue:(id)value {
-    [self.action setOptionValue:value forKey:self.optionKeyForPresentedValue];
+    [self.rule setOptionValue:value forKey:self.optionKeyForPresentedValue];
 }
 
 - (NSArray *)commandLineArguments {

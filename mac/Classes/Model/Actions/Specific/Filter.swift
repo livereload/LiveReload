@@ -1,12 +1,7 @@
 
 import Foundation
 
-@objc(FilterAction)
-class FilterAction : ScriptInvocationAction {
-
-    override var label: String {
-        return type.name
-    }
+class FilterRule : ScriptInvocationRule {
 
     override var supportsFileTargets: Bool {
         return true
@@ -15,7 +10,7 @@ class FilterAction : ScriptInvocationAction {
     override func loadFromMemento() {
         super.loadFromMemento()
 
-        let inputFilter = type.manifest["input"]! as String
+        let inputFilter = action.manifest["input"]! as String
         intrinsicInputPathSpec = ATPathSpec(string: inputFilter, syntaxOptions: ATPathSpecSyntaxOptions.FlavorExtended)
     }
 
@@ -24,7 +19,7 @@ class FilterAction : ScriptInvocationAction {
     }
 
     override func fileTargetForRootFile(file: LRProjectFile) -> LRTarget? {
-        return LRFileTarget(action: self, sourceFile: file)
+        return LRFileTarget(rule: self, sourceFile: file)
     }
 
     override func configureStep(step: ScriptInvocationStep, forFile file: LRProjectFile) {

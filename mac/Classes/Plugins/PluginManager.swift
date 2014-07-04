@@ -11,7 +11,7 @@ class PluginManager : NSObject {
     }
 
     func reloadPlugins() {
-        _actionTypes.removeAll()
+        _actions.removeAll()
         _plugins = []
 
         let libraryFolderPaths = ["~/Library/LiveReload", "~/Dropbox/Library/LiveReload"]
@@ -30,8 +30,8 @@ class PluginManager : NSObject {
         _loadPluginsFromFolder(bundledPluginsFolder)
 
         for plugin in _plugins {
-            for actionType in plugin.actionTypes as ActionType[] {
-                _addActionType(actionType)
+            for action in plugin.actions as Action[] {
+                _addAction(action)
             }
         }
 
@@ -80,8 +80,8 @@ class PluginManager : NSObject {
         return String[](_loadedPluginNames.keys)
     }
 
-    var actionTypes: ActionType[] {
-        return _actionTypes.list
+    var actions: Action[] {
+        return _actions.list
     }
 
     func compilerForExtension(ext: String) -> Compiler? {
@@ -92,15 +92,15 @@ class PluginManager : NSObject {
         return findIf(compilers) { $0.uniqueId == uniqueId }
     }
 
-    func actionTypeWithIdentifier(identifier: String) -> ActionType? {
-        return _actionTypes[identifier]
+    func actionWithIdentifier(identifier: String) -> Action? {
+        return _actions[identifier]
     }
 
 // private
 
     var _loadedPluginNames : Dictionary<String, Plugin> = [:]
     var _pluginsLoaded = false
-    var _actionTypes = IndexedArray<String, ActionType>() { $0.identifier }
+    var _actions = IndexedArray<String, Action>() { $0.identifier }
 
     func _loadPluginFromFolder(pluginFolder: String) {
         let name = pluginFolder.lastPathComponent.stringByDeletingPathExtension
@@ -121,12 +121,12 @@ class PluginManager : NSObject {
         }
     }
 
-    func _addActionType(actionType: ActionType) {
-        let identifier = actionType.identifier
-        if actionType.valid {
-            _actionTypes.append(actionType)
+    func _addAction(action: Action) {
+        let identifier = action.identifier
+        if action.valid {
+            _actions.append(action)
         } else {
-            NSLog("Skipped invalid action type def: \(identifier)")
+            NSLog("Skipped invalid rule type def: \(identifier)")
         }
     }
 

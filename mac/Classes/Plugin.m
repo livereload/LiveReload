@@ -1,7 +1,7 @@
 
 #import "Plugin.h"
 #import "Compiler.h"
-#import "ActionType.h"
+#import "Action.h"
 #import "AppState.h"
 #import "LRPackageManager.h"
 #import "LRPackageType.h"
@@ -40,11 +40,11 @@
         }
         _compilers = [compilers copy];
 
-        NSMutableArray *actionTypes = [NSMutableArray array];
+        NSMutableArray *actions = [NSMutableArray array];
         for (NSDictionary *options in [_info objectForKey:@"actions"]) {
-            [actionTypes addObject:[[ActionType alloc] initWithManifest:options plugin:self]];
+            [actions addObject:[[Action alloc] initWithManifest:options plugin:self]];
         }
-        _actionTypes = [actionTypes copy];
+        _actions = [actions copy];
 
         // find bundled packages
         NSMutableArray *bundledPackageContainers = [NSMutableArray new];

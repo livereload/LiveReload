@@ -1,5 +1,5 @@
 
-#import "ActionType.h"
+#import "Action.h"
 #import "LiveReload-Swift-x.h"
 #import "Errors.h"
 #import "Plugin.h"
@@ -17,6 +17,12 @@
 #import "LRAssetPackageConfiguration.h"
 
 #import "ATFunctionalStyle.h"
+
+// for .class ref only
+#import "CompileFileRuleRow.h"
+#import "FilterRuleRow.h"
+#import "CustomCommandRuleRow.h"
+#import "UserScriptRuleRow.h"
 
 
 
@@ -50,7 +56,7 @@ NSArray *LRValidActionKindStrings() {
 }
 
 
-@implementation ActionType {
+@implementation Action {
     NSMutableArray *_errors;
     NSArray *_packageConfigurations;
     NSString *_fakeChangeExtension;
@@ -71,23 +77,33 @@ NSArray *LRValidActionKindStrings() {
     NSDictionary *knownTypes = @{
                                  @"filter": @{
                                          @"kind": @"filter",
-                                         @"objc_class":    @"FilterAction",
-                                         @"objc_rowClass": @"FilterActionRow",
+                                         @"objc_class": [FilterRule class],
+                                         @"objc_rowClass": [FilterRuleRow class],
                                      },
                                  @"compile-file": @{
                                          @"kind": @"compiler",
-                                         @"objc_classObj": [CompileFileAction class],
-                                         @"objc_rowClass": @"CompileFileActionRow",
+                                         @"objc_class": [CompileFileRule class],
+                                         @"objc_rowClass": [CompileFileRuleRow class],
                                      },
                                  @"compile-folder": @{
                                          @"kind": @"postproc",
-                                         @"objc_classObj": [CompileFolderAction class],
-                                         @"objc_rowClass": @"FilterActionRow",
+                                         @"objc_class": [CompileFolderRule class],
+                                         @"objc_rowClass": [FilterRuleRow class],
                                      },
                                  @"run-tests": @{
                                          @"kind": @"postproc",
-                                         @"objc_class":    @"RunTestsAction",
-                                         @"objc_rowClass": @"FilterActionRow",
+                                         @"objc_class":    [RunTestsRule class],
+                                         @"objc_rowClass": [FilterRuleRow class],
+                                     },
+                                 @"custom-command": @{
+                                         @"kind": @"postproc",
+                                         @"objc_class": [CustomCommandRule class],
+                                         @"objc_rowClass": [CustomCommandRuleRow class],
+                                     },
+                                 @"user-script": @{
+                                         @"kind": @"postproc",
+                                         @"objc_class": [UserScriptRule class],
+                                         @"objc_rowClass": [UserScriptRuleRow class],
                                      },
                                  };
 
@@ -105,22 +121,14 @@ NSArray *LRValidActionKindStrings() {
 
     _kind = LRActionKindFromString(manifest[@"kind"] ?: @"");
 
-    NSString *actionClassName = manifest[@"objc_class"] ?: @"";
-    NSString *rowClassName = manifest[@"objc_rowClass"] ?: @"";
-
-    _actionClass = manifest[@"objc_classObj"] ?: NSClassFromString(actionClassName);
-    _rowClass = NSClassFromString(rowClassName);
+    _actionClass = manifest[@"objc_class"];
+    _rowClass = manifest[@"objc_rowClass"];
 
     if (_identifier.length == 0)
         [self addErrorMessage:@"'id' attribute is required"];
 
     if (_kind == ActionKindUnknown)
         [self addErrorMessage:[NSString stringWithFormat:@"'kind' attribute is required and must be one of %@", LRValidActionKindStrings()]];
-    
-    if (!_actionClass)
-        [self addErrorMessage:[NSString stringWithFormat:@"Cannot find action class '%@'", actionClassName]];
-    if (!_rowClass)
-        [self addErrorMessage:[NSString stringWithFormat:@"Cannot find row class '%@'", rowClassName]];
 
     LRPackageManager *packageManager = [AppState sharedAppState].packageManager;
     NSArray *versionInfoLayers = [(self.manifest[@"versionInfo"] ?: @{}) arrayByMappingEntriesUsingBlock:^id(NSString *packageRefString, NSDictionary *info) {

@@ -1,6 +1,6 @@
 
 #import <Cocoa/Cocoa.h>
-#import "ActionList.h"
+#import "Rulebook.h"
 
 
 @class FSMonitor;
@@ -95,7 +95,7 @@ enum {
 - (void)addExcludedPath:(NSString *)path;
 - (void)removeExcludedPath:(NSString *)path;
 
-@property(nonatomic, strong, readonly) ActionList *actionList;
+@property(nonatomic, strong, readonly) Rulebook *rulebook;
 
 @property(nonatomic, strong, readonly) NSArray *pathOptions;
 @property(nonatomic, strong, readonly) NSArray *availableSubfolders;
@@ -120,6 +120,6 @@ enum {
 
 @property(nonatomic, readonly) LRBuild *lastFinishedBuild;
 
-- (NSArray *)compilerActionTypesForFile:(LRProjectFile *)file;
+- (NSArray *)compilerActionsForFile:(LRProjectFile *)file;
 
 @end

@@ -11,7 +11,7 @@
 
 @implementation LRActionVersion
 
-- (instancetype)initWithType:(ActionType *)type manifest:(LRActionManifest *)manifest packageSet:(LRPackageSet *)packageSet {
+- (instancetype)initWithType:(Action *)type manifest:(LRActionManifest *)manifest packageSet:(LRPackageSet *)packageSet {
     if (self = [super init]) {
         _type = type;
         _manifest = manifest;

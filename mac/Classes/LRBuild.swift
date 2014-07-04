@@ -4,7 +4,7 @@ import Foundation
 class LRBuild : NSObject {
 
     let project: Project
-    let actions: Action[]
+    let rules: Rule[]
 
     var messages: LRMessage[] = []
 
@@ -33,9 +33,9 @@ class LRBuild : NSObject {
     var firstFailure: LROperationResult? { return _firstFailure }
     var _firstFailure: LROperationResult?
 
-    init(project: Project, actions: Action[]) {
+    init(project: Project, rules: Rule[]) {
         self.project = project
-        self.actions = actions
+        self.rules = rules
     }
 
     func addReloadRequest(reloadRequest: NSDictionary) {
@@ -50,8 +50,8 @@ class LRBuild : NSObject {
         if newFiles.count > 0 {
             _modifiedFiles.extend(newFiles);
 
-            for action in actions {
-                _pendingFileTargets.extend(action.fileTargetsForModifiedFiles(newFiles))
+            for rule in rules {
+                _pendingFileTargets.extend(rule.fileTargetsForModifiedFiles(newFiles))
             }
 
             if (_waitingForMoreChangesBeforeFinishing) {
@@ -97,8 +97,8 @@ class LRBuild : NSObject {
 
             let fullPath = file.absolutePath as String
 
-            let actionTypes = project.compilerActionTypesForFile(file) as ActionType[]
-            if let fakeDestinationName = actionTypes.findMapIf({ $0.fakeChangeDestinationNameForSourceFile(file) }) {
+            let actions = project.compilerActionsForFile(file) as Action[]
+            if let fakeDestinationName = actions.findMapIf({ $0.fakeChangeDestinationNameForSourceFile(file) }) {
                 let fakePath = fullPath.stringByDeletingLastPathComponent.stringByAppendingPathComponent(fakeDestinationName)
                 addReloadRequest(["path": fakePath, "originalPath": fullPath, "localPath": NSNull()])
             } else {
@@ -165,7 +165,7 @@ class LRBuild : NSObject {
     }
 
     func _obtainNextProjectTarget() -> LRTarget? {
-        // XXX: a temporary hack, need a better time to populate project actions
+        // XXX: a temporary hack, need a better time to populate project rules
         if !_executingProjectActions {
             _executingProjectActions = true
             _buildProjectActions()
@@ -176,7 +176,7 @@ class LRBuild : NSObject {
     }
 
     func _buildProjectActions() {
-        _pendingProjectTargets.extend(actions.mapIf { $0.targetForModifiedFiles(self._modifiedFiles.list) })
+        _pendingProjectTargets.extend(rules.mapIf { $0.targetForModifiedFiles(self._modifiedFiles.list) })
     }
 
     func _executeTarget(target: LRTarget) {
