@@ -124,6 +124,8 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     BOOL                     _quuxMode;
 
     NSMutableDictionary     *_filesByPath;
+    ActionSet               *_actionSet;
+    ProjectAnalysis         *_analysis;
 
     NSArray                 *_availableActions;
 }
@@ -163,6 +165,11 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         _resolutionContext = [[LRPackageResolutionContext alloc] init];
 
         _availableActions = [PluginManager sharedPluginManager].actions;
+        _actionSet = [[ActionSet alloc] initWithProject:self];
+        [_actionSet addActions:_availableActions];
+
+        _analysis = [[ProjectAnalysis alloc] initWithActionSet:_actionSet];
+
         _rulebook = [[Rulebook alloc] initWithActions:_availableActions project:self];
         [_rulebook setMemento:memento];
         [self updateDataBasedOnAvailableActions];
@@ -758,6 +765,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
             file = [[LRProjectFile alloc] initWithRelativePath:relativePath project:self];
             _filesByPath[relativePath] = file;
         }
+        [_analysis updateResultsAfterModification:file];
         [self updateImportGraphForExistingFile:file];
         return file;
     } else {
@@ -766,6 +774,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
             [self updateImportGraphForMissingFile:file];
             [_filesByPath removeObjectForKey:relativePath];
         }
+        [_analysis updateResultsAfterDeletion:file];
         return file;
     }
 }

@@ -281,6 +281,9 @@
 		4376A0E2146DF1C800338AD4 /* TitleBarHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */; };
 		4379ADCB141D1060008C836F /* livereload.js in Resources */ = {isa = PBXBuildFile; fileRef = 4379ADC9141D00CE008C836F /* livereload.js */; };
 		4389F0C31944684600032D6A /* Scheduling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4389F0C21944684600032D6A /* Scheduling.swift */; };
+		438DFBD51968FCF000642A66 /* ActionSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438DFBD21968FCF000642A66 /* ActionSet.swift */; };
+		438DFBD61968FCF000642A66 /* FileClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438DFBD31968FCF000642A66 /* FileClassifier.swift */; };
+		438DFBD71968FCF000642A66 /* ProjectAnalysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438DFBD41968FCF000642A66 /* ProjectAnalysis.swift */; };
 		4396F1BA17F77A8900AA8200 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4396F1B917F77A8900AA8200 /* Foundation.framework */; };
 		4396F1CD17F80E6F00AA8200 /* GlitterInstallationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4396F1CB17F80E6F00AA8200 /* GlitterInstallationService.m */; };
 		4396F1D017F8109000AA8200 /* com.tarantsov.GlitterInstallationService.xpc in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4396F1B817F77A8900AA8200 /* com.tarantsov.GlitterInstallationService.xpc */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -861,6 +864,9 @@
 		4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TitleBarHelpTemplate.png; sourceTree = "<group>"; };
 		4379ADC9141D00CE008C836F /* livereload.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = livereload.js; sourceTree = "<group>"; };
 		4389F0C21944684600032D6A /* Scheduling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scheduling.swift; sourceTree = "<group>"; };
+		438DFBD21968FCF000642A66 /* ActionSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionSet.swift; sourceTree = "<group>"; };
+		438DFBD31968FCF000642A66 /* FileClassifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileClassifier.swift; sourceTree = "<group>"; };
+		438DFBD41968FCF000642A66 /* ProjectAnalysis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectAnalysis.swift; sourceTree = "<group>"; };
 		4396F1B817F77A8900AA8200 /* com.tarantsov.GlitterInstallationService.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = com.tarantsov.GlitterInstallationService.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
 		4396F1B917F77A8900AA8200 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4396F1C917F80E6F00AA8200 /* GlitterInstallationService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GlitterInstallationService-Info.plist"; sourceTree = "<group>"; };
@@ -1455,6 +1461,16 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		438DFBD11968FCF000642A66 /* Analysis */ = {
+			isa = PBXGroup;
+			children = (
+				438DFBD21968FCF000642A66 /* ActionSet.swift */,
+				438DFBD31968FCF000642A66 /* FileClassifier.swift */,
+				438DFBD41968FCF000642A66 /* ProjectAnalysis.swift */,
+			);
+			path = Analysis;
+			sourceTree = "<group>";
+		};
 		4396F1B317F77A5600AA8200 /* Glitter */ = {
 			isa = PBXGroup;
 			children = (
@@ -1594,6 +1610,7 @@
 		823DDE2D13F8DA3100529AD2 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				438DFBD11968FCF000642A66 /* Analysis */,
 				43533FD519489EA7003E51EB /* ActionGlobals.h */,
 				43533FD619489EA7003E51EB /* ActionGlobals.m */,
 				43533FD719489EA7003E51EB /* Rulebook.h */,
@@ -2228,11 +2245,13 @@
 				43CDCF8D17C6082A007B22D9 /* ATAttributedStringAdditions.m in Sources */,
 				4353418D19489EA8003E51EB /* LRSelfTestBrowserRequestExpectation.m in Sources */,
 				4303A54015B513FD009D732A /* dump.c in Sources */,
+				438DFBD61968FCF000642A66 /* FileClassifier.swift in Sources */,
 				4353416D19489EA8003E51EB /* LRActionVersion.m in Sources */,
 				4303A54115B513FD009D732A /* error.c in Sources */,
 				4353417419489EA8003E51EB /* LRCustomArgumentsOption.m in Sources */,
 				4353418019489EA8003E51EB /* LROutputMappingOptionController.m in Sources */,
 				435341DA19489EA8003E51EB /* RvmRubyInstance.m in Sources */,
+				438DFBD71968FCF000642A66 /* ProjectAnalysis.swift in Sources */,
 				4303A54215B513FD009D732A /* hashtable.c in Sources */,
 				4303A54315B513FD009D732A /* load.c in Sources */,
 				4303A54415B513FD009D732A /* memory.c in Sources */,
@@ -2322,6 +2341,7 @@
 				4353417D19489EA8003E51EB /* LROptionsView.m in Sources */,
 				4353419D19489EA8003E51EB /* LRVersionSet.m in Sources */,
 				435341B619489EA8003E51EB /* NpmPackage.m in Sources */,
+				438DFBD51968FCF000642A66 /* ActionSet.swift in Sources */,
 				4353415E19489EA8003E51EB /* Glue.m in Sources */,
 				4353414919489EA8003E51EB /* CompileFileRuleRow.m in Sources */,
 				435341AF19489EA8003E51EB /* LRMessage.swift in Sources */,
