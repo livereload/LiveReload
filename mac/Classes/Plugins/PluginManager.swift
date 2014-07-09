@@ -21,7 +21,7 @@ class PluginManager : NSObject {
         }
 
         var bundledPluginsFolder = NSBundle.mainBundle().resourcePath!
-        if let pluginsOverrideFolder = NSProcessInfo.processInfo().environment["LRBundledPluginsOverride"] as? String {
+        if let pluginsOverrideFolder = NSProcessInfo.processInfo().environment["LRBundledPluginsOverride"] as? NSString {
             let trimmed = pluginsOverrideFolder.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
             if !trimmed.isEmpty {
                 bundledPluginsFolder = trimmed.stringByExpandingTildeInPath
@@ -30,7 +30,7 @@ class PluginManager : NSObject {
         _loadPluginsFromFolder(bundledPluginsFolder)
 
         for plugin in _plugins {
-            for action in plugin.actions as Action[] {
+            for action in plugin.actions as [Action] {
                 _addAction(action)
             }
         }
@@ -41,7 +41,7 @@ class PluginManager : NSObject {
             errorMessage += "Number of plugins with errors: \(badPlugins.count)\n\n"
             for plugin in badPlugins {
                 errorMessage += "Error messages for \(plugin.path.lastPathComponent):\n"
-                for error in plugin.errors as NSError[] {
+                for error in plugin.errors as [NSError] {
                     errorMessage += "• \(error.localizedDescription)\n"
                 }
             }
@@ -60,27 +60,27 @@ class PluginManager : NSObject {
         _pluginsLoaded = true
     }
 
-    var plugins: Plugin[] {
+    var plugins: [Plugin] {
         assert(_pluginsLoaded, "Plugins not loaded yet")
         return _plugins
     }
 
-    var _plugins: Plugin[] = []
+    var _plugins: [Plugin] = []
 
-    var compilers: Compiler[] {
-        return flatten(_plugins.map { $0.compilers as Compiler[] })
+    var compilers: [Compiler] {
+        return flatten(_plugins.map { $0.compilers as [Compiler] })
     }
 
-    var compilerSourceExtensions: String[] {
+    var compilerSourceExtensions: [String] {
         let compiler = Compiler()
-        return flatten(compilers.map { $0.extensions as String[] })
+        return flatten(compilers.map { $0.extensions as [String] })
     }
 
-    var userPluginNames: String[] {
-        return String[](_loadedPluginNames.keys)
+    var userPluginNames: [String] {
+        return [String](_loadedPluginNames.keys)
     }
 
-    var actions: Action[] {
+    var actions: [Action] {
         return _actions.list
     }
 
@@ -112,7 +112,7 @@ class PluginManager : NSObject {
     }
 
     func _loadPluginsFromFolder(pluginsFolder: String) {
-        if let fileNames = NSFileManager.defaultManager().contentsOfDirectoryAtPath(pluginsFolder, error: nil) as String[]? {
+        if let fileNames = NSFileManager.defaultManager().contentsOfDirectoryAtPath(pluginsFolder, error: nil) as [String]? {
             for fileName in fileNames {
                 if fileName.pathExtension == "lrplugin" {
                     _loadPluginFromFolder(pluginsFolder.stringByAppendingPathComponent(fileName))

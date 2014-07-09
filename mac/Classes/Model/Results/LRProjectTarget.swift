@@ -3,9 +3,9 @@ import Foundation
 
 @objc class LRProjectTarget : LRTarget {
 
-    let modifiedFiles: LRProjectFile[]
+    let modifiedFiles: [LRProjectFile]
 
-    init(rule: Rule, modifiedFiles: LRProjectFile[]) {
+    init(rule: Rule, modifiedFiles: [LRProjectFile]) {
         self.modifiedFiles = modifiedFiles
         super.init(rule: rule)
     }

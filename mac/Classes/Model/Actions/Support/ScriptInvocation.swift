@@ -3,7 +3,7 @@ import Foundation
 
 class ScriptInvocationRule : Rule {
 
-    override func invokeWithModifiedFiles(files: LRProjectFile[], result: LROperationResult, completionHandler: dispatch_block_t) {
+    override func invokeWithModifiedFiles(files: [LRProjectFile], result: LROperationResult, completionHandler: dispatch_block_t) {
     }
 
     override func compileFile(file: LRProjectFile, result: LROperationResult, completionHandler: dispatch_block_t) {

@@ -7,7 +7,7 @@ class UserScriptRule : Rule {
 
     var script: UserScript? {
         if let actualScriptName = scriptName {
-            let userScripts = UserScriptManager.sharedUserScriptManager().userScripts as UserScript[]
+            let userScripts = UserScriptManager.sharedUserScriptManager().userScripts as [UserScript]
             if let matchingScript = findIf(userScripts, { $0.uniqueName == actualScriptName }) {
                 return matchingScript
             } else {
@@ -54,16 +54,16 @@ class UserScriptRule : Rule {
         memento["script"] = scriptName
     }
 
-    override func targetForModifiedFiles(files: LRProjectFile[]) -> LRTarget? {
+    override func targetForModifiedFiles(files: [LRProjectFile]) -> LRTarget? {
         if inputPathSpecMatchesFiles(files) {
-            return LRProjectTarget(rule: self, modifiedFiles: files as LRProjectFile[])
+            return LRProjectTarget(rule: self, modifiedFiles: files as [LRProjectFile])
         } else {
             return nil
         }
     }
 
-    override func invokeWithModifiedFiles(files: LRProjectFile[], result: LROperationResult, completionHandler: dispatch_block_t) {
-        let trueFiles = files as LRProjectFile[]
+    override func invokeWithModifiedFiles(files: [LRProjectFile], result: LROperationResult, completionHandler: dispatch_block_t) {
+        let trueFiles = files as [LRProjectFile]
         let filePaths = trueFiles.map { $0.relativePath }
 
         if let actualScript = script {

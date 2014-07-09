@@ -34,7 +34,7 @@ import Foundation
             if folderComponentCount > 0 {
                 let components = file.relativePath.stringByDeletingLastPathComponent.pathComponents
                 if components.count > folderComponentCount {
-                    destinationName = join("/", components[folderComponentCount .. components.count]).stringByAppendingPathComponent(destinationName)
+                    destinationName = join("/", components[folderComponentCount ..< components.count]).stringByAppendingPathComponent(destinationName)
                 }
             }
         }

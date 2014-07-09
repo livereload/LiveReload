@@ -110,9 +110,9 @@ extension NSError {
 
 extension String {
 
-    var argumentsArrayUsingBourneQuotingStyle: String[] {
+    var argumentsArrayUsingBourneQuotingStyle: [String] {
         let s = self as NSString
-        return s.argumentsArrayUsingBourneQuotingStyle() as String[]
+        return s.argumentsArrayUsingBourneQuotingStyle() as [String]
     }
 
 }
@@ -165,7 +165,7 @@ struct IndexedArray<K: Hashable, V> {
     let indexFunc: IndexFunc
 
     var dictionary: Dictionary<K, V> = [:]
-    var list: V[] = []
+    var list: [V] = []
 
     init(indexFunc: IndexFunc) {
         self.indexFunc = indexFunc
@@ -187,7 +187,7 @@ struct IndexedArray<K: Hashable, V> {
         return true
     }
 
-    mutating func extend(values: V[], overwrite: Bool = false) {
+    mutating func extend(values: [V], overwrite: Bool = false) {
         for value in values {
             append(value, overwrite: overwrite)
         }
@@ -200,7 +200,7 @@ struct IndexedArray<K: Hashable, V> {
 
     func contains(value: V) -> Bool {
         let key = indexFunc(value)
-        return self[key] != nil
+        return self[key] ? true : false
     }
 
 }

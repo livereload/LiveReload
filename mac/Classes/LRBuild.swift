@@ -4,16 +4,16 @@ import Foundation
 class LRBuild : NSObject {
 
     let project: Project
-    let rules: Rule[]
+    let rules: [Rule]
 
-    var messages: LRMessage[] = []
+    var messages: [LRMessage] = []
 
-    var reloadRequests: NSDictionary[] { return _reloadRequests }
-    var _reloadRequests: NSDictionary[] = []
+    var reloadRequests: [NSDictionary] { return _reloadRequests }
+    var _reloadRequests: [NSDictionary] = []
     var _modifiedFiles = IndexedArray<String, LRProjectFile>({ $0.relativePath })
     var _compiledFiles = IndexedArray<String, LRProjectFile>({ $0.relativePath })
-    var _pendingFileTargets: LRTarget[] = []
-    var _pendingProjectTargets: LRTarget[] = []
+    var _pendingFileTargets: [LRTarget] = []
+    var _pendingProjectTargets: [LRTarget] = []
 
     var _runningTarget: LRTarget?
     var _waitingForMoreChangesBeforeFinishing = false
@@ -33,7 +33,7 @@ class LRBuild : NSObject {
     var firstFailure: LROperationResult? { return _firstFailure }
     var _firstFailure: LROperationResult?
 
-    init(project: Project, rules: Rule[]) {
+    init(project: Project, rules: [Rule]) {
         self.project = project
         self.rules = rules
     }
@@ -42,7 +42,7 @@ class LRBuild : NSObject {
         _reloadRequests.append(reloadRequest)
     }
 
-    func addModifiedFiles(files: LRProjectFile[]) {
+    func addModifiedFiles(files: [LRProjectFile]) {
         // dedup
         // TODO: add a duplicate target if the previous one has already been completed
         let newFiles = files.filter { !self._modifiedFiles.contains($0) }
@@ -77,8 +77,7 @@ class LRBuild : NSObject {
     func _updateReloadRequests() {
         _reloadRequests = []
 
-        var filesToReload: LRProjectFile[] = _modifiedFiles.list
-        filesToReload.unshare()
+        var filesToReload: [LRProjectFile] = _modifiedFiles.list
 
         if let forcedStylesheetReloadSpec: ATPathSpec = project.forcedStylesheetReloadSpec {
             if forcedStylesheetReloadSpec.isNonEmpty() {
@@ -97,7 +96,7 @@ class LRBuild : NSObject {
 
             let fullPath = file.absolutePath as String
 
-            let actions = project.compilerActionsForFile(file) as Action[]
+            let actions = project.compilerActionsForFile(file) as [Action]
             if let fakeDestinationName = actions.findMapIf({ $0.fakeChangeDestinationNameForSourceFile(file) }) {
                 let fakePath = fullPath.stringByDeletingLastPathComponent.stringByAppendingPathComponent(fakeDestinationName)
                 addReloadRequest(["path": fakePath, "originalPath": fullPath, "localPath": NSNull()])
@@ -201,7 +200,7 @@ class LRBuild : NSObject {
             _firstFailure = result
         }
 
-        messages.extend(result.messages as LRMessage[])
+        messages.extend(result.messages as [LRMessage])
         project.displayResult(result, key: key)
     }
 

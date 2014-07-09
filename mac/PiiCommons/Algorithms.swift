@@ -2,8 +2,8 @@ import Foundation
 
 extension Array {
 
-    func mapIf<U>(transform: (Element) -> U?) -> U[] {
-        var result: U[] = []
+    func mapIf<U>(transform: (Element) -> U?) -> [U] {
+        var result: [U] = []
         result.reserveCapacity(count)
         for el in self {
             let optionalOutput = transform(el)
@@ -97,8 +97,8 @@ extension Array {
 
 }
 
-func flatten<T where T: Sequence, T.GeneratorType.Element: Sequence>(sequence: T) -> T.GeneratorType.Element.GeneratorType.Element[] {
-    var items: T.GeneratorType.Element.GeneratorType.Element[] = []
+func flatten<T where T: Sequence, T.GeneratorType.Element: Sequence>(sequence: T) -> [T.GeneratorType.Element.GeneratorType.Element] {
+    var items: [T.GeneratorType.Element.GeneratorType.Element] = []
     for subsequence in sequence {
         items.extend(subsequence)
     }
@@ -136,13 +136,13 @@ func any<S: Sequence>(sequence: S, test: (S.GeneratorType.Element) -> Bool) -> B
     return true
 }
 
-func removeValue<T: Equatable>(inout array: T[], el: T) {
+func removeValue<T: Equatable>(inout array: [T], el: T) {
     if let index = find(array, el) {
         array.removeAtIndex(index)
     }
 }
 
-func removeIntersection<T: Equatable>(inout array: T[], sequence: T[]) {
+func removeIntersection<T: Equatable>(inout array: [T], sequence: [T]) {
     for item in sequence {
         removeValue(&array, item)
     }

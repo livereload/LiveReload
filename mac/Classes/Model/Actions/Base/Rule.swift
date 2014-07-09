@@ -118,7 +118,7 @@ class Rule : NSObject {
         return false
     }
 
-    func targetForModifiedFiles(files: LRProjectFile[]) -> LRTarget? {
+    func targetForModifiedFiles(files: [LRProjectFile]) -> LRTarget? {
         return nil
     }
 
@@ -126,17 +126,17 @@ class Rule : NSObject {
         return nil
     }
 
-    func fileTargetsForModifiedFiles(modifiedFiles: LRProjectFile[]) -> LRTarget[] {
+    func fileTargetsForModifiedFiles(modifiedFiles: [LRProjectFile]) -> [LRTarget] {
         if !supportsFileTargets {
             return []
         }
         let matchingFiles = modifiedFiles.filter(inputPathSpecMatchesFile)
-        let rootFiles = project.rootFilesForFiles(matchingFiles) as LRProjectFile[]
+        let rootFiles = project.rootFilesForFiles(matchingFiles) as [LRProjectFile]
         let matchingRootFiles = rootFiles.filter(inputPathSpecMatchesFile)
         return matchingRootFiles.mapIf { self.fileTargetForRootFile($0) }
     }
 
-    func inputPathSpecMatchesFiles(files: LRProjectFile[]) -> Bool {
+    func inputPathSpecMatchesFiles(files: [LRProjectFile]) -> Bool {
         return files.any(inputPathSpecMatchesFile)
     }
 
@@ -153,13 +153,13 @@ class Rule : NSObject {
     func handleDeletionOfFile(file: LRProjectFile) {
     }
 
-    func invokeWithModifiedFiles(files: LRProjectFile[], result: LROperationResult, completionHandler: dispatch_block_t) {
+    func invokeWithModifiedFiles(files: [LRProjectFile], result: LROperationResult, completionHandler: dispatch_block_t) {
     }
 
 
     // MARK: Custom arguments
 
-    var customArguments: String[] {
+    var customArguments: [String] {
         get {
             return NVCast(_options["custom-args"], [])
         }
@@ -194,11 +194,11 @@ class Rule : NSObject {
 
     // MARK: LROption objects
 
-    func createOptions() -> LROption[] {
-        var options: LROption[] = []
+    func createOptions() -> [LROption] {
+        var options: [LROption] = []
         options.append(LRVersionOption(manifest: ["id": "version", "label": "Version:"], rule: self, errorSink: nil))
         if effectiveVersion {
-            options.extend(effectiveVersion!.manifest.createOptionsWithAction(self) as LROption[])
+            options.extend(effectiveVersion!.manifest.createOptionsWithAction(self) as [LROption])
         }
         options.append(LRCustomArgumentsOption(manifest: ["id": "custom-args"], rule: self, errorSink: nil))
         return options
@@ -219,7 +219,7 @@ class Rule : NSObject {
     var effectiveVersion: LRActionVersion?
 
     func _computeEffectiveVersion() -> LRActionVersion? {
-        return findIf(reverse(contextAction.versions as LRActionVersion[])) { self.primaryVersionSpec.matchesVersion($0.primaryVersion, withTag: LRVersionTag.Unknown) }
+        return findIf(reverse(contextAction.versions as [LRActionVersion])) { self.primaryVersionSpec.matchesVersion($0.primaryVersion, withTag: LRVersionTag.Unknown) }
     }
 
     var _c_updateEffectiveVersion = Coalescence(delayMs: 0)
@@ -264,16 +264,16 @@ class Rule : NSObject {
             step.commandLine = manifest.commandLineSpec
             step.addValue(action.plugin.path as String, forSubstitutionKey: "plugin")
 
-            for package in eff.packageSet.packages as LRPackage[] {
+            for package in eff.packageSet.packages as [LRPackage] {
                 step.addValue(package.sourceFolderURL.path as String, forSubstitutionKey: package.identifier)
                 step.addValue(package.version.description as String, forSubstitutionKey: "\(package.identifier).ver")
             }
         }
 
-        var additionalArguments: String[] = []
+        var additionalArguments: [String] = []
         let opt = self.createOptions()
         for option in opt {
-            additionalArguments.extend(option.commandLineArguments as String[])
+            additionalArguments.extend(option.commandLineArguments as [String])
         }
         additionalArguments.extend(customArguments)
 

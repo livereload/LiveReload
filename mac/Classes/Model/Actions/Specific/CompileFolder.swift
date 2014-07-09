@@ -3,7 +3,7 @@ import Foundation
 
 @objc class CompileFolderRule : ScriptInvocationRule {
 
-    override func invokeWithModifiedFiles(files: LRProjectFile[], result: LROperationResult, completionHandler: dispatch_block_t) {
+    override func invokeWithModifiedFiles(files: [LRProjectFile], result: LROperationResult, completionHandler: dispatch_block_t) {
         if !effectiveVersion {
             result.completedWithInvocationError(missingEffectiveVersionError)
             completionHandler()
@@ -21,7 +21,7 @@ import Foundation
         step.invoke()
     }
 
-    override func targetForModifiedFiles(files: LRProjectFile[]) -> LRTarget? {
+    override func targetForModifiedFiles(files: [LRProjectFile]) -> LRTarget? {
         if inputPathSpecMatchesFiles(files) {
             return LRProjectTarget(rule: self, modifiedFiles: files)
         } else {

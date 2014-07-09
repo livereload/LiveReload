@@ -2,9 +2,9 @@ import Foundation
 
 class FileClassifier {
 
-    /*private*/ var groups: FileGroup[] = []
+    /*private*/ var groups: [FileGroup] = []
 
-    func addGroups(newGroups: FileGroup[]) {
+    func addGroups(newGroups: [FileGroup]) {
         groups.extend(newGroups)
     }
 
@@ -32,9 +32,9 @@ class FileGroup {
 // cluster is a unique collection of groups within a classifier
 class FileCluster {
 
-    let groups: FileGroup[]
+    let groups: [FileGroup]
 
-    init(groups: FileGroup[]) {
+    init(groups: [FileGroup]) {
         self.groups = groups
     }
 
