@@ -57,6 +57,7 @@
 		431466A0146C9C0B00DC075A /* AddTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4314669E146C9C0B00DC075A /* AddTemplate.png */; };
 		431466A1146C9C0B00DC075A /* RemoveTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4314669F146C9C0B00DC075A /* RemoveTemplate.png */; };
 		431466A3146CA23F00DC075A /* PlaceholderTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 431466A2146CA23F00DC075A /* PlaceholderTemplate.png */; };
+		43170054196E4BBB007741A9 /* Optionals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43170053196E4BBB007741A9 /* Optionals.swift */; };
 		431867D3193C19EE00DA9609 /* LRCustomActionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 431867D2193C19EE00DA9609 /* LRCustomActionTests.m */; };
 		431CB50216D1EEF300034877 /* backend in Resources */ = {isa = PBXBuildFile; fileRef = 431CB50116D1EEF300034877 /* backend */; };
 		431CB53616D1EF8200034877 /* CoffeeScript.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 431CB52D16D1EF8200034877 /* CoffeeScript.lrplugin */; };
@@ -269,6 +270,9 @@
 		4353420819489F25003E51EB /* SublimeText3Editor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353420019489F25003E51EB /* SublimeText3Editor.m */; };
 		4353420B1948BBB4003E51EB /* LRBuild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353420A1948BBB4003E51EB /* LRBuild.swift */; };
 		43594AF413D3BB34004175B2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43594AF313D3BB34004175B2 /* QuartzCore.framework */; };
+		43612C4D1972961900E7C95B /* Analyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43612C4C1972961900E7C95B /* Analyzer.swift */; };
+		43612C4F1972962300E7C95B /* Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43612C4E1972962300E7C95B /* Variable.swift */; };
+		43612C511972981B00E7C95B /* SampleAnalyzers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43612C501972981B00E7C95B /* SampleAnalyzers.swift */; };
 		43693F4115660A8700C453CC /* LiveReloadNodejs in Resources */ = {isa = PBXBuildFile; fileRef = 43693F4015660A8700C453CC /* LiveReloadNodejs */; };
 		4371095218585DB800FCB4C2 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 434BB29F17BBF512000BEB1C /* XCTest.framework */; };
 		4371095818585DB800FCB4C2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4371095618585DB800FCB4C2 /* InfoPlist.strings */; };
@@ -461,6 +465,7 @@
 		4314669E146C9C0B00DC075A /* AddTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddTemplate.png; sourceTree = "<group>"; };
 		4314669F146C9C0B00DC075A /* RemoveTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RemoveTemplate.png; sourceTree = "<group>"; };
 		431466A2146CA23F00DC075A /* PlaceholderTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlaceholderTemplate.png; sourceTree = "<group>"; };
+		43170053196E4BBB007741A9 /* Optionals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Optionals.swift; sourceTree = "<group>"; };
 		431867D2193C19EE00DA9609 /* LRCustomActionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRCustomActionTests.m; sourceTree = "<group>"; };
 		431CB50116D1EEF300034877 /* backend */ = {isa = PBXFileReference; lastKnownFileType = folder; path = backend; sourceTree = "<group>"; };
 		431CB52D16D1EF8200034877 /* CoffeeScript.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = CoffeeScript.lrplugin; path = ../plugins/CoffeeScript.lrplugin; sourceTree = "<group>"; };
@@ -853,6 +858,9 @@
 		4353420919489F93003E51EB /* app_config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = app_config.h; path = ../Shared/app_config.h; sourceTree = "<group>"; };
 		4353420A1948BBB4003E51EB /* LRBuild.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = LRBuild.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		43594AF313D3BB34004175B2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		43612C4C1972961900E7C95B /* Analyzer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Analyzer.swift; sourceTree = "<group>"; };
+		43612C4E1972962300E7C95B /* Variable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Variable.swift; sourceTree = "<group>"; };
+		43612C501972981B00E7C95B /* SampleAnalyzers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleAnalyzers.swift; sourceTree = "<group>"; };
 		43693F4015660A8700C453CC /* LiveReloadNodejs */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = LiveReloadNodejs; path = Resources/LiveReloadNodejs; sourceTree = "<group>"; };
 		4371095118585DB800FCB4C2 /* LiveReloadTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiveReloadTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4371095518585DB800FCB4C2 /* LiveReloadTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LiveReloadTests-Info.plist"; sourceTree = "<group>"; };
@@ -1467,6 +1475,9 @@
 				438DFBD21968FCF000642A66 /* ActionSet.swift */,
 				438DFBD31968FCF000642A66 /* FileClassifier.swift */,
 				438DFBD41968FCF000642A66 /* ProjectAnalysis.swift */,
+				43612C4C1972961900E7C95B /* Analyzer.swift */,
+				43612C4E1972962300E7C95B /* Variable.swift */,
+				43612C501972981B00E7C95B /* SampleAnalyzers.swift */,
 			);
 			path = Analysis;
 			sourceTree = "<group>";
@@ -1603,6 +1614,7 @@
 				43A7ABC71944580A00DE1028 /* Algorithms.swift */,
 				4389F0C21944684600032D6A /* Scheduling.swift */,
 				43ACA22619449E4400C8C702 /* Weakify.swift */,
+				43170053196E4BBB007741A9 /* Optionals.swift */,
 			);
 			path = PiiCommons;
 			sourceTree = "<group>";
@@ -2318,6 +2330,7 @@
 				4353413A19489EA8003E51EB /* Rulebook.m in Sources */,
 				4303A55F15B513FD009D732A /* NodeAppDelegate.m in Sources */,
 				4353414719489EA8003E51EB /* BaseAddRow.m in Sources */,
+				43170054196E4BBB007741A9 /* Optionals.swift in Sources */,
 				4353413E19489EA8003E51EB /* AddActionRow.m in Sources */,
 				4353420719489F25003E51EB /* SublimeText2Editor.m in Sources */,
 				4303A56015B513FD009D732A /* NodeAppWindowController.m in Sources */,
@@ -2364,6 +2377,7 @@
 				4353415619489EA8003E51EB /* FSChange.m in Sources */,
 				4353415219489EA8003E51EB /* ExternalEditor.m in Sources */,
 				4353417619489EA8003E51EB /* LRLegacyFile.m in Sources */,
+				43612C4D1972961900E7C95B /* Analyzer.swift in Sources */,
 				4353420519489F25003E51EB /* EKJumpRequest.m in Sources */,
 				43B5BFFF17ADF0D600F57276 /* ATGlobals.m in Sources */,
 				43B5C00217ADF14700F57276 /* ATFunctionalStyle.m in Sources */,
@@ -2396,6 +2410,7 @@
 				4353418F19489EA8003E51EB /* LRSelfTestMessageExpectation.m in Sources */,
 				435341E419489EA8003E51EB /* TerminalView.m in Sources */,
 				43B5C01217ADF35C00F57276 /* NSString+ATProperURLEncoding.m in Sources */,
+				43612C4F1972962300E7C95B /* Variable.swift in Sources */,
 				4396F1DF17F8112F00AA8200 /* GlitterArchiveUtilities.m in Sources */,
 				4353416B19489EA8003E51EB /* LiveReloadAppDelegate.m in Sources */,
 				435341B919489EA8003E51EB /* NSData+Base64.m in Sources */,
@@ -2448,6 +2463,7 @@
 				435341BF19489EA8003E51EB /* OldFSTreeFilter.m in Sources */,
 				4353415319489EA8003E51EB /* FilterRuleRow.m in Sources */,
 				4353416519489EA8003E51EB /* LegacyCompilationOptions.m in Sources */,
+				43612C511972981B00E7C95B /* SampleAnalyzers.swift in Sources */,
 				435341C619489EA8003E51EB /* PluginManager.swift in Sources */,
 				43C389E319441ABB00D29DD7 /* Observation.swift in Sources */,
 				4353419B19489EA8003E51EB /* LRVersionOption.m in Sources */,
