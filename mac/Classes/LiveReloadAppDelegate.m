@@ -94,9 +94,9 @@
 //    [[SUUpdater sharedUpdater] setDelegate:self];
 #endif
 
-#ifdef TESTING
-    setenv("LRPortOverride", "35728", 1);
-#endif
+    if ([NSProcessInfo processInfo].environment[@"LRRunTests"]) {
+        setenv("LRPortOverride", "35728", 1);
+    }
 
     _port = 35729;
     if (getenv("LRPortOverride")) {

@@ -147,6 +147,22 @@ LR for Mac hacking tips
   - *(Also useful for speeding up Xcode builds; temporarily delete bundled plugins from the project and set this variable so that LiveReload can find them.)*
 
 
+Running tests
+-------------
+
+The tests are under mac/LiveReloadTestProjects.
+
+First, build & run LiveReload, open the main window, click the gears icon in title bar, then choose ‘Allow Access to Folder...’ and pick the LiveReloadTestProjects folder.
+
+Then, for a testing configuration, set environment variable `LRRunTests` to point to the absolute path of LiveReloadTestProjects directory, e.g.
+
+    LRRunTests=/Users/andreyvit/dev/livereload/devel/mac/LiveReloadTestProjects
+
+Additionally, you may want to add `-LogToConsole YES` to the list of launch arguments, so that you can see the entire output when testing.
+
+You may also want to set LRBundledPluginsOverride environment variable, as described above.
+
+
 git-subdir
 ----------
 

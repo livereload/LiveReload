@@ -16,7 +16,10 @@
 - (void)setUp {
     [super setUp];
 
-    _baseFolderURL = [NSURL fileURLWithPath:[@"~/dev/livereload/devel/mac/LiveReloadTestProjects" stringByExpandingTildeInPath]];
+    NSString *path = [NSProcessInfo processInfo].environment[@"LRRunTests"];
+    NSAssert(!!path, @"LRRunTests must be set.");
+
+    _baseFolderURL = [NSURL fileURLWithPath:path];
 
     NSLog(@"Waiting for initialization to finish...");
     [self waitForCondition:^BOOL{

@@ -76,9 +76,10 @@
 }
 
 - (void)analyze {
-    NSData *data = [NSData dataWithContentsOfURL:_manifestURL options:0 error:NULL];
+    NSError *error;
+    NSData *data = [NSData dataWithContentsOfURL:_manifestURL options:0 error:&error];
     if (!data) {
-        _error = [NSError errorWithDomain:@"com.livereload.tests" code:1 userInfo:@{NSLocalizedDescriptionKey:@"Test manifest cannot be loaded"}];
+        _error = [NSError errorWithDomain:@"com.livereload.tests" code:1 userInfo:@{NSLocalizedDescriptionKey:[NSString stringWithFormat:@"Test manifest cannot be loaded: %@ - %ld - %@", error.domain, (long)error.code, error.localizedDescription], NSUnderlyingErrorKey: error}];
         _valid = NO;
         return;
     }
