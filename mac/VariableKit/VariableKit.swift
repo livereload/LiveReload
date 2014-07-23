@@ -1,36 +1,42 @@
 import Foundation
 
-enum VariableFoldingBehavior {
+public enum VariableFoldingBehavior {
     case Folded
     case Accumulated
 }
 
-enum VariableScope {
+public enum VariableScope {
     case File
     case Project
 }
 
-struct VariableDefinition {
-    let name: String
-    let scope: VariableScope
-    let foldingBehavior: VariableFoldingBehavior
+public struct VariableDefinition {
+    public let name: String
+    public let scope: VariableScope
+    public let foldingBehavior: VariableFoldingBehavior
+
+    public init(name: String, scope: VariableScope, foldingBehavior: VariableFoldingBehavior) {
+        self.name = name
+        self.scope = scope
+        self.foldingBehavior = foldingBehavior
+    }
 }
 
-@final class EvidenceSource {
-    let name: String
+public final class EvidenceSource {
+    public let name: String
 
-    init(name: String) {
+    public init(name: String) {
         self.name = name
     }
 }
 
-@final class VariableSet {
+public final class VariableSet {
 
-    let variables: [Variable]
-    let sources: [EvidenceSource]
-    let variablesByName: [String: Variable]
+    public let variables: [Variable]
+    public let sources: [EvidenceSource]
+    public let variablesByName: [String: Variable]
 
-    init(variableDefinitions: [VariableDefinition], sources: [EvidenceSource]) {
+    public init(variableDefinitions: [VariableDefinition], sources: [EvidenceSource]) {
         var nextIndex = 0
         variables = variableDefinitions.map { Variable(definition: $0, index: nextIndex++) }
         self.sources = sources
@@ -42,65 +48,73 @@ struct VariableDefinition {
         self.variablesByName = variablesByName
     }
 
-    func lookupVariable(#name: String) -> Variable? {
+    public func lookupVariable(#name: String) -> Variable? {
         return variablesByName[name]
     }
 
-    func lookupVariable(#definition: VariableDefinition) -> Variable? {
+    public func lookupVariable(#definition: VariableDefinition) -> Variable? {
         return lookupVariable(name: definition.name)
     }
 
-    func newValueSet(#scope: VariableScope) -> ValueSet {
+    public func newValueSet(#scope: VariableScope) -> ValueSet {
         return ValueSet(variableSet: self, scope: scope)
     }
 
 }
 
-@final class Variable {
+public final class Variable {
 
-    let definition: VariableDefinition
-    let index: Int
+    public let definition: VariableDefinition
+    public let index: Int
 
-    init(definition: VariableDefinition, index: Int) {
+    private init(definition: VariableDefinition, index: Int) {
         self.definition = definition
         self.index = index
     }
 
-    var name: String {
+    public var name: String {
         return definition.name
     }
 
-    var scope: VariableScope {
+    public var scope: VariableScope {
         return definition.scope
     }
 
 }
 
-struct Evidence {
-    let variable: Variable
-    let source: EvidenceSource
-    let value: Any
-    let priority: Int
-    let reason: String
+public struct Evidence {
+    public let variable: Variable
+    public let source: EvidenceSource
+    public let value: Any
+    public let priority: Int
+    public let reason: String
+
+    public init(variable: Variable, source: EvidenceSource, value: Any, priority: Int, reason: String) {
+        self.variable = variable
+        self.source = source
+        self.value = value
+        self.priority = priority
+        self.reason = reason
+    }
 }
 
 
-@final class ValueSet {
+public final class ValueSet {
 
-    let variableSet: VariableSet
-    let scope: VariableScope
-    var evidence: [Evidence] = []
+    public let variableSet: VariableSet
+    public let scope: VariableScope
+    private var evidence: [Evidence] = []
 
-    init(variableSet: VariableSet, scope: VariableScope) {
+    private init(variableSet: VariableSet, scope: VariableScope) {
         self.variableSet = variableSet
         self.scope = scope
     }
 
-    func getEvidence(#variable: Variable) -> [Evidence] {
+    public func getEvidence(#variable: Variable) -> [Evidence] {
         return evidence.filter { $0.variable === variable }
     }
 
-    func getFolded(#variable: Variable) -> Any? {
+    public func getFolded(#variable: Variable) -> Any? {
         let evidence = getEvidence(variable: variable)
         if evidence.count > 0 {
             return evidence[0].value
@@ -109,7 +123,7 @@ struct Evidence {
         }
     }
 
-    func getFolded(#variable: Variable, defaultValue: Any) -> Any {
+    public func getFolded(#variable: Variable, defaultValue: Any) -> Any {
         if let value = getFolded(variable: variable) {
             return value
         } else {
@@ -117,17 +131,17 @@ struct Evidence {
         }
     }
 
-    func replaceEvidenceList(#source: EvidenceSource, newEvidence: [Evidence]) {
+    public func replaceEvidenceList(#source: EvidenceSource, newEvidence: [Evidence]) {
         evidence = evidence.filter { $0.source !== source }
         evidence.extend(newEvidence)
         evidence.sort { $0.priority > $1.priority }
     }
 
-    func replaceEvidence(#source: EvidenceSource, newEvidence: Evidence) {
+    public func replaceEvidence(#source: EvidenceSource, newEvidence: Evidence) {
         self.replaceEvidenceList(source: source, newEvidence: [newEvidence])
     }
 
-    func replaceEvidence(#source: EvidenceSource, variable: Variable, value: Any, priority: Int = 0, reason: String) {
+    public func replaceEvidence(#source: EvidenceSource, variable: Variable, value: Any, priority: Int = 0, reason: String) {
         self.replaceEvidence(source: source, newEvidence: Evidence(variable: variable, source: source, value: value, priority: priority, reason: reason))
     }
 }

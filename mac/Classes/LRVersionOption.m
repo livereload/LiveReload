@@ -5,7 +5,7 @@
 #import "LiveReload-Swift-x.h"
 #import "LRContextAction.h"
 #import "LRActionVersion.h"
-#import "LRVersion.h"
+@import PiiVersionKit;
 
 #import "ATMacViewCreation.h"
 #import "ATFunctionalStyle.h"

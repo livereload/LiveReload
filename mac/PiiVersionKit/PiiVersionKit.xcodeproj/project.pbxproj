@@ -1,0 +1,462 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		43177B981979279700FDCD62 /* PiiVersionKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 43177B971979279700FDCD62 /* PiiVersionKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43177B9E1979279700FDCD62 /* PiiVersionKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43177B921979279700FDCD62 /* PiiVersionKit.framework */; };
+		43177BA51979279700FDCD62 /* SemanticVersionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43177BA41979279700FDCD62 /* SemanticVersionTests.m */; };
+		43177BC31979286B00FDCD62 /* LRSemanticVersion.h in Headers */ = {isa = PBXBuildFile; fileRef = 43177BB71979286B00FDCD62 /* LRSemanticVersion.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43177BC41979286B00FDCD62 /* LRSemanticVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 43177BB81979286B00FDCD62 /* LRSemanticVersion.m */; };
+		43177BC51979286B00FDCD62 /* LRSemanticVersionSpace.h in Headers */ = {isa = PBXBuildFile; fileRef = 43177BB91979286B00FDCD62 /* LRSemanticVersionSpace.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43177BC61979286B00FDCD62 /* LRSemanticVersionSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 43177BBA1979286B00FDCD62 /* LRSemanticVersionSpace.m */; };
+		43177BC71979286B00FDCD62 /* LRVersion.h in Headers */ = {isa = PBXBuildFile; fileRef = 43177BBB1979286B00FDCD62 /* LRVersion.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43177BC81979286B00FDCD62 /* LRVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 43177BBC1979286B00FDCD62 /* LRVersion.m */; };
+		43177BC91979286B00FDCD62 /* LRVersionRange.h in Headers */ = {isa = PBXBuildFile; fileRef = 43177BBD1979286B00FDCD62 /* LRVersionRange.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43177BCA1979286B00FDCD62 /* LRVersionRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 43177BBE1979286B00FDCD62 /* LRVersionRange.m */; };
+		43177BCB1979286B00FDCD62 /* LRVersionSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 43177BBF1979286B00FDCD62 /* LRVersionSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43177BCC1979286B00FDCD62 /* LRVersionSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 43177BC01979286B00FDCD62 /* LRVersionSet.m */; };
+		43177BCD1979286B00FDCD62 /* LRVersionSpace.h in Headers */ = {isa = PBXBuildFile; fileRef = 43177BC11979286B00FDCD62 /* LRVersionSpace.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43177BCE1979286B00FDCD62 /* LRVersionSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 43177BC21979286B00FDCD62 /* LRVersionSpace.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		43177B9F1979279700FDCD62 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 43177B891979279700FDCD62 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 43177B911979279700FDCD62;
+			remoteInfo = PiiVersionKit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		43177B921979279700FDCD62 /* PiiVersionKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PiiVersionKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		43177B961979279700FDCD62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		43177B971979279700FDCD62 /* PiiVersionKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PiiVersionKit.h; sourceTree = "<group>"; };
+		43177B9D1979279700FDCD62 /* PiiVersionKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PiiVersionKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		43177BA31979279700FDCD62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		43177BA41979279700FDCD62 /* SemanticVersionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SemanticVersionTests.m; sourceTree = "<group>"; };
+		43177BB71979286B00FDCD62 /* LRSemanticVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRSemanticVersion.h; sourceTree = "<group>"; };
+		43177BB81979286B00FDCD62 /* LRSemanticVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRSemanticVersion.m; sourceTree = "<group>"; };
+		43177BB91979286B00FDCD62 /* LRSemanticVersionSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRSemanticVersionSpace.h; sourceTree = "<group>"; };
+		43177BBA1979286B00FDCD62 /* LRSemanticVersionSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRSemanticVersionSpace.m; sourceTree = "<group>"; };
+		43177BBB1979286B00FDCD62 /* LRVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRVersion.h; sourceTree = "<group>"; };
+		43177BBC1979286B00FDCD62 /* LRVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRVersion.m; sourceTree = "<group>"; };
+		43177BBD1979286B00FDCD62 /* LRVersionRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRVersionRange.h; sourceTree = "<group>"; };
+		43177BBE1979286B00FDCD62 /* LRVersionRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRVersionRange.m; sourceTree = "<group>"; };
+		43177BBF1979286B00FDCD62 /* LRVersionSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRVersionSet.h; sourceTree = "<group>"; };
+		43177BC01979286B00FDCD62 /* LRVersionSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRVersionSet.m; sourceTree = "<group>"; };
+		43177BC11979286B00FDCD62 /* LRVersionSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRVersionSpace.h; sourceTree = "<group>"; };
+		43177BC21979286B00FDCD62 /* LRVersionSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRVersionSpace.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		43177B8E1979279700FDCD62 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		43177B9A1979279700FDCD62 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				43177B9E1979279700FDCD62 /* PiiVersionKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		43177B881979279700FDCD62 = {
+			isa = PBXGroup;
+			children = (
+				43177B941979279700FDCD62 /* PiiVersionKit */,
+				43177BA11979279700FDCD62 /* PiiVersionKitTests */,
+				43177B931979279700FDCD62 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		43177B931979279700FDCD62 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				43177B921979279700FDCD62 /* PiiVersionKit.framework */,
+				43177B9D1979279700FDCD62 /* PiiVersionKitTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		43177B941979279700FDCD62 /* PiiVersionKit */ = {
+			isa = PBXGroup;
+			children = (
+				43177B971979279700FDCD62 /* PiiVersionKit.h */,
+				43177BB71979286B00FDCD62 /* LRSemanticVersion.h */,
+				43177BB81979286B00FDCD62 /* LRSemanticVersion.m */,
+				43177BB91979286B00FDCD62 /* LRSemanticVersionSpace.h */,
+				43177BBA1979286B00FDCD62 /* LRSemanticVersionSpace.m */,
+				43177BBB1979286B00FDCD62 /* LRVersion.h */,
+				43177BBC1979286B00FDCD62 /* LRVersion.m */,
+				43177BBD1979286B00FDCD62 /* LRVersionRange.h */,
+				43177BBE1979286B00FDCD62 /* LRVersionRange.m */,
+				43177BBF1979286B00FDCD62 /* LRVersionSet.h */,
+				43177BC01979286B00FDCD62 /* LRVersionSet.m */,
+				43177BC11979286B00FDCD62 /* LRVersionSpace.h */,
+				43177BC21979286B00FDCD62 /* LRVersionSpace.m */,
+				43177B951979279700FDCD62 /* Supporting Files */,
+			);
+			path = PiiVersionKit;
+			sourceTree = "<group>";
+		};
+		43177B951979279700FDCD62 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				43177B961979279700FDCD62 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		43177BA11979279700FDCD62 /* PiiVersionKitTests */ = {
+			isa = PBXGroup;
+			children = (
+				43177BA41979279700FDCD62 /* SemanticVersionTests.m */,
+				43177BA21979279700FDCD62 /* Supporting Files */,
+			);
+			path = PiiVersionKitTests;
+			sourceTree = "<group>";
+		};
+		43177BA21979279700FDCD62 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				43177BA31979279700FDCD62 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		43177B8F1979279700FDCD62 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				43177B981979279700FDCD62 /* PiiVersionKit.h in Headers */,
+				43177BC91979286B00FDCD62 /* LRVersionRange.h in Headers */,
+				43177BC71979286B00FDCD62 /* LRVersion.h in Headers */,
+				43177BC51979286B00FDCD62 /* LRSemanticVersionSpace.h in Headers */,
+				43177BCB1979286B00FDCD62 /* LRVersionSet.h in Headers */,
+				43177BCD1979286B00FDCD62 /* LRVersionSpace.h in Headers */,
+				43177BC31979286B00FDCD62 /* LRSemanticVersion.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		43177B911979279700FDCD62 /* PiiVersionKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 43177BA81979279700FDCD62 /* Build configuration list for PBXNativeTarget "PiiVersionKit" */;
+			buildPhases = (
+				43177B8D1979279700FDCD62 /* Sources */,
+				43177B8E1979279700FDCD62 /* Frameworks */,
+				43177B8F1979279700FDCD62 /* Headers */,
+				43177B901979279700FDCD62 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PiiVersionKit;
+			productName = PiiVersionKit;
+			productReference = 43177B921979279700FDCD62 /* PiiVersionKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		43177B9C1979279700FDCD62 /* PiiVersionKitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 43177BAB1979279700FDCD62 /* Build configuration list for PBXNativeTarget "PiiVersionKitTests" */;
+			buildPhases = (
+				43177B991979279700FDCD62 /* Sources */,
+				43177B9A1979279700FDCD62 /* Frameworks */,
+				43177B9B1979279700FDCD62 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				43177BA01979279700FDCD62 /* PBXTargetDependency */,
+			);
+			name = PiiVersionKitTests;
+			productName = PiiVersionKitTests;
+			productReference = 43177B9D1979279700FDCD62 /* PiiVersionKitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		43177B891979279700FDCD62 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = Pinetwo;
+				TargetAttributes = {
+					43177B911979279700FDCD62 = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					43177B9C1979279700FDCD62 = {
+						CreatedOnToolsVersion = 6.0;
+						TestTargetID = 43177B911979279700FDCD62;
+					};
+				};
+			};
+			buildConfigurationList = 43177B8C1979279700FDCD62 /* Build configuration list for PBXProject "PiiVersionKit" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 43177B881979279700FDCD62;
+			productRefGroup = 43177B931979279700FDCD62 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				43177B911979279700FDCD62 /* PiiVersionKit */,
+				43177B9C1979279700FDCD62 /* PiiVersionKitTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		43177B901979279700FDCD62 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		43177B9B1979279700FDCD62 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		43177B8D1979279700FDCD62 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				43177BCA1979286B00FDCD62 /* LRVersionRange.m in Sources */,
+				43177BC41979286B00FDCD62 /* LRSemanticVersion.m in Sources */,
+				43177BCC1979286B00FDCD62 /* LRVersionSet.m in Sources */,
+				43177BCE1979286B00FDCD62 /* LRVersionSpace.m in Sources */,
+				43177BC61979286B00FDCD62 /* LRSemanticVersionSpace.m in Sources */,
+				43177BC81979286B00FDCD62 /* LRVersion.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		43177B991979279700FDCD62 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				43177BA51979279700FDCD62 /* SemanticVersionTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		43177BA01979279700FDCD62 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 43177B911979279700FDCD62 /* PiiVersionKit */;
+			targetProxy = 43177B9F1979279700FDCD62 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		43177BA61979279700FDCD62 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		43177BA71979279700FDCD62 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		43177BA91979279700FDCD62 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = PiiVersionKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		43177BAA1979279700FDCD62 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = PiiVersionKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		43177BAC1979279700FDCD62 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = PiiVersionKitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		43177BAD1979279700FDCD62 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = PiiVersionKitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		43177B8C1979279700FDCD62 /* Build configuration list for PBXProject "PiiVersionKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				43177BA61979279700FDCD62 /* Debug */,
+				43177BA71979279700FDCD62 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		43177BA81979279700FDCD62 /* Build configuration list for PBXNativeTarget "PiiVersionKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				43177BA91979279700FDCD62 /* Debug */,
+				43177BAA1979279700FDCD62 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		43177BAB1979279700FDCD62 /* Build configuration list for PBXNativeTarget "PiiVersionKitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				43177BAC1979279700FDCD62 /* Debug */,
+				43177BAD1979279700FDCD62 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 43177B891979279700FDCD62 /* Project object */;
+}

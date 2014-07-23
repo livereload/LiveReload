@@ -168,19 +168,13 @@
 		4353418F19489EA8003E51EB /* LRSelfTestMessageExpectation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353408219489EA7003E51EB /* LRSelfTestMessageExpectation.m */; };
 		4353419019489EA8003E51EB /* LRSelfTestOutputExpectation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353408419489EA7003E51EB /* LRSelfTestOutputExpectation.m */; };
 		4353419119489EA8003E51EB /* LRSelfTestOutputFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353408619489EA7003E51EB /* LRSelfTestOutputFile.m */; };
-		4353419219489EA8003E51EB /* LRSemanticVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353408819489EA7003E51EB /* LRSemanticVersion.m */; };
-		4353419319489EA8003E51EB /* LRSemanticVersionSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353408A19489EA7003E51EB /* LRSemanticVersionSpace.m */; };
 		4353419419489EA8003E51EB /* LRTextFieldOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353408D19489EA7003E51EB /* LRTextFieldOption.m */; };
 		4353419519489EA8003E51EB /* LRTRGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353408F19489EA7003E51EB /* LRTRGlobals.m */; };
 		4353419619489EA8003E51EB /* LRTRProtocolParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353409119489EA7003E51EB /* LRTRProtocolParser.m */; };
 		4353419719489EA8003E51EB /* LRTRRun.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353409319489EA7003E51EB /* LRTRRun.m */; };
 		4353419819489EA8003E51EB /* LRTRTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353409519489EA7003E51EB /* LRTRTest.m */; };
 		4353419919489EA8003E51EB /* LRTRTestAnythingProtocolParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353409719489EA7003E51EB /* LRTRTestAnythingProtocolParser.m */; };
-		4353419A19489EA8003E51EB /* LRVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353409919489EA7003E51EB /* LRVersion.m */; };
 		4353419B19489EA8003E51EB /* LRVersionOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353409B19489EA7003E51EB /* LRVersionOption.m */; };
-		4353419C19489EA8003E51EB /* LRVersionRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353409D19489EA7003E51EB /* LRVersionRange.m */; };
-		4353419D19489EA8003E51EB /* LRVersionSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353409F19489EA7003E51EB /* LRVersionSet.m */; };
-		4353419E19489EA8003E51EB /* LRVersionSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 435340A119489EA7003E51EB /* LRVersionSpace.m */; };
 		4353419F19489EA8003E51EB /* LRVersionSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 435340A319489EA7003E51EB /* LRVersionSpec.m */; };
 		435341A019489EA8003E51EB /* LRVersionTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 435340A519489EA7003E51EB /* LRVersionTag.m */; };
 		435341A119489EA8003E51EB /* MainWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 435340A719489EA7003E51EB /* MainWindow.m */; };
@@ -367,6 +361,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		43177BB31979279800FDCD62 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 43177BAE1979279700FDCD62 /* PiiVersionKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 43177B921979279700FDCD62;
+			remoteInfo = PiiVersionKit;
+		};
+		43177BB51979279800FDCD62 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 43177BAE1979279700FDCD62 /* PiiVersionKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 43177B9D1979279700FDCD62;
+			remoteInfo = PiiVersionKitTests;
+		};
 		437109B01858707700FCB4C2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -503,6 +511,7 @@
 		4314669F146C9C0B00DC075A /* RemoveTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RemoveTemplate.png; sourceTree = "<group>"; };
 		431466A2146CA23F00DC075A /* PlaceholderTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlaceholderTemplate.png; sourceTree = "<group>"; };
 		43170053196E4BBB007741A9 /* Optionals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Optionals.swift; sourceTree = "<group>"; };
+		43177BAE1979279700FDCD62 /* PiiVersionKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PiiVersionKit.xcodeproj; path = PiiVersionKit/PiiVersionKit.xcodeproj; sourceTree = "<group>"; };
 		431867D2193C19EE00DA9609 /* LRCustomActionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRCustomActionTests.m; sourceTree = "<group>"; };
 		431CB50116D1EEF300034877 /* backend */ = {isa = PBXFileReference; lastKnownFileType = folder; path = backend; sourceTree = "<group>"; };
 		431CB52D16D1EF8200034877 /* CoffeeScript.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = CoffeeScript.lrplugin; path = ../plugins/CoffeeScript.lrplugin; sourceTree = "<group>"; };
@@ -710,10 +719,6 @@
 		4353408419489EA7003E51EB /* LRSelfTestOutputExpectation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRSelfTestOutputExpectation.m; sourceTree = "<group>"; };
 		4353408519489EA7003E51EB /* LRSelfTestOutputFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRSelfTestOutputFile.h; sourceTree = "<group>"; };
 		4353408619489EA7003E51EB /* LRSelfTestOutputFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRSelfTestOutputFile.m; sourceTree = "<group>"; };
-		4353408719489EA7003E51EB /* LRSemanticVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRSemanticVersion.h; sourceTree = "<group>"; };
-		4353408819489EA7003E51EB /* LRSemanticVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRSemanticVersion.m; sourceTree = "<group>"; };
-		4353408919489EA7003E51EB /* LRSemanticVersionSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRSemanticVersionSpace.h; sourceTree = "<group>"; };
-		4353408A19489EA7003E51EB /* LRSemanticVersionSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRSemanticVersionSpace.m; sourceTree = "<group>"; };
 		4353408B19489EA7003E51EB /* LRTestRunner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRTestRunner.h; sourceTree = "<group>"; };
 		4353408C19489EA7003E51EB /* LRTextFieldOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRTextFieldOption.h; sourceTree = "<group>"; };
 		4353408D19489EA7003E51EB /* LRTextFieldOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRTextFieldOption.m; sourceTree = "<group>"; };
@@ -727,16 +732,8 @@
 		4353409519489EA7003E51EB /* LRTRTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRTRTest.m; sourceTree = "<group>"; };
 		4353409619489EA7003E51EB /* LRTRTestAnythingProtocolParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRTRTestAnythingProtocolParser.h; sourceTree = "<group>"; };
 		4353409719489EA7003E51EB /* LRTRTestAnythingProtocolParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRTRTestAnythingProtocolParser.m; sourceTree = "<group>"; };
-		4353409819489EA7003E51EB /* LRVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRVersion.h; sourceTree = "<group>"; };
-		4353409919489EA7003E51EB /* LRVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRVersion.m; sourceTree = "<group>"; };
 		4353409A19489EA7003E51EB /* LRVersionOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRVersionOption.h; sourceTree = "<group>"; };
 		4353409B19489EA7003E51EB /* LRVersionOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRVersionOption.m; sourceTree = "<group>"; };
-		4353409C19489EA7003E51EB /* LRVersionRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRVersionRange.h; sourceTree = "<group>"; };
-		4353409D19489EA7003E51EB /* LRVersionRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRVersionRange.m; sourceTree = "<group>"; };
-		4353409E19489EA7003E51EB /* LRVersionSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRVersionSet.h; sourceTree = "<group>"; };
-		4353409F19489EA7003E51EB /* LRVersionSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRVersionSet.m; sourceTree = "<group>"; };
-		435340A019489EA7003E51EB /* LRVersionSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRVersionSpace.h; sourceTree = "<group>"; };
-		435340A119489EA7003E51EB /* LRVersionSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRVersionSpace.m; sourceTree = "<group>"; };
 		435340A219489EA7003E51EB /* LRVersionSpec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRVersionSpec.h; sourceTree = "<group>"; };
 		435340A319489EA7003E51EB /* LRVersionSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRVersionSpec.m; sourceTree = "<group>"; };
 		435340A419489EA7003E51EB /* LRVersionTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRVersionTag.h; sourceTree = "<group>"; };
@@ -1106,6 +1103,7 @@
 		29B97314FDCFA39411CA2CEA /* LiveReload */ = {
 			isa = PBXGroup;
 			children = (
+				43177BAE1979279700FDCD62 /* PiiVersionKit.xcodeproj */,
 				4303A59415B53B31009D732A /* LiveReload.entitlements */,
 				43059221151E8FA400CC3F88 /* CoreServices.framework */,
 				4353420919489F93003E51EB /* app_config.h */,
@@ -1332,6 +1330,15 @@
 				4303A53E15B513FD009D732A /* nodeapp_url_handler_mac.m */,
 			);
 			path = "src-mac";
+			sourceTree = "<group>";
+		};
+		43177BAF1979279700FDCD62 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				43177BB41979279800FDCD62 /* PiiVersionKit.framework */,
+				43177BB61979279800FDCD62 /* PiiVersionKitTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		431CB52C16D1EF7200034877 /* plugins */ = {
@@ -1896,10 +1903,6 @@
 				4353408419489EA7003E51EB /* LRSelfTestOutputExpectation.m */,
 				4353408519489EA7003E51EB /* LRSelfTestOutputFile.h */,
 				4353408619489EA7003E51EB /* LRSelfTestOutputFile.m */,
-				4353408719489EA7003E51EB /* LRSemanticVersion.h */,
-				4353408819489EA7003E51EB /* LRSemanticVersion.m */,
-				4353408919489EA7003E51EB /* LRSemanticVersionSpace.h */,
-				4353408A19489EA7003E51EB /* LRSemanticVersionSpace.m */,
 				4353408B19489EA7003E51EB /* LRTestRunner.h */,
 				4353408C19489EA7003E51EB /* LRTextFieldOption.h */,
 				4353408D19489EA7003E51EB /* LRTextFieldOption.m */,
@@ -1913,16 +1916,8 @@
 				4353409519489EA7003E51EB /* LRTRTest.m */,
 				4353409619489EA7003E51EB /* LRTRTestAnythingProtocolParser.h */,
 				4353409719489EA7003E51EB /* LRTRTestAnythingProtocolParser.m */,
-				4353409819489EA7003E51EB /* LRVersion.h */,
-				4353409919489EA7003E51EB /* LRVersion.m */,
 				4353409A19489EA7003E51EB /* LRVersionOption.h */,
 				4353409B19489EA7003E51EB /* LRVersionOption.m */,
-				4353409C19489EA7003E51EB /* LRVersionRange.h */,
-				4353409D19489EA7003E51EB /* LRVersionRange.m */,
-				4353409E19489EA7003E51EB /* LRVersionSet.h */,
-				4353409F19489EA7003E51EB /* LRVersionSet.m */,
-				435340A019489EA7003E51EB /* LRVersionSpace.h */,
-				435340A119489EA7003E51EB /* LRVersionSpace.m */,
 				435340A219489EA7003E51EB /* LRVersionSpec.h */,
 				435340A319489EA7003E51EB /* LRVersionSpec.m */,
 				435340A419489EA7003E51EB /* LRVersionTag.h */,
@@ -2244,6 +2239,12 @@
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* LiveReload */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 43177BAF1979279700FDCD62 /* Products */;
+					ProjectRef = 43177BAE1979279700FDCD62 /* PiiVersionKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* LiveReload */,
@@ -2254,6 +2255,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		43177BB41979279800FDCD62 /* PiiVersionKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = PiiVersionKit.framework;
+			remoteRef = 43177BB31979279800FDCD62 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		43177BB61979279800FDCD62 /* PiiVersionKitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = PiiVersionKitTests.xctest;
+			remoteRef = 43177BB51979279800FDCD62 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		4371094F18585DB800FCB4C2 /* Resources */ = {
@@ -2459,7 +2477,6 @@
 				4353418619489EA8003E51EB /* LRPackageSet.m in Sources */,
 				4303A54615B513FD009D732A /* strbuffer.c in Sources */,
 				435341EA19489EA8003E51EB /* UIBuilder.m in Sources */,
-				4353419E19489EA8003E51EB /* LRVersionSpace.m in Sources */,
 				4303A54715B513FD009D732A /* strconv.c in Sources */,
 				4303A54815B513FD009D732A /* utf.c in Sources */,
 				4353417119489EA8003E51EB /* LRChildErrorSink.m in Sources */,
@@ -2529,16 +2546,13 @@
 				4353417019489EA8003E51EB /* LRCheckboxOption.m in Sources */,
 				4353414C19489EA8003E51EB /* CustomRubyInstance.m in Sources */,
 				4303A58815B513FD009D732A /* nodeapp_url_handler_mac.m in Sources */,
-				4353419C19489EA8003E51EB /* LRVersionRange.m in Sources */,
 				4353413B19489EA8003E51EB /* RulebookView.m in Sources */,
 				4353416419489EA8003E51EB /* KeyWindow.m in Sources */,
 				435341DC19489EA8003E51EB /* ScriptInvocationStep.m in Sources */,
 				43508A9317B39DBE00871422 /* ATFlippedView.m in Sources */,
-				4353419319489EA8003E51EB /* LRSemanticVersionSpace.m in Sources */,
 				435341DF19489EA8003E51EB /* Stats.m in Sources */,
 				4353416019489EA8003E51EB /* HomebrewContainer.m in Sources */,
 				4353417D19489EA8003E51EB /* LROptionsView.m in Sources */,
-				4353419D19489EA8003E51EB /* LRVersionSet.m in Sources */,
 				435341B619489EA8003E51EB /* NpmPackage.m in Sources */,
 				438DFBD51968FCF000642A66 /* ActionSet.swift in Sources */,
 				4353415E19489EA8003E51EB /* Glue.m in Sources */,
@@ -2613,7 +2627,6 @@
 				435341C219489EA8003E51EB /* P2RegularExpressionExtensions.m in Sources */,
 				435341C019489EA8003E51EB /* OptionsRow.m in Sources */,
 				4353415419489EA8003E51EB /* FilterOption.m in Sources */,
-				4353419A19489EA8003E51EB /* LRVersion.m in Sources */,
 				435341B019489EA8003E51EB /* LRProjectTarget.swift in Sources */,
 				4353415019489EA8003E51EB /* ExpandedOutlineView.m in Sources */,
 				4353419919489EA8003E51EB /* LRTRTestAnythingProtocolParser.m in Sources */,
@@ -2632,7 +2645,6 @@
 				4353418E19489EA8003E51EB /* LRSelfTestHelpers.m in Sources */,
 				435341E819489EA8003E51EB /* ToolOutputWindowController.m in Sources */,
 				43B5C01D17ADFA4700F57276 /* ATChildTask.m in Sources */,
-				4353419219489EA8003E51EB /* LRSemanticVersion.m in Sources */,
 				435341BB19489EA8003E51EB /* NSTask+OneLineTasksWithOutput.m in Sources */,
 				43B5C02017AE01C500F57276 /* ATLoginItemController.m in Sources */,
 				439865AC17BE394D00EC6471 /* ATPathSpec.m in Sources */,
@@ -3652,6 +3664,7 @@
 				43F18F321972D19200E0AAEE /* AppStore */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		43F18F391972D19200E0AAEE /* Build configuration list for PBXNativeTarget "VariableKitTests" */ = {
 			isa = XCConfigurationList;
@@ -3662,6 +3675,7 @@
 				43F18F361972D19200E0AAEE /* AppStore */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "LiveReload" */ = {
 			isa = XCConfigurationList;

@@ -1,5 +1,5 @@
 
-#import "LRVersionSpace.h"
+@import PiiVersionKit;
 
 
 @interface GemVersionSpace : LRVersionSpace

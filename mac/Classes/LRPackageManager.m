@@ -2,8 +2,7 @@
 #import "LRPackageManager.h"
 #import "LRPackageType.h"
 #import "LRPackageReference.h"
-#import "LRVersionSpace.h"
-#import "LRVersionSet.h"
+@import PiiVersionKit;
 
 
 @interface LRPackageManager ()

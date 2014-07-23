@@ -7,9 +7,6 @@
 #import "LRPackage.h"
 #import "LRPackageContainer.h"
 #import "LRPackageType.h"
-#import "LRVersion.h"
-#import "LRVersionSpec.h"
-#import "LRVersionSpace.h"
 #import "Errors.h"
 
 #import "Plugin.h"
@@ -21,6 +18,7 @@
 #import "LRActionVersion.h"
 #import "LRActionManifest.h"
 #import "LRContextAction.h"
+#import "LRVersionSpec.h"
 #import "../ATPathSpec/ATPathSpec/ATPathSpec.h"
 #import "FilterOption.h"
 

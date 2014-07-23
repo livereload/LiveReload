@@ -1,9 +1,6 @@
 
 #import "LRVersionSpec.h"
-#import "LRVersion.h"
-#import "LRVersionSpace.h"
-#import "LRVersionSet.h"
-#import "LRVersionRange.h"
+@import PiiVersionKit;
 
 
 @interface LRVersionSpec ()

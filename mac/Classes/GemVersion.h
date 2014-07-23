@@ -1,5 +1,5 @@
 
-#import "LRVersion.h"
+@import PiiVersionKit;
 
 
 @interface GemVersion : LRVersion

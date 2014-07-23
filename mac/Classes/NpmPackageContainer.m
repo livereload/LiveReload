@@ -2,7 +2,7 @@
 #import "NpmPackageContainer.h"
 #import "NpmPackage.h"
 #import "LRPackageType.h"
-#import "LRVersionSpace.h"
+@import PiiVersionKit;
 
 
 @interface NpmPackageContainer ()

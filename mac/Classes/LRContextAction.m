@@ -8,7 +8,7 @@
 #import "LRActionManifest.h"
 #import "LRManifestLayer.h"
 #import "LiveReload-Swift-x.h"
-#import "LRVersion.h"
+@import PiiVersionKit;
 #import "LRVersionSpec.h"
 #import "Project.h"
 

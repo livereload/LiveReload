@@ -1,7 +1,7 @@
 
 #import "NpmPackageType.h"
 #import "NpmPackageContainer.h"
-#import "LRSemanticVersionSpace.h"
+@import PiiVersionKit;
 
 
 @implementation NpmPackageType

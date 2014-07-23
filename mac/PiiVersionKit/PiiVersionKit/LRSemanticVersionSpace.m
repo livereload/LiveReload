@@ -14,7 +14,7 @@
     return instance;
 }
 
-- (LRVersion *)versionWithString:(NSString *)string {
+- (LRSemanticVersion *)versionWithString:(NSString *)string {
     return [LRSemanticVersion semanticVersionWithString:string];
 }
 

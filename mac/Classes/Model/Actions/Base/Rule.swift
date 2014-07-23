@@ -1,5 +1,6 @@
 
 import Foundation
+import PiiVersionKit
 
 class Rule : NSObject {
 
@@ -170,7 +171,7 @@ class Rule : NSObject {
 
     var customArgumentsString: String {
         get {
-            return customArguments.quotedArgumentStringUsingBourneQuotingStyle
+            return quotedArgumentStringUsingBourneQuotingStyle(customArguments)
         }
         set {
             customArguments = newValue.argumentsArrayUsingBourneQuotingStyle
