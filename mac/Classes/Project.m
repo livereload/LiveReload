@@ -725,7 +725,10 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 - (NSArray *)analyzeFilesAtPaths:(NSSet *)paths {
     NSMutableArray *result = [NSMutableArray new];
     for (NSString *path in paths) {
-        [result addObject:[self analyzeFileAtPath:path]];
+        LRProjectFile *file = [self analyzeFileAtPath:path];
+        if (file) {
+            [result addObject:file];
+        }
     }
     NSLog(@"Incremental analysis finished.");
     return [result copy];
@@ -773,8 +776,8 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         if (file) {
             [self updateImportGraphForMissingFile:file];
             [_filesByPath removeObjectForKey:relativePath];
+            [_analysis updateResultsAfterDeletion:file];
         }
-        [_analysis updateResultsAfterDeletion:file];
         return file;
     }
 }
