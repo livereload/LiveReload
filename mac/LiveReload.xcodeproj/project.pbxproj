@@ -248,7 +248,6 @@
 		4396F1E117F8112F00AA8200 /* GlitterVersionUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4396F1DA17F8112F00AA8200 /* GlitterVersionUtilities.m */; };
 		4396F1E217F8112F00AA8200 /* GlitterUpdateInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4396F1DD17F8112F00AA8200 /* GlitterUpdateInfoViewController.m */; };
 		4396F1E417F84C2B00AA8200 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4396F1E317F84C2B00AA8200 /* Security.framework */; };
-		439865AC17BE394D00EC6471 /* ATPathSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 439865A817BE394D00EC6471 /* ATPathSpec.m */; };
 		43996B2E17AF675D00B09954 /* ATMenuEnabledSegmentedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43996B2D17AF675D00B09954 /* ATMenuEnabledSegmentedCell.m */; };
 		43996B3917AF7A4E00B09954 /* ATDropDownArrowTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 43996B3717AF7A4E00B09954 /* ATDropDownArrowTemplate.png */; };
 		43996B3A17AF7A4E00B09954 /* ATDropDownArrowTemplate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43996B3817AF7A4E00B09954 /* ATDropDownArrowTemplate@2x.png */; };
@@ -378,6 +377,55 @@
 			proxyType = 2;
 			remoteGlobalIDString = 439316151984A18400685024;
 			remoteInfo = EditorKitTests;
+		};
+		43931680198523CA00685024 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4393167B198523C900685024 /* ATPathSpec.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4393165F198523C900685024;
+			remoteInfo = ATPathSpec;
+		};
+		43931682198523CA00685024 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4393167B198523C900685024 /* ATPathSpec.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4393166A198523C900685024;
+			remoteInfo = ATPathSpecTests;
+		};
+		43931694198526FB00685024 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4301FA6B19848ECF006709C9 /* LRCommons.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 4301FA4E19848ECE006709C9;
+			remoteInfo = LRCommons;
+		};
+		439316961985270000685024 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4393167B198523C900685024 /* ATPathSpec.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 4393165E198523C900685024;
+			remoteInfo = ATPathSpec;
+		};
+		439316981985270300685024 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 43177BAE1979279700FDCD62 /* PiiVersionKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 43177B911979279700FDCD62;
+			remoteInfo = PiiVersionKit;
+		};
+		4393169A1985270700685024 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 439316261984A18400685024 /* EditorKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 439316091984A18400685024;
+			remoteInfo = EditorKit;
+		};
+		4393169C1985270A00685024 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4301F99519848826006709C9 /* PackageManagerKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 4301F97819848825006709C9;
+			remoteInfo = PackageManagerKit;
 		};
 		4396F1CE17F8107C00AA8200 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -549,10 +597,6 @@
 		434BB24A17B6913F000BEB1C /* ATMacViewCreation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATMacViewCreation.h; sourceTree = "<group>"; };
 		434BB24B17B6913F000BEB1C /* ATMacViewCreation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATMacViewCreation.m; sourceTree = "<group>"; };
 		434BB29F17BBF512000BEB1C /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		434BB2A317BBF512000BEB1C /* ATPathSpecTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ATPathSpecTests-Info.plist"; sourceTree = "<group>"; };
-		434BB2A517BBF512000BEB1C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		434BB2A717BBF512000BEB1C /* ATPathSpecTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATPathSpecTests.m; sourceTree = "<group>"; };
-		434BB2A917BBF512000BEB1C /* ATPathSpecTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ATPathSpecTests-Prefix.pch"; sourceTree = "<group>"; };
 		43508A7F17B3819500871422 /* ATAutolayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATAutolayout.h; sourceTree = "<group>"; };
 		43508A8017B3819500871422 /* ATAutolayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATAutolayout.m; sourceTree = "<group>"; };
 		43508A8217B392A500871422 /* ATStackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATStackView.h; sourceTree = "<group>"; };
@@ -844,6 +888,7 @@
 		438DFBD31968FCF000642A66 /* FileClassifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileClassifier.swift; sourceTree = "<group>"; };
 		438DFBD41968FCF000642A66 /* ProjectAnalysis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectAnalysis.swift; sourceTree = "<group>"; };
 		439316261984A18400685024 /* EditorKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = EditorKit.xcodeproj; path = EditorKit/EditorKit.xcodeproj; sourceTree = "<group>"; };
+		4393167B198523C900685024 /* ATPathSpec.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ATPathSpec.xcodeproj; path = ATPathSpec/ATPathSpec.xcodeproj; sourceTree = "<group>"; };
 		4396F1B817F77A8900AA8200 /* com.tarantsov.GlitterInstallationService.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = com.tarantsov.GlitterInstallationService.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
 		4396F1B917F77A8900AA8200 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4396F1C917F80E6F00AA8200 /* GlitterInstallationService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GlitterInstallationService-Info.plist"; sourceTree = "<group>"; };
@@ -861,9 +906,6 @@
 		4396F1DC17F8112F00AA8200 /* GlitterUpdateInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlitterUpdateInfoViewController.h; sourceTree = "<group>"; };
 		4396F1DD17F8112F00AA8200 /* GlitterUpdateInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlitterUpdateInfoViewController.m; sourceTree = "<group>"; };
 		4396F1E317F84C2B00AA8200 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		439865A717BE394D00EC6471 /* ATPathSpec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATPathSpec.h; sourceTree = "<group>"; };
-		439865A817BE394D00EC6471 /* ATPathSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATPathSpec.m; sourceTree = "<group>"; };
-		439865A917BE394D00EC6471 /* ATPathSpecPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATPathSpecPrivate.h; sourceTree = "<group>"; };
 		43996B2C17AF675D00B09954 /* ATMenuEnabledSegmentedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATMenuEnabledSegmentedCell.h; sourceTree = "<group>"; };
 		43996B2D17AF675D00B09954 /* ATMenuEnabledSegmentedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATMenuEnabledSegmentedCell.m; sourceTree = "<group>"; };
 		43996B3717AF7A4E00B09954 /* ATDropDownArrowTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ATDropDownArrowTemplate.png; sourceTree = "<group>"; };
@@ -1031,6 +1073,7 @@
 		29B97314FDCFA39411CA2CEA /* LiveReload */ = {
 			isa = PBXGroup;
 			children = (
+				4393167B198523C900685024 /* ATPathSpec.xcodeproj */,
 				4301FA6B19848ECF006709C9 /* LRCommons.xcodeproj */,
 				43177BAE1979279700FDCD62 /* PiiVersionKit.xcodeproj */,
 				439316261984A18400685024 /* EditorKit.xcodeproj */,
@@ -1041,14 +1084,12 @@
 				43C389E119441ABB00D29DD7 /* PiiCommons */,
 				823DDE2D13F8DA3100529AD2 /* Classes */,
 				43B5BFFC17ADF0D600F57276 /* ATCommons */,
-				439865A617BE394D00EC6471 /* ATPathSpec */,
 				4396F1B317F77A5600AA8200 /* Glitter */,
 				4303A4BC15B513FD009D732A /* nodeapp */,
 				43C0368513CA191C00A01305 /* LiveReload.icns */,
 				43361D4513C30D1400C0E589 /* libicucore.dylib */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
-				434BB2A117BBF512000BEB1C /* ATPathSpecTests */,
 				4371095318585DB800FCB4C2 /* LiveReloadTests */,
 				43F18F171972D19100E0AAEE /* VariableKit */,
 				43F18F241972D19200E0AAEE /* VariableKitTests */,
@@ -1318,25 +1359,6 @@
 			path = Preferences;
 			sourceTree = "<group>";
 		};
-		434BB2A117BBF512000BEB1C /* ATPathSpecTests */ = {
-			isa = PBXGroup;
-			children = (
-				434BB2A717BBF512000BEB1C /* ATPathSpecTests.m */,
-				434BB2A217BBF512000BEB1C /* Supporting Files */,
-			);
-			path = ATPathSpecTests;
-			sourceTree = "<group>";
-		};
-		434BB2A217BBF512000BEB1C /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				434BB2A317BBF512000BEB1C /* ATPathSpecTests-Info.plist */,
-				434BB2A417BBF512000BEB1C /* InfoPlist.strings */,
-				434BB2A917BBF512000BEB1C /* ATPathSpecTests-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		435340B019489EA7003E51EB /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -1460,6 +1482,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		4393167C198523C900685024 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				43931681198523CA00685024 /* ATPathSpec.framework */,
+				43931683198523CA00685024 /* ATPathSpecTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		4396F1B317F77A5600AA8200 /* Glitter */ = {
 			isa = PBXGroup;
 			children = (
@@ -1506,17 +1537,6 @@
 			);
 			name = GlitterUI;
 			path = Glitter/GlitterUI;
-			sourceTree = "<group>";
-		};
-		439865A617BE394D00EC6471 /* ATPathSpec */ = {
-			isa = PBXGroup;
-			children = (
-				439865A717BE394D00EC6471 /* ATPathSpec.h */,
-				439865A817BE394D00EC6471 /* ATPathSpec.m */,
-				439865A917BE394D00EC6471 /* ATPathSpecPrivate.h */,
-			);
-			name = ATPathSpec;
-			path = ATPathSpec/ATPathSpec;
 			sourceTree = "<group>";
 		};
 		43A4805A1749DF1400A0681D /* Rubies */ = {
@@ -2030,6 +2050,11 @@
 			buildRules = (
 			);
 			dependencies = (
+				4393169D1985270A00685024 /* PBXTargetDependency */,
+				4393169B1985270700685024 /* PBXTargetDependency */,
+				439316991985270300685024 /* PBXTargetDependency */,
+				439316971985270000685024 /* PBXTargetDependency */,
+				43931695198526FB00685024 /* PBXTargetDependency */,
 				4396F1CF17F8107C00AA8200 /* PBXTargetDependency */,
 				43F18F2A1972D19200E0AAEE /* PBXTargetDependency */,
 				43F18F2E1972D19200E0AAEE /* PBXTargetDependency */,
@@ -2074,6 +2099,10 @@
 			mainGroup = 29B97314FDCFA39411CA2CEA /* LiveReload */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = 4393167C198523C900685024 /* Products */;
+					ProjectRef = 4393167B198523C900685024 /* ATPathSpec.xcodeproj */;
+				},
 				{
 					ProductGroup = 439316271984A18400685024 /* Products */;
 					ProjectRef = 439316261984A18400685024 /* EditorKit.xcodeproj */;
@@ -2157,6 +2186,20 @@
 			fileType = wrapper.cfbundle;
 			path = EditorKitTests.xctest;
 			remoteRef = 4393162D1984A18600685024 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		43931681198523CA00685024 /* ATPathSpec.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ATPathSpec.framework;
+			remoteRef = 43931680198523CA00685024 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		43931683198523CA00685024 /* ATPathSpecTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ATPathSpecTests.xctest;
+			remoteRef = 43931682198523CA00685024 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -2493,7 +2536,6 @@
 				435341E819489EA8003E51EB /* ToolOutputWindowController.m in Sources */,
 				435341BB19489EA8003E51EB /* NSTask+OneLineTasksWithOutput.m in Sources */,
 				43B5C02017AE01C500F57276 /* ATLoginItemController.m in Sources */,
-				439865AC17BE394D00EC6471 /* ATPathSpec.m in Sources */,
 				4353416819489EA8003E51EB /* LicenseCodeWindowController.m in Sources */,
 				4353414519489EA8003E51EB /* BackgroundView.m in Sources */,
 				43508A8417B392A500871422 /* ATStackView.m in Sources */,
@@ -2530,6 +2572,31 @@
 			isa = PBXTargetDependency;
 			target = 8D1107260486CEB800E47090 /* LiveReload */;
 			targetProxy = 437109B01858707700FCB4C2 /* PBXContainerItemProxy */;
+		};
+		43931695198526FB00685024 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = LRCommons;
+			targetProxy = 43931694198526FB00685024 /* PBXContainerItemProxy */;
+		};
+		439316971985270000685024 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ATPathSpec;
+			targetProxy = 439316961985270000685024 /* PBXContainerItemProxy */;
+		};
+		439316991985270300685024 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PiiVersionKit;
+			targetProxy = 439316981985270300685024 /* PBXContainerItemProxy */;
+		};
+		4393169B1985270700685024 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = EditorKit;
+			targetProxy = 4393169A1985270700685024 /* PBXContainerItemProxy */;
+		};
+		4393169D1985270A00685024 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PackageManagerKit;
+			targetProxy = 4393169C1985270A00685024 /* PBXContainerItemProxy */;
 		};
 		4396F1CF17F8107C00AA8200 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2583,14 +2650,6 @@
 				1DDD58150DA1D0A300B32029 /* English */,
 			);
 			name = MainMenu.xib;
-			sourceTree = "<group>";
-		};
-		434BB2A417BBF512000BEB1C /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				434BB2A517BBF512000BEB1C /* en */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 		4371095618585DB800FCB4C2 /* InfoPlist.strings */ = {

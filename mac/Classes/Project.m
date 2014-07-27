@@ -15,7 +15,6 @@
 #import "FilterOption.h"
 #import "Glue.h"
 @import PackageManagerKit;
-#import "ATPathSpec.h"
 #import "LROperationResult.h"
 #import "LiveReload-Swift-x.h"
 
@@ -26,6 +25,7 @@
 #import "ATFunctionalStyle.h"
 #import "P2AsyncEnumeration.h"
 @import LRCommons;
+@import ATPathSpec;
 #import "LRCommandLine.h"
 
 #include <stdbool.h>

@@ -1,6 +1,5 @@
-
 #import <XCTest/XCTest.h>
-#import "ATPathSpecPrivate.h"
+@import ATPathSpec;
 
 
 @interface ATPathSpecTokenizerTests : XCTestCase

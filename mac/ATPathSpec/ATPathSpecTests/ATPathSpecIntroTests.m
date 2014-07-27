@@ -1,6 +1,5 @@
-
 #import <XCTest/XCTest.h>
-#import "ATPathSpec.h"
+@import ATPathSpec;
 
 
 @interface ATPathSpecIntroTests : XCTestCase

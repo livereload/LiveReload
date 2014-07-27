@@ -1,13 +1,6 @@
-//
-//  ATPathSpecMatchInfoTests.m
-//  ATPathSpecExample
-//
-//  Created by Andrey Tarantsov on 26.12.2013.
-//  Copyright (c) 2013 Andrey Tarantsov. All rights reserved.
-//
-
 #import <XCTest/XCTest.h>
-#import "ATPathSpec.h"
+@import ATPathSpec;
+
 
 @interface ATPathSpecMatchInfoTests : XCTestCase
 @end

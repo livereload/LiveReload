@@ -1,5 +1,9 @@
 
-#import <Foundation/Foundation.h>
+@import Foundation;
+
+
+//FOUNDATION_EXPORT double ATPathSpecVersionNumber;
+//FOUNDATION_EXPORT const unsigned char ATPathSpecVersionString[];
 
 
 typedef NS_ENUM(NSInteger, ATPathSpecMatchResult) {
@@ -95,5 +99,7 @@ extern NSString *const ATPathSpecMatchInfoMatchedStaticName;
 - (NSString *)description; // gives a string representation in Extended syntax
 
 - (BOOL)isNonEmpty;
+
++ (NSString *)describeTokensInString:(NSString *)string withSyntaxOptions:(ATPathSpecSyntaxOptions)options;  // for tests and debugging
 
 @end

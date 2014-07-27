@@ -490,17 +490,6 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
     }
 }
 
-+ (NSString *)describeTokensInString:(NSString *)string withSyntaxOptions:(ATPathSpecSyntaxOptions)options {
-    NSMutableArray *description = [NSMutableArray new];
-    [self enumerateTokensInString:string withSyntaxOptions:options usingBlock:^(ATPathSpecTokenType type, NSRange range, NSString *decoded) {
-        if (type == ATPathSpecTokenTypeMask)
-            [description addObject:[NSString stringWithFormat:@"Mask(%@)", decoded]];
-        else
-            [description addObject:ATPathSpecTokenTypeNames[type]];
-    } decodeTokens:YES];
-    return [description componentsJoinedByString:@" "];
-}
-
 - (BOOL)isComplexExpression {
     return NO;
 }
@@ -780,6 +769,17 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
 
 - (BOOL)isNonEmpty {
     return YES;
+}
+
++ (NSString *)describeTokensInString:(NSString *)string withSyntaxOptions:(ATPathSpecSyntaxOptions)options {
+    NSMutableArray *description = [NSMutableArray new];
+    [self enumerateTokensInString:string withSyntaxOptions:options usingBlock:^(ATPathSpecTokenType type, NSRange range, NSString *decoded) {
+        if (type == ATPathSpecTokenTypeMask)
+            [description addObject:[NSString stringWithFormat:@"Mask(%@)", decoded]];
+        else
+            [description addObject:ATPathSpecTokenTypeNames[type]];
+    } decodeTokens:YES];
+    return [description componentsJoinedByString:@" "];
 }
 
 @end

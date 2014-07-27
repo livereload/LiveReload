@@ -6,6 +6,7 @@
 #import "LROption+Factory.h"
 #import "AppState.h"
 @import PackageManagerKit;
+@import ATPathSpec;
 
 #import "LRManifestLayer.h"
 #import "LRActionVersion.h"
