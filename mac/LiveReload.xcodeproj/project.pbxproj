@@ -239,6 +239,7 @@
 		438DFBD51968FCF000642A66 /* ActionSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438DFBD21968FCF000642A66 /* ActionSet.swift */; };
 		438DFBD61968FCF000642A66 /* FileClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438DFBD31968FCF000642A66 /* FileClassifier.swift */; };
 		438DFBD71968FCF000642A66 /* ProjectAnalysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438DFBD41968FCF000642A66 /* ProjectAnalysis.swift */; };
+		4393169E198527D000685024 /* ATPathSpec.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43931681198523CA00685024 /* ATPathSpec.framework */; };
 		4396F1BA17F77A8900AA8200 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4396F1B917F77A8900AA8200 /* Foundation.framework */; };
 		4396F1CD17F80E6F00AA8200 /* GlitterInstallationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4396F1CB17F80E6F00AA8200 /* GlitterInstallationService.m */; };
 		4396F1D017F8109000AA8200 /* com.tarantsov.GlitterInstallationService.xpc in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4396F1B817F77A8900AA8200 /* com.tarantsov.GlitterInstallationService.xpc */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -989,6 +990,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4393169E198527D000685024 /* ATPathSpec.framework in Frameworks */,
 				43DFD3E0197FABE200DD7546 /* PiiVersionKit.framework in Frameworks */,
 				43DFD3DD197FABDA00DD7546 /* VariableKit.framework in Frameworks */,
 				437109B6185879D600FCB4C2 /* CoreServices.framework in Frameworks */,

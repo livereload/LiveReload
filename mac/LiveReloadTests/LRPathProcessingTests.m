@@ -1,7 +1,7 @@
 
 #import <XCTest/XCTest.h>
 #import "LRPathProcessing.h"
-#import "ATPathSpec.h"
+@import ATPathSpec;
 
 @interface LRPathProcessingTests : XCTestCase
 @end
