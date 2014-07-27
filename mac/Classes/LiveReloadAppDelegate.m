@@ -19,9 +19,8 @@
 #import "ShitHappens.h"
 #import "LicenseManager.h"
 #import "DockIcon.h"
-#import "ATGlobals.h"
-#import "NSData+Base64.h"
-#import "Runtimes.h"
+@import LRCommons;
+@import PackageManagerKit;
 #import "EditorManager.h"
 #import "ATFunctionalStyle.h"
 

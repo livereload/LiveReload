@@ -3,7 +3,6 @@
 
 
 @class LRPackageReference;
-@class LRAssetPackageConfiguration;
 
 
 // every web site folder might have a different set of local packages, so package resolution depends on the context
@@ -11,6 +10,7 @@
 
 - (NSArray *)packagesMatchingReference:(LRPackageReference *)reference;
 
-- (NSArray *)packageSetsMatchingConfiguration:(LRAssetPackageConfiguration *)configuration;
+// rename from packageSetsMatchingConfiguration
+- (NSArray *)packageSetsMatchingPackageReferences:(NSArray *)packageReferences;
 
 @end

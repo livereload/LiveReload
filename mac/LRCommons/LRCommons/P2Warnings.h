@@ -15,3 +15,4 @@
 #define P2ReenableWarning() P2PopWarnings()
 
 #define P2DisableARCRetainCyclesWarning() P2DisableWarning(-Warc-retain-cycles)
+#define P2DisablePerformSelectorLeaksWarning() P2DisableWarning(-Warc-performSelector-leaks)

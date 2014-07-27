@@ -2,7 +2,7 @@
 #import "ATObservation.h"
 #import <objc/runtime.h>
 #import <objc/message.h>
-
+#import "P2Warnings.h"
 
 
 #pragma mark Private Interface
@@ -328,9 +328,10 @@
 
 /// Register block invoking given selector. Smart detecting of number of arguments.
 - (void)observeObject:(id)object property:(NSString *)keyPath withSelector:(SEL)observationSelector {
-	NSMethodSignature *signature = [self methodSignatureForSelector:observationSelector];
+    NSMethodSignature *signature = [self methodSignatureForSelector:observationSelector];
     NSInteger numberOfArguments = [signature numberOfArguments];
 	[self observeObject:object property:keyPath withBlock:^(__weak id weakSelf, __weak id weakObject, id old, id new) {
+        P2DisablePerformSelectorLeaksWarning()
 		switch (numberOfArguments) {
             case 0:
             case 1:
@@ -338,8 +339,6 @@
                 break;
 
             case 2: // +0
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
                 // -someObjectDidChangeSomething
                 [weakSelf performSelector:observationSelector];
                 break;
@@ -365,13 +364,14 @@
                     [weakSelf performSelector:observationSelector withObject:weakObject withObject:new];
                 }
                 break;
-#pragma clang diagnostic pop
 
             default:// +3
+                abort();
                 // -someObject:didChangeSomethingFrom:to:
-                objc_msgSend(weakSelf, observationSelector, weakObject, old, new); // Fuck off NSInvocation!
-                break;
+//                objc_msgSend(weakSelf, observationSelector, weakObject, old, new); // Fuck off NSInvocation!
+//                break;
         }
+        P2ReenableWarning()
 	}];
 }
 
@@ -484,7 +484,9 @@
 
 - (void)observeNotification:(NSString *)name fromObject:(id)object withSelector:(SEL)selector {
     [self observeNotification:name fromObject:object withBlock:^(__weak id self, NSNotification *notification) {
+        P2DisablePerformSelectorLeaksWarning()
         [self performSelector:selector withObject:notification];
+        P2ReenableWarning()
     }];
 }
 

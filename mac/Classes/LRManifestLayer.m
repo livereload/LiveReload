@@ -1,7 +1,7 @@
 
 #import "LRManifestLayer.h"
 #import "AppState.h"
-#import "LRPackageManager.h"
+@import PackageManagerKit;
 
 #import "ATFunctionalStyle.h"
 

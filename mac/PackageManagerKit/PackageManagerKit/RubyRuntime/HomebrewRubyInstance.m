@@ -1,7 +1,7 @@
 
 #import "HomebrewRubyInstance.h"
 #import "HomebrewContainer.h"
-#import "ATGlobals.h"
+@import LRCommons;
 
 
 @interface HomebrewRubyInstance ()

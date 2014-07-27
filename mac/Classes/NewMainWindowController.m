@@ -30,7 +30,7 @@
 #import "ATSolidView.h"
 #import "ATFlippedView.h"
 #import "ATAttributedStringAdditions.h"
-#import "ATObservation.h"
+@import LRCommons;
 
 #import "jansson.h"
 

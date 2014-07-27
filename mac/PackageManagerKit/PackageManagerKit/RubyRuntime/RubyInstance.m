@@ -1,15 +1,13 @@
 
 #import "RubyInstance.h"
 
-#import "AppState.h"
 #import "LRPackageManager.h"
 #import "LRPackageType.h"
 #import "LRPackageContainer.h"
 
 #import "RuntimeGlobals.h"
-#import "ATChildTask.h"
-#import "NSData+Base64.h"
-#import "ATModelDiff.h"
+@import LRCommons;
+
 
 @implementation RubyInstance
 
@@ -40,10 +38,13 @@
                         NSString *trimmed = [pathComponent stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
                         NSURL *folderURL = [NSURL fileURLWithPath:trimmed];
                         if ([folderURL checkResourceIsReachableAndReturnError:NULL]) {
+                            // TODO XXX FIXME
+#if 0
                             LRPackageContainer *container = [[[AppState sharedAppState].packageManager packageTypeNamed:@"gem"] packageContainerAtFolderURL:folderURL];
                             container.containerType = LRPackageContainerTypeRuntimeInstance;
                             container.runtimeInstance = self;
                             [defaultPackageContainers addObject:container];
+#endif
                         }
                     }
                 }

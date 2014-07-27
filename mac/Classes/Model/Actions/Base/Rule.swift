@@ -1,6 +1,7 @@
 
 import Foundation
 import PiiVersionKit
+import PackageManagerKit
 
 class Rule : NSObject {
 

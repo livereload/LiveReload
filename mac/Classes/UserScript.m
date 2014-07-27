@@ -2,10 +2,9 @@
 #import "LROperationResult.h"
 
 #import "UserScript.h"
-#import "ATGlobals.h"
+@import LRCommons;
 #import "OldFSMonitor.h"
 #import "NSTask+OneLineTasksWithOutput.h"
-#import "ATChildTask.h"
 
 
 NSString *const UserScriptManagerScriptsDidChangeNotification = @"UserScriptManagerScriptsDidChangeNotification";

@@ -1,0 +1,748 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4301F97F19848825006709C9 /* PackageManagerKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301F97E19848825006709C9 /* PackageManagerKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4301F98519848826006709C9 /* PackageManagerKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4301F97919848825006709C9 /* PackageManagerKit.framework */; };
+		4301F98C19848826006709C9 /* PackageManagerKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301F98B19848826006709C9 /* PackageManagerKitTests.m */; };
+		4301FA0219848C58006709C9 /* LRPackage.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301F9BC19848C58006709C9 /* LRPackage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4301FA0319848C58006709C9 /* LRPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301F9BD19848C58006709C9 /* LRPackage.m */; };
+		4301FA0419848C58006709C9 /* LRPackageContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301F9BE19848C58006709C9 /* LRPackageContainer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4301FA0519848C58006709C9 /* LRPackageContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301F9BF19848C58006709C9 /* LRPackageContainer.m */; };
+		4301FA0619848C58006709C9 /* LRPackageManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301F9C019848C58006709C9 /* LRPackageManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4301FA0719848C58006709C9 /* LRPackageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301F9C119848C58006709C9 /* LRPackageManager.m */; };
+		4301FA0819848C58006709C9 /* LRPackageReference.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301F9C219848C58006709C9 /* LRPackageReference.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4301FA0919848C58006709C9 /* LRPackageReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301F9C319848C58006709C9 /* LRPackageReference.m */; };
+		4301FA0A19848C58006709C9 /* LRPackageResolutionContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301F9C419848C58006709C9 /* LRPackageResolutionContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4301FA0B19848C58006709C9 /* LRPackageResolutionContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301F9C519848C58006709C9 /* LRPackageResolutionContext.m */; };
+		4301FA0C19848C58006709C9 /* LRPackageSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301F9C619848C58006709C9 /* LRPackageSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4301FA0D19848C58006709C9 /* LRPackageSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301F9C719848C58006709C9 /* LRPackageSet.m */; };
+		4301FA0E19848C58006709C9 /* LRPackageType.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301F9C819848C58006709C9 /* LRPackageType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4301FA0F19848C58006709C9 /* LRPackageType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301F9C919848C58006709C9 /* LRPackageType.m */; };
+		4301FA1019848C58006709C9 /* MissingRuntimeInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301F9CB19848C58006709C9 /* MissingRuntimeInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4301FA1119848C58006709C9 /* MissingRuntimeInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301F9CC19848C58006709C9 /* MissingRuntimeInstance.m */; };
+		4301FA1219848C58006709C9 /* RuntimeContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301F9CD19848C58006709C9 /* RuntimeContainer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4301FA1319848C58006709C9 /* RuntimeContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301F9CE19848C58006709C9 /* RuntimeContainer.m */; };
+		4301FA1419848C58006709C9 /* RuntimeGlobals.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301F9CF19848C58006709C9 /* RuntimeGlobals.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4301FA1519848C58006709C9 /* RuntimeGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301F9D019848C58006709C9 /* RuntimeGlobals.m */; };
+		4301FA1619848C58006709C9 /* RuntimeInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301F9D119848C58006709C9 /* RuntimeInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4301FA1719848C58006709C9 /* RuntimeInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301F9D219848C58006709C9 /* RuntimeInstance.m */; };
+		4301FA1A19848C58006709C9 /* RuntimeObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301F9D519848C58006709C9 /* RuntimeObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4301FA1B19848C58006709C9 /* RuntimeRepository.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301F9D619848C58006709C9 /* RuntimeRepository.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4301FA1C19848C58006709C9 /* RuntimeRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301F9D719848C58006709C9 /* RuntimeRepository.m */; };
+		4301FA1D19848C58006709C9 /* NpmPackage.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301F9D919848C58006709C9 /* NpmPackage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4301FA1E19848C58006709C9 /* NpmPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301F9DA19848C58006709C9 /* NpmPackage.m */; };
+		4301FA1F19848C58006709C9 /* NpmPackageContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301F9DB19848C58006709C9 /* NpmPackageContainer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4301FA2019848C58006709C9 /* NpmPackageContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301F9DC19848C58006709C9 /* NpmPackageContainer.m */; };
+		4301FA2119848C58006709C9 /* NpmPackageType.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301F9DD19848C58006709C9 /* NpmPackageType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4301FA2219848C58006709C9 /* NpmPackageType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301F9DE19848C58006709C9 /* NpmPackageType.m */; };
+		4301FA2319848C58006709C9 /* NSData+Base64.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301F9E119848C58006709C9 /* NSData+Base64.h */; };
+		4301FA2419848C58006709C9 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301F9E219848C58006709C9 /* NSData+Base64.m */; };
+		4301FA2519848C58006709C9 /* GemPackage.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301F9E519848C58006709C9 /* GemPackage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4301FA2619848C58006709C9 /* GemPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301F9E619848C58006709C9 /* GemPackage.m */; };
+		4301FA2719848C58006709C9 /* GemPackageContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301F9E719848C58006709C9 /* GemPackageContainer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4301FA2819848C58006709C9 /* GemPackageContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301F9E819848C58006709C9 /* GemPackageContainer.m */; };
+		4301FA2919848C58006709C9 /* GemPackageType.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301F9E919848C58006709C9 /* GemPackageType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4301FA2A19848C58006709C9 /* GemPackageType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301F9EA19848C58006709C9 /* GemPackageType.m */; };
+		4301FA2B19848C58006709C9 /* GemVersion.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301F9EB19848C58006709C9 /* GemVersion.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4301FA2C19848C58006709C9 /* GemVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301F9EC19848C58006709C9 /* GemVersion.m */; };
+		4301FA2D19848C58006709C9 /* GemVersionSpace.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301F9ED19848C58006709C9 /* GemVersionSpace.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4301FA2E19848C58006709C9 /* GemVersionSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301F9EE19848C58006709C9 /* GemVersionSpace.m */; };
+		4301FA2F19848C58006709C9 /* HomebrewContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301F9F019848C58006709C9 /* HomebrewContainer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4301FA3019848C58006709C9 /* HomebrewContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301F9F119848C58006709C9 /* HomebrewContainer.m */; };
+		4301FA3119848C58006709C9 /* HomebrewRubyInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301F9F219848C58006709C9 /* HomebrewRubyInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4301FA3219848C58006709C9 /* HomebrewRubyInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301F9F319848C58006709C9 /* HomebrewRubyInstance.m */; };
+		4301FA3319848C58006709C9 /* RbenvContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301F9F419848C58006709C9 /* RbenvContainer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4301FA3419848C58006709C9 /* RbenvContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301F9F519848C58006709C9 /* RbenvContainer.m */; };
+		4301FA3519848C58006709C9 /* RbenvRubyInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301F9F619848C58006709C9 /* RbenvRubyInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4301FA3619848C58006709C9 /* RbenvRubyInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301F9F719848C58006709C9 /* RbenvRubyInstance.m */; };
+		4301FA3719848C58006709C9 /* RubyInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301F9F819848C58006709C9 /* RubyInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4301FA3819848C58006709C9 /* RubyInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301F9F919848C58006709C9 /* RubyInstance.m */; };
+		4301FA3919848C58006709C9 /* RubyRuntimeRepository.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301F9FA19848C58006709C9 /* RubyRuntimeRepository.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4301FA3A19848C58006709C9 /* RubyRuntimeRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301F9FB19848C58006709C9 /* RubyRuntimeRepository.m */; };
+		4301FA3B19848C58006709C9 /* RvmContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301F9FC19848C58006709C9 /* RvmContainer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4301FA3C19848C58006709C9 /* RvmContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301F9FD19848C58006709C9 /* RvmContainer.m */; };
+		4301FA3D19848C58006709C9 /* RvmRubyInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301F9FE19848C58006709C9 /* RvmRubyInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4301FA3E19848C58006709C9 /* RvmRubyInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301F9FF19848C58006709C9 /* RvmRubyInstance.m */; };
+		4301FA3F19848C58006709C9 /* SystemRubyInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301FA0019848C58006709C9 /* SystemRubyInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4301FA4019848C58006709C9 /* SystemRubyInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301FA0119848C58006709C9 /* SystemRubyInstance.m */; };
+		4301FA4319848DA8006709C9 /* SandboxingUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301FA4119848DA8006709C9 /* SandboxingUtil.h */; };
+		4301FA4419848DA8006709C9 /* SandboxingUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301FA4219848DA8006709C9 /* SandboxingUtil.m */; };
+		4301FA8119849101006709C9 /* LRCommons.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4301FA8019849101006709C9 /* LRCommons.framework */; };
+		4301FA9619849420006709C9 /* CustomRubyInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301FA9419849420006709C9 /* CustomRubyInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4301FA9719849420006709C9 /* CustomRubyInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301FA9519849420006709C9 /* CustomRubyInstance.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4301F98619848826006709C9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4301F97019848825006709C9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4301F97819848825006709C9;
+			remoteInfo = PackageManagerKit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4301F97919848825006709C9 /* PackageManagerKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PackageManagerKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4301F97D19848825006709C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4301F97E19848825006709C9 /* PackageManagerKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PackageManagerKit.h; sourceTree = "<group>"; };
+		4301F98419848826006709C9 /* PackageManagerKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PackageManagerKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4301F98A19848826006709C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4301F98B19848826006709C9 /* PackageManagerKitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PackageManagerKitTests.m; sourceTree = "<group>"; };
+		4301F9BC19848C58006709C9 /* LRPackage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPackage.h; sourceTree = "<group>"; };
+		4301F9BD19848C58006709C9 /* LRPackage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPackage.m; sourceTree = "<group>"; };
+		4301F9BE19848C58006709C9 /* LRPackageContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPackageContainer.h; sourceTree = "<group>"; };
+		4301F9BF19848C58006709C9 /* LRPackageContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPackageContainer.m; sourceTree = "<group>"; };
+		4301F9C019848C58006709C9 /* LRPackageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPackageManager.h; sourceTree = "<group>"; };
+		4301F9C119848C58006709C9 /* LRPackageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPackageManager.m; sourceTree = "<group>"; };
+		4301F9C219848C58006709C9 /* LRPackageReference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPackageReference.h; sourceTree = "<group>"; };
+		4301F9C319848C58006709C9 /* LRPackageReference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPackageReference.m; sourceTree = "<group>"; };
+		4301F9C419848C58006709C9 /* LRPackageResolutionContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPackageResolutionContext.h; sourceTree = "<group>"; };
+		4301F9C519848C58006709C9 /* LRPackageResolutionContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPackageResolutionContext.m; sourceTree = "<group>"; };
+		4301F9C619848C58006709C9 /* LRPackageSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPackageSet.h; sourceTree = "<group>"; };
+		4301F9C719848C58006709C9 /* LRPackageSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPackageSet.m; sourceTree = "<group>"; };
+		4301F9C819848C58006709C9 /* LRPackageType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPackageType.h; sourceTree = "<group>"; };
+		4301F9C919848C58006709C9 /* LRPackageType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPackageType.m; sourceTree = "<group>"; };
+		4301F9CB19848C58006709C9 /* MissingRuntimeInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MissingRuntimeInstance.h; sourceTree = "<group>"; };
+		4301F9CC19848C58006709C9 /* MissingRuntimeInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MissingRuntimeInstance.m; sourceTree = "<group>"; };
+		4301F9CD19848C58006709C9 /* RuntimeContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RuntimeContainer.h; sourceTree = "<group>"; };
+		4301F9CE19848C58006709C9 /* RuntimeContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RuntimeContainer.m; sourceTree = "<group>"; };
+		4301F9CF19848C58006709C9 /* RuntimeGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RuntimeGlobals.h; sourceTree = "<group>"; };
+		4301F9D019848C58006709C9 /* RuntimeGlobals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RuntimeGlobals.m; sourceTree = "<group>"; };
+		4301F9D119848C58006709C9 /* RuntimeInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RuntimeInstance.h; sourceTree = "<group>"; };
+		4301F9D219848C58006709C9 /* RuntimeInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RuntimeInstance.m; sourceTree = "<group>"; };
+		4301F9D519848C58006709C9 /* RuntimeObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RuntimeObject.h; sourceTree = "<group>"; };
+		4301F9D619848C58006709C9 /* RuntimeRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RuntimeRepository.h; sourceTree = "<group>"; };
+		4301F9D719848C58006709C9 /* RuntimeRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RuntimeRepository.m; sourceTree = "<group>"; };
+		4301F9D919848C58006709C9 /* NpmPackage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NpmPackage.h; sourceTree = "<group>"; };
+		4301F9DA19848C58006709C9 /* NpmPackage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NpmPackage.m; sourceTree = "<group>"; };
+		4301F9DB19848C58006709C9 /* NpmPackageContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NpmPackageContainer.h; sourceTree = "<group>"; };
+		4301F9DC19848C58006709C9 /* NpmPackageContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NpmPackageContainer.m; sourceTree = "<group>"; };
+		4301F9DD19848C58006709C9 /* NpmPackageType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NpmPackageType.h; sourceTree = "<group>"; };
+		4301F9DE19848C58006709C9 /* NpmPackageType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NpmPackageType.m; sourceTree = "<group>"; };
+		4301F9E119848C58006709C9 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		4301F9E219848C58006709C9 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		4301F9E519848C58006709C9 /* GemPackage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GemPackage.h; sourceTree = "<group>"; };
+		4301F9E619848C58006709C9 /* GemPackage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GemPackage.m; sourceTree = "<group>"; };
+		4301F9E719848C58006709C9 /* GemPackageContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GemPackageContainer.h; sourceTree = "<group>"; };
+		4301F9E819848C58006709C9 /* GemPackageContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GemPackageContainer.m; sourceTree = "<group>"; };
+		4301F9E919848C58006709C9 /* GemPackageType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GemPackageType.h; sourceTree = "<group>"; };
+		4301F9EA19848C58006709C9 /* GemPackageType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GemPackageType.m; sourceTree = "<group>"; };
+		4301F9EB19848C58006709C9 /* GemVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GemVersion.h; sourceTree = "<group>"; };
+		4301F9EC19848C58006709C9 /* GemVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GemVersion.m; sourceTree = "<group>"; };
+		4301F9ED19848C58006709C9 /* GemVersionSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GemVersionSpace.h; sourceTree = "<group>"; };
+		4301F9EE19848C58006709C9 /* GemVersionSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GemVersionSpace.m; sourceTree = "<group>"; };
+		4301F9F019848C58006709C9 /* HomebrewContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomebrewContainer.h; sourceTree = "<group>"; };
+		4301F9F119848C58006709C9 /* HomebrewContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomebrewContainer.m; sourceTree = "<group>"; };
+		4301F9F219848C58006709C9 /* HomebrewRubyInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomebrewRubyInstance.h; sourceTree = "<group>"; };
+		4301F9F319848C58006709C9 /* HomebrewRubyInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomebrewRubyInstance.m; sourceTree = "<group>"; };
+		4301F9F419848C58006709C9 /* RbenvContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RbenvContainer.h; sourceTree = "<group>"; };
+		4301F9F519848C58006709C9 /* RbenvContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RbenvContainer.m; sourceTree = "<group>"; };
+		4301F9F619848C58006709C9 /* RbenvRubyInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RbenvRubyInstance.h; sourceTree = "<group>"; };
+		4301F9F719848C58006709C9 /* RbenvRubyInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RbenvRubyInstance.m; sourceTree = "<group>"; };
+		4301F9F819848C58006709C9 /* RubyInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RubyInstance.h; sourceTree = "<group>"; };
+		4301F9F919848C58006709C9 /* RubyInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RubyInstance.m; sourceTree = "<group>"; };
+		4301F9FA19848C58006709C9 /* RubyRuntimeRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RubyRuntimeRepository.h; sourceTree = "<group>"; };
+		4301F9FB19848C58006709C9 /* RubyRuntimeRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RubyRuntimeRepository.m; sourceTree = "<group>"; };
+		4301F9FC19848C58006709C9 /* RvmContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RvmContainer.h; sourceTree = "<group>"; };
+		4301F9FD19848C58006709C9 /* RvmContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RvmContainer.m; sourceTree = "<group>"; };
+		4301F9FE19848C58006709C9 /* RvmRubyInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RvmRubyInstance.h; sourceTree = "<group>"; };
+		4301F9FF19848C58006709C9 /* RvmRubyInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RvmRubyInstance.m; sourceTree = "<group>"; };
+		4301FA0019848C58006709C9 /* SystemRubyInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemRubyInstance.h; sourceTree = "<group>"; };
+		4301FA0119848C58006709C9 /* SystemRubyInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemRubyInstance.m; sourceTree = "<group>"; };
+		4301FA4119848DA8006709C9 /* SandboxingUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandboxingUtil.h; sourceTree = "<group>"; };
+		4301FA4219848DA8006709C9 /* SandboxingUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SandboxingUtil.m; sourceTree = "<group>"; };
+		4301FA8019849101006709C9 /* LRCommons.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LRCommons.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/LiveReload-aescojcekgepxkhacevekzcghboe/Build/Products/Debug/LRCommons.framework"; sourceTree = "<group>"; };
+		4301FA9419849420006709C9 /* CustomRubyInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomRubyInstance.h; sourceTree = "<group>"; };
+		4301FA9519849420006709C9 /* CustomRubyInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomRubyInstance.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4301F97519848825006709C9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4301FA8119849101006709C9 /* LRCommons.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4301F98119848826006709C9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4301F98519848826006709C9 /* PackageManagerKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4301F96F19848825006709C9 = {
+			isa = PBXGroup;
+			children = (
+				4301FA8019849101006709C9 /* LRCommons.framework */,
+				4301F97B19848825006709C9 /* PackageManagerKit */,
+				4301F98819848826006709C9 /* PackageManagerKitTests */,
+				4301F97A19848825006709C9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4301F97A19848825006709C9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4301F97919848825006709C9 /* PackageManagerKit.framework */,
+				4301F98419848826006709C9 /* PackageManagerKitTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4301F97B19848825006709C9 /* PackageManagerKit */ = {
+			isa = PBXGroup;
+			children = (
+				4301F97E19848825006709C9 /* PackageManagerKit.h */,
+				4301F9BB19848C58006709C9 /* GenericPackages */,
+				4301F9CA19848C58006709C9 /* GenericRuntime */,
+				4301F9D819848C58006709C9 /* NodePackages */,
+				4301F9DF19848C58006709C9 /* NodeRuntime */,
+				4301F9E019848C58006709C9 /* PrivateUtilities */,
+				4301F9E319848C58006709C9 /* PublicUtilities */,
+				4301F9E419848C58006709C9 /* RubyGemPackages */,
+				4301F9EF19848C58006709C9 /* RubyRuntime */,
+				4301F97C19848825006709C9 /* Supporting Files */,
+			);
+			path = PackageManagerKit;
+			sourceTree = "<group>";
+		};
+		4301F97C19848825006709C9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4301F97D19848825006709C9 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4301F98819848826006709C9 /* PackageManagerKitTests */ = {
+			isa = PBXGroup;
+			children = (
+				4301F98B19848826006709C9 /* PackageManagerKitTests.m */,
+				4301F98919848826006709C9 /* Supporting Files */,
+			);
+			path = PackageManagerKitTests;
+			sourceTree = "<group>";
+		};
+		4301F98919848826006709C9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4301F98A19848826006709C9 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4301F9BB19848C58006709C9 /* GenericPackages */ = {
+			isa = PBXGroup;
+			children = (
+				4301F9BC19848C58006709C9 /* LRPackage.h */,
+				4301F9BD19848C58006709C9 /* LRPackage.m */,
+				4301F9BE19848C58006709C9 /* LRPackageContainer.h */,
+				4301F9BF19848C58006709C9 /* LRPackageContainer.m */,
+				4301F9C019848C58006709C9 /* LRPackageManager.h */,
+				4301F9C119848C58006709C9 /* LRPackageManager.m */,
+				4301F9C219848C58006709C9 /* LRPackageReference.h */,
+				4301F9C319848C58006709C9 /* LRPackageReference.m */,
+				4301F9C419848C58006709C9 /* LRPackageResolutionContext.h */,
+				4301F9C519848C58006709C9 /* LRPackageResolutionContext.m */,
+				4301F9C619848C58006709C9 /* LRPackageSet.h */,
+				4301F9C719848C58006709C9 /* LRPackageSet.m */,
+				4301F9C819848C58006709C9 /* LRPackageType.h */,
+				4301F9C919848C58006709C9 /* LRPackageType.m */,
+			);
+			path = GenericPackages;
+			sourceTree = "<group>";
+		};
+		4301F9CA19848C58006709C9 /* GenericRuntime */ = {
+			isa = PBXGroup;
+			children = (
+				4301F9CB19848C58006709C9 /* MissingRuntimeInstance.h */,
+				4301F9CC19848C58006709C9 /* MissingRuntimeInstance.m */,
+				4301F9CD19848C58006709C9 /* RuntimeContainer.h */,
+				4301F9CE19848C58006709C9 /* RuntimeContainer.m */,
+				4301F9CF19848C58006709C9 /* RuntimeGlobals.h */,
+				4301F9D019848C58006709C9 /* RuntimeGlobals.m */,
+				4301F9D119848C58006709C9 /* RuntimeInstance.h */,
+				4301F9D219848C58006709C9 /* RuntimeInstance.m */,
+				4301F9D519848C58006709C9 /* RuntimeObject.h */,
+				4301F9D619848C58006709C9 /* RuntimeRepository.h */,
+				4301F9D719848C58006709C9 /* RuntimeRepository.m */,
+			);
+			path = GenericRuntime;
+			sourceTree = "<group>";
+		};
+		4301F9D819848C58006709C9 /* NodePackages */ = {
+			isa = PBXGroup;
+			children = (
+				4301F9D919848C58006709C9 /* NpmPackage.h */,
+				4301F9DA19848C58006709C9 /* NpmPackage.m */,
+				4301F9DB19848C58006709C9 /* NpmPackageContainer.h */,
+				4301F9DC19848C58006709C9 /* NpmPackageContainer.m */,
+				4301F9DD19848C58006709C9 /* NpmPackageType.h */,
+				4301F9DE19848C58006709C9 /* NpmPackageType.m */,
+			);
+			path = NodePackages;
+			sourceTree = "<group>";
+		};
+		4301F9DF19848C58006709C9 /* NodeRuntime */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = NodeRuntime;
+			sourceTree = "<group>";
+		};
+		4301F9E019848C58006709C9 /* PrivateUtilities */ = {
+			isa = PBXGroup;
+			children = (
+				4301F9E119848C58006709C9 /* NSData+Base64.h */,
+				4301F9E219848C58006709C9 /* NSData+Base64.m */,
+				4301FA4119848DA8006709C9 /* SandboxingUtil.h */,
+				4301FA4219848DA8006709C9 /* SandboxingUtil.m */,
+			);
+			path = PrivateUtilities;
+			sourceTree = "<group>";
+		};
+		4301F9E319848C58006709C9 /* PublicUtilities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PublicUtilities;
+			sourceTree = "<group>";
+		};
+		4301F9E419848C58006709C9 /* RubyGemPackages */ = {
+			isa = PBXGroup;
+			children = (
+				4301F9E519848C58006709C9 /* GemPackage.h */,
+				4301F9E619848C58006709C9 /* GemPackage.m */,
+				4301F9E719848C58006709C9 /* GemPackageContainer.h */,
+				4301F9E819848C58006709C9 /* GemPackageContainer.m */,
+				4301F9E919848C58006709C9 /* GemPackageType.h */,
+				4301F9EA19848C58006709C9 /* GemPackageType.m */,
+				4301F9EB19848C58006709C9 /* GemVersion.h */,
+				4301F9EC19848C58006709C9 /* GemVersion.m */,
+				4301F9ED19848C58006709C9 /* GemVersionSpace.h */,
+				4301F9EE19848C58006709C9 /* GemVersionSpace.m */,
+			);
+			path = RubyGemPackages;
+			sourceTree = "<group>";
+		};
+		4301F9EF19848C58006709C9 /* RubyRuntime */ = {
+			isa = PBXGroup;
+			children = (
+				4301F9F019848C58006709C9 /* HomebrewContainer.h */,
+				4301F9F119848C58006709C9 /* HomebrewContainer.m */,
+				4301F9F219848C58006709C9 /* HomebrewRubyInstance.h */,
+				4301F9F319848C58006709C9 /* HomebrewRubyInstance.m */,
+				4301F9F419848C58006709C9 /* RbenvContainer.h */,
+				4301F9F519848C58006709C9 /* RbenvContainer.m */,
+				4301F9F619848C58006709C9 /* RbenvRubyInstance.h */,
+				4301F9F719848C58006709C9 /* RbenvRubyInstance.m */,
+				4301F9F819848C58006709C9 /* RubyInstance.h */,
+				4301F9F919848C58006709C9 /* RubyInstance.m */,
+				4301F9FA19848C58006709C9 /* RubyRuntimeRepository.h */,
+				4301F9FB19848C58006709C9 /* RubyRuntimeRepository.m */,
+				4301F9FC19848C58006709C9 /* RvmContainer.h */,
+				4301F9FD19848C58006709C9 /* RvmContainer.m */,
+				4301F9FE19848C58006709C9 /* RvmRubyInstance.h */,
+				4301F9FF19848C58006709C9 /* RvmRubyInstance.m */,
+				4301FA0019848C58006709C9 /* SystemRubyInstance.h */,
+				4301FA0119848C58006709C9 /* SystemRubyInstance.m */,
+				4301FA9419849420006709C9 /* CustomRubyInstance.h */,
+				4301FA9519849420006709C9 /* CustomRubyInstance.m */,
+			);
+			path = RubyRuntime;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		4301F97619848825006709C9 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4301FA2719848C58006709C9 /* GemPackageContainer.h in Headers */,
+				4301FA2B19848C58006709C9 /* GemVersion.h in Headers */,
+				4301FA3319848C58006709C9 /* RbenvContainer.h in Headers */,
+				4301FA0419848C58006709C9 /* LRPackageContainer.h in Headers */,
+				4301FA3719848C58006709C9 /* RubyInstance.h in Headers */,
+				4301FA1219848C58006709C9 /* RuntimeContainer.h in Headers */,
+				4301FA3519848C58006709C9 /* RbenvRubyInstance.h in Headers */,
+				4301FA1A19848C58006709C9 /* RuntimeObject.h in Headers */,
+				4301FA0E19848C58006709C9 /* LRPackageType.h in Headers */,
+				4301FA1F19848C58006709C9 /* NpmPackageContainer.h in Headers */,
+				4301FA0A19848C58006709C9 /* LRPackageResolutionContext.h in Headers */,
+				4301FA3919848C58006709C9 /* RubyRuntimeRepository.h in Headers */,
+				4301FA1619848C58006709C9 /* RuntimeInstance.h in Headers */,
+				4301FA2F19848C58006709C9 /* HomebrewContainer.h in Headers */,
+				4301FA3119848C58006709C9 /* HomebrewRubyInstance.h in Headers */,
+				4301FA2119848C58006709C9 /* NpmPackageType.h in Headers */,
+				4301FA4319848DA8006709C9 /* SandboxingUtil.h in Headers */,
+				4301FA0619848C58006709C9 /* LRPackageManager.h in Headers */,
+				4301FA1419848C58006709C9 /* RuntimeGlobals.h in Headers */,
+				4301FA0C19848C58006709C9 /* LRPackageSet.h in Headers */,
+				4301FA3F19848C58006709C9 /* SystemRubyInstance.h in Headers */,
+				4301FA3D19848C58006709C9 /* RvmRubyInstance.h in Headers */,
+				4301FA2519848C58006709C9 /* GemPackage.h in Headers */,
+				4301FA2919848C58006709C9 /* GemPackageType.h in Headers */,
+				4301FA2319848C58006709C9 /* NSData+Base64.h in Headers */,
+				4301FA1D19848C58006709C9 /* NpmPackage.h in Headers */,
+				4301FA1B19848C58006709C9 /* RuntimeRepository.h in Headers */,
+				4301FA2D19848C58006709C9 /* GemVersionSpace.h in Headers */,
+				4301FA9619849420006709C9 /* CustomRubyInstance.h in Headers */,
+				4301F97F19848825006709C9 /* PackageManagerKit.h in Headers */,
+				4301FA0219848C58006709C9 /* LRPackage.h in Headers */,
+				4301FA3B19848C58006709C9 /* RvmContainer.h in Headers */,
+				4301FA1019848C58006709C9 /* MissingRuntimeInstance.h in Headers */,
+				4301FA0819848C58006709C9 /* LRPackageReference.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		4301F97819848825006709C9 /* PackageManagerKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4301F98F19848826006709C9 /* Build configuration list for PBXNativeTarget "PackageManagerKit" */;
+			buildPhases = (
+				4301F97419848825006709C9 /* Sources */,
+				4301F97519848825006709C9 /* Frameworks */,
+				4301F97619848825006709C9 /* Headers */,
+				4301F97719848825006709C9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PackageManagerKit;
+			productName = PackageManagerKit;
+			productReference = 4301F97919848825006709C9 /* PackageManagerKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		4301F98319848826006709C9 /* PackageManagerKitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4301F99219848826006709C9 /* Build configuration list for PBXNativeTarget "PackageManagerKitTests" */;
+			buildPhases = (
+				4301F98019848826006709C9 /* Sources */,
+				4301F98119848826006709C9 /* Frameworks */,
+				4301F98219848826006709C9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4301F98719848826006709C9 /* PBXTargetDependency */,
+			);
+			name = PackageManagerKitTests;
+			productName = PackageManagerKitTests;
+			productReference = 4301F98419848826006709C9 /* PackageManagerKitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4301F97019848825006709C9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = livereload;
+				TargetAttributes = {
+					4301F97819848825006709C9 = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					4301F98319848826006709C9 = {
+						CreatedOnToolsVersion = 6.0;
+						TestTargetID = 4301F97819848825006709C9;
+					};
+				};
+			};
+			buildConfigurationList = 4301F97319848825006709C9 /* Build configuration list for PBXProject "PackageManagerKit" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 4301F96F19848825006709C9;
+			productRefGroup = 4301F97A19848825006709C9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4301F97819848825006709C9 /* PackageManagerKit */,
+				4301F98319848826006709C9 /* PackageManagerKitTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4301F97719848825006709C9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4301F98219848826006709C9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4301F97419848825006709C9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4301FA3E19848C58006709C9 /* RvmRubyInstance.m in Sources */,
+				4301FA9719849420006709C9 /* CustomRubyInstance.m in Sources */,
+				4301FA2819848C58006709C9 /* GemPackageContainer.m in Sources */,
+				4301FA3219848C58006709C9 /* HomebrewRubyInstance.m in Sources */,
+				4301FA1E19848C58006709C9 /* NpmPackage.m in Sources */,
+				4301FA3C19848C58006709C9 /* RvmContainer.m in Sources */,
+				4301FA0919848C58006709C9 /* LRPackageReference.m in Sources */,
+				4301FA3419848C58006709C9 /* RbenvContainer.m in Sources */,
+				4301FA1519848C58006709C9 /* RuntimeGlobals.m in Sources */,
+				4301FA4019848C58006709C9 /* SystemRubyInstance.m in Sources */,
+				4301FA2419848C58006709C9 /* NSData+Base64.m in Sources */,
+				4301FA3819848C58006709C9 /* RubyInstance.m in Sources */,
+				4301FA2219848C58006709C9 /* NpmPackageType.m in Sources */,
+				4301FA0F19848C58006709C9 /* LRPackageType.m in Sources */,
+				4301FA0D19848C58006709C9 /* LRPackageSet.m in Sources */,
+				4301FA1C19848C58006709C9 /* RuntimeRepository.m in Sources */,
+				4301FA4419848DA8006709C9 /* SandboxingUtil.m in Sources */,
+				4301FA1319848C58006709C9 /* RuntimeContainer.m in Sources */,
+				4301FA0719848C58006709C9 /* LRPackageManager.m in Sources */,
+				4301FA0519848C58006709C9 /* LRPackageContainer.m in Sources */,
+				4301FA0B19848C58006709C9 /* LRPackageResolutionContext.m in Sources */,
+				4301FA2C19848C58006709C9 /* GemVersion.m in Sources */,
+				4301FA2A19848C58006709C9 /* GemPackageType.m in Sources */,
+				4301FA3619848C58006709C9 /* RbenvRubyInstance.m in Sources */,
+				4301FA3A19848C58006709C9 /* RubyRuntimeRepository.m in Sources */,
+				4301FA2019848C58006709C9 /* NpmPackageContainer.m in Sources */,
+				4301FA2E19848C58006709C9 /* GemVersionSpace.m in Sources */,
+				4301FA1119848C58006709C9 /* MissingRuntimeInstance.m in Sources */,
+				4301FA1719848C58006709C9 /* RuntimeInstance.m in Sources */,
+				4301FA2619848C58006709C9 /* GemPackage.m in Sources */,
+				4301FA0319848C58006709C9 /* LRPackage.m in Sources */,
+				4301FA3019848C58006709C9 /* HomebrewContainer.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4301F98019848826006709C9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4301F98C19848826006709C9 /* PackageManagerKitTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4301F98719848826006709C9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4301F97819848825006709C9 /* PackageManagerKit */;
+			targetProxy = 4301F98619848826006709C9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		4301F98D19848826006709C9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		4301F98E19848826006709C9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		4301F99019848826006709C9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/LiveReload-aescojcekgepxkhacevekzcghboe/Build/Products/Debug",
+				);
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = PackageManagerKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		4301F99119848826006709C9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/LiveReload-aescojcekgepxkhacevekzcghboe/Build/Products/Debug",
+				);
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = PackageManagerKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		4301F99319848826006709C9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = PackageManagerKitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		4301F99419848826006709C9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = PackageManagerKitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4301F97319848825006709C9 /* Build configuration list for PBXProject "PackageManagerKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4301F98D19848826006709C9 /* Debug */,
+				4301F98E19848826006709C9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4301F98F19848826006709C9 /* Build configuration list for PBXNativeTarget "PackageManagerKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4301F99019848826006709C9 /* Debug */,
+				4301F99119848826006709C9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		4301F99219848826006709C9 /* Build configuration list for PBXNativeTarget "PackageManagerKitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4301F99319848826006709C9 /* Debug */,
+				4301F99419848826006709C9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4301F97019848825006709C9 /* Project object */;
+}

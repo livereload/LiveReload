@@ -30,7 +30,7 @@ ATVersionComponents ATVersionComponentsFromVersion(ATVersion version) {
     version /= 100;
     components.minor = version % 100;
     version /= 100;
-    components.major = version;
+    components.major = (int)version;
     return components;
 }
 
@@ -49,7 +49,7 @@ NSString *ATOSVersionString() {
 }
 
 ATVersion ATOSVersion() {
-    static int result;
+    static ATVersion result;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         NSArray *components = [[ATOSVersionString() stringByAppendingString:@".0.0.0"] componentsSeparatedByString:@"."];

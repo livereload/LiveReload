@@ -9,7 +9,7 @@
 
 #import "ATMacViewCreation.h"
 #import "ATFunctionalStyle.h"
-#import "ATObservation.h"
+@import LRCommons;
 
 
 @interface LRVersionOption ()

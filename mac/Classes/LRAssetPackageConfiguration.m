@@ -1,7 +1,6 @@
 
 #import "LRAssetPackageConfiguration.h"
-#import "LRPackageReference.h"
-#import "LRPackageManager.h"
+@import PackageManagerKit;
 #import "AppState.h"
 
 

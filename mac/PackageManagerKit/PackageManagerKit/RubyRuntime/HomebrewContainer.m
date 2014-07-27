@@ -2,7 +2,8 @@
 #import "HomebrewContainer.h"
 #import "RuntimeGlobals.h"
 #import "HomebrewRubyInstance.h"
-#import "ATGlobals.h"
+@import LRCommons;
+
 
 NSString *GetDefaultHomebrewPath() {
     return @"/usr/local";

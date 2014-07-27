@@ -2,10 +2,7 @@
 #import "RubyPreferencesViewController.h"
 #import "AddCustomRubySheet.h"
 #import "RuntimeInstanceCellView.h"
-#import "RuntimeObject.h"
-#import "RubyRuntimeRepository.h"
-#import "RuntimeInstance.h"
-#import "RuntimeContainer.h"
+@import PackageManagerKit;
 
 
 enum {

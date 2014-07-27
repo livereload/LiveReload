@@ -3,7 +3,7 @@
 #import "Plugin.h"
 #import "ToolOutput.h"
 #import "Project.h"
-#import "Runtimes.h"
+@import PackageManagerKit;
 
 #import "OldFSTree.h"
 #import "RegexKitLite.h"

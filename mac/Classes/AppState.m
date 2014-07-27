@@ -9,9 +9,7 @@
 #import "LiveReload-Swift-x.h"
 #import "Plugin.h"
 
-#import "LRPackageManager.h"
-#import "NpmPackageType.h"
-#import "GemPackageType.h"
+@import PackageManagerKit;
 
 
 static AppState *sharedAppState = nil;

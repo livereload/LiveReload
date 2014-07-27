@@ -3,7 +3,7 @@
 #import "LROutputFileMapping.h"
 #import "LiveReload-Swift-x.h"
 #import "Project.h"
-#import "ATObservation.h"
+@import LRCommons;
 
 
 @interface LROutputMappingOption ()

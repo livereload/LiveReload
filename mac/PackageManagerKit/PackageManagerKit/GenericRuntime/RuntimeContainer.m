@@ -1,7 +1,7 @@
 
 #import "RuntimeContainer.h"
 #import "RuntimeInstance.h"
-#import "ATModelDiff.h"
+@import LRCommons;
 
 
 NSString *const LRRuntimeContainerDidChangeNotification = @"LRRuntimeContainerDidChangeNotification";

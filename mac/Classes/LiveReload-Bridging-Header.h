@@ -3,10 +3,6 @@
 #import "LRVersionOption.h"
 #import "LRCustomArgumentsOption.h"
 
-#import "LRPackageSet.h"
-#import "LRPackage.h"
-#import "LRPackageContainer.h"
-#import "LRPackageType.h"
 #import "Errors.h"
 
 #import "Plugin.h"
@@ -31,10 +27,8 @@
 #import "LRTRTestAnythingProtocolParser.h"
 
 #import "LRPathProcessing.h"
-#import "ATChildTask.h"
 #import "LRCommandLine.h"
 #import "NSArray+ATSubstitutions.h"
-#import "ATScheduling.h"
 
 #import "UserScript.h"
 

@@ -4,7 +4,6 @@
 #import "LRPackageType.h"
 #import "LRPackageContainer.h"
 #import "LRPackageSet.h"
-#import "LRAssetPackageConfiguration.h"
 
 
 @interface LRPackageResolutionContext ()
@@ -23,10 +22,10 @@
     return [result copy];
 }
 
-- (NSArray *)packageSetsMatchingConfiguration:(LRAssetPackageConfiguration *)configuration {
+- (NSArray *)packageSetsMatchingPackageReferences:(NSArray *)packageReferences {
     NSMutableArray *result = [NSMutableArray new];
     NSMutableArray *packages = [NSMutableArray new];
-    [self _collectPackageSetsByResolvingRemainingReferences:configuration.packageReferences partialResult:packages into:result];
+    [self _collectPackageSetsByResolvingRemainingReferences:packageReferences partialResult:packages into:result];
     return [result copy];
 }
 

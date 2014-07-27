@@ -5,11 +5,7 @@
 #import "Plugin.h"
 #import "LROption+Factory.h"
 #import "AppState.h"
-#import "LRPackageManager.h"
-#import "LRPackageReference.h"
-#import "LRPackageResolutionContext.h"
-#import "LRPackageSet.h"
-#import "LRPackageType.h"
+@import PackageManagerKit;
 
 #import "LRManifestLayer.h"
 #import "LRActionVersion.h"

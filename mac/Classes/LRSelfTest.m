@@ -10,7 +10,7 @@
 #import "LRSelfTestMessageExpectation.h"
 #import "LRSelfTestHelpers.h"
 
-#import "ATObservation.h"
+@import LRCommons;
 #import "ATFunctionalStyle.h"
 
 

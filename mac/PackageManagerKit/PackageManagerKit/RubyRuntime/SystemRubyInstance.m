@@ -1,6 +1,6 @@
 
 #import "SystemRubyInstance.h"
-#import "ATGlobals.h"
+@import LRCommons;
 
 
 @interface SystemRubyInstance ()

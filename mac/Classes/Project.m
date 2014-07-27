@@ -1,6 +1,6 @@
 
 #import "ToolOutputWindowController.h"
-#import "ATGlobals.h"
+@import LRCommons;
 
 #import "Project.h"
 #import "OldFSMonitor.h"
@@ -14,7 +14,7 @@
 #import "UserScript.h"
 #import "FilterOption.h"
 #import "Glue.h"
-#import "LRPackageResolutionContext.h"
+@import PackageManagerKit;
 #import "ATPathSpec.h"
 #import "LROperationResult.h"
 #import "LiveReload-Swift-x.h"
@@ -25,9 +25,8 @@
 #import "NSTask+OneLineTasksWithOutput.h"
 #import "ATFunctionalStyle.h"
 #import "P2AsyncEnumeration.h"
-#import "ATObservation.h"
+@import LRCommons;
 #import "LRCommandLine.h"
-#import "ATModelDiff.h"
 
 #include <stdbool.h>
 
