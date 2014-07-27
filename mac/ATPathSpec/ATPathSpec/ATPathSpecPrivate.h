@@ -3,7 +3,7 @@
 
 
 NSString *ATPathSpec_StringByEscapingRegex(NSString *regex);
-NSString *ATPathSpec_RegexFromPatternString(NSString *pattern, ATPathSpecSyntaxOptions options);
+NSRegularExpression *ATPathSpec_RegexFromPatternString(NSString *pattern, ATPathSpecSyntaxOptions options);
 BOOL ATPathSpecEntryType_Match(ATPathSpecEntryType required, ATPathSpecEntryType actual);
 NSString *ATPathSpecSyntaxOptions_QuoteIfNeeded(NSString *string, ATPathSpecSyntaxOptions options);
 NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSyntaxOptions options);

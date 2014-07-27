@@ -1,7 +1,6 @@
 
 #import "ATPathSpec.h"
 #import "ATPathSpecPrivate.h"
-#import "RegexKitLite.h"
 
 
 NSString *const ATPathSpecErrorDomain = @"ATPathSpecErrorDomain";
@@ -88,10 +87,15 @@ NSString *ATPathSpec_Escape(NSString *string, NSCharacterSet *characterSet) {
 }
 
 NSString *ATPathSpec_StringByEscapingRegex(NSString *regex) {
-    return [regex stringByReplacingOccurrencesOfRegex:@"([\\\\.^$\\[|*+?\\{])" withString:@"\\\\$1"];
+    static NSRegularExpression *escapeRe;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        escapeRe = [NSRegularExpression regularExpressionWithPattern:@"([\\\\.^$\\[|*+?\\{])" options:0 error:NULL];
+    });
+    return [escapeRe stringByReplacingMatchesInString:regex options:0 range:NSMakeRange(0, regex.length) withTemplate:@"\\\\$1"];
 }
 
-NSString *ATPathSpec_RegexFromPatternString(NSString *pattern, ATPathSpecSyntaxOptions options) {
+NSRegularExpression *ATPathSpec_RegexFromPatternString(NSString *pattern, ATPathSpecSyntaxOptions options) {
     BOOL star = !!(options & ATPathSpecSyntaxOptionsAllowStarWildcard);
     BOOL question = !!(options & ATPathSpecSyntaxOptionsAllowQuestionMarkWildcard);
     if (star)
@@ -103,7 +107,7 @@ NSString *ATPathSpec_RegexFromPatternString(NSString *pattern, ATPathSpecSyntaxO
         regex = [regex stringByReplacingOccurrencesOfString:@"_@,DOT,@_" withString:@"."];
     if (question)
         regex = [regex stringByReplacingOccurrencesOfString:@"_@,STAR,@_" withString:@".*"];
-    return [NSString stringWithFormat:@"^%@$", regex];
+    return [NSRegularExpression regularExpressionWithPattern:[NSString stringWithFormat:@"^%@$", regex] options:0 error:NULL];
 }
 
 NSString *ATPathSpec_StaticSuffixFromPatternString(NSString *pattern, ATPathSpecSyntaxOptions options) {
@@ -286,7 +290,7 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
 
 
 @implementation ATPatternMask {
-    NSString *_regex;
+    NSRegularExpression *_regex;
     NSString *_staticSuffix;
 }
 
@@ -303,7 +307,7 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
 }
 
 - (BOOL)matchesName:(NSString *)name matchInfo:(NSDictionary **)matchInfo {
-    if ([name isMatchedByRegex:_regex]) {
+    if ([_regex firstMatchInString:name options:0 range:NSMakeRange(0, name.length)]) {
         if (matchInfo) {
             if (_staticSuffix)
                 *matchInfo = @{ATPathSpecMatchInfoMatchedSuffix: _staticSuffix};
