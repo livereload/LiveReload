@@ -42,11 +42,11 @@ static NSString *EditorStateStrings[] = {
 }
 
 - (void)jumpWithRequest:(EKJumpRequest *)request completionHandler:(void(^)(NSError *error))completionHandler {
-    MustOverride();
+    abort(); // must override
 }
 
 - (BOOL)jumpToFile:(NSString *)file line:(NSInteger)line {
-    [self jumpWithRequest:[[EKJumpRequest alloc] initWithFileURL:[NSURL fileURLWithPath:file] line:(line > 0 ? line : EKJumpRequestValueUnknown) column:EKJumpRequestValueUnknown] completionHandler:^(NSError *error) {
+    [self jumpWithRequest:[[EKJumpRequest alloc] initWithFileURL:[NSURL fileURLWithPath:file] line:(int)(line > 0 ? line : EKJumpRequestValueUnknown) column:EKJumpRequestValueUnknown] completionHandler:^(NSError *error) {
         if (error) 
             NSLog(@"Failed to jump to the error position: %@", error.localizedDescription);
     }];
@@ -80,7 +80,7 @@ static NSString *EditorStateStrings[] = {
 }
 
 - (void)doUpdateStateInBackground {
-    MustOverride();
+    abort(); // must override
 }
 
 - (NSInteger)effectivePriority {

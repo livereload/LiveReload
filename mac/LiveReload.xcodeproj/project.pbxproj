@@ -220,14 +220,6 @@
 		435341EA19489EA8003E51EB /* UIBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353413019489EA8003E51EB /* UIBuilder.m */; };
 		435341EB19489EA8003E51EB /* UserScript.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353413219489EA8003E51EB /* UserScript.m */; };
 		435341EE19489EA8003E51EB /* Workspace.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353413819489EA8003E51EB /* Workspace.m */; };
-		4353420119489F25003E51EB /* EditorKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 435341F119489F25003E51EB /* EditorKit.m */; };
-		4353420219489F25003E51EB /* EKEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 435341F319489F25003E51EB /* EKEditor.m */; };
-		4353420319489F25003E51EB /* EKGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 435341F519489F25003E51EB /* EKGlobals.m */; };
-		4353420419489F25003E51EB /* EKIntegration.m in Sources */ = {isa = PBXBuildFile; fileRef = 435341F719489F25003E51EB /* EKIntegration.m */; };
-		4353420519489F25003E51EB /* EKJumpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 435341F919489F25003E51EB /* EKJumpRequest.m */; };
-		4353420619489F25003E51EB /* Coda2Editor.m in Sources */ = {isa = PBXBuildFile; fileRef = 435341FC19489F25003E51EB /* Coda2Editor.m */; };
-		4353420719489F25003E51EB /* SublimeText2Editor.m in Sources */ = {isa = PBXBuildFile; fileRef = 435341FE19489F25003E51EB /* SublimeText2Editor.m */; };
-		4353420819489F25003E51EB /* SublimeText3Editor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353420019489F25003E51EB /* SublimeText3Editor.m */; };
 		4353420B1948BBB4003E51EB /* LRBuild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353420A1948BBB4003E51EB /* LRBuild.swift */; };
 		43594AF413D3BB34004175B2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43594AF313D3BB34004175B2 /* QuartzCore.framework */; };
 		43612C4D1972961900E7C95B /* Analyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43612C4C1972961900E7C95B /* Analyzer.swift */; };
@@ -278,7 +270,6 @@
 		43B5C01717ADF5FB00F57276 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B5C01617ADF5FB00F57276 /* RegexKitLite.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		43B5C01A17ADF93A00F57276 /* ATHash.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B5C01917ADF93A00F57276 /* ATHash.m */; };
 		43B5C02017AE01C500F57276 /* ATLoginItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B5C01F17AE01C500F57276 /* ATLoginItemController.m */; };
-		43B5C04017AEA9F400F57276 /* NSAppleScript+ATInvokeHandlerWithArguments.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B5C03F17AEA9F300F57276 /* NSAppleScript+ATInvokeHandlerWithArguments.m */; };
 		43C0368613CA191D00A01305 /* LiveReload.icns in Resources */ = {isa = PBXBuildFile; fileRef = 43C0368513CA191C00A01305 /* LiveReload.icns */; };
 		43C389E319441ABB00D29DD7 /* Observation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C389E219441ABB00D29DD7 /* Observation.swift */; };
 		43C927791879317D002372B7 /* LRIntegrationTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C927781879317D002372B7 /* LRIntegrationTestCase.m */; };
@@ -373,6 +364,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 8D1107260486CEB800E47090;
 			remoteInfo = LiveReload;
+		};
+		4393162B1984A18600685024 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 439316261984A18400685024 /* EditorKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4393160A1984A18400685024;
+			remoteInfo = EditorKit;
+		};
+		4393162D1984A18600685024 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 439316261984A18400685024 /* EditorKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 439316151984A18400685024;
+			remoteInfo = EditorKitTests;
 		};
 		4396F1CE17F8107C00AA8200 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -819,22 +824,6 @@
 		4353413219489EA8003E51EB /* UserScript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserScript.m; sourceTree = "<group>"; };
 		4353413719489EA8003E51EB /* Workspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Workspace.h; sourceTree = "<group>"; };
 		4353413819489EA8003E51EB /* Workspace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Workspace.m; sourceTree = "<group>"; };
-		435341F019489F25003E51EB /* EditorKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditorKit.h; sourceTree = "<group>"; };
-		435341F119489F25003E51EB /* EditorKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditorKit.m; sourceTree = "<group>"; };
-		435341F219489F25003E51EB /* EKEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EKEditor.h; sourceTree = "<group>"; };
-		435341F319489F25003E51EB /* EKEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EKEditor.m; sourceTree = "<group>"; };
-		435341F419489F25003E51EB /* EKGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EKGlobals.h; sourceTree = "<group>"; };
-		435341F519489F25003E51EB /* EKGlobals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EKGlobals.m; sourceTree = "<group>"; };
-		435341F619489F25003E51EB /* EKIntegration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EKIntegration.h; sourceTree = "<group>"; };
-		435341F719489F25003E51EB /* EKIntegration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EKIntegration.m; sourceTree = "<group>"; };
-		435341F819489F25003E51EB /* EKJumpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EKJumpRequest.h; sourceTree = "<group>"; };
-		435341F919489F25003E51EB /* EKJumpRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EKJumpRequest.m; sourceTree = "<group>"; };
-		435341FB19489F25003E51EB /* Coda2Editor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Coda2Editor.h; sourceTree = "<group>"; };
-		435341FC19489F25003E51EB /* Coda2Editor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Coda2Editor.m; sourceTree = "<group>"; };
-		435341FD19489F25003E51EB /* SublimeText2Editor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SublimeText2Editor.h; sourceTree = "<group>"; };
-		435341FE19489F25003E51EB /* SublimeText2Editor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SublimeText2Editor.m; sourceTree = "<group>"; };
-		435341FF19489F25003E51EB /* SublimeText3Editor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SublimeText3Editor.h; sourceTree = "<group>"; };
-		4353420019489F25003E51EB /* SublimeText3Editor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SublimeText3Editor.m; sourceTree = "<group>"; };
 		4353420919489F93003E51EB /* app_config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = app_config.h; path = ../Shared/app_config.h; sourceTree = "<group>"; };
 		4353420A1948BBB4003E51EB /* LRBuild.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = LRBuild.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		43594AF313D3BB34004175B2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -854,6 +843,7 @@
 		438DFBD21968FCF000642A66 /* ActionSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionSet.swift; sourceTree = "<group>"; };
 		438DFBD31968FCF000642A66 /* FileClassifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileClassifier.swift; sourceTree = "<group>"; };
 		438DFBD41968FCF000642A66 /* ProjectAnalysis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectAnalysis.swift; sourceTree = "<group>"; };
+		439316261984A18400685024 /* EditorKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = EditorKit.xcodeproj; path = EditorKit/EditorKit.xcodeproj; sourceTree = "<group>"; };
 		4396F1B817F77A8900AA8200 /* com.tarantsov.GlitterInstallationService.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = com.tarantsov.GlitterInstallationService.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
 		4396F1B917F77A8900AA8200 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4396F1C917F80E6F00AA8200 /* GlitterInstallationService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GlitterInstallationService-Info.plist"; sourceTree = "<group>"; };
@@ -904,8 +894,6 @@
 		43B5C01917ADF93A00F57276 /* ATHash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATHash.m; sourceTree = "<group>"; };
 		43B5C01E17AE01C500F57276 /* ATLoginItemController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLoginItemController.h; sourceTree = "<group>"; };
 		43B5C01F17AE01C500F57276 /* ATLoginItemController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLoginItemController.m; sourceTree = "<group>"; };
-		43B5C03E17AEA9F300F57276 /* NSAppleScript+ATInvokeHandlerWithArguments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAppleScript+ATInvokeHandlerWithArguments.h"; sourceTree = "<group>"; };
-		43B5C03F17AEA9F300F57276 /* NSAppleScript+ATInvokeHandlerWithArguments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAppleScript+ATInvokeHandlerWithArguments.m"; sourceTree = "<group>"; };
 		43C0368513CA191C00A01305 /* LiveReload.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LiveReload.icns; sourceTree = "<group>"; };
 		43C389E219441ABB00D29DD7 /* Observation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observation.swift; sourceTree = "<group>"; };
 		43C927771879317D002372B7 /* LRIntegrationTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRIntegrationTestCase.h; sourceTree = "<group>"; };
@@ -1045,13 +1033,13 @@
 			children = (
 				4301FA6B19848ECF006709C9 /* LRCommons.xcodeproj */,
 				43177BAE1979279700FDCD62 /* PiiVersionKit.xcodeproj */,
+				439316261984A18400685024 /* EditorKit.xcodeproj */,
 				4301F99519848826006709C9 /* PackageManagerKit.xcodeproj */,
 				4303A59415B53B31009D732A /* LiveReload.entitlements */,
 				43059221151E8FA400CC3F88 /* CoreServices.framework */,
 				4353420919489F93003E51EB /* app_config.h */,
 				43C389E119441ABB00D29DD7 /* PiiCommons */,
 				823DDE2D13F8DA3100529AD2 /* Classes */,
-				435341EF19489F25003E51EB /* EditorKit */,
 				43B5BFFC17ADF0D600F57276 /* ATCommons */,
 				439865A617BE394D00EC6471 /* ATPathSpec */,
 				4396F1B317F77A5600AA8200 /* Glitter */,
@@ -1424,37 +1412,6 @@
 			path = "Swift Bridging";
 			sourceTree = "<group>";
 		};
-		435341EF19489F25003E51EB /* EditorKit */ = {
-			isa = PBXGroup;
-			children = (
-				435341F019489F25003E51EB /* EditorKit.h */,
-				435341F119489F25003E51EB /* EditorKit.m */,
-				435341F219489F25003E51EB /* EKEditor.h */,
-				435341F319489F25003E51EB /* EKEditor.m */,
-				435341F419489F25003E51EB /* EKGlobals.h */,
-				435341F519489F25003E51EB /* EKGlobals.m */,
-				435341F619489F25003E51EB /* EKIntegration.h */,
-				435341F719489F25003E51EB /* EKIntegration.m */,
-				435341F819489F25003E51EB /* EKJumpRequest.h */,
-				435341F919489F25003E51EB /* EKJumpRequest.m */,
-				435341FA19489F25003E51EB /* SpecificEditors */,
-			);
-			path = EditorKit;
-			sourceTree = "<group>";
-		};
-		435341FA19489F25003E51EB /* SpecificEditors */ = {
-			isa = PBXGroup;
-			children = (
-				435341FB19489F25003E51EB /* Coda2Editor.h */,
-				435341FC19489F25003E51EB /* Coda2Editor.m */,
-				435341FD19489F25003E51EB /* SublimeText2Editor.h */,
-				435341FE19489F25003E51EB /* SublimeText2Editor.m */,
-				435341FF19489F25003E51EB /* SublimeText3Editor.h */,
-				4353420019489F25003E51EB /* SublimeText3Editor.m */,
-			);
-			path = SpecificEditors;
-			sourceTree = "<group>";
-		};
 		4371095318585DB800FCB4C2 /* LiveReloadTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1492,6 +1449,15 @@
 				43612C501972981B00E7C95B /* SampleAnalyzers.swift */,
 			);
 			path = Analysis;
+			sourceTree = "<group>";
+		};
+		439316271984A18400685024 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4393162C1984A18600685024 /* EditorKit.framework */,
+				4393162E1984A18600685024 /* EditorKitTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		4396F1B317F77A5600AA8200 /* Glitter */ = {
@@ -1585,8 +1551,6 @@
 				43B5C00B17ADF35C00F57276 /* NSString+ATProperURLEncoding.m */,
 				43B5C00E17ADF35C00F57276 /* NSWindowController+ATTextStyling.h */,
 				43B5C00F17ADF35C00F57276 /* NSWindowController+ATTextStyling.m */,
-				43B5C03E17AEA9F300F57276 /* NSAppleScript+ATInvokeHandlerWithArguments.h */,
-				43B5C03F17AEA9F300F57276 /* NSAppleScript+ATInvokeHandlerWithArguments.m */,
 				43B5C01517ADF5FB00F57276 /* RegexKitLite.h */,
 				43B5C01617ADF5FB00F57276 /* RegexKitLite.m */,
 				43E07EC017B01C4A004DB867 /* ATJson.h */,
@@ -2111,6 +2075,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = 439316271984A18400685024 /* Products */;
+					ProjectRef = 439316261984A18400685024 /* EditorKit.xcodeproj */;
+				},
+				{
 					ProductGroup = 4301FA6C19848ECF006709C9 /* Products */;
 					ProjectRef = 4301FA6B19848ECF006709C9 /* LRCommons.xcodeproj */;
 				},
@@ -2175,6 +2143,20 @@
 			fileType = wrapper.cfbundle;
 			path = PiiVersionKitTests.xctest;
 			remoteRef = 43177BB51979279800FDCD62 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4393162C1984A18600685024 /* EditorKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = EditorKit.framework;
+			remoteRef = 4393162B1984A18600685024 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4393162E1984A18600685024 /* EditorKitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = EditorKitTests.xctest;
+			remoteRef = 4393162D1984A18600685024 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -2407,7 +2389,6 @@
 				435341AB19489EA8003E51EB /* RunTests.swift in Sources */,
 				4353417E19489EA8003E51EB /* LROutputFileMapping.m in Sources */,
 				43DE6CE51966B85C00E8FDF7 /* LRProjectFile.swift in Sources */,
-				4353420219489F25003E51EB /* EKEditor.m in Sources */,
 				4353414419489EA8003E51EB /* AuxWindow.m in Sources */,
 				435341E719489EA8003E51EB /* ToolOutput.m in Sources */,
 				4303A55A15B513FD009D732A /* nodeapp_logging.m in Sources */,
@@ -2418,7 +2399,6 @@
 				4303A55D15B513FD009D732A /* nodeapp_rpc_osdep.c in Sources */,
 				4353416219489EA8003E51EB /* ImageAndTextCell.m in Sources */,
 				435341AD19489EA8003E51EB /* ScriptInvocation.swift in Sources */,
-				4353420119489F25003E51EB /* EditorKit.m in Sources */,
 				4303A55E15B513FD009D732A /* nodeapp_threading.c in Sources */,
 				4353415519489EA8003E51EB /* FiltersGroupHeaderRow.m in Sources */,
 				4353413A19489EA8003E51EB /* Rulebook.m in Sources */,
@@ -2426,7 +2406,6 @@
 				4353414719489EA8003E51EB /* BaseAddRow.m in Sources */,
 				43170054196E4BBB007741A9 /* Optionals.swift in Sources */,
 				4353413E19489EA8003E51EB /* AddActionRow.m in Sources */,
-				4353420719489F25003E51EB /* SublimeText2Editor.m in Sources */,
 				4303A56015B513FD009D732A /* NodeAppWindowController.m in Sources */,
 				435341BA19489EA8003E51EB /* NSString+SmartRegexpCaptures.m in Sources */,
 				435341E119489EA8003E51EB /* StatusItemView.m in Sources */,
@@ -2452,7 +2431,6 @@
 				4353413C19489EA8003E51EB /* ActionsGroupHeaderRow.m in Sources */,
 				435341C319489EA8003E51EB /* PassThruImageView.m in Sources */,
 				43508A8117B3819500871422 /* ATAutolayout.m in Sources */,
-				4353420319489F25003E51EB /* EKGlobals.m in Sources */,
 				434BB24C17B6913F000BEB1C /* ATMacViewCreation.m in Sources */,
 				4353414D19489EA8003E51EB /* DockIcon.m in Sources */,
 				4353418C19489EA8003E51EB /* LRSelfTest.m in Sources */,
@@ -2463,20 +2441,17 @@
 				4353415219489EA8003E51EB /* ExternalEditor.m in Sources */,
 				4353417619489EA8003E51EB /* LRLegacyFile.m in Sources */,
 				43612C4D1972961900E7C95B /* Analyzer.swift in Sources */,
-				4353420519489F25003E51EB /* EKJumpRequest.m in Sources */,
 				43B5C00217ADF14700F57276 /* ATFunctionalStyle.m in Sources */,
 				435341C519489EA8003E51EB /* Plugin.m in Sources */,
 				435341E019489EA8003E51EB /* StatusItemController.m in Sources */,
 				435341BC19489EA8003E51EB /* OldFSMonitor.m in Sources */,
 				4353417A19489EA8003E51EB /* LROption.m in Sources */,
-				4353420819489F25003E51EB /* SublimeText3Editor.m in Sources */,
 				435341BE19489EA8003E51EB /* OldFSTreeDiffer.m in Sources */,
 				435341A819489EA8003E51EB /* CompileFolder.swift in Sources */,
 				4353417719489EA8003E51EB /* LRManifestBasedObject.m in Sources */,
 				4353416E19489EA8003E51EB /* LRAssetPackageConfiguration.m in Sources */,
 				43B5C01017ADF35C00F57276 /* NSArray+ATSubstitutions.m in Sources */,
 				4353414219489EA8003E51EB /* AddFilterRow.m in Sources */,
-				4353420419489F25003E51EB /* EKIntegration.m in Sources */,
 				4353416619489EA8003E51EB /* LicenseCodeViewController.m in Sources */,
 				4353419619489EA8003E51EB /* LRTRProtocolParser.m in Sources */,
 				435341CE19489EA8003E51EB /* RubyPreferencesViewController.m in Sources */,
@@ -2492,7 +2467,6 @@
 				43B5C01217ADF35C00F57276 /* NSString+ATProperURLEncoding.m in Sources */,
 				4396F1DF17F8112F00AA8200 /* GlitterArchiveUtilities.m in Sources */,
 				4353416B19489EA8003E51EB /* LiveReloadAppDelegate.m in Sources */,
-				4353420619489F25003E51EB /* Coda2Editor.m in Sources */,
 				435341E519489EA8003E51EB /* TerminalViewController.m in Sources */,
 				4353419419489EA8003E51EB /* LRTextFieldOption.m in Sources */,
 				43B5C01417ADF35C00F57276 /* NSWindowController+ATTextStyling.m in Sources */,
@@ -2534,7 +2508,6 @@
 				435341C619489EA8003E51EB /* PluginManager.swift in Sources */,
 				43C389E319441ABB00D29DD7 /* Observation.swift in Sources */,
 				4353419B19489EA8003E51EB /* LRVersionOption.m in Sources */,
-				43B5C04017AEA9F400F57276 /* NSAppleScript+ATInvokeHandlerWithArguments.m in Sources */,
 				4353414A19489EA8003E51EB /* Compiler.m in Sources */,
 				435341B119489EA8003E51EB /* LRTarget.swift in Sources */,
 				4353413F19489EA8003E51EB /* AddCompilationActionRow.m in Sources */,

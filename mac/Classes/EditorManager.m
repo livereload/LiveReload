@@ -3,7 +3,6 @@
 @import LRCommons;
 #import "ATFunctionalStyle.h"
 #import "RegexKitLite.h"
-#import "EditorKit.h"
 #import "ExternalEditor.h"
 #import "LRPluginCommons.h"
 @import LRCommons;

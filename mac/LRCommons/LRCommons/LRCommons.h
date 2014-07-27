@@ -21,3 +21,4 @@ FOUNDATION_EXPORT const unsigned char LRCommonsVersionString[];
 #import <LRCommons/ATModelDiff.h>
 #import <LRCommons/ATObservation.h>
 #import <LRCommons/ATScheduling.h>
+#import <LRCommons/NSAppleScript+ATInvokeHandlerWithArguments.h>

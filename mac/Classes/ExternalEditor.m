@@ -1,6 +1,6 @@
 
 #import "ExternalEditor.h"
-#import "EKJumpRequest.h"
+@import EditorKit;
 #import "Errors.h"
 #import "NSString+ATProperURLEncoding.h"
 
