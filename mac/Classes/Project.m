@@ -3,9 +3,6 @@
 @import LRCommons;
 
 #import "Project.h"
-#import "OldFSMonitor.h"
-#import "OldFSTreeFilter.h"
-#import "OldFSTree.h"
 #import "Preferences.h"
 #import "Compiler.h"
 #import "LegacyCompilationOptions.h"
@@ -26,6 +23,7 @@
 #import "P2AsyncEnumeration.h"
 @import LRCommons;
 @import ATPathSpec;
+@import FileSystemMonitoringKit;
 #import "LRCommandLine.h"
 
 #include <stdbool.h>

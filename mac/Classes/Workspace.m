@@ -4,10 +4,9 @@
 #import "Project.h"
 #import "Preferences.h"
 
-#import "OldFSTree.h"
-
 #import "ATFunctionalStyle.h"
 @import LRCommons;
+@import FileSystemMonitoringKit;
 #import "jansson.h"
 #import "nodeapp.h"
 

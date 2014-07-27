@@ -1,9 +1,7 @@
 
 #import <sys/stat.h>
-#import "OldFSTree.h"
-#import "OldFSTreeFilter.h"
-
-#import "ShitHappens.h"
+#import "FSTree.h"
+#import "FSTreeFilter.h"
 
 
 struct FSTreeItem {
@@ -156,11 +154,11 @@ static BOOL IsBrokenFolder(NSString *path) {
     NSInteger *rcorresponding = malloc(prevcount * sizeof(NSInteger));
 
     if (corresponding == NULL) {
-        ShitHappened(@"malloc of corresponding[] returned NULL, count=%ld, prevcount=%ld, previous=%p, previtems=%p", _count, prevcount, previous, previtems);
+        NSLog(@"** Error: malloc of corresponding[] returned NULL, count=%ld, prevcount=%ld, previous=%p, previtems=%p", _count, prevcount, previous, previtems);
         return [NSSet set];
     }
     if (rcorresponding == NULL) {
-        ShitHappened(@"malloc of rcorresponding[] returned NULL, count=%ld, prevcount=%ld, previous=%p, previtems=%p", _count, prevcount, previous, previtems);
+        NSLog(@"** Error: malloc of rcorresponding[] returned NULL, count=%ld, prevcount=%ld, previous=%p, previtems=%p", _count, prevcount, previous, previtems);
         return [NSSet set];
     }
 

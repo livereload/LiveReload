@@ -1,7 +1,7 @@
 
-#import "OldFSTreeDiffer.h"
-#import "OldFSTree.h"
-#import "OldFSTreeFilter.h"
+#import "FSTreeDiffer.h"
+#import "FSTree.h"
+#import "FSTreeFilter.h"
 #import "FSChange.h"
 
 

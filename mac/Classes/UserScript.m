@@ -3,7 +3,7 @@
 
 #import "UserScript.h"
 @import LRCommons;
-#import "OldFSMonitor.h"
+@import FileSystemMonitoringKit;
 #import "NSTask+OneLineTasksWithOutput.h"
 
 

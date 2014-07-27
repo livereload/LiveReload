@@ -108,7 +108,6 @@
 		4353415319489EA8003E51EB /* FilterRuleRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353400919489EA7003E51EB /* FilterRuleRow.m */; };
 		4353415419489EA8003E51EB /* FilterOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353400B19489EA7003E51EB /* FilterOption.m */; };
 		4353415519489EA8003E51EB /* FiltersGroupHeaderRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353400D19489EA7003E51EB /* FiltersGroupHeaderRow.m */; };
-		4353415619489EA8003E51EB /* FSChange.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353400F19489EA7003E51EB /* FSChange.m */; };
 		4353415C19489EA8003E51EB /* GeneralPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353401B19489EA7003E51EB /* GeneralPreferencesViewController.m */; };
 		4353415D19489EA8003E51EB /* GeneralPreferencesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4353401C19489EA7003E51EB /* GeneralPreferencesViewController.xib */; };
 		4353415E19489EA8003E51EB /* Glue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353401E19489EA7003E51EB /* Glue.m */; };
@@ -183,10 +182,6 @@
 		435341B519489EA8003E51EB /* NewMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 435340C719489EA7003E51EB /* NewMainWindowController.m */; };
 		435341BA19489EA8003E51EB /* NSString+SmartRegexpCaptures.m in Sources */ = {isa = PBXBuildFile; fileRef = 435340D119489EA7003E51EB /* NSString+SmartRegexpCaptures.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		435341BB19489EA8003E51EB /* NSTask+OneLineTasksWithOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = 435340D319489EA7003E51EB /* NSTask+OneLineTasksWithOutput.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		435341BC19489EA8003E51EB /* OldFSMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 435340D519489EA7003E51EB /* OldFSMonitor.m */; };
-		435341BD19489EA8003E51EB /* OldFSTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 435340D719489EA7003E51EB /* OldFSTree.m */; };
-		435341BE19489EA8003E51EB /* OldFSTreeDiffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 435340D919489EA7003E51EB /* OldFSTreeDiffer.m */; };
-		435341BF19489EA8003E51EB /* OldFSTreeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 435340DB19489EA7003E51EB /* OldFSTreeFilter.m */; };
 		435341C019489EA8003E51EB /* OptionsRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 435340DD19489EA7003E51EB /* OptionsRow.m */; };
 		435341C119489EA8003E51EB /* osdep.m in Sources */ = {isa = PBXBuildFile; fileRef = 435340DE19489EA7003E51EB /* osdep.m */; };
 		435341C219489EA8003E51EB /* P2RegularExpressionExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 435340E019489EA7003E51EB /* P2RegularExpressionExtensions.m */; };
@@ -428,6 +423,27 @@
 			remoteGlobalIDString = 4301F97819848825006709C9;
 			remoteInfo = PackageManagerKit;
 		};
+		439316F91985299300685024 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 439316F41985299200685024 /* FileSystemMonitoringKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 439316D81985299200685024;
+			remoteInfo = FileSystemMonitoringKit;
+		};
+		439316FB1985299300685024 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 439316F41985299200685024 /* FileSystemMonitoringKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 439316E31985299200685024;
+			remoteInfo = FileSystemMonitoringKitTests;
+		};
+		4393171119852B0500685024 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 439316F41985299200685024 /* FileSystemMonitoringKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 439316D71985299200685024;
+			remoteInfo = FileSystemMonitoringKit;
+		};
 		4396F1CE17F8107C00AA8200 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -663,8 +679,6 @@
 		4353400B19489EA7003E51EB /* FilterOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterOption.m; sourceTree = "<group>"; };
 		4353400C19489EA7003E51EB /* FiltersGroupHeaderRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FiltersGroupHeaderRow.h; sourceTree = "<group>"; };
 		4353400D19489EA7003E51EB /* FiltersGroupHeaderRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FiltersGroupHeaderRow.m; sourceTree = "<group>"; };
-		4353400E19489EA7003E51EB /* FSChange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSChange.h; sourceTree = "<group>"; };
-		4353400F19489EA7003E51EB /* FSChange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSChange.m; sourceTree = "<group>"; };
 		4353401A19489EA7003E51EB /* GeneralPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeneralPreferencesViewController.h; sourceTree = "<group>"; };
 		4353401B19489EA7003E51EB /* GeneralPreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneralPreferencesViewController.m; sourceTree = "<group>"; };
 		4353401C19489EA7003E51EB /* GeneralPreferencesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GeneralPreferencesViewController.xib; sourceTree = "<group>"; };
@@ -801,14 +815,6 @@
 		435340D119489EA7003E51EB /* NSString+SmartRegexpCaptures.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SmartRegexpCaptures.m"; sourceTree = "<group>"; };
 		435340D219489EA7003E51EB /* NSTask+OneLineTasksWithOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTask+OneLineTasksWithOutput.h"; sourceTree = "<group>"; };
 		435340D319489EA7003E51EB /* NSTask+OneLineTasksWithOutput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTask+OneLineTasksWithOutput.m"; sourceTree = "<group>"; };
-		435340D419489EA7003E51EB /* OldFSMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldFSMonitor.h; sourceTree = "<group>"; };
-		435340D519489EA7003E51EB /* OldFSMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldFSMonitor.m; sourceTree = "<group>"; };
-		435340D619489EA7003E51EB /* OldFSTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldFSTree.h; sourceTree = "<group>"; };
-		435340D719489EA7003E51EB /* OldFSTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldFSTree.m; sourceTree = "<group>"; };
-		435340D819489EA7003E51EB /* OldFSTreeDiffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldFSTreeDiffer.h; sourceTree = "<group>"; };
-		435340D919489EA7003E51EB /* OldFSTreeDiffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldFSTreeDiffer.m; sourceTree = "<group>"; };
-		435340DA19489EA7003E51EB /* OldFSTreeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldFSTreeFilter.h; sourceTree = "<group>"; };
-		435340DB19489EA7003E51EB /* OldFSTreeFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldFSTreeFilter.m; sourceTree = "<group>"; };
 		435340DC19489EA7003E51EB /* OptionsRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionsRow.h; sourceTree = "<group>"; };
 		435340DD19489EA7003E51EB /* OptionsRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionsRow.m; sourceTree = "<group>"; };
 		435340DE19489EA7003E51EB /* osdep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = osdep.m; sourceTree = "<group>"; };
@@ -890,6 +896,7 @@
 		438DFBD41968FCF000642A66 /* ProjectAnalysis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectAnalysis.swift; sourceTree = "<group>"; };
 		439316261984A18400685024 /* EditorKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = EditorKit.xcodeproj; path = EditorKit/EditorKit.xcodeproj; sourceTree = "<group>"; };
 		4393167B198523C900685024 /* ATPathSpec.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ATPathSpec.xcodeproj; path = ATPathSpec/ATPathSpec.xcodeproj; sourceTree = "<group>"; };
+		439316F41985299200685024 /* FileSystemMonitoringKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FileSystemMonitoringKit.xcodeproj; path = FileSystemMonitoringKit/FileSystemMonitoringKit.xcodeproj; sourceTree = "<group>"; };
 		4396F1B817F77A8900AA8200 /* com.tarantsov.GlitterInstallationService.xpc */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = com.tarantsov.GlitterInstallationService.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
 		4396F1B917F77A8900AA8200 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4396F1C917F80E6F00AA8200 /* GlitterInstallationService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GlitterInstallationService-Info.plist"; sourceTree = "<group>"; };
@@ -1075,6 +1082,7 @@
 		29B97314FDCFA39411CA2CEA /* LiveReload */ = {
 			isa = PBXGroup;
 			children = (
+				439316F41985299200685024 /* FileSystemMonitoringKit.xcodeproj */,
 				4393167B198523C900685024 /* ATPathSpec.xcodeproj */,
 				4301FA6B19848ECF006709C9 /* LRCommons.xcodeproj */,
 				43177BAE1979279700FDCD62 /* PiiVersionKit.xcodeproj */,
@@ -1493,6 +1501,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		439316F51985299200685024 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				439316FA1985299300685024 /* FileSystemMonitoringKit.framework */,
+				439316FC1985299300685024 /* FileSystemMonitoringKitTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		4396F1B317F77A5600AA8200 /* Glitter */ = {
 			isa = PBXGroup;
 			children = (
@@ -1701,8 +1718,6 @@
 				4353400B19489EA7003E51EB /* FilterOption.m */,
 				4353400C19489EA7003E51EB /* FiltersGroupHeaderRow.h */,
 				4353400D19489EA7003E51EB /* FiltersGroupHeaderRow.m */,
-				4353400E19489EA7003E51EB /* FSChange.h */,
-				4353400F19489EA7003E51EB /* FSChange.m */,
 				4353401A19489EA7003E51EB /* GeneralPreferencesViewController.h */,
 				4353401B19489EA7003E51EB /* GeneralPreferencesViewController.m */,
 				4353401C19489EA7003E51EB /* GeneralPreferencesViewController.xib */,
@@ -1830,14 +1845,6 @@
 				435340D119489EA7003E51EB /* NSString+SmartRegexpCaptures.m */,
 				435340D219489EA7003E51EB /* NSTask+OneLineTasksWithOutput.h */,
 				435340D319489EA7003E51EB /* NSTask+OneLineTasksWithOutput.m */,
-				435340D419489EA7003E51EB /* OldFSMonitor.h */,
-				435340D519489EA7003E51EB /* OldFSMonitor.m */,
-				435340D619489EA7003E51EB /* OldFSTree.h */,
-				435340D719489EA7003E51EB /* OldFSTree.m */,
-				435340D819489EA7003E51EB /* OldFSTreeDiffer.h */,
-				435340D919489EA7003E51EB /* OldFSTreeDiffer.m */,
-				435340DA19489EA7003E51EB /* OldFSTreeFilter.h */,
-				435340DB19489EA7003E51EB /* OldFSTreeFilter.m */,
 				435340DC19489EA7003E51EB /* OptionsRow.h */,
 				435340DD19489EA7003E51EB /* OptionsRow.m */,
 				435340DE19489EA7003E51EB /* osdep.m */,
@@ -2052,6 +2059,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				4393171219852B0500685024 /* PBXTargetDependency */,
 				4393169D1985270A00685024 /* PBXTargetDependency */,
 				4393169B1985270700685024 /* PBXTargetDependency */,
 				439316991985270300685024 /* PBXTargetDependency */,
@@ -2108,6 +2116,10 @@
 				{
 					ProductGroup = 439316271984A18400685024 /* Products */;
 					ProjectRef = 439316261984A18400685024 /* EditorKit.xcodeproj */;
+				},
+				{
+					ProductGroup = 439316F51985299200685024 /* Products */;
+					ProjectRef = 439316F41985299200685024 /* FileSystemMonitoringKit.xcodeproj */;
 				},
 				{
 					ProductGroup = 4301FA6C19848ECF006709C9 /* Products */;
@@ -2202,6 +2214,20 @@
 			fileType = wrapper.cfbundle;
 			path = ATPathSpecTests.xctest;
 			remoteRef = 43931682198523CA00685024 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		439316FA1985299300685024 /* FileSystemMonitoringKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = FileSystemMonitoringKit.framework;
+			remoteRef = 439316F91985299300685024 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		439316FC1985299300685024 /* FileSystemMonitoringKitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = FileSystemMonitoringKitTests.xctest;
+			remoteRef = 439316FB1985299300685024 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -2482,16 +2508,13 @@
 				4353418A19489EA8003E51EB /* LRPopUpOption.m in Sources */,
 				435341A619489EA8003E51EB /* Rule.swift in Sources */,
 				4389F0C31944684600032D6A /* Scheduling.swift in Sources */,
-				4353415619489EA8003E51EB /* FSChange.m in Sources */,
 				4353415219489EA8003E51EB /* ExternalEditor.m in Sources */,
 				4353417619489EA8003E51EB /* LRLegacyFile.m in Sources */,
 				43612C4D1972961900E7C95B /* Analyzer.swift in Sources */,
 				43B5C00217ADF14700F57276 /* ATFunctionalStyle.m in Sources */,
 				435341C519489EA8003E51EB /* Plugin.m in Sources */,
 				435341E019489EA8003E51EB /* StatusItemController.m in Sources */,
-				435341BC19489EA8003E51EB /* OldFSMonitor.m in Sources */,
 				4353417A19489EA8003E51EB /* LROption.m in Sources */,
-				435341BE19489EA8003E51EB /* OldFSTreeDiffer.m in Sources */,
 				435341A819489EA8003E51EB /* CompileFolder.swift in Sources */,
 				4353417719489EA8003E51EB /* LRManifestBasedObject.m in Sources */,
 				4353416E19489EA8003E51EB /* LRAssetPackageConfiguration.m in Sources */,
@@ -2545,7 +2568,6 @@
 				4353417519489EA8003E51EB /* LRGlobals.m in Sources */,
 				435341A319489EA8003E51EB /* MASPreferencesWindowController.m in Sources */,
 				4353416A19489EA8003E51EB /* LicenseManager.m in Sources */,
-				435341BF19489EA8003E51EB /* OldFSTreeFilter.m in Sources */,
 				4353415319489EA8003E51EB /* FilterRuleRow.m in Sources */,
 				4353416519489EA8003E51EB /* LegacyCompilationOptions.m in Sources */,
 				43612C511972981B00E7C95B /* SampleAnalyzers.swift in Sources */,
@@ -2562,7 +2584,6 @@
 				43996B2E17AF675D00B09954 /* ATMenuEnabledSegmentedCell.m in Sources */,
 				43E07EC217B01C4B004DB867 /* ATJson.m in Sources */,
 				435341C119489EA8003E51EB /* osdep.m in Sources */,
-				435341BD19489EA8003E51EB /* OldFSTree.m in Sources */,
 				4396F1DE17F8112F00AA8200 /* Glitter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2599,6 +2620,11 @@
 			isa = PBXTargetDependency;
 			name = PackageManagerKit;
 			targetProxy = 4393169C1985270A00685024 /* PBXContainerItemProxy */;
+		};
+		4393171219852B0500685024 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = FileSystemMonitoringKit;
+			targetProxy = 4393171119852B0500685024 /* PBXContainerItemProxy */;
 		};
 		4396F1CF17F8107C00AA8200 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

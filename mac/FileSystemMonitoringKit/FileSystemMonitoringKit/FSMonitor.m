@@ -1,10 +1,8 @@
 
-#import "OldFSMonitor.h"
-#import "OldFSTreeDiffer.h"
-#import "OldFSTreeFilter.h"
-#import "OldFSTree.h"
-
-#import "Preferences.h"
+#import "FSMonitor.h"
+#import "FSTreeDiffer.h"
+#import "FSTreeFilter.h"
+#import "FSTree.h"
 
 
 static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMonitor *monitor, size_t numEvents, NSArray *eventPaths, const FSEventStreamEventFlags eventFlags[], const FSEventStreamEventId eventIds[]);
@@ -135,7 +133,7 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
         [self.eventCache removeAllObjects];
         NSTimeInterval lastRebuildTime = _treeDiffer.savedTree.buildTime;
 
-        NSTimeInterval minDelay = [[NSUserDefaults standardUserDefaults] integerForKey:EventProcessingDelayKey] / 1000.0;
+        NSTimeInterval minDelay = [[NSUserDefaults standardUserDefaults] integerForKey:@"MinEventProcessingDelay"] / 1000.0;
         _cacheWaitingTime = MAX(lastRebuildTime, minDelay);
     }
 

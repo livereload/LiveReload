@@ -2,7 +2,6 @@
 #import "LRSelfTest.h"
 #import "Workspace.h"
 #import "Project.h"
-#import "OldFSTree.h"
 #import "LiveReload-Swift-x.h"
 #import "LROperationResult.h"
 #import "LRSelfTestOutputFile.h"
@@ -11,6 +10,7 @@
 #import "LRSelfTestHelpers.h"
 
 @import LRCommons;
+@import FileSystemMonitoringKit;
 #import "ATFunctionalStyle.h"
 
 
