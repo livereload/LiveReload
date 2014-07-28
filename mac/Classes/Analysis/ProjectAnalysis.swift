@@ -32,7 +32,7 @@ class ProjectAnalysis: NSObject, AnalyzerHost {
 
     }
 
-    func updateResultsAfterModification(file: LRProjectFile) {
+    func updateResultsAfterModification(file: ProjectFile) {
         for analyzer in analyzers {
             if analyzer.pathSpec.matchesPath(file.relativePath, type: .File) {
                 //<#qq#>
@@ -44,7 +44,7 @@ class ProjectAnalysis: NSObject, AnalyzerHost {
 //        }
     }
 
-    func updateResultsAfterDeletion(file: LRProjectFile) {
+    func updateResultsAfterDeletion(file: ProjectFile) {
 
     }
 

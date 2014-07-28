@@ -4,8 +4,8 @@ import Foundation
 
     var rootURL: NSURL { get }
 
-    func hackhack_didWriteCompiledFile(file: LRProjectFile)
-    func hackhack_didFilterFile(file: LRProjectFile)
-    func hackhack_shouldFilterFile(file: LRProjectFile) -> Bool
+    func hackhack_didWriteCompiledFile(file: ProjectFile)
+    func hackhack_didFilterFile(file: ProjectFile)
+    func hackhack_shouldFilterFile(file: ProjectFile) -> Bool
 
 }

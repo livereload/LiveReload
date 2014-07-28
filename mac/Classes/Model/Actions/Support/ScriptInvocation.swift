@@ -3,10 +3,10 @@ import LRActionKit
 
 class ScriptInvocationRule : Rule {
 
-    override func invokeWithModifiedFiles(files: [LRProjectFile], result: LROperationResult, completionHandler: dispatch_block_t) {
+    override func invokeWithModifiedFiles(files: [ProjectFile], result: LROperationResult, completionHandler: dispatch_block_t) {
     }
 
-    override func compileFile(file: LRProjectFile, result: LROperationResult, completionHandler: dispatch_block_t) {
+    override func compileFile(file: ProjectFile, result: LROperationResult, completionHandler: dispatch_block_t) {
         if !effectiveVersion {
             result.completedWithInvocationError(missingEffectiveVersionError)
             completionHandler()
@@ -26,11 +26,11 @@ class ScriptInvocationRule : Rule {
         step.invoke()
     }
 
-    func configureStep(step: ScriptInvocationStep, forFile file: LRProjectFile) {
+    func configureStep(step: ScriptInvocationStep, forFile file: ProjectFile) {
         configureStep(step)
     }
 
-    func didCompleteCompilationStep(step: ScriptInvocationStep, forFile file: LRProjectFile) {
+    func didCompleteCompilationStep(step: ScriptInvocationStep, forFile file: ProjectFile) {
     }
 
 }

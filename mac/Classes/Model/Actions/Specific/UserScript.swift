@@ -55,16 +55,16 @@ class UserScriptRule : Rule {
         memento["script"] = scriptName
     }
 
-    override func targetForModifiedFiles(files: [LRProjectFile]) -> LRTarget? {
+    override func targetForModifiedFiles(files: [ProjectFile]) -> LRTarget? {
         if inputPathSpecMatchesFiles(files) {
-            return LRProjectTarget(rule: self, modifiedFiles: files as [LRProjectFile])
+            return LRProjectTarget(rule: self, modifiedFiles: files as [ProjectFile])
         } else {
             return nil
         }
     }
 
-    override func invokeWithModifiedFiles(files: [LRProjectFile], result: LROperationResult, completionHandler: dispatch_block_t) {
-        let trueFiles = files as [LRProjectFile]
+    override func invokeWithModifiedFiles(files: [ProjectFile], result: LROperationResult, completionHandler: dispatch_block_t) {
+        let trueFiles = files as [ProjectFile]
         let filePaths = trueFiles.map { $0.relativePath }
 
         if let actualScript = script {

@@ -25,7 +25,7 @@ import LRActionKit
         memento["output"] = outputFilterOption.memento
     }
 
-    func destinationFileForSourceFile(file: LRProjectFile) -> LRProjectFile {
+    func destinationFileForSourceFile(file: ProjectFile) -> ProjectFile {
         var destinationName = LRDeriveDestinationFileName(file.relativePath.lastPathComponent, action.manifest["output"]! as String, intrinsicInputPathSpec)
 
         var outputMappingIsRecursive = true  // TODO: make this conditional
@@ -40,17 +40,17 @@ import LRActionKit
         }
 
         let destinationRelativePath = outputFilterOption.subfolder!.stringByAppendingPathComponent(destinationName)
-        return LRProjectFile(relativePath: destinationRelativePath, project: project)
+        return ProjectFile(relativePath: destinationRelativePath, project: project)
     }
 
-    override func handleDeletionOfFile(file: LRProjectFile) {
+    override func handleDeletionOfFile(file: ProjectFile) {
         let destinationFile = destinationFileForSourceFile(file)
         if (destinationFile.absoluteURL != file.absoluteURL) && destinationFile.exists {
             NSFileManager.defaultManager().removeItemAtURL(destinationFile.absoluteURL, error:nil)
         }
     }
 
-    override func configureStep(step: ScriptInvocationStep!, forFile file: LRProjectFile!) {
+    override func configureStep(step: ScriptInvocationStep!, forFile file: ProjectFile!) {
         super.configureStep(step, forFile: file)
 
         step.addFileValue(file, forSubstitutionKey: "src")
@@ -64,7 +64,7 @@ import LRActionKit
         }
     }
 
-    override func didCompleteCompilationStep(step: ScriptInvocationStep!, forFile file: LRProjectFile!) {
+    override func didCompleteCompilationStep(step: ScriptInvocationStep!, forFile file: ProjectFile!) {
         let outputFile = step.fileForKey("dst")
         file.project.hackhack_didWriteCompiledFile(outputFile)
     }
@@ -74,7 +74,7 @@ import LRActionKit
         return true
     }
 
-    override func fileTargetForRootFile(file: LRProjectFile) -> LRTarget? {
+    override func fileTargetForRootFile(file: ProjectFile) -> LRTarget? {
         return LRFileTarget(rule: self, sourceFile: file)
     }
 

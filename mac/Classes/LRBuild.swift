@@ -10,8 +10,8 @@ class LRBuild : NSObject {
 
     var reloadRequests: [NSDictionary] { return _reloadRequests }
     var _reloadRequests: [NSDictionary] = []
-    var _modifiedFiles = IndexedArray<String, LRProjectFile>({ $0.relativePath })
-    var _compiledFiles = IndexedArray<String, LRProjectFile>({ $0.relativePath })
+    var _modifiedFiles = IndexedArray<String, ProjectFile>({ $0.relativePath })
+    var _compiledFiles = IndexedArray<String, ProjectFile>({ $0.relativePath })
     var _pendingFileTargets: [LRTarget] = []
     var _pendingProjectTargets: [LRTarget] = []
 
@@ -42,7 +42,7 @@ class LRBuild : NSObject {
         _reloadRequests.append(reloadRequest)
     }
 
-    func addModifiedFiles(files: [LRProjectFile]) {
+    func addModifiedFiles(files: [ProjectFile]) {
         // dedup
         // TODO: add a duplicate target if the previous one has already been completed
         let newFiles = files.filter { !self._modifiedFiles.contains($0) }
@@ -63,7 +63,7 @@ class LRBuild : NSObject {
 
     // MARK: Compilers
 
-    func markAsConsumedByCompiler(file: LRProjectFile) {
+    func markAsConsumedByCompiler(file: ProjectFile) {
         _compiledFiles.append(file)
     }
 
@@ -77,7 +77,7 @@ class LRBuild : NSObject {
     func _updateReloadRequests() {
         _reloadRequests = []
 
-        var filesToReload: [LRProjectFile] = _modifiedFiles.list
+        var filesToReload: [ProjectFile] = _modifiedFiles.list
 
         if let forcedStylesheetReloadSpec: ATPathSpec = project.forcedStylesheetReloadSpec {
             if forcedStylesheetReloadSpec.isNonEmpty() {

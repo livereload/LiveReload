@@ -120,42 +120,42 @@ class Rule : NSObject {
         return false
     }
 
-    func targetForModifiedFiles(files: [LRProjectFile]) -> LRTarget? {
+    func targetForModifiedFiles(files: [ProjectFile]) -> LRTarget? {
         return nil
     }
 
-    func fileTargetForRootFile(file: LRProjectFile) -> LRTarget? {
+    func fileTargetForRootFile(file: ProjectFile) -> LRTarget? {
         return nil
     }
 
-    func fileTargetsForModifiedFiles(modifiedFiles: [LRProjectFile]) -> [LRTarget] {
+    func fileTargetsForModifiedFiles(modifiedFiles: [ProjectFile]) -> [LRTarget] {
         if !supportsFileTargets {
             return []
         }
         let matchingFiles = modifiedFiles.filter(inputPathSpecMatchesFile)
-        let rootFiles = project.rootFilesForFiles(matchingFiles) as [LRProjectFile]
+        let rootFiles = project.rootFilesForFiles(matchingFiles) as [ProjectFile]
         let matchingRootFiles = rootFiles.filter(inputPathSpecMatchesFile)
         return matchingRootFiles.mapIf { self.fileTargetForRootFile($0) }
     }
 
-    func inputPathSpecMatchesFiles(files: [LRProjectFile]) -> Bool {
+    func inputPathSpecMatchesFiles(files: [ProjectFile]) -> Bool {
         return files.any(inputPathSpecMatchesFile)
     }
 
-    func inputPathSpecMatchesFile(file: LRProjectFile) -> Bool {
+    func inputPathSpecMatchesFile(file: ProjectFile) -> Bool {
         return self.inputPathSpec.matchesPath(file.relativePath, type: ATPathSpecEntryType.File)
     }
 
 
     // MARK: Compilation
 
-    func compileFile(file: LRProjectFile, result: LROperationResult, completionHandler: dispatch_block_t) {
+    func compileFile(file: ProjectFile, result: LROperationResult, completionHandler: dispatch_block_t) {
     }
 
-    func handleDeletionOfFile(file: LRProjectFile) {
+    func handleDeletionOfFile(file: ProjectFile) {
     }
 
-    func invokeWithModifiedFiles(files: [LRProjectFile], result: LROperationResult, completionHandler: dispatch_block_t) {
+    func invokeWithModifiedFiles(files: [ProjectFile], result: LROperationResult, completionHandler: dispatch_block_t) {
     }
 
 

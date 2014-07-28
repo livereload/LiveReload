@@ -3,9 +3,9 @@ import LRActionKit
 
 @objc class LRFileTarget : LRTarget {
 
-    let sourceFile: LRProjectFile
+    let sourceFile: ProjectFile
 
-    init(rule: Rule, sourceFile: LRProjectFile) {
+    init(rule: Rule, sourceFile: ProjectFile) {
         self.sourceFile = sourceFile
         super.init(rule: rule)
     }

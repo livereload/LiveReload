@@ -51,15 +51,15 @@ class CustomCommandRule : Rule {
         memento["command"] = NV(command, "")
     }
 
-    override func targetForModifiedFiles(files: [LRProjectFile]) -> LRTarget? {
+    override func targetForModifiedFiles(files: [ProjectFile]) -> LRTarget? {
         if inputPathSpecMatchesFiles(files) {
-            return LRProjectTarget(rule: self, modifiedFiles: files as [LRProjectFile])
+            return LRProjectTarget(rule: self, modifiedFiles: files as [ProjectFile])
         } else {
             return nil
         }
     }
 
-    override func invokeWithModifiedFiles(files: [LRProjectFile], result: LROperationResult, completionHandler: dispatch_block_t) {
+    override func invokeWithModifiedFiles(files: [ProjectFile], result: LROperationResult, completionHandler: dispatch_block_t) {
         let info = [
             "$(ruby)": "/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/bin/ruby",
             "$(node)": NSBundle.mainBundle().pathForResource("LiveReloadNodejs", ofType: nil)!,

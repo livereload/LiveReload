@@ -18,21 +18,21 @@ class FilterRule : ScriptInvocationRule {
         super.updateMemento()
     }
 
-    override func fileTargetForRootFile(file: LRProjectFile) -> LRTarget? {
+    override func fileTargetForRootFile(file: ProjectFile) -> LRTarget? {
         return LRFileTarget(rule: self, sourceFile: file)
     }
 
-    override func configureStep(step: ScriptInvocationStep, forFile file: LRProjectFile) {
+    override func configureStep(step: ScriptInvocationStep, forFile file: ProjectFile) {
         super.configureStep(step, forFile: file)
         step.addFileValue(file, forSubstitutionKey: "src")
     }
 
-    override func didCompleteCompilationStep(step: ScriptInvocationStep, forFile file: LRProjectFile) {
+    override func didCompleteCompilationStep(step: ScriptInvocationStep, forFile file: ProjectFile) {
         let outputFile = step.fileForKey("src")!
         file.project.hackhack_didFilterFile(outputFile)
     }
 
-    override func compileFile(file: LRProjectFile, result: LROperationResult, completionHandler: dispatch_block_t) {
+    override func compileFile(file: ProjectFile, result: LROperationResult, completionHandler: dispatch_block_t) {
         if (!project.hackhack_shouldFilterFile(file)) {
             completionHandler()
             return

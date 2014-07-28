@@ -180,7 +180,7 @@ NSArray *LRValidActionKindStrings() {
     return [NSString stringWithFormat:@"%@ '%@' (%@, %@)", LRStringFromActionKind(_kind), _identifier, NSStringFromClass(_actionClass), NSStringFromClass(_rowClass)];
 }
 
-- (NSString *)fakeChangeDestinationNameForSourceFile:(LRProjectFile *)file {
+- (NSString *)fakeChangeDestinationNameForSourceFile:(ProjectFile *)file {
     if (_fakeChangeExtension) {
         NSString *relativePath = file.relativePath;
         if (![[relativePath pathExtension] isEqualToString:_fakeChangeExtension]) {

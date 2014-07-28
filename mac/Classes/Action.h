@@ -8,7 +8,7 @@
 @class LRActionVersion;
 @class LRVersionSpace;
 @class ATPathSpec;
-@class LRProjectFile;
+@class ProjectFile;
 
 
 typedef enum {
@@ -45,6 +45,6 @@ NSArray *LRValidActionKindStrings();
 
 - (void)initializeWithOptions;
 
-- (NSString *)fakeChangeDestinationNameForSourceFile:(LRProjectFile *)file;
+- (NSString *)fakeChangeDestinationNameForSourceFile:(ProjectFile *)file;
 
 @end

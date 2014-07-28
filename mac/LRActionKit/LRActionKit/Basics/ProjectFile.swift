@@ -1,6 +1,6 @@
 import Foundation
 
-public class LRProjectFile: NSObject {
+public class ProjectFile: NSObject {
 
     public let relativePath: String
     public let project: ProjectContext

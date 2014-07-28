@@ -32,7 +32,7 @@
     return self;
 }
 
-- (LRProjectFile *)fileForKey:(NSString *)key {
+- (ProjectFile *)fileForKey:(NSString *)key {
     return _files[key];
 }
 
@@ -40,7 +40,7 @@
     _substitutions[[NSString stringWithFormat:@"$(%@)", key]] = value;
 }
 
-- (void)addFileValue:(LRProjectFile *)file forSubstitutionKey:(NSString *)key {
+- (void)addFileValue:(ProjectFile *)file forSubstitutionKey:(NSString *)key {
     _files[key] = file;
     [self addValue:[file.relativePath lastPathComponent] forSubstitutionKey:[NSString stringWithFormat:@"%@_file", key]];
     [self addValue:file.absolutePath forSubstitutionKey:[NSString stringWithFormat:@"%@_path", key]];

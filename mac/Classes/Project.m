@@ -703,9 +703,9 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 }
 
 
-#pragma mark - LRProjectFile access
+#pragma mark - ProjectFile access
 
-- (LRProjectFile *)fileAtPath:(NSString *)relativePath {
+- (ProjectFile *)fileAtPath:(NSString *)relativePath {
     return _filesByPath[relativePath];
 }
 
@@ -721,7 +721,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 - (NSArray *)analyzeFilesAtPaths:(NSSet *)paths {
     NSMutableArray *result = [NSMutableArray new];
     for (NSString *path in paths) {
-        LRProjectFile *file = [self analyzeFileAtPath:path];
+        ProjectFile *file = [self analyzeFileAtPath:path];
         if (file) {
             [result addObject:file];
         }
@@ -756,19 +756,19 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     NSLog(@"Full import graph rebuild finished. %@", _importGraph);
 }
 
-- (LRProjectFile *)analyzeFileAtPath:(NSString *)relativePath {
+- (ProjectFile *)analyzeFileAtPath:(NSString *)relativePath {
     NSString *fullPath = [_path stringByAppendingPathComponent:relativePath];
     if ([[NSFileManager defaultManager] fileExistsAtPath:fullPath]) {
-        LRProjectFile *file = _filesByPath[relativePath];
+        ProjectFile *file = _filesByPath[relativePath];
         if (!file) {
-            file = [[LRProjectFile alloc] initWithRelativePath:relativePath project:self];
+            file = [[ProjectFile alloc] initWithRelativePath:relativePath project:self];
             _filesByPath[relativePath] = file;
         }
         [_analysis updateResultsAfterModification:file];
         [self updateImportGraphForExistingFile:file];
         return file;
     } else {
-        LRProjectFile *file = _filesByPath[relativePath];
+        ProjectFile *file = _filesByPath[relativePath];
         if (file) {
             [self updateImportGraphForMissingFile:file];
             [_filesByPath removeObjectForKey:relativePath];
@@ -799,11 +799,11 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     [_importGraph setRereferencedPaths:referencedPaths forPath:relativePath];
 }
 
-- (void)updateImportGraphForMissingFile:(LRProjectFile *)file {
+- (void)updateImportGraphForMissingFile:(ProjectFile *)file {
     [_importGraph removePath:file.relativePath collectingPathsToRecomputeInto:nil];
 }
 
-- (void)updateImportGraphForExistingFile:(LRProjectFile *)file {
+- (void)updateImportGraphForExistingFile:(ProjectFile *)file {
     NSString *relativePath = file.relativePath;
 
 
@@ -824,7 +824,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
 - (NSArray *)rootFilesForFiles:(id<NSFastEnumeration>)files {
     NSMutableArray *result = [NSMutableArray new];
-    for (LRProjectFile *file in files) {
+    for (ProjectFile *file in files) {
         NSSet *rootPaths = [_importGraph rootReferencingPathsForPath:file.relativePath];
         if (rootPaths.count > 0)
             [result addObjectsFromArray:[self filesAtPaths:[rootPaths allObjects]]];
@@ -917,7 +917,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
 #pragma mark - Filtering loop prevention hack
 
-- (BOOL)hackhack_shouldFilterFile:(LRProjectFile *)file {
+- (BOOL)hackhack_shouldFilterFile:(ProjectFile *)file {
     NSDate *date = _fileDatesHack[file.relativePath];
     if (date) {
         NSDate *fileDate = nil;
@@ -931,11 +931,11 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     return YES;
 }
 
-- (void)hackhack_didFilterFile:(LRProjectFile *)file {
+- (void)hackhack_didFilterFile:(ProjectFile *)file {
     _fileDatesHack[file.relativePath] = [NSDate date];
 }
 
-- (void)hackhack_didWriteCompiledFile:(LRProjectFile *)file {
+- (void)hackhack_didWriteCompiledFile:(ProjectFile *)file {
     [_fileDatesHack removeObjectForKey:file.relativePath];
 }
 
@@ -1041,7 +1041,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     // TODO derive all sorts of data from the current rule configuration
 }
 
-- (NSArray *)compilerActionsForFile:(LRProjectFile *)file {
+- (NSArray *)compilerActionsForFile:(ProjectFile *)file {
     return [_availableActions filteredArrayUsingBlock:^BOOL(Action *action) {
         return (action.kind == ActionKindCompiler) && ([action.combinedIntrinsicInputPathSpec matchesPath:file.relativePath type:ATPathSpecEntryTypeFile]);
     }];

@@ -3,7 +3,7 @@ import LRActionKit
 
 class RunTestsRule : Rule {
 
-    override func invokeWithModifiedFiles(files: [LRProjectFile], result: LROperationResult, completionHandler: dispatch_block_t) {
+    override func invokeWithModifiedFiles(files: [ProjectFile], result: LROperationResult, completionHandler: dispatch_block_t) {
         if !effectiveVersion {
             result.completedWithInvocationError(missingEffectiveVersionError)
             completionHandler()
@@ -33,9 +33,9 @@ class RunTestsRule : Rule {
         step.invoke()
     }
 
-    override func targetForModifiedFiles(files: [LRProjectFile]) -> LRTarget? {
+    override func targetForModifiedFiles(files: [ProjectFile]) -> LRTarget? {
         if inputPathSpecMatchesFiles(files) {
-            return LRProjectTarget(rule: self, modifiedFiles: files as [LRProjectFile])
+            return LRProjectTarget(rule: self, modifiedFiles: files as [ProjectFile])
         } else {
             return nil
         }

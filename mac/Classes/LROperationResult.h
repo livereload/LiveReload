@@ -4,7 +4,7 @@
 
 
 @class LRMessage;
-@class LRProjectFile;
+@class ProjectFile;
 
 
 @interface LROperationResult : NSObject <UserScriptResult>
@@ -26,7 +26,7 @@
 @property (nonatomic, copy, readonly) NSString *rawOutput;
 
 // default file for parsing messages
-@property (nonatomic) LRProjectFile *defaultMessageFile;
+@property (nonatomic) ProjectFile *defaultMessageFile;
 @property (nonatomic, copy) NSDictionary *errorSyntaxManifest;
 
 - (void)addMessage:(LRMessage *)message;

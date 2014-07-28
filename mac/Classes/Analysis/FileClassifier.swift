@@ -9,7 +9,7 @@ class FileClassifier {
         groups.extend(newGroups)
     }
 
-    func clusterMatchingFile(file: LRProjectFile) -> FileCluster {
+    func clusterMatchingFile(file: ProjectFile) -> FileCluster {
         // TODO: more efficient implementation
         return FileCluster(groups: groups.filter { $0.matchesFile(file) })
     }
@@ -24,7 +24,7 @@ class FileGroup {
         self.pathSpec = pathSpec
     }
 
-    func matchesFile(file: LRProjectFile) -> Bool {
+    func matchesFile(file: ProjectFile) -> Bool {
         return pathSpec.matchesPath(file.relativePath, type:ATPathSpecEntryType.File)
     }
 
