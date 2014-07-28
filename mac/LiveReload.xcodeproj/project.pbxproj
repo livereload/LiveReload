@@ -80,7 +80,6 @@
 		43508A9317B39DBE00871422 /* ATFlippedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A9217B39DBE00871422 /* ATFlippedView.m */; };
 		4353197214668E7D005FA59F /* LRHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4353197014668E7D005FA59F /* LRHelpTemplate.png */; };
 		4353197314668E7D005FA59F /* LRSupportTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4353197114668E7D005FA59F /* LRSupportTemplate.png */; };
-		4353413919489EA8003E51EB /* ActionGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 43533FD619489EA7003E51EB /* ActionGlobals.m */; };
 		4353413A19489EA8003E51EB /* Rulebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 43533FD819489EA7003E51EB /* Rulebook.m */; };
 		4353413B19489EA8003E51EB /* RulebookView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43533FDA19489EA7003E51EB /* RulebookView.m */; };
 		4353413C19489EA8003E51EB /* ActionsGroupHeaderRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 43533FDC19489EA7003E51EB /* ActionsGroupHeaderRow.m */; };
@@ -643,8 +642,6 @@
 		43508A9217B39DBE00871422 /* ATFlippedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATFlippedView.m; sourceTree = "<group>"; };
 		4353197014668E7D005FA59F /* LRHelpTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRHelpTemplate.png; sourceTree = "<group>"; };
 		4353197114668E7D005FA59F /* LRSupportTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRSupportTemplate.png; sourceTree = "<group>"; };
-		43533FD519489EA7003E51EB /* ActionGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionGlobals.h; sourceTree = "<group>"; };
-		43533FD619489EA7003E51EB /* ActionGlobals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionGlobals.m; sourceTree = "<group>"; };
 		43533FD719489EA7003E51EB /* Rulebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Rulebook.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		43533FD819489EA7003E51EB /* Rulebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Rulebook.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		43533FD919489EA7003E51EB /* RulebookView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RulebookView.h; sourceTree = "<group>"; };
@@ -1690,8 +1687,6 @@
 			isa = PBXGroup;
 			children = (
 				438DFBD11968FCF000642A66 /* Analysis */,
-				43533FD519489EA7003E51EB /* ActionGlobals.h */,
-				43533FD619489EA7003E51EB /* ActionGlobals.m */,
 				43533FD719489EA7003E51EB /* Rulebook.h */,
 				43533FD819489EA7003E51EB /* Rulebook.m */,
 				43533FD919489EA7003E51EB /* RulebookView.h */,
@@ -2569,7 +2564,6 @@
 				4353419719489EA8003E51EB /* LRTRRun.m in Sources */,
 				4353416319489EA8003E51EB /* ImportGraph.m in Sources */,
 				4353415C19489EA8003E51EB /* GeneralPreferencesViewController.m in Sources */,
-				4353413919489EA8003E51EB /* ActionGlobals.m in Sources */,
 				4353414F19489EA8003E51EB /* Errors.m in Sources */,
 				4353418F19489EA8003E51EB /* LRSelfTestMessageExpectation.m in Sources */,
 				435341E419489EA8003E51EB /* TerminalView.m in Sources */,

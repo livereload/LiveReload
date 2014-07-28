@@ -9,7 +9,6 @@
 #import "Project.h"
 #import "Compiler.h"
 
-#import "ActionGlobals.h"
 #import "Action.h"
 #import "LRActionVersion.h"
 #import "LRActionManifest.h"

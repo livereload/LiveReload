@@ -1,6 +1,7 @@
 
 #import <Foundation/Foundation.h>
 #import "LRManifestBasedObject.h"
+@import LRActionKit;
 
 
 @class Plugin;
@@ -9,19 +10,6 @@
 @class LRVersionSpace;
 @class ATPathSpec;
 @class ProjectFile;
-
-
-typedef enum {
-    ActionKindUnknown = 0,
-    ActionKindCompiler,
-    ActionKindFilter,
-    ActionKindPostproc,
-    kActionKindCount
-} ActionKind;
-
-ActionKind LRActionKindFromString(NSString *kindString);
-NSString *LRStringFromActionKind(ActionKind kind);
-NSArray *LRValidActionKindStrings();
 
 
 @interface Action : LRManifestBasedObject

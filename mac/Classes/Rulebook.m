@@ -4,6 +4,7 @@
 #import "Action.h"
 #import "LRContextAction.h"
 #import "Project.h"
+@import LRActionKit;
 
 #import "ATFunctionalStyle.h"
 
