@@ -1,12 +1,13 @@
 
 #import <Foundation/Foundation.h>
+@import LRActionKit;
 
 
 @class LRMessage;
 @class LRProjectFile;
 
 
-@interface LROperationResult : NSObject
+@interface LROperationResult : NSObject <UserScriptResult>
 
 @property (nonatomic, readonly, getter = isCompleted) BOOL completed;
 

@@ -1,10 +1,8 @@
 
-#import "LROperationResult.h"
-
 #import "UserScript.h"
+
 @import LRCommons;
 @import FileSystemMonitoringKit;
-#import "NSTask+OneLineTasksWithOutput.h"
 
 
 NSString *const UserScriptManagerScriptsDidChangeNotification = @"UserScriptManagerScriptsDidChangeNotification";
@@ -51,7 +49,7 @@ NSString *const UserScriptErrorDomain = @"com.livereload.LiveReload.UserScript";
     return YES;
 }
 
-- (void)invokeForProjectAtPath:(NSString *)projectPath withModifiedFiles:(NSSet *)paths result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
+- (void)invokeForProjectAtPath:(NSString *)projectPath withModifiedFiles:(NSSet *)paths result:(id<UserScriptResult>)result completionHandler:(dispatch_block_t)completionHandler {
     NSString *script = _path;
     NSLog(@"Running post-processing script: %@", script);
 
@@ -105,7 +103,12 @@ NSString *const UserScriptErrorDomain = @"com.livereload.LiveReload.UserScript";
                 NSLog(@"Post-processor error: %@", [error description]);
             }
 
-            [result completedWithInvocationError:error rawOutput:output completionBlock:completionHandler];
+            P2DisableARCRetainCyclesWarning()
+            [result addRawOutput:output withCompletionBlock:^{
+                [result completedWithInvocationError:error];
+                completionHandler();
+            }];
+            P2ReenableWarning()
         });
     }];
 }
@@ -141,7 +144,7 @@ NSString *const UserScriptErrorDomain = @"com.livereload.LiveReload.UserScript";
     return NO;
 }
 
-- (void)invokeForProjectAtPath:(NSString *)projectPath withModifiedFiles:(NSSet *)paths result:(LROperationResult *)result completionHandler:(dispatch_block_t)completionHandler {
+- (void)invokeForProjectAtPath:(NSString *)projectPath withModifiedFiles:(NSSet *)paths result:(id<UserScriptResult>)result completionHandler:(dispatch_block_t)completionHandler {
     [result completedWithInvocationError:[NSError errorWithDomain:UserScriptErrorDomain code:UserScriptErrorMissingScript userInfo:nil]];
     completionHandler();
 }

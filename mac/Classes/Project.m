@@ -8,7 +8,6 @@
 #import "LegacyCompilationOptions.h"
 #import "ImportGraph.h"
 #import "ToolOutput.h"
-#import "UserScript.h"
 #import "FilterOption.h"
 #import "Glue.h"
 @import PackageManagerKit;
@@ -24,6 +23,7 @@
 @import LRCommons;
 @import ATPathSpec;
 @import FileSystemMonitoringKit;
+@import LRActionKit;
 #import "LRCommandLine.h"
 
 #include <stdbool.h>

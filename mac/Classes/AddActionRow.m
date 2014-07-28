@@ -1,7 +1,7 @@
 
 #import "AddActionRow.h"
 #import "Rulebook.h"
-#import "UserScript.h"
+@import LRActionKit;
 
 @implementation AddActionRow
 

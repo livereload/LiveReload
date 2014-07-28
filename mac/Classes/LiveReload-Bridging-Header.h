@@ -29,7 +29,5 @@
 #import "LRCommandLine.h"
 #import "NSArray+ATSubstitutions.h"
 
-#import "UserScript.h"
-
 #import "Glue.h"
 #import "Stats.h"
