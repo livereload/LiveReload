@@ -1,6 +1,5 @@
-
+#import "ActionKitGlobals.h"
 #import "LRManifestBasedObject.h"
-#import "Errors.h"
 
 
 @implementation LRManifestBasedObject {
@@ -24,7 +23,7 @@
     if (!_errors) {
         _errors = [NSMutableArray new];
     }
-    [_errors addObject:[NSError errorWithDomain:LRErrorDomain code:LRErrorInvalidManifest userInfo:@{NSLocalizedDescriptionKey:message}]];
+    [_errors addObject:[NSError errorWithDomain:LRActionKitErrorDomain code:LRActionKitErrorCodeInvalidManifest userInfo:@{NSLocalizedDescriptionKey:message}]];
 
     if (_errorSink) {
         [_errorSink addErrorMessage:message];

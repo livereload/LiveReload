@@ -131,7 +131,6 @@
 		4353417419489EA8003E51EB /* LRCustomArgumentsOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353404A19489EA7003E51EB /* LRCustomArgumentsOption.m */; };
 		4353417519489EA8003E51EB /* LRGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353404C19489EA7003E51EB /* LRGlobals.m */; };
 		4353417619489EA8003E51EB /* LRLegacyFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353404E19489EA7003E51EB /* LRLegacyFile.m */; };
-		4353417719489EA8003E51EB /* LRManifestBasedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353405019489EA7003E51EB /* LRManifestBasedObject.m */; };
 		4353417819489EA8003E51EB /* LRManifestLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353405319489EA7003E51EB /* LRManifestLayer.m */; };
 		4353417919489EA8003E51EB /* LROperationResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353405619489EA7003E51EB /* LROperationResult.m */; };
 		4353417A19489EA8003E51EB /* LROption.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353405819489EA7003E51EB /* LROption.m */; };
@@ -742,12 +741,8 @@
 		4353404C19489EA7003E51EB /* LRGlobals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRGlobals.m; sourceTree = "<group>"; };
 		4353404D19489EA7003E51EB /* LRLegacyFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRLegacyFile.h; sourceTree = "<group>"; };
 		4353404E19489EA7003E51EB /* LRLegacyFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRLegacyFile.m; sourceTree = "<group>"; };
-		4353404F19489EA7003E51EB /* LRManifestBasedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRManifestBasedObject.h; sourceTree = "<group>"; };
-		4353405019489EA7003E51EB /* LRManifestBasedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRManifestBasedObject.m; sourceTree = "<group>"; };
-		4353405119489EA7003E51EB /* LRManifestErrorSink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRManifestErrorSink.h; sourceTree = "<group>"; };
 		4353405219489EA7003E51EB /* LRManifestLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRManifestLayer.h; sourceTree = "<group>"; };
 		4353405319489EA7003E51EB /* LRManifestLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRManifestLayer.m; sourceTree = "<group>"; };
-		4353405419489EA7003E51EB /* LRMessageSeverity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRMessageSeverity.h; sourceTree = "<group>"; };
 		4353405519489EA7003E51EB /* LROperationResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LROperationResult.h; sourceTree = "<group>"; };
 		4353405619489EA7003E51EB /* LROperationResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LROperationResult.m; sourceTree = "<group>"; };
 		4353405719489EA7003E51EB /* LROption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LROption.h; sourceTree = "<group>"; };
@@ -1788,12 +1783,8 @@
 				4353404C19489EA7003E51EB /* LRGlobals.m */,
 				4353404D19489EA7003E51EB /* LRLegacyFile.h */,
 				4353404E19489EA7003E51EB /* LRLegacyFile.m */,
-				4353404F19489EA7003E51EB /* LRManifestBasedObject.h */,
-				4353405019489EA7003E51EB /* LRManifestBasedObject.m */,
-				4353405119489EA7003E51EB /* LRManifestErrorSink.h */,
 				4353405219489EA7003E51EB /* LRManifestLayer.h */,
 				4353405319489EA7003E51EB /* LRManifestLayer.m */,
-				4353405419489EA7003E51EB /* LRMessageSeverity.h */,
 				4353405519489EA7003E51EB /* LROperationResult.h */,
 				4353405619489EA7003E51EB /* LROperationResult.m */,
 				4353405719489EA7003E51EB /* LROption.h */,
@@ -2552,7 +2543,6 @@
 				435341E019489EA8003E51EB /* StatusItemController.m in Sources */,
 				4353417A19489EA8003E51EB /* LROption.m in Sources */,
 				435341A819489EA8003E51EB /* CompileFolder.swift in Sources */,
-				4353417719489EA8003E51EB /* LRManifestBasedObject.m in Sources */,
 				4353416E19489EA8003E51EB /* LRAssetPackageConfiguration.m in Sources */,
 				43B5C01017ADF35C00F57276 /* NSArray+ATSubstitutions.m in Sources */,
 				4353414219489EA8003E51EB /* AddFilterRow.m in Sources */,

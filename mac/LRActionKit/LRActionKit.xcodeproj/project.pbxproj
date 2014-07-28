@@ -16,6 +16,9 @@
 		439317521985DB0500685024 /* UserScript.m in Sources */ = {isa = PBXBuildFile; fileRef = 439317501985DB0500685024 /* UserScript.m */; };
 		439317551985DBCE00685024 /* ProjectFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439317541985DBCE00685024 /* ProjectFile.swift */; };
 		439317571985DC0A00685024 /* ProjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439317561985DC0A00685024 /* ProjectContext.swift */; };
+		43BEEBF91985E99D00D2D239 /* LRManifestBasedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BEEBF61985E99D00D2D239 /* LRManifestBasedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43BEEBFA1985E99D00D2D239 /* LRManifestBasedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 43BEEBF71985E99D00D2D239 /* LRManifestBasedObject.m */; };
+		43BEEBFB1985E99D00D2D239 /* LRManifestErrorSink.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BEEBF81985E99D00D2D239 /* LRManifestErrorSink.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +44,9 @@
 		439317501985DB0500685024 /* UserScript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserScript.m; sourceTree = "<group>"; };
 		439317541985DBCE00685024 /* ProjectFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectFile.swift; sourceTree = "<group>"; };
 		439317561985DC0A00685024 /* ProjectContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectContext.swift; sourceTree = "<group>"; };
+		43BEEBF61985E99D00D2D239 /* LRManifestBasedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRManifestBasedObject.h; sourceTree = "<group>"; };
+		43BEEBF71985E99D00D2D239 /* LRManifestBasedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRManifestBasedObject.m; sourceTree = "<group>"; };
+		43BEEBF81985E99D00D2D239 /* LRManifestErrorSink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRManifestErrorSink.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +138,9 @@
 			children = (
 				439317541985DBCE00685024 /* ProjectFile.swift */,
 				439317561985DC0A00685024 /* ProjectContext.swift */,
+				43BEEBF61985E99D00D2D239 /* LRManifestBasedObject.h */,
+				43BEEBF71985E99D00D2D239 /* LRManifestBasedObject.m */,
+				43BEEBF81985E99D00D2D239 /* LRManifestErrorSink.h */,
 			);
 			path = Basics;
 			sourceTree = "<group>";
@@ -143,6 +152,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43BEEBFB1985E99D00D2D239 /* LRManifestErrorSink.h in Headers */,
+				43BEEBF91985E99D00D2D239 /* LRManifestBasedObject.h in Headers */,
 				439317511985DB0500685024 /* UserScript.h in Headers */,
 				439317461985D3ED00685024 /* ActionKitGlobals.h in Headers */,
 				439317231985D33500685024 /* LRActionKit.h in Headers */,
@@ -249,6 +260,7 @@
 				439317471985D3ED00685024 /* ActionKitGlobals.m in Sources */,
 				439317521985DB0500685024 /* UserScript.m in Sources */,
 				439317551985DBCE00685024 /* ProjectFile.swift in Sources */,
+				43BEEBFA1985E99D00D2D239 /* LRManifestBasedObject.m in Sources */,
 				439317571985DC0A00685024 /* ProjectContext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -441,6 +453,7 @@
 				439317351985D33500685024 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		439317361985D33500685024 /* Build configuration list for PBXNativeTarget "LRActionKitTests" */ = {
 			isa = XCConfigurationList;
@@ -449,6 +462,7 @@
 				439317381985D33500685024 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

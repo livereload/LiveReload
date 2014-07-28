@@ -7,6 +7,7 @@
 #import "AppState.h"
 @import PackageManagerKit;
 @import ATPathSpec;
+@import LRActionKit;
 
 #import "LRManifestLayer.h"
 #import "LRActionVersion.h"

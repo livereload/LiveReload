@@ -1,5 +1,5 @@
 
-#import "LRManifestBasedObject.h"
+@import LRActionKit;
 
 
 @class LRPackageReference;

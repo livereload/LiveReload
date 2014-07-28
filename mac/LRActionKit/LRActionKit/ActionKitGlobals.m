@@ -11,6 +11,8 @@ static NSString *ActionKindNames[] = {
     @"postproc",
 };
 
+static const int kActionKindCount = sizeof(ActionKindNames) / sizeof(ActionKindNames[0]);
+
 ActionKind LRActionKindFromString(NSString *kindString) {
     static NSDictionary *map;
     static dispatch_once_t onceToken;
@@ -32,3 +34,6 @@ NSString *LRStringFromActionKind(ActionKind kind) {
 NSArray *LRValidActionKindStrings() {
     return [NSArray arrayWithObjects:ActionKindNames+1 count:kActionKindCount-1];
 }
+
+
+NSString *const LRActionKitErrorDomain = @"LRActionKit";

@@ -8,4 +8,7 @@ FOUNDATION_EXPORT const unsigned char LRActionKitVersionString[];
 
 #import <LRActionKit/ActionKitGlobals.h>
 
+#import <LRActionKit/LRManifestBasedObject.h>
+#import <LRActionKit/LRManifestErrorSink.h>
+
 #import <LRActionKit/UserScript.h>
