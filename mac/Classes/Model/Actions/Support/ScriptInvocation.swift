@@ -1,5 +1,5 @@
-
 import Foundation
+import LRActionKit
 
 class ScriptInvocationRule : Rule {
 

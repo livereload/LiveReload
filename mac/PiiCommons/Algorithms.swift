@@ -1,4 +1,5 @@
-import Foundation
+import LRActionKit
+import Swift
 
 extension Array {
 
@@ -114,8 +115,8 @@ func findIf<S: Sequence>(sequence: S, test: (S.GeneratorType.Element) -> Bool) -
     return nil
 }
 
-func contains<C: Swift.Collection where C.GeneratorType.Element: Equatable>(collection: C, value: C.GeneratorType.Element) -> Bool {
-    return find(collection, value) != nil
+public func find<S : Sequence where S.GeneratorType.Element : Equatable>(domain: S, value: S.GeneratorType.Element) -> Bool {
+    return find(domain, value) != nil
 }
 
 func all<S: Sequence>(sequence: S, test: (S.GeneratorType.Element) -> Bool) -> Bool {
@@ -156,6 +157,6 @@ func removeIntersection<T: Equatable>(inout array: [T], sequence: [T]) {
 
 extension LRProjectFile: Equatable {
 }
-func ==(lhs: LRProjectFile, rhs: LRProjectFile) -> Bool {
+public func ==(lhs: LRProjectFile, rhs: LRProjectFile) -> Bool {
     return lhs.isEqual(rhs)
 }

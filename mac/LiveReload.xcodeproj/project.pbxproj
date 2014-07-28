@@ -272,7 +272,6 @@
 		43CDCF8D17C6082A007B22D9 /* ATAttributedStringAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CDCF8C17C6082A007B22D9 /* ATAttributedStringAdditions.m */; };
 		43CE9B6C1917338B0044D28E /* Mocha.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43CE9B6B1917338A0044D28E /* Mocha.lrplugin */; };
 		43DD7C22192B6AC40070FF55 /* LRReloadingTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DD7C21192B6AC40070FF55 /* LRReloadingTestCase.m */; };
-		43DE6CE51966B85C00E8FDF7 /* LRProjectFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DE6CE41966B85C00E8FDF7 /* LRProjectFile.swift */; };
 		43DFD3DD197FABDA00DD7546 /* VariableKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43F18F161972D19100E0AAEE /* VariableKit.framework */; };
 		43DFD3E0197FABE200DD7546 /* PiiVersionKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43177BB41979279800FDCD62 /* PiiVersionKit.framework */; };
 		43DFE4DE17CB613100DEF87B /* P2AsyncEnumeration.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DFE4DD17CB613100DEF87B /* P2AsyncEnumeration.m */; };
@@ -456,6 +455,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 439317281985D33500685024;
 			remoteInfo = LRActionKitTests;
+		};
+		439317581985DC7800685024 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 439317391985D33500685024 /* LRActionKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 4393171C1985D33500685024;
+			remoteInfo = LRActionKit;
 		};
 		4396F1CE17F8107C00AA8200 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -967,7 +973,6 @@
 		43CDCF8C17C6082A007B22D9 /* ATAttributedStringAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATAttributedStringAdditions.m; sourceTree = "<group>"; };
 		43CE9B6B1917338A0044D28E /* Mocha.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Mocha.lrplugin; path = ../plugins/Mocha.lrplugin; sourceTree = "<group>"; };
 		43DD7C21192B6AC40070FF55 /* LRReloadingTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRReloadingTestCase.m; sourceTree = "<group>"; };
-		43DE6CE41966B85C00E8FDF7 /* LRProjectFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRProjectFile.swift; sourceTree = "<group>"; };
 		43DFE4DC17CB613100DEF87B /* P2AsyncEnumeration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2AsyncEnumeration.h; sourceTree = "<group>"; };
 		43DFE4DD17CB613100DEF87B /* P2AsyncEnumeration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P2AsyncEnumeration.m; sourceTree = "<group>"; };
 		43DFE4E417CC6C0D00DEF87B /* autoprefixer.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = autoprefixer.lrplugin; path = ../plugins/autoprefixer.lrplugin; sourceTree = "<group>"; };
@@ -1816,7 +1821,6 @@
 				4353407619489EA7003E51EB /* LRPluginCommons.m */,
 				4353407719489EA7003E51EB /* LRPopUpOption.h */,
 				4353407819489EA7003E51EB /* LRPopUpOption.m */,
-				43DE6CE41966B85C00E8FDF7 /* LRProjectFile.swift */,
 				4353407B19489EA7003E51EB /* LRSelfTest.h */,
 				4353407C19489EA7003E51EB /* LRSelfTest.m */,
 				4353407D19489EA7003E51EB /* LRSelfTestBrowserRequestExpectation.h */,
@@ -2079,14 +2083,15 @@
 			buildRules = (
 			);
 			dependencies = (
+				439316971985270000685024 /* PBXTargetDependency */,
+				43931695198526FB00685024 /* PBXTargetDependency */,
 				4393171219852B0500685024 /* PBXTargetDependency */,
 				4393169D1985270A00685024 /* PBXTargetDependency */,
 				4393169B1985270700685024 /* PBXTargetDependency */,
 				439316991985270300685024 /* PBXTargetDependency */,
-				439316971985270000685024 /* PBXTargetDependency */,
-				43931695198526FB00685024 /* PBXTargetDependency */,
-				4396F1CF17F8107C00AA8200 /* PBXTargetDependency */,
 				43F18F2A1972D19200E0AAEE /* PBXTargetDependency */,
+				439317591985DC7800685024 /* PBXTargetDependency */,
+				4396F1CF17F8107C00AA8200 /* PBXTargetDependency */,
 				43F18F2E1972D19200E0AAEE /* PBXTargetDependency */,
 			);
 			name = LiveReload;
@@ -2497,7 +2502,6 @@
 				435341D619489EA8003E51EB /* RuntimeInstanceCellView.m in Sources */,
 				435341AB19489EA8003E51EB /* RunTests.swift in Sources */,
 				4353417E19489EA8003E51EB /* LROutputFileMapping.m in Sources */,
-				43DE6CE51966B85C00E8FDF7 /* LRProjectFile.swift in Sources */,
 				4353414419489EA8003E51EB /* AuxWindow.m in Sources */,
 				435341E719489EA8003E51EB /* ToolOutput.m in Sources */,
 				4303A55A15B513FD009D732A /* nodeapp_logging.m in Sources */,
@@ -2662,6 +2666,11 @@
 			isa = PBXTargetDependency;
 			name = FileSystemMonitoringKit;
 			targetProxy = 4393171119852B0500685024 /* PBXContainerItemProxy */;
+		};
+		439317591985DC7800685024 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = LRActionKit;
+			targetProxy = 439317581985DC7800685024 /* PBXContainerItemProxy */;
 		};
 		4396F1CF17F8107C00AA8200 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

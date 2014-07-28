@@ -1,5 +1,5 @@
-
 import Foundation
+import LRActionKit
 
 @objc class LRFileTarget : LRTarget {
 

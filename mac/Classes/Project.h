@@ -1,6 +1,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "Rulebook.h"
+@import LRActionKit;
 
 
 @class FSMonitor;
@@ -28,13 +29,13 @@ enum {
 };
 
 
-@interface Project : NSObject
+@interface Project : NSObject <ProjectContext>
 
 - (id)initWithURL:(NSURL *)rootURL memento:(NSDictionary *)memento;
 
 - (NSMutableDictionary *)memento;
 
-@property(nonatomic, copy) NSURL *rootURL;
+@property(nonatomic) NSURL *rootURL;
 @property(nonatomic, readonly, copy) NSString *path;
 @property(nonatomic, readonly, copy) NSString *displayName;
 @property(nonatomic, readonly, copy) NSString *displayPath;

@@ -1,6 +1,6 @@
-
 import Foundation
 import LRCommons
+import LRActionKit
 
 @objc
 class CustomCommandRule : Rule {
