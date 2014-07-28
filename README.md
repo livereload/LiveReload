@@ -97,6 +97,8 @@ Building:
 
         xcodebuild -project LiveReload.xcodeproj -scheme LiveReload -configuration Debug build
 
+Until the project is configured correctly, you may need to clean & rebuild often before running tests. Use mac/rebuild.sh for that.
+
 
 Building the backend for the Windows version
 --------------------------------------------
