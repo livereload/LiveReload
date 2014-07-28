@@ -154,9 +154,3 @@ func removeIntersection<T: Equatable>(inout array: [T], sequence: [T]) {
 //        remove(&array, item)
 //    }
 //}
-
-extension LRProjectFile: Equatable {
-}
-public func ==(lhs: LRProjectFile, rhs: LRProjectFile) -> Bool {
-    return lhs.isEqual(rhs)
-}
