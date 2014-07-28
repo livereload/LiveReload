@@ -1,7 +1,6 @@
 
 #import "LRActionVersion.h"
-#import "LRPackageSet.h"
-#import "LRPackage.h"
+@import PackageManagerKit;
 
 
 @interface LRActionVersion ()

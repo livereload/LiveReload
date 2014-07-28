@@ -30,7 +30,7 @@ import Foundation
 
         var outputMappingIsRecursive = true  // TODO: make this conditional
         if outputMappingIsRecursive {
-            let folderComponentCount = inputFilterOption.folderComponentCount
+            let folderComponentCount = Int(inputFilterOption.folderComponentCount)
             if folderComponentCount > 0 {
                 let components = file.relativePath.stringByDeletingLastPathComponent.pathComponents
                 if components.count > folderComponentCount {

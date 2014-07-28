@@ -1,6 +1,6 @@
 
 #import "LRPathProcessing.h"
-#import "ATPathSpec.h"
+@import ATPathSpec;
 
 
 NSString *LRDeriveDestinationFileName(NSString *sourceFileName, NSString *destinationNameMask, ATPathSpec *sourcePathSpec) {

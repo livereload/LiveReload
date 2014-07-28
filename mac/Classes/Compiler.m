@@ -3,9 +3,9 @@
 #import "Plugin.h"
 #import "ToolOutput.h"
 #import "Project.h"
-#import "Runtimes.h"
+@import PackageManagerKit;
+@import FileSystemMonitoringKit;
 
-#import "OldFSTree.h"
 #import "RegexKitLite.h"
 #import "NSTask+OneLineTasksWithOutput.h"
 #import "NSArray+ATSubstitutions.h"

@@ -3,13 +3,6 @@
 #import "LRVersionOption.h"
 #import "LRCustomArgumentsOption.h"
 
-#import "LRPackageSet.h"
-#import "LRPackage.h"
-#import "LRPackageContainer.h"
-#import "LRPackageType.h"
-#import "LRVersion.h"
-#import "LRVersionSpec.h"
-#import "LRVersionSpace.h"
 #import "Errors.h"
 
 #import "Plugin.h"
@@ -21,7 +14,7 @@
 #import "LRActionVersion.h"
 #import "LRActionManifest.h"
 #import "LRContextAction.h"
-#import "../ATPathSpec/ATPathSpec/ATPathSpec.h"
+#import "LRVersionSpec.h"
 #import "FilterOption.h"
 
 #import "ScriptInvocationStep.h"
@@ -33,10 +26,8 @@
 #import "LRTRTestAnythingProtocolParser.h"
 
 #import "LRPathProcessing.h"
-#import "ATChildTask.h"
 #import "LRCommandLine.h"
 #import "NSArray+ATSubstitutions.h"
-#import "ATScheduling.h"
 
 #import "UserScript.h"
 

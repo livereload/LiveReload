@@ -1,7 +1,6 @@
 
 #import "MonitoringSettingsWindowController.h"
-#import "ATObservation.h"
-#import "ATScheduling.h"
+@import LRCommons;
 
 #import "Preferences.h"
 #import "RegexKitLite.h"

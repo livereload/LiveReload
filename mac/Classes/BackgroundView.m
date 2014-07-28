@@ -1,6 +1,6 @@
 
 #import "BackgroundView.h"
-#import "ATGlobals.h"
+@import LRCommons;
 
 
 @implementation BackgroundView

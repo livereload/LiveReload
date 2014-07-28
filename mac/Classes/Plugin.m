@@ -3,9 +3,7 @@
 #import "Compiler.h"
 #import "Action.h"
 #import "AppState.h"
-#import "LRPackageManager.h"
-#import "LRPackageType.h"
-#import "LRPackageContainer.h"
+@import PackageManagerKit;
 
 #import "ATJson.h"
 #import "Errors.h"

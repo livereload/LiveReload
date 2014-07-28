@@ -1,0 +1,488 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		439316101984A18400685024 /* EditorKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 4393160F1984A18400685024 /* EditorKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		439316161984A18400685024 /* EditorKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4393160A1984A18400685024 /* EditorKit.framework */; };
+		4393161D1984A18400685024 /* EditorKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4393161C1984A18400685024 /* EditorKitTests.m */; };
+		439316411984A22400685024 /* EKEditor.h in Headers */ = {isa = PBXBuildFile; fileRef = 439316321984A22400685024 /* EKEditor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		439316421984A22400685024 /* EKEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 439316331984A22400685024 /* EKEditor.m */; };
+		439316431984A22400685024 /* EKGlobals.h in Headers */ = {isa = PBXBuildFile; fileRef = 439316341984A22400685024 /* EKGlobals.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		439316441984A22400685024 /* EKGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 439316351984A22400685024 /* EKGlobals.m */; };
+		439316451984A22400685024 /* EKIntegration.h in Headers */ = {isa = PBXBuildFile; fileRef = 439316361984A22400685024 /* EKIntegration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		439316461984A22400685024 /* EKIntegration.m in Sources */ = {isa = PBXBuildFile; fileRef = 439316371984A22400685024 /* EKIntegration.m */; };
+		439316471984A22400685024 /* EKJumpRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 439316381984A22400685024 /* EKJumpRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		439316481984A22400685024 /* EKJumpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 439316391984A22400685024 /* EKJumpRequest.m */; };
+		439316491984A22400685024 /* Coda2Editor.h in Headers */ = {isa = PBXBuildFile; fileRef = 4393163B1984A22400685024 /* Coda2Editor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4393164A1984A22400685024 /* Coda2Editor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4393163C1984A22400685024 /* Coda2Editor.m */; };
+		4393164B1984A22400685024 /* SublimeText2Editor.h in Headers */ = {isa = PBXBuildFile; fileRef = 4393163D1984A22400685024 /* SublimeText2Editor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4393164C1984A22400685024 /* SublimeText2Editor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4393163E1984A22400685024 /* SublimeText2Editor.m */; };
+		4393164D1984A22400685024 /* SublimeText3Editor.h in Headers */ = {isa = PBXBuildFile; fileRef = 4393163F1984A22400685024 /* SublimeText3Editor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4393164E1984A22400685024 /* SublimeText3Editor.m in Sources */ = {isa = PBXBuildFile; fileRef = 439316401984A22400685024 /* SublimeText3Editor.m */; };
+		439316501984A26700685024 /* LRCommons.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4393164F1984A26700685024 /* LRCommons.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		439316171984A18400685024 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 439316011984A18400685024 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 439316091984A18400685024;
+			remoteInfo = EditorKit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4393160A1984A18400685024 /* EditorKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EditorKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4393160E1984A18400685024 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4393160F1984A18400685024 /* EditorKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditorKit.h; sourceTree = "<group>"; };
+		439316151984A18400685024 /* EditorKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EditorKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4393161B1984A18400685024 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4393161C1984A18400685024 /* EditorKitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditorKitTests.m; sourceTree = "<group>"; };
+		439316321984A22400685024 /* EKEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EKEditor.h; sourceTree = "<group>"; };
+		439316331984A22400685024 /* EKEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EKEditor.m; sourceTree = "<group>"; };
+		439316341984A22400685024 /* EKGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EKGlobals.h; sourceTree = "<group>"; };
+		439316351984A22400685024 /* EKGlobals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EKGlobals.m; sourceTree = "<group>"; };
+		439316361984A22400685024 /* EKIntegration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EKIntegration.h; sourceTree = "<group>"; };
+		439316371984A22400685024 /* EKIntegration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EKIntegration.m; sourceTree = "<group>"; };
+		439316381984A22400685024 /* EKJumpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EKJumpRequest.h; sourceTree = "<group>"; };
+		439316391984A22400685024 /* EKJumpRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EKJumpRequest.m; sourceTree = "<group>"; };
+		4393163B1984A22400685024 /* Coda2Editor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Coda2Editor.h; sourceTree = "<group>"; };
+		4393163C1984A22400685024 /* Coda2Editor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Coda2Editor.m; sourceTree = "<group>"; };
+		4393163D1984A22400685024 /* SublimeText2Editor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SublimeText2Editor.h; sourceTree = "<group>"; };
+		4393163E1984A22400685024 /* SublimeText2Editor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SublimeText2Editor.m; sourceTree = "<group>"; };
+		4393163F1984A22400685024 /* SublimeText3Editor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SublimeText3Editor.h; sourceTree = "<group>"; };
+		439316401984A22400685024 /* SublimeText3Editor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SublimeText3Editor.m; sourceTree = "<group>"; };
+		4393164F1984A26700685024 /* LRCommons.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LRCommons.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/LiveReload-aescojcekgepxkhacevekzcghboe/Build/Products/Debug/LRCommons.framework"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		439316061984A18400685024 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				439316501984A26700685024 /* LRCommons.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		439316121984A18400685024 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				439316161984A18400685024 /* EditorKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		439316001984A18400685024 = {
+			isa = PBXGroup;
+			children = (
+				4393164F1984A26700685024 /* LRCommons.framework */,
+				4393160C1984A18400685024 /* EditorKit */,
+				439316191984A18400685024 /* EditorKitTests */,
+				4393160B1984A18400685024 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4393160B1984A18400685024 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4393160A1984A18400685024 /* EditorKit.framework */,
+				439316151984A18400685024 /* EditorKitTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4393160C1984A18400685024 /* EditorKit */ = {
+			isa = PBXGroup;
+			children = (
+				4393160F1984A18400685024 /* EditorKit.h */,
+				439316321984A22400685024 /* EKEditor.h */,
+				439316331984A22400685024 /* EKEditor.m */,
+				439316341984A22400685024 /* EKGlobals.h */,
+				439316351984A22400685024 /* EKGlobals.m */,
+				439316361984A22400685024 /* EKIntegration.h */,
+				439316371984A22400685024 /* EKIntegration.m */,
+				439316381984A22400685024 /* EKJumpRequest.h */,
+				439316391984A22400685024 /* EKJumpRequest.m */,
+				4393163A1984A22400685024 /* SpecificEditors */,
+				4393160D1984A18400685024 /* Supporting Files */,
+			);
+			path = EditorKit;
+			sourceTree = "<group>";
+		};
+		4393160D1984A18400685024 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4393160E1984A18400685024 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		439316191984A18400685024 /* EditorKitTests */ = {
+			isa = PBXGroup;
+			children = (
+				4393161C1984A18400685024 /* EditorKitTests.m */,
+				4393161A1984A18400685024 /* Supporting Files */,
+			);
+			path = EditorKitTests;
+			sourceTree = "<group>";
+		};
+		4393161A1984A18400685024 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4393161B1984A18400685024 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4393163A1984A22400685024 /* SpecificEditors */ = {
+			isa = PBXGroup;
+			children = (
+				4393163B1984A22400685024 /* Coda2Editor.h */,
+				4393163C1984A22400685024 /* Coda2Editor.m */,
+				4393163D1984A22400685024 /* SublimeText2Editor.h */,
+				4393163E1984A22400685024 /* SublimeText2Editor.m */,
+				4393163F1984A22400685024 /* SublimeText3Editor.h */,
+				439316401984A22400685024 /* SublimeText3Editor.m */,
+			);
+			path = SpecificEditors;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		439316071984A18400685024 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				439316431984A22400685024 /* EKGlobals.h in Headers */,
+				439316451984A22400685024 /* EKIntegration.h in Headers */,
+				4393164D1984A22400685024 /* SublimeText3Editor.h in Headers */,
+				4393164B1984A22400685024 /* SublimeText2Editor.h in Headers */,
+				439316101984A18400685024 /* EditorKit.h in Headers */,
+				439316491984A22400685024 /* Coda2Editor.h in Headers */,
+				439316471984A22400685024 /* EKJumpRequest.h in Headers */,
+				439316411984A22400685024 /* EKEditor.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		439316091984A18400685024 /* EditorKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 439316201984A18400685024 /* Build configuration list for PBXNativeTarget "EditorKit" */;
+			buildPhases = (
+				439316051984A18400685024 /* Sources */,
+				439316061984A18400685024 /* Frameworks */,
+				439316071984A18400685024 /* Headers */,
+				439316081984A18400685024 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EditorKit;
+			productName = EditorKit;
+			productReference = 4393160A1984A18400685024 /* EditorKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		439316141984A18400685024 /* EditorKitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 439316231984A18400685024 /* Build configuration list for PBXNativeTarget "EditorKitTests" */;
+			buildPhases = (
+				439316111984A18400685024 /* Sources */,
+				439316121984A18400685024 /* Frameworks */,
+				439316131984A18400685024 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				439316181984A18400685024 /* PBXTargetDependency */,
+			);
+			name = EditorKitTests;
+			productName = EditorKitTests;
+			productReference = 439316151984A18400685024 /* EditorKitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		439316011984A18400685024 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = LiveReload;
+				TargetAttributes = {
+					439316091984A18400685024 = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					439316141984A18400685024 = {
+						CreatedOnToolsVersion = 6.0;
+						TestTargetID = 439316091984A18400685024;
+					};
+				};
+			};
+			buildConfigurationList = 439316041984A18400685024 /* Build configuration list for PBXProject "EditorKit" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 439316001984A18400685024;
+			productRefGroup = 4393160B1984A18400685024 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				439316091984A18400685024 /* EditorKit */,
+				439316141984A18400685024 /* EditorKitTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		439316081984A18400685024 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		439316131984A18400685024 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		439316051984A18400685024 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				439316441984A22400685024 /* EKGlobals.m in Sources */,
+				439316421984A22400685024 /* EKEditor.m in Sources */,
+				439316461984A22400685024 /* EKIntegration.m in Sources */,
+				4393164E1984A22400685024 /* SublimeText3Editor.m in Sources */,
+				4393164A1984A22400685024 /* Coda2Editor.m in Sources */,
+				4393164C1984A22400685024 /* SublimeText2Editor.m in Sources */,
+				439316481984A22400685024 /* EKJumpRequest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		439316111984A18400685024 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4393161D1984A18400685024 /* EditorKitTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		439316181984A18400685024 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 439316091984A18400685024 /* EditorKit */;
+			targetProxy = 439316171984A18400685024 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		4393161E1984A18400685024 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		4393161F1984A18400685024 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		439316211984A18400685024 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/LiveReload-aescojcekgepxkhacevekzcghboe/Build/Products/Debug",
+				);
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = EditorKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		439316221984A18400685024 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/LiveReload-aescojcekgepxkhacevekzcghboe/Build/Products/Debug",
+				);
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = EditorKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		439316241984A18400685024 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = EditorKitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		439316251984A18400685024 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = EditorKitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		439316041984A18400685024 /* Build configuration list for PBXProject "EditorKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4393161E1984A18400685024 /* Debug */,
+				4393161F1984A18400685024 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		439316201984A18400685024 /* Build configuration list for PBXNativeTarget "EditorKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				439316211984A18400685024 /* Debug */,
+				439316221984A18400685024 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		439316231984A18400685024 /* Build configuration list for PBXNativeTarget "EditorKitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				439316241984A18400685024 /* Debug */,
+				439316251984A18400685024 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 439316011984A18400685024 /* Project object */;
+}

@@ -1,6 +1,7 @@
 
 #import "ShadowBoxView.h"
-#import "ATGlobals.h"
+@import LRCommons;
+
 
 @implementation ShadowBoxView
 

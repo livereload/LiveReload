@@ -5,7 +5,7 @@
 #import "Project.h"
 
 #import "EditorManager.h"
-#import "EditorKit.h"
+@import EditorKit;
 
 #import "Compiler.h"
 

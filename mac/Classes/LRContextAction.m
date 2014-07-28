@@ -1,19 +1,16 @@
 
 #import "LRContextAction.h"
 #import "Action.h"
-#import "LRPackageResolutionContext.h"
-#import "LRPackageContainer.h"
-#import "LRPackageSet.h"
+@import PackageManagerKit;
 #import "LRActionVersion.h"
 #import "LRActionManifest.h"
 #import "LRManifestLayer.h"
 #import "LiveReload-Swift-x.h"
-#import "LRVersion.h"
+@import PiiVersionKit;
 #import "LRVersionSpec.h"
 #import "Project.h"
-
-#import "ATObservation.h"
-#import "ATScheduling.h"
+@import LRCommons;
+#import "LRAssetPackageConfiguration.h"
 
 
 NSString *const LRContextActionDidChangeVersionsNotification = @"LRContextActionDidChangeVersions";
@@ -63,7 +60,7 @@ NSString *const LRContextActionDidChangeVersionsNotification = @"LRContextAction
 
     NSMutableArray *packageSets = [NSMutableArray new];
     for (LRAssetPackageConfiguration *configuration in _action.packageConfigurations) {
-        [packageSets addObjectsFromArray:[_resolutionContext packageSetsMatchingConfiguration:configuration]];
+        [packageSets addObjectsFromArray:[_resolutionContext packageSetsMatchingPackageReferences:configuration.packageReferences]];
     }
 
     NSMutableArray *versions = [NSMutableArray new];

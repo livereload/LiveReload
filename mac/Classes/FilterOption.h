@@ -1,6 +1,6 @@
 
 #import <Foundation/Foundation.h>
-#import "ATPathSpec.h"
+@import ATPathSpec;
 
 
 @interface FilterOption : NSObject

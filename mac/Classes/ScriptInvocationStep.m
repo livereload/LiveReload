@@ -6,17 +6,12 @@
 #import "Glue.h"
 
 #import "AppState.h"
-#import "LRPackageManager.h"
-#import "LRPackageType.h"
-#import "LRPackageContainer.h"
-#import "RubyRuntimeRepository.h"
-#import "RubyInstance.h"
+@import LRCommons;
+@import PackageManagerKit;
 
-#import "ATChildTask.h"
 #import "ATFunctionalStyle.h"
 #import "NSArray+ATSubstitutions.h"
 #import "LRCommandLine.h"
-#import "P2Warnings.h"
 
 
 @implementation ScriptInvocationStep {

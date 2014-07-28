@@ -3,7 +3,7 @@
 
 
 NSString *ATPathSpec_StringByEscapingRegex(NSString *regex);
-NSString *ATPathSpec_RegexFromPatternString(NSString *pattern, ATPathSpecSyntaxOptions options);
+NSRegularExpression *ATPathSpec_RegexFromPatternString(NSString *pattern, ATPathSpecSyntaxOptions options);
 BOOL ATPathSpecEntryType_Match(ATPathSpecEntryType required, ATPathSpecEntryType actual);
 NSString *ATPathSpecSyntaxOptions_QuoteIfNeeded(NSString *string, ATPathSpecSyntaxOptions options);
 NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSyntaxOptions options);
@@ -62,8 +62,6 @@ typedef void (^ATPathSpecTokenBlock)(ATPathSpecTokenType type, NSRange range, NS
 // operator -> "\n" | "," | "|" | "&"
 // subspec  -> mask | "(" spec ")"
 + (void)enumerateTokensInString:(NSString *)string withSyntaxOptions:(ATPathSpecSyntaxOptions)options usingBlock:(ATPathSpecTokenBlock)block decodeTokens:(BOOL)decodeTokens;
-
-+ (NSString *)describeTokensInString:(NSString *)string withSyntaxOptions:(ATPathSpecSyntaxOptions)options;  // for tests and debugging
 
 - (BOOL)isComplexExpression;
 

@@ -4,10 +4,9 @@
 #import "Project.h"
 #import "Preferences.h"
 
-#import "OldFSTree.h"
-
 #import "ATFunctionalStyle.h"
-#import "NSData+Base64.h"
+@import LRCommons;
+@import FileSystemMonitoringKit;
 #import "jansson.h"
 #import "nodeapp.h"
 
@@ -67,9 +66,9 @@ static NSString *ClientConnectedMonitoringKey = @"clientConnected";
 }
 
 - (void)save {
-#ifdef TESTING
-    return;
-#endif
+    if ([NSProcessInfo processInfo].environment[@"LRRunTests"]) {
+        return;
+    }
 
     NSTimeInterval start = [NSDate timeIntervalSinceReferenceDate];
     
@@ -117,19 +116,19 @@ static NSString *ClientConnectedMonitoringKey = @"clientConnected";
 - (void)load {
     NSArray *projectMementos = nil;
 
-#ifdef TESTING
-    _oldMementos = nil;
-#else
-    _oldMementos = [[NSUserDefaults standardUserDefaults] objectForKey:ProjectListKey];
-    
-    NSString *data = [NSString stringWithContentsOfFile:[self dataFilePath] encoding:NSUTF8StringEncoding error:NULL];
-    if (data) {
-        json_error_t err;
-        json_t *json = json_loads([data UTF8String], 0, &err);
-        projectMementos = nodeapp_json_to_objc(json, YES);
-        json_decref(json);
+    if ([NSProcessInfo processInfo].environment[@"LRRunTests"]) {
+        _oldMementos = nil;
+    } else {
+        _oldMementos = [[NSUserDefaults standardUserDefaults] objectForKey:ProjectListKey];
+
+        NSString *data = [NSString stringWithContentsOfFile:[self dataFilePath] encoding:NSUTF8StringEncoding error:NULL];
+        if (data) {
+            json_error_t err;
+            json_t *json = json_loads([data UTF8String], 0, &err);
+            projectMementos = nodeapp_json_to_objc(json, YES);
+            json_decref(json);
+        }
     }
-#endif
 
     [_projects removeAllObjects];
     for (NSDictionary *projectMemento in projectMementos) {

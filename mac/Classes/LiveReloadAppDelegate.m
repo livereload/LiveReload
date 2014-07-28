@@ -19,9 +19,8 @@
 #import "ShitHappens.h"
 #import "LicenseManager.h"
 #import "DockIcon.h"
-#import "ATGlobals.h"
-#import "NSData+Base64.h"
-#import "Runtimes.h"
+@import LRCommons;
+@import PackageManagerKit;
 #import "EditorManager.h"
 #import "ATFunctionalStyle.h"
 
@@ -94,9 +93,9 @@
 //    [[SUUpdater sharedUpdater] setDelegate:self];
 #endif
 
-#ifdef TESTING
-    setenv("LRPortOverride", "35728", 1);
-#endif
+    if ([NSProcessInfo processInfo].environment[@"LRRunTests"]) {
+        setenv("LRPortOverride", "35728", 1);
+    }
 
     _port = 35729;
     if (getenv("LRPortOverride")) {

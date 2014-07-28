@@ -1,11 +1,8 @@
 
 #import "ToolOutputWindowController.h"
-#import "ATGlobals.h"
+@import LRCommons;
 
 #import "Project.h"
-#import "OldFSMonitor.h"
-#import "OldFSTreeFilter.h"
-#import "OldFSTree.h"
 #import "Preferences.h"
 #import "Compiler.h"
 #import "LegacyCompilationOptions.h"
@@ -14,8 +11,7 @@
 #import "UserScript.h"
 #import "FilterOption.h"
 #import "Glue.h"
-#import "LRPackageResolutionContext.h"
-#import "ATPathSpec.h"
+@import PackageManagerKit;
 #import "LROperationResult.h"
 #import "LiveReload-Swift-x.h"
 
@@ -25,9 +21,10 @@
 #import "NSTask+OneLineTasksWithOutput.h"
 #import "ATFunctionalStyle.h"
 #import "P2AsyncEnumeration.h"
-#import "ATObservation.h"
+@import LRCommons;
+@import ATPathSpec;
+@import FileSystemMonitoringKit;
 #import "LRCommandLine.h"
-#import "ATModelDiff.h"
 
 #include <stdbool.h>
 
@@ -725,7 +722,10 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 - (NSArray *)analyzeFilesAtPaths:(NSSet *)paths {
     NSMutableArray *result = [NSMutableArray new];
     for (NSString *path in paths) {
-        [result addObject:[self analyzeFileAtPath:path]];
+        LRProjectFile *file = [self analyzeFileAtPath:path];
+        if (file) {
+            [result addObject:file];
+        }
     }
     NSLog(@"Incremental analysis finished.");
     return [result copy];
@@ -773,8 +773,8 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         if (file) {
             [self updateImportGraphForMissingFile:file];
             [_filesByPath removeObjectForKey:relativePath];
+            [_analysis updateResultsAfterDeletion:file];
         }
-        [_analysis updateResultsAfterDeletion:file];
         return file;
     }
 }

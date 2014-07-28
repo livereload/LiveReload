@@ -3,10 +3,9 @@
 #import "LRSelfTest.h"
 #import "LiveReloadAppDelegate.h"
 #import "AppState.h"
-#import "LRPackageManager.h"
+@import PackageManagerKit;
 #import "LiveReload-Swift-x.h"
 #import "Plugin.h"
-#import "LRPackageContainer.h"
 
 #import "ATFunctionalStyle.h"
 

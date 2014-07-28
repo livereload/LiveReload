@@ -117,12 +117,8 @@ extension String {
 
 }
 
-extension Array {
-
-    var quotedArgumentStringUsingBourneQuotingStyle: String {
-        return (self as NSArray).quotedArgumentStringUsingBourneQuotingStyle()
-    }
-
+func quotedArgumentStringUsingBourneQuotingStyle(arguments: [String]) -> String {
+    return (arguments as NSArray).quotedArgumentStringUsingBourneQuotingStyle()
 }
 
 extension Dictionary {

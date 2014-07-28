@@ -1,5 +1,4 @@
-
-#import "EKEditor.h"
+@import EditorKit;
 #import "LRPluginCommons.h"
 
 @interface ExternalEditor : EKEditor

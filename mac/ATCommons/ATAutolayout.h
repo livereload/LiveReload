@@ -1,6 +1,6 @@
 
 #import <Foundation/Foundation.h>
-#import "ATGlobals.h"
+@import LRCommons;
 
 
 @interface NSView (ATAutolayout)

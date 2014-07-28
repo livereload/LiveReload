@@ -1,4 +1,5 @@
 import Foundation
+import VariableKit
 
 class ProjectAnalysis: NSObject, AnalyzerHost {
 
@@ -6,15 +7,28 @@ class ProjectAnalysis: NSObject, AnalyzerHost {
 
     // let classifier: FileClassifier
 
-    var analyzers = [Analyzer]()
+    let analyzers: [Analyzer]
+
+//    let variableSet: VariableSet
 
     init(actionSet: ActionSet) {
         self.actionSet = actionSet
+
+        var analyzers = [Analyzer]()
+        analyzers.append(ImportFragmentAnalyzer(project: actionSet.project, definition: AnalyzerDefinition(scope: .File, pathSpec: ATPathSpec(string: "*.less", syntaxOptions:.FlavorExtended))))
+
+//        var variableDefinitions = [VariableDefinition]()
+//        variableDefinitions.append(VariableDefinition(name: "compiler", scope: .File, foldingBehavior: .Folded))
+//
+//        let sources = analyzers.map { $0.evidenceSource }
+
+        self.analyzers = analyzers
+//        variableSet = VariableSet(variableDefinitions: variableDefinitions, sources: sources)
+
         super.init()
 
         //classifier = FileClassifier()
 
-        analyzers.append(ImportFragmentAnalyzer(project: actionSet.project, host: self, definition: AnalyzerDefinition(scope: .File, pathSpec: ATPathSpec(string: "*.less", syntaxOptions:.FlavorExtended))))
     }
 
     func updateResultsAfterModification(file: LRProjectFile) {
