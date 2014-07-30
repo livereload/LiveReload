@@ -6,9 +6,42 @@ FOUNDATION_EXPORT double LRActionKitVersionNumber;
 //! Project version string for LRActionKit.
 FOUNDATION_EXPORT const unsigned char LRActionKitVersionString[];
 
+// basics
 #import <LRActionKit/ActionKitGlobals.h>
-
 #import <LRActionKit/LRManifestBasedObject.h>
 #import <LRActionKit/LRManifestErrorSink.h>
 
+// action
+#import <LRActionKit/Action.h>
+#import <LRActionKit/LRActionVersion.h>
+#import <LRActionKit/LRContextAction.h>
+#import <LRActionKit/LRActionManifest.h>
+
+#import <LRActionKit/LRManifestLayer.h>
+
+// rule
+#import <LRActionKit/Rulebook.h>
+#import <LRActionKit/ScriptInvocationStep.h>
+
+// result
+#import <LRActionKit/LROperationResult.h>
+
+// inputs
+#import <LRActionKit/FilterOption.h>
+#import <LRActionKit/LRVersionSpec.h>
+#import <LRActionKit/LRVersionTag.h>
+
+// testing
+#import <LRActionKit/LRTRGlobals.h>
+#import <LRActionKit/LRTRProtocolParser.h>
+#import <LRActionKit/LRTRRun.h>
+#import <LRActionKit/LRTRTest.h>
+#import <LRActionKit/LRTRTestAnythingProtocolParser.h>
+
+// analysis
+#import <LRActionKit/LRVersionSpec.h>
+#import <LRActionKit/LRVersionTag.h>
+
+// utilities
+#import <LRActionKit/LRPathProcessing.h>
 #import <LRActionKit/UserScript.h>

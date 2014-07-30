@@ -1,5 +1,4 @@
-
-#import <Foundation/Foundation.h>
+@import Foundation;
 #import "LRManifestErrorSink.h"
 
 

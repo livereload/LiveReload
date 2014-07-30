@@ -23,6 +23,7 @@
 		4301FA9119849369006709C9 /* ATObservation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301FA8D19849369006709C9 /* ATObservation.m */; };
 		4301FA9219849369006709C9 /* ATScheduling.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301FA8E19849369006709C9 /* ATScheduling.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4301FA9319849369006709C9 /* ATScheduling.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301FA8F19849369006709C9 /* ATScheduling.m */; };
+		432EB44219887ADE0074E755 /* Algorithms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432EB44119887ADE0074E755 /* Algorithms.swift */; };
 		439316531984A2B300685024 /* NSAppleScript+ATInvokeHandlerWithArguments.h in Headers */ = {isa = PBXBuildFile; fileRef = 439316511984A2B300685024 /* NSAppleScript+ATInvokeHandlerWithArguments.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		439316541984A2B300685024 /* NSAppleScript+ATInvokeHandlerWithArguments.m in Sources */ = {isa = PBXBuildFile; fileRef = 439316521984A2B300685024 /* NSAppleScript+ATInvokeHandlerWithArguments.m */; };
 /* End PBXBuildFile section */
@@ -57,6 +58,7 @@
 		4301FA8D19849369006709C9 /* ATObservation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATObservation.m; sourceTree = "<group>"; };
 		4301FA8E19849369006709C9 /* ATScheduling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATScheduling.h; sourceTree = "<group>"; };
 		4301FA8F19849369006709C9 /* ATScheduling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATScheduling.m; sourceTree = "<group>"; };
+		432EB44119887ADE0074E755 /* Algorithms.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Algorithms.swift; sourceTree = "<group>"; };
 		439316511984A2B300685024 /* NSAppleScript+ATInvokeHandlerWithArguments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAppleScript+ATInvokeHandlerWithArguments.h"; sourceTree = "<group>"; };
 		439316521984A2B300685024 /* NSAppleScript+ATInvokeHandlerWithArguments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAppleScript+ATInvokeHandlerWithArguments.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -117,6 +119,7 @@
 				4301FA8F19849369006709C9 /* ATScheduling.m */,
 				439316511984A2B300685024 /* NSAppleScript+ATInvokeHandlerWithArguments.h */,
 				439316521984A2B300685024 /* NSAppleScript+ATInvokeHandlerWithArguments.m */,
+				432EB44119887ADE0074E755 /* Algorithms.swift */,
 				4301FA5219848ECF006709C9 /* Supporting Files */,
 			);
 			path = LRCommons;
@@ -268,6 +271,7 @@
 				4301FA9119849369006709C9 /* ATObservation.m in Sources */,
 				439316541984A2B300685024 /* NSAppleScript+ATInvokeHandlerWithArguments.m in Sources */,
 				4301FA7B19848F5E006709C9 /* ATGlobals.m in Sources */,
+				432EB44219887ADE0074E755 /* Algorithms.swift in Sources */,
 				4301FA7F19849089006709C9 /* NSData+Base64.m in Sources */,
 				4301FA8B19849283006709C9 /* ATModelDiff.m in Sources */,
 			);
@@ -375,6 +379,7 @@
 		4301FA6619848ECF006709C9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -386,12 +391,14 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		4301FA6719848ECF006709C9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
