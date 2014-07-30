@@ -1,8 +1,8 @@
 import Foundation
 
-operator infix ⁇ {}
+operator infix ||| {}
 
-@infix func ⁇ <T> (optional: T?, defaultValue: @auto_closure () -> T) -> T {
+@infix public func ||| <T> (optional: T?, defaultValue: @auto_closure () -> T) -> T {
     if let unwrapped = optional {
         return unwrapped
     } else {
