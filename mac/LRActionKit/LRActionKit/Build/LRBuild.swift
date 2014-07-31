@@ -4,7 +4,7 @@ import ATPathSpec
 
 public class LRBuild : NSObject {
 
-    public let project: Project
+    public let project: ProjectContext
     public let rules: [Rule]
 
     public private(set) var messages: [LRMessage] = []
@@ -30,7 +30,7 @@ public class LRBuild : NSObject {
 
     public private(set) var firstFailure: LROperationResult?
 
-    public init(project: Project, rules: [Rule]) {
+    public init(project: ProjectContext, rules: [Rule]) {
         self.project = project
         self.rules = rules
     }
@@ -93,8 +93,8 @@ public class LRBuild : NSObject {
 
             let fullPath = file.absolutePath as String
 
-            let actions = project.compilerActionsForFile(file) as [Action]
-            if let fakeDestinationName = actions.findMapIf({ $0.fakeChangeDestinationNameForSourceFile(file) }) {
+            let actions = project.compilerActionsForFile(file)
+            if let fakeDestinationName = findMapped(actions, { $0.fakeChangeDestinationNameForSourceFile(file) }) {
                 let fakePath = fullPath.stringByDeletingLastPathComponent.stringByAppendingPathComponent(fakeDestinationName)
                 addReloadRequest(["path": fakePath, "originalPath": fullPath, "localPath": NSNull()])
             } else {
@@ -107,9 +107,7 @@ public class LRBuild : NSObject {
         _updateReloadRequests()
 
         if  reloadRequests.count > 0 {
-            Glue().postMessage(["service": "reloader", "command": "reload", "changes": reloadRequests as NSArray, "forceFullReload": project.disableLiveRefresh as Bool])
-            postNotification(ProjectDidDetectChangeNotification)
-            StatIncrement(BrowserRefreshCountStat, 1)
+            project.sendReloadRequest(changes: reloadRequests, forceFullReload: project.disableLiveRefresh)
         }
     }
 

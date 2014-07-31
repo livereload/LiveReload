@@ -2,10 +2,10 @@ import Foundation
 
 public class ActionSet: NSObject {
 
-    public  let project: Project
+    public  let project: ProjectContext
     var actions: [Action] = []
 
-    public init(project: Project) {
+    public init(project: ProjectContext) {
         self.project = project
     }
 

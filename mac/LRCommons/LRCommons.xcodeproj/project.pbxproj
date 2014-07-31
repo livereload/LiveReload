@@ -23,6 +23,12 @@
 		4301FA9119849369006709C9 /* ATObservation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301FA8D19849369006709C9 /* ATObservation.m */; };
 		4301FA9219849369006709C9 /* ATScheduling.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301FA8E19849369006709C9 /* ATScheduling.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4301FA9319849369006709C9 /* ATScheduling.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301FA8F19849369006709C9 /* ATScheduling.m */; };
+		4324E8C51989F323003BDDD8 /* NSArray+P2Substitutions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4324E8C31989F323003BDDD8 /* NSArray+P2Substitutions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4324E8C61989F323003BDDD8 /* NSArray+P2Substitutions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4324E8C41989F323003BDDD8 /* NSArray+P2Substitutions.m */; };
+		4324E8D21989F481003BDDD8 /* P2CommandLine.h in Headers */ = {isa = PBXBuildFile; fileRef = 4324E8D01989F481003BDDD8 /* P2CommandLine.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4324E8D31989F481003BDDD8 /* P2CommandLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 4324E8D11989F481003BDDD8 /* P2CommandLine.m */; };
+		4324E8D61989F626003BDDD8 /* ATFunctionalStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 4324E8D41989F626003BDDD8 /* ATFunctionalStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4324E8D71989F626003BDDD8 /* ATFunctionalStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4324E8D51989F626003BDDD8 /* ATFunctionalStyle.m */; };
 		432EB44219887ADE0074E755 /* Wrappers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432EB44119887ADE0074E755 /* Wrappers.swift */; };
 		439316531984A2B300685024 /* NSAppleScript+ATInvokeHandlerWithArguments.h in Headers */ = {isa = PBXBuildFile; fileRef = 439316511984A2B300685024 /* NSAppleScript+ATInvokeHandlerWithArguments.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		439316541984A2B300685024 /* NSAppleScript+ATInvokeHandlerWithArguments.m in Sources */ = {isa = PBXBuildFile; fileRef = 439316521984A2B300685024 /* NSAppleScript+ATInvokeHandlerWithArguments.m */; };
@@ -58,6 +64,12 @@
 		4301FA8D19849369006709C9 /* ATObservation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATObservation.m; sourceTree = "<group>"; };
 		4301FA8E19849369006709C9 /* ATScheduling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATScheduling.h; sourceTree = "<group>"; };
 		4301FA8F19849369006709C9 /* ATScheduling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATScheduling.m; sourceTree = "<group>"; };
+		4324E8C31989F323003BDDD8 /* NSArray+P2Substitutions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+P2Substitutions.h"; sourceTree = "<group>"; };
+		4324E8C41989F323003BDDD8 /* NSArray+P2Substitutions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+P2Substitutions.m"; sourceTree = "<group>"; };
+		4324E8D01989F481003BDDD8 /* P2CommandLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2CommandLine.h; sourceTree = "<group>"; };
+		4324E8D11989F481003BDDD8 /* P2CommandLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P2CommandLine.m; sourceTree = "<group>"; };
+		4324E8D41989F626003BDDD8 /* ATFunctionalStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATFunctionalStyle.h; sourceTree = "<group>"; };
+		4324E8D51989F626003BDDD8 /* ATFunctionalStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATFunctionalStyle.m; sourceTree = "<group>"; };
 		432EB44119887ADE0074E755 /* Wrappers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wrappers.swift; sourceTree = "<group>"; };
 		439316511984A2B300685024 /* NSAppleScript+ATInvokeHandlerWithArguments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAppleScript+ATInvokeHandlerWithArguments.h"; sourceTree = "<group>"; };
 		439316521984A2B300685024 /* NSAppleScript+ATInvokeHandlerWithArguments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAppleScript+ATInvokeHandlerWithArguments.m"; sourceTree = "<group>"; };
@@ -119,6 +131,12 @@
 				4301FA8F19849369006709C9 /* ATScheduling.m */,
 				439316511984A2B300685024 /* NSAppleScript+ATInvokeHandlerWithArguments.h */,
 				439316521984A2B300685024 /* NSAppleScript+ATInvokeHandlerWithArguments.m */,
+				4324E8C31989F323003BDDD8 /* NSArray+P2Substitutions.h */,
+				4324E8C41989F323003BDDD8 /* NSArray+P2Substitutions.m */,
+				4324E8D41989F626003BDDD8 /* ATFunctionalStyle.h */,
+				4324E8D51989F626003BDDD8 /* ATFunctionalStyle.m */,
+				4324E8D01989F481003BDDD8 /* P2CommandLine.h */,
+				4324E8D11989F481003BDDD8 /* P2CommandLine.m */,
 				432EB44119887ADE0074E755 /* Wrappers.swift */,
 				4301FA5219848ECF006709C9 /* Supporting Files */,
 			);
@@ -159,7 +177,10 @@
 			files = (
 				4301FA7A19848F5E006709C9 /* ATGlobals.h in Headers */,
 				4301FA8719849244006709C9 /* P2Warnings.h in Headers */,
+				4324E8D61989F626003BDDD8 /* ATFunctionalStyle.h in Headers */,
 				439316531984A2B300685024 /* NSAppleScript+ATInvokeHandlerWithArguments.h in Headers */,
+				4324E8D21989F481003BDDD8 /* P2CommandLine.h in Headers */,
+				4324E8C51989F323003BDDD8 /* NSArray+P2Substitutions.h in Headers */,
 				4301FA8A19849283006709C9 /* ATModelDiff.h in Headers */,
 				4301FA5519848ECF006709C9 /* LRCommons.h in Headers */,
 				4301FA7E19849089006709C9 /* NSData+Base64.h in Headers */,
@@ -266,10 +287,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4324E8D71989F626003BDDD8 /* ATFunctionalStyle.m in Sources */,
 				4301FA9319849369006709C9 /* ATScheduling.m in Sources */,
 				4301FA8519849229006709C9 /* ATChildTask.m in Sources */,
 				4301FA9119849369006709C9 /* ATObservation.m in Sources */,
+				4324E8D31989F481003BDDD8 /* P2CommandLine.m in Sources */,
 				439316541984A2B300685024 /* NSAppleScript+ATInvokeHandlerWithArguments.m in Sources */,
+				4324E8C61989F323003BDDD8 /* NSArray+P2Substitutions.m in Sources */,
 				4301FA7B19848F5E006709C9 /* ATGlobals.m in Sources */,
 				432EB44219887ADE0074E755 /* Wrappers.swift in Sources */,
 				4301FA7F19849089006709C9 /* NSData+Base64.m in Sources */,

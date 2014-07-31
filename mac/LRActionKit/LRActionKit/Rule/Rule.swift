@@ -5,6 +5,7 @@ import ATPathSpec
 import PackageManagerKit
 
 public class Rule : NSObject {
+    private var o = Observation()
 
     public let contextAction: LRContextAction
 
@@ -60,10 +61,6 @@ public class Rule : NSObject {
         _initEffectiveVersion()
     }
 
-    deinit {
-        stopObservingNotifications()
-    }
-
     public var theMemento: Dictionary<String, AnyObject> {
         get {
             updateMemento()
@@ -77,13 +74,13 @@ public class Rule : NSObject {
 
     public private(set) var inputPathSpec: ATPathSpec = ATPathSpec.emptyPathSpec()
 
-    private var memento: Dictionary<String, AnyObject> = [:]
+    internal var memento: Dictionary<String, AnyObject> = [:]
     private var _options: Dictionary<String, AnyObject> = [:]
 
     public /*protected*/ func loadFromMemento() {
-        enabled = boolValue(memento["enabled"], defaultValue: true)
+        enabled = memento["enabled"] ~|||~ true
         inputFilterOption = FilterOption(memento: memento["filter"] ~|||~ "subdir:.")
-        if let ver = NonEmptyStringValue(memento["version"]) {
+        if let ver: String = memento["version"]~~~ {
             primaryVersionSpec = LRVersionSpec(string: ver, inVersionSpace: action.primaryVersionSpace)
         } else {
             primaryVersionSpec = LRVersionSpec.stableVersionSpecMatchingAnyVersionInVersionSpace(action.primaryVersionSpace)
@@ -195,15 +192,16 @@ public class Rule : NSObject {
 
     // MARK: LROption objects
 
-    public func createOptions() -> [LROption] {
-        var options: [LROption] = []
-        options.append(LRVersionOption(manifest: ["id": "version", "label": "Version:"], rule: self, errorSink: nil))
-        if effectiveVersion {
-            options.extend(effectiveVersion!.manifest.createOptionsWithAction(self) as [LROption])
-        }
-        options.append(LRCustomArgumentsOption(manifest: ["id": "custom-args"], rule: self, errorSink: nil))
-        return options
-    }
+    // TODO: port LROption
+//    public func createOptions() -> [LROption] {
+//        var options: [LROption] = []
+//        options.append(LRVersionOption(manifest: ["id": "version", "label": "Version:"], rule: self, errorSink: nil))
+//        if effectiveVersion {
+//            options.extend(effectiveVersion!.manifest.createOptionsWithAction(self) as [LROption])
+//        }
+//        options.append(LRCustomArgumentsOption(manifest: ["id": "custom-args"], rule: self, errorSink: nil))
+//        return options
+//    }
 
 
     // MARK: Versions
@@ -225,16 +223,16 @@ public class Rule : NSObject {
 
     private var _c_updateEffectiveVersion = Coalescence()
     private func _updateEffectiveVersion() {
-        _c_updateEffectiveVersion.performSync {
+        _c_updateEffectiveVersion.perform {
             self.effectiveVersion = self._computeEffectiveVersion()
             self.postNotification(LRActionPrimaryEffectiveVersionDidChangeNotification)
         }
     }
 
     private func _initEffectiveVersion() {
-        _c_updateEffectiveVersion.monitorBlock = weakify(self) { (me, active) in me.project.setAnalysisInProgress(active, forTask: me) }
+        _c_updateEffectiveVersion.monitorBlock = { [weak self] (active) in self?.project.setAnalysisInProgress(active, forTask: self!) }
 
-        observeNotification(LRContextActionDidChangeVersionsNotification, selector: "_updateEffectiveVersion")
+        o.on(LRContextActionDidChangeVersionsNotification, self, Rule._updateEffectiveVersion)
         _updateEffectiveVersion()
     }
 

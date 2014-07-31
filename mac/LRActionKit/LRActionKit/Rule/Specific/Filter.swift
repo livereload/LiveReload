@@ -1,4 +1,5 @@
 import Foundation
+import ATPathSpec
 
 public class FilterRule : ScriptInvocationRule {
 

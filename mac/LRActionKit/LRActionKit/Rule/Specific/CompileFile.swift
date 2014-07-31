@@ -1,4 +1,5 @@
 import Foundation
+import SwiftyFoundation
 
 public class CompileFileRule : ScriptInvocationRule {
 
@@ -14,7 +15,7 @@ public class CompileFileRule : ScriptInvocationRule {
 
     public /*protected*/ override func loadFromMemento() {
         super.loadFromMemento()
-        compilerName = NonEmptyStringValue(memento["compiler"])
+        compilerName = memento["compiler"]~~~
         outputFilterOption = FilterOption(memento: memento["output"] ~|||~ "subdir:.")
         intrinsicInputPathSpec = action.combinedIntrinsicInputPathSpec
     }

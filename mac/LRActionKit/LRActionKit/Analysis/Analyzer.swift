@@ -9,13 +9,13 @@ public struct AnalyzerDefinition {
 
 public class Analyzer {
 
-    public let project: Project
+    public let project: ProjectContext
     public let definition: AnalyzerDefinition
     public let scope: VariableScope
     public let evidenceSource: EvidenceSource
     public var pathSpec: ATPathSpec
 
-    public init(project: Project, definition: AnalyzerDefinition) {
+    public init(project: ProjectContext, definition: AnalyzerDefinition) {
         self.project = project
         self.definition = definition
         self.scope = definition.scope

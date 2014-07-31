@@ -1,4 +1,5 @@
 import Foundation
+import SwiftyFoundation
 
 public class UserScriptRule : Rule {
 

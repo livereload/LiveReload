@@ -5,7 +5,7 @@ public class LRTarget : NSObject {
 
     public let rule : Rule
 
-    public var project : Project {
+    public var project : ProjectContext {
         return rule.project
     }
 

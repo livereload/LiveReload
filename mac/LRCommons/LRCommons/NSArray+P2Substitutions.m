@@ -1,10 +1,10 @@
 
-#import "NSArray+ATSubstitutions.h"
+#import "NSArray+P2Substitutions.h"
 
 
-@implementation NSArray (ATSubstitutions)
+@implementation NSArray (P2Substitutions)
 
-- (NSArray *)arrayBySubstitutingValuesFromDictionary:(NSDictionary *)info {
+- (NSArray *)p2_arrayBySubstitutingValuesFromDictionary:(NSDictionary *)info {
     NSMutableArray *result = [NSMutableArray arrayWithCapacity:[self count]];
     for (NSString *string in self) {
         __block NSString *mutable = [string copy];
@@ -30,9 +30,9 @@
 @end
 
 
-@implementation NSString (ATSubstitutions)
+@implementation NSString (P2Substitutions)
 
-- (NSString *)stringBySubstitutingValuesFromDictionary:(NSDictionary *)info {
+- (NSString *)p2_stringBySubstitutingValuesFromDictionary:(NSDictionary *)info {
     __block NSString *mutable = [self copy];
     [info enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
         if ([value isKindOfClass:[NSArray class]]) {

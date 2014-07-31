@@ -1,4 +1,5 @@
 import Foundation
+import SwiftyFoundation
 import LRCommons
 
 public class CustomCommandRule : Rule {
@@ -63,7 +64,8 @@ public class CustomCommandRule : Rule {
             "$(node)": NSBundle.mainBundle().pathForResource("LiveReloadNodejs", ofType: nil)!,
             "$(project_dir)": project.rootURL.path
         ]
-        let command = (self.command! as NSString).stringBySubstitutingValuesFromDictionary(info) as String
+        // TODO: handle command being nil
+        let command = self.command!.stringBySubstitutingValuesFromDictionary(info) as String
         let shell = "/bin/bash"
 
         let shArgs = ["-c", command]  // ["--login", "-i", "-c", command]
@@ -71,7 +73,7 @@ public class CustomCommandRule : Rule {
         let pwd = NSFileManager.defaultManager().currentDirectoryPath
         NSFileManager.defaultManager().changeCurrentDirectoryPath(project.rootURL.path)
 
-        NSLog("Executing project rule command: %@", (([shell] + shArgs) as NSArray).quotedArgumentStringUsingBourneQuotingStyle());
+        NSLog("Executing project rule command: %@", quotedArgumentStringUsingBourneQuotingStyle([shell] + shArgs));
 
         let shellUrl = NSURL.fileURLWithPath(shell)
 

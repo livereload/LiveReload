@@ -218,8 +218,6 @@
 		43A48074174A040300A0681D /* RbenvContainer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43A48072174A040300A0681D /* RbenvContainer@2x.png */; };
 		43A4807A174A069100A0681D /* HomebrewContainer.png in Resources */ = {isa = PBXBuildFile; fileRef = 43A48078174A069100A0681D /* HomebrewContainer.png */; };
 		43A4807B174A069100A0681D /* HomebrewContainer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43A48079174A069100A0681D /* HomebrewContainer@2x.png */; };
-		43B5C00217ADF14700F57276 /* ATFunctionalStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B5C00117ADF14700F57276 /* ATFunctionalStyle.m */; };
-		43B5C01017ADF35C00F57276 /* NSArray+ATSubstitutions.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B5C00717ADF35C00F57276 /* NSArray+ATSubstitutions.m */; };
 		43B5C01217ADF35C00F57276 /* NSString+ATProperURLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B5C00B17ADF35C00F57276 /* NSString+ATProperURLEncoding.m */; };
 		43B5C01417ADF35C00F57276 /* NSWindowController+ATTextStyling.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B5C00F17ADF35C00F57276 /* NSWindowController+ATTextStyling.m */; };
 		43B5C01717ADF5FB00F57276 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B5C01617ADF5FB00F57276 /* RegexKitLite.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -865,10 +863,6 @@
 		43A48072174A040300A0681D /* RbenvContainer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RbenvContainer@2x.png"; sourceTree = "<group>"; };
 		43A48078174A069100A0681D /* HomebrewContainer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HomebrewContainer.png; sourceTree = "<group>"; };
 		43A48079174A069100A0681D /* HomebrewContainer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HomebrewContainer@2x.png"; sourceTree = "<group>"; };
-		43B5C00017ADF14700F57276 /* ATFunctionalStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATFunctionalStyle.h; sourceTree = "<group>"; };
-		43B5C00117ADF14700F57276 /* ATFunctionalStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATFunctionalStyle.m; sourceTree = "<group>"; };
-		43B5C00617ADF35C00F57276 /* NSArray+ATSubstitutions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+ATSubstitutions.h"; sourceTree = "<group>"; };
-		43B5C00717ADF35C00F57276 /* NSArray+ATSubstitutions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+ATSubstitutions.m"; sourceTree = "<group>"; };
 		43B5C00A17ADF35C00F57276 /* NSString+ATProperURLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ATProperURLEncoding.h"; sourceTree = "<group>"; };
 		43B5C00B17ADF35C00F57276 /* NSString+ATProperURLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ATProperURLEncoding.m"; sourceTree = "<group>"; };
 		43B5C00E17ADF35C00F57276 /* NSWindowController+ATTextStyling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSWindowController+ATTextStyling.h"; sourceTree = "<group>"; };
@@ -1457,16 +1451,12 @@
 		43B5BFFC17ADF0D600F57276 /* ATCommons */ = {
 			isa = PBXGroup;
 			children = (
-				43B5C00017ADF14700F57276 /* ATFunctionalStyle.h */,
-				43B5C00117ADF14700F57276 /* ATFunctionalStyle.m */,
 				43B5C01817ADF93900F57276 /* ATHash.h */,
 				43B5C01917ADF93A00F57276 /* ATHash.m */,
 				43B5C01E17AE01C500F57276 /* ATLoginItemController.h */,
 				43B5C01F17AE01C500F57276 /* ATLoginItemController.m */,
 				43996B2C17AF675D00B09954 /* ATMenuEnabledSegmentedCell.h */,
 				43996B2D17AF675D00B09954 /* ATMenuEnabledSegmentedCell.m */,
-				43B5C00617ADF35C00F57276 /* NSArray+ATSubstitutions.h */,
-				43B5C00717ADF35C00F57276 /* NSArray+ATSubstitutions.m */,
 				43B5C00A17ADF35C00F57276 /* NSString+ATProperURLEncoding.h */,
 				43B5C00B17ADF35C00F57276 /* NSString+ATProperURLEncoding.m */,
 				43B5C00E17ADF35C00F57276 /* NSWindowController+ATTextStyling.h */,
@@ -2352,12 +2342,10 @@
 				4353418A19489EA8003E51EB /* LRPopUpOption.m in Sources */,
 				4353415219489EA8003E51EB /* ExternalEditor.m in Sources */,
 				4353417619489EA8003E51EB /* LRLegacyFile.m in Sources */,
-				43B5C00217ADF14700F57276 /* ATFunctionalStyle.m in Sources */,
 				435341C519489EA8003E51EB /* Plugin.m in Sources */,
 				435341E019489EA8003E51EB /* StatusItemController.m in Sources */,
 				4353417A19489EA8003E51EB /* LROption.m in Sources */,
 				4353416E19489EA8003E51EB /* LRAssetPackageConfiguration.m in Sources */,
-				43B5C01017ADF35C00F57276 /* NSArray+ATSubstitutions.m in Sources */,
 				4353414219489EA8003E51EB /* AddFilterRow.m in Sources */,
 				4353416619489EA8003E51EB /* LicenseCodeViewController.m in Sources */,
 				435341CE19489EA8003E51EB /* RubyPreferencesViewController.m in Sources */,
