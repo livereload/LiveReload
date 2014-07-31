@@ -41,12 +41,12 @@ public class CustomCommandRule : Rule {
 
     public /*protected*/ override func loadFromMemento() {
         super.loadFromMemento()
-        command = EmptyToNilCast(memento["command"])
+        command = NonEmptyStringValue(memento["command"])
     }
 
     public /*protected*/ override func updateMemento() {
         super.updateMemento()
-        memento["command"] = NV(command, "")
+        memento["command"] = command ||| ""
     }
 
     public override func targetForModifiedFiles(files: [ProjectFile]) -> LRTarget? {

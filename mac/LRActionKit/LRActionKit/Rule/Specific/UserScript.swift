@@ -45,7 +45,7 @@ public class UserScriptRule : Rule {
 
     public /*protected*/ override func loadFromMemento() {
         super.loadFromMemento()
-//        scriptName = EmptyToNil(memento["script"] as? String)
+//        scriptName = NonEmptyStringValue(memento["script"] as? String)
     }
 
     public /*protected*/ override func updateMemento() {

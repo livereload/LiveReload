@@ -11,6 +11,9 @@ public class Delayed {
 
     private var lastRequestId: RequestId = 0
 
+    public init() {
+    }
+
     deinit {
         cancel()
     }

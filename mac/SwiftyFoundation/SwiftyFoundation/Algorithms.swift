@@ -51,6 +51,30 @@ public func flatten<T where T: Sequence, T.GeneratorType.Element: Sequence>(sequ
 
 // MARK: Arrays and random access collections
 
+public func firstOf<T>(items: [T]) -> T? {
+    return items.isEmpty ? nil : items[0]
+}
+
+public func lastOf<T>(items: [T]) -> T? {
+    return items.isEmpty ? nil : items[items.count - 1]
+}
+
+public func popFirst<T>(inout items: [T]) -> T? {
+    if items.isEmpty {
+        return nil
+    } else {
+        return items.removeAtIndex(0)
+    }
+}
+
+public func popLast<T>(inout items: [T]) -> T? {
+    if items.isEmpty {
+        return nil
+    } else {
+        return items.removeLast()
+    }
+}
+
 public func removeElement<T: Equatable>(inout array: [T], element: T) {
     if let index = find(array, element) {
         array.removeAtIndex(index)

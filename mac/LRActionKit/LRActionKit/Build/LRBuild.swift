@@ -1,4 +1,5 @@
 import Foundation
+import SwiftyFoundation
 import ATPathSpec
 
 public class LRBuild : NSObject {
@@ -80,7 +81,7 @@ public class LRBuild : NSObject {
                 let filesTriggeringForcedStylesheetReloading = filesToReload.filter { forcedStylesheetReloadSpec.matchesPath($0.relativePath, type: .File) }
                 if filesTriggeringForcedStylesheetReloading.count > 0 {
                     addReloadRequest(["path": "force-reload-all-stylesheets.css", "originalPath": NSNull()])
-                    removeIntersection(&filesToReload, filesTriggeringForcedStylesheetReloading)
+                    removeElements(&filesToReload, filesTriggeringForcedStylesheetReloading)
                 }
             }
         }
@@ -143,7 +144,7 @@ public class LRBuild : NSObject {
             _waitingForMoreChangesBeforeFinishing = false
         }
 
-        if let target = _pendingFileTargets.removeLastOrNil() {
+        if let target = popLast(&_pendingFileTargets) {
             _executeTarget(target)
         } else if let target = _obtainNextProjectTarget() {
             _executeTarget(target)
@@ -167,11 +168,11 @@ public class LRBuild : NSObject {
         }
         // end hack
 
-        return _pendingProjectTargets.removeFirstOrNil()
+        return popFirst(&_pendingProjectTargets)
     }
 
     private func _buildProjectActions() {
-        _pendingProjectTargets.extend(rules.mapIf { $0.targetForModifiedFiles(self._modifiedFiles.list) })
+        _pendingProjectTargets.extend(mapIf(rules) { $0.targetForModifiedFiles(self._modifiedFiles.list) })
     }
 
     private func _executeTarget(target: LRTarget) {

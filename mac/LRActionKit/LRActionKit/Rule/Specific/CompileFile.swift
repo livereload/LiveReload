@@ -14,8 +14,8 @@ public class CompileFileRule : ScriptInvocationRule {
 
     public /*protected*/ override func loadFromMemento() {
         super.loadFromMemento()
-        compilerName = stringValue(memento["compiler"])
-        outputFilterOption = FilterOption(memento: NVCast(memento["output"], "subdir:."))
+        compilerName = NonEmptyStringValue(memento["compiler"])
+        outputFilterOption = FilterOption(memento: memento["output"] ~|||~ "subdir:.")
         intrinsicInputPathSpec = action.combinedIntrinsicInputPathSpec
     }
 

@@ -1,4 +1,5 @@
 import Foundation
+import SwiftyFoundation
 import PiiVersionKit
 import ATPathSpec
 import PackageManagerKit
@@ -52,7 +53,7 @@ public class Rule : NSObject {
         self.contextAction = contextAction
         self.primaryVersionSpec = LRVersionSpec.stableVersionSpecMatchingAnyVersionInVersionSpace(contextAction.action.primaryVersionSpace)
         super.init()
-        self.memento = memento ? swiftify(dictionary: memento!) : [:]
+        self.memento = (memento as? [String: AnyObject]) ||| [:]
 
         loadFromMemento()
         updateInputPathSpec()
@@ -81,15 +82,13 @@ public class Rule : NSObject {
 
     public /*protected*/ func loadFromMemento() {
         enabled = boolValue(memento["enabled"], defaultValue: true)
-        inputFilterOption = FilterOption(memento: NVCast(memento["filter"], "subdir:."))
-        if let ver = stringValue(memento["version"]) {
+        inputFilterOption = FilterOption(memento: memento["filter"] ~|||~ "subdir:.")
+        if let ver = NonEmptyStringValue(memento["version"]) {
             primaryVersionSpec = LRVersionSpec(string: ver, inVersionSpace: action.primaryVersionSpace)
         } else {
             primaryVersionSpec = LRVersionSpec.stableVersionSpecMatchingAnyVersionInVersionSpace(action.primaryVersionSpace)
         }
-        if let opt = memento["options"].omap({ $0 as? NSDictionary }) {
-            swiftify(dictionary: opt, into: &_options)
-        }
+        _options = (memento["options"] as? [String: AnyObject]) ||| [:]
     }
 
     public /*protected*/ func updateMemento() {
@@ -163,7 +162,7 @@ public class Rule : NSObject {
 
     public var customArguments: [String] {
         get {
-            return NVCast(_options["custom-args"], [])
+            return _options["custom-args"] ~|||~ []
         }
         set {
             setOptionValue((newValue.count > 0 ? newValue : nil), forKey: "custom-args")
@@ -224,7 +223,7 @@ public class Rule : NSObject {
         return findIf(reverse(contextAction.versions as [LRActionVersion])) { self.primaryVersionSpec.matchesVersion($0.primaryVersion, withTag: LRVersionTag.Unknown) }
     }
 
-    private var _c_updateEffectiveVersion = Coalescence(delayMs: 0)
+    private var _c_updateEffectiveVersion = Coalescence()
     private func _updateEffectiveVersion() {
         _c_updateEffectiveVersion.performSync {
             self.effectiveVersion = self._computeEffectiveVersion()
