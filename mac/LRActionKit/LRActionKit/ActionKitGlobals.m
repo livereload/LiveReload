@@ -36,4 +36,4 @@ NSArray *LRValidActionKindStrings() {
 }
 
 
-NSString *const LRActionKitErrorDomain = @"LRActionKit";
+NSString *const ActionKitErrorDomain = @"LRActionKit";

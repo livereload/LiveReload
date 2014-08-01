@@ -2,6 +2,7 @@ import Foundation
 import SwiftyFoundation
 import PiiVersionKit
 import ATPathSpec
+import LRCommons;
 import PackageManagerKit
 
 public class Rule : NSObject {
@@ -85,7 +86,12 @@ public class Rule : NSObject {
         } else {
             primaryVersionSpec = LRVersionSpec.stableVersionSpecMatchingAnyVersionInVersionSpace(action.primaryVersionSpace)
         }
-        _options = (memento["options"] as? [String: AnyObject]) ||| [:]
+
+        if let opts: AnyObject? = memento["options"] {
+            _options = (opts as? [String: AnyObject]) ||| [:]
+        } else {
+            _options = [:]
+        }
     }
 
     public /*protected*/ func updateMemento() {
@@ -131,11 +137,11 @@ public class Rule : NSObject {
         let matchingFiles = modifiedFiles.filter(inputPathSpecMatchesFile)
         let rootFiles = project.rootFilesForFiles(matchingFiles) as [ProjectFile]
         let matchingRootFiles = rootFiles.filter(inputPathSpecMatchesFile)
-        return matchingRootFiles.mapIf { self.fileTargetForRootFile($0) }
+        return mapIf(matchingRootFiles) { self.fileTargetForRootFile($0) }
     }
 
     public func inputPathSpecMatchesFiles(files: [ProjectFile]) -> Bool {
-        return files.any(inputPathSpecMatchesFile)
+        return contains(files, inputPathSpecMatchesFile)
     }
 
     public func inputPathSpecMatchesFile(file: ProjectFile) -> Bool {
@@ -171,7 +177,7 @@ public class Rule : NSObject {
             return quotedArgumentStringUsingBourneQuotingStyle(customArguments)
         }
         set {
-            customArguments = newValue.argumentsArrayUsingBourneQuotingStyle
+            customArguments = newValue.argumentsArrayUsingBourneQuotingStyle()
         }
     }
 
@@ -192,16 +198,15 @@ public class Rule : NSObject {
 
     // MARK: LROption objects
 
-    // TODO: port LROption
-//    public func createOptions() -> [LROption] {
-//        var options: [LROption] = []
-//        options.append(LRVersionOption(manifest: ["id": "version", "label": "Version:"], rule: self, errorSink: nil))
-//        if effectiveVersion {
-//            options.extend(effectiveVersion!.manifest.createOptionsWithAction(self) as [LROption])
-//        }
-//        options.append(LRCustomArgumentsOption(manifest: ["id": "custom-args"], rule: self, errorSink: nil))
-//        return options
-//    }
+    public func createOptions() -> [Option] {
+        var options: [Option] = []
+        options <<< VersionOption(rule: self)
+        if let ev = effectiveVersion {
+            options += ev.manifest.createOptionsWithAction(self) as [Option]
+        }
+        options <<< CustomArgumentsOption(rule: self)
+        return options
+    }
 
 
     // MARK: Versions
@@ -230,15 +235,19 @@ public class Rule : NSObject {
     }
 
     private func _initEffectiveVersion() {
-        _c_updateEffectiveVersion.monitorBlock = { [weak self] (active) in self?.project.setAnalysisInProgress(active, forTask: self!) }
+        _c_updateEffectiveVersion.monitorBlock = weakify(self, Rule._updateEffectiveVersionState)
 
         o.on(LRContextActionDidChangeVersionsNotification, self, Rule._updateEffectiveVersion)
         _updateEffectiveVersion()
     }
 
+    private func _updateEffectiveVersionState(running: Bool) {
+        project.setAnalysisInProgress(running, forTask: self)
+    }
+
     public var missingEffectiveVersionError: NSError {
         var available = join(", ", contextAction.versions.map { $0.primaryVersion.description })
-        return NSError(LRErrorDomain, LRErrorNoMatchingVersion, "No available version matched for version spec \(primaryVersionSpec), available versions: \(available)")
+        return NSError(ActionKitErrorDomain as String, ActionKitErrorCode.NoMatchingVersion.toRaw(), "No available version matched for version spec \(primaryVersionSpec), available versions: \(available)")
     }
 
 
@@ -260,7 +269,9 @@ public class Rule : NSObject {
         if let eff = effectiveVersion {
             let manifest = eff.manifest
             step.commandLine = manifest.commandLineSpec
-            step.addValue(action.plugin.path as String, forSubstitutionKey: "plugin")
+            for (key, value) in action.container.substitutionValues {
+                step.addValue(value, forSubstitutionKey: key)
+            }
 
             for package in eff.packageSet.packages as [LRPackage] {
                 step.addValue(package.sourceFolderURL.path as String, forSubstitutionKey: package.identifier)

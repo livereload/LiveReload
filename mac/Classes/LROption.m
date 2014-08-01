@@ -26,13 +26,13 @@
     return _identifier;
 }
 
-- (void)loadManifest {
-    _identifier = self.manifest[@"id"];
-    if (_identifier.length == 0)
-        [self addErrorMessage:@"Missing id key"];
+// - (void)loadManifest {
+//     _identifier = self.manifest[@"id"];
+//     if (_identifier.length == 0)
+//         [self addErrorMessage:@"Missing id key"];
 
-    _label = self.manifest[@"label"];
-}
+//     _label = self.manifest[@"label"];
+// }
 
 - (void)loadModelValues {
     if (!self.valid)

@@ -1,24 +1,12 @@
-
-#import "Action.h"
-#import "Errors.h"
-#import "Plugin.h"
-#import "LROption+Factory.h"
-#import "AppState.h"
 @import PackageManagerKit;
 @import ATPathSpec;
 
+#import "Action.h"
 #import "LRManifestLayer.h"
 #import "LRActionVersion.h"
 #import "LRActionManifest.h"
 #import "LRAssetPackageConfiguration.h"
-
-#import "ATFunctionalStyle.h"
-
-// for .class ref only
-#import "CompileFileRuleRow.h"
-#import "FilterRuleRow.h"
-#import "CustomCommandRuleRow.h"
-#import "UserScriptRuleRow.h"
+#import "LRActionKit-Swift.h"
 
 
 @implementation Action {
@@ -27,9 +15,9 @@
     NSString *_fakeChangeExtension;
 }
 
-- (instancetype)initWithManifest:(NSDictionary *)manifest plugin:(Plugin *)plugin {
+- (instancetype)initWithManifest:(NSDictionary *)manifest container:(id<ActionContainer>)container {
     if (self = [super initWithManifest:manifest errorSink:plugin]) {
-        _plugin = plugin;
+        _container = container;
         [self initializeWithOptions];
     }
     return self;

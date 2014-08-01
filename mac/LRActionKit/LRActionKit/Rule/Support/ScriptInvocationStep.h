@@ -1,7 +1,7 @@
 @import Foundation;
 
 
-@class Project;
+@protocol ProjectContext;
 @class ProjectFile;
 @class RuntimeInstance;
 @class LROperationResult;
@@ -12,7 +12,7 @@ typedef void (^ScriptInvocationOutputLineBlock)(NSString *line);
 
 @interface ScriptInvocationStep : NSObject
 
-@property(nonatomic, retain) Project *project;  // for collapsing the paths in the console log
+@property(nonatomic, retain) id<ProjectContext> project;  // for collapsing the paths in the console log
 
 @property(nonatomic, copy) NSArray *commandLine;
 @property(nonatomic) LROperationResult *result;

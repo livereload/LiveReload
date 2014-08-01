@@ -1,7 +1,7 @@
+@import PackageManagerKit;
 
 #import "LRAssetPackageConfiguration.h"
-@import PackageManagerKit;
-#import "AppState.h"
+#import "LRManifestErrorSink.h"
 
 
 @interface LRAssetPackageConfiguration ()

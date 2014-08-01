@@ -1,9 +1,7 @@
-
-#import "LRManifestLayer.h"
-#import "AppState.h"
+@import LRCommons;
 @import PackageManagerKit;
 
-#import "ATFunctionalStyle.h"
+#import "LRManifestLayer.h"
 
 
 @interface LRManifestLayer ()

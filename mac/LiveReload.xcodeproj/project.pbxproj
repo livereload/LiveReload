@@ -118,7 +118,6 @@
 		4353416B19489EA8003E51EB /* LiveReloadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353403819489EA7003E51EB /* LiveReloadAppDelegate.m */; };
 		4353416C19489EA8003E51EB /* LRActionManifest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353403A19489EA7003E51EB /* LRActionManifest.m */; };
 		4353416D19489EA8003E51EB /* LRActionVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353403C19489EA7003E51EB /* LRActionVersion.m */; };
-		4353416E19489EA8003E51EB /* LRAssetPackageConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353403E19489EA7003E51EB /* LRAssetPackageConfiguration.m */; };
 		4353417019489EA8003E51EB /* LRCheckboxOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353404219489EA7003E51EB /* LRCheckboxOption.m */; };
 		4353417119489EA8003E51EB /* LRChildErrorSink.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353404419489EA7003E51EB /* LRChildErrorSink.m */; };
 		4353417219489EA8003E51EB /* LRCommandLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353404619489EA7003E51EB /* LRCommandLine.m */; };
@@ -691,8 +690,6 @@
 		4353403A19489EA7003E51EB /* LRActionManifest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRActionManifest.m; sourceTree = "<group>"; };
 		4353403B19489EA7003E51EB /* LRActionVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRActionVersion.h; sourceTree = "<group>"; };
 		4353403C19489EA7003E51EB /* LRActionVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRActionVersion.m; sourceTree = "<group>"; };
-		4353403D19489EA7003E51EB /* LRAssetPackageConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRAssetPackageConfiguration.h; sourceTree = "<group>"; };
-		4353403E19489EA7003E51EB /* LRAssetPackageConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRAssetPackageConfiguration.m; sourceTree = "<group>"; };
 		4353404119489EA7003E51EB /* LRCheckboxOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRCheckboxOption.h; sourceTree = "<group>"; };
 		4353404219489EA7003E51EB /* LRCheckboxOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRCheckboxOption.m; sourceTree = "<group>"; };
 		4353404319489EA7003E51EB /* LRChildErrorSink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRChildErrorSink.h; sourceTree = "<group>"; };
@@ -1597,8 +1594,6 @@
 				4353403A19489EA7003E51EB /* LRActionManifest.m */,
 				4353403B19489EA7003E51EB /* LRActionVersion.h */,
 				4353403C19489EA7003E51EB /* LRActionVersion.m */,
-				4353403D19489EA7003E51EB /* LRAssetPackageConfiguration.h */,
-				4353403E19489EA7003E51EB /* LRAssetPackageConfiguration.m */,
 				4353404119489EA7003E51EB /* LRCheckboxOption.h */,
 				4353404219489EA7003E51EB /* LRCheckboxOption.m */,
 				4353404319489EA7003E51EB /* LRChildErrorSink.h */,
@@ -2345,7 +2340,6 @@
 				435341C519489EA8003E51EB /* Plugin.m in Sources */,
 				435341E019489EA8003E51EB /* StatusItemController.m in Sources */,
 				4353417A19489EA8003E51EB /* LROption.m in Sources */,
-				4353416E19489EA8003E51EB /* LRAssetPackageConfiguration.m in Sources */,
 				4353414219489EA8003E51EB /* AddFilterRow.m in Sources */,
 				4353416619489EA8003E51EB /* LicenseCodeViewController.m in Sources */,
 				435341CE19489EA8003E51EB /* RubyPreferencesViewController.m in Sources */,

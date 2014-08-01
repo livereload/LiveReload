@@ -1,9 +1,9 @@
+@import LRCommons;
 
 #import "Rulebook.h"
 #import "Action.h"
 #import "LRContextAction.h"
-
-#import "ATFunctionalStyle.h"
+#import "LRActionKit-Swift.h"
 
 
 @implementation Rulebook {
@@ -12,7 +12,7 @@
     NSMutableArray *_rules;
 }
 
-- (id)initWithActions:(NSArray *)actions project:(Project *)project {
+- (id)initWithActions:(NSArray *)actions project:(id<ProjectContext> )project {
     self = [super init];
     if (self) {
         _actions = [actions copy];
@@ -36,7 +36,7 @@
         if (!rule.nonEmpty)
             continue;
         
-        NSDictionary *actionMemento = rule.memento;
+        NSDictionary *actionMemento = rule.theMemento;
         if (actionMemento)
             [actionMementos addObject:actionMemento];
     }

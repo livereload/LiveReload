@@ -1,5 +1,6 @@
+@import Foundation;
 
-@import LRActionKit;
+#import "LRManifestBasedObject.h"
 
 
 @interface LRAssetPackageConfiguration : LRManifestBasedObject

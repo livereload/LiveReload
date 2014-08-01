@@ -8,7 +8,6 @@
 #import "LRActionManifest.h"
 #import "LRManifestLayer.h"
 #import "LRVersionSpec.h"
-#import "Project.h"
 #import "LRAssetPackageConfiguration.h"
 
 
@@ -24,7 +23,7 @@ NSString *const LRContextActionDidChangeVersionsNotification = @"LRContextAction
     ATCoalescedState _updateState;
 }
 
-- (id)initWithAction:(Action *)action project:(Project *)project resolutionContext:(LRPackageResolutionContext *)resolutionContext {
+- (id)initWithAction:(Action *)action project:(id<ProjectContext>)project resolutionContext:(LRPackageResolutionContext *)resolutionContext {
     self = [super init];
     if (self) {
         _action = action;

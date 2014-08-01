@@ -13,6 +13,14 @@
 		430F6383198728E8001021E0 /* LRContextAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 430F637F198728E8001021E0 /* LRContextAction.m */; };
 		430F638719872959001021E0 /* LRManifestLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 430F638519872959001021E0 /* LRManifestLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		430F638819872959001021E0 /* LRManifestLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 430F638619872959001021E0 /* LRManifestLayer.m */; };
+		4324E90B198B269B003BDDD8 /* LRAssetPackageConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 4324E909198B269B003BDDD8 /* LRAssetPackageConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4324E90C198B269B003BDDD8 /* LRAssetPackageConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4324E90A198B269B003BDDD8 /* LRAssetPackageConfiguration.m */; };
+		433F893E198B300900F1A281 /* ActionContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433F893D198B300900F1A281 /* ActionContainer.swift */; };
+		433F8941198B31B900F1A281 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433F8940198B31B900F1A281 /* Option.swift */; };
+		433F8943198B396000F1A281 /* CheckboxOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433F8942198B396000F1A281 /* CheckboxOption.swift */; };
+		433F8945198B3A8300F1A281 /* OptionRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433F8944198B3A8300F1A281 /* OptionRegistry.swift */; };
+		433F8947198B402A00F1A281 /* VersionOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433F8946198B402A00F1A281 /* VersionOption.swift */; };
+		433F8949198B403200F1A281 /* CustomArgumentsOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433F8948198B403200F1A281 /* CustomArgumentsOption.swift */; };
 		434E7786198729BB00B18BC8 /* ActionSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434E7781198729BB00B18BC8 /* ActionSet.swift */; };
 		434E7787198729BB00B18BC8 /* Analyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434E7782198729BB00B18BC8 /* Analyzer.swift */; };
 		434E7788198729BB00B18BC8 /* FileClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434E7783198729BB00B18BC8 /* FileClassifier.swift */; };
@@ -92,6 +100,14 @@
 		430F637F198728E8001021E0 /* LRContextAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRContextAction.m; sourceTree = "<group>"; };
 		430F638519872959001021E0 /* LRManifestLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRManifestLayer.h; sourceTree = "<group>"; };
 		430F638619872959001021E0 /* LRManifestLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRManifestLayer.m; sourceTree = "<group>"; };
+		4324E909198B269B003BDDD8 /* LRAssetPackageConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRAssetPackageConfiguration.h; sourceTree = "<group>"; };
+		4324E90A198B269B003BDDD8 /* LRAssetPackageConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRAssetPackageConfiguration.m; sourceTree = "<group>"; };
+		433F893D198B300900F1A281 /* ActionContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionContainer.swift; sourceTree = "<group>"; };
+		433F8940198B31B900F1A281 /* Option.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Option.swift; sourceTree = "<group>"; };
+		433F8942198B396000F1A281 /* CheckboxOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckboxOption.swift; sourceTree = "<group>"; };
+		433F8944198B3A8300F1A281 /* OptionRegistry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionRegistry.swift; sourceTree = "<group>"; };
+		433F8946198B402A00F1A281 /* VersionOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionOption.swift; sourceTree = "<group>"; };
+		433F8948198B403200F1A281 /* CustomArgumentsOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomArgumentsOption.swift; sourceTree = "<group>"; };
 		434E7781198729BB00B18BC8 /* ActionSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionSet.swift; sourceTree = "<group>"; };
 		434E7782198729BB00B18BC8 /* Analyzer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Analyzer.swift; sourceTree = "<group>"; };
 		434E7783198729BB00B18BC8 /* FileClassifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileClassifier.swift; sourceTree = "<group>"; };
@@ -179,12 +195,15 @@
 		430F637B198728E8001021E0 /* Action */ = {
 			isa = PBXGroup;
 			children = (
+				433F893D198B300900F1A281 /* ActionContainer.swift */,
 				430F637C198728E8001021E0 /* Action.h */,
 				430F637D198728E8001021E0 /* Action.m */,
 				434E77F3198732B700B18BC8 /* LRActionVersion.h */,
 				434E77F4198732B700B18BC8 /* LRActionVersion.m */,
 				430F637E198728E8001021E0 /* LRContextAction.h */,
 				430F637F198728E8001021E0 /* LRContextAction.m */,
+				4324E909198B269B003BDDD8 /* LRAssetPackageConfiguration.h */,
+				4324E90A198B269B003BDDD8 /* LRAssetPackageConfiguration.m */,
 				430F638419872959001021E0 /* Manifest */,
 			);
 			path = Action;
@@ -199,6 +218,18 @@
 				430F638619872959001021E0 /* LRManifestLayer.m */,
 			);
 			path = Manifest;
+			sourceTree = "<group>";
+		};
+		433F893F198B31A000F1A281 /* Options */ = {
+			isa = PBXGroup;
+			children = (
+				433F8944198B3A8300F1A281 /* OptionRegistry.swift */,
+				433F8940198B31B900F1A281 /* Option.swift */,
+				433F8942198B396000F1A281 /* CheckboxOption.swift */,
+				433F8946198B402A00F1A281 /* VersionOption.swift */,
+				433F8948198B403200F1A281 /* CustomArgumentsOption.swift */,
+			);
+			path = Options;
 			sourceTree = "<group>";
 		};
 		434E7780198729BB00B18BC8 /* Analysis */ = {
@@ -334,6 +365,7 @@
 				439317451985D3ED00685024 /* ActionKitGlobals.m */,
 				439317531985DBCE00685024 /* Basics */,
 				430F637B198728E8001021E0 /* Action */,
+				433F893F198B31A000F1A281 /* Options */,
 				434E779219872A6000B18BC8 /* Rule */,
 				434E77A919872A9700B18BC8 /* Target */,
 				434E77DF19872F7800B18BC8 /* Result */,
@@ -423,6 +455,7 @@
 				434E77E419872F7800B18BC8 /* LROperationResult.h in Headers */,
 				434E77C119872AA400B18BC8 /* LRTRRun.h in Headers */,
 				439317511985DB0500685024 /* UserScript.h in Headers */,
+				4324E90B198B269B003BDDD8 /* LRAssetPackageConfiguration.h in Headers */,
 				439317461985D3ED00685024 /* ActionKitGlobals.h in Headers */,
 				439317231985D33500685024 /* LRActionKit.h in Headers */,
 			);
@@ -526,6 +559,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				434E77A819872A6000B18BC8 /* ScriptInvocation.swift in Sources */,
+				433F8947198B402A00F1A281 /* VersionOption.swift in Sources */,
 				434E77BE19872AA400B18BC8 /* LRTRGlobals.m in Sources */,
 				434E77EE1987314B00B18BC8 /* FilterOption.m in Sources */,
 				434E77A119872A6000B18BC8 /* Rulebook.m in Sources */,
@@ -543,10 +577,12 @@
 				434E77A619872A6000B18BC8 /* RunTests.swift in Sources */,
 				434E77F21987314B00B18BC8 /* LRVersionTag.m in Sources */,
 				434E77A519872A6000B18BC8 /* Filter.swift in Sources */,
+				4324E90C198B269B003BDDD8 /* LRAssetPackageConfiguration.m in Sources */,
 				434E77C019872AA400B18BC8 /* LRTRProtocolParser.m in Sources */,
 				430F6381198728E8001021E0 /* Action.m in Sources */,
 				434E77A219872A6000B18BC8 /* CompileFile.swift in Sources */,
 				434E77E319872F7800B18BC8 /* LRMessage.swift in Sources */,
+				433F8945198B3A8300F1A281 /* OptionRegistry.swift in Sources */,
 				434E77FE1987337500B18BC8 /* ScriptInvocationStep.m in Sources */,
 				434E7786198729BB00B18BC8 /* ActionSet.swift in Sources */,
 				43BEEBFA1985E99D00D2D239 /* LRManifestBasedObject.m in Sources */,
@@ -554,18 +590,22 @@
 				434E778A198729BB00B18BC8 /* SampleAnalyzers.swift in Sources */,
 				434E7789198729BB00B18BC8 /* ProjectAnalysis.swift in Sources */,
 				434E77A719872A6000B18BC8 /* UserScript.swift in Sources */,
+				433F8949198B403200F1A281 /* CustomArgumentsOption.swift in Sources */,
 				430F6383198728E8001021E0 /* LRContextAction.m in Sources */,
 				434E77E519872F7800B18BC8 /* LROperationResult.m in Sources */,
 				434E7787198729BB00B18BC8 /* Analyzer.swift in Sources */,
 				434E77A419872A6000B18BC8 /* CustomCommand.swift in Sources */,
 				434E77B119872A9700B18BC8 /* LRTarget.swift in Sources */,
 				434E77AE19872A9700B18BC8 /* LRFileTarget.swift in Sources */,
+				433F8943198B396000F1A281 /* CheckboxOption.swift in Sources */,
+				433F8941198B31B900F1A281 /* Option.swift in Sources */,
 				434E779F19872A6000B18BC8 /* Rule.swift in Sources */,
 				434E77B019872A9700B18BC8 /* LRProjectTarget.swift in Sources */,
 				434E77C219872AA400B18BC8 /* LRTRRun.m in Sources */,
 				430F638819872959001021E0 /* LRManifestLayer.m in Sources */,
 				439317571985DC0A00685024 /* ProjectContext.swift in Sources */,
 				434E77F01987314B00B18BC8 /* LRVersionSpec.m in Sources */,
+				433F893E198B300900F1A281 /* ActionContainer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -685,6 +725,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				USER_HEADER_SEARCH_PATHS = "$(TARGET_BUILD_DIR)/$(PUBLIC_HEADERS_FOLDER_PATH)";
 			};
 			name = Debug;
 		};
@@ -703,6 +744,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "$(TARGET_BUILD_DIR)/$(PUBLIC_HEADERS_FOLDER_PATH)";
 			};
 			name = Release;
 		};

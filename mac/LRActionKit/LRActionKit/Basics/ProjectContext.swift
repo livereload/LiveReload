@@ -1,7 +1,9 @@
 import Foundation
 import ATPathSpec
+import PackageManagerKit
 
-@objc public protocol ProjectContext : NSObjectProtocol {
+@objc(ProjectContext)
+public protocol ProjectContext : NSObjectProtocol {
 
     var rootURL: NSURL { get }
     var path: String { get }
@@ -22,5 +24,11 @@ import ATPathSpec
         //    Glue().postMessage(["service": "reloader", "command": "reload", "changes": reloadRequests as NSArray, "forceFullReload": project.disableLiveRefresh as Bool])
         //    postNotification(ProjectDidDetectChangeNotification)
         //    StatIncrement(BrowserRefreshCountStat, 1)
+
+    func rootFilesForFiles(files: [ProjectFile]) -> [ProjectFile]
+
+    func setAnalysisInProgress(inProgress: Bool, forTask task: NSObject)
+
+    var resolutionContext: LRPackageResolutionContext { get }
 
 }

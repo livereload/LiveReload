@@ -2,7 +2,7 @@
 
 
 @class Rule;
-@class Project;
+@protocol ProjectContext;
 @class LRPackageResolutionContext;
 @class LRContextAction;
 
@@ -10,7 +10,7 @@
 @interface Rulebook : NSObject
 
 @property(nonatomic, strong, readonly) NSArray *actions;
-@property(nonatomic, strong, readonly) Project *project;
+@property(nonatomic, strong, readonly) id<ProjectContext> project;
 @property(nonatomic, strong, readonly) LRPackageResolutionContext *resolutionContext;
 
 @property(nonatomic, strong, readonly) NSArray *contextActions;
@@ -22,7 +22,7 @@
 @property(nonatomic, strong, readonly) NSArray *activeRules;
 @property(nonatomic, copy) NSDictionary *memento;
 
-- (id)initWithActions:(NSArray *)actions project:(Project *)project;
+- (id)initWithActions:(NSArray *)actions project:(id<ProjectContext> )project;
 
 - (void)insertObject:(Rule *)object inRulesAtIndex:(NSUInteger)index;
 - (void)removeObjectFromRulesAtIndex:(NSUInteger)index;

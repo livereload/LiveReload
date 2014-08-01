@@ -3,7 +3,7 @@
 #import "LRManifestBasedObject.h"
 
 
-@class Plugin;
+@protocol ActionContainer;
 @class Rule;
 @class LRActionVersion;
 @class LRVersionSpace;
@@ -13,9 +13,9 @@
 
 @interface Action : LRManifestBasedObject
 
-- (instancetype)initWithManifest:(NSDictionary *)manifest plugin:(Plugin *)plugin;
+- (instancetype)initWithManifest:(NSDictionary *)manifest container:(id<ActionContainer>)container;
 
-@property(nonatomic, strong) Plugin *plugin;
+@property(nonatomic, strong) id<ActionContainer> container;
 @property(nonatomic, assign) Class actionClass;
 @property(nonatomic, assign) Class rowClass;
 

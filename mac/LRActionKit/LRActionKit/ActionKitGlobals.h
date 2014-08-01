@@ -23,15 +23,15 @@ typedef NS_ENUM(NSInteger, LRMessageSeverity) {
 };
 
 
-extern NSString *const LRActionKitErrorDomain;
+extern NSString *const ActionKitErrorDomain;
 
-typedef NS_ENUM(NSInteger, LRActionKitErrorCode) {
-    LRActionKitErrorCodeNone,
-    LRActionKitErrorCodeInvalidManifest,
-//    LRActionKitErrorCodeJsonParsingError,
-//    LRActionKitErrorCodePluginNotReadable,
-//    LRActionKitErrorCodePluginNotExecutable,
-//    LRActionKitErrorCodePluginApiViolation,
-//    LRActionKitErrorCodeEditorPluginReturnedBrokenState,
-//    LRActionKitErrorCodeNoMatchingVersion,
+typedef NS_ENUM(NSInteger, ActionKitErrorCode) {
+    ActionKitErrorCodeNone,
+    ActionKitErrorCodeInvalidManifest,
+//    ActionKitErrorCodeJsonParsingError,
+//    ActionKitErrorCodePluginNotReadable,
+//    ActionKitErrorCodePluginNotExecutable,
+//    ActionKitErrorCodePluginApiViolation,
+//    ActionKitErrorCodeEditorPluginReturnedBrokenState,
+    ActionKitErrorCodeNoMatchingVersion,
 };
