@@ -119,7 +119,6 @@
 		4353416C19489EA8003E51EB /* LRActionManifest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353403A19489EA7003E51EB /* LRActionManifest.m */; };
 		4353416D19489EA8003E51EB /* LRActionVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353403C19489EA7003E51EB /* LRActionVersion.m */; };
 		4353417019489EA8003E51EB /* LRCheckboxOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353404219489EA7003E51EB /* LRCheckboxOption.m */; };
-		4353417119489EA8003E51EB /* LRChildErrorSink.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353404419489EA7003E51EB /* LRChildErrorSink.m */; };
 		4353417219489EA8003E51EB /* LRCommandLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353404619489EA7003E51EB /* LRCommandLine.m */; };
 		4353417419489EA8003E51EB /* LRCustomArgumentsOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353404A19489EA7003E51EB /* LRCustomArgumentsOption.m */; };
 		4353417519489EA8003E51EB /* LRGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353404C19489EA7003E51EB /* LRGlobals.m */; };
@@ -692,8 +691,6 @@
 		4353403C19489EA7003E51EB /* LRActionVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRActionVersion.m; sourceTree = "<group>"; };
 		4353404119489EA7003E51EB /* LRCheckboxOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRCheckboxOption.h; sourceTree = "<group>"; };
 		4353404219489EA7003E51EB /* LRCheckboxOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRCheckboxOption.m; sourceTree = "<group>"; };
-		4353404319489EA7003E51EB /* LRChildErrorSink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRChildErrorSink.h; sourceTree = "<group>"; };
-		4353404419489EA7003E51EB /* LRChildErrorSink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRChildErrorSink.m; sourceTree = "<group>"; };
 		4353404519489EA7003E51EB /* LRCommandLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRCommandLine.h; sourceTree = "<group>"; };
 		4353404619489EA7003E51EB /* LRCommandLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRCommandLine.m; sourceTree = "<group>"; };
 		4353404919489EA7003E51EB /* LRCustomArgumentsOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRCustomArgumentsOption.h; sourceTree = "<group>"; };
@@ -1596,8 +1593,6 @@
 				4353403C19489EA7003E51EB /* LRActionVersion.m */,
 				4353404119489EA7003E51EB /* LRCheckboxOption.h */,
 				4353404219489EA7003E51EB /* LRCheckboxOption.m */,
-				4353404319489EA7003E51EB /* LRChildErrorSink.h */,
-				4353404419489EA7003E51EB /* LRChildErrorSink.m */,
 				4353404519489EA7003E51EB /* LRCommandLine.h */,
 				4353404619489EA7003E51EB /* LRCommandLine.m */,
 				4353404919489EA7003E51EB /* LRCustomArgumentsOption.h */,
@@ -2274,7 +2269,6 @@
 				435341EA19489EA8003E51EB /* UIBuilder.m in Sources */,
 				4303A54715B513FD009D732A /* strconv.c in Sources */,
 				4303A54815B513FD009D732A /* utf.c in Sources */,
-				4353417119489EA8003E51EB /* LRChildErrorSink.m in Sources */,
 				4303A54915B513FD009D732A /* value.c in Sources */,
 				4303A54A15B513FD009D732A /* nodeapp.c in Sources */,
 				4303A54B15B513FD009D732A /* nodeapp_autorelease.c in Sources */,

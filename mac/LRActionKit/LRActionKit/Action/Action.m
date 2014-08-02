@@ -1,3 +1,4 @@
+@import LRCommons;
 @import PackageManagerKit;
 @import ATPathSpec;
 
@@ -7,6 +8,7 @@
 #import "LRActionManifest.h"
 #import "LRAssetPackageConfiguration.h"
 #import "LRActionKit-Swift.h"
+#import "ActionKitSingleton.h"
 
 
 @implementation Action {
@@ -16,7 +18,7 @@
 }
 
 - (instancetype)initWithManifest:(NSDictionary *)manifest container:(id<ActionContainer>)container {
-    if (self = [super initWithManifest:manifest errorSink:plugin]) {
+    if (self = [super initWithManifest:manifest errorSink:container]) {
         _container = container;
         [self initializeWithOptions];
     }
@@ -31,32 +33,32 @@
                                  @"filter": @{
                                          @"kind": @"filter",
                                          @"objc_class": [FilterRule class],
-                                         @"objc_rowClass": [FilterRuleRow class],
+                                         @"objc_rowClass": NSClassFromString(@"FilterRuleRow"),
                                      },
                                  @"compile-file": @{
                                          @"kind": @"compiler",
                                          @"objc_class": [CompileFileRule class],
-                                         @"objc_rowClass": [CompileFileRuleRow class],
+                                         @"objc_rowClass": NSClassFromString(@"CompileFileRuleRow"),
                                      },
                                  @"compile-folder": @{
                                          @"kind": @"postproc",
                                          @"objc_class": [CompileFolderRule class],
-                                         @"objc_rowClass": [FilterRuleRow class],
+                                         @"objc_rowClass": NSClassFromString(@"FilterRuleRow"),
                                      },
                                  @"run-tests": @{
                                          @"kind": @"postproc",
                                          @"objc_class":    [RunTestsRule class],
-                                         @"objc_rowClass": [FilterRuleRow class],
+                                         @"objc_rowClass": NSClassFromString(@"FilterRuleRow"),
                                      },
                                  @"custom-command": @{
                                          @"kind": @"postproc",
                                          @"objc_class": [CustomCommandRule class],
-                                         @"objc_rowClass": [CustomCommandRuleRow class],
+                                         @"objc_rowClass": NSClassFromString(@"CustomCommandRuleRow"),
                                      },
                                  @"user-script": @{
                                          @"kind": @"postproc",
                                          @"objc_class": [UserScriptRule class],
-                                         @"objc_rowClass": [UserScriptRuleRow class],
+                                         @"objc_rowClass": NSClassFromString(@"UserScriptRuleRow"),
                                      },
                                  };
 
@@ -83,14 +85,14 @@
     if (_kind == ActionKindUnknown)
         [self addErrorMessage:[NSString stringWithFormat:@"'kind' attribute is required and must be one of %@", LRValidActionKindStrings()]];
 
-    LRPackageManager *packageManager = [AppState sharedAppState].packageManager;
+    LRPackageManager *packageManager = [ActionKitSingleton sharedActionKit].packageManager;
     NSArray *versionInfoLayers = [(self.manifest[@"versionInfo"] ?: @{}) arrayByMappingEntriesUsingBlock:^id(NSString *packageRefString, NSDictionary *info) {
         if ([packageRefString hasPrefix:@"__"])
             return nil;
         LRPackageReference *reference = [packageManager packageReferenceWithString:packageRefString];
         return [[LRManifestLayer alloc] initWithManifest:info requiredPackageReferences:@[reference] errorSink:self];
     }];
-    
+
     _manifestLayers = [[self.manifest[@"info"] arrayByMappingElementsUsingBlock:^id(NSDictionary *info) {
         return [[LRManifestLayer alloc] initWithManifest:info errorSink:self];
     }] arrayByAddingObjectsFromArray:versionInfoLayers];

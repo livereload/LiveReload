@@ -2,6 +2,8 @@
 @import PackageManagerKit;
 
 #import "LRManifestLayer.h"
+#import "LRManifestErrorSink.h"
+#import "ActionKitSingleton.h"
 
 
 @interface LRManifestLayer ()
@@ -32,7 +34,7 @@
 }
 
 + (NSArray *)packageReferencesWithManifest:(NSDictionary *)manifest {
-    LRPackageManager *packageManager = [AppState sharedAppState].packageManager;
+    LRPackageManager *packageManager = [ActionKitSingleton sharedActionKit].packageManager;
     return [manifest[@"applies_to"] arrayByMappingElementsUsingBlock:^id(NSDictionary *packageInfo) {
         return [packageManager packageReferenceWithDictionary:packageInfo];
     }];

@@ -2,6 +2,7 @@
 
 #import "LRAssetPackageConfiguration.h"
 #import "LRManifestErrorSink.h"
+#import "ActionKitSingleton.h"
 
 
 @interface LRAssetPackageConfiguration ()
@@ -21,7 +22,7 @@
 - (void)load {
     _packageReferences = @[];
 
-    LRPackageManager *packageManager = [AppState sharedAppState].packageManager;
+    LRPackageManager *packageManager = [ActionKitSingleton sharedActionKit].packageManager;
 
     NSArray *packagesData = self.manifest[@"packages"];
     if (![packagesData isKindOfClass:NSArray.class] || packagesData.count == 0) {

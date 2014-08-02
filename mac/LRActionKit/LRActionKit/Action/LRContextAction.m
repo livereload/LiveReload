@@ -9,6 +9,7 @@
 #import "LRManifestLayer.h"
 #import "LRVersionSpec.h"
 #import "LRAssetPackageConfiguration.h"
+#import "LRActionKit-Swift.h"
 
 
 NSString *const LRContextActionDidChangeVersionsNotification = @"LRContextActionDidChangeVersions";

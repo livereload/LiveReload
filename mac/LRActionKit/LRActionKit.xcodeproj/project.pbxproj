@@ -81,6 +81,10 @@
 		43BEEBF91985E99D00D2D239 /* LRManifestBasedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BEEBF61985E99D00D2D239 /* LRManifestBasedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		43BEEBFA1985E99D00D2D239 /* LRManifestBasedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 43BEEBF71985E99D00D2D239 /* LRManifestBasedObject.m */; };
 		43BEEBFB1985E99D00D2D239 /* LRManifestErrorSink.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BEEBF81985E99D00D2D239 /* LRManifestErrorSink.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43D67E59198CAE4300D229BA /* ActionKitSingleton.h in Headers */ = {isa = PBXBuildFile; fileRef = 43D67E57198CAE4300D229BA /* ActionKitSingleton.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43D67E5A198CAE4300D229BA /* ActionKitSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D67E58198CAE4300D229BA /* ActionKitSingleton.m */; };
+		43D67E5D198CAFCC00D229BA /* LRChildErrorSink.h in Headers */ = {isa = PBXBuildFile; fileRef = 43D67E5B198CAFCC00D229BA /* LRChildErrorSink.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43D67E5E198CAFCC00D229BA /* LRChildErrorSink.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D67E5C198CAFCC00D229BA /* LRChildErrorSink.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -171,6 +175,10 @@
 		43BEEBF61985E99D00D2D239 /* LRManifestBasedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRManifestBasedObject.h; sourceTree = "<group>"; };
 		43BEEBF71985E99D00D2D239 /* LRManifestBasedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRManifestBasedObject.m; sourceTree = "<group>"; };
 		43BEEBF81985E99D00D2D239 /* LRManifestErrorSink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRManifestErrorSink.h; sourceTree = "<group>"; };
+		43D67E57198CAE4300D229BA /* ActionKitSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionKitSingleton.h; sourceTree = "<group>"; };
+		43D67E58198CAE4300D229BA /* ActionKitSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionKitSingleton.m; sourceTree = "<group>"; };
+		43D67E5B198CAFCC00D229BA /* LRChildErrorSink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRChildErrorSink.h; sourceTree = "<group>"; };
+		43D67E5C198CAFCC00D229BA /* LRChildErrorSink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRChildErrorSink.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -363,6 +371,8 @@
 				439317221985D33500685024 /* LRActionKit.h */,
 				439317441985D3ED00685024 /* ActionKitGlobals.h */,
 				439317451985D3ED00685024 /* ActionKitGlobals.m */,
+				43D67E57198CAE4300D229BA /* ActionKitSingleton.h */,
+				43D67E58198CAE4300D229BA /* ActionKitSingleton.m */,
 				439317531985DBCE00685024 /* Basics */,
 				430F637B198728E8001021E0 /* Action */,
 				433F893F198B31A000F1A281 /* Options */,
@@ -423,6 +433,8 @@
 				43BEEBF61985E99D00D2D239 /* LRManifestBasedObject.h */,
 				43BEEBF71985E99D00D2D239 /* LRManifestBasedObject.m */,
 				43BEEBF81985E99D00D2D239 /* LRManifestErrorSink.h */,
+				43D67E5B198CAFCC00D229BA /* LRChildErrorSink.h */,
+				43D67E5C198CAFCC00D229BA /* LRChildErrorSink.m */,
 			);
 			path = Basics;
 			sourceTree = "<group>";
@@ -449,11 +461,13 @@
 				434E77BF19872AA400B18BC8 /* LRTRProtocolParser.h in Headers */,
 				434E77BD19872AA400B18BC8 /* LRTRGlobals.h in Headers */,
 				434E77C519872AA400B18BC8 /* LRTRTestAnythingProtocolParser.h in Headers */,
+				43D67E59198CAE4300D229BA /* ActionKitSingleton.h in Headers */,
 				43BEEBF91985E99D00D2D239 /* LRManifestBasedObject.h in Headers */,
 				434E77F11987314B00B18BC8 /* LRVersionTag.h in Headers */,
 				430F6380198728E8001021E0 /* Action.h in Headers */,
 				434E77E419872F7800B18BC8 /* LROperationResult.h in Headers */,
 				434E77C119872AA400B18BC8 /* LRTRRun.h in Headers */,
+				43D67E5D198CAFCC00D229BA /* LRChildErrorSink.h in Headers */,
 				439317511985DB0500685024 /* UserScript.h in Headers */,
 				4324E90B198B269B003BDDD8 /* LRAssetPackageConfiguration.h in Headers */,
 				439317461985D3ED00685024 /* ActionKitGlobals.h in Headers */,
@@ -574,8 +588,10 @@
 				434E77F6198732B700B18BC8 /* LRActionVersion.m in Sources */,
 				434E77CE19872B2800B18BC8 /* LRPathProcessing.m in Sources */,
 				439317551985DBCE00685024 /* ProjectFile.swift in Sources */,
+				43D67E5E198CAFCC00D229BA /* LRChildErrorSink.m in Sources */,
 				434E77A619872A6000B18BC8 /* RunTests.swift in Sources */,
 				434E77F21987314B00B18BC8 /* LRVersionTag.m in Sources */,
+				43D67E5A198CAE4300D229BA /* ActionKitSingleton.m in Sources */,
 				434E77A519872A6000B18BC8 /* Filter.swift in Sources */,
 				4324E90C198B269B003BDDD8 /* LRAssetPackageConfiguration.m in Sources */,
 				434E77C019872AA400B18BC8 /* LRTRProtocolParser.m in Sources */,

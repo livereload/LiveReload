@@ -1,5 +1,5 @@
 @import Foundation;
-
+#import "LRManifestBasedObject.h"
 
 @class LRPackageReference;
 

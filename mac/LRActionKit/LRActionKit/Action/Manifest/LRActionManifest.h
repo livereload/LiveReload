@@ -17,7 +17,7 @@
 @property(nonatomic, copy) NSString *identifier;
 @property(nonatomic, copy) NSString *name;
 
-@property(nonatomic, strong) NSArray *optionSpecs;
+@property(nonatomic, strong) NSArray *optionSpecs; // of OptionSpec
 - (NSArray *)createOptionsWithAction:(Rule *)rule;
 
 @property(nonatomic, copy) NSArray *errorSpecs;

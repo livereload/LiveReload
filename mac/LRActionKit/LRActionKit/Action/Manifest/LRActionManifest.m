@@ -1,10 +1,10 @@
+@import LRCommons;
 
 #import "LRActionManifest.h"
 #import "LRManifestLayer.h"
-#import "LROption+Factory.h"
 #import "LRChildErrorSink.h"
-
-#import "ATFunctionalStyle.h"
+#import "ActionKitSingleton.h"
+#import "LRActionKit-Swift.h"
 
 
 @interface LRActionManifest ()
@@ -33,7 +33,7 @@
     _optionSpecs = [self simpleArrayForKey:@"options" mappedUsingBlock:^id(NSDictionary *spec, LRManifestLayer *layer) {
         // TODO: add context to error messages
         //
-        return [LROption optionWithSpec:spec rule:nil errorSink:[LRChildErrorSink childErrorSinkWithParentSink:layer context:[NSString stringWithFormat:@"rule %@", _identifier] uncleSink:self]];
+        return [[ActionKitSingleton sharedActionKit].optionRegistry parseOptionSpec:spec errorSink:[LRChildErrorSink childErrorSinkWithParentSink:layer context:[NSString stringWithFormat:@"rule %@", _identifier] uncleSink:self]];
     }];
 
     _commandLineSpec = [self simpleArrayForKey:@"cmdline" mappedUsingBlock:nil];
@@ -68,8 +68,8 @@
 }
 
 - (NSArray *)createOptionsWithAction:(Rule *)rule {
-    return [_optionSpecs arrayByMappingElementsUsingBlock:^id(LROption *option) {
-        return [option copyWithAction:rule];
+    return [_optionSpecs arrayByMappingElementsUsingBlock:^id(OptionSpec *optionSpec) {
+        return [optionSpec newOptionWithRule:rule];
     }];
 }
 

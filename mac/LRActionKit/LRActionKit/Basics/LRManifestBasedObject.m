@@ -23,7 +23,7 @@
     if (!_errors) {
         _errors = [NSMutableArray new];
     }
-    [_errors addObject:[NSError errorWithDomain:LRActionKitErrorDomain code:LRActionKitErrorCodeInvalidManifest userInfo:@{NSLocalizedDescriptionKey:message}]];
+    [_errors addObject:[NSError errorWithDomain:ActionKitErrorDomain code:ActionKitErrorCodeInvalidManifest userInfo:@{NSLocalizedDescriptionKey:message}]];
 
     if (_errorSink) {
         [_errorSink addErrorMessage:message];

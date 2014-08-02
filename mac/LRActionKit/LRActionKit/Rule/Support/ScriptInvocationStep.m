@@ -4,6 +4,7 @@
 #import "ScriptInvocationStep.h"
 #import "LROperationResult.h"
 #import "LRActionKit-Swift.h"
+#import "ActionKitSingleton.h"
 
 
 @implementation ScriptInvocationStep {
@@ -41,14 +42,14 @@
 }
 
 - (void)invoke {
-    NSArray *bundledContainers = [[[AppState sharedAppState].packageManager packageTypeNamed:@"gem"].containers filteredArrayUsingBlock:^BOOL(LRPackageContainer *container) {
+    NSArray *bundledContainers = [[[ActionKitSingleton sharedActionKit].packageManager packageTypeNamed:@"gem"].containers filteredArrayUsingBlock:^BOOL(LRPackageContainer *container) {
         return container.containerType == LRPackageContainerTypeBundled;
     }];
 
     RuntimeInstance *rubyInstance = [[RubyRuntimeRepository sharedRubyManager] instanceIdentifiedBy:_project.rubyVersionIdentifier];
     [self addValue:[rubyInstance launchArgumentsWithAdditionalRuntimeContainers:bundledContainers environment:_environment] forSubstitutionKey:@"ruby"];
 
-    NSArray *cmdline = [_commandLine arrayBySubstitutingValuesFromDictionary:_substitutions];
+    NSArray *cmdline = [_commandLine p2_arrayBySubstitutingValuesFromDictionary:_substitutions];
 
     //    NSString *pwd = [[NSFileManager defaultManager] currentDirectoryPath];
     //    [[NSFileManager defaultManager] changeCurrentDirectoryPath:projectPath];
@@ -56,7 +57,7 @@
     // TODO XXX
 //    console_printf("Exec: %s", str_collapse_paths([[cmdline quotedArgumentStringUsingBourneQuotingStyle] UTF8String], [_project.path UTF8String]));
     // TODO XXX: collapse project path
-    NSLog(@"Exec: %@", [cmdline quotedArgumentStringUsingBourneQuotingStyle]);
+    NSLog(@"Exec: %@", [cmdline p2_quotedArgumentStringUsingBourneQuotingStyle]);
 
     NSString *command = cmdline[0];
     NSArray *args = [cmdline subarrayWithRange:NSMakeRange(1, cmdline.count - 1)];

@@ -1,6 +1,6 @@
+@import Foundation;
 
-#import <Foundation/Foundation.h>
-@import LRActionKit;
+#import "LRManifestErrorSink.h"
 
 
 @interface LRChildErrorSink : NSObject <LRManifestErrorSink>

@@ -31,4 +31,6 @@ public protocol ProjectContext : NSObjectProtocol {
 
     var resolutionContext: LRPackageResolutionContext { get }
 
+    var rubyVersionIdentifier: String { get }
+
 }

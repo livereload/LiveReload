@@ -1,8 +1,8 @@
+@import LRCommons;
 
 #import "LROperationResult.h"
-
-#import "ATFunctionalStyle.h"
-@import LRCommons;
+#import "ActionKitSingleton.h"
+#import "LRActionKit-Swift.h"
 
 
 @interface LROperationResult ()
@@ -72,7 +72,7 @@
     [_rawOutput appendString:rawOutput];
 
     if (rawOutput.length > 0 && !!_errorSyntaxManifest) {
-        [[Glue glue] postMessage:@{@"service": @"msgparser", @"command": @"parse", @"manifest": _errorSyntaxManifest, @"input": rawOutput} withReplyHandler:^(NSError *error, NSDictionary *response) {
+        [ActionKitSingleton sharedActionKit].postMessageBlock(@{@"service": @"msgparser", @"command": @"parse", @"manifest": _errorSyntaxManifest, @"input": rawOutput}, ^(NSError *error, NSDictionary *response) {
             for (NSDictionary *message in response[@"messages"]) {
                 NSString *type = message[@"type"];
                 LRMessageSeverity severity = ([type isEqualToString:@"error"] ? LRMessageSeverityError : LRMessageSeverityWarning);
@@ -84,7 +84,7 @@
                 [self addMessage:message];
             }
             completionBlock();
-        }];
+        });
     } else {
         completionBlock();
     }
