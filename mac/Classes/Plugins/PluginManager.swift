@@ -1,6 +1,8 @@
-
 import Foundation
+import SwiftyFoundation
 import AppKit
+import LRCommons
+import LRActionKit
 
 let g_sharedPluginManager = PluginManager()
 

@@ -21,9 +21,6 @@ public protocol ProjectContext : NSObjectProtocol {
     func compilerActionsForFile(file: ProjectFile) -> [Action]
 
     func sendReloadRequest(#changes: [NSDictionary], forceFullReload: Bool)
-        //    Glue().postMessage(["service": "reloader", "command": "reload", "changes": reloadRequests as NSArray, "forceFullReload": project.disableLiveRefresh as Bool])
-        //    postNotification(ProjectDidDetectChangeNotification)
-        //    StatIncrement(BrowserRefreshCountStat, 1)
 
     func rootFilesForFiles(files: [ProjectFile]) -> [ProjectFile]
 

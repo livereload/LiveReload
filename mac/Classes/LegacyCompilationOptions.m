@@ -1,10 +1,9 @@
+@import LRCommons;
 
 #import "LegacyCompilationOptions.h"
 #import "LRLegacyFile.h"
 #import "Compiler.h"
 #import "CompilerVersion.h"
-
-#import "ATFunctionalStyle.h"
 
 
 @implementation LegacyCompilationOptions

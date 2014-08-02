@@ -1,9 +1,9 @@
+@import LRCommons;
 
 #import "LROutputMappingOption.h"
 #import "LROutputFileMapping.h"
 #import "LiveReload-Swift-x.h"
 #import "Project.h"
-@import LRCommons;
 
 
 @interface LROutputMappingOption ()
@@ -43,7 +43,7 @@
 }
 
 - (NSArray *)availableSubfolders {
-    return self.rule.project.availableSubfolders;
+    return ((Project *)self.rule.project).availableSubfolders;
 }
 
 @end

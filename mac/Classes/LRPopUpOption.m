@@ -1,9 +1,8 @@
+@import LRCommons;
 
 #import "LRPopUpOption.h"
 #import "ATMacViewCreation.h"
 #import "LROptionsView.h"
-#import "LRCommandLine.h"
-#import "ATFunctionalStyle.h"
 
 
 @interface LRPopUpItem : NSObject
@@ -27,7 +26,7 @@
 }
 
 + (id)popUpItemWithDictionary:(NSDictionary *)manifest {
-    return [[self alloc] initWithIdentifier:manifest[@"id"] label:manifest[@"label"] arguments:LRParseCommandLineSpec(manifest[@"args"])];
+    return [[self alloc] initWithIdentifier:manifest[@"id"] label:manifest[@"label"] arguments:P2ParseCommandLineSpec(manifest[@"args"])];
 }
 
 @end

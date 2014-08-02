@@ -42,6 +42,7 @@ FOUNDATION_EXPORT const unsigned char LRActionKitVersionString[];
 #import <LRActionKit/LRTRTestAnythingProtocolParser.h>
 
 // analysis
+#import <LRActionKit/ImportGraph.h>
 #import <LRActionKit/LRVersionSpec.h>
 #import <LRActionKit/LRVersionTag.h>
 

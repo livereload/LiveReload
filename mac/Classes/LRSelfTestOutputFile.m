@@ -1,8 +1,7 @@
+@import LRCommons;
 
 #import "LRSelfTestOutputFile.h"
 #import "LRSelfTestOutputExpectation.h"
-
-#import "ATFunctionalStyle.h"
 
 
 #define return_error(returnValue, outError, error)  do { \

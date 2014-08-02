@@ -116,10 +116,7 @@
 		4353416919489EA8003E51EB /* LicenseCodeWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4353403219489EA7003E51EB /* LicenseCodeWindowController.xib */; };
 		4353416A19489EA8003E51EB /* LicenseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353403419489EA7003E51EB /* LicenseManager.m */; };
 		4353416B19489EA8003E51EB /* LiveReloadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353403819489EA7003E51EB /* LiveReloadAppDelegate.m */; };
-		4353416C19489EA8003E51EB /* LRActionManifest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353403A19489EA7003E51EB /* LRActionManifest.m */; };
-		4353416D19489EA8003E51EB /* LRActionVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353403C19489EA7003E51EB /* LRActionVersion.m */; };
 		4353417019489EA8003E51EB /* LRCheckboxOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353404219489EA7003E51EB /* LRCheckboxOption.m */; };
-		4353417219489EA8003E51EB /* LRCommandLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353404619489EA7003E51EB /* LRCommandLine.m */; };
 		4353417419489EA8003E51EB /* LRCustomArgumentsOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353404A19489EA7003E51EB /* LRCustomArgumentsOption.m */; };
 		4353417519489EA8003E51EB /* LRGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353404C19489EA7003E51EB /* LRGlobals.m */; };
 		4353417619489EA8003E51EB /* LRLegacyFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353404E19489EA7003E51EB /* LRLegacyFile.m */; };
@@ -167,13 +164,11 @@
 		435341D219489EA8003E51EB /* UserScriptRuleRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353410019489EA7003E51EB /* UserScriptRuleRow.m */; };
 		435341D619489EA8003E51EB /* RuntimeInstanceCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353410819489EA7003E51EB /* RuntimeInstanceCellView.m */; };
 		435341DB19489EA8003E51EB /* SandboxAccessModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353411419489EA7003E51EB /* SandboxAccessModel.m */; };
-		435341DC19489EA8003E51EB /* ScriptInvocationStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353411619489EA8003E51EB /* ScriptInvocationStep.m */; };
 		435341DD19489EA8003E51EB /* ShadowBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353411819489EA8003E51EB /* ShadowBoxView.m */; };
 		435341DE19489EA8003E51EB /* ShitHappens.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353411A19489EA8003E51EB /* ShitHappens.m */; };
 		435341DF19489EA8003E51EB /* Stats.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353411C19489EA8003E51EB /* Stats.m */; };
 		435341E019489EA8003E51EB /* StatusItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353411E19489EA8003E51EB /* StatusItemController.m */; };
 		435341E119489EA8003E51EB /* StatusItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353412019489EA8003E51EB /* StatusItemView.m */; };
-		435341E219489EA8003E51EB /* SwiftExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4353412219489EA8003E51EB /* SwiftExtensions.swift */; };
 		435341E419489EA8003E51EB /* TerminalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353412619489EA8003E51EB /* TerminalView.m */; };
 		435341E519489EA8003E51EB /* TerminalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353412819489EA8003E51EB /* TerminalViewController.m */; };
 		435341E619489EA8003E51EB /* TerminalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4353412919489EA8003E51EB /* TerminalViewController.xib */; };
@@ -685,14 +680,8 @@
 		4353403619489EA7003E51EB /* LiveReload-Swift-x.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LiveReload-Swift-x.h"; sourceTree = "<group>"; };
 		4353403719489EA7003E51EB /* LiveReloadAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveReloadAppDelegate.h; sourceTree = "<group>"; };
 		4353403819489EA7003E51EB /* LiveReloadAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveReloadAppDelegate.m; sourceTree = "<group>"; };
-		4353403919489EA7003E51EB /* LRActionManifest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRActionManifest.h; sourceTree = "<group>"; };
-		4353403A19489EA7003E51EB /* LRActionManifest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRActionManifest.m; sourceTree = "<group>"; };
-		4353403B19489EA7003E51EB /* LRActionVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRActionVersion.h; sourceTree = "<group>"; };
-		4353403C19489EA7003E51EB /* LRActionVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRActionVersion.m; sourceTree = "<group>"; };
 		4353404119489EA7003E51EB /* LRCheckboxOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRCheckboxOption.h; sourceTree = "<group>"; };
 		4353404219489EA7003E51EB /* LRCheckboxOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRCheckboxOption.m; sourceTree = "<group>"; };
-		4353404519489EA7003E51EB /* LRCommandLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRCommandLine.h; sourceTree = "<group>"; };
-		4353404619489EA7003E51EB /* LRCommandLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRCommandLine.m; sourceTree = "<group>"; };
 		4353404919489EA7003E51EB /* LRCustomArgumentsOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRCustomArgumentsOption.h; sourceTree = "<group>"; };
 		4353404A19489EA7003E51EB /* LRCustomArgumentsOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRCustomArgumentsOption.m; sourceTree = "<group>"; };
 		4353404B19489EA7003E51EB /* LRGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRGlobals.h; sourceTree = "<group>"; };
@@ -783,8 +772,6 @@
 		4353410819489EA7003E51EB /* RuntimeInstanceCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RuntimeInstanceCellView.m; sourceTree = "<group>"; };
 		4353411319489EA7003E51EB /* SandboxAccessModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandboxAccessModel.h; sourceTree = "<group>"; };
 		4353411419489EA7003E51EB /* SandboxAccessModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SandboxAccessModel.m; sourceTree = "<group>"; };
-		4353411519489EA7003E51EB /* ScriptInvocationStep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScriptInvocationStep.h; sourceTree = "<group>"; };
-		4353411619489EA8003E51EB /* ScriptInvocationStep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScriptInvocationStep.m; sourceTree = "<group>"; };
 		4353411719489EA8003E51EB /* ShadowBoxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowBoxView.h; sourceTree = "<group>"; };
 		4353411819489EA8003E51EB /* ShadowBoxView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowBoxView.m; sourceTree = "<group>"; };
 		4353411919489EA8003E51EB /* ShitHappens.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShitHappens.h; sourceTree = "<group>"; };
@@ -795,7 +782,6 @@
 		4353411E19489EA8003E51EB /* StatusItemController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusItemController.m; sourceTree = "<group>"; };
 		4353411F19489EA8003E51EB /* StatusItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusItemView.h; sourceTree = "<group>"; };
 		4353412019489EA8003E51EB /* StatusItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusItemView.m; sourceTree = "<group>"; };
-		4353412219489EA8003E51EB /* SwiftExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftExtensions.swift; sourceTree = "<group>"; };
 		4353412519489EA8003E51EB /* TerminalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TerminalView.h; sourceTree = "<group>"; };
 		4353412619489EA8003E51EB /* TerminalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TerminalView.m; sourceTree = "<group>"; };
 		4353412719489EA8003E51EB /* TerminalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TerminalViewController.h; sourceTree = "<group>"; };
@@ -1308,14 +1294,6 @@
 			path = Plugins;
 			sourceTree = "<group>";
 		};
-		4353412119489EA8003E51EB /* Swift Bridging */ = {
-			isa = PBXGroup;
-			children = (
-				4353412219489EA8003E51EB /* SwiftExtensions.swift */,
-			);
-			path = "Swift Bridging";
-			sourceTree = "<group>";
-		};
 		4371095318585DB800FCB4C2 /* LiveReloadTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1587,14 +1565,8 @@
 				4353403619489EA7003E51EB /* LiveReload-Swift-x.h */,
 				4353403719489EA7003E51EB /* LiveReloadAppDelegate.h */,
 				4353403819489EA7003E51EB /* LiveReloadAppDelegate.m */,
-				4353403919489EA7003E51EB /* LRActionManifest.h */,
-				4353403A19489EA7003E51EB /* LRActionManifest.m */,
-				4353403B19489EA7003E51EB /* LRActionVersion.h */,
-				4353403C19489EA7003E51EB /* LRActionVersion.m */,
 				4353404119489EA7003E51EB /* LRCheckboxOption.h */,
 				4353404219489EA7003E51EB /* LRCheckboxOption.m */,
-				4353404519489EA7003E51EB /* LRCommandLine.h */,
-				4353404619489EA7003E51EB /* LRCommandLine.m */,
 				4353404919489EA7003E51EB /* LRCustomArgumentsOption.h */,
 				4353404A19489EA7003E51EB /* LRCustomArgumentsOption.m */,
 				4353404B19489EA7003E51EB /* LRGlobals.h */,
@@ -1685,8 +1657,6 @@
 				4353410819489EA7003E51EB /* RuntimeInstanceCellView.m */,
 				4353411319489EA7003E51EB /* SandboxAccessModel.h */,
 				4353411419489EA7003E51EB /* SandboxAccessModel.m */,
-				4353411519489EA7003E51EB /* ScriptInvocationStep.h */,
-				4353411619489EA8003E51EB /* ScriptInvocationStep.m */,
 				4353411719489EA8003E51EB /* ShadowBoxView.h */,
 				4353411819489EA8003E51EB /* ShadowBoxView.m */,
 				4353411919489EA8003E51EB /* ShitHappens.h */,
@@ -1697,7 +1667,6 @@
 				4353411E19489EA8003E51EB /* StatusItemController.m */,
 				4353411F19489EA8003E51EB /* StatusItemView.h */,
 				4353412019489EA8003E51EB /* StatusItemView.m */,
-				4353412119489EA8003E51EB /* Swift Bridging */,
 				4353412519489EA8003E51EB /* TerminalView.h */,
 				4353412619489EA8003E51EB /* TerminalView.m */,
 				4353412719489EA8003E51EB /* TerminalViewController.h */,
@@ -2248,7 +2217,6 @@
 				43DFE4DE17CB613100DEF87B /* P2AsyncEnumeration.m in Sources */,
 				4396F1E017F8112F00AA8200 /* GlitterFeed.m in Sources */,
 				4353414E19489EA8003E51EB /* EditorManager.m in Sources */,
-				435341E219489EA8003E51EB /* SwiftExtensions.swift in Sources */,
 				4353414319489EA8003E51EB /* AppState.m in Sources */,
 				435341B519489EA8003E51EB /* NewMainWindowController.m in Sources */,
 				4396F1E217F8112F00AA8200 /* GlitterUpdateInfoViewController.m in Sources */,
@@ -2256,7 +2224,6 @@
 				43CDCF8D17C6082A007B22D9 /* ATAttributedStringAdditions.m in Sources */,
 				4353418D19489EA8003E51EB /* LRSelfTestBrowserRequestExpectation.m in Sources */,
 				4303A54015B513FD009D732A /* dump.c in Sources */,
-				4353416D19489EA8003E51EB /* LRActionVersion.m in Sources */,
 				4303A54115B513FD009D732A /* error.c in Sources */,
 				4353417419489EA8003E51EB /* LRCustomArgumentsOption.m in Sources */,
 				4353418019489EA8003E51EB /* LROutputMappingOptionController.m in Sources */,
@@ -2285,7 +2252,6 @@
 				4303A55815B513FD009D732A /* nodeapp_callbacks.m in Sources */,
 				4353418919489EA8003E51EB /* LRPluginCommons.m in Sources */,
 				4353414B19489EA8003E51EB /* CompilerVersion.m in Sources */,
-				4353416C19489EA8003E51EB /* LRActionManifest.m in Sources */,
 				435341DD19489EA8003E51EB /* ShadowBoxView.m in Sources */,
 				4303A55915B513FD009D732A /* nodeapp_crash.m in Sources */,
 				435341D619489EA8003E51EB /* RuntimeInstanceCellView.m in Sources */,
@@ -2314,7 +2280,6 @@
 				4303A58815B513FD009D732A /* nodeapp_url_handler_mac.m in Sources */,
 				4353413B19489EA8003E51EB /* RulebookView.m in Sources */,
 				4353416419489EA8003E51EB /* KeyWindow.m in Sources */,
-				435341DC19489EA8003E51EB /* ScriptInvocationStep.m in Sources */,
 				43508A9317B39DBE00871422 /* ATFlippedView.m in Sources */,
 				435341DF19489EA8003E51EB /* Stats.m in Sources */,
 				4353417D19489EA8003E51EB /* LROptionsView.m in Sources */,
@@ -2357,7 +2322,6 @@
 				435341C219489EA8003E51EB /* P2RegularExpressionExtensions.m in Sources */,
 				435341C019489EA8003E51EB /* OptionsRow.m in Sources */,
 				4353415019489EA8003E51EB /* ExpandedOutlineView.m in Sources */,
-				4353417219489EA8003E51EB /* LRCommandLine.m in Sources */,
 				43B5C01A17ADF93A00F57276 /* ATHash.m in Sources */,
 				435341CC19489EA8003E51EB /* RSVerticallyCenteredTextFieldCell.m in Sources */,
 				435341C419489EA8003E51EB /* PassThruView.m in Sources */,

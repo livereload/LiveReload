@@ -1,11 +1,9 @@
+@import LRCommons;
 
 #import "EditorManager.h"
-@import LRCommons;
-#import "ATFunctionalStyle.h"
 #import "RegexKitLite.h"
 #import "ExternalEditor.h"
 #import "LRPluginCommons.h"
-@import LRCommons;
 
 
 @interface EditorManager ()

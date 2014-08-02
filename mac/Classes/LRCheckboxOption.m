@@ -1,8 +1,8 @@
+@import LRCommons;
 
 #import "LRCheckboxOption.h"
 #import "ATMacViewCreation.h"
 #import "LROptionsView.h"
-#import "LRCommandLine.h"
 
 
 @interface LRCheckboxOption ()
@@ -20,8 +20,8 @@
 - (void)loadManifest {
     [super loadManifest];
 
-    _argumentsWhenOn = LRParseCommandLineSpec(self.manifest[@"args"]);
-    _argumentsWhenOff = LRParseCommandLineSpec(self.manifest[@"args-off"]);
+    _argumentsWhenOn = P2ParseCommandLineSpec(self.manifest[@"args"]);
+    _argumentsWhenOff = P2ParseCommandLineSpec(self.manifest[@"args-off"]);
 
     if (!self.label.length)
         [self addErrorMessage:@"Missing label"];

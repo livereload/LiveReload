@@ -1,7 +1,7 @@
+@import LRCommons;
 
 #import "ATStackView.h"
 #import "ATAutolayout.h"
-#import "ATFunctionalStyle.h"
 
 
 @interface ATStackView ()

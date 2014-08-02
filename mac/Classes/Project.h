@@ -1,6 +1,4 @@
-
-#import <Cocoa/Cocoa.h>
-#import "Rulebook.h"
+@import Cocoa;
 @import LRActionKit;
 
 

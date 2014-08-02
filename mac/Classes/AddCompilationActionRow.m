@@ -1,8 +1,8 @@
+@import LRCommons;
+@import LRActionKit;
 
 #import "AddCompilationActionRow.h"
-#import "Rulebook.h"
 #import "LiveReload-Swift-x.h"
-#import "ATFunctionalStyle.h"
 
 @implementation AddCompilationActionRow
 

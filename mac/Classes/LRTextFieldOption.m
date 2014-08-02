@@ -1,9 +1,8 @@
+@import LRCommons;
 
 #import "LRTextFieldOption.h"
 #import "ATMacViewCreation.h"
 #import "LROptionsView.h"
-#import "LRCommandLine.h"
-#import "NSArray+ATSubstitutions.h"
 
 
 @interface LRTextFieldOption () <NSTextFieldDelegate>
@@ -24,7 +23,7 @@
 
     self.placeholder = self.manifest[@"placeholder"];
 
-    self.arguments = LRParseCommandLineSpec(self.manifest[@"args"]);
+    self.arguments = P2ParseCommandLineSpec(self.manifest[@"args"]);
     self.skipArgumentsIfEmpty = (self.manifest[@"skip-if-empty"] ? [self.manifest[@"skip-if-empty"] boolValue] : YES);
 
     if (!self.label.length)
@@ -62,7 +61,7 @@
     if (value.length == 0 && self.skipArgumentsIfEmpty)
         return @[];
 
-    return [self.arguments arrayBySubstitutingValuesFromDictionary:@{@"$(value)": value}];
+    return [self.arguments p2_arrayBySubstitutingValuesFromDictionary:@{@"$(value)": value}];
 }
 
 @end

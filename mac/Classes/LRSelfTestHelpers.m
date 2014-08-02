@@ -1,9 +1,8 @@
+@import LRCommons;
+@import ATPathSpec;
 
 #import "LRSelfTestHelpers.h"
-#import "ATFunctionalStyle.h"
 #import "P2RegularExpressionExtensions.h"
-
-@import ATPathSpec;
 
 
 BOOL LRSelfTestMatchPath(NSString *pattern, NSString *path) {

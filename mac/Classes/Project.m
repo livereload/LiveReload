@@ -1,29 +1,23 @@
+@import LRCommons;
+@import PackageManagerKit;
+@import ATPathSpec;
+@import FileSystemMonitoringKit;
+@import LRActionKit;
 
 #import "ToolOutputWindowController.h"
-@import LRCommons;
 
 #import "Project.h"
 #import "Preferences.h"
 #import "Compiler.h"
 #import "LegacyCompilationOptions.h"
-#import "ImportGraph.h"
 #import "ToolOutput.h"
-#import "FilterOption.h"
 #import "Glue.h"
-@import PackageManagerKit;
-#import "LROperationResult.h"
 #import "LiveReload-Swift-x.h"
 
 #import "Stats.h"
 #import "RegexKitLite.h"
-#import "NSArray+ATSubstitutions.h"
 #import "NSTask+OneLineTasksWithOutput.h"
-#import "ATFunctionalStyle.h"
 #import "P2AsyncEnumeration.h"
-@import LRCommons;
-@import ATPathSpec;
-@import FileSystemMonitoringKit;
-#import "LRCommandLine.h"
 
 #include <stdbool.h>
 
@@ -1019,7 +1013,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 }
 
 - (NSString *)superAdvancedOptionsString {
-    return [_superAdvancedOptions quotedArgumentStringUsingBourneQuotingStyle];
+    return [_superAdvancedOptions p2_quotedArgumentStringUsingBourneQuotingStyle];
 }
 
 - (void)setSuperAdvancedOptionsString:(NSString *)superAdvancedOptionsString {
@@ -1045,6 +1039,15 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     return [_availableActions filteredArrayUsingBlock:^BOOL(Action *action) {
         return (action.kind == ActionKindCompiler) && ([action.combinedIntrinsicInputPathSpec matchesPath:file.relativePath type:ATPathSpecEntryTypeFile]);
     }];
+}
+
+
+#pragma mark - LRActionKit interaction
+
+- (void)sendReloadRequestWithChanges:(NSArray *)changes forceFullReload:(BOOL)forceFullReload {
+    [[Glue glue] postMessage:@{@"service": @"reloader", @"command": @"reload", @"changes": changes, @"forceFullReload": @(forceFullReload)}];
+    [self postNotificationName:ProjectDidDetectChangeNotification];
+    StatIncrement(BrowserRefreshCountStat, 1);
 }
 
 @end
