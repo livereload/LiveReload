@@ -1,13 +1,12 @@
-#import <XCTest/XCTest.h>
+@import XCTest;
+@import LRCommons;
+@import PackageManagerKit;
 
 #import "LRSelfTest.h"
 #import "LiveReloadAppDelegate.h"
 #import "AppState.h"
-@import PackageManagerKit;
 #import "LiveReload-Swift-x.h"
 #import "Plugin.h"
-
-#import "ATFunctionalStyle.h"
 
 
 @interface LRIntegrationTestCase : XCTestCase

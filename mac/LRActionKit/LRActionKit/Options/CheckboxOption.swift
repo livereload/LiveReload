@@ -7,7 +7,7 @@ public class CheckboxOptionType : OptionType {
         return "checkbox"
     }
 
-    public func parse(manifest: [String: AnyObject], errorSink: LRManifestErrorSink) -> OptionSpec? {
+    public override func parse(manifest: [String: AnyObject], _ errorSink: LRManifestErrorSink) -> OptionSpec? {
         var spec = CheckboxOptionSpec()
         if !parse(into: spec, manifest, errorSink) {
             return nil

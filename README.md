@@ -88,10 +88,8 @@ Building:
 
 1. Build some subprojects in the correct order (because the dependencies between subprojects aren't properly tracked — let me know if you know a way to specify those), you can do this from Xcode or on the command line:
 
-        xcodebuild -project LiveReload.xcodeproj -scheme LRCommons -configuration Debug build
-        xcodebuild -project LiveReload.xcodeproj -scheme ATPathSpec -configuration Debug build
-        xcodebuild -project LiveReload.xcodeproj -scheme FileSystemMonitoringKit -configuration Debug build
-        xcodebuild -project LiveReload.xcodeproj -scheme PiiVersionKit -configuration Debug build
+        cd mac
+        make
 
 1. Build the app, you can do this from Xcode or on the command line:
 
