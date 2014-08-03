@@ -78,6 +78,8 @@
 		439317521985DB0500685024 /* UserScript.m in Sources */ = {isa = PBXBuildFile; fileRef = 439317501985DB0500685024 /* UserScript.m */; };
 		439317551985DBCE00685024 /* ProjectFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439317541985DBCE00685024 /* ProjectFile.swift */; };
 		439317571985DC0A00685024 /* ProjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439317561985DC0A00685024 /* ProjectContext.swift */; };
+		43B920A0198DF27F00079010 /* MultipleChoiceOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B9209F198DF27F00079010 /* MultipleChoiceOption.swift */; };
+		43B920A2198DF29100079010 /* TextOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B920A1198DF29100079010 /* TextOption.swift */; };
 		43BEEBF91985E99D00D2D239 /* LRManifestBasedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BEEBF61985E99D00D2D239 /* LRManifestBasedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		43BEEBFA1985E99D00D2D239 /* LRManifestBasedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 43BEEBF71985E99D00D2D239 /* LRManifestBasedObject.m */; };
 		43BEEBFB1985E99D00D2D239 /* LRManifestErrorSink.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BEEBF81985E99D00D2D239 /* LRManifestErrorSink.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -172,6 +174,8 @@
 		439317501985DB0500685024 /* UserScript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserScript.m; sourceTree = "<group>"; };
 		439317541985DBCE00685024 /* ProjectFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectFile.swift; sourceTree = "<group>"; };
 		439317561985DC0A00685024 /* ProjectContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectContext.swift; sourceTree = "<group>"; };
+		43B9209F198DF27F00079010 /* MultipleChoiceOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipleChoiceOption.swift; sourceTree = "<group>"; };
+		43B920A1198DF29100079010 /* TextOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextOption.swift; sourceTree = "<group>"; };
 		43BEEBF61985E99D00D2D239 /* LRManifestBasedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRManifestBasedObject.h; sourceTree = "<group>"; };
 		43BEEBF71985E99D00D2D239 /* LRManifestBasedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRManifestBasedObject.m; sourceTree = "<group>"; };
 		43BEEBF81985E99D00D2D239 /* LRManifestErrorSink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRManifestErrorSink.h; sourceTree = "<group>"; };
@@ -234,6 +238,8 @@
 				433F8944198B3A8300F1A281 /* OptionRegistry.swift */,
 				433F8940198B31B900F1A281 /* Option.swift */,
 				433F8942198B396000F1A281 /* CheckboxOption.swift */,
+				43B9209F198DF27F00079010 /* MultipleChoiceOption.swift */,
+				43B920A1198DF29100079010 /* TextOption.swift */,
 				433F8946198B402A00F1A281 /* VersionOption.swift */,
 				433F8948198B403200F1A281 /* CustomArgumentsOption.swift */,
 			);
@@ -593,6 +599,7 @@
 				434E77F21987314B00B18BC8 /* LRVersionTag.m in Sources */,
 				43D67E5A198CAE4300D229BA /* ActionKitSingleton.m in Sources */,
 				434E77A519872A6000B18BC8 /* Filter.swift in Sources */,
+				43B920A2198DF29100079010 /* TextOption.swift in Sources */,
 				4324E90C198B269B003BDDD8 /* LRAssetPackageConfiguration.m in Sources */,
 				434E77C019872AA400B18BC8 /* LRTRProtocolParser.m in Sources */,
 				430F6381198728E8001021E0 /* Action.m in Sources */,
@@ -611,6 +618,7 @@
 				434E77E519872F7800B18BC8 /* LROperationResult.m in Sources */,
 				434E7787198729BB00B18BC8 /* Analyzer.swift in Sources */,
 				434E77A419872A6000B18BC8 /* CustomCommand.swift in Sources */,
+				43B920A0198DF27F00079010 /* MultipleChoiceOption.swift in Sources */,
 				434E77B119872A9700B18BC8 /* LRTarget.swift in Sources */,
 				434E77AE19872A9700B18BC8 /* LRFileTarget.swift in Sources */,
 				433F8943198B396000F1A281 /* CheckboxOption.swift in Sources */,

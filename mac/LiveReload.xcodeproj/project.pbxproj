@@ -121,7 +121,6 @@
 		4353417519489EA8003E51EB /* LRGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353404C19489EA7003E51EB /* LRGlobals.m */; };
 		4353417619489EA8003E51EB /* LRLegacyFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353404E19489EA7003E51EB /* LRLegacyFile.m */; };
 		4353417A19489EA8003E51EB /* LROption.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353405819489EA7003E51EB /* LROption.m */; };
-		4353417B19489EA8003E51EB /* LROption+Factory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353405A19489EA7003E51EB /* LROption+Factory.m */; };
 		4353417C19489EA8003E51EB /* LROptionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353405C19489EA7003E51EB /* LROptionController.m */; };
 		4353417D19489EA8003E51EB /* LROptionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353405E19489EA7003E51EB /* LROptionsView.m */; };
 		4353417E19489EA8003E51EB /* LROutputFileMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353406019489EA7003E51EB /* LROutputFileMapping.m */; };
@@ -690,8 +689,6 @@
 		4353404E19489EA7003E51EB /* LRLegacyFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRLegacyFile.m; sourceTree = "<group>"; };
 		4353405719489EA7003E51EB /* LROption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LROption.h; sourceTree = "<group>"; };
 		4353405819489EA7003E51EB /* LROption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LROption.m; sourceTree = "<group>"; };
-		4353405919489EA7003E51EB /* LROption+Factory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LROption+Factory.h"; sourceTree = "<group>"; };
-		4353405A19489EA7003E51EB /* LROption+Factory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LROption+Factory.m"; sourceTree = "<group>"; };
 		4353405B19489EA7003E51EB /* LROptionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LROptionController.h; sourceTree = "<group>"; };
 		4353405C19489EA7003E51EB /* LROptionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LROptionController.m; sourceTree = "<group>"; };
 		4353405D19489EA7003E51EB /* LROptionsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LROptionsView.h; sourceTree = "<group>"; };
@@ -1575,8 +1572,6 @@
 				4353404E19489EA7003E51EB /* LRLegacyFile.m */,
 				4353405719489EA7003E51EB /* LROption.h */,
 				4353405819489EA7003E51EB /* LROption.m */,
-				4353405919489EA7003E51EB /* LROption+Factory.h */,
-				4353405A19489EA7003E51EB /* LROption+Factory.m */,
 				4353405B19489EA7003E51EB /* LROptionController.h */,
 				4353405C19489EA7003E51EB /* LROptionController.m */,
 				4353405D19489EA7003E51EB /* LROptionsView.h */,
@@ -2220,7 +2215,6 @@
 				4353414319489EA8003E51EB /* AppState.m in Sources */,
 				435341B519489EA8003E51EB /* NewMainWindowController.m in Sources */,
 				4396F1E217F8112F00AA8200 /* GlitterUpdateInfoViewController.m in Sources */,
-				4353417B19489EA8003E51EB /* LROption+Factory.m in Sources */,
 				43CDCF8D17C6082A007B22D9 /* ATAttributedStringAdditions.m in Sources */,
 				4353418D19489EA8003E51EB /* LRSelfTestBrowserRequestExpectation.m in Sources */,
 				4303A54015B513FD009D732A /* dump.c in Sources */,

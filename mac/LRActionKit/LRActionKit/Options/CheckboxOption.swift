@@ -81,7 +81,7 @@ public class CheckboxOption : Option {
     }
 
     public override var commandLineArguments: [String] {
-        return []
+        return effectiveValue ? argumentsWhenOn : argumentsWhenOff
     }
 
 }

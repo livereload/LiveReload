@@ -19,6 +19,7 @@ static ActionKitSingleton *sharedActionKit;
     if (self) {
         _optionRegistry = [OptionRegistry new];
         [_optionRegistry addOptionType:[CheckboxOptionType new]];
+        [_optionRegistry addOptionType:[MultipleChoiceOptionType new]];
         // TODO: port & register other option types
     }
     return self;
