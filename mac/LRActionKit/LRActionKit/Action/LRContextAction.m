@@ -65,8 +65,12 @@ NSString *const LRContextActionDidChangeVersionsNotification = @"LRContextAction
     NSMutableArray *versions = [NSMutableArray new];
     for (LRPackageSet *packageSet in packageSets) {
         LRActionManifest *manifest = [self _actionManifestForPackageSet:packageSet];
-        LRActionVersion *version = [[LRActionVersion alloc] initWithType:_action manifest:manifest packageSet:packageSet];
-        [versions addObject:version];
+        if (!manifest.valid) {
+            NSLog(@"ContextAction(%@) skipping version %@ b/c of invalid manifest: %@", _action.name, packageSet.primaryPackage, manifest.errors);
+        } else {
+            LRActionVersion *version = [[LRActionVersion alloc] initWithType:_action manifest:manifest packageSet:packageSet];
+            [versions addObject:version];
+        }
     }
     [versions sortUsingComparator:^NSComparisonResult(LRActionVersion *obj1, LRActionVersion *obj2) {
         return [obj1.primaryVersion compare:obj2.primaryVersion];
