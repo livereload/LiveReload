@@ -30,6 +30,7 @@ NSString *const LRContextActionDidChangeVersionsNotification = @"LRContextAction
         _action = action;
         _project = project;
         _resolutionContext = resolutionContext;
+        NSLog(@"ContextAction(%@) created for project %@", _action.name, _project);
 
         [self observeNotification:LRPackageContainerDidChangePackageListNotification withSelector:@selector(_updateAvailableVersions)];
         [self _updateAvailableVersions];
@@ -48,12 +49,14 @@ NSString *const LRContextActionDidChangeVersionsNotification = @"LRContextAction
         [self postNotificationName:LRContextActionDidChangeVersionsNotification];
         done();
     }, ^{
+        NSLog(@"ContextAction(%@) _updateState=%d", _action.name, (int)_updateState);
         [_project setAnalysisInProgress:(_updateState > 0) forTask:self];
     });
 }
 
 - (NSArray *)_computeAvailableVersions {
     if (!_action.valid) {
+        NSLog(@"ContextAction(%@) has invalid manifest, so no versions", _action.name);
         return @[];
     }
 
@@ -75,6 +78,7 @@ NSString *const LRContextActionDidChangeVersionsNotification = @"LRContextAction
     [versions sortUsingComparator:^NSComparisonResult(LRActionVersion *obj1, LRActionVersion *obj2) {
         return [obj1.primaryVersion compare:obj2.primaryVersion];
     }];
+    NSLog(@"ContextAction(%@) has %d versions", _action.name, (int)versions.count);
     return versions;
 }
 
