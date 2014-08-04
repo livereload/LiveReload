@@ -15,3 +15,7 @@ public extension NSString {
 public func quotedArgumentStringUsingBourneQuotingStyle(arguments: [String]) -> String {
     return (arguments as NSArray).p2_quotedArgumentStringUsingBourneQuotingStyle()
 }
+
+public func arrayBySubstitutingValuesFromDictionary(array: [String], values: [String: String]) -> [String] {
+    return (array as NSArray).p2_arrayBySubstitutingValuesFromDictionary(values) as [String]
+}
