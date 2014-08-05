@@ -106,7 +106,7 @@ class PluginManager : NSObject {
 
     func _loadPluginFromFolder(pluginFolder: String) {
         let name = pluginFolder.lastPathComponent.stringByDeletingPathExtension
-        if _loadedPluginNames[name] != nil {
+        if _loadedPluginNames[name] == nil {
             let plugin = Plugin(path: pluginFolder)
             _loadedPluginNames[name] = plugin
             _plugins.append(plugin)
