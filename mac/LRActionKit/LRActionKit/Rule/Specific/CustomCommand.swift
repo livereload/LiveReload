@@ -47,7 +47,7 @@ public class CustomCommandRule : Rule {
 
     public /*protected*/ override func updateMemento() {
         super.updateMemento()
-        memento["command"] = command ||| ""
+        memento["command"] = command ?? ""
     }
 
     public override func targetForModifiedFiles(files: [ProjectFile]) -> LRTarget? {

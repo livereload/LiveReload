@@ -1,12 +1,12 @@
 import Foundation
 
-operator infix <<< {}
+infix operator <<< {}
 
-@assignment @infix public func <<< <T>(inout lhs: [T], rhs: T) {
+public func <<< <T>(inout lhs: [T], rhs: T) {
     lhs.append(rhs)
 }
 
-@assignment @infix public func += <K: Hashable, V>(inout lhs: [K: V], rhs: [K: V]) {
+public func += <K: Hashable, V>(inout lhs: [K: V], rhs: [K: V]) {
     for (key, value) in rhs {
         lhs[key] = value
     }

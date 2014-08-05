@@ -55,7 +55,7 @@ public class Rule : NSObject {
         self.contextAction = contextAction
         self.primaryVersionSpec = LRVersionSpec.stableVersionSpecMatchingAnyVersionInVersionSpace(contextAction.action.primaryVersionSpace)
         super.init()
-        self.memento = (memento as? [String: AnyObject]) ||| [:]
+        self.memento = (memento as? [String: AnyObject]) ?? [:]
 
         loadFromMemento()
         updateInputPathSpec()
@@ -88,7 +88,7 @@ public class Rule : NSObject {
         }
 
         if let opts: AnyObject? = memento["options"] {
-            _options = (opts as? [String: AnyObject]) ||| [:]
+            _options = (opts as? [String: AnyObject]) ?? [:]
         } else {
             _options = [:]
         }
@@ -109,7 +109,7 @@ public class Rule : NSObject {
     private func updateInputPathSpec() {
         var spec = inputFilterOption.pathSpec
         if spec {
-            if (intrinsicInputPathSpec) {
+            if intrinsicInputPathSpec != nil {
                 spec = ATPathSpec(matchingIntersectionOf: [spec!, intrinsicInputPathSpec!])
             }
         }

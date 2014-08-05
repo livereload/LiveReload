@@ -45,7 +45,7 @@ internal class TextOptionSpec : OptionSpec {
         return true
     }
 
-    public override func newOption(#rule: Rule) -> Option {
+    internal override func newOption(#rule: Rule) -> Option {
         return TextOption(rule: rule, spec: self)
     }
 }
@@ -80,7 +80,7 @@ public class TextOption : Option {
 
     public var effectiveValue: String {
         get {
-            return modelValue ||| defaultValue
+            return modelValue ?? defaultValue
         }
     }
 

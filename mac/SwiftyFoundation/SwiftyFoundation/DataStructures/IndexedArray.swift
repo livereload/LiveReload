@@ -42,7 +42,7 @@ public struct IndexedArray<K: Hashable, V> {
 
     public func contains(value: V) -> Bool {
         let key = indexFunc(value)
-        return self[key] ? true : false
+        return self[key] != nil
     }
     
 }

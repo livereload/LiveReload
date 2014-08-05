@@ -3,7 +3,7 @@ import Foundation
 public class CompileFolderRule : ScriptInvocationRule {
 
     public override func invokeWithModifiedFiles(files: [ProjectFile], result: LROperationResult, completionHandler: dispatch_block_t) {
-        if !effectiveVersion {
+        if effectiveVersion == nil {
             result.completedWithInvocationError(missingEffectiveVersionError)
             completionHandler()
             return

@@ -5,7 +5,7 @@ public class OptionRegistry : NSObject {
     private var types = [OptionType]()
     private var typesByName = [String: OptionType]()
 
-    public init() {
+    public override init() {
         super.init()
     }
 

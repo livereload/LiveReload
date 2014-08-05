@@ -1,7 +1,7 @@
 
 // MARK: Any sequences
 
-public func findIf<S: Sequence>(sequence: S, test: (S.GeneratorType.Element) -> Bool) -> S.GeneratorType.Element? {
+public func findIf<S: SequenceType>(sequence: S, test: (S.Generator.Element) -> Bool) -> S.Generator.Element? {
     for item in sequence {
         if test(item) {
             return item
@@ -10,7 +10,7 @@ public func findIf<S: Sequence>(sequence: S, test: (S.GeneratorType.Element) -> 
     return nil
 }
 
-public func findMapped<S: Sequence, U>(sequence: S, transform: (S.GeneratorType.Element) -> U?) -> U? {
+public func findMapped<S: SequenceType, U>(sequence: S, transform: (S.Generator.Element) -> U?) -> U? {
     for item in sequence {
         if let value = transform(item) {
             return value
@@ -19,7 +19,7 @@ public func findMapped<S: Sequence, U>(sequence: S, transform: (S.GeneratorType.
     return nil
 }
 
-public func mapIf<S: Sequence, U>(sequence: S, transform: (S.GeneratorType.Element) -> U?) -> [U] {
+public func mapIf<S: SequenceType, U>(sequence: S, transform: (S.Generator.Element) -> U?) -> [U] {
     var result: [U] = []
     for item in sequence {
         if let value = transform(item) {
@@ -29,7 +29,7 @@ public func mapIf<S: Sequence, U>(sequence: S, transform: (S.GeneratorType.Eleme
     return result
 }
 
-public func all<S: Sequence>(sequence: S, test: (S.GeneratorType.Element) -> Bool) -> Bool {
+public func all<S: SequenceType>(sequence: S, test: (S.Generator.Element) -> Bool) -> Bool {
     for item in sequence {
         if !test(item) {
             return false
@@ -40,8 +40,8 @@ public func all<S: Sequence>(sequence: S, test: (S.GeneratorType.Element) -> Boo
 
 // looking for any()? see contains() in stdlib
 
-public func flatten<T where T: Sequence, T.GeneratorType.Element: Sequence>(sequence: T) -> [T.GeneratorType.Element.GeneratorType.Element] {
-    var items: [T.GeneratorType.Element.GeneratorType.Element] = []
+public func flatten<T where T: SequenceType, T.Generator.Element: SequenceType>(sequence: T) -> [T.Generator.Element.Generator.Element] {
+    var items: [T.Generator.Element.Generator.Element] = []
     for subsequence in sequence {
         items.extend(subsequence)
     }
@@ -87,7 +87,7 @@ public func removeElements<T: Equatable>(inout array: [T], elements: [T]) {
     }
 }
 
-public func removeElements<S: Sequence where S.GeneratorType.Element: Equatable>(inout array: [S.GeneratorType.Element], elements: S) {
+public func removeElements<S: SequenceType where S.Generator.Element: Equatable>(inout array: [S.Generator.Element], elements: S) {
     for item in elements {
         removeElement(&array, item)
     }

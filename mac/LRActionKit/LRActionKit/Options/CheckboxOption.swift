@@ -43,7 +43,7 @@ internal class CheckboxOptionSpec : OptionSpec {
         return true
     }
 
-    public override func newOption(#rule: Rule) -> Option {
+    internal override func newOption(#rule: Rule) -> Option {
         return CheckboxOption(rule: rule, spec: self)
     }
 }
@@ -76,7 +76,7 @@ public class CheckboxOption : Option {
 
     public var effectiveValue: Bool {
         get {
-            return modelValue ||| defaultValue
+            return modelValue ?? defaultValue
         }
     }
 

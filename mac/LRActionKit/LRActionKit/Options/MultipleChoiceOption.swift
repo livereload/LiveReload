@@ -54,7 +54,7 @@ public class MultipleChoiceOptionItem : NSObject {
         let identifier: String? = manifest["id"]~~~
         let label: String? = manifest["label"]~~~
         let arguments: [String] = P2ParseCommandLineSpec(manifest["args"]) as [String]
-        if identifier && label && !identifier!.isEmpty && !label!.isEmpty {
+        if identifier != nil && label != nil && !identifier!.isEmpty && !label!.isEmpty {
             return MultipleChoiceOptionItem(identifier: identifier!, label: label!, index: index, arguments: arguments)
         } else {
             return nil
@@ -77,7 +77,7 @@ internal class MultipleChoiceOptionSpec : OptionSpec {
         return true
     }
 
-    public override func newOption(#rule: Rule) -> Option {
+    internal override func newOption(#rule: Rule) -> Option {
         return MultipleChoiceOption(rule: rule, spec: self)
     }
 }
@@ -119,7 +119,7 @@ public class MultipleChoiceOption : Option {
 
     public var effectiveValue: String {
         get {
-            return modelValue ||| defaultValue
+            return modelValue ?? defaultValue
         }
     }
 

@@ -35,7 +35,7 @@ public class UserScriptRule : Rule {
     }
 
     public override var nonEmpty: Bool {
-        if !scriptName {
+        if scriptName == nil {
             return false
         } else if let actualScript = script {
             return actualScript.exists

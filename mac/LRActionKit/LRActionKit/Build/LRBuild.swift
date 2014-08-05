@@ -133,7 +133,7 @@ public class LRBuild : NSObject {
 
     private let _delayed_executeNextTarget = Delayed()
     private func _executeNextTarget() {
-        if _runningTarget {
+        if _runningTarget != nil {
             return
         }
 
@@ -191,7 +191,7 @@ public class LRBuild : NSObject {
     }
 
     public func addOperationResult(result: LROperationResult, forTarget target: LRTarget, key: String) {
-        if !firstFailure && result.failed {
+        if firstFailure == nil && result.failed {
             firstFailure = result
         }
 
