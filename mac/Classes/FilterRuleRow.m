@@ -1,7 +1,7 @@
+@import LRCommons;
 
 #import "FilterRuleRow.h"
-#import "ATMacViewCreation.h"
-#import "ATAutolayout.h"
+
 
 @implementation FilterRuleRow
 
@@ -41,8 +41,11 @@
 }
 
 - (void)loadOptionsIntoView:(LROptionsView *)container {
-    for (LROption *option in [self.rule createOptions]) {
-        [container addOption:option];
+    for (Option *option in [self.rule createOptions]) {
+        OptionController *controller = [OptionController controllerForOption:option];
+        if (controller) {
+            [container addOption:controller];
+        }
     }
 }
 

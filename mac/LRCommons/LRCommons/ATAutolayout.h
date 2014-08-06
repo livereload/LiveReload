@@ -1,6 +1,4 @@
-
-#import <Foundation/Foundation.h>
-@import LRCommons;
+@import Cocoa;
 
 
 @interface NSView (ATAutolayout)

@@ -7,23 +7,23 @@ enum {
     LROptionsViewContentHuggingExpandToRightEdge = LROptionsViewRightEdgeExpansionPriority - 10,
 };
 
-typedef enum {
+typedef NS_OPTIONS(NSUInteger, LROptionsViewFlags) {
     LROptionsViewFlagsLabelAlignmentBaseline = 0,
     LROptionsViewFlagsLabelAlignmentCenter = 1,
     LROptionsViewFlagsLabelAlignmentTop = 2,
 
     LROptionsViewFlagsLabelAlignmentMask = 0x7,
-} LROptionsViewFlags;
+};
 
 
-@class LROption;
+@class OptionController;
 
 
 @interface LROptionsView : NSView
 
 + (LROptionsView *)optionsView;
 
-- (void)addOption:(LROption *)option;
+- (void)addOption:(OptionController *)option;
 - (void)addOptionView:(NSView *)optionView withLabel:(NSString *)label flags:(LROptionsViewFlags)flags;
 - (void)addOptionView:(NSView *)optionView withLabel:(NSString *)label alignedToView:(NSView *)labelAlignmentView flags:(LROptionsViewFlags)flags;
 

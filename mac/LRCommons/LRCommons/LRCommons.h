@@ -25,3 +25,6 @@ FOUNDATION_EXPORT const unsigned char LRCommonsVersionString[];
 #import <LRCommons/NSArray+P2Substitutions.h>
 #import <LRCommons/P2CommandLine.h>
 #import <LRCommons/ATFunctionalStyle.h>
+#import <LRCommons/ATMacViewCreation.h>
+#import <LRCommons/ATAutolayout.h>
+#import <LRCommons/ATAttributedStringAdditions.h>

@@ -32,6 +32,12 @@
 		432EB44219887ADE0074E755 /* Wrappers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432EB44119887ADE0074E755 /* Wrappers.swift */; };
 		439316531984A2B300685024 /* NSAppleScript+ATInvokeHandlerWithArguments.h in Headers */ = {isa = PBXBuildFile; fileRef = 439316511984A2B300685024 /* NSAppleScript+ATInvokeHandlerWithArguments.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		439316541984A2B300685024 /* NSAppleScript+ATInvokeHandlerWithArguments.m in Sources */ = {isa = PBXBuildFile; fileRef = 439316521984A2B300685024 /* NSAppleScript+ATInvokeHandlerWithArguments.m */; };
+		43DE2B451991BCA7007F59EC /* ATAttributedStringAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 43DE2B431991BCA7007F59EC /* ATAttributedStringAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43DE2B461991BCA7007F59EC /* ATAttributedStringAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DE2B441991BCA7007F59EC /* ATAttributedStringAdditions.m */; };
+		43DF7C4C1991B68900AF9B74 /* ATMacViewCreation.h in Headers */ = {isa = PBXBuildFile; fileRef = 43DF7C4A1991B68900AF9B74 /* ATMacViewCreation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43DF7C4D1991B68900AF9B74 /* ATMacViewCreation.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DF7C4B1991B68900AF9B74 /* ATMacViewCreation.m */; };
+		43DF7C501991B6F100AF9B74 /* ATAutolayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 43DF7C4E1991B6F100AF9B74 /* ATAutolayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43DF7C511991B6F100AF9B74 /* ATAutolayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DF7C4F1991B6F100AF9B74 /* ATAutolayout.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +79,12 @@
 		432EB44119887ADE0074E755 /* Wrappers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wrappers.swift; sourceTree = "<group>"; };
 		439316511984A2B300685024 /* NSAppleScript+ATInvokeHandlerWithArguments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAppleScript+ATInvokeHandlerWithArguments.h"; sourceTree = "<group>"; };
 		439316521984A2B300685024 /* NSAppleScript+ATInvokeHandlerWithArguments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAppleScript+ATInvokeHandlerWithArguments.m"; sourceTree = "<group>"; };
+		43DE2B431991BCA7007F59EC /* ATAttributedStringAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATAttributedStringAdditions.h; sourceTree = "<group>"; };
+		43DE2B441991BCA7007F59EC /* ATAttributedStringAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATAttributedStringAdditions.m; sourceTree = "<group>"; };
+		43DF7C4A1991B68900AF9B74 /* ATMacViewCreation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATMacViewCreation.h; sourceTree = "<group>"; };
+		43DF7C4B1991B68900AF9B74 /* ATMacViewCreation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATMacViewCreation.m; sourceTree = "<group>"; };
+		43DF7C4E1991B6F100AF9B74 /* ATAutolayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATAutolayout.h; sourceTree = "<group>"; };
+		43DF7C4F1991B6F100AF9B74 /* ATAutolayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATAutolayout.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +149,12 @@
 				4324E8D51989F626003BDDD8 /* ATFunctionalStyle.m */,
 				4324E8D01989F481003BDDD8 /* P2CommandLine.h */,
 				4324E8D11989F481003BDDD8 /* P2CommandLine.m */,
+				43DF7C4A1991B68900AF9B74 /* ATMacViewCreation.h */,
+				43DF7C4B1991B68900AF9B74 /* ATMacViewCreation.m */,
+				43DF7C4E1991B6F100AF9B74 /* ATAutolayout.h */,
+				43DF7C4F1991B6F100AF9B74 /* ATAutolayout.m */,
+				43DE2B431991BCA7007F59EC /* ATAttributedStringAdditions.h */,
+				43DE2B441991BCA7007F59EC /* ATAttributedStringAdditions.m */,
 				432EB44119887ADE0074E755 /* Wrappers.swift */,
 				4301FA5219848ECF006709C9 /* Supporting Files */,
 			);
@@ -175,7 +193,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43DF7C4C1991B68900AF9B74 /* ATMacViewCreation.h in Headers */,
 				4301FA7A19848F5E006709C9 /* ATGlobals.h in Headers */,
+				43DE2B451991BCA7007F59EC /* ATAttributedStringAdditions.h in Headers */,
 				4301FA8719849244006709C9 /* P2Warnings.h in Headers */,
 				4324E8D61989F626003BDDD8 /* ATFunctionalStyle.h in Headers */,
 				439316531984A2B300685024 /* NSAppleScript+ATInvokeHandlerWithArguments.h in Headers */,
@@ -184,6 +204,7 @@
 				4301FA8A19849283006709C9 /* ATModelDiff.h in Headers */,
 				4301FA5519848ECF006709C9 /* LRCommons.h in Headers */,
 				4301FA7E19849089006709C9 /* NSData+Base64.h in Headers */,
+				43DF7C501991B6F100AF9B74 /* ATAutolayout.h in Headers */,
 				4301FA8419849229006709C9 /* ATChildTask.h in Headers */,
 				4301FA9019849369006709C9 /* ATObservation.h in Headers */,
 				4301FA9219849369006709C9 /* ATScheduling.h in Headers */,
@@ -287,10 +308,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43DF7C511991B6F100AF9B74 /* ATAutolayout.m in Sources */,
 				4324E8D71989F626003BDDD8 /* ATFunctionalStyle.m in Sources */,
 				4301FA9319849369006709C9 /* ATScheduling.m in Sources */,
 				4301FA8519849229006709C9 /* ATChildTask.m in Sources */,
 				4301FA9119849369006709C9 /* ATObservation.m in Sources */,
+				43DE2B461991BCA7007F59EC /* ATAttributedStringAdditions.m in Sources */,
+				43DF7C4D1991B68900AF9B74 /* ATMacViewCreation.m in Sources */,
 				4324E8D31989F481003BDDD8 /* P2CommandLine.m in Sources */,
 				439316541984A2B300685024 /* NSAppleScript+ATInvokeHandlerWithArguments.m in Sources */,
 				4324E8C61989F323003BDDD8 /* NSArray+P2Substitutions.m in Sources */,

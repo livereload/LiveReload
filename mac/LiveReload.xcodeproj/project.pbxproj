@@ -72,8 +72,6 @@
 		4344CE1C1798DB9100CB8658 /* editors.json in Resources */ = {isa = PBXBuildFile; fileRef = 4344CE1B1798DB9100CB8658 /* editors.json */; };
 		4346F3AB1451012A00B133F2 /* StatusItemStateRotation3.png in Resources */ = {isa = PBXBuildFile; fileRef = 4346F3AA1451012A00B133F2 /* StatusItemStateRotation3.png */; };
 		434BB24217B66CBE000BEB1C /* LROptionsTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 434BB24117B66CBE000BEB1C /* LROptionsTemplate.png */; };
-		434BB24C17B6913F000BEB1C /* ATMacViewCreation.m in Sources */ = {isa = PBXBuildFile; fileRef = 434BB24B17B6913F000BEB1C /* ATMacViewCreation.m */; };
-		43508A8117B3819500871422 /* ATAutolayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A8017B3819500871422 /* ATAutolayout.m */; };
 		43508A8417B392A500871422 /* ATStackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A8317B392A500871422 /* ATStackView.m */; };
 		43508A9017B39C9700871422 /* ATSolidView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A8F17B39C9700871422 /* ATSolidView.m */; };
 		43508A9317B39DBE00871422 /* ATFlippedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43508A9217B39DBE00871422 /* ATFlippedView.m */; };
@@ -116,25 +114,18 @@
 		4353416919489EA8003E51EB /* LicenseCodeWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4353403219489EA7003E51EB /* LicenseCodeWindowController.xib */; };
 		4353416A19489EA8003E51EB /* LicenseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353403419489EA7003E51EB /* LicenseManager.m */; };
 		4353416B19489EA8003E51EB /* LiveReloadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353403819489EA7003E51EB /* LiveReloadAppDelegate.m */; };
-		4353417019489EA8003E51EB /* LRCheckboxOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353404219489EA7003E51EB /* LRCheckboxOption.m */; };
 		4353417419489EA8003E51EB /* LRCustomArgumentsOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353404A19489EA7003E51EB /* LRCustomArgumentsOption.m */; };
 		4353417519489EA8003E51EB /* LRGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353404C19489EA7003E51EB /* LRGlobals.m */; };
 		4353417619489EA8003E51EB /* LRLegacyFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353404E19489EA7003E51EB /* LRLegacyFile.m */; };
-		4353417A19489EA8003E51EB /* LROption.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353405819489EA7003E51EB /* LROption.m */; };
 		4353417C19489EA8003E51EB /* LROptionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353405C19489EA7003E51EB /* LROptionController.m */; };
 		4353417D19489EA8003E51EB /* LROptionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353405E19489EA7003E51EB /* LROptionsView.m */; };
-		4353417E19489EA8003E51EB /* LROutputFileMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353406019489EA7003E51EB /* LROutputFileMapping.m */; };
-		4353417F19489EA8003E51EB /* LROutputMappingOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353406219489EA7003E51EB /* LROutputMappingOption.m */; };
-		4353418019489EA8003E51EB /* LROutputMappingOptionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353406419489EA7003E51EB /* LROutputMappingOptionController.m */; };
 		4353418919489EA8003E51EB /* LRPluginCommons.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353407619489EA7003E51EB /* LRPluginCommons.m */; };
-		4353418A19489EA8003E51EB /* LRPopUpOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353407819489EA7003E51EB /* LRPopUpOption.m */; };
 		4353418C19489EA8003E51EB /* LRSelfTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353407C19489EA7003E51EB /* LRSelfTest.m */; };
 		4353418D19489EA8003E51EB /* LRSelfTestBrowserRequestExpectation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353407E19489EA7003E51EB /* LRSelfTestBrowserRequestExpectation.m */; };
 		4353418E19489EA8003E51EB /* LRSelfTestHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353408019489EA7003E51EB /* LRSelfTestHelpers.m */; };
 		4353418F19489EA8003E51EB /* LRSelfTestMessageExpectation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353408219489EA7003E51EB /* LRSelfTestMessageExpectation.m */; };
 		4353419019489EA8003E51EB /* LRSelfTestOutputExpectation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353408419489EA7003E51EB /* LRSelfTestOutputExpectation.m */; };
 		4353419119489EA8003E51EB /* LRSelfTestOutputFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353408619489EA7003E51EB /* LRSelfTestOutputFile.m */; };
-		4353419419489EA8003E51EB /* LRTextFieldOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353408D19489EA7003E51EB /* LRTextFieldOption.m */; };
 		4353419B19489EA8003E51EB /* LRVersionOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353409B19489EA7003E51EB /* LRVersionOption.m */; };
 		435341A119489EA8003E51EB /* MainWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 435340A719489EA7003E51EB /* MainWindow.m */; };
 		435341A219489EA8003E51EB /* MASPreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 435340A919489EA7003E51EB /* MASPreferencesWindow.xib */; };
@@ -222,6 +213,7 @@
 		43CDCF8D17C6082A007B22D9 /* ATAttributedStringAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CDCF8C17C6082A007B22D9 /* ATAttributedStringAdditions.m */; };
 		43CE9B6C1917338B0044D28E /* Mocha.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43CE9B6B1917338A0044D28E /* Mocha.lrplugin */; };
 		43DD7C22192B6AC40070FF55 /* LRReloadingTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DD7C21192B6AC40070FF55 /* LRReloadingTestCase.m */; };
+		43DF7C491991B4C700AF9B74 /* OptionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DF7C481991B4C700AF9B74 /* OptionController.swift */; };
 		43DFD3DD197FABDA00DD7546 /* VariableKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43F18F161972D19100E0AAEE /* VariableKit.framework */; };
 		43DFD3E0197FABE200DD7546 /* PiiVersionKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43177BB41979279800FDCD62 /* PiiVersionKit.framework */; };
 		43DFE4DE17CB613100DEF87B /* P2AsyncEnumeration.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DFE4DD17CB613100DEF87B /* P2AsyncEnumeration.m */; };
@@ -593,12 +585,8 @@
 		4344CE1B1798DB9100CB8658 /* editors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = editors.json; path = Resources/editors.json; sourceTree = "<group>"; };
 		4346F3AA1451012A00B133F2 /* StatusItemStateRotation3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemStateRotation3.png; sourceTree = "<group>"; };
 		434BB24117B66CBE000BEB1C /* LROptionsTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LROptionsTemplate.png; sourceTree = "<group>"; };
-		434BB24A17B6913F000BEB1C /* ATMacViewCreation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATMacViewCreation.h; sourceTree = "<group>"; };
-		434BB24B17B6913F000BEB1C /* ATMacViewCreation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATMacViewCreation.m; sourceTree = "<group>"; };
 		434BB29F17BBF512000BEB1C /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		434E78251987447400B18BC8 /* SwiftyFoundation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftyFoundation.xcodeproj; path = SwiftyFoundation/SwiftyFoundation.xcodeproj; sourceTree = "<group>"; };
-		43508A7F17B3819500871422 /* ATAutolayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATAutolayout.h; sourceTree = "<group>"; };
-		43508A8017B3819500871422 /* ATAutolayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATAutolayout.m; sourceTree = "<group>"; };
 		43508A8217B392A500871422 /* ATStackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATStackView.h; sourceTree = "<group>"; };
 		43508A8317B392A500871422 /* ATStackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATStackView.m; sourceTree = "<group>"; };
 		43508A8E17B39C9700871422 /* ATSolidView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATSolidView.h; sourceTree = "<group>"; };
@@ -679,30 +667,17 @@
 		4353403619489EA7003E51EB /* LiveReload-Swift-x.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LiveReload-Swift-x.h"; sourceTree = "<group>"; };
 		4353403719489EA7003E51EB /* LiveReloadAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveReloadAppDelegate.h; sourceTree = "<group>"; };
 		4353403819489EA7003E51EB /* LiveReloadAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveReloadAppDelegate.m; sourceTree = "<group>"; };
-		4353404119489EA7003E51EB /* LRCheckboxOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRCheckboxOption.h; sourceTree = "<group>"; };
-		4353404219489EA7003E51EB /* LRCheckboxOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRCheckboxOption.m; sourceTree = "<group>"; };
-		4353404919489EA7003E51EB /* LRCustomArgumentsOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRCustomArgumentsOption.h; sourceTree = "<group>"; };
 		4353404A19489EA7003E51EB /* LRCustomArgumentsOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRCustomArgumentsOption.m; sourceTree = "<group>"; };
 		4353404B19489EA7003E51EB /* LRGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRGlobals.h; sourceTree = "<group>"; };
 		4353404C19489EA7003E51EB /* LRGlobals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRGlobals.m; sourceTree = "<group>"; };
 		4353404D19489EA7003E51EB /* LRLegacyFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRLegacyFile.h; sourceTree = "<group>"; };
 		4353404E19489EA7003E51EB /* LRLegacyFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRLegacyFile.m; sourceTree = "<group>"; };
-		4353405719489EA7003E51EB /* LROption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LROption.h; sourceTree = "<group>"; };
-		4353405819489EA7003E51EB /* LROption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LROption.m; sourceTree = "<group>"; };
 		4353405B19489EA7003E51EB /* LROptionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LROptionController.h; sourceTree = "<group>"; };
 		4353405C19489EA7003E51EB /* LROptionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LROptionController.m; sourceTree = "<group>"; };
 		4353405D19489EA7003E51EB /* LROptionsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LROptionsView.h; sourceTree = "<group>"; };
 		4353405E19489EA7003E51EB /* LROptionsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LROptionsView.m; sourceTree = "<group>"; };
-		4353405F19489EA7003E51EB /* LROutputFileMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LROutputFileMapping.h; sourceTree = "<group>"; };
-		4353406019489EA7003E51EB /* LROutputFileMapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LROutputFileMapping.m; sourceTree = "<group>"; };
-		4353406119489EA7003E51EB /* LROutputMappingOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LROutputMappingOption.h; sourceTree = "<group>"; };
-		4353406219489EA7003E51EB /* LROutputMappingOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LROutputMappingOption.m; sourceTree = "<group>"; };
-		4353406319489EA7003E51EB /* LROutputMappingOptionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LROutputMappingOptionController.h; sourceTree = "<group>"; };
-		4353406419489EA7003E51EB /* LROutputMappingOptionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LROutputMappingOptionController.m; sourceTree = "<group>"; };
 		4353407519489EA7003E51EB /* LRPluginCommons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPluginCommons.h; sourceTree = "<group>"; };
 		4353407619489EA7003E51EB /* LRPluginCommons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPluginCommons.m; sourceTree = "<group>"; };
-		4353407719489EA7003E51EB /* LRPopUpOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPopUpOption.h; sourceTree = "<group>"; };
-		4353407819489EA7003E51EB /* LRPopUpOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPopUpOption.m; sourceTree = "<group>"; };
 		4353407B19489EA7003E51EB /* LRSelfTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRSelfTest.h; sourceTree = "<group>"; };
 		4353407C19489EA7003E51EB /* LRSelfTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRSelfTest.m; sourceTree = "<group>"; };
 		4353407D19489EA7003E51EB /* LRSelfTestBrowserRequestExpectation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRSelfTestBrowserRequestExpectation.h; sourceTree = "<group>"; };
@@ -716,9 +691,6 @@
 		4353408519489EA7003E51EB /* LRSelfTestOutputFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRSelfTestOutputFile.h; sourceTree = "<group>"; };
 		4353408619489EA7003E51EB /* LRSelfTestOutputFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRSelfTestOutputFile.m; sourceTree = "<group>"; };
 		4353408B19489EA7003E51EB /* LRTestRunner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRTestRunner.h; sourceTree = "<group>"; };
-		4353408C19489EA7003E51EB /* LRTextFieldOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRTextFieldOption.h; sourceTree = "<group>"; };
-		4353408D19489EA7003E51EB /* LRTextFieldOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRTextFieldOption.m; sourceTree = "<group>"; };
-		4353409A19489EA7003E51EB /* LRVersionOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRVersionOption.h; sourceTree = "<group>"; };
 		4353409B19489EA7003E51EB /* LRVersionOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRVersionOption.m; sourceTree = "<group>"; };
 		435340A619489EA7003E51EB /* MainWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindow.h; sourceTree = "<group>"; };
 		435340A719489EA7003E51EB /* MainWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainWindow.m; sourceTree = "<group>"; };
@@ -860,6 +832,7 @@
 		43CDCF8C17C6082A007B22D9 /* ATAttributedStringAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATAttributedStringAdditions.m; sourceTree = "<group>"; };
 		43CE9B6B1917338A0044D28E /* Mocha.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Mocha.lrplugin; path = ../plugins/Mocha.lrplugin; sourceTree = "<group>"; };
 		43DD7C21192B6AC40070FF55 /* LRReloadingTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRReloadingTestCase.m; sourceTree = "<group>"; };
+		43DF7C481991B4C700AF9B74 /* OptionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionController.swift; sourceTree = "<group>"; };
 		43DFE4DC17CB613100DEF87B /* P2AsyncEnumeration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = P2AsyncEnumeration.h; sourceTree = "<group>"; };
 		43DFE4DD17CB613100DEF87B /* P2AsyncEnumeration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = P2AsyncEnumeration.m; sourceTree = "<group>"; };
 		43DFE4E417CC6C0D00DEF87B /* autoprefixer.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = autoprefixer.lrplugin; path = ../plugins/autoprefixer.lrplugin; sourceTree = "<group>"; };
@@ -1434,22 +1407,34 @@
 				43B5C01617ADF5FB00F57276 /* RegexKitLite.m */,
 				43E07EC017B01C4A004DB867 /* ATJson.h */,
 				43E07EC117B01C4B004DB867 /* ATJson.m */,
-				43508A7F17B3819500871422 /* ATAutolayout.h */,
-				43508A8017B3819500871422 /* ATAutolayout.m */,
 				43508A8217B392A500871422 /* ATStackView.h */,
 				43508A8317B392A500871422 /* ATStackView.m */,
 				43508A8E17B39C9700871422 /* ATSolidView.h */,
 				43508A8F17B39C9700871422 /* ATSolidView.m */,
 				43508A9117B39DBE00871422 /* ATFlippedView.h */,
 				43508A9217B39DBE00871422 /* ATFlippedView.m */,
-				434BB24A17B6913F000BEB1C /* ATMacViewCreation.h */,
-				434BB24B17B6913F000BEB1C /* ATMacViewCreation.m */,
 				43CDCF8B17C6082A007B22D9 /* ATAttributedStringAdditions.h */,
 				43CDCF8C17C6082A007B22D9 /* ATAttributedStringAdditions.m */,
 				43DFE4DC17CB613100DEF87B /* P2AsyncEnumeration.h */,
 				43DFE4DD17CB613100DEF87B /* P2AsyncEnumeration.m */,
 			);
 			path = ATCommons;
+			sourceTree = "<group>";
+		};
+		43DF7C3D1991B48F00AF9B74 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				43DF7C471991B4A200AF9B74 /* Options */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		43DF7C471991B4A200AF9B74 /* Options */ = {
+			isa = PBXGroup;
+			children = (
+				43DF7C481991B4C700AF9B74 /* OptionController.swift */,
+			);
+			path = Options;
 			sourceTree = "<group>";
 		};
 		43F18F171972D19100E0AAEE /* VariableKit */ = {
@@ -1490,6 +1475,7 @@
 		823DDE2D13F8DA3100529AD2 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				43DF7C3D1991B48F00AF9B74 /* Presentation */,
 				43533FD919489EA7003E51EB /* RulebookView.h */,
 				43533FDA19489EA7003E51EB /* RulebookView.m */,
 				43533FDB19489EA7003E51EB /* ActionsGroupHeaderRow.h */,
@@ -1562,30 +1548,17 @@
 				4353403619489EA7003E51EB /* LiveReload-Swift-x.h */,
 				4353403719489EA7003E51EB /* LiveReloadAppDelegate.h */,
 				4353403819489EA7003E51EB /* LiveReloadAppDelegate.m */,
-				4353404119489EA7003E51EB /* LRCheckboxOption.h */,
-				4353404219489EA7003E51EB /* LRCheckboxOption.m */,
-				4353404919489EA7003E51EB /* LRCustomArgumentsOption.h */,
 				4353404A19489EA7003E51EB /* LRCustomArgumentsOption.m */,
 				4353404B19489EA7003E51EB /* LRGlobals.h */,
 				4353404C19489EA7003E51EB /* LRGlobals.m */,
 				4353404D19489EA7003E51EB /* LRLegacyFile.h */,
 				4353404E19489EA7003E51EB /* LRLegacyFile.m */,
-				4353405719489EA7003E51EB /* LROption.h */,
-				4353405819489EA7003E51EB /* LROption.m */,
 				4353405B19489EA7003E51EB /* LROptionController.h */,
 				4353405C19489EA7003E51EB /* LROptionController.m */,
 				4353405D19489EA7003E51EB /* LROptionsView.h */,
 				4353405E19489EA7003E51EB /* LROptionsView.m */,
-				4353405F19489EA7003E51EB /* LROutputFileMapping.h */,
-				4353406019489EA7003E51EB /* LROutputFileMapping.m */,
-				4353406119489EA7003E51EB /* LROutputMappingOption.h */,
-				4353406219489EA7003E51EB /* LROutputMappingOption.m */,
-				4353406319489EA7003E51EB /* LROutputMappingOptionController.h */,
-				4353406419489EA7003E51EB /* LROutputMappingOptionController.m */,
 				4353407519489EA7003E51EB /* LRPluginCommons.h */,
 				4353407619489EA7003E51EB /* LRPluginCommons.m */,
-				4353407719489EA7003E51EB /* LRPopUpOption.h */,
-				4353407819489EA7003E51EB /* LRPopUpOption.m */,
 				4353407B19489EA7003E51EB /* LRSelfTest.h */,
 				4353407C19489EA7003E51EB /* LRSelfTest.m */,
 				4353407D19489EA7003E51EB /* LRSelfTestBrowserRequestExpectation.h */,
@@ -1599,9 +1572,6 @@
 				4353408519489EA7003E51EB /* LRSelfTestOutputFile.h */,
 				4353408619489EA7003E51EB /* LRSelfTestOutputFile.m */,
 				4353408B19489EA7003E51EB /* LRTestRunner.h */,
-				4353408C19489EA7003E51EB /* LRTextFieldOption.h */,
-				4353408D19489EA7003E51EB /* LRTextFieldOption.m */,
-				4353409A19489EA7003E51EB /* LRVersionOption.h */,
 				4353409B19489EA7003E51EB /* LRVersionOption.m */,
 				435340A619489EA7003E51EB /* MainWindow.h */,
 				435340A719489EA7003E51EB /* MainWindow.m */,
@@ -2220,7 +2190,6 @@
 				4303A54015B513FD009D732A /* dump.c in Sources */,
 				4303A54115B513FD009D732A /* error.c in Sources */,
 				4353417419489EA8003E51EB /* LRCustomArgumentsOption.m in Sources */,
-				4353418019489EA8003E51EB /* LROutputMappingOptionController.m in Sources */,
 				4303A54215B513FD009D732A /* hashtable.c in Sources */,
 				4303A54315B513FD009D732A /* load.c in Sources */,
 				4303A54415B513FD009D732A /* memory.c in Sources */,
@@ -2233,7 +2202,6 @@
 				4303A54915B513FD009D732A /* value.c in Sources */,
 				4303A54A15B513FD009D732A /* nodeapp.c in Sources */,
 				4303A54B15B513FD009D732A /* nodeapp_autorelease.c in Sources */,
-				4353417F19489EA8003E51EB /* LROutputMappingOption.m in Sources */,
 				4303A54D15B513FD009D732A /* nodeapp_paths_common.c in Sources */,
 				4303A54E15B513FD009D732A /* nodeapp_rpc_common.m in Sources */,
 				4353415119489EA8003E51EB /* ExtensionsController.m in Sources */,
@@ -2249,7 +2217,6 @@
 				435341DD19489EA8003E51EB /* ShadowBoxView.m in Sources */,
 				4303A55915B513FD009D732A /* nodeapp_crash.m in Sources */,
 				435341D619489EA8003E51EB /* RuntimeInstanceCellView.m in Sources */,
-				4353417E19489EA8003E51EB /* LROutputFileMapping.m in Sources */,
 				4353414419489EA8003E51EB /* AuxWindow.m in Sources */,
 				435341E719489EA8003E51EB /* ToolOutput.m in Sources */,
 				4303A55A15B513FD009D732A /* nodeapp_logging.m in Sources */,
@@ -2270,7 +2237,6 @@
 				4303A57715B513FD009D732A /* nodeapp_licensing.m in Sources */,
 				4396F1E117F8112F00AA8200 /* GlitterVersionUtilities.m in Sources */,
 				435341EE19489EA8003E51EB /* Workspace.m in Sources */,
-				4353417019489EA8003E51EB /* LRCheckboxOption.m in Sources */,
 				4303A58815B513FD009D732A /* nodeapp_url_handler_mac.m in Sources */,
 				4353413B19489EA8003E51EB /* RulebookView.m in Sources */,
 				4353416419489EA8003E51EB /* KeyWindow.m in Sources */,
@@ -2283,16 +2249,12 @@
 				435341C719489EA8003E51EB /* Preferences.m in Sources */,
 				4353413C19489EA8003E51EB /* ActionsGroupHeaderRow.m in Sources */,
 				435341C319489EA8003E51EB /* PassThruImageView.m in Sources */,
-				43508A8117B3819500871422 /* ATAutolayout.m in Sources */,
-				434BB24C17B6913F000BEB1C /* ATMacViewCreation.m in Sources */,
 				4353414D19489EA8003E51EB /* DockIcon.m in Sources */,
 				4353418C19489EA8003E51EB /* LRSelfTest.m in Sources */,
-				4353418A19489EA8003E51EB /* LRPopUpOption.m in Sources */,
 				4353415219489EA8003E51EB /* ExternalEditor.m in Sources */,
 				4353417619489EA8003E51EB /* LRLegacyFile.m in Sources */,
 				435341C519489EA8003E51EB /* Plugin.m in Sources */,
 				435341E019489EA8003E51EB /* StatusItemController.m in Sources */,
-				4353417A19489EA8003E51EB /* LROption.m in Sources */,
 				4353414219489EA8003E51EB /* AddFilterRow.m in Sources */,
 				4353416619489EA8003E51EB /* LicenseCodeViewController.m in Sources */,
 				435341CE19489EA8003E51EB /* RubyPreferencesViewController.m in Sources */,
@@ -2306,13 +2268,13 @@
 				4396F1DF17F8112F00AA8200 /* GlitterArchiveUtilities.m in Sources */,
 				4353416B19489EA8003E51EB /* LiveReloadAppDelegate.m in Sources */,
 				435341E519489EA8003E51EB /* TerminalViewController.m in Sources */,
-				4353419419489EA8003E51EB /* LRTextFieldOption.m in Sources */,
 				43B5C01417ADF35C00F57276 /* NSWindowController+ATTextStyling.m in Sources */,
 				435341C819489EA8003E51EB /* PreferencesController.m in Sources */,
 				43B5C01717ADF5FB00F57276 /* RegexKitLite.m in Sources */,
 				435341DE19489EA8003E51EB /* ShitHappens.m in Sources */,
 				43508A9017B39C9700871422 /* ATSolidView.m in Sources */,
 				435341A419489EA8003E51EB /* MASReceipt.m in Sources */,
+				43DF7C491991B4C700AF9B74 /* OptionController.swift in Sources */,
 				435341C219489EA8003E51EB /* P2RegularExpressionExtensions.m in Sources */,
 				435341C019489EA8003E51EB /* OptionsRow.m in Sources */,
 				4353415019489EA8003E51EB /* ExpandedOutlineView.m in Sources */,

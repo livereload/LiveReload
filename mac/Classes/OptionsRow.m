@@ -1,7 +1,7 @@
+@import LRCommons;
 
 #import "OptionsRow.h"
-#import "ATMacViewCreation.h"
-#import "ATAutolayout.h"
+
 
 @implementation OptionsRow {
     NSBox *_box;

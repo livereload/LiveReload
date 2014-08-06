@@ -1,7 +1,6 @@
+@import LRCommons;
 
 #import "CompileFileRuleRow.h"
-#import "ATMacViewCreation.h"
-#import "ATAutolayout.h"
 #import "LiveReload-Swift-x.h"
 
 
@@ -61,8 +60,11 @@
 }
 
 - (void)loadOptionsIntoView:(LROptionsView *)container {
-    for (LROption *option in [self.rule createOptions]) {
-        [container addOption:option];
+    for (Option *option in [self.rule createOptions]) {
+        OptionController *controller = [OptionController controllerForOption:option];
+        if (controller) {
+            [container addOption:controller];
+        }
     }
 }
 

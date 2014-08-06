@@ -121,6 +121,13 @@ public class MultipleChoiceOption : Option {
         get {
             return modelValue ?? defaultValue
         }
+        set {
+            if newValue == defaultValue {
+                modelValue = nil
+            } else {
+                modelValue = newValue
+            }
+        }
     }
 
     public var effectiveItem: MultipleChoiceOptionItem? {

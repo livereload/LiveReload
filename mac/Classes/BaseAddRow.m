@@ -1,8 +1,7 @@
+@import LRCommons;
 @import LRActionKit;
 
 #import "BaseAddRow.h"
-#import "ATMacViewCreation.h"
-#import "ATAutolayout.h"
 
 
 @interface BaseAddRow ()

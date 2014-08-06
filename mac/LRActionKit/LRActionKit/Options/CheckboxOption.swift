@@ -50,9 +50,9 @@ internal class CheckboxOptionSpec : OptionSpec {
 
 public class CheckboxOption : Option {
 
-    let label: String
-    let argumentsWhenOn: [String]
-    let argumentsWhenOff: [String]
+    public let label: String
+    public let argumentsWhenOn: [String]
+    public let argumentsWhenOff: [String]
 
     private init(rule: Rule, spec: CheckboxOptionSpec) {
         label = spec.label!
@@ -77,6 +77,13 @@ public class CheckboxOption : Option {
     public var effectiveValue: Bool {
         get {
             return modelValue ?? defaultValue
+        }
+        set {
+            if newValue == defaultValue {
+                modelValue = nil
+            } else {
+                modelValue = newValue
+            }
         }
     }
 

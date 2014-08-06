@@ -1,7 +1,6 @@
+@import LRCommons;
 
 #import "FiltersGroupHeaderRow.h"
-#import "ATMacViewCreation.h"
-#import "ATAutolayout.h"
 
 
 @implementation FiltersGroupHeaderRow

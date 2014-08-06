@@ -82,6 +82,13 @@ public class TextOption : Option {
         get {
             return modelValue ?? defaultValue
         }
+        set {
+            if newValue == defaultValue {
+                modelValue = nil
+            } else {
+                modelValue = newValue
+            }
+        }
     }
 
     public override var commandLineArguments: [String] {
