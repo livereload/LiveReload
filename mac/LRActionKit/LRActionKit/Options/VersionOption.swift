@@ -22,6 +22,9 @@ public class VersionOption : Option {
         get {
             return modelValue
         }
+        set {
+            modelValue = newValue
+        }
     }
 
 }

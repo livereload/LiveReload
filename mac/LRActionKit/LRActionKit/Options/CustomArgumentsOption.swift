@@ -1,26 +1,36 @@
 import Foundation
 import SwiftyFoundation
 
-public class CustomArgumentsOption : Option {
+public class CustomArgumentsOption : Option, TextOptionProtocol {
 
-    let label: String = "Custom arguments:"
+    public let label: String = "Custom arguments:"
+    public let placeholder: String? = "--foo --bar=boz"
 
     internal init(rule: Rule) {
         super.init(rule: rule, identifier: "custom-args")
     }
 
-    public var modelValue: String {
+    public var defaultValue: String {
+        get {
+            return ""
+        }
+    }
+
+    public var modelValue: String? {
         get {
             return rule.customArgumentsString
         }
         set {
-            rule.customArgumentsString = newValue
+            rule.customArgumentsString = newValue ?? ""
         }
     }
 
     public var effectiveValue: String {
         get {
-            return modelValue
+            return modelValue!
+        }
+        set {
+            modelValue = newValue
         }
     }
 

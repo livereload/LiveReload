@@ -50,7 +50,7 @@ internal class TextOptionSpec : OptionSpec {
     }
 }
 
-public class TextOption : Option {
+public class TextOption : Option, TextOptionProtocol {
 
     public let label: String
     public let placeholder: String?

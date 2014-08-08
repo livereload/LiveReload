@@ -24,7 +24,7 @@ public class MultipleChoiceOptionType : OptionType {
         }
 
         var index = 0
-        let items: [MultipleChoiceOptionItem]? = ArrayValue(manifest["items"]) { MultipleChoiceOptionItem.parse($0 as [String: AnyObject], index: index++) }
+        let items: [MultipleChoiceOptionItem]? = ArrayValue(manifest["items"]) { MultipleChoiceOptionType.parseItem($0 as [String: AnyObject], index: index++) }
         if let items = items {
             spec.items = items
         } else {
@@ -34,23 +34,8 @@ public class MultipleChoiceOptionType : OptionType {
 
         return true
     }
-}
 
-public class MultipleChoiceOptionItem : NSObject {
-
-    public let identifier: String
-    public let label: String
-    public let index: Int
-    public let arguments: [String]
-
-    public init(identifier: String, label: String, index: Int, arguments: [String]) {
-        self.identifier = identifier
-        self.label = label
-        self.index = index
-        self.arguments = arguments
-    }
-
-    private class func parse(manifest: [String: AnyObject], index: Int) -> MultipleChoiceOptionItem? {
+    private class func parseItem(manifest: [String: AnyObject], index: Int) -> MultipleChoiceOptionItem? {
         let identifier: String? = manifest["id"]~~~
         let label: String? = manifest["label"]~~~
         let arguments: [String] = P2ParseCommandLineSpec(manifest["args"]) as [String]
@@ -82,24 +67,49 @@ internal class MultipleChoiceOptionSpec : OptionSpec {
     }
 }
 
-public class MultipleChoiceOption : Option {
+public class MultipleChoiceOption : Option, MultipleChoiceOptionProtocol {
 
     public let label: String
     public let items: [MultipleChoiceOptionItem]
+
+    public private(set) var unknownItem: MultipleChoiceOptionItem? = nil {
+        didSet {
+            // TODO: when we implement syncing of settings, notify the UI that the list of items has changed
+        }
+    }
 
     private init(rule: Rule, spec: MultipleChoiceOptionSpec) {
         label = spec.label!
         items = spec.items
         super.init(rule: rule, identifier: spec.identifier!)
+
+        modelValueDidChange()
+        // right now the only case when an unknown item may be encountered is on initial config loading.
+        // TODO: when we implement syncing of settings, listen to model value changes and call modelValueDidChange
     }
 
-    public func findItem(#identifier: String) -> MultipleChoiceOptionItem? {
+    private func findItem(#identifier: String, createIfMissing: Bool = true) -> MultipleChoiceOptionItem? {
         for item in items {
             if item.identifier == identifier {
                 return item
             }
         }
+        if let unknownItem = unknownItem {
+            if unknownItem.identifier == identifier {
+                return unknownItem
+            }
+        }
         return nil
+    }
+
+    private func lookupItem(#identifier: String) -> MultipleChoiceOptionItem {
+        if let item = findItem(identifier: identifier) {
+            return item
+        } else {
+            let item = MultipleChoiceOptionItem(identifier: identifier, label: "\(identifier) (unsupported)", index: items.count, arguments: [])
+            unknownItem = item
+            return item
+        }
     }
 
     public var defaultValue: String {
@@ -130,17 +140,30 @@ public class MultipleChoiceOption : Option {
         }
     }
 
-    public var effectiveItem: MultipleChoiceOptionItem? {
+    public var effectiveItem: MultipleChoiceOptionItem {
         get {
-            return findItem(identifier: effectiveValue)
+            if let item = findItem(identifier: effectiveValue) {
+                return item
+            } else {
+                fatalError("modelValueDidChange hasn't been called after modelValue has changed to an unknown item")
+            }
+        }
+        set {
+            effectiveValue = newValue.identifier
         }
     }
 
     public override var commandLineArguments: [String] {
-        if let item = effectiveItem {
-            return item.arguments
+        return effectiveItem.arguments
+    }
+
+    private func modelValueDidChange() {
+        if let identifier = modelValue {
+            lookupItem(identifier: identifier)
         } else {
-            return []
+            if unknownItem != nil {
+                unknownItem = nil
+            }
         }
     }
 

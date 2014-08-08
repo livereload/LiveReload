@@ -114,7 +114,6 @@
 		4353416919489EA8003E51EB /* LicenseCodeWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4353403219489EA7003E51EB /* LicenseCodeWindowController.xib */; };
 		4353416A19489EA8003E51EB /* LicenseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353403419489EA7003E51EB /* LicenseManager.m */; };
 		4353416B19489EA8003E51EB /* LiveReloadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353403819489EA7003E51EB /* LiveReloadAppDelegate.m */; };
-		4353417419489EA8003E51EB /* LRCustomArgumentsOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353404A19489EA7003E51EB /* LRCustomArgumentsOption.m */; };
 		4353417519489EA8003E51EB /* LRGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353404C19489EA7003E51EB /* LRGlobals.m */; };
 		4353417619489EA8003E51EB /* LRLegacyFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353404E19489EA7003E51EB /* LRLegacyFile.m */; };
 		4353417C19489EA8003E51EB /* LROptionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353405C19489EA7003E51EB /* LROptionController.m */; };
@@ -667,7 +666,6 @@
 		4353403619489EA7003E51EB /* LiveReload-Swift-x.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LiveReload-Swift-x.h"; sourceTree = "<group>"; };
 		4353403719489EA7003E51EB /* LiveReloadAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveReloadAppDelegate.h; sourceTree = "<group>"; };
 		4353403819489EA7003E51EB /* LiveReloadAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveReloadAppDelegate.m; sourceTree = "<group>"; };
-		4353404A19489EA7003E51EB /* LRCustomArgumentsOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRCustomArgumentsOption.m; sourceTree = "<group>"; };
 		4353404B19489EA7003E51EB /* LRGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRGlobals.h; sourceTree = "<group>"; };
 		4353404C19489EA7003E51EB /* LRGlobals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRGlobals.m; sourceTree = "<group>"; };
 		4353404D19489EA7003E51EB /* LRLegacyFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRLegacyFile.h; sourceTree = "<group>"; };
@@ -1548,7 +1546,6 @@
 				4353403619489EA7003E51EB /* LiveReload-Swift-x.h */,
 				4353403719489EA7003E51EB /* LiveReloadAppDelegate.h */,
 				4353403819489EA7003E51EB /* LiveReloadAppDelegate.m */,
-				4353404A19489EA7003E51EB /* LRCustomArgumentsOption.m */,
 				4353404B19489EA7003E51EB /* LRGlobals.h */,
 				4353404C19489EA7003E51EB /* LRGlobals.m */,
 				4353404D19489EA7003E51EB /* LRLegacyFile.h */,
@@ -2189,7 +2186,6 @@
 				4353418D19489EA8003E51EB /* LRSelfTestBrowserRequestExpectation.m in Sources */,
 				4303A54015B513FD009D732A /* dump.c in Sources */,
 				4303A54115B513FD009D732A /* error.c in Sources */,
-				4353417419489EA8003E51EB /* LRCustomArgumentsOption.m in Sources */,
 				4303A54215B513FD009D732A /* hashtable.c in Sources */,
 				4303A54315B513FD009D732A /* load.c in Sources */,
 				4303A54415B513FD009D732A /* memory.c in Sources */,

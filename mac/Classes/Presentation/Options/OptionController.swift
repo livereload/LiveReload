@@ -28,11 +28,11 @@ public class OptionController: NSObject {
     @objc
     public class func controllerForOption(option: Option) -> OptionController? {
         switch option {
-        case let o as CheckboxOption:
+        case let o as BooleanOptionProtocol:
             return CheckboxOptionController(option: o)
-        case let o as MultipleChoiceOption:
+        case let o as MultipleChoiceOptionProtocol:
             return PopupOptionController(option: o)
-        case let o as TextOption:
+        case let o as TextOptionProtocol:
             return TextOptionController(option: o)
         default:
             return nil
@@ -44,10 +44,10 @@ public class OptionController: NSObject {
 
 public class CheckboxOptionController : OptionController {
 
-    private let option: CheckboxOption
+    private let option: BooleanOptionProtocol
     private var view: NSButton!
 
-    public init(option: CheckboxOption) {
+    public init(option: BooleanOptionProtocol) {
         self.option = option
         super.init()
     }
@@ -75,33 +75,36 @@ public class CheckboxOptionController : OptionController {
 
 public class PopupOptionController : OptionController {
 
-    private let option: MultipleChoiceOption
+    private let option: MultipleChoiceOptionProtocol
+    private var items: [MultipleChoiceOptionItem] = []
     private var view: NSPopUpButton!
 
-    public init(option: MultipleChoiceOption) {
+    public init(option: MultipleChoiceOptionProtocol) {
         self.option = option
         super.init()
     }
 
     public override func renderInOptionsView(optionsView: LROptionsView) {
         view = NSPopUpButton.popUpButton().withTarget(self, action: "popUpSelectionDidChange:")
-        view.addItemsWithTitles(option.items.map { $0.label })
+
+        items.extend(option.items)
+        if let unknownItem = option.unknownItem {
+            items <<< unknownItem
+        }
+        view.addItemsWithTitles(items.map { $0.label })
+
         optionsView.addOptionView(view, withLabel:option.label, flags:.LabelAlignmentBaseline)
         loadModelValues()
     }
 
     public override func loadModelValues() {
-        if let item = option.effectiveItem {
-            view.selectItemAtIndex(item.index)
-        }
+        view.selectItemAtIndex(option.effectiveItem.index)
     }
 
     public override func saveModelValues() {
         let index = view.indexOfSelectedItem
-        if index < 0 {
-            option.modelValue = nil
-        } else {
-            option.effectiveValue = option.items[index].identifier
+        if index >= 0 {
+            option.effectiveItem = items[index]
         }
     }
 
@@ -114,10 +117,10 @@ public class PopupOptionController : OptionController {
 
 public class TextOptionController : OptionController, NSTextFieldDelegate {
 
-    private let option: TextOption
+    private let option: TextOptionProtocol
     private var view: NSTextField!
 
-    public init(option: TextOption) {
+    public init(option: TextOptionProtocol) {
         self.option = option
         super.init()
     }

@@ -83,6 +83,7 @@
 		43BEEBF91985E99D00D2D239 /* LRManifestBasedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BEEBF61985E99D00D2D239 /* LRManifestBasedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		43BEEBFA1985E99D00D2D239 /* LRManifestBasedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 43BEEBF71985E99D00D2D239 /* LRManifestBasedObject.m */; };
 		43BEEBFB1985E99D00D2D239 /* LRManifestErrorSink.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BEEBF81985E99D00D2D239 /* LRManifestErrorSink.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43C53E4B19948673006C0CEE /* OptionProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C53E4A19948673006C0CEE /* OptionProtocols.swift */; };
 		43D67E59198CAE4300D229BA /* ActionKitSingleton.h in Headers */ = {isa = PBXBuildFile; fileRef = 43D67E57198CAE4300D229BA /* ActionKitSingleton.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		43D67E5A198CAE4300D229BA /* ActionKitSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D67E58198CAE4300D229BA /* ActionKitSingleton.m */; };
 		43D67E5D198CAFCC00D229BA /* LRChildErrorSink.h in Headers */ = {isa = PBXBuildFile; fileRef = 43D67E5B198CAFCC00D229BA /* LRChildErrorSink.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -179,6 +180,7 @@
 		43BEEBF61985E99D00D2D239 /* LRManifestBasedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRManifestBasedObject.h; sourceTree = "<group>"; };
 		43BEEBF71985E99D00D2D239 /* LRManifestBasedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRManifestBasedObject.m; sourceTree = "<group>"; };
 		43BEEBF81985E99D00D2D239 /* LRManifestErrorSink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRManifestErrorSink.h; sourceTree = "<group>"; };
+		43C53E4A19948673006C0CEE /* OptionProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionProtocols.swift; sourceTree = "<group>"; };
 		43D67E57198CAE4300D229BA /* ActionKitSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionKitSingleton.h; sourceTree = "<group>"; };
 		43D67E58198CAE4300D229BA /* ActionKitSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionKitSingleton.m; sourceTree = "<group>"; };
 		43D67E5B198CAFCC00D229BA /* LRChildErrorSink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRChildErrorSink.h; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 			isa = PBXGroup;
 			children = (
 				433F8944198B3A8300F1A281 /* OptionRegistry.swift */,
+				43C53E4A19948673006C0CEE /* OptionProtocols.swift */,
 				433F8940198B31B900F1A281 /* Option.swift */,
 				433F8942198B396000F1A281 /* CheckboxOption.swift */,
 				43B9209F198DF27F00079010 /* MultipleChoiceOption.swift */,
@@ -592,6 +595,7 @@
 				439317521985DB0500685024 /* UserScript.m in Sources */,
 				434E77C419872AA400B18BC8 /* LRTRTest.m in Sources */,
 				434E77F6198732B700B18BC8 /* LRActionVersion.m in Sources */,
+				43C53E4B19948673006C0CEE /* OptionProtocols.swift in Sources */,
 				434E77CE19872B2800B18BC8 /* LRPathProcessing.m in Sources */,
 				439317551985DBCE00685024 /* ProjectFile.swift in Sources */,
 				43D67E5E198CAFCC00D229BA /* LRChildErrorSink.m in Sources */,

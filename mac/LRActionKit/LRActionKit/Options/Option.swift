@@ -35,7 +35,7 @@ public class OptionSpec : NSObject {
     }
 }
 
-public class Option : NSObject {
+public class Option : NSObject, OptionProtocol {
 
     public let identifier: String
     public let rule: Rule

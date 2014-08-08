@@ -48,7 +48,7 @@ internal class CheckboxOptionSpec : OptionSpec {
     }
 }
 
-public class CheckboxOption : Option {
+public class CheckboxOption : Option, BooleanOptionProtocol {
 
     public let label: String
     public let argumentsWhenOn: [String]
