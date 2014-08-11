@@ -1,8 +1,7 @@
+@import LRCommons;
 
 #import "LROptionsView.h"
-#import "ATMacViewCreation.h"
-#import "ATAutolayout.h"
-#import "LROption.h"
+#import "LiveReload-Swift-x.h"
 
 
 #define kVerticalPadding 0
@@ -88,7 +87,7 @@
     _lastOptionView = optionView;
 }
 
-- (void)addOption:(LROption *)option {
+- (void)addOption:(OptionController *)option {
     [_options addObject:option];
     [option renderInOptionsView:self];
 }

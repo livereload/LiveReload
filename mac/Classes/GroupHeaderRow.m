@@ -1,6 +1,7 @@
+@import LRCommons;
 
 #import "GroupHeaderRow.h"
-#import "ATMacViewCreation.h"
+
 
 @implementation GroupHeaderRow
 

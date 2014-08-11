@@ -1,3 +1,4 @@
+@import LRActionKit;
 
 #import "AppState.h"
 #import "Glue.h"
@@ -38,6 +39,11 @@ static AppState *sharedAppState = nil;
     // needs to happen before scanning for plugins
     [_packageManager addPackageType:[NpmPackageType new]];
     [_packageManager addPackageType:[GemPackageType new]];
+
+    [ActionKitSingleton sharedActionKit].packageManager = [AppState sharedAppState].packageManager;
+    [ActionKitSingleton sharedActionKit].postMessageBlock = ^(NSDictionary *message, ActionKitPostMessageCompletionBlock completionBlock) {
+        [[Glue glue] postMessage:message withReplyHandler:completionBlock];
+    };
 
     [[PluginManager sharedPluginManager] reloadPlugins];
 

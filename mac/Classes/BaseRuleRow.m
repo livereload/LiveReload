@@ -1,10 +1,8 @@
+@import LRCommons;
 
 #import "BaseRuleRow.h"
 #import "OptionsRow.h"
 #import "Project.h"
-#import "ATMacViewCreation.h"
-#import "ATAutolayout.h"
-#import "ATAttributedStringAdditions.h"
 
 
 static void *BaseActionRow_Project_FilterOptions_Context = "BaseActionRow_Project_FilterOptions_Context";

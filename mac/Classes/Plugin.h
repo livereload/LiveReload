@@ -1,9 +1,8 @@
+@import Foundation;
+@import LRActionKit;
 
-#import <Foundation/Foundation.h>
-#import "LRManifestErrorSink.h"
 
-
-@interface Plugin : NSObject <LRManifestErrorSink> {
+@interface Plugin : NSObject <LRManifestErrorSink, ActionContainer> {
 @private
     NSString         *_path;
     NSDictionary     *_info;

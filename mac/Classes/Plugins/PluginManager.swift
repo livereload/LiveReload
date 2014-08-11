@@ -1,6 +1,8 @@
-
 import Foundation
+import SwiftyFoundation
 import AppKit
+import LRCommons
+import LRActionKit
 
 let g_sharedPluginManager = PluginManager()
 
@@ -104,7 +106,7 @@ class PluginManager : NSObject {
 
     func _loadPluginFromFolder(pluginFolder: String) {
         let name = pluginFolder.lastPathComponent.stringByDeletingPathExtension
-        if !_loadedPluginNames[name] {
+        if _loadedPluginNames[name] == nil {
             let plugin = Plugin(path: pluginFolder)
             _loadedPluginNames[name] = plugin
             _plugins.append(plugin)

@@ -1,9 +1,9 @@
+@import PackageManagerKit;
+@import LRActionKit;
 
 #import "Plugin.h"
 #import "Compiler.h"
-#import "Action.h"
 #import "AppState.h"
-@import PackageManagerKit;
 
 #import "ATJson.h"
 #import "Errors.h"
@@ -40,7 +40,7 @@
 
         NSMutableArray *actions = [NSMutableArray array];
         for (NSDictionary *options in [_info objectForKey:@"actions"]) {
-            [actions addObject:[[Action alloc] initWithManifest:options plugin:self]];
+            [actions addObject:[[Action alloc] initWithManifest:options container:self]];
         }
         _actions = [actions copy];
 
@@ -68,6 +68,10 @@
 
 - (void)addErrorMessage:(NSString *)message {
     [_errors addObject:[NSError errorWithDomain:LRErrorDomain code:LRErrorPluginApiViolation userInfo:@{NSLocalizedDescriptionKey: message}]];
+}
+
+- (NSDictionary *)substitutionValues {
+    return @{@"plugin": _path};
 }
 
 @end

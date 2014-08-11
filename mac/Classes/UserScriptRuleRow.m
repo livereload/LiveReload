@@ -1,8 +1,8 @@
+@import LRCommons;
 
 #import "UserScriptRuleRow.h"
 #import "LiveReload-Swift-x.h"
-#import "ATMacViewCreation.h"
-#import "ATAutolayout.h"
+
 
 @implementation UserScriptRuleRow
 

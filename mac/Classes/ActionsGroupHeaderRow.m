@@ -1,7 +1,7 @@
+@import LRCommons;
 
 #import "ActionsGroupHeaderRow.h"
-#import "ATMacViewCreation.h"
-#import "ATAutolayout.h"
+
 
 @implementation ActionsGroupHeaderRow
 

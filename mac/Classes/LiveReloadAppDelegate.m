@@ -1,3 +1,6 @@
+@import LRCommons;
+@import PackageManagerKit;
+@import LRActionKit;
 
 #include "jansson.h"
 
@@ -19,10 +22,7 @@
 #import "ShitHappens.h"
 #import "LicenseManager.h"
 #import "DockIcon.h"
-@import LRCommons;
-@import PackageManagerKit;
 #import "EditorManager.h"
-#import "ATFunctionalStyle.h"
 
 #ifndef APPSTORE
 #import "Glitter.h"

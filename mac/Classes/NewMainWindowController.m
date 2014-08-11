@@ -16,7 +16,6 @@
 #import "Workspace.h"
 #import "Project.h"
 #import "Preferences.h"
-#import "UserScript.h"
 
 #import "Stats.h"
 #import "ShitHappens.h"
@@ -31,6 +30,7 @@
 #import "ATFlippedView.h"
 #import "ATAttributedStringAdditions.h"
 @import LRCommons;
+@import LRActionKit;
 
 #import "jansson.h"
 

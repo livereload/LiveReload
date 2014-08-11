@@ -1,7 +1,6 @@
 
 #import "SandboxAccessModel.h"
 @import LRCommons;
-#import "ATFunctionalStyle.h"
 
 
 @implementation SandboxAccessModel {

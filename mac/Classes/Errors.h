@@ -8,7 +8,6 @@ enum {
     LRErrorPluginNotExecutable,
     LRErrorPluginApiViolation,
     LRErrorEditorPluginReturnedBrokenState,
-    LRErrorInvalidManifest,
     LRErrorNoMatchingVersion,
 };
 

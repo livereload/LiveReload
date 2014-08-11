@@ -1,6 +1,5 @@
-
-#import <Cocoa/Cocoa.h>
-#import "Rulebook.h"
+@import Cocoa;
+@import LRActionKit;
 
 
 @class FSMonitor;
@@ -12,7 +11,7 @@
 @class ATPathSpec;
 @class LRBuild;
 @class LROperationResult;
-@class LRProjectFile;
+@class ProjectFile;
 
 
 extern NSString *ProjectDidDetectChangeNotification;
@@ -28,13 +27,13 @@ enum {
 };
 
 
-@interface Project : NSObject
+@interface Project : NSObject <ProjectContext>
 
 - (id)initWithURL:(NSURL *)rootURL memento:(NSDictionary *)memento;
 
 - (NSMutableDictionary *)memento;
 
-@property(nonatomic, copy) NSURL *rootURL;
+@property(nonatomic) NSURL *rootURL;
 @property(nonatomic, readonly, copy) NSString *path;
 @property(nonatomic, readonly, copy) NSString *displayName;
 @property(nonatomic, readonly, copy) NSString *displayPath;
@@ -100,9 +99,9 @@ enum {
 @property(nonatomic, strong, readonly) NSArray *pathOptions;
 @property(nonatomic, strong, readonly) NSArray *availableSubfolders;
 
-- (BOOL)hackhack_shouldFilterFile:(LRProjectFile *)file;
-- (void)hackhack_didFilterFile:(LRProjectFile *)file;
-- (void)hackhack_didWriteCompiledFile:(LRProjectFile *)file;
+- (BOOL)hackhack_shouldFilterFile:(ProjectFile *)file;
+- (void)hackhack_didFilterFile:(ProjectFile *)file;
+- (void)hackhack_didWriteCompiledFile:(ProjectFile *)file;
 
 @property(nonatomic, readonly, getter=isBuildInProgress) BOOL buildInProgress;
 - (void)rebuildFilesAtRelativePaths:(NSArray *)relativePaths;
@@ -120,6 +119,6 @@ enum {
 
 @property(nonatomic, readonly) LRBuild *lastFinishedBuild;
 
-- (NSArray *)compilerActionsForFile:(LRProjectFile *)file;
+- (NSArray *)compilerActionsForFile:(ProjectFile *)file;
 
 @end

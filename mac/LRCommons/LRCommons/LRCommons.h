@@ -22,3 +22,9 @@ FOUNDATION_EXPORT const unsigned char LRCommonsVersionString[];
 #import <LRCommons/ATObservation.h>
 #import <LRCommons/ATScheduling.h>
 #import <LRCommons/NSAppleScript+ATInvokeHandlerWithArguments.h>
+#import <LRCommons/NSArray+P2Substitutions.h>
+#import <LRCommons/P2CommandLine.h>
+#import <LRCommons/ATFunctionalStyle.h>
+#import <LRCommons/ATMacViewCreation.h>
+#import <LRCommons/ATAutolayout.h>
+#import <LRCommons/ATAttributedStringAdditions.h>

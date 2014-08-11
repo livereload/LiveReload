@@ -48,7 +48,7 @@ Note: right now this branch is in a transitional state; I'm doing active develop
 
 Prerequisites:
 
-* Xcode 5.0
+* Xcode 6.0 Beta4+
 * Node 0.10
 * CoffeeScript 1.6.x: `npm install -g coffee-script`
 * underscore.js: `npm install -g underscore`
@@ -84,10 +84,18 @@ Building:
 
     During development, use override mode instead — open Xcode scheme settings and set LRBackendOverride env var to the full path of `node_modules/livereload-new/bin/livereload.js`.
 
-1. Open `LiveReload/LiveReload.xcodeproj` and build it with Xcode.
+1. Open `LiveReload/LiveReload.xcodeproj`
 
-    *(Alternatively, use `rake mac:release` or a similar task. See `rake -T` for the full list.)*
+1. Build some subprojects in the correct order (because the dependencies between subprojects aren't properly tracked — let me know if you know a way to specify those), you can do this from Xcode or on the command line:
 
+        cd mac
+        make
+
+1. Build the app, you can do this from Xcode or on the command line:
+
+        xcodebuild -project LiveReload.xcodeproj -scheme LiveReload -configuration Debug build
+
+Until the project is configured correctly, you may need to clean & rebuild often before running tests. Use mac/rebuild.sh for that.
 
 
 Building the backend for the Windows version
