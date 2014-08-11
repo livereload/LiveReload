@@ -90,7 +90,7 @@ public class VersionOptionController : OptionController {
         groups[.Unknown]     = []
 
         for (index, spec) in enumerate(specs) {
-            let item = NSMenuItem(title:spec.title, action: nil, keyEquivalent: "")
+            let item = NSMenuItem(title: spec.title, action: nil, keyEquivalent: "")
             item.representedObject = spec
             item.tag = 1 + index
 
