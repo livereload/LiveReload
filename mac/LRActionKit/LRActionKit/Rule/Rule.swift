@@ -230,7 +230,7 @@ public class Rule : NSObject {
     private func _updateEffectiveVersion() {
         _c_updateEffectiveVersion.perform {
             self.effectiveVersion = self._computeEffectiveVersion()
-            self.postNotification(LRActionPrimaryEffectiveVersionDidChangeNotification)
+            self.postNotification(LRRuleEffectiveVersionDidChangeNotification)
         }
     }
 

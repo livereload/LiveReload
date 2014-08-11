@@ -7,13 +7,13 @@
 @class LRVersionSet;
 
 
-typedef enum {
+typedef NS_ENUM(NSInteger, LRVersionSpecType) {
     LRVersionSpecTypeUnknown,
     LRVersionSpecTypeSpecific,
     LRVersionSpecTypeMajorMinor,
     LRVersionSpecTypeStableMajor,
     LRVersionSpecTypeStableAny,
-} LRVersionSpecType;
+};
 
 
 // specific: 1.2.3

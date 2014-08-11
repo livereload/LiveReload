@@ -3,7 +3,7 @@ import SwiftyFoundation
 
 public class VersionOption : Option {
 
-    let label: String = "Version:"
+    public let label: String = "Version:"
 
     internal init(rule: Rule) {
         super.init(rule: rule, identifier: "version")

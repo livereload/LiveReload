@@ -1,7 +1,8 @@
 import Foundation
 import SwiftyFoundation
-import LRCommons.ATMacViewCreation
+import LRCommons
 import LRActionKit
+
 
 public class OptionController: NSObject {
 
@@ -34,6 +35,8 @@ public class OptionController: NSObject {
             return PopupOptionController(option: o)
         case let o as TextOptionProtocol:
             return TextOptionController(option: o)
+        case let o as VersionOption:
+            return VersionOptionController(option: o)
         default:
             return nil
         }

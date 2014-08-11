@@ -125,7 +125,6 @@
 		4353418F19489EA8003E51EB /* LRSelfTestMessageExpectation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353408219489EA7003E51EB /* LRSelfTestMessageExpectation.m */; };
 		4353419019489EA8003E51EB /* LRSelfTestOutputExpectation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353408419489EA7003E51EB /* LRSelfTestOutputExpectation.m */; };
 		4353419119489EA8003E51EB /* LRSelfTestOutputFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353408619489EA7003E51EB /* LRSelfTestOutputFile.m */; };
-		4353419B19489EA8003E51EB /* LRVersionOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353409B19489EA7003E51EB /* LRVersionOption.m */; };
 		435341A119489EA8003E51EB /* MainWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 435340A719489EA7003E51EB /* MainWindow.m */; };
 		435341A219489EA8003E51EB /* MASPreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 435340A919489EA7003E51EB /* MASPreferencesWindow.xib */; };
 		435341A319489EA8003E51EB /* MASPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 435340AB19489EA7003E51EB /* MASPreferencesWindowController.m */; };
@@ -206,6 +205,7 @@
 		43B5C01A17ADF93A00F57276 /* ATHash.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B5C01917ADF93A00F57276 /* ATHash.m */; };
 		43B5C02017AE01C500F57276 /* ATLoginItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B5C01F17AE01C500F57276 /* ATLoginItemController.m */; };
 		43C0368613CA191D00A01305 /* LiveReload.icns in Resources */ = {isa = PBXBuildFile; fileRef = 43C0368513CA191C00A01305 /* LiveReload.icns */; };
+		43C53E561994946B006C0CEE /* VersionOptionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C53E551994946B006C0CEE /* VersionOptionController.swift */; };
 		43C927791879317D002372B7 /* LRIntegrationTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C927781879317D002372B7 /* LRIntegrationTestCase.m */; };
 		43C9277C187931B1002372B7 /* ATAsyncTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C9277B187931B1002372B7 /* ATAsyncTestCase.m */; };
 		43C9277E187932A9002372B7 /* LRLegacyCompilationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C9277D187932A9002372B7 /* LRLegacyCompilationTests.m */; };
@@ -689,7 +689,6 @@
 		4353408519489EA7003E51EB /* LRSelfTestOutputFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRSelfTestOutputFile.h; sourceTree = "<group>"; };
 		4353408619489EA7003E51EB /* LRSelfTestOutputFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRSelfTestOutputFile.m; sourceTree = "<group>"; };
 		4353408B19489EA7003E51EB /* LRTestRunner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRTestRunner.h; sourceTree = "<group>"; };
-		4353409B19489EA7003E51EB /* LRVersionOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRVersionOption.m; sourceTree = "<group>"; };
 		435340A619489EA7003E51EB /* MainWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindow.h; sourceTree = "<group>"; };
 		435340A719489EA7003E51EB /* MainWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainWindow.m; sourceTree = "<group>"; };
 		435340A819489EA7003E51EB /* MASPreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASPreferencesViewController.h; sourceTree = "<group>"; };
@@ -821,6 +820,7 @@
 		43B5C01E17AE01C500F57276 /* ATLoginItemController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLoginItemController.h; sourceTree = "<group>"; };
 		43B5C01F17AE01C500F57276 /* ATLoginItemController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLoginItemController.m; sourceTree = "<group>"; };
 		43C0368513CA191C00A01305 /* LiveReload.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LiveReload.icns; sourceTree = "<group>"; };
+		43C53E551994946B006C0CEE /* VersionOptionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionOptionController.swift; sourceTree = "<group>"; };
 		43C927771879317D002372B7 /* LRIntegrationTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRIntegrationTestCase.h; sourceTree = "<group>"; };
 		43C927781879317D002372B7 /* LRIntegrationTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRIntegrationTestCase.m; sourceTree = "<group>"; };
 		43C9277A187931B1002372B7 /* ATAsyncTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATAsyncTestCase.h; sourceTree = "<group>"; };
@@ -1431,6 +1431,7 @@
 			isa = PBXGroup;
 			children = (
 				43DF7C481991B4C700AF9B74 /* OptionController.swift */,
+				43C53E551994946B006C0CEE /* VersionOptionController.swift */,
 			);
 			path = Options;
 			sourceTree = "<group>";
@@ -1569,7 +1570,6 @@
 				4353408519489EA7003E51EB /* LRSelfTestOutputFile.h */,
 				4353408619489EA7003E51EB /* LRSelfTestOutputFile.m */,
 				4353408B19489EA7003E51EB /* LRTestRunner.h */,
-				4353409B19489EA7003E51EB /* LRVersionOption.m */,
 				435340A619489EA7003E51EB /* MainWindow.h */,
 				435340A719489EA7003E51EB /* MainWindow.m */,
 				435340A819489EA7003E51EB /* MASPreferencesViewController.h */,
@@ -2291,10 +2291,10 @@
 				4353415319489EA8003E51EB /* FilterRuleRow.m in Sources */,
 				4353416519489EA8003E51EB /* LegacyCompilationOptions.m in Sources */,
 				435341C619489EA8003E51EB /* PluginManager.swift in Sources */,
-				4353419B19489EA8003E51EB /* LRVersionOption.m in Sources */,
 				4353414A19489EA8003E51EB /* Compiler.m in Sources */,
 				4353413F19489EA8003E51EB /* AddCompilationActionRow.m in Sources */,
 				435341B219489EA8003E51EB /* MonitoringSettingsWindowController.m in Sources */,
+				43C53E561994946B006C0CEE /* VersionOptionController.swift in Sources */,
 				43996B2E17AF675D00B09954 /* ATMenuEnabledSegmentedCell.m in Sources */,
 				43E07EC217B01C4B004DB867 /* ATJson.m in Sources */,
 				435341C119489EA8003E51EB /* osdep.m in Sources */,

@@ -62,5 +62,5 @@ extension NSObject {
     public func postNotification(name: String) {
         NSNotificationCenter.defaultCenter().postNotificationName(name, object: self)
     }
-    
+
 }

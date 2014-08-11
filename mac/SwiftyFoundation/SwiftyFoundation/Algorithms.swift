@@ -100,3 +100,39 @@ public func removeElements<T>(inout array: [T], predicate: (T) -> Bool) {
         }
     }
 }
+
+public func flattenWithSeparator<T>(groups: [[T]], #separator: () -> T) -> [T] {
+    var result: [T] = []
+    var separatorRequired = false
+
+    for group in groups {
+        if group.isEmpty {
+            continue;
+        }
+        if separatorRequired {
+            result.append(separator())
+        }
+        result.extend(group)
+        separatorRequired = true
+    }
+
+    return result
+}
+
+public func flattenWithSeparator<T>(groups: [[T]], #separator: T) -> [T] {
+    var result: [T] = []
+    var separatorRequired = false
+
+    for group in groups {
+        if group.isEmpty {
+            continue;
+        }
+        if separatorRequired {
+            result.append(separator)
+        }
+        result.extend(group)
+        separatorRequired = true
+    }
+
+    return result
+}

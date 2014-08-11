@@ -1,7 +1,7 @@
 @import Foundation;
 
 
-extern NSString *const LRActionPrimaryEffectiveVersionDidChangeNotification;
+extern NSString *const LRRuleEffectiveVersionDidChangeNotification;
 extern NSString *const LRBuildDidFinishNotification;
 
 
