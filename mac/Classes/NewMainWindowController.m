@@ -1,3 +1,5 @@
+@import LRCommons;
+@import LRActionKit;
 
 #import "NewMainWindowController.h"
 
@@ -22,15 +24,12 @@
 #import "ATLoginItemController.h"
 #import "DockIcon.h"
 #import "LicenseManager.h"
-#import "ATAutolayout.h"
 #import "ATStackView.h"
 #import "LiveReload-Swift-x.h"
 #import "RulebookView.h"
 #import "ATSolidView.h"
 #import "ATFlippedView.h"
 #import "ATAttributedStringAdditions.h"
-@import LRCommons;
-@import LRActionKit;
 
 #import "jansson.h"
 
