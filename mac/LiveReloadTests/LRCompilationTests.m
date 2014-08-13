@@ -124,6 +124,12 @@
 - (void)testCompassSprites {
     XCTAssertNil([self runProjectTestNamed:@"compilers/compass_sprites" options:LRTestOptionNone], @"Failed");
 }
+- (void)testCompassSusy1 {
+    XCTAssertNil([self runProjectTestNamed:@"compilers/compass_susy1" options:LRTestOptionNone], @"Failed");
+}
+- (void)testCompassSusy2 {
+    XCTAssertNil([self runProjectTestNamed:@"compilers/compass_susy2" options:LRTestOptionNone], @"Failed");
+}
 - (void)testCompassErrorSimple {
     XCTAssertNil([self runProjectTestNamed:@"compilers/compass_error_simple" options:LRTestOptionNone], @"Failed");
 }

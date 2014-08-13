@@ -1,0 +1,20 @@
+{
+  "settings": {
+    "actions": [
+      {
+        "action": "compass",
+        "enabled": 1,
+      }
+    ]
+  },
+
+  "sources": {
+    "sass/_grids.scss": true,
+    "sass/style.scss": true,
+    "config.rb": true
+  },
+
+  "outputs": {
+    "stylesheets/style.css": ["max-width: 80em;", "width: 25%;"],
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "settings": {
+    "actions": [
+      {
+        "action": "compass",
+        "enabled": 1,
+        "version": "0.12.x"
+      }
+    ]
+  },
+
+  "sources": {
+    "sass/_base.scss": true,
+    "sass/screen.scss": true,
+    "config.rb": true
+  },
+
+  "outputs": {
+    "stylesheets/screen.css": ["max-width: 59em;", "background-image: linear-gradient("],
+  }
+}

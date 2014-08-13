@@ -1,0 +1,7 @@
+// Screen
+// ======
+
+@import "grids";
+
+body { @include container(80em); }
+nav { @include span(25%); }
