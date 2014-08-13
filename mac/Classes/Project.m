@@ -27,12 +27,13 @@
 
 #define DefaultPostProcessingGracePeriod 0.5
 
-NSString *ProjectDidDetectChangeNotification = @"ProjectDidDetectChangeNotification";
-NSString *ProjectMonitoringStateDidChangeNotification = @"ProjectMonitoringStateDidChangeNotification";
-NSString *ProjectNeedsSavingNotification = @"ProjectNeedsSavingNotification";
-NSString *ProjectAnalysisDidFinishNotification = @"ProjectAnalysisDidFinishNotification";
-NSString *ProjectBuildStartedNotification = @"ProjectBuildStartedNotification";
-NSString *ProjectBuildFinishedNotification = @"ProjectBuildFinishedNotification";
+NSString *const ProjectDidDetectChangeNotification = @"ProjectDidDetectChangeNotification";
+NSString *const ProjectMonitoringStateDidChangeNotification = @"ProjectMonitoringStateDidChangeNotification";
+NSString *const ProjectNeedsSavingNotification = @"ProjectNeedsSavingNotification";
+NSString *const ProjectAnalysisDidFinishNotification = @"ProjectAnalysisDidFinishNotification";
+NSString *const ProjectBuildStartedNotification = @"ProjectBuildStartedNotification";
+NSString *const ProjectBuildFinishedNotification = @"ProjectBuildFinishedNotification";
+NSString *const ProjectRuntimeInstanceDidChangeNotification = @"ProjectRuntimeInstanceDidChange";
 
 static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
 
@@ -243,7 +244,10 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         [self handleCompilationOptionsEnablementChanged];
         [self requestMonitoring:YES forKey:@"ui"];  // always need a folder list for UI
 
+        [self _updateRubyInstanceForBuilding];
+
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(buildDidFinish:) name:LRBuildDidFinishNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_defaultRubyInstanceDidChange) name:RuntimeReferenceResolvedInstanceDidChangeNotification object:[AppState sharedAppState].defaultRubyRuntimeReference];
     }
     return self;
 }
@@ -613,13 +617,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         return;
     if (fneq(_postProcessingGracePeriod, postProcessingGracePeriod, TIME_EPS)) {
         _postProcessingGracePeriod = postProcessingGracePeriod;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
-    }
-}
-
-- (void)setRubyVersionIdentifier:(NSString *)rubyVersionIdentifier {
-    if (_rubyVersionIdentifier != rubyVersionIdentifier) {
-        _rubyVersionIdentifier = [rubyVersionIdentifier copy];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
     }
 }
@@ -1056,11 +1053,27 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
 #pragma mark - Runtimes
 
-- (RuntimeInstance *)rubyInstanceForBuilding {
-    if (_rubyVersionIdentifier.length > 0) {
-        return [[AppState sharedAppState].rubyRuntimeRepository instanceIdentifiedBy:_rubyVersionIdentifier];
+- (void)setRubyVersionIdentifier:(NSString *)rubyVersionIdentifier {
+    if (![_rubyVersionIdentifier isEqualToString:rubyVersionIdentifier]) {
+        _rubyVersionIdentifier = [rubyVersionIdentifier copy];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+        [self _updateRubyInstanceForBuilding];
     }
-    return [AppState sharedAppState].defaultRubyRuntimeReference.instance;
+}
+
+- (void)_defaultRubyInstanceDidChange {
+    [self _updateRubyInstanceForBuilding];
+}
+
+- (void)_updateRubyInstanceForBuilding {
+    [self willChangeValueForKey:@"rubyInstanceForBuilding"];
+    if (_rubyVersionIdentifier.length > 0) {
+        _rubyInstanceForBuilding = [[AppState sharedAppState].rubyRuntimeRepository instanceIdentifiedBy:_rubyVersionIdentifier];
+    } else {
+        _rubyInstanceForBuilding = [AppState sharedAppState].defaultRubyRuntimeReference.instance;
+    }
+    [self didChangeValueForKey:@"rubyInstanceForBuilding"];
+    [self postNotificationName:ProjectRuntimeInstanceDidChangeNotification];
 }
 
 @end
