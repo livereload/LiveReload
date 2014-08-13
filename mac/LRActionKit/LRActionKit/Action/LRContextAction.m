@@ -30,7 +30,7 @@ NSString *const LRContextActionDidChangeVersionsNotification = @"LRContextAction
         _action = action;
         _project = project;
         _resolutionContext = resolutionContext;
-        NSLog(@"ContextAction(%@) created for project %@", _action.name, _project);
+        NSLog(@"%@ created", self);
 
         [self observeNotification:LRPackageContainerDidChangePackageListNotification withSelector:@selector(_updateAvailableVersions)];
         [self _updateAvailableVersions];
@@ -40,6 +40,10 @@ NSString *const LRContextActionDidChangeVersionsNotification = @"LRContextAction
 
 - (void)dealloc {
     [self removeAllObservations];
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"%@ #ver=%d proj=%@", _action, (int)_versions.count, _project];
 }
 
 - (void)_updateAvailableVersions {

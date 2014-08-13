@@ -370,7 +370,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"Project(%@)", [self displayPath]];
+    return [NSString stringWithFormat:@"%@", self.displayName];
 }
 
 - (NSComparisonResult)compareByDisplayPath:(Project *)another {

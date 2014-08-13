@@ -24,4 +24,8 @@
     return package.version;
 }
 
+- (NSString *)description {
+    return self.primaryVersion.description;
+}
+
 @end

@@ -135,7 +135,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"%@ '%@' (%@, %@)", LRStringFromActionKind(_kind), _identifier, NSStringFromClass(_actionClass), NSStringFromClass(_rowClass)];
+    return [NSString stringWithFormat:@"%@ '%@'", LRStringFromActionKind(_kind), _identifier];
 }
 
 - (NSString *)fakeChangeDestinationNameForSourceFile:(ProjectFile *)file {

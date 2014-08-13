@@ -62,6 +62,12 @@ public class Rule : NSObject {
         _initEffectiveVersion()
     }
 
+    override public var description: String {
+        get {
+            return "<\(contextAction)> v=\(primaryVersionSpec) src=\(inputFilterOption)"
+        }
+    }
+
     public var theMemento: Dictionary<String, AnyObject> {
         get {
             updateMemento()
@@ -230,6 +236,7 @@ public class Rule : NSObject {
     private func _updateEffectiveVersion() {
         _c_updateEffectiveVersion.perform {
             self.effectiveVersion = self._computeEffectiveVersion()
+            println("\(self) effectiveVersion = \(self.effectiveVersion)")
             self.postNotification(LRRuleEffectiveVersionDidChangeNotification)
         }
     }
