@@ -13,6 +13,7 @@
 #import "ToolOutput.h"
 #import "Glue.h"
 #import "LiveReload-Swift-x.h"
+#import "AppState.h"
 
 #import "Stats.h"
 #import "RegexKitLite.h"
@@ -26,12 +27,13 @@
 
 #define DefaultPostProcessingGracePeriod 0.5
 
-NSString *ProjectDidDetectChangeNotification = @"ProjectDidDetectChangeNotification";
-NSString *ProjectMonitoringStateDidChangeNotification = @"ProjectMonitoringStateDidChangeNotification";
-NSString *ProjectNeedsSavingNotification = @"ProjectNeedsSavingNotification";
-NSString *ProjectAnalysisDidFinishNotification = @"ProjectAnalysisDidFinishNotification";
-NSString *ProjectBuildStartedNotification = @"ProjectBuildStartedNotification";
-NSString *ProjectBuildFinishedNotification = @"ProjectBuildFinishedNotification";
+NSString *const ProjectDidDetectChangeNotification = @"ProjectDidDetectChangeNotification";
+NSString *const ProjectMonitoringStateDidChangeNotification = @"ProjectMonitoringStateDidChangeNotification";
+NSString *const ProjectNeedsSavingNotification = @"ProjectNeedsSavingNotification";
+NSString *const ProjectAnalysisDidFinishNotification = @"ProjectAnalysisDidFinishNotification";
+NSString *const ProjectBuildStartedNotification = @"ProjectBuildStartedNotification";
+NSString *const ProjectBuildFinishedNotification = @"ProjectBuildFinishedNotification";
+NSString *const ProjectRuntimeInstanceDidChangeNotification = @"ProjectRuntimeInstanceDidChange";
 
 static NSString *CompilersEnabledMonitoringKey = @"someCompilersEnabled";
 
@@ -205,9 +207,9 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
             _legacyPostProcessingEnabled = [_legacyPostProcessingCommand length] > 0;
         }
 
-        _rubyVersionIdentifier = [[memento objectForKey:@"rubyVersion"] copy];
+        _rubyVersionIdentifier = [[memento objectForKey:@"rubyRuntime"] copy];
         if ([_rubyVersionIdentifier length] == 0)
-            _rubyVersionIdentifier = @"system";
+            _rubyVersionIdentifier = nil;
 
         _importGraph = [[ImportGraph alloc] init];
 
@@ -242,7 +244,10 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         [self handleCompilationOptionsEnablementChanged];
         [self requestMonitoring:YES forKey:@"ui"];  // always need a folder list for UI
 
+        [self _updateRubyInstanceForBuilding];
+
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(buildDidFinish:) name:LRBuildDidFinishNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_defaultRubyInstanceDidChange) name:RuntimeReferenceResolvedInstanceDidChangeNotification object:[AppState sharedAppState].defaultRubyRuntimeReference];
     }
     return self;
 }
@@ -275,7 +280,9 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     if ([_urlMasks count] > 0) {
         [memento setObject:_urlMasks forKey:@"urls"];
     }
-    [memento setObject:_rubyVersionIdentifier forKey:@"rubyVersion"];
+    if (_rubyVersionIdentifier.length > 0) {
+        [memento setObject:_rubyVersionIdentifier forKey:@"rubyRuntime"];
+    }
 
     [memento setObject:[NSNumber numberWithInteger:_numberOfPathComponentsToUseAsName] forKey:@"numberOfPathComponentsToUseAsName"];
     if (_customName.length > 0)
@@ -610,13 +617,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         return;
     if (fneq(_postProcessingGracePeriod, postProcessingGracePeriod, TIME_EPS)) {
         _postProcessingGracePeriod = postProcessingGracePeriod;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
-    }
-}
-
-- (void)setRubyVersionIdentifier:(NSString *)rubyVersionIdentifier {
-    if (_rubyVersionIdentifier != rubyVersionIdentifier) {
-        _rubyVersionIdentifier = [rubyVersionIdentifier copy];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
     }
 }
@@ -1048,6 +1048,32 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     [[Glue glue] postMessage:@{@"service": @"reloader", @"command": @"reload", @"changes": changes, @"forceFullReload": @(forceFullReload)}];
     [self postNotificationName:ProjectDidDetectChangeNotification];
     StatIncrement(BrowserRefreshCountStat, 1);
+}
+
+
+#pragma mark - Runtimes
+
+- (void)setRubyVersionIdentifier:(NSString *)rubyVersionIdentifier {
+    if (![_rubyVersionIdentifier isEqualToString:rubyVersionIdentifier]) {
+        _rubyVersionIdentifier = [rubyVersionIdentifier copy];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+        [self _updateRubyInstanceForBuilding];
+    }
+}
+
+- (void)_defaultRubyInstanceDidChange {
+    [self _updateRubyInstanceForBuilding];
+}
+
+- (void)_updateRubyInstanceForBuilding {
+    [self willChangeValueForKey:@"rubyInstanceForBuilding"];
+    if (_rubyVersionIdentifier.length > 0) {
+        _rubyInstanceForBuilding = [[AppState sharedAppState].rubyRuntimeRepository instanceIdentifiedBy:_rubyVersionIdentifier];
+    } else {
+        _rubyInstanceForBuilding = [AppState sharedAppState].defaultRubyRuntimeReference.instance;
+    }
+    [self didChangeValueForKey:@"rubyInstanceForBuilding"];
+    [self postNotificationName:ProjectRuntimeInstanceDidChangeNotification];
 }
 
 @end

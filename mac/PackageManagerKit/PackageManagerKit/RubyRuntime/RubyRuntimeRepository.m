@@ -12,11 +12,6 @@
 
 @implementation RubyRuntimeRepository
 
-RubyRuntimeRepository *sharedRubyManager;
-+ (RubyRuntimeRepository *)sharedRubyManager {
-    return sharedRubyManager;
-}
-
 - (RuntimeInstance *)addCustomRubyAtURL:(NSURL *)url {
     NSError *error;
     NSString *bookmark = [[url bookmarkDataWithOptions:NSURLBookmarkCreationWithSecurityScope|NSURLBookmarkCreationSecurityScopeAllowOnlyReadAccess includingResourceValuesForKeys:nil relativeToURL:nil error:&error] base64EncodedString];
@@ -43,8 +38,6 @@ RubyRuntimeRepository *sharedRubyManager;
         [self addContainerClass:[HomebrewContainer class]];
 
         [self addInstance:[[SystemRubyInstance alloc] initWithIdentifier:@"system" executableURL:[NSURL fileURLWithPath:@"/usr/bin/ruby"]]];
-
-        sharedRubyManager = self;
     }
     return self;
 }

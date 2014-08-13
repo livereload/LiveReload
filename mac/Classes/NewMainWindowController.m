@@ -1,5 +1,6 @@
 @import LRCommons;
 @import LRActionKit;
+@import PackageManagerKit;
 
 #import "NewMainWindowController.h"
 
@@ -259,6 +260,8 @@ enum { PANE_COUNT = PaneProject+1 };
     [self observeObject:[AppState sharedAppState] properties:@[@"numberOfConnectedBrowsers", @"numberOfRefreshesProcessed"] withSelector:@selector(updateStatus)];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLicensingUI) name:LicenseManagerStatusDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSummaryText) name:ProjectRuntimeInstanceDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSummaryText) name:LRRuntimeInstanceDidChangeNotification object:nil];
 }
 
 - (void)windowWillClose:(NSNotification *)notification {
@@ -295,6 +298,15 @@ enum { PANE_COUNT = PaneProject+1 };
         _currentTabView = tabView;
     }
 
+    [self updateSummaryText];
+
+    _availableCompilersLabel.stringValue = [NSString stringWithFormat:@"%@", [[[PluginManager sharedPluginManager].compilers valueForKeyPath:@"name"] componentsJoinedByString:@", "]];
+
+    [self updateURLs];
+    [self renderActions];
+}
+
+- (void)updateSummaryText {
     NSString *exclusionsString;
     int exclusionCount = _selectedProject.excludedPaths.count;
     switch (exclusionCount) {
@@ -303,12 +315,9 @@ enum { PANE_COUNT = PaneProject+1 };
         default: exclusionsString = [NSString stringWithFormat:@"%d exclusions", exclusionCount]; break;
     }
 
-    _monitoringSummaryLabelField.stringValue = [NSString stringWithFormat:@"Monitoring %d file extensions, %@ →", (int)[Preferences sharedPreferences].allExtensions.count, exclusionsString];
+    NSString *rubyString = _selectedProject.rubyInstanceForBuilding.mainLabel;
 
-    _availableCompilersLabel.stringValue = [NSString stringWithFormat:@"%@", [[[PluginManager sharedPluginManager].compilers valueForKeyPath:@"name"] componentsJoinedByString:@", "]];
-
-    [self updateURLs];
-    [self renderActions];
+    _monitoringSummaryLabelField.stringValue = [NSString stringWithFormat:@"%d monitored extensions, %@, %@ →", (int)[Preferences sharedPreferences].allExtensions.count, exclusionsString, rubyString];
 }
 
 - (Pane)choosePane {

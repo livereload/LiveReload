@@ -161,7 +161,7 @@
 
     [[DockIcon currentDockIcon] displayDockIconWhenAppHasWindowsWithDelegateClass:[NewMainWindowController class]];
 
-    [[[RubyRuntimeRepository alloc] init] load];
+    [[AppState sharedAppState] finishLaunching];
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification {

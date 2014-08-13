@@ -1,7 +1,7 @@
-
-#import "AddCustomRubySheet.h"
 @import LRCommons;
 @import PackageManagerKit;
+#import "AddCustomRubySheet.h"
+#import "AppState.h"
 
 
 typedef enum {
@@ -207,12 +207,7 @@ typedef enum {
         return;
     }
 
-    [[RubyRuntimeRepository sharedRubyManager] addCustomRuntimeObject:self.chosenObject];
-//    if ([self.chosenObject isKindOfClass:[RuntimeContainer class]]) {
-//        [[RubyRuntimeRepository sharedRubyManager] addCustomContainer:self.chosenObject];
-//    } else {
-//        [[RubyRuntimeRepository sharedRubyManager] addCustomRubyAtURL:self.chosenURL];
-//    }
+    [[AppState sharedAppState].rubyRuntimeRepository addCustomRuntimeObject:self.chosenObject];
 
     [NSApp endSheet:self.window];
 }

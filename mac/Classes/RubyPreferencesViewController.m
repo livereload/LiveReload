@@ -1,13 +1,15 @@
+@import PackageManagerKit;
 
 #import "RubyPreferencesViewController.h"
 #import "AddCustomRubySheet.h"
 #import "RuntimeInstanceCellView.h"
-@import PackageManagerKit;
+#import "AppState.h"
 
 
 enum {
     ActionButtonAdd,
     ActionButtonDelete,
+    ActionButtonSetDefault,
 };
 
 
@@ -29,11 +31,16 @@ enum {
 - (id)init {
     self = [super initWithNibName:NSStringFromClass([self class]) bundle:nil];
     if (self) {
-        self.repository = [RubyRuntimeRepository sharedRubyManager];
+        self.repository = [AppState sharedAppState].rubyRuntimeRepository;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(runtimeRepositoryDidChange:) name:LRRuntimesDidChangeNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(runtimeRepositoryDidChange:) name:LRRuntimeContainerDidChangeNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(defaultRuntimeDidChange:) name:RuntimeReferenceResolvedInstanceDidChangeNotification object:[AppState sharedAppState].defaultRubyRuntimeReference];
     }
     return self;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)setView:(NSView *)view {
@@ -67,7 +74,8 @@ enum {
     [items addObjectsFromArray:self.repository.instances];
     [items addObjectsFromArray:self.repository.containers];
     self.topLevelItems = [NSArray arrayWithArray:items];
-    [self.outlineView reloadData];
+
+    [self reloadDataPreservingSelection];
 
     [self.outlineView expandItem:nil expandChildren:YES];
     // items don't get expanded at window open time unless this delay is used
@@ -78,6 +86,10 @@ enum {
 
 - (void)runtimeRepositoryDidChange:(NSNotification *)notification {
     [self updateTopLevelItems];
+}
+
+- (void)defaultRuntimeDidChange:(NSNotification *)notification {
+    [self reloadDataPreservingSelection];
 }
 
 
@@ -111,9 +123,15 @@ enum {
 - (NSView *)outlineView:(NSOutlineView *)outlineView viewForTableColumn:(NSTableColumn *)tableColumn item:(id)item {
     if ([item isKindOfClass:[RuntimeInstance class]]) {
         RuntimeInstance *instance = item;
+        BOOL isDefault = ([AppState sharedAppState].defaultRubyRuntimeReference.instance == instance);
+
+        NSString *mainLabel = instance.mainLabel;
+        if (isDefault) {
+            mainLabel = [NSString stringWithFormat:@"%@ (default)", mainLabel];
+        }
 
         RuntimeInstanceCellView *view = [outlineView makeViewWithIdentifier:@"Main" owner:self];
-        view.textField.stringValue = instance.mainLabel;
+        view.textField.stringValue = mainLabel;
         view.detailTextField.stringValue = instance.detailLabel;
         view.imageView.image = [NSImage imageNamed:instance.imageName];
         return view;
@@ -141,6 +159,23 @@ enum {
     return NO;
 }
 
+- (void)reloadDataPreservingSelection {
+    NSInteger selectedRow = self.outlineView.selectedRow;
+    id selectedItem = nil;
+    if (selectedRow >= 0) {
+        selectedItem = [self.outlineView itemAtRow:selectedRow];
+    }
+
+    [_outlineView reloadData];
+
+    if (selectedItem != nil) {
+        NSInteger row = [_outlineView rowForItem:selectedItem];
+        if (row >= 0) {
+            [_outlineView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
+        }
+    }
+}
+
 
 #pragma mark - Actions
 
@@ -151,6 +186,9 @@ enum {
             break;
         case ActionButtonDelete:
             [self removeRuby:sender];
+            break;
+        case ActionButtonSetDefault:
+            [self setDefaultRuby:sender];
             break;
     }
 }
@@ -183,6 +221,7 @@ enum {
 
 - (void)updateActionButtons {
     [self.actionButtons setEnabled:self.removeButtonEnabled forSegment:ActionButtonDelete];
+    [self.actionButtons setEnabled:[self isSetDefaultButtonEnabled] forSegment:ActionButtonSetDefault];
 }
 
 - (IBAction)removeRuby:(id)sender {
@@ -190,6 +229,18 @@ enum {
     if (selection) {
         [self.repository removeRuntimeObject:selection];
     }
+}
+
+- (IBAction)setDefaultRuby:(id)sender {
+    id<RuntimeObject> selection = self.selectedRuntimeObject;
+    if ([selection isKindOfClass:[RuntimeInstance class]]) {
+        RuntimeInstance *instance = selection;
+        [AppState sharedAppState].defaultRubyRuntimeReference.instance = instance;
+    }
+}
+
+- (BOOL)isSetDefaultButtonEnabled {
+    return self.selectedRuntimeObject != nil && [self.selectedRuntimeObject isKindOfClass:[RuntimeInstance class]] && self.selectedRuntimeObject != [AppState sharedAppState].defaultRubyRuntimeReference.instance;
 }
 
 @end

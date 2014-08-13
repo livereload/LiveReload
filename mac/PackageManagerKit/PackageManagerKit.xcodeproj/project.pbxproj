@@ -76,6 +76,8 @@
 		4301FA8119849101006709C9 /* LRCommons.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4301FA8019849101006709C9 /* LRCommons.framework */; };
 		4301FA9619849420006709C9 /* CustomRubyInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301FA9419849420006709C9 /* CustomRubyInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4301FA9719849420006709C9 /* CustomRubyInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301FA9519849420006709C9 /* CustomRubyInstance.m */; };
+		4306C91B199B0F3900BB226E /* RuntimeReference.h in Headers */ = {isa = PBXBuildFile; fileRef = 4306C919199B0F3900BB226E /* RuntimeReference.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4306C91C199B0F3900BB226E /* RuntimeReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 4306C91A199B0F3900BB226E /* RuntimeReference.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -161,6 +163,8 @@
 		4301FA8019849101006709C9 /* LRCommons.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LRCommons.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/LiveReload-aescojcekgepxkhacevekzcghboe/Build/Products/Debug/LRCommons.framework"; sourceTree = "<group>"; };
 		4301FA9419849420006709C9 /* CustomRubyInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomRubyInstance.h; sourceTree = "<group>"; };
 		4301FA9519849420006709C9 /* CustomRubyInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomRubyInstance.m; sourceTree = "<group>"; };
+		4306C919199B0F3900BB226E /* RuntimeReference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RuntimeReference.h; sourceTree = "<group>"; };
+		4306C91A199B0F3900BB226E /* RuntimeReference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RuntimeReference.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -279,6 +283,8 @@
 				4301F9D519848C58006709C9 /* RuntimeObject.h */,
 				4301F9D619848C58006709C9 /* RuntimeRepository.h */,
 				4301F9D719848C58006709C9 /* RuntimeRepository.m */,
+				4306C919199B0F3900BB226E /* RuntimeReference.h */,
+				4306C91A199B0F3900BB226E /* RuntimeReference.m */,
 			);
 			path = GenericRuntime;
 			sourceTree = "<group>";
@@ -389,6 +395,7 @@
 				4301FA3119848C58006709C9 /* HomebrewRubyInstance.h in Headers */,
 				4301FA2119848C58006709C9 /* NpmPackageType.h in Headers */,
 				4301FA4319848DA8006709C9 /* SandboxingUtil.h in Headers */,
+				4306C91B199B0F3900BB226E /* RuntimeReference.h in Headers */,
 				4301FA0619848C58006709C9 /* LRPackageManager.h in Headers */,
 				4301FA1419848C58006709C9 /* RuntimeGlobals.h in Headers */,
 				4301FA0C19848C58006709C9 /* LRPackageSet.h in Headers */,
@@ -516,6 +523,7 @@
 				4301FA3419848C58006709C9 /* RbenvContainer.m in Sources */,
 				4301FA1519848C58006709C9 /* RuntimeGlobals.m in Sources */,
 				4301FA4019848C58006709C9 /* SystemRubyInstance.m in Sources */,
+				4306C91C199B0F3900BB226E /* RuntimeReference.m in Sources */,
 				4301FA2419848C58006709C9 /* NSData+Base64.m in Sources */,
 				4301FA3819848C58006709C9 /* RubyInstance.m in Sources */,
 				4301FA2219848C58006709C9 /* NpmPackageType.m in Sources */,
@@ -733,6 +741,7 @@
 				4301F99119848826006709C9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4301F99219848826006709C9 /* Build configuration list for PBXNativeTarget "PackageManagerKitTests" */ = {
 			isa = XCConfigurationList;
@@ -741,6 +750,7 @@
 				4301F99419848826006709C9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

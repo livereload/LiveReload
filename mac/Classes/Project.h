@@ -14,12 +14,13 @@
 @class ProjectFile;
 
 
-extern NSString *ProjectDidDetectChangeNotification;
-extern NSString *ProjectMonitoringStateDidChangeNotification;
-extern NSString *ProjectNeedsSavingNotification;
-extern NSString *ProjectAnalysisDidFinishNotification;
-extern NSString *ProjectBuildStartedNotification;
-extern NSString *ProjectBuildFinishedNotification;
+extern NSString *const ProjectDidDetectChangeNotification;
+extern NSString *const ProjectMonitoringStateDidChangeNotification;
+extern NSString *const ProjectNeedsSavingNotification;
+extern NSString *const ProjectAnalysisDidFinishNotification;
+extern NSString *const ProjectBuildStartedNotification;
+extern NSString *const ProjectBuildFinishedNotification;
+extern NSString *const ProjectRuntimeInstanceDidChangeNotification;
 
 
 enum {
@@ -84,6 +85,7 @@ enum {
 @property(nonatomic, getter = isDirty) BOOL dirty;
 
 @property(nonatomic, copy) NSString *rubyVersionIdentifier;
+@property(nonatomic, readonly) RuntimeInstance *rubyInstanceForBuilding;
 
 - (void)checkBrokenPaths;
 
