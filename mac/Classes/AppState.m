@@ -32,6 +32,10 @@ static AppState *sharedAppState = nil;
 
     _packageManager = [LRPackageManager new];
 
+    _rubyRuntimeRepository = [[RubyRuntimeRepository alloc] init];
+
+    _defaultRubyRuntimeReference = [self runtimeReferenceWithRepository:_rubyRuntimeRepository userDefaultsKey:@"defaultRubyRuntime"];
+
     [EditorManager sharedEditorManager];
 
     [Preferences initDefaults];
@@ -52,6 +56,10 @@ static AppState *sharedAppState = nil;
     //        }
 }
 
+- (void)finishLaunching {
+    [_rubyRuntimeRepository load];
+}
+
 - (void)_setupCommandHandlers {
     [[Glue glue] registerCommand:@"kernel.server-connection-count-changed" syncHandler:^(NSDictionary *message, NSError **error) {
         self.numberOfConnectedBrowsers = [message[@"connectionCount"] integerValue];
@@ -60,6 +68,22 @@ static AppState *sharedAppState = nil;
     [[Glue glue] registerCommand:@"kernel.server-refresh-count-changed" syncHandler:^(NSDictionary *message, NSError **error) {
         self.numberOfRefreshesProcessed = [message[@"refreshCount"] integerValue];
     }];
+}
+
+- (RuntimeReference *)runtimeReferenceWithRepository:(RuntimeRepository *)repository userDefaultsKey:(NSString *)userDefaultsKey {
+    RuntimeReference *reference = [[RuntimeReference alloc] initWithRepository:repository];
+    reference.identifier = [[NSUserDefaults standardUserDefaults] stringForKey:userDefaultsKey] ?: @"system";
+
+    __weak RuntimeReference *weakRef = reference;
+    reference.identifierDidChangeBlock = ^{
+        RuntimeReference *reference = weakRef;
+        if (reference) {
+            [[NSUserDefaults standardUserDefaults] setObject:reference.identifier forKey:userDefaultsKey];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+    };
+
+    return reference;
 }
 
 @end

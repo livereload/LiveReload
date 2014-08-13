@@ -20,6 +20,7 @@ FOUNDATION_EXPORT const unsigned char PackageManagerKitVersionString[];
 #import <PackageManagerKit/RuntimeInstance.h>
 #import <PackageManagerKit/RuntimeObject.h>
 #import <PackageManagerKit/RuntimeRepository.h>
+#import <PackageManagerKit/RuntimeReference.h>
 
 #import <PackageManagerKit/NpmPackage.h>
 #import <PackageManagerKit/NpmPackageContainer.h>

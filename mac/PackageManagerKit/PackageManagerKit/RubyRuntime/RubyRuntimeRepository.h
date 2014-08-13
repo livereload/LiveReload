@@ -8,8 +8,6 @@
 
 @interface RubyRuntimeRepository : RuntimeRepository
 
-+ (RubyRuntimeRepository *)sharedRubyManager;
-
 - (RuntimeInstance *)addCustomRubyAtURL:(NSURL *)url;
 
 @end

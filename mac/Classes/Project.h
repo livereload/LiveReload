@@ -84,6 +84,7 @@ enum {
 @property(nonatomic, getter = isDirty) BOOL dirty;
 
 @property(nonatomic, copy) NSString *rubyVersionIdentifier;
+@property(nonatomic, readonly) RuntimeInstance *rubyInstanceForBuilding;
 
 - (void)checkBrokenPaths;
 

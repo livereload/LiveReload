@@ -1,0 +1,20 @@
+/* line 64, flags/*.png */
+.flags-sprite, .flags-de, .flags-uk, .flags-us {
+  background-image: url('/images/flags-sf3ad793021.png');
+  background-repeat: no-repeat;
+}
+
+/* line 84, ../../../../../plugins/Sass.lrplugin/gem/gems/compass-core-1.0.0.rc.1/stylesheets/compass/utilities/sprites/_base.scss */
+.flags-de {
+  background-position: 0 0;
+}
+
+/* line 84, ../../../../../plugins/Sass.lrplugin/gem/gems/compass-core-1.0.0.rc.1/stylesheets/compass/utilities/sprites/_base.scss */
+.flags-uk {
+  background-position: 0 -47px;
+}
+
+/* line 84, ../../../../../plugins/Sass.lrplugin/gem/gems/compass-core-1.0.0.rc.1/stylesheets/compass/utilities/sprites/_base.scss */
+.flags-us {
+  background-position: 0 -94px;
+}

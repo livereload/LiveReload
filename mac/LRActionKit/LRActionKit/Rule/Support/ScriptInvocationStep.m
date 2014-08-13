@@ -46,7 +46,7 @@
         return container.containerType == LRPackageContainerTypeBundled;
     }];
 
-    RuntimeInstance *rubyInstance = [[RubyRuntimeRepository sharedRubyManager] instanceIdentifiedBy:_project.rubyVersionIdentifier];
+    RuntimeInstance *rubyInstance = _project.rubyInstanceForBuilding;
     [self addValue:[rubyInstance launchArgumentsWithAdditionalRuntimeContainers:bundledContainers environment:_environment] forSubstitutionKey:@"ruby"];
 
     NSArray *cmdline = [_commandLine p2_arrayBySubstitutingValuesFromDictionary:_substitutions];

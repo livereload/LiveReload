@@ -13,6 +13,7 @@
 #import "ToolOutput.h"
 #import "Glue.h"
 #import "LiveReload-Swift-x.h"
+#import "AppState.h"
 
 #import "Stats.h"
 #import "RegexKitLite.h"
@@ -205,9 +206,9 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
             _legacyPostProcessingEnabled = [_legacyPostProcessingCommand length] > 0;
         }
 
-        _rubyVersionIdentifier = [[memento objectForKey:@"rubyVersion"] copy];
+        _rubyVersionIdentifier = [[memento objectForKey:@"rubyRuntime"] copy];
         if ([_rubyVersionIdentifier length] == 0)
-            _rubyVersionIdentifier = @"system";
+            _rubyVersionIdentifier = nil;
 
         _importGraph = [[ImportGraph alloc] init];
 
@@ -275,7 +276,9 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     if ([_urlMasks count] > 0) {
         [memento setObject:_urlMasks forKey:@"urls"];
     }
-    [memento setObject:_rubyVersionIdentifier forKey:@"rubyVersion"];
+    if (_rubyVersionIdentifier.length > 0) {
+        [memento setObject:_rubyVersionIdentifier forKey:@"rubyRuntime"];
+    }
 
     [memento setObject:[NSNumber numberWithInteger:_numberOfPathComponentsToUseAsName] forKey:@"numberOfPathComponentsToUseAsName"];
     if (_customName.length > 0)
@@ -1048,6 +1051,16 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     [[Glue glue] postMessage:@{@"service": @"reloader", @"command": @"reload", @"changes": changes, @"forceFullReload": @(forceFullReload)}];
     [self postNotificationName:ProjectDidDetectChangeNotification];
     StatIncrement(BrowserRefreshCountStat, 1);
+}
+
+
+#pragma mark - Runtimes
+
+- (RuntimeInstance *)rubyInstanceForBuilding {
+    if (_rubyVersionIdentifier.length > 0) {
+        return [[AppState sharedAppState].rubyRuntimeRepository instanceIdentifiedBy:_rubyVersionIdentifier];
+    }
+    return [AppState sharedAppState].defaultRubyRuntimeReference.instance;
 }
 
 @end
