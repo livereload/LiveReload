@@ -1,0 +1,29 @@
+{
+  "settings": {
+    "actions": [
+      {
+        "action": "compass",
+        "enabled": 1,
+        "version": "*-stable"
+      }
+    ]
+  },
+
+  "sources": {
+    "sass/screen.scss": true,
+    "images/flags/us.png": true,
+    "images/flags/uk.png": true,
+    "images/flags/de.png": true,
+    "images/flags/source.webloc": true,
+    "config.rb": true
+  },
+
+  "outputs": {
+    "stylesheets/screen.css": [
+      ".flags-de", ".flags-uk", ".flags-us",
+      "background-image: url('/images/flags-sf3ad793021.png')",
+      "background-position: 0 -47px;"
+    ],
+    "images/flags-sf3ad793021.png": { "binary": true, "minSize": 2000 }
+  }
+}

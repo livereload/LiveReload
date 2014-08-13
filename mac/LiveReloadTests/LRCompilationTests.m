@@ -121,6 +121,9 @@
 - (void)testCompassSimple {
     XCTAssertNil([self runProjectTestNamed:@"compilers/compass_simple" options:LRTestOptionNone], @"Failed");
 }
+- (void)testCompassSprites {
+    XCTAssertNil([self runProjectTestNamed:@"compilers/compass_sprites" options:LRTestOptionNone], @"Failed");
+}
 - (void)testCompassErrorSimple {
     XCTAssertNil([self runProjectTestNamed:@"compilers/compass_error_simple" options:LRTestOptionNone], @"Failed");
 }
