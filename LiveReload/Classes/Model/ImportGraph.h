@@ -11,6 +11,7 @@
 
 - (NSSet *)rootReferencingPathsForPath:(NSString *)path;
 - (BOOL)hasReferencingPathsForPath:(NSString *)path;
+- (NSSet *)referencingPathsForPath:(NSString *)path;
 
 @end
 

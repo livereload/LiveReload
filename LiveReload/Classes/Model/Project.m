@@ -321,6 +321,10 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     return [_importGraph hasReferencingPathsForPath:path];
 }
 
+- (NSArray *)filePathsImportingFileAtPath:(NSString *)path {
+    return [[_importGraph referencingPathsForPath:path] allObjects];
+}
+
 
 - (void)requestMonitoring:(BOOL)monitoringEnabled forKey:(NSString *)key {
     if ([_monitoringRequests containsObject:key] != monitoringEnabled) {

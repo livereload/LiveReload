@@ -101,6 +101,11 @@
     return node && [node->_referencingPaths count] > 0;
 }
 
+- (NSSet *)referencingPathsForPath:(NSString *)path {
+    ImportGraphNode *node = [_filesToNodes objectForKey:path];
+    return node ? node->_referencingPaths : nil;
+}
+
 
 - (NSString *)description {
     NSMutableString *result = [NSMutableString string];

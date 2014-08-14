@@ -121,6 +121,7 @@ EVENTBUS_DECLARE_EVENT(project_fs_change_event);
 
 - (void)checkBrokenPaths;
 
+- (NSArray *)filePathsImportingFileAtPath:(NSString *)path;
 - (BOOL)isFileImported:(NSString *)path;
 
 @property(nonatomic, readonly) NSArray *excludedPaths;

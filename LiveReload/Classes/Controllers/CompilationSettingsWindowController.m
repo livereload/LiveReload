@@ -403,6 +403,20 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
     }
 }
 
+- (NSString *)tableView:(NSTableView *)tableView toolTipForCell:(NSCell *)cell rect:(NSRectPointer)rect tableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row mouseLocation:(NSPoint)mouseLocation {
+    compilable_file_t *file = kv_A(_fileList, row);
+    output_paths_table_column_t column = str_static_array_index(output_paths_table_column_ids, [[tableColumn identifier] UTF8String]);
+
+    NSString *path = [NSString stringWithUTF8String:file->source_path];
+    BOOL imported = [_project isFileImported:path];
+    if (column == output_paths_table_column_output) {
+        if (imported) {
+            return [[_project filePathsImportingFileAtPath:path] componentsJoinedByString:@", "];
+        }
+    }
+    return nil;
+}
+
 - (void)tableViewSelectionDidChange:(NSNotification *)notification {
     [self endBulkMaskEditing];
     [self updateOutputPathsButtonStates];
