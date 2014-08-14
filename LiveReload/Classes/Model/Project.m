@@ -867,6 +867,24 @@ skipGuessing:
             _compassDetected = YES;
         }
 
+        if ([pathFragment hasPrefix:@"./"] || [pathFragment hasPrefix:@"../"]) {
+            NSString *dir = [relativePath stringByDeletingLastPathComponent];
+
+            NSString *resolvedPathFragment;
+            if ([pathFragment hasPrefix:@"../"]) {
+                dir = [dir stringByDeletingLastPathComponent];
+                resolvedPathFragment = [dir stringByAppendingPathComponent:[pathFragment substringFromIndex:[pathFragment rangeOfString:@"../"].length]];
+            } else {
+                resolvedPathFragment = [dir stringByAppendingPathComponent:[pathFragment substringFromIndex:[pathFragment rangeOfString:@"./"].length]];
+            }
+
+            NSString *path = [_monitor.tree pathOfBestFileMatchingPathSuffix:resolvedPathFragment preferringSubtree:dir];
+            if (path) {
+                [referencedPaths addObject:path];
+                continue;
+            }
+        }
+
         NSString *path = [_monitor.tree pathOfBestFileMatchingPathSuffix:pathFragment preferringSubtree:[relativePath stringByDeletingLastPathComponent]];
         if (path) {
             [referencedPaths addObject:path];
