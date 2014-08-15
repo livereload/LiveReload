@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6205" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6205"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="EmailSignupWindow" customModule="LRMarketingKit" customModuleProvider="target">
+            <connections>
+                <outlet property="aboutField" destination="hMP-2l-H9y" id="KFA-AB-b6y"/>
+                <outlet property="emailField" destination="Uyf-R0-WIB" id="9EX-Ke-wmL"/>
+                <outlet property="nameField" destination="PIm-OQ-3kA" id="cAP-RN-plG"/>
+                <outlet property="okButton" destination="mRj-ux-shQ" id="hiu-ha-Gc7"/>
+                <outlet property="progressIndicator" destination="wcA-9v-sle" id="SdQ-Gi-Kpg"/>
+                <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="Welcome to LiveReload 3 Alpha" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="beta-signup" animationBehavior="default" id="F0z-JX-Cv5">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="196" y="240" width="478" height="445"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1366" height="746"/>
+            <view key="contentView" id="se5-gp-TjO">
+                <rect key="frame" x="0.0" y="0.0" width="478" height="445"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GOJ-RS-elh">
+                        <rect key="frame" x="18" y="306" width="442" height="119"/>
+                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="6yq-Ux-Q3m">
+                            <font key="font" metaFont="system"/>
+                            <string key="title">Hey, thanks for helping me!
+
+As an early user, you will help me shape this app into something that people can actually use. :-)
+
+I want to learn about your use cases and your ideas on improving LiveReload, so can you please provide a contact address?</string>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0T4-st-bt4">
+                        <rect key="frame" x="18" y="259" width="141" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Your email:" id="qEo-bu-CY1">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Uyf-R0-WIB">
+                        <rect key="frame" x="162" y="257" width="244" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="244" id="D0f-AX-MvN"/>
+                        </constraints>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="awesome.user@greatness.com" drawsBackground="YES" id="yIv-na-EkZ">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                        <connections>
+                            <outlet property="delegate" destination="-2" id="cDR-Y3-gnO"/>
+                            <outlet property="nextKeyView" destination="PIm-OQ-3kA" id="AEW-JR-NwZ"/>
+                        </connections>
+                    </textField>
+                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PIm-OQ-3kA">
+                        <rect key="frame" x="162" y="227" width="243" height="22"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Bond, James Bond" drawsBackground="YES" id="wUX-VE-O5O">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                        <connections>
+                            <outlet property="delegate" destination="-2" id="90o-yb-yHK"/>
+                            <outlet property="nextKeyView" destination="hMP-2l-H9y" id="4cw-de-Wge"/>
+                        </connections>
+                    </textField>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mRj-ux-shQ">
+                        <rect key="frame" x="156" y="90" width="166" height="32"/>
+                        <buttonCell key="cell" type="push" title="We're good to go!" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="t6O-QE-sA6">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="performOK:" target="-2" id="wts-mn-E8e"/>
+                        </connections>
+                    </button>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BcS-we-ZUV">
+                        <rect key="frame" x="18" y="20" width="442" height="56"/>
+                        <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" id="rWG-NK-Ja4">
+                            <font key="font" metaFont="smallSystem"/>
+                            <string key="title">I will contact you during the alpha/beta program (occasionally), after the final 3.x version is released (once), and when I need testers for the next major version 4.x (once). The information will be destroyed after I send the last email or by the end of 2018, whichever comes first.</string>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CXD-5D-FoY">
+                        <rect key="frame" x="18" y="229" width="138" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="How do I call you?" id="Ibt-La-kLV">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hMP-2l-H9y">
+                        <rect key="frame" x="162" y="130" width="243" height="88"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="88" id="EXf-0V-YpY"/>
+                        </constraints>
+                        <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="MI6. Don't tell anyone." drawsBackground="YES" id="FGb-4Y-rs6">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                        <connections>
+                            <outlet property="delegate" destination="-2" id="1xT-Tb-Ej3"/>
+                            <outlet property="nextKeyView" destination="Uyf-R0-WIB" id="OcA-Bq-TP3"/>
+                        </connections>
+                    </textField>
+                    <textField horizontalHuggingPriority="750" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y2h-Jw-IUL">
+                        <rect key="frame" x="18" y="130" width="138" height="86"/>
+                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Perhaps a few words about yourself?" id="3zw-Sh-poM">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hIq-ou-Qdo">
+                        <rect key="frame" x="322" y="100" width="26" height="14"/>
+                        <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="⌘↩" id="ROv-q8-wDe">
+                            <font key="font" metaFont="smallSystem"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="wcA-9v-sle">
+                        <rect key="frame" x="138" y="99" width="16" height="16"/>
+                    </progressIndicator>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="BcS-we-ZUV" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="20" symbolic="YES" id="1VA-Nc-QGE"/>
+                    <constraint firstItem="GOJ-RS-elh" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="20" symbolic="YES" id="2pr-zs-gtS"/>
+                    <constraint firstItem="mRj-ux-shQ" firstAttribute="centerY" secondItem="wcA-9v-sle" secondAttribute="centerY" constant="-0.5" id="4SL-kX-9ra"/>
+                    <constraint firstAttribute="bottom" secondItem="BcS-we-ZUV" secondAttribute="bottom" constant="20" symbolic="YES" id="5NC-z0-s3D"/>
+                    <constraint firstItem="hIq-ou-Qdo" firstAttribute="leading" secondItem="mRj-ux-shQ" secondAttribute="trailing" constant="8" id="5gz-1F-Blm"/>
+                    <constraint firstItem="hMP-2l-H9y" firstAttribute="trailing" secondItem="PIm-OQ-3kA" secondAttribute="trailing" id="6Lh-m9-tmO"/>
+                    <constraint firstItem="y2h-Jw-IUL" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="20" symbolic="YES" id="7hj-Q7-edj"/>
+                    <constraint firstItem="CXD-5D-FoY" firstAttribute="baseline" secondItem="PIm-OQ-3kA" secondAttribute="baseline" id="BQQ-Xb-0G8"/>
+                    <constraint firstItem="hMP-2l-H9y" firstAttribute="leading" secondItem="PIm-OQ-3kA" secondAttribute="leading" id="BSt-Uh-NZ2"/>
+                    <constraint firstItem="y2h-Jw-IUL" firstAttribute="top" secondItem="hMP-2l-H9y" secondAttribute="top" constant="2" id="Brt-4M-Dom"/>
+                    <constraint firstItem="BcS-we-ZUV" firstAttribute="top" secondItem="mRj-ux-shQ" secondAttribute="bottom" constant="21" id="FMP-P8-5sv"/>
+                    <constraint firstItem="0T4-st-bt4" firstAttribute="baseline" secondItem="Uyf-R0-WIB" secondAttribute="baseline" id="HPr-ug-jDZ"/>
+                    <constraint firstItem="PIm-OQ-3kA" firstAttribute="leading" secondItem="CXD-5D-FoY" secondAttribute="trailing" constant="8" id="IGS-un-mBt"/>
+                    <constraint firstItem="mRj-ux-shQ" firstAttribute="leading" secondItem="wcA-9v-sle" secondAttribute="trailing" constant="8" id="IIz-yh-J6V"/>
+                    <constraint firstItem="Uyf-R0-WIB" firstAttribute="top" secondItem="GOJ-RS-elh" secondAttribute="bottom" constant="27" id="LZ0-GC-7KU"/>
+                    <constraint firstItem="Uyf-R0-WIB" firstAttribute="trailing" secondItem="PIm-OQ-3kA" secondAttribute="trailing" constant="1" id="PXp-il-08r"/>
+                    <constraint firstItem="GOJ-RS-elh" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="20" symbolic="YES" id="R1H-rG-zNY"/>
+                    <constraint firstItem="hMP-2l-H9y" firstAttribute="leading" secondItem="y2h-Jw-IUL" secondAttribute="trailing" constant="8" id="T9E-R8-pgH"/>
+                    <constraint firstItem="hMP-2l-H9y" firstAttribute="leading" secondItem="mRj-ux-shQ" secondAttribute="leading" id="VEr-re-LeN"/>
+                    <constraint firstAttribute="centerX" secondItem="mRj-ux-shQ" secondAttribute="centerX" id="Wzx-gK-Mmy"/>
+                    <constraint firstAttribute="trailing" secondItem="GOJ-RS-elh" secondAttribute="trailing" constant="20" symbolic="YES" id="agL-bM-1Vw"/>
+                    <constraint firstItem="PIm-OQ-3kA" firstAttribute="top" secondItem="Uyf-R0-WIB" secondAttribute="bottom" constant="8" id="apK-QK-ouA"/>
+                    <constraint firstItem="CXD-5D-FoY" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="20" symbolic="YES" id="cIW-bk-SpC"/>
+                    <constraint firstItem="0T4-st-bt4" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="20" symbolic="YES" id="eQP-aP-47Q"/>
+                    <constraint firstItem="y2h-Jw-IUL" firstAttribute="bottom" secondItem="hMP-2l-H9y" secondAttribute="bottom" id="gaa-du-nT4"/>
+                    <constraint firstAttribute="centerX" secondItem="Uyf-R0-WIB" secondAttribute="centerX" constant="-45" id="mfL-gU-kpz"/>
+                    <constraint firstItem="Uyf-R0-WIB" firstAttribute="leading" secondItem="0T4-st-bt4" secondAttribute="trailing" constant="5" id="oaU-nz-WIa"/>
+                    <constraint firstItem="mRj-ux-shQ" firstAttribute="top" secondItem="hMP-2l-H9y" secondAttribute="bottom" constant="12" id="ply-HV-IGc"/>
+                    <constraint firstItem="hMP-2l-H9y" firstAttribute="top" secondItem="PIm-OQ-3kA" secondAttribute="bottom" constant="9" id="qgB-WA-LWf"/>
+                    <constraint firstItem="PIm-OQ-3kA" firstAttribute="leading" secondItem="Uyf-R0-WIB" secondAttribute="leading" id="uFN-1s-M0L"/>
+                    <constraint firstItem="mRj-ux-shQ" firstAttribute="baseline" secondItem="hIq-ou-Qdo" secondAttribute="baseline" id="vZM-XJ-TQW"/>
+                    <constraint firstAttribute="trailing" secondItem="BcS-we-ZUV" secondAttribute="trailing" constant="20" symbolic="YES" id="ydH-WC-PP8"/>
+                </constraints>
+            </view>
+            <connections>
+                <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
+                <outlet property="initialFirstResponder" destination="Uyf-R0-WIB" id="thb-CU-gsF"/>
+            </connections>
+            <point key="canvasLocation" x="241" y="390.5"/>
+        </window>
+    </objects>
+</document>

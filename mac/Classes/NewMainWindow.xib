@@ -1415,7 +1415,7 @@
                         <action selector="showMonitoringOptions:" target="-2" id="OM0-Cg-g5e"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Yfe-oL-9W5">
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yfe-oL-9W5">
                     <rect key="frame" x="22" y="22" width="438" height="14"/>
                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="left" title="Monitoring 15 file extensions, no exclusions. Using Ruby 1.8.2. More words here. And even more words." id="30B-sb-8YP">
                         <font key="font" metaFont="smallSystem"/>
