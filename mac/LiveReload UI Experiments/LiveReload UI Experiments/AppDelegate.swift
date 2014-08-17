@@ -18,9 +18,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 //            println("done, error = \(error)")
 //        }
 
-        window = EmailSignupWindow.create()
+//        window = EmailSignupWindow.create()
 
-//        window = ExperimentalActionsWindowController(windowNibName: "ExperimentalActionsWindowController")
+        window = ExperimentalActionsWindowController(windowNibName: "ExperimentalActionsWindowController")
 
         window.showWindow(self)
     }

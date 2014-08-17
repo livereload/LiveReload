@@ -12,6 +12,46 @@
 		430E6205199CD7A000838177 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 430E6204199CD7A000838177 /* Images.xcassets */; };
 		430E6208199CD7A000838177 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 430E6206199CD7A000838177 /* MainMenu.xib */; };
 		430E6214199CD7A000838177 /* LiveReload_UI_ExperimentsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430E6213199CD7A000838177 /* LiveReload_UI_ExperimentsTests.swift */; };
+		436F89D319A0558C004273DF /* RubyRuntime.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89A619A0558C004273DF /* RubyRuntime.png */; };
+		436F89D419A0558C004273DF /* RubyRuntime@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89A719A0558C004273DF /* RubyRuntime@2x.png */; };
+		436F89D519A0558C004273DF /* RvmContainer.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89A819A0558C004273DF /* RvmContainer.png */; };
+		436F89D619A0558C004273DF /* RvmContainer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89A919A0558C004273DF /* RvmContainer@2x.png */; };
+		436F89D719A0558C004273DF /* RbenvContainer.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89AA19A0558C004273DF /* RbenvContainer.png */; };
+		436F89D819A0558C004273DF /* RbenvContainer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89AB19A0558C004273DF /* RbenvContainer@2x.png */; };
+		436F89D919A0558C004273DF /* HomebrewContainer.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89AC19A0558C004273DF /* HomebrewContainer.png */; };
+		436F89DA19A0558C004273DF /* HomebrewContainer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89AD19A0558C004273DF /* HomebrewContainer@2x.png */; };
+		436F89DB19A0558C004273DF /* PrefPaneRubies.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89AF19A0558C004273DF /* PrefPaneRubies.png */; };
+		436F89DC19A0558C004273DF /* ATDropDownArrowTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89B119A0558C004273DF /* ATDropDownArrowTemplate.png */; };
+		436F89DD19A0558C004273DF /* ATDropDownArrowTemplate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89B219A0558C004273DF /* ATDropDownArrowTemplate@2x.png */; };
+		436F89DE19A0558C004273DF /* BuyTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89B319A0558C004273DF /* BuyTemplate.png */; };
+		436F89DF19A0558C004273DF /* ProjectPaneBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89B419A0558C004273DF /* ProjectPaneBackground.png */; };
+		436F89E019A0558C004273DF /* WelcomePaneBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89B519A0558C004273DF /* WelcomePaneBackground.png */; };
+		436F89E119A0558C004273DF /* PlaceholderTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89B619A0558C004273DF /* PlaceholderTemplate.png */; };
+		436F89E219A0558C004273DF /* AddTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89B719A0558C004273DF /* AddTemplate.png */; };
+		436F89E319A0558C004273DF /* RemoveTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89B819A0558C004273DF /* RemoveTemplate.png */; };
+		436F89E419A0558C004273DF /* TitleBarHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89B919A0558C004273DF /* TitleBarHelpTemplate.png */; };
+		436F89E519A0558C004273DF /* FolderIcon64.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89BA19A0558C004273DF /* FolderIcon64.png */; };
+		436F89E619A0558C004273DF /* LRHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89BB19A0558C004273DF /* LRHelpTemplate.png */; };
+		436F89E719A0558C004273DF /* LRSupportTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89BC19A0558C004273DF /* LRSupportTemplate.png */; };
+		436F89E819A0558C004273DF /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89BD19A0558C004273DF /* background.png */; };
+		436F89E919A0558C004273DF /* Icon-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89BE19A0558C004273DF /* Icon-48.png */; };
+		436F89EA19A0558C004273DF /* preferences-box.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89BF19A0558C004273DF /* preferences-box.png */; };
+		436F89EB19A0558C004273DF /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89C019A0558C004273DF /* settings.png */; };
+		436F89EC19A0558C004273DF /* LRTerminalButtonOff.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89C119A0558C004273DF /* LRTerminalButtonOff.png */; };
+		436F89ED19A0558C004273DF /* LRTerminalButtonOffHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89C219A0558C004273DF /* LRTerminalButtonOffHighlight.png */; };
+		436F89EE19A0558C004273DF /* LRTerminalButtonOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89C319A0558C004273DF /* LRTerminalButtonOn.png */; };
+		436F89EF19A0558C004273DF /* LRTerminalButtonOnHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89C419A0558C004273DF /* LRTerminalButtonOnHighlight.png */; };
+		436F89F019A0558C004273DF /* TerminalStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89C519A0558C004273DF /* TerminalStripes.png */; };
+		436F89F119A0558C004273DF /* TerminalGlare.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89C619A0558C004273DF /* TerminalGlare.png */; };
+		436F89F219A0558C004273DF /* TerminalBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89C719A0558C004273DF /* TerminalBackground.png */; };
+		436F89F319A0558C004273DF /* TerminalBackgroundSquare.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89C819A0558C004273DF /* TerminalBackgroundSquare.png */; };
+		436F89F519A0558C004273DF /* StatusItemActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89CA19A0558C004273DF /* StatusItemActive.png */; };
+		436F89F619A0558C004273DF /* StatusItemDropTarget.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89CB19A0558C004273DF /* StatusItemDropTarget.png */; };
+		436F89F719A0558C004273DF /* StatusItemHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89CC19A0558C004273DF /* StatusItemHighlighted.png */; };
+		436F89F819A0558C004273DF /* StatusItemInactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89CD19A0558C004273DF /* StatusItemInactive.png */; };
+		436F89F919A0558C004273DF /* StatusItemStateRotation1.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89CE19A0558C004273DF /* StatusItemStateRotation1.png */; };
+		436F89FA19A0558C004273DF /* StatusItemStateRotation2.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89CF19A0558C004273DF /* StatusItemStateRotation2.png */; };
+		436F89FB19A0558C004273DF /* StatusItemStateRotation3.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89D019A0558C004273DF /* StatusItemStateRotation3.png */; };
 		43D331A1199F925600E45C54 /* HyperlinkTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D331A0199F925600E45C54 /* HyperlinkTextField.m */; };
 		43E49B4F199F00F800FA2434 /* ExperimentalActionsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E49B4D199F00F800FA2434 /* ExperimentalActionsWindowController.swift */; };
 		43E49B50199F00F800FA2434 /* ExperimentalActionsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43E49B4E199F00F800FA2434 /* ExperimentalActionsWindowController.xib */; };
@@ -59,6 +99,46 @@
 		430E6212199CD7A000838177 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		430E6213199CD7A000838177 /* LiveReload_UI_ExperimentsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveReload_UI_ExperimentsTests.swift; sourceTree = "<group>"; };
 		430E6226199CD80300838177 /* LRMarketingKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LRMarketingKit.xcodeproj; path = ../LRMarketingKit/LRMarketingKit.xcodeproj; sourceTree = "<group>"; };
+		436F89A619A0558C004273DF /* RubyRuntime.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RubyRuntime.png; sourceTree = "<group>"; };
+		436F89A719A0558C004273DF /* RubyRuntime@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RubyRuntime@2x.png"; sourceTree = "<group>"; };
+		436F89A819A0558C004273DF /* RvmContainer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RvmContainer.png; sourceTree = "<group>"; };
+		436F89A919A0558C004273DF /* RvmContainer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RvmContainer@2x.png"; sourceTree = "<group>"; };
+		436F89AA19A0558C004273DF /* RbenvContainer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RbenvContainer.png; sourceTree = "<group>"; };
+		436F89AB19A0558C004273DF /* RbenvContainer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RbenvContainer@2x.png"; sourceTree = "<group>"; };
+		436F89AC19A0558C004273DF /* HomebrewContainer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HomebrewContainer.png; sourceTree = "<group>"; };
+		436F89AD19A0558C004273DF /* HomebrewContainer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HomebrewContainer@2x.png"; sourceTree = "<group>"; };
+		436F89AF19A0558C004273DF /* PrefPaneRubies.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PrefPaneRubies.png; sourceTree = "<group>"; };
+		436F89B119A0558C004273DF /* ATDropDownArrowTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ATDropDownArrowTemplate.png; sourceTree = "<group>"; };
+		436F89B219A0558C004273DF /* ATDropDownArrowTemplate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ATDropDownArrowTemplate@2x.png"; sourceTree = "<group>"; };
+		436F89B319A0558C004273DF /* BuyTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BuyTemplate.png; sourceTree = "<group>"; };
+		436F89B419A0558C004273DF /* ProjectPaneBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ProjectPaneBackground.png; sourceTree = "<group>"; };
+		436F89B519A0558C004273DF /* WelcomePaneBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WelcomePaneBackground.png; sourceTree = "<group>"; };
+		436F89B619A0558C004273DF /* PlaceholderTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlaceholderTemplate.png; sourceTree = "<group>"; };
+		436F89B719A0558C004273DF /* AddTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddTemplate.png; sourceTree = "<group>"; };
+		436F89B819A0558C004273DF /* RemoveTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RemoveTemplate.png; sourceTree = "<group>"; };
+		436F89B919A0558C004273DF /* TitleBarHelpTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TitleBarHelpTemplate.png; sourceTree = "<group>"; };
+		436F89BA19A0558C004273DF /* FolderIcon64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FolderIcon64.png; sourceTree = "<group>"; };
+		436F89BB19A0558C004273DF /* LRHelpTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRHelpTemplate.png; sourceTree = "<group>"; };
+		436F89BC19A0558C004273DF /* LRSupportTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRSupportTemplate.png; sourceTree = "<group>"; };
+		436F89BD19A0558C004273DF /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
+		436F89BE19A0558C004273DF /* Icon-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-48.png"; sourceTree = "<group>"; };
+		436F89BF19A0558C004273DF /* preferences-box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "preferences-box.png"; sourceTree = "<group>"; };
+		436F89C019A0558C004273DF /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
+		436F89C119A0558C004273DF /* LRTerminalButtonOff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRTerminalButtonOff.png; sourceTree = "<group>"; };
+		436F89C219A0558C004273DF /* LRTerminalButtonOffHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRTerminalButtonOffHighlight.png; sourceTree = "<group>"; };
+		436F89C319A0558C004273DF /* LRTerminalButtonOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRTerminalButtonOn.png; sourceTree = "<group>"; };
+		436F89C419A0558C004273DF /* LRTerminalButtonOnHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRTerminalButtonOnHighlight.png; sourceTree = "<group>"; };
+		436F89C519A0558C004273DF /* TerminalStripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TerminalStripes.png; sourceTree = "<group>"; };
+		436F89C619A0558C004273DF /* TerminalGlare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TerminalGlare.png; sourceTree = "<group>"; };
+		436F89C719A0558C004273DF /* TerminalBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TerminalBackground.png; sourceTree = "<group>"; };
+		436F89C819A0558C004273DF /* TerminalBackgroundSquare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TerminalBackgroundSquare.png; sourceTree = "<group>"; };
+		436F89CA19A0558C004273DF /* StatusItemActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemActive.png; sourceTree = "<group>"; };
+		436F89CB19A0558C004273DF /* StatusItemDropTarget.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemDropTarget.png; sourceTree = "<group>"; };
+		436F89CC19A0558C004273DF /* StatusItemHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemHighlighted.png; sourceTree = "<group>"; };
+		436F89CD19A0558C004273DF /* StatusItemInactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemInactive.png; sourceTree = "<group>"; };
+		436F89CE19A0558C004273DF /* StatusItemStateRotation1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemStateRotation1.png; sourceTree = "<group>"; };
+		436F89CF19A0558C004273DF /* StatusItemStateRotation2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemStateRotation2.png; sourceTree = "<group>"; };
+		436F89D019A0558C004273DF /* StatusItemStateRotation3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemStateRotation3.png; sourceTree = "<group>"; };
 		43D3319D199F925500E45C54 /* LiveReload UI Experiments-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LiveReload UI Experiments-Bridging-Header.h"; sourceTree = "<group>"; };
 		43D3319F199F925600E45C54 /* HyperlinkTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyperlinkTextField.h; sourceTree = "<group>"; };
 		43D331A0199F925600E45C54 /* HyperlinkTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyperlinkTextField.m; sourceTree = "<group>"; };
@@ -113,6 +193,7 @@
 				43D331A0199F925600E45C54 /* HyperlinkTextField.m */,
 				430E6204199CD7A000838177 /* Images.xcassets */,
 				430E6206199CD7A000838177 /* MainMenu.xib */,
+				436F89D219A0558C004273DF /* Images */,
 				430E61FE199CD7A000838177 /* Supporting Files */,
 				43D3319D199F925500E45C54 /* LiveReload UI Experiments-Bridging-Header.h */,
 			);
@@ -152,6 +233,78 @@
 				430E622E199CD80300838177 /* LRMarketingKitTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		436F89AE19A0558C004273DF /* Rubies */ = {
+			isa = PBXGroup;
+			children = (
+				436F89A619A0558C004273DF /* RubyRuntime.png */,
+				436F89A719A0558C004273DF /* RubyRuntime@2x.png */,
+				436F89A819A0558C004273DF /* RvmContainer.png */,
+				436F89A919A0558C004273DF /* RvmContainer@2x.png */,
+				436F89AA19A0558C004273DF /* RbenvContainer.png */,
+				436F89AB19A0558C004273DF /* RbenvContainer@2x.png */,
+				436F89AC19A0558C004273DF /* HomebrewContainer.png */,
+				436F89AD19A0558C004273DF /* HomebrewContainer@2x.png */,
+			);
+			path = Rubies;
+			sourceTree = "<group>";
+		};
+		436F89B019A0558C004273DF /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				436F89AF19A0558C004273DF /* PrefPaneRubies.png */,
+			);
+			path = Preferences;
+			sourceTree = "<group>";
+		};
+		436F89D119A0558C004273DF /* StatusItem */ = {
+			isa = PBXGroup;
+			children = (
+				436F89CA19A0558C004273DF /* StatusItemActive.png */,
+				436F89CB19A0558C004273DF /* StatusItemDropTarget.png */,
+				436F89CC19A0558C004273DF /* StatusItemHighlighted.png */,
+				436F89CD19A0558C004273DF /* StatusItemInactive.png */,
+				436F89CE19A0558C004273DF /* StatusItemStateRotation1.png */,
+				436F89CF19A0558C004273DF /* StatusItemStateRotation2.png */,
+				436F89D019A0558C004273DF /* StatusItemStateRotation3.png */,
+			);
+			path = StatusItem;
+			sourceTree = "<group>";
+		};
+		436F89D219A0558C004273DF /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				436F89AE19A0558C004273DF /* Rubies */,
+				436F89B019A0558C004273DF /* Preferences */,
+				436F89B119A0558C004273DF /* ATDropDownArrowTemplate.png */,
+				436F89B219A0558C004273DF /* ATDropDownArrowTemplate@2x.png */,
+				436F89B319A0558C004273DF /* BuyTemplate.png */,
+				436F89B419A0558C004273DF /* ProjectPaneBackground.png */,
+				436F89B519A0558C004273DF /* WelcomePaneBackground.png */,
+				436F89B619A0558C004273DF /* PlaceholderTemplate.png */,
+				436F89B719A0558C004273DF /* AddTemplate.png */,
+				436F89B819A0558C004273DF /* RemoveTemplate.png */,
+				436F89B919A0558C004273DF /* TitleBarHelpTemplate.png */,
+				436F89BA19A0558C004273DF /* FolderIcon64.png */,
+				436F89BB19A0558C004273DF /* LRHelpTemplate.png */,
+				436F89BC19A0558C004273DF /* LRSupportTemplate.png */,
+				436F89BD19A0558C004273DF /* background.png */,
+				436F89BE19A0558C004273DF /* Icon-48.png */,
+				436F89BF19A0558C004273DF /* preferences-box.png */,
+				436F89C019A0558C004273DF /* settings.png */,
+				436F89C119A0558C004273DF /* LRTerminalButtonOff.png */,
+				436F89C219A0558C004273DF /* LRTerminalButtonOffHighlight.png */,
+				436F89C319A0558C004273DF /* LRTerminalButtonOn.png */,
+				436F89C419A0558C004273DF /* LRTerminalButtonOnHighlight.png */,
+				436F89C519A0558C004273DF /* TerminalStripes.png */,
+				436F89C619A0558C004273DF /* TerminalGlare.png */,
+				436F89C719A0558C004273DF /* TerminalBackground.png */,
+				436F89C819A0558C004273DF /* TerminalBackgroundSquare.png */,
+				436F89D119A0558C004273DF /* StatusItem */,
+			);
+			name = Images;
+			path = ../../Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,9 +411,49 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				436F89F519A0558C004273DF /* StatusItemActive.png in Resources */,
+				436F89F319A0558C004273DF /* TerminalBackgroundSquare.png in Resources */,
+				436F89F919A0558C004273DF /* StatusItemStateRotation1.png in Resources */,
+				436F89DB19A0558C004273DF /* PrefPaneRubies.png in Resources */,
+				436F89E019A0558C004273DF /* WelcomePaneBackground.png in Resources */,
+				436F89D319A0558C004273DF /* RubyRuntime.png in Resources */,
+				436F89D619A0558C004273DF /* RvmContainer@2x.png in Resources */,
+				436F89F019A0558C004273DF /* TerminalStripes.png in Resources */,
+				436F89F119A0558C004273DF /* TerminalGlare.png in Resources */,
+				436F89D419A0558C004273DF /* RubyRuntime@2x.png in Resources */,
+				436F89DE19A0558C004273DF /* BuyTemplate.png in Resources */,
+				436F89E819A0558C004273DF /* background.png in Resources */,
+				436F89E419A0558C004273DF /* TitleBarHelpTemplate.png in Resources */,
+				436F89EB19A0558C004273DF /* settings.png in Resources */,
+				436F89E719A0558C004273DF /* LRSupportTemplate.png in Resources */,
+				436F89DD19A0558C004273DF /* ATDropDownArrowTemplate@2x.png in Resources */,
+				436F89E319A0558C004273DF /* RemoveTemplate.png in Resources */,
+				436F89E119A0558C004273DF /* PlaceholderTemplate.png in Resources */,
+				436F89E219A0558C004273DF /* AddTemplate.png in Resources */,
+				436F89FA19A0558C004273DF /* StatusItemStateRotation2.png in Resources */,
+				436F89F619A0558C004273DF /* StatusItemDropTarget.png in Resources */,
+				436F89ED19A0558C004273DF /* LRTerminalButtonOffHighlight.png in Resources */,
+				436F89DC19A0558C004273DF /* ATDropDownArrowTemplate.png in Resources */,
+				436F89DF19A0558C004273DF /* ProjectPaneBackground.png in Resources */,
+				436F89DA19A0558C004273DF /* HomebrewContainer@2x.png in Resources */,
+				436F89F219A0558C004273DF /* TerminalBackground.png in Resources */,
+				436F89EA19A0558C004273DF /* preferences-box.png in Resources */,
+				436F89EC19A0558C004273DF /* LRTerminalButtonOff.png in Resources */,
 				430E6205199CD7A000838177 /* Images.xcassets in Resources */,
+				436F89E619A0558C004273DF /* LRHelpTemplate.png in Resources */,
+				436F89E919A0558C004273DF /* Icon-48.png in Resources */,
+				436F89D819A0558C004273DF /* RbenvContainer@2x.png in Resources */,
 				430E6208199CD7A000838177 /* MainMenu.xib in Resources */,
+				436F89F719A0558C004273DF /* StatusItemHighlighted.png in Resources */,
+				436F89EE19A0558C004273DF /* LRTerminalButtonOn.png in Resources */,
+				436F89D719A0558C004273DF /* RbenvContainer.png in Resources */,
 				43E49B50199F00F800FA2434 /* ExperimentalActionsWindowController.xib in Resources */,
+				436F89F819A0558C004273DF /* StatusItemInactive.png in Resources */,
+				436F89D919A0558C004273DF /* HomebrewContainer.png in Resources */,
+				436F89EF19A0558C004273DF /* LRTerminalButtonOnHighlight.png in Resources */,
+				436F89E519A0558C004273DF /* FolderIcon64.png in Resources */,
+				436F89FB19A0558C004273DF /* StatusItemStateRotation3.png in Resources */,
+				436F89D519A0558C004273DF /* RvmContainer.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

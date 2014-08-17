@@ -64,7 +64,7 @@
                                                             <rect key="frame" x="150" y="3" width="412" height="34"/>
                                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="This does foo and bar and boz! And even foobar, fooboz, and a lot of other stuff!" id="a9J-Il-GyN">
                                                                 <font key="font" metaFont="system"/>
-                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </textField>
@@ -110,6 +110,47 @@
                     <constraint firstItem="Vvh-bK-58G" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" id="fz5-L3-DNP"/>
                 </constraints>
             </view>
+            <toolbar key="toolbar" implicitIdentifier="61054D3D-08BA-4A62-94C7-372768F035AB" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="regular" id="jq8-hR-Xyy">
+                <allowedToolbarItems>
+                    <toolbarItem implicitItemIdentifier="NSToolbarShowColorsItem" id="dPM-aP-Y9d"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarShowFontsItem" id="gBM-4q-DJk"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarPrintItem" id="4p0-m8-OiS"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="Jxr-cO-Fhs"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="1uJ-rE-Ufq"/>
+                    <toolbarItem implicitItemIdentifier="677A040C-C677-44DC-9985-C615FC45B1BD" label="Advanced Options" paletteLabel="Advanced Options" image="LROptionsTemplate" id="LuF-Xy-hQT">
+                        <nil key="toolTip"/>
+                        <size key="minSize" width="37" height="25"/>
+                        <size key="maxSize" width="37" height="25"/>
+                        <button key="view" verticalHuggingPriority="750" id="3l3-Cz-DUi">
+                            <rect key="frame" x="35" y="14" width="37" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="LROptionsTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="u6D-nV-wWt">
+                                <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="4DB014C2-2578-46AF-BC8B-7F2E3FA3D541" label="Show Available Actions" paletteLabel="Show Available Actions" image="NSAddTemplate" id="IgW-pB-9p6">
+                        <nil key="toolTip"/>
+                        <size key="minSize" width="37" height="25"/>
+                        <size key="maxSize" width="37" height="25"/>
+                        <button key="view" verticalHuggingPriority="750" id="Vdu-2h-WlH">
+                            <rect key="frame" x="35" y="14" width="37" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="j10-Ym-XPp">
+                                <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                    </toolbarItem>
+                </allowedToolbarItems>
+                <defaultToolbarItems>
+                    <toolbarItem reference="1uJ-rE-Ufq"/>
+                    <toolbarItem reference="1uJ-rE-Ufq"/>
+                    <toolbarItem reference="IgW-pB-9p6"/>
+                    <toolbarItem reference="LuF-Xy-hQT"/>
+                </defaultToolbarItems>
+            </toolbar>
             <connections>
                 <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
             </connections>
@@ -125,4 +166,8 @@
             <autoresizingMask key="autoresizingMask"/>
         </view>
     </objects>
+    <resources>
+        <image name="LROptionsTemplate" width="16" height="16"/>
+        <image name="NSAddTemplate" width="11" height="11"/>
+    </resources>
 </document>

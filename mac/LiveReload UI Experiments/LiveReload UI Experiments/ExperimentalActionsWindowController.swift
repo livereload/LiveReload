@@ -7,8 +7,10 @@
 //
 
 import Cocoa
+import SwiftyFoundation
+import LRCommons
 
-class ExperimentalActionsWindowController: NSWindowController, NSTableViewDataSource, NSTableViewDelegate, HyperlinkTextFieldDelegate {
+class ExperimentalActionsWindowController: NSWindowController, NSTableViewDataSource, NSTableViewDelegate, HyperlinkTextFieldDelegate, ActionCellViewDelegate {
 
     @IBOutlet var tableView: NSTableView!
 
@@ -19,21 +21,27 @@ class ExperimentalActionsWindowController: NSWindowController, NSTableViewDataSo
     override func windowDidLoad() {
         super.windowDidLoad()
 
+        window.titleVisibility = .Hidden
+
         var rule = Rule()
 
         rule = Rule()
-        rule.checkboxLabel = ""
-        rule.description = "This project settings are stored locally and won't be shared with other team members."
+        rule.checkboxLabel = "Sharing"
+        rule.introNarrative = "Enable to share these build settings with other team members via Gruntfile.js."
+        rule.detailedNarrative = "Enable to share these build settings with other team members via Gruntfile.js."
         items.append(rule)
 
         rule = Rule()
-        rule.checkboxLabel = "LESS"
-        rule.description = "Compile *.less from less/ subfolder into css/ subfolder.\nUse the latest stable version of LESS (1.4.6)"
+        rule.enabled = true
+        rule.checkboxLabel = "Less"
+        rule.introNarrative = "A CSS pre-processor with a CSS-like syntax. It adds variables, mixins, functions and other techniques to make stylesheets more maintainable, themable and extendable."
+        rule.detailedNarrative = "Compile [*.less] from [less/] subfolder into [css/] subfolder.\nUse the [latest stable] version of LESS (1.4.6)"
         items.append(rule)
 
         rule = Rule()
         rule.checkboxLabel = "Sass"
-        rule.description = "Compile *.sass and *.scss from sass/ subfolder into css/ subfolder.\nYou can start using more libraries and LiveReload will detect them, but you can also browse the supported libraries and add them manually."
+        rule.introNarrative = "“the most mature, stable, and powerful professional grade CSS extension language in the world”"
+        rule.detailedNarrative = "Compile [*.sass and *.scss] from [sass/] subfolder into [css/] subfolder.\nYou can start using more libraries and LiveReload will detect them, but you can also [browse the supported libraries] and add them manually."
         items.append(rule)
 
         tableView.reloadData()
@@ -43,16 +51,21 @@ class ExperimentalActionsWindowController: NSWindowController, NSTableViewDataSo
         return items.count
     }
 
+    func tableView(tableView: NSTableView!, objectValueForTableColumn tableColumn: NSTableColumn!, row: Int) -> AnyObject! {
+        return items[row]
+    }
+
     func tableView(tableView: NSTableView!, viewForTableColumn tableColumn: NSTableColumn!, row: Int) -> NSView! {
         let cell = tableView.makeViewWithIdentifier(tableColumn.identifier, owner: self) as ActionCellView
+        cell.delegate = self
+        cell.descriptionLabel.delegate = self
         configureCellView(cell, forRow: row)
         return cell
     }
 
     func configureCellView(cell: ActionCellView, forRow row: Int) {
-        cell.descriptionLabel.delegate = self
-        
         let rule = items[row]
+        cell.rule = rule
 
         if rule.checkboxLabel.isEmpty {
             cell.checkbox.hidden = true
@@ -61,19 +74,23 @@ class ExperimentalActionsWindowController: NSWindowController, NSTableViewDataSo
             cell.checkbox.hidden = false
             cell.checkbox.title = rule.checkboxLabel
         }
+        cell.checkbox.state = (rule.enabled ? NSOnState : NSOffState)
+
+        configureCellViewNarrative(cell)
+    }
+
+    func configureCellViewNarrative(cell: ActionCellView) {
+        let rule = cell.rule
 
         let paraStyle = NSMutableParagraphStyle()
         paraStyle.paragraphSpacing = 12
 
-        let formattedString = NSMutableAttributedString(string: rule.description, attributes: [NSParagraphStyleAttributeName: paraStyle])
-        replaceTextWithHyperlink(formattedString, text: "stored locally")
-        replaceTextWithHyperlink(formattedString, text: "*.less")
-        replaceTextWithHyperlink(formattedString, text: "*.sass and *.scss")
-        replaceTextWithHyperlink(formattedString, text: "less/ subfolder")
-        replaceTextWithHyperlink(formattedString, text: "css/ subfolder")
-        replaceTextWithHyperlink(formattedString, text: "sass/ subfolder")
-        replaceTextWithHyperlink(formattedString, text: "latest stable version")
+        let narrative = (rule.enabled ? rule.detailedNarrative : rule.introNarrative)
+
+        let formattedString = NSMutableAttributedString(string: narrative, attributes: [NSParagraphStyleAttributeName: paraStyle])
+        replaceTextWithHyperlinks(formattedString)
         cell.descriptionLabel.attributedStringValue = formattedString
+        cell.descriptionLabel.textColor = (rule.enabled ? NSColor.labelColor() : NSColor.secondaryLabelColor())
     }
 
     func tableView(tableView: NSTableView!, heightOfRow row: Int) -> CGFloat {
@@ -84,10 +101,27 @@ class ExperimentalActionsWindowController: NSWindowController, NSTableViewDataSo
         return measuringCell.fittingSize.height
     }
 
-    func replaceTextWithHyperlink(ass: NSMutableAttributedString, text: String) {
-        let range = (ass.string as NSString).rangeOfString(text)
-        if range.location != NSNotFound {
-            ass.addAttributes([NSLinkAttributeName: NSURL(string: "http://localhost:5000/"), NSUnderlineStyleAttributeName: NSUnderlineStyleSingle | NSUnderlinePatternDot, NSUnderlineColorAttributeName: NSColor.secondaryLabelColor()], range: range)
+    func replaceTextWithHyperlinks(ass: NSMutableAttributedString) {
+        var scanner = NSScanner(string: ass.string)
+        let hyperlinkStartCharset = NSCharacterSet(charactersInString: "[")
+        let hyperlinkEndCharset = NSCharacterSet(charactersInString: "]")
+        while !scanner.atEnd {
+            scanner.scanUpToCharactersFromSet(hyperlinkStartCharset, intoString: nil)
+
+            let hyperlinkStart = scanner.scanLocation
+            if scanner.scanString("[", intoString: nil) {
+                var hyperlinkText: NSString?
+                scanner.scanUpToCharactersFromSet(hyperlinkEndCharset, intoString: &hyperlinkText)
+                if scanner.scanString("]", intoString: nil) {
+                    let hyperlinkEnd = scanner.scanLocation
+                    ass.deleteCharactersInRange(NSMakeRange(hyperlinkEnd - 1, 1))
+                    ass.deleteCharactersInRange(NSMakeRange(hyperlinkStart, 1))
+                    scanner = NSScanner(string: ass.string)
+                    scanner.scanLocation = hyperlinkEnd - 2
+                    let range = NSMakeRange(hyperlinkStart, hyperlinkEnd - 2 - hyperlinkStart)
+                    ass.addAttributes([NSLinkAttributeName: NSURL(string: "http://localhost:5000/\(NSString(string: hyperlinkText!).stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding))"), NSUnderlineStyleAttributeName: NSUnderlineStyleSingle | NSUnderlinePatternDot, NSUnderlineColorAttributeName: NSColor.secondaryLabelColor()], range: range)
+                }
+            }
         }
     }
 
@@ -95,19 +129,49 @@ class ExperimentalActionsWindowController: NSWindowController, NSTableViewDataSo
         println("Got click on \(url)")
     }
 
+    func clickedCheckboxInCellView(sender: ActionCellView) {
+        sender.rule.enabled = !sender.rule.enabled
+        configureCellViewNarrative(sender)
+        let row = tableView.rowForView(sender)
+        if row >= 0 {
+            tableView.noteHeightOfRowsWithIndexesChanged(NSIndexSet(index: row))
+        }
+    }
+
 }
 
-class Rule {
+class Rule : NSObject {
 
+    var enabled = false
     var checkboxLabel: String = ""
-    var description: String = ""
+    var introNarrative: String = ""
+    var detailedNarrative: String = ""
+
+}
+
+protocol ActionCellViewDelegate : class {
+
+    func clickedCheckboxInCellView(sender: ActionCellView)
 
 }
 
 class ActionCellView : NSTableCellView {
 
+    var rule: Rule!
+    var delegate: ActionCellViewDelegate!
+
     @IBOutlet var contentView: NSView!
     @IBOutlet var checkbox: NSButton!
     @IBOutlet var descriptionLabel: NSTextField!
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        checkbox.target = self
+        checkbox.action = "clicked:"
+    }
+
+    @IBAction func clicked(sender: AnyObject) {
+        delegate.clickedCheckboxInCellView(self)
+    }
 
 }
