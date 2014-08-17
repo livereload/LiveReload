@@ -59,7 +59,6 @@ enum { PANE_COUNT = PaneProject+1 };
 - (void)updateLicensingUI;
 - (void)updateURLs;
 
-@property (strong) NSNib *actionsRowNib;
 @property (weak) IBOutlet RulebookView *actionsStackView;
 
 @property (weak) IBOutlet NSView *placeholderTabView;
@@ -234,8 +233,6 @@ enum { PANE_COUNT = PaneProject+1 };
     [projectPaneContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-16-[projectOverview]-16-|" options:0 metrics:nil views:bindings]];
 
 //    [_projectOverviewPlaceholderView replaceWithViewPreservingConstraints:_projectOverviewView];
-
-    _actionsRowNib = [[NSNib alloc] initWithNibNamed:@"ActionRowView" bundle:nil];
 
     _currentPaneView = _panePlaceholder;
     _currentTabView = _placeholderTabView;
