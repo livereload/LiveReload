@@ -30,7 +30,6 @@
 #import "RulebookView.h"
 #import "ATSolidView.h"
 #import "ATFlippedView.h"
-#import "ATAttributedStringAdditions.h"
 
 #import "jansson.h"
 

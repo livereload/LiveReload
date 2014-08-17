@@ -4,7 +4,6 @@
 #import "CustomCommandRuleRow.h"
 #import "LiveReload-Swift-x.h"
 #import "Project.h"
-#import "ATAttributedStringAdditions.h"
 
 
 @interface CustomCommandRuleRow ()

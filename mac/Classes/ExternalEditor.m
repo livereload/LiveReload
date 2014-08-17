@@ -1,8 +1,8 @@
+@import EditorKit;
+@import LRCommons;
 
 #import "ExternalEditor.h"
-@import EditorKit;
 #import "Errors.h"
-#import "NSString+ATProperURLEncoding.h"
 
 
 static NSURL *ExpandFileURLTemplate(NSString *template, NSURL *fileURL, NSInteger line) {

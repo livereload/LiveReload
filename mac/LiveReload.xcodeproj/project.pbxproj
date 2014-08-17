@@ -199,7 +199,6 @@
 		43A48074174A040300A0681D /* RbenvContainer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43A48072174A040300A0681D /* RbenvContainer@2x.png */; };
 		43A4807A174A069100A0681D /* HomebrewContainer.png in Resources */ = {isa = PBXBuildFile; fileRef = 43A48078174A069100A0681D /* HomebrewContainer.png */; };
 		43A4807B174A069100A0681D /* HomebrewContainer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43A48079174A069100A0681D /* HomebrewContainer@2x.png */; };
-		43B5C01217ADF35C00F57276 /* NSString+ATProperURLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B5C00B17ADF35C00F57276 /* NSString+ATProperURLEncoding.m */; };
 		43B5C01417ADF35C00F57276 /* NSWindowController+ATTextStyling.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B5C00F17ADF35C00F57276 /* NSWindowController+ATTextStyling.m */; };
 		43B5C01717ADF5FB00F57276 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B5C01617ADF5FB00F57276 /* RegexKitLite.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		43B5C01A17ADF93A00F57276 /* ATHash.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B5C01917ADF93A00F57276 /* ATHash.m */; };
@@ -209,7 +208,6 @@
 		43C927791879317D002372B7 /* LRIntegrationTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C927781879317D002372B7 /* LRIntegrationTestCase.m */; };
 		43C9277C187931B1002372B7 /* ATAsyncTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C9277B187931B1002372B7 /* ATAsyncTestCase.m */; };
 		43C9277E187932A9002372B7 /* LRLegacyCompilationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C9277D187932A9002372B7 /* LRLegacyCompilationTests.m */; };
-		43CDCF8D17C6082A007B22D9 /* ATAttributedStringAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 43CDCF8C17C6082A007B22D9 /* ATAttributedStringAdditions.m */; };
 		43CE9B6C1917338B0044D28E /* Mocha.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43CE9B6B1917338A0044D28E /* Mocha.lrplugin */; };
 		43DD7C22192B6AC40070FF55 /* LRReloadingTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DD7C21192B6AC40070FF55 /* LRReloadingTestCase.m */; };
 		43DF7C491991B4C700AF9B74 /* OptionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43DF7C481991B4C700AF9B74 /* OptionController.swift */; };
@@ -824,8 +822,6 @@
 		43A48072174A040300A0681D /* RbenvContainer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RbenvContainer@2x.png"; sourceTree = "<group>"; };
 		43A48078174A069100A0681D /* HomebrewContainer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HomebrewContainer.png; sourceTree = "<group>"; };
 		43A48079174A069100A0681D /* HomebrewContainer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HomebrewContainer@2x.png"; sourceTree = "<group>"; };
-		43B5C00A17ADF35C00F57276 /* NSString+ATProperURLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ATProperURLEncoding.h"; sourceTree = "<group>"; };
-		43B5C00B17ADF35C00F57276 /* NSString+ATProperURLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ATProperURLEncoding.m"; sourceTree = "<group>"; };
 		43B5C00E17ADF35C00F57276 /* NSWindowController+ATTextStyling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSWindowController+ATTextStyling.h"; sourceTree = "<group>"; };
 		43B5C00F17ADF35C00F57276 /* NSWindowController+ATTextStyling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSWindowController+ATTextStyling.m"; sourceTree = "<group>"; };
 		43B5C01517ADF5FB00F57276 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
@@ -841,8 +837,6 @@
 		43C9277A187931B1002372B7 /* ATAsyncTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATAsyncTestCase.h; sourceTree = "<group>"; };
 		43C9277B187931B1002372B7 /* ATAsyncTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATAsyncTestCase.m; sourceTree = "<group>"; };
 		43C9277D187932A9002372B7 /* LRLegacyCompilationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRLegacyCompilationTests.m; sourceTree = "<group>"; };
-		43CDCF8B17C6082A007B22D9 /* ATAttributedStringAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATAttributedStringAdditions.h; sourceTree = "<group>"; };
-		43CDCF8C17C6082A007B22D9 /* ATAttributedStringAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATAttributedStringAdditions.m; sourceTree = "<group>"; };
 		43CE9B6B1917338A0044D28E /* Mocha.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Mocha.lrplugin; path = ../plugins/Mocha.lrplugin; sourceTree = "<group>"; };
 		43DD7C21192B6AC40070FF55 /* LRReloadingTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRReloadingTestCase.m; sourceTree = "<group>"; };
 		43DF7C481991B4C700AF9B74 /* OptionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionController.swift; sourceTree = "<group>"; };
@@ -1422,8 +1416,6 @@
 				43B5C01F17AE01C500F57276 /* ATLoginItemController.m */,
 				43996B2C17AF675D00B09954 /* ATMenuEnabledSegmentedCell.h */,
 				43996B2D17AF675D00B09954 /* ATMenuEnabledSegmentedCell.m */,
-				43B5C00A17ADF35C00F57276 /* NSString+ATProperURLEncoding.h */,
-				43B5C00B17ADF35C00F57276 /* NSString+ATProperURLEncoding.m */,
 				43B5C00E17ADF35C00F57276 /* NSWindowController+ATTextStyling.h */,
 				43B5C00F17ADF35C00F57276 /* NSWindowController+ATTextStyling.m */,
 				43B5C01517ADF5FB00F57276 /* RegexKitLite.h */,
@@ -1436,8 +1428,6 @@
 				43508A8F17B39C9700871422 /* ATSolidView.m */,
 				43508A9117B39DBE00871422 /* ATFlippedView.h */,
 				43508A9217B39DBE00871422 /* ATFlippedView.m */,
-				43CDCF8B17C6082A007B22D9 /* ATAttributedStringAdditions.h */,
-				43CDCF8C17C6082A007B22D9 /* ATAttributedStringAdditions.m */,
 				43DFE4DC17CB613100DEF87B /* P2AsyncEnumeration.h */,
 				43DFE4DD17CB613100DEF87B /* P2AsyncEnumeration.m */,
 			);
@@ -2225,7 +2215,6 @@
 				4353414319489EA8003E51EB /* AppState.m in Sources */,
 				435341B519489EA8003E51EB /* NewMainWindowController.m in Sources */,
 				4396F1E217F8112F00AA8200 /* GlitterUpdateInfoViewController.m in Sources */,
-				43CDCF8D17C6082A007B22D9 /* ATAttributedStringAdditions.m in Sources */,
 				4353418D19489EA8003E51EB /* LRSelfTestBrowserRequestExpectation.m in Sources */,
 				4303A54015B513FD009D732A /* dump.c in Sources */,
 				4303A54115B513FD009D732A /* error.c in Sources */,
@@ -2303,7 +2292,6 @@
 				4353414F19489EA8003E51EB /* Errors.m in Sources */,
 				4353418F19489EA8003E51EB /* LRSelfTestMessageExpectation.m in Sources */,
 				435341E419489EA8003E51EB /* TerminalView.m in Sources */,
-				43B5C01217ADF35C00F57276 /* NSString+ATProperURLEncoding.m in Sources */,
 				4396F1DF17F8112F00AA8200 /* GlitterArchiveUtilities.m in Sources */,
 				4353416B19489EA8003E51EB /* LiveReloadAppDelegate.m in Sources */,
 				435341E519489EA8003E51EB /* TerminalViewController.m in Sources */,

@@ -28,3 +28,4 @@ FOUNDATION_EXPORT const unsigned char LRCommonsVersionString[];
 #import <LRCommons/ATMacViewCreation.h>
 #import <LRCommons/ATAutolayout.h>
 #import <LRCommons/ATAttributedStringAdditions.h>
+#import <LRCommons/NSString+ATProperURLEncoding.h>

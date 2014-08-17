@@ -30,6 +30,8 @@
 		4324E8D61989F626003BDDD8 /* ATFunctionalStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 4324E8D41989F626003BDDD8 /* ATFunctionalStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4324E8D71989F626003BDDD8 /* ATFunctionalStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4324E8D51989F626003BDDD8 /* ATFunctionalStyle.m */; };
 		432EB44219887ADE0074E755 /* Wrappers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432EB44119887ADE0074E755 /* Wrappers.swift */; };
+		4380C3FC19A048B80084EC69 /* NSString+ATProperURLEncoding.h in Headers */ = {isa = PBXBuildFile; fileRef = 4380C3FA19A048B80084EC69 /* NSString+ATProperURLEncoding.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4380C3FD19A048B80084EC69 /* NSString+ATProperURLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 4380C3FB19A048B80084EC69 /* NSString+ATProperURLEncoding.m */; };
 		439316531984A2B300685024 /* NSAppleScript+ATInvokeHandlerWithArguments.h in Headers */ = {isa = PBXBuildFile; fileRef = 439316511984A2B300685024 /* NSAppleScript+ATInvokeHandlerWithArguments.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		439316541984A2B300685024 /* NSAppleScript+ATInvokeHandlerWithArguments.m in Sources */ = {isa = PBXBuildFile; fileRef = 439316521984A2B300685024 /* NSAppleScript+ATInvokeHandlerWithArguments.m */; };
 		43DE2B451991BCA7007F59EC /* ATAttributedStringAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 43DE2B431991BCA7007F59EC /* ATAttributedStringAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -77,6 +79,8 @@
 		4324E8D41989F626003BDDD8 /* ATFunctionalStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATFunctionalStyle.h; sourceTree = "<group>"; };
 		4324E8D51989F626003BDDD8 /* ATFunctionalStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATFunctionalStyle.m; sourceTree = "<group>"; };
 		432EB44119887ADE0074E755 /* Wrappers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wrappers.swift; sourceTree = "<group>"; };
+		4380C3FA19A048B80084EC69 /* NSString+ATProperURLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ATProperURLEncoding.h"; sourceTree = "<group>"; };
+		4380C3FB19A048B80084EC69 /* NSString+ATProperURLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ATProperURLEncoding.m"; sourceTree = "<group>"; };
 		439316511984A2B300685024 /* NSAppleScript+ATInvokeHandlerWithArguments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAppleScript+ATInvokeHandlerWithArguments.h"; sourceTree = "<group>"; };
 		439316521984A2B300685024 /* NSAppleScript+ATInvokeHandlerWithArguments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAppleScript+ATInvokeHandlerWithArguments.m"; sourceTree = "<group>"; };
 		43DE2B431991BCA7007F59EC /* ATAttributedStringAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATAttributedStringAdditions.h; sourceTree = "<group>"; };
@@ -155,6 +159,8 @@
 				43DF7C4F1991B6F100AF9B74 /* ATAutolayout.m */,
 				43DE2B431991BCA7007F59EC /* ATAttributedStringAdditions.h */,
 				43DE2B441991BCA7007F59EC /* ATAttributedStringAdditions.m */,
+				4380C3FA19A048B80084EC69 /* NSString+ATProperURLEncoding.h */,
+				4380C3FB19A048B80084EC69 /* NSString+ATProperURLEncoding.m */,
 				432EB44119887ADE0074E755 /* Wrappers.swift */,
 				4301FA5219848ECF006709C9 /* Supporting Files */,
 			);
@@ -207,6 +213,7 @@
 				43DF7C501991B6F100AF9B74 /* ATAutolayout.h in Headers */,
 				4301FA8419849229006709C9 /* ATChildTask.h in Headers */,
 				4301FA9019849369006709C9 /* ATObservation.h in Headers */,
+				4380C3FC19A048B80084EC69 /* NSString+ATProperURLEncoding.h in Headers */,
 				4301FA9219849369006709C9 /* ATScheduling.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -320,6 +327,7 @@
 				4324E8C61989F323003BDDD8 /* NSArray+P2Substitutions.m in Sources */,
 				4301FA7B19848F5E006709C9 /* ATGlobals.m in Sources */,
 				432EB44219887ADE0074E755 /* Wrappers.swift in Sources */,
+				4380C3FD19A048B80084EC69 /* NSString+ATProperURLEncoding.m in Sources */,
 				4301FA7F19849089006709C9 /* NSData+Base64.m in Sources */,
 				4301FA8B19849283006709C9 /* ATModelDiff.m in Sources */,
 			);
