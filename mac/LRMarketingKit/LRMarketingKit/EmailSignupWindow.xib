@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6205" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6205" systemVersion="14A314h" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6205"/>
     </dependencies>
@@ -19,26 +19,26 @@
         <window title="Welcome to LiveReload 3 Alpha" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="beta-signup" animationBehavior="default" id="F0z-JX-Cv5">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="478" height="445"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1366" height="746"/>
+            <rect key="contentRect" x="196" y="240" width="449" height="445"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1366" height="745"/>
             <view key="contentView" id="se5-gp-TjO">
-                <rect key="frame" x="0.0" y="0.0" width="478" height="445"/>
+                <rect key="frame" x="0.0" y="0.0" width="449" height="445"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GOJ-RS-elh">
-                        <rect key="frame" x="18" y="306" width="442" height="119"/>
+                        <rect key="frame" x="18" y="306" width="413" height="119"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="6yq-Ux-Q3m">
                             <font key="font" metaFont="system"/>
-                            <string key="title">Hey, thanks for helping me!
+                            <string key="title">Hey, and thanks for trying an alpha!
 
-As an early user, you will help me shape this app into something that people can actually use. :-)
+Your feedback will help me shape this app into something that people can actually use. :-)
 
-I want to learn about your use cases and your ideas on improving LiveReload, so can you please provide a contact address?</string>
+I'd love to learn about your use cases, so can you please provide a contact address?</string>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0T4-st-bt4">
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0T4-st-bt4">
                         <rect key="frame" x="18" y="259" width="141" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Your email:" id="qEo-bu-CY1">
                             <font key="font" metaFont="system"/>
@@ -46,7 +46,7 @@ I want to learn about your use cases and your ideas on improving LiveReload, so 
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Uyf-R0-WIB">
+                    <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uyf-R0-WIB">
                         <rect key="frame" x="162" y="257" width="244" height="22"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="244" id="D0f-AX-MvN"/>
@@ -61,7 +61,7 @@ I want to learn about your use cases and your ideas on improving LiveReload, so 
                             <outlet property="nextKeyView" destination="PIm-OQ-3kA" id="AEW-JR-NwZ"/>
                         </connections>
                     </textField>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PIm-OQ-3kA">
+                    <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PIm-OQ-3kA">
                         <rect key="frame" x="162" y="227" width="243" height="22"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Bond, James Bond" drawsBackground="YES" id="wUX-VE-O5O">
                             <font key="font" metaFont="system"/>
@@ -73,8 +73,8 @@ I want to learn about your use cases and your ideas on improving LiveReload, so 
                             <outlet property="nextKeyView" destination="hMP-2l-H9y" id="4cw-de-Wge"/>
                         </connections>
                     </textField>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mRj-ux-shQ">
-                        <rect key="frame" x="156" y="90" width="166" height="32"/>
+                    <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mRj-ux-shQ">
+                        <rect key="frame" x="156" y="90" width="165" height="32"/>
                         <buttonCell key="cell" type="push" title="We're good to go!" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="t6O-QE-sA6">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -87,16 +87,7 @@ DQ
                             <action selector="performOK:" target="-2" id="wts-mn-E8e"/>
                         </connections>
                     </button>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BcS-we-ZUV">
-                        <rect key="frame" x="18" y="20" width="442" height="56"/>
-                        <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" id="rWG-NK-Ja4">
-                            <font key="font" metaFont="smallSystem"/>
-                            <string key="title">I will contact you during the alpha/beta program (occasionally), after the final 3.x version is released (once), and when I need testers for the next major version 4.x (once). The information will be destroyed after I send the last email or by the end of 2018, whichever comes first.</string>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <textField horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CXD-5D-FoY">
+                    <textField horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CXD-5D-FoY">
                         <rect key="frame" x="18" y="229" width="138" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="How do I call you?" id="Ibt-La-kLV">
                             <font key="font" metaFont="system"/>
@@ -104,7 +95,7 @@ DQ
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hMP-2l-H9y">
+                    <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hMP-2l-H9y">
                         <rect key="frame" x="162" y="130" width="243" height="88"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="88" id="EXf-0V-YpY"/>
@@ -119,7 +110,7 @@ DQ
                             <outlet property="nextKeyView" destination="Uyf-R0-WIB" id="OcA-Bq-TP3"/>
                         </connections>
                     </textField>
-                    <textField horizontalHuggingPriority="750" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y2h-Jw-IUL">
+                    <textField horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y2h-Jw-IUL">
                         <rect key="frame" x="18" y="130" width="138" height="86"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Perhaps a few words about yourself?" id="3zw-Sh-poM">
                             <font key="font" metaFont="system"/>
@@ -127,7 +118,7 @@ DQ
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hIq-ou-Qdo">
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hIq-ou-Qdo">
                         <rect key="frame" x="322" y="100" width="26" height="14"/>
                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="⌘↩" id="ROv-q8-wDe">
                             <font key="font" metaFont="smallSystem"/>
@@ -135,9 +126,18 @@ DQ
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="wcA-9v-sle">
+                    <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="wcA-9v-sle">
                         <rect key="frame" x="138" y="99" width="16" height="16"/>
                     </progressIndicator>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BcS-we-ZUV">
+                        <rect key="frame" x="18" y="20" width="413" height="56"/>
+                        <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" id="rWG-NK-Ja4">
+                            <font key="font" metaFont="smallSystem"/>
+                            <string key="title">I will contact you during the 3.0 alpha/beta program (occasionally), after v3.0 is released (once), and when I start working on the next major version 4.x (once). The information will be destroyed after I send the last email or by the end of 2018, whichever comes first.</string>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
                 <constraints>
                     <constraint firstItem="BcS-we-ZUV" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="20" symbolic="YES" id="1VA-Nc-QGE"/>
