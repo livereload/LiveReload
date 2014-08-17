@@ -12,6 +12,9 @@
 		430E6205199CD7A000838177 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 430E6204199CD7A000838177 /* Images.xcassets */; };
 		430E6208199CD7A000838177 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 430E6206199CD7A000838177 /* MainMenu.xib */; };
 		430E6214199CD7A000838177 /* LiveReload_UI_ExperimentsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430E6213199CD7A000838177 /* LiveReload_UI_ExperimentsTests.swift */; };
+		43D331A1199F925600E45C54 /* HyperlinkTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D331A0199F925600E45C54 /* HyperlinkTextField.m */; };
+		43E49B4F199F00F800FA2434 /* ExperimentalActionsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E49B4D199F00F800FA2434 /* ExperimentalActionsWindowController.swift */; };
+		43E49B50199F00F800FA2434 /* ExperimentalActionsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43E49B4E199F00F800FA2434 /* ExperimentalActionsWindowController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +59,11 @@
 		430E6212199CD7A000838177 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		430E6213199CD7A000838177 /* LiveReload_UI_ExperimentsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveReload_UI_ExperimentsTests.swift; sourceTree = "<group>"; };
 		430E6226199CD80300838177 /* LRMarketingKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LRMarketingKit.xcodeproj; path = ../LRMarketingKit/LRMarketingKit.xcodeproj; sourceTree = "<group>"; };
+		43D3319D199F925500E45C54 /* LiveReload UI Experiments-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LiveReload UI Experiments-Bridging-Header.h"; sourceTree = "<group>"; };
+		43D3319F199F925600E45C54 /* HyperlinkTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyperlinkTextField.h; sourceTree = "<group>"; };
+		43D331A0199F925600E45C54 /* HyperlinkTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyperlinkTextField.m; sourceTree = "<group>"; };
+		43E49B4D199F00F800FA2434 /* ExperimentalActionsWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExperimentalActionsWindowController.swift; sourceTree = "<group>"; };
+		43E49B4E199F00F800FA2434 /* ExperimentalActionsWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExperimentalActionsWindowController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,9 +107,14 @@
 			isa = PBXGroup;
 			children = (
 				430E6202199CD7A000838177 /* AppDelegate.swift */,
+				43E49B4D199F00F800FA2434 /* ExperimentalActionsWindowController.swift */,
+				43E49B4E199F00F800FA2434 /* ExperimentalActionsWindowController.xib */,
+				43D3319F199F925600E45C54 /* HyperlinkTextField.h */,
+				43D331A0199F925600E45C54 /* HyperlinkTextField.m */,
 				430E6204199CD7A000838177 /* Images.xcassets */,
 				430E6206199CD7A000838177 /* MainMenu.xib */,
 				430E61FE199CD7A000838177 /* Supporting Files */,
+				43D3319D199F925500E45C54 /* LiveReload UI Experiments-Bridging-Header.h */,
 			);
 			path = "LiveReload UI Experiments";
 			sourceTree = "<group>";
@@ -247,6 +260,7 @@
 			files = (
 				430E6205199CD7A000838177 /* Images.xcassets in Resources */,
 				430E6208199CD7A000838177 /* MainMenu.xib in Resources */,
+				43E49B50199F00F800FA2434 /* ExperimentalActionsWindowController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,7 +278,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43E49B4F199F00F800FA2434 /* ExperimentalActionsWindowController.swift in Sources */,
 				430E6203199CD7A000838177 /* AppDelegate.swift in Sources */,
+				43D331A1199F925600E45C54 /* HyperlinkTextField.m in Sources */,
 				430E6201199CD7A000838177 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -385,10 +401,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "LiveReload UI Experiments/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "LiveReload UI Experiments/LiveReload UI Experiments-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -396,10 +415,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "LiveReload UI Experiments/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "LiveReload UI Experiments/LiveReload UI Experiments-Bridging-Header.h";
 			};
 			name = Release;
 		};
