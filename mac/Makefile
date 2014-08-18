@@ -2,6 +2,7 @@
 .PHONY: build
 
 build:
+	xcodebuild -project LiveReload.xcodeproj -scheme SwiftyFoundation -configuration Debug build
 	xcodebuild -project LiveReload.xcodeproj -scheme LRCommons -configuration Debug build
 	xcodebuild -project LiveReload.xcodeproj -scheme ATPathSpec -configuration Debug build
 	xcodebuild -project LiveReload.xcodeproj -scheme EditorKit -configuration Debug build
