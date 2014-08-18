@@ -128,6 +128,9 @@
                                 <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
+                            <connections>
+                                <action selector="toggleExpandedMode:" target="-2" id="jGb-2e-mrN"/>
+                            </connections>
                         </button>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="4DB014C2-2578-46AF-BC8B-7F2E3FA3D541" label="Show Available Actions" paletteLabel="Show Available Actions" image="NSAddTemplate" id="IgW-pB-9p6">
@@ -141,6 +144,9 @@
                                 <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
+                            <connections>
+                                <action selector="toggleAdditionMode:" target="-2" id="l4c-HQ-ihs"/>
+                            </connections>
                         </button>
                     </toolbarItem>
                 </allowedToolbarItems>
