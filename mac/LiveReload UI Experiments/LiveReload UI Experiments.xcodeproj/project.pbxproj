@@ -1,0 +1,475 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		430E6201199CD7A000838177 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430E6200199CD7A000838177 /* main.swift */; };
+		430E6203199CD7A000838177 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430E6202199CD7A000838177 /* AppDelegate.swift */; };
+		430E6205199CD7A000838177 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 430E6204199CD7A000838177 /* Images.xcassets */; };
+		430E6208199CD7A000838177 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 430E6206199CD7A000838177 /* MainMenu.xib */; };
+		430E6214199CD7A000838177 /* LiveReload_UI_ExperimentsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430E6213199CD7A000838177 /* LiveReload_UI_ExperimentsTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		430E620E199CD7A000838177 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 430E61F3199CD7A000838177 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 430E61FA199CD7A000838177;
+			remoteInfo = "LiveReload UI Experiments";
+		};
+		430E622B199CD80300838177 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 430E6226199CD80300838177 /* LRMarketingKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 430E61AC199CD6FE00838177;
+			remoteInfo = LRMarketingKit;
+		};
+		430E622D199CD80300838177 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 430E6226199CD80300838177 /* LRMarketingKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 430E61B7199CD6FE00838177;
+			remoteInfo = LRMarketingKitTests;
+		};
+		430E623A199CD88100838177 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 430E6226199CD80300838177 /* LRMarketingKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 430E61AB199CD6FE00838177;
+			remoteInfo = LRMarketingKit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		430E61FB199CD7A000838177 /* LiveReload UI Experiments.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LiveReload UI Experiments.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		430E61FF199CD7A000838177 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		430E6200199CD7A000838177 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		430E6202199CD7A000838177 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		430E6204199CD7A000838177 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		430E6207199CD7A000838177 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		430E620D199CD7A000838177 /* LiveReload UI ExperimentsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "LiveReload UI ExperimentsTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		430E6212199CD7A000838177 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		430E6213199CD7A000838177 /* LiveReload_UI_ExperimentsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveReload_UI_ExperimentsTests.swift; sourceTree = "<group>"; };
+		430E6226199CD80300838177 /* LRMarketingKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LRMarketingKit.xcodeproj; path = ../LRMarketingKit/LRMarketingKit.xcodeproj; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		430E61F8199CD7A000838177 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		430E620A199CD7A000838177 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		430E61F2199CD7A000838177 = {
+			isa = PBXGroup;
+			children = (
+				430E6226199CD80300838177 /* LRMarketingKit.xcodeproj */,
+				430E61FD199CD7A000838177 /* LiveReload UI Experiments */,
+				430E6210199CD7A000838177 /* LiveReload UI ExperimentsTests */,
+				430E61FC199CD7A000838177 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		430E61FC199CD7A000838177 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				430E61FB199CD7A000838177 /* LiveReload UI Experiments.app */,
+				430E620D199CD7A000838177 /* LiveReload UI ExperimentsTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		430E61FD199CD7A000838177 /* LiveReload UI Experiments */ = {
+			isa = PBXGroup;
+			children = (
+				430E6202199CD7A000838177 /* AppDelegate.swift */,
+				430E6204199CD7A000838177 /* Images.xcassets */,
+				430E6206199CD7A000838177 /* MainMenu.xib */,
+				430E61FE199CD7A000838177 /* Supporting Files */,
+			);
+			path = "LiveReload UI Experiments";
+			sourceTree = "<group>";
+		};
+		430E61FE199CD7A000838177 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				430E61FF199CD7A000838177 /* Info.plist */,
+				430E6200199CD7A000838177 /* main.swift */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		430E6210199CD7A000838177 /* LiveReload UI ExperimentsTests */ = {
+			isa = PBXGroup;
+			children = (
+				430E6213199CD7A000838177 /* LiveReload_UI_ExperimentsTests.swift */,
+				430E6211199CD7A000838177 /* Supporting Files */,
+			);
+			path = "LiveReload UI ExperimentsTests";
+			sourceTree = "<group>";
+		};
+		430E6211199CD7A000838177 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				430E6212199CD7A000838177 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		430E6227199CD80300838177 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				430E622C199CD80300838177 /* LRMarketingKit.framework */,
+				430E622E199CD80300838177 /* LRMarketingKitTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		430E61FA199CD7A000838177 /* LiveReload UI Experiments */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 430E6217199CD7A000838177 /* Build configuration list for PBXNativeTarget "LiveReload UI Experiments" */;
+			buildPhases = (
+				430E61F7199CD7A000838177 /* Sources */,
+				430E61F8199CD7A000838177 /* Frameworks */,
+				430E61F9199CD7A000838177 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				430E623B199CD88100838177 /* PBXTargetDependency */,
+			);
+			name = "LiveReload UI Experiments";
+			productName = "LiveReload UI Experiments";
+			productReference = 430E61FB199CD7A000838177 /* LiveReload UI Experiments.app */;
+			productType = "com.apple.product-type.application";
+		};
+		430E620C199CD7A000838177 /* LiveReload UI ExperimentsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 430E621A199CD7A000838177 /* Build configuration list for PBXNativeTarget "LiveReload UI ExperimentsTests" */;
+			buildPhases = (
+				430E6209199CD7A000838177 /* Sources */,
+				430E620A199CD7A000838177 /* Frameworks */,
+				430E620B199CD7A000838177 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				430E620F199CD7A000838177 /* PBXTargetDependency */,
+			);
+			name = "LiveReload UI ExperimentsTests";
+			productName = "LiveReload UI ExperimentsTests";
+			productReference = 430E620D199CD7A000838177 /* LiveReload UI ExperimentsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		430E61F3199CD7A000838177 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = LiveReload;
+				TargetAttributes = {
+					430E61FA199CD7A000838177 = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					430E620C199CD7A000838177 = {
+						CreatedOnToolsVersion = 6.0;
+						TestTargetID = 430E61FA199CD7A000838177;
+					};
+				};
+			};
+			buildConfigurationList = 430E61F6199CD7A000838177 /* Build configuration list for PBXProject "LiveReload UI Experiments" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 430E61F2199CD7A000838177;
+			productRefGroup = 430E61FC199CD7A000838177 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 430E6227199CD80300838177 /* Products */;
+					ProjectRef = 430E6226199CD80300838177 /* LRMarketingKit.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				430E61FA199CD7A000838177 /* LiveReload UI Experiments */,
+				430E620C199CD7A000838177 /* LiveReload UI ExperimentsTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		430E622C199CD80300838177 /* LRMarketingKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = LRMarketingKit.framework;
+			remoteRef = 430E622B199CD80300838177 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		430E622E199CD80300838177 /* LRMarketingKitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = LRMarketingKitTests.xctest;
+			remoteRef = 430E622D199CD80300838177 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		430E61F9199CD7A000838177 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				430E6205199CD7A000838177 /* Images.xcassets in Resources */,
+				430E6208199CD7A000838177 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		430E620B199CD7A000838177 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		430E61F7199CD7A000838177 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				430E6203199CD7A000838177 /* AppDelegate.swift in Sources */,
+				430E6201199CD7A000838177 /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		430E6209199CD7A000838177 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				430E6214199CD7A000838177 /* LiveReload_UI_ExperimentsTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		430E620F199CD7A000838177 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 430E61FA199CD7A000838177 /* LiveReload UI Experiments */;
+			targetProxy = 430E620E199CD7A000838177 /* PBXContainerItemProxy */;
+		};
+		430E623B199CD88100838177 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = LRMarketingKit;
+			targetProxy = 430E623A199CD88100838177 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		430E6206199CD7A000838177 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				430E6207199CD7A000838177 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		430E6215199CD7A000838177 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		430E6216199CD7A000838177 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		430E6218199CD7A000838177 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "LiveReload UI Experiments/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		430E6219199CD7A000838177 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "LiveReload UI Experiments/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		430E621B199CD7A000838177 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "LiveReload UI ExperimentsTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LiveReload UI Experiments.app/Contents/MacOS/LiveReload UI Experiments";
+			};
+			name = Debug;
+		};
+		430E621C199CD7A000838177 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "LiveReload UI ExperimentsTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LiveReload UI Experiments.app/Contents/MacOS/LiveReload UI Experiments";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		430E61F6199CD7A000838177 /* Build configuration list for PBXProject "LiveReload UI Experiments" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				430E6215199CD7A000838177 /* Debug */,
+				430E6216199CD7A000838177 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		430E6217199CD7A000838177 /* Build configuration list for PBXNativeTarget "LiveReload UI Experiments" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				430E6218199CD7A000838177 /* Debug */,
+				430E6219199CD7A000838177 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		430E621A199CD7A000838177 /* Build configuration list for PBXNativeTarget "LiveReload UI ExperimentsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				430E621B199CD7A000838177 /* Debug */,
+				430E621C199CD7A000838177 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 430E61F3199CD7A000838177 /* Project object */;
+}

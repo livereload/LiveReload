@@ -1,6 +1,7 @@
 @import LRCommons;
 @import PackageManagerKit;
 @import LRActionKit;
+@import LRMarketingKit;
 
 #include "jansson.h"
 
@@ -44,6 +45,9 @@
 @implementation LiveReloadAppDelegate {
     StatusItemController  *_statusItemController;
     NewMainWindowController  *_mainWindowController;
+    EmailSignupWindow *_emailSignupWindowController;
+    NSDate *_emailSignupWindowLastDisplayDate;
+
     int _port;
     Glitter *_glitter;
 
@@ -227,6 +231,16 @@
     [_mainWindowController showWindow:nil];
     [_mainWindowController.window makeKeyAndOrderFront:nil];
     AppNewsKitGoodTimeToDeliverMessages();
+
+    if (![MarketingCommunication instance].betaUserInfoSent) {
+        if (_emailSignupWindowLastDisplayDate == nil || -[_emailSignupWindowLastDisplayDate timeIntervalSinceNow] > 60*60) {
+            if (!_emailSignupWindowController) {
+                _emailSignupWindowController = [EmailSignupWindow create];
+            }
+            [_emailSignupWindowController showWindow:self];
+            _emailSignupWindowLastDisplayDate = [NSDate date];
+        }
+    }
 }
 
 - (void)hideMainWindow {

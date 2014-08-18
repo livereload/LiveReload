@@ -10,4 +10,5 @@ build:
 	xcodebuild -project LiveReload.xcodeproj -scheme PackageManagerKit -configuration Debug build
 	xcodebuild -project LiveReload.xcodeproj -scheme VariableKit -configuration Debug build
 	xcodebuild -project LiveReload.xcodeproj -scheme LRActionKit -configuration Debug build
+	xcodebuild -project LiveReload.xcodeproj -scheme LRMarketingKit -configuration Debug build
 	xcodebuild -project LiveReload.xcodeproj -scheme LiveReload -configuration Debug build

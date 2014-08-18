@@ -278,6 +278,20 @@
 			remoteGlobalIDString = 4301FA5A19848ECF006709C9;
 			remoteInfo = LRCommonsTests;
 		};
+		430E6222199CD7FC00838177 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 430E621D199CD7FC00838177 /* LRMarketingKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 430E61AC199CD6FE00838177;
+			remoteInfo = LRMarketingKit;
+		};
+		430E6224199CD7FC00838177 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 430E621D199CD7FC00838177 /* LRMarketingKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 430E61B7199CD6FE00838177;
+			remoteInfo = LRMarketingKitTests;
+		};
 		43177BB31979279800FDCD62 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 43177BAE1979279700FDCD62 /* PiiVersionKit.xcodeproj */;
@@ -561,6 +575,7 @@
 		4303A59415B53B31009D732A /* LiveReload.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = LiveReload.entitlements; sourceTree = "<group>"; };
 		43059221151E8FA400CC3F88 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		430ABDF0186BF1EA00407561 /* LRPathProcessingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPathProcessingTests.m; sourceTree = "<group>"; };
+		430E621D199CD7FC00838177 /* LRMarketingKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LRMarketingKit.xcodeproj; path = LRMarketingKit/LRMarketingKit.xcodeproj; sourceTree = "<group>"; };
 		43146698146C5D2100DC075A /* ProjectPaneBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ProjectPaneBackground.png; sourceTree = "<group>"; };
 		4314669A146C689500DC075A /* FolderIcon64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FolderIcon64.png; sourceTree = "<group>"; };
 		4314669C146C884800DC075A /* WelcomePaneBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WelcomePaneBackground.png; sourceTree = "<group>"; };
@@ -965,6 +980,7 @@
 				439316261984A18400685024 /* EditorKit.xcodeproj */,
 				4301F99519848826006709C9 /* PackageManagerKit.xcodeproj */,
 				439317391985D33500685024 /* LRActionKit.xcodeproj */,
+				430E621D199CD7FC00838177 /* LRMarketingKit.xcodeproj */,
 				4303A59415B53B31009D732A /* LiveReload.entitlements */,
 				43059221151E8FA400CC3F88 /* CoreServices.framework */,
 				4353420919489F93003E51EB /* app_config.h */,
@@ -1205,6 +1221,15 @@
 				4303A53E15B513FD009D732A /* nodeapp_url_handler_mac.m */,
 			);
 			path = "src-mac";
+			sourceTree = "<group>";
+		};
+		430E621E199CD7FC00838177 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				430E6223199CD7FC00838177 /* LRMarketingKit.framework */,
+				430E6225199CD7FC00838177 /* LRMarketingKitTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		43177BAF1979279700FDCD62 /* Products */ = {
@@ -1869,6 +1894,10 @@
 					ProjectRef = 4301FA6B19848ECF006709C9 /* LRCommons.xcodeproj */;
 				},
 				{
+					ProductGroup = 430E621E199CD7FC00838177 /* Products */;
+					ProjectRef = 430E621D199CD7FC00838177 /* LRMarketingKit.xcodeproj */;
+				},
+				{
 					ProductGroup = 4301F99619848826006709C9 /* Products */;
 					ProjectRef = 4301F99519848826006709C9 /* PackageManagerKit.xcodeproj */;
 				},
@@ -1919,6 +1948,20 @@
 			fileType = wrapper.cfbundle;
 			path = LRCommonsTests.xctest;
 			remoteRef = 4301FA7219848ED4006709C9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		430E6223199CD7FC00838177 /* LRMarketingKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = LRMarketingKit.framework;
+			remoteRef = 430E6222199CD7FC00838177 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		430E6225199CD7FC00838177 /* LRMarketingKitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = LRMarketingKitTests.xctest;
+			remoteRef = 430E6224199CD7FC00838177 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		43177BB41979279800FDCD62 /* PiiVersionKit.framework */ = {
