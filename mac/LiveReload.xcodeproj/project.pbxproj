@@ -180,7 +180,7 @@
 		4393169E198527D000685024 /* ATPathSpec.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43931681198523CA00685024 /* ATPathSpec.framework */; };
 		4396F1BA17F77A8900AA8200 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4396F1B917F77A8900AA8200 /* Foundation.framework */; };
 		4396F1CD17F80E6F00AA8200 /* GlitterInstallationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4396F1CB17F80E6F00AA8200 /* GlitterInstallationService.m */; };
-		4396F1D017F8109000AA8200 /* com.tarantsov.GlitterInstallationService.xpc in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4396F1B817F77A8900AA8200 /* com.tarantsov.GlitterInstallationService.xpc */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		4396F1D017F8109000AA8200 /* com.tarantsov.GlitterInstallationService.xpc in Copy Files */ = {isa = PBXBuildFile; fileRef = 4396F1B817F77A8900AA8200 /* com.tarantsov.GlitterInstallationService.xpc */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		4396F1DE17F8112F00AA8200 /* Glitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4396F1D317F8112F00AA8200 /* Glitter.m */; };
 		4396F1DF17F8112F00AA8200 /* GlitterArchiveUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4396F1D517F8112F00AA8200 /* GlitterArchiveUtilities.m */; };
 		4396F1E017F8112F00AA8200 /* GlitterFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 4396F1D717F8112F00AA8200 /* GlitterFeed.m */; };
@@ -527,14 +527,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		4303A4BA15B3B450009D732A /* CopyFiles */ = {
+		4303A4BA15B3B450009D732A /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices";
 			dstSubfolderSpec = 16;
 			files = (
-				4396F1D017F8109000AA8200 /* com.tarantsov.GlitterInstallationService.xpc in CopyFiles */,
+				4396F1D017F8109000AA8200 /* com.tarantsov.GlitterInstallationService.xpc in Copy Files */,
 			);
+			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		43F18F381972D19200E0AAEE /* Embed Frameworks */ = {
@@ -1872,7 +1873,7 @@
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
-				4303A4BA15B3B450009D732A /* CopyFiles */,
+				4303A4BA15B3B450009D732A /* Copy Files */,
 				43F18F381972D19200E0AAEE /* Embed Frameworks */,
 			);
 			buildRules = (
