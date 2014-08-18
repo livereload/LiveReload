@@ -213,6 +213,7 @@
 		43B742FE19A188E10074BFDF /* LRActionKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4393173F1985D33700685024 /* LRActionKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		43B742FF19A188E10074BFDF /* LRMarketingKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 430E6223199CD7FC00838177 /* LRMarketingKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		43B7433B19A18ADE0074BFDF /* AFNetworking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 43B7432719A18A600074BFDF /* AFNetworking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		43B7433F19A19CF80074BFDF /* es6-transpiler.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43B7433E19A19CF80074BFDF /* es6-transpiler.lrplugin */; };
 		43C0368613CA191D00A01305 /* LiveReload.icns in Resources */ = {isa = PBXBuildFile; fileRef = 43C0368513CA191C00A01305 /* LiveReload.icns */; };
 		43C53E561994946B006C0CEE /* VersionOptionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C53E551994946B006C0CEE /* VersionOptionController.swift */; };
 		43C927791879317D002372B7 /* LRIntegrationTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C927781879317D002372B7 /* LRIntegrationTestCase.m */; };
@@ -887,6 +888,7 @@
 		43B5C01E17AE01C500F57276 /* ATLoginItemController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLoginItemController.h; sourceTree = "<group>"; };
 		43B5C01F17AE01C500F57276 /* ATLoginItemController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLoginItemController.m; sourceTree = "<group>"; };
 		43B7432119A18A5F0074BFDF /* AFNetworking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AFNetworking.xcodeproj; path = AFNetworking/AFNetworking.xcodeproj; sourceTree = "<group>"; };
+		43B7433E19A19CF80074BFDF /* es6-transpiler.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "es6-transpiler.lrplugin"; path = "../plugins/es6-transpiler.lrplugin"; sourceTree = "<group>"; };
 		43C0368513CA191C00A01305 /* LiveReload.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LiveReload.icns; sourceTree = "<group>"; };
 		43C53E551994946B006C0CEE /* VersionOptionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionOptionController.swift; sourceTree = "<group>"; };
 		43C927771879317D002372B7 /* LRIntegrationTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRIntegrationTestCase.h; sourceTree = "<group>"; };
@@ -1296,9 +1298,11 @@
 		431CB52C16D1EF7200034877 /* plugins */ = {
 			isa = PBXGroup;
 			children = (
-				433B66E617A0914400A41848 /* streamline.lrplugin */,
+				43DFE4E417CC6C0D00DEF87B /* autoprefixer.lrplugin */,
 				431CB52D16D1EF8200034877 /* CoffeeScript.lrplugin */,
+				43DFE4E517CC6C0D00DEF87B /* customscripts.lrplugin */,
 				431CB52E16D1EF8200034877 /* Eco.lrplugin */,
+				43B7433E19A19CF80074BFDF /* es6-transpiler.lrplugin */,
 				431CB52F16D1EF8200034877 /* HAML.lrplugin */,
 				431CB53016D1EF8200034877 /* IcedCoffeeScript.lrplugin */,
 				431CB53116D1EF8200034877 /* Jade.lrplugin */,
@@ -1306,9 +1310,8 @@
 				43CE9B6B1917338A0044D28E /* Mocha.lrplugin */,
 				437109BD1859A48700FCB4C2 /* Sass.lrplugin */,
 				431CB53416D1EF8200034877 /* SLIM.lrplugin */,
+				433B66E617A0914400A41848 /* streamline.lrplugin */,
 				431CB53516D1EF8200034877 /* Stylus.lrplugin */,
-				43DFE4E417CC6C0D00DEF87B /* autoprefixer.lrplugin */,
-				43DFE4E517CC6C0D00DEF87B /* customscripts.lrplugin */,
 				43DFE4E817CC967500DEF87B /* TypeScript.lrplugin */,
 			);
 			name = plugins;
@@ -2195,6 +2198,7 @@
 				43DFE4E717CC6C0D00DEF87B /* customscripts.lrplugin in Resources */,
 				4353416719489EA8003E51EB /* LicenseCodeViewController.xib in Resources */,
 				43F002D4146F4144005D48A4 /* TerminalStripes.png in Resources */,
+				43B7433F19A19CF80074BFDF /* es6-transpiler.lrplugin in Resources */,
 				43F002E8146F4877005D48A4 /* TerminalBackground.png in Resources */,
 				43F002EA146F5382005D48A4 /* TerminalGlare.png in Resources */,
 				43F002EC146F5D57005D48A4 /* TerminalBackgroundSquare.png in Resources */,
