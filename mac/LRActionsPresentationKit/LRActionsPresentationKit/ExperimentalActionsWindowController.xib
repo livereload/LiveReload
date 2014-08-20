@@ -7,6 +7,8 @@
         <customObject id="-2" userLabel="File's Owner" customClass="ExperimentalActionsWindowController" customModule="LiveReload_UI_Experiments" customModuleProvider="target">
             <connections>
                 <outlet property="tableView" destination="bhA-he-xqP" id="hWK-26-Qvm"/>
+                <outlet property="visibleOptionsControl" destination="DYU-M3-lgw" id="5LT-lr-PbC"/>
+                <outlet property="visibleRulesControl" destination="UMV-za-ZgD" id="WMa-f1-cvN"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>
@@ -149,12 +151,50 @@
                             </connections>
                         </button>
                     </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="361BACC8-E3C1-4D8F-8646-BA980C0C130D" label="Show Rules" paletteLabel="Show Rules" id="ulK-rL-9Cv">
+                        <nil key="toolTip"/>
+                        <size key="minSize" width="67" height="26"/>
+                        <size key="maxSize" width="116" height="28"/>
+                        <segmentedControl key="view" verticalHuggingPriority="750" id="UMV-za-ZgD">
+                            <rect key="frame" x="0.0" y="14" width="114" height="26"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="selectOne" id="jBz-J3-0LD">
+                                <font key="font" metaFont="system"/>
+                                <segments>
+                                    <segment label="Active" width="56"/>
+                                    <segment label="All" width="55" selected="YES" tag="1"/>
+                                </segments>
+                            </segmentedCell>
+                            <connections>
+                                <action selector="toggledVisibleRules:" target="-2" id="VTS-6Y-tDd"/>
+                            </connections>
+                        </segmentedControl>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="F6E42CEC-8D40-4489-A98B-BA9FB53E04C1" label="Show Options" paletteLabel="Show Options" id="WuT-hA-8hc">
+                        <nil key="toolTip"/>
+                        <size key="minSize" width="67" height="26"/>
+                        <size key="maxSize" width="116" height="28"/>
+                        <segmentedControl key="view" verticalHuggingPriority="750" id="DYU-M3-lgw">
+                            <rect key="frame" x="0.0" y="14" width="94" height="28"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="selectOne" id="SmF-L8-Zou">
+                                <font key="font" metaFont="system"/>
+                                <segments>
+                                    <segment label="Brief"/>
+                                    <segment label="Full" selected="YES" tag="1"/>
+                                </segments>
+                            </segmentedCell>
+                            <connections>
+                                <action selector="toggledVisibleOptions:" target="-2" id="SfA-4A-pxA"/>
+                            </connections>
+                        </segmentedControl>
+                    </toolbarItem>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
                     <toolbarItem reference="1uJ-rE-Ufq"/>
                     <toolbarItem reference="1uJ-rE-Ufq"/>
-                    <toolbarItem reference="IgW-pB-9p6"/>
-                    <toolbarItem reference="LuF-Xy-hQT"/>
+                    <toolbarItem reference="ulK-rL-9Cv"/>
+                    <toolbarItem reference="WuT-hA-8hc"/>
                 </defaultToolbarItems>
             </toolbar>
             <connections>

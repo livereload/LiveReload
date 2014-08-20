@@ -166,6 +166,7 @@
 		435341EA19489EA8003E51EB /* UIBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353413019489EA8003E51EB /* UIBuilder.m */; };
 		435341EE19489EA8003E51EB /* Workspace.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353413819489EA8003E51EB /* Workspace.m */; };
 		43594AF413D3BB34004175B2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43594AF313D3BB34004175B2 /* QuartzCore.framework */; };
+		435D975519A4934B00F083C5 /* LRActionsPresentationKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 435D974B19A4931D00F083C5 /* LRActionsPresentationKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		43693F4115660A8700C453CC /* LiveReloadNodejs in Resources */ = {isa = PBXBuildFile; fileRef = 43693F4015660A8700C453CC /* LiveReloadNodejs */; };
 		4371095218585DB800FCB4C2 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 434BB29F17BBF512000BEB1C /* XCTest.framework */; };
 		4371095818585DB800FCB4C2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4371095618585DB800FCB4C2 /* InfoPlist.strings */; };
@@ -328,6 +329,27 @@
 			proxyType = 2;
 			remoteGlobalIDString = 434E78141987447400B18BC8;
 			remoteInfo = SwiftyFoundationTests;
+		};
+		435D974A19A4931D00F083C5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 435D974019A4931B00F083C5 /* LRActionsPresentationKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 435D972719A4931B00F083C5;
+			remoteInfo = LRActionsPresentationKit;
+		};
+		435D974C19A4931D00F083C5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 435D974019A4931B00F083C5 /* LRActionsPresentationKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 435D973219A4931B00F083C5;
+			remoteInfo = LRActionsPresentationKitTests;
+		};
+		435D975319A4933700F083C5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 435D974019A4931B00F083C5 /* LRActionsPresentationKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 435D972619A4931B00F083C5;
+			remoteInfo = LRActionsPresentationKit;
 		};
 		437109B01858707700FCB4C2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -545,6 +567,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				435D975519A4934B00F083C5 /* LRActionsPresentationKit.framework in Embed Frameworks */,
 				43B7433B19A18ADE0074BFDF /* AFNetworking.framework in Embed Frameworks */,
 				43B742F719A188E10074BFDF /* SwiftyFoundation.framework in Embed Frameworks */,
 				43B742F819A188E10074BFDF /* FileSystemMonitoringKit.framework in Embed Frameworks */,
@@ -834,6 +857,7 @@
 		4353413819489EA8003E51EB /* Workspace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Workspace.m; sourceTree = "<group>"; };
 		4353420919489F93003E51EB /* app_config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = app_config.h; path = ../Shared/app_config.h; sourceTree = "<group>"; };
 		43594AF313D3BB34004175B2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		435D974019A4931B00F083C5 /* LRActionsPresentationKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LRActionsPresentationKit.xcodeproj; path = LRActionsPresentationKit/LRActionsPresentationKit.xcodeproj; sourceTree = "<group>"; };
 		43693F4015660A8700C453CC /* LiveReloadNodejs */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = LiveReloadNodejs; path = Resources/LiveReloadNodejs; sourceTree = "<group>"; };
 		4371095118585DB800FCB4C2 /* LiveReloadTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiveReloadTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4371095518585DB800FCB4C2 /* LiveReloadTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LiveReloadTests-Info.plist"; sourceTree = "<group>"; };
@@ -1035,6 +1059,7 @@
 				4301F99519848826006709C9 /* PackageManagerKit.xcodeproj */,
 				439317391985D33500685024 /* LRActionKit.xcodeproj */,
 				430E621D199CD7FC00838177 /* LRMarketingKit.xcodeproj */,
+				435D974019A4931B00F083C5 /* LRActionsPresentationKit.xcodeproj */,
 				4303A59415B53B31009D732A /* LiveReload.entitlements */,
 				43059221151E8FA400CC3F88 /* CoreServices.framework */,
 				4353420919489F93003E51EB /* app_config.h */,
@@ -1340,6 +1365,15 @@
 				435340E919489EA7003E51EB /* PluginManager.swift */,
 			);
 			path = Plugins;
+			sourceTree = "<group>";
+		};
+		435D974119A4931B00F083C5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				435D974B19A4931D00F083C5 /* LRActionsPresentationKit.framework */,
+				435D974D19A4931D00F083C5 /* LRActionsPresentationKitTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		4371095318585DB800FCB4C2 /* LiveReloadTests */ = {
@@ -1893,6 +1927,7 @@
 				43F18F2A1972D19200E0AAEE /* PBXTargetDependency */,
 				439317591985DC7800685024 /* PBXTargetDependency */,
 				43B7433819A18A830074BFDF /* PBXTargetDependency */,
+				435D975419A4933700F083C5 /* PBXTargetDependency */,
 				4396F1CF17F8107C00AA8200 /* PBXTargetDependency */,
 				43F18F2E1972D19200E0AAEE /* PBXTargetDependency */,
 			);
@@ -1955,6 +1990,10 @@
 				{
 					ProductGroup = 4393173A1985D33500685024 /* Products */;
 					ProjectRef = 439317391985D33500685024 /* LRActionKit.xcodeproj */;
+				},
+				{
+					ProductGroup = 435D974119A4931B00F083C5 /* Products */;
+					ProjectRef = 435D974019A4931B00F083C5 /* LRActionsPresentationKit.xcodeproj */;
 				},
 				{
 					ProductGroup = 4301FA6C19848ECF006709C9 /* Products */;
@@ -2057,6 +2096,20 @@
 			fileType = wrapper.cfbundle;
 			path = SwiftyFoundationTests.xctest;
 			remoteRef = 434E782C1987447500B18BC8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		435D974B19A4931D00F083C5 /* LRActionsPresentationKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = LRActionsPresentationKit.framework;
+			remoteRef = 435D974A19A4931D00F083C5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		435D974D19A4931D00F083C5 /* LRActionsPresentationKitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = LRActionsPresentationKitTests.xctest;
+			remoteRef = 435D974C19A4931D00F083C5 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		4393162C1984A18600685024 /* EditorKit.framework */ = {
@@ -2428,6 +2481,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		435D975419A4933700F083C5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = LRActionsPresentationKit;
+			targetProxy = 435D975319A4933700F083C5 /* PBXContainerItemProxy */;
+		};
 		437109B11858707700FCB4C2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8D1107260486CEB800E47090 /* LiveReload */;

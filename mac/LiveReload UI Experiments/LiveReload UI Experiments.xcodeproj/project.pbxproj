@@ -12,6 +12,7 @@
 		430E6205199CD7A000838177 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 430E6204199CD7A000838177 /* Images.xcassets */; };
 		430E6208199CD7A000838177 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 430E6206199CD7A000838177 /* MainMenu.xib */; };
 		430E6214199CD7A000838177 /* LiveReload_UI_ExperimentsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430E6213199CD7A000838177 /* LiveReload_UI_ExperimentsTests.swift */; };
+		435B884219A4E02E00AF875D /* narratives.yml in Resources */ = {isa = PBXBuildFile; fileRef = 435B884119A4E02E00AF875D /* narratives.yml */; };
 		436F89D319A0558C004273DF /* RubyRuntime.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89A619A0558C004273DF /* RubyRuntime.png */; };
 		436F89D419A0558C004273DF /* RubyRuntime@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89A719A0558C004273DF /* RubyRuntime@2x.png */; };
 		436F89D519A0558C004273DF /* RvmContainer.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89A819A0558C004273DF /* RvmContainer.png */; };
@@ -52,9 +53,6 @@
 		436F89F919A0558C004273DF /* StatusItemStateRotation1.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89CE19A0558C004273DF /* StatusItemStateRotation1.png */; };
 		436F89FA19A0558C004273DF /* StatusItemStateRotation2.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89CF19A0558C004273DF /* StatusItemStateRotation2.png */; };
 		436F89FB19A0558C004273DF /* StatusItemStateRotation3.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F89D019A0558C004273DF /* StatusItemStateRotation3.png */; };
-		43D331A1199F925600E45C54 /* HyperlinkTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D331A0199F925600E45C54 /* HyperlinkTextField.m */; };
-		43E49B4F199F00F800FA2434 /* ExperimentalActionsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E49B4D199F00F800FA2434 /* ExperimentalActionsWindowController.swift */; };
-		43E49B50199F00F800FA2434 /* ExperimentalActionsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43E49B4E199F00F800FA2434 /* ExperimentalActionsWindowController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +84,69 @@
 			remoteGlobalIDString = 430E61AB199CD6FE00838177;
 			remoteInfo = LRMarketingKit;
 		};
+		435B883519A4E01600AF875D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 435B882B19A4E01600AF875D /* YAML.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = YAML;
+		};
+		435B883719A4E01600AF875D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 435B882B19A4E01600AF875D /* YAML.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D319EEA613E5EE2A000EB46D;
+			remoteInfo = YAMLUnitTests;
+		};
+		435B883919A4E01600AF875D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 435B882B19A4E01600AF875D /* YAML.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EB6C420E124D99BE00886AD1;
+			remoteInfo = test;
+		};
+		435B883B19A4E01600AF875D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 435B882B19A4E01600AF875D /* YAML.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EBE745C1124F8C0D00618049;
+			remoteInfo = "test (spec12examples)";
+		};
+		435B883D19A4E01600AF875D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 435B882B19A4E01600AF875D /* YAML.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EB2B5928124E2100001FFEEB;
+			remoteInfo = events;
+		};
+		435B883F19A4E01F00AF875D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 435B882B19A4E01600AF875D /* YAML.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = YAML;
+		};
+		435D975B19A4935900F083C5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 435D975619A4935900F083C5 /* LRActionsPresentationKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 435D972719A4931B00F083C5;
+			remoteInfo = LRActionsPresentationKit;
+		};
+		435D975D19A4935900F083C5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 435D975619A4935900F083C5 /* LRActionsPresentationKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 435D973219A4931B00F083C5;
+			remoteInfo = LRActionsPresentationKitTests;
+		};
+		435D976019A4936600F083C5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 435D975619A4935900F083C5 /* LRActionsPresentationKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 435D972619A4931B00F083C5;
+			remoteInfo = LRActionsPresentationKit;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -99,6 +160,9 @@
 		430E6212199CD7A000838177 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		430E6213199CD7A000838177 /* LiveReload_UI_ExperimentsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveReload_UI_ExperimentsTests.swift; sourceTree = "<group>"; };
 		430E6226199CD80300838177 /* LRMarketingKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LRMarketingKit.xcodeproj; path = ../LRMarketingKit/LRMarketingKit.xcodeproj; sourceTree = "<group>"; };
+		435B882B19A4E01600AF875D /* YAML.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = YAML.xcodeproj; path = ../YAML/YAML.xcodeproj; sourceTree = "<group>"; };
+		435B884119A4E02E00AF875D /* narratives.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = narratives.yml; sourceTree = "<group>"; };
+		435D975619A4935900F083C5 /* LRActionsPresentationKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LRActionsPresentationKit.xcodeproj; path = ../LRActionsPresentationKit/LRActionsPresentationKit.xcodeproj; sourceTree = "<group>"; };
 		436F89A619A0558C004273DF /* RubyRuntime.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RubyRuntime.png; sourceTree = "<group>"; };
 		436F89A719A0558C004273DF /* RubyRuntime@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RubyRuntime@2x.png"; sourceTree = "<group>"; };
 		436F89A819A0558C004273DF /* RvmContainer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RvmContainer.png; sourceTree = "<group>"; };
@@ -140,10 +204,6 @@
 		436F89CF19A0558C004273DF /* StatusItemStateRotation2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemStateRotation2.png; sourceTree = "<group>"; };
 		436F89D019A0558C004273DF /* StatusItemStateRotation3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemStateRotation3.png; sourceTree = "<group>"; };
 		43D3319D199F925500E45C54 /* LiveReload UI Experiments-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LiveReload UI Experiments-Bridging-Header.h"; sourceTree = "<group>"; };
-		43D3319F199F925600E45C54 /* HyperlinkTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyperlinkTextField.h; sourceTree = "<group>"; };
-		43D331A0199F925600E45C54 /* HyperlinkTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HyperlinkTextField.m; sourceTree = "<group>"; };
-		43E49B4D199F00F800FA2434 /* ExperimentalActionsWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExperimentalActionsWindowController.swift; sourceTree = "<group>"; };
-		43E49B4E199F00F800FA2434 /* ExperimentalActionsWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExperimentalActionsWindowController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,7 +227,9 @@
 		430E61F2199CD7A000838177 = {
 			isa = PBXGroup;
 			children = (
+				435B882B19A4E01600AF875D /* YAML.xcodeproj */,
 				430E6226199CD80300838177 /* LRMarketingKit.xcodeproj */,
+				435D975619A4935900F083C5 /* LRActionsPresentationKit.xcodeproj */,
 				430E61FD199CD7A000838177 /* LiveReload UI Experiments */,
 				430E6210199CD7A000838177 /* LiveReload UI ExperimentsTests */,
 				430E61FC199CD7A000838177 /* Products */,
@@ -187,10 +249,7 @@
 			isa = PBXGroup;
 			children = (
 				430E6202199CD7A000838177 /* AppDelegate.swift */,
-				43E49B4D199F00F800FA2434 /* ExperimentalActionsWindowController.swift */,
-				43E49B4E199F00F800FA2434 /* ExperimentalActionsWindowController.xib */,
-				43D3319F199F925600E45C54 /* HyperlinkTextField.h */,
-				43D331A0199F925600E45C54 /* HyperlinkTextField.m */,
+				435B884119A4E02E00AF875D /* narratives.yml */,
 				430E6204199CD7A000838177 /* Images.xcassets */,
 				430E6206199CD7A000838177 /* MainMenu.xib */,
 				436F89D219A0558C004273DF /* Images */,
@@ -231,6 +290,27 @@
 			children = (
 				430E622C199CD80300838177 /* LRMarketingKit.framework */,
 				430E622E199CD80300838177 /* LRMarketingKitTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		435B882C19A4E01600AF875D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				435B883619A4E01600AF875D /* YAML.framework */,
+				435B883819A4E01600AF875D /* YAMLUnitTests.octest */,
+				435B883A19A4E01600AF875D /* test */,
+				435B883C19A4E01600AF875D /* test */,
+				435B883E19A4E01600AF875D /* events */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		435D975719A4935900F083C5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				435D975C19A4935900F083C5 /* LRActionsPresentationKit.framework */,
+				435D975E19A4935900F083C5 /* LRActionsPresentationKitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -321,6 +401,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				435B884019A4E01F00AF875D /* PBXTargetDependency */,
+				435D976119A4936600F083C5 /* PBXTargetDependency */,
 				430E623B199CD88100838177 /* PBXTargetDependency */,
 			);
 			name = "LiveReload UI Experiments";
@@ -377,8 +459,16 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = 435D975719A4935900F083C5 /* Products */;
+					ProjectRef = 435D975619A4935900F083C5 /* LRActionsPresentationKit.xcodeproj */;
+				},
+				{
 					ProductGroup = 430E6227199CD80300838177 /* Products */;
 					ProjectRef = 430E6226199CD80300838177 /* LRMarketingKit.xcodeproj */;
+				},
+				{
+					ProductGroup = 435B882C19A4E01600AF875D /* Products */;
+					ProjectRef = 435B882B19A4E01600AF875D /* YAML.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -402,6 +492,55 @@
 			fileType = wrapper.cfbundle;
 			path = LRMarketingKitTests.xctest;
 			remoteRef = 430E622D199CD80300838177 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		435B883619A4E01600AF875D /* YAML.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = YAML.framework;
+			remoteRef = 435B883519A4E01600AF875D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		435B883819A4E01600AF875D /* YAMLUnitTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = YAMLUnitTests.octest;
+			remoteRef = 435B883719A4E01600AF875D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		435B883A19A4E01600AF875D /* test */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = test;
+			remoteRef = 435B883919A4E01600AF875D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		435B883C19A4E01600AF875D /* test */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = test;
+			remoteRef = 435B883B19A4E01600AF875D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		435B883E19A4E01600AF875D /* events */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = events;
+			remoteRef = 435B883D19A4E01600AF875D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		435D975C19A4935900F083C5 /* LRActionsPresentationKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = LRActionsPresentationKit.framework;
+			remoteRef = 435D975B19A4935900F083C5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		435D975E19A4935900F083C5 /* LRActionsPresentationKitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = LRActionsPresentationKitTests.xctest;
+			remoteRef = 435D975D19A4935900F083C5 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -437,6 +576,7 @@
 				436F89DF19A0558C004273DF /* ProjectPaneBackground.png in Resources */,
 				436F89DA19A0558C004273DF /* HomebrewContainer@2x.png in Resources */,
 				436F89F219A0558C004273DF /* TerminalBackground.png in Resources */,
+				435B884219A4E02E00AF875D /* narratives.yml in Resources */,
 				436F89EA19A0558C004273DF /* preferences-box.png in Resources */,
 				436F89EC19A0558C004273DF /* LRTerminalButtonOff.png in Resources */,
 				430E6205199CD7A000838177 /* Images.xcassets in Resources */,
@@ -447,7 +587,6 @@
 				436F89F719A0558C004273DF /* StatusItemHighlighted.png in Resources */,
 				436F89EE19A0558C004273DF /* LRTerminalButtonOn.png in Resources */,
 				436F89D719A0558C004273DF /* RbenvContainer.png in Resources */,
-				43E49B50199F00F800FA2434 /* ExperimentalActionsWindowController.xib in Resources */,
 				436F89F819A0558C004273DF /* StatusItemInactive.png in Resources */,
 				436F89D919A0558C004273DF /* HomebrewContainer.png in Resources */,
 				436F89EF19A0558C004273DF /* LRTerminalButtonOnHighlight.png in Resources */,
@@ -471,9 +610,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				43E49B4F199F00F800FA2434 /* ExperimentalActionsWindowController.swift in Sources */,
 				430E6203199CD7A000838177 /* AppDelegate.swift in Sources */,
-				43D331A1199F925600E45C54 /* HyperlinkTextField.m in Sources */,
 				430E6201199CD7A000838177 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -498,6 +635,16 @@
 			isa = PBXTargetDependency;
 			name = LRMarketingKit;
 			targetProxy = 430E623A199CD88100838177 /* PBXContainerItemProxy */;
+		};
+		435B884019A4E01F00AF875D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = YAML;
+			targetProxy = 435B883F19A4E01F00AF875D /* PBXContainerItemProxy */;
+		};
+		435D976119A4936600F083C5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = LRActionsPresentationKit;
+			targetProxy = 435D976019A4936600F083C5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

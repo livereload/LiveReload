@@ -8,6 +8,8 @@
 
 import Cocoa
 import LRMarketingKit
+import LRActionsPresentationKit
+import YAML
 
 class AppDelegate: NSObject, NSApplicationDelegate {
                             
@@ -20,7 +22,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 //        window = EmailSignupWindow.create()
 
-        window = ExperimentalActionsWindowController(windowNibName: "ExperimentalActionsWindowController")
+        let yamlString = NSString(contentsOfURL: NSBundle.mainBundle().URLForResource("narratives.yml", withExtension: nil), encoding: NSUTF8StringEncoding, error: nil)
+        if let yaml: AnyObject = YAMLSerialization.objectWithYAMLString(yamlString, options: .StringScalars, error: nil) {
+            let wc = ExperimentalActionsWindowController(windowNibName: "ExperimentalActionsWindowController")
+            wc.narratives = yaml as [String: AnyObject]
+            window = wc
+        } else {
+            fatalError("Failed to parse YAML")
+        }
 
         window.showWindow(self)
     }

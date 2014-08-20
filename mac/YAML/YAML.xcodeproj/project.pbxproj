@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		43AEBC5319A4E4B5000D453F /* YAML.h in Headers */ = {isa = PBXBuildFile; fileRef = 43AEBC5219A4E4AC000D453F /* YAML.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 		D319EEA813E5EE2A000EB46D /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D319EEA713E5EE2A000EB46D /* SenTestingKit.framework */; };
 		D319EEAA13E5EE2A000EB46D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D319EEA913E5EE2A000EB46D /* Cocoa.framework */; };
@@ -29,7 +30,7 @@
 		EB6C422C124D9A4B00886AD1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB6C3FB9124D872600886AD1 /* Foundation.framework */; };
 		EB6C4252124D9B4A00886AD1 /* yaml in Copy YAML Files */ = {isa = PBXBuildFile; fileRef = EB6C424F124D9B3E00886AD1 /* yaml */; };
 		EB6C433C124E0CF600886AD1 /* test.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6C4226124D9A1700886AD1 /* test.m */; };
-		EB8C1AB014B795CC00BCDC1A /* yaml.h in Headers */ = {isa = PBXBuildFile; fileRef = EB8C1AAF14B795CC00BCDC1A /* yaml.h */; };
+		EB8C1AB014B795CC00BCDC1A /* yaml_lib.h in Headers */ = {isa = PBXBuildFile; fileRef = EB8C1AAF14B795CC00BCDC1A /* yaml_lib.h */; };
 		EB8C1ABA14B795E200BCDC1A /* api.c in Sources */ = {isa = PBXBuildFile; fileRef = EB8C1AB114B795E200BCDC1A /* api.c */; };
 		EB8C1ABB14B795E200BCDC1A /* dumper.c in Sources */ = {isa = PBXBuildFile; fileRef = EB8C1AB214B795E200BCDC1A /* dumper.c */; };
 		EB8C1ABC14B795E200BCDC1A /* emitter.c in Sources */ = {isa = PBXBuildFile; fileRef = EB8C1AB314B795E200BCDC1A /* emitter.c */; };
@@ -104,6 +105,7 @@
 /* Begin PBXFileReference section */
 		089C1667FE841158C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		32DBCF5E0370ADEE00C91783 /* YAML_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YAML_Prefix.pch; sourceTree = "<group>"; };
+		43AEBC5219A4E4AC000D453F /* YAML.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YAML.h; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* YAML.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = YAML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D319EEA613E5EE2A000EB46D /* YAMLUnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YAMLUnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -124,7 +126,7 @@
 		EB6C420E124D99BE00886AD1 /* test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = test; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB6C4226124D9A1700886AD1 /* test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = test.m; sourceTree = "<group>"; };
 		EB6C424F124D9B3E00886AD1 /* yaml */ = {isa = PBXFileReference; lastKnownFileType = folder; path = yaml; sourceTree = "<group>"; };
-		EB8C1AAF14B795CC00BCDC1A /* yaml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = yaml.h; path = "yaml-0.1.4/include/yaml.h"; sourceTree = "<group>"; };
+		EB8C1AAF14B795CC00BCDC1A /* yaml_lib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = yaml_lib.h; path = "yaml-0.1.4/include/yaml_lib.h"; sourceTree = "<group>"; };
 		EB8C1AB114B795E200BCDC1A /* api.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = api.c; path = "yaml-0.1.4/src/api.c"; sourceTree = "<group>"; };
 		EB8C1AB214B795E200BCDC1A /* dumper.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = dumper.c; path = "yaml-0.1.4/src/dumper.c"; sourceTree = "<group>"; };
 		EB8C1AB314B795E200BCDC1A /* emitter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = emitter.c; path = "yaml-0.1.4/src/emitter.c"; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 			children = (
 				EBF83D89124D7A3E008517E5 /* YAMLSerialization.h */,
 				EBF83D8A124D7A3E008517E5 /* YAMLSerialization.m */,
+				43AEBC5219A4E4AC000D453F /* YAML.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -306,7 +309,7 @@
 				EB8C1AB714B795E200BCDC1A /* scanner.c */,
 				EB8C1AB814B795E200BCDC1A /* writer.c */,
 				EB8C1AB914B795E200BCDC1A /* yaml_private.h */,
-				EB8C1AAF14B795CC00BCDC1A /* yaml.h */,
+				EB8C1AAF14B795CC00BCDC1A /* yaml_lib.h */,
 			);
 			name = "yaml-0.1.4";
 			sourceTree = "<group>";
@@ -318,8 +321,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43AEBC5319A4E4B5000D453F /* YAML.h in Headers */,
 				EBF83D8B124D7A3E008517E5 /* YAMLSerialization.h in Headers */,
-				EB8C1AB014B795CC00BCDC1A /* yaml.h in Headers */,
+				EB8C1AB014B795CC00BCDC1A /* yaml_lib.h in Headers */,
 				EB8C1AC214B795E200BCDC1A /* yaml_private.h in Headers */,
 				EB8C1AC414B7964500BCDC1A /* config.h in Headers */,
 			);
@@ -363,7 +367,7 @@
 			name = YAMLUnitTests;
 			productName = YAMLUnitTests;
 			productReference = D319EEA613E5EE2A000EB46D /* YAMLUnitTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productType = "com.apple.product-type.bundle.ocunit-test";
 		};
 		EB2B5927124E2100001FFEEB /* events */ = {
 			isa = PBXNativeTarget;
@@ -586,6 +590,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				DEFINES_MODULE = YES;
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = /;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -610,6 +615,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = /;
 				DYLIB_COMPATIBILITY_VERSION = 1;

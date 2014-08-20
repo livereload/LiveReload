@@ -8,17 +8,16 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "yaml.h"
 
 // Mimics NSPropertyListMutabilityOptions
-typedef NS_ENUM(int, YAMLReadOptions) {
+typedef NS_OPTIONS(NSUInteger, YAMLReadOptions) {
     kYAMLReadOptionImmutable                  = 0x0000000000000001,
     kYAMLReadOptionMutableContainers          = 0x0000000000000010,
     kYAMLReadOptionMutableContainersAndLeaves = 0x0000000000000110,
     kYAMLReadOptionStringScalars              = 0x0000000000001000
 };
 
-typedef NS_ENUM(int, YAMLErrorCode) {
+typedef NS_OPTIONS(NSUInteger, YAMLErrorCode) {
     kYAMLErrorNoErrors,
     kYAMLErrorCodeParserInitializationFailed,
     kYAMLErrorCodeParseError,
