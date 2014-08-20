@@ -11,14 +11,14 @@
 #import "yaml.h"
 
 // Mimics NSPropertyListMutabilityOptions
-typedef enum {
+typedef NS_ENUM(int, YAMLReadOptions) {
     kYAMLReadOptionImmutable                  = 0x0000000000000001,
     kYAMLReadOptionMutableContainers          = 0x0000000000000010,
     kYAMLReadOptionMutableContainersAndLeaves = 0x0000000000000110,
     kYAMLReadOptionStringScalars              = 0x0000000000001000
-} YAMLReadOptions;
+};
 
-typedef enum {
+typedef NS_ENUM(int, YAMLErrorCode) {
     kYAMLErrorNoErrors,
     kYAMLErrorCodeParserInitializationFailed,
     kYAMLErrorCodeParseError,
@@ -26,7 +26,7 @@ typedef enum {
     kYAMLErrorInvalidOptions,
     kYAMLErrorCodeOutOfMemory,
     kYAMLErrorInvalidYamlObject,
-} YAMLErrorCode;
+};
 
 typedef enum {
     kYAMLWriteOptionSingleDocument    = 0x0000000000000001,
