@@ -1,6 +1,3 @@
 [submodule "plugins"]
 	path = plugins
 	url = git@github.com:livereload/livereload-plugins.git
-[submodule "js"]
-	path = js
-	url = git@github.com:livereload/livereload-js.git
