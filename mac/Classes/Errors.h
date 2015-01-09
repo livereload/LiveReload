@@ -10,8 +10,3 @@ enum {
     LRErrorEditorPluginReturnedBrokenState,
     LRErrorNoMatchingVersion,
 };
-
-#define return_error(returnValue, outError, error)  do { \
-        if (outError) *outError = error; \
-        return nil; \
-    } while(0)
