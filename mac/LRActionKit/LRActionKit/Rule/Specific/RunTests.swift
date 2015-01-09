@@ -28,7 +28,7 @@ public class RunTestsRule : Rule {
             parser.processLine(line)
         }
 
-        NSLog("%@: %@", label, project.rootURL.path)
+        NSLog("%@: %@", label, project.rootURL.path!)
         step.invoke()
     }
 

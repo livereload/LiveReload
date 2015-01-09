@@ -16,7 +16,7 @@ public class ProjectFile: NSObject {
     }
 
     public var absolutePath: String {
-        return absoluteURL.path
+        return absoluteURL.path!
     }
 
     public var exists: Bool {

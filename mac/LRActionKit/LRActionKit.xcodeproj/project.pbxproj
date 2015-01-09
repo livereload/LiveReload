@@ -98,6 +98,20 @@
 			remoteGlobalIDString = 4393171C1985D33500685024;
 			remoteInfo = LRActionKit;
 		};
+		43F4CB7D1A5F8CF600F2C407 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 43F4CB781A5F8CF500F2C407 /* PackageManagerKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4301F97919848825006709C9;
+			remoteInfo = PackageManagerKit;
+		};
+		43F4CB7F1A5F8CF600F2C407 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 43F4CB781A5F8CF500F2C407 /* PackageManagerKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4301F98419848826006709C9;
+			remoteInfo = PackageManagerKitTests;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -185,6 +199,7 @@
 		43D67E58198CAE4300D229BA /* ActionKitSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionKitSingleton.m; sourceTree = "<group>"; };
 		43D67E5B198CAFCC00D229BA /* LRChildErrorSink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRChildErrorSink.h; sourceTree = "<group>"; };
 		43D67E5C198CAFCC00D229BA /* LRChildErrorSink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRChildErrorSink.m; sourceTree = "<group>"; };
+		43F4CB781A5F8CF500F2C407 /* PackageManagerKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PackageManagerKit.xcodeproj; path = ../PackageManagerKit/PackageManagerKit.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -359,6 +374,7 @@
 		439317131985D33500685024 = {
 			isa = PBXGroup;
 			children = (
+				43F4CB781A5F8CF500F2C407 /* PackageManagerKit.xcodeproj */,
 				4393171F1985D33500685024 /* LRActionKit */,
 				4393172C1985D33500685024 /* LRActionKitTests */,
 				4393171E1985D33500685024 /* Products */,
@@ -446,6 +462,15 @@
 				43D67E5C198CAFCC00D229BA /* LRChildErrorSink.m */,
 			);
 			path = Basics;
+			sourceTree = "<group>";
+		};
+		43F4CB791A5F8CF500F2C407 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				43F4CB7E1A5F8CF600F2C407 /* PackageManagerKit.framework */,
+				43F4CB801A5F8CF600F2C407 /* PackageManagerKitTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -551,6 +576,12 @@
 			mainGroup = 439317131985D33500685024;
 			productRefGroup = 4393171E1985D33500685024 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 43F4CB791A5F8CF500F2C407 /* Products */;
+					ProjectRef = 43F4CB781A5F8CF500F2C407 /* PackageManagerKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				4393171C1985D33500685024 /* LRActionKit */,
@@ -558,6 +589,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		43F4CB7E1A5F8CF600F2C407 /* PackageManagerKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = PackageManagerKit.framework;
+			remoteRef = 43F4CB7D1A5F8CF600F2C407 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		43F4CB801A5F8CF600F2C407 /* PackageManagerKitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = PackageManagerKitTests.xctest;
+			remoteRef = 43F4CB7F1A5F8CF600F2C407 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		4393171B1985D33500685024 /* Resources */ = {

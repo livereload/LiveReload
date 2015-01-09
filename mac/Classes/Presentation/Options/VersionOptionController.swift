@@ -14,13 +14,13 @@ public class VersionOptionView : NSView {
         initialize()
     }
 
-    public required init(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         super.init(coder: coder)
         initialize()
     }
 
     private func initialize() {
-        popUpView = NSPopUpButton.popUpButton()
+        popUpView = NSPopUpButton()
         labelView = NSTextField.staticLabelWithString("")
         addSubview(popUpView)
         addSubview(labelView)
@@ -108,7 +108,7 @@ public class VersionOptionController : OptionController {
 
         view.popUpView.removeAllItems()
         for item in items {
-            view.popUpView.menu.addItem(item)
+            view.popUpView.menu!.addItem(item)
         }
 
         loadModelValues()

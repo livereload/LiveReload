@@ -35,7 +35,7 @@ public class MarketingCommunication : NSObject {
                 baseURL = baseURLOverride
             }
         }
-        client = AFHTTPSessionManager(baseURL: NSURL(string: baseURL).URLByAppendingPathComponent("api/v1"))
+        client = AFHTTPSessionManager(baseURL: NSURL(string: baseURL)!.URLByAppendingPathComponent("api/v1"))
         super.init()
     }
 
@@ -63,7 +63,7 @@ public class MarketingCommunication : NSObject {
             "email": data.email,
             "about": data.about,
             "appPlatform": "mac",
-            "appVersion": NSBundle.mainBundle().infoDictionary[kCFBundleVersionKey]!
+            "appVersion": NSBundle.mainBundle().infoDictionary![kCFBundleVersionKey]!
         ]
         client.POST("beta-signup/", parameters: parameters as NSDictionary, success: { (task, result) -> Void in
             NSLog("result = %@", result as NSObject)

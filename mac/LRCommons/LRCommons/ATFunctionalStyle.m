@@ -231,30 +231,6 @@
     return result;
 }
 
-- (NSDictionary *)dictionaryByMappingKeysToSelector:(SEL)selector {
-    NSMutableDictionary *result = [NSMutableDictionary dictionaryWithCapacity:[self count]];
-    [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        [result setObject:obj forKey:[key performSelector:selector withObject:nil]];
-    }];
-    return result;
-}
-
-- (NSDictionary *)dictionaryByMappingValuesToSelector:(SEL)selector {
-    NSMutableDictionary *result = [NSMutableDictionary dictionaryWithCapacity:[self count]];
-    [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        [result setObject:[obj performSelector:selector withObject:nil] forKey:key];
-    }];
-    return result;
-}
-
-- (NSDictionary *)dictionaryByMappingValuesToSelector:(SEL)selector withObject:(id)object {
-    NSMutableDictionary *result = [NSMutableDictionary dictionaryWithCapacity:[self count]];
-    [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        [result setObject:[obj performSelector:selector withObject:object] forKey:key];
-    }];
-    return result;
-}
-
 - (NSDictionary *)dictionaryByMappingValuesToKeyPath:(NSString *)valueKeyPath {
     NSMutableDictionary *result = [NSMutableDictionary dictionaryWithCapacity:[self count]];
     [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {

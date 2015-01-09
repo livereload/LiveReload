@@ -73,7 +73,6 @@
 		4301FA4019848C58006709C9 /* SystemRubyInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301FA0119848C58006709C9 /* SystemRubyInstance.m */; };
 		4301FA4319848DA8006709C9 /* SandboxingUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301FA4119848DA8006709C9 /* SandboxingUtil.h */; };
 		4301FA4419848DA8006709C9 /* SandboxingUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301FA4219848DA8006709C9 /* SandboxingUtil.m */; };
-		4301FA8119849101006709C9 /* LRCommons.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4301FA8019849101006709C9 /* LRCommons.framework */; };
 		4301FA9619849420006709C9 /* CustomRubyInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = 4301FA9419849420006709C9 /* CustomRubyInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4301FA9719849420006709C9 /* CustomRubyInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 4301FA9519849420006709C9 /* CustomRubyInstance.m */; };
 		4306C91B199B0F3900BB226E /* RuntimeReference.h in Headers */ = {isa = PBXBuildFile; fileRef = 4306C919199B0F3900BB226E /* RuntimeReference.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -87,6 +86,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 4301F97819848825006709C9;
 			remoteInfo = PackageManagerKit;
+		};
+		43F4CB861A5F8D4200F2C407 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 43F4CB811A5F8D4200F2C407 /* LRCommons.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4301FA4F19848ECE006709C9;
+			remoteInfo = LRCommons;
+		};
+		43F4CB881A5F8D4200F2C407 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 43F4CB811A5F8D4200F2C407 /* LRCommons.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4301FA5A19848ECF006709C9;
+			remoteInfo = LRCommonsTests;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -160,11 +173,11 @@
 		4301FA0119848C58006709C9 /* SystemRubyInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemRubyInstance.m; sourceTree = "<group>"; };
 		4301FA4119848DA8006709C9 /* SandboxingUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandboxingUtil.h; sourceTree = "<group>"; };
 		4301FA4219848DA8006709C9 /* SandboxingUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SandboxingUtil.m; sourceTree = "<group>"; };
-		4301FA8019849101006709C9 /* LRCommons.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LRCommons.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/LiveReload-aescojcekgepxkhacevekzcghboe/Build/Products/Debug/LRCommons.framework"; sourceTree = "<group>"; };
 		4301FA9419849420006709C9 /* CustomRubyInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomRubyInstance.h; sourceTree = "<group>"; };
 		4301FA9519849420006709C9 /* CustomRubyInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomRubyInstance.m; sourceTree = "<group>"; };
 		4306C919199B0F3900BB226E /* RuntimeReference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RuntimeReference.h; sourceTree = "<group>"; };
 		4306C91A199B0F3900BB226E /* RuntimeReference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RuntimeReference.m; sourceTree = "<group>"; };
+		43F4CB811A5F8D4200F2C407 /* LRCommons.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LRCommons.xcodeproj; path = ../LRCommons/LRCommons.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,7 +185,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4301FA8119849101006709C9 /* LRCommons.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,7 +202,7 @@
 		4301F96F19848825006709C9 = {
 			isa = PBXGroup;
 			children = (
-				4301FA8019849101006709C9 /* LRCommons.framework */,
+				43F4CB811A5F8D4200F2C407 /* LRCommons.xcodeproj */,
 				4301F97B19848825006709C9 /* PackageManagerKit */,
 				4301F98819848826006709C9 /* PackageManagerKitTests */,
 				4301F97A19848825006709C9 /* Products */,
@@ -371,6 +383,15 @@
 			path = RubyRuntime;
 			sourceTree = "<group>";
 		};
+		43F4CB821A5F8D4200F2C407 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				43F4CB871A5F8D4200F2C407 /* LRCommons.framework */,
+				43F4CB891A5F8D4200F2C407 /* LRCommonsTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -483,6 +504,12 @@
 			mainGroup = 4301F96F19848825006709C9;
 			productRefGroup = 4301F97A19848825006709C9 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 43F4CB821A5F8D4200F2C407 /* Products */;
+					ProjectRef = 43F4CB811A5F8D4200F2C407 /* LRCommons.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				4301F97819848825006709C9 /* PackageManagerKit */,
@@ -490,6 +517,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		43F4CB871A5F8D4200F2C407 /* LRCommons.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = LRCommons.framework;
+			remoteRef = 43F4CB861A5F8D4200F2C407 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		43F4CB891A5F8D4200F2C407 /* LRCommonsTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = LRCommonsTests.xctest;
+			remoteRef = 43F4CB881A5F8D4200F2C407 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		4301F97719848825006709C9 /* Resources */ = {

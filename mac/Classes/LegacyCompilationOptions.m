@@ -55,7 +55,9 @@
 #pragma mark - Persistence
 
 - (NSDictionary *)memento {
-    return [NSDictionary dictionaryWithObjectsAndKeys:_globalOptions, @"options", [_fileOptions dictionaryByMappingValuesToSelector:@selector(memento)], @"files", _additionalArguments, @"additionalArguments", [NSNumber numberWithBool:_enabled], @"enabled", [NSNumber numberWithBool:_enabled], @"enabled2", nil];
+    return [NSDictionary dictionaryWithObjectsAndKeys:_globalOptions, @"options", [_fileOptions dictionaryByMappingValuesToBlock:^id(id key, id value) {
+        return [value memento];
+    }], @"files", _additionalArguments, @"additionalArguments", [NSNumber numberWithBool:_enabled], @"enabled", [NSNumber numberWithBool:_enabled], @"enabled2", nil];
 }
 
 

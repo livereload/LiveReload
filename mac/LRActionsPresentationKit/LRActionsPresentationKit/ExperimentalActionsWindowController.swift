@@ -31,7 +31,7 @@ public class ExperimentalActionsWindowController: NSWindowController, HyperlinkT
         self.setValue(windowNibName, forKey: "windowNibName")
     }
 
-    public required init(coder: NSCoder!) {
+    public required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
 
@@ -42,7 +42,7 @@ public class ExperimentalActionsWindowController: NSWindowController, HyperlinkT
     public override func windowDidLoad() {
         super.windowDidLoad()
 
-        window.titleVisibility = .Hidden
+        window!.titleVisibility = .Hidden
 
         var rule = Rule()
 
@@ -159,7 +159,10 @@ public class ExperimentalActionsWindowController: NSWindowController, HyperlinkT
                     scanner.charactersToBeSkipped = NSCharacterSet()
                     scanner.scanLocation = hyperlinkEnd - 2
                     let range = NSMakeRange(hyperlinkStart, hyperlinkEnd - 2 - hyperlinkStart)
-                    ass.addAttributes([NSLinkAttributeName: NSURL(string: "http://localhost:5000/\(NSString(string: hyperlinkText!).stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding))"), NSUnderlineStyleAttributeName: NSUnderlineStyleSingle | NSUnderlinePatternDot, NSUnderlineColorAttributeName: NSColor.secondaryLabelColor()], range: range)
+                    
+                    let url = "http://localhost:5000/\(NSString(string: hyperlinkText!).stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding))"
+                    let s = NSUnderlineStyleSingle | NSUnderlinePatternDot
+                    ass.addAttributes([NSLinkAttributeName: NSURL(string: url)!, NSUnderlineStyleAttributeName: (NSUnderlineStyleSingle | NSUnderlinePatternDot), NSUnderlineColorAttributeName: NSColor.secondaryLabelColor()], range: range)
                 }
             }
         }
@@ -385,7 +388,8 @@ public class Narrative : NarrativeElement {
                     scanner.charactersToBeSkipped = NSCharacterSet()
                     scanner.scanLocation = hyperlinkEnd - 2
                     let range = NSMakeRange(hyperlinkStart, hyperlinkEnd - 2 - hyperlinkStart)
-                    ass.addAttributes([NSLinkAttributeName: NSURL(string: "http://localhost:5000/\(NSString(string: hyperlinkText!).stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding))"), NSUnderlineStyleAttributeName: NSUnderlineStyleSingle | NSUnderlinePatternDot, NSUnderlineColorAttributeName: NSColor.secondaryLabelColor()], range: range)
+                    let url = "http://localhost:5000/\(NSString(string: hyperlinkText!).stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding))"
+                    ass.addAttributes([NSLinkAttributeName: NSURL(string: url)!, NSUnderlineStyleAttributeName: (NSUnderlineStyleSingle | NSUnderlinePatternDot), NSUnderlineColorAttributeName: NSColor.secondaryLabelColor()], range: range)
                 }
             }
         }

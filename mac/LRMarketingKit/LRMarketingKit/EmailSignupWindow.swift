@@ -15,7 +15,7 @@ public class EmailSignupWindow: NSWindowController, NSTextFieldDelegate {
 
     override public func windowDidLoad() {
         super.windowDidLoad()
-        self.window.center()
+        self.window!.center()
 
         let data = MarketingCommunication.instance.loadPreviousBetaSignupData()
         emailField.stringValue = data.email
@@ -60,7 +60,7 @@ public class EmailSignupWindow: NSWindowController, NSTextFieldDelegate {
     @IBAction public func performOK(sender: AnyObject) {
         let data = extractData()
 
-        let originalLabel = okButton.title!
+        let originalLabel = okButton.title
         okButton.title = "Sending..."
         okButton.enabled = false
         progressIndicator.startAnimation(self)
@@ -75,7 +75,7 @@ public class EmailSignupWindow: NSWindowController, NSTextFieldDelegate {
                 alert.informativeText = error.localizedDescription
                 alert.addButtonWithTitle("Retry")
                 alert.addButtonWithTitle("Skip")
-                alert.beginSheetModalForWindow(self.window, completionHandler: { response in
+                alert.beginSheetModalForWindow(self.window!, completionHandler: { response in
                     if response == NSAlertFirstButtonReturn {
                         dispatch_async(dispatch_get_main_queue()) {
                             self.performOK(sender)

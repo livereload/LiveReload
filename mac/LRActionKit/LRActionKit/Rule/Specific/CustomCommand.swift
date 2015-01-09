@@ -62,7 +62,7 @@ public class CustomCommandRule : Rule {
         let info = [
             "$(ruby)": "/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/bin/ruby",
             "$(node)": NSBundle.mainBundle().pathForResource("LiveReloadNodejs", ofType: nil)!,
-            "$(project_dir)": project.rootURL.path
+            "$(project_dir)": project.rootURL.path!
         ]
         // TODO: handle command being nil
         let command = self.command!.stringBySubstitutingValuesFromDictionary(info) as String
@@ -71,13 +71,13 @@ public class CustomCommandRule : Rule {
         let shArgs = ["-c", command]  // ["--login", "-i", "-c", command]
 
         let pwd = NSFileManager.defaultManager().currentDirectoryPath
-        NSFileManager.defaultManager().changeCurrentDirectoryPath(project.rootURL.path)
+        NSFileManager.defaultManager().changeCurrentDirectoryPath(project.rootURL.path!)
 
         NSLog("Executing project rule command: %@", quotedArgumentStringUsingBourneQuotingStyle([shell] + shArgs));
 
         let shellUrl = NSURL.fileURLWithPath(shell)
 
-        ATLaunchUnixTaskAndCaptureOutput(shellUrl, shArgs, .IgnoreSandbox | .MergeStdoutAndStderr, [ATCurrentDirectoryPathKey!: project.rootURL.path]) {
+        ATLaunchUnixTaskAndCaptureOutput(shellUrl, shArgs, .IgnoreSandbox | .MergeStdoutAndStderr, [ATCurrentDirectoryPathKey!: project.rootURL.path!]) {
             (outputText: String!, stderrText: String?, error: NSError?) in
             NSFileManager.defaultManager().changeCurrentDirectoryPath(pwd)
             result.completedWithInvocationError(error, rawOutput: outputText, completionBlock: completionHandler)

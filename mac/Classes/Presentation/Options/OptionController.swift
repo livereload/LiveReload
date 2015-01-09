@@ -88,7 +88,7 @@ public class PopupOptionController : OptionController {
     }
 
     public override func renderInOptionsView(optionsView: LROptionsView) {
-        view = NSPopUpButton.popUpButton().withTarget(self, action: "popUpSelectionDidChange:")
+        view = NSPopUpButton().withTarget(self, action: "popUpSelectionDidChange:")
 
         items.extend(option.items)
         if let unknownItem = option.unknownItem {

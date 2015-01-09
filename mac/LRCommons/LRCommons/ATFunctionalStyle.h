@@ -55,9 +55,6 @@
 
 - (NSDictionary *)dictionaryByReversingKeysAndValues;
 
-- (NSDictionary *)dictionaryByMappingKeysToSelector:(SEL)selector;
-- (NSDictionary *)dictionaryByMappingValuesToSelector:(SEL)selector;
-- (NSDictionary *)dictionaryByMappingValuesToSelector:(SEL)selector withObject:(id)object;
 - (NSDictionary *)dictionaryByMappingValuesToKeyPath:(NSString *)valueKeyPath;
 - (NSDictionary *)dictionaryByMappingValuesToBlock:(id(^)(id key, id value))block;
 

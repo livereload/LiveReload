@@ -114,7 +114,7 @@ public class Rule : NSObject {
 
     private func updateInputPathSpec() {
         var spec = inputFilterOption.pathSpec
-        if spec {
+        if spec != nil {
             if intrinsicInputPathSpec != nil {
                 spec = ATPathSpec(matchingIntersectionOf: [spec!, intrinsicInputPathSpec!])
             }
@@ -254,7 +254,7 @@ public class Rule : NSObject {
 
     public var missingEffectiveVersionError: NSError {
         var available = join(", ", contextAction.versions.map { $0.primaryVersion.description })
-        return NSError(ActionKitErrorDomain as String, ActionKitErrorCode.NoMatchingVersion.toRaw(), "No available version matched for version spec \(primaryVersionSpec), available versions: \(available)")
+        return NSError(ActionKitErrorDomain as String, ActionKitErrorCode.NoMatchingVersion.rawValue, "No available version matched for version spec \(primaryVersionSpec), available versions: \(available)")
     }
 
 
@@ -281,7 +281,7 @@ public class Rule : NSObject {
             }
 
             for package in eff.packageSet.packages as [LRPackage] {
-                step.addValue(package.sourceFolderURL.path as String, forSubstitutionKey: package.identifier)
+                step.addValue(package.sourceFolderURL.path! as String, forSubstitutionKey: package.identifier)
                 step.addValue(package.version.description as String, forSubstitutionKey: "\(package.identifier).ver")
             }
         }
