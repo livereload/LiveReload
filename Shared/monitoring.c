@@ -49,10 +49,12 @@ void item_free(item_t *item) {
 static void fsmonitor_callback_main_thread(void *data) {
     change_t *change = (change_t *)data;
 
+#if 0
     json_t *arg = json_object();
     json_object_set_new(arg, "id", change->id);
     json_object_set_new(arg, "changes", change->diff);
     S_projects_change_detected(arg);
+#endif
 
     free(change);
 }
