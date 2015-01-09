@@ -1138,7 +1138,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		4360444D181983AE00103E14 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
@@ -1147,7 +1147,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "LOCATION=\"${BUILT_PRODUCTS_DIR}\"/\"${FRAMEWORKS_FOLDER_PATH}\"\nIDENTITY=\"Developer ID Application: Andrey Tarantsov\"\ncodesign --verbose --force --sign \"$IDENTITY\" \"$LOCATION/Sparkle.framework/Versions/A\"";
+			shellScript = "if test \"$CONFIGURATION\" = Debug; then\n  echo \"Skipping codesign of Sparkle in DEBUG configuration.\"\nelse\n  LOCATION=\"${BUILT_PRODUCTS_DIR}\"/\"${FRAMEWORKS_FOLDER_PATH}\"\n  IDENTITY=\"Developer ID Application: Andrey Tarantsov\"\n  codesign --verbose --force --sign \"$IDENTITY\" \"$LOCATION/Sparkle.framework/Versions/A\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
