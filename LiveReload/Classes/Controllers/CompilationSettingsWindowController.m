@@ -88,6 +88,9 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
 @synthesize chooseFolderButton = _chooseFolderButton;
 
 - (void)dealloc {
+    _pathTableView.dataSource = nil;
+    _pathTableView.delegate = nil;
+    
     [_compilerOptions release], _compilerOptions = nil;
     [_rubyVersions release], _rubyVersions = nil;
     kv_each(compilable_file_t *, _fileList, file, compilable_file_free(file));
