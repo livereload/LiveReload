@@ -1147,7 +1147,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if test \"$CONFIGURATION\" = Debug; then\n  echo \"Skipping codesign of Sparkle in DEBUG configuration.\"\nelse\n  LOCATION=\"${BUILT_PRODUCTS_DIR}\"/\"${FRAMEWORKS_FOLDER_PATH}\"\n  IDENTITY=\"Developer ID Application: Andrey Tarantsov\"\n  codesign --verbose --force --sign \"$IDENTITY\" \"$LOCATION/Sparkle.framework/Versions/A\"\nfi";
+			shellScript = "if test -z \"$CODE_SIGN_IDENTITY\"; then\n  echo \"Skipping codesign of Sparkle because CODE_SIGN_IDENTITY is not set.\"\nelse\n  LOCATION=\"${BUILT_PRODUCTS_DIR}\"/\"${FRAMEWORKS_FOLDER_PATH}\"\n  codesign --verbose --force --sign \"$CODE_SIGN_IDENTITY\" \"$LOCATION/Sparkle.framework/Versions/A\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
