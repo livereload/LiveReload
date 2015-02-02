@@ -31,7 +31,7 @@ int main(int argc, const char * argv[]) {
         licensing_generate(code, version, type);
         fprintf(output, "%s\n", code);
 
-        if ((i+1) % 10000 == 0) {
+        if ((i+1) % 10 == 0) {
             fprintf(stderr, "Done %lu\n", (unsigned long)(i+1));
         }
     }

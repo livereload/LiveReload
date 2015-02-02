@@ -8,6 +8,7 @@ ROOT_DIR = File.expand_path('.')
 BUILDS_DIR = File.join(ROOT_DIR, 'dist')
 # XCODE_RELEASE_DIR = File.expand_path('~/Documents/XBuilds/Release')
 XCODE_RELEASE_DIR = File.join(ROOT_DIR, 'LiveReload/build/Release')
+SITE_DIR = File.join(ROOT_DIR, '../site/livereload.com/')
 TAG_PREFIX = 'v'
 S3_BUCKET = 'download.livereload.com'
 

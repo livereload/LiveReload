@@ -51,7 +51,7 @@ int main(int argc, const char * argv[]) {
                 passed = false;
             }
 
-            if (count % 10000 == 0) {
+            if (count % 10 == 0) {
                 fprintf(stderr, "Done %lu\n", (unsigned long)count);
             }
         }

@@ -14,7 +14,7 @@ static void bloom_print_as_c(FILE *output, const char *name, size_t bits, size_t
 
 int main(int argc, const char * argv[]) {
     const size_t limit = 100000;
-    const double error_rate = 0.001;
+    const double error_rate = 0.000001;
 
     if (argc < 2) {
         char *path = strdup(argv[0]);
@@ -41,7 +41,7 @@ int main(int argc, const char * argv[]) {
     char hashable[kLicenseCodeBufLen];
     size_t count = 0;
 
-    for (size_t argi = 2; argi < argc; ++argi) {
+    for (int argi = 2; argi < argc; ++argi) {
         const char *input_path = argv[argi];
         FILE *input = fopen(input_path, "r");
         assert(input);
@@ -59,7 +59,7 @@ int main(int argc, const char * argv[]) {
             bloom_add(bloom_bits, bloom_hashes, bloom_data, hashable, strlen(hashable));
             ++count;
             
-            if (count % 10000 == 0) {
+            if (count % 10 == 0) {
                 fprintf(stderr, "Done %lu\n", (unsigned long)count);
             }
         }

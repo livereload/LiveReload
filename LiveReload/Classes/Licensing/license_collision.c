@@ -43,7 +43,7 @@ int main(int argc, const char * argv[]) {
             passed = false;
         }
         
-        if ((i+1) % 10000 == 0) {
+        if ((i+1) % 10 == 0) {
             fprintf(stderr, "Done %lu\n", (unsigned long)(i+1));
         }
     }
