@@ -1,7 +1,6 @@
 
 #import <Foundation/Foundation.h>
 
-
 #define LicenseManagerLicenseCodePreferencesKey @"LicenseCode"
 #define LicenseManagerProductCode @"LR"
 #define LicenseManagerLicenseCodeLength 25

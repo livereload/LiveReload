@@ -4,21 +4,13 @@
 
 #import "LicenseManager.h"
 #import "MASReceipt.h"
+#include "licensing_core.h"
+#include "hex.h"
 
 #import <sys/stat.h>
 
 
 NSString *const LicenseManagerStatusDidChangeNotification = @"LicenseManagerStatusDidChangeNotification";
-
-static void bytes_to_hex(const uint8_t *data, int len, char *hex) {
-    static const char *HEX = "0123456789ABCDEF";
-    for (int i = 0; i < len; i++) {
-        uint8_t b = data[i];
-        *hex++ = HEX[b >> 4];
-        *hex++ = HEX[b & 0xF];
-    }
-    *hex = 0;
-}
 
 static NSString *HexRepresentation(const uint8_t *data, int len) {
     char hex[2 * len + 1];
