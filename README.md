@@ -25,7 +25,13 @@ Build process:
 
 2. Run `rake prepare`.
 
-3. Open LiveReload/LiveReload.xcodeproj and build it with Xcode. Alternatively, use `rake mac:release` or a similar task (see `rake -T` for the full list).
+3. During development: Open LiveReload/LiveReload.xcodeproj with Xcode, click Run (or Build).
+
+    For a release build:
+
+    * Run `rake mac:release` to produce and zip a build
+    * Give it a bit of testing
+    * Run `rake mac:tag mac:upload` to tag a successful build and publish it on download.livereload.com
 
 
 Hacking tips

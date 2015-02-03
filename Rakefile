@@ -145,26 +145,53 @@ end
 
 namespace :mac do
 
-  desc "Upload the given build to S3"
-  task :upload, :suffix do |t, args|
-    zip_name = "#{MAC_ZIP_BASE_NAME}-#{args[:suffix]}.zip"
+  desc "Upload the current version's build to S3"
+  task :upload do |t, args|
+    suffix = TheApp.short_version
+    zip_name = "#{MAC_ZIP_BASE_NAME}-#{suffix}.zip"
     zip_path_in_builds = File.join(BUILDS_DIR, zip_name)
 
     sh 's3cmd', '-P', 'put', zip_path_in_builds, "s3://#{S3_BUCKET}/#{zip_name}"
+    puts "http://download.livereload.com/LiveReload-#{suffix}.zip"
   end
 
-  desc "Tag, build and zip using a custom suffix"
-  task :custom, :suffix do |t, args|
-    suffix = args[:suffix]
-    raise "Suffix is required for mac:custom" if suffix.empty?
+  desc "Add the current version into the web site's versions_mac.yml"
+  task :publish do |t, args|
+    suffix = TheApp.short_version
+    zip_name = "#{MAC_ZIP_BASE_NAME}-#{suffix}.zip"
+    date = Time.new.strftime('%Y-%m-%d')
+    versions_file = File.join(SITE_DIR, '_data/versions_mac.yml')
+    
+    snippet = <<-END
+- version: "#{suffix}"
+  date: #{date}
+  channels:
+    beta: yes
+    production: no
+  url: "https://s3.amazonaws.com/download.livereload.com/LiveReload-#{suffix}.zip"
+  release_notes:
+    - title: TODO
+      details: TODO
+    END
 
-    suffix_for_tag = suffix  # TheApp.find_unused_suffix(suffix, '-')
-    tag = "#{TAG_PREFIX}#{suffix_for_tag}"
-    sh 'git', 'tag', tag  rescue nil
+    content = snippet + "\n" + File.read(versions_file)
+    File.open(versions_file, 'w') { |f| f.write content } 
+    
+    sh 'subl', versions_file
 
-    Dir.chdir 'LiveReload/Compilers' do
-      sh 'git', 'tag', tag  rescue nil
-    end
+    puts
+    puts "To publish the beta site:"
+    puts
+    puts "    cd #{File.expand_path(SITE_DIR).sub(ENV['HOME'], '~')}"
+    puts "    jekyll serve"
+    puts "    open http://0.0.0.0:4000/beta/"
+    puts "    s3_website ..."
+    puts
+  end
+
+  desc "Build and zip using the current version number"
+  task :release do |t, args|
+    suffix = TheApp.short_version
 
     zip_name = "#{MAC_ZIP_BASE_NAME}-#{suffix}.zip"
     zip_path = File.join(XCODE_RELEASE_DIR, zip_name)
@@ -196,43 +223,18 @@ namespace :mac do
     end
 
     sh 'open', '-R', zip_path_in_builds
-
-    Rake::Task['mac:upload'].invoke(suffix)
-
-    sh 'git', 'tag'
-
-    puts "http://download.livereload.com.s3.amazonaws.com/LiveReload-#{suffix}.zip"
-    puts "http://download.livereload.com/LiveReload-#{suffix}.zip"
   end
 
   desc "Tag using the current version number"
   task :tag do |t, args|
-    suffix_for_tag = TheApp.find_unused_suffix(TheApp.short_version, '-')
+    suffix_for_tag = TheApp.short_version
     tag = "#{TAG_PREFIX}#{suffix_for_tag}"
-    sh 'git', 'tag', tag
+    sh 'git', 'tag', tag  rescue nil
 
     Dir.chdir 'LiveReload/Compilers' do
-      sh 'git', 'tag', tag
+      sh 'git', 'tag', tag  rescue nil
     end
   end
-
-  desc "Tag, build and zip using the current version number"
-  task :release do |t, args|
-    Rake::Task['mac:custom'].invoke(TheApp.short_version)
-  end
-
-  desc "Tag, build and zip using the current version number suffixed with -pre"
-  task :prerelease do |t, args|
-    suffix = TheApp.find_unused_suffix("#{TheApp.short_version}-pre", '')
-    Rake::Task['mac:custom'].invoke(suffix)
-  end
-
-  desc "Tag, build and zip using the current version number"
-  task :dev do |t, args|
-    suffix = TheApp.find_unused_suffix("#{TheApp.short_version}-dev-#{Time.now.strftime('%b%d').downcase}", '-')
-    Rake::Task['mac:custom'].invoke(suffix)
-  end
-
 end
 
 
