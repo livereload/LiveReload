@@ -36,17 +36,14 @@
 		4317BD3E1A7F6F3C0054D32D /* bloom.c in Sources */ = {isa = PBXBuildFile; fileRef = 4317BD3B1A7F6AB80054D32D /* bloom.c */; };
 		4317BD411A7F71A90054D32D /* hex.c in Sources */ = {isa = PBXBuildFile; fileRef = 4317BD3F1A7F71A90054D32D /* hex.c */; };
 		4317BD421A7F73840054D32D /* hex.c in Sources */ = {isa = PBXBuildFile; fileRef = 4317BD3F1A7F71A90054D32D /* hex.c */; };
-		4317BD441A7F7AE10054D32D /* license_encode.c in Sources */ = {isa = PBXBuildFile; fileRef = 4317BD431A7F7AE10054D32D /* license_encode.c */; };
 		4317BD511A7F8C990054D32D /* license_encode.c in Sources */ = {isa = PBXBuildFile; fileRef = 4317BD431A7F7AE10054D32D /* license_encode.c */; };
 		4317BD521A7F8CBF0054D32D /* licensing_core.c in Sources */ = {isa = PBXBuildFile; fileRef = 4317BD281A7F57AB0054D32D /* licensing_core.c */; };
 		4317BD531A7F8CC20054D32D /* bloom.c in Sources */ = {isa = PBXBuildFile; fileRef = 4317BD3B1A7F6AB80054D32D /* bloom.c */; };
 		4317BD541A7F8CC40054D32D /* hex.c in Sources */ = {isa = PBXBuildFile; fileRef = 4317BD3F1A7F71A90054D32D /* hex.c */; };
-		4317BD571A7F903F0054D32D /* license_verify.c in Sources */ = {isa = PBXBuildFile; fileRef = 4317BD561A7F903F0054D32D /* license_verify.c */; };
 		4317BD641A7F92070054D32D /* license_verify.c in Sources */ = {isa = PBXBuildFile; fileRef = 4317BD561A7F903F0054D32D /* license_verify.c */; };
 		4317BD651A7F920A0054D32D /* bloom.c in Sources */ = {isa = PBXBuildFile; fileRef = 4317BD3B1A7F6AB80054D32D /* bloom.c */; };
 		4317BD661A7F92140054D32D /* licensing_core.c in Sources */ = {isa = PBXBuildFile; fileRef = 4317BD281A7F57AB0054D32D /* licensing_core.c */; };
 		4317BD671A7F92480054D32D /* hex.c in Sources */ = {isa = PBXBuildFile; fileRef = 4317BD3F1A7F71A90054D32D /* hex.c */; };
-		4317BD691A7F927A0054D32D /* license_collision.c in Sources */ = {isa = PBXBuildFile; fileRef = 4317BD681A7F927A0054D32D /* license_collision.c */; };
 		4317BD761A7F92900054D32D /* license_collision.c in Sources */ = {isa = PBXBuildFile; fileRef = 4317BD681A7F927A0054D32D /* license_collision.c */; };
 		4317BD771A7F92940054D32D /* bloom.c in Sources */ = {isa = PBXBuildFile; fileRef = 4317BD3B1A7F6AB80054D32D /* bloom.c */; };
 		4317BD781A7F92960054D32D /* hex.c in Sources */ = {isa = PBXBuildFile; fileRef = 4317BD3F1A7F71A90054D32D /* hex.c */; };
@@ -110,6 +107,8 @@
 		439C093313ADCBDD00119233 /* monitoring.plist in Resources */ = {isa = PBXBuildFile; fileRef = 439C093213ADCBDD00119233 /* monitoring.plist */; };
 		43C0368613CA191D00A01305 /* LiveReload.icns in Resources */ = {isa = PBXBuildFile; fileRef = 43C0368513CA191C00A01305 /* LiveReload.icns */; };
 		43C3D04E15B37B1500BCD2E8 /* LicenseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C3D04D15B37B1500BCD2E8 /* LicenseManager.m */; };
+		43D209691A810D5500D47F2B /* licensing_check.c in Sources */ = {isa = PBXBuildFile; fileRef = 43D209651A80FFD200D47F2B /* licensing_check.c */; };
+		43D2096A1A810D5700D47F2B /* licensing_check.c in Sources */ = {isa = PBXBuildFile; fileRef = 43D209651A80FFD200D47F2B /* licensing_check.c */; };
 		43E34F9B14705125001641AA /* console.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E34F9714705125001641AA /* console.c */; };
 		43E34F9C14705125001641AA /* eventbus.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E34F9914705125001641AA /* eventbus.c */; };
 		43E34F9F14706D9B001641AA /* osdep.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E34F9E14706D9B001641AA /* osdep.m */; };
@@ -291,7 +290,7 @@
 		4317BD281A7F57AB0054D32D /* licensing_core.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = licensing_core.c; sourceTree = "<group>"; };
 		4317BD291A7F57AB0054D32D /* licensing_core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = licensing_core.h; sourceTree = "<group>"; };
 		4317BD2B1A7F57F30054D32D /* license_gen.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = license_gen.c; sourceTree = "<group>"; };
-		4317BD311A7F58250054D32D /* LiveReloadLicensingTool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LiveReloadLicensingTool; sourceTree = BUILT_PRODUCTS_DIR; };
+		4317BD311A7F58250054D32D /* LRLicenseGen */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LRLicenseGen; sourceTree = BUILT_PRODUCTS_DIR; };
 		4317BD3B1A7F6AB80054D32D /* bloom.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bloom.c; sourceTree = "<group>"; };
 		4317BD3C1A7F6AB80054D32D /* bloom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bloom.h; sourceTree = "<group>"; };
 		4317BD3F1A7F71A90054D32D /* hex.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hex.c; sourceTree = "<group>"; };
@@ -393,6 +392,8 @@
 		43C0368513CA191C00A01305 /* LiveReload.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LiveReload.icns; sourceTree = "<group>"; };
 		43C3D04C15B37B1500BCD2E8 /* LicenseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LicenseManager.h; sourceTree = "<group>"; };
 		43C3D04D15B37B1500BCD2E8 /* LicenseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LicenseManager.m; sourceTree = "<group>"; };
+		43D209651A80FFD200D47F2B /* licensing_check.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = licensing_check.c; sourceTree = "<group>"; };
+		43D209661A80FFD200D47F2B /* licensing_check.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = licensing_check.h; sourceTree = "<group>"; };
 		43E34F9714705125001641AA /* console.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = console.c; sourceTree = "<group>"; };
 		43E34F9814705125001641AA /* console.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = console.h; sourceTree = "<group>"; };
 		43E34F9914705125001641AA /* eventbus.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eventbus.c; sourceTree = "<group>"; };
@@ -616,7 +617,7 @@
 			isa = PBXGroup;
 			children = (
 				8D1107320486CEB800E47090 /* LiveReload.app */,
-				4317BD311A7F58250054D32D /* LiveReloadLicensingTool */,
+				4317BD311A7F58250054D32D /* LRLicenseGen */,
 				4317BD491A7F8C900054D32D /* LRLicenseEncode */,
 				4317BD5C1A7F91E70054D32D /* LRLicenseVerify */,
 				4317BD6E1A7F92850054D32D /* LRLicenseCollision */,
@@ -769,6 +770,8 @@
 				43C3D04D15B37B1500BCD2E8 /* LicenseManager.m */,
 				4317BD291A7F57AB0054D32D /* licensing_core.h */,
 				4317BD281A7F57AB0054D32D /* licensing_core.c */,
+				43D209661A80FFD200D47F2B /* licensing_check.h */,
+				43D209651A80FFD200D47F2B /* licensing_check.c */,
 				4317BD2B1A7F57F30054D32D /* license_gen.c */,
 				4317BD431A7F7AE10054D32D /* license_encode.c */,
 				4317BD561A7F903F0054D32D /* license_verify.c */,
@@ -1150,7 +1153,7 @@
 			);
 			name = LRLicenseGen;
 			productName = LiveReloadLicensingTool;
-			productReference = 4317BD311A7F58250054D32D /* LiveReloadLicensingTool */;
+			productReference = 4317BD311A7F58250054D32D /* LRLicenseGen */;
 			productType = "com.apple.product-type.tool";
 		};
 		4317BD481A7F8C900054D32D /* LRLicenseEncode */ = {
@@ -1384,6 +1387,7 @@
 				4317BD661A7F92140054D32D /* licensing_core.c in Sources */,
 				4317BD651A7F920A0054D32D /* bloom.c in Sources */,
 				4317BD671A7F92480054D32D /* hex.c in Sources */,
+				43D2096A1A810D5700D47F2B /* licensing_check.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1403,6 +1407,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
+				43D209691A810D5500D47F2B /* licensing_check.c in Sources */,
 				823DDED313F8DA3100529AD2 /* LiveReloadAppDelegate.m in Sources */,
 				823DDED413F8DA3100529AD2 /* CommunicationController.m in Sources */,
 				823DDED513F8DA3100529AD2 /* ExtensionsController.m in Sources */,
@@ -1440,7 +1445,6 @@
 				823DDF0613F8DA3100529AD2 /* ATFunctionalStyle.m in Sources */,
 				823DDF0713F8DA3100529AD2 /* LoginItemController.m in Sources */,
 				823DDF0813F8DA3100529AD2 /* MAAttachedWindow.m in Sources */,
-				4317BD441A7F7AE10054D32D /* license_encode.c in Sources */,
 				823DDF0913F8DA3100529AD2 /* MD5OfFile.m in Sources */,
 				823DDF0A13F8DA3100529AD2 /* NSWindow+Additions.m in Sources */,
 				823DDF0B13F8DA3100529AD2 /* NSWindowFlipper.m in Sources */,
@@ -1458,11 +1462,9 @@
 				4304FC2D144B2BEB00D650DF /* NSDictionaryAndArray+SafeAccess.m in Sources */,
 				4346F3A91450D8AD00B133F2 /* ImportGraph.m in Sources */,
 				435729171452267C00947B2E /* Stats.m in Sources */,
-				4317BD571A7F903F0054D32D /* license_verify.c in Sources */,
 				43E5DF621462829B0016CDA0 /* ImageAndTextCell.m in Sources */,
 				4353196F1465B52D005FA59F /* ShitHappens.m in Sources */,
 				43F50BF71466F7A1004FD951 /* PostProcessingSettingsWindowController.m in Sources */,
-				4317BD691A7F927A0054D32D /* license_collision.c in Sources */,
 				43F50BFC146706B0004FD951 /* BaseProjectSettingsWindowController.m in Sources */,
 				43F50BFF14670A9F004FD951 /* CompilationSettingsWindowController.m in Sources */,
 				431466A6146CA68500DC075A /* PassThruView.m in Sources */,
@@ -2106,6 +2108,7 @@
 				4317BD381A7F58250054D32D /* AppStore */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4317BD4D1A7F8C900054D32D /* Build configuration list for PBXNativeTarget "LRLicenseEncode" */ = {
 			isa = XCConfigurationList;
@@ -2115,6 +2118,7 @@
 				4317BD501A7F8C900054D32D /* AppStore */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4317BD601A7F91E80054D32D /* Build configuration list for PBXNativeTarget "LRLicenseVerify" */ = {
 			isa = XCConfigurationList;
@@ -2124,6 +2128,7 @@
 				4317BD631A7F91E80054D32D /* AppStore */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4317BD721A7F92850054D32D /* Build configuration list for PBXNativeTarget "LRLicenseCollision" */ = {
 			isa = XCConfigurationList;
@@ -2133,6 +2138,7 @@
 				4317BD751A7F92850054D32D /* AppStore */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "LiveReload" */ = {
 			isa = XCConfigurationList;

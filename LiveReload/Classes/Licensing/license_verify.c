@@ -6,9 +6,7 @@
 
 #include "licensing_core.h"
 #include "bloom.h"
-#include "hex.h"
-
-#include "LicensingBloomFilter.h"
+#include "licensing_check.h"
 
 
 int main(int argc, const char * argv[]) {
@@ -19,12 +17,7 @@ int main(int argc, const char * argv[]) {
         exit(10);
     }
     
-    size_t bloom_bits = LicensingBloomFilter_bits;
-    size_t bloom_hashes = LicensingBloomFilter_hashes;
-    const bloom_data_t *bloom_data = LicensingBloomFilter_data;
-    
     char code[kLicenseCodeBufLen];
-    char hashable[kLicenseCodeBufLen];
     bool passed = true;
     size_t count = 0;
     
@@ -41,17 +34,15 @@ int main(int argc, const char * argv[]) {
             char *end = stpncpy(code, line, line_len);
             *end = 0;
             
-            bool ok = licensing_reformat_without_dashes(hashable, code);
-            assert(ok);
-            ++count;
-            
-            ok = bloom_check(bloom_bits, bloom_hashes, bloom_data, hashable, strlen(hashable));
-            if (!ok) {
-                printf("!!! NOT MATCHED: %s\n", hashable);
+            LicenseVersion version;
+            LicenseType type;
+            LicenseCheckResult result = licensing_check(code, &version, &type);
+            if (result != LicenseCheckResultValid) {
+                printf("!!! NOT MATCHED: %s\n", code);
                 passed = false;
             }
 
-            if (count % 10 == 0) {
+            if (++count % 10 == 0) {
                 fprintf(stderr, "Done %lu\n", (unsigned long)count);
             }
         }

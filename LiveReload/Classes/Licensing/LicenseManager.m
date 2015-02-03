@@ -5,18 +5,11 @@
 #import "LicenseManager.h"
 #import "MASReceipt.h"
 #include "licensing_core.h"
+#include "licensing_check.h"
 #include "hex.h"
-
-#import <sys/stat.h>
 
 
 NSString *const LicenseManagerStatusDidChangeNotification = @"LicenseManagerStatusDidChangeNotification";
-
-static NSString *HexRepresentation(const uint8_t *data, int len) {
-    char hex[2 * len + 1];
-    bytes_to_hex(data, len, hex);
-    return [NSString stringWithUTF8String:hex];
-}
 
 
 void LicenseManagerStartup() {
@@ -58,15 +51,13 @@ BOOL LicenseManagerShouldDisplayPurchasingUI() {
 static NSString *LicenseManagerCleanLicenseCode(NSString *licenseCode) {
     if (!licenseCode)
         return @"";
-    NSMutableString *code = [[[[[licenseCode stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString] stringByReplacingOccurrencesOfString:@"-" withString:@""] mutableCopy] autorelease];
-    if (code.length == LicenseManagerLicenseCodeLength + LicenseManagerProductCode.length) {
-        [code insertString:@"-" atIndex:2 + 4*5];
-        [code insertString:@"-" atIndex:2 + 3*5];
-        [code insertString:@"-" atIndex:2 + 2*5];
-        [code insertString:@"-" atIndex:2 + 1*5];
-        [code insertString:@"-" atIndex:2];
+    
+    char buf[kLicenseCodeBufLen];
+    if (licensing_reformat(buf, [licenseCode UTF8String])) {
+        return [NSString stringWithUTF8String:buf];
+    } else {
+        return licenseCode;
     }
-    return [NSString stringWithString:code];
 }
 
 NSString *LicenseManagerGetLicenseCode() {
@@ -89,101 +80,24 @@ LicenseManagerCodeStatus LicenseManagerGetCodeStatus() {
     if (code.length == 0)
         return LicenseManagerCodeStatusNotEntered;
     
-    code = [code stringByReplacingOccurrencesOfString:@"-" withString:@""];
-    if (code.length != LicenseManagerLicenseCodeLength + LicenseManagerProductCode.length)
-        return LicenseManagerCodeStatusIncorrectFormat;
-    
-    NSString *hashablePart = [code substringToIndex:code.length - LicenseManagerLicenseCodeVerificatorLength];
-    const char *hashableRaw = [hashablePart UTF8String];
-    
-    NSString *enteredVerificator = [code substringFromIndex:code.length - LicenseManagerLicenseCodeVerificatorLength];
-    
-    uint8_t verificatorRaw[CC_SHA256_DIGEST_LENGTH];
-    const char *salt = "LiveReload";
-    CCHmac(kCCHmacAlgSHA256, salt, strlen(salt), hashableRaw, strlen(hashableRaw), verificatorRaw);
-    NSString *verificator = [HexRepresentation(verificatorRaw, CC_SHA256_DIGEST_LENGTH) substringToIndex:LicenseManagerLicenseCodeVerificatorLength];
-    
-    if (![enteredVerificator isEqualToString:verificator])
-        return LicenseManagerCodeStatusIncorrectFormat;
-
-    if (![[code substringToIndex:LicenseManagerProductCode.length] isEqualToString:LicenseManagerProductCode])
-        return LicenseManagerCodeStatusIncorrectProduct;
-    
-    NSString *saltedHashable = [hashablePart stringByAppendingString:@"LiveReload"];
-    const char *saltedHashableRaw = [saltedHashable UTF8String];
-    
-    uint8_t licenseCodeHashRaw[CC_SHA1_DIGEST_LENGTH];
-    CC_SHA1(saltedHashableRaw, strlen(saltedHashableRaw), licenseCodeHashRaw);
-    
-    char licenseCodeHash[1 + 2 * CC_SHA1_DIGEST_LENGTH + 1 + 1];
-    licenseCodeHash[0] = '\n';
-    bytes_to_hex(licenseCodeHashRaw, CC_SHA1_DIGEST_LENGTH, licenseCodeHash + 1);
-
-    char catalogRef[1 + LicenseManagerLicenseCodeCatalogNameLength + 1];
-    catalogRef[0] = ':';
-    strncpy(catalogRef + 1, licenseCodeHash + 1, LicenseManagerLicenseCodeCatalogNameLength);
-    catalogRef[1 + LicenseManagerLicenseCodeCatalogNameLength] = 0;
-
-    const char *correctCatalogHash = strstr(LicenseManagerBundledCatalogs, catalogRef);
-    if (!correctCatalogHash)
-        return LicenseManagerCodeStatusUpdateRequired;
-    ++correctCatalogHash;
-
-    const char *correctCatalogHashEnd = strchr(correctCatalogHash, ':');
-    if (!correctCatalogHashEnd)
-        abort();
-    if (correctCatalogHashEnd - correctCatalogHash != 2 * CC_SHA1_DIGEST_LENGTH)
-        abort();
-
-    NSString *catalogFileName = [NSString stringWithFormat:@"LR-%s.public", catalogRef+1];
-    NSString *catalogPath = [[NSBundle mainBundle] pathForResource:catalogFileName ofType:nil];
-    if (!catalogPath)
-        abort();
-    
-    const char *catalogPathC = [catalogPath UTF8String];
-    
-    struct stat st;
-    int fd = open(catalogPathC, O_RDONLY);
-    if (fd < 0)
-        abort();
-    if (fstat(fd, &st) < 0)
-        abort();
-    
-    int catalogLen = (int) st.st_size;
-    char *catalogData = (char *) malloc(catalogLen + 1);
-    if (!catalogData)
-        abort();
-    
-    if (read(fd, catalogData, catalogLen) < catalogLen)
-        abort();
-    if (close(fd) < 0)
-        abort();
-    
-    catalogData[catalogLen] = 0;
-
-    uint8_t catalogHmacRaw[CC_SHA1_DIGEST_LENGTH];
-    CCHmac(kCCHmacAlgSHA1, salt, strlen(salt), catalogData, catalogLen, catalogHmacRaw);
-
-    char catalogHash[2 * CC_SHA1_DIGEST_LENGTH + 1];
-    bytes_to_hex(catalogHmacRaw, CC_SHA1_DIGEST_LENGTH, catalogHash);
-    
-    if (0 != strncmp(correctCatalogHash, catalogHash, 2 * CC_SHA1_DIGEST_LENGTH))
-        abort();  // catalog has been tampered with
-    
-    licenseCodeHash[1 + 2 * CC_SHA1_DIGEST_LENGTH] = '\n';
-    licenseCodeHash[1 + 2 * CC_SHA1_DIGEST_LENGTH + 1] = 0;
-    
-    if (!strstr(catalogData, licenseCodeHash))
-        return LicenseManagerCodeStatusRejected;
-    else
-        switch (licenseCodeHash[1]) {
-            case 'A':
-                return LicenseManagerCodeStatusAcceptedIndividual;
-            case 'B':
-                return LicenseManagerCodeStatusAcceptedBusiness;
-            case 'E':
-                return LicenseManagerCodeStatusAcceptedBusinessUnlimited;
-            default:
-                return LicenseManagerCodeStatusAcceptedUnknown;
+    LicenseVersion version;
+    LicenseType type;
+    LicenseCheckResult result = licensing_check([code UTF8String], &version, &type);
+    if (result == LicenseCheckResultValid) {
+        if (type == LicenseTypeIndividual) {
+            return LicenseManagerCodeStatusAcceptedIndividual;
+        } else if (type == LicenseTypeBusiness) {
+            return LicenseManagerCodeStatusAcceptedBusiness;
+        } else if (type == LicenseTypeBusinessUnlimited) {
+            return LicenseManagerCodeStatusAcceptedBusinessUnlimited;
+        } else {
+            abort();
         }
+    } else if (result == LicenseCheckResultInvalid) {
+        return LicenseManagerCodeStatusIncorrectFormat;
+    } else if (result == LicenseCheckResultInvalidButWellFormed) {
+        return LicenseManagerCodeStatusUpdateRequired;
+    } else {
+        abort();
+    }
 }

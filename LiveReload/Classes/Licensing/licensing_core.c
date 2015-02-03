@@ -11,6 +11,8 @@
 #include <math.h>
 
 
+const char *licensing_verificator_salt = "LiveReload";
+
 
 static const char CHARSET[] = "0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ";
 
@@ -55,7 +57,7 @@ bool licensing_reformat(char *output /* [kLicenseCodeBufLen] */, const char *inp
     }
     
     size_t len = strlen(raw);
-    if (len == kLicenseCodeLegacyVariablePartLength) {
+    if (len == kLicenseCodeLegacyTotalLength) {
         return licensing_reformat_specific(output, raw, true, kLicenseCodeLegacyPrefixLength, kLicenseCodeDashGroupLength);
     } else {
         return licensing_reformat_specific(output, raw, true, kLicenseCodePrefixLength, kLicenseCodeDashGroupLength);
@@ -83,8 +85,7 @@ void licensing_generate(char *output /* [kLicenseCodeBufLen] */, LicenseVersion 
     // hash to produce a verificator
     *praw = 0;
     uint8_t verificator_raw[CC_SHA256_DIGEST_LENGTH];
-    const char *salt = "LiveReload";
-    CCHmac(kCCHmacAlgSHA256, salt, strlen(salt), raw, praw - raw, verificator_raw);
+    CCHmac(kCCHmacAlgSHA256, licensing_verificator_salt, strlen(licensing_verificator_salt), raw, praw - raw, verificator_raw);
     char verificator[2*CC_SHA256_DIGEST_LENGTH+1];
     bytes_to_hex(verificator_raw, CC_SHA256_DIGEST_LENGTH, verificator);
     

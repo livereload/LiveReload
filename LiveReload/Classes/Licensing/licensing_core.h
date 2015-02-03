@@ -5,6 +5,8 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+extern const char *licensing_verificator_salt;
+
 enum {
     kLicenseCodeProductNameLength = 2,
     kLicenseCodeVersionLength = 1,
@@ -24,7 +26,7 @@ enum {
     kLicenseCodeDashGroupLength = 5,
     kLicenseCodeVariablePartDashCount = (kLicenseCodeVariablePartLength + kLicenseCodeDashGroupLength - 1) / kLicenseCodeDashGroupLength,
     
-    kLicenseCodeBufLen = 100 + kLicenseCodeTotalLength + 1 /* dash */ + kLicenseCodeVariablePartDashCount + 1 /* NULL */,
+    kLicenseCodeBufLen = 100 /* for various stuff */ + kLicenseCodeTotalLength + 1 /* dash */ + kLicenseCodeVariablePartDashCount + 1 /* NULL */,
 };
 
 typedef enum {
@@ -39,8 +41,6 @@ typedef enum {
     LicenseTypeBusiness = 'B',
     LicenseTypeBusinessUnlimited = 'E',
 } LicenseType;
-
-//LicenseType licensing_check(const char *license_code);
 
 void licensing_generate(char *output /* [kLicenseCodeBufLen] */, LicenseVersion version, LicenseType type);
 bool licensing_reformat_without_dashes(char *output /* [kLicenseCodeBufLen] */, const char *input);
