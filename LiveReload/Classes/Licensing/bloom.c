@@ -5,11 +5,6 @@
  *  All rights reserved.
  *
  *  This file is under BSD license. See LICENSE file.
- *
- * Includes Murmurhash, provided under the following license:
- *
- *  All code is released to the public domain. For business purposes,
- *  Murmurhash is under the MIT license.
  */
 
 #include "bloom.h"
