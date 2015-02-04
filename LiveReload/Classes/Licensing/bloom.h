@@ -13,6 +13,7 @@
 #include <stddef.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include <stdio.h>
 
 typedef uint8_t bloom_data_t;
 
@@ -21,5 +22,8 @@ size_t bloom_byte_size(size_t bits);
 bloom_data_t *bloom_alloc(size_t bits);
 bool bloom_check(size_t bits, size_t hashes, const bloom_data_t *bf, const void *buffer, size_t len);
 bool bloom_add(size_t bits, size_t hashes, bloom_data_t *bf, const void *buffer, size_t len);
+
+bool bloom_write(FILE *file, size_t bits, size_t hashes, const bloom_data_t *data);
+bool bloom_read(FILE *file, size_t *bits, size_t *hashes, bloom_data_t **data);
 
 #endif /* defined(__LiveReload__bloom__) */

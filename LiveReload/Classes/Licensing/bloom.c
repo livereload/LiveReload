@@ -92,3 +92,35 @@ bool bloom_add(size_t bits, size_t hashes, bloom_data_t *bf, const void *buffer,
     }
     return (hits == hashes);
 }
+
+bool bloom_write(FILE *file, size_t bits, size_t hashes, const bloom_data_t *data) {
+    if (fwrite(&bits, sizeof(bits), 1, file) != 1) {
+        return false;
+    }
+    if (fwrite(&hashes, sizeof(hashes), 1, file) != 1) {
+        return false;
+    }
+    size_t bytes = bloom_byte_size(bits);
+    if (fwrite(data, bytes, 1, file) != 1) {
+        return false;
+    }
+    return true;
+}
+
+bool bloom_read(FILE *file, size_t *bits, size_t *hashes, bloom_data_t **data) {
+    if (fread(bits, sizeof(*bits), 1, file) != 1) {
+        return false;
+    }
+    if (fread(hashes, sizeof(*hashes), 1, file) != 1) {
+        return false;
+    }
+
+    *data = bloom_alloc(*bits);
+    size_t bytes = bloom_byte_size(*bits);
+    if (fread(*data, bytes, 1, file) != 1) {
+        free(*data);
+        *data = NULL;
+        return false;
+    }
+    return true;
+}

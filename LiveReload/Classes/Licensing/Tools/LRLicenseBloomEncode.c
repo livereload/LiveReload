@@ -4,6 +4,7 @@
 #include <string.h>
 #include <libgen.h>
 
+#include "licensing_config.h"
 #include "licensing_core.h"
 #include "bloom.h"
 #include "hex.h"
@@ -13,12 +14,14 @@ static void bloom_print_as_c(FILE *output, const char *name, size_t bits, size_t
 
 
 int main(int argc, const char * argv[]) {
-    const size_t limit = 100000;
-    const double error_rate = 0.000001;
+    size_t bloom_bits, bloom_hashes;
+    bloom_suggest(LRLicensingBloomFilterCapacity, LRLicensingBloomFilterErrorRate, &bloom_bits, &bloom_hashes);
+    size_t bytes = bloom_byte_size(bloom_bits);
+    bloom_data_t *bloom_data = bloom_alloc(bloom_bits);
 
     if (argc < 2) {
         char *path = strdup(argv[0]);
-        fprintf(stderr, "Usage: %s <output.h> [<input1> <input2>]...\n", basename(path));
+        fprintf(stderr, "Usage: %s <output.h> [<input1.bloom> <input2.bloom>]...\n", basename(path));
         free(path);
         exit(1);
     }
@@ -31,38 +34,30 @@ int main(int argc, const char * argv[]) {
         output = fopen(output_path, "w");
     }
 
-    size_t bloom_bits, bloom_hashes;
-    bloom_suggest(limit, error_rate, &bloom_bits, &bloom_hashes);
-    bloom_data_t *bloom_data = bloom_alloc(bloom_bits);
-
-    fprintf(stderr, "Bloom filter: entries = %u, bits = %u (%u KB), hashes = %u\n", (unsigned)limit, (unsigned)bloom_bits, (unsigned)(bloom_bits / 8 / 1024), (unsigned)bloom_hashes);
-
-    char code[kLicenseCodeBufLen];
-    char hashable[kLicenseCodeBufLen];
-    size_t count = 0;
-
     for (int argi = 2; argi < argc; ++argi) {
+        size_t bits, hashes;
+        bloom_data_t *data;
+
         const char *input_path = argv[argi];
         FILE *input = fopen(input_path, "r");
-        assert(input);
-        char *line;
-        size_t line_len;
-        while (NULL != (line = fgetln(input, &line_len))) {
-            if (line_len > kLicenseCodeBufLen-1) {
-                continue;
-            }
-            char *end = stpncpy(code, line, line_len);
-            *end = 0;
-            
-            bool ok = licensing_reformat_without_dashes(hashable, code);
-            assert(ok);
-            bloom_add(bloom_bits, bloom_hashes, bloom_data, hashable, strlen(hashable));
-            ++count;
-            
-            if (count % 10 == 0) {
-                fprintf(stderr, "Done %lu\n", (unsigned long)count);
-            }
+        if (!bloom_read(input, &bits, &hashes, &data)) {
+            fprintf(stderr, "Failed to read bloom filter from %s.\n", input_path);
+            exit(1);
         }
+        fclose(input);
+        
+        if (bits != bloom_bits || hashes != bloom_hashes) {
+            fprintf(stderr, "Incompatible bloom filter in %s.\n", input_path);
+            exit(1);
+        }
+        
+        for (size_t i = 0; i < bytes; ++i) {
+            bloom_data[i] |= data[i];
+        }
+        
+        free(data);
+
+        fprintf(stderr, "Imported: %s\n", input_path);
     }
     
     bloom_print_as_c(output, "LicensingBloomFilter", bloom_bits, bloom_hashes, bloom_data);
@@ -73,7 +68,7 @@ int main(int argc, const char * argv[]) {
         fclose(output);
     }
 
-    fprintf(stderr, "Bloom filter saved with %lu entries.\n", (unsigned long)count);
+    fprintf(stderr, "Bloom filter exported.\n");
 
     return 0;
 }

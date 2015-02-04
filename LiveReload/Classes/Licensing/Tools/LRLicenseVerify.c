@@ -38,7 +38,11 @@ int main(int argc, const char * argv[]) {
             LicenseType type;
             LicenseCheckResult result = licensing_check(code, &version, &type);
             if (result != LicenseCheckResultValid) {
-                printf("!!! NOT MATCHED: %s\n", code);
+                if (result == LicenseCheckResultInvalid) {
+                    printf("!!! INVALID: %s\n", code);
+                } else {
+                    printf("!!! NOT MATCHED: %s\n", code);
+                }
                 passed = false;
             }
 

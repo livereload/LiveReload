@@ -6,6 +6,24 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		43D209861A811B6700D47F2B /* LicensingTools */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 43D209871A811B6700D47F2B /* Build configuration list for PBXAggregateTarget "LicensingTools" */;
+			buildPhases = (
+			);
+			dependencies = (
+				43D2098C1A811B6F00D47F2B /* PBXTargetDependency */,
+				43D2098E1A811B6F00D47F2B /* PBXTargetDependency */,
+				43D209901A811B6F00D47F2B /* PBXTargetDependency */,
+				43D209921A811B6F00D47F2B /* PBXTargetDependency */,
+				43D209941A811B6F00D47F2B /* PBXTargetDependency */,
+			);
+			name = LicensingTools;
+			productName = LicensingTools;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		4303A4B215B3898D009D732A /* LR-A9BC.public in Resources */ = {isa = PBXBuildFile; fileRef = 4303A4AF15B3898D009D732A /* LR-A9BC.public */; };
@@ -106,9 +124,13 @@
 		43D209691A810D5500D47F2B /* licensing_check.c in Sources */ = {isa = PBXBuildFile; fileRef = 43D209651A80FFD200D47F2B /* licensing_check.c */; };
 		43D2096A1A810D5700D47F2B /* licensing_check.c in Sources */ = {isa = PBXBuildFile; fileRef = 43D209651A80FFD200D47F2B /* licensing_check.c */; };
 		43D209701A81143300D47F2B /* LRLicenseCollision.c in Sources */ = {isa = PBXBuildFile; fileRef = 43D2096C1A81142B00D47F2B /* LRLicenseCollision.c */; };
-		43D209711A81143600D47F2B /* LRLicenseEncode.c in Sources */ = {isa = PBXBuildFile; fileRef = 43D2096D1A81142B00D47F2B /* LRLicenseEncode.c */; };
+		43D209711A81143600D47F2B /* LRLicenseBloomEncode.c in Sources */ = {isa = PBXBuildFile; fileRef = 43D2096D1A81142B00D47F2B /* LRLicenseBloomEncode.c */; };
 		43D209721A81143800D47F2B /* LRLicenseGen.c in Sources */ = {isa = PBXBuildFile; fileRef = 43D2096E1A81142B00D47F2B /* LRLicenseGen.c */; };
 		43D209731A81143B00D47F2B /* LRLicenseVerify.c in Sources */ = {isa = PBXBuildFile; fileRef = 43D2096F1A81142B00D47F2B /* LRLicenseVerify.c */; };
+		43D209851A811B0F00D47F2B /* LRLicenseBloomAdd.c in Sources */ = {isa = PBXBuildFile; fileRef = 43D209741A8115E600D47F2B /* LRLicenseBloomAdd.c */; };
+		43D209951A811BA300D47F2B /* bloom.c in Sources */ = {isa = PBXBuildFile; fileRef = 4317BD3B1A7F6AB80054D32D /* bloom.c */; };
+		43D209961A811BA600D47F2B /* hex.c in Sources */ = {isa = PBXBuildFile; fileRef = 4317BD3F1A7F71A90054D32D /* hex.c */; };
+		43D209971A811BCD00D47F2B /* licensing_core.c in Sources */ = {isa = PBXBuildFile; fileRef = 4317BD281A7F57AB0054D32D /* licensing_core.c */; };
 		43E34F9B14705125001641AA /* console.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E34F9714705125001641AA /* console.c */; };
 		43E34F9C14705125001641AA /* eventbus.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E34F9914705125001641AA /* eventbus.c */; };
 		43E34F9F14706D9B001641AA /* osdep.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E34F9E14706D9B001641AA /* osdep.m */; };
@@ -201,6 +223,44 @@
 		C01FCF5008A954540054247E /* RSVerticallyCenteredTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C01FCF5008A954540054247D /* RSVerticallyCenteredTextFieldCell.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		43D2098B1A811B6F00D47F2B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4317BD301A7F58250054D32D;
+			remoteInfo = LRLicenseGen;
+		};
+		43D2098D1A811B6F00D47F2B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4317BD481A7F8C900054D32D;
+			remoteInfo = LRLicenseBloomEncode;
+		};
+		43D2098F1A811B6F00D47F2B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 43D2097C1A811B0200D47F2B;
+			remoteInfo = LRLicenseBloomAdd;
+		};
+		43D209911A811B6F00D47F2B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4317BD5B1A7F91E70054D32D;
+			remoteInfo = LRLicenseVerify;
+		};
+		43D209931A811B6F00D47F2B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4317BD6D1A7F92850054D32D;
+			remoteInfo = LRLicenseCollision;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		4303A4BA15B3B450009D732A /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -240,6 +300,15 @@
 			runOnlyForDeploymentPostprocessing = 1;
 		};
 		4317BD6C1A7F92850054D32D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		43D2097B1A811B0200D47F2B /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -391,9 +460,12 @@
 		43D209651A80FFD200D47F2B /* licensing_check.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = licensing_check.c; sourceTree = "<group>"; };
 		43D209661A80FFD200D47F2B /* licensing_check.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = licensing_check.h; sourceTree = "<group>"; };
 		43D2096C1A81142B00D47F2B /* LRLicenseCollision.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = LRLicenseCollision.c; sourceTree = "<group>"; };
-		43D2096D1A81142B00D47F2B /* LRLicenseEncode.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = LRLicenseEncode.c; sourceTree = "<group>"; };
+		43D2096D1A81142B00D47F2B /* LRLicenseBloomEncode.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = LRLicenseBloomEncode.c; sourceTree = "<group>"; };
 		43D2096E1A81142B00D47F2B /* LRLicenseGen.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = LRLicenseGen.c; sourceTree = "<group>"; };
 		43D2096F1A81142B00D47F2B /* LRLicenseVerify.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = LRLicenseVerify.c; sourceTree = "<group>"; };
+		43D209741A8115E600D47F2B /* LRLicenseBloomAdd.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LRLicenseBloomAdd.c; sourceTree = "<group>"; };
+		43D209781A81194000D47F2B /* licensing_config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = licensing_config.h; sourceTree = "<group>"; };
+		43D2097D1A811B0200D47F2B /* LRLicenseBloomAdd */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LRLicenseBloomAdd; sourceTree = BUILT_PRODUCTS_DIR; };
 		43E34F9714705125001641AA /* console.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = console.c; sourceTree = "<group>"; };
 		43E34F9814705125001641AA /* console.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = console.h; sourceTree = "<group>"; };
 		43E34F9914705125001641AA /* eventbus.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eventbus.c; sourceTree = "<group>"; };
@@ -577,6 +649,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		43D2097A1A811B0200D47F2B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D11072E0486CEB800E47090 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -621,6 +700,7 @@
 				4317BD491A7F8C900054D32D /* LRLicenseEncode */,
 				4317BD5C1A7F91E70054D32D /* LRLicenseVerify */,
 				4317BD6E1A7F92850054D32D /* LRLicenseCollision */,
+				43D2097D1A811B0200D47F2B /* LRLicenseBloomAdd */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -768,6 +848,7 @@
 				439A76B515B28F8C00E50057 /* LicenseCodeWindowController.xib */,
 				43C3D04C15B37B1500BCD2E8 /* LicenseManager.h */,
 				43C3D04D15B37B1500BCD2E8 /* LicenseManager.m */,
+				43D209781A81194000D47F2B /* licensing_config.h */,
 				4317BD291A7F57AB0054D32D /* licensing_core.h */,
 				4317BD281A7F57AB0054D32D /* licensing_core.c */,
 				43D209661A80FFD200D47F2B /* licensing_check.h */,
@@ -786,7 +867,8 @@
 			isa = PBXGroup;
 			children = (
 				43D2096C1A81142B00D47F2B /* LRLicenseCollision.c */,
-				43D2096D1A81142B00D47F2B /* LRLicenseEncode.c */,
+				43D2096D1A81142B00D47F2B /* LRLicenseBloomEncode.c */,
+				43D209741A8115E600D47F2B /* LRLicenseBloomAdd.c */,
 				43D2096E1A81142B00D47F2B /* LRLicenseGen.c */,
 				43D2096F1A81142B00D47F2B /* LRLicenseVerify.c */,
 			);
@@ -1164,9 +1246,9 @@
 			productReference = 4317BD311A7F58250054D32D /* LRLicenseGen */;
 			productType = "com.apple.product-type.tool";
 		};
-		4317BD481A7F8C900054D32D /* LRLicenseEncode */ = {
+		4317BD481A7F8C900054D32D /* LRLicenseBloomEncode */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4317BD4D1A7F8C900054D32D /* Build configuration list for PBXNativeTarget "LRLicenseEncode" */;
+			buildConfigurationList = 4317BD4D1A7F8C900054D32D /* Build configuration list for PBXNativeTarget "LRLicenseBloomEncode" */;
 			buildPhases = (
 				4317BD451A7F8C900054D32D /* Sources */,
 				4317BD461A7F8C900054D32D /* Frameworks */,
@@ -1176,7 +1258,7 @@
 			);
 			dependencies = (
 			);
-			name = LRLicenseEncode;
+			name = LRLicenseBloomEncode;
 			productName = LRLicenseEncode;
 			productReference = 4317BD491A7F8C900054D32D /* LRLicenseEncode */;
 			productType = "com.apple.product-type.tool";
@@ -1213,6 +1295,23 @@
 			name = LRLicenseCollision;
 			productName = LRLicenseCollision;
 			productReference = 4317BD6E1A7F92850054D32D /* LRLicenseCollision */;
+			productType = "com.apple.product-type.tool";
+		};
+		43D2097C1A811B0200D47F2B /* LRLicenseBloomAdd */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 43D209811A811B0200D47F2B /* Build configuration list for PBXNativeTarget "LRLicenseBloomAdd" */;
+			buildPhases = (
+				43D209791A811B0200D47F2B /* Sources */,
+				43D2097A1A811B0200D47F2B /* Frameworks */,
+				43D2097B1A811B0200D47F2B /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LRLicenseBloomAdd;
+			productName = LRLicenseBloomAdd;
+			productReference = 43D2097D1A811B0200D47F2B /* LRLicenseBloomAdd */;
 			productType = "com.apple.product-type.tool";
 		};
 		8D1107260486CEB800E47090 /* LiveReload */ = {
@@ -1255,6 +1354,12 @@
 					4317BD6D1A7F92850054D32D = {
 						CreatedOnToolsVersion = 6.1.1;
 					};
+					43D2097C1A811B0200D47F2B = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					43D209861A811B6700D47F2B = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
 				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "LiveReload" */;
@@ -1273,9 +1378,11 @@
 			targets = (
 				8D1107260486CEB800E47090 /* LiveReload */,
 				4317BD301A7F58250054D32D /* LRLicenseGen */,
-				4317BD481A7F8C900054D32D /* LRLicenseEncode */,
+				4317BD481A7F8C900054D32D /* LRLicenseBloomEncode */,
+				43D2097C1A811B0200D47F2B /* LRLicenseBloomAdd */,
 				4317BD5B1A7F91E70054D32D /* LRLicenseVerify */,
 				4317BD6D1A7F92850054D32D /* LRLicenseCollision */,
+				43D209861A811B6700D47F2B /* LicensingTools */,
 			);
 		};
 /* End PBXProject section */
@@ -1381,7 +1488,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4317BD531A7F8CC20054D32D /* bloom.c in Sources */,
-				43D209711A81143600D47F2B /* LRLicenseEncode.c in Sources */,
+				43D209711A81143600D47F2B /* LRLicenseBloomEncode.c in Sources */,
 				4317BD521A7F8CBF0054D32D /* licensing_core.c in Sources */,
 				4317BD541A7F8CC40054D32D /* hex.c in Sources */,
 			);
@@ -1407,6 +1514,17 @@
 				4317BD791A7F92980054D32D /* licensing_core.c in Sources */,
 				43D209701A81143300D47F2B /* LRLicenseCollision.c in Sources */,
 				4317BD771A7F92940054D32D /* bloom.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		43D209791A811B0200D47F2B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				43D209961A811BA600D47F2B /* hex.c in Sources */,
+				43D209971A811BCD00D47F2B /* licensing_core.c in Sources */,
+				43D209851A811B0F00D47F2B /* LRLicenseBloomAdd.c in Sources */,
+				43D209951A811BA300D47F2B /* bloom.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1529,6 +1647,34 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		43D2098C1A811B6F00D47F2B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4317BD301A7F58250054D32D /* LRLicenseGen */;
+			targetProxy = 43D2098B1A811B6F00D47F2B /* PBXContainerItemProxy */;
+		};
+		43D2098E1A811B6F00D47F2B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4317BD481A7F8C900054D32D /* LRLicenseBloomEncode */;
+			targetProxy = 43D2098D1A811B6F00D47F2B /* PBXContainerItemProxy */;
+		};
+		43D209901A811B6F00D47F2B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 43D2097C1A811B0200D47F2B /* LRLicenseBloomAdd */;
+			targetProxy = 43D2098F1A811B6F00D47F2B /* PBXContainerItemProxy */;
+		};
+		43D209921A811B6F00D47F2B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4317BD5B1A7F91E70054D32D /* LRLicenseVerify */;
+			targetProxy = 43D209911A811B6F00D47F2B /* PBXContainerItemProxy */;
+		};
+		43D209941A811B6F00D47F2B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4317BD6D1A7F92850054D32D /* LRLicenseCollision */;
+			targetProxy = 43D209931A811B6F00D47F2B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
@@ -1962,6 +2108,130 @@
 			};
 			name = AppStore;
 		};
+		43D209821A811B0200D47F2B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		43D209831A811B0200D47F2B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		43D209841A811B0200D47F2B /* AppStore */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = AppStore;
+		};
+		43D209881A811B6700D47F2B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		43D209891A811B6700D47F2B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		43D2098A1A811B6700D47F2B /* AppStore */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = AppStore;
+		};
 		43D28C60147D30E900606069 /* AppStore */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2118,7 +2388,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4317BD4D1A7F8C900054D32D /* Build configuration list for PBXNativeTarget "LRLicenseEncode" */ = {
+		4317BD4D1A7F8C900054D32D /* Build configuration list for PBXNativeTarget "LRLicenseBloomEncode" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4317BD4E1A7F8C900054D32D /* Debug */,
@@ -2147,6 +2417,24 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		43D209811A811B0200D47F2B /* Build configuration list for PBXNativeTarget "LRLicenseBloomAdd" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				43D209821A811B0200D47F2B /* Debug */,
+				43D209831A811B0200D47F2B /* Release */,
+				43D209841A811B0200D47F2B /* AppStore */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		43D209871A811B6700D47F2B /* Build configuration list for PBXAggregateTarget "LicensingTools" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				43D209881A811B6700D47F2B /* Debug */,
+				43D209891A811B6700D47F2B /* Release */,
+				43D2098A1A811B6700D47F2B /* AppStore */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "LiveReload" */ = {
 			isa = XCConfigurationList;
