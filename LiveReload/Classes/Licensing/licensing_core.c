@@ -57,7 +57,17 @@ bool licensing_reformat(char *output /* [kLicenseCodeBufLen] */, const char *inp
     }
     
     size_t len = strlen(raw);
-    if (len == kLicenseCodeLegacyTotalLength) {
+    bool legacy;
+    
+    if (len == kLicenseCodeTotalLength) {
+        legacy = false;
+    } else if (((len >= 3 && licensing_parse_version(raw[2]) == LicenseVersionInvalid) || (len >= 4 && licensing_parse_type(raw[3]) == LicenseTypeInvalid)) && (len <= kLicenseCodeLegacyTotalLength)) {
+        legacy = true;
+    } else {
+        legacy = false;
+    }
+    
+    if (legacy) {
         return licensing_reformat_specific(output, raw, true, kLicenseCodeLegacyPrefixLength, kLicenseCodeDashGroupLength);
     } else {
         return licensing_reformat_specific(output, raw, true, kLicenseCodePrefixLength, kLicenseCodeDashGroupLength);
@@ -96,4 +106,25 @@ void licensing_generate(char *output /* [kLicenseCodeBufLen] */, LicenseVersion 
     
     bool ok = licensing_reformat(output, raw);
     assert(ok);
+}
+
+LicenseVersion licensing_parse_version(char ch) {
+    switch (ch) {
+        case (char)LicenseVersion2:
+        case (char)LicenseVersion3:
+            return (LicenseVersion)ch;
+        default:
+            return LicenseVersionInvalid;
+    };
+}
+
+LicenseType licensing_parse_type(char ch) {
+    switch (ch) {
+        case (char)LicenseTypeIndividual:
+        case (char)LicenseTypeBusiness:
+        case (char)LicenseTypeBusinessUnlimited:
+            return (LicenseType)ch;
+        default:
+            return LicenseTypeInvalid;
+    };
 }

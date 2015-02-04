@@ -15,6 +15,7 @@
     IBOutlet NSTextField *licenseCodeField;
     IBOutlet NSTextField *licenseStatusLabel;
     IBOutlet NSTextField *additionalStatusLabel;
+    IBOutlet NSProgressIndicator *progressIndicator;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -27,6 +28,12 @@
 - (void)loadView {
     [super loadView];
     [self updateAll];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateAll) name:LicenseManagerStatusDidChangeNotification object:nil];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [super dealloc];
 }
 
 - (void)verifyLicenseCode {
@@ -54,12 +61,18 @@
 - (void)updateStatus {
     NSString *status1 = @"";
     NSString *status2 = @"";
+    BOOL progress = NO;
     switch (LicenseManagerGetCodeStatus()) {
         case LicenseManagerCodeStatusNotRequired:
             status1 = @"✔ Licensed via the Mac App Store.";
             [[licenseCodeField cell] setPlaceholderString:@"No license code required."];
             break;
         case LicenseManagerCodeStatusNotEntered:
+            break;
+        case LicenseManagerCodeStatusValidating:
+            status1 = @"     Validating...";
+            status2 = @"";
+            progress = YES;
             break;
         case LicenseManagerCodeStatusAcceptedIndividual:
             status1 = @"✔ Individual license accepted.";
@@ -92,6 +105,11 @@
     }
     licenseStatusLabel.stringValue = status1;
     additionalStatusLabel.stringValue = status2;
+    if (progress) {
+        [progressIndicator startAnimation:nil];
+    } else {
+        [progressIndicator stopAnimation:nil];
+    }
 }
 
 @end

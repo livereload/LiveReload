@@ -12,8 +12,22 @@
 NSString *const LicenseManagerStatusDidChangeNotification = @"LicenseManagerStatusDidChangeNotification";
 
 
+static LicenseManagerCodeStatus _status;
+static LicenseType _type;
+static LicenseVersion _version;
+static BOOL _validating;
+static BOOL _validationRequested;
+
+
+static void LicenseManagerRevalidateCode();
+static LicenseManagerCodeStatus LicenseManagerValidateCodeSync(NSString *code);
+
+
 void LicenseManagerStartup() {
     MASReceiptStartup();
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        LicenseManagerRevalidateCode();
+    });
 }
 
 BOOL LicenseManagerShouldDisplayLicensingUI() {
@@ -67,16 +81,53 @@ NSString *LicenseManagerGetLicenseCode() {
 void LicenseManagerSetLicenseCode(NSString *licenseCode) {
     [[NSUserDefaults standardUserDefaults] setObject:LicenseManagerCleanLicenseCode(licenseCode) forKey:LicenseManagerLicenseCodePreferencesKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    [[NSNotificationCenter defaultCenter] postNotificationName:LicenseManagerStatusDidChangeNotification object:nil];
+    LicenseManagerRevalidateCode();
 }
 
 LicenseManagerCodeStatus LicenseManagerGetCodeStatus() {
+    return _status;
+}
+
+static void LicenseManagerRevalidateCode() {
+    if (_validationRequested) {
+        return;
+    }
+    if (_validating) {
+        _validationRequested = YES;
+        return;
+    }
+    
+    NSString *code = LicenseManagerGetLicenseCode();
+    
+    _validating = YES;
+    
+    if (licensing_is_well_formed([code UTF8String], NULL, NULL)) {
+        _status = LicenseManagerCodeStatusValidating;
+        [[NSNotificationCenter defaultCenter] postNotificationName:LicenseManagerStatusDidChangeNotification object:nil];
+    }
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        LicenseManagerCodeStatus status = LicenseManagerValidateCodeSync(code);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            _validating = NO;
+            _status = status;
+            
+            if (_validationRequested) {
+                _validationRequested = NO;
+                LicenseManagerRevalidateCode();
+            } else {
+                [[NSNotificationCenter defaultCenter] postNotificationName:LicenseManagerStatusDidChangeNotification object:nil];
+            }
+        });
+    });
+}
+
+static LicenseManagerCodeStatus LicenseManagerValidateCodeSync(NSString *code) {
     if (!LicenseManagerShouldDisplayLicensingUI())
         return LicenseManagerCodeStatusNotRequired;
     if (MASReceiptIsAuthenticated())
         return LicenseManagerCodeStatusNotRequired;
 
-    NSString *code = LicenseManagerGetLicenseCode();
     if (code.length == 0)
         return LicenseManagerCodeStatusNotEntered;
     

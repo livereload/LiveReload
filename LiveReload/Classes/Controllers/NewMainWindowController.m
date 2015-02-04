@@ -846,6 +846,9 @@ void C_mainwnd__set_change_count(json_t *arg) {
                 break;
             case LicenseManagerCodeStatusNotEntered:
                 break;
+            case LicenseManagerCodeStatusValidating:
+                licenseStatus = @"Validating license...";
+                break;
             case LicenseManagerCodeStatusAcceptedIndividual:
                 licenseStatus = @"Individual license";
                 break;

@@ -7,6 +7,7 @@
 typedef enum {
     LicenseManagerCodeStatusNotRequired,
     LicenseManagerCodeStatusNotEntered,
+    LicenseManagerCodeStatusValidating,
     LicenseManagerCodeStatusAcceptedIndividual,
     LicenseManagerCodeStatusAcceptedBusiness,
     LicenseManagerCodeStatusAcceptedBusinessUnlimited,

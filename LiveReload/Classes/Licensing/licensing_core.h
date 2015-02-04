@@ -46,4 +46,7 @@ void licensing_generate(char *output /* [kLicenseCodeBufLen] */, LicenseVersion 
 bool licensing_reformat_without_dashes(char *output /* [kLicenseCodeBufLen] */, const char *input);
 bool licensing_reformat(char *output /* [kLicenseCodeBufLen] */, const char *input);
 
+LicenseVersion licensing_parse_version(char ch);
+LicenseType licensing_parse_type(char ch);
+
 #endif /* defined(__LiveReload__licensing_core__) */

@@ -10,10 +10,8 @@
 
 static bool licensing_check_syntax_legacy(const char *raw, LicenseVersion *version, LicenseType *type);
 static bool licensing_check_syntax(const char *raw, LicenseVersion *version, LicenseType *type);
-static LicenseVersion licensing_parse_version(char ch);
-static LicenseType licensing_parse_type(char ch);
 
-LicenseCheckResult licensing_check(const char *input, LicenseVersion *version, LicenseType *type) {
+static LicenseCheckResult _licensing_check(const char *input, LicenseVersion *version, LicenseType *type, bool fast) {
     if (version) {
         *version = LicenseVersionInvalid;
     }
@@ -46,11 +44,23 @@ LicenseCheckResult licensing_check(const char *input, LicenseVersion *version, L
         return LicenseCheckResultInvalid;
     }
     
+    if (fast) {
+        return LicenseCheckResultValid;
+    }
+    
     if (bloom_check(LicensingBloomFilter_bits, LicensingBloomFilter_hashes, LicensingBloomFilter_data, raw, len)) {
         return LicenseCheckResultValid;
     } else {
         return LicenseCheckResultInvalidButWellFormed;
     }
+}
+
+LicenseCheckResult licensing_check(const char *input, LicenseVersion *version, LicenseType *type) {
+    return _licensing_check(input, version, type, false);
+}
+
+bool licensing_is_well_formed(const char *input, LicenseVersion *version, LicenseType *type) {
+    return _licensing_check(input, version, type, true) == LicenseCheckResultValid;
 }
 
 static bool licensing_check_syntax_legacy(const char *raw, LicenseVersion *version, LicenseType *type) {
@@ -127,25 +137,4 @@ static bool licensing_check_syntax(const char *raw, LicenseVersion *version, Lic
     } else {
         return false;
     }
-}
-
-static LicenseVersion licensing_parse_version(char ch) {
-    switch (ch) {
-        case (char)LicenseVersion2:
-        case (char)LicenseVersion3:
-            return (LicenseVersion)ch;
-        default:
-            return LicenseVersionInvalid;
-    };
-}
-
-static LicenseType licensing_parse_type(char ch) {
-    switch (ch) {
-        case (char)LicenseTypeIndividual:
-        case (char)LicenseTypeBusiness:
-        case (char)LicenseTypeBusinessUnlimited:
-            return (LicenseType)ch;
-        default:
-            return LicenseTypeInvalid;
-    };
 }
