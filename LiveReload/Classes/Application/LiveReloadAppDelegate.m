@@ -28,6 +28,7 @@
 
 #import <Paddle/Paddle.h>
 #import <Paddle/PaddleAnalyticsKit.h>
+#import <ParseOSX/Parse.h>
 
 
 void C_mainwnd__set_project_list(json_t *arg) {
@@ -104,6 +105,10 @@ void C_app__good_time_to_deliver_news(json_t *arg) {
     [paddle setProductId:@"497612"];
     [paddle setVendorId:@"128"];
     [paddle setApiKey:@"c125288cc41c57b7e47ba5a63797328b"];
+    
+    [Parse setApplicationId:@"gUXVcl38ni3258sQfWdErdNuxF9ZC1yEY1pTIpPv" clientKey:@"4r10RsuIL34gtSdfebXTWOJPrIbSL3kC7xn41sIf"];
+    [PFAnalytics trackAppOpenedWithLaunchOptions:nil];
+    // [PFAnalytics trackEvent:@"read" dimensions:dimensions];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
