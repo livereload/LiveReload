@@ -26,6 +26,9 @@
 #import "Sparkle/Sparkle.h"
 #endif
 
+#import <Paddle/Paddle.h>
+#import <Paddle/PaddleAnalyticsKit.h>
+
 
 void C_mainwnd__set_project_list(json_t *arg) {
     // TODO
@@ -97,6 +100,10 @@ void C_app__good_time_to_deliver_news(json_t *arg) {
 }
 
 - (void)applicationWillFinishLaunching:(NSNotification *)notification {
+    Paddle *paddle = [Paddle sharedInstance];
+    [paddle setProductId:@"497612"];
+    [paddle setVendorId:@"128"];
+    [paddle setApiKey:@"c125288cc41c57b7e47ba5a63797328b"];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
