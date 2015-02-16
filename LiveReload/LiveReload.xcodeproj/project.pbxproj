@@ -110,6 +110,13 @@
 		436A65341A923C9600335BAD /* Paddle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 436A65321A923B9E00335BAD /* Paddle.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		436A65371A923DA400335BAD /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65351A923DA400335BAD /* Bolts.framework */; };
 		436A65381A923DA500335BAD /* ParseOSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65361A923DA400335BAD /* ParseOSX.framework */; };
+		436A653A1A923DC100335BAD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65391A923DC100335BAD /* CFNetwork.framework */; };
+		436A653C1A923DCB00335BAD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A653B1A923DCB00335BAD /* CoreGraphics.framework */; };
+		436A653E1A923DD000335BAD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A653D1A923DD000335BAD /* CoreLocation.framework */; };
+		436A65401A923DDB00335BAD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A653F1A923DDB00335BAD /* Security.framework */; };
+		436A65421A923DE500335BAD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65411A923DE500335BAD /* SystemConfiguration.framework */; };
+		436A65441A923DED00335BAD /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65431A923DED00335BAD /* libsqlite3.dylib */; };
+		436A65461A923DF200335BAD /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65451A923DF200335BAD /* libz.dylib */; };
 		43719FD41565FE5F004B0E0C /* backend in Resources */ = {isa = PBXBuildFile; fileRef = 43719FD31565FE5F004B0E0C /* backend */; };
 		4376A0E2146DF1C800338AD4 /* TitleBarHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */; };
 		4378C8D11515205C003187D5 /* OldFSMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CA1515205C003187D5 /* OldFSMonitor.m */; };
@@ -442,6 +449,13 @@
 		436A65321A923B9E00335BAD /* Paddle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Paddle.framework; path = Vendor/Paddle/Paddle.framework; sourceTree = "<group>"; };
 		436A65351A923DA400335BAD /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = Vendor/Bolts.framework; sourceTree = "<group>"; };
 		436A65361A923DA400335BAD /* ParseOSX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseOSX.framework; path = Vendor/ParseOSX.framework; sourceTree = "<group>"; };
+		436A65391A923DC100335BAD /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		436A653B1A923DCB00335BAD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		436A653D1A923DD000335BAD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		436A653F1A923DDB00335BAD /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		436A65411A923DE500335BAD /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		436A65431A923DED00335BAD /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		436A65451A923DF200335BAD /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		43719FD31565FE5F004B0E0C /* backend */ = {isa = PBXFileReference; lastKnownFileType = folder; name = backend; path = ../interim/backend; sourceTree = "<group>"; };
 		4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TitleBarHelpTemplate.png; sourceTree = "<group>"; };
 		4378C8C91515205C003187D5 /* OldFSMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldFSMonitor.h; sourceTree = "<group>"; };
@@ -668,6 +682,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				436A65461A923DF200335BAD /* libz.dylib in Frameworks */,
+				436A65441A923DED00335BAD /* libsqlite3.dylib in Frameworks */,
+				436A65421A923DE500335BAD /* SystemConfiguration.framework in Frameworks */,
+				436A65401A923DDB00335BAD /* Security.framework in Frameworks */,
+				436A653E1A923DD000335BAD /* CoreLocation.framework in Frameworks */,
+				436A653C1A923DCB00335BAD /* CoreGraphics.framework in Frameworks */,
+				436A653A1A923DC100335BAD /* CFNetwork.framework in Frameworks */,
 				43059222151E8FA400CC3F88 /* CoreServices.framework in Frameworks */,
 				43594AF413D3BB34004175B2 /* QuartzCore.framework in Frameworks */,
 				43361D4613C30D1400C0E589 /* libicucore.dylib in Frameworks */,
@@ -760,6 +781,13 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				436A65451A923DF200335BAD /* libz.dylib */,
+				436A65431A923DED00335BAD /* libsqlite3.dylib */,
+				436A65411A923DE500335BAD /* SystemConfiguration.framework */,
+				436A653F1A923DDB00335BAD /* Security.framework */,
+				436A653D1A923DD000335BAD /* CoreLocation.framework */,
+				436A653B1A923DCB00335BAD /* CoreGraphics.framework */,
+				436A65391A923DC100335BAD /* CFNetwork.framework */,
 				436A65351A923DA400335BAD /* Bolts.framework */,
 				436A65361A923DA400335BAD /* ParseOSX.framework */,
 				436A65321A923B9E00335BAD /* Paddle.framework */,
