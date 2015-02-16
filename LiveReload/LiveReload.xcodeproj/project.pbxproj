@@ -120,6 +120,8 @@
 		436A65471A923E2000335BAD /* Bolts.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 436A65351A923DA400335BAD /* Bolts.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		436A65481A923E2800335BAD /* ParseOSX.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 436A65361A923DA400335BAD /* ParseOSX.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		436A654A1A923FA900335BAD /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65491A923FA900335BAD /* ApplicationServices.framework */; };
+		436A654D1A92454900335BAD /* Analytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 436A654C1A92454900335BAD /* Analytics.m */; };
+		436A65501A92470400335BAD /* Analytics+SpecificEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 436A654F1A92470400335BAD /* Analytics+SpecificEvents.m */; };
 		43719FD41565FE5F004B0E0C /* backend in Resources */ = {isa = PBXBuildFile; fileRef = 43719FD31565FE5F004B0E0C /* backend */; };
 		4376A0E2146DF1C800338AD4 /* TitleBarHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */; };
 		4378C8D11515205C003187D5 /* OldFSMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CA1515205C003187D5 /* OldFSMonitor.m */; };
@@ -462,6 +464,10 @@
 		436A65431A923DED00335BAD /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		436A65451A923DF200335BAD /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		436A65491A923FA900335BAD /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
+		436A654B1A92454900335BAD /* Analytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Analytics.h; sourceTree = "<group>"; };
+		436A654C1A92454900335BAD /* Analytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Analytics.m; sourceTree = "<group>"; };
+		436A654E1A92470400335BAD /* Analytics+SpecificEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Analytics+SpecificEvents.h"; sourceTree = "<group>"; };
+		436A654F1A92470400335BAD /* Analytics+SpecificEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Analytics+SpecificEvents.m"; sourceTree = "<group>"; };
 		43719FD31565FE5F004B0E0C /* backend */ = {isa = PBXFileReference; lastKnownFileType = folder; name = backend; path = ../interim/backend; sourceTree = "<group>"; };
 		4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TitleBarHelpTemplate.png; sourceTree = "<group>"; };
 		4378C8C91515205C003187D5 /* OldFSMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldFSMonitor.h; sourceTree = "<group>"; };
@@ -999,6 +1005,10 @@
 				434DB81E1514F71400C62042 /* version.h */,
 				43059207151DF2DE00CC3F88 /* MASReceipt.h */,
 				43059208151DF2DE00CC3F88 /* MASReceipt.m */,
+				436A654B1A92454900335BAD /* Analytics.h */,
+				436A654C1A92454900335BAD /* Analytics.m */,
+				436A654E1A92470400335BAD /* Analytics+SpecificEvents.h */,
+				436A654F1A92470400335BAD /* Analytics+SpecificEvents.m */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -1595,6 +1605,7 @@
 				823DDEE013F8DA3100529AD2 /* EditorManager.m in Sources */,
 				823DDEE113F8DA3100529AD2 /* EspressoEditor.m in Sources */,
 				823DDEE213F8DA3100529AD2 /* SubEthaEditEditor.m in Sources */,
+				436A65501A92470400335BAD /* Analytics+SpecificEvents.m in Sources */,
 				823DDEE313F8DA3100529AD2 /* SublimeText2Editor.m in Sources */,
 				823DDEE413F8DA3100529AD2 /* TextMateEditor.m in Sources */,
 				823DDEE513F8DA3100529AD2 /* NSObject+JSON.m in Sources */,
@@ -1612,6 +1623,7 @@
 				823DDEF113F8DA3100529AD2 /* Project.m in Sources */,
 				823DDEF213F8DA3100529AD2 /* Workspace.m in Sources */,
 				823DDEF713F8DA3100529AD2 /* Compiler.m in Sources */,
+				436A654D1A92454900335BAD /* Analytics.m in Sources */,
 				823DDEF813F8DA3100529AD2 /* CompilerVersion.m in Sources */,
 				823DDEF913F8DA3100529AD2 /* Plugin.m in Sources */,
 				4317BD3D1A7F6AB80054D32D /* bloom.c in Sources */,
