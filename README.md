@@ -33,6 +33,7 @@ Build process:
     * Run `rake mac:release` to produce and zip a build
     * Give it a bit of testing
     * Run `rake mac:tag mac:upload` to tag a successful build and publish it on download.livereload.com
+    * Run `rake mac:publish` to add the version to the web site's data (then rebuild and publish the web site)
 
 
 Hacking tips
