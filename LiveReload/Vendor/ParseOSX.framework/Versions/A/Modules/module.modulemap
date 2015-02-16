@@ -1,0 +1,6 @@
+framework module ParseOSX {
+  umbrella header "ParseOSX.h"
+
+  export *
+  module * { export * }
+}
