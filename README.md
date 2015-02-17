@@ -60,6 +60,20 @@ To re-sign the Node.js binary:
     codesign -f -s "3rd Party Mac Developer Application: Andrey Tarantsov" --identifier 'com.livereload.LiveReload.tools.nodejs' --entitlements LiveReload/Resources/LiveReloadNodejs.entitlements LiveReload/Resources/LiveReloadNodejs
 
 
+Subprojects
+-----------
+
+* [ATCocoaLabs](https://github.com/andreyvit/ATCocoaLabs/)
+
+Setting up [git-subdir](https://github.com/andreyvit/git-subdir/):
+
+    git subdir ATCocoaLabs --url git@github.com:andreyvit/ATCocoaLabs.git
+
+Sync:
+
+    git subdir
+    git subdir -S
+
 
 AppNewsKit
 ==========

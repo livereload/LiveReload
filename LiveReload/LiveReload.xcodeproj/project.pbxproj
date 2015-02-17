@@ -122,7 +122,6 @@
 		436A654A1A923FA900335BAD /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65491A923FA900335BAD /* ApplicationServices.framework */; };
 		436A654D1A92454900335BAD /* Analytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 436A654C1A92454900335BAD /* Analytics.m */; };
 		436A65501A92470400335BAD /* Analytics+SpecificEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 436A654F1A92470400335BAD /* Analytics+SpecificEvents.m */; };
-		436A65C91A932E5000335BAD /* ATAnalyticsCommons.framework in Embed Internal Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65B11A932CD000335BAD /* ATAnalyticsCommons.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		43719FD41565FE5F004B0E0C /* backend in Resources */ = {isa = PBXBuildFile; fileRef = 43719FD31565FE5F004B0E0C /* backend */; };
 		4376A0E2146DF1C800338AD4 /* TitleBarHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */; };
 		4378C8D11515205C003187D5 /* OldFSMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CA1515205C003187D5 /* OldFSMonitor.m */; };
@@ -138,6 +137,7 @@
 		439C093313ADCBDD00119233 /* monitoring.plist in Resources */ = {isa = PBXBuildFile; fileRef = 439C093213ADCBDD00119233 /* monitoring.plist */; };
 		43C0368613CA191D00A01305 /* LiveReload.icns in Resources */ = {isa = PBXBuildFile; fileRef = 43C0368513CA191C00A01305 /* LiveReload.icns */; };
 		43C3D04E15B37B1500BCD2E8 /* LicenseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C3D04D15B37B1500BCD2E8 /* LicenseManager.m */; };
+		43D04E621A93413700881EBA /* ATCocoaLabs.framework in Embed Internal Frameworks */ = {isa = PBXBuildFile; fileRef = 43D04E5D1A93412400881EBA /* ATCocoaLabs.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		43D209691A810D5500D47F2B /* licensing_check.c in Sources */ = {isa = PBXBuildFile; fileRef = 43D209651A80FFD200D47F2B /* licensing_check.c */; };
 		43D2096A1A810D5700D47F2B /* licensing_check.c in Sources */ = {isa = PBXBuildFile; fileRef = 43D209651A80FFD200D47F2B /* licensing_check.c */; };
 		43D209701A81143300D47F2B /* LRLicenseCollision.c in Sources */ = {isa = PBXBuildFile; fileRef = 43D2096C1A81142B00D47F2B /* LRLicenseCollision.c */; };
@@ -241,26 +241,26 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		436A65B01A932CD000335BAD /* PBXContainerItemProxy */ = {
+		43D04E5C1A93412400881EBA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 436A65AB1A932CCE00335BAD /* ATAnalyticsCommons.xcodeproj */;
+			containerPortal = 43D04E571A93412300881EBA /* ATCocoaLabs.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 436A658F1A932CCE00335BAD;
-			remoteInfo = ATAnalyticsCommons;
+			remoteGlobalIDString = 43D04DBE1A9338B600881EBA;
+			remoteInfo = ATCocoaLabs;
 		};
-		436A65B21A932CD000335BAD /* PBXContainerItemProxy */ = {
+		43D04E5E1A93412400881EBA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 436A65AB1A932CCE00335BAD /* ATAnalyticsCommons.xcodeproj */;
+			containerPortal = 43D04E571A93412300881EBA /* ATCocoaLabs.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 436A659A1A932CCE00335BAD;
-			remoteInfo = ATAnalyticsCommonsTests;
+			remoteGlobalIDString = 43D04DC91A9338B600881EBA;
+			remoteInfo = ATCocoaLabsTests;
 		};
-		43D04DB21A932EE700881EBA /* PBXContainerItemProxy */ = {
+		43D04E601A93412F00881EBA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 436A65AB1A932CCE00335BAD /* ATAnalyticsCommons.xcodeproj */;
+			containerPortal = 43D04E571A93412300881EBA /* ATCocoaLabs.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 436A658E1A932CCE00335BAD;
-			remoteInfo = ATAnalyticsCommons;
+			remoteGlobalIDString = 43D04DBD1A9338B600881EBA;
+			remoteInfo = ATCocoaLabs;
 		};
 		43D2098B1A811B6F00D47F2B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -356,7 +356,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				436A65C91A932E5000335BAD /* ATAnalyticsCommons.framework in Embed Internal Frameworks */,
+				43D04E621A93413700881EBA /* ATCocoaLabs.framework in Embed Internal Frameworks */,
 			);
 			name = "Embed Internal Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -502,7 +502,6 @@
 		436A654C1A92454900335BAD /* Analytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Analytics.m; sourceTree = "<group>"; };
 		436A654E1A92470400335BAD /* Analytics+SpecificEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Analytics+SpecificEvents.h"; sourceTree = "<group>"; };
 		436A654F1A92470400335BAD /* Analytics+SpecificEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Analytics+SpecificEvents.m"; sourceTree = "<group>"; };
-		436A65AB1A932CCE00335BAD /* ATAnalyticsCommons.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ATAnalyticsCommons.xcodeproj; path = ATAnalyticsCommons/ATAnalyticsCommons.xcodeproj; sourceTree = "<group>"; };
 		43719FD31565FE5F004B0E0C /* backend */ = {isa = PBXFileReference; lastKnownFileType = folder; name = backend; path = ../interim/backend; sourceTree = "<group>"; };
 		4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TitleBarHelpTemplate.png; sourceTree = "<group>"; };
 		4378C8C91515205C003187D5 /* OldFSMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldFSMonitor.h; sourceTree = "<group>"; };
@@ -526,6 +525,7 @@
 		43C0368513CA191C00A01305 /* LiveReload.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LiveReload.icns; sourceTree = "<group>"; };
 		43C3D04C15B37B1500BCD2E8 /* LicenseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LicenseManager.h; sourceTree = "<group>"; };
 		43C3D04D15B37B1500BCD2E8 /* LicenseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LicenseManager.m; sourceTree = "<group>"; };
+		43D04E571A93412300881EBA /* ATCocoaLabs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ATCocoaLabs.xcodeproj; path = ../ATCocoaLabs/ATCocoaLabs.xcodeproj; sourceTree = "<group>"; };
 		43D209651A80FFD200D47F2B /* licensing_check.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = licensing_check.c; sourceTree = "<group>"; };
 		43D209661A80FFD200D47F2B /* licensing_check.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = licensing_check.h; sourceTree = "<group>"; };
 		43D2096C1A81142B00D47F2B /* LRLicenseCollision.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = LRLicenseCollision.c; sourceTree = "<group>"; };
@@ -788,7 +788,7 @@
 		29B97314FDCFA39411CA2CEA /* LiveReload */ = {
 			isa = PBXGroup;
 			children = (
-				436A65AB1A932CCE00335BAD /* ATAnalyticsCommons.xcodeproj */,
+				43D04E571A93412300881EBA /* ATCocoaLabs.xcodeproj */,
 				43059221151E8FA400CC3F88 /* CoreServices.framework */,
 				823DDE2D13F8DA3100529AD2 /* Classes */,
 				43C0368513CA191C00A01305 /* LiveReload.icns */,
@@ -929,15 +929,6 @@
 			path = src;
 			sourceTree = "<group>";
 		};
-		436A65AC1A932CCE00335BAD /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				436A65B11A932CD000335BAD /* ATAnalyticsCommons.framework */,
-				436A65B31A932CD000335BAD /* ATAnalyticsCommonsTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		439A76AB15B28D9000E50057 /* Licensing */ = {
 			isa = PBXGroup;
 			children = (
@@ -962,6 +953,15 @@
 				43D2096B1A81140200D47F2B /* Tools */,
 			);
 			path = Licensing;
+			sourceTree = "<group>";
+		};
+		43D04E581A93412300881EBA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				43D04E5D1A93412400881EBA /* ATCocoaLabs.framework */,
+				43D04E5F1A93412400881EBA /* ATCocoaLabsTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		43D2096B1A81140200D47F2B /* Tools */ = {
@@ -1433,7 +1433,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				43D04DB31A932EE700881EBA /* PBXTargetDependency */,
+				43D04E611A93412F00881EBA /* PBXTargetDependency */,
 			);
 			name = LiveReload;
 			productInstallPath = "$(HOME)/Applications";
@@ -1483,8 +1483,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 436A65AC1A932CCE00335BAD /* Products */;
-					ProjectRef = 436A65AB1A932CCE00335BAD /* ATAnalyticsCommons.xcodeproj */;
+					ProductGroup = 43D04E581A93412300881EBA /* Products */;
+					ProjectRef = 43D04E571A93412300881EBA /* ATCocoaLabs.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -1501,18 +1501,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		436A65B11A932CD000335BAD /* ATAnalyticsCommons.framework */ = {
+		43D04E5D1A93412400881EBA /* ATCocoaLabs.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			path = ATAnalyticsCommons.framework;
-			remoteRef = 436A65B01A932CD000335BAD /* PBXContainerItemProxy */;
+			path = ATCocoaLabs.framework;
+			remoteRef = 43D04E5C1A93412400881EBA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		436A65B31A932CD000335BAD /* ATAnalyticsCommonsTests.xctest */ = {
+		43D04E5F1A93412400881EBA /* ATCocoaLabsTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = ATAnalyticsCommonsTests.xctest;
-			remoteRef = 436A65B21A932CD000335BAD /* PBXContainerItemProxy */;
+			path = ATCocoaLabsTests.xctest;
+			remoteRef = 43D04E5E1A93412400881EBA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1782,10 +1782,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		43D04DB31A932EE700881EBA /* PBXTargetDependency */ = {
+		43D04E611A93412F00881EBA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = ATAnalyticsCommons;
-			targetProxy = 43D04DB21A932EE700881EBA /* PBXContainerItemProxy */;
+			name = ATCocoaLabs;
+			targetProxy = 43D04E601A93412F00881EBA /* PBXContainerItemProxy */;
 		};
 		43D2098C1A811B6F00D47F2B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
