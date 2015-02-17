@@ -36,7 +36,7 @@
 		43059222151E8FA400CC3F88 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43059221151E8FA400CC3F88 /* CoreServices.framework */; };
 		43059225151E90DE00CC3F88 /* DockIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 43059224151E90DE00CC3F88 /* DockIcon.m */; };
 		430923DB1755C58A00400279 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 430923DA1755C58A00400279 /* Sparkle.framework */; };
-		430923DC1755C5E900400279 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 430923DA1755C58A00400279 /* Sparkle.framework */; };
+		430923DC1755C5E900400279 /* Sparkle.framework in Embed Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 430923DA1755C58A00400279 /* Sparkle.framework */; };
 		4310DE3D146DB588003091D1 /* ToolOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4310DE3C146DB588003091D1 /* ToolOptions.m */; };
 		4310DE40146DB6A0003091D1 /* UIBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4310DE3F146DB6A0003091D1 /* UIBuilder.m */; };
 		43146699146C5D2100DC075A /* ProjectPaneBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 43146698146C5D2100DC075A /* ProjectPaneBackground.png */; };
@@ -107,7 +107,7 @@
 		435BE045141B87920008FF77 /* NewMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 435BE044141B87920008FF77 /* NewMainWindowController.m */; };
 		43693F4115660A8700C453CC /* LiveReloadNodejs in Resources */ = {isa = PBXBuildFile; fileRef = 43693F4015660A8700C453CC /* LiveReloadNodejs */; };
 		436A65331A923B9E00335BAD /* Paddle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65321A923B9E00335BAD /* Paddle.framework */; };
-		436A65341A923C9600335BAD /* Paddle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 436A65321A923B9E00335BAD /* Paddle.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		436A65341A923C9600335BAD /* Paddle.framework in Embed Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65321A923B9E00335BAD /* Paddle.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		436A65371A923DA400335BAD /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65351A923DA400335BAD /* Bolts.framework */; };
 		436A65381A923DA500335BAD /* ParseOSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65361A923DA400335BAD /* ParseOSX.framework */; };
 		436A653A1A923DC100335BAD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65391A923DC100335BAD /* CFNetwork.framework */; };
@@ -117,11 +117,12 @@
 		436A65421A923DE500335BAD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65411A923DE500335BAD /* SystemConfiguration.framework */; };
 		436A65441A923DED00335BAD /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65431A923DED00335BAD /* libsqlite3.dylib */; };
 		436A65461A923DF200335BAD /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65451A923DF200335BAD /* libz.dylib */; };
-		436A65471A923E2000335BAD /* Bolts.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 436A65351A923DA400335BAD /* Bolts.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		436A65481A923E2800335BAD /* ParseOSX.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 436A65361A923DA400335BAD /* ParseOSX.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		436A65471A923E2000335BAD /* Bolts.framework in Embed Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65351A923DA400335BAD /* Bolts.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		436A65481A923E2800335BAD /* ParseOSX.framework in Embed Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65361A923DA400335BAD /* ParseOSX.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		436A654A1A923FA900335BAD /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65491A923FA900335BAD /* ApplicationServices.framework */; };
 		436A654D1A92454900335BAD /* Analytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 436A654C1A92454900335BAD /* Analytics.m */; };
 		436A65501A92470400335BAD /* Analytics+SpecificEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 436A654F1A92470400335BAD /* Analytics+SpecificEvents.m */; };
+		436A65C91A932E5000335BAD /* ATAnalyticsCommons.framework in Embed Internal Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65B11A932CD000335BAD /* ATAnalyticsCommons.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		43719FD41565FE5F004B0E0C /* backend in Resources */ = {isa = PBXBuildFile; fileRef = 43719FD31565FE5F004B0E0C /* backend */; };
 		4376A0E2146DF1C800338AD4 /* TitleBarHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */; };
 		4378C8D11515205C003187D5 /* OldFSMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CA1515205C003187D5 /* OldFSMonitor.m */; };
@@ -240,6 +241,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		436A65B01A932CD000335BAD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 436A65AB1A932CCE00335BAD /* ATAnalyticsCommons.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 436A658F1A932CCE00335BAD;
+			remoteInfo = ATAnalyticsCommons;
+		};
+		436A65B21A932CD000335BAD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 436A65AB1A932CCE00335BAD /* ATAnalyticsCommons.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 436A659A1A932CCE00335BAD;
+			remoteInfo = ATAnalyticsCommonsTests;
+		};
+		43D04DB21A932EE700881EBA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 436A65AB1A932CCE00335BAD /* ATAnalyticsCommons.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 436A658E1A932CCE00335BAD;
+			remoteInfo = ATAnalyticsCommons;
+		};
 		43D2098B1A811B6F00D47F2B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -278,17 +300,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		4303A4BA15B3B450009D732A /* CopyFiles */ = {
+		4303A4BA15B3B450009D732A /* Embed Third-Party Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				436A65481A923E2800335BAD /* ParseOSX.framework in CopyFiles */,
-				436A65471A923E2000335BAD /* Bolts.framework in CopyFiles */,
-				436A65341A923C9600335BAD /* Paddle.framework in CopyFiles */,
-				430923DC1755C5E900400279 /* Sparkle.framework in CopyFiles */,
+				436A65481A923E2800335BAD /* ParseOSX.framework in Embed Third-Party Frameworks */,
+				436A65471A923E2000335BAD /* Bolts.framework in Embed Third-Party Frameworks */,
+				436A65341A923C9600335BAD /* Paddle.framework in Embed Third-Party Frameworks */,
+				430923DC1755C5E900400279 /* Sparkle.framework in Embed Third-Party Frameworks */,
 			);
+			name = "Embed Third-Party Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		4317BD2F1A7F58250054D32D /* CopyFiles */ = {
@@ -326,6 +349,17 @@
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 1;
+		};
+		436A65C81A932E2A00335BAD /* Embed Internal Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				436A65C91A932E5000335BAD /* ATAnalyticsCommons.framework in Embed Internal Frameworks */,
+			);
+			name = "Embed Internal Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 		43D2097B1A811B0200D47F2B /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -468,6 +502,7 @@
 		436A654C1A92454900335BAD /* Analytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Analytics.m; sourceTree = "<group>"; };
 		436A654E1A92470400335BAD /* Analytics+SpecificEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Analytics+SpecificEvents.h"; sourceTree = "<group>"; };
 		436A654F1A92470400335BAD /* Analytics+SpecificEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Analytics+SpecificEvents.m"; sourceTree = "<group>"; };
+		436A65AB1A932CCE00335BAD /* ATAnalyticsCommons.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ATAnalyticsCommons.xcodeproj; path = ATAnalyticsCommons/ATAnalyticsCommons.xcodeproj; sourceTree = "<group>"; };
 		43719FD31565FE5F004B0E0C /* backend */ = {isa = PBXFileReference; lastKnownFileType = folder; name = backend; path = ../interim/backend; sourceTree = "<group>"; };
 		4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TitleBarHelpTemplate.png; sourceTree = "<group>"; };
 		4378C8C91515205C003187D5 /* OldFSMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldFSMonitor.h; sourceTree = "<group>"; };
@@ -753,6 +788,7 @@
 		29B97314FDCFA39411CA2CEA /* LiveReload */ = {
 			isa = PBXGroup;
 			children = (
+				436A65AB1A932CCE00335BAD /* ATAnalyticsCommons.xcodeproj */,
 				43059221151E8FA400CC3F88 /* CoreServices.framework */,
 				823DDE2D13F8DA3100529AD2 /* Classes */,
 				43C0368513CA191C00A01305 /* LiveReload.icns */,
@@ -891,6 +927,15 @@
 				434DB80D1514F58C00C62042 /* fstree_diff.c */,
 			);
 			path = src;
+			sourceTree = "<group>";
+		};
+		436A65AC1A932CCE00335BAD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				436A65B11A932CD000335BAD /* ATAnalyticsCommons.framework */,
+				436A65B31A932CD000335BAD /* ATAnalyticsCommonsTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		439A76AB15B28D9000E50057 /* Licensing */ = {
@@ -1381,12 +1426,14 @@
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
-				4303A4BA15B3B450009D732A /* CopyFiles */,
-				4360444D181983AE00103E14 /* ShellScript */,
+				436A65C81A932E2A00335BAD /* Embed Internal Frameworks */,
+				4303A4BA15B3B450009D732A /* Embed Third-Party Frameworks */,
+				4360444D181983AE00103E14 /* Sign Third-Party Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				43D04DB31A932EE700881EBA /* PBXTargetDependency */,
 			);
 			name = LiveReload;
 			productInstallPath = "$(HOME)/Applications";
@@ -1434,6 +1481,12 @@
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* LiveReload */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 436A65AC1A932CCE00335BAD /* Products */;
+					ProjectRef = 436A65AB1A932CCE00335BAD /* ATAnalyticsCommons.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* LiveReload */,
@@ -1446,6 +1499,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		436A65B11A932CD000335BAD /* ATAnalyticsCommons.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ATAnalyticsCommons.framework;
+			remoteRef = 436A65B01A932CD000335BAD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		436A65B31A932CD000335BAD /* ATAnalyticsCommonsTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ATAnalyticsCommonsTests.xctest;
+			remoteRef = 436A65B21A932CD000335BAD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8D1107290486CEB800E47090 /* Resources */ = {
@@ -1516,13 +1586,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4360444D181983AE00103E14 /* ShellScript */ = {
+		4360444D181983AE00103E14 /* Sign Third-Party Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Sign Third-Party Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1711,6 +1782,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		43D04DB31A932EE700881EBA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ATAnalyticsCommons;
+			targetProxy = 43D04DB21A932EE700881EBA /* PBXContainerItemProxy */;
+		};
 		43D2098C1A811B6F00D47F2B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4317BD301A7F58250054D32D /* LRLicenseGen */;
@@ -2326,8 +2402,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -2349,8 +2427,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Developer ID Application: Andrey Tarantsov (D963M2VVCH)";
 				COPY_PHASE_STRIP = NO;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -2373,8 +2453,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Developer ID Application: Andrey Tarantsov (D963M2VVCH)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
