@@ -12,6 +12,9 @@
 		43D04E3B1A933AAB00881EBA /* CocoaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D04E371A933AAB00881EBA /* CocoaTests.swift */; };
 		43D04E501A933B3000881EBA /* PrecisionReduction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D04E4F1A933B3000881EBA /* PrecisionReduction.swift */; };
 		43D04E521A933B3B00881EBA /* PrecisionReductionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D04E511A933B3B00881EBA /* PrecisionReductionTests.swift */; };
+		43D04E641A936BEC00881EBA /* KeyValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D04E631A936BEC00881EBA /* KeyValueStore.swift */; };
+		43D04E671A936D7A00881EBA /* KeyValueStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D04E651A936C0E00881EBA /* KeyValueStoreTests.swift */; };
+		43D04E691A936F7400881EBA /* DailyStatisticsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D04E681A936F7400881EBA /* DailyStatisticsStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +36,9 @@
 		43D04E371A933AAB00881EBA /* CocoaTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoaTests.swift; sourceTree = "<group>"; };
 		43D04E4F1A933B3000881EBA /* PrecisionReduction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrecisionReduction.swift; sourceTree = "<group>"; };
 		43D04E511A933B3B00881EBA /* PrecisionReductionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrecisionReductionTests.swift; sourceTree = "<group>"; };
+		43D04E631A936BEC00881EBA /* KeyValueStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueStore.swift; sourceTree = "<group>"; };
+		43D04E651A936C0E00881EBA /* KeyValueStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueStoreTests.swift; sourceTree = "<group>"; };
+		43D04E681A936F7400881EBA /* DailyStatisticsStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyStatisticsStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +94,8 @@
 			isa = PBXGroup;
 			children = (
 				43D04E4F1A933B3000881EBA /* PrecisionReduction.swift */,
+				43D04E631A936BEC00881EBA /* KeyValueStore.swift */,
+				43D04E681A936F7400881EBA /* DailyStatisticsStore.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -104,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				43D04E511A933B3B00881EBA /* PrecisionReductionTests.swift */,
+				43D04E651A936C0E00881EBA /* KeyValueStoreTests.swift */,
 			);
 			path = CommonTests;
 			sourceTree = "<group>";
@@ -216,6 +225,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				43D04E501A933B3000881EBA /* PrecisionReduction.swift in Sources */,
+				43D04E641A936BEC00881EBA /* KeyValueStore.swift in Sources */,
+				43D04E691A936F7400881EBA /* DailyStatisticsStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,6 +236,7 @@
 			files = (
 				43D04E521A933B3B00881EBA /* PrecisionReductionTests.swift in Sources */,
 				43D04E3B1A933AAB00881EBA /* CocoaTests.swift in Sources */,
+				43D04E671A936D7A00881EBA /* KeyValueStoreTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
