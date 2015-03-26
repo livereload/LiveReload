@@ -1,6 +1,6 @@
 #import "Analytics+SpecificEvents.h"
 #import "Workspace.h"
-@import ATCocoaLabs;
+//@import ATCocoaLabs;
 
 @implementation Analytics (SpecificEvents)
 
@@ -27,7 +27,7 @@
 }
 
 + (void)trackCompilationWithCompilerNamed:(NSString *)compilerName {
-    [ATReducedPrecisionRange reducedPrecisionRangeStringForValue:7];
+//    [ATReducedPrecisionRange reducedPrecisionRangeStringForValue:7];
     [Analytics trackEventNamed:@"compilation" parameters:@{@"compiler": compilerName}];
 }
 
