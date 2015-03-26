@@ -303,14 +303,32 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 }
 
 - (void)checkBrokenPaths {
+    static NSMutableDictionary *lastReportedDatePerPath = nil;
+    static const NSTimeInterval ReportingInterval = 30;  // report again after 30 seconds
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        lastReportedDatePerPath = [NSMutableDictionary new];
+    });
+
     if (_brokenPathReported)
         return;
     if (![[NSFileManager defaultManager] fileExistsAtPath:_path])
         return; // don't report spurious messages for missing folders
 
     NSArray *brokenPaths = [[_monitor obtainTree] brokenPaths];
-    if ([brokenPaths count] > 0) {
-        NSInteger result = [[NSAlert alertWithMessageText:@"Folder Cannot Be Monitored" defaultButton:@"Read More" alternateButton:@"Ignore" otherButton:nil informativeTextWithFormat:@"The following %@ cannot be monitored because of OS X FSEvents bug:\n\n\t%@\n\nMore info and workaround instructions are available on our site.", [brokenPaths count] > 0 ? @"folders" : @"folder", [[brokenPaths componentsJoinedByString:@"\n\t"] stringByReplacingOccurrencesOfString:@"_!LR_BROKEN!_" withString:@"Broken"]] runModal];
+    
+    NSMutableArray *brokenPathsToReport = [NSMutableArray new];
+    NSDate *now = [NSDate date];
+    for (NSString *path in brokenPaths) {
+        NSDate *lastDate = lastReportedDatePerPath[path];
+        if ((lastDate == nil) || ([now timeIntervalSinceDate:lastDate] >= ReportingInterval)) {
+            lastReportedDatePerPath[path] = now;
+            [brokenPathsToReport addObject:path];
+        }
+    }
+    
+    if ([brokenPathsToReport count] > 0) {
+        NSInteger result = [[NSAlert alertWithMessageText:@"Folder Cannot Be Monitored" defaultButton:@"Read More" alternateButton:@"Ignore" otherButton:nil informativeTextWithFormat:@"The following %@ cannot be monitored because of OS X FSEvents bug:\n\n\t%@\n\nMore info and workaround instructions are available on our site.", [brokenPathsToReport count] > 0 ? @"folders" : @"folder", [[brokenPathsToReport componentsJoinedByString:@"\n\t"] stringByReplacingOccurrencesOfString:@"_!LR_BROKEN!_" withString:@"Broken"]] runModal];
         if (result == NSAlertDefaultReturn) {
             [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://help.livereload.com/kb/troubleshooting/os-x-fsevents-bug-may-prevent-monitoring-of-certain-folders"]];
         }
