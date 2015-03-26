@@ -233,7 +233,10 @@ namespace :mac do
 
     Dir.chdir 'LiveReload/Compilers' do
       sh 'git', 'tag', tag  rescue nil
+      sh 'git', 'push', '--tags'
     end
+
+    sh 'git', 'push', '--tags'
   end
 end
 
