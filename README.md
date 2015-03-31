@@ -7,7 +7,7 @@ LiveReload is an essential tool for web developers, and is currently the top pai
 License
 -------
 
-Copyright 2012 Andrey Tarantsov — andrey@tarantsov.com
+Copyright 2012–2015, Andrey Tarantsov — andrey@tarantsov.com
 
 **Purchasing policy notice:** All users of the software are expected to purchase a license from Andrey Tarantsov unless they have a good reason not to pay. Users that don't purchase a license are encouraged to apply for a free one at support@livereload.com. The users are free to:
 
@@ -26,7 +26,7 @@ Permission to use, copy, modify, and/or distribute this software for any purpose
 
 * no fee is charged for distibution of the software;
 
-* the best effort is made to explain the purchasing policy to all users of the software.
+* when distributing the software, the best effort is made to explain the purchasing policy to all users of the software who don't already have a license.
 
 In the event that no new official binary releases of the software are published for two consecutive years, the above conditions are permanently waived, and the software is additionally made available under the terms of the MIT license.
 
