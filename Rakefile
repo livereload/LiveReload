@@ -405,7 +405,7 @@ namespace :win do
     end
 
     sh 's3cmd', '-P', 'put', installer_path, "s3://#{S3_BUCKET}/#{installer_name}"
-    puts "http://download.livereload.com.s3.amazonaws.com/#{installer_name}"
+    puts "https://s3.amazonaws.com/download.livereload.com/#{installer_name}"
     puts "http://download.livereload.com/#{installer_name}"
   end
 
