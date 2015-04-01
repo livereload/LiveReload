@@ -31,6 +31,8 @@
     NSArray          *_importToFileMappings;
 
     NSArray          *_options;
+
+    NSArray          *_excludedSuffixes;
 }
 
 - (id)initWithDictionary:(NSDictionary *)info plugin:(Plugin *)plugin;
@@ -52,6 +54,7 @@
 - (void)compile:(NSString *)sourceRelPath into:(NSString *)destinationRelPath under:(NSString *)rootPath inProject:(Project *)project with:(CompilationOptions *)options compilerOutput:(ToolOutput **)compilerOutput;
 
 - (NSArray *)pathsOfSourceFilesInTree:(FSTree *)tree;
+- (BOOL)canCompileFileNamed:(NSString *)fileNameOrPath extension:(NSString *)extension;
 
 - (NSSet *)referencedPathFragmentsForPath:(NSString *)path;
 

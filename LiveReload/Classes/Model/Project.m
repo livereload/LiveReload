@@ -427,7 +427,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
             continue;
         else if (!_compassDetected && [compiler.uniqueId isEqualToString:@"compass"])
             continue;
-        if ([compiler.extensions containsObject:extension]) {
+        if ([compiler canCompileFileNamed:relativePath extension:extension]) {
             compilerFound = YES;
             CompilationOptions *compilationOptions = [self optionsForCompiler:compiler create:YES];
             if (_compilationEnabled && compilationOptions.active) {

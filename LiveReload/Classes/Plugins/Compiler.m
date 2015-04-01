@@ -66,7 +66,9 @@
 @end
 
 
-@implementation Compiler
+@implementation Compiler {
+    NSSet *_extensionsSet;
+}
 
 @synthesize uniqueId=_uniqueId;
 @synthesize name=_name;
@@ -89,6 +91,7 @@
         _commandLine = [[info objectForKey:@"CommandLine"] copy];
         _runDirectory = [[info objectForKey:@"RunIn"] copy];
         _extensions = [[info objectForKey:@"Extensions"] copy];
+        _extensionsSet = [[NSSet setWithArray:_extensions] copy];
         _destinationExtension = [[info objectForKey:@"DestinationExtension"] copy];
         if ((raw = [info objectForKey:@"NeedsOutputDirectory"])) {
             _needsOutputDirectory = [raw boolValue];
@@ -119,6 +122,7 @@
         if (!_options)
             _options = [[NSArray alloc] init];
         _optional = [[info objectForKey:@"Optional"] boolValue];
+        _excludedSuffixes = [([info objectForKey:@"ExcludedSuffixes"] ?: @[]) copy];
     }
     return self;
 }
@@ -146,10 +150,22 @@
 #pragma mark - Paths
 
 - (NSArray *)pathsOfSourceFilesInTree:(FSTree *)tree {
-    NSSet *validExtensions = [NSSet setWithArray:_extensions];
     return [tree pathsOfFilesMatching:^BOOL(NSString *name) {
-        return [validExtensions containsObject:[name pathExtension]];
+        return [self canCompileFileNamed:name extension:[name pathExtension]];
     }];
+}
+
+- (BOOL)canCompileFileNamed:(NSString *)fileNameOrPath extension:(NSString *)extension {
+    if ([_extensionsSet containsObject:extension]) {
+        for (NSString *suffix in _excludedSuffixes) {
+            if ([fileNameOrPath hasSuffix:suffix]) {
+                return NO;
+            }
+        }
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 
