@@ -10,8 +10,7 @@
 @implementation Analytics (SpecificEvents)
 
 + (void)initializeAnalyticsWithSpecificEvents {
-    // Parse only supports 8 custom properties, and one property is added by the system ("os"),
-    // so best to limit these to 7 in total, including the ones added in the property block
+    // N.B.: Parse only supports 8 custom properties, and we add 'os' and 'licensing' props internally
     [Analytics addFlagNamed:@"compilerUsed"];
     [Analytics addFlagNamed:@"postprocUsed"];
     [Analytics addCounterNamed:@"refreshes"];

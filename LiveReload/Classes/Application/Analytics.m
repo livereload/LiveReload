@@ -2,6 +2,8 @@
 #import <Paddle/Paddle.h>
 #import <Paddle/PaddleAnalyticsKit.h>
 #import <ParseOSX/Parse.h>
+#import "LicenseManager.h"
+#import "MASReceipt.h"
 
 
 
@@ -71,7 +73,18 @@ static BOOL _logOnly;
 + (void)trackEventNamed:(NSString *)name parameters:(NSDictionary *)parameters {
     NSMutableDictionary *params = [(parameters ?: @[]) mutableCopy];
     params[@"os"] = @"mac";
-    
+#ifdef APPSTORE
+    params[@"licensing"] = @"MAS";
+#else
+    if (MASReceiptIsAuthenticated()) {
+        params[@"licensing"] = @"MAS-based";
+    } else if (LicenseManagerIsTrialMode()) {
+        params[@"licensing"] = @"trial";
+    } else {
+        params[@"licensing"] = @"purchased";
+    }
+#endif
+
     // reduce precision automatically
     [params enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         if ([obj isKindOfClass:[NSNumber class]]) {
