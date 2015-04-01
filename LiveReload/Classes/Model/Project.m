@@ -402,7 +402,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     comm_broadcast_reload_requests(_session);
     reload_session_clear(_session);
     StatIncrement(BrowserRefreshCountStat, 1);
-    [Analytics trackPossibleBrowserRefresh];
+    [Analytics trackPossibleBrowserRefreshForProject:self];
 }
 
 - (BOOL)isCompassConfigurationFile:(NSString *)relativePath {
@@ -434,7 +434,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
                 [[NSNotificationCenter defaultCenter] postNotificationName:ProjectWillBeginCompilationNotification object:self];
                 [self compile:relativePath under:_path with:compiler options:compilationOptions];
                 [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidEndCompilationNotification object:self];
-                [Analytics trackCompilationWithCompilerNamed:compiler.uniqueId];
+                [Analytics trackCompilationWithCompilerNamed:compiler.uniqueId forProject:self];
                 StatGroupIncrement(CompilerChangeCountStatGroup, compiler.uniqueId, 1);
                 StatGroupIncrement(CompilerChangeCountEnabledStatGroup, compiler.uniqueId, 1);
                 break;

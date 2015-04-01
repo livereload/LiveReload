@@ -1,42 +1,55 @@
 #import "Analytics+SpecificEvents.h"
 #import "Workspace.h"
-//@import ATCocoaLabs;
+#import "Project.h"
+
+
+#include <tgmath.h>
+#define ATFloatZero(a) (fabs(a) <= 1e-6)
+
 
 @implementation Analytics (SpecificEvents)
 
-+ (void)trackPossibleBrowserRefresh {
-    if ([Workspace sharedWorkspace].monitoringEnabled) {
-        [Analytics trackEventNamed:@"refresh" parameters:@{}];
++ (void)initializeAnalyticsWithSpecificEvents {
+    // Parse only supports 8 custom properties, and one property is added by the system ("os"),
+    // so best to limit these to 7 in total, including the ones added in the property block
+    [Analytics addFlagNamed:@"compilerUsed"];
+    [Analytics addFlagNamed:@"postprocUsed"];
+    [Analytics addCounterNamed:@"refreshes"];
+    [Analytics addCounterNamed:@"compilations"];
+    [Analytics addCountingSetNamed:@"activeProjects"];
+    [Analytics addPropertiesBlock:^(NSMutableDictionary *parameters) {
+        parameters[@"totalProjects"] = @([Workspace sharedWorkspace].projects.count);
+    }];
+
+    [Analytics addPeriod:[[ATAnalyticsPeriod alloc] initWithIdentifier:@"daily" calendarUnits:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay]];
+    [Analytics addPeriod:[[ATAnalyticsPeriod alloc] initWithIdentifier:@"weekly" calendarUnits:NSCalendarUnitYearForWeekOfYear | NSCalendarUnitWeekOfYear]];
+    [Analytics addPeriod:[[ATAnalyticsPeriod alloc] initWithIdentifier:@"monthly" calendarUnits:NSCalendarUnitYear | NSCalendarUnitMonth]];
+
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"com.livereload.debug.analytics.minutely"] && [[NSUserDefaults standardUserDefaults] boolForKey:@"com.livereload.debug.analytics.logEvents"]) {
+        [Analytics addPeriod:[[ATAnalyticsPeriod alloc] initWithIdentifier:@"minutely" calendarUnits:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute]];
     }
 }
 
-+ (NSString *)today {
-    static NSDateFormatter *formatter;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        formatter = [[NSDateFormatter alloc] init];
-        [formatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"]];
-        [formatter setCalendar:[[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian]];
-        [formatter setDateFormat:@"yyyy-MM-dd"];
-        formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
-    });
-    return [formatter stringFromDate:[NSDate date]];
++ (void)trackPossibleBrowserRefreshForProject:(Project *)project {
+    BOOL browsersConnected = [Workspace sharedWorkspace].monitoringEnabled;
+
+    if (browsersConnected) {
+        [Analytics trackEventNamed:@"refresh" parameters:@{}];
+        [Analytics incrementCounterNamed:@"refreshes"];
+        [Analytics includeValue:project.path intoCountingSetNamed:@"activeProjects"];
+    }
 }
 
-+ (void)eraseStaleData {
-}
-
-+ (void)trackCompilationWithCompilerNamed:(NSString *)compilerName {
-//    [ATReducedPrecisionRange reducedPrecisionRangeStringForValue:7];
++ (void)trackCompilationWithCompilerNamed:(NSString *)compilerName forProject:(Project *)project {
     [Analytics trackEventNamed:@"compilation" parameters:@{@"compiler": compilerName}];
+    [Analytics setFlagNamed:@"compilerUsed"];
+    [Analytics incrementCounterNamed:@"compilations"];
+    [Analytics includeValue:project.path intoCountingSetNamed:@"activeProjects"];
 }
 
 + (void)trackPostProcessing {
     [Analytics trackEventNamed:@"postproc" parameters:@{}];
-}
-
-+ (void)trackChangeInProject:(NSString *)projectPath {
-    
+    [Analytics setFlagNamed:@"postprocUsed"];
 }
 
 @end

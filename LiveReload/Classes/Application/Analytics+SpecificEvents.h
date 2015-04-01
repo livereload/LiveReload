@@ -1,10 +1,13 @@
 #import "Analytics.h"
+@class Project;
 
 @interface Analytics (SpecificEvents)
 
-+ (void)trackPossibleBrowserRefresh;
++ (void)initializeAnalyticsWithSpecificEvents;
 
-+ (void)trackCompilationWithCompilerNamed:(NSString *)compilerName;
++ (void)trackPossibleBrowserRefreshForProject:(Project *)project;
+
++ (void)trackCompilationWithCompilerNamed:(NSString *)compilerName forProject:(Project *)project;
 
 + (void)trackPostProcessing;
 

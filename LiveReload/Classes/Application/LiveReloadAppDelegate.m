@@ -18,6 +18,7 @@
 #import "Preferences.h"
 
 #import "Analytics.h"
+#import "Analytics+SpecificEvents.h"
 #import "ShitHappens.h"
 #import "FixUnixPath.h"
 #import "LicenseManager.h"
@@ -99,6 +100,7 @@ void C_app__good_time_to_deliver_news(json_t *arg) {
 
 - (void)applicationWillFinishLaunching:(NSNotification *)notification {
     [Analytics initializeAnalytics];
+    [Analytics initializeAnalyticsWithSpecificEvents];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
