@@ -6,4 +6,6 @@
 
 + (void)trackCompilationWithCompilerNamed:(NSString *)compilerName;
 
++ (void)trackPostProcessing;
+
 @end

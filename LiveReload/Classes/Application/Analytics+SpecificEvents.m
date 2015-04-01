@@ -31,6 +31,10 @@
     [Analytics trackEventNamed:@"compilation" parameters:@{@"compiler": compilerName}];
 }
 
++ (void)trackPostProcessing {
+    [Analytics trackEventNamed:@"postproc" parameters:@{}];
+}
+
 + (void)trackChangeInProject:(NSString *)projectPath {
     
 }

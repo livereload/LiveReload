@@ -506,6 +506,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
     if ([_postProcessingCommand length] > 0 && _postProcessingEnabled) {
         if (invokePostProcessor) {
+            [Analytics trackPostProcessing];
 
             NSMutableDictionary *info = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                          @"/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/bin/ruby", @"$(ruby)",
