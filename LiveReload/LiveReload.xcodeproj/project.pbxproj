@@ -691,7 +691,7 @@
 		434DB81C1514F62100C62042 /* fslistener_osx.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fslistener_osx.c; sourceTree = "<group>"; };
 		434DB81E1514F71400C62042 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
 		4351302D1ACD750D0073A0D4 /* LiveReload copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LiveReload copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4351302E1ACD750E0073A0D4 /* LiveReload copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "LiveReload copy-Info.plist"; path = "/Users/andreyvit/dev/livereload/2/LiveReload/LiveReload copy-Info.plist"; sourceTree = "<absolute>"; };
+		4351302E1ACD750E0073A0D4 /* LiveReload-Info-MAS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "LiveReload-Info-MAS.plist"; path = "/Users/andreyvit/dev/livereload/2/LiveReload/LiveReload-Info-MAS.plist"; sourceTree = "<absolute>"; };
 		4353196D1465B52D005FA59F /* ShitHappens.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShitHappens.h; sourceTree = "<group>"; };
 		4353196E1465B52D005FA59F /* ShitHappens.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShitHappens.m; sourceTree = "<group>"; };
 		4353197014668E7D005FA59F /* LRHelpTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRHelpTemplate.png; sourceTree = "<group>"; };
@@ -1043,7 +1043,6 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				4351302E1ACD750E0073A0D4 /* LiveReload copy-Info.plist */,
 			);
 			name = LiveReload;
 			sourceTree = "<group>";
@@ -1066,6 +1065,7 @@
 				433617FE13C2E0C800C0E589 /* Compilers */,
 				43719FD31565FE5F004B0E0C /* backend */,
 				8D1107310486CEB800E47090 /* LiveReload-Info.plist */,
+				4351302E1ACD750E0073A0D4 /* LiveReload-Info-MAS.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 				439C093213ADCBDD00119233 /* monitoring.plist */,
@@ -1936,7 +1936,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if test -z \"$CODE_SIGN_IDENTITY\"; then\n  echo \"Skipping codesign of frameworks because CODE_SIGN_IDENTITY is not set.\"\nelse\n  LOCATION=\"${BUILT_PRODUCTS_DIR}\"/\"${FRAMEWORKS_FOLDER_PATH}\"\n  codesign --verbose --force --sign \"$CODE_SIGN_IDENTITY\" \"$LOCATION/Sparkle.framework/Versions/A\"\n  codesign --verbose --force --sign \"$CODE_SIGN_IDENTITY\" \"$LOCATION/Paddle.framework/Versions/A\"\n  codesign --verbose --force --sign \"$CODE_SIGN_IDENTITY\" \"$LOCATION/Bolts.framework/Versions/A\"\n\n  # a file located outside of a proper Resources folder causes code sign to reject the binary\n  rm -f \"$LOCATION/ParseOSX.framework/third_party_licenses.txt\"\n  codesign --verbose --force --sign \"$CODE_SIGN_IDENTITY\" \"$LOCATION/ParseOSX.framework/Versions/A\"\nfi";
+			shellScript = "if test -z \"$CODE_SIGN_IDENTITY\"; then\n  echo \"Skipping codesign of frameworks because CODE_SIGN_IDENTITY is not set.\"\nelse\n  LOCATION=\"${BUILT_PRODUCTS_DIR}\"/\"${FRAMEWORKS_FOLDER_PATH}\"\n  codesign --verbose --force --sign \"$CODE_SIGN_IDENTITY\" \"$LOCATION/Paddle.framework/Versions/A\"\n  codesign --verbose --force --sign \"$CODE_SIGN_IDENTITY\" \"$LOCATION/Bolts.framework/Versions/A\"\n\n  # a file located outside of a proper Resources folder causes code sign to reject the binary\n  rm -f \"$LOCATION/ParseOSX.framework/third_party_licenses.txt\"\n  codesign --verbose --force --sign \"$CODE_SIGN_IDENTITY\" \"$LOCATION/ParseOSX.framework/Versions/A\"\nfi";
 			showEnvVarsInLog = 0;
 		};
 		4360444D181983AE00103E14 /* Sign Third-Party Frameworks */ = {
@@ -2731,6 +2731,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COPY_PHASE_STRIP = NO;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2743,11 +2744,12 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = LiveReload_Prefix.pch;
-				INFOPLIST_FILE = "LiveReload copy-Info.plist";
+				INFOPLIST_FILE = "LiveReload-Info-MAS.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				OTHER_LDFLAGS = "-lz";
-				PRODUCT_NAME = "LiveReload copy";
+				PRODUCT_NAME = LiveReload;
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -2757,6 +2759,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2767,11 +2770,11 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = LiveReload_Prefix.pch;
-				INFOPLIST_FILE = "LiveReload copy-Info.plist";
+				INFOPLIST_FILE = "LiveReload-Info-MAS.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				OTHER_LDFLAGS = "-lz";
-				PRODUCT_NAME = "LiveReload copy";
+				PRODUCT_NAME = LiveReload;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
@@ -2782,6 +2785,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2792,12 +2796,12 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = LiveReload_Prefix.pch;
-				INFOPLIST_FILE = "LiveReload copy-Info.plist";
+				INFOPLIST_FILE = "LiveReload-Info-MAS.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				OTHER_LDFLAGS = "-lz";
-				PRODUCT_NAME = "LiveReload copy";
-				PROVISIONING_PROFILE = "E8BEA48E-BF84-4412-A2F8-5CBFF35C4660";
+				PRODUCT_NAME = LiveReload;
+				PROVISIONING_PROFILE = "";
 			};
 			name = AppStore;
 		};
