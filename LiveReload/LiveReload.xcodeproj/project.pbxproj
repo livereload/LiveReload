@@ -2745,7 +2745,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = LiveReload_Prefix.pch;
 				INFOPLIST_FILE = "LiveReload-Info-MAS.plist";
-				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = LiveReload;
@@ -2771,7 +2770,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = LiveReload_Prefix.pch;
 				INFOPLIST_FILE = "LiveReload-Info-MAS.plist";
-				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = LiveReload;
@@ -2797,7 +2795,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = LiveReload_Prefix.pch;
 				INFOPLIST_FILE = "LiveReload-Info-MAS.plist";
-				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = LiveReload;
@@ -2974,7 +2971,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = LiveReload_Prefix.pch;
 				INFOPLIST_FILE = "LiveReload-Info.plist";
-				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = LiveReload;
@@ -3001,7 +2997,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = LiveReload_Prefix.pch;
 				INFOPLIST_FILE = "LiveReload-Info.plist";
-				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = LiveReload;
@@ -3025,7 +3020,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = LiveReload_Prefix.pch;
 				INFOPLIST_FILE = "LiveReload-Info.plist";
-				INSTALL_PATH = "$(HOME)/Applications";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = LiveReload;
