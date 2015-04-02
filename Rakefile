@@ -161,6 +161,17 @@ namespace :mac do
     zip_name = "#{MAC_ZIP_BASE_NAME}-#{suffix}.zip"
     date = Time.new.strftime('%Y-%m-%d')
     versions_file = File.join(SITE_DIR, '_data/versions_mac.yml')
+    url = "https://s3.amazonaws.com/download.livereload.com/LiveReload-#{suffix}.zip"
+
+    require 'net/http'
+    require 'uri'
+    uri = URI(url)
+    file_size = nil
+    puts "Getting the size of #{url}..."
+    Net::HTTP.start(uri.host, uri.port, :use_ssl => (uri.scheme == 'https')) do |http|
+      response = http.request_head(url)
+      file_size = response['content-length'].to_i
+    end
     
     snippet = <<-END
 - version: "#{suffix}"
@@ -169,6 +180,7 @@ namespace :mac do
     beta: yes
     production: no
   url: "https://s3.amazonaws.com/download.livereload.com/LiveReload-#{suffix}.zip"
+  file_size: #{file_size}
   release_notes:
     - title: TODO
       details: TODO
