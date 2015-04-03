@@ -280,10 +280,9 @@
 		4351301D1ACD750D0073A0D4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		4351301E1ACD750D0073A0D4 /* Paddle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65321A923B9E00335BAD /* Paddle.framework */; };
 		435130201ACD750D0073A0D4 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65351A923DA400335BAD /* Bolts.framework */; };
-		435130221ACD750D0073A0D4 /* ATCocoaLabs.framework in Embed Internal Frameworks */ = {isa = PBXBuildFile; fileRef = 43D04E5D1A93412400881EBA /* ATCocoaLabs.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		435130241ACD750D0073A0D4 /* ParseOSX.framework in Embed Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65361A923DA400335BAD /* ParseOSX.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		435130251ACD750D0073A0D4 /* Bolts.framework in Embed Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65351A923DA400335BAD /* Bolts.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		435130261ACD750D0073A0D4 /* Paddle.framework in Embed Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65321A923B9E00335BAD /* Paddle.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		435130241ACD750D0073A0D4 /* ParseOSX.framework in Embed Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65361A923DA400335BAD /* ParseOSX.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		435130251ACD750D0073A0D4 /* Bolts.framework in Embed Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65351A923DA400335BAD /* Bolts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		435130261ACD750D0073A0D4 /* Paddle.framework in Embed Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65321A923B9E00335BAD /* Paddle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4353196F1465B52D005FA59F /* ShitHappens.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353196E1465B52D005FA59F /* ShitHappens.m */; };
 		4353197214668E7D005FA59F /* LRHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4353197014668E7D005FA59F /* LRHelpTemplate.png */; };
 		4353197314668E7D005FA59F /* LRSupportTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4353197114668E7D005FA59F /* LRSupportTemplate.png */; };
@@ -327,7 +326,6 @@
 		439C093313ADCBDD00119233 /* monitoring.plist in Resources */ = {isa = PBXBuildFile; fileRef = 439C093213ADCBDD00119233 /* monitoring.plist */; };
 		43C0368613CA191D00A01305 /* LiveReload.icns in Resources */ = {isa = PBXBuildFile; fileRef = 43C0368513CA191C00A01305 /* LiveReload.icns */; };
 		43C3D04E15B37B1500BCD2E8 /* LicenseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C3D04D15B37B1500BCD2E8 /* LicenseManager.m */; };
-		43D04E621A93413700881EBA /* ATCocoaLabs.framework in Embed Internal Frameworks */ = {isa = PBXBuildFile; fileRef = 43D04E5D1A93412400881EBA /* ATCocoaLabs.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		43D209691A810D5500D47F2B /* licensing_check.c in Sources */ = {isa = PBXBuildFile; fileRef = 43D209651A80FFD200D47F2B /* licensing_check.c */; };
 		43D2096A1A810D5700D47F2B /* licensing_check.c in Sources */ = {isa = PBXBuildFile; fileRef = 43D209651A80FFD200D47F2B /* licensing_check.c */; };
 		43D209701A81143300D47F2B /* LRLicenseCollision.c in Sources */ = {isa = PBXBuildFile; fileRef = 43D2096C1A81142B00D47F2B /* LRLicenseCollision.c */; };
@@ -431,34 +429,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		43512F621ACD750D0073A0D4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 43D04E571A93412300881EBA /* ATCocoaLabs.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 43D04DBD1A9338B600881EBA;
-			remoteInfo = ATCocoaLabs;
-		};
-		43D04E5C1A93412400881EBA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 43D04E571A93412300881EBA /* ATCocoaLabs.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 43D04DBE1A9338B600881EBA;
-			remoteInfo = ATCocoaLabs;
-		};
-		43D04E5E1A93412400881EBA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 43D04E571A93412300881EBA /* ATCocoaLabs.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 43D04DC91A9338B600881EBA;
-			remoteInfo = ATCocoaLabsTests;
-		};
-		43D04E601A93412F00881EBA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 43D04E571A93412300881EBA /* ATCocoaLabs.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 43D04DBD1A9338B600881EBA;
-			remoteInfo = ATCocoaLabs;
-		};
 		43D2098B1A811B6F00D47F2B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -553,7 +523,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				435130221ACD750D0073A0D4 /* ATCocoaLabs.framework in Embed Internal Frameworks */,
 			);
 			name = "Embed Internal Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -577,7 +546,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				43D04E621A93413700881EBA /* ATCocoaLabs.framework in Embed Internal Frameworks */,
 			);
 			name = "Embed Internal Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -748,7 +716,6 @@
 		43C0368513CA191C00A01305 /* LiveReload.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LiveReload.icns; sourceTree = "<group>"; };
 		43C3D04C15B37B1500BCD2E8 /* LicenseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LicenseManager.h; sourceTree = "<group>"; };
 		43C3D04D15B37B1500BCD2E8 /* LicenseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LicenseManager.m; sourceTree = "<group>"; };
-		43D04E571A93412300881EBA /* ATCocoaLabs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ATCocoaLabs.xcodeproj; path = ../ATCocoaLabs/ATCocoaLabs.xcodeproj; sourceTree = "<group>"; };
 		43D209651A80FFD200D47F2B /* licensing_check.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = licensing_check.c; sourceTree = "<group>"; };
 		43D209661A80FFD200D47F2B /* licensing_check.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = licensing_check.h; sourceTree = "<group>"; };
 		43D2096C1A81142B00D47F2B /* LRLicenseCollision.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = LRLicenseCollision.c; sourceTree = "<group>"; };
@@ -1034,7 +1001,6 @@
 		29B97314FDCFA39411CA2CEA /* LiveReload */ = {
 			isa = PBXGroup;
 			children = (
-				43D04E571A93412300881EBA /* ATCocoaLabs.xcodeproj */,
 				43059221151E8FA400CC3F88 /* CoreServices.framework */,
 				823DDE2D13F8DA3100529AD2 /* Classes */,
 				43C0368513CA191C00A01305 /* LiveReload.icns */,
@@ -1200,15 +1166,6 @@
 				43D2096B1A81140200D47F2B /* Tools */,
 			);
 			path = Licensing;
-			sourceTree = "<group>";
-		};
-		43D04E581A93412300881EBA /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				43D04E5D1A93412400881EBA /* ATCocoaLabs.framework */,
-				43D04E5F1A93412400881EBA /* ATCocoaLabsTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		43D2096B1A81140200D47F2B /* Tools */ = {
@@ -1658,12 +1615,11 @@
 				435130101ACD750D0073A0D4 /* Frameworks */,
 				435130211ACD750D0073A0D4 /* Embed Internal Frameworks */,
 				435130231ACD750D0073A0D4 /* Embed Third-Party Frameworks */,
-				435130281ACD750D0073A0D4 /* Sign Third-Party Frameworks */,
+				435EFC881ACE3B0F008EDD9D /* Delete Unsealed Files */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				43512F611ACD750D0073A0D4 /* PBXTargetDependency */,
 			);
 			name = "LiveReload (MAS)";
 			productInstallPath = "$(HOME)/Applications";
@@ -1702,7 +1658,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				43D04E611A93412F00881EBA /* PBXTargetDependency */,
 			);
 			name = LiveReload;
 			productInstallPath = "$(HOME)/Applications";
@@ -1753,12 +1708,6 @@
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* LiveReload */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 43D04E581A93412300881EBA /* Products */;
-					ProjectRef = 43D04E571A93412300881EBA /* ATCocoaLabs.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* LiveReload */,
@@ -1772,23 +1721,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		43D04E5D1A93412400881EBA /* ATCocoaLabs.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = ATCocoaLabs.framework;
-			remoteRef = 43D04E5C1A93412400881EBA /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		43D04E5F1A93412400881EBA /* ATCocoaLabsTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = ATCocoaLabsTests.xctest;
-			remoteRef = 43D04E5E1A93412400881EBA /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		43512F631ACD750D0073A0D4 /* Resources */ = {
@@ -1924,20 +1856,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		435130281ACD750D0073A0D4 /* Sign Third-Party Frameworks */ = {
+		435EFC881ACE3B0F008EDD9D /* Delete Unsealed Files */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
+			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Sign Third-Party Frameworks";
+			name = "Delete Unsealed Files";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if test -z \"$CODE_SIGN_IDENTITY\"; then\n  echo \"Skipping codesign of frameworks because CODE_SIGN_IDENTITY is not set.\"\nelse\n  LOCATION=\"${BUILT_PRODUCTS_DIR}\"/\"${FRAMEWORKS_FOLDER_PATH}\"\n  codesign --verbose --force --sign \"$CODE_SIGN_IDENTITY\" \"$LOCATION/Paddle.framework/Versions/A\"\n  codesign --verbose --force --sign \"$CODE_SIGN_IDENTITY\" \"$LOCATION/Bolts.framework/Versions/A\"\n\n  # a file located outside of a proper Resources folder causes code sign to reject the binary\n  rm -f \"$LOCATION/ParseOSX.framework/third_party_licenses.txt\"\n  codesign --verbose --force --sign \"$CODE_SIGN_IDENTITY\" \"$LOCATION/ParseOSX.framework/Versions/A\"\nfi";
-			showEnvVarsInLog = 0;
+			shellScript = "LOCATION=\"${BUILT_PRODUCTS_DIR}\"/\"${FRAMEWORKS_FOLDER_PATH}\"\n# a file located outside of a proper Resources folder causes code sign to reject the binary\nrm -f \"$LOCATION/ParseOSX.framework/third_party_licenses.txt\"\n";
 		};
 		4360444D181983AE00103E14 /* Sign Third-Party Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2256,16 +2187,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		43512F611ACD750D0073A0D4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = ATCocoaLabs;
-			targetProxy = 43512F621ACD750D0073A0D4 /* PBXContainerItemProxy */;
-		};
-		43D04E611A93412F00881EBA /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = ATCocoaLabs;
-			targetProxy = 43D04E601A93412F00881EBA /* PBXContainerItemProxy */;
-		};
 		43D2098C1A811B6F00D47F2B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4317BD301A7F58250054D32D /* LRLicenseGen */;
@@ -2733,7 +2654,6 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COPY_PHASE_STRIP = NO;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -2760,7 +2680,6 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -2785,7 +2704,6 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
