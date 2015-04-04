@@ -2,7 +2,6 @@
 /bin/
 /PathSpec/bin/
 /PathSpecTests/bin/
-/backend/
 /backend-interim/
 /publish/
 *.tgz
