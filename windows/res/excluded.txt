@@ -1,0 +1,13 @@
+# source control
+.git
+.hg
+.svn
+CVS
+
+# metadata
+.DS_Store
+.sass-cache
+.metadata
+
+# typically useless to monitor
+node_modules

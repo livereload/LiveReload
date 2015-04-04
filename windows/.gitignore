@@ -1,12 +1,16 @@
 # Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
 /bin/
-/lib/fastJSON/bin/
+/PathSpec/bin/
+/PathSpecTests/bin/
 /backend/
 /backend-interim/
 /publish/
 *.tgz
 
 /PubConfig.cmd
+
+/tools/compiler/node_modules
+/compile-backend-files.cmd
 
 obj
 *.suo
@@ -17,3 +21,5 @@ TestResults
 
 #temp files
 livereload-state.json
+
+/res/LiveReloadNodejs.exe

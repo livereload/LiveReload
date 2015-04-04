@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 using System.Diagnostics;
@@ -8,7 +7,6 @@ using System.IO;
 using System.Threading;
 using System.Windows.Threading;
 using System.Windows;
-using LiveReload;
 using Twins.JSON;
 
 namespace Twins
@@ -84,7 +82,7 @@ namespace Twins
 
                 if (line[0] == '[') {
                     dispatcher.Invoke(DispatcherPriority.Normal,
-                        (Action)(() => { Message(line); })
+                        (Action)(() => Message(line))
                     );
                 }
             }
@@ -104,11 +102,16 @@ namespace Twins
         }
 
         public void SendRaw(string message) {
-            logWriter.WriteLine("OUTGOING: " + message);
-            logWriter.Flush();
+            if (writer != null) {
+                logWriter.WriteLine("OUTGOING: " + message);
+                logWriter.Flush();
 
-            writer.WriteLine(message);
-            writer.Flush();
+                writer.WriteLine(message);
+                writer.Flush();
+            } else {
+                logWriter.WriteLine("IGNORING OUTGOING (too early): " + message);
+                logWriter.Flush();
+            }
         }
 
         public void Send(string command, object arg) {

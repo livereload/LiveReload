@@ -15,23 +15,19 @@ namespace LiveReload
         private string bundledBackendDir;
         private string bundledPluginsDir;
         private string bundledRubyDir;
-        private string bundledNodeDir;
 
         private void BeginExtractBundledResources(Action Callback) {
-            Thread extractThread = new Thread(new ThreadStart(
-                (Action)(() => {
-                    SevenZipExtractor.SetLibraryPath(Path.Combine(resourcesDir, "7zxa.dll"));
+            var extractThread = new Thread(
+                () => {
+                    SevenZipBase.SetLibraryPath(Path.Combine(resourcesDir, "7zxa.dll"));
 
                     bundledBackendDir = extractBundledResourcesFromFile("backend.7z");
                     bundledPluginsDir = extractBundledResourcesFromFile("plugins.7z");
                     bundledRubyDir = extractBundledResourcesFromFile("ruby-1.9.3.7z");
-                    bundledNodeDir = extractBundledResourcesFromFile("node-0.10.3.7z");
 
-                    App.Current.Dispatcher.Invoke(DispatcherPriority.Normal,
-                        (Action)(() => { Callback(); })
-                    );
-                })
-            ));
+                    App.Current.Dispatcher.Invoke(DispatcherPriority.Normal, Callback);
+                }
+            );
             extractThread.IsBackground = true; // need for thread to close at application exit
             extractThread.Start();
         }

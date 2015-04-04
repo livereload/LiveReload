@@ -1,0 +1,117 @@
+*.html
+*.htm
+*.shtml
+*.xhtml    # 1999 just called
+
+*.asp      # 1995 is on the line as well
+
+# Not sure what good comes from monitoring these; don't you need to rebuild before seeing changes?
+*.aspx
+*.ascx
+*.master
+
+*.cfc      # ASP has brought some friends of similar age
+*.cfm
+*.cfml
+
+*.as       # with any luck, in a few years these ones will be calling from the past too
+*.swf
+*.hx
+
+*.css
+*.js
+
+*.jpg
+*.png
+*.gif
+*.svg
+*.ico
+
+*.txt
+*.md
+*.mdown
+*.markdown
+*.smarty
+*.rst
+*.textile
+
+*.php
+*.php4
+*.php5
+*.phtml
+*.inc
+*.module   # Drupal module
+*.info     # can be anything, but most likely a Drupal module metadata
+*.tpl      # generic template, typically a PHP one
+*.tmpl     # http://filext.com/file-extension/TMPL, every possible usage is scary
+*.ctp      # CakePHP view
+*.twig     # "Twig is a modern template engine for PHP" - http://twig.sensiolabs.org
+*.ss       # honestly no idea, yet another piece of PHP shit
+
+*.class
+*.jar
+*.war
+*.par
+*.jsp
+*.jspf
+*.groovy
+*.gsp      # Groovy Server Pages
+*.ftl      # Freemaker
+*.jst      # Java's perverse idea of partials
+*.tag      # Java's perverse idea of helpers
+
+*.py
+
+*.rb
+*.erb
+*.ejs
+*.rhtml
+*.rabl     # a crazy DSL for JSON-like output - https://github.com/nesquena/rabl
+
+*.ini      # Win 3.11 says hi
+*.json
+*.properties
+*.conf
+*.yml
+*.yaml
+*.xml
+*.xsl
+*.xslt
+
+# A bunch of template languages
+*.liquid
+*.mustache
+*.hbs
+*.handlebars
+*.rst
+*.hamlc
+*.phaml
+*.soy      # Google Closure Templates - https://developers.google.com/closure/templates/
+*.gss      # Google Closure Stylesheets (because LESS and Sass aren't ugly enough for Google) - http://code.google.com/p/closure-stylesheets/
+*.dust     # http://akdubya.github.io/dustjs/ or http://linkedin.github.io/dustjs/
+
+# esoteric ways to build a web site
+*.pl
+*.sh
+*.tcl
+*.clj
+*.scala
+*.lua
+*.cgi
+*.bf       # Befunge-93 or Brainfuck
+*.mb       # Malbolge aka line noise, check out http://www.99-bottles-of-beer.net/language-malbolge-995.html
+*.unl      # Unlambda
+*.i        # INTERCAL, possibly Quantum, Threaded and/or Backtracking
+*.3i       # TriINTERCAL
+
+# other unidentified extensions; if you know what these are used for, please let me know at support@livereload.com
+*.neon
+# must be very impressive to generate CSS and JS using the same tech :-)
+*.pt
+*.js-pt
+*.css-pt
+*.mpt
+
+# other
+.htaccess
+*.po

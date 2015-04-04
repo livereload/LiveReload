@@ -1,7 +1,4 @@
 ﻿using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
 
 using Microsoft.VisualBasic.ApplicationServices;
 
@@ -37,7 +34,7 @@ namespace LiveReload
 
         [STAThread]
         public static void Main(string[] args) {
-            SingleInstanceManager manager = new SingleInstanceManager();
+            var manager = new SingleInstanceManager();
             manager.Run(args);
             if (isRestarting)
                 System.Windows.Forms.Application.Restart(); //from System.Windows.Forms.dll

@@ -10,19 +10,16 @@
                         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                         d:DataContext="{d:DesignInstance lr:MainWindowViewModel, IsDesignTimeCreatable=True}"
-                        Width="799" Height="643" MinWidth="400" MinHeight="100"
+                        Width="800" Height="640" MinWidth="400" MinHeight="100"
                         Icon="pack://application:,,,/img/LiveReload.ico"
                         RenderOptions.BitmapScalingMode="HighQuality"
                         ResizeMode="CanResizeWithGrip"
                         Closing="Window_Closing"
                         StateChanged="MetroWindow_StateChanged"
                         Loaded="MetroWindow_Loaded" KeyDown="MetroWindow_KeyDown">
-    <Window.DataContext>
-        <lr:MainWindowViewModel />
-    </Window.DataContext>
-    
     <Window.Resources>
         <ResourceDictionary>
+            <lr:SelectedProjectConverter x:Key="SelectedProjectConverter"/>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/MahApps.Metro;component/Styles/Colours.xaml" />
                 <ResourceDictionary Source="/MahApps.Metro;component/Styles/Fonts.xaml" />
@@ -58,6 +55,7 @@
                         <MenuItem Header="Twins Debugger"  Click="ShowTwinsDebugger_Click" />
                         <MenuItem Name="DevMode" Header="Development mode (running from repository)" IsCheckable="True" IsChecked="{Binding Default.DevMode, Source={StaticResource Settings}}" />
                         <MenuItem Header="Open App Data Folder" Click="RevealAppDataFolder_Click" />
+                        <MenuItem Header="Test New Feature" Click="TestNewFeature" />
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>
@@ -79,8 +77,21 @@
             </Grid.RowDefinitions>
             <Rectangle Name="rectStart" Fill="White" Opacity="0.90" Grid.RowSpan="2" />
             <TextBlock TextWrapping="Wrap" Margin="30">
-                <Bold>PRE v0.8.7</Bold><LineBreak /><LineBreak />
-                <Run>* clippy says bye ^^</Run><LineBreak /><LineBreak />
+                <Bold>What's New</Bold><LineBreak /><LineBreak />
+                
+                <Bold>v0.9.2</Bold><LineBreak />
+                <Run>* Fixed a startup crash affecting most Windows XP users</Run><LineBreak /><LineBreak />
+
+                <Bold>v0.9.1</Bold><LineBreak />
+                <Run>* Fixed white/black lists for FS monitoring</Run><LineBreak />
+                <Run>* Disabled URL field for now</Run><LineBreak /><LineBreak />
+
+                <Bold>v0.9</Bold><LineBreak />
+                <Run>* More efficient file system monitoring</Run><LineBreak />
+                <Run>* All compilers updated to the latest versions</Run><LineBreak />
+                <Run>* TypeScript added</Run><LineBreak />
+                <Run>* Bug fixes</Run><LineBreak />
+                <Run>* Extensive internal changes, aka new bugs expected :-)</Run><LineBreak />
             </TextBlock>
             <StackPanel Grid.Row="1" Name="stackPanelStart" >
                 <Controls:ProgressRing Name="progressStart" IsActive="True" />
@@ -93,11 +104,10 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <TextBlock Text="site folders" Style="{StaticResource LiveReloadTextSidebarHeaderStyle}" />
             <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="25,0,0,8">
-                <Button Name="buttonProjectAdd" Style="{StaticResource LiveReloadCuteButtonStyle}" Background="Transparent" ToolTip="Add folder">
+                <Button Name="buttonProjectAdd" Style="{StaticResource LiveReloadCuteButtonStyle}" Background="Transparent" ToolTip="Add folder" Click="ButtonProjectAdd_Click" >
                     <StackPanel Orientation="Horizontal">
                         <Rectangle Width="10" Height="10" Margin="0,2,4,0">
                             <Rectangle.Resources>
@@ -110,7 +120,7 @@
                         <TextBlock Text="add" FontWeight="Bold" Foreground="#FF666666" />
                     </StackPanel>
                 </Button>
-                <Button Name="buttonProjectRemove" Style="{StaticResource LiveReloadCuteButtonStyle}" ToolTip="Remove folder">
+                <Button Name="buttonProjectRemove" Style="{StaticResource LiveReloadCuteButtonStyle}" ToolTip="Remove folder" Click="buttonProjectRemove_Click" IsEnabled="{Binding IsProjectSelected}">
                     <StackPanel Orientation="Horizontal">
                         <Rectangle Width="10" Height="10" Margin="0,2,4,0">
                             <Rectangle.Resources>
@@ -124,10 +134,10 @@
                     </StackPanel>
                 </Button>
             </StackPanel>
-            <TreeView Name="treeViewProjects" Grid.Row="2" BorderThickness="0" xxx:Background="LightGray" AllowDrop="True" ItemsSource="{Binding SampleItems}" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <TreeView Name="treeViewProjects" Grid.Row="2" BorderThickness="0" xxx:Background="LightGray" AllowDrop="True" ItemsSource="{Binding Projects}" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectedItemChanged="treeViewProjects_SelectedItemChanged">
                 <TreeView.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Foreground="#FF444444" Text="{Binding Text}" TextTrimming="CharacterEllipsis" />
+                        <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Foreground="#FF444444" Text="{Binding CustomName}" TextTrimming="CharacterEllipsis" />
                     </DataTemplate>
                 </TreeView.ItemTemplate>
                 <TreeView.ItemContainerStyle>
@@ -179,15 +189,11 @@
                     </Style>
                 </TreeView.ItemContainerStyle>
             </TreeView>
-            <StackPanel Grid.Row="4">
-                <TextBlock Text="Debug:" />
-                <TextBox Text="{Binding Dummy, Mode=TwoWay}" />
-            </StackPanel>
         </Grid>
 
-        <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Grid.Column="2" Height="23" Margin="35,0,12,6" Name="textBlockStatus" VerticalAlignment="Bottom" />
+        <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Grid.Column="2" Height="23" Margin="35,0,12,6" Name="textBlockStatus" VerticalAlignment="Bottom" Text="{Binding StatusMessage}" />
 
-        <Grid Name="tabs" Grid.Column="2" Margin="0,12,10,35">
+        <Grid Name="tabs" Grid.Column="2" Margin="0,12,10,35" Visibility="{Binding DataContext.SelectedProject, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource SelectedProjectConverter}}" DataContext="{Binding SelectedProject}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
@@ -203,8 +209,8 @@
                     </Rectangle.Fill>
                 </Rectangle>
                 <StackPanel Margin="64,0,0,0" VerticalAlignment="Center">
-                    <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Margin="0,0,0,0" Name="projectName" Text="LiveReload" FontWeight="Bold" FontSize="14" />
-                    <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Name="projectPath" Text="C:/Dev/livereload-examples" />
+                    <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Text="{Binding FolderName}" Margin="0,0,0,0" Name="projectName" FontWeight="Bold" FontSize="14" />
+                    <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Text="{Binding ParentPath}" Name="projectPath" />
                 </StackPanel>
             </Grid>
 
@@ -215,8 +221,8 @@
                             <Grid Style="{StaticResource IntegrationTileGrid}" Height="71">
                                 <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" Text="1" FontSize="28" Margin="12,8,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
                                 <StackPanel Margin="40,12,12,0">
-                                    <TextBlock Text="Site URL you use for development:" Style="{StaticResource LiveReloadTextNormalStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,4" Grid.Column="0" />
-                                    <TextBox Name="textBoxUrl" FontFamily="{StaticResource LiveReloadFontFamilyNormal}" VerticalContentAlignment="Center" Height="23" VerticalAlignment="Center" Margin="0" Foreground="Black" Controls:TextboxHelper.Watermark="localhost:3000, site.local, dev.example.com" Grid.Column="1" />
+                                    <TextBlock Text="Site URL you use for development (does not work yet):" Style="{StaticResource LiveReloadTextNormalStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,4" Grid.Column="0" />
+                                    <TextBox Name="textBoxUrl" FontFamily="{StaticResource LiveReloadFontFamilyNormal}" VerticalContentAlignment="Center" Height="23" VerticalAlignment="Center" Margin="0" Foreground="Black" Controls:TextboxHelper.Watermark="localhost:3000, site.local, dev.example.com" Grid.Column="1" IsEnabled="False" />
                                 </StackPanel>
                             </Grid>
                             <Grid Style="{StaticResource IntegrationTileGrid}" Height="126">
@@ -226,7 +232,7 @@
                                         <TextBlock Style="{StaticResource LiveReloadTextNormalStyle}" HorizontalAlignment="Left" Margin="0,0,0,4" VerticalAlignment="Top" Grid.Column="1">
                                         <Run>Insert this tag before &lt;/body&gt;:</Run>
                                         </TextBlock>
-                                        <TextBox Name="textBoxSnippet" FontFamily="{StaticResource LiveReloadFontFamilyNormal}" my:SelectTextOnFocus.Active="True" Height="80" Margin="0" FontSize="10" TextWrapping="Wrap" Controls:TextboxHelper.Watermark="[open a project to see its snippet that corresponds to entered URL(s)]" IsReadOnly="True" />
+                                        <TextBox Name="textBoxSnippet" FontFamily="{StaticResource LiveReloadFontFamilyNormal}" my:SelectTextOnFocus.Active="True" Height="80" Margin="0" FontSize="10" TextWrapping="Wrap" Controls:TextboxHelper.Watermark="[open a project to see its snippet that corresponds to entered URL(s)]" IsReadOnly="True" Text="&lt;script&gt;document.write('&lt;script src=&quot;http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1&quot;&gt;&lt;/' + 'script&gt;')&lt;/script&gt;" />
                                     </StackPanel>
                                 </Grid>
                                 <Grid Width="250" HorizontalAlignment="Right">
@@ -267,7 +273,7 @@
                         <StackPanel>
                             <Grid Margin="0,4,12,4" Background="#CCEECC" Width="512" MinHeight="70" Focusable="True" KeyboardNavigation.TabNavigation="Once">
                                 <TextBlock Style="{StaticResource LiveReloadTextTitle2Style}" Text="compile sass, less, coffee and others" Margin="12,6,0,0" />
-                                <Controls:ToggleSwitchButton Name="checkBoxCompile" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,16,0" TabIndex="0" />
+                                <Controls:ToggleSwitchButton Name="checkBoxCompile" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,16,0" TabIndex="0" IsChecked="{Binding CompilationEnabled, Mode=TwoWay}" />
                             </Grid>
                             
                             <StackPanel Margin="0,40,0,20">

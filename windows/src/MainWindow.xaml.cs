@@ -14,6 +14,8 @@ using System.Windows.Shapes;
 
 using System.Diagnostics;
 using System.IO;
+using LiveReload.Model;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 using D = System.Collections.Generic.Dictionary<string, object>;
 
@@ -26,10 +28,14 @@ namespace LiveReload
     {
         public event Action MainWindowHideEvent;
 
-        public MainWindow() {
+        //design-time only!!
+        public MainWindow()
+            : this(new MainWindowViewModel(new Workspace())) {
+        }
+
+        public MainWindow(MainWindowViewModel viewModel) {
             InitializeComponent();
-            DataContext = new MainWindowViewModel(true);
-            tabs.Visibility = Visibility.Collapsed;
+            DataContext = viewModel;
         }
 
         public MainWindowViewModel ViewModel {
@@ -81,7 +87,7 @@ namespace LiveReload
         public void chooseOutputFolder(D options, Twins.PayloadDelegate reply) {
             var dialog = new System.Windows.Forms.FolderBrowserDialog();
 
-            string initial = (string)options["initial"];
+            var initial = (string)options["initial"];
             if (initial != null)
                 dialog.SelectedPath = initial;
 
@@ -107,6 +113,9 @@ namespace LiveReload
             ((App)App.Current).InstallUpdateSyncWithInfo();
         }
 
+        private void TestNewFeature(object sender, RoutedEventArgs e) {
+        }
+
         private void ShowReleaseNotes_Click(object sender, RoutedEventArgs e) {
             if (gridProgress.Visibility == Visibility.Visible)
                 gridProgress.Visibility = Visibility.Hidden;
@@ -116,6 +125,34 @@ namespace LiveReload
 
         private void RevealAppDataFolder_Click(object sender, RoutedEventArgs e) {
             App.Current.RevealAppDataFolder();
+        }
+
+        private void ButtonProjectAdd_Click(object sender, RoutedEventArgs e) {
+            string selectedFolder;
+            if (CommonFileDialog.IsPlatformSupported)
+            {
+                var dialog = new CommonOpenFileDialog {IsFolderPicker = true};
+                if (dialog.ShowDialog() == CommonFileDialogResult.Ok) {
+                    selectedFolder = dialog.FileName;
+                } else return;
+            }
+            else
+            {
+                var dialog = new System.Windows.Forms.FolderBrowserDialog();
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
+                    selectedFolder = dialog.SelectedPath;
+                } else return;
+            }
+            var newProject = new Project(selectedFolder);
+            ViewModel.Workspace.AddProject(newProject);
+        }
+
+        private void treeViewProjects_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e) {
+            ViewModel.SelectedProject = (Project)e.NewValue;
+        }
+
+        private void buttonProjectRemove_Click(object sender, RoutedEventArgs e) {
+            ViewModel.Workspace.RemoveProject(ViewModel.SelectedProject);
         }
     }
 }

@@ -36,9 +36,7 @@ THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH RE
 Building LiveReload for Windows
 -------------------------------
 
-1. Build the backend using the instructions below (“Building the backend for the Windows version”).
-
-2. Follow [windows/README.md](windows/README.md).
+Follow [windows/README.md](windows/README.md).
 
 
 Building LiveReload for Mac
@@ -96,53 +94,6 @@ Building:
         xcodebuild -project LiveReload.xcodeproj -scheme LiveReload -configuration Debug build
 
 Until the project is configured correctly, you may need to clean & rebuild often before running tests. Use mac/rebuild.sh for that.
-
-
-Building the backend for the Windows version
---------------------------------------------
-
-Prerequisites:
-
-* Node 0.10.x with npm
-* IcedCoffeeScript 1.3.3f
-
-Building:
-
-1. Install build script dependencies:
-
-        cd scripts
-        npm install
-        cd ..
-
-2. Use the script to set up symlinks inside node_modules/ repo folder:
-
-        iced scripts/relink.iced
-
-3. Install externel dependencies of each package:
-
-        for i in node_modules/*; do (echo; echo $i; cd $i; npm install); done
-
-4. Relink again, because `npm install` loves to screw things up:
-
-        iced scripts/relink.iced
-
-5. Compile CoffeeScript sources (use `-cw` for watch mode, `-c` for one-time compilation):
-
-        iced --runtime inline -cw node_modules/*/*.{coffee,iced} node_modules/*/{lib,test,config,rpc-api,bin}/**.{coffee,iced}
-
-Verifying:
-
-1. Run and make sure it displays a command-line usage error:
-
-        node node_modules/livereload/bin/livereload.js
-
-2. Run and make sure it starts up, outputs a bunch of stuff and listens for browser connections (Ctrl-C to quit):
-
-        node node_modules/livereload/bin/livereload.js rpc console
-
-3. Run and make sure it outputs nothing (Ctrl-C to quit):
-
-        node node_modules/livereload/bin/livereload.js rpc server
 
 
 LR for Mac hacking tips

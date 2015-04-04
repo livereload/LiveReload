@@ -33,7 +33,7 @@
     <ProductName>LiveReload</ProductName>
     <PublisherName>LiveReload</PublisherName>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>0.8.6.0</ApplicationVersion>
+    <ApplicationVersion>0.9.2.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -77,8 +77,17 @@
       <HintPath>packages\MahApps.Metro.0.10.0.1\lib\net40\MahApps.Metro.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="SevenZipSharp">
-      <HintPath>lib\SevenZipSharp\SevenZipSharp.dll</HintPath>
+    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Microsoft.WindowsAPICodePack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
+    </Reference>
+    <Reference Include="SevenZipSharp, Version=0.64.3890.29348, Culture=neutral, PublicKeyToken=20de82c62b055c88, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>packages\SevenZipSharp.0.64\lib\SevenZipSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -103,6 +112,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="FSMonitor\FSMonitor.cs" />
+    <Compile Include="FSMonitor\IFSMonitor.cs" />
+    <Compile Include="src\MainWindowConverters.cs" />
     <Compile Include="src\MainWindowViewModel.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="src\ActionsFilesHub.xaml.cs">
@@ -118,6 +130,8 @@
       <DependentUpon>EditableTextBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="src\MainWindow.Update.cs" />
+    <Compile Include="Model\Project.cs" />
+    <Compile Include="Model\Workspace.cs" />
     <Compile Include="Twins\Environment.cs" />
     <Compile Include="Twins\WPF\Facets.cs" />
     <Compile Include="Twins\Entity.cs" />
@@ -132,6 +146,8 @@
       <DependentUpon>TwinsDebugger.xaml</DependentUpon>
     </Compile>
     <Compile Include="Twins\WPF\WindowLocationPersistence.cs" />
+    <Compile Include="Utilities\CollectionExtensions.cs" />
+    <Compile Include="Utilities\ThreadingUtils.cs" />
     <Page Include="Resources\AppStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -180,6 +196,15 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Content Include="res\excluded.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\included.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\LiveReloadNodejs.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -192,9 +217,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <Content Include="res\bundled\node-0.10.3.7z">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="res\bundled\plugins.7z">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -229,9 +251,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
       <Visible>False</Visible>
-      <ProductName>Windows Installer 3.1</ProductName>
+      <ProductName>Windows Installer 4.5</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>

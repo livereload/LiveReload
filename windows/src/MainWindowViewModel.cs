@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+
 using Twins;
+using LiveReload.Model;
 
 namespace LiveReload
 {
@@ -14,46 +16,59 @@ namespace LiveReload
 
     public class MainWindowViewModel : ModelBase
     {
-        private ObservableCollection<ProjectViewModel> projects = new ObservableCollection<ProjectViewModel>();
-        private ActionsFilesViewModel actionsFiles = new ActionsFilesViewModel();
-        private string dummy = "123";
-        
+        private Workspace workspace;
+        private Project selectedProject;
+
+        private string statusMessage = "Starting up...";
+
         // design-time only
+        // need to be careful for workspace not to perform any dangerous activity!
         public MainWindowViewModel() {
-            projects.Add(new ProjectViewModel { Text = "LiveReload-less-example-2" });
-            projects.Add(new ProjectViewModel { Text = "Project2" });
+            this.workspace = new Workspace();
+            //workspace.AddProject(new Project("", "LiveReload-less-example-2"));
+            //workspace.AddProject(new Project("", "Project2"));
         }
 
-        public MainWindowViewModel(bool live) {
+        public MainWindowViewModel(Workspace sharedWorkspace) {
+            this.workspace = sharedWorkspace;
         }
 
-        public ActionsFilesViewModel ActionsFiles {
+        public string StatusMessage {
             get {
-                return actionsFiles;
-            }
-        }
-
-        public ObservableCollection<ProjectViewModel> SampleItems {
-            get {
-                return projects;
-            }
-        }
-
-        public ObservableCollection<ActionGroup> ActionGroups {
-            get {
-                return actionsFiles.Groups;
-            }
-        }
-
-        public string Dummy {
-            get {
-                return dummy;
+                return statusMessage;
             }
             set {
-                if (dummy != value) {
-                    dummy = value;
-                    OnPropertyChanged("Dummy");
-                }
+                statusMessage = value;
+                OnPropertyChanged("StatusMessage");
+            }
+        }
+
+        public bool IsProjectSelected {
+            get {
+                return (SelectedProject != null);
+            }
+        }
+
+        public Project SelectedProject {
+            get {
+                return selectedProject;
+            }
+            set {
+                selectedProject = value;
+                OnPropertyChanged("SelectedProject");
+                OnPropertyChanged("IsProjectSelected");
+            }
+        }
+
+        public ReadOnlyObservableCollection<Project> Projects {
+            get {
+                return workspace.Projects;
+            }
+        }
+
+        public Workspace Workspace {
+            get {
+                return workspace;
             }
         }
     }

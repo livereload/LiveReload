@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-#if !SILVERLIGHT
-using System.Data;
-#endif
 using System.Globalization;
-using System.IO;
 using System.Text;
 
 namespace Twins.JSON
@@ -13,11 +8,6 @@ namespace Twins.JSON
     internal sealed class JsonSerializer
     {
         private StringBuilder _output = new StringBuilder();
-        private StringBuilder _before = new StringBuilder();
-
-        internal JsonSerializer()
-        {
-        }
 
         internal string ConvertToJSON(object obj)
         {
@@ -55,10 +45,11 @@ namespace Twins.JSON
 
             else if (obj is IDictionary)
                 WriteDictionary((IDictionary)obj);
+
             else if (obj is byte[])
                 WriteBytes((byte[])obj);
 
-            else if (obj is Array || obj is IList || obj is ICollection)
+            else if (obj is IEnumerable)//Array || obj is IList || obj is ICollection)
                 WriteArray((IEnumerable)obj);
 
             else if (obj is Enum)
@@ -76,11 +67,7 @@ namespace Twins.JSON
 
         private void WriteBytes(byte[] bytes)
         {
-#if !SILVERLIGHT
             WriteStringFast(Convert.ToBase64String(bytes, 0, bytes.Length, Base64FormattingOptions.None));
-#else
-            WriteStringFast(Convert.ToBase64String(bytes, 0, bytes.Length));
-#endif
         }
 
         private void WriteDateTime(DateTime dateTime)
@@ -90,32 +77,23 @@ namespace Twins.JSON
             if (true)
                 dt = dateTime.ToUniversalTime();
 
-            _output.Append("\"");
+            _output.Append('\"');
             _output.Append(dt.Year.ToString("0000", NumberFormatInfo.InvariantInfo));
-            _output.Append("-");
+            _output.Append('-');
             _output.Append(dt.Month.ToString("00", NumberFormatInfo.InvariantInfo));
-            _output.Append("-");
+            _output.Append('-');
             _output.Append(dt.Day.ToString("00", NumberFormatInfo.InvariantInfo));
-            _output.Append(" ");
+            _output.Append(' ');
             _output.Append(dt.Hour.ToString("00", NumberFormatInfo.InvariantInfo));
-            _output.Append(":");
+            _output.Append(':');
             _output.Append(dt.Minute.ToString("00", NumberFormatInfo.InvariantInfo));
-            _output.Append(":");
+            _output.Append(':');
             _output.Append(dt.Second.ToString("00", NumberFormatInfo.InvariantInfo));
 
             if (true)
-                _output.Append("Z");
+                _output.Append('Z');
 
-            _output.Append("\"");
-        }
-
-        private void WritePairFast(string name, string value)
-        {
-            WriteStringFast(name);
-
-            _output.Append(':');
-
-            WriteStringFast(value);
+            _output.Append('\"');
         }
 
         private void WritePair(string name, object value)

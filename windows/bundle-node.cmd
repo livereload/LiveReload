@@ -1,15 +1,13 @@
-set VER=0.10.3
+set VER=0.10.12
 
 cd "%~dp0"
 
-rd /s /q node
+del /q /f node.exe
 
-tools\curl -O "http://nodejs.org/dist/v%VER%/node.exe"
+tools\curl.exe -O "http://nodejs.org/dist/v%VER%/node.exe"
+tools\upx.exe --ultra-brute node.exe
 
-md "node-%VER%"
-move node.exe "node-%VER%\LiveReloadNodejs.exe"
+del /q /f res\LiveReloadNodejs.exe
+move node.exe res\LiveReloadNodejs.exe
 
-del /q /f "res\bundled\node-%VER%.7z"
-tools\7za.exe a "res\bundled\node-%VER%.7z" "node-%VER%"
 
-rd /s /q "node-%VER%"
