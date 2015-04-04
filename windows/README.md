@@ -75,7 +75,7 @@ Verify that the backend works:
 
 Prepare the bundled resources:
 
-* Run `powershell bundle-backend.ps1`
+* Run `powershell ./bundle-backend.ps1`
 * Run `bundle-ruby.cmd`
 * Run `bundle-node.cmd`
 * Run `bundle-plugins.cmd`
