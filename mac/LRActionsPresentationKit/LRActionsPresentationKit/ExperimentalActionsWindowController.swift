@@ -160,7 +160,7 @@ public class ExperimentalActionsWindowController: NSWindowController, HyperlinkT
                     scanner.scanLocation = hyperlinkEnd - 2
                     let range = NSMakeRange(hyperlinkStart, hyperlinkEnd - 2 - hyperlinkStart)
                     
-                    let url = "http://localhost:5000/\(NSString(string: hyperlinkText!).stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding))"
+                    let url = "http://localhost:5000/\(NSString(string: hyperlinkText!).stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)"
                     let s = NSUnderlineStyleSingle | NSUnderlinePatternDot
                     ass.addAttributes([NSLinkAttributeName: NSURL(string: url)!, NSUnderlineStyleAttributeName: (NSUnderlineStyleSingle | NSUnderlinePatternDot), NSUnderlineColorAttributeName: NSColor.secondaryLabelColor()], range: range)
                 }

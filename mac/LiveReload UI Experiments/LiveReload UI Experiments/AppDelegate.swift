@@ -22,7 +22,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 //        window = EmailSignupWindow.create()
 
-        let yamlString = NSString(contentsOfURL: NSBundle.mainBundle().URLForResource("narratives.yml", withExtension: nil), encoding: NSUTF8StringEncoding, error: nil)
+        let yamlString = NSString(contentsOfURL: NSBundle.mainBundle().URLForResource("narratives.yml", withExtension: nil)!, encoding: NSUTF8StringEncoding, error: nil)
         if let yaml: AnyObject = YAMLSerialization.objectWithYAMLString(yamlString, options: .StringScalars, error: nil) {
             let wc = ExperimentalActionsWindowController(windowNibName: "ExperimentalActionsWindowController")
             wc.narratives = yaml as [String: AnyObject]

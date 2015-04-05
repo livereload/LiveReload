@@ -5,7 +5,7 @@ public class CompileFileRule : ScriptInvocationRule {
 
     public var compilerName : String?
 
-    public var outputFilterOption : FilterOption = FilterOption(memento: "subdir.") {
+    public var outputFilterOption : FilterOption = FilterOption(memento: "subdir:.") {
         didSet {
             if outputFilterOption != oldValue {
                 didChange();
@@ -21,8 +21,8 @@ public class CompileFileRule : ScriptInvocationRule {
     }
 
     public /*protected*/ override func updateMemento() {
-        super.updateMemento()
         memento["output"] = outputFilterOption.memento
+        super.updateMemento()
     }
 
     public func destinationFileForSourceFile(file: ProjectFile) -> ProjectFile {

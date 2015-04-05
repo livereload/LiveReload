@@ -55,7 +55,12 @@ public class Rule : NSObject {
         self.contextAction = contextAction
         self.primaryVersionSpec = LRVersionSpec.stableVersionSpecMatchingAnyVersionInVersionSpace(contextAction.action.primaryVersionSpace)
         super.init()
-        self.memento = (memento as? [String: AnyObject]) ?? [:]
+        self.memento = [:]
+        if let m = memento as? [String: AnyObject] {
+            for (k, v) in m {
+                self.memento.updateValue(v, forKey: k)
+            }
+        }
 
         loadFromMemento()
         updateInputPathSpec()
@@ -101,7 +106,7 @@ public class Rule : NSObject {
     }
 
     public /*protected*/ func updateMemento() {
-        memento["action"] = action.identifier
+        memento["action"] = action.identifier!
         memento["enabled"] = enabled
         memento["filter"] = inputFilterOption.memento
         memento["version"] = primaryVersionSpec.stringValue
