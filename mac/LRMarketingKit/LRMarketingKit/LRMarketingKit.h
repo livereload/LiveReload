@@ -5,3 +5,4 @@ FOUNDATION_EXPORT double LRMarketingKitVersionNumber;
 FOUNDATION_EXPORT const unsigned char LRMarketingKitVersionString[];
 
 #import <LRMarketingKit/RSAESCryptor.h>
+#import <LRMarketingKit/NSData+CommonCrypto.h>
