@@ -79,6 +79,9 @@
             <TextBlock TextWrapping="Wrap" Margin="30">
                 <Bold>What's New</Bold><LineBreak /><LineBreak />
                 
+                <Bold>v0.9.3</Bold>, <Bold>v0.9.4</Bold><LineBreak />
+                <Run>* Fixed a famous ECONNRESET crash affecting pretty much all users</Run><LineBreak /><LineBreak />
+                
                 <Bold>v0.9.2</Bold><LineBreak />
                 <Run>* Fixed a startup crash affecting most Windows XP users</Run><LineBreak /><LineBreak />
 
