@@ -33,7 +33,7 @@
     <ProductName>LiveReload</ProductName>
     <PublisherName>LiveReload</PublisherName>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>0.9.3.0</ApplicationVersion>
+    <ApplicationVersion>0.9.4.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
