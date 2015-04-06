@@ -83,6 +83,70 @@ Prepare the bundled resources:
 Finally, open the solution in Visual Studio and perform a build.
 
 
+## Releasing a build
+
+* Update version number: `node SetVersionNumber.js 0.9.3.0`
+
+* Commit (Version bump to x.y.z)
+
+* Open "VS 2013 x86 Native Tools Command Prompt" (using the Start menu).
+
+* Run PubLiveBuild.cmd from the native tools window.
+
+    If the build fails in Visual Studio 2013 Professional, try [this StackOverflow answer](http://stackoverflow.com/a/25756668/58146) or other answers to the same question.
+
+* Copy `PubConfig.cmd.example` into `PubConfig.cmd` and put your Amazon AWS credentials there. Obviously, you only need to do this once.
+
+    Recommended: create an IMA account that only has access to the bucket you're trying to upload to. Create and apply a security policy similar to:
+
+        {
+            "Version": "2012-10-17",
+            "Statement": [
+                {
+                    "Effect": "Allow",
+                    "Action": [
+                        "s3:ListAllMyBuckets"
+                    ],
+                    "Resource": [
+                        "arn:aws:s3:::*"
+                    ]
+                },
+                {
+                    "Effect": "Allow",
+                    "Action": [
+                        "s3:ListBucket",
+                        "s3:ListBucketMultipartUploads",
+                        "s3:GetBucketAcl",
+                        "s3:GetBucketLocation"
+                    ],
+                    "Resource": [
+                        "arn:aws:s3:::download.livereload.com"
+                    ]
+                },
+                {
+                    "Effect": "Allow",
+                    "Action": [
+                        "s3:ListBucket",
+                        "s3:GetObject",
+                        "s3:GetObjectAcl",
+                        "s3:PutObject",
+                        "s3:PutObjectAcl",
+                        "s3:ListMultipartUploadParts",
+                        "s3:AbortMultipartUpload"
+                    ],
+                    "Resource": [
+                        "arn:aws:s3:::download.livereload.com/*",
+                        "arn:aws:s3:::download.livereload.com/windows/*",
+                        "arn:aws:s3:::download.livereload.com/windows-stage/*"
+                    ]
+                }
+            ]
+        }
+
+* Run `PubLiveUpload.cmd` (note: sadly, this triggers installation of .NET Framework 3.5 on Windows 8.1; unfortunately later versions of s3sync are commercial and cannot be distributed as part of this build process)
+
+* After it succeeds, run `PubLiveCommit.cmd`.
+
 ## Running PowerShell scripts
 
 As [explained on MSDN](http://technet.microsoft.com/library/hh847748.aspx), you need to configure PowerShell to run scripts. Here's how:
