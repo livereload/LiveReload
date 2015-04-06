@@ -89,6 +89,8 @@ Finally, open the solution in Visual Studio and perform a build.
 
 * Commit (Version bump to x.y.z)
 
+* Update the version history message in `MainWindow.xaml`.
+
 * Open "VS 2013 x86 Native Tools Command Prompt" (using the Start menu).
 
 * Run PubLiveBuild.cmd from the native tools window.
