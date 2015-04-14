@@ -116,7 +116,7 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
 #pragma mark - Actions
 
 - (IBAction)showHelp:(id)sender {
-    TenderShowArticle(@"features/compilation");
+    TenderShowArticle(@"http://go.livereload.com/compilation");
 }
 
 

@@ -46,7 +46,7 @@ void os_emergency_shutdown_backend_crashed() {
     if (result == NSAlertDefaultReturn) {
         NSString *logFile = [[NSString stringWithUTF8String:os_log_path] stringByAppendingPathComponent:@"log.txt"];
         [[NSWorkspace sharedWorkspace] selectFile:logFile inFileViewerRootedAtPath:nil];
-        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://help.livereload.com/kb/troubleshooting/livereload-has-crashed-on-a-mac"]];
+        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://go.livereload.com/crashed/mac"]];
     }
     [NSApp terminate:nil];
 }

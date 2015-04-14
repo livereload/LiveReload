@@ -194,7 +194,7 @@ void C_mainwnd__set_change_count(json_t *arg) {
     [_gettingStartedLabelField.cell setBackgroundStyle:NSBackgroundStyleRaised];
     [_terminalButton.cell setBackgroundStyle:NSBackgroundStyleRaised];
 
-    [self stylePartialHyperlink:_snippetLabelField to:[NSURL URLWithString:@"http://help.livereload.com/kb/general-use/browser-extensions"] color:[NSColor blackColor] linkColor:[NSColor colorWithCalibratedRed:0 green:10/255.0 blue:137/255.0 alpha:1.0] shadow:nil];;
+    [self stylePartialHyperlink:_snippetLabelField to:[NSURL URLWithString:@"http://go.livereload.com/extensions"] color:[NSColor blackColor] linkColor:[NSColor colorWithCalibratedRed:0 green:10/255.0 blue:137/255.0 alpha:1.0] shadow:nil];;
 
     NSTableColumn *tableColumn = [_projectOutlineView tableColumnWithIdentifier:@"Name"];
     ImageAndTextCell *imageAndTextCell = [[[ImageAndTextCell alloc] init] autorelease];
@@ -626,7 +626,7 @@ void C_mainwnd__set_change_count(json_t *arg) {
 }
 
 - (IBAction)performKeyboardHelp:(id)sender {
-    TenderShowArticle(@"general-use/keyboard-shortcuts");
+    TenderShowArticle(@"http://go.livereload.com/keyboard");
 }
 
 - (IBAction)performWebSite:(id)sender {
@@ -634,15 +634,15 @@ void C_mainwnd__set_change_count(json_t *arg) {
 }
 
 - (IBAction)performReportProblem:(id)sender {
-    TenderStartDiscussionIn(@"problems");
+    TenderShowArticle(@"http://go.livereload.com/support/problem");
 }
 
 - (IBAction)performAskQuestion:(id)sender {
-    TenderStartDiscussionIn(@"questions");
+    TenderShowArticle(@"http://go.livereload.com/support/question");
 }
 
 - (IBAction)performSuggest:(id)sender {
-    TenderStartDiscussionIn(@"suggestions");
+    TenderShowArticle(@"http://go.livereload.com/support/suggestion");
 }
 
 - (IBAction)helpSupportClicked:(NSSegmentedControl *)sender {

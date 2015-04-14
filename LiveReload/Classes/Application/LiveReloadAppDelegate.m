@@ -292,7 +292,7 @@ void C_app__good_time_to_deliver_news(json_t *arg) {
 #pragma mark - Help and support
 
 - (IBAction)openSupport:(id)sender {
-    TenderStartDiscussion(@"", @"");
+    TenderShowArticle(@"http://go.livereload.com/support");
 }
 
 - (IBAction)openHelp:(id)sender {

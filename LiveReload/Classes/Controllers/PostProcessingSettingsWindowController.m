@@ -12,7 +12,7 @@
 #pragma mark - Actions
 
 - (IBAction)showHelp:(id)sender {
-    TenderShowArticle(@"features/custom-post-processing");
+    TenderShowArticle(@"http://go.livereload.com/postproc");
 }
 
 

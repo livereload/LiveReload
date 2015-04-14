@@ -17,7 +17,7 @@ static ExtensionsController *sharedExtensionsController;
 }
 
 - (void)installExtensionWithAppId:(NSString *)appId {
-    NSURL *url = [NSURL URLWithString:@"http://help.livereload.com/kb/general-use/browser-extensions"];
+    NSURL *url = [NSURL URLWithString:@"http://go.livereload.com/extensions"];
     if (!appId || ![[NSWorkspace sharedWorkspace] openURLs:[NSArray arrayWithObject:url] withAppBundleIdentifier:appId options:NSWorkspaceLaunchDefault additionalEventParamDescriptor:NULL launchIdentifiers:NULL]) {
         [[NSWorkspace sharedWorkspace] openURL:url];
     }

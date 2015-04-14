@@ -30,7 +30,7 @@
 #pragma mark - Actions
 
 - (IBAction)showHelp:(id)sender {
-    TenderShowArticle(@"");
+    TenderShowArticle(@"http://go.livereload.com/options/monitoring");
 }
 
 

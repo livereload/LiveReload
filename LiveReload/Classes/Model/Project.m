@@ -330,7 +330,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     if ([brokenPathsToReport count] > 0) {
         NSInteger result = [[NSAlert alertWithMessageText:@"Folder Cannot Be Monitored" defaultButton:@"Read More" alternateButton:@"Ignore" otherButton:nil informativeTextWithFormat:@"The following %@ cannot be monitored because of OS X FSEvents bug:\n\n\t%@\n\nMore info and workaround instructions are available on our site.", [brokenPathsToReport count] > 0 ? @"folders" : @"folder", [[brokenPathsToReport componentsJoinedByString:@"\n\t"] stringByReplacingOccurrencesOfString:@"_!LR_BROKEN!_" withString:@"Broken"]] runModal];
         if (result == NSAlertDefaultReturn) {
-            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://help.livereload.com/kb/troubleshooting/os-x-fsevents-bug-may-prevent-monitoring-of-certain-folders"]];
+            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://go.livereload.com/fsevents"]];
         }
         _brokenPathReported = YES;
     }
