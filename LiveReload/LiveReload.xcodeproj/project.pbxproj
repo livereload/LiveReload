@@ -276,12 +276,8 @@
 		435130191ACD750D0073A0D4 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43059221151E8FA400CC3F88 /* CoreServices.framework */; };
 		4351301A1ACD750D0073A0D4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43594AF313D3BB34004175B2 /* QuartzCore.framework */; };
 		4351301B1ACD750D0073A0D4 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43361D4513C30D1400C0E589 /* libicucore.dylib */; };
-		4351301C1ACD750D0073A0D4 /* ParseOSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65361A923DA400335BAD /* ParseOSX.framework */; };
 		4351301D1ACD750D0073A0D4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		4351301E1ACD750D0073A0D4 /* Paddle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65321A923B9E00335BAD /* Paddle.framework */; };
-		435130201ACD750D0073A0D4 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65351A923DA400335BAD /* Bolts.framework */; };
-		435130241ACD750D0073A0D4 /* ParseOSX.framework in Embed Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65361A923DA400335BAD /* ParseOSX.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		435130251ACD750D0073A0D4 /* Bolts.framework in Embed Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65351A923DA400335BAD /* Bolts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		435130261ACD750D0073A0D4 /* Paddle.framework in Embed Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65321A923B9E00335BAD /* Paddle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4353196F1465B52D005FA59F /* ShitHappens.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353196E1465B52D005FA59F /* ShitHappens.m */; };
 		4353197214668E7D005FA59F /* LRHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4353197014668E7D005FA59F /* LRHelpTemplate.png */; };
@@ -297,8 +293,6 @@
 		43693F4115660A8700C453CC /* LiveReloadNodejs in Resources */ = {isa = PBXBuildFile; fileRef = 43693F4015660A8700C453CC /* LiveReloadNodejs */; };
 		436A65331A923B9E00335BAD /* Paddle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65321A923B9E00335BAD /* Paddle.framework */; };
 		436A65341A923C9600335BAD /* Paddle.framework in Embed Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65321A923B9E00335BAD /* Paddle.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		436A65371A923DA400335BAD /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65351A923DA400335BAD /* Bolts.framework */; };
-		436A65381A923DA500335BAD /* ParseOSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65361A923DA400335BAD /* ParseOSX.framework */; };
 		436A653A1A923DC100335BAD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65391A923DC100335BAD /* CFNetwork.framework */; };
 		436A653C1A923DCB00335BAD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A653B1A923DCB00335BAD /* CoreGraphics.framework */; };
 		436A653E1A923DD000335BAD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A653D1A923DD000335BAD /* CoreLocation.framework */; };
@@ -306,8 +300,6 @@
 		436A65421A923DE500335BAD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65411A923DE500335BAD /* SystemConfiguration.framework */; };
 		436A65441A923DED00335BAD /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65431A923DED00335BAD /* libsqlite3.dylib */; };
 		436A65461A923DF200335BAD /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65451A923DF200335BAD /* libz.dylib */; };
-		436A65471A923E2000335BAD /* Bolts.framework in Embed Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65351A923DA400335BAD /* Bolts.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		436A65481A923E2800335BAD /* ParseOSX.framework in Embed Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65361A923DA400335BAD /* ParseOSX.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		436A654A1A923FA900335BAD /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65491A923FA900335BAD /* ApplicationServices.framework */; };
 		436A654D1A92454900335BAD /* Analytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 436A654C1A92454900335BAD /* Analytics.m */; };
 		436A65501A92470400335BAD /* Analytics+SpecificEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 436A654F1A92470400335BAD /* Analytics+SpecificEvents.m */; };
@@ -473,8 +465,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				436A65481A923E2800335BAD /* ParseOSX.framework in Embed Third-Party Frameworks */,
-				436A65471A923E2000335BAD /* Bolts.framework in Embed Third-Party Frameworks */,
 				436A65341A923C9600335BAD /* Paddle.framework in Embed Third-Party Frameworks */,
 				430923DC1755C5E900400279 /* Sparkle.framework in Embed Third-Party Frameworks */,
 			);
@@ -533,8 +523,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				435130241ACD750D0073A0D4 /* ParseOSX.framework in Embed Third-Party Frameworks */,
-				435130251ACD750D0073A0D4 /* Bolts.framework in Embed Third-Party Frameworks */,
 				435130261ACD750D0073A0D4 /* Paddle.framework in Embed Third-Party Frameworks */,
 			);
 			name = "Embed Third-Party Frameworks";
@@ -679,8 +667,6 @@
 		435BE044141B87920008FF77 /* NewMainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewMainWindowController.m; sourceTree = "<group>"; };
 		43693F4015660A8700C453CC /* LiveReloadNodejs */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = LiveReloadNodejs; path = Resources/LiveReloadNodejs; sourceTree = "<group>"; };
 		436A65321A923B9E00335BAD /* Paddle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Paddle.framework; path = Vendor/Paddle/Paddle.framework; sourceTree = "<group>"; };
-		436A65351A923DA400335BAD /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = Vendor/Bolts.framework; sourceTree = "<group>"; };
-		436A65361A923DA400335BAD /* ParseOSX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseOSX.framework; path = Vendor/ParseOSX.framework; sourceTree = "<group>"; };
 		436A65391A923DC100335BAD /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		436A653B1A923DCB00335BAD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		436A653D1A923DD000335BAD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -923,10 +909,8 @@
 				435130191ACD750D0073A0D4 /* CoreServices.framework in Frameworks */,
 				4351301A1ACD750D0073A0D4 /* QuartzCore.framework in Frameworks */,
 				4351301B1ACD750D0073A0D4 /* libicucore.dylib in Frameworks */,
-				4351301C1ACD750D0073A0D4 /* ParseOSX.framework in Frameworks */,
 				4351301D1ACD750D0073A0D4 /* Cocoa.framework in Frameworks */,
 				4351301E1ACD750D0073A0D4 /* Paddle.framework in Frameworks */,
-				435130201ACD750D0073A0D4 /* Bolts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -952,11 +936,9 @@
 				43059222151E8FA400CC3F88 /* CoreServices.framework in Frameworks */,
 				43594AF413D3BB34004175B2 /* QuartzCore.framework in Frameworks */,
 				43361D4613C30D1400C0E589 /* libicucore.dylib in Frameworks */,
-				436A65381A923DA500335BAD /* ParseOSX.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				436A65331A923B9E00335BAD /* Paddle.framework in Frameworks */,
 				430923DB1755C58A00400279 /* Sparkle.framework in Frameworks */,
-				436A65371A923DA400335BAD /* Bolts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1051,8 +1033,6 @@
 				436A653D1A923DD000335BAD /* CoreLocation.framework */,
 				436A653B1A923DCB00335BAD /* CoreGraphics.framework */,
 				436A65391A923DC100335BAD /* CFNetwork.framework */,
-				436A65351A923DA400335BAD /* Bolts.framework */,
-				436A65361A923DA400335BAD /* ParseOSX.framework */,
 				436A65321A923B9E00335BAD /* Paddle.framework */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
