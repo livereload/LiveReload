@@ -1848,7 +1848,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "LOCATION=\"${BUILT_PRODUCTS_DIR}\"/\"${FRAMEWORKS_FOLDER_PATH}\"\n# a file located outside of a proper Resources folder causes code sign to reject the binary\nrm -f \"$LOCATION/ParseOSX.framework/third_party_licenses.txt\"\n";
+			shellScript = "LOCATION=\"${BUILT_PRODUCTS_DIR}\"/\"${FRAMEWORKS_FOLDER_PATH}\"\n# a file located outside of a proper Resources folder causes code sign to reject the binary\n# rm -f \"$LOCATION/ParseOSX.framework/third_party_licenses.txt\"\n";
+			showEnvVarsInLog = 0;
 		};
 		4360444D181983AE00103E14 /* Sign Third-Party Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1862,7 +1863,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if test -z \"$CODE_SIGN_IDENTITY\"; then\n  echo \"Skipping codesign of frameworks because CODE_SIGN_IDENTITY is not set.\"\nelse\n  LOCATION=\"${BUILT_PRODUCTS_DIR}\"/\"${FRAMEWORKS_FOLDER_PATH}\"\n  codesign --verbose --force --sign \"$CODE_SIGN_IDENTITY\" \"$LOCATION/Sparkle.framework/Versions/A\"\n  codesign --verbose --force --sign \"$CODE_SIGN_IDENTITY\" \"$LOCATION/Paddle.framework/Versions/A\"\n  codesign --verbose --force --sign \"$CODE_SIGN_IDENTITY\" \"$LOCATION/Bolts.framework/Versions/A\"\n\n  # a file located outside of a proper Resources folder causes code sign to reject the binary\n  rm -f \"$LOCATION/ParseOSX.framework/third_party_licenses.txt\"\n  codesign --verbose --force --sign \"$CODE_SIGN_IDENTITY\" \"$LOCATION/ParseOSX.framework/Versions/A\"\nfi";
+			shellScript = "if test -z \"$CODE_SIGN_IDENTITY\"; then\n  echo \"Skipping codesign of frameworks because CODE_SIGN_IDENTITY is not set.\"\nelse\n  LOCATION=\"${BUILT_PRODUCTS_DIR}\"/\"${FRAMEWORKS_FOLDER_PATH}\"\n  codesign --verbose --force --sign \"$CODE_SIGN_IDENTITY\" \"$LOCATION/Sparkle.framework/Versions/A\"\n  codesign --verbose --force --sign \"$CODE_SIGN_IDENTITY\" \"$LOCATION/Paddle.framework/Versions/A\"\n  # codesign --verbose --force --sign \"$CODE_SIGN_IDENTITY\" \"$LOCATION/Bolts.framework/Versions/A\"\n\n  # a file located outside of a proper Resources folder causes code sign to reject the binary\n  # rm -f \"$LOCATION/ParseOSX.framework/third_party_licenses.txt\"\n  # codesign --verbose --force --sign \"$CODE_SIGN_IDENTITY\" \"$LOCATION/ParseOSX.framework/Versions/A\"\nfi";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
