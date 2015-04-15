@@ -22,7 +22,7 @@ public class TextOptionType : OptionType {
         if !parseCommon(into: spec, manifest, errorSink) {
             return false
         }
-        spec.arguments = P2ParseCommandLineSpec(manifest["args"]) as [String]
+        spec.arguments = P2ParseCommandLineSpec(manifest["args"]) as! [String]
         spec.placeholder = manifest["placeholder"]~~~
         spec.skipArgumentsIfEmpty = manifest["skip-if-empty"] ~|||~ true
         return true

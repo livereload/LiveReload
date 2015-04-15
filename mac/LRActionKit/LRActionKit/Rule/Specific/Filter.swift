@@ -1,5 +1,6 @@
 import Foundation
 import ATPathSpec
+import SwiftyFoundation
 
 public class FilterRule : ScriptInvocationRule {
 
@@ -10,7 +11,7 @@ public class FilterRule : ScriptInvocationRule {
     public /*protected*/ override func loadFromMemento() {
         super.loadFromMemento()
 
-        let inputFilter = action.manifest["input"]! as String
+        let inputFilter = StringValue(action.manifest["input"])!
         intrinsicInputPathSpec = ATPathSpec(string: inputFilter, syntaxOptions: ATPathSpecSyntaxOptions.FlavorExtended)
     }
 

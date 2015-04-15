@@ -24,7 +24,7 @@ public class MultipleChoiceOptionType : OptionType {
         }
 
         var index = 0
-        let items: [MultipleChoiceOptionItem]? = ArrayValue(manifest["items"]) { MultipleChoiceOptionType.parseItem($0 as [String: AnyObject], index: index++) }
+        let items: [MultipleChoiceOptionItem]? = ArrayValue(manifest["items"]) { MultipleChoiceOptionType.parseItem($0 as! [String: AnyObject], index: index++) }
         if let items = items {
             spec.items = items
         } else {
@@ -38,7 +38,7 @@ public class MultipleChoiceOptionType : OptionType {
     private class func parseItem(manifest: [String: AnyObject], index: Int) -> MultipleChoiceOptionItem? {
         let identifier: String? = manifest["id"]~~~
         let label: String? = manifest["label"]~~~
-        let arguments: [String] = P2ParseCommandLineSpec(manifest["args"]) as [String]
+        let arguments: [String] = P2ParseCommandLineSpec(manifest["args"]) as! [String]
         if identifier != nil && label != nil && !identifier!.isEmpty && !label!.isEmpty {
             return MultipleChoiceOptionItem(identifier: identifier!, label: label!, index: index, arguments: arguments)
         } else {

@@ -36,7 +36,7 @@ public class ExperimentalActionsWindowController: NSWindowController, HyperlinkT
     }
 
     private func narrativeNamed(key: String) -> Narrative {
-        return Narrative.parse(narratives[key]! as [String: AnyObject])
+        return Narrative.parse(narratives[key]! as! [String: AnyObject])
     }
 
     public override func windowDidLoad() {
@@ -190,7 +190,7 @@ public class ExperimentalActionsWindowController: NSWindowController, HyperlinkT
     @IBAction func toggleExpandedMode(sender: AnyObject) {
         expandedMode = !expandedMode
         tableView.enumerateAvailableRowViewsUsingBlock { (rowView, row) in
-            let cell = rowView.viewAtColumn(0) as ActionCellView
+            let cell = rowView.viewAtColumn(0) as! ActionCellView
             self.configureCellViewNarrative(cell)
         }
         tableView.noteHeightOfRowsWithIndexesChanged(NSIndexSet(indexesInRange: NSMakeRange(0, tableView.numberOfRows)))
@@ -209,7 +209,7 @@ public class ExperimentalActionsWindowController: NSWindowController, HyperlinkT
     @IBAction func toggledVisibleOptions(sender: AnyObject) {
         expandedMode = (visibleOptionsControl.selectedSegment == 1);
         tableView.enumerateAvailableRowViewsUsingBlock { (rowView, row) in
-            let cell = rowView.viewAtColumn(0) as ActionCellView
+            let cell = rowView.viewAtColumn(0) as! ActionCellView
             self.configureCellViewNarrative(cell)
         }
         tableView.noteHeightOfRowsWithIndexesChanged(NSIndexSet(indexesInRange: NSMakeRange(0, tableView.numberOfRows)))
@@ -252,25 +252,25 @@ public class ExperimentalActionsWindowController: NSWindowController, HyperlinkT
 
 extension ExperimentalActionsWindowController : NSTableViewDataSource, NSTableViewDelegate {
 
-    public func numberOfRowsInTableView(tableView: NSTableView!) -> Int {
+    public func numberOfRowsInTableView(tableView: NSTableView) -> Int {
         return visibleItems.count
     }
 
-    public func tableView(tableView: NSTableView!, objectValueForTableColumn tableColumn: NSTableColumn!, row: Int) -> AnyObject! {
+    public func tableView(tableView: NSTableView, objectValueForTableColumn tableColumn: NSTableColumn?, row: Int) -> AnyObject? {
         return visibleItems[row]
     }
 
-    public func tableView(tableView: NSTableView!, viewForTableColumn tableColumn: NSTableColumn!, row: Int) -> NSView! {
-        let cell = tableView.makeViewWithIdentifier(tableColumn.identifier, owner: self) as ActionCellView
+    public func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        let cell = tableView.makeViewWithIdentifier(tableColumn!.identifier, owner: self) as! ActionCellView
         cell.delegate = self
         cell.descriptionLabel.delegate = self
         configureCellView(cell, forRow: row)
         return cell
     }
 
-    public func tableView(tableView: NSTableView!, heightOfRow row: Int) -> CGFloat {
+    public func tableView(tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
         if measuringCell == nil {
-            measuringCell = tableView.makeViewWithIdentifier("mainColumn", owner: self) as ActionCellView
+            measuringCell = tableView.makeViewWithIdentifier("mainColumn", owner: self) as! ActionCellView
         }
         configureCellView(measuringCell, forRow: row)
         return measuringCell.fittingSize.height
@@ -343,9 +343,9 @@ public class Narrative : NarrativeElement {
 
     public class func parse(data: [String: AnyObject]) -> Narrative {
         var paragraphs: [ParagraphNarrativeElement] = []
-        let paragraphsData: AnyObject = data["paragraphs"]! as [AnyObject]
-        for paragraphData in paragraphsData as [AnyObject] {
-            paragraphs <<< ParagraphNarrativeElement.parse(paragraphData as [String: AnyObject])
+        let paragraphsData = data["paragraphs"]! as! [AnyObject]
+        for paragraphData in paragraphsData {
+            paragraphs <<< ParagraphNarrativeElement.parse(paragraphData as! [String: AnyObject])
         }
 
         return Narrative(paragraphs: paragraphs)
@@ -408,8 +408,8 @@ public class ParagraphNarrativeElement : NarrativeElement {
     public class func parse(data: [String: AnyObject]) -> ParagraphNarrativeElement {
         var children: [NarrativeElement] = []
         if let childrenData: AnyObject = data["children"] {
-            for childData in childrenData as [AnyObject] {
-                children <<< ItemNarrativeElement.parse(childData as [String: AnyObject])
+            for childData in childrenData as! [AnyObject] {
+                children <<< ItemNarrativeElement.parse(childData as! [String: AnyObject])
             }
         } else {
             children <<< ItemNarrativeElement.parse(data)
@@ -440,8 +440,8 @@ public class ItemNarrativeElement : NarrativeElement {
     public class func parse(data: [String: AnyObject]) -> ItemNarrativeElement {
         var states: [ItemStateNarrativeElement] = []
         if let statesData: AnyObject = data["states"] {
-            for stateData in statesData as [AnyObject] {
-                states <<< ItemStateNarrativeElement.parse(stateData as [String: AnyObject])
+            for stateData in statesData as! [AnyObject] {
+                states <<< ItemStateNarrativeElement.parse(stateData as! [String: AnyObject])
             }
         } else {
             states <<< ItemStateNarrativeElement.parse(data)

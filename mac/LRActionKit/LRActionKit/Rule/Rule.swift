@@ -213,7 +213,7 @@ public class Rule : NSObject {
         var options: [Option] = []
         options <<< VersionOption(rule: self)
         if let ev = effectiveVersion {
-            options += ev.manifest.createOptionsWithAction(self) as [Option]
+            options += ev.manifest.createOptionsWithAction(self) as! [Option]
         }
         options <<< CustomArgumentsOption(rule: self)
         return options
@@ -234,7 +234,7 @@ public class Rule : NSObject {
     public var effectiveVersion: LRActionVersion?
 
     private func _computeEffectiveVersion() -> LRActionVersion? {
-        return findIf(reverse(contextAction.versions as [LRActionVersion])) { self.primaryVersionSpec.matchesVersion($0.primaryVersion, withTag: LRVersionTag.Unknown) }
+        return findIf(reverse(contextAction.versions as! [LRActionVersion])) { self.primaryVersionSpec.matchesVersion($0.primaryVersion, withTag: LRVersionTag.Unknown) }
     }
 
     private var _c_updateEffectiveVersion = Coalescence()
@@ -285,7 +285,7 @@ public class Rule : NSObject {
                 step.addValue(value, forSubstitutionKey: key)
             }
 
-            for package in eff.packageSet.packages as [LRPackage] {
+            for package in eff.packageSet.packages as! [LRPackage] {
                 step.addValue(package.sourceFolderURL.path! as String, forSubstitutionKey: package.identifier)
                 step.addValue(package.version.description as String, forSubstitutionKey: "\(package.identifier).ver")
             }

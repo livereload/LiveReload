@@ -77,7 +77,7 @@ public class CustomCommandRule : Rule {
 
         let shellUrl = NSURL.fileURLWithPath(shell)
 
-        ATLaunchUnixTaskAndCaptureOutput(shellUrl, shArgs, .IgnoreSandbox | .MergeStdoutAndStderr, [ATCurrentDirectoryPathKey!: project.rootURL.path!]) {
+        ATLaunchUnixTaskAndCaptureOutput(shellUrl, shArgs, .IgnoreSandbox | .MergeStdoutAndStderr, [ATCurrentDirectoryPathKey: project.rootURL.path!]) {
             (outputText: String!, stderrText: String?, error: NSError?) in
             NSFileManager.defaultManager().changeCurrentDirectoryPath(pwd)
             result.completedWithInvocationError(error, rawOutput: outputText, completionBlock: completionHandler)

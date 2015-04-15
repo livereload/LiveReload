@@ -163,8 +163,8 @@
 		435EFDCD1AD1843D008EDD9D /* LRSelfTestOutputExpectation.m in Sources */ = {isa = PBXBuildFile; fileRef = 435EFD681AD1843D008EDD9D /* LRSelfTestOutputExpectation.m */; };
 		435EFDCE1AD1843D008EDD9D /* LRSelfTestOutputFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 435EFD6A1AD1843D008EDD9D /* LRSelfTestOutputFile.m */; };
 		435EFDCF1AD1843D008EDD9D /* DockIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 435EFD6D1AD1843D008EDD9D /* DockIcon.m */; };
-		435EFDD01AD1843D008EDD9D /* NSString+SmartRegexpCaptures.m in Sources */ = {isa = PBXBuildFile; fileRef = 435EFD6F1AD1843D008EDD9D /* NSString+SmartRegexpCaptures.m */; };
-		435EFDD11AD1843D008EDD9D /* NSTask+OneLineTasksWithOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = 435EFD711AD1843D008EDD9D /* NSTask+OneLineTasksWithOutput.m */; };
+		435EFDD01AD1843D008EDD9D /* NSString+SmartRegexpCaptures.m in Sources */ = {isa = PBXBuildFile; fileRef = 435EFD6F1AD1843D008EDD9D /* NSString+SmartRegexpCaptures.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		435EFDD11AD1843D008EDD9D /* NSTask+OneLineTasksWithOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = 435EFD711AD1843D008EDD9D /* NSTask+OneLineTasksWithOutput.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		435EFDD21AD1843D008EDD9D /* P2RegularExpressionExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 435EFD731AD1843D008EDD9D /* P2RegularExpressionExtensions.m */; };
 		435EFDD31AD1843D008EDD9D /* UIBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 435EFD751AD1843D008EDD9D /* UIBuilder.m */; };
 		435EFDD51AD1843D008EDD9D /* MASPreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 435EFD7A1AD1843D008EDD9D /* MASPreferencesWindow.xib */; };

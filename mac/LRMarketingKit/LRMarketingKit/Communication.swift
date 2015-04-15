@@ -66,7 +66,7 @@ public class MarketingCommunication : NSObject {
             "appVersion": NSBundle.mainBundle().infoDictionary![kCFBundleVersionKey]!
         ]
         client.POST("beta-signup/", parameters: parameters as NSDictionary, success: { (task, result) -> Void in
-            NSLog("result = %@", result as NSObject)
+            NSLog("result = %@", result as! NSObject)
             let dictionary = (result as? [String: AnyObject]) ?? [:]
             let ok: String = dictionary["ok"] ~|||~ ""
             if ok == "ok" {

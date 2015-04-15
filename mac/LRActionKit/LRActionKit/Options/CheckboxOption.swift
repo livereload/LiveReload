@@ -22,8 +22,8 @@ public class CheckboxOptionType : OptionType {
         if !parseCommon(into: spec, manifest, errorSink) {
             return false
         }
-        spec.argumentsWhenOn  = P2ParseCommandLineSpec(manifest["args"]) as [String]
-        spec.argumentsWhenOff = P2ParseCommandLineSpec(manifest["args-off"]) as [String]
+        spec.argumentsWhenOn  = P2ParseCommandLineSpec(manifest["args"]) as! [String]
+        spec.argumentsWhenOff = P2ParseCommandLineSpec(manifest["args-off"]) as! [String]
         return true
     }
 }

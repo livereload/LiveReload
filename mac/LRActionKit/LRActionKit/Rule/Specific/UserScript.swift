@@ -7,7 +7,7 @@ public class UserScriptRule : Rule {
 
     public var script: UserScript? {
         if let actualScriptName = scriptName {
-            let userScripts = UserScriptManager.sharedUserScriptManager().userScripts as [UserScript]
+            let userScripts = UserScriptManager.sharedUserScriptManager().userScripts as! [UserScript]
             if let matchingScript = findIf(userScripts, { $0.uniqueName == actualScriptName }) {
                 return matchingScript
             } else {
@@ -67,7 +67,7 @@ public class UserScriptRule : Rule {
         let filePaths = trueFiles.map { $0.relativePath }
 
         if let actualScript = script {
-            actualScript.invokeForProjectAtPath(project.rootURL.path, withModifiedFiles:NSSet(array: filePaths), result: result, completionHandler: completionHandler)
+            actualScript.invokeForProjectAtPath(project.rootURL.path, withModifiedFiles: Set(filePaths), result: result, completionHandler: completionHandler)
         }
     }
 

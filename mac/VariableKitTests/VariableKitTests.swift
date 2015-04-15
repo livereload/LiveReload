@@ -12,7 +12,7 @@ class VariableKitTests: XCTestCase {
 
         let values1 = varSet.newValueSet(scope: .File)
         values1.replaceEvidence(source: alpha, newEvidence: Evidence(variable: foo, source: alpha, value: 42, priority: 0, reason: "Blah"))
-        let v = values1.getFolded(variable: foo, defaultValue: -1) as Int
+        let v = values1.getFolded(variable: foo, defaultValue: -1) as! Int
         XCTAssertEqual(v, 42)
     }
 

@@ -3,7 +3,7 @@ import XCTest
 import SwiftyFoundation
 
 private class Counter {
-    public var value = 0
+    var value = 0
 }
 
 private class Foo {

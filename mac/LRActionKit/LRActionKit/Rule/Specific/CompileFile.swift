@@ -26,7 +26,7 @@ public class CompileFileRule : ScriptInvocationRule {
     }
 
     public func destinationFileForSourceFile(file: ProjectFile) -> ProjectFile {
-        var destinationName = LRDeriveDestinationFileName(file.relativePath.lastPathComponent, action.manifest["output"]! as String, intrinsicInputPathSpec)
+        var destinationName = LRDeriveDestinationFileName(file.relativePath.lastPathComponent, action.manifest["output"]! as! String, intrinsicInputPathSpec)
 
         var outputMappingIsRecursive = true  // TODO: make this conditional
         if outputMappingIsRecursive {

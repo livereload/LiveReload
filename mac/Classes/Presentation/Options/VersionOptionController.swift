@@ -9,7 +9,7 @@ public class VersionOptionView : NSView {
     public var popUpView: NSPopUpButton!
     public var labelView: NSTextField!
 
-    public override init() {
+    public init() {
         super.init(frame: CGRectZero)
         initialize()
     }
@@ -35,7 +35,7 @@ public class VersionOptionView : NSView {
 
 public class VersionOptionController : OptionController {
 
-    private let o = Observation()
+    private var o = Observation()
 
     private let option: VersionOption
     private var specs: [LRVersionSpec] = []
@@ -70,7 +70,7 @@ public class VersionOptionController : OptionController {
 
     public override func saveModelValues() {
         if let menuItem = view.popUpView.selectedItem {
-            let spec = menuItem.representedObject as LRVersionSpec
+            let spec = menuItem.representedObject as! LRVersionSpec
             option.effectiveValue = spec
         }
     }
@@ -80,7 +80,7 @@ public class VersionOptionController : OptionController {
     }
 
     private func updateVersionSpecs() {
-        specs = option.rule.contextAction.versionSpecs as [LRVersionSpec]
+        specs = option.rule.contextAction.versionSpecs as! [LRVersionSpec]
 
         var groups: [LRVersionSpecType: [NSMenuItem]] = [:]
         groups[.StableAny]   = []

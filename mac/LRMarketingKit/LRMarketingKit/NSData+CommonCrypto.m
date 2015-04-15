@@ -37,8 +37,55 @@
  */
 
 #import "NSData+CommonCrypto.h"
+#import <CommonCrypto/CommonCrypto.h>
 
 NSString * const kCommonCryptoErrorDomain = @"CommonCryptoErrorDomain";
+
+
+
+@interface NSError (CommonCryptoErrorDomain)
++ (NSError *) errorWithCCCryptorStatus: (CCCryptorStatus) status;
+@end
+
+
+@interface NSData (LowLevelCommonCryptor)
+
+- (NSData *) dataEncryptedUsingAlgorithm: (CCAlgorithm) algorithm
+                                     key: (id) key		// data or string
+                                   error: (CCCryptorStatus *) error;
+- (NSData *) dataEncryptedUsingAlgorithm: (CCAlgorithm) algorithm
+                                     key: (id) key		// data or string
+                                 options: (CCOptions) options
+                                   error: (CCCryptorStatus *) error;
+- (NSData *) dataEncryptedUsingAlgorithm: (CCAlgorithm) algorithm
+                                     key: (id) key		// data or string
+                    initializationVector: (id) iv		// data or string
+                                 options: (CCOptions) options
+                                   error: (CCCryptorStatus *) error;
+
+- (NSData *) decryptedDataUsingAlgorithm: (CCAlgorithm) algorithm
+                                     key: (id) key		// data or string
+                                   error: (CCCryptorStatus *) error;
+- (NSData *) decryptedDataUsingAlgorithm: (CCAlgorithm) algorithm
+                                     key: (id) key		// data or string
+                                 options: (CCOptions) options
+                                   error: (CCCryptorStatus *) error;
+- (NSData *) decryptedDataUsingAlgorithm: (CCAlgorithm) algorithm
+                                     key: (id) key		// data or string
+                    initializationVector: (id) iv		// data or string
+                                 options: (CCOptions) options
+                                   error: (CCCryptorStatus *) error;
+
+@end
+
+
+@interface NSData (CommonHMAC)
+
+- (NSData *) HMACWithAlgorithm: (CCHmacAlgorithm) algorithm;
+- (NSData *) HMACWithAlgorithm: (CCHmacAlgorithm) algorithm key: (id) key;
+
+@end
+
 
 @implementation NSError (CommonCryptoErrorDomain)
 

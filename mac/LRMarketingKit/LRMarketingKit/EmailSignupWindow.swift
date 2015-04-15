@@ -42,7 +42,7 @@ public class EmailSignupWindow: NSWindowController, NSTextFieldDelegate {
         okButton.enabled = valid
     }
 
-    public func control(control: NSControl!, textView: NSTextView!, doCommandBySelector commandSelector: Selector) -> Bool {
+    public func control(control: NSControl, textView: NSTextView, doCommandBySelector commandSelector: Selector) -> Bool {
         if control === aboutField {
             if commandSelector == Selector("insertNewline:") {
                 textView.insertNewlineIgnoringFieldEditor(self)

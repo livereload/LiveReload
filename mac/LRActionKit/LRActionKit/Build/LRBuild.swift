@@ -10,8 +10,8 @@ public class LRBuild : NSObject {
     public private(set) var messages: [LRMessage] = []
 
     public private(set) var reloadRequests: [NSDictionary] = []
-    private var _modifiedFiles = IndexedArray<String, ProjectFile>({ $0.relativePath })
-    private var _compiledFiles = IndexedArray<String, ProjectFile>({ $0.relativePath })
+    private var _modifiedFiles = IndexedArray<String, ProjectFile>() { $0.relativePath }
+    private var _compiledFiles = IndexedArray<String, ProjectFile>() { $0.relativePath }
     private var _pendingFileTargets: [LRTarget] = []
     private var _pendingProjectTargets: [LRTarget] = []
 
@@ -195,7 +195,7 @@ public class LRBuild : NSObject {
             firstFailure = result
         }
 
-        messages.extend(result.messages as [LRMessage])
+        messages.extend(result.messages as! [LRMessage])
         project.displayResult(result, key: key)
     }
 

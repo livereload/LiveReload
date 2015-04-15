@@ -131,7 +131,7 @@ public class TextOptionController : OptionController, NSTextFieldDelegate {
     public override func renderInOptionsView(optionsView: LROptionsView) {
         view = NSTextField.editableField()
         if let placeholder: String = option.placeholder {
-            (view.cell() as NSTextFieldCell).placeholderString = placeholder
+            (view.cell() as! NSTextFieldCell).placeholderString = placeholder
         }
         view.delegate = self
         optionsView.addOptionView(view, withLabel:option.label, flags:.LabelAlignmentBaseline)
