@@ -47,7 +47,6 @@ public class Rulebook: NSObject {
             return ["rules": actionMementos]
         }
         set {
-            willChangeValueForKey("rules")
             let actionMementos: [[String: AnyObject]] = ArrayValue(newValue["rules"] ?? newValue["actions"], { $0 as? [String: AnyObject] }) ?? []
             rules = mapIf(actionMementos) { self.actionWithMemento($0) }
             

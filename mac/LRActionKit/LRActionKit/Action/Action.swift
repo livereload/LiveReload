@@ -98,7 +98,6 @@ public class Action : LRManifestBasedObject {
         let infoDictionaries = ArrayValue(manifest["info"]) { $0 as? [String: AnyObject] } ?? []
         manifestLayers = infoDictionaries.map { LRManifestLayer(manifest: $0, errorSink: self) } + versionInfoLayers
 
-        // var packageConfigurations: [LRAssetPackageConfiguration] = []
         let packageConfigurationManifests = ArrayValue(manifest["packages"]) { ArrayValue($0) { StringValue($0) } } ?? []
         packageConfigurations = packageConfigurationManifests.map { packagesManifest in
             return LRAssetPackageConfiguration(manifest: ["packages": packagesManifest], errorSink: self)
