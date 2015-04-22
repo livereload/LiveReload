@@ -15,12 +15,6 @@ public class Action : LRManifestBasedObject {
     public let ruleType: Rule.Type
     public let rowClassName: String
 
-    public override var errors: [AnyObject]! {
-        return _errors
-    }
-    
-    private var _errors: [NSObject] = []
-
     private let fakeChangeExtension: String?
 
     public let combinedIntrinsicInputPathSpec: ATPathSpec

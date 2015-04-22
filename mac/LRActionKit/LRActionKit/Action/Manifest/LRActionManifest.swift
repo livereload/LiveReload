@@ -43,7 +43,7 @@ public class LRActionManifest : LRManifestBasedObject {
             layer.manifest["changeLogSummary"] as? String
         })
 
-        super.init(manifest: nil, errorSink: nil)
+        super.init(manifest: [:], errorSink: nil)
     }
 
     public func createOptions(#rule: Rule) -> [Option] {

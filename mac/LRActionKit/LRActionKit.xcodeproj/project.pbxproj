@@ -66,14 +66,10 @@
 		439317571985DC0A00685024 /* ProjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439317561985DC0A00685024 /* ProjectContext.swift */; };
 		43B920A0198DF27F00079010 /* MultipleChoiceOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B9209F198DF27F00079010 /* MultipleChoiceOption.swift */; };
 		43B920A2198DF29100079010 /* TextOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B920A1198DF29100079010 /* TextOption.swift */; };
-		43BEEBF91985E99D00D2D239 /* LRManifestBasedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BEEBF61985E99D00D2D239 /* LRManifestBasedObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		43BEEBFA1985E99D00D2D239 /* LRManifestBasedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 43BEEBF71985E99D00D2D239 /* LRManifestBasedObject.m */; };
 		43BEEBFB1985E99D00D2D239 /* LRManifestErrorSink.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BEEBF81985E99D00D2D239 /* LRManifestErrorSink.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		43C53E4B19948673006C0CEE /* OptionProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C53E4A19948673006C0CEE /* OptionProtocols.swift */; };
 		43D67E59198CAE4300D229BA /* ActionKitSingleton.h in Headers */ = {isa = PBXBuildFile; fileRef = 43D67E57198CAE4300D229BA /* ActionKitSingleton.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		43D67E5A198CAE4300D229BA /* ActionKitSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D67E58198CAE4300D229BA /* ActionKitSingleton.m */; };
-		43D67E5D198CAFCC00D229BA /* LRChildErrorSink.h in Headers */ = {isa = PBXBuildFile; fileRef = 43D67E5B198CAFCC00D229BA /* LRChildErrorSink.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		43D67E5E198CAFCC00D229BA /* LRChildErrorSink.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D67E5C198CAFCC00D229BA /* LRChildErrorSink.m */; };
 		43E332261AE6743E000344EB /* Rulebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E332251AE6743E000344EB /* Rulebook.swift */; };
 		43E332301AE6A56C000344EB /* LRActionVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E3322F1AE6A56C000344EB /* LRActionVersion.swift */; };
 		43E332321AE6B3A5000344EB /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E332311AE6B3A5000344EB /* Action.swift */; };
@@ -81,6 +77,7 @@
 		43E332361AE7B2EB000344EB /* LRAssetPackageConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E332351AE7B2EB000344EB /* LRAssetPackageConfiguration.swift */; };
 		43E332381AE7BABD000344EB /* LRContextAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E332371AE7BABD000344EB /* LRContextAction.swift */; };
 		43E3323A1AE7C4A8000344EB /* LRActionManifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E332391AE7C4A8000344EB /* LRActionManifest.swift */; };
+		43E3323C1AE7F1E3000344EB /* LRManifestBasedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E3323B1AE7F1E3000344EB /* LRManifestBasedObject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -177,14 +174,10 @@
 		439317561985DC0A00685024 /* ProjectContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectContext.swift; sourceTree = "<group>"; };
 		43B9209F198DF27F00079010 /* MultipleChoiceOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipleChoiceOption.swift; sourceTree = "<group>"; };
 		43B920A1198DF29100079010 /* TextOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextOption.swift; sourceTree = "<group>"; };
-		43BEEBF61985E99D00D2D239 /* LRManifestBasedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRManifestBasedObject.h; sourceTree = "<group>"; };
-		43BEEBF71985E99D00D2D239 /* LRManifestBasedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRManifestBasedObject.m; sourceTree = "<group>"; };
 		43BEEBF81985E99D00D2D239 /* LRManifestErrorSink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRManifestErrorSink.h; sourceTree = "<group>"; };
 		43C53E4A19948673006C0CEE /* OptionProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionProtocols.swift; sourceTree = "<group>"; };
 		43D67E57198CAE4300D229BA /* ActionKitSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionKitSingleton.h; sourceTree = "<group>"; };
 		43D67E58198CAE4300D229BA /* ActionKitSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionKitSingleton.m; sourceTree = "<group>"; };
-		43D67E5B198CAFCC00D229BA /* LRChildErrorSink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRChildErrorSink.h; sourceTree = "<group>"; };
-		43D67E5C198CAFCC00D229BA /* LRChildErrorSink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRChildErrorSink.m; sourceTree = "<group>"; };
 		43E332251AE6743E000344EB /* Rulebook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rulebook.swift; sourceTree = "<group>"; };
 		43E3322F1AE6A56C000344EB /* LRActionVersion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRActionVersion.swift; sourceTree = "<group>"; };
 		43E332311AE6B3A5000344EB /* Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
@@ -192,6 +185,7 @@
 		43E332351AE7B2EB000344EB /* LRAssetPackageConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRAssetPackageConfiguration.swift; sourceTree = "<group>"; };
 		43E332371AE7BABD000344EB /* LRContextAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRContextAction.swift; sourceTree = "<group>"; };
 		43E332391AE7C4A8000344EB /* LRActionManifest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRActionManifest.swift; sourceTree = "<group>"; };
+		43E3323B1AE7F1E3000344EB /* LRManifestBasedObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRManifestBasedObject.swift; sourceTree = "<group>"; };
 		43F4CB781A5F8CF500F2C407 /* PackageManagerKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PackageManagerKit.xcodeproj; path = ../PackageManagerKit/PackageManagerKit.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -441,11 +435,8 @@
 			children = (
 				439317541985DBCE00685024 /* ProjectFile.swift */,
 				439317561985DC0A00685024 /* ProjectContext.swift */,
-				43BEEBF61985E99D00D2D239 /* LRManifestBasedObject.h */,
-				43BEEBF71985E99D00D2D239 /* LRManifestBasedObject.m */,
+				43E3323B1AE7F1E3000344EB /* LRManifestBasedObject.swift */,
 				43BEEBF81985E99D00D2D239 /* LRManifestErrorSink.h */,
-				43D67E5B198CAFCC00D229BA /* LRChildErrorSink.h */,
-				43D67E5C198CAFCC00D229BA /* LRChildErrorSink.m */,
 			);
 			path = Basics;
 			sourceTree = "<group>";
@@ -477,11 +468,9 @@
 				434E77BD19872AA400B18BC8 /* LRTRGlobals.h in Headers */,
 				434E77C519872AA400B18BC8 /* LRTRTestAnythingProtocolParser.h in Headers */,
 				43D67E59198CAE4300D229BA /* ActionKitSingleton.h in Headers */,
-				43BEEBF91985E99D00D2D239 /* LRManifestBasedObject.h in Headers */,
 				434E77F11987314B00B18BC8 /* LRVersionTag.h in Headers */,
 				434E77E419872F7800B18BC8 /* LROperationResult.h in Headers */,
 				434E77C119872AA400B18BC8 /* LRTRRun.h in Headers */,
-				43D67E5D198CAFCC00D229BA /* LRChildErrorSink.h in Headers */,
 				439317511985DB0500685024 /* UserScript.h in Headers */,
 				439317461985D3ED00685024 /* ActionKitGlobals.h in Headers */,
 				439317231985D33500685024 /* LRActionKit.h in Headers */,
@@ -624,7 +613,6 @@
 				43C53E4B19948673006C0CEE /* OptionProtocols.swift in Sources */,
 				434E77CE19872B2800B18BC8 /* LRPathProcessing.m in Sources */,
 				439317551985DBCE00685024 /* ProjectFile.swift in Sources */,
-				43D67E5E198CAFCC00D229BA /* LRChildErrorSink.m in Sources */,
 				434E77A619872A6000B18BC8 /* RunTests.swift in Sources */,
 				434E77F21987314B00B18BC8 /* LRVersionTag.m in Sources */,
 				43D67E5A198CAE4300D229BA /* ActionKitSingleton.m in Sources */,
@@ -639,7 +627,6 @@
 				433F8945198B3A8300F1A281 /* OptionRegistry.swift in Sources */,
 				434E77FE1987337500B18BC8 /* ScriptInvocationStep.m in Sources */,
 				434E7786198729BB00B18BC8 /* ActionSet.swift in Sources */,
-				43BEEBFA1985E99D00D2D239 /* LRManifestBasedObject.m in Sources */,
 				434E778A198729BB00B18BC8 /* SampleAnalyzers.swift in Sources */,
 				43E332261AE6743E000344EB /* Rulebook.swift in Sources */,
 				434E7789198729BB00B18BC8 /* ProjectAnalysis.swift in Sources */,
@@ -648,6 +635,7 @@
 				433F8949198B403200F1A281 /* CustomArgumentsOption.swift in Sources */,
 				43E332321AE6B3A5000344EB /* Action.swift in Sources */,
 				434E77E519872F7800B18BC8 /* LROperationResult.m in Sources */,
+				43E3323C1AE7F1E3000344EB /* LRManifestBasedObject.swift in Sources */,
 				434E7787198729BB00B18BC8 /* Analyzer.swift in Sources */,
 				434E77A419872A6000B18BC8 /* CustomCommand.swift in Sources */,
 				43B920A0198DF27F00079010 /* MultipleChoiceOption.swift in Sources */,
