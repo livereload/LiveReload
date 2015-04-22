@@ -213,7 +213,7 @@ public class Rule : NSObject {
         var options: [Option] = []
         options <<< VersionOption(rule: self)
         if let ev = effectiveVersion {
-            options += ev.manifest.createOptionsWithAction(self) as! [Option]
+            options += ev.manifest.createOptions(rule: self)
         }
         options <<< CustomArgumentsOption(rule: self)
         return options

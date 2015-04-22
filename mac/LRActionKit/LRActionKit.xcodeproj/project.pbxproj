@@ -53,8 +53,6 @@
 		434E77F01987314B00B18BC8 /* LRVersionSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 434E77EA1987314B00B18BC8 /* LRVersionSpec.m */; };
 		434E77F11987314B00B18BC8 /* LRVersionTag.h in Headers */ = {isa = PBXBuildFile; fileRef = 434E77EB1987314B00B18BC8 /* LRVersionTag.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		434E77F21987314B00B18BC8 /* LRVersionTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 434E77EC1987314B00B18BC8 /* LRVersionTag.m */; };
-		434E77F9198732C000B18BC8 /* LRActionManifest.h in Headers */ = {isa = PBXBuildFile; fileRef = 434E77F7198732C000B18BC8 /* LRActionManifest.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		434E77FA198732C000B18BC8 /* LRActionManifest.m in Sources */ = {isa = PBXBuildFile; fileRef = 434E77F8198732C000B18BC8 /* LRActionManifest.m */; };
 		434E77FD1987337500B18BC8 /* ScriptInvocationStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 434E77FB1987337500B18BC8 /* ScriptInvocationStep.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		434E77FE1987337500B18BC8 /* ScriptInvocationStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 434E77FC1987337500B18BC8 /* ScriptInvocationStep.m */; };
 		439317231985D33500685024 /* LRActionKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 439317221985D33500685024 /* LRActionKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -82,6 +80,7 @@
 		43E332341AE7AF70000344EB /* LRManifestLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E332331AE7AF70000344EB /* LRManifestLayer.swift */; };
 		43E332361AE7B2EB000344EB /* LRAssetPackageConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E332351AE7B2EB000344EB /* LRAssetPackageConfiguration.swift */; };
 		43E332381AE7BABD000344EB /* LRContextAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E332371AE7BABD000344EB /* LRContextAction.swift */; };
+		43E3323A1AE7C4A8000344EB /* LRActionManifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E332391AE7C4A8000344EB /* LRActionManifest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -162,8 +161,6 @@
 		434E77EA1987314B00B18BC8 /* LRVersionSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRVersionSpec.m; sourceTree = "<group>"; };
 		434E77EB1987314B00B18BC8 /* LRVersionTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRVersionTag.h; sourceTree = "<group>"; };
 		434E77EC1987314B00B18BC8 /* LRVersionTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRVersionTag.m; sourceTree = "<group>"; };
-		434E77F7198732C000B18BC8 /* LRActionManifest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRActionManifest.h; sourceTree = "<group>"; };
-		434E77F8198732C000B18BC8 /* LRActionManifest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRActionManifest.m; sourceTree = "<group>"; };
 		434E77FB1987337500B18BC8 /* ScriptInvocationStep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScriptInvocationStep.h; sourceTree = "<group>"; };
 		434E77FC1987337500B18BC8 /* ScriptInvocationStep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScriptInvocationStep.m; sourceTree = "<group>"; };
 		4393171D1985D33500685024 /* LRActionKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LRActionKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -194,6 +191,7 @@
 		43E332331AE7AF70000344EB /* LRManifestLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRManifestLayer.swift; sourceTree = "<group>"; };
 		43E332351AE7B2EB000344EB /* LRAssetPackageConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRAssetPackageConfiguration.swift; sourceTree = "<group>"; };
 		43E332371AE7BABD000344EB /* LRContextAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRContextAction.swift; sourceTree = "<group>"; };
+		43E332391AE7C4A8000344EB /* LRActionManifest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRActionManifest.swift; sourceTree = "<group>"; };
 		43F4CB781A5F8CF500F2C407 /* PackageManagerKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PackageManagerKit.xcodeproj; path = ../PackageManagerKit/PackageManagerKit.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -232,8 +230,7 @@
 		430F638419872959001021E0 /* Manifest */ = {
 			isa = PBXGroup;
 			children = (
-				434E77F7198732C000B18BC8 /* LRActionManifest.h */,
-				434E77F8198732C000B18BC8 /* LRActionManifest.m */,
+				43E332391AE7C4A8000344EB /* LRActionManifest.swift */,
 				43E332331AE7AF70000344EB /* LRManifestLayer.swift */,
 			);
 			path = Manifest;
@@ -471,7 +468,6 @@
 			files = (
 				434E77C919872ABF00B18BC8 /* ImportGraph.h in Headers */,
 				434E77CD19872B2800B18BC8 /* LRPathProcessing.h in Headers */,
-				434E77F9198732C000B18BC8 /* LRActionManifest.h in Headers */,
 				434E77C319872AA400B18BC8 /* LRTRTest.h in Headers */,
 				43BEEBFB1985E99D00D2D239 /* LRManifestErrorSink.h in Headers */,
 				434E77ED1987314B00B18BC8 /* FilterOption.h in Headers */,
@@ -637,13 +633,13 @@
 				43E332341AE7AF70000344EB /* LRManifestLayer.swift in Sources */,
 				434E77C019872AA400B18BC8 /* LRTRProtocolParser.m in Sources */,
 				43E332301AE6A56C000344EB /* LRActionVersion.swift in Sources */,
+				43E3323A1AE7C4A8000344EB /* LRActionManifest.swift in Sources */,
 				434E77A219872A6000B18BC8 /* CompileFile.swift in Sources */,
 				434E77E319872F7800B18BC8 /* LRMessage.swift in Sources */,
 				433F8945198B3A8300F1A281 /* OptionRegistry.swift in Sources */,
 				434E77FE1987337500B18BC8 /* ScriptInvocationStep.m in Sources */,
 				434E7786198729BB00B18BC8 /* ActionSet.swift in Sources */,
 				43BEEBFA1985E99D00D2D239 /* LRManifestBasedObject.m in Sources */,
-				434E77FA198732C000B18BC8 /* LRActionManifest.m in Sources */,
 				434E778A198729BB00B18BC8 /* SampleAnalyzers.swift in Sources */,
 				43E332261AE6743E000344EB /* Rulebook.swift in Sources */,
 				434E7789198729BB00B18BC8 /* ProjectAnalysis.swift in Sources */,
