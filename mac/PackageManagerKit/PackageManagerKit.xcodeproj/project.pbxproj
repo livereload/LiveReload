@@ -87,6 +87,13 @@
 			remoteGlobalIDString = 4301F97819848825006709C9;
 			remoteInfo = PackageManagerKit;
 		};
+		43E332291AE6A335000344EB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 43F4CB811A5F8D4200F2C407 /* LRCommons.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 4301FA4E19848ECE006709C9;
+			remoteInfo = LRCommons;
+		};
 		43F4CB861A5F8D4200F2C407 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 43F4CB811A5F8D4200F2C407 /* LRCommons.xcodeproj */;
@@ -452,6 +459,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				43E3322A1AE6A335000344EB /* PBXTargetDependency */,
 			);
 			name = PackageManagerKit;
 			productName = PackageManagerKit;
@@ -608,6 +616,11 @@
 			isa = PBXTargetDependency;
 			target = 4301F97819848825006709C9 /* PackageManagerKit */;
 			targetProxy = 4301F98619848826006709C9 /* PBXContainerItemProxy */;
+		};
+		43E3322A1AE6A335000344EB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = LRCommons;
+			targetProxy = 43E332291AE6A335000344EB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

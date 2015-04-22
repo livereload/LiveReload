@@ -115,7 +115,7 @@ public class VersionOptionController : OptionController {
     }
 
     private func updateEffectiveVersion() {
-        let ver = option.rule.effectiveVersion?.primaryVersion?.description ?? "none"
+        let ver = option.rule.effectiveVersion?.primaryVersion.description ?? "none"
         view.labelView.stringValue = "(in use: \(ver))"
     }
 

@@ -2,7 +2,7 @@ import Foundation
 import SwiftyFoundation
 import PiiVersionKit
 import ATPathSpec
-import LRCommons;
+import LRCommons
 import PackageManagerKit
 
 public class Rule : NSObject {
@@ -51,7 +51,7 @@ public class Rule : NSObject {
         }
     }
 
-    public init(contextAction: LRContextAction, memento: NSDictionary?) {
+    public required init(contextAction: LRContextAction, memento: NSDictionary?) {
         self.contextAction = contextAction
         self.primaryVersionSpec = LRVersionSpec.stableVersionSpecMatchingAnyVersionInVersionSpace(contextAction.action.primaryVersionSpace)
         super.init()
@@ -106,7 +106,7 @@ public class Rule : NSObject {
     }
 
     public /*protected*/ func updateMemento() {
-        memento["action"] = action.identifier!
+        memento["action"] = action.identifier
         memento["enabled"] = enabled
         memento["filter"] = inputFilterOption.memento
         memento["version"] = primaryVersionSpec.stringValue
@@ -258,7 +258,7 @@ public class Rule : NSObject {
     }
 
     public var missingEffectiveVersionError: NSError {
-        var available = join(", ", contextAction.versions.map { $0.primaryVersion.description })
+        var available = join(", ", (contextAction.versions as! [LRActionVersion]).map { $0.primaryVersion.description })
         return NSError(ActionKitErrorDomain as String, ActionKitErrorCode.NoMatchingVersion.rawValue, "No available version matched for version spec \(primaryVersionSpec), available versions: \(available)")
     }
 

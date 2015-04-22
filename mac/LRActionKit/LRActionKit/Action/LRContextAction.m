@@ -3,8 +3,6 @@
 @import PackageManagerKit;
 
 #import "LRContextAction.h"
-#import "Action.h"
-#import "LRActionVersion.h"
 #import "LRActionManifest.h"
 #import "LRManifestLayer.h"
 #import "LRVersionSpec.h"
@@ -75,7 +73,7 @@ NSString *const LRContextActionDidChangeVersionsNotification = @"LRContextAction
         if (!manifest.valid) {
             NSLog(@"ContextAction(%@) skipping version %@ b/c of invalid manifest: %@", _action.name, packageSet.primaryPackage, manifest.errors);
         } else {
-            LRActionVersion *version = [[LRActionVersion alloc] initWithType:_action manifest:manifest packageSet:packageSet];
+            LRActionVersion *version = [[LRActionVersion alloc] initWithAction:_action manifest:manifest packageSet:packageSet];
             [versions addObject:version];
         }
     }
@@ -123,7 +121,7 @@ NSString *const LRContextActionDidChangeVersionsNotification = @"LRContextAction
 }
 
 - (Rule *)newInstanceWithMemento:(NSDictionary *)memento {
-    return [[_action.actionClass alloc] initWithContextAction:self memento:memento];
+    return [_action newRuleWithContextAction:self memento:memento];
 }
 
 @end

@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		430F6380198728E8001021E0 /* Action.h in Headers */ = {isa = PBXBuildFile; fileRef = 430F637C198728E8001021E0 /* Action.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		430F6381198728E8001021E0 /* Action.m in Sources */ = {isa = PBXBuildFile; fileRef = 430F637D198728E8001021E0 /* Action.m */; };
 		430F6382198728E8001021E0 /* LRContextAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 430F637E198728E8001021E0 /* LRContextAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		430F6383198728E8001021E0 /* LRContextAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 430F637F198728E8001021E0 /* LRContextAction.m */; };
 		430F638719872959001021E0 /* LRManifestLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 430F638519872959001021E0 /* LRManifestLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -28,8 +26,6 @@
 		434E778A198729BB00B18BC8 /* SampleAnalyzers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434E7785198729BB00B18BC8 /* SampleAnalyzers.swift */; };
 		434E778F19872A1E00B18BC8 /* LRBuild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434E778C19872A1E00B18BC8 /* LRBuild.swift */; };
 		434E779F19872A6000B18BC8 /* Rule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434E779319872A6000B18BC8 /* Rule.swift */; };
-		434E77A019872A6000B18BC8 /* Rulebook.h in Headers */ = {isa = PBXBuildFile; fileRef = 434E779419872A6000B18BC8 /* Rulebook.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		434E77A119872A6000B18BC8 /* Rulebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 434E779519872A6000B18BC8 /* Rulebook.m */; };
 		434E77A219872A6000B18BC8 /* CompileFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434E779719872A6000B18BC8 /* CompileFile.swift */; };
 		434E77A319872A6000B18BC8 /* CompileFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434E779819872A6000B18BC8 /* CompileFolder.swift */; };
 		434E77A419872A6000B18BC8 /* CustomCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434E779919872A6000B18BC8 /* CustomCommand.swift */; };
@@ -63,8 +59,6 @@
 		434E77F01987314B00B18BC8 /* LRVersionSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 434E77EA1987314B00B18BC8 /* LRVersionSpec.m */; };
 		434E77F11987314B00B18BC8 /* LRVersionTag.h in Headers */ = {isa = PBXBuildFile; fileRef = 434E77EB1987314B00B18BC8 /* LRVersionTag.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		434E77F21987314B00B18BC8 /* LRVersionTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 434E77EC1987314B00B18BC8 /* LRVersionTag.m */; };
-		434E77F5198732B700B18BC8 /* LRActionVersion.h in Headers */ = {isa = PBXBuildFile; fileRef = 434E77F3198732B700B18BC8 /* LRActionVersion.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		434E77F6198732B700B18BC8 /* LRActionVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 434E77F4198732B700B18BC8 /* LRActionVersion.m */; };
 		434E77F9198732C000B18BC8 /* LRActionManifest.h in Headers */ = {isa = PBXBuildFile; fileRef = 434E77F7198732C000B18BC8 /* LRActionManifest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		434E77FA198732C000B18BC8 /* LRActionManifest.m in Sources */ = {isa = PBXBuildFile; fileRef = 434E77F8198732C000B18BC8 /* LRActionManifest.m */; };
 		434E77FD1987337500B18BC8 /* ScriptInvocationStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 434E77FB1987337500B18BC8 /* ScriptInvocationStep.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -88,6 +82,9 @@
 		43D67E5A198CAE4300D229BA /* ActionKitSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D67E58198CAE4300D229BA /* ActionKitSingleton.m */; };
 		43D67E5D198CAFCC00D229BA /* LRChildErrorSink.h in Headers */ = {isa = PBXBuildFile; fileRef = 43D67E5B198CAFCC00D229BA /* LRChildErrorSink.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		43D67E5E198CAFCC00D229BA /* LRChildErrorSink.m in Sources */ = {isa = PBXBuildFile; fileRef = 43D67E5C198CAFCC00D229BA /* LRChildErrorSink.m */; };
+		43E332261AE6743E000344EB /* Rulebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E332251AE6743E000344EB /* Rulebook.swift */; };
+		43E332301AE6A56C000344EB /* LRActionVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E3322F1AE6A56C000344EB /* LRActionVersion.swift */; };
+		43E332321AE6B3A5000344EB /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E332311AE6B3A5000344EB /* Action.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +94,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 4393171C1985D33500685024;
 			remoteInfo = LRActionKit;
+		};
+		43E3322D1AE6A357000344EB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 43F4CB781A5F8CF500F2C407 /* PackageManagerKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 4301F97819848825006709C9;
+			remoteInfo = PackageManagerKit;
 		};
 		43F4CB7D1A5F8CF600F2C407 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -115,8 +119,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		430F637C198728E8001021E0 /* Action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Action.h; sourceTree = "<group>"; };
-		430F637D198728E8001021E0 /* Action.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Action.m; sourceTree = "<group>"; };
 		430F637E198728E8001021E0 /* LRContextAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRContextAction.h; sourceTree = "<group>"; };
 		430F637F198728E8001021E0 /* LRContextAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRContextAction.m; sourceTree = "<group>"; };
 		430F638519872959001021E0 /* LRManifestLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRManifestLayer.h; sourceTree = "<group>"; };
@@ -136,8 +138,6 @@
 		434E7785198729BB00B18BC8 /* SampleAnalyzers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleAnalyzers.swift; sourceTree = "<group>"; };
 		434E778C19872A1E00B18BC8 /* LRBuild.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRBuild.swift; sourceTree = "<group>"; };
 		434E779319872A6000B18BC8 /* Rule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rule.swift; sourceTree = "<group>"; };
-		434E779419872A6000B18BC8 /* Rulebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rulebook.h; sourceTree = "<group>"; };
-		434E779519872A6000B18BC8 /* Rulebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Rulebook.m; sourceTree = "<group>"; };
 		434E779719872A6000B18BC8 /* CompileFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompileFile.swift; sourceTree = "<group>"; };
 		434E779819872A6000B18BC8 /* CompileFolder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompileFolder.swift; sourceTree = "<group>"; };
 		434E779919872A6000B18BC8 /* CustomCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCommand.swift; sourceTree = "<group>"; };
@@ -171,8 +171,6 @@
 		434E77EA1987314B00B18BC8 /* LRVersionSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRVersionSpec.m; sourceTree = "<group>"; };
 		434E77EB1987314B00B18BC8 /* LRVersionTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRVersionTag.h; sourceTree = "<group>"; };
 		434E77EC1987314B00B18BC8 /* LRVersionTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRVersionTag.m; sourceTree = "<group>"; };
-		434E77F3198732B700B18BC8 /* LRActionVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRActionVersion.h; sourceTree = "<group>"; };
-		434E77F4198732B700B18BC8 /* LRActionVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRActionVersion.m; sourceTree = "<group>"; };
 		434E77F7198732C000B18BC8 /* LRActionManifest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRActionManifest.h; sourceTree = "<group>"; };
 		434E77F8198732C000B18BC8 /* LRActionManifest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRActionManifest.m; sourceTree = "<group>"; };
 		434E77FB1987337500B18BC8 /* ScriptInvocationStep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScriptInvocationStep.h; sourceTree = "<group>"; };
@@ -199,6 +197,9 @@
 		43D67E58198CAE4300D229BA /* ActionKitSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionKitSingleton.m; sourceTree = "<group>"; };
 		43D67E5B198CAFCC00D229BA /* LRChildErrorSink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRChildErrorSink.h; sourceTree = "<group>"; };
 		43D67E5C198CAFCC00D229BA /* LRChildErrorSink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRChildErrorSink.m; sourceTree = "<group>"; };
+		43E332251AE6743E000344EB /* Rulebook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rulebook.swift; sourceTree = "<group>"; };
+		43E3322F1AE6A56C000344EB /* LRActionVersion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRActionVersion.swift; sourceTree = "<group>"; };
+		43E332311AE6B3A5000344EB /* Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		43F4CB781A5F8CF500F2C407 /* PackageManagerKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PackageManagerKit.xcodeproj; path = ../PackageManagerKit/PackageManagerKit.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -225,10 +226,8 @@
 			isa = PBXGroup;
 			children = (
 				433F893D198B300900F1A281 /* ActionContainer.swift */,
-				430F637C198728E8001021E0 /* Action.h */,
-				430F637D198728E8001021E0 /* Action.m */,
-				434E77F3198732B700B18BC8 /* LRActionVersion.h */,
-				434E77F4198732B700B18BC8 /* LRActionVersion.m */,
+				43E332311AE6B3A5000344EB /* Action.swift */,
+				43E3322F1AE6A56C000344EB /* LRActionVersion.swift */,
 				430F637E198728E8001021E0 /* LRContextAction.h */,
 				430F637F198728E8001021E0 /* LRContextAction.m */,
 				4324E909198B269B003BDDD8 /* LRAssetPackageConfiguration.h */,
@@ -290,8 +289,7 @@
 			isa = PBXGroup;
 			children = (
 				434E779319872A6000B18BC8 /* Rule.swift */,
-				434E779419872A6000B18BC8 /* Rulebook.h */,
-				434E779519872A6000B18BC8 /* Rulebook.m */,
+				43E332251AE6743E000344EB /* Rulebook.swift */,
 				434E779619872A6000B18BC8 /* Specific */,
 				434E779D19872A6000B18BC8 /* Support */,
 			);
@@ -482,7 +480,6 @@
 			files = (
 				434E77C919872ABF00B18BC8 /* ImportGraph.h in Headers */,
 				434E77CD19872B2800B18BC8 /* LRPathProcessing.h in Headers */,
-				434E77A019872A6000B18BC8 /* Rulebook.h in Headers */,
 				434E77F9198732C000B18BC8 /* LRActionManifest.h in Headers */,
 				434E77C319872AA400B18BC8 /* LRTRTest.h in Headers */,
 				43BEEBFB1985E99D00D2D239 /* LRManifestErrorSink.h in Headers */,
@@ -491,14 +488,12 @@
 				434E77EF1987314B00B18BC8 /* LRVersionSpec.h in Headers */,
 				434E77FD1987337500B18BC8 /* ScriptInvocationStep.h in Headers */,
 				430F6382198728E8001021E0 /* LRContextAction.h in Headers */,
-				434E77F5198732B700B18BC8 /* LRActionVersion.h in Headers */,
 				434E77BF19872AA400B18BC8 /* LRTRProtocolParser.h in Headers */,
 				434E77BD19872AA400B18BC8 /* LRTRGlobals.h in Headers */,
 				434E77C519872AA400B18BC8 /* LRTRTestAnythingProtocolParser.h in Headers */,
 				43D67E59198CAE4300D229BA /* ActionKitSingleton.h in Headers */,
 				43BEEBF91985E99D00D2D239 /* LRManifestBasedObject.h in Headers */,
 				434E77F11987314B00B18BC8 /* LRVersionTag.h in Headers */,
-				430F6380198728E8001021E0 /* Action.h in Headers */,
 				434E77E419872F7800B18BC8 /* LROperationResult.h in Headers */,
 				434E77C119872AA400B18BC8 /* LRTRRun.h in Headers */,
 				43D67E5D198CAFCC00D229BA /* LRChildErrorSink.h in Headers */,
@@ -524,6 +519,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				43E3322E1AE6A357000344EB /* PBXTargetDependency */,
 			);
 			name = LRActionKit;
 			productName = LRActionKit;
@@ -633,7 +629,6 @@
 				433F8947198B402A00F1A281 /* VersionOption.swift in Sources */,
 				434E77BE19872AA400B18BC8 /* LRTRGlobals.m in Sources */,
 				434E77EE1987314B00B18BC8 /* FilterOption.m in Sources */,
-				434E77A119872A6000B18BC8 /* Rulebook.m in Sources */,
 				434E77CA19872ABF00B18BC8 /* ImportGraph.m in Sources */,
 				434E77C619872AA400B18BC8 /* LRTRTestAnythingProtocolParser.m in Sources */,
 				434E778F19872A1E00B18BC8 /* LRBuild.swift in Sources */,
@@ -642,7 +637,6 @@
 				439317471985D3ED00685024 /* ActionKitGlobals.m in Sources */,
 				439317521985DB0500685024 /* UserScript.m in Sources */,
 				434E77C419872AA400B18BC8 /* LRTRTest.m in Sources */,
-				434E77F6198732B700B18BC8 /* LRActionVersion.m in Sources */,
 				43C53E4B19948673006C0CEE /* OptionProtocols.swift in Sources */,
 				434E77CE19872B2800B18BC8 /* LRPathProcessing.m in Sources */,
 				439317551985DBCE00685024 /* ProjectFile.swift in Sources */,
@@ -654,7 +648,7 @@
 				43B920A2198DF29100079010 /* TextOption.swift in Sources */,
 				4324E90C198B269B003BDDD8 /* LRAssetPackageConfiguration.m in Sources */,
 				434E77C019872AA400B18BC8 /* LRTRProtocolParser.m in Sources */,
-				430F6381198728E8001021E0 /* Action.m in Sources */,
+				43E332301AE6A56C000344EB /* LRActionVersion.swift in Sources */,
 				434E77A219872A6000B18BC8 /* CompileFile.swift in Sources */,
 				434E77E319872F7800B18BC8 /* LRMessage.swift in Sources */,
 				433F8945198B3A8300F1A281 /* OptionRegistry.swift in Sources */,
@@ -663,9 +657,11 @@
 				43BEEBFA1985E99D00D2D239 /* LRManifestBasedObject.m in Sources */,
 				434E77FA198732C000B18BC8 /* LRActionManifest.m in Sources */,
 				434E778A198729BB00B18BC8 /* SampleAnalyzers.swift in Sources */,
+				43E332261AE6743E000344EB /* Rulebook.swift in Sources */,
 				434E7789198729BB00B18BC8 /* ProjectAnalysis.swift in Sources */,
 				434E77A719872A6000B18BC8 /* UserScript.swift in Sources */,
 				433F8949198B403200F1A281 /* CustomArgumentsOption.swift in Sources */,
+				43E332321AE6B3A5000344EB /* Action.swift in Sources */,
 				430F6383198728E8001021E0 /* LRContextAction.m in Sources */,
 				434E77E519872F7800B18BC8 /* LROperationResult.m in Sources */,
 				434E7787198729BB00B18BC8 /* Analyzer.swift in Sources */,
@@ -700,6 +696,11 @@
 			isa = PBXTargetDependency;
 			target = 4393171C1985D33500685024 /* LRActionKit */;
 			targetProxy = 4393172A1985D33500685024 /* PBXContainerItemProxy */;
+		};
+		43E3322E1AE6A357000344EB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PackageManagerKit;
+			targetProxy = 43E3322D1AE6A357000344EB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

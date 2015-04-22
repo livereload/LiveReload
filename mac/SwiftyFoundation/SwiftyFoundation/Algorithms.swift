@@ -136,3 +136,13 @@ public func flattenWithSeparator<T>(groups: [[T]], #separator: T) -> [T] {
 
     return result
 }
+
+public func indexBy<S: SequenceType, U>(sequence: S, keyFunc: (S.Generator.Element) -> U?) -> [U: S.Generator.Element] {
+    var result: [U: S.Generator.Element] = [:]
+    for item in sequence {
+        if let key = keyFunc(item) {
+            result[key] = item
+        }
+    }
+    return result
+}
