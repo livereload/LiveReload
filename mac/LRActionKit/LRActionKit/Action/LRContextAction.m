@@ -5,7 +5,6 @@
 #import "LRContextAction.h"
 #import "LRActionManifest.h"
 #import "LRVersionSpec.h"
-#import "LRAssetPackageConfiguration.h"
 #import "LRActionKit-Swift.h"
 
 

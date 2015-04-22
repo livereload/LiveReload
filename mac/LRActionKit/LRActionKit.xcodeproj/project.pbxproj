@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		430F6382198728E8001021E0 /* LRContextAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 430F637E198728E8001021E0 /* LRContextAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		430F6383198728E8001021E0 /* LRContextAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 430F637F198728E8001021E0 /* LRContextAction.m */; };
-		4324E90B198B269B003BDDD8 /* LRAssetPackageConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 4324E909198B269B003BDDD8 /* LRAssetPackageConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4324E90C198B269B003BDDD8 /* LRAssetPackageConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4324E90A198B269B003BDDD8 /* LRAssetPackageConfiguration.m */; };
 		433F893E198B300900F1A281 /* ActionContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433F893D198B300900F1A281 /* ActionContainer.swift */; };
 		433F8941198B31B900F1A281 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433F8940198B31B900F1A281 /* Option.swift */; };
 		433F8943198B396000F1A281 /* CheckboxOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433F8942198B396000F1A281 /* CheckboxOption.swift */; };
@@ -84,6 +82,7 @@
 		43E332301AE6A56C000344EB /* LRActionVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E3322F1AE6A56C000344EB /* LRActionVersion.swift */; };
 		43E332321AE6B3A5000344EB /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E332311AE6B3A5000344EB /* Action.swift */; };
 		43E332341AE7AF70000344EB /* LRManifestLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E332331AE7AF70000344EB /* LRManifestLayer.swift */; };
+		43E332361AE7B2EB000344EB /* LRAssetPackageConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E332351AE7B2EB000344EB /* LRAssetPackageConfiguration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,8 +119,6 @@
 /* Begin PBXFileReference section */
 		430F637E198728E8001021E0 /* LRContextAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRContextAction.h; sourceTree = "<group>"; };
 		430F637F198728E8001021E0 /* LRContextAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRContextAction.m; sourceTree = "<group>"; };
-		4324E909198B269B003BDDD8 /* LRAssetPackageConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRAssetPackageConfiguration.h; sourceTree = "<group>"; };
-		4324E90A198B269B003BDDD8 /* LRAssetPackageConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRAssetPackageConfiguration.m; sourceTree = "<group>"; };
 		433F893D198B300900F1A281 /* ActionContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionContainer.swift; sourceTree = "<group>"; };
 		433F8940198B31B900F1A281 /* Option.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Option.swift; sourceTree = "<group>"; };
 		433F8942198B396000F1A281 /* CheckboxOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckboxOption.swift; sourceTree = "<group>"; };
@@ -198,6 +195,7 @@
 		43E3322F1AE6A56C000344EB /* LRActionVersion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRActionVersion.swift; sourceTree = "<group>"; };
 		43E332311AE6B3A5000344EB /* Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		43E332331AE7AF70000344EB /* LRManifestLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRManifestLayer.swift; sourceTree = "<group>"; };
+		43E332351AE7B2EB000344EB /* LRAssetPackageConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRAssetPackageConfiguration.swift; sourceTree = "<group>"; };
 		43F4CB781A5F8CF500F2C407 /* PackageManagerKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PackageManagerKit.xcodeproj; path = ../PackageManagerKit/PackageManagerKit.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -228,8 +226,7 @@
 				43E3322F1AE6A56C000344EB /* LRActionVersion.swift */,
 				430F637E198728E8001021E0 /* LRContextAction.h */,
 				430F637F198728E8001021E0 /* LRContextAction.m */,
-				4324E909198B269B003BDDD8 /* LRAssetPackageConfiguration.h */,
-				4324E90A198B269B003BDDD8 /* LRAssetPackageConfiguration.m */,
+				43E332351AE7B2EB000344EB /* LRAssetPackageConfiguration.swift */,
 				430F638419872959001021E0 /* Manifest */,
 			);
 			path = Action;
@@ -494,7 +491,6 @@
 				434E77C119872AA400B18BC8 /* LRTRRun.h in Headers */,
 				43D67E5D198CAFCC00D229BA /* LRChildErrorSink.h in Headers */,
 				439317511985DB0500685024 /* UserScript.h in Headers */,
-				4324E90B198B269B003BDDD8 /* LRAssetPackageConfiguration.h in Headers */,
 				439317461985D3ED00685024 /* ActionKitGlobals.h in Headers */,
 				439317231985D33500685024 /* LRActionKit.h in Headers */,
 			);
@@ -642,7 +638,6 @@
 				43D67E5A198CAE4300D229BA /* ActionKitSingleton.m in Sources */,
 				434E77A519872A6000B18BC8 /* Filter.swift in Sources */,
 				43B920A2198DF29100079010 /* TextOption.swift in Sources */,
-				4324E90C198B269B003BDDD8 /* LRAssetPackageConfiguration.m in Sources */,
 				43E332341AE7AF70000344EB /* LRManifestLayer.swift in Sources */,
 				434E77C019872AA400B18BC8 /* LRTRProtocolParser.m in Sources */,
 				43E332301AE6A56C000344EB /* LRActionVersion.swift in Sources */,
@@ -657,6 +652,7 @@
 				43E332261AE6743E000344EB /* Rulebook.swift in Sources */,
 				434E7789198729BB00B18BC8 /* ProjectAnalysis.swift in Sources */,
 				434E77A719872A6000B18BC8 /* UserScript.swift in Sources */,
+				43E332361AE7B2EB000344EB /* LRAssetPackageConfiguration.swift in Sources */,
 				433F8949198B403200F1A281 /* CustomArgumentsOption.swift in Sources */,
 				43E332321AE6B3A5000344EB /* Action.swift in Sources */,
 				430F6383198728E8001021E0 /* LRContextAction.m in Sources */,
