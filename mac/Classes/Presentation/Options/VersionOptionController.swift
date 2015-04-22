@@ -20,7 +20,7 @@ public class VersionOptionView : NSView {
     }
 
     private func initialize() {
-        popUpView = NSPopUpButton()
+        popUpView = NSPopUpButton.at_popUpButton()
         labelView = NSTextField.staticLabelWithString("")
         addSubview(popUpView)
         addSubview(labelView)
