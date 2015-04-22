@@ -1,7 +1,6 @@
 @import LRCommons;
 
 #import "LRActionManifest.h"
-#import "LRManifestLayer.h"
 #import "LRChildErrorSink.h"
 #import "ActionKitSingleton.h"
 #import "LRActionKit-Swift.h"

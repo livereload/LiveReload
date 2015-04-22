@@ -18,8 +18,6 @@ FOUNDATION_EXPORT const unsigned char LRActionKitVersionString[];
 #import <LRActionKit/LRActionManifest.h>
 #import <LRActionKit/LRAssetPackageConfiguration.h>
 
-#import <LRActionKit/LRManifestLayer.h>
-
 // rule
 #import <LRActionKit/ScriptInvocationStep.h>
 
