@@ -100,17 +100,14 @@ public class Action : LRManifestBasedObject {
             let reference = packageManager.packageReferenceWithString(packageRefString)
             return LRManifestLayer(manifest: info as! [String: AnyObject], requiredPackageReferences: [reference], errorSink: self)
         }
+
         let infoDictionaries = ArrayValue(manifest["info"]) { $0 as? [String: AnyObject] } ?? []
         manifestLayers = infoDictionaries.map { LRManifestLayer(manifest: $0, errorSink: self) } + versionInfoLayers
 
         // var packageConfigurations: [LRAssetPackageConfiguration] = []
-        let packageConfigurationManifests = ArrayValue(manifest["packages"]) { $0 as? [String: AnyObject] } ?? []
-        packageConfigurations = mapIf(packageConfigurationManifests) { packagesManifest in
-            if let packagesManifest = ArrayValue(packagesManifest, { $0 as? String }) {
-                return LRAssetPackageConfiguration(manifest: ["packages": packagesManifest], errorSink: self)
-            } else {
-                return nil
-            }
+        let packageConfigurationManifests = ArrayValue(manifest["packages"]) { ArrayValue($0) { StringValue($0) } } ?? []
+        packageConfigurations = packageConfigurationManifests.map { packagesManifest in
+            return LRAssetPackageConfiguration(manifest: ["packages": packagesManifest], errorSink: self)
         }
 
         if packageConfigurations.isEmpty {
