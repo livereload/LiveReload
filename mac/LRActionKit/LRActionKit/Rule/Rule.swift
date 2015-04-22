@@ -234,7 +234,7 @@ public class Rule : NSObject {
     public var effectiveVersion: LRActionVersion?
 
     private func _computeEffectiveVersion() -> LRActionVersion? {
-        return findIf(reverse(contextAction.versions as! [LRActionVersion])) { self.primaryVersionSpec.matchesVersion($0.primaryVersion, withTag: LRVersionTag.Unknown) }
+        return findIf(reverse(contextAction.versions)) { self.primaryVersionSpec.matchesVersion($0.primaryVersion, withTag: LRVersionTag.Unknown) }
     }
 
     private var _c_updateEffectiveVersion = Coalescence()
@@ -249,7 +249,7 @@ public class Rule : NSObject {
     private func _initEffectiveVersion() {
         _c_updateEffectiveVersion.monitorBlock = weakify(self, Rule._updateEffectiveVersionState)
 
-        o.on(LRContextActionDidChangeVersionsNotification, self, Rule._updateEffectiveVersion)
+        o.on(LRContextAction.didChangeVersionsNotification, self, Rule._updateEffectiveVersion)
         _updateEffectiveVersion()
     }
 
@@ -258,7 +258,7 @@ public class Rule : NSObject {
     }
 
     public var missingEffectiveVersionError: NSError {
-        var available = join(", ", (contextAction.versions as! [LRActionVersion]).map { $0.primaryVersion.description })
+        var available = join(", ", contextAction.versions.map { $0.primaryVersion.description })
         return NSError(ActionKitErrorDomain as String, ActionKitErrorCode.NoMatchingVersion.rawValue, "No available version matched for version spec \(primaryVersionSpec), available versions: \(available)")
     }
 

@@ -114,7 +114,7 @@ public class Action : LRManifestBasedObject {
             primaryVersionSpace = nil
         } else {
             // wow, that's quite a chain
-            primaryVersionSpace = (packageConfigurations[0].packageReferences as! [LRPackageReference])[0].type.versionSpace
+            primaryVersionSpace = packageConfigurations[0].packageReferences[0].type.versionSpace
         }
     }
 

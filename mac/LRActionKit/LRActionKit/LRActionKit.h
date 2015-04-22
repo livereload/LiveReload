@@ -14,7 +14,6 @@ FOUNDATION_EXPORT const unsigned char LRActionKitVersionString[];
 #import <LRActionKit/LRChildErrorSink.h>
 
 // action
-#import <LRActionKit/LRContextAction.h>
 #import <LRActionKit/LRActionManifest.h>
 
 // rule

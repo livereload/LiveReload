@@ -97,7 +97,7 @@ public class Rulebook: NSObject {
     private func actionWithMemento(memento: [String: AnyObject]) -> Rule? {
         if let typeIdentifier = StringValue(memento["action"]) {
             if let type = contextActionsByIdentifier[typeIdentifier] {
-                return type.newInstanceWithMemento(memento)
+                return type.newInstance(memento: memento)
             } else {
                 return nil;
             }

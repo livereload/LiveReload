@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		430F6382198728E8001021E0 /* LRContextAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 430F637E198728E8001021E0 /* LRContextAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		430F6383198728E8001021E0 /* LRContextAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 430F637F198728E8001021E0 /* LRContextAction.m */; };
 		433F893E198B300900F1A281 /* ActionContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433F893D198B300900F1A281 /* ActionContainer.swift */; };
 		433F8941198B31B900F1A281 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433F8940198B31B900F1A281 /* Option.swift */; };
 		433F8943198B396000F1A281 /* CheckboxOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433F8942198B396000F1A281 /* CheckboxOption.swift */; };
@@ -83,6 +81,7 @@
 		43E332321AE6B3A5000344EB /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E332311AE6B3A5000344EB /* Action.swift */; };
 		43E332341AE7AF70000344EB /* LRManifestLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E332331AE7AF70000344EB /* LRManifestLayer.swift */; };
 		43E332361AE7B2EB000344EB /* LRAssetPackageConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E332351AE7B2EB000344EB /* LRAssetPackageConfiguration.swift */; };
+		43E332381AE7BABD000344EB /* LRContextAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E332371AE7BABD000344EB /* LRContextAction.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,8 +116,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		430F637E198728E8001021E0 /* LRContextAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRContextAction.h; sourceTree = "<group>"; };
-		430F637F198728E8001021E0 /* LRContextAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRContextAction.m; sourceTree = "<group>"; };
 		433F893D198B300900F1A281 /* ActionContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionContainer.swift; sourceTree = "<group>"; };
 		433F8940198B31B900F1A281 /* Option.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Option.swift; sourceTree = "<group>"; };
 		433F8942198B396000F1A281 /* CheckboxOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckboxOption.swift; sourceTree = "<group>"; };
@@ -196,6 +193,7 @@
 		43E332311AE6B3A5000344EB /* Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		43E332331AE7AF70000344EB /* LRManifestLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRManifestLayer.swift; sourceTree = "<group>"; };
 		43E332351AE7B2EB000344EB /* LRAssetPackageConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRAssetPackageConfiguration.swift; sourceTree = "<group>"; };
+		43E332371AE7BABD000344EB /* LRContextAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRContextAction.swift; sourceTree = "<group>"; };
 		43F4CB781A5F8CF500F2C407 /* PackageManagerKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PackageManagerKit.xcodeproj; path = ../PackageManagerKit/PackageManagerKit.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -224,8 +222,7 @@
 				433F893D198B300900F1A281 /* ActionContainer.swift */,
 				43E332311AE6B3A5000344EB /* Action.swift */,
 				43E3322F1AE6A56C000344EB /* LRActionVersion.swift */,
-				430F637E198728E8001021E0 /* LRContextAction.h */,
-				430F637F198728E8001021E0 /* LRContextAction.m */,
+				43E332371AE7BABD000344EB /* LRContextAction.swift */,
 				43E332351AE7B2EB000344EB /* LRAssetPackageConfiguration.swift */,
 				430F638419872959001021E0 /* Manifest */,
 			);
@@ -480,7 +477,6 @@
 				434E77ED1987314B00B18BC8 /* FilterOption.h in Headers */,
 				434E77EF1987314B00B18BC8 /* LRVersionSpec.h in Headers */,
 				434E77FD1987337500B18BC8 /* ScriptInvocationStep.h in Headers */,
-				430F6382198728E8001021E0 /* LRContextAction.h in Headers */,
 				434E77BF19872AA400B18BC8 /* LRTRProtocolParser.h in Headers */,
 				434E77BD19872AA400B18BC8 /* LRTRGlobals.h in Headers */,
 				434E77C519872AA400B18BC8 /* LRTRTestAnythingProtocolParser.h in Headers */,
@@ -655,7 +651,6 @@
 				43E332361AE7B2EB000344EB /* LRAssetPackageConfiguration.swift in Sources */,
 				433F8949198B403200F1A281 /* CustomArgumentsOption.swift in Sources */,
 				43E332321AE6B3A5000344EB /* Action.swift in Sources */,
-				430F6383198728E8001021E0 /* LRContextAction.m in Sources */,
 				434E77E519872F7800B18BC8 /* LROperationResult.m in Sources */,
 				434E7787198729BB00B18BC8 /* Analyzer.swift in Sources */,
 				434E77A419872A6000B18BC8 /* CustomCommand.swift in Sources */,
@@ -670,6 +665,7 @@
 				439317571985DC0A00685024 /* ProjectContext.swift in Sources */,
 				434E77F01987314B00B18BC8 /* LRVersionSpec.m in Sources */,
 				433F893E198B300900F1A281 /* ActionContainer.swift in Sources */,
+				43E332381AE7BABD000344EB /* LRContextAction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
