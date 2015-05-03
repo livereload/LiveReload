@@ -721,6 +721,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         }
     }
     NSLog(@"Incremental analysis finished.");
+    [_analysis analysisDidFinish];
     return [result copy];
 }
 
@@ -747,6 +748,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     for (NSString *path in paths) {
         [self analyzeFileAtPath:path];
     }
+    [_analysis analysisDidFinish];
     NSLog(@"Full import graph rebuild finished. %@", _importGraph);
 }
 

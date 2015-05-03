@@ -1,55 +1,36 @@
 import Foundation
+import SwiftyFoundation
 import VariableKit
 import ATPathSpec
 
-public class ProjectAnalysis: NSObject, AnalyzerHost {
+public class ProjectAnalysis: NSObject {
 
     public let actionSet: ActionSet
 
-    // let classifier: FileClassifier
+    public var taggers: [Tagger] = []
 
-    public let analyzers: [Analyzer]
-
-//    let variableSet: VariableSet
+    public let tree = TagEvidenceTree()
 
     public init(actionSet: ActionSet) {
         self.actionSet = actionSet
-
-        var analyzers = [Analyzer]()
-        analyzers.append(ImportFragmentAnalyzer(project: actionSet.project, definition: AnalyzerDefinition(scope: .File, pathSpec: ATPathSpec(string: "*.less", syntaxOptions:.FlavorExtended))))
-
-//        var variableDefinitions = [VariableDefinition]()
-//        variableDefinitions.append(VariableDefinition(name: "compiler", scope: .File, foldingBehavior: .Folded))
-//
-//        let sources = analyzers.map { $0.evidenceSource }
-
-        self.analyzers = analyzers
-//        variableSet = VariableSet(variableDefinitions: variableDefinitions, sources: sources)
-
         super.init()
-
-        //classifier = FileClassifier()
-
+        
+        taggers = flatten(actionSet.actions.map { $0.taggers })
     }
 
     public func updateResultsAfterModification(file: ProjectFile) {
-        for analyzer in analyzers {
-            if analyzer.pathSpec.matchesPath(file.relativePath, type: .File) {
-                //<#qq#>
-            }
+        var evidence: [TagEvidence] = []
+        for tagger in taggers {
+            evidence.extend(tagger.computeTags(file: file))
         }
-//        let cluster = classifier.clusterMatchingFile(file)
-//        for group in groups {
-//            // TODO: rerun analyzers!
-//        }
+        tree.replaceEvidence(file: file, newEvidence: evidence)
     }
 
     public func updateResultsAfterDeletion(file: ProjectFile) {
-
+        tree.deleteEvidence(file: file)
     }
-
-    public func lookupVariable(name: String) -> Variable {
-        abort()
+    
+    public func analysisDidFinish() {
+        println(tree.description)
     }
-
 }

@@ -2,8 +2,8 @@ import Foundation
 
 public class ActionSet: NSObject {
 
-    public  let project: ProjectContext
-    var actions: [Action] = []
+    public let project: ProjectContext
+    public private(set) var actions: [Action] = []
 
     public init(project: ProjectContext) {
         self.project = project

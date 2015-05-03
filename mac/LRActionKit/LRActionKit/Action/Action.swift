@@ -24,6 +24,9 @@ public class Action : LRManifestBasedObject {
     public private(set) var manifestLayers: [LRManifestLayer]!
 
     public var primaryVersionSpace: LRVersionSpace?
+    
+    public let compilableFileTag: Tag?
+    public let taggers: [Tagger]
 
     public init(manifest: [String: AnyObject], container: ActionContainer) {
         self.container = container
@@ -80,6 +83,16 @@ public class Action : LRManifestBasedObject {
         } else {
             fakeChangeExtension = nil
         }
+        
+        var taggers: [Tagger] = []
+        if kind == .Compiler {
+            compilableFileTag = Tag(name: "compilable.\(identifier)")
+            let tagger = FileSpecTagger(spec: combinedIntrinsicInputPathSpec, tag: compilableFileTag!)
+            taggers.append(tagger)
+        } else {
+            compilableFileTag = nil
+        }
+        self.taggers = taggers
 
         super.init(manifest: manifest, errorSink: container)
 
