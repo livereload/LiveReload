@@ -20,7 +20,7 @@ public class VersionOptionView : NSView {
     }
 
     private func initialize() {
-        popUpView = NSPopUpButton()
+        popUpView = NSPopUpButton.at_popUpButton()
         labelView = NSTextField.staticLabelWithString("")
         addSubview(popUpView)
         addSubview(labelView)
@@ -44,7 +44,7 @@ public class VersionOptionController : OptionController {
     public init(option: VersionOption) {
         self.option = option
         super.init()
-        o.on(LRContextActionDidChangeVersionsNotification, self, VersionOptionController.updateVersionSpecs)
+        o.on(LRContextAction.didChangeVersionsNotification, self, VersionOptionController.updateVersionSpecs)
         o.on(LRRuleEffectiveVersionDidChangeNotification, self, VersionOptionController.updateEffectiveVersion)
     }
 
@@ -80,7 +80,7 @@ public class VersionOptionController : OptionController {
     }
 
     private func updateVersionSpecs() {
-        specs = option.rule.contextAction.versionSpecs as! [LRVersionSpec]
+        specs = option.rule.contextAction.versionSpecs
 
         var groups: [LRVersionSpecType: [NSMenuItem]] = [:]
         groups[.StableAny]   = []
@@ -115,7 +115,7 @@ public class VersionOptionController : OptionController {
     }
 
     private func updateEffectiveVersion() {
-        let ver = option.rule.effectiveVersion?.primaryVersion?.description ?? "none"
+        let ver = option.rule.effectiveVersion?.primaryVersion.description ?? "none"
         view.labelView.stringValue = "(in use: \(ver))"
     }
 

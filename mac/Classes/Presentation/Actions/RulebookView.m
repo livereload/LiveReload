@@ -17,9 +17,6 @@
 #import "AddCompilationActionRow.h"
 
 
-static void *RulebookView_Action_Context = "RulebookView_Action_Context";
-
-
 @interface RulebookView () <BaseActionRowDelegate>
 
 @end
@@ -50,11 +47,19 @@ static void *RulebookView_Action_Context = "RulebookView_Action_Context";
     return self;
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)setRulebook:(Rulebook *)rulebook {
     if (_rulebook != rulebook) {
-        [_rulebook removeObserver:self forKeyPath:@"rules" context:RulebookView_Action_Context];
+        if (_rulebook) {
+            [[NSNotificationCenter defaultCenter] removeObserver:self name:[Rulebook didChangeNotification] object:_rulebook];
+        }
         _rulebook = rulebook;
-        [_rulebook addObserver:self forKeyPath:@"rules" options:0 context:RulebookView_Action_Context];
+        if (_rulebook) {
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rulebookDidChange:) name:[Rulebook didChangeNotification] object:_rulebook];
+        }
         _loaded = NO;
         [self setNeedsUpdateConstraints:YES];
     }
@@ -70,13 +75,10 @@ static void *RulebookView_Action_Context = "RulebookView_Action_Context";
     }
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if (context == RulebookView_Action_Context) {
-        [self updateCompilerRows];
-        [self updateFilterRows];
-        [self updateActionRows];
-    } else
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+- (void)rulebookDidChange:(NSNotification *)notification {
+    [self updateCompilerRows];
+    [self updateFilterRows];
+    [self updateActionRows];
 }
 
 - (void)updateConstraints {
@@ -91,7 +93,7 @@ static void *RulebookView_Action_Context = "RulebookView_Action_Context";
 
 - (void)updateCompilerRows {
     [self updateRowsOfClass:[BaseRuleRow class] betweenRow:_compilersHeaderRow andRow:_compilersAddRow newRepresentedObjects:self.rulebook.compilationRules create:^ATStackViewRow *(Rule *rule) {
-        Class rowClass = rule.action.rowClass;
+        Class rowClass = NSClassFromString(rule.action.rowClassName);
         if (rowClass) {
             return [rowClass rowWithRepresentedObject:rule metrics:_metrics userInfo:@{@"project": self.project} delegate:self];
         } else {
@@ -102,7 +104,7 @@ static void *RulebookView_Action_Context = "RulebookView_Action_Context";
 
 - (void)updateFilterRows {
     [self updateRowsOfClass:[BaseRuleRow class] betweenRow:_filtersHeaderRow andRow:_filtersAddRow newRepresentedObjects:self.rulebook.filterRules create:^ATStackViewRow *(Rule *rule) {
-        Class rowClass = rule.action.rowClass;
+        Class rowClass = NSClassFromString(rule.action.rowClassName);
         if (rowClass) {
             return [rowClass rowWithRepresentedObject:rule metrics:_metrics userInfo:@{@"project": self.project} delegate:self];
         } else {
@@ -113,7 +115,7 @@ static void *RulebookView_Action_Context = "RulebookView_Action_Context";
 
 - (void)updateActionRows {
     [self updateRowsOfClass:[BaseRuleRow class] betweenRow:_actionsHeaderRow andRow:_actionsAddRow newRepresentedObjects:self.rulebook.postprocRules create:^ATStackViewRow *(Rule *rule) {
-        Class rowClass = rule.action.rowClass;
+        Class rowClass = NSClassFromString(rule.action.rowClassName);
         if (rowClass) {
             return [rowClass rowWithRepresentedObject:rule metrics:_metrics userInfo:@{@"project": self.project} delegate:self];
         } else {

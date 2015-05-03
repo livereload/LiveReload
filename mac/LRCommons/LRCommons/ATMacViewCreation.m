@@ -64,6 +64,12 @@
     return view;
 }
 
++ (instancetype)at_popUpButton {
+    NSPopUpButton *view = [[self alloc] initWithFrame:CGRectZero pullsDown:NO];
+    view.translatesAutoresizingMaskIntoConstraints = NO;
+    return view;
+}
+
 + (instancetype)pullDownButton {
     NSPopUpButton *view = [[self alloc] initWithFrame:CGRectZero pullsDown:YES];
     view.translatesAutoresizingMaskIntoConstraints = NO;

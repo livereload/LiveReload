@@ -2,7 +2,7 @@ import Foundation
 import SwiftyFoundation
 import PiiVersionKit
 import ATPathSpec
-import LRCommons;
+import LRCommons
 import PackageManagerKit
 
 public class Rule : NSObject {
@@ -51,7 +51,7 @@ public class Rule : NSObject {
         }
     }
 
-    public init(contextAction: LRContextAction, memento: NSDictionary?) {
+    public required init(contextAction: LRContextAction, memento: NSDictionary?) {
         self.contextAction = contextAction
         self.primaryVersionSpec = LRVersionSpec.stableVersionSpecMatchingAnyVersionInVersionSpace(contextAction.action.primaryVersionSpace)
         super.init()
@@ -106,7 +106,7 @@ public class Rule : NSObject {
     }
 
     public /*protected*/ func updateMemento() {
-        memento["action"] = action.identifier!
+        memento["action"] = action.identifier
         memento["enabled"] = enabled
         memento["filter"] = inputFilterOption.memento
         memento["version"] = primaryVersionSpec.stringValue
@@ -213,7 +213,7 @@ public class Rule : NSObject {
         var options: [Option] = []
         options <<< VersionOption(rule: self)
         if let ev = effectiveVersion {
-            options += ev.manifest.createOptionsWithAction(self) as! [Option]
+            options += ev.manifest.createOptions(rule: self)
         }
         options <<< CustomArgumentsOption(rule: self)
         return options
@@ -234,7 +234,7 @@ public class Rule : NSObject {
     public var effectiveVersion: LRActionVersion?
 
     private func _computeEffectiveVersion() -> LRActionVersion? {
-        return findIf(reverse(contextAction.versions as! [LRActionVersion])) { self.primaryVersionSpec.matchesVersion($0.primaryVersion, withTag: LRVersionTag.Unknown) }
+        return findIf(reverse(contextAction.versions)) { self.primaryVersionSpec.matchesVersion($0.primaryVersion, withTag: LRVersionTag.Unknown) }
     }
 
     private var _c_updateEffectiveVersion = Coalescence()
@@ -249,7 +249,7 @@ public class Rule : NSObject {
     private func _initEffectiveVersion() {
         _c_updateEffectiveVersion.monitorBlock = weakify(self, Rule._updateEffectiveVersionState)
 
-        o.on(LRContextActionDidChangeVersionsNotification, self, Rule._updateEffectiveVersion)
+        o.on(LRContextAction.didChangeVersionsNotification, self, Rule._updateEffectiveVersion)
         _updateEffectiveVersion()
     }
 

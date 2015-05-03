@@ -23,6 +23,7 @@
 @interface NSPopUpButton (ATMacViewCreation)
 
 + (NSPopUpButton *)popUpButton;
++ (NSPopUpButton *)at_popUpButton;
 + (NSPopUpButton *)pullDownButton;
 
 @end
