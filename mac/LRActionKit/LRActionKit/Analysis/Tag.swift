@@ -2,14 +2,14 @@ import Foundation
 import VariableKit
 import ATPathSpec
 
-public final class Tag: Printable {
+public final class Tag: NSObject, Printable {
     public let name: String
     
     public init(name: String) {
         self.name = name
     }
     
-    public var description: String {
+    public override var description: String {
         return "#\(name)"
     }
 }

@@ -55,6 +55,7 @@
 		434E77FE1987337500B18BC8 /* ScriptInvocationStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 434E77FC1987337500B18BC8 /* ScriptInvocationStep.m */; };
 		436718791AF6949400B5BDF2 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436718781AF6949400B5BDF2 /* Tag.swift */; };
 		4367187B1AF694AC00B5BDF2 /* TagEvidenceTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4367187A1AF694AC00B5BDF2 /* TagEvidenceTree.swift */; };
+		4367187D1AF6968900B5BDF2 /* Deriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4367187C1AF6968900B5BDF2 /* Deriver.swift */; };
 		439317231985D33500685024 /* LRActionKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 439317221985D33500685024 /* LRActionKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		439317291985D33500685024 /* LRActionKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4393171D1985D33500685024 /* LRActionKit.framework */; };
 		439317301985D33500685024 /* LRActionKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4393172F1985D33500685024 /* LRActionKitTests.swift */; };
@@ -160,6 +161,7 @@
 		434E77FC1987337500B18BC8 /* ScriptInvocationStep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScriptInvocationStep.m; sourceTree = "<group>"; };
 		436718781AF6949400B5BDF2 /* Tag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		4367187A1AF694AC00B5BDF2 /* TagEvidenceTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagEvidenceTree.swift; sourceTree = "<group>"; };
+		4367187C1AF6968900B5BDF2 /* Deriver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deriver.swift; sourceTree = "<group>"; };
 		4393171D1985D33500685024 /* LRActionKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LRActionKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		439317211985D33500685024 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		439317221985D33500685024 /* LRActionKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LRActionKit.h; sourceTree = "<group>"; };
@@ -252,6 +254,7 @@
 				434E77C819872ABF00B18BC8 /* ImportGraph.m */,
 				434E7781198729BB00B18BC8 /* ActionSet.swift */,
 				434E7782198729BB00B18BC8 /* Tagger.swift */,
+				4367187C1AF6968900B5BDF2 /* Deriver.swift */,
 				436718781AF6949400B5BDF2 /* Tag.swift */,
 				4367187A1AF694AC00B5BDF2 /* TagEvidenceTree.swift */,
 				434E7783198729BB00B18BC8 /* FileClassifier.swift */,
@@ -623,6 +626,7 @@
 				43E332301AE6A56C000344EB /* LRActionVersion.swift in Sources */,
 				43E3323A1AE7C4A8000344EB /* LRActionManifest.swift in Sources */,
 				434E77A219872A6000B18BC8 /* CompileFile.swift in Sources */,
+				4367187D1AF6968900B5BDF2 /* Deriver.swift in Sources */,
 				434E77E319872F7800B18BC8 /* LRMessage.swift in Sources */,
 				433F8945198B3A8300F1A281 /* OptionRegistry.swift in Sources */,
 				434E77FE1987337500B18BC8 /* ScriptInvocationStep.m in Sources */,

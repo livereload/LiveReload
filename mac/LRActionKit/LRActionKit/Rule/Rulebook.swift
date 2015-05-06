@@ -9,28 +9,17 @@ public class Rulebook: NSObject {
 
     public static let didChangeNotification = "RulebookDidChange"
 
-    public let actions: [Action]
-    public let contextActions: [LRContextAction]
-    public let project: ProjectContext
+    public let actionSet: ActionSet
 
     public private(set) var rules: [Rule] = []
 
-    private let actionsByIdentifier: [String: Action]
-    private let contextActionsByIdentifier: [String: LRContextAction]
-
-    public init(actions: [Action], project: ProjectContext) {
-        self.actions = actions
-        self.project = project
-
-        actionsByIdentifier = indexBy(actions) { $0.identifier }
-        contextActions = actions.map { LRContextAction(action: $0, project: project, resolutionContext: project.resolutionContext) }
-        contextActionsByIdentifier = indexBy(contextActions) { $0.action.identifier }
-
+    public init(actionSet: ActionSet) {
+        self.actionSet = actionSet
         super.init()
     }
 
     public var resolutionContext: LRPackageResolutionContext {
-        return project.resolutionContext
+        return actionSet.resolutionContext
     }
 
 
@@ -94,19 +83,38 @@ public class Rulebook: NSObject {
     // MARK: Private modification helpers
     
     private func actionWithMemento(memento: [String: AnyObject]) -> Rule? {
-        if let typeIdentifier = StringValue(memento["action"]) {
-            if let type = contextActionsByIdentifier[typeIdentifier] {
-                return type.newInstance(memento: memento)
+        if let actionIdentifier = StringValue(memento["action"]) {
+            if let action = actionSet.findBoundAction(actionIdentifier: actionIdentifier) {
+                return action.newInstance(memento: memento)
             } else {
-                return nil;
+                return nil
             }
         } else {
-            return nil;
+            return nil
         }
     }
 
     private func didChange() {
         postNotification(Rulebook.didChangeNotification)
+    }
+    
+    
+    // MARK: Derived rules
+    
+    public func addDerivedRulesIfNecessary(derivedRules: [Rule]) {
+        let existingRules = rules
+        var addedSome = false
+        for rule in derivedRules {
+            let rulesWithSameAction = existingRules.filter { $0.action == rule.action }
+            if rulesWithSameAction.isEmpty {
+                rule.enabled = false
+                rules.append(rule)
+                addedSome = true
+            }
+        }
+        if addedSome {
+            didChange()
+        }
     }
 
 }

@@ -27,6 +27,7 @@ public class Action : LRManifestBasedObject {
     
     public let compilableFileTag: Tag?
     public let taggers: [Tagger]
+    public private(set) var derivers: [Deriver]!
 
     public init(manifest: [String: AnyObject], container: ActionContainer) {
         self.container = container
@@ -87,14 +88,19 @@ public class Action : LRManifestBasedObject {
         var taggers: [Tagger] = []
         if kind == .Compiler {
             compilableFileTag = Tag(name: "compilable.\(identifier)")
-            let tagger = FileSpecTagger(spec: combinedIntrinsicInputPathSpec, tag: compilableFileTag!)
-            taggers.append(tagger)
+            taggers.append(FileSpecTagger(spec: combinedIntrinsicInputPathSpec, tag: compilableFileTag!))
         } else {
             compilableFileTag = nil
         }
         self.taggers = taggers
 
         super.init(manifest: manifest, errorSink: container)
+
+        var derivers: [Deriver] = []
+        if kind == .Compiler {
+            derivers.append(CompileFileRuleDeriver(action: self))
+        }
+        self.derivers = derivers
 
         // Manifests
         let packageManager = ActionKitSingleton.sharedActionKit().packageManager
