@@ -69,9 +69,16 @@
 		433253A9174E0B4200C9A76B /* PrefPaneRubies.png in Resources */ = {isa = PBXBuildFile; fileRef = 433253A8174E0B4200C9A76B /* PrefPaneRubies.png */; };
 		43361D4613C30D1400C0E589 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43361D4513C30D1400C0E589 /* libicucore.dylib */; };
 		433B66E717A0914400A41848 /* streamline.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 433B66E617A0914400A41848 /* streamline.lrplugin */; };
-		4340C9A21B03403B001E8436 /* mach_override.c in Sources */ = {isa = PBXBuildFile; fileRef = 4340C9A01B03403B001E8436 /* mach_override.c */; };
 		4340C9A51B034056001E8436 /* FSEventsFix.c in Sources */ = {isa = PBXBuildFile; fileRef = 4340C9A31B034056001E8436 /* FSEventsFix.c */; };
 		4340C9A81B036A07001E8436 /* fishhook.c in Sources */ = {isa = PBXBuildFile; fileRef = 4340C9A61B036A07001E8436 /* fishhook.c */; };
+		4340C9AB1B036B55001E8436 /* mach_override.c in Sources */ = {isa = PBXBuildFile; fileRef = 4340C9A91B036B55001E8436 /* mach_override.c */; };
+		4340C9BC1B036B88001E8436 /* decode.c in Sources */ = {isa = PBXBuildFile; fileRef = 4340C9AD1B036B88001E8436 /* decode.c */; };
+		4340C9BD1B036B88001E8436 /* input.c in Sources */ = {isa = PBXBuildFile; fileRef = 4340C9B01B036B88001E8436 /* input.c */; };
+		4340C9BE1B036B88001E8436 /* itab.c in Sources */ = {isa = PBXBuildFile; fileRef = 4340C9B21B036B88001E8436 /* itab.c */; };
+		4340C9BF1B036B88001E8436 /* syn-att.c in Sources */ = {isa = PBXBuildFile; fileRef = 4340C9B41B036B88001E8436 /* syn-att.c */; };
+		4340C9C01B036B88001E8436 /* syn-intel.c in Sources */ = {isa = PBXBuildFile; fileRef = 4340C9B51B036B88001E8436 /* syn-intel.c */; };
+		4340C9C11B036B88001E8436 /* syn.c in Sources */ = {isa = PBXBuildFile; fileRef = 4340C9B61B036B88001E8436 /* syn.c */; };
+		4340C9C21B036B88001E8436 /* udis86.c in Sources */ = {isa = PBXBuildFile; fileRef = 4340C9BA1B036B88001E8436 /* udis86.c */; };
 		4344CE1C1798DB9100CB8658 /* editors.json in Resources */ = {isa = PBXBuildFile; fileRef = 4344CE1B1798DB9100CB8658 /* editors.json */; };
 		4346F3AB1451012A00B133F2 /* StatusItemStateRotation3.png in Resources */ = {isa = PBXBuildFile; fileRef = 4346F3AA1451012A00B133F2 /* StatusItemStateRotation3.png */; };
 		434BB24217B66CBE000BEB1C /* LROptionsTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 434BB24117B66CBE000BEB1C /* LROptionsTemplate.png */; };
@@ -676,12 +683,27 @@
 		433253A8174E0B4200C9A76B /* PrefPaneRubies.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PrefPaneRubies.png; sourceTree = "<group>"; };
 		43361D4513C30D1400C0E589 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		433B66E617A0914400A41848 /* streamline.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = streamline.lrplugin; path = ../plugins/streamline.lrplugin; sourceTree = "<group>"; };
-		4340C9A01B03403B001E8436 /* mach_override.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mach_override.c; sourceTree = "<group>"; };
-		4340C9A11B03403B001E8436 /* mach_override.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mach_override.h; sourceTree = "<group>"; };
 		4340C9A31B034056001E8436 /* FSEventsFix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = FSEventsFix.c; sourceTree = "<group>"; };
 		4340C9A41B034056001E8436 /* FSEventsFix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSEventsFix.h; sourceTree = "<group>"; };
 		4340C9A61B036A07001E8436 /* fishhook.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fishhook.c; sourceTree = "<group>"; };
 		4340C9A71B036A07001E8436 /* fishhook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fishhook.h; sourceTree = "<group>"; };
+		4340C9A91B036B55001E8436 /* mach_override.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mach_override.c; sourceTree = "<group>"; };
+		4340C9AA1B036B55001E8436 /* mach_override.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mach_override.h; sourceTree = "<group>"; };
+		4340C9AD1B036B88001E8436 /* decode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = decode.c; sourceTree = "<group>"; };
+		4340C9AE1B036B88001E8436 /* decode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = decode.h; sourceTree = "<group>"; };
+		4340C9AF1B036B88001E8436 /* extern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = extern.h; sourceTree = "<group>"; };
+		4340C9B01B036B88001E8436 /* input.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = input.c; sourceTree = "<group>"; };
+		4340C9B11B036B88001E8436 /* input.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = input.h; sourceTree = "<group>"; };
+		4340C9B21B036B88001E8436 /* itab.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = itab.c; sourceTree = "<group>"; };
+		4340C9B31B036B88001E8436 /* itab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = itab.h; sourceTree = "<group>"; };
+		4340C9B41B036B88001E8436 /* syn-att.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "syn-att.c"; sourceTree = "<group>"; };
+		4340C9B51B036B88001E8436 /* syn-intel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "syn-intel.c"; sourceTree = "<group>"; };
+		4340C9B61B036B88001E8436 /* syn.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = syn.c; sourceTree = "<group>"; };
+		4340C9B71B036B88001E8436 /* syn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = syn.h; sourceTree = "<group>"; };
+		4340C9B81B036B88001E8436 /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
+		4340C9B91B036B88001E8436 /* udint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = udint.h; sourceTree = "<group>"; };
+		4340C9BA1B036B88001E8436 /* udis86.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = udis86.c; sourceTree = "<group>"; };
+		4340C9BB1B036B88001E8436 /* udis86.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = udis86.h; sourceTree = "<group>"; };
 		4344CE1B1798DB9100CB8658 /* editors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = editors.json; path = Resources/editors.json; sourceTree = "<group>"; };
 		4346F3AA1451012A00B133F2 /* StatusItemStateRotation3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemStateRotation3.png; sourceTree = "<group>"; };
 		434BB24117B66CBE000BEB1C /* LROptionsTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LROptionsTemplate.png; sourceTree = "<group>"; };
@@ -1360,14 +1382,37 @@
 		4340C9941B034023001E8436 /* FSEventsFix */ = {
 			isa = PBXGroup;
 			children = (
-				4340C9A01B03403B001E8436 /* mach_override.c */,
-				4340C9A11B03403B001E8436 /* mach_override.h */,
 				4340C9A41B034056001E8436 /* FSEventsFix.h */,
 				4340C9A31B034056001E8436 /* FSEventsFix.c */,
+				4340C9A91B036B55001E8436 /* mach_override.c */,
+				4340C9AA1B036B55001E8436 /* mach_override.h */,
+				4340C9AC1B036B88001E8436 /* libudis86 */,
+				4340C9BB1B036B88001E8436 /* udis86.h */,
 				4340C9A61B036A07001E8436 /* fishhook.c */,
 				4340C9A71B036A07001E8436 /* fishhook.h */,
 			);
 			path = FSEventsFix;
+			sourceTree = "<group>";
+		};
+		4340C9AC1B036B88001E8436 /* libudis86 */ = {
+			isa = PBXGroup;
+			children = (
+				4340C9AD1B036B88001E8436 /* decode.c */,
+				4340C9AE1B036B88001E8436 /* decode.h */,
+				4340C9AF1B036B88001E8436 /* extern.h */,
+				4340C9B01B036B88001E8436 /* input.c */,
+				4340C9B11B036B88001E8436 /* input.h */,
+				4340C9B21B036B88001E8436 /* itab.c */,
+				4340C9B31B036B88001E8436 /* itab.h */,
+				4340C9B41B036B88001E8436 /* syn-att.c */,
+				4340C9B51B036B88001E8436 /* syn-intel.c */,
+				4340C9B61B036B88001E8436 /* syn.c */,
+				4340C9B71B036B88001E8436 /* syn.h */,
+				4340C9B81B036B88001E8436 /* types.h */,
+				4340C9B91B036B88001E8436 /* udint.h */,
+				4340C9BA1B036B88001E8436 /* udis86.c */,
+			);
+			path = libudis86;
 			sourceTree = "<group>";
 		};
 		434E78261987447400B18BC8 /* Products */ = {
@@ -2572,6 +2617,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4340C9BD1B036B88001E8436 /* input.c in Sources */,
 				435EFDA31AD1843D008EDD9D /* AddFilterRow.m in Sources */,
 				435EFD9F1AD1843D008EDD9D /* Glue.m in Sources */,
 				435EFD841AD1843D008EDD9D /* EditorManager.m in Sources */,
@@ -2583,6 +2629,7 @@
 				435EFDC01AD1843D008EDD9D /* ExpandedOutlineView.m in Sources */,
 				4340C9A81B036A07001E8436 /* fishhook.c in Sources */,
 				435EFD921AD1843D008EDD9D /* LicenseCodeWindowController.m in Sources */,
+				4340C9BF1B036B88001E8436 /* syn-att.c in Sources */,
 				435EFD881AD1843D008EDD9D /* ImageAndTextCell.m in Sources */,
 				4396F1E017F8112F00AA8200 /* GlitterFeed.m in Sources */,
 				435EFDCB1AD1843D008EDD9D /* LRSelfTestHelpers.m in Sources */,
@@ -2601,6 +2648,7 @@
 				4303A54415B513FD009D732A /* memory.c in Sources */,
 				435EFD9B1AD1843D008EDD9D /* LRLegacyFile.m in Sources */,
 				435EFD971AD1843D008EDD9D /* Plugin.m in Sources */,
+				4340C9C01B036B88001E8436 /* syn-intel.c in Sources */,
 				435EFDAB1AD1843D008EDD9D /* OptionsRow.m in Sources */,
 				435EFDD01AD1843D008EDD9D /* NSString+SmartRegexpCaptures.m in Sources */,
 				4303A54515B513FD009D732A /* pack_unpack.c in Sources */,
@@ -2634,9 +2682,10 @@
 				435EFDD11AD1843D008EDD9D /* NSTask+OneLineTasksWithOutput.m in Sources */,
 				435EFDC11AD1843D008EDD9D /* RubyPreferencesViewController.m in Sources */,
 				4303A55515B513FD009D732A /* nodeapp_api_preferences.m in Sources */,
-				4340C9A21B03403B001E8436 /* mach_override.c in Sources */,
 				435EFD801AD1843D008EDD9D /* AppState.m in Sources */,
+				4340C9C11B036B88001E8436 /* syn.c in Sources */,
 				435EFDBC1AD1843D008EDD9D /* MonitoringSettingsWindowController.m in Sources */,
+				4340C9BE1B036B88001E8436 /* itab.c in Sources */,
 				4303A55615B513FD009D732A /* nodeapp_autorelease_osdep.m in Sources */,
 				4303A55815B513FD009D732A /* nodeapp_callbacks.m in Sources */,
 				435EFDB81AD1843D008EDD9D /* GeneralPreferencesViewController.m in Sources */,
@@ -2646,11 +2695,13 @@
 				4303A55B15B513FD009D732A /* nodeapp_objc_json.m in Sources */,
 				435EFDCD1AD1843D008EDD9D /* LRSelfTestOutputExpectation.m in Sources */,
 				4303A55C15B513FD009D732A /* nodeapp_paths_osdep.m in Sources */,
+				4340C9C21B036B88001E8436 /* udis86.c in Sources */,
 				435EFDB01AD1843D008EDD9D /* NewMainWindowController.m in Sources */,
 				4303A55D15B513FD009D732A /* nodeapp_rpc_osdep.c in Sources */,
 				4303A55E15B513FD009D732A /* nodeapp_threading.c in Sources */,
 				435EFD831AD1843D008EDD9D /* ExtensionsController.m in Sources */,
 				4303A55F15B513FD009D732A /* NodeAppDelegate.m in Sources */,
+				4340C9AB1B036B55001E8436 /* mach_override.c in Sources */,
 				4303A56015B513FD009D732A /* NodeAppWindowController.m in Sources */,
 				4303A57715B513FD009D732A /* nodeapp_licensing.m in Sources */,
 				435EFDC61AD1843D008EDD9D /* TerminalView.m in Sources */,
@@ -2697,6 +2748,7 @@
 				43996B2E17AF675D00B09954 /* ATMenuEnabledSegmentedCell.m in Sources */,
 				435EFD9A1AD1843D008EDD9D /* LegacyCompilationOptions.m in Sources */,
 				43E07EC217B01C4B004DB867 /* ATJson.m in Sources */,
+				4340C9BC1B036B88001E8436 /* decode.c in Sources */,
 				435EFD981AD1843D008EDD9D /* PluginManager.swift in Sources */,
 				4396F1DE17F8112F00AA8200 /* Glitter.m in Sources */,
 			);
