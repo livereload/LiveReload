@@ -232,7 +232,7 @@ static char *fixed_realpath(const char * __restrict src, char * __restrict dst) 
     char *rv = bsd_realpath(src, dst);
     //printf("realpath(%s) => %s\n", src, dst);
 
-#if 0
+#if 1
     for (char *pch = dst; *pch; ++pch) {
         *pch = toupper(*pch);
     }
@@ -240,6 +240,16 @@ static char *fixed_realpath(const char * __restrict src, char * __restrict dst) 
     
     return rv;
 }
+
+#define USE_INTERPOSE 0
+#if USE_INTERPOSE
+
+#define DYLD_INTERPOSE(_replacment,_replacee) \
+  __attribute__((used)) static struct{ const void* replacment; const void* replacee; } _interpose_##_replacee \
+  __attribute__ ((section ("__DATA,__interpose"))) = { (const void*)(unsigned long)&_replacment, (const void*)(unsigned long)&_replacee }; 
+
+DYLD_INTERPOSE(fixed_realpath, realpath)
+#endif
 
 #include <stdlib.h>
 #include <unistd.h>
@@ -257,10 +267,13 @@ void FSEventsFixApply() {
 
     static char src[1024];
     static char dst[1024];
+    
+#if !USE_INTERPOSE
     if (mach_override("_realpath$DARWIN_EXTSN", NULL, &fixed_realpath, NULL)) {
         fprintf(stderr, "** FSEventsFix: mach_override failed.\n");
         return;
     }
+#endif
     
     struct passwd *pw = getpwuid(getuid());
     assert(pw);
@@ -273,6 +286,10 @@ void FSEventsFixApply() {
 
     // this call sets realpath_called, which signals a successful hooking operation
     realpath(src, dst);
+    
+    if (!realpath_called) {
+        fprintf(stderr, "** FSEventsFix: realpath not overriden.\n");
+    }
 }
 
 int FSEventsFixIsApplied() {
