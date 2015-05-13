@@ -71,6 +71,7 @@
 		433B66E717A0914400A41848 /* streamline.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 433B66E617A0914400A41848 /* streamline.lrplugin */; };
 		4340C9A21B03403B001E8436 /* mach_override.c in Sources */ = {isa = PBXBuildFile; fileRef = 4340C9A01B03403B001E8436 /* mach_override.c */; };
 		4340C9A51B034056001E8436 /* FSEventsFix.c in Sources */ = {isa = PBXBuildFile; fileRef = 4340C9A31B034056001E8436 /* FSEventsFix.c */; };
+		4340C9A81B036A07001E8436 /* fishhook.c in Sources */ = {isa = PBXBuildFile; fileRef = 4340C9A61B036A07001E8436 /* fishhook.c */; };
 		4344CE1C1798DB9100CB8658 /* editors.json in Resources */ = {isa = PBXBuildFile; fileRef = 4344CE1B1798DB9100CB8658 /* editors.json */; };
 		4346F3AB1451012A00B133F2 /* StatusItemStateRotation3.png in Resources */ = {isa = PBXBuildFile; fileRef = 4346F3AA1451012A00B133F2 /* StatusItemStateRotation3.png */; };
 		434BB24217B66CBE000BEB1C /* LROptionsTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 434BB24117B66CBE000BEB1C /* LROptionsTemplate.png */; };
@@ -679,6 +680,8 @@
 		4340C9A11B03403B001E8436 /* mach_override.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mach_override.h; sourceTree = "<group>"; };
 		4340C9A31B034056001E8436 /* FSEventsFix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = FSEventsFix.c; sourceTree = "<group>"; };
 		4340C9A41B034056001E8436 /* FSEventsFix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSEventsFix.h; sourceTree = "<group>"; };
+		4340C9A61B036A07001E8436 /* fishhook.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fishhook.c; sourceTree = "<group>"; };
+		4340C9A71B036A07001E8436 /* fishhook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fishhook.h; sourceTree = "<group>"; };
 		4344CE1B1798DB9100CB8658 /* editors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = editors.json; path = Resources/editors.json; sourceTree = "<group>"; };
 		4346F3AA1451012A00B133F2 /* StatusItemStateRotation3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemStateRotation3.png; sourceTree = "<group>"; };
 		434BB24117B66CBE000BEB1C /* LROptionsTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LROptionsTemplate.png; sourceTree = "<group>"; };
@@ -1361,6 +1364,8 @@
 				4340C9A11B03403B001E8436 /* mach_override.h */,
 				4340C9A41B034056001E8436 /* FSEventsFix.h */,
 				4340C9A31B034056001E8436 /* FSEventsFix.c */,
+				4340C9A61B036A07001E8436 /* fishhook.c */,
+				4340C9A71B036A07001E8436 /* fishhook.h */,
 			);
 			path = FSEventsFix;
 			sourceTree = "<group>";
@@ -2576,6 +2581,7 @@
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				43DFE4DE17CB613100DEF87B /* P2AsyncEnumeration.m in Sources */,
 				435EFDC01AD1843D008EDD9D /* ExpandedOutlineView.m in Sources */,
+				4340C9A81B036A07001E8436 /* fishhook.c in Sources */,
 				435EFD921AD1843D008EDD9D /* LicenseCodeWindowController.m in Sources */,
 				435EFD881AD1843D008EDD9D /* ImageAndTextCell.m in Sources */,
 				4396F1E017F8112F00AA8200 /* GlitterFeed.m in Sources */,
