@@ -159,11 +159,12 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         _availableActions = [PluginManager sharedPluginManager].actions;
         _actionSet = [[ActionSet alloc] initWithProject:self];
         [_actionSet addActions:_availableActions];
-
-        _analysis = [[ProjectAnalysis alloc] initWithActionSet:_actionSet];
-
-        _rulebook = [[Rulebook alloc] initWithActions:_availableActions project:self];
+        
+        _rulebook = [[Rulebook alloc] initWithActionSet:_actionSet];
         [_rulebook setMemento:memento];
+
+        _analysis = [[ProjectAnalysis alloc] initWithActionSet:_actionSet rulebook:_rulebook];
+
         [self updateDataBasedOnAvailableActions];
 
         _lastSelectedPane = [[memento objectForKey:@"last_pane"] copy];
@@ -721,6 +722,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         }
     }
     NSLog(@"Incremental analysis finished.");
+    [_analysis analysisDidFinish];
     return [result copy];
 }
 
@@ -747,6 +749,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     for (NSString *path in paths) {
         [self analyzeFileAtPath:path];
     }
+    [_analysis analysisDidFinish];
     NSLog(@"Full import graph rebuild finished. %@", _importGraph);
 }
 
