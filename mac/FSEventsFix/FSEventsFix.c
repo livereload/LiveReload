@@ -63,6 +63,8 @@
 #include <string.h>
 #include <unistd.h>
 
+static int realpath_called = 0;
+
 static char *bsd_realpath(const char *path, char resolved[PATH_MAX])
 {
     struct stat sb;
@@ -221,9 +223,11 @@ static char *fixed_realpath(const char * __restrict src, char * __restrict dst) 
     if (!dst) {
         dst = malloc(4*PATH_MAX);
     }
+    
+    realpath_called = 1;
 
     char *rv = bsd_realpath(src, dst);
-    printf("realpath(%s) => %s\n", src, dst);
+    //printf("realpath(%s) => %s\n", src, dst);
 
 #if 0
     for (char *pch = dst; *pch; ++pch) {
@@ -243,6 +247,11 @@ static char *fixed_realpath(const char * __restrict src, char * __restrict dst) 
 #include <ctype.h>
 
 void FixFSEvents() {
+    char *skip_flag = getenv("FSEventsFix");
+    if (skip_flag && (0 == strcasecmp(skip_flag, "NO"))) {
+        return;
+    }
+
     static char src[1024];
     static char dst[1024];
     if (mach_override("_realpath$DARWIN_EXTSN", NULL, &fixed_realpath, (void**) &original_realpath)) {
@@ -258,8 +267,11 @@ void FixFSEvents() {
     for (char *pch = src; *pch; ++pch) {
         *pch = toupper(*pch);
     }
-    
+
+    // this call sets realpath_called, which signals a successful hooking operation
     realpath(src, dst);
-    printf("realpath(%s) returned %s", src, dst);
 }
 
+int IsFSEventsFixed() {
+    return !!realpath_called;
+}
