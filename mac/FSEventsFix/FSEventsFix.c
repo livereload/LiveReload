@@ -211,8 +211,6 @@ static char *bsd_realpath(const char *path, char resolved[PATH_MAX])
     return (resolved);
 }
 
-static char *(*original_realpath)(const char * __restrict src, char * __restrict dst);
-
 #include <stdio.h>
 
 static char *fixed_realpath(const char * __restrict src, char * __restrict dst) {
@@ -254,7 +252,7 @@ void FSEventsFixApply() {
 
     static char src[1024];
     static char dst[1024];
-    if (mach_override("_realpath$DARWIN_EXTSN", NULL, &fixed_realpath, (void**) &original_realpath)) {
+    if (mach_override("_realpath$DARWIN_EXTSN", NULL, &fixed_realpath, NULL)) {
         fprintf(stderr, "** FSEventsFix: mach_override failed.\n");
         return;
     }
