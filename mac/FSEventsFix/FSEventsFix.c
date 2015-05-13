@@ -53,7 +53,18 @@
 
 
 #include "FSEventsFix.h"
+
+#define FSEVENTSFIX_METHOD_MACH_OVERRIDE 1
+#define FSEVENTSFIX_METHOD_FISHHOOK 2
+#define FSEVENTSFIX_METHOD_DYLD_INTERPOSE 3
+
+#define FSEVENTSFIX_METHOD FSEVENTSFIX_METHOD_MACH_OVERRIDE
+
+#if FSEVENTSFIX_METHOD == FSEVENTSFIX_METHOD_MACH_OVERRIDE
 #include "mach_override.h"
+#elif FSEVENTSFIX_METHOD == FSEVENTSFIX_METHOD_FISHHOOK
+#include "fishhook.h"
+#endif
 
 #include <sys/cdefs.h>
 #include <sys/param.h>
@@ -241,8 +252,7 @@ static char *fixed_realpath(const char * __restrict src, char * __restrict dst) 
     return rv;
 }
 
-#define USE_INTERPOSE 0
-#if USE_INTERPOSE
+#if FSEVENTSFIX_METHOD == FSEVENTSFIX_METHOD_DYLD_INTERPOSE
 
 #define DYLD_INTERPOSE(_replacment,_replacee) \
   __attribute__((used)) static struct{ const void* replacment; const void* replacee; } _interpose_##_replacee \
@@ -259,6 +269,13 @@ DYLD_INTERPOSE(fixed_realpath, realpath)
 #include <assert.h>
 #include <ctype.h>
 
+#if FSEVENTSFIX_METHOD == FSEVENTSFIX_METHOD_FISHHOOK
+static struct rebinding rebindings[] = {
+    { "_realpath$DARWIN_EXTSN", (void *) &fixed_realpath }
+};
+#endif
+
+
 void FSEventsFixApply() {
     char *skip_flag = getenv("FSEventsFix");
     if (skip_flag && (0 == strcasecmp(skip_flag, "NO"))) {
@@ -268,11 +285,13 @@ void FSEventsFixApply() {
     static char src[1024];
     static char dst[1024];
     
-#if !USE_INTERPOSE
+#if FSEVENTSFIX_METHOD == FSEVENTSFIX_METHOD_MACH_OVERRIDE
     if (mach_override_ptr(&realpath, &fixed_realpath, NULL)) {
         fprintf(stderr, "** FSEventsFix: mach_override failed.\n");
         return;
     }
+#elif FSEVENTSFIX_METHOD == FSEVENTSFIX_METHOD_FISHHOOK
+    rebind_symbols(rebindings, sizeof(rebindings) / sizeof(rebindings[0]));
 #endif
     
     struct passwd *pw = getpwuid(getuid());
