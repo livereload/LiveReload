@@ -106,6 +106,10 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
     if (!_streamRef) {
         NSLog(@"Failed to start monitoring of %@ (FSEventStreamCreate error)", _path);
     }
+    
+    NSArray *actualPaths = (NSArray *) CFBridgingRelease(FSEventStreamCopyPathsBeingWatched(_streamRef));
+    NSLog(@"FSEvents actual path being watched: %@", [actualPaths componentsJoinedByString:@"; "]);
+    
 
     FSEventStreamScheduleWithRunLoop(_streamRef, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
     if (!FSEventStreamStart(_streamRef)) {
