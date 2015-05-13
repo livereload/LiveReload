@@ -6,7 +6,7 @@
 
 int main(int argc, char *argv[])
 {
-    FixFSEvents();
+    FSEventsFixApply();
     @autoreleasepool {
         LicenseManagerStartup();
     }

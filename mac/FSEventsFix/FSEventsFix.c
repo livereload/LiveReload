@@ -246,7 +246,7 @@ static char *fixed_realpath(const char * __restrict src, char * __restrict dst) 
 #include <assert.h>
 #include <ctype.h>
 
-void FixFSEvents() {
+void FSEventsFixApply() {
     char *skip_flag = getenv("FSEventsFix");
     if (skip_flag && (0 == strcasecmp(skip_flag, "NO"))) {
         return;
@@ -272,6 +272,6 @@ void FixFSEvents() {
     realpath(src, dst);
 }
 
-int IsFSEventsFixed() {
+int FSEventsFixIsApplied() {
     return !!realpath_called;
 }

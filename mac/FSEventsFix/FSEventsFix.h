@@ -1,7 +1,12 @@
-#ifndef __LiveReload__FSEventsFix__
-#define __LiveReload__FSEventsFix__
+#ifndef __FSEventsFix__
+#define __FSEventsFix__
 
-void FixFSEvents();
-int IsFSEventsFixed();
+/*
+ * See the discussion at https://github.com/thibaudgg/rb-fsevent/issues/10 about
+ * the problem this library solves, and how it came to exist.
+ */
 
-#endif /* defined(__LiveReload__FSEventsFix__) */
+void FSEventsFixApply();
+int FSEventsFixIsApplied();
+
+#endif
