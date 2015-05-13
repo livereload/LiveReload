@@ -232,7 +232,7 @@ static char *fixed_realpath(const char * __restrict src, char * __restrict dst) 
     char *rv = bsd_realpath(src, dst);
     //printf("realpath(%s) => %s\n", src, dst);
 
-#if 1
+#if 0
     for (char *pch = dst; *pch; ++pch) {
         *pch = toupper(*pch);
     }
