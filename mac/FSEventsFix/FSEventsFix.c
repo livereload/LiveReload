@@ -269,7 +269,7 @@ void FSEventsFixApply() {
     static char dst[1024];
     
 #if !USE_INTERPOSE
-    if (mach_override("_realpath$DARWIN_EXTSN", NULL, &fixed_realpath, NULL)) {
+    if (mach_override_ptr(&realpath, &fixed_realpath, NULL)) {
         fprintf(stderr, "** FSEventsFix: mach_override failed.\n");
         return;
     }
