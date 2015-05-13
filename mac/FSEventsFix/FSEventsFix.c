@@ -219,7 +219,12 @@ static char *fixed_realpath(const char * __restrict src, char * __restrict dst) 
     // realpath().  This memory should be freed by a call to free(3) when no longer needed."
     // -- Mac OS X man page for realpath(3)
     if (!dst) {
-        dst = malloc(4*PATH_MAX);
+        // behavior based on realpath() impl from libc 1044.1.2 (OS X 10.10),
+        // see http://www.opensource.apple.com/source/Libc/Libc-1044.1.2/stdlib/FreeBSD/realpath.c
+        dst = malloc(PATH_MAX);
+        if (!dst) {
+            return NULL;
+        }
     }
     
     realpath_called = 1;
