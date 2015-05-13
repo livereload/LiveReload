@@ -255,8 +255,8 @@ void FixFSEvents() {
     static char src[1024];
     static char dst[1024];
     if (mach_override("_realpath$DARWIN_EXTSN", NULL, &fixed_realpath, (void**) &original_realpath)) {
-        fprintf(stderr, "** mach_override failed.\n");
-        exit(42);
+        fprintf(stderr, "** FSEventsFix: mach_override failed.\n");
+        return;
     }
     
     struct passwd *pw = getpwuid(getuid());
