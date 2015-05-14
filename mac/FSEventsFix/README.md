@@ -12,7 +12,7 @@ See the discussion at [thibaudgg/rb-fsevent#10](https://github.com/thibaudgg/rb-
 
 ## Usage
 
-Build [FSEventsFix.c](FSEventsFix.c) as part of your project. You don't have to include `FSEventsFix.h`, but it provides some useful defines if you need to read the status environment variable.
+Add `FSEventsFix.h` and `FSEventsFix.c` to your project. No need to call anything. `FSEventsFix.h` provides some useful defines if you need to read the status environment variable.
 
 You can build with `FSEVENTSFIX_DUMP_CALLS` preprocessor macro set to `1` to have the library print the installation status and log all calls to realpath() to stderr.
 
@@ -21,11 +21,11 @@ Build with `FSEVENTSFIX_RETURN_UPPERCASE_RESULT_FOR_TESTING` macro set to `1` to
 
 ## API
 
-This library has no public API; just include the .c file in your project. The file uses `__attribute__((constructor))` to run the installation function at load time.
-
 There's no public API defined and no symbols exported to ensure that multiple instances of this library can co-exist within a single process.
 
-You can check the status of this library by reading FSEventsFix environment variable. Possible values (defined as preprocessor macros in `FSEvents.h`) are:
+The .c file uses `__attribute__((constructor))` to run the installation function at load time.
+
+You can check the status by reading FSEventsFix environment variable. Possible values (defined as preprocessor macros in `FSEvents.h`) are:
 
 - (not set or empty string): not yet installed
 
@@ -42,7 +42,7 @@ Please don't set FSEventsFix to any other values.
 
 ## Implementation
 
-This library uses Facebook's fishhook to replace the system `realpath()` function with a custom implementation that does not screw up directory names; FSEvents will then invoke our custom implementation and work correctly.
+FSEventsFix uses Facebook's fishhook to replace the system `realpath()` function with a custom implementation that does not screw up directory names; FSEvents will then invoke our custom implementation and work correctly.
 
 Our implementation of realpath is based on the open-source implementation from OS X 10.10, with a single change applied (enclosed in `BEGIN WORKAROUND FOR OS X BUG` ... `END WORKAROUND FOR OS X BUG`).
 
