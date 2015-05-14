@@ -6,6 +6,8 @@
  * the problem this library solves, and how it came to exist.
  */
 
+char *FSEventsFix_realpath(const char *path, char *inresolved);
+
 void FSEventsFixApply();
 int FSEventsFixIsApplied();
 

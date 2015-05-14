@@ -66,6 +66,9 @@
 #include "fishhook.h"
 #endif
 
+#define FSEVENTSFIX_DUMP_CALLS 0
+#define FSEVENTSFIX_RETURN_UPPERCASE_RESULT_FOR_TESTING 0
+
 #include <sys/cdefs.h>
 #include <sys/param.h>
 #include <sys/stat.h>
@@ -76,178 +79,23 @@
 
 static int realpath_called = 0;
 
-static char *bsd_realpath(const char *path, char resolved[PATH_MAX])
-{
-    struct stat sb;
-    char *p, *q, *s;
-    size_t left_len, resolved_len;
-    unsigned symlinks;
-    int serrno, slen;
-    char left[PATH_MAX], next_token[PATH_MAX], symlink[PATH_MAX];
-    
-    serrno = errno;
-    symlinks = 0;
-    if (path[0] == '/') {
-        resolved[0] = '/';
-        resolved[1] = '\0';
-        if (path[1] == '\0')
-            return (resolved);
-        resolved_len = 1;
-        left_len = strlcpy(left, path + 1, sizeof(left));
-    } else {
-        if (getcwd(resolved, PATH_MAX) == NULL) {
-            strlcpy(resolved, ".", PATH_MAX);
-            return (NULL);
-        }
-        resolved_len = strlen(resolved);
-        left_len = strlcpy(left, path, sizeof(left));
-    }
-    if (left_len >= sizeof(left) || resolved_len >= PATH_MAX) {
-        errno = ENAMETOOLONG;
-        return (NULL);
-    }
-    
-    /*
-     * Iterate over path components in `left'.
-     */
-    while (left_len != 0) {
-        /*
-         * Extract the next path component and adjust `left'
-         * and its length.
-         */
-        p = strchr(left, '/');
-        s = p ? p : left + left_len;
-        if (s - left >= sizeof(next_token)) {
-            errno = ENAMETOOLONG;
-            return (NULL);
-        }
-        memcpy(next_token, left, s - left);
-        next_token[s - left] = '\0';
-        left_len -= s - left;
-        if (p != NULL)
-            memmove(left, s + 1, left_len + 1);
-        if (resolved[resolved_len - 1] != '/') {
-            if (resolved_len + 1 >= PATH_MAX) {
-                errno = ENAMETOOLONG;
-                return (NULL);
-            }
-            resolved[resolved_len++] = '/';
-            resolved[resolved_len] = '\0';
-        }
-        if (next_token[0] == '\0')
-            continue;
-        else if (strcmp(next_token, ".") == 0)
-            continue;
-        else if (strcmp(next_token, "..") == 0) {
-            /*
-             * Strip the last path component except when we have
-             * single "/"
-             */
-            if (resolved_len > 1) {
-                resolved[resolved_len - 1] = '\0';
-                q = strrchr(resolved, '/') + 1;
-                *q = '\0';
-                resolved_len = q - resolved;
-            }
-            continue;
-        }
-        
-        /*
-         * Append the next path component and lstat() it. If
-         * lstat() fails we still can return successfully if
-         * there are no more path components left.
-         */
-        resolved_len = strlcat(resolved, next_token, PATH_MAX);
-        if (resolved_len >= PATH_MAX) {
-            errno = ENAMETOOLONG;
-            return (NULL);
-        }
-        if (lstat(resolved, &sb) != 0) {
-            if (errno == ENOENT && p == NULL) {
-                errno = serrno;
-                return (resolved);
-            }
-            return (NULL);
-        }
-        if (S_ISLNK(sb.st_mode)) {
-            if (symlinks++ > MAXSYMLINKS) {
-                errno = ELOOP;
-                return (NULL);
-            }
-            slen = readlink(resolved, symlink, sizeof(symlink) - 1);
-            if (slen < 0)
-                return (NULL);
-            symlink[slen] = '\0';
-            if (symlink[0] == '/') {
-                resolved[1] = 0;
-                resolved_len = 1;
-            } else if (resolved_len > 1) {
-                /* Strip the last path component. */
-                resolved[resolved_len - 1] = '\0';
-                q = strrchr(resolved, '/') + 1;
-                *q = '\0';
-                resolved_len = q - resolved;
-            }
-            
-            /*
-             * If there are any path components left, then
-             * append them to symlink. The result is placed
-             * in `left'.
-             */
-            if (p != NULL) {
-                if (symlink[slen - 1] != '/') {
-                    if (slen + 1 >= sizeof(symlink)) {
-                        errno = ENAMETOOLONG;
-                        return (NULL);
-                    }
-                    symlink[slen] = '/';
-                    symlink[slen + 1] = 0;
-                }
-                left_len = strlcat(symlink, left, sizeof(left));
-                if (left_len >= sizeof(left)) {
-                    errno = ENAMETOOLONG;
-                    return (NULL);
-                }
-            }
-            left_len = strlcpy(left, symlink, sizeof(left));
-        }
-    }
-    
-    /*
-     * Remove trailing slash except when the resolved pathname
-     * is a single "/".
-     */
-    if (resolved_len > 1 && resolved[resolved_len - 1] == '/')
-        resolved[resolved_len - 1] = '\0';
-    return (resolved);
-}
-
+#if FSEVENTSFIX_DUMP_CALLS
 #include <stdio.h>
+#endif
 
 static char *fixed_realpath(const char * __restrict src, char * __restrict dst) {
-    // "As a permitted extension to the standard, if resolved_name is NULL,
-    // memory is allocated for the resulting absolute pathname, and is returned by
-    // realpath().  This memory should be freed by a call to free(3) when no longer needed."
-    // -- Mac OS X man page for realpath(3)
-    if (!dst) {
-        // behavior based on realpath() impl from libc 1044.1.2 (OS X 10.10),
-        // see http://www.opensource.apple.com/source/Libc/Libc-1044.1.2/stdlib/FreeBSD/realpath.c
-        dst = malloc(PATH_MAX);
-        if (!dst) {
-            return NULL;
-        }
-    }
-    
     realpath_called = 1;
 
-    char *rv = bsd_realpath(src, dst);
-#if 0
+    char *rv = FSEventsFix_realpath(src, dst);
+#if FSEVENTSFIX_DUMP_CALLS
     printf("realpath(%s) => %s\n", src, dst);
 #endif
 
-#if 0
-    for (char *pch = dst; *pch; ++pch) {
-        *pch = toupper(*pch);
+#if FSEVENTSFIX_RETURN_UPPERCASE_RESULT_FOR_TESTING
+    if (dst) {
+        for (char *pch = dst; *pch; ++pch) {
+            *pch = toupper(*pch);
+        }
     }
 #endif
     
@@ -263,6 +111,7 @@ static char *fixed_realpath(const char * __restrict src, char * __restrict dst) 
 DYLD_INTERPOSE(fixed_realpath, realpath)
 #endif
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/types.h>
