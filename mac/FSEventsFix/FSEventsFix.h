@@ -1,8 +1,8 @@
 /*
  * FSEventsFix
  *
- * Resolves a long-standing bug in realpath() that prevents FSEvents API from
- * monitoring certain folders on a wide range of OS X released (10.6-10.10 at least).
+ * Works around a long-standing bug in realpath() that prevents FSEvents API from
+ * monitoring certain folders on a wide range of OS X releases (10.6-10.10 at least).
  *
  * The underlying issue is that for some folders, realpath() call starts returning
  * a path with incorrect casing (e.g. "/users/smt" instead of "/Users/smt").
