@@ -69,6 +69,7 @@
 		433253A9174E0B4200C9A76B /* PrefPaneRubies.png in Resources */ = {isa = PBXBuildFile; fileRef = 433253A8174E0B4200C9A76B /* PrefPaneRubies.png */; };
 		43361D4613C30D1400C0E589 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43361D4513C30D1400C0E589 /* libicucore.dylib */; };
 		433B66E717A0914400A41848 /* streamline.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 433B66E617A0914400A41848 /* streamline.lrplugin */; };
+		4340C9A51B034056001E8436 /* FSEventsFix.c in Sources */ = {isa = PBXBuildFile; fileRef = 4340C9A31B034056001E8436 /* FSEventsFix.c */; };
 		4344CE1C1798DB9100CB8658 /* editors.json in Resources */ = {isa = PBXBuildFile; fileRef = 4344CE1B1798DB9100CB8658 /* editors.json */; };
 		4346F3AB1451012A00B133F2 /* StatusItemStateRotation3.png in Resources */ = {isa = PBXBuildFile; fileRef = 4346F3AA1451012A00B133F2 /* StatusItemStateRotation3.png */; };
 		434BB24217B66CBE000BEB1C /* LROptionsTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 434BB24117B66CBE000BEB1C /* LROptionsTemplate.png */; };
@@ -673,6 +674,8 @@
 		433253A8174E0B4200C9A76B /* PrefPaneRubies.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PrefPaneRubies.png; sourceTree = "<group>"; };
 		43361D4513C30D1400C0E589 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		433B66E617A0914400A41848 /* streamline.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = streamline.lrplugin; path = ../plugins/streamline.lrplugin; sourceTree = "<group>"; };
+		4340C9A31B034056001E8436 /* FSEventsFix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = FSEventsFix.c; sourceTree = "<group>"; };
+		4340C9A41B034056001E8436 /* FSEventsFix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSEventsFix.h; sourceTree = "<group>"; };
 		4344CE1B1798DB9100CB8658 /* editors.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = editors.json; path = Resources/editors.json; sourceTree = "<group>"; };
 		4346F3AA1451012A00B133F2 /* StatusItemStateRotation3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemStateRotation3.png; sourceTree = "<group>"; };
 		434BB24117B66CBE000BEB1C /* LROptionsTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LROptionsTemplate.png; sourceTree = "<group>"; };
@@ -1061,6 +1064,7 @@
 				43059221151E8FA400CC3F88 /* CoreServices.framework */,
 				4353420919489F93003E51EB /* app_config.h */,
 				823DDE2D13F8DA3100529AD2 /* Classes */,
+				4340C9941B034023001E8436 /* FSEventsFix */,
 				43B5BFFC17ADF0D600F57276 /* ATCommons */,
 				4396F1B317F77A5600AA8200 /* Glitter */,
 				4303A4BC15B513FD009D732A /* nodeapp */,
@@ -1345,6 +1349,15 @@
 				433253A8174E0B4200C9A76B /* PrefPaneRubies.png */,
 			);
 			path = Preferences;
+			sourceTree = "<group>";
+		};
+		4340C9941B034023001E8436 /* FSEventsFix */ = {
+			isa = PBXGroup;
+			children = (
+				4340C9A41B034056001E8436 /* FSEventsFix.h */,
+				4340C9A31B034056001E8436 /* FSEventsFix.c */,
+			);
+			path = FSEventsFix;
 			sourceTree = "<group>";
 		};
 		434E78261987447400B18BC8 /* Products */ = {
@@ -2592,6 +2605,7 @@
 				435EFD8F1AD1843D008EDD9D /* MASReceipt.m in Sources */,
 				435EFD821AD1843D008EDD9D /* osdep.m in Sources */,
 				435EFDC91AD1843D008EDD9D /* LRSelfTest.m in Sources */,
+				4340C9A51B034056001E8436 /* FSEventsFix.c in Sources */,
 				435EFDAA1AD1843D008EDD9D /* GroupHeaderRow.m in Sources */,
 				4303A54A15B513FD009D732A /* nodeapp.c in Sources */,
 				435EFD991AD1843D008EDD9D /* Preferences.m in Sources */,
