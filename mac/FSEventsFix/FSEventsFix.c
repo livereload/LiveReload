@@ -58,7 +58,7 @@
 #define FSEVENTSFIX_METHOD_FISHHOOK 2
 #define FSEVENTSFIX_METHOD_DYLD_INTERPOSE 3
 
-#define FSEVENTSFIX_METHOD FSEVENTSFIX_METHOD_MACH_OVERRIDE
+#define FSEVENTSFIX_METHOD FSEVENTSFIX_METHOD_FISHHOOK
 
 #if FSEVENTSFIX_METHOD == FSEVENTSFIX_METHOD_MACH_OVERRIDE
 #include "mach_override.h"
@@ -241,7 +241,9 @@ static char *fixed_realpath(const char * __restrict src, char * __restrict dst) 
     realpath_called = 1;
 
     char *rv = bsd_realpath(src, dst);
-    //printf("realpath(%s) => %s\n", src, dst);
+#if 0
+    printf("realpath(%s) => %s\n", src, dst);
+#endif
 
 #if 0
     for (char *pch = dst; *pch; ++pch) {
@@ -271,7 +273,7 @@ DYLD_INTERPOSE(fixed_realpath, realpath)
 
 #if FSEVENTSFIX_METHOD == FSEVENTSFIX_METHOD_FISHHOOK
 static struct rebinding rebindings[] = {
-    { "_realpath$DARWIN_EXTSN", (void *) &fixed_realpath }
+    { "realpath$DARWIN_EXTSN", (void *) &fixed_realpath }
 };
 #endif
 
