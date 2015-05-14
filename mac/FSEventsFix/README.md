@@ -51,7 +51,7 @@ Our implementation of realpath is based on the open-source implementation from O
 
 Thanks go to:
 
-* Travis Tilley, for spending countless hours researching this bug with me
+* Travis Tilley, for spending many hours researching this bug with me
 
 * Bryan Jones, for finally getting Apple to reveal a critical piece of information (that FSEvents calls realpath) that sparkled the idea for this approach, and for testing its feasibility, and generally for persisting in trying to resolve it and getting our lazy asses to move
 
