@@ -34,3 +34,7 @@ See [FSEventsFix.c](FSEventsFix.c) file for license & copyrights, but basically 
 ## Usage
 
 Build [FSEventsFix.c](FSEventsFix.c) as part of your project.
+
+You can build with `FSEVENTSFIX_DUMP_CALLS` preprocessor macro set to `1` to have the library print the installation status and log all calls to realpath() to stderr.
+
+Build with `FSEVENTSFIX_RETURN_UPPERCASE_RESULT_FOR_TESTING` macro set to `1` to make `realpath()` always return uppercase strings; it's a great way to check that the library works.
