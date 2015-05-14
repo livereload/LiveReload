@@ -103,7 +103,7 @@
 
 // Set to 1 to print the installation status and log all calls to realpath().
 #ifndef FSEVENTSFIX_DUMP_CALLS
-#define FSEVENTSFIX_DUMP_CALLS 1
+#define FSEVENTSFIX_DUMP_CALLS 0
 #endif
 
 // Set to 1 to make realpath() return an uppercased string.
