@@ -46,6 +46,8 @@
 
 #ifndef FSEventsFixEnvVarName
 
+#define FSEventsFixVersion "0.9.0"
+
 #define FSEventsFixEnvVarName "FSEventsFix"
 #define FSEventsFixEnvVarValueInstalled "installed"
 #define FSEventsFixEnvVarValueFailed "failed"

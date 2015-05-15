@@ -181,7 +181,7 @@ void FSEventsFixInstall() {
     }
 
 #if FSEVENTSFIX_DUMP_CALLS
-    fprintf(stderr, "FSEventsFix status: %s.\n", getenv(FSEventsFixEnvVarName));
+    fprintf(stderr, "FSEventsFix v%s status: %s.\n", FSEventsFixVersion, getenv(FSEventsFixEnvVarName));
 #endif
 }
 

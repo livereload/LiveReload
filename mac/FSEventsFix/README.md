@@ -50,6 +50,12 @@ Thanks go to:
 
 * countless users of LiveReload, CodeKit and Guard who suffered this bug for years, sent us bug reports, tested builds and allowed us to poke in their machines
 
+
 ## License
 
 See [FSEventsFix.c](FSEventsFix.c) file for license & copyrights, but basically this library is available under a mix of MIT and BSD licenses.
+
+
+## Version History
+
+0.9.0 (May 16, 2015) - initial beta release with a version number.
