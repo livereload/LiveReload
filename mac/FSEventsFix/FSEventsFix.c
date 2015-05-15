@@ -149,12 +149,12 @@ static char *FSEventsFix_realpath_wrapper(const char * __restrict src, char * __
 
     char *rv = FSEventsFix_realpath(src, dst);
 #if FSEVENTSFIX_DUMP_CALLS
-    fprintf(stderr, "realpath(%s) => %s\n", src, dst);
+    fprintf(stderr, "realpath(%s) => %s\n", src, rv);
 #endif
 
 #if FSEVENTSFIX_RETURN_UPPERCASE_RESULT_FOR_TESTING
-    if (dst) {
-        for (char *pch = dst; *pch; ++pch) {
+    if (rv) {
+        for (char *pch = rv; *pch; ++pch) {
             *pch = toupper(*pch);
         }
     }
