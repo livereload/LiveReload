@@ -23,6 +23,14 @@
  *
  * Include FSEventsFix.{h,c} into your project and call FSEventsFixInstall().
  *
+ * It is recommended that you install FSEventsFix on demand, using FSEventsFixIsBroken
+ * to check if the folder you're about to pass to FSEventStreamCreate needs the fix.
+ * Note that the fix must be applied before calling FSEventStreamCreate.
+ *
+ * FSEventsFixIsBroken requires a path that uses the correct case for all folder names,
+ * i.e. a path provided by the system APIs or constructed from folder names provided
+ * by the directory enumeration APIs.
+ *
  * You can check the installation result by reading FSEventsFix environment
  * variable. Possible values are:
  *
@@ -109,6 +117,7 @@
 
 #include <stddef.h>
 #include <stdint.h>
+#include <string.h>
 
 #if FSEVENTSFIX_DUMP_CALLS || FSEVENTSFIX_RETURN_UPPERCASE_RESULT_FOR_TESTING
 #include <stdio.h>
@@ -183,6 +192,23 @@ void FSEventsFixInstall() {
 #if FSEVENTSFIX_DUMP_CALLS
     fprintf(stderr, "FSEventsFix v%s status: %s.\n", FSEventsFixVersion, getenv(FSEventsFixEnvVarName));
 #endif
+}
+
+int FSEventsFixIsBroken(const char *path) {
+    char *resolved = FSEventsFix_realpath(path, NULL);
+    if (!resolved) {
+        return 1;
+    }
+    char *reresolved = realpath(resolved, NULL);
+    if (reresolved) {
+        int broken = (0 != strcmp(resolved, reresolved));
+        free(reresolved);
+        free(resolved);
+        return broken;
+    } else {
+        free(resolved);
+        return 1;
+    }
 }
 
 

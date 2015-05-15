@@ -14,6 +14,10 @@ See the discussion at [thibaudgg/rb-fsevent#10](https://github.com/thibaudgg/rb-
 
 Add `FSEventsFix.h` and `FSEventsFix.c` to your project and call `FSEventsFixInstall()`.
 
+It is recommended that you install FSEventsFix on demand, using `FSEventsFixIsBroken` to check if the folder you're about to pass to `FSEventStreamCreate` needs the fix. Note that the fix must be applied before calling `FSEventStreamCreate`.
+
+`FSEventsFixIsBroken` requires a path that uses the correct case for all folder names, i.e. a path provided by the system APIs or constructed from folder names provided by the directory enumeration APIs.
+
 You can build with `FSEVENTSFIX_DUMP_CALLS` preprocessor macro set to `1` to have the library print the installation status and log all calls to realpath() to stderr.
 
 Build with `FSEVENTSFIX_RETURN_UPPERCASE_RESULT_FOR_TESTING` macro set to `1` to make `realpath()` always return uppercase strings; it's a great way to check that the library works.

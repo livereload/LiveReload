@@ -23,6 +23,14 @@
  *
  * Include FSEventsFix.{h,c} into your project and call FSEventsFixInstall().
  *
+ * It is recommended that you install FSEventsFix on demand, using FSEventsFixIsBroken
+ * to check if the folder you're about to pass to FSEventStreamCreate needs the fix.
+ * Note that the fix must be applied before calling FSEventStreamCreate.
+ *
+ * FSEventsFixIsBroken requires a path that uses the correct case for all folder names,
+ * i.e. a path provided by the system APIs or constructed from folder names provided
+ * by the directory enumeration APIs.
+ *
  * You can check the installation result by reading FSEventsFix environment
  * variable. Possible values are:
  *
@@ -55,5 +63,7 @@
 #define FSEventsFixEnvVarValueDisabled "disabled"
 
 void FSEventsFixInstall();
+
+int FSEventsFixIsBroken(const char *path);
 
 #endif
