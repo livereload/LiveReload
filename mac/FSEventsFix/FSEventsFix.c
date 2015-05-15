@@ -21,14 +21,9 @@
  * OS X 10.10, with a single change applied (enclosed in "BEGIN WORKAROUND FOR
  * OS X BUG" ... "END WORKAROUND FOR OS X BUG").
  *
- * This library has no public API; just include the .c file in your project. The
- * file uses __attribute__((constructor)) to run the installation function at load
- * time.
+ * Include FSEventsFix.{h,c} into your project and call FSEventsFixInstall().
  *
- * There's no public API defined and no symbols exported to ensure that multiple
- * instances of this library can co-exist within a single process.
- *
- * You can check the status of this library by reading FSEventsFix environment
+ * You can check the installation result by reading FSEventsFix environment
  * variable. Possible values are:
  *
  * - (not set or empty string): not yet installed
@@ -164,8 +159,7 @@ static char *FSEventsFix_realpath_wrapper(const char * __restrict src, char * __
 
 #include <stdlib.h>
 
-__attribute__((constructor))
-static void FSEventsFixInstall() {
+void FSEventsFixInstall() {
     static struct rebinding rebindings[] = {
         { "realpath$DARWIN_EXTSN", (void *) &FSEventsFix_realpath_wrapper }
     };

@@ -12,20 +12,13 @@ See the discussion at [thibaudgg/rb-fsevent#10](https://github.com/thibaudgg/rb-
 
 ## Usage
 
-Add `FSEventsFix.h` and `FSEventsFix.c` to your project. No need to call anything. `FSEventsFix.h` provides some useful defines if you need to read the status environment variable.
+Add `FSEventsFix.h` and `FSEventsFix.c` to your project and call `FSEventsFixInstall()`.
 
 You can build with `FSEVENTSFIX_DUMP_CALLS` preprocessor macro set to `1` to have the library print the installation status and log all calls to realpath() to stderr.
 
 Build with `FSEVENTSFIX_RETURN_UPPERCASE_RESULT_FOR_TESTING` macro set to `1` to make `realpath()` always return uppercase strings; it's a great way to check that the library works.
 
-
-## API
-
-There's no public API defined and no symbols exported to ensure that multiple instances of this library can co-exist within a single process.
-
-The .c file uses `__attribute__((constructor))` to run the installation function at load time.
-
-You can check the status by reading FSEventsFix environment variable. Possible values (defined as preprocessor macros in `FSEvents.h`) are:
+You can check the installation result by reading FSEventsFix environment variable. Possible values (defined as preprocessor macros in `FSEvents.h`) are:
 
 - (not set or empty string): not yet installed
 
