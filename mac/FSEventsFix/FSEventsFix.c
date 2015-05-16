@@ -21,14 +21,17 @@
  * OS X 10.10, with a single change applied (enclosed in "BEGIN WORKAROUND FOR
  * OS X BUG" ... "END WORKAROUND FOR OS X BUG").
  *
- * This library has no public API; just include the .c file in your project. The
- * file uses __attribute__((constructor)) to run the installation function at load
- * time.
+ * Include FSEventsFix.{h,c} into your project and call FSEventsFixInstall().
  *
- * There's no public API defined and no symbols exported to ensure that multiple
- * instances of this library can co-exist within a single process.
+ * It is recommended that you install FSEventsFix on demand, using FSEventsFixIsBroken
+ * to check if the folder you're about to pass to FSEventStreamCreate needs the fix.
+ * Note that the fix must be applied before calling FSEventStreamCreate.
  *
- * You can check the status of this library by reading FSEventsFix environment
+ * FSEventsFixIsBroken requires a path that uses the correct case for all folder names,
+ * i.e. a path provided by the system APIs or constructed from folder names provided
+ * by the directory enumeration APIs.
+ *
+ * You can check the installation result by reading FSEventsFix environment
  * variable. Possible values are:
  *
  * - (not set or empty string): not yet installed
@@ -114,6 +117,7 @@
 
 #include <stddef.h>
 #include <stdint.h>
+#include <string.h>
 
 #if FSEVENTSFIX_DUMP_CALLS || FSEVENTSFIX_RETURN_UPPERCASE_RESULT_FOR_TESTING
 #include <stdio.h>
@@ -145,12 +149,12 @@ static char *FSEventsFix_realpath_wrapper(const char * __restrict src, char * __
 
     char *rv = FSEventsFix_realpath(src, dst);
 #if FSEVENTSFIX_DUMP_CALLS
-    fprintf(stderr, "realpath(%s) => %s\n", src, dst);
+    fprintf(stderr, "realpath(%s) => %s\n", src, rv);
 #endif
 
 #if FSEVENTSFIX_RETURN_UPPERCASE_RESULT_FOR_TESTING
-    if (dst) {
-        for (char *pch = dst; *pch; ++pch) {
+    if (rv) {
+        for (char *pch = rv; *pch; ++pch) {
             *pch = toupper(*pch);
         }
     }
@@ -164,8 +168,7 @@ static char *FSEventsFix_realpath_wrapper(const char * __restrict src, char * __
 
 #include <stdlib.h>
 
-__attribute__((constructor))
-static void FSEventsFixInstall() {
+void FSEventsFixInstall() {
     static struct rebinding rebindings[] = {
         { "realpath$DARWIN_EXTSN", (void *) &FSEventsFix_realpath_wrapper }
     };
@@ -187,8 +190,25 @@ static void FSEventsFixInstall() {
     }
 
 #if FSEVENTSFIX_DUMP_CALLS
-    fprintf(stderr, "FSEventsFix status: %s.\n", getenv(FSEventsFixEnvVarName));
+    fprintf(stderr, "FSEventsFix v%s status: %s.\n", FSEventsFixVersion, getenv(FSEventsFixEnvVarName));
 #endif
+}
+
+int FSEventsFixIsBroken(const char *path) {
+    char *resolved = FSEventsFix_realpath(path, NULL);
+    if (!resolved) {
+        return 1;
+    }
+    char *reresolved = realpath(resolved, NULL);
+    if (reresolved) {
+        int broken = (0 != strcmp(resolved, reresolved));
+        free(reresolved);
+        free(resolved);
+        return broken;
+    } else {
+        free(resolved);
+        return 1;
+    }
 }
 
 

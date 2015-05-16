@@ -21,14 +21,17 @@
  * OS X 10.10, with a single change applied (enclosed in "BEGIN WORKAROUND FOR
  * OS X BUG" ... "END WORKAROUND FOR OS X BUG").
  *
- * This library has no public API; just include the .c file in your project. The
- * file uses __attribute__((constructor)) to run the installation function at load
- * time.
+ * Include FSEventsFix.{h,c} into your project and call FSEventsFixInstall().
  *
- * There's no public API defined and no symbols exported to ensure that multiple
- * instances of this library can co-exist within a single process.
+ * It is recommended that you install FSEventsFix on demand, using FSEventsFixIsBroken
+ * to check if the folder you're about to pass to FSEventStreamCreate needs the fix.
+ * Note that the fix must be applied before calling FSEventStreamCreate.
  *
- * You can check the status of this library by reading FSEventsFix environment
+ * FSEventsFixIsBroken requires a path that uses the correct case for all folder names,
+ * i.e. a path provided by the system APIs or constructed from folder names provided
+ * by the directory enumeration APIs.
+ *
+ * You can check the installation result by reading FSEventsFix environment
  * variable. Possible values are:
  *
  * - (not set or empty string): not yet installed
@@ -51,10 +54,16 @@
 
 #ifndef FSEventsFixEnvVarName
 
+#define FSEventsFixVersion "0.9.0"
+
 #define FSEventsFixEnvVarName "FSEventsFix"
 #define FSEventsFixEnvVarValueInstalled "installed"
 #define FSEventsFixEnvVarValueFailed "failed"
 #define FSEventsFixEnvVarValueUnnecessary "unnecessary"
 #define FSEventsFixEnvVarValueDisabled "disabled"
+
+void FSEventsFixInstall();
+
+int FSEventsFixIsBroken(const char *path);
 
 #endif
