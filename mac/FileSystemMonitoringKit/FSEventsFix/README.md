@@ -7,39 +7,88 @@ Works around a long-standing bug in realpath() that prevents FSEvents API from m
 
 The underlying issue is that for some folders, realpath() call starts returning a path with incorrect casing (e.g. "/users/smt" instead of "/Users/smt"). FSEvents is case-sensitive and calls realpath() on the paths you pass in, so an incorrect value returned by realpath() prevents FSEvents from seeing any change events.
 
-See the discussion at [thibaudgg/rb-fsevent#10](https://github.com/thibaudgg/rb-fsevent/issues/10) about the history of this bug and how this library came to exist.
+See [@bdkjone's Wiki page about this bug](https://github.com/bdkjones/fseventsbug/wiki/realpath()-And-FSEvents) and the discussion at [thibaudgg/rb-fsevent#10](https://github.com/thibaudgg/rb-fsevent/issues/10).
 
 
 ## Usage
 
-Add `FSEventsFix.h` and `FSEventsFix.c` to your project and call `FSEventsFixInstall()`.
 
-It is recommended that you install FSEventsFix on demand, using `FSEventsFixIsBroken` to check if the folder you're about to pass to `FSEventStreamCreate` needs the fix. Note that the fix must be applied before calling `FSEventStreamCreate`.
+### Enabling and disabling the workaround
 
-`FSEventsFixIsBroken` requires a path that uses the correct case for all folder names, i.e. a path provided by the system APIs or constructed from folder names provided by the directory enumeration APIs.
+After adding `FSEventsFix.h` and `FSEventsFix.c` to your project, you have a choice of three approaches.
 
-You can build with `FSEVENTSFIX_DUMP_CALLS` preprocessor macro set to `1` to have the library print the installation status and log all calls to realpath() to stderr.
+1. Call `FSEventsFixEnable()` on startup.
 
-Build with `FSEVENTSFIX_RETURN_UPPERCASE_RESULT_FOR_TESTING` macro set to `1` to make `realpath()` always return uppercase strings; it's a great way to check that the library works.
+2. Call `FSEventsFixEnable()` before `FSEventStreamCreate` the first time you detect that the workaround is required.
 
-You can check the installation result by reading FSEventsFix environment variable. Possible values (defined as preprocessor macros in `FSEvents.h`) are:
+    The suggested way to detect if a workaround is required is to attempt to repair the folder using `FSEventsFixRepairIfNeeded`.
 
-- (not set or empty string): not yet installed
+    In Objective-C, this looks something like this:
 
-- `installed`: successfully installed
+        FSEventsFixRepairStatus status = FSEventsFixRepairIfNeeded(_path.fileSystemRepresentation);
+        BOOL needWorkaround = (status == FSEventsFixRepairStatusFailed);
+        if (needWorkaround) {
+            FSEventsFixEnable();
+        }
+        _streamRef = FSEventStreamCreate(...);
 
-- `failed`: installation or self-test failed
+3. Use `FSEventsFixEnable()` and `FSEventsFixDisable()` to only enable the workaround for the duration of `FSEventStreamCreate` call, and only if you detect that the workaround is required.
 
-- `unnecessary`: the current version of OS X doesn't exhibit the bug (reserved for when Apple finally fixes the bug; not currently used)
+    This is the least intrusive method and seems to work as of OS X 10.10, but the potential downside is that we cannot guarantee that `FSEventStreamCreate` is the only part of FSEvents that needs the workaround.
 
-- `disabled`: not used by the library, but if you set the variable to this value, the library will not be installed
+    In Objective-C, this looks something like this:
 
-Please don't set FSEventsFix to any other values.
+        FSEventsFixRepairStatus status = FSEventsFixRepairIfNeeded(_path.fileSystemRepresentation);
+        BOOL needWorkaround = (status == FSEventsFixRepairStatusFailed);
+        if (needWorkaround) {
+            FSEventsFixEnable();
+        }
+        _streamRef = FSEventStreamCreate(...);
+        if (needWorkaround) {
+            FSEventsFixDisable();
+        }
+
+Note that `FSEventsFixEnable` and `FSEventsFixDisable` calls are ‘reference-counted’, incrementing and decrementing an internal use count. If you want the workaround to be disabled, you need to balance every call to `FSEventsFixEnable` with a call to `FSEventsFixDisable`.
+
+(Note also that these functions return void and there's no such thing as a failed `FSEventsFixEnable` call.)
+
+
+### Checking the status of the workaround
+
+You can use `FSEventsFixIsOperational` to check if the workaround has been installed successfully. It is expected to return true after a call to `FSEventsFixEnable()`, and to return false after a call to `FSEventsFixDisable`. The intended use is to alert or log an analytics event the user if the workaround is required, but couldn't be applied.
+
+Combining the approach 3 above with `FSEventsFixIsOperational` check, we get the recommended usage pattern:
+
+    FSEventsFixRepairStatus status = FSEventsFixRepairIfNeeded(_path.fileSystemRepresentation);
+    BOOL needWorkaround = (status == FSEventsFixRepairStatusFailed);
+    BOOL alertAboutFSEventsBug = NO;
+    if (needWorkaround) {
+        FSEventsFixEnable();
+        if (!FSEventsFixIsOperational()) {
+            alertAboutFSEventsBug = YES;
+        }
+    }
+    _streamRef = FSEventStreamCreate(...);
+    if (needWorkaround) {
+        FSEventsFixDisable();
+    }
+    if (alertAboutFSEventsBug) {
+
+    }
+
+Note that even if the workaround isn't operational, it does not necessarily mean it hasn't been installed. A call to `FSEventsFixDisable` is still required to uninstall the workaround (if desired).
+
+
+### Checking and repairing the broken state
+
+See `FSEventsFixIsBroken` and `FSEventsFixRepairIfNeeded` in the header file for the (straightforward) details.
+
+`FSEventsFixRepairIfNeeded` implements a workaround suggested by Apple, but there's no guarantee that it works.
 
 
 ## Implementation
 
-FSEventsFix uses Facebook's fishhook to replace the system `realpath()` function with a custom implementation that does not screw up directory names; FSEvents will then invoke our custom implementation and work correctly.
+FSEventsFix uses a heavily modified version of Facebook's fishhook to replace the system `realpath()` function with a custom implementation that does not screw up directory names; FSEvents will then invoke our custom implementation and work correctly.
 
 Our implementation of realpath is based on the open-source implementation from OS X 10.10, with a single change applied (enclosed in `BEGIN WORKAROUND FOR OS X BUG` ... `END WORKAROUND FOR OS X BUG`).
 
@@ -61,5 +110,7 @@ See [FSEventsFix.c](FSEventsFix.c) file for license & copyrights, but basically 
 
 
 ## Version History
+
+0.10.0 (May 18, 2015) - a rewrite of the API with disable and repair functions.
 
 0.9.0 (May 16, 2015) - initial beta release with a version number.
