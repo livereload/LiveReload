@@ -1,7 +1,6 @@
 
 #import "FSTreeFilter.h"
 
-
 @implementation FSTreeFilter
 
 @synthesize enabledExtensions=_enabledExtensions;

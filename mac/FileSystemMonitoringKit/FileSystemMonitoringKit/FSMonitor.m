@@ -3,6 +3,7 @@
 #import "FSTreeDiffer.h"
 #import "FSTreeFilter.h"
 #import "FSTree.h"
+#import "FSEventsFix.h"
 
 
 static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMonitor *monitor, size_t numEvents, NSArray *eventPaths, const FSEventStreamEventFlags eventFlags[], const FSEventStreamEventId eventIds[]);
@@ -26,6 +27,26 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
 @synthesize eventCache = _eventCache;
 @synthesize cacheWaitingTime = _cacheWaitingTime;
 @synthesize eventProcessingDelay=_eventProcessingDelay;
+
+
++ (void)initialize {
+    if (self == [FSMonitor class]) {
+        FSEventsFixDebugOptions debugOptions = 0;
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"com.tarantsov.FileSystemMonitoringKit.FSEventsFix.simulate"]) {
+            debugOptions |= FSEventsFixDebugOptionSimulateBroken | FSEventsFixDebugOptionSimulateRepair;
+        }
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"com.tarantsov.FileSystemMonitoringKit.FSEventsFix.logCalls"]) {
+            debugOptions |= FSEventsFixDebugOptionLogCalls;
+        }
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"com.tarantsov.FileSystemMonitoringKit.FSEventsFix.uppercase"]) {
+            debugOptions |= FSEventsFixDebugOptionUppercaseReturn;
+        }
+
+        FSEventsFixConfigure(debugOptions, ^(FSEventsFixMessageType type, const char *message) {
+            NSLog(@"FileSystemMonitoringKit - FSEventsFix: %s", message);
+        });
+    }
+}
 
 
 #pragma mark -
@@ -96,6 +117,14 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
     context.release = NULL;
     context.copyDescription = NULL;
 
+    FSEventsFixRepairStatus status = FSEventsFixRepairIfNeeded(_path.fileSystemRepresentation);
+    BOOL needWorkaround = NO;
+    if (status == FSEventsFixRepairStatusFailed) {
+        needWorkaround = YES;
+    }
+    if (needWorkaround) {
+        FSEventsFixEnable();
+    }
     _streamRef = FSEventStreamCreate(nil,
                                      (FSEventStreamCallback)FSMonitorEventStreamCallback,
                                      &context,
@@ -103,6 +132,9 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
                                      kFSEventStreamEventIdSinceNow,
                                      0.05,
                                      kFSEventStreamCreateFlagUseCFTypes|kFSEventStreamCreateFlagNoDefer);
+    if (needWorkaround) {
+        FSEventsFixDisable();
+    }
     if (!_streamRef) {
         NSLog(@"Failed to start monitoring of %@ (FSEventStreamCreate error)", _path);
     }
