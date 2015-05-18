@@ -280,7 +280,7 @@ char *FSEventsFixCopyRootBrokenFolderPath(const char *inpath) {
     return path;
 }
 
-void _FSEventsFixAttemptRepair(const char *folder) {
+static void _FSEventsFixAttemptRepair(const char *folder) {
     int rv = rename(folder, folder);
 
     if (!!(g_debug_opt & FSEventsFixDebugOptionSimulateRepair)) {
