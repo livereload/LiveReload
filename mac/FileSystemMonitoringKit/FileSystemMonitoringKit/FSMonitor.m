@@ -6,6 +6,9 @@
 #import "FSEventsFix.h"
 
 
+#define DISABLE_FSEVENTSFIX_AFTER_FSEVENTSTREAMCREATE 0
+
+
 static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMonitor *monitor, size_t numEvents, NSArray *eventPaths, const FSEventStreamEventFlags eventFlags[], const FSEventStreamEventId eventIds[]);
 
 @interface FSMonitor ()
@@ -107,6 +110,9 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
 }
 
 - (void)start {
+#if !DISABLE_FSEVENTSFIX_AFTER_FSEVENTSTREAMCREATE
+    static BOOL workaroundEnabled = NO;
+#endif
     _treeDiffer = [[FSTreeDiffer alloc] initWithPath:_path filter:_filter];
     NSArray *paths = [NSArray arrayWithObject:_path];
 
@@ -123,7 +129,14 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
         needWorkaround = YES;
     }
     if (needWorkaround) {
+#if DISABLE_FSEVENTSFIX_AFTER_FSEVENTSTREAMCREATE
         FSEventsFixEnable();
+#else
+        if (!workaroundEnabled) {
+            workaroundEnabled = YES;
+            FSEventsFixEnable();
+        }
+#endif
     }
     _streamRef = FSEventStreamCreate(nil,
                                      (FSEventStreamCallback)FSMonitorEventStreamCallback,
@@ -132,9 +145,11 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
                                      kFSEventStreamEventIdSinceNow,
                                      0.05,
                                      kFSEventStreamCreateFlagUseCFTypes|kFSEventStreamCreateFlagNoDefer);
+#if DISABLE_FSEVENTSFIX_AFTER_FSEVENTSTREAMCREATE
     if (needWorkaround) {
         FSEventsFixDisable();
     }
+#endif
     if (!_streamRef) {
         NSLog(@"Failed to start monitoring of %@ (FSEventStreamCreate error)", _path);
     }
