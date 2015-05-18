@@ -15,15 +15,15 @@ See [@bdkjone's Wiki page about this bug](https://github.com/bdkjones/fseventsbu
 
 ### Enabling and disabling the workaround
 
-After adding `FSEventsFix.h` and `FSEventsFix.c` to your project, you have a choice of three approaches.
+After adding `FSEventsFix.h` and `FSEventsFix.c` to your project, you have a choice of three integration methods:
 
 1. Call `FSEventsFixEnable()` on startup.
 
-2. Call `FSEventsFixEnable()` before `FSEventStreamCreate` the first time you detect that the workaround is required.
+2. Call `FSEventsFixEnable()` before `FSEventStreamCreate` if you detect that the workaround is required.
 
-    The suggested way to detect if a workaround is required is to attempt to repair the folder using `FSEventsFixRepairIfNeeded`.
+    The suggested way to detect if a workaround is required is to attempt to repair the folder using `FSEventsFixRepairIfNeeded` and check the result.
 
-    In Objective-C, this looks something like this:
+    In Objective-C:
 
         FSEventsFixRepairStatus status = FSEventsFixRepairIfNeeded(_path.fileSystemRepresentation);
         BOOL needWorkaround = (status == FSEventsFixRepairStatusFailed);
@@ -36,7 +36,7 @@ After adding `FSEventsFix.h` and `FSEventsFix.c` to your project, you have a cho
 
     This is the least intrusive method and seems to work as of OS X 10.10, but the potential downside is that we cannot guarantee that `FSEventStreamCreate` is the only part of FSEvents that needs the workaround.
 
-    In Objective-C, this looks something like this:
+    In Objective-C:
 
         FSEventsFixRepairStatus status = FSEventsFixRepairIfNeeded(_path.fileSystemRepresentation);
         BOOL needWorkaround = (status == FSEventsFixRepairStatusFailed);
@@ -48,14 +48,16 @@ After adding `FSEventsFix.h` and `FSEventsFix.c` to your project, you have a cho
             FSEventsFixDisable();
         }
 
-Note that `FSEventsFixEnable` and `FSEventsFixDisable` calls are ‘reference-counted’, incrementing and decrementing an internal use count. If you want the workaround to be disabled, you need to balance every call to `FSEventsFixEnable` with a call to `FSEventsFixDisable`.
+Note that `FSEventsFixEnable` and `FSEventsFixDisable` calls are ‘reference-counted’, incrementing and decrementing an internal use count. If you want to disable the workaround, balance every call to `FSEventsFixEnable` with a call to `FSEventsFixDisable`.
 
 (Note also that these functions return void and there's no such thing as a failed `FSEventsFixEnable` call.)
 
 
 ### Checking the status of the workaround
 
-You can use `FSEventsFixIsOperational` to check if the workaround has been installed successfully. It is expected to return true after a call to `FSEventsFixEnable()`, and to return false after a call to `FSEventsFixDisable`. The intended use is to alert or log an analytics event the user if the workaround is required, but couldn't be applied.
+You can use `FSEventsFixIsOperational` to check if the workaround has been installed successfully. It is expected to return true after a call to `FSEventsFixEnable()`, and to return false after all calls to `FSEventsFixEnable` have been balanced by a call to `FSEventsFixDisable()`.
+
+The intended use is to alert or log an analytics event the user if the workaround is required, but couldn't be applied.
 
 Combining the approach 3 above with `FSEventsFixIsOperational` check, we get the recommended usage pattern:
 
@@ -73,17 +75,36 @@ Combining the approach 3 above with `FSEventsFixIsOperational` check, we get the
         FSEventsFixDisable();
     }
     if (alertAboutFSEventsBug) {
-
+        // ... show alert, once per folder or maybe once per app launch ...
     }
 
-Note that even if the workaround isn't operational, it does not necessarily mean it hasn't been installed. A call to `FSEventsFixDisable` is still required to uninstall the workaround (if desired).
+Note that even if the workaround isn't operational, it does not necessarily mean it hasn't been installed. A call to `FSEventsFixDisable` is still required to uninstall the workaround if so desired.
 
 
 ### Checking and repairing the broken state
 
 See `FSEventsFixIsBroken` and `FSEventsFixRepairIfNeeded` in the header file for the (straightforward) details.
 
-`FSEventsFixRepairIfNeeded` implements a workaround suggested by Apple, but there's no guarantee that it works.
+`FSEventsFixRepairIfNeeded` implements the rename method suggested by Apple, but at this point there's no confirmation that it actually works.
+
+
+### Debug options and logging
+
+You can use `FSEventsFixConfigure` to enable a bunch of useful debug options, and to provide a logging block.
+
+The options are documented in the header file. A notable one is `FSEventsFixDebugOptionSimulateBroken` that, when enabled, treats all folders containing `__!FSEventsBroken!__` in their name as broken. Similarly, `FSEventsFixDebugOptionSimulateRepair` will simulate a successful repair by renaming such folders to exclude `__!FSEventsBroken!__` from the name. This allows you to test the relevant code paths without access to a machine with an actual broken folder.
+
+`FSEventsFixConfigure`, if called, must be called before any other method of the library.
+
+
+### Concurrency
+
+All public API methods are thread-safe and can be called from any thread/queue. However, to avoid race conditions, you must guarantee that a call to `FSEventsFixConfigure` (if any) returns before any other FSEventsFix call is performed.
+
+
+## Multiple instances of FSEventsFix
+
+FSEventsFix only supports a single copy of the library per process. This can be a concern if using multiple monitoring libraries, or when shipping as part of a library.
 
 
 ## Implementation
@@ -106,7 +127,7 @@ Thanks go to:
 
 ## License
 
-See [FSEventsFix.c](FSEventsFix.c) file for license & copyrights, but basically this library is available under a mix of MIT and BSD licenses.
+See [FSEventsFix.c](FSEventsFix.c) file for the license & copyrights, but basically this library is available under a mix of MIT and BSD licenses.
 
 
 ## Version History
