@@ -109,9 +109,11 @@ FSEventsFix only supports a single copy of the library per process. This can be 
 
 ## Implementation
 
-FSEventsFix uses a heavily modified version of Facebook's fishhook to replace the system `realpath()` function with a custom implementation that does not screw up directory names; FSEvents will then invoke our custom implementation and work correctly.
+FSEventsFix uses a heavily modified version of Facebook's fishhook to replace the system `realpath()` function with a custom implementation; FSEvents will then invoke our custom implementation and work correctly.
 
-Our implementation of realpath is based on the open-source implementation from OS X 10.10, with a single change applied (enclosed in `BEGIN WORKAROUND FOR OS X BUG` ... `END WORKAROUND FOR OS X BUG`).
+Our implementation of realpath uses CoreFoundation class CFURL to convert the path to a (volume id / inode id) pair, then ask the filesystem what the correct path for that inode is. Since this implementation doesn't implement all the features of realpath, the original implementation is called first so that it can correctly fill the dst buffer with where the resolution failed and set errno to the correct value. Only if the original realpath succeeds is the custom implementation run.
+
+Please note that while our custom implementation will output a path that matches what the kernel reports to fsevents, it may not necessarily be "correct". The capitalization might not match what you deliberately set the filename to be. You may have named a file "SomeFile" but the kernel is reporting events using "somefile" (even though Finder and ls both show "SomeFile"). As such, please use caution when globally replacing realpath.
 
 
 ## Acknowledgments
