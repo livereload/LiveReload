@@ -131,7 +131,7 @@ typedef struct {
 } rebinding_t;
 
 static rebinding_t g_rebindings[] = {
-    { "_realpath$DARWIN_EXTSN", (void *) &FSEventsFix_realpath_wrapper, (void *) &realpath }
+    { "_realpath$DARWIN_EXTSN", (void *) &FSEventsFix_realpath_wrapper, (void *) &realpath, 0 }
 };
 static const uint g_rebindings_nel = sizeof(g_rebindings) / sizeof(g_rebindings[0]);
 
@@ -361,7 +361,7 @@ static char *FSEventsFix_realpath_wrapper(const char * __restrict src, char * __
         char *result = rv ?: dst;
         if (result) {
             for (char *pch = result; *pch; ++pch) {
-                *pch = toupper(*pch);
+                *pch = (char)toupper(*pch);
             }
         }
     }
@@ -427,12 +427,9 @@ static char* CFURL_realpath(const char *file_name, char resolved_name[PATH_MAX])
   CFRelease(url2);
   if (path == NULL) { goto error_return; }
 
-  if (CFStringGetCString(path, resolved, PATH_MAX, kCFStringEncodingUTF8)) {
-    CFRelease(path);
-  } else {
-    // unable to convert? path too long? not a clue.
-    goto error_return;
-  }
+  bool success = CFStringGetCString(path, resolved, PATH_MAX, kCFStringEncodingUTF8);
+  CFRelease(path);
+  if (!success) { goto error_return; }
 
   return resolved;
 
