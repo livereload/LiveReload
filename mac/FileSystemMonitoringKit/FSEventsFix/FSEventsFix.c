@@ -382,65 +382,65 @@ static char *FSEventsFix_realpath_wrapper(const char * __restrict src, char * __
 // since the resolution happens entirely behind the scenes to us in CFURL.
 static char* CFURL_realpath(const char *file_name, char resolved_name[PATH_MAX])
 {
-  char* resolved;
-  CFURLRef url1;
-  CFURLRef url2;
-  CFStringRef path;
+    char* resolved;
+    CFURLRef url1;
+    CFURLRef url2;
+    CFStringRef path;
 
-  if (file_name == NULL) {
-    errno = EINVAL;
-    return (NULL);
-  }
+    if (file_name == NULL) {
+        errno = EINVAL;
+        return (NULL);
+    }
 
-  #if __DARWIN_UNIX03
-  	if (*file_name == 0) {
-  		errno = ENOENT;
-  		return (NULL);
-  	}
-  #endif
+#if __DARWIN_UNIX03
+    if (*file_name == 0) {
+        errno = ENOENT;
+        return (NULL);
+    }
+#endif
 
-  // create a buffer to store our result if we weren't passed one
-  if (!resolved_name) {
-    if ((resolved = malloc(PATH_MAX)) == NULL) return (NULL);
-  } else {
-    resolved = resolved_name;
-  }
+    // create a buffer to store our result if we weren't passed one
+    if (!resolved_name) {
+        if ((resolved = malloc(PATH_MAX)) == NULL) return (NULL);
+    } else {
+        resolved = resolved_name;
+    }
 
-  url1 = CFURLCreateFromFileSystemRepresentation(NULL, (const UInt8*)file_name, (CFIndex)strlen(file_name), false);
-  if (url1 == NULL) { goto error_return; }
+    url1 = CFURLCreateFromFileSystemRepresentation(NULL, (const UInt8*)file_name, (CFIndex)strlen(file_name), false);
+    if (url1 == NULL) { goto error_return; }
 
-  url2 = CFURLCopyAbsoluteURL(url1);
-  CFRelease(url1);
-  if (url2 == NULL) { goto error_return; }
+    url2 = CFURLCopyAbsoluteURL(url1);
+    CFRelease(url1);
+    if (url2 == NULL) { goto error_return; }
 
-  url1 = CFURLCreateFileReferenceURL(NULL, url2, NULL);
-  CFRelease(url2);
-  if (url1 == NULL) { goto error_return; }
+    url1 = CFURLCreateFileReferenceURL(NULL, url2, NULL);
+    CFRelease(url2);
+    if (url1 == NULL) { goto error_return; }
 
-  // if there are multiple hard links to the original path, this may end up
-  // being _completely_ different from what was intended
-  url2 = CFURLCreateFilePathURL(NULL, url1, NULL);
-  CFRelease(url1);
-  if (url2 == NULL) { goto error_return; }
+    // if there are multiple hard links to the original path, this may end up
+    // being _completely_ different from what was intended
+    url2 = CFURLCreateFilePathURL(NULL, url1, NULL);
+    CFRelease(url1);
+    if (url2 == NULL) { goto error_return; }
 
-  path = CFURLCopyFileSystemPath(url2, kCFURLPOSIXPathStyle);
-  CFRelease(url2);
-  if (path == NULL) { goto error_return; }
+    path = CFURLCopyFileSystemPath(url2, kCFURLPOSIXPathStyle);
+    CFRelease(url2);
+    if (path == NULL) { goto error_return; }
 
-  bool success = CFStringGetCString(path, resolved, PATH_MAX, kCFStringEncodingUTF8);
-  CFRelease(path);
-  if (!success) { goto error_return; }
+    bool success = CFStringGetCString(path, resolved, PATH_MAX, kCFStringEncodingUTF8);
+    CFRelease(path);
+    if (!success) { goto error_return; }
 
-  return resolved;
+    return resolved;
 
 error_return:
-  if (!resolved_name) {
-    // we weren't passed in an output buffer and created our own. free it
-    int e = errno;
-    free(resolved);
-    errno = e;
-  }
-  return (NULL);
+    if (!resolved_name) {
+        // we weren't passed in an output buffer and created our own. free it
+        int e = errno;
+        free(resolved);
+        errno = e;
+    }
+    return (NULL);
 }
 
 
