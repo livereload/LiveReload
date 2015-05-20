@@ -98,7 +98,7 @@
 #include <dlfcn.h>
 
 
-const char *const FSEventsFixVersionString = "0.10.0";
+const char *const FSEventsFixVersionString = "0.11.0";
 
 
 #pragma mark - Forward declarations
