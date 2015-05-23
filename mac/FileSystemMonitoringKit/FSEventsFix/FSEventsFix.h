@@ -1,38 +1,30 @@
 /*
- * FSEventsFix
+ * FSEventsFix - http://github.com/andreyvit/FSEventsFix
  *
- * Works around a long-standing bug in realpath() that prevents FSEvents API from
+ * Works around a HFS+ file system corruption bug that prevents FSEvents API from
  * monitoring certain folders on a wide range of OS X releases (10.6-10.10 at least).
  *
- * The underlying issue is that for some folders, realpath() call starts returning
- * a path with incorrect casing (e.g. "/users/smt" instead of "/Users/smt").
- * FSEvents is case-sensitive and calls realpath() on the paths you pass in, so
- * an incorrect value returned by realpath() prevents FSEvents from seeing any
- * change events.
+ * Copyright (c) 2015, Andrey Tarantsov <andrey@tarantsov.com>
+ * Copyright (c) 2015, Travis Tilley <ttilley@gmail.com>
+ * Copyright (c) 2013, Facebook, Inc.
  *
- * See the discussion at https://github.com/thibaudgg/rb-fsevent/issues/10 about
- * the history of this bug and how this library came to exist.
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- * This library uses Facebook's fishhook to replace a custom implementation of
- * realpath in place of the system realpath; FSEvents will then invoke our custom
- * implementation (which does not screw up the names) and will thus work correctly.
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
  *
- * Our implementation of realpath is based on the open-source implementation from
- * OS X 10.10, with a single change applied (enclosed in "BEGIN WORKAROUND FOR
- * OS X BUG" ... "END WORKAROUND FOR OS X BUG").
- *
- * Include FSEventsFix.{h,c} into your project and call FSEventsFixInstall().
- *
- * It is recommended that you install FSEventsFix on demand, using FSEventsFixIsBroken
- * to check if the folder you're about to pass to FSEventStreamCreate needs the fix.
- * Note that the fix must be applied before calling FSEventStreamCreate.
- *
- * FSEventsFixIsBroken requires a path that uses the correct case for all folder names,
- * i.e. a path provided by the system APIs or constructed from folder names provided
- * by the directory enumeration APIs.
- *
- * See .c file for license & copyrights, but basically this is available under a mix
- * of MIT and BSD licenses.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
 
 #ifndef __FSEventsFix__

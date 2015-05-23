@@ -1,38 +1,12 @@
 /*
- * FSEventsFix
+ * FSEventsFix - http://github.com/andreyvit/FSEventsFix
  *
- * Resolves a long-standing bug in realpath() that prevents FSEvents API from
- * monitoring certain folders on a wide range of OS X released (10.6-10.10 at least).
+ * Works around a HFS+ file system corruption bug that prevents FSEvents API from
+ * monitoring certain folders on a wide range of OS X releases (10.6-10.10 at least).
  *
- * The underlying issue is that for some folders, realpath() call starts returning
- * a path with incorrect casing (e.g. "/users/smt" instead of "/Users/smt").
- * FSEvents is case-sensitive and calls realpath() on the paths you pass in, so
- * an incorrect value returned by realpath() prevents FSEvents from seeing any
- * change events.
- *
- * See the discussion at https://github.com/thibaudgg/rb-fsevent/issues/10 about
- * the history of this bug and how this library came to exist.
- *
- * This library uses Facebook's fishhook to replace a custom implementation of
- * realpath in place of the system realpath; FSEvents will then invoke our custom
- * implementation (which does not screw up the names) and will thus work correctly.
- *
- * Our implementation of realpath is based on the open-source implementation from
- * OS X 10.10, with a single change applied (enclosed in "BEGIN WORKAROUND FOR
- * OS X BUG" ... "END WORKAROUND FOR OS X BUG").
- *
- * Include FSEventsFix.{h,c} into your project and call FSEventsFixInstall().
- *
- * It is recommended that you install FSEventsFix on demand, using FSEventsFixIsBroken
- * to check if the folder you're about to pass to FSEventStreamCreate needs the fix.
- * Note that the fix must be applied before calling FSEventStreamCreate.
- *
- * FSEventsFixIsBroken requires a path that uses the correct case for all folder names,
- * i.e. a path provided by the system APIs or constructed from folder names provided
- * by the directory enumeration APIs.
- *
- * Copyright (c) 2015 Andrey Tarantsov <andrey@tarantsov.com>
- * Copyright (c) 2003 Constantin S. Svintsoff <kostik@iclub.nsu.ru>
+ * Copyright (c) 2015, Andrey Tarantsov <andrey@tarantsov.com>
+ * Copyright (c) 2015, Travis Tilley <ttilley@gmail.com>
+ * Copyright (c) 2013, Facebook, Inc.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -51,36 +25,6 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- *
- * Based on a realpath implementation from Apple libc 498.1.7, taken from
- * http://www.opensource.apple.com/source/Libc/Libc-498.1.7/stdlib/FreeBSD/realpath.c
- * and provided under the following license:
- *
- * Copyright (c) 2003 Constantin S. Svintsoff <kostik@iclub.nsu.ru>
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 3. The names of the authors may not be used to endorse or promote
- *    products derived from this software without specific prior written
- *    permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
  */
 
 
