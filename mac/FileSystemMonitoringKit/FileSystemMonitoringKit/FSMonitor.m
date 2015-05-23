@@ -6,9 +6,6 @@
 #import "FSEventsFix.h"
 
 
-#define DISABLE_FSEVENTSFIX_AFTER_FSEVENTSTREAMCREATE 0
-
-
 static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMonitor *monitor, size_t numEvents, NSArray *eventPaths, const FSEventStreamEventFlags eventFlags[], const FSEventStreamEventId eventIds[]);
 
 @interface FSMonitor ()
@@ -21,8 +18,10 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
 @end
 
 
-@implementation FSMonitor
+static BOOL g_workaroundDisabled;
 
+
+@implementation FSMonitor
 @synthesize path=_path;
 @synthesize delegate=_delegate;
 @synthesize filter=_filter;
@@ -35,8 +34,11 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
 + (void)initialize {
     if (self == [FSMonitor class]) {
         FSEventsFixDebugOptions debugOptions = 0;
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"com.tarantsov.FileSystemMonitoringKit.FSEventsFix.disable"]) {
+            g_workaroundDisabled = YES;
+        }
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"com.tarantsov.FileSystemMonitoringKit.FSEventsFix.simulate"]) {
-            debugOptions |= FSEventsFixDebugOptionSimulateBroken | FSEventsFixDebugOptionSimulateRepair;
+            debugOptions |= FSEventsFixDebugOptionSimulateBroken;
         }
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"com.tarantsov.FileSystemMonitoringKit.FSEventsFix.logCalls"]) {
             debugOptions |= FSEventsFixDebugOptionLogCalls;
@@ -110,9 +112,6 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
 }
 
 - (void)start {
-#if !DISABLE_FSEVENTSFIX_AFTER_FSEVENTSTREAMCREATE
-    static BOOL workaroundEnabled = NO;
-#endif
     _treeDiffer = [[FSTreeDiffer alloc] initWithPath:_path filter:_filter];
     NSArray *paths = [NSArray arrayWithObject:_path];
 
@@ -123,20 +122,15 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
     context.release = NULL;
     context.copyDescription = NULL;
 
-    FSEventsFixRepairStatus status = FSEventsFixRepairIfNeeded(_path.fileSystemRepresentation);
-    BOOL needWorkaround = NO;
-    if (status == FSEventsFixRepairStatusFailed) {
-        needWorkaround = YES;
-    }
+    BOOL needWorkaround = FSEventsFixIsBroken(_path.fileSystemRepresentation);
+    BOOL alertAboutFSEventsBug = NO;
     if (needWorkaround) {
-#if DISABLE_FSEVENTSFIX_AFTER_FSEVENTSTREAMCREATE
-        FSEventsFixEnable();
-#else
-        if (!workaroundEnabled) {
-            workaroundEnabled = YES;
+        if (!g_workaroundDisabled) {
             FSEventsFixEnable();
         }
-#endif
+        if (!FSEventsFixIsOperational()) {
+            alertAboutFSEventsBug = YES;
+        }
     }
     _streamRef = FSEventStreamCreate(nil,
                                      (FSEventStreamCallback)FSMonitorEventStreamCallback,
@@ -145,13 +139,14 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
                                      kFSEventStreamEventIdSinceNow,
                                      0.05,
                                      kFSEventStreamCreateFlagUseCFTypes|kFSEventStreamCreateFlagNoDefer);
-#if DISABLE_FSEVENTSFIX_AFTER_FSEVENTSTREAMCREATE
-    if (needWorkaround) {
+    if (needWorkaround && !g_workaroundDisabled) {
         FSEventsFixDisable();
     }
-#endif
     if (!_streamRef) {
         NSLog(@"Failed to start monitoring of %@ (FSEventStreamCreate error)", _path);
+    }
+    if (alertAboutFSEventsBug) {
+        // TODO: alert the user
     }
     
     NSArray *actualPaths = (NSArray *) CFBridgingRelease(FSEventStreamCopyPathsBeingWatched(_streamRef));

@@ -50,9 +50,6 @@ typedef CF_OPTIONS(unsigned, FSEventsFixDebugOptions) {
     
     /// Report paths containing FSEventsFixSimulatedBrokenFolderMarker as broken
     FSEventsFixDebugOptionSimulateBroken   = 0x10,
-    
-    /// Repair paths containing FSEventsFixSimulatedBrokenFolderMarker by renaming them
-    FSEventsFixDebugOptionSimulateRepair   = 0x20,
 };
 
 typedef CF_ENUM(int, FSEventsFixMessageType) {
@@ -72,11 +69,6 @@ typedef CF_ENUM(int, FSEventsFixMessageType) {
     FSEventsFixMessageTypeFatalError
 };
 
-typedef CF_ENUM(int, FSEventsFixRepairStatus) {
-    FSEventsFixRepairStatusNotBroken,
-    FSEventsFixRepairStatusRepaired,
-    FSEventsFixRepairStatusFailed,
-};
 
 /// Note that the logging block can be called on any dispatch queue.
 void FSEventsFixConfigure(FSEventsFixDebugOptions debugOptions, void(^loggingBlock)(FSEventsFixMessageType type, const char *message));
@@ -91,7 +83,5 @@ bool FSEventsFixIsBroken(const char *path);
 /// If the path is broken, returns a string identifying the root broken folder,
 /// otherwise, returns NULL. You need to free() the returned string.
 char *FSEventsFixCopyRootBrokenFolderPath(const char *path);
-
-FSEventsFixRepairStatus FSEventsFixRepairIfNeeded(const char *path);
 
 #endif

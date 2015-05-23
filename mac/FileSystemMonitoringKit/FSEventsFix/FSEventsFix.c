@@ -228,56 +228,6 @@ char *FSEventsFixCopyRootBrokenFolderPath(const char *inpath) {
     return path;
 }
 
-static void _FSEventsFixAttemptRepair(const char *folder) {
-    int rv = rename(folder, folder);
-
-    if (!!(g_debug_opt & FSEventsFixDebugOptionSimulateRepair)) {
-        const char *pos = strstr(folder, FSEventsFixSimulatedBrokenFolderMarker);
-        if (pos) {
-            char *fixed = strdup(folder);
-            fixed[pos - folder] = 0;
-            strcat(fixed, pos + strlen(FSEventsFixSimulatedBrokenFolderMarker));
-
-            rv = rename(folder, fixed);
-            free(fixed);
-        }
-    }
-
-    if (rv != 0) {
-        if (errno == EPERM) {
-            _FSEventsFixLog(FSEventsFixMessageTypeResult, "Permission error when trying to repair '%s'", folder);
-        } else {
-            _FSEventsFixLog(FSEventsFixMessageTypeExpectedFailure, "Unknown error when trying to repair '%s': errno = %d", folder, errno);
-        }
-    }
-}
-
-FSEventsFixRepairStatus FSEventsFixRepairIfNeeded(const char *inpath) {
-    char *root = FSEventsFixCopyRootBrokenFolderPath(inpath);
-    if (root == NULL) {
-        return FSEventsFixRepairStatusNotBroken;
-    }
-
-    for (;;) {
-        _FSEventsFixAttemptRepair(root);
-        char *newRoot = FSEventsFixCopyRootBrokenFolderPath(inpath);
-        if (newRoot == NULL) {
-            _FSEventsFixLog(FSEventsFixMessageTypeResult, "Repaired '%s' in '%s'", root, inpath);
-            free(root);
-            return FSEventsFixRepairStatusRepaired;
-        }
-        if (0 == strcmp(root, newRoot)) {
-            _FSEventsFixLog(FSEventsFixMessageTypeResult, "Failed to repair '%s' in '%s'", root, inpath);
-            free(root);
-            free(newRoot);
-            return FSEventsFixRepairStatusFailed;
-        }
-        _FSEventsFixLog(FSEventsFixMessageTypeResult, "Partial success, repaired '%s' in '%s'", root, inpath);
-        free(root);
-        root = newRoot;
-    }
-}
-
 
 #pragma mark - FSEventsFix realpath wrapper
 
