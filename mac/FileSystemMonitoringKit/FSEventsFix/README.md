@@ -42,7 +42,7 @@ Further notes:
 
 Add `FSEventsFix.h` and `FSEventsFix.c` to your project.
 
-Then, before each call to `FSEventStreamCreate`,
+Then, before each call to `FSEventStreamCreate`:
 
 1. Use `FSEventsFixIsBroken(path)` to check if a given folder is broken (i.e. requires the workaround).
 
