@@ -125,11 +125,10 @@ static BOOL g_workaroundDisabled;
     BOOL needWorkaround = FSEventsFixIsBroken(_path.fileSystemRepresentation);
     BOOL alertAboutFSEventsBug = NO;
     if (needWorkaround) {
-        if (!g_workaroundDisabled) {
-            FSEventsFixEnable();
-        }
-        if (!FSEventsFixIsOperational()) {
+        if (g_workaroundDisabled) {
             alertAboutFSEventsBug = YES;
+        } else {
+            alertAboutFSEventsBug = !FSEventsFixEnable();
         }
     }
     _streamRef = FSEventStreamCreate(nil,

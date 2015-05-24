@@ -73,10 +73,8 @@ typedef CF_ENUM(int, FSEventsFixMessageType) {
 /// Note that the logging block can be called on any dispatch queue.
 void FSEventsFixConfigure(FSEventsFixDebugOptions debugOptions, void(^loggingBlock)(FSEventsFixMessageType type, const char *message));
 
-void FSEventsFixEnable();
+bool FSEventsFixEnable();
 void FSEventsFixDisable();
-
-bool FSEventsFixIsOperational();
 
 bool FSEventsFixIsBroken(const char *path);
 

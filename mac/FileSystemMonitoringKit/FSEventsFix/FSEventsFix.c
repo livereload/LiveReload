@@ -132,8 +132,9 @@ void _FSEventsFixSelfTest() {
     g_in_self_test = false;
 }
 
-void FSEventsFixEnable() {
+bool FSEventsFixEnable() {
     _FSEventsFixInitialize();
+    __block bool result;
     dispatch_sync(g_queue, ^{
         if (++g_enable_refcount == 1) {
             orig_realpath = dlsym(RTLD_DEFAULT, "realpath");
@@ -145,7 +146,9 @@ void FSEventsFixEnable() {
                 _FSEventsFixLog(FSEventsFixMessageTypeFatalError, "Failed to enable (hook not called)");
             }
         }
+        result = g_hook_operational;
     });
+    return result;
 }
 
 void FSEventsFixDisable() {
