@@ -44,9 +44,6 @@ typedef CF_OPTIONS(unsigned, FSEventsFixDebugOptions) {
     
     /// Log all calls to realpath using the logger configured via FSEventsFixConfigure
     FSEventsFixDebugOptionLogCalls         = 0x02,
-
-    /// In addition to the logging block (if any), log everything to stderr
-    FSEventsFixDebugOptionLogToStderr      = 0x08,
     
     /// Report paths containing FSEventsFixSimulatedBrokenFolderMarker as broken
     FSEventsFixDebugOptionSimulateBroken   = 0x10,

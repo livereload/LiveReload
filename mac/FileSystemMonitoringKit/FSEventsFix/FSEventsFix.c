@@ -82,8 +82,7 @@ static const uint g_rebindings_nel = sizeof(g_rebindings) / sizeof(g_rebindings[
 static void _FSEventsFixLog(FSEventsFixMessageType type, const char *__restrict fmt, ...) __attribute__((__format__ (__printf__, 2, 3)));
 
 static void _FSEventsFixLog(FSEventsFixMessageType type, const char *__restrict fmt, ...) {
-    bool useStderr = !!(g_debug_opt & FSEventsFixDebugOptionLogToStderr);
-    if (g_logging_block || useStderr) {
+    if (g_logging_block) {
         char *message = NULL;
         va_list va;
         va_start(va, fmt);
@@ -91,9 +90,6 @@ static void _FSEventsFixLog(FSEventsFixMessageType type, const char *__restrict 
         va_end(va);
 
         if (message) {
-            if (useStderr) {
-                fprintf(stderr, "FSEventsFix: %s\n", message);
-            }
             if (g_logging_block) {
                 g_logging_block(type, message);
             }
