@@ -30,47 +30,25 @@
 #ifndef __FSEventsFix__
 #define __FSEventsFix__
 
-#include <CoreFoundation/CoreFoundation.h>
+#include <stdbool.h>
 
 /// A library version string (e.g. 1.2.3) for displaying and logging purposes
 extern const char *const FSEventsFixVersionString;
 
-/// See FSEventsFixDebugOptionSimulateBroken
-#define FSEventsFixSimulatedBrokenFolderMarker  "__!FSEventsBroken!__"
-
-typedef CF_OPTIONS(unsigned, FSEventsFixDebugOptions) {
-    /// Always return an uppercase string from realpath
-    FSEventsFixDebugOptionUppercaseReturn  = 0x01,
-    
-    /// Log all calls to realpath using the logger configured via FSEventsFixConfigure
-    FSEventsFixDebugOptionLogCalls         = 0x02,
-    
-    /// Report paths containing FSEventsFixSimulatedBrokenFolderMarker as broken
-    FSEventsFixDebugOptionSimulateBroken   = 0x10,
-};
-
-typedef CF_ENUM(int, FSEventsFixMessageType) {
-    /// Call logging requested via FSEventsFixDebugOptionLogCalls
-    FSEventsFixMessageTypeCall,
-    
-    /// Enabled/disabled status change
-    FSEventsFixMessageTypeStatusChange,
-
-    /// Severe failure that most likely means that the library won't work
-    FSEventsFixMessageTypeFatalError
-};
-
-
-/// Note that the logging block can be called on any dispatch queue.
-void FSEventsFixConfigure(FSEventsFixDebugOptions debugOptions, void(^loggingBlock)(FSEventsFixMessageType type, const char *message));
-
-void FSEventsFixEnable();
+bool FSEventsFixEnable(char **error);
 void FSEventsFixDisable();
 
+/// Returns if the letter casing of the given path is suitable for case-sensitive
+/// matching against kernel change events. Give it a path returned by
+/// FSEventStreamCopyPathsBeingWatched to predict if FSEvents will work.
+bool FSEventsFixIsCorrectPathToWatch(const char *pathBeingWatched);
+
+/// Returns whether the given path will reports change events via FSEvents API
+/// without this workaround applied.
 bool FSEventsFixIsBroken(const char *path);
 
 /// If the path is broken, returns a string identifying the root broken folder,
-/// otherwise, returns NULL. You need to free() the returned string.
+/// otherwise returns NULL. You need to free() the returned string.
 char *FSEventsFixCopyRootBrokenFolderPath(const char *path);
 
 #endif

@@ -28,9 +28,15 @@
  */
 
 
+#define FSEVENTSFIX_DEBUG_SIMULATE_FAILURE 0
+#define FSEVENTSFIX_DEBUG_LOG_CALLS 0
+#define FSEVENTSFIX_DEBUG_REALPATH_RETURNS_UPPERCASE 0
+
+
 #include "FSEventsFix.h"
 
-#include <dispatch/dispatch.h>
+#include <CoreFoundation/CoreFoundation.h>
+#include <CoreServices/CoreServices.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <stdbool.h>
@@ -40,6 +46,8 @@
 #include <stdarg.h>
 #include <ctype.h>
 #include <dlfcn.h>
+#include <errno.h>
+#include <sys/syslimits.h>
 
 
 const char *const FSEventsFixVersionString = "1.0.0";
@@ -47,53 +55,32 @@ const char *const FSEventsFixVersionString = "1.0.0";
 
 #pragma mark - Forward declarations
 
-static char *(*orig_realpath)(const char *restrict file_name, char resolved_name[PATH_MAX]);
-static char *CFURL_realpath(const char *restrict file_name, char resolved_name[PATH_MAX]);
+static char *(*orig_realpath)(const char *restrict file_name, char *resolved_name);
+static char *CFURL_realpath(const char *restrict file_name, char *resolved_name);
 static char *FSEventsFix_realpath_wrapper(const char *restrict src, char *restrict dst);
 
-static void _FSEventsFixHookInstall();
-static void _FSEventsFixHookUninstall();
+static bool _FSEventsFixHookUpdate();
 
 
 #pragma mark - Internal state
 
-static dispatch_queue_t g_queue = NULL;
+static bool g_hook_installed = false;
+static char *g_orig_reapath_error = NULL;
 
-static int64_t g_enable_refcount = 0;
-
-static void(^g_logging_block)(FSEventsFixMessageType type, const char *message);
-static FSEventsFixDebugOptions g_debug_opt = 0;
-
-typedef struct {
-    char *name;
-    void *replacement;
-    void *original;
-    uint hooked_symbols;
-} rebinding_t;
-
-static rebinding_t g_rebindings[] = {
-    { "_realpath$DARWIN_EXTSN", (void *) &FSEventsFix_realpath_wrapper, (void *) &realpath, 0 }
-};
-static const uint g_rebindings_nel = sizeof(g_rebindings) / sizeof(g_rebindings[0]);
+#if FSEVENTSFIX_DEBUG_SIMULATE_FAILURE
+#define kRealpathSymbolName "_realpath$SimulatedFailure"
+#else
+#define kRealpathSymbolName "_realpath$DARWIN_EXTSN"
+#endif
 
 
-#pragma mark - Logging
-
-static void _FSEventsFixLog(FSEventsFixMessageType type, const char *__restrict fmt, ...) __attribute__((__format__ (__printf__, 2, 3)));
-
-static void _FSEventsFixLog(FSEventsFixMessageType type, const char *__restrict fmt, ...) {
-    if (g_logging_block) {
-        char *message = NULL;
-        va_list va;
-        va_start(va, fmt);
-        vasprintf(&message, fmt, va);
-        va_end(va);
-
-        if (message) {
-            if (g_logging_block) {
-                g_logging_block(type, message);
-            }
-            free(message);
+__attribute__((constructor))
+static void _FSEventsFixInitialize() {
+    orig_realpath = dlsym(RTLD_DEFAULT, kRealpathSymbolName+1);
+    if (orig_realpath == NULL) {
+        const char *error = dlerror();
+        if (error) {
+            g_orig_reapath_error = strdup(error);
         }
     }
 }
@@ -101,69 +88,49 @@ static void _FSEventsFixLog(FSEventsFixMessageType type, const char *__restrict 
 
 #pragma mark - API
 
-void _FSEventsFixInitialize() {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        g_queue = dispatch_queue_create("FSEventsFix", DISPATCH_QUEUE_SERIAL);
-    });
-}
-
-void FSEventsFixConfigure(FSEventsFixDebugOptions debugOptions, void(^loggingBlock)(FSEventsFixMessageType severity, const char *message)) {
-    _FSEventsFixInitialize();
-    loggingBlock = Block_copy(loggingBlock);
-    dispatch_sync(g_queue, ^{
-        g_debug_opt = debugOptions;
-        g_logging_block = loggingBlock;
-    });
-}
-
-void FSEventsFixEnable() {
-    _FSEventsFixInitialize();
-    dispatch_sync(g_queue, ^{
-        if (++g_enable_refcount == 1) {
-            orig_realpath = dlsym(RTLD_DEFAULT, "realpath");
-            _FSEventsFixHookInstall();
-            _FSEventsFixLog(FSEventsFixMessageTypeStatusChange, "Enabled.");
+bool FSEventsFixEnable(char **outerror) {
+    if (orig_realpath == NULL) {
+        if (outerror) {
+            *outerror = NULL;
+            asprintf(outerror, "Cannot find symbol %s, dlsym says: %s", kRealpathSymbolName+1, g_orig_reapath_error);
         }
-    });
+        return false;
+    }
+
+    g_hook_installed = true;
+    if (!_FSEventsFixHookUpdate()) {
+        g_hook_installed = false;
+        if (outerror) {
+            *outerror = NULL;
+            asprintf(outerror, "Cannot find imports of symbol %s in FSEvents binary", kRealpathSymbolName);
+        }
+        return false;
+    }
+    return true;
 }
 
 void FSEventsFixDisable() {
-    _FSEventsFixInitialize();
-    dispatch_sync(g_queue, ^{
-        if (g_enable_refcount == 0) {
-            abort();
-        }
-        if (--g_enable_refcount == 0) {
-            _FSEventsFixHookUninstall();
-            _FSEventsFixLog(FSEventsFixMessageTypeStatusChange, "Disabled.");
-        }
-    });
+    g_hook_installed = false;
+    _FSEventsFixHookUpdate();
 }
 
-bool _FSEventsFixIsBroken_noresolve(const char *resolved) {
-    if (!!(g_debug_opt & FSEventsFixDebugOptionSimulateBroken)) {
-        if (strstr(resolved, FSEventsFixSimulatedBrokenFolderMarker)) {
-            return true;
-        }
-    }
-
-    char *reresolved = realpath(resolved, NULL);
+bool FSEventsFixIsCorrectPathToWatch(const char *pathBeingWatched) {
+    char *reresolved = CFURL_realpath(pathBeingWatched, NULL);
     if (reresolved) {
-        bool broken = (0 != strcmp(resolved, reresolved));
+        bool correct = (0 == strcmp(pathBeingWatched, reresolved));
         free(reresolved);
-        return broken;
+        return correct;
     } else {
         return true;
     }
 }
 
 bool FSEventsFixIsBroken(const char *path) {
-    char *resolved = CFURL_realpath(path, NULL);
+    char *resolved = realpath(path, NULL);
     if (!resolved) {
         return true;
     }
-    bool broken = _FSEventsFixIsBroken_noresolve(resolved);
+    bool broken = !FSEventsFixIsCorrectPathToWatch(resolved);
     free(resolved);
     return broken;
 }
@@ -185,7 +152,7 @@ char *FSEventsFixCopyRootBrokenFolderPath(const char *inpath) {
             break;
         }
         *sep = 0;
-        if (!_FSEventsFixIsBroken_noresolve(path)) {
+        if (!FSEventsFixIsBroken(path)) {
             *sep = '/';
             break;
         }
@@ -206,12 +173,15 @@ static char *FSEventsFix_realpath_wrapper(const char * __restrict src, char * __
     char *orv = orig_realpath(src, dst);
     if (orv != NULL) { rv = CFURL_realpath(src, dst); }
 
-    if (!!(g_debug_opt & FSEventsFixDebugOptionLogCalls)) {
+#if FSEVENTSFIX_DEBUG_LOG_CALLS
+    {
         char *result = rv ?: dst;
-        _FSEventsFixLog(FSEventsFixMessageTypeCall, "realpath(%s) => %s\n", src, result);
+        fprintf(stderr, "FSEventsFix: realpath(%s) => %s\n", src, result);
     }
+#endif
 
-    if (!!(g_debug_opt & FSEventsFixDebugOptionUppercaseReturn)) {
+#if FSEVENTSFIX_DEBUG_REALPATH_RETURNS_UPPERCASE
+    {
         char *result = rv ?: dst;
         if (result) {
             for (char *pch = result; *pch; ++pch) {
@@ -219,6 +189,7 @@ static char *FSEventsFix_realpath_wrapper(const char * __restrict src, char * __
             }
         }
     }
+#endif
 
     return rv;
 }
@@ -344,12 +315,11 @@ typedef struct nlist nlist_t;
 #define LC_SEGMENT_ARCH_DEPENDENT LC_SEGMENT
 #endif
 
-static volatile bool g_hook_installed = false;
-
-static void _FSEventsFixHookUpdateSection(section_t *section, intptr_t slide, nlist_t *symtab, char *strtab, uint32_t *indirect_symtab)
+static bool _FSEventsFixHookUpdateSection(section_t *section, intptr_t slide, nlist_t *symtab, char *strtab, uint32_t *indirect_symtab)
 {
     uint32_t *indirect_symbol_indices = indirect_symtab + section->reserved1;
     void **indirect_symbol_bindings = (void **)((uintptr_t)slide + section->addr);
+    bool found = false;
     for (uint i = 0; i < section->size / sizeof(void *); i++) {
         uint32_t symtab_index = indirect_symbol_indices[i];
         if (symtab_index == INDIRECT_SYMBOL_ABS || symtab_index == INDIRECT_SYMBOL_LOCAL ||
@@ -358,32 +328,26 @@ static void _FSEventsFixHookUpdateSection(section_t *section, intptr_t slide, nl
         }
         uint32_t strtab_offset = symtab[symtab_index].n_un.n_strx;
         char *symbol_name = strtab + strtab_offset;
-        for (rebinding_t *cur = g_rebindings, *end = g_rebindings + g_rebindings_nel; cur < end; ++cur)  {
-            if (strcmp(symbol_name, cur->name) == 0) {
-                if (g_hook_installed) {
-                    if (indirect_symbol_bindings[i] != cur->replacement) {
-                        indirect_symbol_bindings[i] = cur->replacement;
-                        ++cur->hooked_symbols;
-                    }
-                } else if (cur->original != NULL) {
-                    if (indirect_symbol_bindings[i] == cur->replacement) {
-                        indirect_symbol_bindings[i] = cur->original;
-                        if (cur->hooked_symbols > 0) {
-                            --cur->hooked_symbols;
-                        }
-                    }
+        if (strcmp(symbol_name, kRealpathSymbolName) == 0) {
+            found = true;
+            if (g_hook_installed) {
+                if (indirect_symbol_bindings[i] != FSEventsFix_realpath_wrapper) {
+                    indirect_symbol_bindings[i] = FSEventsFix_realpath_wrapper;
                 }
-                goto symbol_loop;
+            } else if (orig_realpath != NULL) {
+                if (indirect_symbol_bindings[i] == FSEventsFix_realpath_wrapper) {
+                    indirect_symbol_bindings[i] = orig_realpath;
+                }
             }
         }
-    symbol_loop:;
     }
+    return found;
 }
 
-static void _FSEventsFixHookUpdateImage(const struct mach_header *header, intptr_t slide) {
+static bool _FSEventsFixHookUpdateImage(const struct mach_header *header, intptr_t slide) {
     Dl_info info;
     if (dladdr(header, &info) == 0) {
-        return;
+        return false;
     }
 
     segment_command_t *cur_seg_cmd;
@@ -407,7 +371,7 @@ static void _FSEventsFixHookUpdateImage(const struct mach_header *header, intptr
 
     if (!symtab_cmd || !dysymtab_cmd || !linkedit_segment ||
         !dysymtab_cmd->nindirectsyms) {
-        return;
+        return false;
     }
 
     // Find base symbol/string table addresses
@@ -418,6 +382,7 @@ static void _FSEventsFixHookUpdateImage(const struct mach_header *header, intptr
     // Get indirect symbol table (array of uint32_t indices into symbol table)
     uint32_t *indirect_symtab = (uint32_t *)(linkedit_base + dysymtab_cmd->indirectsymoff);
 
+    bool found = false;
     cur = (uintptr_t)header + sizeof(mach_header_t);
     for (uint i = 0; i < header->ncmds; i++, cur += cur_seg_cmd->cmdsize) {
         cur_seg_cmd = (segment_command_t *)cur;
@@ -429,52 +394,36 @@ static void _FSEventsFixHookUpdateImage(const struct mach_header *header, intptr
                 section_t *sect =
                 (section_t *)(cur + sizeof(segment_command_t)) + j;
                 if ((sect->flags & SECTION_TYPE) == S_LAZY_SYMBOL_POINTERS) {
-                    _FSEventsFixHookUpdateSection(sect, slide, symtab, strtab, indirect_symtab);
+                    if (_FSEventsFixHookUpdateSection(sect, slide, symtab, strtab, indirect_symtab)) {
+                        found = true;
+                    }
                 }
                 if ((sect->flags & SECTION_TYPE) == S_NON_LAZY_SYMBOL_POINTERS) {
-                    _FSEventsFixHookUpdateSection(sect, slide, symtab, strtab, indirect_symtab);
+                    if (_FSEventsFixHookUpdateSection(sect, slide, symtab, strtab, indirect_symtab)) {
+                        found = true;
+                    }
                 }
             }
         }
     }
+    return found;
 }
 
-static void _FSEventsFixHookSaveOriginals() {
-    for (rebinding_t *cur = g_rebindings, *end = g_rebindings + g_rebindings_nel; cur < end; ++cur)  {
-        void *original = cur->original = dlsym(RTLD_DEFAULT, cur->name+1);
-        if (!original) {
-            const char *error = dlerror();
-            _FSEventsFixLog(FSEventsFixMessageTypeFatalError, "Cannot find symbol %s, dlsym says: %s\n", cur->name, error);
-        }
+static bool _FSEventsFixHookUpdate() {
+    Dl_info info;
+    if (!dladdr(FSEventStreamCreate, &info)) {
+        return false;
     }
-}
+    void *FSEventsDylibBase = info.dli_fbase;
 
-static void _FSEventsFixHookUpdate() {
+    bool found = false;
     uint32_t c = _dyld_image_count();
     for (uint32_t i = 0; i < c; i++) {
-        _FSEventsFixHookUpdateImage(_dyld_get_image_header(i), _dyld_get_image_vmaddr_slide(i));
-    }
-}
-
-static void _FSEventsFixHookInstall() {
-    static bool first_rebinding_done = false;
-
-    if (!g_hook_installed) {
-        g_hook_installed = true;
-
-        if (!first_rebinding_done) {
-            first_rebinding_done = true;
-            _FSEventsFixHookSaveOriginals();
-            _dyld_register_func_for_add_image(_FSEventsFixHookUpdateImage);
-        } else {
-            _FSEventsFixHookUpdate();
+        if (_dyld_get_image_header(i) == FSEventsDylibBase) {
+            if (_FSEventsFixHookUpdateImage(FSEventsDylibBase, _dyld_get_image_vmaddr_slide(i))) {
+                found = true;
+            }
         }
     }
-}
-
-static void _FSEventsFixHookUninstall() {
-    if (g_hook_installed) {
-        g_hook_installed = false;
-        _FSEventsFixHookUpdate();
-    }
+    return found;
 }

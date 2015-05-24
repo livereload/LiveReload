@@ -18,7 +18,7 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
 @end
 
 
-static BOOL g_workaroundDisabled;
+static BOOL g_FSEventsBugWorkaroundDisabled;
 
 
 @implementation FSMonitor
@@ -33,23 +33,9 @@ static BOOL g_workaroundDisabled;
 
 + (void)initialize {
     if (self == [FSMonitor class]) {
-        FSEventsFixDebugOptions debugOptions = 0;
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"com.tarantsov.FileSystemMonitoringKit.FSEventsFix.disable"]) {
-            g_workaroundDisabled = YES;
+            g_FSEventsBugWorkaroundDisabled = YES;
         }
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"com.tarantsov.FileSystemMonitoringKit.FSEventsFix.simulate"]) {
-            debugOptions |= FSEventsFixDebugOptionSimulateBroken;
-        }
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"com.tarantsov.FileSystemMonitoringKit.FSEventsFix.logCalls"]) {
-            debugOptions |= FSEventsFixDebugOptionLogCalls;
-        }
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"com.tarantsov.FileSystemMonitoringKit.FSEventsFix.uppercase"]) {
-            debugOptions |= FSEventsFixDebugOptionUppercaseReturn;
-        }
-
-        FSEventsFixConfigure(debugOptions, ^(FSEventsFixMessageType type, const char *message) {
-            NSLog(@"FileSystemMonitoringKit - FSEventsFix: %s", message);
-        });
     }
 }
 
@@ -122,9 +108,17 @@ static BOOL g_workaroundDisabled;
     context.release = NULL;
     context.copyDescription = NULL;
 
-    BOOL needWorkaround = FSEventsFixIsBroken(_path.fileSystemRepresentation) && !g_workaroundDisabled;
-    if (needWorkaround) {
-        FSEventsFixEnable();
+    BOOL workaroundNeeded = FSEventsFixIsBroken(_path.fileSystemRepresentation);
+    BOOL workaroundWanted = workaroundNeeded && !g_FSEventsBugWorkaroundDisabled;
+    BOOL workaroundInstalled = NO;
+    if (workaroundWanted) {
+        char *error = NULL;
+        NSLog(@"Enabling FSEventsFix %s.", FSEventsFixVersionString);
+        workaroundInstalled = FSEventsFixEnable(&error);
+        if (!workaroundInstalled) {
+            NSLog(@"FSEventsFixEnable() failed: %s", error);
+            free(error);
+        }
     }
     _streamRef = FSEventStreamCreate(nil,
                                      (FSEventStreamCallback)FSMonitorEventStreamCallback,
@@ -133,7 +127,7 @@ static BOOL g_workaroundDisabled;
                                      kFSEventStreamEventIdSinceNow,
                                      0.05,
                                      kFSEventStreamCreateFlagUseCFTypes|kFSEventStreamCreateFlagNoDefer);
-    if (needWorkaround) {
+    if (workaroundInstalled) {
         FSEventsFixDisable();
     }
     if (!_streamRef) {
@@ -144,9 +138,15 @@ static BOOL g_workaroundDisabled;
     NSString *actualPath = [actualPaths firstObject];
     NSLog(@"FSEvents actual path being watched: %@", actualPath);
 
-    BOOL alertAboutFSEventsBug = FSEventsFixIsBroken(actualPath.fileSystemRepresentation);
-    if (alertAboutFSEventsBug) {
-        // TODO: alert the user
+    BOOL brokenAfterAll = !FSEventsFixIsCorrectPathToWatch(actualPath.fileSystemRepresentation);
+    if (brokenAfterAll) {
+        if (workaroundInstalled) {
+            NSLog(@"FSEventsFix: folder still broken after workaround: %@", actualPath);
+        } else if (workaroundWanted) {
+            NSLog(@"FSEventsFix: folder is broken because workaround failed to install: %@", actualPath);
+        }
+    } else if (workaroundInstalled) {
+        NSLog(@"FSEventsFix: successfully fixed the bug in: %@", actualPath);
     }
 
     FSEventStreamScheduleWithRunLoop(_streamRef, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
