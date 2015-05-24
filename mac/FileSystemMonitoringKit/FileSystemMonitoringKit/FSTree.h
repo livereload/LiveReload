@@ -27,8 +27,6 @@
 - (NSArray *)pathsOfFilesMatching:(BOOL (^)(NSString *name))filter;
 - (NSString *)pathOfBestFileMatchingPathSuffix:(NSString *)pathSuffix preferringSubtree:(NSString *)subtreePath;
 
-- (NSArray *)brokenPaths;
-
 @property(nonatomic, readonly, strong) NSArray *filePaths;
 
 @property(nonatomic, readonly, strong) NSArray *folderPaths;

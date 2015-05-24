@@ -422,22 +422,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     _monitor.running = NO;
 }
 
-- (void)checkBrokenPaths {
-    if (_brokenPathReported)
-        return;
-    if (![[NSFileManager defaultManager] fileExistsAtPath:_path])
-        return; // don't report spurious messages for missing folders
-
-    NSArray *brokenPaths = [[_monitor obtainTree] brokenPaths];
-    if ([brokenPaths count] > 0) {
-        NSInteger result = [[NSAlert alertWithMessageText:@"Folder Cannot Be Monitored" defaultButton:@"Read More" alternateButton:@"Ignore" otherButton:nil informativeTextWithFormat:@"The following %@ cannot be monitored because of OS X FSEvents bug:\n\n\t%@\n\nMore info and workaround instructions are available on our site.", [brokenPaths count] > 0 ? @"folders" : @"folder", [[brokenPaths componentsJoinedByString:@"\n\t"] stringByReplacingOccurrencesOfString:@"_!LR_BROKEN!_" withString:@"Broken"]] runModal];
-        if (result == NSAlertDefaultReturn) {
-            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://help.livereload.com/kb/troubleshooting/os-x-fsevents-bug-may-prevent-monitoring-of-certain-folders"]];
-        }
-        _brokenPathReported = YES;
-    }
-}
-
 - (void)requestMonitoring:(BOOL)monitoringEnabled forKey:(NSString *)key {
     if ([_monitoringRequests containsObject:key] != monitoringEnabled) {
         if (monitoringEnabled) {
@@ -463,7 +447,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         _monitor.running = shouldBeRunning;
         if (shouldBeRunning) {
             [self reanalyzeAllFiles];
-            [self checkBrokenPaths];
         }
         [[NSNotificationCenter defaultCenter] postNotificationName:ProjectMonitoringStateDidChangeNotification object:self];
     }
@@ -483,6 +466,23 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
 
 #pragma mark - File system monitoring (change processing)
+
+- (void)fileSystemMonitor:(FSMonitor *)monitor didFailToWorkAroundFSEventsBugWithRootBrokenFolderPath:(NSString *)rootBrokenFolderPath {
+    if (_brokenPathReported)
+        return;
+    if (![[NSFileManager defaultManager] fileExistsAtPath:_path])
+        return; // don't report spurious messages for missing folders
+
+    _brokenPathReported = YES;
+    NSInteger result = [[NSAlert alertWithMessageText:@"Folder Cannot Be Monitored" defaultButton:@"Read More" alternateButton:@"Ignore" otherButton:nil informativeTextWithFormat:@"The following folder cannot be monitored because of OS X FSEvents bug:\n\n\t%@\n\nMore info and workaround instructions are available on our site.", rootBrokenFolderPath] runModal];
+    if (result == NSAlertDefaultReturn) {
+        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://help.livereload.com/kb/troubleshooting/os-x-fsevents-bug-may-prevent-monitoring-of-certain-folders"]];
+    }
+}
+
+- (void)fileSystemMonitorDidWorkAroundFSEventsBug:(FSMonitor *)monitor {
+    // TODO: analytics
+}
 
 - (void)fileSystemMonitor:(FSMonitor *)monitor detectedChange:(FSChange *)change {
     [self processBatchOfPendingChanges:change.changedFiles];

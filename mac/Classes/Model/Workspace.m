@@ -39,6 +39,7 @@ static NSString *ClientConnectedMonitoringKey = @"clientConnected";
 + (Workspace *)sharedWorkspace {
     if (sharedWorkspace == nil) {
         sharedWorkspace = [[Workspace alloc] init];
+        [sharedWorkspace load];
     }
     return sharedWorkspace;
 }
@@ -52,7 +53,6 @@ static NSString *ClientConnectedMonitoringKey = @"clientConnected";
         _projects = [[NSMutableSet alloc] init];
     
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleSomethingChanged:) name:@"SomethingChanged" object:nil];
-        [self load];
     }
     return self;
 }
@@ -164,7 +164,6 @@ static NSString *ClientConnectedMonitoringKey = @"clientConnected";
     NSParameterAssert(![_projects containsObject:project]);
     [_projects addObject:project];
     [project requestMonitoring:_monitoringEnabled forKey:ClientConnectedMonitoringKey];
-    [project checkBrokenPaths]; // in case we don't have monitoring enabled
     [self setNeedsSaving];
 }
 

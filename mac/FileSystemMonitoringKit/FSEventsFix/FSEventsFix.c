@@ -59,7 +59,7 @@ static char *(*orig_realpath)(const char *restrict file_name, char *resolved_nam
 static char *CFURL_realpath(const char *restrict file_name, char *resolved_name);
 static char *FSEventsFix_realpath_wrapper(const char *restrict src, char *restrict dst);
 
-static bool _FSEventsFixHookUpdate(BOOL install);
+static bool _FSEventsFixHookUpdate(bool install);
 
 
 #pragma mark - Internal state
@@ -311,7 +311,7 @@ typedef struct nlist nlist_t;
 #define LC_SEGMENT_ARCH_DEPENDENT LC_SEGMENT
 #endif
 
-static bool _FSEventsFixHookUpdateSection(section_t *section, intptr_t slide, nlist_t *symtab, char *strtab, uint32_t *indirect_symtab, BOOL install)
+static bool _FSEventsFixHookUpdateSection(section_t *section, intptr_t slide, nlist_t *symtab, char *strtab, uint32_t *indirect_symtab, bool install)
 {
     uint32_t *indirect_symbol_indices = indirect_symtab + section->reserved1;
     void **indirect_symbol_bindings = (void **)((uintptr_t)slide + section->addr);
@@ -340,7 +340,7 @@ static bool _FSEventsFixHookUpdateSection(section_t *section, intptr_t slide, nl
     return found;
 }
 
-static bool _FSEventsFixHookUpdateImage(const struct mach_header *header, intptr_t slide, BOOL install) {
+static bool _FSEventsFixHookUpdateImage(const struct mach_header *header, intptr_t slide, bool install) {
     Dl_info info;
     if (dladdr(header, &info) == 0) {
         return false;
@@ -405,7 +405,7 @@ static bool _FSEventsFixHookUpdateImage(const struct mach_header *header, intptr
     return found;
 }
 
-static bool _FSEventsFixHookUpdate(BOOL install) {
+static bool _FSEventsFixHookUpdate(bool install) {
     Dl_info info;
     if (!dladdr(FSEventStreamCreate, &info)) {
         return false;

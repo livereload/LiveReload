@@ -33,7 +33,7 @@ static BOOL g_FSEventsBugWorkaroundDisabled;
 
 + (void)initialize {
     if (self == [FSMonitor class]) {
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"com.tarantsov.FileSystemMonitoringKit.FSEventsFix.disable"]) {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"FSEventsFixDisable"]) {
             g_FSEventsBugWorkaroundDisabled = YES;
         }
     }
@@ -144,9 +144,22 @@ static BOOL g_FSEventsBugWorkaroundDisabled;
             NSLog(@"FSEventsFix: folder still broken after workaround: %@", actualPath);
         } else if (workaroundWanted) {
             NSLog(@"FSEventsFix: folder is broken because workaround failed to install: %@", actualPath);
+        } else {
+            NSLog(@"FSEventsFix: folder is broken because workaround was disabled: %@", actualPath);
+        }
+        if ([_delegate respondsToSelector:@selector(fileSystemMonitor:didFailToWorkAroundFSEventsBugWithRootBrokenFolderPath:)]) {
+            char *rootC = FSEventsFixCopyRootBrokenFolderPath(_path.fileSystemRepresentation);
+            if (rootC) {
+                NSString *root = [NSString stringWithCString:rootC encoding:NSUTF8StringEncoding];
+                free(rootC);
+                [_delegate fileSystemMonitor:self didFailToWorkAroundFSEventsBugWithRootBrokenFolderPath:root];
+            }
         }
     } else if (workaroundInstalled) {
-        NSLog(@"FSEventsFix: successfully fixed the bug in: %@", actualPath);
+        NSLog(@"FSEventsFix: successfully worked around the bug in %@", actualPath);
+        if ([_delegate respondsToSelector:@selector(fileSystemMonitorDidWorkAroundFSEventsBug:)]) {
+            [_delegate fileSystemMonitorDidWorkAroundFSEventsBug:self];
+        }
     }
 
     FSEventStreamScheduleWithRunLoop(_streamRef, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);

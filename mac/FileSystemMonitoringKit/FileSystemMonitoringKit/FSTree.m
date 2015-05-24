@@ -16,48 +16,6 @@ struct FSTreeItem {
 };
 
 
-static BOOL IsBrokenFolder(NSString *path) {
-    FSRef fsref;
-    AliasHandle itemAlias;
-    HFSUniStr255 targetName;
-    HFSUniStr255 volumeName;
-    CFStringRef pathString = NULL;
-    FSAliasInfoBitmap returnedInInfo;
-    FSAliasInfo info;
-
-    char path_buf[1024 * 100];
-    char real_path_buf[1024 * 100];
-
-    strcpy(path_buf, [path fileSystemRepresentation]);
-
-    if (strstr(path_buf, "_!LR_BROKEN!_"))
-        return YES; // for testing
-
-    if (realpath(path_buf, real_path_buf)) {
-        if (0 != strcmp(path_buf, real_path_buf)) {
-            return YES;
-        }
-    }
-
-    // deprecated APIs are required to deal with Apple's bugs
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    FSPathMakeRefWithOptions((unsigned char *)path_buf, kFSPathMakeRefDoNotFollowLeafSymlink, &fsref, NULL);
-    FSNewAlias(NULL, &fsref, &itemAlias);
-    FSCopyAliasInfo(itemAlias, &targetName, &volumeName, &pathString, &returnedInInfo, &info);
-#pragma clang diagnostic pop
-    if (pathString) {
-        CFStringGetCString(pathString, real_path_buf, sizeof(real_path_buf), kCFStringEncodingUTF8);
-        CFRelease(pathString);
-        if (0 != strcmp(path_buf, real_path_buf)) {
-            return YES;
-        }
-    }
-
-    return NO;
-}
-
-
 @implementation FSTree
 
 @synthesize rootPath = _rootPath;
@@ -326,49 +284,6 @@ static BOOL IsBrokenFolder(NSString *path) {
                 [result addObject:(__bridge NSString *)cur->name];
             }
         }
-        return result;
-    }
-}
-
-- (NSArray *)brokenPaths {
-    if (IsBrokenFolder(_rootPath)) {
-        NSString *topmostBrokenFolder = _rootPath;
-        while ([[topmostBrokenFolder pathComponents] count] > 1) {
-            NSString *nextFolderToTry = [topmostBrokenFolder stringByDeletingLastPathComponent];
-            if (!IsBrokenFolder(nextFolderToTry))
-                break;
-            topmostBrokenFolder = nextFolderToTry;
-        }
-        return [NSArray arrayWithObject:topmostBrokenFolder];
-    }
-
-    NSMutableArray *result = [NSMutableArray array];
-    @autoreleasepool {
-
-        struct FSTreeItem *end = _items + _count;
-        for (struct FSTreeItem *cur = _items; cur < end; ++cur) {
-            if (cur->st_mode == S_IFDIR) {
-                if (IsBrokenFolder([_rootPath stringByAppendingPathComponent:(__bridge NSString *)cur->name])) {
-                    // ignore children of already reported folders
-                    for (NSString *peer in result) {
-                        if ((NSUInteger)CFStringGetLength(cur->name) > [peer length] && [(__bridge NSString *)cur->name characterAtIndex:[peer length]] == '/' && [[(__bridge NSString *)cur->name substringToIndex:[peer length]] isEqualToString:peer]) {
-                            goto skip;
-                        }
-                    }
-                    [result addObject:(__bridge NSString *)cur->name];
-                skip: ;
-                }
-            }
-        }
-
-        // make the paths absolute
-        NSString *root = [_rootPath stringByAbbreviatingWithTildeInPath];
-        NSInteger count = [result count];
-        for (NSInteger index = 0; index < count; ++index) {
-            NSString *item = [result objectAtIndex:index];
-            [result replaceObjectAtIndex:index withObject:[root stringByAppendingPathComponent:item]];
-        }
-
         return result;
     }
 }

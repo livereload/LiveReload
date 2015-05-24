@@ -87,8 +87,6 @@ enum {
 @property(nonatomic, copy) NSString *rubyVersionIdentifier;
 @property(nonatomic, readonly) RuntimeInstance *rubyInstanceForBuilding;
 
-- (void)checkBrokenPaths;
-
 - (BOOL)isFileImported:(NSString *)path;
 
 @property(nonatomic, readonly) NSArray *excludedPaths;

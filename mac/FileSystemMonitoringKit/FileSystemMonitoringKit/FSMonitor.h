@@ -51,4 +51,9 @@
 
 - (void)fileSystemMonitor:(FSMonitor *)monitor detectedChange:(FSChange *)change;
 
+@optional
+
+- (void)fileSystemMonitorDidWorkAroundFSEventsBug:(FSMonitor *)monitor;
+- (void)fileSystemMonitor:(FSMonitor *)monitor didFailToWorkAroundFSEventsBugWithRootBrokenFolderPath:(NSString *)rootBrokenFolderPath;
+
 @end
