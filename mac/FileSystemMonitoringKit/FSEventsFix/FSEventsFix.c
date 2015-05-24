@@ -50,7 +50,7 @@
 #include <sys/syslimits.h>
 
 
-const char *const FSEventsFixVersionString = "1.0.0";
+const char *const FSEventsFixVersionString = "1.1.0";
 
 
 #pragma mark - Forward declarations
