@@ -59,12 +59,11 @@ static char *(*orig_realpath)(const char *restrict file_name, char *resolved_nam
 static char *CFURL_realpath(const char *restrict file_name, char *resolved_name);
 static char *FSEventsFix_realpath_wrapper(const char *restrict src, char *restrict dst);
 
-static bool _FSEventsFixHookUpdate();
+static bool _FSEventsFixHookUpdate(BOOL install);
 
 
 #pragma mark - Internal state
 
-static bool g_hook_installed = false;
 static char *g_orig_reapath_error = NULL;
 
 #if FSEVENTSFIX_DEBUG_SIMULATE_FAILURE
@@ -97,9 +96,7 @@ bool FSEventsFixEnable(char **outerror) {
         return false;
     }
 
-    g_hook_installed = true;
-    if (!_FSEventsFixHookUpdate()) {
-        g_hook_installed = false;
+    if (!_FSEventsFixHookUpdate(true)) {
         if (outerror) {
             *outerror = NULL;
             asprintf(outerror, "Cannot find imports of symbol %s in FSEvents binary", kRealpathSymbolName);
@@ -110,8 +107,7 @@ bool FSEventsFixEnable(char **outerror) {
 }
 
 void FSEventsFixDisable() {
-    g_hook_installed = false;
-    _FSEventsFixHookUpdate();
+    _FSEventsFixHookUpdate(false);
 }
 
 bool FSEventsFixIsCorrectPathToWatch(const char *pathBeingWatched) {
@@ -315,7 +311,7 @@ typedef struct nlist nlist_t;
 #define LC_SEGMENT_ARCH_DEPENDENT LC_SEGMENT
 #endif
 
-static bool _FSEventsFixHookUpdateSection(section_t *section, intptr_t slide, nlist_t *symtab, char *strtab, uint32_t *indirect_symtab)
+static bool _FSEventsFixHookUpdateSection(section_t *section, intptr_t slide, nlist_t *symtab, char *strtab, uint32_t *indirect_symtab, BOOL install)
 {
     uint32_t *indirect_symbol_indices = indirect_symtab + section->reserved1;
     void **indirect_symbol_bindings = (void **)((uintptr_t)slide + section->addr);
@@ -330,7 +326,7 @@ static bool _FSEventsFixHookUpdateSection(section_t *section, intptr_t slide, nl
         char *symbol_name = strtab + strtab_offset;
         if (strcmp(symbol_name, kRealpathSymbolName) == 0) {
             found = true;
-            if (g_hook_installed) {
+            if (install) {
                 if (indirect_symbol_bindings[i] != FSEventsFix_realpath_wrapper) {
                     indirect_symbol_bindings[i] = FSEventsFix_realpath_wrapper;
                 }
@@ -344,7 +340,7 @@ static bool _FSEventsFixHookUpdateSection(section_t *section, intptr_t slide, nl
     return found;
 }
 
-static bool _FSEventsFixHookUpdateImage(const struct mach_header *header, intptr_t slide) {
+static bool _FSEventsFixHookUpdateImage(const struct mach_header *header, intptr_t slide, BOOL install) {
     Dl_info info;
     if (dladdr(header, &info) == 0) {
         return false;
@@ -394,12 +390,12 @@ static bool _FSEventsFixHookUpdateImage(const struct mach_header *header, intptr
                 section_t *sect =
                 (section_t *)(cur + sizeof(segment_command_t)) + j;
                 if ((sect->flags & SECTION_TYPE) == S_LAZY_SYMBOL_POINTERS) {
-                    if (_FSEventsFixHookUpdateSection(sect, slide, symtab, strtab, indirect_symtab)) {
+                    if (_FSEventsFixHookUpdateSection(sect, slide, symtab, strtab, indirect_symtab, install)) {
                         found = true;
                     }
                 }
                 if ((sect->flags & SECTION_TYPE) == S_NON_LAZY_SYMBOL_POINTERS) {
-                    if (_FSEventsFixHookUpdateSection(sect, slide, symtab, strtab, indirect_symtab)) {
+                    if (_FSEventsFixHookUpdateSection(sect, slide, symtab, strtab, indirect_symtab, install)) {
                         found = true;
                     }
                 }
@@ -409,7 +405,7 @@ static bool _FSEventsFixHookUpdateImage(const struct mach_header *header, intptr
     return found;
 }
 
-static bool _FSEventsFixHookUpdate() {
+static bool _FSEventsFixHookUpdate(BOOL install) {
     Dl_info info;
     if (!dladdr(FSEventStreamCreate, &info)) {
         return false;
@@ -420,7 +416,7 @@ static bool _FSEventsFixHookUpdate() {
     uint32_t c = _dyld_image_count();
     for (uint32_t i = 0; i < c; i++) {
         if (_dyld_get_image_header(i) == FSEventsDylibBase) {
-            if (_FSEventsFixHookUpdateImage(FSEventsDylibBase, _dyld_get_image_vmaddr_slide(i))) {
+            if (_FSEventsFixHookUpdateImage(FSEventsDylibBase, _dyld_get_image_vmaddr_slide(i), install)) {
                 found = true;
             }
         }
