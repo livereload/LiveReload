@@ -61,9 +61,6 @@ static dispatch_queue_t g_queue = NULL;
 
 static int64_t g_enable_refcount = 0;
 
-static bool g_in_self_test = false;
-static bool g_hook_operational = false;
-
 static void(^g_logging_block)(FSEventsFixMessageType type, const char *message);
 static FSEventsFixDebugOptions g_debug_opt = 0;
 
@@ -85,7 +82,8 @@ static const uint g_rebindings_nel = sizeof(g_rebindings) / sizeof(g_rebindings[
 static void _FSEventsFixLog(FSEventsFixMessageType type, const char *__restrict fmt, ...) __attribute__((__format__ (__printf__, 2, 3)));
 
 static void _FSEventsFixLog(FSEventsFixMessageType type, const char *__restrict fmt, ...) {
-    if (g_logging_block) {
+    bool useStderr = !!(g_debug_opt & FSEventsFixDebugOptionLogToStderr);
+    if (g_logging_block || useStderr) {
         char *message = NULL;
         va_list va;
         va_start(va, fmt);
@@ -93,7 +91,7 @@ static void _FSEventsFixLog(FSEventsFixMessageType type, const char *__restrict 
         va_end(va);
 
         if (message) {
-            if (!!(g_debug_opt & FSEventsFixDebugOptionLogToStderr)) {
+            if (useStderr) {
                 fprintf(stderr, "FSEventsFix: %s\n", message);
             }
             if (g_logging_block) {
@@ -123,32 +121,15 @@ void FSEventsFixConfigure(FSEventsFixDebugOptions debugOptions, void(^loggingBlo
     });
 }
 
-// Must be called from the private serial queue.
-void _FSEventsFixSelfTest() {
-    g_in_self_test = true;
-    g_hook_operational = false;
-    static char result[1024];
-    realpath("/Etc/__!FSEventsFixSelfTest!__", result);
-    g_in_self_test = false;
-}
-
-bool FSEventsFixEnable() {
+void FSEventsFixEnable() {
     _FSEventsFixInitialize();
-    __block bool result;
     dispatch_sync(g_queue, ^{
         if (++g_enable_refcount == 1) {
             orig_realpath = dlsym(RTLD_DEFAULT, "realpath");
             _FSEventsFixHookInstall();
-            _FSEventsFixSelfTest();
-            if (g_hook_operational) {
-                _FSEventsFixLog(FSEventsFixMessageTypeStatusChange, "Enabled");
-            } else {
-                _FSEventsFixLog(FSEventsFixMessageTypeFatalError, "Failed to enable (hook not called)");
-            }
+            _FSEventsFixLog(FSEventsFixMessageTypeStatusChange, "Enabled.");
         }
-        result = g_hook_operational;
     });
-    return result;
 }
 
 void FSEventsFixDisable() {
@@ -159,23 +140,9 @@ void FSEventsFixDisable() {
         }
         if (--g_enable_refcount == 0) {
             _FSEventsFixHookUninstall();
-            _FSEventsFixSelfTest();
-            if (!g_hook_operational) {
-                _FSEventsFixLog(FSEventsFixMessageTypeStatusChange, "Disabled");
-            } else {
-                _FSEventsFixLog(FSEventsFixMessageTypeFatalError, "Failed to disable (hook still called)");
-            }
+            _FSEventsFixLog(FSEventsFixMessageTypeStatusChange, "Disabled.");
         }
     });
-}
-
-bool FSEventsFixIsOperational() {
-    _FSEventsFixInitialize();
-    __block bool result = false;
-    dispatch_sync(g_queue, ^{
-        result = g_hook_operational;
-    });
-    return result;
 }
 
 bool _FSEventsFixIsBroken_noresolve(const char *resolved) {
@@ -235,12 +202,6 @@ char *FSEventsFixCopyRootBrokenFolderPath(const char *inpath) {
 #pragma mark - FSEventsFix realpath wrapper
 
 static char *FSEventsFix_realpath_wrapper(const char * __restrict src, char * __restrict dst) {
-    if (g_in_self_test) {
-        if (strstr(src, "__!FSEventsFixSelfTest!__")) {
-            g_hook_operational = true;
-        }
-    }
-
     // CFURL_realpath doesn't support putting where resolution failed into the
     // dst buffer, so we call the original realpath here first and if it gets a
     // result, replace that with the output of CFURL_realpath. that way all the

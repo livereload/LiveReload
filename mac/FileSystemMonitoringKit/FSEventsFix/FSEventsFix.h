@@ -56,14 +56,8 @@ typedef CF_ENUM(int, FSEventsFixMessageType) {
     /// Call logging requested via FSEventsFixDebugOptionLogCalls
     FSEventsFixMessageTypeCall,
     
-    /// Results of actions like repair, and other pretty verbose, but notable, stuff.
-    FSEventsFixMessageTypeResult,
-
     /// Enabled/disabled status change
     FSEventsFixMessageTypeStatusChange,
-
-    /// Expected failure (treat as a warning)
-    FSEventsFixMessageTypeExpectedFailure,
 
     /// Severe failure that most likely means that the library won't work
     FSEventsFixMessageTypeFatalError
@@ -73,7 +67,7 @@ typedef CF_ENUM(int, FSEventsFixMessageType) {
 /// Note that the logging block can be called on any dispatch queue.
 void FSEventsFixConfigure(FSEventsFixDebugOptions debugOptions, void(^loggingBlock)(FSEventsFixMessageType type, const char *message));
 
-bool FSEventsFixEnable();
+void FSEventsFixEnable();
 void FSEventsFixDisable();
 
 bool FSEventsFixIsBroken(const char *path);

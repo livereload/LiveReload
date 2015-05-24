@@ -122,14 +122,9 @@ static BOOL g_workaroundDisabled;
     context.release = NULL;
     context.copyDescription = NULL;
 
-    BOOL needWorkaround = FSEventsFixIsBroken(_path.fileSystemRepresentation);
-    BOOL alertAboutFSEventsBug = NO;
+    BOOL needWorkaround = FSEventsFixIsBroken(_path.fileSystemRepresentation) && !g_workaroundDisabled;
     if (needWorkaround) {
-        if (g_workaroundDisabled) {
-            alertAboutFSEventsBug = YES;
-        } else {
-            alertAboutFSEventsBug = !FSEventsFixEnable();
-        }
+        FSEventsFixEnable();
     }
     _streamRef = FSEventStreamCreate(nil,
                                      (FSEventStreamCallback)FSMonitorEventStreamCallback,
@@ -138,19 +133,21 @@ static BOOL g_workaroundDisabled;
                                      kFSEventStreamEventIdSinceNow,
                                      0.05,
                                      kFSEventStreamCreateFlagUseCFTypes|kFSEventStreamCreateFlagNoDefer);
-    if (needWorkaround && !g_workaroundDisabled) {
+    if (needWorkaround) {
         FSEventsFixDisable();
     }
     if (!_streamRef) {
         NSLog(@"Failed to start monitoring of %@ (FSEventStreamCreate error)", _path);
     }
+    
+    NSArray *actualPaths = (NSArray *) CFBridgingRelease(FSEventStreamCopyPathsBeingWatched(_streamRef));
+    NSString *actualPath = [actualPaths firstObject];
+    NSLog(@"FSEvents actual path being watched: %@", actualPath);
+
+    BOOL alertAboutFSEventsBug = FSEventsFixIsBroken(actualPath.fileSystemRepresentation);
     if (alertAboutFSEventsBug) {
         // TODO: alert the user
     }
-    
-    NSArray *actualPaths = (NSArray *) CFBridgingRelease(FSEventStreamCopyPathsBeingWatched(_streamRef));
-    NSLog(@"FSEvents actual path being watched: %@", [actualPaths componentsJoinedByString:@"; "]);
-    
 
     FSEventStreamScheduleWithRunLoop(_streamRef, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
     if (!FSEventStreamStart(_streamRef)) {
