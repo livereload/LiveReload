@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7702"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="TrialReminderViewController">
+            <connections>
+                <outlet property="buyOnMacAppStoreButton" destination="Fgk-VH-Q86" id="SKx-KV-zxh"/>
+                <outlet property="importantMessageLabel" destination="4ld-sZ-dyA" id="jqP-Te-mwh"/>
+                <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="Loving LiveReload?" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="F0z-JX-Cv5">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
+            <rect key="contentRect" x="196" y="240" width="480" height="260"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
+            <view key="contentView" id="se5-gp-TjO">
+                <rect key="frame" x="0.0" y="0.0" width="480" height="260"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView id="IPc-Gh-2os">
+                        <rect key="frame" x="20" y="144" width="96" height="96"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="AndreyTarantsov" id="pZB-NG-y3s"/>
+                    </imageView>
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" id="4ld-sZ-dyA">
+                        <rect key="frame" x="127" y="49" width="335" height="191"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="c3d-WV-ld6">
+                            <font key="font" metaFont="system"/>
+                            <string key="title">Hey!
+
+I'm working on LiveReload in my spare time; if you love the app — and ONLY if you love the app! — please support me by purchasing it.
+
+— Andrey Tarantsov.</string>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button verticalHuggingPriority="750" id="Fgk-VH-Q86">
+                        <rect key="frame" x="331" y="13" width="135" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                        <buttonCell key="cell" type="push" title="Mac App Store" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Ozu-9W-XM3">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="buyOnMacAppStore:" target="-2" id="V92-g7-6GM"/>
+                            <outlet property="nextKeyView" destination="Ejm-UK-43f" id="cJt-Is-8Dx"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" id="yOX-gb-7BW">
+                        <rect key="frame" x="201" y="13" width="130" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                        <buttonCell key="cell" type="push" title="Buy Directly" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="T4V-rO-d2H">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="buyDirectly:" target="-2" id="SgU-ZL-a7E"/>
+                            <outlet property="nextKeyView" destination="Fgk-VH-Q86" id="Tkr-rf-maa"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" id="Ejm-UK-43f">
+                        <rect key="frame" x="14" y="13" width="103" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <buttonCell key="cell" type="push" title="Later" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NI1-lz-2VN">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="later:" target="-2" id="HjG-0E-377"/>
+                            <outlet property="nextKeyView" destination="yOX-gb-7BW" id="GoH-eh-2QH"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+            <connections>
+                <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
+                <outlet property="initialFirstResponder" destination="Ejm-UK-43f" id="YSV-p1-wTJ"/>
+            </connections>
+            <point key="canvasLocation" x="266" y="334"/>
+        </window>
+    </objects>
+    <resources>
+        <image name="AndreyTarantsov" width="289" height="289"/>
+    </resources>
+</document>

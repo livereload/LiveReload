@@ -328,6 +328,12 @@
 		43D209951A811BA300D47F2B /* bloom.c in Sources */ = {isa = PBXBuildFile; fileRef = 4317BD3B1A7F6AB80054D32D /* bloom.c */; };
 		43D209961A811BA600D47F2B /* hex.c in Sources */ = {isa = PBXBuildFile; fileRef = 4317BD3F1A7F71A90054D32D /* hex.c */; };
 		43D209971A811BCD00D47F2B /* licensing_core.c in Sources */ = {isa = PBXBuildFile; fileRef = 4317BD281A7F57AB0054D32D /* licensing_core.c */; };
+		43DB18831B2550380042ABF5 /* TrialReminderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB18811B2550380042ABF5 /* TrialReminderViewController.m */; };
+		43DB18841B2550380042ABF5 /* TrialReminderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB18811B2550380042ABF5 /* TrialReminderViewController.m */; };
+		43DB18851B2550380042ABF5 /* TrialReminderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43DB18821B2550380042ABF5 /* TrialReminderViewController.xib */; };
+		43DB18861B2550380042ABF5 /* TrialReminderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43DB18821B2550380042ABF5 /* TrialReminderViewController.xib */; };
+		43DB18881B2550EA0042ABF5 /* AndreyTarantsov.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 43DB18871B2550EA0042ABF5 /* AndreyTarantsov.jpg */; };
+		43DB18891B2550EA0042ABF5 /* AndreyTarantsov.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 43DB18871B2550EA0042ABF5 /* AndreyTarantsov.jpg */; };
 		43E34F9B14705125001641AA /* console.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E34F9714705125001641AA /* console.c */; };
 		43E34F9C14705125001641AA /* eventbus.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E34F9914705125001641AA /* eventbus.c */; };
 		43E34F9F14706D9B001641AA /* osdep.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E34F9E14706D9B001641AA /* osdep.m */; };
@@ -711,6 +717,10 @@
 		43D209741A8115E600D47F2B /* LRLicenseBloomAdd.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LRLicenseBloomAdd.c; sourceTree = "<group>"; };
 		43D209781A81194000D47F2B /* licensing_config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = licensing_config.h; sourceTree = "<group>"; };
 		43D2097D1A811B0200D47F2B /* LRLicenseBloomAdd */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LRLicenseBloomAdd; sourceTree = BUILT_PRODUCTS_DIR; };
+		43DB18801B2550380042ABF5 /* TrialReminderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrialReminderViewController.h; sourceTree = "<group>"; };
+		43DB18811B2550380042ABF5 /* TrialReminderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrialReminderViewController.m; sourceTree = "<group>"; };
+		43DB18821B2550380042ABF5 /* TrialReminderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TrialReminderViewController.xib; sourceTree = "<group>"; };
+		43DB18871B2550EA0042ABF5 /* AndreyTarantsov.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = AndreyTarantsov.jpg; sourceTree = "<group>"; };
 		43E34F9714705125001641AA /* console.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = console.c; sourceTree = "<group>"; };
 		43E34F9814705125001641AA /* console.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = console.h; sourceTree = "<group>"; };
 		43E34F9914705125001641AA /* eventbus.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eventbus.c; sourceTree = "<group>"; };
@@ -1238,6 +1248,10 @@
 				436A654C1A92454900335BAD /* Analytics.m */,
 				436A654E1A92470400335BAD /* Analytics+SpecificEvents.h */,
 				436A654F1A92470400335BAD /* Analytics+SpecificEvents.m */,
+				43DB18801B2550380042ABF5 /* TrialReminderViewController.h */,
+				43DB18811B2550380042ABF5 /* TrialReminderViewController.m */,
+				43DB18821B2550380042ABF5 /* TrialReminderViewController.xib */,
+				43DB18871B2550EA0042ABF5 /* AndreyTarantsov.jpg */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -1718,6 +1732,7 @@
 				43512F6C1ACD750D0073A0D4 /* SASS.lrplugin in Resources */,
 				43512F6D1ACD750D0073A0D4 /* CoffeeScript.lrplugin in Resources */,
 				43512F6E1ACD750D0073A0D4 /* LiveReload.icns in Resources */,
+				43DB18861B2550380042ABF5 /* TrialReminderViewController.xib in Resources */,
 				43512F6F1ACD750D0073A0D4 /* ToolOutputWindowController.xib in Resources */,
 				43512F701ACD750D0073A0D4 /* README in Resources */,
 				43512F711ACD750D0073A0D4 /* background.png in Resources */,
@@ -1746,6 +1761,7 @@
 				43512F881ACD750D0073A0D4 /* PlaceholderTemplate.png in Resources */,
 				43512F891ACD750D0073A0D4 /* MonitoringSettingsWindowController.xib in Resources */,
 				43512F8A1ACD750D0073A0D4 /* TitleBarHelpTemplate.png in Resources */,
+				43DB18891B2550EA0042ABF5 /* AndreyTarantsov.jpg in Resources */,
 				43512F8B1ACD750D0073A0D4 /* TerminalStripes.png in Resources */,
 				43512F8C1ACD750D0073A0D4 /* TerminalBackground.png in Resources */,
 				43512F8D1ACD750D0073A0D4 /* TerminalGlare.png in Resources */,
@@ -1783,6 +1799,7 @@
 				43361D5013C32C3D00C0E589 /* SASS.lrplugin in Resources */,
 				43E4BBE813C5DA7900A75F81 /* CoffeeScript.lrplugin in Resources */,
 				43C0368613CA191D00A01305 /* LiveReload.icns in Resources */,
+				43DB18851B2550380042ABF5 /* TrialReminderViewController.xib in Resources */,
 				823DDEDC13F8DA3100529AD2 /* ToolOutputWindowController.xib in Resources */,
 				823DDF0C13F8DA3100529AD2 /* README in Resources */,
 				823DDF2F13F8DA3F00529AD2 /* background.png in Resources */,
@@ -1811,6 +1828,7 @@
 				431466A3146CA23F00DC075A /* PlaceholderTemplate.png in Resources */,
 				4353403C146CC8A400DD66B0 /* MonitoringSettingsWindowController.xib in Resources */,
 				4376A0E2146DF1C800338AD4 /* TitleBarHelpTemplate.png in Resources */,
+				43DB18881B2550EA0042ABF5 /* AndreyTarantsov.jpg in Resources */,
 				43F002D4146F4144005D48A4 /* TerminalStripes.png in Resources */,
 				43F002E8146F4877005D48A4 /* TerminalBackground.png in Resources */,
 				43F002EA146F5382005D48A4 /* TerminalGlare.png in Resources */,
@@ -1971,6 +1989,7 @@
 				43512FD11ACD750D0073A0D4 /* AuxWindow.m in Sources */,
 				43512FD21ACD750D0073A0D4 /* KeyWindow.m in Sources */,
 				43512FD31ACD750D0073A0D4 /* StatusItemView.m in Sources */,
+				43DB18841B2550380042ABF5 /* TrialReminderViewController.m in Sources */,
 				43512FD41ACD750D0073A0D4 /* NewMainWindowController.m in Sources */,
 				43512FD51ACD750D0073A0D4 /* BBEditEditor.m in Sources */,
 				43512FD61ACD750D0073A0D4 /* NSDictionaryAndArray+SafeAccess.m in Sources */,
@@ -2102,6 +2121,7 @@
 				823DDF1313F8DA3100529AD2 /* AuxWindow.m in Sources */,
 				823DDF1413F8DA3100529AD2 /* KeyWindow.m in Sources */,
 				823DDF1713F8DA3100529AD2 /* StatusItemView.m in Sources */,
+				43DB18831B2550380042ABF5 /* TrialReminderViewController.m in Sources */,
 				435BE045141B87920008FF77 /* NewMainWindowController.m in Sources */,
 				821AFF0014270B5200B61760 /* BBEditEditor.m in Sources */,
 				4304FC2D144B2BEB00D650DF /* NSDictionaryAndArray+SafeAccess.m in Sources */,
