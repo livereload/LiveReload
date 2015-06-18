@@ -11,11 +11,11 @@
 
 @interface TrialReminderViewController ()
 
-@property (nonatomic, weak) IBOutlet NSButton *buyOnMacAppStoreButton;
-@property (nonatomic, weak) IBOutlet NSButton *negativeActionButton;
-@property (nonatomic, weak) IBOutlet NSButton *expandButton;
+@property (nonatomic, strong) IBOutlet NSButton *buyOnMacAppStoreButton;
+@property (nonatomic, strong) IBOutlet NSButton *negativeActionButton;
+@property (nonatomic, strong) IBOutlet NSButton *expandButton;
 
-@property (nonatomic, weak) IBOutlet NSTextField *importantMessageLabel;
+@property (nonatomic, strong) IBOutlet NSTextField *importantMessageLabel;
 
 @end
 
