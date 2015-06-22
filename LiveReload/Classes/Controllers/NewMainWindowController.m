@@ -831,14 +831,13 @@ void C_mainwnd__set_change_count(json_t *arg) {
     BOOL all = LicenseManagerShouldDisplayLicensingUI();
     BOOL code = LicenseManagerShouldDisplayLicenseCodeUI();
     BOOL purchasing = LicenseManagerShouldDisplayPurchasingUI();
-    
-    purchasePopUpButton.hidden = !purchasing;
-    displayLicenseManagerMenuItem.hidden = !code;
-    displayLicenseManagerMenuItemSeparator.hidden = !code;
-    
+
     NSString *licenseStatus;
+    BOOL inTrial = NO;
+
     if (LicenseManagerIsTrialMode()) {
         licenseStatus = @"Trial mode";
+        inTrial = YES;
     } else {
         switch (LicenseManagerGetCodeStatus()) {
             case LicenseManagerCodeStatusNotRequired:
@@ -861,14 +860,21 @@ void C_mainwnd__set_change_count(json_t *arg) {
             case LicenseManagerCodeStatusAcceptedUnknown:
                 licenseStatus = @"Unknown valid license";
                 break;
+            case LicenseManagerCodeStatusLegacyVersionPerpetualLicense:
+                licenseStatus = @"Free for use on OS X 10.6";
+                break;
             default:
                 licenseStatus = @"";
         }
     }
+
+    purchasePopUpButton.hidden = !purchasing;
+    displayLicenseManagerMenuItem.hidden = !code;
+    displayLicenseManagerMenuItemSeparator.hidden = !code;
     licenseStatusMenuItem.hidden = !all;
     licenseStatusMenuItem.title = licenseStatus;
     
-    if (LicenseManagerIsTrialMode())
+    if (inTrial)
         self.window.title = @"LiveReload — unlimited trial, please purchase when ready";
     else
         self.window.title = @"LiveReload";

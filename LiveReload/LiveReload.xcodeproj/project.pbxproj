@@ -277,7 +277,7 @@
 		4351301A1ACD750D0073A0D4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43594AF313D3BB34004175B2 /* QuartzCore.framework */; };
 		4351301B1ACD750D0073A0D4 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43361D4513C30D1400C0E589 /* libicucore.dylib */; };
 		4351301D1ACD750D0073A0D4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		4351301E1ACD750D0073A0D4 /* Paddle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65321A923B9E00335BAD /* Paddle.framework */; };
+		4351301E1ACD750D0073A0D4 /* Paddle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65321A923B9E00335BAD /* Paddle.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		435130261ACD750D0073A0D4 /* Paddle.framework in Embed Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65321A923B9E00335BAD /* Paddle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4353196F1465B52D005FA59F /* ShitHappens.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353196E1465B52D005FA59F /* ShitHappens.m */; };
 		4353197214668E7D005FA59F /* LRHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4353197014668E7D005FA59F /* LRHelpTemplate.png */; };
@@ -291,7 +291,7 @@
 		435BE042141B72A60008FF77 /* NewMainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 435BE041141B72A60008FF77 /* NewMainWindow.xib */; };
 		435BE045141B87920008FF77 /* NewMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 435BE044141B87920008FF77 /* NewMainWindowController.m */; };
 		43693F4115660A8700C453CC /* LiveReloadNodejs in Resources */ = {isa = PBXBuildFile; fileRef = 43693F4015660A8700C453CC /* LiveReloadNodejs */; };
-		436A65331A923B9E00335BAD /* Paddle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65321A923B9E00335BAD /* Paddle.framework */; };
+		436A65331A923B9E00335BAD /* Paddle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65321A923B9E00335BAD /* Paddle.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		436A65341A923C9600335BAD /* Paddle.framework in Embed Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65321A923B9E00335BAD /* Paddle.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		436A653A1A923DC100335BAD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65391A923DC100335BAD /* CFNetwork.framework */; };
 		436A653C1A923DCB00335BAD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A653B1A923DCB00335BAD /* CoreGraphics.framework */; };
@@ -328,8 +328,8 @@
 		43D209951A811BA300D47F2B /* bloom.c in Sources */ = {isa = PBXBuildFile; fileRef = 4317BD3B1A7F6AB80054D32D /* bloom.c */; };
 		43D209961A811BA600D47F2B /* hex.c in Sources */ = {isa = PBXBuildFile; fileRef = 4317BD3F1A7F71A90054D32D /* hex.c */; };
 		43D209971A811BCD00D47F2B /* licensing_core.c in Sources */ = {isa = PBXBuildFile; fileRef = 4317BD281A7F57AB0054D32D /* licensing_core.c */; };
-		43DB18831B2550380042ABF5 /* TrialReminderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB18811B2550380042ABF5 /* TrialReminderViewController.m */; };
-		43DB18841B2550380042ABF5 /* TrialReminderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB18811B2550380042ABF5 /* TrialReminderViewController.m */; };
+		43DB18831B2550380042ABF5 /* TrialReminderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB18811B2550380042ABF5 /* TrialReminderViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		43DB18841B2550380042ABF5 /* TrialReminderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB18811B2550380042ABF5 /* TrialReminderViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		43DB18851B2550380042ABF5 /* TrialReminderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43DB18821B2550380042ABF5 /* TrialReminderViewController.xib */; };
 		43DB18861B2550380042ABF5 /* TrialReminderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43DB18821B2550380042ABF5 /* TrialReminderViewController.xib */; };
 		43DB18881B2550EA0042ABF5 /* AndreyTarantsov.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 43DB18871B2550EA0042ABF5 /* AndreyTarantsov.jpg */; };
@@ -353,6 +353,195 @@
 		43F0030514700C96005D48A4 /* LRTerminalButtonOffHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F0030114700C96005D48A4 /* LRTerminalButtonOffHighlight.png */; };
 		43F0030614700C96005D48A4 /* LRTerminalButtonOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F0030214700C96005D48A4 /* LRTerminalButtonOn.png */; };
 		43F0030714700C96005D48A4 /* LRTerminalButtonOnHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F0030314700C96005D48A4 /* LRTerminalButtonOnHighlight.png */; };
+		43F1F93F1B2EE434008F5843 /* livereload.js in Resources */ = {isa = PBXBuildFile; fileRef = 4379ADC9141D00CE008C836F /* livereload.js */; };
+		43F1F9401B2EE434008F5843 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
+		43F1F9411B2EE434008F5843 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
+		43F1F9421B2EE434008F5843 /* monitoring.plist in Resources */ = {isa = PBXBuildFile; fileRef = 439C093213ADCBDD00119233 /* monitoring.plist */; };
+		43F1F9431B2EE434008F5843 /* Stylus.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43361D2E13C2E0E500C0E589 /* Stylus.lrplugin */; };
+		43F1F9441B2EE434008F5843 /* Jade.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43361D4913C319FC00C0E589 /* Jade.lrplugin */; };
+		43F1F9451B2EE434008F5843 /* LESS.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43361D4B13C3210200C0E589 /* LESS.lrplugin */; };
+		43F1F9461B2EE434008F5843 /* HAML.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43361D4D13C329CD00C0E589 /* HAML.lrplugin */; };
+		43F1F9471B2EE434008F5843 /* SASS.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43361D4F13C32C3D00C0E589 /* SASS.lrplugin */; };
+		43F1F9481B2EE434008F5843 /* CoffeeScript.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43E4BBE713C5DA7900A75F81 /* CoffeeScript.lrplugin */; };
+		43F1F9491B2EE434008F5843 /* LiveReload.icns in Resources */ = {isa = PBXBuildFile; fileRef = 43C0368513CA191C00A01305 /* LiveReload.icns */; };
+		43F1F94A1B2EE434008F5843 /* TrialReminderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43DB18821B2550380042ABF5 /* TrialReminderViewController.xib */; };
+		43F1F94B1B2EE434008F5843 /* ToolOutputWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 823DDE4113F8DA3100529AD2 /* ToolOutputWindowController.xib */; };
+		43F1F94C1B2EE434008F5843 /* README in Resources */ = {isa = PBXBuildFile; fileRef = 823DDEAD13F8DA3100529AD2 /* README */; };
+		43F1F94D1B2EE434008F5843 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF2313F8DA3F00529AD2 /* background.png */; };
+		43F1F94E1B2EE434008F5843 /* Icon-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF2413F8DA3F00529AD2 /* Icon-48.png */; };
+		43F1F94F1B2EE434008F5843 /* preferences-box.png in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF2613F8DA3F00529AD2 /* preferences-box.png */; };
+		43F1F9501B2EE434008F5843 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF2713F8DA3F00529AD2 /* settings.png */; };
+		43F1F9511B2EE434008F5843 /* StatusItemActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF2913F8DA3F00529AD2 /* StatusItemActive.png */; };
+		43F1F9521B2EE434008F5843 /* StatusItemDropTarget.png in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF2A13F8DA3F00529AD2 /* StatusItemDropTarget.png */; };
+		43F1F9531B2EE434008F5843 /* StatusItemHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF2B13F8DA3F00529AD2 /* StatusItemHighlighted.png */; };
+		43F1F9541B2EE434008F5843 /* StatusItemInactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF2C13F8DA3F00529AD2 /* StatusItemInactive.png */; };
+		43F1F9551B2EE434008F5843 /* StatusItemStateRotation1.png in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF2D13F8DA3F00529AD2 /* StatusItemStateRotation1.png */; };
+		43F1F9561B2EE434008F5843 /* StatusItemStateRotation2.png in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF2E13F8DA3F00529AD2 /* StatusItemStateRotation2.png */; };
+		43F1F9571B2EE434008F5843 /* Eco.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43191845141A0D1C008457FF /* Eco.lrplugin */; };
+		43F1F9581B2EE434008F5843 /* NewMainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 435BE041141B72A60008FF77 /* NewMainWindow.xib */; };
+		43F1F9591B2EE434008F5843 /* SLIM.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 825235311428769E001C3486 /* SLIM.lrplugin */; };
+		43F1F95A1B2EE434008F5843 /* StatusItemStateRotation3.png in Resources */ = {isa = PBXBuildFile; fileRef = 4346F3AA1451012A00B133F2 /* StatusItemStateRotation3.png */; };
+		43F1F95B1B2EE434008F5843 /* LRHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4353197014668E7D005FA59F /* LRHelpTemplate.png */; };
+		43F1F95C1B2EE434008F5843 /* LRSupportTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4353197114668E7D005FA59F /* LRSupportTemplate.png */; };
+		43F1F95D1B2EE434008F5843 /* PostProcessingSettingsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43F50BF81466FAB7004FD951 /* PostProcessingSettingsWindowController.xib */; };
+		43F1F95E1B2EE434008F5843 /* CompilationSettingsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43F50C0014670AAF004FD951 /* CompilationSettingsWindowController.xib */; };
+		43F1F95F1B2EE434008F5843 /* ProjectPaneBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 43146698146C5D2100DC075A /* ProjectPaneBackground.png */; };
+		43F1F9601B2EE434008F5843 /* FolderIcon64.png in Resources */ = {isa = PBXBuildFile; fileRef = 4314669A146C689500DC075A /* FolderIcon64.png */; };
+		43F1F9611B2EE434008F5843 /* WelcomePaneBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 4314669C146C884800DC075A /* WelcomePaneBackground.png */; };
+		43F1F9621B2EE434008F5843 /* AddTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4314669E146C9C0B00DC075A /* AddTemplate.png */; };
+		43F1F9631B2EE434008F5843 /* RemoveTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4314669F146C9C0B00DC075A /* RemoveTemplate.png */; };
+		43F1F9641B2EE434008F5843 /* PlaceholderTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 431466A2146CA23F00DC075A /* PlaceholderTemplate.png */; };
+		43F1F9651B2EE434008F5843 /* MonitoringSettingsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4353403B146CC8A400DD66B0 /* MonitoringSettingsWindowController.xib */; };
+		43F1F9661B2EE434008F5843 /* TitleBarHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */; };
+		43F1F9671B2EE434008F5843 /* AndreyTarantsov.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 43DB18871B2550EA0042ABF5 /* AndreyTarantsov.jpg */; };
+		43F1F9681B2EE434008F5843 /* TerminalStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F002D3146F4144005D48A4 /* TerminalStripes.png */; };
+		43F1F9691B2EE434008F5843 /* TerminalBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F002E7146F4877005D48A4 /* TerminalBackground.png */; };
+		43F1F96A1B2EE434008F5843 /* TerminalGlare.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F002E9146F5382005D48A4 /* TerminalGlare.png */; };
+		43F1F96B1B2EE434008F5843 /* TerminalBackgroundSquare.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F002EB146F5D57005D48A4 /* TerminalBackgroundSquare.png */; };
+		43F1F96C1B2EE434008F5843 /* TerminalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43F002F7146FF584005D48A4 /* TerminalViewController.xib */; };
+		43F1F96D1B2EE434008F5843 /* LRTerminalButtonOff.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F0030014700C96005D48A4 /* LRTerminalButtonOff.png */; };
+		43F1F96E1B2EE434008F5843 /* LRTerminalButtonOffHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F0030114700C96005D48A4 /* LRTerminalButtonOffHighlight.png */; };
+		43F1F96F1B2EE434008F5843 /* LRTerminalButtonOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F0030214700C96005D48A4 /* LRTerminalButtonOn.png */; };
+		43F1F9701B2EE434008F5843 /* LRTerminalButtonOnHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F0030314700C96005D48A4 /* LRTerminalButtonOnHighlight.png */; };
+		43F1F9711B2EE434008F5843 /* IcedCoffeeScript.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 4349AAF514D48DB5009350DA /* IcedCoffeeScript.lrplugin */; };
+		43F1F9721B2EE434008F5843 /* backend in Resources */ = {isa = PBXBuildFile; fileRef = 43719FD31565FE5F004B0E0C /* backend */; };
+		43F1F9731B2EE434008F5843 /* LiveReloadNodejs in Resources */ = {isa = PBXBuildFile; fileRef = 43693F4015660A8700C453CC /* LiveReloadNodejs */; };
+		43F1F9741B2EE434008F5843 /* LicenseCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 439A76AF15B28EF100E50057 /* LicenseCodeViewController.xib */; };
+		43F1F9751B2EE434008F5843 /* LicenseCodeWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 439A76B515B28F8C00E50057 /* LicenseCodeWindowController.xib */; };
+		43F1F9761B2EE434008F5843 /* LR-A9BC.public in Resources */ = {isa = PBXBuildFile; fileRef = 4303A4AF15B3898D009D732A /* LR-A9BC.public */; };
+		43F1F9771B2EE434008F5843 /* LR-B9BC.public in Resources */ = {isa = PBXBuildFile; fileRef = 4303A4B015B3898D009D732A /* LR-B9BC.public */; };
+		43F1F9781B2EE434008F5843 /* LR-E9BC.public in Resources */ = {isa = PBXBuildFile; fileRef = 4303A4B115B3898D009D732A /* LR-E9BC.public */; };
+		43F1F9791B2EE434008F5843 /* BuyTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4303A4B615B3959D009D732A /* BuyTemplate.png */; };
+		43F1F97A1B2EE434008F5843 /* TypeScript.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 4383C6BF17717C1E0023FB1D /* TypeScript.lrplugin */; };
+		43F1F97C1B2EE434008F5843 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
+		43F1F97D1B2EE434008F5843 /* licensing_check.c in Sources */ = {isa = PBXBuildFile; fileRef = 43D209651A80FFD200D47F2B /* licensing_check.c */; };
+		43F1F97E1B2EE434008F5843 /* LiveReloadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3013F8DA3100529AD2 /* LiveReloadAppDelegate.m */; };
+		43F1F97F1B2EE434008F5843 /* CommunicationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3313F8DA3100529AD2 /* CommunicationController.m */; };
+		43F1F9801B2EE434008F5843 /* ExtensionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3613F8DA3100529AD2 /* ExtensionsController.m */; };
+		43F1F9811B2EE434008F5843 /* StatusItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE3E13F8DA3100529AD2 /* StatusItemController.m */; };
+		43F1F9821B2EE434008F5843 /* ToolOutputWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE4013F8DA3100529AD2 /* ToolOutputWindowController.m */; };
+		43F1F9831B2EE434008F5843 /* CodaEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE4413F8DA3100529AD2 /* CodaEditor.m */; };
+		43F1F9841B2EE434008F5843 /* CustomEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE4613F8DA3100529AD2 /* CustomEditor.m */; };
+		43F1F9851B2EE434008F5843 /* Editor.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE4813F8DA3100529AD2 /* Editor.m */; };
+		43F1F9861B2EE434008F5843 /* EditorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE4A13F8DA3100529AD2 /* EditorManager.m */; };
+		43F1F9871B2EE434008F5843 /* EspressoEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE4C13F8DA3100529AD2 /* EspressoEditor.m */; };
+		43F1F9881B2EE434008F5843 /* SubEthaEditEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE4E13F8DA3100529AD2 /* SubEthaEditEditor.m */; };
+		43F1F9891B2EE434008F5843 /* Analytics+SpecificEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 436A654F1A92470400335BAD /* Analytics+SpecificEvents.m */; };
+		43F1F98A1B2EE434008F5843 /* SublimeText2Editor.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE5013F8DA3100529AD2 /* SublimeText2Editor.m */; };
+		43F1F98B1B2EE434008F5843 /* TextMateEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE5213F8DA3100529AD2 /* TextMateEditor.m */; };
+		43F1F98C1B2EE434008F5843 /* NSObject+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE5613F8DA3100529AD2 /* NSObject+JSON.m */; };
+		43F1F98D1B2EE434008F5843 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE5813F8DA3100529AD2 /* SBJsonParser.m */; };
+		43F1F98E1B2EE434008F5843 /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE5A13F8DA3100529AD2 /* SBJsonStreamParser.m */; };
+		43F1F98F1B2EE434008F5843 /* SBJsonStreamParserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE5C13F8DA3100529AD2 /* SBJsonStreamParserAdapter.m */; };
+		43F1F9901B2EE434008F5843 /* SBJsonStreamParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE5E13F8DA3100529AD2 /* SBJsonStreamParserState.m */; };
+		43F1F9911B2EE434008F5843 /* SBJsonStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE6013F8DA3100529AD2 /* SBJsonStreamWriter.m */; };
+		43F1F9921B2EE434008F5843 /* SBJsonStreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE6213F8DA3100529AD2 /* SBJsonStreamWriterState.m */; };
+		43F1F9931B2EE434008F5843 /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE6413F8DA3100529AD2 /* SBJsonTokeniser.m */; };
+		43F1F9941B2EE434008F5843 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE6613F8DA3100529AD2 /* SBJsonWriter.m */; };
+		43F1F9951B2EE434008F5843 /* Bag.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE6913F8DA3100529AD2 /* Bag.m */; };
+		43F1F9961B2EE434008F5843 /* CompilationOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE6B13F8DA3100529AD2 /* CompilationOptions.m */; };
+		43F1F9971B2EE434008F5843 /* FileCompilationOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE6D13F8DA3100529AD2 /* FileCompilationOptions.m */; };
+		43F1F9981B2EE434008F5843 /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE6F13F8DA3100529AD2 /* Project.m */; };
+		43F1F9991B2EE434008F5843 /* Workspace.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE7113F8DA3100529AD2 /* Workspace.m */; };
+		43F1F99A1B2EE434008F5843 /* Compiler.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE7D13F8DA3100529AD2 /* Compiler.m */; };
+		43F1F99B1B2EE434008F5843 /* Analytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 436A654C1A92454900335BAD /* Analytics.m */; };
+		43F1F99C1B2EE434008F5843 /* CompilerVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE7F13F8DA3100529AD2 /* CompilerVersion.m */; };
+		43F1F99D1B2EE434008F5843 /* Plugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE8113F8DA3100529AD2 /* Plugin.m */; };
+		43F1F99E1B2EE434008F5843 /* bloom.c in Sources */ = {isa = PBXBuildFile; fileRef = 4317BD3B1A7F6AB80054D32D /* bloom.c */; };
+		43F1F99F1B2EE434008F5843 /* PluginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE8313F8DA3100529AD2 /* PluginManager.m */; };
+		43F1F9A01B2EE434008F5843 /* ToolOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE8513F8DA3100529AD2 /* ToolOutput.m */; };
+		43F1F9A11B2EE434008F5843 /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE8813F8DA3100529AD2 /* Preferences.m */; };
+		43F1F9A21B2EE434008F5843 /* ATFunctionalStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEA113F8DA3100529AD2 /* ATFunctionalStyle.m */; };
+		43F1F9A31B2EE434008F5843 /* LoginItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEA313F8DA3100529AD2 /* LoginItemController.m */; };
+		43F1F9A41B2EE434008F5843 /* MAAttachedWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEA513F8DA3100529AD2 /* MAAttachedWindow.m */; };
+		43F1F9A51B2EE434008F5843 /* MD5OfFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEA713F8DA3100529AD2 /* MD5OfFile.m */; };
+		43F1F9A61B2EE434008F5843 /* NSWindow+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEAA13F8DA3100529AD2 /* NSWindow+Additions.m */; };
+		43F1F9A71B2EE434008F5843 /* NSWindowFlipper.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEAC13F8DA3100529AD2 /* NSWindowFlipper.m */; };
+		43F1F9A81B2EE434008F5843 /* NSArray+Substitutions.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEAF13F8DA3100529AD2 /* NSArray+Substitutions.m */; };
+		43F1F9A91B2EE434008F5843 /* NSString+SeparatingIntoComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEB113F8DA3100529AD2 /* NSString+SeparatingIntoComponents.m */; };
+		43F1F9AA1B2EE434008F5843 /* NSTask+OneLineTasksWithOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEB313F8DA3100529AD2 /* NSTask+OneLineTasksWithOutput.m */; };
+		43F1F9AB1B2EE434008F5843 /* NSWindowController+TextStyling.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEB513F8DA3100529AD2 /* NSWindowController+TextStyling.m */; };
+		43F1F9AC1B2EE434008F5843 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEB713F8DA3100529AD2 /* RegexKitLite.m */; };
+		43F1F9AD1B2EE434008F5843 /* VersionNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEB913F8DA3100529AD2 /* VersionNumber.m */; };
+		43F1F9AE1B2EE434008F5843 /* AuxWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEBC13F8DA3100529AD2 /* AuxWindow.m */; };
+		43F1F9AF1B2EE434008F5843 /* KeyWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEBE13F8DA3100529AD2 /* KeyWindow.m */; };
+		43F1F9B01B2EE434008F5843 /* StatusItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEC313F8DA3100529AD2 /* StatusItemView.m */; };
+		43F1F9B11B2EE434008F5843 /* TrialReminderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DB18811B2550380042ABF5 /* TrialReminderViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		43F1F9B21B2EE434008F5843 /* NewMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 435BE044141B87920008FF77 /* NewMainWindowController.m */; };
+		43F1F9B31B2EE434008F5843 /* BBEditEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 821AFEFF14270B5200B61760 /* BBEditEditor.m */; };
+		43F1F9B41B2EE434008F5843 /* NSDictionaryAndArray+SafeAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 4304FC2C144B2BEB00D650DF /* NSDictionaryAndArray+SafeAccess.m */; };
+		43F1F9B51B2EE434008F5843 /* ImportGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 4346F3A81450D8AD00B133F2 /* ImportGraph.m */; };
+		43F1F9B61B2EE434008F5843 /* Stats.m in Sources */ = {isa = PBXBuildFile; fileRef = 435729161452267C00947B2E /* Stats.m */; };
+		43F1F9B71B2EE434008F5843 /* ImageAndTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E5DF611462829B0016CDA0 /* ImageAndTextCell.m */; };
+		43F1F9B81B2EE434008F5843 /* ShitHappens.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353196E1465B52D005FA59F /* ShitHappens.m */; };
+		43F1F9B91B2EE434008F5843 /* PostProcessingSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F50BF61466F7A1004FD951 /* PostProcessingSettingsWindowController.m */; };
+		43F1F9BA1B2EE434008F5843 /* BaseProjectSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F50BFB146706B0004FD951 /* BaseProjectSettingsWindowController.m */; };
+		43F1F9BB1B2EE434008F5843 /* CompilationSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F50BFE14670A9F004FD951 /* CompilationSettingsWindowController.m */; };
+		43F1F9BC1B2EE434008F5843 /* PassThruView.m in Sources */ = {isa = PBXBuildFile; fileRef = 431466A5146CA68500DC075A /* PassThruView.m */; };
+		43F1F9BD1B2EE434008F5843 /* PassThruImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 431466A8146CA82200DC075A /* PassThruImageView.m */; };
+		43F1F9BE1B2EE434008F5843 /* MonitoringSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43534039146CC7E600DD66B0 /* MonitoringSettingsWindowController.m */; };
+		43F1F9BF1B2EE434008F5843 /* FixUnixPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353403E146D0A1100DD66B0 /* FixUnixPath.m */; };
+		43F1F9C01B2EE434008F5843 /* RubyVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 43534041146D161900DD66B0 /* RubyVersion.m */; };
+		43F1F9C11B2EE434008F5843 /* ToolOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4310DE3C146DB588003091D1 /* ToolOptions.m */; };
+		43F1F9C21B2EE434008F5843 /* UIBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4310DE3F146DB6A0003091D1 /* UIBuilder.m */; };
+		43F1F9C31B2EE434008F5843 /* MainWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F002CE146EC97B005D48A4 /* MainWindow.m */; };
+		43F1F9C41B2EE434008F5843 /* TerminalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F002D1146F4135005D48A4 /* TerminalView.m */; };
+		43F1F9C51B2EE434008F5843 /* TerminalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F002F6146FF584005D48A4 /* TerminalViewController.m */; };
+		43F1F9C61B2EE434008F5843 /* console.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E34F9714705125001641AA /* console.c */; };
+		43F1F9C71B2EE434008F5843 /* eventbus.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E34F9914705125001641AA /* eventbus.c */; };
+		43F1F9C81B2EE434008F5843 /* osdep.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E34F9E14706D9B001641AA /* osdep.m */; };
+		43F1F9C91B2EE434008F5843 /* autorelease.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E34FA11470701C001641AA /* autorelease.c */; };
+		43F1F9CA1B2EE434008F5843 /* licensing_core.c in Sources */ = {isa = PBXBuildFile; fileRef = 4317BD281A7F57AB0054D32D /* licensing_core.c */; };
+		43F1F9CB1B2EE434008F5843 /* stringutil.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E34FA4147071E8001641AA /* stringutil.c */; };
+		43F1F9CC1B2EE434008F5843 /* reload_request.c in Sources */ = {isa = PBXBuildFile; fileRef = 432A6D951476269C00144F97 /* reload_request.c */; };
+		43F1F9CD1B2EE434008F5843 /* communication.c in Sources */ = {isa = PBXBuildFile; fileRef = 432A6D98147627F800144F97 /* communication.c */; };
+		43F1F9CE1B2EE434008F5843 /* dump.c in Sources */ = {isa = PBXBuildFile; fileRef = 432A6D9B147636F700144F97 /* dump.c */; };
+		43F1F9CF1B2EE434008F5843 /* error.c in Sources */ = {isa = PBXBuildFile; fileRef = 432A6D9C147636F700144F97 /* error.c */; };
+		43F1F9D01B2EE434008F5843 /* hashtable.c in Sources */ = {isa = PBXBuildFile; fileRef = 432A6D9D147636F700144F97 /* hashtable.c */; };
+		43F1F9D11B2EE434008F5843 /* load.c in Sources */ = {isa = PBXBuildFile; fileRef = 432A6DA2147636F700144F97 /* load.c */; };
+		43F1F9D21B2EE434008F5843 /* memory.c in Sources */ = {isa = PBXBuildFile; fileRef = 432A6DA3147636F700144F97 /* memory.c */; };
+		43F1F9D31B2EE434008F5843 /* pack_unpack.c in Sources */ = {isa = PBXBuildFile; fileRef = 432A6DA4147636F700144F97 /* pack_unpack.c */; };
+		43F1F9D41B2EE434008F5843 /* strbuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 432A6DA5147636F700144F97 /* strbuffer.c */; };
+		43F1F9D51B2EE434008F5843 /* strconv.c in Sources */ = {isa = PBXBuildFile; fileRef = 432A6DA7147636F700144F97 /* strconv.c */; };
+		43F1F9D61B2EE434008F5843 /* utf.c in Sources */ = {isa = PBXBuildFile; fileRef = 432A6DA8147636F700144F97 /* utf.c */; };
+		43F1F9D71B2EE434008F5843 /* value.c in Sources */ = {isa = PBXBuildFile; fileRef = 432A6DAA147636F700144F97 /* value.c */; };
+		43F1F9D81B2EE434008F5843 /* RSVerticallyCenteredTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C01FCF5008A954540054247D /* RSVerticallyCenteredTextFieldCell.m */; };
+		43F1F9D91B2EE434008F5843 /* monitoring.c in Sources */ = {isa = PBXBuildFile; fileRef = 434DB7EF1514F49400C62042 /* monitoring.c */; };
+		43F1F9DA1B2EE434008F5843 /* msg_proxy.c in Sources */ = {isa = PBXBuildFile; fileRef = 434DB7F01514F49400C62042 /* msg_proxy.c */; };
+		43F1F9DB1B2EE434008F5843 /* msg_router.c in Sources */ = {isa = PBXBuildFile; fileRef = 434DB7F21514F49400C62042 /* msg_router.c */; };
+		43F1F9DC1B2EE434008F5843 /* nodeapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 434DB7F41514F49500C62042 /* nodeapi.c */; };
+		43F1F9DD1B2EE434008F5843 /* fsdiff.c in Sources */ = {isa = PBXBuildFile; fileRef = 434DB8071514F58C00C62042 /* fsdiff.c */; };
+		43F1F9DE1B2EE434008F5843 /* fsmonitor.c in Sources */ = {isa = PBXBuildFile; fileRef = 434DB8091514F58C00C62042 /* fsmonitor.c */; };
+		43F1F9DF1B2EE434008F5843 /* fstree.c in Sources */ = {isa = PBXBuildFile; fileRef = 434DB80A1514F58C00C62042 /* fstree.c */; };
+		43F1F9E01B2EE434008F5843 /* fstree_create_posix.c in Sources */ = {isa = PBXBuildFile; fileRef = 434DB80B1514F58C00C62042 /* fstree_create_posix.c */; };
+		43F1F9E11B2EE434008F5843 /* fstree_diff.c in Sources */ = {isa = PBXBuildFile; fileRef = 434DB80D1514F58C00C62042 /* fstree_diff.c */; };
+		43F1F9E21B2EE434008F5843 /* fslistener_osx.c in Sources */ = {isa = PBXBuildFile; fileRef = 434DB81C1514F62100C62042 /* fslistener_osx.c */; };
+		43F1F9E31B2EE434008F5843 /* hex.c in Sources */ = {isa = PBXBuildFile; fileRef = 4317BD3F1A7F71A90054D32D /* hex.c */; };
+		43F1F9E41B2EE434008F5843 /* OldFSMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CA1515205C003187D5 /* OldFSMonitor.m */; };
+		43F1F9E51B2EE434008F5843 /* OldFSTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CC1515205C003187D5 /* OldFSTree.m */; };
+		43F1F9E61B2EE434008F5843 /* OldFSTreeDiffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CE1515205C003187D5 /* OldFSTreeDiffer.m */; };
+		43F1F9E71B2EE434008F5843 /* OldFSTreeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8D01515205C003187D5 /* OldFSTreeFilter.m */; };
+		43F1F9E81B2EE434008F5843 /* MASReceipt.m in Sources */ = {isa = PBXBuildFile; fileRef = 43059208151DF2DE00CC3F88 /* MASReceipt.m */; };
+		43F1F9E91B2EE434008F5843 /* VersionChecks.m in Sources */ = {isa = PBXBuildFile; fileRef = 4305921E151E8E3F00CC3F88 /* VersionChecks.m */; };
+		43F1F9EA1B2EE434008F5843 /* DockIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 43059224151E90DE00CC3F88 /* DockIcon.m */; };
+		43F1F9EB1B2EE434008F5843 /* LicenseCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 439A76AE15B28EF100E50057 /* LicenseCodeViewController.m */; };
+		43F1F9EC1B2EE434008F5843 /* LicenseCodeWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 439A76B315B28F4300E50057 /* LicenseCodeWindowController.m */; };
+		43F1F9ED1B2EE434008F5843 /* LicenseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C3D04D15B37B1500BCD2E8 /* LicenseManager.m */; };
+		43F1F9EF1B2EE434008F5843 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65491A923FA900335BAD /* ApplicationServices.framework */; };
+		43F1F9F01B2EE434008F5843 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65451A923DF200335BAD /* libz.dylib */; };
+		43F1F9F11B2EE434008F5843 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65431A923DED00335BAD /* libsqlite3.dylib */; };
+		43F1F9F21B2EE434008F5843 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65411A923DE500335BAD /* SystemConfiguration.framework */; };
+		43F1F9F31B2EE434008F5843 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A653F1A923DDB00335BAD /* Security.framework */; };
+		43F1F9F41B2EE434008F5843 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A653D1A923DD000335BAD /* CoreLocation.framework */; };
+		43F1F9F51B2EE434008F5843 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A653B1A923DCB00335BAD /* CoreGraphics.framework */; };
+		43F1F9F61B2EE434008F5843 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65391A923DC100335BAD /* CFNetwork.framework */; };
+		43F1F9F71B2EE434008F5843 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43059221151E8FA400CC3F88 /* CoreServices.framework */; };
+		43F1F9F81B2EE434008F5843 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43594AF313D3BB34004175B2 /* QuartzCore.framework */; };
+		43F1F9F91B2EE434008F5843 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43361D4513C30D1400C0E589 /* libicucore.dylib */; };
+		43F1F9FA1B2EE434008F5843 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		43F1F9FC1B2EE434008F5843 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 430923DA1755C58A00400279 /* Sparkle.framework */; };
+		43F1F9FF1B2EE434008F5843 /* Paddle.framework in Embed Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65321A923B9E00335BAD /* Paddle.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		43F1FA001B2EE434008F5843 /* Sparkle.framework in Embed Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 430923DA1755C58A00400279 /* Sparkle.framework */; };
 		43F50BF71466F7A1004FD951 /* PostProcessingSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F50BF61466F7A1004FD951 /* PostProcessingSettingsWindowController.m */; };
 		43F50BF91466FAB7004FD951 /* PostProcessingSettingsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43F50BF81466FAB7004FD951 /* PostProcessingSettingsWindowController.xib */; };
 		43F50BFC146706B0004FD951 /* BaseProjectSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F50BFB146706B0004FD951 /* BaseProjectSettingsWindowController.m */; };
@@ -553,6 +742,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		43F1F9FD1B2EE434008F5843 /* Embed Internal Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Internal Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		43F1F9FE1B2EE434008F5843 /* Embed Third-Party Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				43F1F9FF1B2EE434008F5843 /* Paddle.framework in Embed Third-Party Frameworks */,
+				43F1FA001B2EE434008F5843 /* Sparkle.framework in Embed Third-Party Frameworks */,
+			);
+			name = "Embed Third-Party Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -568,6 +779,8 @@
 		4303A4B015B3898D009D732A /* LR-B9BC.public */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "LR-B9BC.public"; sourceTree = "<group>"; };
 		4303A4B115B3898D009D732A /* LR-E9BC.public */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "LR-E9BC.public"; sourceTree = "<group>"; };
 		4303A4B615B3959D009D732A /* BuyTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BuyTemplate.png; sourceTree = "<group>"; };
+		43043CAF1B31AB3500472E3A /* LiveReload Snow Leopard Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "LiveReload Snow Leopard Info.plist"; sourceTree = "<group>"; };
+		43043CB31B32E51A00472E3A /* version_legacy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = version_legacy.h; path = Classes/Application/version_legacy.h; sourceTree = "<group>"; };
 		4304FC2B144B2BEB00D650DF /* NSDictionaryAndArray+SafeAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionaryAndArray+SafeAccess.h"; sourceTree = "<group>"; };
 		4304FC2C144B2BEB00D650DF /* NSDictionaryAndArray+SafeAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionaryAndArray+SafeAccess.m"; sourceTree = "<group>"; };
 		43059207151DF2DE00CC3F88 /* MASReceipt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASReceipt.h; sourceTree = "<group>"; };
@@ -651,7 +864,7 @@
 		434DB80B1514F58C00C62042 /* fstree_create_posix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fstree_create_posix.c; sourceTree = "<group>"; };
 		434DB80D1514F58C00C62042 /* fstree_diff.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fstree_diff.c; sourceTree = "<group>"; };
 		434DB81C1514F62100C62042 /* fslistener_osx.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fslistener_osx.c; sourceTree = "<group>"; };
-		434DB81E1514F71400C62042 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
+		434DB81E1514F71400C62042 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = version.h; path = Classes/Application/version.h; sourceTree = "<group>"; };
 		4351302D1ACD750D0073A0D4 /* LiveReload.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveReload.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4351302E1ACD750E0073A0D4 /* LiveReload-Info-MAS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "LiveReload-Info-MAS.plist"; path = "/Users/andreyvit/dev/livereload/2/LiveReload/LiveReload-Info-MAS.plist"; sourceTree = "<absolute>"; };
 		4353196D1465B52D005FA59F /* ShitHappens.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShitHappens.h; sourceTree = "<group>"; };
@@ -748,6 +961,7 @@
 		43F0030114700C96005D48A4 /* LRTerminalButtonOffHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRTerminalButtonOffHighlight.png; sourceTree = "<group>"; };
 		43F0030214700C96005D48A4 /* LRTerminalButtonOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRTerminalButtonOn.png; sourceTree = "<group>"; };
 		43F0030314700C96005D48A4 /* LRTerminalButtonOnHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRTerminalButtonOnHighlight.png; sourceTree = "<group>"; };
+		43F1FA061B2EE434008F5843 /* LiveReload Snow Leopard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LiveReload Snow Leopard.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		43F301D61477A67D0072F324 /* kvec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kvec.h; sourceTree = "<group>"; };
 		43F50BF51466F7A1004FD951 /* PostProcessingSettingsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostProcessingSettingsWindowController.h; sourceTree = "<group>"; };
 		43F50BF61466F7A1004FD951 /* PostProcessingSettingsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostProcessingSettingsWindowController.m; sourceTree = "<group>"; };
@@ -931,6 +1145,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		43F1F9EE1B2EE434008F5843 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				43F1F9EF1B2EE434008F5843 /* ApplicationServices.framework in Frameworks */,
+				43F1F9F01B2EE434008F5843 /* libz.dylib in Frameworks */,
+				43F1F9F11B2EE434008F5843 /* libsqlite3.dylib in Frameworks */,
+				43F1F9F21B2EE434008F5843 /* SystemConfiguration.framework in Frameworks */,
+				43F1F9F31B2EE434008F5843 /* Security.framework in Frameworks */,
+				43F1F9F41B2EE434008F5843 /* CoreLocation.framework in Frameworks */,
+				43F1F9F51B2EE434008F5843 /* CoreGraphics.framework in Frameworks */,
+				43F1F9F61B2EE434008F5843 /* CFNetwork.framework in Frameworks */,
+				43F1F9F71B2EE434008F5843 /* CoreServices.framework in Frameworks */,
+				43F1F9F81B2EE434008F5843 /* QuartzCore.framework in Frameworks */,
+				43F1F9F91B2EE434008F5843 /* libicucore.dylib in Frameworks */,
+				43F1F9FA1B2EE434008F5843 /* Cocoa.framework in Frameworks */,
+				43F1F9FC1B2EE434008F5843 /* Sparkle.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D11072E0486CEB800E47090 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -986,6 +1220,7 @@
 				4317BD6E1A7F92850054D32D /* LRLicenseCollision */,
 				43D2097D1A811B0200D47F2B /* LRLicenseBloomAdd */,
 				4351302D1ACD750D0073A0D4 /* LiveReload.app */,
+				43F1FA061B2EE434008F5843 /* LiveReload Snow Leopard.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1023,7 +1258,10 @@
 				433617FE13C2E0C800C0E589 /* Compilers */,
 				43719FD31565FE5F004B0E0C /* backend */,
 				8D1107310486CEB800E47090 /* LiveReload-Info.plist */,
+				434DB81E1514F71400C62042 /* version.h */,
 				4351302E1ACD750E0073A0D4 /* LiveReload-Info-MAS.plist */,
+				43043CAF1B31AB3500472E3A /* LiveReload Snow Leopard Info.plist */,
+				43043CB31B32E51A00472E3A /* version_legacy.h */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 				439C093213ADCBDD00119233 /* monitoring.plist */,
@@ -1241,7 +1479,6 @@
 				4353196E1465B52D005FA59F /* ShitHappens.m */,
 				43FAB8561514FD5700400F61 /* osdep.h */,
 				43E34F9E14706D9B001641AA /* osdep.m */,
-				434DB81E1514F71400C62042 /* version.h */,
 				43059207151DF2DE00CC3F88 /* MASReceipt.h */,
 				43059208151DF2DE00CC3F88 /* MASReceipt.m */,
 				436A654B1A92454900335BAD /* Analytics.h */,
@@ -1638,6 +1875,27 @@
 			productReference = 43D2097D1A811B0200D47F2B /* LRLicenseBloomAdd */;
 			productType = "com.apple.product-type.tool";
 		};
+		43F1F93D1B2EE434008F5843 /* LiveReload (10.6) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 43F1FA021B2EE434008F5843 /* Build configuration list for PBXNativeTarget "LiveReload (10.6)" */;
+			buildPhases = (
+				43F1F93E1B2EE434008F5843 /* Resources */,
+				43F1F97B1B2EE434008F5843 /* Sources */,
+				43F1F9EE1B2EE434008F5843 /* Frameworks */,
+				43F1F9FD1B2EE434008F5843 /* Embed Internal Frameworks */,
+				43F1F9FE1B2EE434008F5843 /* Embed Third-Party Frameworks */,
+				43F1FA011B2EE434008F5843 /* Sign Third-Party Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "LiveReload (10.6)";
+			productInstallPath = "$(HOME)/Applications";
+			productName = LiveReload;
+			productReference = 43F1FA061B2EE434008F5843 /* LiveReload Snow Leopard.app */;
+			productType = "com.apple.product-type.application";
+		};
 		8D1107260486CEB800E47090 /* LiveReload */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "LiveReload" */;
@@ -1706,6 +1964,7 @@
 			targets = (
 				8D1107260486CEB800E47090 /* LiveReload */,
 				43512F601ACD750D0073A0D4 /* LiveReload (MAS) */,
+				43F1F93D1B2EE434008F5843 /* LiveReload (10.6) */,
 				4317BD301A7F58250054D32D /* LRLicenseGen */,
 				4317BD481A7F8C900054D32D /* LRLicenseBloomEncode */,
 				43D2097C1A811B0200D47F2B /* LRLicenseBloomAdd */,
@@ -1781,6 +2040,73 @@
 				43512F9B1ACD750D0073A0D4 /* LR-E9BC.public in Resources */,
 				43512F9C1ACD750D0073A0D4 /* BuyTemplate.png in Resources */,
 				43512F9D1ACD750D0073A0D4 /* TypeScript.lrplugin in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		43F1F93E1B2EE434008F5843 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				43F1F93F1B2EE434008F5843 /* livereload.js in Resources */,
+				43F1F9401B2EE434008F5843 /* InfoPlist.strings in Resources */,
+				43F1F9411B2EE434008F5843 /* MainMenu.xib in Resources */,
+				43F1F9421B2EE434008F5843 /* monitoring.plist in Resources */,
+				43F1F9431B2EE434008F5843 /* Stylus.lrplugin in Resources */,
+				43F1F9441B2EE434008F5843 /* Jade.lrplugin in Resources */,
+				43F1F9451B2EE434008F5843 /* LESS.lrplugin in Resources */,
+				43F1F9461B2EE434008F5843 /* HAML.lrplugin in Resources */,
+				43F1F9471B2EE434008F5843 /* SASS.lrplugin in Resources */,
+				43F1F9481B2EE434008F5843 /* CoffeeScript.lrplugin in Resources */,
+				43F1F9491B2EE434008F5843 /* LiveReload.icns in Resources */,
+				43F1F94A1B2EE434008F5843 /* TrialReminderViewController.xib in Resources */,
+				43F1F94B1B2EE434008F5843 /* ToolOutputWindowController.xib in Resources */,
+				43F1F94C1B2EE434008F5843 /* README in Resources */,
+				43F1F94D1B2EE434008F5843 /* background.png in Resources */,
+				43F1F94E1B2EE434008F5843 /* Icon-48.png in Resources */,
+				43F1F94F1B2EE434008F5843 /* preferences-box.png in Resources */,
+				43F1F9501B2EE434008F5843 /* settings.png in Resources */,
+				43F1F9511B2EE434008F5843 /* StatusItemActive.png in Resources */,
+				43F1F9521B2EE434008F5843 /* StatusItemDropTarget.png in Resources */,
+				43F1F9531B2EE434008F5843 /* StatusItemHighlighted.png in Resources */,
+				43F1F9541B2EE434008F5843 /* StatusItemInactive.png in Resources */,
+				43F1F9551B2EE434008F5843 /* StatusItemStateRotation1.png in Resources */,
+				43F1F9561B2EE434008F5843 /* StatusItemStateRotation2.png in Resources */,
+				43F1F9571B2EE434008F5843 /* Eco.lrplugin in Resources */,
+				43F1F9581B2EE434008F5843 /* NewMainWindow.xib in Resources */,
+				43F1F9591B2EE434008F5843 /* SLIM.lrplugin in Resources */,
+				43F1F95A1B2EE434008F5843 /* StatusItemStateRotation3.png in Resources */,
+				43F1F95B1B2EE434008F5843 /* LRHelpTemplate.png in Resources */,
+				43F1F95C1B2EE434008F5843 /* LRSupportTemplate.png in Resources */,
+				43F1F95D1B2EE434008F5843 /* PostProcessingSettingsWindowController.xib in Resources */,
+				43F1F95E1B2EE434008F5843 /* CompilationSettingsWindowController.xib in Resources */,
+				43F1F95F1B2EE434008F5843 /* ProjectPaneBackground.png in Resources */,
+				43F1F9601B2EE434008F5843 /* FolderIcon64.png in Resources */,
+				43F1F9611B2EE434008F5843 /* WelcomePaneBackground.png in Resources */,
+				43F1F9621B2EE434008F5843 /* AddTemplate.png in Resources */,
+				43F1F9631B2EE434008F5843 /* RemoveTemplate.png in Resources */,
+				43F1F9641B2EE434008F5843 /* PlaceholderTemplate.png in Resources */,
+				43F1F9651B2EE434008F5843 /* MonitoringSettingsWindowController.xib in Resources */,
+				43F1F9661B2EE434008F5843 /* TitleBarHelpTemplate.png in Resources */,
+				43F1F9671B2EE434008F5843 /* AndreyTarantsov.jpg in Resources */,
+				43F1F9681B2EE434008F5843 /* TerminalStripes.png in Resources */,
+				43F1F9691B2EE434008F5843 /* TerminalBackground.png in Resources */,
+				43F1F96A1B2EE434008F5843 /* TerminalGlare.png in Resources */,
+				43F1F96B1B2EE434008F5843 /* TerminalBackgroundSquare.png in Resources */,
+				43F1F96C1B2EE434008F5843 /* TerminalViewController.xib in Resources */,
+				43F1F96D1B2EE434008F5843 /* LRTerminalButtonOff.png in Resources */,
+				43F1F96E1B2EE434008F5843 /* LRTerminalButtonOffHighlight.png in Resources */,
+				43F1F96F1B2EE434008F5843 /* LRTerminalButtonOn.png in Resources */,
+				43F1F9701B2EE434008F5843 /* LRTerminalButtonOnHighlight.png in Resources */,
+				43F1F9711B2EE434008F5843 /* IcedCoffeeScript.lrplugin in Resources */,
+				43F1F9721B2EE434008F5843 /* backend in Resources */,
+				43F1F9731B2EE434008F5843 /* LiveReloadNodejs in Resources */,
+				43F1F9741B2EE434008F5843 /* LicenseCodeViewController.xib in Resources */,
+				43F1F9751B2EE434008F5843 /* LicenseCodeWindowController.xib in Resources */,
+				43F1F9761B2EE434008F5843 /* LR-A9BC.public in Resources */,
+				43F1F9771B2EE434008F5843 /* LR-B9BC.public in Resources */,
+				43F1F9781B2EE434008F5843 /* LR-E9BC.public in Resources */,
+				43F1F9791B2EE434008F5843 /* BuyTemplate.png in Resources */,
+				43F1F97A1B2EE434008F5843 /* TypeScript.lrplugin in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1870,6 +2196,21 @@
 			showEnvVarsInLog = 0;
 		};
 		4360444D181983AE00103E14 /* Sign Third-Party Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Sign Third-Party Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if test -z \"$CODE_SIGN_IDENTITY\"; then\n  echo \"Skipping codesign of frameworks because CODE_SIGN_IDENTITY is not set.\"\nelse\n  LOCATION=\"${BUILT_PRODUCTS_DIR}\"/\"${FRAMEWORKS_FOLDER_PATH}\"\n  codesign --verbose --force --sign \"$CODE_SIGN_IDENTITY\" \"$LOCATION/Sparkle.framework/Versions/A\"\n  codesign --verbose --force --sign \"$CODE_SIGN_IDENTITY\" \"$LOCATION/Paddle.framework/Versions/A\"\n  # codesign --verbose --force --sign \"$CODE_SIGN_IDENTITY\" \"$LOCATION/Bolts.framework/Versions/A\"\n\n  # a file located outside of a proper Resources folder causes code sign to reject the binary\n  # rm -f \"$LOCATION/ParseOSX.framework/third_party_licenses.txt\"\n  # codesign --verbose --force --sign \"$CODE_SIGN_IDENTITY\" \"$LOCATION/ParseOSX.framework/Versions/A\"\nfi";
+			showEnvVarsInLog = 0;
+		};
+		43F1FA011B2EE434008F5843 /* Sign Third-Party Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 12;
 			files = (
@@ -2061,6 +2402,127 @@
 				43D209971A811BCD00D47F2B /* licensing_core.c in Sources */,
 				43D209851A811B0F00D47F2B /* LRLicenseBloomAdd.c in Sources */,
 				43D209951A811BA300D47F2B /* bloom.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		43F1F97B1B2EE434008F5843 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				43F1F97C1B2EE434008F5843 /* main.m in Sources */,
+				43F1F97D1B2EE434008F5843 /* licensing_check.c in Sources */,
+				43F1F97E1B2EE434008F5843 /* LiveReloadAppDelegate.m in Sources */,
+				43F1F97F1B2EE434008F5843 /* CommunicationController.m in Sources */,
+				43F1F9801B2EE434008F5843 /* ExtensionsController.m in Sources */,
+				43F1F9811B2EE434008F5843 /* StatusItemController.m in Sources */,
+				43F1F9821B2EE434008F5843 /* ToolOutputWindowController.m in Sources */,
+				43F1F9831B2EE434008F5843 /* CodaEditor.m in Sources */,
+				43F1F9841B2EE434008F5843 /* CustomEditor.m in Sources */,
+				43F1F9851B2EE434008F5843 /* Editor.m in Sources */,
+				43F1F9861B2EE434008F5843 /* EditorManager.m in Sources */,
+				43F1F9871B2EE434008F5843 /* EspressoEditor.m in Sources */,
+				43F1F9881B2EE434008F5843 /* SubEthaEditEditor.m in Sources */,
+				43F1F9891B2EE434008F5843 /* Analytics+SpecificEvents.m in Sources */,
+				43F1F98A1B2EE434008F5843 /* SublimeText2Editor.m in Sources */,
+				43F1F98B1B2EE434008F5843 /* TextMateEditor.m in Sources */,
+				43F1F98C1B2EE434008F5843 /* NSObject+JSON.m in Sources */,
+				43F1F98D1B2EE434008F5843 /* SBJsonParser.m in Sources */,
+				43F1F98E1B2EE434008F5843 /* SBJsonStreamParser.m in Sources */,
+				43F1F98F1B2EE434008F5843 /* SBJsonStreamParserAdapter.m in Sources */,
+				43F1F9901B2EE434008F5843 /* SBJsonStreamParserState.m in Sources */,
+				43F1F9911B2EE434008F5843 /* SBJsonStreamWriter.m in Sources */,
+				43F1F9921B2EE434008F5843 /* SBJsonStreamWriterState.m in Sources */,
+				43F1F9931B2EE434008F5843 /* SBJsonTokeniser.m in Sources */,
+				43F1F9941B2EE434008F5843 /* SBJsonWriter.m in Sources */,
+				43F1F9951B2EE434008F5843 /* Bag.m in Sources */,
+				43F1F9961B2EE434008F5843 /* CompilationOptions.m in Sources */,
+				43F1F9971B2EE434008F5843 /* FileCompilationOptions.m in Sources */,
+				43F1F9981B2EE434008F5843 /* Project.m in Sources */,
+				43F1F9991B2EE434008F5843 /* Workspace.m in Sources */,
+				43F1F99A1B2EE434008F5843 /* Compiler.m in Sources */,
+				43F1F99B1B2EE434008F5843 /* Analytics.m in Sources */,
+				43F1F99C1B2EE434008F5843 /* CompilerVersion.m in Sources */,
+				43F1F99D1B2EE434008F5843 /* Plugin.m in Sources */,
+				43F1F99E1B2EE434008F5843 /* bloom.c in Sources */,
+				43F1F99F1B2EE434008F5843 /* PluginManager.m in Sources */,
+				43F1F9A01B2EE434008F5843 /* ToolOutput.m in Sources */,
+				43F1F9A11B2EE434008F5843 /* Preferences.m in Sources */,
+				43F1F9A21B2EE434008F5843 /* ATFunctionalStyle.m in Sources */,
+				43F1F9A31B2EE434008F5843 /* LoginItemController.m in Sources */,
+				43F1F9A41B2EE434008F5843 /* MAAttachedWindow.m in Sources */,
+				43F1F9A51B2EE434008F5843 /* MD5OfFile.m in Sources */,
+				43F1F9A61B2EE434008F5843 /* NSWindow+Additions.m in Sources */,
+				43F1F9A71B2EE434008F5843 /* NSWindowFlipper.m in Sources */,
+				43F1F9A81B2EE434008F5843 /* NSArray+Substitutions.m in Sources */,
+				43F1F9A91B2EE434008F5843 /* NSString+SeparatingIntoComponents.m in Sources */,
+				43F1F9AA1B2EE434008F5843 /* NSTask+OneLineTasksWithOutput.m in Sources */,
+				43F1F9AB1B2EE434008F5843 /* NSWindowController+TextStyling.m in Sources */,
+				43F1F9AC1B2EE434008F5843 /* RegexKitLite.m in Sources */,
+				43F1F9AD1B2EE434008F5843 /* VersionNumber.m in Sources */,
+				43F1F9AE1B2EE434008F5843 /* AuxWindow.m in Sources */,
+				43F1F9AF1B2EE434008F5843 /* KeyWindow.m in Sources */,
+				43F1F9B01B2EE434008F5843 /* StatusItemView.m in Sources */,
+				43F1F9B11B2EE434008F5843 /* TrialReminderViewController.m in Sources */,
+				43F1F9B21B2EE434008F5843 /* NewMainWindowController.m in Sources */,
+				43F1F9B31B2EE434008F5843 /* BBEditEditor.m in Sources */,
+				43F1F9B41B2EE434008F5843 /* NSDictionaryAndArray+SafeAccess.m in Sources */,
+				43F1F9B51B2EE434008F5843 /* ImportGraph.m in Sources */,
+				43F1F9B61B2EE434008F5843 /* Stats.m in Sources */,
+				43F1F9B71B2EE434008F5843 /* ImageAndTextCell.m in Sources */,
+				43F1F9B81B2EE434008F5843 /* ShitHappens.m in Sources */,
+				43F1F9B91B2EE434008F5843 /* PostProcessingSettingsWindowController.m in Sources */,
+				43F1F9BA1B2EE434008F5843 /* BaseProjectSettingsWindowController.m in Sources */,
+				43F1F9BB1B2EE434008F5843 /* CompilationSettingsWindowController.m in Sources */,
+				43F1F9BC1B2EE434008F5843 /* PassThruView.m in Sources */,
+				43F1F9BD1B2EE434008F5843 /* PassThruImageView.m in Sources */,
+				43F1F9BE1B2EE434008F5843 /* MonitoringSettingsWindowController.m in Sources */,
+				43F1F9BF1B2EE434008F5843 /* FixUnixPath.m in Sources */,
+				43F1F9C01B2EE434008F5843 /* RubyVersion.m in Sources */,
+				43F1F9C11B2EE434008F5843 /* ToolOptions.m in Sources */,
+				43F1F9C21B2EE434008F5843 /* UIBuilder.m in Sources */,
+				43F1F9C31B2EE434008F5843 /* MainWindow.m in Sources */,
+				43F1F9C41B2EE434008F5843 /* TerminalView.m in Sources */,
+				43F1F9C51B2EE434008F5843 /* TerminalViewController.m in Sources */,
+				43F1F9C61B2EE434008F5843 /* console.c in Sources */,
+				43F1F9C71B2EE434008F5843 /* eventbus.c in Sources */,
+				43F1F9C81B2EE434008F5843 /* osdep.m in Sources */,
+				43F1F9C91B2EE434008F5843 /* autorelease.c in Sources */,
+				43F1F9CA1B2EE434008F5843 /* licensing_core.c in Sources */,
+				43F1F9CB1B2EE434008F5843 /* stringutil.c in Sources */,
+				43F1F9CC1B2EE434008F5843 /* reload_request.c in Sources */,
+				43F1F9CD1B2EE434008F5843 /* communication.c in Sources */,
+				43F1F9CE1B2EE434008F5843 /* dump.c in Sources */,
+				43F1F9CF1B2EE434008F5843 /* error.c in Sources */,
+				43F1F9D01B2EE434008F5843 /* hashtable.c in Sources */,
+				43F1F9D11B2EE434008F5843 /* load.c in Sources */,
+				43F1F9D21B2EE434008F5843 /* memory.c in Sources */,
+				43F1F9D31B2EE434008F5843 /* pack_unpack.c in Sources */,
+				43F1F9D41B2EE434008F5843 /* strbuffer.c in Sources */,
+				43F1F9D51B2EE434008F5843 /* strconv.c in Sources */,
+				43F1F9D61B2EE434008F5843 /* utf.c in Sources */,
+				43F1F9D71B2EE434008F5843 /* value.c in Sources */,
+				43F1F9D81B2EE434008F5843 /* RSVerticallyCenteredTextFieldCell.m in Sources */,
+				43F1F9D91B2EE434008F5843 /* monitoring.c in Sources */,
+				43F1F9DA1B2EE434008F5843 /* msg_proxy.c in Sources */,
+				43F1F9DB1B2EE434008F5843 /* msg_router.c in Sources */,
+				43F1F9DC1B2EE434008F5843 /* nodeapi.c in Sources */,
+				43F1F9DD1B2EE434008F5843 /* fsdiff.c in Sources */,
+				43F1F9DE1B2EE434008F5843 /* fsmonitor.c in Sources */,
+				43F1F9DF1B2EE434008F5843 /* fstree.c in Sources */,
+				43F1F9E01B2EE434008F5843 /* fstree_create_posix.c in Sources */,
+				43F1F9E11B2EE434008F5843 /* fstree_diff.c in Sources */,
+				43F1F9E21B2EE434008F5843 /* fslistener_osx.c in Sources */,
+				43F1F9E31B2EE434008F5843 /* hex.c in Sources */,
+				43F1F9E41B2EE434008F5843 /* OldFSMonitor.m in Sources */,
+				43F1F9E51B2EE434008F5843 /* OldFSTree.m in Sources */,
+				43F1F9E61B2EE434008F5843 /* OldFSTreeDiffer.m in Sources */,
+				43F1F9E71B2EE434008F5843 /* OldFSTreeFilter.m in Sources */,
+				43F1F9E81B2EE434008F5843 /* MASReceipt.m in Sources */,
+				43F1F9E91B2EE434008F5843 /* VersionChecks.m in Sources */,
+				43F1F9EA1B2EE434008F5843 /* DockIcon.m in Sources */,
+				43F1F9EB1B2EE434008F5843 /* LicenseCodeViewController.m in Sources */,
+				43F1F9EC1B2EE434008F5843 /* LicenseCodeWindowController.m in Sources */,
+				43F1F9ED1B2EE434008F5843 /* LicenseManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2854,7 +3316,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = "APPSTORE=1";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PROVISIONING_PROFILE = "7B3A9371-6567-459B-BAA8-0688778029BC";
 				SDKROOT = macosx;
 				WARNING_CFLAGS = (
@@ -2893,6 +3355,94 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = LiveReload;
+				PROVISIONING_PROFILE = "E8BEA48E-BF84-4412-A2F8-5CBFF35C4660";
+			};
+			name = AppStore;
+		};
+		43F1FA031B2EE434008F5843 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Developer ID Application: Andrey Tarantsov (D963M2VVCH)";
+				COPY_PHASE_STRIP = NO;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)",
+					"$(PROJECT_DIR)/Vendor/Paddle",
+					"$(PROJECT_DIR)/Vendor",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = LiveReload_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"LRLegacy=106",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "LiveReload Snow Leopard Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				OTHER_LDFLAGS = "-lz";
+				PRODUCT_NAME = "LiveReload Snow Leopard";
+			};
+			name = Debug;
+		};
+		43F1FA041B2EE434008F5843 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Developer ID Application: Andrey Tarantsov (D963M2VVCH)";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)",
+					"$(PROJECT_DIR)/Vendor/Paddle",
+					"$(PROJECT_DIR)/Vendor",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = LiveReload_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"LRLegacy=106",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "LiveReload Snow Leopard Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				OTHER_LDFLAGS = "-lz";
+				PRODUCT_NAME = "LiveReload Snow Leopard";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Release;
+		};
+		43F1FA051B2EE434008F5843 /* AppStore */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)",
+					"$(PROJECT_DIR)/Vendor/Paddle",
+					"$(PROJECT_DIR)/Vendor",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = LiveReload_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"LRLegacy=106",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "LiveReload Snow Leopard Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				OTHER_LDFLAGS = "-lz";
+				PRODUCT_NAME = "LiveReload Snow Leopard";
 				PROVISIONING_PROFILE = "E8BEA48E-BF84-4412-A2F8-5CBFF35C4660";
 			};
 			name = AppStore;
@@ -2955,7 +3505,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				WARNING_CFLAGS = (
@@ -2982,7 +3532,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;
 				WARNING_CFLAGS = (
 					"-Wall",
@@ -3069,6 +3619,16 @@
 				43D209881A811B6700D47F2B /* Debug */,
 				43D209891A811B6700D47F2B /* Release */,
 				43D2098A1A811B6700D47F2B /* AppStore */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		43F1FA021B2EE434008F5843 /* Build configuration list for PBXNativeTarget "LiveReload (10.6)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				43F1FA031B2EE434008F5843 /* Debug */,
+				43F1FA041B2EE434008F5843 /* Release */,
+				43F1FA051B2EE434008F5843 /* AppStore */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

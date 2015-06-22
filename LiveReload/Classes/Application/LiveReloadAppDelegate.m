@@ -23,6 +23,7 @@
 #import "FixUnixPath.h"
 #import "LicenseManager.h"
 #import "DockIcon.h"
+#import "VersionChecks.h"
 
 #ifndef APPSTORE
 #import "Sparkle/Sparkle.h"
@@ -99,6 +100,22 @@ void C_app__good_time_to_deliver_news(json_t *arg) {
 }
 
 - (void)applicationWillFinishLaunching:(NSNotification *)notification {
+#if defined(LRLegacy) && (LRLegacy == 106)
+    if (IsOSX107LionOrLater()) {
+        NSAlert *alert = [NSAlert new];
+        alert.messageText = @"Upgrade required";
+        alert.informativeText = @"This legacy version of LiveReload is only licensed for use on OS X 10.6 Snow Leopard. Please download a newer version for your operating system from http://livereload.com/.";
+        [alert addButtonWithTitle:@"Visit Web Site"];
+        [alert addButtonWithTitle:@"Ignore"];
+        NSModalResponse response = [alert runModal];
+        if (response == NSAlertFirstButtonReturn) {
+            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://go.livereload.com/legacy/snow-leopard/upgrade/"]];
+            [NSApp terminate:self];
+            return;
+        }
+    }
+#endif
+
     [Analytics initializeAnalytics];
     [Analytics initializeAnalyticsWithSpecificEvents];
 }

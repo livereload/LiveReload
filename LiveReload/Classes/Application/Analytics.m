@@ -1,7 +1,22 @@
 #import "Analytics.h"
+
+#if defined(LRLegacy) && (LRLegacy == 106)
+#define PADDLE_AVAILABLE 0
+#else
+#define PADDLE_AVAILABLE 1
+#endif
+
+#define PARSE_AVAILABLE 0
+#define FABRIC_AVAILABLE 0
+
+
+#if PADDLE_AVAILABLE
 #import <Paddle/Paddle.h>
 #import <Paddle/PaddleAnalyticsKit.h>
-//#import <ParseOSX/Parse.h>
+#endif
+#if PARSE_AVAILABLE
+#import <ParseOSX/Parse.h>
+#endif
 #import "LicenseManager.h"
 #import "MASReceipt.h"
 
@@ -58,14 +73,18 @@ static NSMutableArray *_periods;
 static BOOL _logOnly;
 
 + (void)initializeAnalytics {
+#if PADDLE_AVAILABLE
     Paddle *paddle = [Paddle sharedInstance];
     [paddle setProductId:@"497612"];
     [paddle setVendorId:@"128"];
     [paddle setApiKey:@"c125288cc41c57b7e47ba5a63797328b"];
+#endif
     
-//    [Parse setApplicationId:@"gUXVcl38ni3258sQfWdErdNuxF9ZC1yEY1pTIpPv" clientKey:@"4r10RsuIL34gtSdfebXTWOJPrIbSL3kC7xn41sIf"];
-//    [PFAnalytics trackAppOpenedWithLaunchOptions:nil];
-    // [PFAnalytics trackEvent:@"read" dimensions:dimensions];
+#if PARSE_AVAILABLE
+    [Parse setApplicationId:@"gUXVcl38ni3258sQfWdErdNuxF9ZC1yEY1pTIpPv" clientKey:@"4r10RsuIL34gtSdfebXTWOJPrIbSL3kC7xn41sIf"];
+    [PFAnalytics trackAppOpenedWithLaunchOptions:nil];
+    [PFAnalytics trackEvent:@"read" dimensions:dimensions];
+#endif
     
     _logOnly = [[NSUserDefaults standardUserDefaults] boolForKey:@"com.livereload.debug.analytics.logEvents"];
 }
@@ -100,8 +119,12 @@ static BOOL _logOnly;
         [result sortedArrayUsingSelector:@selector(compare:)];
         NSLog(@"LiveReload Analytics: %@ (%@)", name, [result componentsJoinedByString:@" "]);
     } else {
-//        [PFAnalytics trackEvent:name dimensions:params];
+#if PADDLE_AVAILABLE
         [PaddleAnalyticsKit track:name properties:params];
+#endif
+#if PARSE_AVAILABLE
+        [PFAnalytics trackEvent:name dimensions:params];
+#endif
     }
 }
 

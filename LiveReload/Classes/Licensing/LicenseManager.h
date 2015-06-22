@@ -16,6 +16,7 @@ typedef enum {
     LicenseManagerCodeStatusIncorrectFormat,
     LicenseManagerCodeStatusIncorrectProduct,
     LicenseManagerCodeStatusUpdateRequired,
+    LicenseManagerCodeStatusLegacyVersionPerpetualLicense,
 } LicenseManagerCodeStatus;
 
 

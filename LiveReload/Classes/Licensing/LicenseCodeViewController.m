@@ -99,6 +99,9 @@
             status1 = @"This code requires a newer version of LiveReload.";
             status2 = @"Please upgrade.";
             break;
+        case LicenseManagerCodeStatusLegacyVersionPerpetualLicense:
+            status1 = @"This legacy version of LiveReload doesn't require a license.";
+            break;
         default:
             status1 = @"⨯ Unexpected error when verifying the code.";
             break;

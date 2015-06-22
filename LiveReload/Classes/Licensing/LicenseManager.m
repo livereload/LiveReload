@@ -1,17 +1,27 @@
+#import "LicenseManager.h"
 
+#if defined(LRLegacy)
+#define LICENSING_ENABLED 0
+#else
+#define LICENSING_ENABLED 1
+#endif
+
+#if LICENSING_ENABLED
 #import <CommonCrypto/CommonDigest.h>
 #import <CommonCrypto/CommonHMAC.h>
 
-#import "LicenseManager.h"
 #import "MASReceipt.h"
 #include "licensing_core.h"
 #include "licensing_check.h"
 #include "hex.h"
+#endif
+
 
 
 NSString *const LicenseManagerStatusDidChangeNotification = @"LicenseManagerStatusDidChangeNotification";
 
 
+#if LICENSING_ENABLED
 static LicenseManagerCodeStatus _status;
 static LicenseType _type;
 static LicenseVersion _version;
@@ -21,13 +31,15 @@ static BOOL _validationRequested;
 
 static void LicenseManagerRevalidateCode();
 static LicenseManagerCodeStatus LicenseManagerValidateCodeSync(NSString *code);
-
+#endif
 
 void LicenseManagerStartup() {
+#if LICENSING_ENABLED
     MASReceiptStartup();
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         LicenseManagerRevalidateCode();
     });
+#endif
 }
 
 BOOL LicenseManagerShouldDisplayLicensingUI() {
@@ -39,10 +51,15 @@ BOOL LicenseManagerShouldDisplayLicensingUI() {
 }
 
 BOOL LicenseManagerShouldDisplayLicenseCodeUI() {
+#if LICENSING_ENABLED
     return LicenseManagerShouldDisplayLicensingUI() && !MASReceiptIsAuthenticated();
+#else
+    return NO;
+#endif
 }
 
 BOOL LicenseManagerIsLicenseCodeAccepted(LicenseManagerCodeStatus status) {
+#if LICENSING_ENABLED
     switch (status) {
         case LicenseManagerCodeStatusAcceptedIndividual:
         case LicenseManagerCodeStatusAcceptedBusiness:
@@ -52,16 +69,24 @@ BOOL LicenseManagerIsLicenseCodeAccepted(LicenseManagerCodeStatus status) {
         default:
             return NO;
     }
+#else
+    return NO;
+#endif
 }
 
-    BOOL LicenseManagerIsTrialMode() {
+BOOL LicenseManagerIsTrialMode() {
+#if LICENSING_ENABLED
     return LicenseManagerShouldDisplayLicensingUI() && !MASReceiptIsAuthenticated() && !LicenseManagerIsLicenseCodeAccepted(LicenseManagerGetCodeStatus());
+#else
+    return NO;
+#endif
 }
 
 BOOL LicenseManagerShouldDisplayPurchasingUI() {
     return LicenseManagerIsTrialMode();
 }
 
+#if LICENSING_ENABLED
 static NSString *LicenseManagerCleanLicenseCode(NSString *licenseCode) {
     if (!licenseCode)
         return @"";
@@ -73,21 +98,33 @@ static NSString *LicenseManagerCleanLicenseCode(NSString *licenseCode) {
         return licenseCode;
     }
 }
+#endif
 
 NSString *LicenseManagerGetLicenseCode() {
+#if LICENSING_ENABLED
     return LicenseManagerCleanLicenseCode([[NSUserDefaults standardUserDefaults] stringForKey:LicenseManagerLicenseCodePreferencesKey]);
+#else
+    return @"";
+#endif
 }
 
 void LicenseManagerSetLicenseCode(NSString *licenseCode) {
+#if LICENSING_ENABLED
     [[NSUserDefaults standardUserDefaults] setObject:LicenseManagerCleanLicenseCode(licenseCode) forKey:LicenseManagerLicenseCodePreferencesKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
     LicenseManagerRevalidateCode();
+#endif
 }
 
 LicenseManagerCodeStatus LicenseManagerGetCodeStatus() {
+#if LICENSING_ENABLED
     return _status;
+#else
+    return LicenseManagerCodeStatusLegacyVersionPerpetualLicense;
+#endif
 }
 
+#if LICENSING_ENABLED
 static void LicenseManagerRevalidateCode() {
     if (_validationRequested) {
         return;
@@ -152,3 +189,4 @@ static LicenseManagerCodeStatus LicenseManagerValidateCodeSync(NSString *code) {
         abort();
     }
 }
+#endif
