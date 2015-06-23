@@ -2,24 +2,25 @@
 # -*- encoding: utf-8 -*-
 
 require 'rake/clean'
-require_relative 'tasks/backend'
+Dir['tasks/*.rb'].each { |file| require_relative file }
 
 ROOT_DIR = File.expand_path('.')
 BUILDS_DIR = File.join(ROOT_DIR, 'dist')
-# XCODE_RELEASE_DIR = File.expand_path('~/Documents/XBuilds/Release')
 XCODE_RELEASE_DIR = File.join(ROOT_DIR, 'LiveReload/build/Release')
 SITE_DIR = File.join(ROOT_DIR, '../site/livereload.com/')
-TAG_PREFIX = 'v'
 S3_BUCKET = 'download.livereload.com'
-
-MAC_BUNDLE_NAME = 'LiveReload.app'
-MAC_ZIP_BASE_NAME = "LiveReload"
 MAC_SRC = File.join(ROOT_DIR, 'LiveReload')
-INFO_PLIST = File.join(MAC_SRC, 'LiveReload-Info.plist')
 
-MAC_VERSION_FILES = %w(
-    LiveReload/Classes/Application/version.h
-)
+
+MacVersion = VersionTasks.new('mac', 'LiveReload/LiveReload-Info.plist', %w(
+  LiveReload/Classes/Application/version.h
+))
+MacBuild = MacBuildTasks.new('mac', :version_tasks => MacVersion, :bundle_name => 'LiveReload.app', :zip_base_name => 'LiveReload', :tag_prefix => 'v', :channel => 'beta', :target => 'LiveReload')
+
+SnowLeopardVersion = VersionTasks.new('snowleo', 'LiveReload/LiveReload Snow Leopard Info.plist', %w(
+  LiveReload/Classes/Application/version_legacy.h
+))
+SnowLeopardBuild = MacBuildTasks.new('snowleo', :version_tasks => SnowLeopardVersion, :bundle_name => 'LiveReload Snow Leopard.app', :zip_base_name => 'LiveReload-SnowLeopard', :tag_prefix => 'snowleo', :channel => 'snowleo', :target => 'LiveReload (10.6)')
 
 
 def subst_version_refs_in_file file, ver
@@ -42,214 +43,6 @@ def subst_version_refs_in_file file, ver
     raise "Error: no substitutions made in #{file}" unless anything_matched
 
     File.open(file, 'w') { |f| f.write data }
-end
-
-
-module PList
-  class << self
-    def get file_name, key
-      if File.read(file_name) =~ %r!<key>#{Regexp.escape(key)}</key>\s*<string>(.*?)</string>!
-        $1.strip
-      else
-        nil
-      end
-    end
-    def set file_name, key, value
-      text = File.read(file_name).gsub(%r!(<key>#{Regexp.escape(key)}</key>\s*<string>).*?(</string>)!) {
-        "#{$1}#{value}#{$2}"
-      }
-      File.open(file_name, 'w') { |f| f.write text }
-    end
-  end
-end
-
-
-def marketing_for_internal_version version, greek=true
-  a, b, c, d = version.split('.').collect { |x| x.to_i }
-  x = case d
-        when  0 .. 29 then "α#{d}"
-        when 30 .. 49 then "β#{d-30}"
-        when 50 .. 69 then "rc#{d-60}"
-        when 70 .. 89 then ""
-        when nil      then ""
-        else               "unk#{d}"
-      end
-
-  result = "#{a}.#{b}"
-  result += ".#{c}" if c && c > 0
-  result += " #{x}" unless x.empty?
-  return result
-end
-
-def comparable_version_for version
-  version.split('.').collect { |x| sprintf("%02d", x) }.join('.')
-end
-
-
-module TheApp
-
-  def self.version
-    PList.get(INFO_PLIST, 'CFBundleVersion').split('.').collect { |x| "#{x.to_i}" }.join('.')
-  end
-
-  def self.marketing_version
-    marketing_for_internal_version(self.version)
-  end
-
-  def self.short_version
-    marketing_for_internal_version(self.version).gsub('α', 'a').gsub('β', 'b').gsub(' ', '')
-  end
-
-  def self.find_unused_suffix prefix, separator
-    all_tags = `git tag`.strip.split("\n")
-    suffix = "#{prefix}"
-    index = 1
-    while all_tags.include?("#{TAG_PREFIX}#{suffix}")
-      index += 1
-      suffix = "#{prefix}#{separator}#{index}"
-    end
-    return suffix
-  end
-
-end
-
-
-namespace :version do
-
-  desc "Print the current app version"
-  task :show do
-    puts TheApp.version
-  end
-
-  desc "Update Info.plist according to the current CFBundleVersion"
-  task :update do
-    marketing_version = marketing_for_internal_version(TheApp.version)
-    PList.set INFO_PLIST, 'CFBundleShortVersionString', marketing_version
-    MAC_VERSION_FILES.each { |file|  subst_version_refs_in_file file, marketing_version }
-  end
-
-  desc "Bump version number to the specified one"
-  task :bump, :version do |t, args|
-    if comparable_version_for(args[:version]) <= comparable_version_for(TheApp.version)
-      raise "New version #{args[:version]} is less than the current version #{TheApp.version}"
-    end
-
-    PList.set INFO_PLIST, 'CFBundleVersion', args[:version]
-    Rake::Task['version:update'].invoke()
-
-    sh 'git', 'add', INFO_PLIST
-    sh 'git', 'commit', '-v', '-e', '-m', "Bump version number to #{TheApp.short_version}"
-  end
-
-end
-
-namespace :mac do
-
-  desc "Upload the current version's build to S3"
-  task :upload do |t, args|
-    suffix = TheApp.short_version
-    zip_name = "#{MAC_ZIP_BASE_NAME}-#{suffix}.zip"
-    zip_path_in_builds = File.join(BUILDS_DIR, zip_name)
-
-    sh 's3cmd', '-P', 'put', zip_path_in_builds, "s3://#{S3_BUCKET}/#{zip_name}"
-    puts "http://download.livereload.com/LiveReload-#{suffix}.zip"
-  end
-
-  desc "Add the current version into the web site's versions_mac.yml"
-  task :publish do |t, args|
-    suffix = TheApp.short_version
-    zip_name = "#{MAC_ZIP_BASE_NAME}-#{suffix}.zip"
-    date = Time.new.strftime('%Y-%m-%d')
-    versions_file = File.join(SITE_DIR, '_data/versions_mac.yml')
-    url = "https://s3.amazonaws.com/download.livereload.com/LiveReload-#{suffix}.zip"
-
-    require 'net/http'
-    require 'uri'
-    uri = URI(url)
-    file_size = nil
-    puts "Getting the size of #{url}..."
-    Net::HTTP.start(uri.host, uri.port, :use_ssl => (uri.scheme == 'https')) do |http|
-      response = http.request_head(url)
-      file_size = response['content-length'].to_i
-    end
-    
-    snippet = <<-END
-- version: "#{suffix}"
-  date: #{date}
-  channels:
-    beta: yes
-    production: no
-  url: "https://s3.amazonaws.com/download.livereload.com/LiveReload-#{suffix}.zip"
-  file_size: #{file_size}
-  release_notes:
-    - title: TODO
-      details: TODO
-    END
-
-    content = snippet + "\n" + File.read(versions_file)
-    File.open(versions_file, 'w') { |f| f.write content } 
-    
-    sh 'subl', versions_file
-
-    puts
-    puts "To publish the beta site:"
-    puts
-    puts "    cd #{File.expand_path(SITE_DIR).sub(ENV['HOME'], '~')}"
-    puts "    jekyll serve"
-    puts "    open http://0.0.0.0:4000/beta/"
-    puts "    s3_website ..."
-    puts
-  end
-
-  desc "Build and zip using the current version number"
-  task :release do |t, args|
-    suffix = TheApp.short_version
-
-    zip_name = "#{MAC_ZIP_BASE_NAME}-#{suffix}.zip"
-    zip_path = File.join(XCODE_RELEASE_DIR, zip_name)
-    zip_path_in_builds = File.join(BUILDS_DIR, zip_name)
-    mac_bundle_path = File.join(XCODE_RELEASE_DIR, MAC_BUNDLE_NAME)
-
-    rm_f zip_path
-    rm_rf MAC_BUNDLE_NAME
-
-    Dir.chdir MAC_SRC do
-      sh 'xcodebuild clean'
-      sh 'xcodebuild'
-    end
-    Dir.chdir XCODE_RELEASE_DIR do
-      rm_rf zip_name
-      sh 'zip', '-9rXy', zip_name, MAC_BUNDLE_NAME
-    end
-
-    mkdir_p File.dirname(zip_path_in_builds)
-    cp zip_path, zip_path_in_builds
-
-    Dir.chdir BUILDS_DIR do
-      rm_rf MAC_BUNDLE_NAME
-      sh 'unzip', '-q', zip_name
-
-      puts
-      puts "Checking code signature after unzipping."
-      sh 'spctl', '-a', MAC_BUNDLE_NAME
-    end
-
-    sh 'open', '-R', zip_path_in_builds
-  end
-
-  desc "Tag using the current version number"
-  task :tag do |t, args|
-    suffix_for_tag = TheApp.short_version
-    tag = "#{TAG_PREFIX}#{suffix_for_tag}"
-    sh 'git', 'tag', tag  rescue nil
-
-    Dir.chdir 'LiveReload/Compilers' do
-      sh 'git', 'tag', tag  rescue nil
-      sh 'git', 'push', '--tags'
-    end
-
-    sh 'git', 'push', '--tags'
-  end
 end
 
 
@@ -344,84 +137,8 @@ task :routing do
 end
 
 
-
 ################################################################################
 # Windows
-
-WIN_BUNDLE_DIR = "WinApp"
-WIN_BUNDLE_RESOURCES_DIR = "#{WIN_BUNDLE_DIR}/Resources"
-WIN_BUNDLE_BACKEND_DIR = "#{WIN_BUNDLE_RESOURCES_DIR}/backend"
-
-WIN_VERSION_FILES = %w(
-    Windows/version.h
-    Windows/LiveReload.nsi
-)
-
-def win_version
-    File.read('Windows/VERSION').strip
-end
-
-namespace :win do
-
-  desc "Collects a Windows app files into a single folder"
-  task :bundle do
-    mkdir_p WIN_BUNDLE_DIR
-    mkdir_p WIN_BUNDLE_BACKEND_DIR
-
-    files = Dir["backend/{app/**/*.js,bin/livereload-backend.js,config/*.{json,js},lib/**/*.js,res/*.js,node_modules/{apitree,async,memorystream,plist,sha1,sugar,websocket.io}/**/*.{js,json}}"]
-    files.each { |file|  mkdir_p File.dirname(File.join(WIN_BUNDLE_RESOURCES_DIR, file))  }
-    files.each { |file|  cp file,             File.join(WIN_BUNDLE_RESOURCES_DIR, file)   }
-
-    cp "Windows/Resources/node.exe", "#{WIN_BUNDLE_RESOURCES_DIR}/node.exe"
-    cp "Windows/WinSparkle/WinSparkle.dll", "#{WIN_BUNDLE_DIR}/WinSparkle.dll"
-
-    install_files = files.map { |f| "Resources/#{f}" } + ["Resources/node.exe", "LiveReload.exe"]
-    install_files_by_folder = {}
-    install_files.each { |file|  (install_files_by_folder[File.dirname(file)] ||= []) << file }
-
-    nsis_spec = []
-    install_files_by_folder.sort.each do |folder, files|
-      nsis_spec << %Q<\nSetOutPath "$INSTDIR\\#{folder.gsub('/', '\\')}"\n> unless folder == '.'
-      files.each do |file|
-        nsis_spec << %Q<File "..\\WinApp\\#{file.gsub('/', '\\')}"\n>
-      end
-    end
-
-    File.open("Windows/files.nsi", "w") { |f| f << nsis_spec.join('') }
-  end
-
-  task :rmbundle do
-    rm_rf WIN_BUNDLE_DIR
-  end
-
-  desc "Recreate a Windows bundle from scratch"
-  task :rebundle => [:rmbundle, :bundle]
-
-  desc "Embed version number where it belongs"
-  task :version do
-      ver = win_version
-      WIN_VERSION_FILES.each { |file| subst_version_refs_in_file(file, ver) }
-  end
-
-  desc "Tag the current Windows version"
-  task :tag do
-    sh 'git', 'tag', "win#{win_version}"
-  end
-
-  desc "Upload the Windows installer"
-  task :upload do
-    installer_name = "LiveReload-#{win_version}-Setup.exe"
-    installer_path = File.join(BUILDS_DIR, installer_name)
-    unless File.exists? installer_path
-      fail "Installer does not exist: #{installer_path}"
-    end
-
-    sh 's3cmd', '-P', 'put', installer_path, "s3://#{S3_BUCKET}/#{installer_name}"
-    puts "https://s3.amazonaws.com/download.livereload.com/#{installer_name}"
-    puts "http://download.livereload.com/#{installer_name}"
-  end
-
-end
 
 desc "Install all prerequisites, compile all CoffeeScript files"
 task 'prepare' => ['backend:prepare']
