@@ -2,12 +2,19 @@
 class BaseMacBuildTasks
 
   def tag!
-    suffix_for_tag = @version_tasks.short_version
-    tag = "#{@tag_prefix}#{suffix_for_tag}"
+    tag = @tag_format.gsub('1.2.3', @version_tasks.short_version)
+
     sh 'git', 'tag', '-a', '-f', '-m', "#{tag}", tag
 
     Dir.chdir 'LiveReload/Compilers' do
       sh 'git', 'tag', '-a', '-f', '-m', "#{tag}", tag
+    end
+  end
+
+  def define_tag_task!
+    desc "Tag (just like the build task does)"
+    task "#{@prefix}:tag" do
+      tag!
     end
   end
 
@@ -21,9 +28,11 @@ class MacBuildTasks < BaseMacBuildTasks
     @version_tasks = options[:version_tasks]
     @bundle_name   = options[:bundle_name]
     @zip_base_name = options[:zip_base_name]
-    @tag_prefix    = options[:tag_prefix]
+    @tag_format    = options[:tag_format]
     @channel       = options[:channel]
     @target        = options[:target]
+
+    define_tag_task!
 
     desc "Upload the current version's build to S3"
     task "#{prefix}:upload" do
@@ -130,8 +139,10 @@ class MacAppStoreBuildTasks < BaseMacBuildTasks
   def initialize prefix, options
     @prefix        = prefix
     @version_tasks = options[:version_tasks]
-    @tag_prefix    = options[:tag_prefix]
+    @tag_format    = options[:tag_format]
     @scheme        = options[:scheme]
+
+    define_tag_task!
 
     desc "Build and archive using the current version number"
     task "#{prefix}:archive" do |t, args|
