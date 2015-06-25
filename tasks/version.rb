@@ -73,9 +73,9 @@ private
       prev_line = ""
       anything_matched = false
       data = orig.lines.map do |line|
-          if line =~ /\d\.\d\.\d/ && (line =~ /version/i || prev_line =~ /CFBundleShortVersionString|CFBundleVersion/)
+          if line =~ /\d{1,2}\.\d{1,2}\.\d{1,2}/ && (line =~ /version/i || prev_line =~ /CFBundleShortVersionString|CFBundleVersion/)
               anything_matched = true
-              new_line = line.gsub /\d\.\d\.\d/, ver
+              new_line = line.gsub /\d{1,2}\.\d{1,2}\.\d{1,3}/, ver
               puts "    #{new_line.strip}"
           else
               new_line = line

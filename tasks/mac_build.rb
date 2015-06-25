@@ -1,9 +1,23 @@
 
+class BaseMacBuildTasks
 
-class MacBuildTasks
+  def tag!
+    suffix_for_tag = @version_tasks.short_version
+    tag = "#{@tag_prefix}#{suffix_for_tag}"
+    sh 'git', 'tag', '-a', '-f', '-m', "#{tag}", tag
+
+    Dir.chdir 'LiveReload/Compilers' do
+      sh 'git', 'tag', '-a', '-f', '-m', "#{tag}", tag
+    end
+  end
+
+end
+
+class MacBuildTasks < BaseMacBuildTasks
   include Rake::DSL
 
   def initialize prefix, options
+    @prefix        = prefix
     @version_tasks = options[:version_tasks]
     @bundle_name   = options[:bundle_name]
     @zip_base_name = options[:zip_base_name]
@@ -101,24 +115,35 @@ class MacBuildTasks
         sh 'spctl', '-a', @bundle_name
       end
 
+      tag!
+
       sh 'open', '-R', zip_path_in_builds
-    end
-
-    desc "Tag using the current version number"
-    task "#{prefix}:tag" do |t, args|
-      suffix_for_tag = @version_tasks.short_version
-      tag = "#{@tag_prefix}#{suffix_for_tag}"
-      sh 'git', 'tag', '-f', tag
-
-      Dir.chdir 'LiveReload/Compilers' do
-        sh 'git', 'tag', '-f', tag
-        sh 'git', 'push', '--tags'
-      end
-
-      sh 'git', 'push', '--tags'
     end
   end
 
-private
+end
+
+
+class MacAppStoreBuildTasks < BaseMacBuildTasks
+  include Rake::DSL
+
+  def initialize prefix, options
+    @prefix        = prefix
+    @version_tasks = options[:version_tasks]
+    @tag_prefix    = options[:tag_prefix]
+    @scheme        = options[:scheme]
+
+    desc "Build and archive using the current version number"
+    task "#{prefix}:archive" do |t, args|
+      suffix = @version_tasks.short_version
+
+      Dir.chdir MAC_SRC do
+        sh 'xcodebuild', 'clean', '-scheme', @scheme
+        sh 'xcodebuild', 'archive', '-scheme', @scheme
+      end
+
+      tag!
+    end
+  end
 
 end

@@ -22,6 +22,11 @@ SnowLeopardVersion = VersionTasks.new('snowleo', 'LiveReload/LiveReload Snow Leo
 ))
 SnowLeopardBuild = MacBuildTasks.new('snowleo', :version_tasks => SnowLeopardVersion, :bundle_name => 'LiveReload Snow Leopard.app', :zip_base_name => 'LiveReload-SnowLeopard', :tag_prefix => 'snowleo', :channel => 'snowleo', :target => 'LiveReload (10.6)')
 
+MASVersion = VersionTasks.new('mas', 'LiveReload/LiveReload-Info-MAS.plist', %w(
+  LiveReload/Classes/Application/version_mas.h
+))
+MacAppStoreBuildTasks.new('mas', :version_tasks => MASVersion, :tag_prefix => 'mas', :scheme => 'LiveReload (MAS)')
+
 
 def subst_version_refs_in_file file, ver
     puts file
