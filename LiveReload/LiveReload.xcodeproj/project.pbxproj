@@ -341,6 +341,9 @@
 		43E34FA5147071E9001641AA /* stringutil.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E34FA4147071E8001641AA /* stringutil.c */; };
 		43E4BBE813C5DA7900A75F81 /* CoffeeScript.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43E4BBE713C5DA7900A75F81 /* CoffeeScript.lrplugin */; };
 		43E5DF621462829B0016CDA0 /* ImageAndTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E5DF611462829B0016CDA0 /* ImageAndTextCell.m */; };
+		43E77B1F1B3BF412001E7DF0 /* FSEventsFix.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E77B1C1B3BF412001E7DF0 /* FSEventsFix.c */; };
+		43E77B201B3BF412001E7DF0 /* FSEventsFix.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E77B1C1B3BF412001E7DF0 /* FSEventsFix.c */; };
+		43E77B211B3BF412001E7DF0 /* FSEventsFix.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E77B1C1B3BF412001E7DF0 /* FSEventsFix.c */; };
 		43F002CF146EC97B005D48A4 /* MainWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F002CE146EC97B005D48A4 /* MainWindow.m */; };
 		43F002D2146F4135005D48A4 /* TerminalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F002D1146F4135005D48A4 /* TerminalView.m */; };
 		43F002D4146F4144005D48A4 /* TerminalStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F002D3146F4144005D48A4 /* TerminalStripes.png */; };
@@ -946,6 +949,10 @@
 		43E4BBE713C5DA7900A75F81 /* CoffeeScript.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = CoffeeScript.lrplugin; path = Compilers/CoffeeScript.lrplugin; sourceTree = SOURCE_ROOT; };
 		43E5DF601462829B0016CDA0 /* ImageAndTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageAndTextCell.h; sourceTree = "<group>"; };
 		43E5DF611462829B0016CDA0 /* ImageAndTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageAndTextCell.m; sourceTree = "<group>"; };
+		43E77B1C1B3BF412001E7DF0 /* FSEventsFix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = FSEventsFix.c; sourceTree = "<group>"; };
+		43E77B1D1B3BF412001E7DF0 /* FSEventsFix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSEventsFix.h; sourceTree = "<group>"; };
+		43E77B1E1B3BF412001E7DF0 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		43E77B491B3BF5D7001E7DF0 /* version_mas.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = version_mas.h; path = Classes/Application/version_mas.h; sourceTree = "<group>"; };
 		43F002CD146EC97B005D48A4 /* MainWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindow.h; sourceTree = "<group>"; };
 		43F002CE146EC97B005D48A4 /* MainWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainWindow.m; sourceTree = "<group>"; };
 		43F002D0146F4135005D48A4 /* TerminalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TerminalView.h; sourceTree = "<group>"; };
@@ -1232,6 +1239,7 @@
 				823DDE2D13F8DA3100529AD2 /* Classes */,
 				43C0368513CA191C00A01305 /* LiveReload.icns */,
 				43361D4513C30D1400C0E589 /* libicucore.dylib */,
+				43E77B1B1B3BF411001E7DF0 /* FSEventsFix */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
@@ -1259,9 +1267,10 @@
 				43719FD31565FE5F004B0E0C /* backend */,
 				8D1107310486CEB800E47090 /* LiveReload-Info.plist */,
 				434DB81E1514F71400C62042 /* version.h */,
+				43043CB31B32E51A00472E3A /* version_legacy.h */,
+				43E77B491B3BF5D7001E7DF0 /* version_mas.h */,
 				4351302E1ACD750E0073A0D4 /* LiveReload-Info-MAS.plist */,
 				43043CAF1B31AB3500472E3A /* LiveReload Snow Leopard Info.plist */,
-				43043CB31B32E51A00472E3A /* version_legacy.h */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 				439C093213ADCBDD00119233 /* monitoring.plist */,
@@ -1437,6 +1446,17 @@
 			);
 			name = Shared;
 			path = ../../Shared;
+			sourceTree = "<group>";
+		};
+		43E77B1B1B3BF411001E7DF0 /* FSEventsFix */ = {
+			isa = PBXGroup;
+			children = (
+				43E77B1D1B3BF412001E7DF0 /* FSEventsFix.h */,
+				43E77B1C1B3BF412001E7DF0 /* FSEventsFix.c */,
+				43E77B1E1B3BF412001E7DF0 /* README.md */,
+			);
+			name = FSEventsFix;
+			path = ../FSEventsFix;
 			sourceTree = "<group>";
 		};
 		43F301D51477A67D0072F324 /* libs */ = {
@@ -2307,6 +2327,7 @@
 				43512FBA1ACD750D0073A0D4 /* FileCompilationOptions.m in Sources */,
 				43512FBB1ACD750D0073A0D4 /* Project.m in Sources */,
 				43512FBC1ACD750D0073A0D4 /* Workspace.m in Sources */,
+				43E77B201B3BF412001E7DF0 /* FSEventsFix.c in Sources */,
 				43512FBD1ACD750D0073A0D4 /* Compiler.m in Sources */,
 				43512FBE1ACD750D0073A0D4 /* Analytics.m in Sources */,
 				43512FBF1ACD750D0073A0D4 /* CompilerVersion.m in Sources */,
@@ -2439,6 +2460,7 @@
 				43F1F9971B2EE434008F5843 /* FileCompilationOptions.m in Sources */,
 				43F1F9981B2EE434008F5843 /* Project.m in Sources */,
 				43F1F9991B2EE434008F5843 /* Workspace.m in Sources */,
+				43E77B211B3BF412001E7DF0 /* FSEventsFix.c in Sources */,
 				43F1F99A1B2EE434008F5843 /* Compiler.m in Sources */,
 				43F1F99B1B2EE434008F5843 /* Analytics.m in Sources */,
 				43F1F99C1B2EE434008F5843 /* CompilerVersion.m in Sources */,
@@ -2560,6 +2582,7 @@
 				823DDEF013F8DA3100529AD2 /* FileCompilationOptions.m in Sources */,
 				823DDEF113F8DA3100529AD2 /* Project.m in Sources */,
 				823DDEF213F8DA3100529AD2 /* Workspace.m in Sources */,
+				43E77B1F1B3BF412001E7DF0 /* FSEventsFix.c in Sources */,
 				823DDEF713F8DA3100529AD2 /* Compiler.m in Sources */,
 				436A654D1A92454900335BAD /* Analytics.m in Sources */,
 				823DDEF813F8DA3100529AD2 /* CompilerVersion.m in Sources */,
