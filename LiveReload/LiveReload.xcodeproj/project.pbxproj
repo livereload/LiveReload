@@ -144,7 +144,6 @@
 		43512F931ACD750D0073A0D4 /* LRTerminalButtonOnHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F0030314700C96005D48A4 /* LRTerminalButtonOnHighlight.png */; };
 		43512F941ACD750D0073A0D4 /* IcedCoffeeScript.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 4349AAF514D48DB5009350DA /* IcedCoffeeScript.lrplugin */; };
 		43512F951ACD750D0073A0D4 /* backend in Resources */ = {isa = PBXBuildFile; fileRef = 43719FD31565FE5F004B0E0C /* backend */; };
-		43512F961ACD750D0073A0D4 /* LiveReloadNodejs in Resources */ = {isa = PBXBuildFile; fileRef = 43693F4015660A8700C453CC /* LiveReloadNodejs */; };
 		43512F971ACD750D0073A0D4 /* LicenseCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 439A76AF15B28EF100E50057 /* LicenseCodeViewController.xib */; };
 		43512F981ACD750D0073A0D4 /* LicenseCodeWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 439A76B515B28F8C00E50057 /* LicenseCodeWindowController.xib */; };
 		43512F991ACD750D0073A0D4 /* LR-A9BC.public in Resources */ = {isa = PBXBuildFile; fileRef = 4303A4AF15B3898D009D732A /* LR-A9BC.public */; };
@@ -2052,7 +2051,6 @@
 				43512F931ACD750D0073A0D4 /* LRTerminalButtonOnHighlight.png in Resources */,
 				43512F941ACD750D0073A0D4 /* IcedCoffeeScript.lrplugin in Resources */,
 				43512F951ACD750D0073A0D4 /* backend in Resources */,
-				43512F961ACD750D0073A0D4 /* LiveReloadNodejs in Resources */,
 				43512F971ACD750D0073A0D4 /* LicenseCodeViewController.xib in Resources */,
 				43512F981ACD750D0073A0D4 /* LicenseCodeWindowController.xib in Resources */,
 				43512F991ACD750D0073A0D4 /* LR-A9BC.public in Resources */,
