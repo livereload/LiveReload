@@ -27,8 +27,8 @@ class VersionTasks
       PList.set @src_file, 'CFBundleVersion', args[:version]
       Rake::Task["#{prefix}:propagate"].invoke()
 
-      sh 'git', 'add', @src_file
-      sh 'git', 'commit', '-v', '-e', '-m', "Bump version number to #{short_version}"
+      sh 'git', 'add', @src_file, *@dst_files
+      sh 'git', 'commit', '-v', '-e', '-m', "Version bump to #{short_version}"
     end
   end
 
