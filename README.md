@@ -47,17 +47,21 @@ Hacking tips
 Updating Node.js
 ----------------
 
-To embed an Info.plist into the Node.js binary, use [gimmedebugah](https://github.com/gdbinit/gimmedebugah):
+To re-sign the Node.js binary:
+
+    codesign -f -s "3rd Party Mac Developer Application: Andrey Tarantsov" --identifier 'com.livereload.LiveReload.tools.nodejs' --entitlements LiveReload/Resources/LiveReloadNodejs.entitlements LiveReload/Resources/LiveReloadNodejs
+
+
+Embedding Info.plist into Node.js
+---------------------------------
+
+We used to embed an Info.plist into the Node.js binary, but it started to result in a Mac App Store rejection (“invalid binary: missing bundle identifier”) as of June 2015.
+
+If you ever need to try it again, use [gimmedebugah](https://github.com/gdbinit/gimmedebugah):
 
     gimmedebugah -p LiveReload/Resources/LiveReloadNodejsInfo.plist LiveReload/Resources/LiveReloadNodejs
     mv LiveReload/Resources/LiveReloadNodejs.patched LiveReload/Resources/LiveReloadNodejs
     chmod +x LiveReload/Resources/LiveReloadNodejs
-
-Note that embedding Info.plist is not required, and in fact the most recent MAS version (2.3.62) does not have it. However, I had to find a way while working on a MAS problem, so it's documented here.
-
-To re-sign the Node.js binary:
-
-    codesign -f -s "3rd Party Mac Developer Application: Andrey Tarantsov" --identifier 'com.livereload.LiveReload.tools.nodejs' --entitlements LiveReload/Resources/LiveReloadNodejs.entitlements LiveReload/Resources/LiveReloadNodejs
 
 
 Subprojects
