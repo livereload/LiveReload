@@ -63,6 +63,10 @@ If you ever need to try it again, use [gimmedebugah](https://github.com/gdbinit/
     mv LiveReload/Resources/LiveReloadNodejs.patched LiveReload/Resources/LiveReloadNodejs
     chmod +x LiveReload/Resources/LiveReloadNodejs
 
+To check for an embedded plist (if there is one, pipe the output to `xxd -r`):
+
+    otool -X -s __TEXT __info_plist LiveReload/Resources/LiveReloadNodejs
+
 
 Subprojects
 -----------
