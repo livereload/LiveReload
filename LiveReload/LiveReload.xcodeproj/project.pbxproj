@@ -278,6 +278,7 @@
 		4351301D1ACD750D0073A0D4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		4351301E1ACD750D0073A0D4 /* Paddle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65321A923B9E00335BAD /* Paddle.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		435130261ACD750D0073A0D4 /* Paddle.framework in Embed Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65321A923B9E00335BAD /* Paddle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		435316A41B52652A00269A51 /* LiveReloadNodejs in Resources */ = {isa = PBXBuildFile; fileRef = 43693F4015660A8700C453CC /* LiveReloadNodejs */; };
 		4353196F1465B52D005FA59F /* ShitHappens.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353196E1465B52D005FA59F /* ShitHappens.m */; };
 		4353197214668E7D005FA59F /* LRHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4353197014668E7D005FA59F /* LRHelpTemplate.png */; };
 		4353197314668E7D005FA59F /* LRSupportTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4353197114668E7D005FA59F /* LRSupportTemplate.png */; };
@@ -2041,6 +2042,7 @@
 				43512F8A1ACD750D0073A0D4 /* TitleBarHelpTemplate.png in Resources */,
 				43DB18891B2550EA0042ABF5 /* AndreyTarantsov.jpg in Resources */,
 				43512F8B1ACD750D0073A0D4 /* TerminalStripes.png in Resources */,
+				435316A41B52652A00269A51 /* LiveReloadNodejs in Resources */,
 				43512F8C1ACD750D0073A0D4 /* TerminalBackground.png in Resources */,
 				43512F8D1ACD750D0073A0D4 /* TerminalGlare.png in Resources */,
 				43512F8E1ACD750D0073A0D4 /* TerminalBackgroundSquare.png in Resources */,
