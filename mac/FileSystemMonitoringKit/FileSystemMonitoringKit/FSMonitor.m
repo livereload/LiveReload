@@ -3,6 +3,7 @@
 #import "FSTreeDiffer.h"
 #import "FSTreeFilter.h"
 #import "FSTree.h"
+#import "FSEventsFix.h"
 
 
 static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMonitor *monitor, size_t numEvents, NSArray *eventPaths, const FSEventStreamEventFlags eventFlags[], const FSEventStreamEventId eventIds[]);
@@ -17,8 +18,10 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
 @end
 
 
-@implementation FSMonitor
+static BOOL g_FSEventsBugWorkaroundDisabled;
 
+
+@implementation FSMonitor
 @synthesize path=_path;
 @synthesize delegate=_delegate;
 @synthesize filter=_filter;
@@ -26,6 +29,15 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
 @synthesize eventCache = _eventCache;
 @synthesize cacheWaitingTime = _cacheWaitingTime;
 @synthesize eventProcessingDelay=_eventProcessingDelay;
+
+
++ (void)initialize {
+    if (self == [FSMonitor class]) {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"FSEventsFixDisable"]) {
+            g_FSEventsBugWorkaroundDisabled = YES;
+        }
+    }
+}
 
 
 #pragma mark -
@@ -96,6 +108,18 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
     context.release = NULL;
     context.copyDescription = NULL;
 
+    BOOL workaroundNeeded = FSEventsFixIsBroken(_path.fileSystemRepresentation);
+    BOOL workaroundWanted = workaroundNeeded && !g_FSEventsBugWorkaroundDisabled;
+    BOOL workaroundInstalled = NO;
+    if (workaroundWanted) {
+        char *error = NULL;
+        NSLog(@"Enabling FSEventsFix %s.", FSEventsFixVersionString);
+        workaroundInstalled = FSEventsFixEnable(&error);
+        if (!workaroundInstalled) {
+            NSLog(@"FSEventsFixEnable() failed: %s", error);
+            free(error);
+        }
+    }
     _streamRef = FSEventStreamCreate(nil,
                                      (FSEventStreamCallback)FSMonitorEventStreamCallback,
                                      &context,
@@ -103,13 +127,40 @@ static void FSMonitorEventStreamCallback(ConstFSEventStreamRef streamRef, FSMoni
                                      kFSEventStreamEventIdSinceNow,
                                      0.05,
                                      kFSEventStreamCreateFlagUseCFTypes|kFSEventStreamCreateFlagNoDefer);
+    if (workaroundInstalled) {
+        FSEventsFixDisable();
+    }
     if (!_streamRef) {
         NSLog(@"Failed to start monitoring of %@ (FSEventStreamCreate error)", _path);
     }
     
     NSArray *actualPaths = (NSArray *) CFBridgingRelease(FSEventStreamCopyPathsBeingWatched(_streamRef));
-    NSLog(@"FSEvents actual path being watched: %@", [actualPaths componentsJoinedByString:@"; "]);
-    
+    NSString *actualPath = [actualPaths firstObject];
+    NSLog(@"FSEvents actual path being watched: %@", actualPath);
+
+    BOOL brokenAfterAll = !FSEventsFixIsCorrectPathToWatch(actualPath.fileSystemRepresentation);
+    if (brokenAfterAll) {
+        if (workaroundInstalled) {
+            NSLog(@"FSEventsFix: folder still broken after workaround: %@", actualPath);
+        } else if (workaroundWanted) {
+            NSLog(@"FSEventsFix: folder is broken because workaround failed to install: %@", actualPath);
+        } else {
+            NSLog(@"FSEventsFix: folder is broken because workaround was disabled: %@", actualPath);
+        }
+        if ([_delegate respondsToSelector:@selector(fileSystemMonitor:didFailToWorkAroundFSEventsBugWithRootBrokenFolderPath:)]) {
+            char *rootC = FSEventsFixCopyRootBrokenFolderPath(_path.fileSystemRepresentation);
+            if (rootC) {
+                NSString *root = [NSString stringWithCString:rootC encoding:NSUTF8StringEncoding];
+                free(rootC);
+                [_delegate fileSystemMonitor:self didFailToWorkAroundFSEventsBugWithRootBrokenFolderPath:root];
+            }
+        }
+    } else if (workaroundInstalled) {
+        NSLog(@"FSEventsFix: successfully worked around the bug in %@", actualPath);
+        if ([_delegate respondsToSelector:@selector(fileSystemMonitorDidWorkAroundFSEventsBug:)]) {
+            [_delegate fileSystemMonitorDidWorkAroundFSEventsBug:self];
+        }
+    }
 
     FSEventStreamScheduleWithRunLoop(_streamRef, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
     if (!FSEventStreamStart(_streamRef)) {

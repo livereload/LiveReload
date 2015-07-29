@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		435E935B1B084A4000BB8118 /* FSEventsFix.c in Sources */ = {isa = PBXBuildFile; fileRef = 435E93581B084A4000BB8118 /* FSEventsFix.c */; };
+		435E935C1B084A4000BB8118 /* FSEventsFix.h in Headers */ = {isa = PBXBuildFile; fileRef = 435E93591B084A4000BB8118 /* FSEventsFix.h */; };
 		439316DE1985299200685024 /* FileSystemMonitoringKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 439316DD1985299200685024 /* FileSystemMonitoringKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		439316E41985299200685024 /* FileSystemMonitoringKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 439316D81985299200685024 /* FileSystemMonitoringKit.framework */; };
 		439316EB1985299200685024 /* FileSystemMonitoringKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 439316EA1985299200685024 /* FileSystemMonitoringKitTests.m */; };
@@ -33,6 +35,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		435E93581B084A4000BB8118 /* FSEventsFix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = FSEventsFix.c; sourceTree = "<group>"; };
+		435E93591B084A4000BB8118 /* FSEventsFix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSEventsFix.h; sourceTree = "<group>"; };
 		439316D81985299200685024 /* FileSystemMonitoringKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FileSystemMonitoringKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		439316DC1985299200685024 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		439316DD1985299200685024 /* FileSystemMonitoringKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileSystemMonitoringKit.h; sourceTree = "<group>"; };
@@ -70,10 +74,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		435E93571B084A4000BB8118 /* FSEventsFix */ = {
+			isa = PBXGroup;
+			children = (
+				435E93591B084A4000BB8118 /* FSEventsFix.h */,
+				435E93581B084A4000BB8118 /* FSEventsFix.c */,
+			);
+			path = FSEventsFix;
+			sourceTree = "<group>";
+		};
 		439316CE1985299200685024 = {
 			isa = PBXGroup;
 			children = (
 				439316DA1985299200685024 /* FileSystemMonitoringKit */,
+				435E93571B084A4000BB8118 /* FSEventsFix */,
 				439316E71985299200685024 /* FileSystemMonitoringKitTests */,
 				439316D91985299200685024 /* Products */,
 			);
@@ -141,6 +155,7 @@
 			files = (
 				439316DE1985299200685024 /* FileSystemMonitoringKit.h in Headers */,
 				4393170919852A2500685024 /* FSMonitor.h in Headers */,
+				435E935C1B084A4000BB8118 /* FSEventsFix.h in Headers */,
 				4393170719852A2500685024 /* FSChange.h in Headers */,
 				4393170F19852A2500685024 /* FSTreeFilter.h in Headers */,
 				4393170B19852A2500685024 /* FSTree.h in Headers */,
@@ -246,6 +261,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4393170819852A2500685024 /* FSChange.m in Sources */,
+				435E935B1B084A4000BB8118 /* FSEventsFix.c in Sources */,
 				4393170A19852A2500685024 /* FSMonitor.m in Sources */,
 				4393171019852A2500685024 /* FSTreeFilter.m in Sources */,
 				4393170E19852A2500685024 /* FSTreeDiffer.m in Sources */,
@@ -437,6 +453,7 @@
 				439316F01985299200685024 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		439316F11985299200685024 /* Build configuration list for PBXNativeTarget "FileSystemMonitoringKitTests" */ = {
 			isa = XCConfigurationList;
@@ -445,6 +462,7 @@
 				439316F31985299200685024 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
