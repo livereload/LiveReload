@@ -33,6 +33,6 @@
 
 @protocol HyperlinkTextFieldDelegate <NSTextFieldDelegate>
 
-- (void)handleURL:(NSURL *)url inTextField:(HyperlinkTextField *)textField;
+- (void)handleURL:(nonnull NSURL *)url inTextField:(nonnull HyperlinkTextField *)textField withEvent:(nonnull NSEvent *)theEvent;
 
 @end

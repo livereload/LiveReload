@@ -1,6 +1,7 @@
 @import LRCommons;
 @import LRActionKit;
 @import PackageManagerKit;
+@import LRActionsPresentationKit;
 
 #import "NewMainWindowController.h"
 

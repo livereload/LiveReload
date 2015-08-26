@@ -148,7 +148,7 @@
             {
                 NSURL *url = [info objectForKey:kHyperlinkInfoURLKey];
                 if ([self.delegate conformsToProtocol:@protocol(HyperlinkTextFieldDelegate)]) {
-                    [(id<HyperlinkTextFieldDelegate>)self.delegate handleURL:url inTextField:self];
+                    [(id<HyperlinkTextFieldDelegate>)self.delegate handleURL:url inTextField:self withEvent:theEvent];
                 } else {
                     [[NSWorkspace sharedWorkspace] openURL:url];
                 }

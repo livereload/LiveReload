@@ -10,11 +10,24 @@ import Cocoa
 import SwiftyFoundation
 import LRCommons
 
+public enum ActionsViewMode: Int {
+    case Summary
+    case AllOptions
+    case AllActions
+
+    var showsAllOptions: Bool {
+        return self == .AllOptions
+    }
+
+    var showsInactiveActions: Bool {
+        return self == .AllActions
+    }
+}
+
 public class ExperimentalActionsWindowController: NSWindowController, HyperlinkTextFieldDelegate, ActionCellViewDelegate {
 
     @IBOutlet var tableView: NSTableView!
     @IBOutlet var visibleRulesControl: NSSegmentedControl!
-    @IBOutlet var visibleOptionsControl: NSSegmentedControl!
 
     public var narratives: [String: AnyObject] = [:]
 
@@ -23,8 +36,7 @@ public class ExperimentalActionsWindowController: NSWindowController, HyperlinkT
 
     var measuringCell: ActionCellView!
 
-    var additionalMode = false
-    var expandedMode = false
+    var viewMode = ActionsViewMode.Summary
 
     public init(windowNibName: String) {
         super.init(window: nil)
@@ -60,7 +72,7 @@ public class ExperimentalActionsWindowController: NSWindowController, HyperlinkT
         rule.alwaysVisible = true
         rule.analysisNarrative = "You have 4 Less files in src/ subfolder."
         rule.checkboxLabel = "Less"
-        rule.introNarrative1 = "Pragmatic stylesheet language with a CSS-like syntax, best known for being used by Bootstrap."
+        rule.introNarrative1 = "Pragmatic stylesheet language with a CSS-like syntax, best known for being used by Bootstrap. [More info]"
         rule.summaryNarrative = "Compile [4 files] from [less/] into [css/]"
         rule.additionalNarrative = "Use the [latest stable] version of LESS (1.4.6)."
         items.append(rule)
@@ -130,7 +142,7 @@ public class ExperimentalActionsWindowController: NSWindowController, HyperlinkT
         let paraStyle = NSMutableParagraphStyle()
         paraStyle.paragraphSpacing = 12
 
-        let narrative = (rule.enabled ? (expandedMode ? rule.detailedNarrative : rule.summaryNarrative) : (additionalMode || expandedMode ? rule.expandedIntroNarrative : rule.introNarrative))
+        let narrative = (rule.enabled ? (viewMode.showsAllOptions ? rule.detailedNarrative : rule.summaryNarrative) : rule.introNarrative)
 
         let formattedString = NSMutableAttributedString(string: narrative, attributes: [NSParagraphStyleAttributeName: paraStyle])
         replaceTextWithHyperlinks(formattedString)
@@ -168,8 +180,20 @@ public class ExperimentalActionsWindowController: NSWindowController, HyperlinkT
         }
     }
 
-    public func handleURL(url: NSURL!, inTextField textField: HyperlinkTextField!) {
+    public func handleURL(url: NSURL, inTextField textField: HyperlinkTextField, withEvent event: NSEvent) {
         println("Got click on \(url)")
+        let menu = NSMenu()
+        menu.autoenablesItems = false
+        menu.addItemWithTitle("Foo", action: nil, keyEquivalent: "")
+        menu.addItemWithTitle("Bar", action: nil, keyEquivalent: "")
+        menu.addItemWithTitle("Boz", action: nil, keyEquivalent: "")
+
+        let current = menu.itemAtIndex(1)!
+        current.state = NSOnState
+
+        let view = event.window!.contentView as! NSView
+
+        menu.popUpMenuPositioningItem(current, atLocation: event.locationInWindow, inView: view)
     }
 
     func clickedCheckboxInCellView(cell: ActionCellView) {
@@ -182,42 +206,18 @@ public class ExperimentalActionsWindowController: NSWindowController, HyperlinkT
         }
     }
 
-    @IBAction func toggleAdditionMode(sender: AnyObject) {
-        additionalMode = !additionalMode
-        updateVisibleItems(animated: true)
-    }
-
-    @IBAction func toggleExpandedMode(sender: AnyObject) {
-        expandedMode = !expandedMode
-        tableView.enumerateAvailableRowViewsUsingBlock { (rowView, row) in
-            let cell = rowView.viewAtColumn(0) as! ActionCellView
-            self.configureCellViewNarrative(cell)
-        }
-        tableView.noteHeightOfRowsWithIndexesChanged(NSIndexSet(indexesInRange: NSMakeRange(0, tableView.numberOfRows)))
-    }
-
     func updatedVisibleXControls() {
-        visibleRulesControl.selectedSegment = (additionalMode ? 1 : 0);
-        visibleOptionsControl.selectedSegment = (expandedMode ? 1 : 0);
+        visibleRulesControl.selectedSegment = viewMode.rawValue
     }
 
     @IBAction func toggledVisibleRules(sender: AnyObject) {
-        additionalMode = (visibleRulesControl.selectedSegment == 1);
+        viewMode = ActionsViewMode(rawValue: visibleRulesControl.selectedSegment)!
         updateVisibleItems(animated: true)
-    }
-
-    @IBAction func toggledVisibleOptions(sender: AnyObject) {
-        expandedMode = (visibleOptionsControl.selectedSegment == 1);
-        tableView.enumerateAvailableRowViewsUsingBlock { (rowView, row) in
-            let cell = rowView.viewAtColumn(0) as! ActionCellView
-            self.configureCellViewNarrative(cell)
-        }
-        tableView.noteHeightOfRowsWithIndexesChanged(NSIndexSet(indexesInRange: NSMakeRange(0, tableView.numberOfRows)))
     }
 
     func updateVisibleItems(#animated: Bool) {
         let previousVisibleItems = visibleItems
-        if additionalMode {
+        if viewMode.showsInactiveActions {
             visibleItems = items
         } else {
             visibleItems = items.filter { $0.enabled || $0.alwaysVisible }
@@ -227,7 +227,7 @@ public class ExperimentalActionsWindowController: NSWindowController, HyperlinkT
 
         if animated {
             tableView.beginUpdates()
-            if additionalMode {
+            if viewMode.showsInactiveActions {
                 let indexSet = NSMutableIndexSet()
                 for (index, item) in enumerate(visibleItems) {
                     if find(previousVisibleItems, item) == nil {
@@ -244,6 +244,11 @@ public class ExperimentalActionsWindowController: NSWindowController, HyperlinkT
                 }
                 tableView.removeRowsAtIndexes(indexSet, withAnimation: .EffectFade)
             }
+            tableView.enumerateAvailableRowViewsUsingBlock { (rowView, row) in
+                let cell = rowView.viewAtColumn(0) as! ActionCellView
+                self.configureCellViewNarrative(cell)
+            }
+            tableView.noteHeightOfRowsWithIndexesChanged(NSIndexSet(indexesInRange: NSMakeRange(0, tableView.numberOfRows)))
             tableView.endUpdates()
         }
     }

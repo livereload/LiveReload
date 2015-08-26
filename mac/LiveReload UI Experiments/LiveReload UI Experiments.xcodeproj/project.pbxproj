@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		430E6201199CD7A000838177 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430E6200199CD7A000838177 /* main.swift */; };
 		430E6203199CD7A000838177 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430E6202199CD7A000838177 /* AppDelegate.swift */; };
 		430E6205199CD7A000838177 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 430E6204199CD7A000838177 /* Images.xcassets */; };
 		430E6208199CD7A000838177 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 430E6206199CD7A000838177 /* MainMenu.xib */; };
@@ -152,7 +151,6 @@
 /* Begin PBXFileReference section */
 		430E61FB199CD7A000838177 /* LiveReload UI Experiments.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LiveReload UI Experiments.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		430E61FF199CD7A000838177 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		430E6200199CD7A000838177 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		430E6202199CD7A000838177 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		430E6204199CD7A000838177 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		430E6207199CD7A000838177 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -263,7 +261,6 @@
 			isa = PBXGroup;
 			children = (
 				430E61FF199CD7A000838177 /* Info.plist */,
-				430E6200199CD7A000838177 /* main.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -611,7 +608,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				430E6203199CD7A000838177 /* AppDelegate.swift in Sources */,
-				430E6201199CD7A000838177 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -745,6 +741,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "LiveReload UI Experiments/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "LiveReload UI Experiments/LiveReload UI Experiments-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -759,6 +756,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "LiveReload UI Experiments/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "LiveReload UI Experiments/LiveReload UI Experiments-Bridging-Header.h";
 			};
