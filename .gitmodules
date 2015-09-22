@@ -1,3 +1,15 @@
 [submodule "plugins"]
 	path = plugins
 	url = git@github.com:livereload/livereload-plugins.git
+[submodule "ExpressiveCollections"]
+	path = ExpressiveCollections
+	url = git@github.com:andreyvit/ExpressiveCollections.swift.git
+[submodule "ExpressiveCasting"]
+	path = ExpressiveCasting
+	url = git@github.com:andreyvit/ExpressiveCasting.swift.git
+[submodule "ExpressiveFoundation"]
+	path = ExpressiveFoundation
+	url = git@github.com:andreyvit/ExpressiveFoundation.swift.git
+[submodule "ExpressiveCocoa"]
+	path = ExpressiveCocoa
+	url = git@github.com:andreyvit/ExpressiveCocoa.swift.git
