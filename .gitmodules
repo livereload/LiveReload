@@ -13,3 +13,6 @@
 [submodule "ExpressiveCocoa"]
 	path = ExpressiveCocoa
 	url = git@github.com:andreyvit/ExpressiveCocoa.swift.git
+[submodule "ATPathSpec"]
+	path = ATPathSpec
+	url = git@github.com:andreyvit/ATPathSpec.git
