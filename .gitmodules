@@ -16,3 +16,9 @@
 [submodule "ATPathSpec"]
 	path = ATPathSpec
 	url = git@github.com:andreyvit/ATPathSpec.git
+[submodule "FSMonitoringKit"]
+	path = FSMonitoringKit
+	url = git@github.com:andreyvit/FSMonitoringKit.git
+[submodule "ATVersionKit"]
+	path = ATVersionKit
+	url = git@github.com:andreyvit/ATVersionKit.git

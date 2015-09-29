@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4306933A1BBB392000B2E70A /* ATVersionKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 430693391BBB392000B2E70A /* ATVersionKit.framework */; };
 		43D6A89E1BB218EB00296B03 /* ExpressiveCollections.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D6A89D1BB218EB00296B03 /* ExpressiveCollections.framework */; };
 		43D6A8D11BB2A5AB00296B03 /* ExpressiveCasting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D6A8D01BB2A5AB00296B03 /* ExpressiveCasting.framework */; };
 		43D6A8E61BB2A8EB00296B03 /* ExpressiveFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D6A8E51BB2A8EB00296B03 /* ExpressiveFoundation.framework */; };
@@ -17,6 +18,7 @@
 		43D6A92F1BB2AD0200296B03 /* LiveReloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D6A92E1BB2AD0200296B03 /* LiveReloadTests.swift */; settings = {ASSET_TAGS = (); }; };
 		43D6A9321BB2AD0A00296B03 /* LiveReloadUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D6A9311BB2AD0A00296B03 /* LiveReloadUITests.swift */; settings = {ASSET_TAGS = (); }; };
 		43D6A98F1BB4490A00296B03 /* ATPathSpec.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D6A98E1BB4490A00296B03 /* ATPathSpec.framework */; };
+		43F4E4F31BB5FC5A004EFF5C /* FSMonitoringKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43F4E4F21BB5FC5A004EFF5C /* FSMonitoringKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		430693391BBB392000B2E70A /* ATVersionKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ATVersionKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		430F0CE31BB0AB3D00F8B30A /* LiveReload.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveReload.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		430F0CF21BB0AB3D00F8B30A /* LiveReloadTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiveReloadTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		430F0CFD1BB0AB3E00F8B30A /* LiveReloadUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiveReloadUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -53,6 +56,7 @@
 		43D6A92E1BB2AD0200296B03 /* LiveReloadTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveReloadTests.swift; sourceTree = "<group>"; };
 		43D6A9311BB2AD0A00296B03 /* LiveReloadUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveReloadUITests.swift; sourceTree = "<group>"; };
 		43D6A98E1BB4490A00296B03 /* ATPathSpec.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ATPathSpec.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		43F4E4F21BB5FC5A004EFF5C /* FSMonitoringKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FSMonitoringKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +64,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4306933A1BBB392000B2E70A /* ATVersionKit.framework in Frameworks */,
+				43F4E4F31BB5FC5A004EFF5C /* FSMonitoringKit.framework in Frameworks */,
 				43D6A98F1BB4490A00296B03 /* ATPathSpec.framework in Frameworks */,
 				43D6A91D1BB2AB3D00296B03 /* ExpressiveCocoa.framework in Frameworks */,
 				43D6A8E61BB2A8EB00296B03 /* ExpressiveFoundation.framework in Frameworks */,
@@ -170,6 +176,8 @@
 		43D6A9331BB2AD1200296B03 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				430693391BBB392000B2E70A /* ATVersionKit.framework */,
+				43F4E4F21BB5FC5A004EFF5C /* FSMonitoringKit.framework */,
 				43D6A98E1BB4490A00296B03 /* ATPathSpec.framework */,
 				43D6A91C1BB2AB3D00296B03 /* ExpressiveCocoa.framework */,
 				43D6A8E51BB2A8EB00296B03 /* ExpressiveFoundation.framework */,
