@@ -713,6 +713,7 @@
 				43A6B7C91BBC768200824E48 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		43A6B7CA1BBC768200824E48 /* Build configuration list for PBXNativeTarget "PackageManagerKitTests" */ = {
 			isa = XCConfigurationList;
@@ -721,6 +722,7 @@
 				43A6B7CC1BBC768200824E48 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
