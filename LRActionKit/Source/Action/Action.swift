@@ -31,7 +31,8 @@ public class Action : LRManifestBasedObject {
 
     public init(manifest: [String: AnyObject], container: ActionContainer) {
         self.container = container
-        identifier = manifest["id"]~~~ ?? ""
+        let identifier = manifest["id"]~~~ ?? ""
+        self.identifier = identifier
         name = manifest["name"]~~~ ?? identifier
         // if (_identifier.length == 0)
         //     [self addErrorMessage:@"'id' attribute is required"];
@@ -103,14 +104,14 @@ public class Action : LRManifestBasedObject {
         self.derivers = derivers
 
         // Manifests
-        let packageManager = ActionKitSingleton.sharedActionKit().packageManager
+        let packageManager = ActionKitSingleton.sharedActionKit.packageManager
         let versionInfo = (manifest["versionInfo"] as? [String: AnyObject]) ?? [:]
         let versionInfoLayers = versionInfo.mapIf { (packageRefString, info) -> LRManifestLayer? in
             // no idea what this check means
             if packageRefString.hasPrefix("__") {
                 return nil
             }
-            let reference = packageManager.packageReferenceWithString(packageRefString)
+            let reference = packageManager.packageReferenceWithString(packageRefString)!
             return LRManifestLayer(manifest: info as! [String: AnyObject], requiredPackageReferences: [reference], errorSink: self)
         }
 
@@ -134,20 +135,25 @@ public class Action : LRManifestBasedObject {
         return "\(kind) '\(identifier)'"
     }
 
-    public func fakeChangeDestinationNameForSourceFile(file: ProjectFile) -> String? {
+    public func fakeChangeDestinationPathForSourceFile(file: ProjectFile) -> RelPath? {
         if let fakeChangeExtension = fakeChangeExtension {
-            let relativePath = file.relativePath
-            if relativePath.pathExtension == fakeChangeExtension {
+            if file.path.hasPathExtension(fakeChangeExtension) {
                 return nil
             } else {
-                return relativePath.stringByDeletingPathExtension.stringByAppendingPathExtension(fakeChangeExtension)
+                // TODO: use the matched input extension instead of the shortest extension
+                let (path, found) = file.path.replaceShortestPathExtensionWith(fakeChangeExtension)
+                if found {
+                    return path
+                } else {
+                    return nil
+                }
             }
         } else {
             return nil
         }
     }
     
-    public func newRule(contextAction contextAction: LRContextAction, memento: NSDictionary?) -> Rule {
+    public func newRule(contextAction contextAction: LRContextAction, memento: JSONObject?) -> Rule {
         return ruleType.init(contextAction: contextAction, memento: memento)
     }
 

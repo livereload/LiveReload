@@ -13,7 +13,7 @@ public class RunTestsRule : Rule {
         let parser = LRTRTestAnythingProtocolParser()
         parser.delegate = run
 
-        let step = ScriptInvocationStep()
+        let step = ScriptInvocationStep(project: project)
         step.result = result
         configureStep(step)
 

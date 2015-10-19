@@ -227,6 +227,7 @@
 		435D971E19A4931B00F083C5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = LiveReload;
 				TargetAttributes = {

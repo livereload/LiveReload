@@ -1,8 +1,8 @@
 
 #import "UserScript.h"
 
-@import LRCommons;
-@import FileSystemMonitoringKit;
+@import ExpressiveCocoa;
+@import FSMonitoringKit;
 
 
 NSString *const UserScriptManagerScriptsDidChangeNotification = @"UserScriptManagerScriptsDidChangeNotification";
@@ -103,12 +103,13 @@ NSString *const UserScriptErrorDomain = @"com.livereload.LiveReload.UserScript";
                 NSLog(@"Post-processor error: %@", [error description]);
             }
 
-            P2DisableARCRetainCyclesWarning()
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-retain-cycles"
             [result addRawOutput:output withCompletionBlock:^{
                 [result completedWithInvocationError:error];
                 completionHandler();
             }];
-            P2ReenableWarning()
+            #pragma clang diagnostic pop
         });
     }];
 }
@@ -199,7 +200,12 @@ static UserScriptManager *sharedUserScriptManager = nil;
         NSError *error = nil;
         [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:[NSDictionary dictionary] error:&error];
         if (error) {
-            [[NSAlert alertWithMessageText:@"You need to create a Scripts folder yourself" defaultButton:@"OK" alternateButton:@"No way!" otherButton:nil informativeTextWithFormat:@"Sorry, Mac OS X 10.7 cannot create a scripts folder automatically. This app cannot do it either because of the sandbox. Please create folder %@ yourself, and try again.", path] runModal];
+            NSAlert *alert = [NSAlert new];
+            alert.messageText = @"You need to create a Scripts folder yourself";
+            alert.informativeText = [NSString stringWithFormat:@"Sorry, Mac OS X 10.7 cannot create a scripts folder automatically. This app cannot do it either because of the sandbox. Please create folder %@ yourself, and try again.", path];
+            [alert addButtonWithTitle:@"OK"];
+            [alert addButtonWithTitle:@"No way!"];
+            [alert runModal];
             return;
         }
     }

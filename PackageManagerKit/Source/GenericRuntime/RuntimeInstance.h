@@ -2,6 +2,8 @@
 #import <Foundation/Foundation.h>
 #import "RuntimeObject.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 
 extern NSString *const LRRuntimeInstanceDidChangeNotification;
 
@@ -11,7 +13,7 @@ extern NSString *const LRRuntimeInstanceDidChangeNotification;
 
 @interface RuntimeInstance : NSObject <RuntimeObject>
 
-- (id)initWithMemento:(NSDictionary *)memento additionalInfo:(NSDictionary *)additionalInfo;
+- (id)initWithMemento:(NSDictionary *_Nullable)memento additionalInfo:(NSDictionary *_Nullable)additionalInfo;
 @property(nonatomic, readonly) NSMutableDictionary *memento;
 
 @property(nonatomic, readonly, getter=isPersistent) BOOL persistent;
@@ -24,14 +26,14 @@ extern NSString *const LRRuntimeInstanceDidChangeNotification;
 @property(nonatomic, assign) BOOL validationInProgress;
 @property(nonatomic, assign) BOOL validationPerformed;
 @property(nonatomic, assign) BOOL valid;
-@property(nonatomic, strong) NSString *version;
+@property(nonatomic, strong, nullable) NSString *version;
 
 @property(nonatomic, readonly) NSString *statusQualifier;
 @property(nonatomic, readonly) NSString *title;
 
-@property(nonatomic, readonly) NSArray *defaultPackageContainers;
+@property(nonatomic, readonly) NSArray<LRPackageContainer *> *defaultPackageContainers;
 
-- (NSArray *)launchArgumentsWithAdditionalRuntimeContainers:(NSArray *)additionalRuntimeContainers environment:(NSMutableDictionary *)environment;
+- (NSArray<NSString *> *)launchArgumentsWithAdditionalRuntimeContainers:(NSArray<LRPackageContainer *> *)additionalRuntimeContainers environment:(NSMutableDictionary *)environment;
 
 - (void)validate;
 
@@ -44,3 +46,6 @@ extern NSString *const LRRuntimeInstanceDidChangeNotification;
 - (void)didChange;
 
 @end
+
+
+NS_ASSUME_NONNULL_END

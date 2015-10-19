@@ -40,8 +40,8 @@ public class CustomCommandRule : Rule {
         return NSSet(object: "command")
     }
 
-    public /*protected*/ override func loadFromMemento() {
-        super.loadFromMemento()
+    public /*protected*/ override func loadFromMemento() throws {
+        try super.loadFromMemento()
         command = NonEmptyStringValue(memento["command"])
     }
 
@@ -80,7 +80,7 @@ public class CustomCommandRule : Rule {
         ATLaunchUnixTaskAndCaptureOutput(shellUrl, shArgs, [.IgnoreSandbox, .MergeStdoutAndStderr], [ATCurrentDirectoryPathKey: project.rootURL.path!]) {
             (outputText: String!, stderrText: String?, error: NSError?) in
             NSFileManager.defaultManager().changeCurrentDirectoryPath(pwd)
-            result.completedWithInvocationError(error, rawOutput: outputText, completionBlock: completionHandler)
+            result.completedWithInvocationError(error, rawOutput: outputText, withCompletionBlock: completionHandler)
         }
     }
 

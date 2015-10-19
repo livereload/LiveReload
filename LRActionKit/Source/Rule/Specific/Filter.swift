@@ -8,8 +8,8 @@ public class FilterRule : ScriptInvocationRule {
         return true
     }
 
-    public /*protected*/ override func loadFromMemento() {
-        super.loadFromMemento()
+    public /*protected*/ override func loadFromMemento() throws {
+        try super.loadFromMemento()
 
         let inputFilter = StringValue(action.manifest["input"])!
         intrinsicInputPathSpec = ATPathSpec(string: inputFilter, syntaxOptions: ATPathSpecSyntaxOptions.FlavorExtended)
@@ -25,7 +25,7 @@ public class FilterRule : ScriptInvocationRule {
 
     public override func configureStep(step: ScriptInvocationStep, forFile file: ProjectFile) {
         super.configureStep(step, forFile: file)
-        step.addFileValue(file, forSubstitutionKey: "src")
+        step.addFileValue("src", file)
     }
 
     public override func didCompleteCompilationStep(step: ScriptInvocationStep, forFile file: ProjectFile) {

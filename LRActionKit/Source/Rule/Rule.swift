@@ -38,7 +38,7 @@ public class Rule : NSObject {
         return true
     }
 
-    public var inputFilterOption: FilterOption = FilterOption(subfolder: "") {
+    public var inputFilterOption: FilterOption = FilterOption(directory: RelPath()) {
         didSet {
             if (inputFilterOption != oldValue) {
                 updateInputPathSpec()
@@ -53,18 +53,22 @@ public class Rule : NSObject {
         }
     }
 
-    public required init(contextAction: LRContextAction, memento: NSDictionary?) {
+    public required init(contextAction: LRContextAction, memento: JSONObject?) {
         self.contextAction = contextAction
         self.primaryVersionSpec = LRVersionSpec.stableVersionSpecMatchingAnyVersionInVersionSpace(contextAction.action.primaryVersionSpace)
         super.init()
         self.memento = [:]
-        if let m = memento as? [String: AnyObject] {
+        if let m = memento {
             for (k, v) in m {
                 self.memento.updateValue(v, forKey: k)
             }
         }
 
-        loadFromMemento()
+        do {
+            try loadFromMemento()
+        } catch let e as NSError {
+            print("*** Error loading memento: \(e) *** memento = \(memento)")
+        }
         updateInputPathSpec()
         _initEffectiveVersion()
     }
@@ -75,15 +79,14 @@ public class Rule : NSObject {
         }
     }
 
-    public var theMemento: Dictionary<String, AnyObject> {
-        get {
-            updateMemento()
-            return memento
-        }
-        set {
-            memento = newValue
-            loadFromMemento()
-        }
+    public func obtainUpdatedMemento() -> JSONObject {
+        updateMemento()
+        return memento
+    }
+
+    public func setMemento(newValue: JSONObject) throws {
+        memento = newValue
+        try loadFromMemento()
     }
 
     public private(set) var inputPathSpec: ATPathSpec = ATPathSpec.emptyPathSpec()
@@ -91,9 +94,9 @@ public class Rule : NSObject {
     internal var memento: Dictionary<String, AnyObject> = [:]
     private var _options: Dictionary<String, AnyObject> = [:]
 
-    public /*protected*/ func loadFromMemento() {
+    public /*protected*/ func loadFromMemento() throws {
         enabled = memento["enabled"]~~~ ?? true
-        inputFilterOption = FilterOption(memento: memento["filter"]~~~ ?? "subdir:.")
+        inputFilterOption = try FilterOption(memento: memento["filter"]~~~ ?? "subdir:.")
         if let ver: String = memento["version"]~~~ {
             primaryVersionSpec = LRVersionSpec(string: ver, inVersionSpace: action.primaryVersionSpace)
         } else {
@@ -121,10 +124,8 @@ public class Rule : NSObject {
 
     private func updateInputPathSpec() {
         var spec = inputFilterOption.pathSpec
-        if spec != nil {
-            if intrinsicInputPathSpec != nil {
-                spec = ATPathSpec(matchingIntersectionOf: [spec!, intrinsicInputPathSpec!])
-            }
+        if intrinsicInputPathSpec != nil {
+            spec = ATPathSpec(matchingIntersectionOf: [spec, intrinsicInputPathSpec!])
         }
         inputPathSpec = spec
     }
@@ -275,21 +276,19 @@ public class Rule : NSObject {
     // MARK: Build
 
     public func configureStep(step: ScriptInvocationStep) {
-        step.project = project
         print("configureStep: project.path = \(project.path)")
-        let s: NSObject? = project.path
-        step.addValue(s, forSubstitutionKey: "project_dir")
+        step.addStringValue("project_dir", project.path)
 
         if let eff = effectiveVersion {
             let manifest = eff.manifest
-            step.commandLine = manifest.commandLineSpec
+            step.commandLine = manifest.commandLineSpec ?? []
             for (key, value) in action.container.substitutionValues {
-                step.addValue(value, forSubstitutionKey: key)
+                step.addStringValue(key, value)
             }
 
             for package in eff.packageSet.packages as! [LRPackage] {
-                step.addValue(package.sourceFolderURL.path! as String, forSubstitutionKey: package.identifier)
-                step.addValue(package.version.description as String, forSubstitutionKey: "\(package.identifier).ver")
+                step.addStringValue(package.identifier, package.sourceFolderURL.path!)
+                step.addStringValue("\(package.identifier).ver", package.version.description)
             }
         }
 
@@ -300,7 +299,7 @@ public class Rule : NSObject {
         }
         additionalArguments.appendContentsOf(customArguments)
 
-        step.addValue(additionalArguments as NSArray, forSubstitutionKey: "additional")
+        step.addStringMultiValue("additional", additionalArguments)
     }
 
     public func configureResult(result: LROperationResult) {

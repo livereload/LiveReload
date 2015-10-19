@@ -11,12 +11,12 @@
 extern NSString *const LRPackageContainerDidChangePackageListNotification;
 
 
-typedef enum {
+typedef NS_ENUM(NSInteger, LRPackageContainerType) {
     LRPackageContainerTypeBundled,
     LRPackageContainerTypeRuntimeInstance,
     LRPackageContainerTypeOptionalSet,
     LRPackageContainerTypeProjectLocal
-} LRPackageContainerType;
+};
 
 
 @interface LRPackageContainer : NSObject

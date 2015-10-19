@@ -9,7 +9,7 @@ public class LRManifestLayer: LRManifestBasedObject {
     public let packageReferences: [LRPackageReference]
 
     public convenience override init(manifest: [String: AnyObject], errorSink: LRManifestErrorSink?) {
-        let packageManager = ActionKitSingleton.sharedActionKit().packageManager;
+        let packageManager = ActionKitSingleton.sharedActionKit.packageManager
 
         let dicts = JSONObjectsArrayValue(manifest["applies_to"]) ?? []
         let packageReferences = dicts.mapIf { packageManager.packageReferenceWithDictionary($0) }

@@ -1,5 +1,7 @@
 @import Foundation;
 
+NS_ASSUME_NONNULL_BEGIN
+
 
 extern NSString *const UserScriptManagerScriptsDidChangeNotification;
 
@@ -27,9 +29,9 @@ enum {
 
 @protocol UserScriptResult
 
-- (void)addRawOutput:(NSString *)rawOutput withCompletionBlock:(dispatch_block_t)completionBlock;
+- (void)addRawOutput:(NSString *_Nonnull)rawOutput withCompletionBlock:(dispatch_block_t _Nonnull)completionBlock;
 
-- (void)completedWithInvocationError:(NSError *)error;
+- (void)completedWithInvocationError:(NSError *_Nullable)error;
 
 @end
 
@@ -51,3 +53,5 @@ enum {
 - (void)revealUserScriptsFolderSelectingScript:(UserScript *)selectedScript;
 
 @end
+
+NS_ASSUME_NONNULL_END

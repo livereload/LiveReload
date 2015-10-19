@@ -33,24 +33,23 @@ public final class TagEvidenceTree: CustomStringConvertible {
         return lines.joinWithSeparator("\n");
     }
     
-    public func findCoveringFoldersForTag(tag: Tag) -> [String] {
+    public func findCoveringFoldersForTag(tag: Tag) -> [RelPath] {
         print("findCoveringFoldersForTag(\(tag.name)):")
-        var initialFolders: Set<String> = []
+        var initialFolders: Set<RelPath> = []
         for file in tagsToFiles[tag] ?? [] {
-            initialFolders.insert(file.relativePath.stringByDeletingLastPathComponent)
+            initialFolders.insert(file.path.parent!)
         }
         print("  initialFolders = \(initialFolders)")
         
-        var nextFolders: Set<String> = initialFolders
-        var folderChildren: [String: Set<String>] = [:]
+        var nextFolders: Set<RelPath> = initialFolders
+        var folderChildren: [RelPath: Set<RelPath>] = [:]
         while !nextFolders.isEmpty {
             let thisFolders = nextFolders
             nextFolders = []
             
             for folder in thisFolders {
-                if folder != "" {
+                if let parent = folder.parent {
                     print("  visiting \(folder)")
-                    let parent = folder.stringByDeletingLastPathComponent
                     if folderChildren[parent] == nil {
                         folderChildren[parent] = [folder]
                         nextFolders.insert(parent)
@@ -61,21 +60,21 @@ public final class TagEvidenceTree: CustomStringConvertible {
             }
         }
 
-        var junctions: [String] = []
+        var junctions: [RelPath] = []
         print("  collecting junctions")
-        _collectJunctionPoints("", folderChildren: folderChildren, initialFolders: initialFolders, junctions: &junctions)
+        _collectJunctionPoints(RelPath(), folderChildren: folderChildren, initialFolders: initialFolders, junctions: &junctions)
         print("  result = \(junctions)")
         return junctions
     }
     
-    private func _collectJunctionPoints(folder: String, folderChildren: [String: Set<String>], initialFolders: Set<String>, inout junctions: [String]) {
+    private func _collectJunctionPoints(folder: RelPath, folderChildren: [RelPath: Set<RelPath>], initialFolders: Set<RelPath>, inout junctions: [RelPath]) {
         if initialFolders.contains(folder) {
             print("    folder with leaf files \(folder)")
             junctions.append(folder)
             // don't descend into children
         } else {
             let children = folderChildren[folder] ?? []
-            if folder != "" && children.count >= 2 {
+            if folder.hasParent && children.count >= 2 {
                 print("    non-root junction folder \(folder)")
                 junctions.append(folder)
                 // don't descend into children for now, although it would return useful alternative folders

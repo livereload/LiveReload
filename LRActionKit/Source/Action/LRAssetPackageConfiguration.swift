@@ -7,7 +7,7 @@ public class LRAssetPackageConfiguration: LRManifestBasedObject {
     public let packageReferences: [LRPackageReference]
 
     public override init(manifest: [String: AnyObject], errorSink: LRManifestErrorSink?) {
-        let packageManager = ActionKitSingleton.sharedActionKit().packageManager
+        let packageManager = ActionKitSingleton.sharedActionKit.packageManager
 
         let strings = ArrayValue(manifest["packages"]) { $0 as? String } ?? []
         packageReferences = strings.mapIf { packageManager.packageReferenceWithString($0) }

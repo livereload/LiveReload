@@ -45,8 +45,8 @@ public class UserScriptRule : Rule {
         }
     }
 
-    public /*protected*/ override func loadFromMemento() {
-        super.loadFromMemento()
+    public /*protected*/ override func loadFromMemento() throws {
+        try super.loadFromMemento()
 //        scriptName = NonEmptyStringValue(memento["script"] as? String)
     }
 
@@ -68,7 +68,7 @@ public class UserScriptRule : Rule {
         let filePaths = trueFiles.map { $0.relativePath }
 
         if let actualScript = script {
-            actualScript.invokeForProjectAtPath(project.rootURL.path, withModifiedFiles: Set(filePaths), result: result, completionHandler: completionHandler)
+            actualScript.invokeForProjectAtPath(project.rootURL.path!, withModifiedFiles: Set(filePaths), result: result, completionHandler: completionHandler)
         }
     }
 

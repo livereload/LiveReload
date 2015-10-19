@@ -526,6 +526,7 @@
 		439317141985D33500685024 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = LiveReload;
 				TargetAttributes = {

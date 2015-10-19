@@ -19,8 +19,8 @@ public class LRFileTarget : LRTarget {
             result.defaultMessageFile = sourceFile
 
             rule.compileFile(sourceFile, result: result) {
-                if result.invocationError != nil {
-                    NSLog("Error compiling \(self.sourceFile.relativePath): \(result.invocationError.domain) - \(result.invocationError.code) - \(result.invocationError.localizedDescription)")
+                if let e = result.invocationError {
+                    NSLog("Error compiling \(self.sourceFile.relativePath): \(e.domain) - \(e.code) - \(e.localizedDescription)")
                 }
                 build.addOperationResult(result, forTarget: self, key: "\(self.project.path).\(self.sourceFile.relativePath)")
                 completionBlock()

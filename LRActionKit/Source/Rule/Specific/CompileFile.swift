@@ -5,7 +5,7 @@ public class CompileFileRule : ScriptInvocationRule {
 
     public var compilerName : String?
 
-    public var outputFilterOption : FilterOption = FilterOption(memento: "subdir:.") {
+    public var outputFilterOption : FilterOption = try! FilterOption(memento: "subdir:.") {
         didSet {
             if outputFilterOption != oldValue {
                 didChange();
@@ -13,10 +13,10 @@ public class CompileFileRule : ScriptInvocationRule {
         }
     }
 
-    public /*protected*/ override func loadFromMemento() {
-        super.loadFromMemento()
+    public /*protected*/ override func loadFromMemento() throws {
+        try super.loadFromMemento()
         compilerName = memento["compiler"]~~~
-        outputFilterOption = FilterOption(memento: memento["output"]~~~ ?? "subdir:.")
+        outputFilterOption = try FilterOption(memento: memento["output"]~~~ ?? "subdir:.")
         intrinsicInputPathSpec = action.combinedIntrinsicInputPathSpec
     }
 
@@ -25,27 +25,41 @@ public class CompileFileRule : ScriptInvocationRule {
         super.updateMemento()
     }
 
-    public func destinationFileForSourceFile(file: ProjectFile) -> ProjectFile {
-        var destinationName = LRDeriveDestinationFileName(file.relativePath.lastPathComponent, action.manifest["output"]! as! String, intrinsicInputPathSpec)
-
-        let outputMappingIsRecursive = true  // TODO: make this conditional
-        if outputMappingIsRecursive {
-            let folderComponentCount = Int(inputFilterOption.folderComponentCount)
-            if folderComponentCount > 0 {
-                let components = file.relativePath.stringByDeletingLastPathComponent.pathComponents
-                if components.count > folderComponentCount {
-                    destinationName = components[folderComponentCount ..< components.count].joinWithSeparator("/").stringByAppendingPathComponent(destinationName)
-                }
-            }
+    public func destinationFileForSourceFile(file: ProjectFile) -> ProjectFile? {
+        guard let outputMaskString = NonEmptyStringValue(action.manifest["output"]) else {
+            fatalError("output mask not specified for compilation action") // TODO: don't crash
         }
 
-        let destinationRelativePath = outputFilterOption.subfolder!.stringByAppendingPathComponent(destinationName)
-        return ProjectFile(relativePath: destinationRelativePath, project: project)
+        guard let om = try? OutputMask(string: outputMaskString) else {
+            fatalError("invalid output mask") // TODO: don't crash
+        }
+
+        guard let destinationPath = om.deriveOutputPathFromSourcePath(file.path, sourcePathSpec: intrinsicInputPathSpec!) else {
+            return nil
+        }
+
+        // TODO: fix destination path mapping
+//        let outputMappingIsRecursive = true  // TODO: make this conditional
+//        if outputMappingIsRecursive {
+//            let folderComponentCount = Int(inputFilterOption.directory.numberOfComponents)
+//            if folderComponentCount > 0 {
+//                let components = file.path.parent!.components
+//                if components.count > folderComponentCount {
+//                    destinationPath = components[folderComponentCount ..< components.count].joinWithSeparator("/").stringByAppendingPathComponent(destinationPath)
+//                }
+//            }
+//        }
+//        let destinationRelativePath = outputFilterOption.subfolder!.stringByAppendingPathComponent(destinationPath)
+
+        return ProjectFile(path: destinationPath, project: project)
     }
 
     public override func handleDeletionOfFile(file: ProjectFile) {
-        let destinationFile = destinationFileForSourceFile(file)
-        if (destinationFile.absoluteURL != file.absoluteURL) && destinationFile.exists {
+        guard let destinationFile = destinationFileForSourceFile(file) else {
+            return
+        }
+
+        if !destinationFile.isSameFile(file) && destinationFile.exists {
             try! NSFileManager.defaultManager().removeItemAtURL(destinationFile.absoluteURL)
         }
     }
@@ -53,10 +67,12 @@ public class CompileFileRule : ScriptInvocationRule {
     public override func configureStep(step: ScriptInvocationStep, forFile file: ProjectFile) {
         super.configureStep(step, forFile: file)
 
-        step.addFileValue(file, forSubstitutionKey: "src")
+        step.addFileValue("src", file)
 
-        let destinationFile = destinationFileForSourceFile(file)
-        step.addFileValue(destinationFile, forSubstitutionKey: "dst")
+        guard let destinationFile = destinationFileForSourceFile(file) else {
+            return
+        }
+        step.addFileValue("dst", destinationFile)
 
         let destinationFolderURL = destinationFile.absoluteURL.URLByDeletingLastPathComponent!
         if !destinationFolderURL.checkResourceIsReachableAndReturnError(nil) {
@@ -65,8 +81,9 @@ public class CompileFileRule : ScriptInvocationRule {
     }
 
     public override func didCompleteCompilationStep(step: ScriptInvocationStep, forFile file: ProjectFile) {
-        let outputFile = step.fileForKey("dst")
-        file.project.hackhack_didWriteCompiledFile(outputFile)
+        if let outputFile = step.fileForKey("dst") {
+            file.project.hackhack_didWriteCompiledFile(outputFile)
+        }
     }
 
     

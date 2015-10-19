@@ -1,6 +1,7 @@
 import Foundation
 import ExpressiveCollections
 import ExpressiveFoundation
+import ExpressiveCasting
 import ATPathSpec
 
 public class LRBuild : NSObject {
@@ -36,7 +37,7 @@ public class LRBuild : NSObject {
         self.rules = rules
     }
 
-    public func addReloadRequest(reloadRequest: NSDictionary) {
+    public func addReloadRequest(reloadRequest: JSONObject) {
         reloadRequests.append(reloadRequest)
     }
 
@@ -92,15 +93,13 @@ public class LRBuild : NSObject {
                 continue  // compiled; wait for the destination file change event to send a reload request
             }
 
-            let fullPath = file.absolutePath as String
-
             let actions = project.compilerActionsForFile(file)
-            let fakeDestinationName = actions.findMapped { $0.fakeChangeDestinationNameForSourceFile(file) }
-            if let fakeDestinationName = fakeDestinationName {
-                let fakePath = fullPath.stringByDeletingLastPathComponent.stringByAppendingPathComponent(fakeDestinationName)
-                addReloadRequest(["path": fakePath, "originalPath": fullPath, "localPath": NSNull()])
+            let fakeDestinationPath = actions.findMapped { $0.fakeChangeDestinationPathForSourceFile(file) }
+            if let fakeDestinationPath = fakeDestinationPath {
+                let fakeURL = fakeDestinationPath.resolve(baseURL: file.project.rootURL)
+                addReloadRequest(["path": fakeURL.path!, "originalPath": file.absolutePath, "localPath": NSNull()])
             } else {
-                addReloadRequest(["path": fullPath, "originalPath": NSNull(), "localPath": fullPath])
+                addReloadRequest(["path": file.absolutePath, "originalPath": NSNull(), "localPath": file.absolutePath])
             }
         }
     }
@@ -197,7 +196,7 @@ public class LRBuild : NSObject {
             firstFailure = result
         }
 
-        messages.appendContentsOf(result.messages as! [LRMessage])
+        messages.appendContentsOf(result.messages)
         project.displayResult(result, key: key)
     }
 

@@ -21,7 +21,7 @@ public class LRActionManifest : LRManifestBasedObject {
     public init(layers: [LRManifestLayer]) {
         self.layers = layers
 
-        let optionRegistry = ActionKitSingleton.sharedActionKit().optionRegistry!
+        let optionRegistry = ActionKitSingleton.sharedActionKit.optionRegistry
 
         errorSpecs = layers.map { layer in
             ArrayValue(layer.manifest["errors"]) { $0 as AnyObject } ?? []

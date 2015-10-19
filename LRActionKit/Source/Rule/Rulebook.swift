@@ -29,7 +29,7 @@ public class Rulebook: NSObject {
             var actionMementos: [AnyObject] = []
             for rule in rules {
                 if rule.nonEmpty {
-                    actionMementos.append(rule.theMemento)
+                    actionMementos.append(rule.obtainUpdatedMemento())
                 }
             }
             return ["rules": actionMementos]

@@ -8,14 +8,7 @@ FOUNDATION_EXPORT const unsigned char LRActionKitVersionString[];
 
 // basics
 #import <LRActionKit/ActionKitGlobals.h>
-#import <LRActionKit/ActionKitSingleton.h>
 #import <LRActionKit/LRManifestErrorSink.h>
-
-// rule
-#import <LRActionKit/ScriptInvocationStep.h>
-
-// result
-#import <LRActionKit/LROperationResult.h>
 
 // inputs
 #import <LRActionKit/FilterOption.h>
@@ -35,5 +28,4 @@ FOUNDATION_EXPORT const unsigned char LRActionKitVersionString[];
 #import <LRActionKit/LRVersionTag.h>
 
 // utilities
-#import <LRActionKit/LRPathProcessing.h>
 #import <LRActionKit/UserScript.h>

@@ -9,7 +9,7 @@ public class CompileFolderRule : ScriptInvocationRule {
             return
         }
 
-        let step = ScriptInvocationStep()
+        let step = ScriptInvocationStep(project: project)
         step.result = result
         configureStep(step)
 

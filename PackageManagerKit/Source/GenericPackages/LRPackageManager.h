@@ -7,17 +7,23 @@
 @class LRPackageReference;
 
 
+NS_ASSUME_NONNULL_BEGIN
+
+
 @interface LRPackageManager : NSObject
 
 - (void)addPackageType:(LRPackageType *)type;
-- (LRPackageType *)packageTypeNamed:(NSString *)name;
+- (nullable LRPackageType *)packageTypeNamed:(NSString *)name;
 
-@property(nonatomic, readonly) NSArray *packageTypes;
+@property(nonatomic, readonly) NSArray<LRPackageType *> *packageTypes;
 
 - (void)addPackageContainer:(LRPackageContainer *)container;
 - (void)removePackageContainer:(LRPackageContainer *)container;
 
-- (LRPackageReference *)packageReferenceWithDictionary:(NSDictionary *)dictionary;
-- (LRPackageReference *)packageReferenceWithString:(NSString *)string;
+- (nullable LRPackageReference *)packageReferenceWithDictionary:(NSDictionary *)dictionary;
+- (nullable LRPackageReference *)packageReferenceWithString:(NSString *)string;
 
 @end
+
+
+NS_ASSUME_NONNULL_END
