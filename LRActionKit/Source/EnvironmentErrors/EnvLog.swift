@@ -75,7 +75,11 @@ public class EnvLog: EmitterType {
     }
 
     private func annotate(message: String) -> String {
-        return "\(origin): \(message)"
+        if origin.isEmpty {
+            return message
+        } else {
+            return "\(origin): \(message)"
+        }
     }
 
     private func addParent(parent: EnvLog) {
