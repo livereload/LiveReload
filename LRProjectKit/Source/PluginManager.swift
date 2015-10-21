@@ -1,12 +1,14 @@
 import Foundation
 import AppKit
-import LRCommons
 import LRActionKit
+import ATPathSpec
 import ExpressiveCollections
 
 public class PluginManager : NSObject {
 
     public let context: PluginContext
+
+    public let log = EnvLog(origin: "Plugin Manager")
 
     public init(context: PluginContext) {
         self.context = context
@@ -14,37 +16,40 @@ public class PluginManager : NSObject {
 
     public func reloadPlugins() {
         actionsIndex.removeAll()
-        _plugins = []
+        plugins = []
 
-        let libraryFolderPaths = ["~/Library/LiveReload", "~/Dropbox/Library/LiveReload"]
-        for libraryFolderPath in libraryFolderPaths {
-            let pluginsFolder = libraryFolderPath.stringByAppendingPathComponent("Plugins").stringByExpandingTildeInPath
-            loadPluginsFromFolder(pluginsFolder)
-        }
+        let lb = log.beginUpdating()
+
+//        let libraryFolderPaths = ["~/Library/LiveReload", "~/Dropbox/Library/LiveReload"]
+//        for libraryFolderPath in libraryFolderPaths {
+//
+//            let pluginsFolder = libraryFolderPath.stringByAppendingPathComponent("Plugins").stringByExpandingTildeInPath
+//            loadPluginsFromFolder(pluginsFolder)
+//        }
 
         var bundledPluginsFolder = NSBundle.mainBundle().resourcePath!
-        if let pluginsOverrideFolder = NSProcessInfo.processInfo().environment["LRBundledPluginsOverride"] as? NSString {
+        if let pluginsOverrideFolder = NSProcessInfo.processInfo().environment["LRBundledPluginsOverride"] {
             let trimmed = pluginsOverrideFolder.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
             if !trimmed.isEmpty {
-                bundledPluginsFolder = trimmed.stringByExpandingTildeInPath
+                bundledPluginsFolder = (trimmed as NSString).stringByExpandingTildeInPath
             }
         }
-        loadPluginsFromFolder(bundledPluginsFolder)
+        loadPluginsFromFolder(NSURL(fileURLWithPath: bundledPluginsFolder, isDirectory: true), logTo: lb)
 
-        for plugin in _plugins {
-            for action in plugin.actions as! [Action] {
+        for plugin in plugins {
+            for action in plugin.actions {
                 addAction(action)
             }
         }
 
-        let badPlugins = _plugins.filter { !$0.errors.isEmpty }
+        let badPlugins = plugins.filter { $0.log.hasErrors }
         if !badPlugins.isEmpty {
             var errorMessage = ""
             errorMessage += "Number of plugins with errors: \(badPlugins.count)\n\n"
             for plugin in badPlugins {
-                errorMessage += "Error messages for \(plugin.path.lastPathComponent):\n"
-                for error in plugin.errors as! [NSError] {
-                    errorMessage += "• \(error.localizedDescription)\n"
+                errorMessage += "Error messages for \(plugin.folderURL.lastPathComponent!):\n"
+                for error in plugin.log.errors {
+                    errorMessage += "• \(error)\n"
                 }
             }
 
@@ -58,58 +63,47 @@ public class PluginManager : NSObject {
                 exit(1);
             }
         }
-
-        pluginsLoaded = true
     }
 
-    public private(set) var plugins: [Plugin] {
-        assert(pluginsLoaded, "Plugins not loaded yet")
-        return _plugins
-    }
-    private var _plugins: [Plugin] = []
+    public private(set) var plugins: [Plugin] = []
 
     public var userPluginNames: [String] {
-        return [String](loadedPluginNames.keys)
+        return Array(pluginsByName.keys)
     }
 
     public var actions: [Action] {
         return actionsIndex.list
     }
 
-    public func compilerForExtension(ext: String) -> Compiler? {
-        return compilers.find { $0.usesExtension(ext) }
-    }
-
-    public func compilerWithUniqueId(uniqueId: String) -> Compiler? {
-        return compilers.find { $0.uniqueId == uniqueId }
-    }
-
     public func actionWithIdentifier(identifier: String) -> Action? {
         return actionsIndex[identifier]
     }
 
-    // private
 
-    private var loadedPluginNames : Dictionary<String, Plugin> = [:]
-    private var pluginsLoaded = false
+    private var pluginsByName : Dictionary<String, Plugin> = [:]
     private var actionsIndex = IndexedArray<String, Action>() { $0.identifier }
 
-    private func loadPluginFromFolder(pluginFolder: String) {
-        let name = pluginFolder.lastPathComponent.stringByDeletingPathExtension
-        if loadedPluginNames[name] == nil {
-//            let plugin = Plugin(path: pluginFolder, )
-            let plugin = Plugin(folderURL: <#T##NSURL#>, context: <#T##PluginContext#>))
-            _loadedPluginNames[name] = plugin
-            _plugins.append(plugin)
+    private func loadPluginFromFolder(pluginFolderURL: NSURL, logTo lb: EnvLogBuilder) {
+        let name = pluginFolderURL.URLByDeletingPathExtension!.lastPathComponent!
+        if pluginsByName[name] == nil {
+            let plugin = Plugin(folderURL: pluginFolderURL, context: context)
+            pluginsByName[name] = plugin
+            plugins.append(plugin)
+            lb.addChild(plugin.log)
+        } else {
+            lb.addWarning("Skipped \(name)", ["at \(pluginFolderURL.path)"])
         }
     }
 
-    private func loadPluginsFromFolder(pluginsFolder: String) {
-        if let fileNames = NSFileManager.defaultManager().contentsOfDirectoryAtPath(pluginsFolder, error: nil) as! [String]? {
-            for fileName in fileNames {
-                if fileName.pathExtension == "lrplugin" {
-                    _loadPluginFromFolder(pluginsFolder.stringByAppendingPathComponent(fileName))
-                }
+    private func loadPluginsFromFolder(pluginsFolderURL: NSURL, logTo lb: EnvLogBuilder) {
+        let fm = NSFileManager.defaultManager()
+        guard let itemURLs = try? fm.contentsOfDirectoryAtURL(pluginsFolderURL, includingPropertiesForKeys: nil, options: [.SkipsHiddenFiles]) else {
+            return
+        }
+
+        for itemURL in itemURLs {
+            if itemURL.pathExtension == "lrplugin" {
+                loadPluginFromFolder(itemURL, logTo: lb)
             }
         }
     }

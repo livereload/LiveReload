@@ -1,7 +1,6 @@
 import Foundation
 
-@objc
-public protocol ActionContainer : NSObjectProtocol, LRManifestErrorSink {
+public protocol ActionContainer {
 
     var substitutionValues: [String: String] { get }
 

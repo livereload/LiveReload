@@ -95,7 +95,7 @@ public class Action : LRManifestBasedObject {
         }
         self.taggers = taggers
 
-        super.init(manifest: manifest, errorSink: container)
+        super.init(manifest: manifest, errorSink: nil)
 
         var derivers: [Deriver] = []
         if kind == .Compiler {

@@ -12,7 +12,7 @@ public enum PluginEnvError: ErrorType {
 }
 
 
-public class Plugin: LRManifestErrorSink, ActionContainer {
+public class Plugin: ActionContainer {
 
     public let context: PluginContext
 
@@ -21,20 +21,21 @@ public class Plugin: LRManifestErrorSink, ActionContainer {
 
     public let log: EnvLog
 
-    public private(set) var actions: [Action]
+    public private(set) var actions: [Action] = []
 
-    public private(set) var bundledPackageContainers: [LRPackageContainer]
+    public private(set) var bundledPackageContainers: [LRPackageContainer] = []
 
-    private var manifest: JSONObject
+    private var manifest: JSONObject = [:]
 
     public init(folderURL: NSURL, context: PluginContext) {
         self.folderURL = folderURL
         self.context = context
         manifestURL = folderURL.URLByAppendingPathComponent("manifest.json")
+        log = EnvLog(origin: "plugin \(folderURL.lastPathComponent)")
     }
 
     public var substitutionValues: [String: String] {
-        return ["plugin": folderURL.path]
+        return ["plugin": folderURL.path!]
     }
 
     public func update() {
@@ -51,13 +52,14 @@ public class Plugin: LRManifestErrorSink, ActionContainer {
         loadBundledPackageContainers()
     }
 
-    private func loadManifest() throws {
+    private func loadManifest() throws -> JSONObject {
         if !manifestURL.checkResourceIsReachableAndReturnError(nil) {
             throw PluginEnvError.MissingManifest
         }
 
+        let obj: AnyObject
         do {
-            let obj = try NSJSONSerialization.JSONObjectWithContentsOfURL(manifestURL)
+            obj = try NSJSONSerialization.JSONObjectWithContentsOfURL(manifestURL)
         } catch let e {
             throw PluginEnvError.InvalidManifest(details: String(e))
         }
@@ -65,6 +67,7 @@ public class Plugin: LRManifestErrorSink, ActionContainer {
         guard let manifest = JSONObjectValue(obj) else {
             throw PluginEnvError.InvalidManifest(details: "top-level JSON element is not an object")
         }
+        return manifest
     }
 
     private func loadActions() {
