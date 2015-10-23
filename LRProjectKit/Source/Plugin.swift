@@ -12,11 +12,12 @@ public enum PluginEnvError: ErrorType {
 }
 
 
-public class Plugin: ActionContainer, EmitterType {
+public class Plugin: ActionContainer, EmitterType, Updatable {
     public var _listeners = EventListenerStorage()
 
     public let context: PluginContext
 
+    public let name: String
     public let folderURL: NSURL
     public let manifestURL: NSURL
 
@@ -26,15 +27,20 @@ public class Plugin: ActionContainer, EmitterType {
 
     public private(set) var bundledPackageContainers: [LRPackageContainer] = []
 
-    private var updating: UpdateBehavior<Plugin, StdUpdateReason>!
-
     public init(folderURL: NSURL, context: PluginContext) {
         self.folderURL = folderURL
         self.context = context
         manifestURL = folderURL.URLByAppendingPathComponent("manifest.json")
-        log = EnvLog(origin: "plugin \(folderURL.lastPathComponent)")
+        log = EnvLog(origin: "\(folderURL.lastPathComponent!)")
+        name = folderURL.URLByDeletingPathExtension!.lastPathComponent!
 
         updating = UpdateBehavior(self, Plugin.performUpdate)
+    }
+
+    private var updating: UpdateBehavior<Plugin, StdUpdateReason>!
+
+    public var isUpdating: Bool {
+        return updating.isUpdating
     }
 
     public func update(reason: StdUpdateReason) {

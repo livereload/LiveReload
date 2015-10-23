@@ -14,6 +14,7 @@
 		431CCDC81BD8374300FA3E7D /* Plugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43994D6D1BD37730003D034E /* Plugin.swift */; settings = {ASSET_TAGS = (); }; };
 		431CCDD01BD9840A00FA3E7D /* UpdateBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431CCDCF1BD9840A00FA3E7D /* UpdateBehavior.swift */; settings = {ASSET_TAGS = (); }; };
 		435916861BDA177C00708C73 /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 435916841BDA177100708C73 /* PromiseKit.framework */; };
+		435916A71BDA20F300708C73 /* PluginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435916A61BDA20F300708C73 /* PluginTests.swift */; settings = {ASSET_TAGS = (); }; };
 		43994D431BD35176003D034E /* LRProjectKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43994D2F1BD35119003D034E /* LRProjectKit.framework */; settings = {ASSET_TAGS = (); }; };
 		43994D4E1BD3519F003D034E /* LRProjectKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43994D4D1BD3519F003D034E /* LRProjectKitTests.swift */; settings = {ASSET_TAGS = (); }; };
 		43994D631BD35691003D034E /* ATPathSpec.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43994D591BD35691003D034E /* ATPathSpec.framework */; };
@@ -41,6 +42,8 @@
 /* Begin PBXFileReference section */
 		431CCDCF1BD9840A00FA3E7D /* UpdateBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateBehavior.swift; sourceTree = "<group>"; };
 		435916841BDA177100708C73 /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = "../../../../Library/Developer/Xcode/DerivedData/LiveReload-hkzvlfkmaipqkuafsrljbdycmyql/Build/Products/Debug/PromiseKit.framework"; sourceTree = "<group>"; };
+		435916A61BDA20F300708C73 /* PluginTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PluginTests.swift; sourceTree = "<group>"; };
+		435916A81BDA214000708C73 /* TestFixtures */ = {isa = PBXFileReference; lastKnownFileType = folder; path = TestFixtures; sourceTree = "<group>"; };
 		43994D2F1BD35119003D034E /* LRProjectKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LRProjectKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		43994D3E1BD35176003D034E /* LRProjectKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LRProjectKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		43994D4D1BD3519F003D034E /* LRProjectKitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRProjectKitTests.swift; sourceTree = "<group>"; };
@@ -98,6 +101,7 @@
 			children = (
 				43994D491BD35196003D034E /* Source */,
 				43994D4C1BD3519F003D034E /* Tests */,
+				435916A81BDA214000708C73 /* TestFixtures */,
 				43994D4F1BD351AA003D034E /* Metadata */,
 				43994D581BD3566A003D034E /* Frameworks */,
 				43994D301BD35119003D034E /* Products */,
@@ -130,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				43994D4D1BD3519F003D034E /* LRProjectKitTests.swift */,
+				435916A61BDA20F300708C73 /* PluginTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -280,6 +285,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				435916A71BDA20F300708C73 /* PluginTests.swift in Sources */,
 				43994D4E1BD3519F003D034E /* LRProjectKitTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

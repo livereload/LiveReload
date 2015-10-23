@@ -1,7 +1,7 @@
 import Foundation
 import ExpressiveFoundation
 
-public class EnvLog: EmitterType {
+public class EnvLog: EmitterType, CustomStringConvertible {
     public var _listeners = EventListenerStorage()
 
     public struct DidChange: EventType {
@@ -43,6 +43,20 @@ public class EnvLog: EmitterType {
 
     public var annotatedWarnings: [String] {
         return warnings.map { annotate($0) }
+    }
+
+    public var description: String {
+        if errors.isEmpty && warnings.isEmpty {
+            return "(empty)"
+        }
+
+        var lines: [String] = []
+        if !origin.isEmpty {
+            lines += ["\(origin):"]
+        }
+        lines += errors.map { "E: \($0)" }
+        lines += warnings.map { "W: \($0)" }
+        return lines.joinWithSeparator("\n")
     }
 
     public init(origin: String) {

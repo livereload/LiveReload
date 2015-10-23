@@ -1,0 +1,12 @@
+{
+    "actions": [
+        {
+            "type": "compile-file",
+            "id": "less",
+            "name": "LESS",
+
+            "input": "*.less",
+            "output": "*.css"
+        }
+    ]
+}

@@ -40,36 +40,49 @@ public enum StdUpdateReason: Int, UpdateRequestType {
 
 }
 
-public struct UpdateBatchDidStart: EventType {
+public protocol Updatable: EmitterType {
+
+    var isUpdating: Bool { get }
+
+    func update(reason: StdUpdateReason)
+
 }
+
 public struct UpdateDidFinish<UpdateRequest: UpdateRequestType>: EventType {
     public let request: UpdateRequest
 }
-public struct UpdateBatchDidFinish: EventType {
+public struct UpdatableStateDidChange: EventType {
 }
 
-public struct UpdateBehavior<Owner: EmitterType, UpdateRequest: UpdateRequestType> {
+public class UpdateBehavior<Owner: EmitterType, UpdateRequest: UpdateRequestType> {
 
     public unowned var owner: Owner
     public let updateMethod: (Owner) -> () -> Void
-    public let endBatchMethod: ((Owner) -> () -> Void)?
+    public let childrenMethod: ((Owner) -> () -> [Updatable])?
 
     public private(set) var runningRequest: UpdateRequest?
     public private(set) var lastRequest: UpdateRequest?
     public private(set) var lastError: ErrorType?
     public private(set) var pendingRequests: [UpdateRequest] = []
 
-    public var isUpdating: Bool {
+    public private(set) var isUpdatingChildren: Bool = false
+    private var childrenListeners: [ObjectIdentifier: [(updatable: Updatable, listener: ListenerType)]] = [:]
+
+    public var isUpdatingSelf: Bool {
         return runningRequest != nil
     }
 
-    public init(_ owner: Owner, _ updateMethod: (Owner) -> () -> Void, endBatchMethod: ((Owner) -> () -> Void)? = nil) {
-        self.owner = owner
-        self.updateMethod = updateMethod
-        self.endBatchMethod = endBatchMethod
+    public var isUpdating: Bool {
+        return isUpdatingSelf || isUpdatingChildren
     }
 
-    public mutating func update(request: UpdateRequest) {
+    public init(_ owner: Owner, _ updateMethod: (Owner) -> () -> Void, childrenMethod: ((Owner) -> () -> [Updatable])? = nil) {
+        self.owner = owner
+        self.updateMethod = updateMethod
+        self.childrenMethod = childrenMethod
+    }
+
+    public func update(request: UpdateRequest) {
         if let current = runningRequest {
             if let merged = UpdateRequest.merge(current, request) {
                 self.runningRequest = merged
@@ -77,12 +90,11 @@ public struct UpdateBehavior<Owner: EmitterType, UpdateRequest: UpdateRequestTyp
                 addPendingRequest(request)
             }
         } else {
-            didStartBatch()
             startUpdate(request)
         }
     }
 
-    private mutating func addPendingRequest(request: UpdateRequest) {
+    private func addPendingRequest(request: UpdateRequest) {
         for (idx, pending) in pendingRequests.enumerate() {
             if let merged = UpdateRequest.merge(pending, request) {
                 pendingRequests[idx] = merged
@@ -92,12 +104,23 @@ public struct UpdateBehavior<Owner: EmitterType, UpdateRequest: UpdateRequestTyp
         pendingRequests.append(request)
     }
 
-    private mutating func startUpdate(request: UpdateRequest) {
+    private func startUpdate(request: UpdateRequest) {
+        let previous = runningRequest
         runningRequest = request
+
+        if previous == nil {
+            didStartBatch()
+        }
+#if true
+        if previous != nil {
+            print("\(owner)+UpdateBehavior: update continued")
+        }
+#endif
+
         updateMethod(owner)()
     }
 
-    private mutating func startNextRequest() {
+    private func startNextRequest() {
         if pendingRequests.isEmpty {
             didEndBatch()
         } else {
@@ -105,30 +128,83 @@ public struct UpdateBehavior<Owner: EmitterType, UpdateRequest: UpdateRequestTyp
         }
     }
 
-    public mutating func didSucceed() {
+    public func didSucceed() {
         lastError = nil
         didFinish()
     }
 
-    public mutating func didFail(error: ErrorType) {
+    public func didFail(error: ErrorType) {
         lastError = error
         didFinish()
     }
 
-    private mutating func didFinish() {
+    private func didFinish() {
         lastRequest = runningRequest
         runningRequest = nil
         owner.emit(UpdateDidFinish(request: lastRequest!))
         startNextRequest()
     }
 
-    private mutating func didStartBatch() {
-        owner.emit(UpdateBatchDidStart())
+    private func didStartBatch() {
+#if true
+        print("\(owner)+UpdateBehavior: update started")
+#endif
+        owner.emit(UpdatableStateDidChange())
     }
 
-    private mutating func didEndBatch() {
+    private func didEndBatch() {
+#if true
+        print("\(owner)+UpdateBehavior: update finished")
+#endif
         runningRequest = nil
-        owner.emit(UpdateBatchDidFinish())
+        refreshChildren(silent: true)  // just in case
+        owner.emit(UpdatableStateDidChange())
+    }
+
+    public func refreshChildren() {
+        refreshChildren(silent: false)
+    }
+
+    private func refreshChildren(silent silent: Bool) {
+        let newChildren = childrenMethod?(owner)() ?? []
+
+        let oldMap = childrenListeners
+        var newMap = [ObjectIdentifier: [(updatable: Updatable, listener: ListenerType)]]()
+
+#if true
+        print("\(owner)+UpdateBehavior: now has \(newChildren.count) children")
+#endif
+
+        for child in newChildren {
+            let oid = ObjectIdentifier(child)
+
+            let listener: ListenerType
+            if let old = oldMap[oid]?.find({ $0.updatable === child })?.listener {
+                listener = old
+            } else {
+                listener = child.subscribe(self, UpdateBehavior.childStateDidChange)
+#if true
+                print("\(owner)+UpdateBehavior: subscribed to \(child)")
+#endif
+            }
+
+            if newMap[oid] == nil {
+                newMap[oid] = []
+            }
+            newMap[oid]!.append((child, listener))
+        }
+
+        let oldUC = isUpdatingChildren
+        isUpdatingChildren = newChildren.contains { $0.isUpdating }
+        if oldUC != isUpdatingChildren && !silent {
+            owner.emit(UpdatableStateDidChange())
+        }
+
+        childrenListeners = newMap
+    }
+
+    private func childStateDidChange(event: UpdatableStateDidChange) {
+        refreshChildren()
     }
 
 }

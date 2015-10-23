@@ -1,40 +1,47 @@
 import Foundation
-import AppKit
+import ExpressiveFoundation
 import LRActionKit
 import ATPathSpec
 import ExpressiveCollections
 
-public class PluginManager : NSObject {
+public class PluginManager: EmitterType {
+
+    public var _listeners = EventListenerStorage()
+
+    public struct DidDetectInvalidPlugins: EventType {
+        public let invalidPlugins: [Plugin]
+    }
 
     public let context: PluginContext
 
     public let log = EnvLog(origin: "Plugin Manager")
 
+    public var pluginContainerURLs: [NSURL] = []
+
     public init(context: PluginContext) {
         self.context = context
+        updating = UpdateBehavior(self, PluginManager.reloadPlugins, childrenMethod: PluginManager.getUpdatableChildren)
     }
 
-    public func reloadPlugins() {
+    private var updating: UpdateBehavior<PluginManager, StdUpdateReason>!
+
+    public var isUpdating: Bool {
+        return updating.isUpdating
+    }
+
+    public func update(reason: StdUpdateReason) {
+        updating.update(reason)
+    }
+
+    private func reloadPlugins() {
         actionsIndex.removeAll()
         plugins = []
 
         let lb = log.beginUpdating()
 
-//        let libraryFolderPaths = ["~/Library/LiveReload", "~/Dropbox/Library/LiveReload"]
-//        for libraryFolderPath in libraryFolderPaths {
-//
-//            let pluginsFolder = libraryFolderPath.stringByAppendingPathComponent("Plugins").stringByExpandingTildeInPath
-//            loadPluginsFromFolder(pluginsFolder)
-//        }
-
-        var bundledPluginsFolder = NSBundle.mainBundle().resourcePath!
-        if let pluginsOverrideFolder = NSProcessInfo.processInfo().environment["LRBundledPluginsOverride"] {
-            let trimmed = pluginsOverrideFolder.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-            if !trimmed.isEmpty {
-                bundledPluginsFolder = (trimmed as NSString).stringByExpandingTildeInPath
-            }
+        for folder in pluginContainerURLs {
+            loadPluginsFromFolder(folder, logTo: lb)
         }
-        loadPluginsFromFolder(NSURL(fileURLWithPath: bundledPluginsFolder, isDirectory: true), logTo: lb)
 
         for plugin in plugins {
             for action in plugin.actions {
@@ -44,28 +51,17 @@ public class PluginManager : NSObject {
 
         let badPlugins = plugins.filter { $0.log.hasErrors }
         if !badPlugins.isEmpty {
-            var errorMessage = ""
-            errorMessage += "Number of plugins with errors: \(badPlugins.count)\n\n"
-            for plugin in badPlugins {
-                errorMessage += "Error messages for \(plugin.folderURL.lastPathComponent!):\n"
-                for error in plugin.log.errors {
-                    errorMessage += "• \(error)\n"
-                }
-            }
-
-            NSLog("%@", errorMessage)
-            let alert = NSAlert()
-            alert.messageText = "LiveReload couldn't load some plugins"
-            alert.informativeText = errorMessage
-            alert.addButtonWithTitle("Continue")
-            alert.addButtonWithTitle("Quit")
-            if alert.runModal() == NSAlertSecondButtonReturn {
-                exit(1);
-            }
+            emit(DidDetectInvalidPlugins(invalidPlugins: badPlugins))
         }
+
+        updating.didSucceed()
     }
 
     public private(set) var plugins: [Plugin] = []
+
+    private func getUpdatableChildren() -> [Updatable] {
+        return plugins.map { $0 as Updatable }
+    }
 
     public var userPluginNames: [String] {
         return Array(pluginsByName.keys)
@@ -90,6 +86,8 @@ public class PluginManager : NSObject {
             pluginsByName[name] = plugin
             plugins.append(plugin)
             lb.addChild(plugin.log)
+
+            plugin.update(.Initial)
         } else {
             lb.addWarning("Skipped \(name)", ["at \(pluginFolderURL.path)"])
         }
