@@ -13,6 +13,7 @@
 		431CCDC71BD8374300FA3E7D /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43994D521BD3522F003D034E /* Project.swift */; settings = {ASSET_TAGS = (); }; };
 		431CCDC81BD8374300FA3E7D /* Plugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43994D6D1BD37730003D034E /* Plugin.swift */; settings = {ASSET_TAGS = (); }; };
 		431CCDD01BD9840A00FA3E7D /* UpdateBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431CCDCF1BD9840A00FA3E7D /* UpdateBehavior.swift */; settings = {ASSET_TAGS = (); }; };
+		435916861BDA177C00708C73 /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 435916841BDA177100708C73 /* PromiseKit.framework */; };
 		43994D431BD35176003D034E /* LRProjectKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43994D2F1BD35119003D034E /* LRProjectKit.framework */; settings = {ASSET_TAGS = (); }; };
 		43994D4E1BD3519F003D034E /* LRProjectKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43994D4D1BD3519F003D034E /* LRProjectKitTests.swift */; settings = {ASSET_TAGS = (); }; };
 		43994D631BD35691003D034E /* ATPathSpec.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43994D591BD35691003D034E /* ATPathSpec.framework */; };
@@ -39,6 +40,7 @@
 
 /* Begin PBXFileReference section */
 		431CCDCF1BD9840A00FA3E7D /* UpdateBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateBehavior.swift; sourceTree = "<group>"; };
+		435916841BDA177100708C73 /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = "../../../../Library/Developer/Xcode/DerivedData/LiveReload-hkzvlfkmaipqkuafsrljbdycmyql/Build/Products/Debug/PromiseKit.framework"; sourceTree = "<group>"; };
 		43994D2F1BD35119003D034E /* LRProjectKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LRProjectKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		43994D3E1BD35176003D034E /* LRProjectKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LRProjectKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		43994D4D1BD3519F003D034E /* LRProjectKitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRProjectKitTests.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				435916861BDA177C00708C73 /* PromiseKit.framework in Frameworks */,
 				43994D631BD35691003D034E /* ATPathSpec.framework in Frameworks */,
 				43994D641BD35691003D034E /* ATVersionKit.framework in Frameworks */,
 				43994D651BD35691003D034E /* EditorKit.framework in Frameworks */,
@@ -143,6 +146,7 @@
 		43994D581BD3566A003D034E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				435916841BDA177100708C73 /* PromiseKit.framework */,
 				43994D591BD35691003D034E /* ATPathSpec.framework */,
 				43994D5A1BD35691003D034E /* ATVersionKit.framework */,
 				43994D5B1BD35691003D034E /* EditorKit.framework */,
