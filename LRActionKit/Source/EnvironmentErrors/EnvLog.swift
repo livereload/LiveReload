@@ -2,7 +2,7 @@ import Foundation
 import ExpressiveFoundation
 
 public class EnvLog: EmitterType {
-    public var _listenerStorage = ListenerStorage()
+    public var _listeners = EventListenerStorage()
 
     public struct DidChange: EventType {
     }

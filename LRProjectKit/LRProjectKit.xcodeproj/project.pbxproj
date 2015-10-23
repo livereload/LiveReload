@@ -12,6 +12,7 @@
 		431CCDC61BD8374300FA3E7D /* Workspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43994D541BD35526003D034E /* Workspace.swift */; settings = {ASSET_TAGS = (); }; };
 		431CCDC71BD8374300FA3E7D /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43994D521BD3522F003D034E /* Project.swift */; settings = {ASSET_TAGS = (); }; };
 		431CCDC81BD8374300FA3E7D /* Plugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43994D6D1BD37730003D034E /* Plugin.swift */; settings = {ASSET_TAGS = (); }; };
+		431CCDD01BD9840A00FA3E7D /* UpdateBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431CCDCF1BD9840A00FA3E7D /* UpdateBehavior.swift */; settings = {ASSET_TAGS = (); }; };
 		43994D431BD35176003D034E /* LRProjectKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43994D2F1BD35119003D034E /* LRProjectKit.framework */; settings = {ASSET_TAGS = (); }; };
 		43994D4E1BD3519F003D034E /* LRProjectKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43994D4D1BD3519F003D034E /* LRProjectKitTests.swift */; settings = {ASSET_TAGS = (); }; };
 		43994D631BD35691003D034E /* ATPathSpec.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43994D591BD35691003D034E /* ATPathSpec.framework */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		431CCDCF1BD9840A00FA3E7D /* UpdateBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateBehavior.swift; sourceTree = "<group>"; };
 		43994D2F1BD35119003D034E /* LRProjectKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LRProjectKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		43994D3E1BD35176003D034E /* LRProjectKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LRProjectKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		43994D4D1BD3519F003D034E /* LRProjectKitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRProjectKitTests.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				43994D561BD35544003D034E /* PluginManager.swift */,
 				43994D7D1BD50E0F003D034E /* PluginContext.swift */,
 				43994D6D1BD37730003D034E /* Plugin.swift */,
+				431CCDCF1BD9840A00FA3E7D /* UpdateBehavior.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				431CCDD01BD9840A00FA3E7D /* UpdateBehavior.swift in Sources */,
 				431CCDC61BD8374300FA3E7D /* Workspace.swift in Sources */,
 				431CCDC51BD8373B00FA3E7D /* PluginContext.swift in Sources */,
 				431CCDC41BD8373800FA3E7D /* PluginManager.swift in Sources */,

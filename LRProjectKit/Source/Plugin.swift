@@ -12,7 +12,8 @@ public enum PluginEnvError: ErrorType {
 }
 
 
-public class Plugin: ActionContainer {
+public class Plugin: ActionContainer, EmitterType {
+    public var _listeners = EventListenerStorage()
 
     public let context: PluginContext
 
@@ -25,34 +26,47 @@ public class Plugin: ActionContainer {
 
     public private(set) var bundledPackageContainers: [LRPackageContainer] = []
 
-    private var manifest: JSONObject = [:]
+    private var updating: UpdateBehavior<Plugin, StdUpdateReason>!
 
     public init(folderURL: NSURL, context: PluginContext) {
         self.folderURL = folderURL
         self.context = context
         manifestURL = folderURL.URLByAppendingPathComponent("manifest.json")
         log = EnvLog(origin: "plugin \(folderURL.lastPathComponent)")
+
+        updating = UpdateBehavior(self, Plugin.performUpdate)
+    }
+
+    public func update(reason: StdUpdateReason) {
+        updating.update(reason)
     }
 
     public var substitutionValues: [String: String] {
         return ["plugin": folderURL.path!]
     }
 
-    public func update() {
+    private func performUpdate() {
         let lb = log.beginUpdating()
 
-        do {
-            manifest = try loadManifest()
-        } catch (let e) {
-            lb.addError(e)
-            manifest = [:]
-        }
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
+            let manifest: JSONObject
+            do {
+                manifest = try self.loadManifestInBackground()
+            } catch (let e) {
+                lb.addError(e)
+                manifest = [:]
+            }
 
-        loadActions()
-        loadBundledPackageContainers()
+            dispatch_async(dispatch_get_main_queue()) {
+                self.loadActions(manifest)
+                self.loadBundledPackageContainers(manifest)
+
+                self.updating.didSucceed()
+            }
+        }
     }
 
-    private func loadManifest() throws -> JSONObject {
+    private func loadManifestInBackground() throws -> JSONObject {
         if !manifestURL.checkResourceIsReachableAndReturnError(nil) {
             throw PluginEnvError.MissingManifest
         }
@@ -70,12 +84,12 @@ public class Plugin: ActionContainer {
         return manifest
     }
 
-    private func loadActions() {
+    private func loadActions(manifest: JSONObject) {
         let submf: [JSONObject] = manifest["actions"]~~~ ?? []
         actions = submf.mapIf { Action(manifest: $0, container: self) }
     }
 
-    private func loadBundledPackageContainers() {
+    private func loadBundledPackageContainers(manifest: JSONObject) {
         for pc in bundledPackageContainers {
             pc.packageType.removePackageContainer(pc)
         }
