@@ -2,11 +2,9 @@ import Foundation
 import ATPathSpec
 import PackageManagerKit
 
-@objc(ProjectContext)
-public protocol ProjectContext : NSObjectProtocol {
+public protocol ProjectContext: class {
 
     var rootURL: NSURL { get }
-    var path: String { get }
 
     var forcedStylesheetReloadSpec: ATPathSpec? { get }
 

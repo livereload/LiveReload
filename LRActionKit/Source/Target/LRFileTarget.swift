@@ -22,7 +22,7 @@ public class LRFileTarget : LRTarget {
                 if let e = result.invocationError {
                     NSLog("Error compiling \(self.sourceFile.relativePath): \(e.domain) - \(e.code) - \(e.localizedDescription)")
                 }
-                build.addOperationResult(result, forTarget: self, key: "\(self.project.path).\(self.sourceFile.relativePath)")
+                build.addOperationResult(result, forTarget: self, key: "\(self.project.rootURL.path!).\(self.sourceFile.relativePath)")
                 completionBlock()
             }
         }

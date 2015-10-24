@@ -276,8 +276,7 @@ public class Rule : NSObject {
     // MARK: Build
 
     public func configureStep(step: ScriptInvocationStep) {
-        print("configureStep: project.path = \(project.path)")
-        step.addStringValue("project_dir", project.path)
+        step.addStringValue("project_dir", project.rootURL.path!)
 
         if let eff = effectiveVersion {
             let manifest = eff.manifest

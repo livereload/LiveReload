@@ -3,7 +3,7 @@ import PackageManagerKit
 
 public class ActionSet: NSObject {
 
-    public let project: ProjectContext
+    public unowned let project: ProjectContext
 
     public private(set) var actions: [Action] = []
     public private(set) var contextActions: [LRContextAction] = []
