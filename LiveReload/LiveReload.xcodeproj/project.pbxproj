@@ -31,12 +31,11 @@
 		43D6A8D11BB2A5AB00296B03 /* ExpressiveCasting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D6A8D01BB2A5AB00296B03 /* ExpressiveCasting.framework */; };
 		43D6A8E61BB2A8EB00296B03 /* ExpressiveFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D6A8E51BB2A8EB00296B03 /* ExpressiveFoundation.framework */; };
 		43D6A91D1BB2AB3D00296B03 /* ExpressiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D6A91C1BB2AB3D00296B03 /* ExpressiveCocoa.framework */; };
-		43D6A9211BB2ACC800296B03 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D6A9201BB2ACC800296B03 /* AppDelegate.swift */; settings = {ASSET_TAGS = (); }; };
-		43D6A9251BB2ACD100296B03 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43D6A9231BB2ACD100296B03 /* MainMenu.xib */; settings = {ASSET_TAGS = (); }; };
-		43D6A92C1BB2ACF200296B03 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43D6A92B1BB2ACF200296B03 /* Assets.xcassets */; settings = {ASSET_TAGS = (); }; };
-		43D6A92F1BB2AD0200296B03 /* LiveReloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D6A92E1BB2AD0200296B03 /* LiveReloadTests.swift */; settings = {ASSET_TAGS = (); }; };
-		43D6A9321BB2AD0A00296B03 /* LiveReloadUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D6A9311BB2AD0A00296B03 /* LiveReloadUITests.swift */; settings = {ASSET_TAGS = (); }; };
-		43F4E4F31BB5FC5A004EFF5C /* FSMonitoringKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43F4E4F21BB5FC5A004EFF5C /* FSMonitoringKit.framework */; };
+		43D6A9211BB2ACC800296B03 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D6A9201BB2ACC800296B03 /* AppDelegate.swift */; };
+		43D6A9251BB2ACD100296B03 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43D6A9231BB2ACD100296B03 /* MainMenu.xib */; };
+		43D6A92C1BB2ACF200296B03 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43D6A92B1BB2ACF200296B03 /* Assets.xcassets */; };
+		43D6A92F1BB2AD0200296B03 /* LiveReloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D6A92E1BB2AD0200296B03 /* LiveReloadTests.swift */; };
+		43D6A9321BB2AD0A00296B03 /* LiveReloadUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D6A9311BB2AD0A00296B03 /* LiveReloadUITests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,7 +114,6 @@
 				4306933A1BBB392000B2E70A /* ATVersionKit.framework in Frameworks */,
 				435916951BDA1FCD00708C73 /* ATPathSpec.framework in Frameworks */,
 				435916971BDA1FCD00708C73 /* FSMonitoringKit.framework in Frameworks */,
-				43F4E4F31BB5FC5A004EFF5C /* FSMonitoringKit.framework in Frameworks */,
 				4359168B1BDA1FCD00708C73 /* LRActionKit.framework in Frameworks */,
 				4359169F1BDA1FCD00708C73 /* EditorKit.framework in Frameworks */,
 				4359168D1BDA1FCD00708C73 /* ExpressiveCollections.framework in Frameworks */,
@@ -309,7 +307,7 @@
 		430F0CDB1BB0AB3D00F8B30A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = LiveReload;
 				TargetAttributes = {
 					430F0CE21BB0AB3D00F8B30A = {
