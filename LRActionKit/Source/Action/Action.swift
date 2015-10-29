@@ -136,23 +136,30 @@ public class Action : LRManifestBasedObject {
     }
 
     public func fakeChangeDestinationPathForSourceFile(file: ProjectFile) -> RelPath? {
-        if let fakeChangeExtension = fakeChangeExtension {
-            if file.path.hasPathExtension(fakeChangeExtension) {
-                return nil
-            } else {
-                // TODO: use the matched input extension instead of the shortest extension
-                let (path, found) = file.path.replaceShortestPathExtensionWith(fakeChangeExtension)
-                if found {
-                    return path
-                } else {
-                    return nil
-                }
-            }
+        guard kind == .Compiler else {
+            return nil
+        }
+        guard let fakeChangeExtension = fakeChangeExtension else {
+            return nil
+        }
+        guard !file.path.hasPathExtension(fakeChangeExtension) else {
+            return nil
+        }
+        guard let details = combinedIntrinsicInputPathSpec.includesWithDetails(file.path) else {
+            return nil
+        }
+        guard let suffix = details.matchedSuffix else {
+            return nil
+        }
+
+        let (path, found) = file.path.replacePathExtension(suffix, fakeChangeExtension)
+        if found {
+            return path
         } else {
             return nil
         }
     }
-    
+
     public func newRule(contextAction contextAction: LRContextAction, memento: JSONObject?) -> Rule {
         return ruleType.init(contextAction: contextAction, memento: memento)
     }

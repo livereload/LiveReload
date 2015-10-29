@@ -4,7 +4,9 @@ import XCTest
 class LRProjectKitTests: XCTestCase {
 
     var ws: Workspace!
-    
+
+    let fixturesDirectoryURL = NSURL(fileURLWithPath: __FILE__, isDirectory: false).URLByDeletingLastPathComponent!.URLByDeletingLastPathComponent!.URLByAppendingPathComponent("TestFixtures", isDirectory: true)
+
     override func setUp() {
         super.setUp()
         ws = Workspace()
@@ -15,7 +17,12 @@ class LRProjectKitTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-    }
+//    func testExample() {
+//        let project = newTestProject(<#T##name: String##String#>)
+//    }
+//
+//    private func newTestProject(name: String) -> Project {
+//        
+//    }
 
 }

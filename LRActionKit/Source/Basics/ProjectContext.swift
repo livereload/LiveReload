@@ -14,8 +14,6 @@ public protocol ProjectContext: class {
     func hackhack_didFilterFile(file: ProjectFile)
     func hackhack_shouldFilterFile(file: ProjectFile) -> Bool
 
-    func displayResult(result: LROperationResult, key: String)
-
     func compilerActionsForFile(file: ProjectFile) -> [Action]
 
     func sendReloadRequest(changes changes: [NSDictionary], forceFullReload: Bool)

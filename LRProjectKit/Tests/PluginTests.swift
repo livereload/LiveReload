@@ -20,7 +20,7 @@ class PluginTests: XCTestCase {
 
     func testSimplePlugin() {
         let e = expectationWithDescription("UpdateBatchDidFinish")
-        let plugin = Plugin(folderURL: fixturesDirectoryURL.URLByAppendingPathComponent("Plugins/SimplePlugin.lrplugin", isDirectory: true), context: ws)
+        let plugin = Plugin(folderURL: fixturesDirectoryURL.URLByAppendingPathComponent("Plugins/Foo.lrplugin", isDirectory: true), context: ws)
         var o = Observation()
         o += plugin.subscribe { (event: UpdatableStateDidChange, sender) in
             if !plugin.isUpdating {
@@ -37,8 +37,8 @@ class PluginTests: XCTestCase {
 
             XCTAssertEqual(plugin.actions.count, 1)
             if plugin.actions.count < 1 { return }
-            XCTAssertEqual(plugin.actions[0].name, "LESS")
-            XCTAssertEqual(plugin.actions[0].identifier, "less")
+            XCTAssertEqual(plugin.actions[0].name, "FOO")
+            XCTAssertEqual(plugin.actions[0].identifier, "foo")
         }
     }
 
@@ -62,7 +62,7 @@ class PluginTests: XCTestCase {
 
             XCTAssertEqual(manager.plugins.count, 1)
             if manager.plugins.count < 1 { return }
-            XCTAssertEqual(manager.plugins[0].name, "SimplePlugin")
+            XCTAssertEqual(manager.plugins[0].name, "Foo")
             XCTAssertEqual(manager.plugins[0].actions.count, 1)
         }
     }

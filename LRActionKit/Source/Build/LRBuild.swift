@@ -4,14 +4,29 @@ import ExpressiveFoundation
 import ExpressiveCasting
 import ATPathSpec
 
-public class LRBuild : NSObject {
+public class LRBuild : NSObject, EmitterType {
+    public var _listeners = EventListenerStorage()
 
-    public let project: ProjectContext
+    public struct DidProduceResult: EventType {
+        public let result: LROperationResult
+        public let target: LRTarget
+        public let key: String
+    }
+
+    public struct DidProduceReloadRequest: EventType {
+        public let request: BrowserReloadRequest
+    }
+
+    public struct DidFinish: EventType {
+    }
+
     public let rules: [Rule]
+    public let actions: [Action]
+    public let configuration: BuildConfigurationProtocol
 
     public private(set) var messages: [LRMessage] = []
 
-    public private(set) var reloadRequests: [NSDictionary] = []
+    public private(set) var browserChanges: [BrowserChange] = []
     private var _modifiedFiles = IndexedArray<String, ProjectFile>() { $0.relativePath }
     private var _compiledFiles = IndexedArray<String, ProjectFile>() { $0.relativePath }
     private var _pendingFileTargets: [LRTarget] = []
@@ -32,13 +47,14 @@ public class LRBuild : NSObject {
 
     public private(set) var firstFailure: LROperationResult?
 
-    public init(project: ProjectContext, rules: [Rule]) {
-        self.project = project
+    public init(rules: [Rule], actions: [Action], configuration: BuildConfigurationProtocol) {
         self.rules = rules
+        self.actions = actions
+        self.configuration = configuration
     }
 
-    public func addReloadRequest(reloadRequest: JSONObject) {
-        reloadRequests.append(reloadRequest)
+    public func addReloadRequest(reloadRequest: BrowserChange) {
+        browserChanges.append(reloadRequest)
     }
 
     public func addModifiedFiles(files: [ProjectFile]) {
@@ -70,19 +86,19 @@ public class LRBuild : NSObject {
     // MARK: Reload requess
 
     private var _hasReloadRequests: Bool {
-        return reloadRequests.count > 0
+        return browserChanges.count > 0
     }
 
     private func _updateReloadRequests() {
-        reloadRequests = []
+        browserChanges = []
 
         var filesToReload: [ProjectFile] = _modifiedFiles.list
 
-        if let forcedStylesheetReloadSpec: ATPathSpec = project.forcedStylesheetReloadSpec {
+        if let forcedStylesheetReloadSpec: ATPathSpec = configuration.forcedStylesheetReloadSpec {
             if forcedStylesheetReloadSpec.isNonEmpty() {
                 let filesTriggeringForcedStylesheetReloading = filesToReload.filter { forcedStylesheetReloadSpec.matchesPath($0.relativePath, type: .File) }
                 if filesTriggeringForcedStylesheetReloading.count > 0 {
-                    addReloadRequest(["path": "force-reload-all-stylesheets.css", "originalPath": NSNull()])
+                    addReloadRequest(BrowserChange(path: "force-reload-all-stylesheets.css", localPath: nil, originalPath: nil))
                     filesToReload.removeElements(filesTriggeringForcedStylesheetReloading)
                 }
             }
@@ -93,13 +109,12 @@ public class LRBuild : NSObject {
                 continue  // compiled; wait for the destination file change event to send a reload request
             }
 
-            let actions = project.compilerActionsForFile(file)
             let fakeDestinationPath = actions.findMapped { $0.fakeChangeDestinationPathForSourceFile(file) }
             if let fakeDestinationPath = fakeDestinationPath {
                 let fakeURL = fakeDestinationPath.resolve(baseURL: file.project.rootURL)
-                addReloadRequest(["path": fakeURL.path!, "originalPath": file.absolutePath, "localPath": NSNull()])
+                addReloadRequest(BrowserChange(path: fakeURL.path!, localPath: nil, originalPath: file.absolutePath))
             } else {
-                addReloadRequest(["path": file.absolutePath, "originalPath": NSNull(), "localPath": file.absolutePath])
+                addReloadRequest(BrowserChange(path: file.absolutePath, localPath: file.absolutePath, originalPath: nil))
             }
         }
     }
@@ -107,8 +122,8 @@ public class LRBuild : NSObject {
     public func sendReloadRequests() {
         _updateReloadRequests()
 
-        if  reloadRequests.count > 0 {
-            project.sendReloadRequest(changes: reloadRequests, forceFullReload: project.disableLiveRefresh)
+        if browserChanges.count > 0 {
+            emit(DidProduceReloadRequest(request: BrowserReloadRequest(changes: browserChanges, forceFullReload: configuration.disableLiveRefresh)))
         }
     }
 
@@ -125,7 +140,7 @@ public class LRBuild : NSObject {
     private func _finish() {
         if (!finished) {
             finished = true
-            postNotification(LRBuildDidFinishNotification)
+            emit(DidFinish())
         }
     }
 
@@ -197,7 +212,7 @@ public class LRBuild : NSObject {
         }
 
         messages.appendContentsOf(result.messages)
-        project.displayResult(result, key: key)
+        emit(DidProduceResult(result: result, target: target, key: key))
     }
 
 }

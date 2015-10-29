@@ -2,7 +2,6 @@
 
 
 extern NSString *const LRRuleEffectiveVersionDidChangeNotification;
-extern NSString *const LRBuildDidFinishNotification;
 
 
 typedef NS_ENUM(NSInteger, ActionKind) {

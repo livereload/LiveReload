@@ -1,6 +1,7 @@
 import Foundation
 import PackageManagerKit
 import LRActionKit
+import PromiseKit
 
 public class Workspace: PluginContext {
 
@@ -9,6 +10,8 @@ public class Workspace: PluginContext {
     public let packageManager: LRPackageManager
 
     public let plugins: PluginManager
+
+    public let rubies: RubyRuntimeRepository
 
     private var disposed = false
 
@@ -19,6 +22,8 @@ public class Workspace: PluginContext {
 
         let pc = PluginContextImpl(packageManager: packageManager)
         plugins = PluginManager(context: pc)
+
+        rubies = RubyRuntimeRepository()
 
         let lb = log.beginUpdating()
         lb.addChild(plugins.log)

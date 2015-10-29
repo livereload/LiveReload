@@ -1,60 +1,20 @@
 import Foundation
 import ExpressiveFoundation
 
-public protocol UpdateRequestType: Equatable {
-
-    func merge(other: Self) -> Self?
-
-}
-
-public extension UpdateRequestType {
-
-    public static func merge(a: Self, _ b: Self) -> Self? {
-        if a == b {
-            return a
-        } else if let c = a.merge(b) {
-            return c
-        } else if let c = b.merge(a) {
-            return c
-        } else {
-            return nil
-        }
-    }
-
-}
-
-public enum StdUpdateReason: Int, UpdateRequestType {
-
-    case Initial
-    case Periodic
-    case ExternalChange
-    case UserInitiated
-
-    public func merge(other: StdUpdateReason) -> StdUpdateReason? {
-        if other.rawValue > self.rawValue {
-            return other
-        } else {
-            return self
-        }
-    }
-
-}
 
 public protocol Updatable: EmitterType {
 
     var isUpdating: Bool { get }
 
-    func update(reason: StdUpdateReason)
-
 }
 
-public struct UpdateDidFinish<UpdateRequest: UpdateRequestType>: EventType {
+public struct UpdateDidFinish<UpdateRequest: RequestType>: EventType {
     public let request: UpdateRequest
 }
 public struct UpdatableStateDidChange: EventType {
 }
 
-public class UpdateBehavior<Owner: EmitterType, UpdateRequest: UpdateRequestType> {
+public class UpdateBehavior<Owner: EmitterType, UpdateRequest: RequestType> {
 
     public unowned var owner: Owner
     public let updateMethod: (Owner) -> () -> Void
@@ -67,6 +27,8 @@ public class UpdateBehavior<Owner: EmitterType, UpdateRequest: UpdateRequestType
 
     public private(set) var isUpdatingChildren: Bool = false
     private var childrenListeners: [ObjectIdentifier: [(updatable: Updatable, listener: ListenerType)]] = [:]
+
+    public private(set) var disposed: Bool = false
 
     public var isUpdatingSelf: Bool {
         return runningRequest != nil
@@ -82,9 +44,14 @@ public class UpdateBehavior<Owner: EmitterType, UpdateRequest: UpdateRequestType
         self.childrenMethod = childrenMethod
     }
 
+    public func dispose() {
+        disposed = true
+        childrenListeners = [:]  // stop listening to changes
+    }
+
     public func update(request: UpdateRequest) {
         if let current = runningRequest {
-            if let merged = UpdateRequest.merge(current, request) {
+            if let merged = UpdateRequest.merge(current, request, isRunning: true) {
                 self.runningRequest = merged
             } else {
                 addPendingRequest(request)
@@ -96,7 +63,7 @@ public class UpdateBehavior<Owner: EmitterType, UpdateRequest: UpdateRequestType
 
     private func addPendingRequest(request: UpdateRequest) {
         for (idx, pending) in pendingRequests.enumerate() {
-            if let merged = UpdateRequest.merge(pending, request) {
+            if let merged = UpdateRequest.merge(pending, request, isRunning: false) {
                 pendingRequests[idx] = merged
                 return
             }
@@ -121,7 +88,7 @@ public class UpdateBehavior<Owner: EmitterType, UpdateRequest: UpdateRequestType
     }
 
     private func startNextRequest() {
-        if pendingRequests.isEmpty {
+        if disposed || pendingRequests.isEmpty {
             didEndBatch()
         } else {
             startUpdate(pendingRequests.removeFirst())
@@ -166,6 +133,10 @@ public class UpdateBehavior<Owner: EmitterType, UpdateRequest: UpdateRequestType
     }
 
     private func refreshChildren(silent silent: Bool) {
+        if disposed {
+            return  // don't add any children
+        }
+
         let newChildren = childrenMethod?(owner)() ?? []
 
         let oldMap = childrenListeners

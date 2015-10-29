@@ -1,7 +1,6 @@
 #import "ActionKitGlobals.h"
 
 NSString *const LRRuleEffectiveVersionDidChangeNotification = @"LRRuleEffectiveVersionDidChange";
-NSString *const LRBuildDidFinishNotification = @"LRBuildDidFinish";
 
 
 static NSString *ActionKindNames[] = {

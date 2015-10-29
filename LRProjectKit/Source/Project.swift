@@ -21,6 +21,9 @@ public class Project: EmitterType, ProjectContext {
         actionSet = ActionSet(project: self)
     }
 
+    public func dispose() {
+    }
+
     public var forcedStylesheetReloadSpec: ATPathSpec? {
         return nil
     }

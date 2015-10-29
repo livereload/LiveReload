@@ -7,70 +7,70 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		430019BA1BBDEE1600ECF2AF /* LRActionKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 430019AF1BBDEE1600ECF2AF /* LRActionKit.framework */; settings = {ASSET_TAGS = (); }; };
-		43001A1E1BBDEE6A00ECF2AF /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019CB1BBDEE6A00ECF2AF /* Action.swift */; settings = {ASSET_TAGS = (); }; };
-		43001A1F1BBDEE6A00ECF2AF /* ActionContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019CC1BBDEE6A00ECF2AF /* ActionContainer.swift */; settings = {ASSET_TAGS = (); }; };
-		43001A201BBDEE6A00ECF2AF /* LRActionVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019CD1BBDEE6A00ECF2AF /* LRActionVersion.swift */; settings = {ASSET_TAGS = (); }; };
-		43001A211BBDEE6A00ECF2AF /* LRAssetPackageConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019CE1BBDEE6A00ECF2AF /* LRAssetPackageConfiguration.swift */; settings = {ASSET_TAGS = (); }; };
-		43001A221BBDEE6A00ECF2AF /* LRContextAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019CF1BBDEE6A00ECF2AF /* LRContextAction.swift */; settings = {ASSET_TAGS = (); }; };
-		43001A231BBDEE6A00ECF2AF /* LRActionManifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019D11BBDEE6A00ECF2AF /* LRActionManifest.swift */; settings = {ASSET_TAGS = (); }; };
-		43001A241BBDEE6A00ECF2AF /* LRManifestLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019D21BBDEE6A00ECF2AF /* LRManifestLayer.swift */; settings = {ASSET_TAGS = (); }; };
+		430019BA1BBDEE1600ECF2AF /* LRActionKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 430019AF1BBDEE1600ECF2AF /* LRActionKit.framework */; };
+		43001A1E1BBDEE6A00ECF2AF /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019CB1BBDEE6A00ECF2AF /* Action.swift */; };
+		43001A1F1BBDEE6A00ECF2AF /* ActionContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019CC1BBDEE6A00ECF2AF /* ActionContainer.swift */; };
+		43001A201BBDEE6A00ECF2AF /* LRActionVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019CD1BBDEE6A00ECF2AF /* LRActionVersion.swift */; };
+		43001A211BBDEE6A00ECF2AF /* LRAssetPackageConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019CE1BBDEE6A00ECF2AF /* LRAssetPackageConfiguration.swift */; };
+		43001A221BBDEE6A00ECF2AF /* LRContextAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019CF1BBDEE6A00ECF2AF /* LRContextAction.swift */; };
+		43001A231BBDEE6A00ECF2AF /* LRActionManifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019D11BBDEE6A00ECF2AF /* LRActionManifest.swift */; };
+		43001A241BBDEE6A00ECF2AF /* LRManifestLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019D21BBDEE6A00ECF2AF /* LRManifestLayer.swift */; };
 		43001A251BBDEE6A00ECF2AF /* ActionKitGlobals.h in Headers */ = {isa = PBXBuildFile; fileRef = 430019D31BBDEE6A00ECF2AF /* ActionKitGlobals.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		43001A261BBDEE6A00ECF2AF /* ActionKitGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 430019D41BBDEE6A00ECF2AF /* ActionKitGlobals.m */; settings = {ASSET_TAGS = (); }; };
-		43001A291BBDEE6A00ECF2AF /* ActionSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019D81BBDEE6A00ECF2AF /* ActionSet.swift */; settings = {ASSET_TAGS = (); }; };
-		43001A2A1BBDEE6A00ECF2AF /* Deriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019D91BBDEE6A00ECF2AF /* Deriver.swift */; settings = {ASSET_TAGS = (); }; };
-		43001A2B1BBDEE6A00ECF2AF /* FileClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019DA1BBDEE6A00ECF2AF /* FileClassifier.swift */; settings = {ASSET_TAGS = (); }; };
+		43001A261BBDEE6A00ECF2AF /* ActionKitGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 430019D41BBDEE6A00ECF2AF /* ActionKitGlobals.m */; };
+		43001A291BBDEE6A00ECF2AF /* ActionSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019D81BBDEE6A00ECF2AF /* ActionSet.swift */; };
+		43001A2A1BBDEE6A00ECF2AF /* Deriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019D91BBDEE6A00ECF2AF /* Deriver.swift */; };
+		43001A2B1BBDEE6A00ECF2AF /* FileClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019DA1BBDEE6A00ECF2AF /* FileClassifier.swift */; };
 		43001A2C1BBDEE6A00ECF2AF /* ImportGraph.h in Headers */ = {isa = PBXBuildFile; fileRef = 430019DB1BBDEE6A00ECF2AF /* ImportGraph.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		43001A2D1BBDEE6A00ECF2AF /* ImportGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 430019DC1BBDEE6A00ECF2AF /* ImportGraph.m */; settings = {ASSET_TAGS = (); }; };
-		43001A2E1BBDEE6A00ECF2AF /* ProjectAnalysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019DD1BBDEE6A00ECF2AF /* ProjectAnalysis.swift */; settings = {ASSET_TAGS = (); }; };
-		43001A2F1BBDEE6A00ECF2AF /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019DE1BBDEE6A00ECF2AF /* Tag.swift */; settings = {ASSET_TAGS = (); }; };
-		43001A301BBDEE6A00ECF2AF /* TagEvidenceTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019DF1BBDEE6A00ECF2AF /* TagEvidenceTree.swift */; settings = {ASSET_TAGS = (); }; };
-		43001A311BBDEE6A00ECF2AF /* Tagger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019E01BBDEE6A00ECF2AF /* Tagger.swift */; settings = {ASSET_TAGS = (); }; };
-		43001A321BBDEE6A00ECF2AF /* LRManifestBasedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019E21BBDEE6A00ECF2AF /* LRManifestBasedObject.swift */; settings = {ASSET_TAGS = (); }; };
+		43001A2D1BBDEE6A00ECF2AF /* ImportGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 430019DC1BBDEE6A00ECF2AF /* ImportGraph.m */; };
+		43001A2E1BBDEE6A00ECF2AF /* ProjectAnalysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019DD1BBDEE6A00ECF2AF /* ProjectAnalysis.swift */; };
+		43001A2F1BBDEE6A00ECF2AF /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019DE1BBDEE6A00ECF2AF /* Tag.swift */; };
+		43001A301BBDEE6A00ECF2AF /* TagEvidenceTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019DF1BBDEE6A00ECF2AF /* TagEvidenceTree.swift */; };
+		43001A311BBDEE6A00ECF2AF /* Tagger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019E01BBDEE6A00ECF2AF /* Tagger.swift */; };
+		43001A321BBDEE6A00ECF2AF /* LRManifestBasedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019E21BBDEE6A00ECF2AF /* LRManifestBasedObject.swift */; };
 		43001A331BBDEE6A00ECF2AF /* LRManifestErrorSink.h in Headers */ = {isa = PBXBuildFile; fileRef = 430019E31BBDEE6A00ECF2AF /* LRManifestErrorSink.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		43001A341BBDEE6A00ECF2AF /* ProjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019E41BBDEE6A00ECF2AF /* ProjectContext.swift */; settings = {ASSET_TAGS = (); }; };
-		43001A351BBDEE6A00ECF2AF /* ProjectFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019E51BBDEE6A00ECF2AF /* ProjectFile.swift */; settings = {ASSET_TAGS = (); }; };
-		43001A361BBDEE6A00ECF2AF /* LRBuild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019E71BBDEE6A00ECF2AF /* LRBuild.swift */; settings = {ASSET_TAGS = (); }; };
+		43001A341BBDEE6A00ECF2AF /* ProjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019E41BBDEE6A00ECF2AF /* ProjectContext.swift */; };
+		43001A351BBDEE6A00ECF2AF /* ProjectFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019E51BBDEE6A00ECF2AF /* ProjectFile.swift */; };
+		43001A361BBDEE6A00ECF2AF /* LRBuild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019E71BBDEE6A00ECF2AF /* LRBuild.swift */; };
 		43001A371BBDEE6A00ECF2AF /* FilterOption.h in Headers */ = {isa = PBXBuildFile; fileRef = 430019E91BBDEE6A00ECF2AF /* FilterOption.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		43001A381BBDEE6A00ECF2AF /* FilterOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 430019EA1BBDEE6A00ECF2AF /* FilterOption.m */; settings = {ASSET_TAGS = (); }; };
+		43001A381BBDEE6A00ECF2AF /* FilterOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 430019EA1BBDEE6A00ECF2AF /* FilterOption.m */; };
 		43001A391BBDEE6A00ECF2AF /* LRVersionSpec.h in Headers */ = {isa = PBXBuildFile; fileRef = 430019EB1BBDEE6A00ECF2AF /* LRVersionSpec.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		43001A3A1BBDEE6A00ECF2AF /* LRVersionSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 430019EC1BBDEE6A00ECF2AF /* LRVersionSpec.m */; settings = {ASSET_TAGS = (); }; };
+		43001A3A1BBDEE6A00ECF2AF /* LRVersionSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 430019EC1BBDEE6A00ECF2AF /* LRVersionSpec.m */; };
 		43001A3B1BBDEE6A00ECF2AF /* LRVersionTag.h in Headers */ = {isa = PBXBuildFile; fileRef = 430019ED1BBDEE6A00ECF2AF /* LRVersionTag.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		43001A3C1BBDEE6A00ECF2AF /* LRActionKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 430019EE1BBDEE6A00ECF2AF /* LRActionKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		43001A3D1BBDEE6A00ECF2AF /* CheckboxOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019F01BBDEE6A00ECF2AF /* CheckboxOption.swift */; settings = {ASSET_TAGS = (); }; };
-		43001A3E1BBDEE6A00ECF2AF /* CustomArgumentsOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019F11BBDEE6A00ECF2AF /* CustomArgumentsOption.swift */; settings = {ASSET_TAGS = (); }; };
-		43001A3F1BBDEE6A00ECF2AF /* MultipleChoiceOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019F21BBDEE6A00ECF2AF /* MultipleChoiceOption.swift */; settings = {ASSET_TAGS = (); }; };
-		43001A401BBDEE6A00ECF2AF /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019F31BBDEE6A00ECF2AF /* Option.swift */; settings = {ASSET_TAGS = (); }; };
-		43001A411BBDEE6A00ECF2AF /* OptionProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019F41BBDEE6A00ECF2AF /* OptionProtocols.swift */; settings = {ASSET_TAGS = (); }; };
-		43001A421BBDEE6A00ECF2AF /* OptionRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019F51BBDEE6A00ECF2AF /* OptionRegistry.swift */; settings = {ASSET_TAGS = (); }; };
-		43001A431BBDEE6A00ECF2AF /* TextOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019F61BBDEE6A00ECF2AF /* TextOption.swift */; settings = {ASSET_TAGS = (); }; };
-		43001A441BBDEE6A00ECF2AF /* VersionOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019F71BBDEE6A00ECF2AF /* VersionOption.swift */; settings = {ASSET_TAGS = (); }; };
-		43001A451BBDEE6A00ECF2AF /* LRMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019F91BBDEE6A00ECF2AF /* LRMessage.swift */; settings = {ASSET_TAGS = (); }; };
-		43001A481BBDEE6A00ECF2AF /* Rule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019FD1BBDEE6A00ECF2AF /* Rule.swift */; settings = {ASSET_TAGS = (); }; };
-		43001A491BBDEE6A00ECF2AF /* Rulebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019FE1BBDEE6A00ECF2AF /* Rulebook.swift */; settings = {ASSET_TAGS = (); }; };
-		43001A4A1BBDEE6A00ECF2AF /* CompileFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43001A001BBDEE6A00ECF2AF /* CompileFile.swift */; settings = {ASSET_TAGS = (); }; };
-		43001A4B1BBDEE6A00ECF2AF /* CompileFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43001A011BBDEE6A00ECF2AF /* CompileFolder.swift */; settings = {ASSET_TAGS = (); }; };
-		43001A4C1BBDEE6A00ECF2AF /* CustomCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43001A021BBDEE6A00ECF2AF /* CustomCommand.swift */; settings = {ASSET_TAGS = (); }; };
-		43001A4D1BBDEE6A00ECF2AF /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43001A031BBDEE6A00ECF2AF /* Filter.swift */; settings = {ASSET_TAGS = (); }; };
-		43001A4E1BBDEE6A00ECF2AF /* RunTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43001A041BBDEE6A00ECF2AF /* RunTests.swift */; settings = {ASSET_TAGS = (); }; };
-		43001A4F1BBDEE6A00ECF2AF /* UserScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43001A051BBDEE6A00ECF2AF /* UserScript.swift */; settings = {ASSET_TAGS = (); }; };
-		43001A501BBDEE6A00ECF2AF /* ScriptInvocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43001A071BBDEE6A00ECF2AF /* ScriptInvocation.swift */; settings = {ASSET_TAGS = (); }; };
-		43001A531BBDEE6A00ECF2AF /* LRFileTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43001A0B1BBDEE6A00ECF2AF /* LRFileTarget.swift */; settings = {ASSET_TAGS = (); }; };
-		43001A541BBDEE6A00ECF2AF /* LRProjectTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43001A0C1BBDEE6A00ECF2AF /* LRProjectTarget.swift */; settings = {ASSET_TAGS = (); }; };
-		43001A551BBDEE6A00ECF2AF /* LRTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43001A0D1BBDEE6A00ECF2AF /* LRTarget.swift */; settings = {ASSET_TAGS = (); }; };
+		43001A3D1BBDEE6A00ECF2AF /* CheckboxOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019F01BBDEE6A00ECF2AF /* CheckboxOption.swift */; };
+		43001A3E1BBDEE6A00ECF2AF /* CustomArgumentsOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019F11BBDEE6A00ECF2AF /* CustomArgumentsOption.swift */; };
+		43001A3F1BBDEE6A00ECF2AF /* MultipleChoiceOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019F21BBDEE6A00ECF2AF /* MultipleChoiceOption.swift */; };
+		43001A401BBDEE6A00ECF2AF /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019F31BBDEE6A00ECF2AF /* Option.swift */; };
+		43001A411BBDEE6A00ECF2AF /* OptionProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019F41BBDEE6A00ECF2AF /* OptionProtocols.swift */; };
+		43001A421BBDEE6A00ECF2AF /* OptionRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019F51BBDEE6A00ECF2AF /* OptionRegistry.swift */; };
+		43001A431BBDEE6A00ECF2AF /* TextOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019F61BBDEE6A00ECF2AF /* TextOption.swift */; };
+		43001A441BBDEE6A00ECF2AF /* VersionOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019F71BBDEE6A00ECF2AF /* VersionOption.swift */; };
+		43001A451BBDEE6A00ECF2AF /* LRMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019F91BBDEE6A00ECF2AF /* LRMessage.swift */; };
+		43001A481BBDEE6A00ECF2AF /* Rule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019FD1BBDEE6A00ECF2AF /* Rule.swift */; };
+		43001A491BBDEE6A00ECF2AF /* Rulebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430019FE1BBDEE6A00ECF2AF /* Rulebook.swift */; };
+		43001A4A1BBDEE6A00ECF2AF /* CompileFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43001A001BBDEE6A00ECF2AF /* CompileFile.swift */; };
+		43001A4B1BBDEE6A00ECF2AF /* CompileFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43001A011BBDEE6A00ECF2AF /* CompileFolder.swift */; };
+		43001A4C1BBDEE6A00ECF2AF /* CustomCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43001A021BBDEE6A00ECF2AF /* CustomCommand.swift */; };
+		43001A4D1BBDEE6A00ECF2AF /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43001A031BBDEE6A00ECF2AF /* Filter.swift */; };
+		43001A4E1BBDEE6A00ECF2AF /* RunTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43001A041BBDEE6A00ECF2AF /* RunTests.swift */; };
+		43001A4F1BBDEE6A00ECF2AF /* UserScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43001A051BBDEE6A00ECF2AF /* UserScript.swift */; };
+		43001A501BBDEE6A00ECF2AF /* ScriptInvocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43001A071BBDEE6A00ECF2AF /* ScriptInvocation.swift */; };
+		43001A531BBDEE6A00ECF2AF /* LRFileTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43001A0B1BBDEE6A00ECF2AF /* LRFileTarget.swift */; };
+		43001A541BBDEE6A00ECF2AF /* LRProjectTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43001A0C1BBDEE6A00ECF2AF /* LRProjectTarget.swift */; };
+		43001A551BBDEE6A00ECF2AF /* LRTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43001A0D1BBDEE6A00ECF2AF /* LRTarget.swift */; };
 		43001A561BBDEE6A00ECF2AF /* LRTRGlobals.h in Headers */ = {isa = PBXBuildFile; fileRef = 43001A0F1BBDEE6A00ECF2AF /* LRTRGlobals.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		43001A571BBDEE6A00ECF2AF /* LRTRGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 43001A101BBDEE6A00ECF2AF /* LRTRGlobals.m */; settings = {ASSET_TAGS = (); }; };
+		43001A571BBDEE6A00ECF2AF /* LRTRGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 43001A101BBDEE6A00ECF2AF /* LRTRGlobals.m */; };
 		43001A581BBDEE6A00ECF2AF /* LRTRProtocolParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 43001A111BBDEE6A00ECF2AF /* LRTRProtocolParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		43001A591BBDEE6A00ECF2AF /* LRTRProtocolParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 43001A121BBDEE6A00ECF2AF /* LRTRProtocolParser.m */; settings = {ASSET_TAGS = (); }; };
+		43001A591BBDEE6A00ECF2AF /* LRTRProtocolParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 43001A121BBDEE6A00ECF2AF /* LRTRProtocolParser.m */; };
 		43001A5A1BBDEE6A00ECF2AF /* LRTRRun.h in Headers */ = {isa = PBXBuildFile; fileRef = 43001A131BBDEE6A00ECF2AF /* LRTRRun.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		43001A5B1BBDEE6A00ECF2AF /* LRTRRun.m in Sources */ = {isa = PBXBuildFile; fileRef = 43001A141BBDEE6A00ECF2AF /* LRTRRun.m */; settings = {ASSET_TAGS = (); }; };
+		43001A5B1BBDEE6A00ECF2AF /* LRTRRun.m in Sources */ = {isa = PBXBuildFile; fileRef = 43001A141BBDEE6A00ECF2AF /* LRTRRun.m */; };
 		43001A5C1BBDEE6A00ECF2AF /* LRTRTest.h in Headers */ = {isa = PBXBuildFile; fileRef = 43001A151BBDEE6A00ECF2AF /* LRTRTest.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		43001A5D1BBDEE6A00ECF2AF /* LRTRTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 43001A161BBDEE6A00ECF2AF /* LRTRTest.m */; settings = {ASSET_TAGS = (); }; };
+		43001A5D1BBDEE6A00ECF2AF /* LRTRTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 43001A161BBDEE6A00ECF2AF /* LRTRTest.m */; };
 		43001A5E1BBDEE6A00ECF2AF /* LRTRTestAnythingProtocolParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 43001A171BBDEE6A00ECF2AF /* LRTRTestAnythingProtocolParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		43001A5F1BBDEE6A00ECF2AF /* LRTRTestAnythingProtocolParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 43001A181BBDEE6A00ECF2AF /* LRTRTestAnythingProtocolParser.m */; settings = {ASSET_TAGS = (); }; };
+		43001A5F1BBDEE6A00ECF2AF /* LRTRTestAnythingProtocolParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 43001A181BBDEE6A00ECF2AF /* LRTRTestAnythingProtocolParser.m */; };
 		43001A621BBDEE6A00ECF2AF /* UserScript.h in Headers */ = {isa = PBXBuildFile; fileRef = 43001A1C1BBDEE6A00ECF2AF /* UserScript.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		43001A631BBDEE6A00ECF2AF /* UserScript.m in Sources */ = {isa = PBXBuildFile; fileRef = 43001A1D1BBDEE6A00ECF2AF /* UserScript.m */; settings = {ASSET_TAGS = (); }; };
-		43001A6C1BBDF17300ECF2AF /* LRActionKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43001A651BBDEE7100ECF2AF /* LRActionKitTests.swift */; settings = {ASSET_TAGS = (); }; };
+		43001A631BBDEE6A00ECF2AF /* UserScript.m in Sources */ = {isa = PBXBuildFile; fileRef = 43001A1D1BBDEE6A00ECF2AF /* UserScript.m */; };
+		43001A6C1BBDF17300ECF2AF /* LRActionKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43001A651BBDEE7100ECF2AF /* LRActionKitTests.swift */; };
 		43001A7D1BBDF2C800ECF2AF /* ATPathSpec.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43001A761BBDF2C800ECF2AF /* ATPathSpec.framework */; };
 		43001A7E1BBDF2C800ECF2AF /* ATVersionKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43001A771BBDF2C800ECF2AF /* ATVersionKit.framework */; };
 		43001A7F1BBDF2C800ECF2AF /* ExpressiveCasting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43001A781BBDF2C800ECF2AF /* ExpressiveCasting.framework */; };
@@ -78,11 +78,13 @@
 		43001A811BBDF2C800ECF2AF /* ExpressiveCollections.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43001A7A1BBDF2C800ECF2AF /* ExpressiveCollections.framework */; };
 		43001A821BBDF2C800ECF2AF /* ExpressiveFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43001A7B1BBDF2C800ECF2AF /* ExpressiveFoundation.framework */; };
 		43001A831BBDF2C800ECF2AF /* PackageManagerKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43001A7C1BBDF2C800ECF2AF /* PackageManagerKit.framework */; };
-		43994D7A1BD4FF98003D034E /* EnvLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43994D791BD4FF98003D034E /* EnvLog.swift */; settings = {ASSET_TAGS = (); }; };
-		43C374FE1BC70E01000A1C37 /* OutputMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C374FD1BC70E01000A1C37 /* OutputMask.swift */; settings = {ASSET_TAGS = (); }; };
-		43C3751F1BCB8E4B000A1C37 /* FilterOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C3751E1BCB8E4B000A1C37 /* FilterOption.swift */; settings = {ASSET_TAGS = (); }; };
-		43C375211BCBC66D000A1C37 /* ActionKitSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C375201BCBC66D000A1C37 /* ActionKitSingleton.swift */; settings = {ASSET_TAGS = (); }; };
-		43C375231BCBCF3F000A1C37 /* LROperationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C375221BCBCF3F000A1C37 /* LROperationResult.swift */; settings = {ASSET_TAGS = (); }; };
+		43101E851BE00EBD00DB3ED3 /* BrowserReloadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43101E841BE00EBD00DB3ED3 /* BrowserReloadRequest.swift */; };
+		43101E871BE0130A00DB3ED3 /* BuildConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43101E861BE0130A00DB3ED3 /* BuildConfiguration.swift */; };
+		43994D7A1BD4FF98003D034E /* EnvLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43994D791BD4FF98003D034E /* EnvLog.swift */; };
+		43C374FE1BC70E01000A1C37 /* OutputMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C374FD1BC70E01000A1C37 /* OutputMask.swift */; };
+		43C3751F1BCB8E4B000A1C37 /* FilterOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C3751E1BCB8E4B000A1C37 /* FilterOption.swift */; };
+		43C375211BCBC66D000A1C37 /* ActionKitSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C375201BCBC66D000A1C37 /* ActionKitSingleton.swift */; };
+		43C375231BCBCF3F000A1C37 /* LROperationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C375221BCBCF3F000A1C37 /* LROperationResult.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -170,6 +172,8 @@
 		43001A7A1BBDF2C800ECF2AF /* ExpressiveCollections.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ExpressiveCollections.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		43001A7B1BBDF2C800ECF2AF /* ExpressiveFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ExpressiveFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		43001A7C1BBDF2C800ECF2AF /* PackageManagerKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PackageManagerKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		43101E841BE00EBD00DB3ED3 /* BrowserReloadRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserReloadRequest.swift; sourceTree = "<group>"; };
+		43101E861BE0130A00DB3ED3 /* BuildConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildConfiguration.swift; sourceTree = "<group>"; };
 		43994D791BD4FF98003D034E /* EnvLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvLog.swift; sourceTree = "<group>"; };
 		43C374FD1BC70E01000A1C37 /* OutputMask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutputMask.swift; sourceTree = "<group>"; };
 		43C3751E1BCB8E4B000A1C37 /* FilterOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterOption.swift; sourceTree = "<group>"; };
@@ -299,6 +303,8 @@
 			isa = PBXGroup;
 			children = (
 				430019E71BBDEE6A00ECF2AF /* LRBuild.swift */,
+				43101E841BE00EBD00DB3ED3 /* BrowserReloadRequest.swift */,
+				43101E861BE0130A00DB3ED3 /* BuildConfiguration.swift */,
 			);
 			path = Build;
 			sourceTree = "<group>";
@@ -567,6 +573,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43101E851BE00EBD00DB3ED3 /* BrowserReloadRequest.swift in Sources */,
 				43001A241BBDEE6A00ECF2AF /* LRManifestLayer.swift in Sources */,
 				43001A3F1BBDEE6A00ECF2AF /* MultipleChoiceOption.swift in Sources */,
 				43994D7A1BD4FF98003D034E /* EnvLog.swift in Sources */,
@@ -617,6 +624,7 @@
 				43001A4E1BBDEE6A00ECF2AF /* RunTests.swift in Sources */,
 				43001A261BBDEE6A00ECF2AF /* ActionKitGlobals.m in Sources */,
 				43001A381BBDEE6A00ECF2AF /* FilterOption.m in Sources */,
+				43101E871BE0130A00DB3ED3 /* BuildConfiguration.swift in Sources */,
 				43001A401BBDEE6A00ECF2AF /* Option.swift in Sources */,
 				43001A541BBDEE6A00ECF2AF /* LRProjectTarget.swift in Sources */,
 				43001A301BBDEE6A00ECF2AF /* TagEvidenceTree.swift in Sources */,
