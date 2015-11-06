@@ -24,6 +24,12 @@ public class Operation<Request: RequestType>: OperationContext {
 
 }
 
+public enum ProcessorError: ErrorType {
+
+    case ProcessorDisposed
+
+}
+
 /// There are two cases when an operation would not be running, but pending requests
 /// would be non-empty and `isRunning` would return `true`:
 ///
@@ -44,39 +50,48 @@ public class Processor<Request: RequestType>: Processable {
 
 }
 
-public class ProcessorImpl<Request: RequestType>: Processor<Request> {
+public class ProcessorImpl<Request: RequestType>: Processor<Request>, CustomStringConvertible {
 
-    public typealias StrategyBlock = (Request, OperationContext) -> Promise<Void>
+    private var emitsEventsOnHost: Bool = false
 
-    private var block: StrategyBlock?
+    private weak var host: EmitterType?
+
+    private var block: ((AnyObject, Request, OperationContext) -> Promise<Void>)?
 
     public private(set) var disposed: Bool = false
 
-    public init(block: StrategyBlock? = nil) {
-        self.block = block
-    }
+    private(set) var isActuallyScheduledOrRunning: Bool = false
 
-    public func setStrategy(block: StrategyBlock) {
+    public func initializeWithHost<Host: EmitterType>(host: Host, emitsEventsOnHost: Bool, performs performMethod: (Host) -> (Request, OperationContext) -> Promise<Void>) {
         if self.block != nil {
-            fatalError("Can only set Processor block once")
+            fatalError("Can only invoke initializeWithHost once")
         }
-        self.block = block
+        self.host = host
+        self.block = { (host, request, context) in
+            return performMethod(host as! Host)(request, context)
+        }
+        self.emitsEventsOnHost = emitsEventsOnHost
         scheduleStartSoonIfNeeded()
     }
 
-    public func setStrategy<Host: AnyObject>(host: Host, _ block: (Host) -> (Request, OperationContext) -> Promise<Void>) {
-        setStrategy { [weak host] (request, context) in
-            if let host = host {
-                return block(host)(request, context)
-            } else {
-                return Promise(())
-            }
+    public var description: String {
+        if let host = host {
+            return "\(String(reflecting: host)):Processor"
+        } else {
+            return "Processor"
+        }
+    }
+
+    public func emit(event: EventType) {
+        _emitHere(event)
+        if emitsEventsOnHost, let host = host {
+            host.emit(event)
         }
     }
 
     public func dispose() {
         disposed = true
-        pendingRequests = []
+        scheduleStartSoonIfNeeded()
     }
 
     public func schedule(newRequest: Request) {
@@ -101,24 +116,23 @@ public class ProcessorImpl<Request: RequestType>: Processor<Request> {
     }
 
     private func scheduleStartSoonIfNeeded() {
-        guard block != nil else {
-            return
-        }
         guard !pendingRequests.isEmpty else {
             return
         }
-        guard !isRunning else {
-            return
+
+        if !isRunning {
+            isRunning = true
+            emit(ProcessableStateDidChange(isRunningChanged: true))
+            #if true
+                print("\(self): batch started")
+            #endif
         }
 
-        isRunning = true
-        emit(ProcessableStateDidChange(isRunningChanged: true))
-        #if true
-            print("\(self): batch started")
-        #endif
-
-        dispatch_async(dispatch_get_main_queue()) {
-            self.startNextRequestOrEndBatch()
+        if !isActuallyScheduledOrRunning && ((block != nil) || disposed) {
+            isActuallyScheduledOrRunning = true
+            dispatch_async(dispatch_get_main_queue()) {
+                self.startNextRequestOrEndBatch()
+            }
         }
     }
 
@@ -131,10 +145,6 @@ public class ProcessorImpl<Request: RequestType>: Processor<Request> {
     }
 
     private func startOperation(operation: Operation<Request>) {
-        guard let block = block else {
-            fatalError()
-        }
-
         runningOperation = operation
 
         #if true
@@ -144,7 +154,15 @@ public class ProcessorImpl<Request: RequestType>: Processor<Request> {
         emit(ProcessableStateDidChange(isRunningChanged: false))
         emit(OperationDidStart(request: operation.request))
 
-        let promise = block(operation.request, operation)
+        let promise: Promise<Void>
+        if !disposed, let host = host {
+            guard let block = block else {
+                fatalError()
+            }
+            promise = block(host, operation.request, operation)
+        } else {
+            promise = Promise(error: ProcessorError.ProcessorDisposed)
+        }
         operation.promise = promise
         promise.then {
             self.didFinish(operation, error: nil)
@@ -157,7 +175,7 @@ public class ProcessorImpl<Request: RequestType>: Processor<Request> {
     private func didFinish(operation: Operation<Request>, error: ErrorType?) {
         lastError = error
         lastRequest = operation.request
-        emit(OperationDidFinish(request: operation.request))
+        emit(OperationDidFinish(request: operation.request, error: error))
         startNextRequestOrEndBatch()
     }
 
@@ -170,6 +188,7 @@ public class ProcessorImpl<Request: RequestType>: Processor<Request> {
         #endif
         runningOperation = nil
         isRunning = false
+        isActuallyScheduledOrRunning = false
         emit(ProcessableStateDidChange(isRunningChanged: true))
         emit(ProcessableBatchDidFinish())
     }

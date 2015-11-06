@@ -3,10 +3,9 @@ import ExpressiveFoundation
 import LRActionKit
 import ATPathSpec
 import ExpressiveCollections
+import PromiseKit
 
 public class PluginManager: EmitterType {
-
-    public var _listeners = EventListenerStorage()
 
     public struct DidDetectInvalidPlugins: EventType {
         public let invalidPlugins: [Plugin]
@@ -20,21 +19,40 @@ public class PluginManager: EmitterType {
 
     public init(context: PluginContext) {
         self.context = context
-        updating = UpdateBehavior(self, PluginManager.reloadPlugins, childrenMethod: PluginManager.getUpdatableChildren)
+
+        _listUpdating.initializeWithHost(self, emitsEventsOnHost: false, performs: PluginManager.reloadPlugins)
+        _updating.initializeWithHost(self, emitsEventsOnHost: true)
+        _updating.add(_listUpdating)
+        _updating.add(self, method: PluginManager.getUpdatableChildren)
     }
 
-    private var updating: UpdateBehavior<PluginManager, StdUpdateReason>!
+    public func dispose() {
+        _updating.dispose()
+        _listUpdating.dispose()
 
-    public var isUpdating: Bool {
-        return updating.isUpdating
+        for plugin in plugins {
+            plugin.dispose()
+        }
+        plugins = []
+    }
+
+    public var updating: Processable {
+        return _updating
     }
 
     public func update(reason: StdUpdateReason) {
-        updating.update(reason)
+        _listUpdating.schedule(reason)
     }
 
-    private func reloadPlugins() {
+    private func reloadPlugins(reason: StdUpdateReason, context: OperationContext) -> Promise<Void> {
+        let (promise, fulfill, _) = Promise<Void>.pendingPromise()
+
+        // TODO: update incrementally
+
         actionsIndex.removeAll()
+        for plugin in plugins {
+            plugin.dispose()
+        }
         plugins = []
 
         let lb = log.beginUpdating()
@@ -54,13 +72,16 @@ public class PluginManager: EmitterType {
             emit(DidDetectInvalidPlugins(invalidPlugins: badPlugins))
         }
 
-        updating.didSucceed()
+        _updating.refreshChildren()
+        fulfill()
+
+        return promise
     }
 
     public private(set) var plugins: [Plugin] = []
 
-    private func getUpdatableChildren() -> [Updatable] {
-        return plugins.map { $0 as Updatable }
+    private func getUpdatableChildren() -> [Processable] {
+        return plugins.map { $0.updating }
     }
 
     public var userPluginNames: [String] {
@@ -114,5 +135,10 @@ public class PluginManager: EmitterType {
             NSLog("Skipped invalid rule type def: \(identifier)")
         }
     }
-    
+
+    private var _listUpdating = ProcessorImpl<StdUpdateReason>()
+    private var _updating = ProcessingGroup()
+
+    public var _listeners = EventListenerStorage()
+
 }

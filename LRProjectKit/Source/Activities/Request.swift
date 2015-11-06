@@ -1,6 +1,9 @@
 import Foundation
 
-public protocol RequestType: Equatable {
+public protocol AnyRequestType {
+}
+
+public protocol RequestType: AnyRequestType, Equatable {
 
     func merge(other: Self, isRunning: Bool) -> Self?
 

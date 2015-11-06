@@ -20,7 +20,6 @@
 		431CCDC61BD8374300FA3E7D /* Workspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43994D541BD35526003D034E /* Workspace.swift */; };
 		431CCDC71BD8374300FA3E7D /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43994D521BD3522F003D034E /* Project.swift */; };
 		431CCDC81BD8374300FA3E7D /* Plugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43994D6D1BD37730003D034E /* Plugin.swift */; };
-		431CCDD01BD9840A00FA3E7D /* UpdateBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431CCDCF1BD9840A00FA3E7D /* UpdateBehavior.swift */; };
 		435916861BDA177C00708C73 /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 435916841BDA177100708C73 /* PromiseKit.framework */; };
 		435916A71BDA20F300708C73 /* PluginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435916A61BDA20F300708C73 /* PluginTests.swift */; };
 		43994D431BD35176003D034E /* LRProjectKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43994D2F1BD35119003D034E /* LRProjectKit.framework */; };
@@ -56,7 +55,6 @@
 		43101EB31BE14FE500DB3ED3 /* Processor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Processor.swift; sourceTree = "<group>"; };
 		43101EB51BE1500000DB3ED3 /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		43101EB71BE150BB00DB3ED3 /* StdUpdateReason.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StdUpdateReason.swift; sourceTree = "<group>"; };
-		431CCDCF1BD9840A00FA3E7D /* UpdateBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateBehavior.swift; sourceTree = "<group>"; };
 		435916841BDA177100708C73 /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = "../../../../Library/Developer/Xcode/DerivedData/LiveReload-hkzvlfkmaipqkuafsrljbdycmyql/Build/Products/Debug/PromiseKit.framework"; sourceTree = "<group>"; };
 		435916A61BDA20F300708C73 /* PluginTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PluginTests.swift; sourceTree = "<group>"; };
 		435916A81BDA214000708C73 /* TestFixtures */ = {isa = PBXFileReference; lastKnownFileType = folder; path = TestFixtures; sourceTree = "<group>"; };
@@ -154,7 +152,6 @@
 				43994D561BD35544003D034E /* PluginManager.swift */,
 				43994D7D1BD50E0F003D034E /* PluginContext.swift */,
 				43994D6D1BD37730003D034E /* Plugin.swift */,
-				431CCDCF1BD9840A00FA3E7D /* UpdateBehavior.swift */,
 				43101E921BE05DF600DB3ED3 /* OpSite.swift */,
 				43101EAC1BE14F8900DB3ED3 /* Activities */,
 			);
@@ -304,7 +301,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				431CCDD01BD9840A00FA3E7D /* UpdateBehavior.swift in Sources */,
 				431CCDC61BD8374300FA3E7D /* Workspace.swift in Sources */,
 				431CCDC51BD8373B00FA3E7D /* PluginContext.swift in Sources */,
 				431CCDC41BD8373800FA3E7D /* PluginManager.swift in Sources */,

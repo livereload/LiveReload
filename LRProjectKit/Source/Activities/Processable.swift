@@ -7,12 +7,13 @@ public protocol Processable: EmitterType {
     
 }
 
-public struct OperationDidStart<Request: RequestType>: EventType {
-    public let request: Request
+public struct OperationDidStart: EventType {
+    public let request: AnyRequestType
 }
 
-public struct OperationDidFinish<Request: RequestType>: EventType {
-    public let request: Request
+public struct OperationDidFinish: EventType {
+    public let request: AnyRequestType
+    public let error: ErrorType?
 }
 
 public struct ProcessableStateDidChange: EventType {

@@ -2,9 +2,13 @@ import Foundation
 import ExpressiveFoundation
 import PromiseKit
 
-public class Group: Processable {
+public class ProcessingGroup: Processable {
 
-    private var subgroups: [Subgroup] = []
+    private var emitsEventsOnHost: Bool = false
+
+    private weak var host: EmitterType?
+
+    private var subgroups: [ProcessingSubgroup] = []
 
     public private(set) var isRunning: Bool = false
 
@@ -17,9 +21,24 @@ public class Group: Processable {
     public init() {
     }
 
+    public func initializeWithHost<Host: EmitterType>(host: Host, emitsEventsOnHost: Bool) {
+        if self.host != nil {
+            fatalError("Can only invoke initializeWithHost once")
+        }
+        self.host = host
+        self.emitsEventsOnHost = emitsEventsOnHost
+    }
+
     public func dispose() {
         disposed = true
         childrenListeners = [:]  // stop listening to changes
+    }
+
+    public func emit(event: EventType) {
+        _emitHere(event)
+        if emitsEventsOnHost, let host = host {
+            host.emit(event)
+        }
     }
 
     public func add(item: Processable) {
@@ -27,14 +46,14 @@ public class Group: Processable {
     }
 
     public func add(items: [Processable]) {
-        add(StaticSubgroup(items))
+        add(StaticProcessingSubgroup(items))
     }
 
     public func add<Host: AnyObject>(host: Host, method: (Host) -> () -> [Processable]) {
-        add(DynamicSubgroup(host, method))
+        add(DynamicProcessingSubgroup(host, method))
     }
 
-    private func add(subgroup: Subgroup) {
+    private func add(subgroup: ProcessingSubgroup) {
         subgroups.append(subgroup)
         refreshChildren()
     }
@@ -61,7 +80,7 @@ public class Group: Processable {
             if let old = oldMap[oid]?.find({ $0.updatable === child })?.listener {
                 listener = old
             } else {
-                listener = child.subscribe(self, Group.childStateDidChange)
+                listener = child.subscribe(self, ProcessingGroup.childStateDidChange)
                 #if true
                     print("\(self): subscribed to \(child)")
                 #endif
@@ -101,13 +120,13 @@ public class Group: Processable {
 
 }
 
-private protocol Subgroup: AnyObject {
+private protocol ProcessingSubgroup: AnyObject {
 
     var items: [Processable] { get }
 
 }
 
-private class StaticSubgroup: Subgroup {
+private class StaticProcessingSubgroup: ProcessingSubgroup {
 
     private let items: [Processable]
 
@@ -117,7 +136,7 @@ private class StaticSubgroup: Subgroup {
 
 }
 
-private class DynamicSubgroup<Host: AnyObject>: Subgroup {
+private class DynamicProcessingSubgroup<Host: AnyObject>: ProcessingSubgroup {
 
     private weak var host: Host?
     private let method: (Host) -> () -> [Processable]

@@ -6,8 +6,6 @@ import LRActionKit
 
 public class Project: EmitterType, ProjectContext {
 
-    public var _listeners = EventListenerStorage()
-
     public let rootURL: NSURL
 
     public var actionSet: ActionSet!
@@ -60,5 +58,13 @@ public class Project: EmitterType, ProjectContext {
 
     public func setAnalysisInProgress(inProgress: Bool, forTask task: NSObject) {
     }
+
+    public var processing: Processable {
+        return _processing
+    }
+
+    private let _processing = ProcessingGroup()
+
+    public var _listeners = EventListenerStorage()
 
 }

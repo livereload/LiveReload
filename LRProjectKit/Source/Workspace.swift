@@ -15,6 +15,7 @@ public class Workspace: PluginContext {
 
     private var disposed = false
 
+
     public init() {
         packageManager = LRPackageManager()
         packageManager.addPackageType(GemPackageType())
@@ -28,15 +29,20 @@ public class Workspace: PluginContext {
         let lb = log.beginUpdating()
         lb.addChild(plugins.log)
         lb.commit()
+
+        _processing.add(plugins.updating)
     }
 
     public func dispose() {
-        if !disposed {
-            disposed = true
-
-            // TODO: clear everything
-        }
+        disposed = true
+        plugins.dispose()
     }
+
+    public var processing: Processable {
+        return _processing
+    }
+
+    private let _processing = ProcessingGroup()
 
 }
 

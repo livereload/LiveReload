@@ -36,7 +36,7 @@ public class Something: EmitterType {
     }
 
     init() {
-        _processing.setStrategy(self, Something.loadItems)
+        _processing.initializeWithHost(self, emitsEventsOnHost: true, performs: Something.loadItems)
     }
 
     func perform(request: TestRequest) {
@@ -69,7 +69,7 @@ class ActivityTests: XCTestCase {
         let smt = Something()
 
         let e = expectationWithDescription("ProcessableBatchDidFinish")
-        o += smt.processable.subscribe { (event: ProcessableBatchDidFinish, sender) in
+        o += smt.subscribe { (event: ProcessableBatchDidFinish, sender) in
             smt.log.append("batch finished")
             e.fulfill()
         }
@@ -89,7 +89,7 @@ class ActivityTests: XCTestCase {
         let smt = Something()
 
         let e = expectationWithDescription("ProcessableBatchDidFinish")
-        o += smt.processable.subscribe { (event: ProcessableBatchDidFinish, sender) in
+        o += smt.subscribe { (event: ProcessableBatchDidFinish, sender) in
             smt.log.append("batch finished")
             e.fulfill()
         }
@@ -108,12 +108,13 @@ class ActivityTests: XCTestCase {
         let smt = Something()
 
         let e = expectationWithDescription("ProcessableBatchDidFinish")
-        o += smt.processable.subscribe { (event: ProcessableBatchDidFinish, sender) in
+        o += smt.subscribe { (event: ProcessableBatchDidFinish, sender) in
             smt.log.append("batch finished")
             e.fulfill()
         }
-        o += smt.processable.subscribe { (event: OperationDidStart<TestRequest>, sender) in
-            if event.request == TestRequest(value: 1, user: false) {
+        o += smt.subscribe { (event: OperationDidStart, sender) in
+            let request = event.request as! TestRequest
+            if request == TestRequest(value: 1, user: false) {
                 smt.perform(TestRequest(value: 2, user: false))
                 smt.perform(TestRequest(value: 1, user: true))
             }
@@ -126,11 +127,40 @@ class ActivityTests: XCTestCase {
         }
     }
 
+    func testDisposedBeforeInitialization() {
+        var o = Observation()
+        let pr = ProcessorImpl<TestRequest>()
+        var log: [String] = []
+
+        let e = expectationWithDescription("ProcessableBatchDidFinish")
+        o += pr.subscribe { (event: OperationDidFinish, sender) in
+            if let error = event.error {
+                log.append("error: \(error)")
+            }
+        }
+        o += pr.subscribe { (event: ProcessableBatchDidFinish, sender) in
+            log.append("batch finished")
+            e.fulfill()
+        }
+
+        pr.schedule(TestRequest(value: 1, user: false))
+        XCTAssertEqual(log, [])
+        XCTAssertEqual(pr.isRunning, true)
+
+        pr.dispose()
+
+        waitForExpectationsWithTimeout(0.1) { err in
+            if err != nil { return }
+            XCTAssertEqual(pr.isRunning, false)
+            XCTAssertEqual(log, ["error: ProcessorDisposed", "batch finished"])
+        }
+    }
+
     func testGroup() {
         var o = Observation()
         let foo = Something()
         let bar = Something()
-        let group = Group()
+        let group = ProcessingGroup()
         group.add([foo.processable, bar.processable])
 
         let e = expectationWithDescription("ProcessableBatchDidFinish")

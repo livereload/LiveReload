@@ -3,6 +3,7 @@ import LRActionKit
 import PackageManagerKit
 import ExpressiveCasting
 import ExpressiveFoundation
+import PromiseKit
 
 public enum PluginEnvError: ErrorType {
 
@@ -12,8 +13,7 @@ public enum PluginEnvError: ErrorType {
 }
 
 
-public class Plugin: ActionContainer, EmitterType, Updatable {
-    public var _listeners = EventListenerStorage()
+public class Plugin: ActionContainer, EmitterType {
 
     public let context: PluginContext
 
@@ -27,6 +27,10 @@ public class Plugin: ActionContainer, EmitterType, Updatable {
 
     public private(set) var bundledPackageContainers: [LRPackageContainer] = []
 
+    public var updating: Processable {
+        return _updating
+    }
+
     public init(folderURL: NSURL, context: PluginContext) {
         self.folderURL = folderURL
         self.context = context
@@ -34,25 +38,24 @@ public class Plugin: ActionContainer, EmitterType, Updatable {
         log = EnvLog(origin: "\(folderURL.lastPathComponent!)")
         name = folderURL.URLByDeletingPathExtension!.lastPathComponent!
 
-        updating = UpdateBehavior(self, Plugin.performUpdate)
+        _updating.initializeWithHost(self, emitsEventsOnHost: true, performs: Plugin.performUpdate)
     }
 
-    private var updating: UpdateBehavior<Plugin, StdUpdateReason>!
-
-    public var isUpdating: Bool {
-        return updating.isUpdating
+    public func dispose() {
+        _updating.dispose()
     }
 
     public func update(reason: StdUpdateReason) {
-        updating.update(reason)
+        _updating.schedule(reason)
     }
 
     public var substitutionValues: [String: String] {
         return ["plugin": folderURL.path!]
     }
 
-    private func performUpdate() {
+    private func performUpdate(request: StdUpdateReason, context: OperationContext) -> Promise<Void> {
         let lb = log.beginUpdating()
+        let (promise, fulfill, _) = Promise<Void>.pendingPromise()
 
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
             let manifest: JSONObject
@@ -67,9 +70,11 @@ public class Plugin: ActionContainer, EmitterType, Updatable {
                 self.loadActions(manifest)
                 self.loadBundledPackageContainers(manifest)
 
-                self.updating.didSucceed()
+                fulfill()
             }
         }
+
+        return promise
     }
 
     private func loadManifestInBackground() throws -> JSONObject {
@@ -119,5 +124,9 @@ public class Plugin: ActionContainer, EmitterType, Updatable {
         container.containerType = .Bundled
         return container
     }
+
+    private let _updating = ProcessorImpl<StdUpdateReason>()
+
+    public var _listeners = EventListenerStorage()
 
 }
