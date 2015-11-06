@@ -27,7 +27,7 @@ func ==(lhs: TestRequest, rhs: TestRequest) -> Bool {
     return (lhs.value == rhs.value) && (lhs.user == rhs.user)
 }
 
-public class Something: EmitterType {
+public class Something: StdEmitterType {
 
     public var log: [String] = []
 

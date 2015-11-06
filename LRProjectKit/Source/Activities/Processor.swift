@@ -38,7 +38,7 @@ public enum ProcessorError: ErrorType {
 ///
 /// (2) while waiting for an execution strategy to be set during the initialization phase.
 ///
-public class Processor<Request: RequestType>: Processable {
+public class Processor<Request: RequestType>: Processable, StdEmitterType {
 
     public var _listeners = EventListenerStorage()
 

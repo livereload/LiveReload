@@ -1,8 +1,7 @@
 import Foundation
 import ExpressiveFoundation
 
-public class EnvLog: EmitterType, CustomStringConvertible {
-    public var _listeners = EventListenerStorage()
+public class EnvLog: StdEmitterType, CustomStringConvertible {
 
     public struct DidChange: EventType {
     }
@@ -105,6 +104,8 @@ public class EnvLog: EmitterType, CustomStringConvertible {
             parents.removeAtIndex(idx)
         }
     }
+
+    public var _listeners = EventListenerStorage()
 
 }
 

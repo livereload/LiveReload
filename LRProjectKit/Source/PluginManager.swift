@@ -5,7 +5,7 @@ import ATPathSpec
 import ExpressiveCollections
 import PromiseKit
 
-public class PluginManager: EmitterType {
+public class PluginManager: StdEmitterType {
 
     public struct DidDetectInvalidPlugins: EventType {
         public let invalidPlugins: [Plugin]

@@ -2,7 +2,7 @@ import Foundation
 import ExpressiveFoundation
 import PromiseKit
 
-public class ProcessingGroup: Processable {
+public class ProcessingGroup: Processable, StdEmitterType {
 
     private var emitsEventsOnHost: Bool = false
 

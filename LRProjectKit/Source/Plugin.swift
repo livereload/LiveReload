@@ -13,7 +13,7 @@ public enum PluginEnvError: ErrorType {
 }
 
 
-public class Plugin: ActionContainer, EmitterType {
+public class Plugin: ActionContainer, StdEmitterType {
 
     public let context: PluginContext
 

@@ -4,8 +4,7 @@ import ExpressiveFoundation
 import ExpressiveCasting
 import ATPathSpec
 
-public class LRBuild : NSObject, EmitterType {
-    public var _listeners = EventListenerStorage()
+public class LRBuild : NSObject, StdEmitterType {
 
     public struct DidProduceResult: EventType {
         public let result: LROperationResult
@@ -214,5 +213,7 @@ public class LRBuild : NSObject, EmitterType {
         messages.appendContentsOf(result.messages)
         emit(DidProduceResult(result: result, target: target, key: key))
     }
+
+    public var _listeners = EventListenerStorage()
 
 }

@@ -4,7 +4,7 @@ import ATPathSpec
 import PackageManagerKit
 import LRActionKit
 
-public class Project: EmitterType, ProjectContext {
+public class Project: StdEmitterType, ProjectContext {
 
     public let rootURL: NSURL
 
