@@ -5,8 +5,6 @@ class LRProjectKitTests: XCTestCase {
 
     var ws: Workspace!
 
-    let fixturesDirectoryURL = NSURL(fileURLWithPath: __FILE__, isDirectory: false).URLByDeletingLastPathComponent!.URLByDeletingLastPathComponent!.URLByAppendingPathComponent("TestFixtures", isDirectory: true)
-
     override func setUp() {
         super.setUp()
         ws = Workspace()

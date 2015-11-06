@@ -22,6 +22,7 @@
 		431CCDC81BD8374300FA3E7D /* Plugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43994D6D1BD37730003D034E /* Plugin.swift */; };
 		435916861BDA177C00708C73 /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 435916841BDA177100708C73 /* PromiseKit.framework */; };
 		435916A71BDA20F300708C73 /* PluginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435916A61BDA20F300708C73 /* PluginTests.swift */; };
+		438F86AC1BEC3F8B00B91940 /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438F86AA1BEC3F6900B91940 /* TestHelpers.swift */; };
 		43994D431BD35176003D034E /* LRProjectKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43994D2F1BD35119003D034E /* LRProjectKit.framework */; };
 		43994D4E1BD3519F003D034E /* LRProjectKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43994D4D1BD3519F003D034E /* LRProjectKitTests.swift */; };
 		43994D631BD35691003D034E /* ATPathSpec.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43994D591BD35691003D034E /* ATPathSpec.framework */; };
@@ -58,6 +59,7 @@
 		435916841BDA177100708C73 /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = "../../../../Library/Developer/Xcode/DerivedData/LiveReload-hkzvlfkmaipqkuafsrljbdycmyql/Build/Products/Debug/PromiseKit.framework"; sourceTree = "<group>"; };
 		435916A61BDA20F300708C73 /* PluginTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PluginTests.swift; sourceTree = "<group>"; };
 		435916A81BDA214000708C73 /* TestFixtures */ = {isa = PBXFileReference; lastKnownFileType = folder; path = TestFixtures; sourceTree = "<group>"; };
+		438F86AA1BEC3F6900B91940 /* TestHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestHelpers.swift; sourceTree = "<group>"; };
 		43994D2F1BD35119003D034E /* LRProjectKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LRProjectKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		43994D3E1BD35176003D034E /* LRProjectKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LRProjectKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		43994D4D1BD3519F003D034E /* LRProjectKitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRProjectKitTests.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 				43994D4D1BD3519F003D034E /* LRProjectKitTests.swift */,
 				435916A61BDA20F300708C73 /* PluginTests.swift */,
 				43101EA21BE140E500DB3ED3 /* ActivityTests.swift */,
+				438F86AA1BEC3F6900B91940 /* TestHelpers.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -323,6 +326,7 @@
 				435916A71BDA20F300708C73 /* PluginTests.swift in Sources */,
 				43101EA41BE140E800DB3ED3 /* ActivityTests.swift in Sources */,
 				43994D4E1BD3519F003D034E /* LRProjectKitTests.swift in Sources */,
+				438F86AC1BEC3F8B00B91940 /* TestHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
