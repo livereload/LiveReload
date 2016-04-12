@@ -1,26 +1,20 @@
 import XCTest
 @testable import LRProjectKit
 
-class LRProjectKitTests: XCTestCase {
+class LRProjectKitTests: ProjectTestCase {
 
-    var ws: Workspace!
 
     override func setUp() {
         super.setUp()
-        ws = Workspace()
+        setupPlugins()
     }
     
     override func tearDown() {
-        ws.dispose()
         super.tearDown()
     }
     
-//    func testExample() {
-//        let project = newTestProject(<#T##name: String##String#>)
-//    }
-//
-//    private func newTestProject(name: String) -> Project {
-//        
-//    }
+    func testExample() {
+        runSelfTest(.Integration, "compilers/less_imports")
+    }
 
 }

@@ -23,6 +23,8 @@
 		435916861BDA177C00708C73 /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 435916841BDA177100708C73 /* PromiseKit.framework */; };
 		435916A71BDA20F300708C73 /* PluginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435916A61BDA20F300708C73 /* PluginTests.swift */; };
 		438F86AC1BEC3F8B00B91940 /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438F86AA1BEC3F6900B91940 /* TestHelpers.swift */; };
+		438F86D91BEE15B700B91940 /* ProjectTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438F86D71BEE15B200B91940 /* ProjectTestCase.swift */; };
+		438F86E61BEEE60700B91940 /* SelfTestDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438F86E51BEEE60600B91940 /* SelfTestDriver.swift */; };
 		43994D431BD35176003D034E /* LRProjectKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43994D2F1BD35119003D034E /* LRProjectKit.framework */; };
 		43994D4E1BD3519F003D034E /* LRProjectKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43994D4D1BD3519F003D034E /* LRProjectKitTests.swift */; };
 		43994D631BD35691003D034E /* ATPathSpec.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43994D591BD35691003D034E /* ATPathSpec.framework */; };
@@ -35,6 +37,7 @@
 		43994D6A1BD35691003D034E /* FSMonitoringKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43994D601BD35691003D034E /* FSMonitoringKit.framework */; };
 		43994D6B1BD35691003D034E /* LRActionKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43994D611BD35691003D034E /* LRActionKit.framework */; };
 		43994D6C1BD35691003D034E /* PackageManagerKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43994D621BD35691003D034E /* PackageManagerKit.framework */; };
+		43E32BA71BF9E9B100C54D25 /* BuildManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E32BA61BF9E9B100C54D25 /* BuildManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +63,8 @@
 		435916A61BDA20F300708C73 /* PluginTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PluginTests.swift; sourceTree = "<group>"; };
 		435916A81BDA214000708C73 /* TestFixtures */ = {isa = PBXFileReference; lastKnownFileType = folder; path = TestFixtures; sourceTree = "<group>"; };
 		438F86AA1BEC3F6900B91940 /* TestHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestHelpers.swift; sourceTree = "<group>"; };
+		438F86D71BEE15B200B91940 /* ProjectTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectTestCase.swift; sourceTree = "<group>"; };
+		438F86E51BEEE60600B91940 /* SelfTestDriver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfTestDriver.swift; sourceTree = "<group>"; };
 		43994D2F1BD35119003D034E /* LRProjectKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LRProjectKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		43994D3E1BD35176003D034E /* LRProjectKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LRProjectKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		43994D4D1BD3519F003D034E /* LRProjectKitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRProjectKitTests.swift; sourceTree = "<group>"; };
@@ -80,6 +85,7 @@
 		43994D621BD35691003D034E /* PackageManagerKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PackageManagerKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		43994D6D1BD37730003D034E /* Plugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Plugin.swift; sourceTree = "<group>"; };
 		43994D7D1BD50E0F003D034E /* PluginContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PluginContext.swift; sourceTree = "<group>"; };
+		43E32BA61BF9E9B100C54D25 /* BuildManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +161,8 @@
 				43994D7D1BD50E0F003D034E /* PluginContext.swift */,
 				43994D6D1BD37730003D034E /* Plugin.swift */,
 				43101E921BE05DF600DB3ED3 /* OpSite.swift */,
+				438F86E51BEEE60600B91940 /* SelfTestDriver.swift */,
+				43E32BA61BF9E9B100C54D25 /* BuildManager.swift */,
 				43101EAC1BE14F8900DB3ED3 /* Activities */,
 			);
 			path = Source;
@@ -167,6 +175,7 @@
 				435916A61BDA20F300708C73 /* PluginTests.swift */,
 				43101EA21BE140E500DB3ED3 /* ActivityTests.swift */,
 				438F86AA1BEC3F6900B91940 /* TestHelpers.swift */,
+				438F86D71BEE15B200B91940 /* ProjectTestCase.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -306,7 +315,9 @@
 			files = (
 				431CCDC61BD8374300FA3E7D /* Workspace.swift in Sources */,
 				431CCDC51BD8373B00FA3E7D /* PluginContext.swift in Sources */,
+				438F86E61BEEE60700B91940 /* SelfTestDriver.swift in Sources */,
 				431CCDC41BD8373800FA3E7D /* PluginManager.swift in Sources */,
+				43E32BA71BF9E9B100C54D25 /* BuildManager.swift in Sources */,
 				431CCDC81BD8374300FA3E7D /* Plugin.swift in Sources */,
 				43101EB61BE1500000DB3ED3 /* Group.swift in Sources */,
 				43101EB41BE14FE500DB3ED3 /* Processor.swift in Sources */,
@@ -324,6 +335,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				435916A71BDA20F300708C73 /* PluginTests.swift in Sources */,
+				438F86D91BEE15B700B91940 /* ProjectTestCase.swift in Sources */,
 				43101EA41BE140E800DB3ED3 /* ActivityTests.swift in Sources */,
 				43994D4E1BD3519F003D034E /* LRProjectKitTests.swift in Sources */,
 				438F86AC1BEC3F8B00B91940 /* TestHelpers.swift in Sources */,

@@ -2,25 +2,29 @@ import Cocoa
 import ExpressiveFoundation
 import LRProjectKit
 
-var sharedWorkspace: Workspace!
-
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBOutlet weak var window: NSWindow!
 
-    private var o = [ListenerType]()
+    private var o = Observation()
+
+    var app: App!
+    var appController: AppController!
 
     func applicationDidFinishLaunching(aNotification: NSNotification) {
-        sharedWorkspace = Workspace()
+        app = App()
+        appController = AppController(app: app)
 
-        o += sharedWorkspace.plugins.subscribe(self, AppDelegate.didDetectInvalidPlugins)
+        o += app.workspace.plugins.subscribe(self, AppDelegate.didDetectInvalidPlugins)
         setupPluginFolders()
-        sharedWorkspace.plugins.update(.Initial)
+        app.workspace.plugins.update(.Initial)
+
+        appController.showMainWindow()
     }
 
     func applicationWillTerminate(aNotification: NSNotification) {
-        sharedWorkspace.dispose()
+        app.dispose()
     }
 
     private func setupPluginFolders() {
@@ -41,7 +45,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
 #endif
 
-        sharedWorkspace.plugins.pluginContainerURLs = [bundledPluginsFolder]
+        app.workspace.plugins.pluginContainerURLs = [bundledPluginsFolder]
     }
 
     func didDetectInvalidPlugins(event: PluginManager.DidDetectInvalidPlugins) {

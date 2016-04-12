@@ -22,6 +22,10 @@ public class Project: StdEmitterType, ProjectContext {
     public func dispose() {
     }
 
+    public var displayName: String {
+        return rootURL.lastPathComponent!
+    }
+
     public var forcedStylesheetReloadSpec: ATPathSpec? {
         return nil
     }
