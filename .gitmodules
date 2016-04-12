@@ -6,7 +6,7 @@
 	url = git@github.com:andreyvit/ExpressiveCollections.swift.git
 [submodule "ExpressiveCasting"]
 	path = ExpressiveCasting
-	url = git@github.com:andreyvit/ExpressiveCasting.swift.git
+	url = git@github.com:ExpressiveSwift/ExpressiveCasting.git
 [submodule "ExpressiveFoundation"]
 	path = ExpressiveFoundation
 	url = git@github.com:andreyvit/ExpressiveFoundation.swift.git
