@@ -108,6 +108,7 @@
 		438DF5B61CBCC3700019154B /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		438DF5B81CBCC82C0019154B /* AppController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppController.swift; sourceTree = "<group>"; };
 		438DF5BA1CBCCB750019154B /* MainWindowContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindowContentViewController.swift; sourceTree = "<group>"; };
+		438DF5BC1CC0D82C0019154B /* LiveReload.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = LiveReload.entitlements; path = ../LiveReload.entitlements; sourceTree = "<group>"; };
 		43D6A89D1BB218EB00296B03 /* ExpressiveCollections.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ExpressiveCollections.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		43D6A8D01BB2A5AB00296B03 /* ExpressiveCasting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ExpressiveCasting.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		43D6A8E51BB2A8EB00296B03 /* ExpressiveFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ExpressiveFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -248,6 +249,7 @@
 				43D6A9281BB2ACE700296B03 /* Info-Tests.plist */,
 				43D6A9291BB2ACE700296B03 /* Info-UITests.plist */,
 				43D6A92A1BB2ACE700296B03 /* Info.plist */,
+				438DF5BC1CC0D82C0019154B /* LiveReload.entitlements */,
 			);
 			path = Metadata;
 			sourceTree = "<group>";
@@ -355,6 +357,12 @@
 				TargetAttributes = {
 					430F0CE21BB0AB3D00F8B30A = {
 						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = D963M2VVCH;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
 					};
 					430F0CF11BB0AB3D00F8B30A = {
 						CreatedOnToolsVersion = 7.0;
@@ -557,6 +565,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = LiveReload.entitlements;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Metadata/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -569,6 +579,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = LiveReload.entitlements;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Metadata/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
