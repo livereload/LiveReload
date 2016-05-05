@@ -11,17 +11,19 @@ public class AppController {
 
     // MARK: - Main Window
 
-    private var _mainWindowController: MainWindowController?
+    private lazy var mainStoryboard: NSStoryboard = { [unowned self] in
+        NSStoryboard(name: "Main", bundle: nil)
+    }()
 
-    private var mainWindowController: MainWindowController {
-        if let wc = _mainWindowController {
-            return wc
-        }
-        let sb = NSStoryboard(name: "MainWindow", bundle: nil)
-        let wc = sb.instantiateControllerWithIdentifier("MainWindow") as! MainWindowController
-        wc.setup(self)
-        _mainWindowController = wc
-        return wc
+    private var isMainWindowControllerLoaded = false
+
+    private lazy var mainWindowController: MainWindowController = { [unowned self] in
+        self.isMainWindowControllerLoaded = true
+        return self.mainStoryboard.instantiateControllerWithIdentifier("Main") as! MainWindowController
+    }()
+
+    public var isMainWindowVisible: Bool {
+        return isMainWindowControllerLoaded && mainWindowController.windowLoaded && mainWindowController.window!.visible
     }
 
     public func showMainWindow() {

@@ -36,7 +36,7 @@
 		438DF5B51CBCBF160019154B /* TreeItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438DF5B41CBCBF160019154B /* TreeItems.swift */; };
 		438DF5B71CBCC3700019154B /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438DF5B61CBCC3700019154B /* App.swift */; };
 		438DF5B91CBCC82C0019154B /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438DF5B81CBCC82C0019154B /* AppController.swift */; };
-		438DF5BB1CBCCB750019154B /* MainWindowContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438DF5BA1CBCCB750019154B /* MainWindowContentViewController.swift */; };
+		439E645A1CDB234100C2CE2D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 439E64591CDB234100C2CE2D /* Main.storyboard */; };
 		43D6A8D11BB2A5AB00296B03 /* ExpressiveCasting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D6A8D01BB2A5AB00296B03 /* ExpressiveCasting.framework */; };
 		43D6A8E61BB2A8EB00296B03 /* ExpressiveFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D6A8E51BB2A8EB00296B03 /* ExpressiveFoundation.framework */; };
 		43D6A91D1BB2AB3D00296B03 /* ExpressiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D6A91C1BB2AB3D00296B03 /* ExpressiveCocoa.framework */; };
@@ -107,8 +107,8 @@
 		438DF5B41CBCBF160019154B /* TreeItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeItems.swift; sourceTree = "<group>"; };
 		438DF5B61CBCC3700019154B /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		438DF5B81CBCC82C0019154B /* AppController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppController.swift; sourceTree = "<group>"; };
-		438DF5BA1CBCCB750019154B /* MainWindowContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindowContentViewController.swift; sourceTree = "<group>"; };
 		438DF5BC1CC0D82C0019154B /* LiveReload.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = LiveReload.entitlements; path = ../LiveReload.entitlements; sourceTree = "<group>"; };
+		439E64591CDB234100C2CE2D /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		43D6A89D1BB218EB00296B03 /* ExpressiveCollections.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ExpressiveCollections.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		43D6A8D01BB2A5AB00296B03 /* ExpressiveCasting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ExpressiveCasting.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		43D6A8E51BB2A8EB00296B03 /* ExpressiveFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ExpressiveFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -191,8 +191,8 @@
 			isa = PBXGroup;
 			children = (
 				438DF5B81CBCC82C0019154B /* AppController.swift */,
+				439E64591CDB234100C2CE2D /* Main.storyboard */,
 				438DF5A91CBCB8D10019154B /* MainWindowController.swift */,
-				438DF5BA1CBCCB750019154B /* MainWindowContentViewController.swift */,
 				438DF5AB1CBCB99E0019154B /* MainWindow.swift */,
 				438DF5AD1CBCBA690019154B /* TreePaneViewController.swift */,
 				438DF5B11CBCBDD90019154B /* ContentPaneViewController.swift */,
@@ -399,6 +399,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				439E645A1CDB234100C2CE2D /* Main.storyboard in Resources */,
 				438DF5B01CBCBAF70019154B /* MainWindow.storyboard in Resources */,
 				43D6A92C1BB2ACF200296B03 /* Assets.xcassets in Resources */,
 				43D6A9251BB2ACD100296B03 /* MainMenu.xib in Resources */,
@@ -434,7 +435,6 @@
 				438DF5B21CBCBDD90019154B /* ContentPaneViewController.swift in Sources */,
 				438DF5B71CBCC3700019154B /* App.swift in Sources */,
 				43D6A9211BB2ACC800296B03 /* AppDelegate.swift in Sources */,
-				438DF5BB1CBCCB750019154B /* MainWindowContentViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -570,6 +570,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Metadata/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.livereload.LiveReload;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -584,6 +585,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Metadata/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.livereload.LiveReload;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
