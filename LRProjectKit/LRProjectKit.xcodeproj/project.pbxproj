@@ -22,6 +22,8 @@
 		431CCDC81BD8374300FA3E7D /* Plugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43994D6D1BD37730003D034E /* Plugin.swift */; };
 		435916861BDA177C00708C73 /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 435916841BDA177100708C73 /* PromiseKit.framework */; };
 		435916A71BDA20F300708C73 /* PluginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435916A61BDA20F300708C73 /* PluginTests.swift */; };
+		438DF5BE1CC0E1CC0019154B /* StorageKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438DF5BD1CC0E1CC0019154B /* StorageKit.swift */; };
+		438DF5C01CC0E3170019154B /* TimeGuard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438DF5BF1CC0E3170019154B /* TimeGuard.swift */; };
 		438F86AC1BEC3F8B00B91940 /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438F86AA1BEC3F6900B91940 /* TestHelpers.swift */; };
 		438F86D91BEE15B700B91940 /* ProjectTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438F86D71BEE15B200B91940 /* ProjectTestCase.swift */; };
 		438F86E61BEEE60700B91940 /* SelfTestDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438F86E51BEEE60600B91940 /* SelfTestDriver.swift */; };
@@ -62,6 +64,8 @@
 		435916841BDA177100708C73 /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = "../../../../Library/Developer/Xcode/DerivedData/LiveReload-hkzvlfkmaipqkuafsrljbdycmyql/Build/Products/Debug/PromiseKit.framework"; sourceTree = "<group>"; };
 		435916A61BDA20F300708C73 /* PluginTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PluginTests.swift; sourceTree = "<group>"; };
 		435916A81BDA214000708C73 /* TestFixtures */ = {isa = PBXFileReference; lastKnownFileType = folder; path = TestFixtures; sourceTree = "<group>"; };
+		438DF5BD1CC0E1CC0019154B /* StorageKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageKit.swift; sourceTree = "<group>"; };
+		438DF5BF1CC0E3170019154B /* TimeGuard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeGuard.swift; sourceTree = "<group>"; };
 		438F86AA1BEC3F6900B91940 /* TestHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestHelpers.swift; sourceTree = "<group>"; };
 		438F86D71BEE15B200B91940 /* ProjectTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectTestCase.swift; sourceTree = "<group>"; };
 		438F86E51BEEE60600B91940 /* SelfTestDriver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfTestDriver.swift; sourceTree = "<group>"; };
@@ -164,6 +168,8 @@
 				438F86E51BEEE60600B91940 /* SelfTestDriver.swift */,
 				43E32BA61BF9E9B100C54D25 /* BuildManager.swift */,
 				43101EAC1BE14F8900DB3ED3 /* Activities */,
+				438DF5BD1CC0E1CC0019154B /* StorageKit.swift */,
+				438DF5BF1CC0E3170019154B /* TimeGuard.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -313,6 +319,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				438DF5BE1CC0E1CC0019154B /* StorageKit.swift in Sources */,
 				431CCDC61BD8374300FA3E7D /* Workspace.swift in Sources */,
 				431CCDC51BD8373B00FA3E7D /* PluginContext.swift in Sources */,
 				438F86E61BEEE60700B91940 /* SelfTestDriver.swift in Sources */,
@@ -324,6 +331,7 @@
 				43101EB81BE150BB00DB3ED3 /* StdUpdateReason.swift in Sources */,
 				431CCDC71BD8374300FA3E7D /* Project.swift in Sources */,
 				43101EB01BE14FA400DB3ED3 /* Message.swift in Sources */,
+				438DF5C01CC0E3170019154B /* TimeGuard.swift in Sources */,
 				43101EAE1BE14F8900DB3ED3 /* Request.swift in Sources */,
 				43101E931BE05DF600DB3ED3 /* OpSite.swift in Sources */,
 				43101EB21BE14FC800DB3ED3 /* Processable.swift in Sources */,
