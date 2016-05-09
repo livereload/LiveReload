@@ -7,11 +7,30 @@ public class TreePaneViewController: NSViewController {
 
     private let rootItem = RootTreeItem()
 
-    @IBOutlet var outlineView: NSOutlineView!
+    private let scrollView = NSScrollView()
+    private let outlineView = NSOutlineView()
+    private let column = NSTableColumn(identifier: "name")
 
     public func setup(appController: AppController) {
         print("\(self.dynamicType).setup")
         workspace = appController.app.workspace
+    }
+
+    public override func loadView() {
+        view = scrollView
+        scrollView.documentView = outlineView
+
+        outlineView.setDataSource(self)
+        outlineView.setDelegate(self)
+        outlineView.rowSizeStyle = .Small
+        outlineView.headerView = nil
+
+        column.title = "Name"
+        outlineView.addTableColumn(column)
+        outlineView.outlineTableColumn = column
+
+        outlineView.reloadData()
+        outlineView.expandItem(rootItem)
     }
 
     public override func viewDidLoad() {
@@ -36,27 +55,64 @@ extension TreePaneViewController: NSOutlineViewDataSource, NSOutlineViewDelegate
         return item.children[index]
     }
 
+    public func outlineView(outlineView: NSOutlineView, isGroupItem item: AnyObject) -> Bool {
+        return mapItem(item).isGroupItem
+    }
+
     public func outlineView(outlineView: NSOutlineView, isItemExpandable item: AnyObject) -> Bool {
-        let item = mapItem(item)
-        return item.isExpandable
+        return mapItem(item).isExpandable
     }
 
     public func outlineView(outlineView: NSOutlineView, shouldSelectItem item: AnyObject) -> Bool {
-        let item = mapItem(item)
-        return item.isSelectable
+        return mapItem(item).isSelectable
+    }
+
+    public func outlineView(outlineView: NSOutlineView, shouldShowOutlineCellForItem item: AnyObject) -> Bool {
+        return false
+    }
+
+    public func outlineView(outlineView: NSOutlineView, shouldCollapseItem item: AnyObject) -> Bool {
+        return false
     }
 
     public func outlineView(outlineView: NSOutlineView, viewForTableColumn tableColumn: NSTableColumn?, item: AnyObject) -> NSView? {
         let item = mapItem(item)
         switch item {
         case _ as ProjectsHeaderTreeItem:
-            let view = outlineView.makeViewWithIdentifier("HeaderCell", owner: self)! as! NSTableCellView
-            view.textField!.stringValue = "Projects"
-            return view
+            let label = NSTextField()
+            label.bordered = false
+            label.drawsBackground = false
+            label.textColor = NSColor.headerColor()
+            label.font = NSFont.boldSystemFontOfSize(NSFont.smallSystemFontSize())
+
+//            let imageView = NSImageView()
+//            imageView
+
+            let cell = NSTableCellView()
+            cell.textField = label
+            cell.addSubview(label)
+
+            label.stringValue = "Projects"
+
+            return cell
+
         case let projectItem as ProjectTreeItem:
-            let view = outlineView.makeViewWithIdentifier("DataCell", owner: self)! as! NSTableCellView
-            view.textField!.stringValue = projectItem.project.displayName
-            return view
+            let label = NSTextField()
+            label.bordered = false
+            label.drawsBackground = false
+            label.textColor = NSColor.controlTextColor()
+            label.font = NSFont.boldSystemFontOfSize(NSFont.smallSystemFontSize())
+//            let imageView = NSImageView()
+//            imageView.im
+
+            let cell = NSTableCellView()
+            cell.textField = label
+            cell.addSubview(label)
+
+            label.stringValue = projectItem.project.displayName
+
+            return cell
+
         default:
             return nil
         }

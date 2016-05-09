@@ -5,40 +5,14 @@
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10116"/>
     </dependencies>
     <scenes>
-        <!--Window Controller-->
-        <scene sceneID="uAB-I0-dUX">
-            <objects>
-                <windowController storyboardIdentifier="MainWindow" id="ail-HX-yEB" customClass="MainWindowController" customModule="LiveReload" customModuleProvider="target" sceneMemberID="viewController">
-                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="SXR-14-Kne">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
-                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="163" y="199" width="480" height="270"/>
-                        <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
-                    </window>
-                    <connections>
-                        <segue destination="QOJ-oG-uD1" kind="relationship" relationship="window.shadowedContentViewController" id="v8L-O5-T9d"/>
-                    </connections>
-                </windowController>
-                <customObject id="pnh-We-0oH" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="39" y="191"/>
-        </scene>
         <!--Main Window Content View Controller-->
         <scene sceneID="GRN-2U-oWg">
             <objects>
                 <splitViewController id="QOJ-oG-uD1" customClass="MainWindowContentViewController" customModule="LiveReload" customModuleProvider="target" sceneMemberID="viewController">
-                    <splitViewItems>
-                        <splitViewItem id="2JD-WX-pPe"/>
-                        <splitViewItem id="0r0-nZ-1IS"/>
-                    </splitViewItems>
                     <splitView key="splitView" dividerStyle="thin" vertical="YES" id="v0f-Sq-cw0">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </splitView>
-                    <connections>
-                        <segue destination="bsU-nL-rC8" kind="relationship" relationship="splitItems" id="g3M-sn-9hr"/>
-                        <segue destination="GoP-v7-0tN" kind="relationship" relationship="splitItems" id="Ifv-wp-4cT"/>
-                    </connections>
                 </splitViewController>
                 <customObject id="9Eg-wr-pTK" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -47,7 +21,7 @@
         <!--Tree Pane View Controller-->
         <scene sceneID="Ceb-vq-DSJ">
             <objects>
-                <viewController id="bsU-nL-rC8" customClass="TreePaneViewController" customModule="LiveReload" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TreePane" id="bsU-nL-rC8" customClass="TreePaneViewController" customModule="LiveReload" customModuleProvider="target" sceneMemberID="viewController">
                     <scrollView key="view" autohidesScrollers="YES" horizontalLineScroll="17" horizontalPageScroll="10" verticalLineScroll="17" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="RQ9-ny-AJD">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -145,7 +119,7 @@
         <!--Content Pane View Controller-->
         <scene sceneID="3bk-SW-z8u">
             <objects>
-                <viewController id="GoP-v7-0tN" customClass="ContentPaneViewController" customModule="LiveReload" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ContentPane" id="GoP-v7-0tN" customClass="ContentPaneViewController" customModule="LiveReload" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="1MN-vi-mr4">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>

@@ -11,6 +11,8 @@ public protocol TreeItem: class {
 
     var isSelectable: Bool { get }
 
+    var isGroupItem: Bool { get }
+
 }
 
 extension TreeItem {
@@ -27,6 +29,10 @@ extension TreeItem {
         return true
     }
 
+    public var isGroupItem: Bool {
+        return false
+    }
+
 }
 
 public class RootTreeItem: TreeItem {
@@ -41,10 +47,17 @@ public class RootTreeItem: TreeItem {
 
 public class ProjectsHeaderTreeItem: TreeItem {
 
-    public var projectItems: [ProjectTreeItem] = []
+    public var projectItems: [ProjectTreeItem] = [
+        ProjectTreeItem(project: Project(rootURL: NSURL.fileURLWithPath("/Users/andreyvit/dev"))),
+        ProjectTreeItem(project: Project(rootURL: NSURL.fileURLWithPath("/Users/andreyvit/Sites"))),
+    ]
 
     public var children: [TreeItem] {
         return projectItems.map { $0 as TreeItem }
+    }
+
+    public var isGroupItem: Bool {
+        return true
     }
 
 }

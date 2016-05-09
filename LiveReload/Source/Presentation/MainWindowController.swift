@@ -4,6 +4,8 @@ public class MainWindowController: NSWindowController {
 
     public weak var delegate: MainWindowControllerDelegate?
 
+    private var app: App!
+
     private let splitVC = NSSplitViewController()
     private let treePaneVC = TreePaneViewController()
     private let contentPaneVC = ContentPaneViewController()
@@ -44,15 +46,21 @@ public class MainWindowController: NSWindowController {
         splitVC.splitViewItems = [treePaneItem, contentPaneItem]
     }
 
-    public override func windowDidLoad() {
-        let window = self.window!
-        window.contentViewController = splitVC
-        window.title = NSLocalizedString("LiveReload", comment: "App Title")
+    public func setup(appController: AppController) {
+        print("\(self.dynamicType).setup")
+        app = appController.app
+        treePaneVC.setup(appController)
+        contentPaneVC.setup(appController)
     }
 
-//    public override func showWindow(sender: AnyObject?) {
-//        window!.makeKeyAndOrderFront(sender)
-//    }
+    public override func windowDidLoad() {
+        let window = self.window!
+        print("treePaneVC.view = \(treePaneVC.view)")
+        print("contentPaneVC.view = \(contentPaneVC.view)")
+        window.contentViewController = splitVC
+        window.title = NSLocalizedString("LiveReload", comment: "App Title")
+        window.center()
+    }
 
 }
 

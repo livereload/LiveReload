@@ -7,6 +7,10 @@ public class ContentPaneViewController: NSViewController {
         print("\(self.dynamicType).viewDidLoad")
     }
 
+    public override func loadView() {
+        view = NSView()
+    }
+
     public func setup(appController: AppController) {
         print("\(self.dynamicType).setup")
     }
