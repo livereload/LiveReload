@@ -50,6 +50,7 @@ public class MainWindowController: NSWindowController {
     }
 
     public override func windowDidLoad() {
+        // TODO: What's the right way to pick the screen? mainScreen vs screens()[0] vs ...?
         let screen = NSScreen.mainScreen()!
         let screenFrame = screen.frame
         let size = CGSize(width: round(screenFrame.width * (2/3)), height: round(screenFrame.height * (2/3)))
