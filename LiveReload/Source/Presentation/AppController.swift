@@ -11,10 +11,6 @@ public class AppController {
 
     // MARK: - Main Window
 
-    private lazy var mainStoryboard: NSStoryboard = { [unowned self] in
-        NSStoryboard(name: "Main", bundle: nil)
-    }()
-
     private var isMainWindowControllerLoaded = false
 
     private lazy var mainWindowController: MainWindowController = { [unowned self] in
