@@ -13,37 +13,33 @@ public class MainWindowController: NSWindowController {
     private let treePaneItem: NSSplitViewItem
     private let contentPaneItem: NSSplitViewItem
 
-//    public override init() {
-//        fatalError("Duh")
-//
-//        let screen = NSScreen.mainScreen()!
-//        let screenFrame = screen.frame
-//        let size = CGSize(width: round(screenFrame.width * (2/3)), height: round(screenFrame.height * (2/3)))
-//
-//        let style: Int = NSTitledWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask | NSResizableWindowMask
-//        let window = MainWindow(contentRect: NSRect(origin: .zero, size: size), styleMask: style, backing: .Buffered, defer: false)
-//
-//        window.minSize = NSSize(width: 100, height: 100)
-//        window.opaque = false
-
-//        super.init()
-
-//        window.center()
-//]
-//        super.init(windowNibName: ")
-//    }
-
-    public override init(window: NSWindow?) {
-        fatalError("Must instantiate from a storyboard")
-    }
-
-    public required init?(coder aDecoder: NSCoder) {
+    public init() {
         treePaneItem = NSSplitViewItem(sidebarWithViewController: treePaneVC)
         contentPaneItem = NSSplitViewItem(viewController: contentPaneVC)
 
-        super.init(coder: aDecoder)
+        super.init(window: nil)
 
         splitVC.splitViewItems = [treePaneItem, contentPaneItem]
+    }
+
+    public override var windowNibName: String? {
+        // This method must return a non-nil value, otherwise loadWindow won't be called.
+        // See http://www.openradar.me/19289232: “NSWindowController subclasses must override
+        // windowNibName for programmatically created windows”.
+        return "non-nil"
+    }
+
+    public override func loadWindow() {
+        let style: Int = NSTitledWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask | NSResizableWindowMask
+        let window = MainWindow(contentRect: NSRect.zero, styleMask: style, backing: .Buffered, defer: false)
+
+        window.collectionBehavior = [.MoveToActiveSpace, .Managed, .FullScreenAuxiliary, .FullScreenAllowsTiling]
+
+        self.window = window
+    }
+
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     public func setup(appController: AppController) {
@@ -54,11 +50,17 @@ public class MainWindowController: NSWindowController {
     }
 
     public override func windowDidLoad() {
+        let screen = NSScreen.mainScreen()!
+        let screenFrame = screen.frame
+        let size = CGSize(width: round(screenFrame.width * (2/3)), height: round(screenFrame.height * (2/3)))
+
         let window = self.window!
-        print("treePaneVC.view = \(treePaneVC.view)")
-        print("contentPaneVC.view = \(contentPaneVC.view)")
         window.contentViewController = splitVC
+
         window.title = NSLocalizedString("LiveReload", comment: "App Title")
+
+        // Setting contentViewController resets the frame, so this needs to come after it.
+        window.setFrame(NSRect(origin: .zero, size: size), display: false, animate: false)
         window.center()
     }
 

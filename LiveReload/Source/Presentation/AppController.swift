@@ -19,7 +19,7 @@ public class AppController {
 
     private lazy var mainWindowController: MainWindowController = { [unowned self] in
         self.isMainWindowControllerLoaded = true
-        return self.mainStoryboard.instantiateControllerWithIdentifier("Main") as! MainWindowController
+        return MainWindowController()
     }()
 
     public var isMainWindowVisible: Bool {

@@ -24,13 +24,14 @@ public class TreePaneViewController: NSViewController {
         outlineView.setDelegate(self)
         outlineView.rowSizeStyle = .Small
         outlineView.headerView = nil
+        outlineView.selectionHighlightStyle = .SourceList
 
         column.title = "Name"
         outlineView.addTableColumn(column)
         outlineView.outlineTableColumn = column
 
         outlineView.reloadData()
-        outlineView.expandItem(rootItem)
+        outlineView.expandItem(rootItem.projectsHeader, expandChildren: true)
     }
 
     public override func viewDidLoad() {
@@ -101,7 +102,7 @@ extension TreePaneViewController: NSOutlineViewDataSource, NSOutlineViewDelegate
             label.bordered = false
             label.drawsBackground = false
             label.textColor = NSColor.controlTextColor()
-            label.font = NSFont.boldSystemFontOfSize(NSFont.smallSystemFontSize())
+            label.font = NSFont.systemFontOfSize(NSFont.systemFontSize())
 //            let imageView = NSImageView()
 //            imageView.im
 
