@@ -1,25 +1,30 @@
 import Cocoa
+import LRProjectKit
 
 public class MainWindowController: NSWindowController {
 
-    public weak var delegate: MainWindowControllerDelegate?
-
-    private var app: App!
+    public weak var delegate: MainWindowControllerDelegate!
 
     private let splitVC = NSSplitViewController()
-    private let treePaneVC = TreePaneViewController()
+    private let treePaneVC: TreePaneViewController
     private let contentPaneVC = ContentPaneViewController()
 
     private let treePaneItem: NSSplitViewItem
     private let contentPaneItem: NSSplitViewItem
 
-    public init() {
+    private var selectedProject: Project?
+
+    public init(app: App) {
+        treePaneVC = TreePaneViewController(workspace: app.workspace)
+
         treePaneItem = NSSplitViewItem(sidebarWithViewController: treePaneVC)
         contentPaneItem = NSSplitViewItem(viewController: contentPaneVC)
 
         super.init(window: nil)
 
         splitVC.splitViewItems = [treePaneItem, contentPaneItem]
+
+        treePaneVC.delegate = self
     }
 
     public override var windowNibName: String? {
@@ -36,17 +41,12 @@ public class MainWindowController: NSWindowController {
         window.collectionBehavior = [.MoveToActiveSpace, .Managed, .FullScreenAuxiliary, .FullScreenAllowsTiling]
 
         self.window = window
+
+        updateContentPane()
     }
 
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    public func setup(appController: AppController) {
-        print("\(self.dynamicType).setup")
-        app = appController.app
-        treePaneVC.setup(appController)
-        contentPaneVC.setup(appController)
     }
 
     public override func windowDidLoad() {
@@ -65,13 +65,33 @@ public class MainWindowController: NSWindowController {
         window.center()
     }
 
+    private func updateContentPane() {
+        let vc: NSViewController
+        if let selectedProject = selectedProject {
+            vc = delegate.newContentViewControllerForProject(selectedProject)
+        } else {
+            vc = NoSelectionViewController()
+        }
+        contentPaneVC.setContentViewController(vc)
+    }
+
 }
 
+
+extension MainWindowController: TreePaneViewControllerDelegate {
+
+    public func selectedItemDidChange(inTreePaneViewController viewController: TreePaneViewController) {
+        selectedProject = treePaneVC.selectedProject
+        updateContentPane()
+    }
+
+}
 
 
 // MARK: - Delegate
 
 public protocol MainWindowControllerDelegate: class {
 
+    func newContentViewControllerForProject(project: Project) -> ProjectPaneViewController
 
 }

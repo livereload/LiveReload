@@ -28,6 +28,8 @@
 		435916A01BDA1FCD00708C73 /* EditorKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4359169E1BDA1FCD00708C73 /* EditorKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		435916A21BDA1FCD00708C73 /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 435916A11BDA1FCD00708C73 /* PromiseKit.framework */; };
 		435916A31BDA1FCD00708C73 /* PromiseKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 435916A11BDA1FCD00708C73 /* PromiseKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		43638D6B1D05D15600AEDA0B /* ProjectPaneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43638D6A1D05D15600AEDA0B /* ProjectPaneViewController.swift */; };
+		43638D6D1D07969300AEDA0B /* NoSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43638D6C1D07969300AEDA0B /* NoSelectionViewController.swift */; };
 		438DF5AA1CBCB8D10019154B /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438DF5A91CBCB8D10019154B /* MainWindowController.swift */; };
 		438DF5AC1CBCB99E0019154B /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438DF5AB1CBCB99E0019154B /* MainWindow.swift */; };
 		438DF5AE1CBCBA690019154B /* TreePaneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438DF5AD1CBCBA690019154B /* TreePaneViewController.swift */; };
@@ -97,6 +99,8 @@
 		4359169B1BDA1FCD00708C73 /* PackageManagerKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = PackageManagerKit.framework; path = "/Users/andreyvit/Library/Developer/Xcode/DerivedData/LiveReload-hkzvlfkmaipqkuafsrljbdycmyql/Build/Products/Debug/PackageManagerKit.framework"; sourceTree = "<absolute>"; };
 		4359169E1BDA1FCD00708C73 /* EditorKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = EditorKit.framework; path = "/Users/andreyvit/Library/Developer/Xcode/DerivedData/LiveReload-hkzvlfkmaipqkuafsrljbdycmyql/Build/Products/Debug/EditorKit.framework"; sourceTree = "<absolute>"; };
 		435916A11BDA1FCD00708C73 /* PromiseKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = PromiseKit.framework; path = "/Users/andreyvit/Library/Developer/Xcode/DerivedData/LiveReload-hkzvlfkmaipqkuafsrljbdycmyql/Build/Products/Debug/PromiseKit.framework"; sourceTree = "<absolute>"; };
+		43638D6A1D05D15600AEDA0B /* ProjectPaneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectPaneViewController.swift; sourceTree = "<group>"; };
+		43638D6C1D07969300AEDA0B /* NoSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoSelectionViewController.swift; sourceTree = "<group>"; };
 		438DF5A91CBCB8D10019154B /* MainWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		438DF5AB1CBCB99E0019154B /* MainWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindow.swift; sourceTree = "<group>"; };
 		438DF5AD1CBCBA690019154B /* TreePaneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreePaneViewController.swift; sourceTree = "<group>"; };
@@ -191,6 +195,8 @@
 				438DF5AB1CBCB99E0019154B /* MainWindow.swift */,
 				438DF5AD1CBCBA690019154B /* TreePaneViewController.swift */,
 				438DF5B11CBCBDD90019154B /* ContentPaneViewController.swift */,
+				43638D6C1D07969300AEDA0B /* NoSelectionViewController.swift */,
+				43638D6A1D05D15600AEDA0B /* ProjectPaneViewController.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -419,9 +425,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43638D6D1D07969300AEDA0B /* NoSelectionViewController.swift in Sources */,
 				438DF5AA1CBCB8D10019154B /* MainWindowController.swift in Sources */,
 				438DF5AC1CBCB99E0019154B /* MainWindow.swift in Sources */,
 				438DF5B51CBCBF160019154B /* TreeItems.swift in Sources */,
+				43638D6B1D05D15600AEDA0B /* ProjectPaneViewController.swift in Sources */,
 				438DF5B91CBCC82C0019154B /* AppController.swift in Sources */,
 				438DF5AE1CBCBA690019154B /* TreePaneViewController.swift in Sources */,
 				438DF5B21CBCBDD90019154B /* ContentPaneViewController.swift in Sources */,

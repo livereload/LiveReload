@@ -1,4 +1,5 @@
 import Cocoa
+import LRProjectKit
 
 public class AppController {
 
@@ -15,7 +16,9 @@ public class AppController {
 
     private lazy var mainWindowController: MainWindowController = { [unowned self] in
         self.isMainWindowControllerLoaded = true
-        return MainWindowController()
+        let wc = MainWindowController(app: self.app)
+        wc.delegate = self
+        return wc
     }()
 
     public var isMainWindowVisible: Bool {
@@ -24,6 +27,14 @@ public class AppController {
 
     public func showMainWindow() {
         mainWindowController.showWindow(nil)
+    }
+
+}
+
+extension AppController: MainWindowControllerDelegate {
+
+    public func newContentViewControllerForProject(project: Project) -> ProjectPaneViewController {
+        return ProjectPaneViewController(project: project)
     }
 
 }

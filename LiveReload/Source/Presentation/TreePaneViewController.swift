@@ -3,7 +3,19 @@ import LRProjectKit
 
 public class TreePaneViewController: NSViewController {
 
-    private var workspace: Workspace!
+    public weak var delegate: TreePaneViewControllerDelegate?
+
+    private var selectedItem: TreeItem? = nil
+
+    public var selectedProject: Project? {
+        if let selectedItem = selectedItem as? ProjectTreeItem {
+            return selectedItem.project
+        } else {
+            return nil
+        }
+    }
+
+    private let workspace: Workspace
 
     private let rootItem = RootTreeItem()
 
@@ -11,9 +23,13 @@ public class TreePaneViewController: NSViewController {
     private let outlineView = NSOutlineView()
     private let column = NSTableColumn(identifier: "name")
 
-    public func setup(appController: AppController) {
-        print("\(self.dynamicType).setup")
-        workspace = appController.app.workspace
+    public init(workspace: Workspace) {
+        self.workspace = workspace
+        super.init(nibName: nil, bundle: nil)!
+    }
+
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     public override func loadView() {
@@ -44,6 +60,22 @@ public class TreePaneViewController: NSViewController {
 extension TreePaneViewController: NSOutlineViewDataSource, NSOutlineViewDelegate {
 
     public func outlineViewSelectionDidChange(notification: NSNotification) {
+        let idx = outlineView.selectedRow
+        if idx == -1 {
+            selectionDidChange(nil)
+        } else {
+            let obj = outlineView.itemAtRow(idx)
+            let item = mapItem(obj)
+            selectionDidChange(item)
+        }
+    }
+
+    private func selectionDidChange(item: TreeItem?) {
+        guard selectedItem !== item else {
+            return
+        }
+        selectedItem = item
+        delegate?.selectedItemDidChange(inTreePaneViewController: self)
     }
 
     public func outlineView(outlineView: NSOutlineView, numberOfChildrenOfItem item: AnyObject?) -> Int {
@@ -127,4 +159,13 @@ extension TreePaneViewController: NSOutlineViewDataSource, NSOutlineViewDelegate
         }
     }
 
+}
+
+
+// MARK: - Delegate
+
+public protocol TreePaneViewControllerDelegate: class {
+
+    func selectedItemDidChange(inTreePaneViewController viewController: TreePaneViewController)
+    
 }
