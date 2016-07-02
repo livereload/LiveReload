@@ -3,8 +3,11 @@ import ExpressiveFoundation
 import ATPathSpec
 import PackageManagerKit
 import LRActionKit
+import Uniflow
 
-public class Project: StdEmitterType, ProjectContext {
+public class Project: StdEmitterType, ProjectContext, Identifiable {
+
+    public let uuid = NSUUID().UUIDString
 
     public let rootURL: NSURL
 
@@ -17,6 +20,10 @@ public class Project: StdEmitterType, ProjectContext {
         resolutionContext = LRPackageResolutionContext()
 
         actionSet = ActionSet(project: self)
+    }
+
+    public var uniqueIdentifier: String {
+        return uuid
     }
 
     public func dispose() {

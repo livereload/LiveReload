@@ -22,6 +22,8 @@
 		431CCDC81BD8374300FA3E7D /* Plugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43994D6D1BD37730003D034E /* Plugin.swift */; };
 		435916861BDA177C00708C73 /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 435916841BDA177100708C73 /* PromiseKit.framework */; };
 		435916A71BDA20F300708C73 /* PluginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 435916A61BDA20F300708C73 /* PluginTests.swift */; };
+		43635BA51D0BF68C0036EF0F /* Uniflow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43635BA41D0BF68C0036EF0F /* Uniflow.framework */; };
+		43635BA71D0BFA5F0036EF0F /* ProjectList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43635BA61D0BFA5F0036EF0F /* ProjectList.swift */; };
 		438DF5BE1CC0E1CC0019154B /* StorageKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438DF5BD1CC0E1CC0019154B /* StorageKit.swift */; };
 		438DF5C01CC0E3170019154B /* TimeGuard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438DF5BF1CC0E3170019154B /* TimeGuard.swift */; };
 		438F86AC1BEC3F8B00B91940 /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438F86AA1BEC3F6900B91940 /* TestHelpers.swift */; };
@@ -61,9 +63,11 @@
 		43101EB31BE14FE500DB3ED3 /* Processor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Processor.swift; sourceTree = "<group>"; };
 		43101EB51BE1500000DB3ED3 /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		43101EB71BE150BB00DB3ED3 /* StdUpdateReason.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StdUpdateReason.swift; sourceTree = "<group>"; };
-		435916841BDA177100708C73 /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = "../../../../Library/Developer/Xcode/DerivedData/LiveReload-hkzvlfkmaipqkuafsrljbdycmyql/Build/Products/Debug/PromiseKit.framework"; sourceTree = "<group>"; };
+		435916841BDA177100708C73 /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PromiseKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		435916A61BDA20F300708C73 /* PluginTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PluginTests.swift; sourceTree = "<group>"; };
 		435916A81BDA214000708C73 /* TestFixtures */ = {isa = PBXFileReference; lastKnownFileType = folder; path = TestFixtures; sourceTree = "<group>"; };
+		43635BA41D0BF68C0036EF0F /* Uniflow.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Uniflow.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		43635BA61D0BFA5F0036EF0F /* ProjectList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectList.swift; sourceTree = "<group>"; };
 		438DF5BD1CC0E1CC0019154B /* StorageKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageKit.swift; sourceTree = "<group>"; };
 		438DF5BF1CC0E3170019154B /* TimeGuard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeGuard.swift; sourceTree = "<group>"; };
 		438F86AA1BEC3F6900B91940 /* TestHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestHelpers.swift; sourceTree = "<group>"; };
@@ -108,6 +112,7 @@
 				43994D6A1BD35691003D034E /* FSMonitoringKit.framework in Frameworks */,
 				43994D6B1BD35691003D034E /* LRActionKit.framework in Frameworks */,
 				43994D6C1BD35691003D034E /* PackageManagerKit.framework in Frameworks */,
+				43635BA51D0BF68C0036EF0F /* Uniflow.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				43994D541BD35526003D034E /* Workspace.swift */,
+				43635BA61D0BFA5F0036EF0F /* ProjectList.swift */,
 				43994D521BD3522F003D034E /* Project.swift */,
 				43994D561BD35544003D034E /* PluginManager.swift */,
 				43994D7D1BD50E0F003D034E /* PluginContext.swift */,
@@ -198,6 +204,7 @@
 		43994D581BD3566A003D034E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				43635BA41D0BF68C0036EF0F /* Uniflow.framework */,
 				435916841BDA177100708C73 /* PromiseKit.framework */,
 				43994D591BD35691003D034E /* ATPathSpec.framework */,
 				43994D5A1BD35691003D034E /* ATVersionKit.framework */,
@@ -333,6 +340,7 @@
 				43101EB01BE14FA400DB3ED3 /* Message.swift in Sources */,
 				438DF5C01CC0E3170019154B /* TimeGuard.swift in Sources */,
 				43101EAE1BE14F8900DB3ED3 /* Request.swift in Sources */,
+				43635BA71D0BFA5F0036EF0F /* ProjectList.swift in Sources */,
 				43101E931BE05DF600DB3ED3 /* OpSite.swift in Sources */,
 				43101EB21BE14FC800DB3ED3 /* Processable.swift in Sources */,
 			);

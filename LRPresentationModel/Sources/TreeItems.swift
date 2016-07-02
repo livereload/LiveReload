@@ -1,6 +1,40 @@
 import Cocoa
 import LRProjectKit
 
+public protocol TreeItem: class {
+
+    var hasChildren: Bool { get }
+
+    var children: [TreeItem] { get }
+
+    var isExpandable: Bool { get }
+
+    var isSelectable: Bool { get }
+
+    var isGroupItem: Bool { get }
+
+}
+
+extension TreeItem {
+
+    public var hasChildren: Bool {
+        return !children.isEmpty
+    }
+
+    public var isExpandable: Bool {
+        return hasChildren
+    }
+
+    public var isSelectable: Bool {
+        return true
+    }
+
+    public var isGroupItem: Bool {
+        return false
+    }
+
+}
+
 public class RootTreeItem: TreeItem {
 
     public let projectsHeader = ProjectsHeaderTreeItem()

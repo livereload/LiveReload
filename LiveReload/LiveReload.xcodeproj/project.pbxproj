@@ -28,13 +28,16 @@
 		435916A01BDA1FCD00708C73 /* EditorKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4359169E1BDA1FCD00708C73 /* EditorKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		435916A21BDA1FCD00708C73 /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 435916A11BDA1FCD00708C73 /* PromiseKit.framework */; };
 		435916A31BDA1FCD00708C73 /* PromiseKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 435916A11BDA1FCD00708C73 /* PromiseKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		43635B8B1D0BE2730036EF0F /* TreePaneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43635B8A1D0BE2730036EF0F /* TreePaneViewController.swift */; };
+		43635B8D1D0BE2810036EF0F /* TreeItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43635B8C1D0BE2810036EF0F /* TreeItems.swift */; };
+		43635BA21D0BF6250036EF0F /* Uniflow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43635B901D0BE6110036EF0F /* Uniflow.framework */; };
+		43635BA31D0BF6250036EF0F /* Uniflow.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 43635B901D0BE6110036EF0F /* Uniflow.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		43638D6B1D05D15600AEDA0B /* ProjectPaneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43638D6A1D05D15600AEDA0B /* ProjectPaneViewController.swift */; };
 		43638D6D1D07969300AEDA0B /* NoSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43638D6C1D07969300AEDA0B /* NoSelectionViewController.swift */; };
 		438DF5AA1CBCB8D10019154B /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438DF5A91CBCB8D10019154B /* MainWindowController.swift */; };
 		438DF5AC1CBCB99E0019154B /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438DF5AB1CBCB99E0019154B /* MainWindow.swift */; };
-		438DF5AE1CBCBA690019154B /* TreePaneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438DF5AD1CBCBA690019154B /* TreePaneViewController.swift */; };
 		438DF5B21CBCBDD90019154B /* ContentPaneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438DF5B11CBCBDD90019154B /* ContentPaneViewController.swift */; };
-		438DF5B51CBCBF160019154B /* TreeItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438DF5B41CBCBF160019154B /* TreeItems.swift */; };
+		438DF5B51CBCBF160019154B /* SpecificTreeItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438DF5B41CBCBF160019154B /* SpecificTreeItems.swift */; };
 		438DF5B71CBCC3700019154B /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438DF5B61CBCC3700019154B /* App.swift */; };
 		438DF5B91CBCC82C0019154B /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438DF5B81CBCC82C0019154B /* AppController.swift */; };
 		43D6A8D11BB2A5AB00296B03 /* ExpressiveCasting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D6A8D01BB2A5AB00296B03 /* ExpressiveCasting.framework */; };
@@ -76,6 +79,7 @@
 				4359169A1BDA1FCD00708C73 /* ATVersionKit.framework in Embed Frameworks */,
 				435916A31BDA1FCD00708C73 /* PromiseKit.framework in Embed Frameworks */,
 				435916891BDA1FCD00708C73 /* LRProjectKit.framework in Embed Frameworks */,
+				43635BA31D0BF6250036EF0F /* Uniflow.framework in Embed Frameworks */,
 				4359169D1BDA1FCD00708C73 /* PackageManagerKit.framework in Embed Frameworks */,
 				435916921BDA1FCD00708C73 /* ExpressiveFoundation.framework in Embed Frameworks */,
 				435916981BDA1FCD00708C73 /* FSMonitoringKit.framework in Embed Frameworks */,
@@ -94,18 +98,20 @@
 		430F0CE31BB0AB3D00F8B30A /* LiveReload.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveReload.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		430F0CF21BB0AB3D00F8B30A /* LiveReloadTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiveReloadTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		430F0CFD1BB0AB3E00F8B30A /* LiveReloadUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiveReloadUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		435916871BDA1FCD00708C73 /* LRProjectKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = LRProjectKit.framework; path = "/Users/andreyvit/Library/Developer/Xcode/DerivedData/LiveReload-hkzvlfkmaipqkuafsrljbdycmyql/Build/Products/Debug/LRProjectKit.framework"; sourceTree = "<absolute>"; };
-		4359168A1BDA1FCD00708C73 /* LRActionKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = LRActionKit.framework; path = "/Users/andreyvit/Library/Developer/Xcode/DerivedData/LiveReload-hkzvlfkmaipqkuafsrljbdycmyql/Build/Products/Debug/LRActionKit.framework"; sourceTree = "<absolute>"; };
-		4359169B1BDA1FCD00708C73 /* PackageManagerKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = PackageManagerKit.framework; path = "/Users/andreyvit/Library/Developer/Xcode/DerivedData/LiveReload-hkzvlfkmaipqkuafsrljbdycmyql/Build/Products/Debug/PackageManagerKit.framework"; sourceTree = "<absolute>"; };
-		4359169E1BDA1FCD00708C73 /* EditorKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = EditorKit.framework; path = "/Users/andreyvit/Library/Developer/Xcode/DerivedData/LiveReload-hkzvlfkmaipqkuafsrljbdycmyql/Build/Products/Debug/EditorKit.framework"; sourceTree = "<absolute>"; };
-		435916A11BDA1FCD00708C73 /* PromiseKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = PromiseKit.framework; path = "/Users/andreyvit/Library/Developer/Xcode/DerivedData/LiveReload-hkzvlfkmaipqkuafsrljbdycmyql/Build/Products/Debug/PromiseKit.framework"; sourceTree = "<absolute>"; };
+		435916871BDA1FCD00708C73 /* LRProjectKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LRProjectKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4359168A1BDA1FCD00708C73 /* LRActionKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LRActionKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4359169B1BDA1FCD00708C73 /* PackageManagerKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PackageManagerKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4359169E1BDA1FCD00708C73 /* EditorKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = EditorKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		435916A11BDA1FCD00708C73 /* PromiseKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PromiseKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		43635B8A1D0BE2730036EF0F /* TreePaneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreePaneViewController.swift; sourceTree = "<group>"; };
+		43635B8C1D0BE2810036EF0F /* TreeItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeItems.swift; sourceTree = "<group>"; };
+		43635B901D0BE6110036EF0F /* Uniflow.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Uniflow.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		43638D6A1D05D15600AEDA0B /* ProjectPaneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectPaneViewController.swift; sourceTree = "<group>"; };
 		43638D6C1D07969300AEDA0B /* NoSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoSelectionViewController.swift; sourceTree = "<group>"; };
 		438DF5A91CBCB8D10019154B /* MainWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		438DF5AB1CBCB99E0019154B /* MainWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindow.swift; sourceTree = "<group>"; };
-		438DF5AD1CBCBA690019154B /* TreePaneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreePaneViewController.swift; sourceTree = "<group>"; };
 		438DF5B11CBCBDD90019154B /* ContentPaneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentPaneViewController.swift; sourceTree = "<group>"; };
-		438DF5B41CBCBF160019154B /* TreeItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeItems.swift; sourceTree = "<group>"; };
+		438DF5B41CBCBF160019154B /* SpecificTreeItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecificTreeItems.swift; sourceTree = "<group>"; };
 		438DF5B61CBCC3700019154B /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		438DF5B81CBCC82C0019154B /* AppController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppController.swift; sourceTree = "<group>"; };
 		438DF5BC1CC0D82C0019154B /* LiveReload.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = LiveReload.entitlements; path = ../LiveReload.entitlements; sourceTree = "<group>"; };
@@ -135,6 +141,7 @@
 				435916971BDA1FCD00708C73 /* FSMonitoringKit.framework in Frameworks */,
 				4359168B1BDA1FCD00708C73 /* LRActionKit.framework in Frameworks */,
 				4359169F1BDA1FCD00708C73 /* EditorKit.framework in Frameworks */,
+				43635BA21D0BF6250036EF0F /* Uniflow.framework in Frameworks */,
 				4359168D1BDA1FCD00708C73 /* ExpressiveCollections.framework in Frameworks */,
 				43D6A91D1BB2AB3D00296B03 /* ExpressiveCocoa.framework in Frameworks */,
 				43D6A8E61BB2A8EB00296B03 /* ExpressiveFoundation.framework in Frameworks */,
@@ -187,13 +194,22 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		43635B891D0BE2640036EF0F /* TreePane */ = {
+			isa = PBXGroup;
+			children = (
+				43635B8C1D0BE2810036EF0F /* TreeItems.swift */,
+				43635B8A1D0BE2730036EF0F /* TreePaneViewController.swift */,
+			);
+			path = TreePane;
+			sourceTree = "<group>";
+		};
 		438DF5A81CBCB8500019154B /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				43635B891D0BE2640036EF0F /* TreePane */,
 				438DF5B81CBCC82C0019154B /* AppController.swift */,
 				438DF5A91CBCB8D10019154B /* MainWindowController.swift */,
 				438DF5AB1CBCB99E0019154B /* MainWindow.swift */,
-				438DF5AD1CBCBA690019154B /* TreePaneViewController.swift */,
 				438DF5B11CBCBDD90019154B /* ContentPaneViewController.swift */,
 				43638D6C1D07969300AEDA0B /* NoSelectionViewController.swift */,
 				43638D6A1D05D15600AEDA0B /* ProjectPaneViewController.swift */,
@@ -204,7 +220,7 @@
 		438DF5B31CBCBF0F0019154B /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				438DF5B41CBCBF160019154B /* TreeItems.swift */,
+				438DF5B41CBCBF160019154B /* SpecificTreeItems.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -273,6 +289,7 @@
 		43D6A9331BB2AD1200296B03 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				43635B901D0BE6110036EF0F /* Uniflow.framework */,
 				430693391BBB392000B2E70A /* ATVersionKit.framework */,
 				43F4E4F21BB5FC5A004EFF5C /* FSMonitoringKit.framework */,
 				43D6A98E1BB4490A00296B03 /* ATPathSpec.framework */,
@@ -428,11 +445,12 @@
 				43638D6D1D07969300AEDA0B /* NoSelectionViewController.swift in Sources */,
 				438DF5AA1CBCB8D10019154B /* MainWindowController.swift in Sources */,
 				438DF5AC1CBCB99E0019154B /* MainWindow.swift in Sources */,
-				438DF5B51CBCBF160019154B /* TreeItems.swift in Sources */,
+				438DF5B51CBCBF160019154B /* SpecificTreeItems.swift in Sources */,
 				43638D6B1D05D15600AEDA0B /* ProjectPaneViewController.swift in Sources */,
 				438DF5B91CBCC82C0019154B /* AppController.swift in Sources */,
-				438DF5AE1CBCBA690019154B /* TreePaneViewController.swift in Sources */,
+				43635B8B1D0BE2730036EF0F /* TreePaneViewController.swift in Sources */,
 				438DF5B21CBCBDD90019154B /* ContentPaneViewController.swift in Sources */,
+				43635B8D1D0BE2810036EF0F /* TreeItems.swift in Sources */,
 				438DF5B71CBCC3700019154B /* App.swift in Sources */,
 				43D6A9211BB2ACC800296B03 /* AppDelegate.swift in Sources */,
 			);

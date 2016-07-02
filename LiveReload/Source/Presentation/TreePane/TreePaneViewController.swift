@@ -5,26 +5,16 @@ public class TreePaneViewController: NSViewController {
 
     public weak var delegate: TreePaneViewControllerDelegate?
 
-    private var selectedItem: TreeItem? = nil
+    public private(set) var selectedItem: TreeItem? = nil
 
-    public var selectedProject: Project? {
-        if let selectedItem = selectedItem as? ProjectTreeItem {
-            return selectedItem.project
-        } else {
-            return nil
-        }
-    }
-
-    private let workspace: Workspace
-
-    private let rootItem = RootTreeItem()
+    private let rootItem: TreeItem
 
     private let scrollView = NSScrollView()
     private let outlineView = NSOutlineView()
     private let column = NSTableColumn(identifier: "name")
 
-    public init(workspace: Workspace) {
-        self.workspace = workspace
+    public init(rootItem: TreeItem) {
+        self.rootItem = rootItem
         super.init(nibName: nil, bundle: nil)!
     }
 
@@ -47,7 +37,9 @@ public class TreePaneViewController: NSViewController {
         outlineView.outlineTableColumn = column
 
         outlineView.reloadData()
-        outlineView.expandItem(rootItem.projectsHeader, expandChildren: true)
+        for item in rootItem.children where item.isExpandable {
+            outlineView.expandItem(item, expandChildren: true)
+        }
     }
 
     public override func viewDidLoad() {

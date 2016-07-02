@@ -15,7 +15,7 @@ public class MainWindowController: NSWindowController {
     private var selectedProject: Project?
 
     public init(app: App) {
-        treePaneVC = TreePaneViewController(workspace: app.workspace)
+        treePaneVC = TreePaneViewController(rootItem: RootTreeItem())
 
         treePaneItem = NSSplitViewItem(sidebarWithViewController: treePaneVC)
         contentPaneItem = NSSplitViewItem(viewController: contentPaneVC)
@@ -81,7 +81,11 @@ public class MainWindowController: NSWindowController {
 extension MainWindowController: TreePaneViewControllerDelegate {
 
     public func selectedItemDidChange(inTreePaneViewController viewController: TreePaneViewController) {
-        selectedProject = treePaneVC.selectedProject
+        if let selectedItem = treePaneVC.selectedItem as? ProjectTreeItem {
+            selectedProject = selectedItem.project
+        } else {
+            selectedProject = nil
+        }
         updateContentPane()
     }
 

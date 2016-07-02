@@ -13,6 +13,8 @@ public class Workspace: PluginContext {
 
     public let rubies: RubyRuntimeRepository
 
+    public let projects: ProjectList
+
     private var disposed = false
 
 
@@ -25,6 +27,8 @@ public class Workspace: PluginContext {
         plugins = PluginManager(context: pc)
 
         rubies = RubyRuntimeRepository()
+
+        projects = ProjectList()
 
         let lb = log.beginUpdating()
         lb.addChild(plugins.log)
