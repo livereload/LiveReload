@@ -2,7 +2,7 @@ import Cocoa
 import LRProjectKit
 import Uniflow
 
-public protocol TreeItem: class, Identifiable, Updateable {
+public protocol TreeItem: class, Identifiable {
 
     var hasChildren: Bool { get }
 

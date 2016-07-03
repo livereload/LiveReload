@@ -527,6 +527,7 @@
 				TargetAttributes = {
 					430019AE1BBDEE1600ECF2AF = {
 						CreatedOnToolsVersion = 7.0;
+						LastSwiftMigration = 0800;
 					};
 					430019B81BBDEE1600ECF2AF = {
 						CreatedOnToolsVersion = 7.0;
@@ -750,6 +751,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.livereload.LRActionKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -768,6 +770,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.livereload.LRActionKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};

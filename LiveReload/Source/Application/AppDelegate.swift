@@ -1,7 +1,6 @@
 import Cocoa
 import ExpressiveFoundation
 import LRProjectKit
-import LRAbstractModel
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
