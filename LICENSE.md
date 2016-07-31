@@ -1,5 +1,6 @@
 Copyright 2012–2015, Andrey Tarantsov — andrey@tarantsov.com
 
+
 **Purchasing policy notice:** All users of the software are expected to purchase a license from Andrey Tarantsov unless they have a good reason not to pay. Users that don't purchase a license are encouraged to apply for a free one at support@livereload.com. The users are free to:
 
 * download, build and modify the app;
