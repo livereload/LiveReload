@@ -12,7 +12,7 @@
 
 @interface Compiler : NSObject {
 @private
-    __weak Plugin    *_plugin;
+    /*__weak*/ Plugin    *_plugin;
     NSString         *_uniqueId;
     NSString         *_name;
     NSArray          *_commandLine;

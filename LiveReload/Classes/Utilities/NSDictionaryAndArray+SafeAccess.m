@@ -1,6 +1,6 @@
 
 #import "NSDictionaryAndArray+SafeAccess.h"
-#import "JSON.h"
+#import "NSObject+JSON.h"
 
 
 @implementation NSDictionary (SafeAccess)

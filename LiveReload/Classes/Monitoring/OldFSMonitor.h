@@ -30,7 +30,7 @@
 
 @property(nonatomic, retain) FSTreeFilter *filter;
 
-@property(nonatomic, assign) __weak id<FSMonitorDelegate> delegate;
+@property(nonatomic, assign) id<FSMonitorDelegate> delegate;
 
 @property(nonatomic, getter=isRunning) BOOL running;
 
