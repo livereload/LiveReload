@@ -36,7 +36,7 @@
 		43059222151E8FA400CC3F88 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43059221151E8FA400CC3F88 /* CoreServices.framework */; };
 		43059225151E90DE00CC3F88 /* DockIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 43059224151E90DE00CC3F88 /* DockIcon.m */; };
 		430923DB1755C58A00400279 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 430923DA1755C58A00400279 /* Sparkle.framework */; };
-		430923DC1755C5E900400279 /* Sparkle.framework in Embed Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 430923DA1755C58A00400279 /* Sparkle.framework */; };
+		430923DC1755C5E900400279 /* Sparkle.framework in Embed Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 430923DA1755C58A00400279 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		4310DE3D146DB588003091D1 /* ToolOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4310DE3C146DB588003091D1 /* ToolOptions.m */; };
 		4310DE40146DB6A0003091D1 /* UIBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4310DE3F146DB6A0003091D1 /* UIBuilder.m */; };
 		43146699146C5D2100DC075A /* ProjectPaneBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 43146698146C5D2100DC075A /* ProjectPaneBackground.png */; };
@@ -283,7 +283,7 @@
 		435BE045141B87920008FF77 /* NewMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 435BE044141B87920008FF77 /* NewMainWindowController.m */; };
 		43693F4115660A8700C453CC /* LiveReloadNodejs in Resources */ = {isa = PBXBuildFile; fileRef = 43693F4015660A8700C453CC /* LiveReloadNodejs */; };
 		436A65331A923B9E00335BAD /* Paddle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65321A923B9E00335BAD /* Paddle.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		436A65341A923C9600335BAD /* Paddle.framework in Embed Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65321A923B9E00335BAD /* Paddle.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		436A65341A923C9600335BAD /* Paddle.framework in Embed Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65321A923B9E00335BAD /* Paddle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		436A653A1A923DC100335BAD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65391A923DC100335BAD /* CFNetwork.framework */; };
 		436A653C1A923DCB00335BAD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A653B1A923DCB00335BAD /* CoreGraphics.framework */; };
 		436A653E1A923DD000335BAD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A653D1A923DD000335BAD /* CoreLocation.framework */; };
@@ -525,8 +525,8 @@
 		43F1F9F91B2EE434008F5843 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43361D4513C30D1400C0E589 /* libicucore.dylib */; };
 		43F1F9FA1B2EE434008F5843 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		43F1F9FC1B2EE434008F5843 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 430923DA1755C58A00400279 /* Sparkle.framework */; };
-		43F1F9FF1B2EE434008F5843 /* Paddle.framework in Embed Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65321A923B9E00335BAD /* Paddle.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		43F1FA001B2EE434008F5843 /* Sparkle.framework in Embed Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 430923DA1755C58A00400279 /* Sparkle.framework */; };
+		43F1F9FF1B2EE434008F5843 /* Paddle.framework in Embed Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65321A923B9E00335BAD /* Paddle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		43F1FA001B2EE434008F5843 /* Sparkle.framework in Embed Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 430923DA1755C58A00400279 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		43F50BF71466F7A1004FD951 /* PostProcessingSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F50BF61466F7A1004FD951 /* PostProcessingSettingsWindowController.m */; };
 		43F50BF91466FAB7004FD951 /* PostProcessingSettingsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43F50BF81466FAB7004FD951 /* PostProcessingSettingsWindowController.xib */; };
 		43F50BFC146706B0004FD951 /* BaseProjectSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F50BFB146706B0004FD951 /* BaseProjectSettingsWindowController.m */; };
@@ -1878,7 +1878,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0440;
+				LastUpgradeCheck = 0730;
 				TargetAttributes = {
 					4317BD301A7F58250054D32D = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -3061,6 +3061,7 @@
 				INFOPLIST_FILE = "LiveReload-Info-MAS.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				OTHER_LDFLAGS = "-lz";
+				PRODUCT_BUNDLE_IDENTIFIER = com.livereload.LiveReload;
 				PRODUCT_NAME = LiveReload;
 				PROVISIONING_PROFILE = "";
 			};
@@ -3085,6 +3086,7 @@
 				INFOPLIST_FILE = "LiveReload-Info-MAS.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				OTHER_LDFLAGS = "-lz";
+				PRODUCT_BUNDLE_IDENTIFIER = com.livereload.LiveReload;
 				PRODUCT_NAME = LiveReload;
 				PROVISIONING_PROFILE = "";
 			};
@@ -3109,6 +3111,7 @@
 				INFOPLIST_FILE = "LiveReload-Info-MAS.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				OTHER_LDFLAGS = "-lz";
+				PRODUCT_BUNDLE_IDENTIFIER = com.livereload.LiveReload;
 				PRODUCT_NAME = LiveReload;
 				PROVISIONING_PROFILE = "";
 			};
@@ -3241,7 +3244,6 @@
 		43D28C60147D30E900606069 /* AppStore */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: Andrey Tarantsov";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -3285,6 +3287,7 @@
 				INFOPLIST_FILE = "LiveReload-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				OTHER_LDFLAGS = "-lz";
+				PRODUCT_BUNDLE_IDENTIFIER = com.livereload.LiveReload;
 				PRODUCT_NAME = LiveReload;
 				PROVISIONING_PROFILE = "E8BEA48E-BF84-4412-A2F8-5CBFF35C4660";
 			};
@@ -3316,6 +3319,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_LDFLAGS = "-lz";
+				PRODUCT_BUNDLE_IDENTIFIER = com.livereload.LiveReload;
 				PRODUCT_NAME = "LiveReload Snow Leopard";
 			};
 			name = Debug;
@@ -3344,6 +3348,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_LDFLAGS = "-lz";
+				PRODUCT_BUNDLE_IDENTIFIER = com.livereload.LiveReload;
 				PRODUCT_NAME = "LiveReload Snow Leopard";
 				PROVISIONING_PROFILE = "";
 			};
@@ -3373,6 +3378,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_LDFLAGS = "-lz";
+				PRODUCT_BUNDLE_IDENTIFIER = com.livereload.LiveReload;
 				PRODUCT_NAME = "LiveReload Snow Leopard";
 				PROVISIONING_PROFILE = "E8BEA48E-BF84-4412-A2F8-5CBFF35C4660";
 			};
@@ -3399,6 +3405,7 @@
 				INFOPLIST_FILE = "LiveReload-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				OTHER_LDFLAGS = "-lz";
+				PRODUCT_BUNDLE_IDENTIFIER = com.livereload.LiveReload;
 				PRODUCT_NAME = LiveReload;
 			};
 			name = Debug;
@@ -3422,6 +3429,7 @@
 				INFOPLIST_FILE = "LiveReload-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				OTHER_LDFLAGS = "-lz";
+				PRODUCT_BUNDLE_IDENTIFIER = com.livereload.LiveReload;
 				PRODUCT_NAME = LiveReload;
 				PROVISIONING_PROFILE = "";
 			};
@@ -3430,9 +3438,9 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -3458,7 +3466,6 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
