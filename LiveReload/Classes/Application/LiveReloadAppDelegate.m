@@ -172,6 +172,7 @@ void C_app__good_time_to_deliver_news(json_t *arg) {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
         [self considerShowingWindowOnAppStartup];
 
+#if 0
         AppNewsKitSetStringValue(@"platform", @"mac");
 #ifdef APPSTORE
         AppNewsKitSetStringValue(@"status", @"appstore");
@@ -184,6 +185,7 @@ void C_app__good_time_to_deliver_news(json_t *arg) {
         });
 //        [self pingServer];
         [NSTimer scheduledTimerWithTimeInterval:60*60*24 target:self selector:@selector(pingServer) userInfo:nil repeats:YES];
+#endif
     });
 
     FixUnixPath();

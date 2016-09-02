@@ -83,6 +83,38 @@ Sync:
     git subdir -S
 
 
+External links
+--------------
+
+LiveReload links to:
+
+* http://livereload.com/ (Help → LiveReload Web Site)
+* http://go.livereload.com/extensions
+* http://go.livereload.com/legacy/snow-leopard/upgrade/ (only the legacy 32-bit version, should drop this target completely)
+* http://go.livereload.com/support
+* http://go.livereload.com/options/monitoring
+* http://go.livereload.com/keyboard
+* http://go.livereload.com/support/problem (from the menu and after crashing)
+* http://go.livereload.com/support/question
+* http://go.livereload.com/support/suggestion
+* http://go.livereload.com/purchase
+* http://go.livereload.com/crashed/mac
+* http://go.livereload.com/postproc
+* http://go.livereload.com/fsevents
+* http://go.livereload.com/help
+* http://go.livereload.com/err/compass-nothing-to-compile
+
+Also tries to open:
+
+* `macappstore://itunes.apple.com/app/id482898991?mt=12`
+* `http://itunes.apple.com/us/app/livereload/id482898991?mt=12` (fallback if the previous URL doesn't work)
+
+APIs (disabled because they no longer work):
+
+* `http://livereload.com/ping.php`
+* `http://livereload.com/api/submit-error-message.php?v=%@&iv=%@&compiler=%@`
+
+
 AppNewsKit
 ==========
 

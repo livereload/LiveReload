@@ -192,7 +192,7 @@ static ToolOutputWindowController *lastOutputController = nil;
 - (void)loadMessageForOutputType:(enum ToolOutputType)type {
     if ([_compilerOutput.output rangeOfString:@"Nothing to compile. If you're trying to start a new project, you have left off the directory argument"].location != NSNotFound) {
         NSString *message = @"LiveReload knowledge base _[has an article about this error]_.";
-        NSURL *url = [NSURL URLWithString:@"http://help.livereload.com/kb/troubleshooting/compass-nothing-to-compile"];
+        NSURL *url = [NSURL URLWithString:@"http://go.livereload.com/err/compass-nothing-to-compile"];
         [_unparsedNotificationView textStorage].attributedString = [self prepareSpecialMessage:message url:url];
 
         if (type == ToolOutputTypeErrorRaw)
