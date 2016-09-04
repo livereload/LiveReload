@@ -31,7 +31,6 @@
 		4303A4B215B3898D009D732A /* LR-A9BC.public in Resources */ = {isa = PBXBuildFile; fileRef = 4303A4AF15B3898D009D732A /* LR-A9BC.public */; };
 		4303A4B315B3898E009D732A /* LR-B9BC.public in Resources */ = {isa = PBXBuildFile; fileRef = 4303A4B015B3898D009D732A /* LR-B9BC.public */; };
 		4303A4B415B3898E009D732A /* LR-E9BC.public in Resources */ = {isa = PBXBuildFile; fileRef = 4303A4B115B3898D009D732A /* LR-E9BC.public */; };
-		4303A4B715B3959D009D732A /* BuyTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4303A4B615B3959D009D732A /* BuyTemplate.png */; };
 		4304FC2D144B2BEB00D650DF /* NSDictionaryAndArray+SafeAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 4304FC2C144B2BEB00D650DF /* NSDictionaryAndArray+SafeAccess.m */; };
 		43059209151DF2DE00CC3F88 /* MASReceipt.m in Sources */ = {isa = PBXBuildFile; fileRef = 43059208151DF2DE00CC3F88 /* MASReceipt.m */; };
 		4305921F151E8E3F00CC3F88 /* VersionChecks.m in Sources */ = {isa = PBXBuildFile; fileRef = 4305921E151E8E3F00CC3F88 /* VersionChecks.m */; };
@@ -41,12 +40,6 @@
 		430923DC1755C5E900400279 /* Sparkle.framework in Embed Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 430923DA1755C58A00400279 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		4310DE3D146DB588003091D1 /* ToolOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4310DE3C146DB588003091D1 /* ToolOptions.m */; };
 		4310DE40146DB6A0003091D1 /* UIBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4310DE3F146DB6A0003091D1 /* UIBuilder.m */; };
-		43146699146C5D2100DC075A /* ProjectPaneBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 43146698146C5D2100DC075A /* ProjectPaneBackground.png */; };
-		4314669B146C689500DC075A /* FolderIcon64.png in Resources */ = {isa = PBXBuildFile; fileRef = 4314669A146C689500DC075A /* FolderIcon64.png */; };
-		4314669D146C884800DC075A /* WelcomePaneBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 4314669C146C884800DC075A /* WelcomePaneBackground.png */; };
-		431466A0146C9C0B00DC075A /* AddTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4314669E146C9C0B00DC075A /* AddTemplate.png */; };
-		431466A1146C9C0B00DC075A /* RemoveTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4314669F146C9C0B00DC075A /* RemoveTemplate.png */; };
-		431466A3146CA23F00DC075A /* PlaceholderTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 431466A2146CA23F00DC075A /* PlaceholderTemplate.png */; };
 		431466A6146CA68500DC075A /* PassThruView.m in Sources */ = {isa = PBXBuildFile; fileRef = 431466A5146CA68500DC075A /* PassThruView.m */; };
 		431466A9146CA82200DC075A /* PassThruImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 431466A8146CA82200DC075A /* PassThruImageView.m */; };
 		4317BD2A1A7F57AB0054D32D /* licensing_core.c in Sources */ = {isa = PBXBuildFile; fileRef = 4317BD281A7F57AB0054D32D /* licensing_core.c */; };
@@ -84,7 +77,6 @@
 		43361D4E13C329CD00C0E589 /* HAML.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43361D4D13C329CD00C0E589 /* HAML.lrplugin */; };
 		43361D5013C32C3D00C0E589 /* SASS.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43361D4F13C32C3D00C0E589 /* SASS.lrplugin */; };
 		4346F3A91450D8AD00B133F2 /* ImportGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = 4346F3A81450D8AD00B133F2 /* ImportGraph.m */; };
-		4346F3AB1451012A00B133F2 /* StatusItemStateRotation3.png in Resources */ = {isa = PBXBuildFile; fileRef = 4346F3AA1451012A00B133F2 /* StatusItemStateRotation3.png */; };
 		4349AAF614D48DB5009350DA /* IcedCoffeeScript.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 4349AAF514D48DB5009350DA /* IcedCoffeeScript.lrplugin */; };
 		434DB7F61514F49500C62042 /* monitoring.c in Sources */ = {isa = PBXBuildFile; fileRef = 434DB7EF1514F49400C62042 /* monitoring.c */; };
 		434DB7F71514F49500C62042 /* msg_proxy.c in Sources */ = {isa = PBXBuildFile; fileRef = 434DB7F01514F49400C62042 /* msg_proxy.c */; };
@@ -109,41 +101,13 @@
 		43512F6E1ACD750D0073A0D4 /* LiveReload.icns in Resources */ = {isa = PBXBuildFile; fileRef = 43C0368513CA191C00A01305 /* LiveReload.icns */; };
 		43512F6F1ACD750D0073A0D4 /* ToolOutputWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 823DDE4113F8DA3100529AD2 /* ToolOutputWindowController.xib */; };
 		43512F701ACD750D0073A0D4 /* README in Resources */ = {isa = PBXBuildFile; fileRef = 823DDEAD13F8DA3100529AD2 /* README */; };
-		43512F711ACD750D0073A0D4 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF2313F8DA3F00529AD2 /* background.png */; };
-		43512F721ACD750D0073A0D4 /* Icon-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF2413F8DA3F00529AD2 /* Icon-48.png */; };
-		43512F731ACD750D0073A0D4 /* preferences-box.png in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF2613F8DA3F00529AD2 /* preferences-box.png */; };
-		43512F741ACD750D0073A0D4 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF2713F8DA3F00529AD2 /* settings.png */; };
-		43512F751ACD750D0073A0D4 /* StatusItemActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF2913F8DA3F00529AD2 /* StatusItemActive.png */; };
-		43512F761ACD750D0073A0D4 /* StatusItemDropTarget.png in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF2A13F8DA3F00529AD2 /* StatusItemDropTarget.png */; };
-		43512F771ACD750D0073A0D4 /* StatusItemHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF2B13F8DA3F00529AD2 /* StatusItemHighlighted.png */; };
-		43512F781ACD750D0073A0D4 /* StatusItemInactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF2C13F8DA3F00529AD2 /* StatusItemInactive.png */; };
-		43512F791ACD750D0073A0D4 /* StatusItemStateRotation1.png in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF2D13F8DA3F00529AD2 /* StatusItemStateRotation1.png */; };
-		43512F7A1ACD750D0073A0D4 /* StatusItemStateRotation2.png in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF2E13F8DA3F00529AD2 /* StatusItemStateRotation2.png */; };
 		43512F7B1ACD750D0073A0D4 /* Eco.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43191845141A0D1C008457FF /* Eco.lrplugin */; };
 		43512F7C1ACD750D0073A0D4 /* NewMainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 435BE041141B72A60008FF77 /* NewMainWindow.xib */; };
 		43512F7D1ACD750D0073A0D4 /* SLIM.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 825235311428769E001C3486 /* SLIM.lrplugin */; };
-		43512F7E1ACD750D0073A0D4 /* StatusItemStateRotation3.png in Resources */ = {isa = PBXBuildFile; fileRef = 4346F3AA1451012A00B133F2 /* StatusItemStateRotation3.png */; };
-		43512F7F1ACD750D0073A0D4 /* LRHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4353197014668E7D005FA59F /* LRHelpTemplate.png */; };
-		43512F801ACD750D0073A0D4 /* LRSupportTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4353197114668E7D005FA59F /* LRSupportTemplate.png */; };
 		43512F811ACD750D0073A0D4 /* PostProcessingSettingsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43F50BF81466FAB7004FD951 /* PostProcessingSettingsWindowController.xib */; };
 		43512F821ACD750D0073A0D4 /* CompilationSettingsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43F50C0014670AAF004FD951 /* CompilationSettingsWindowController.xib */; };
-		43512F831ACD750D0073A0D4 /* ProjectPaneBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 43146698146C5D2100DC075A /* ProjectPaneBackground.png */; };
-		43512F841ACD750D0073A0D4 /* FolderIcon64.png in Resources */ = {isa = PBXBuildFile; fileRef = 4314669A146C689500DC075A /* FolderIcon64.png */; };
-		43512F851ACD750D0073A0D4 /* WelcomePaneBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 4314669C146C884800DC075A /* WelcomePaneBackground.png */; };
-		43512F861ACD750D0073A0D4 /* AddTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4314669E146C9C0B00DC075A /* AddTemplate.png */; };
-		43512F871ACD750D0073A0D4 /* RemoveTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4314669F146C9C0B00DC075A /* RemoveTemplate.png */; };
-		43512F881ACD750D0073A0D4 /* PlaceholderTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 431466A2146CA23F00DC075A /* PlaceholderTemplate.png */; };
 		43512F891ACD750D0073A0D4 /* MonitoringSettingsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4353403B146CC8A400DD66B0 /* MonitoringSettingsWindowController.xib */; };
-		43512F8A1ACD750D0073A0D4 /* TitleBarHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */; };
-		43512F8B1ACD750D0073A0D4 /* TerminalStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F002D3146F4144005D48A4 /* TerminalStripes.png */; };
-		43512F8C1ACD750D0073A0D4 /* TerminalBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F002E7146F4877005D48A4 /* TerminalBackground.png */; };
-		43512F8D1ACD750D0073A0D4 /* TerminalGlare.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F002E9146F5382005D48A4 /* TerminalGlare.png */; };
-		43512F8E1ACD750D0073A0D4 /* TerminalBackgroundSquare.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F002EB146F5D57005D48A4 /* TerminalBackgroundSquare.png */; };
 		43512F8F1ACD750D0073A0D4 /* TerminalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43F002F7146FF584005D48A4 /* TerminalViewController.xib */; };
-		43512F901ACD750D0073A0D4 /* LRTerminalButtonOff.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F0030014700C96005D48A4 /* LRTerminalButtonOff.png */; };
-		43512F911ACD750D0073A0D4 /* LRTerminalButtonOffHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F0030114700C96005D48A4 /* LRTerminalButtonOffHighlight.png */; };
-		43512F921ACD750D0073A0D4 /* LRTerminalButtonOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F0030214700C96005D48A4 /* LRTerminalButtonOn.png */; };
-		43512F931ACD750D0073A0D4 /* LRTerminalButtonOnHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F0030314700C96005D48A4 /* LRTerminalButtonOnHighlight.png */; };
 		43512F941ACD750D0073A0D4 /* IcedCoffeeScript.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 4349AAF514D48DB5009350DA /* IcedCoffeeScript.lrplugin */; };
 		43512F951ACD750D0073A0D4 /* backend in Resources */ = {isa = PBXBuildFile; fileRef = 43719FD31565FE5F004B0E0C /* backend */; };
 		43512F971ACD750D0073A0D4 /* LicenseCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 439A76AF15B28EF100E50057 /* LicenseCodeViewController.xib */; };
@@ -151,7 +115,6 @@
 		43512F991ACD750D0073A0D4 /* LR-A9BC.public in Resources */ = {isa = PBXBuildFile; fileRef = 4303A4AF15B3898D009D732A /* LR-A9BC.public */; };
 		43512F9A1ACD750D0073A0D4 /* LR-B9BC.public in Resources */ = {isa = PBXBuildFile; fileRef = 4303A4B015B3898D009D732A /* LR-B9BC.public */; };
 		43512F9B1ACD750D0073A0D4 /* LR-E9BC.public in Resources */ = {isa = PBXBuildFile; fileRef = 4303A4B115B3898D009D732A /* LR-E9BC.public */; };
-		43512F9C1ACD750D0073A0D4 /* BuyTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4303A4B615B3959D009D732A /* BuyTemplate.png */; };
 		43512F9D1ACD750D0073A0D4 /* TypeScript.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 4383C6BF17717C1E0023FB1D /* TypeScript.lrplugin */; };
 		43512F9F1ACD750D0073A0D4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		43512FA01ACD750D0073A0D4 /* licensing_check.c in Sources */ = {isa = PBXBuildFile; fileRef = 43D209651A80FFD200D47F2B /* licensing_check.c */; };
@@ -273,8 +236,6 @@
 		435130261ACD750D0073A0D4 /* Paddle.framework in Embed Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65321A923B9E00335BAD /* Paddle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		435316A41B52652A00269A51 /* LiveReloadNodejs in Resources */ = {isa = PBXBuildFile; fileRef = 43693F4015660A8700C453CC /* LiveReloadNodejs */; };
 		4353196F1465B52D005FA59F /* ShitHappens.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353196E1465B52D005FA59F /* ShitHappens.m */; };
-		4353197214668E7D005FA59F /* LRHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4353197014668E7D005FA59F /* LRHelpTemplate.png */; };
-		4353197314668E7D005FA59F /* LRSupportTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4353197114668E7D005FA59F /* LRSupportTemplate.png */; };
 		4353403A146CC7E600DD66B0 /* MonitoringSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43534039146CC7E600DD66B0 /* MonitoringSettingsWindowController.m */; };
 		4353403C146CC8A400DD66B0 /* MonitoringSettingsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4353403B146CC8A400DD66B0 /* MonitoringSettingsWindowController.xib */; };
 		4353403F146D0A1100DD66B0 /* FixUnixPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 4353403E146D0A1100DD66B0 /* FixUnixPath.m */; };
@@ -297,7 +258,6 @@
 		436A654D1A92454900335BAD /* Analytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 436A654C1A92454900335BAD /* Analytics.m */; };
 		436A65501A92470400335BAD /* Analytics+SpecificEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 436A654F1A92470400335BAD /* Analytics+SpecificEvents.m */; };
 		43719FD41565FE5F004B0E0C /* backend in Resources */ = {isa = PBXBuildFile; fileRef = 43719FD31565FE5F004B0E0C /* backend */; };
-		4376A0E2146DF1C800338AD4 /* TitleBarHelpTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */; };
 		4378C8D11515205C003187D5 /* OldFSMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CA1515205C003187D5 /* OldFSMonitor.m */; };
 		4378C8D21515205C003187D5 /* OldFSTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CC1515205C003187D5 /* OldFSTree.m */; };
 		4378C8D31515205C003187D5 /* OldFSTreeDiffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CE1515205C003187D5 /* OldFSTreeDiffer.m */; };
@@ -338,16 +298,8 @@
 		43E77B201B3BF412001E7DF0 /* FSEventsFix.c in Sources */ = {isa = PBXBuildFile; fileRef = 43E77B1C1B3BF412001E7DF0 /* FSEventsFix.c */; };
 		43F002CF146EC97B005D48A4 /* MainWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F002CE146EC97B005D48A4 /* MainWindow.m */; };
 		43F002D2146F4135005D48A4 /* TerminalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F002D1146F4135005D48A4 /* TerminalView.m */; };
-		43F002D4146F4144005D48A4 /* TerminalStripes.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F002D3146F4144005D48A4 /* TerminalStripes.png */; };
-		43F002E8146F4877005D48A4 /* TerminalBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F002E7146F4877005D48A4 /* TerminalBackground.png */; };
-		43F002EA146F5382005D48A4 /* TerminalGlare.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F002E9146F5382005D48A4 /* TerminalGlare.png */; };
-		43F002EC146F5D57005D48A4 /* TerminalBackgroundSquare.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F002EB146F5D57005D48A4 /* TerminalBackgroundSquare.png */; };
 		43F002F8146FF584005D48A4 /* TerminalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F002F6146FF584005D48A4 /* TerminalViewController.m */; };
 		43F002F9146FF584005D48A4 /* TerminalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43F002F7146FF584005D48A4 /* TerminalViewController.xib */; };
-		43F0030414700C96005D48A4 /* LRTerminalButtonOff.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F0030014700C96005D48A4 /* LRTerminalButtonOff.png */; };
-		43F0030514700C96005D48A4 /* LRTerminalButtonOffHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F0030114700C96005D48A4 /* LRTerminalButtonOffHighlight.png */; };
-		43F0030614700C96005D48A4 /* LRTerminalButtonOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F0030214700C96005D48A4 /* LRTerminalButtonOn.png */; };
-		43F0030714700C96005D48A4 /* LRTerminalButtonOnHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F0030314700C96005D48A4 /* LRTerminalButtonOnHighlight.png */; };
 		43F50BF71466F7A1004FD951 /* PostProcessingSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F50BF61466F7A1004FD951 /* PostProcessingSettingsWindowController.m */; };
 		43F50BF91466FAB7004FD951 /* PostProcessingSettingsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43F50BF81466FAB7004FD951 /* PostProcessingSettingsWindowController.xib */; };
 		43F50BFC146706B0004FD951 /* BaseProjectSettingsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F50BFB146706B0004FD951 /* BaseProjectSettingsWindowController.m */; };
@@ -395,16 +347,6 @@
 		823DDF1313F8DA3100529AD2 /* AuxWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEBC13F8DA3100529AD2 /* AuxWindow.m */; };
 		823DDF1413F8DA3100529AD2 /* KeyWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEBE13F8DA3100529AD2 /* KeyWindow.m */; };
 		823DDF1713F8DA3100529AD2 /* StatusItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEC313F8DA3100529AD2 /* StatusItemView.m */; };
-		823DDF2F13F8DA3F00529AD2 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF2313F8DA3F00529AD2 /* background.png */; };
-		823DDF3013F8DA3F00529AD2 /* Icon-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF2413F8DA3F00529AD2 /* Icon-48.png */; };
-		823DDF3213F8DA3F00529AD2 /* preferences-box.png in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF2613F8DA3F00529AD2 /* preferences-box.png */; };
-		823DDF3313F8DA3F00529AD2 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF2713F8DA3F00529AD2 /* settings.png */; };
-		823DDF3413F8DA3F00529AD2 /* StatusItemActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF2913F8DA3F00529AD2 /* StatusItemActive.png */; };
-		823DDF3513F8DA3F00529AD2 /* StatusItemDropTarget.png in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF2A13F8DA3F00529AD2 /* StatusItemDropTarget.png */; };
-		823DDF3613F8DA3F00529AD2 /* StatusItemHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF2B13F8DA3F00529AD2 /* StatusItemHighlighted.png */; };
-		823DDF3713F8DA3F00529AD2 /* StatusItemInactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF2C13F8DA3F00529AD2 /* StatusItemInactive.png */; };
-		823DDF3813F8DA3F00529AD2 /* StatusItemStateRotation1.png in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF2D13F8DA3F00529AD2 /* StatusItemStateRotation1.png */; };
-		823DDF3913F8DA3F00529AD2 /* StatusItemStateRotation2.png in Resources */ = {isa = PBXBuildFile; fileRef = 823DDF2E13F8DA3F00529AD2 /* StatusItemStateRotation2.png */; };
 		825235321428769E001C3486 /* SLIM.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 825235311428769E001C3486 /* SLIM.lrplugin */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
@@ -554,7 +496,6 @@
 		4303A4AF15B3898D009D732A /* LR-A9BC.public */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "LR-A9BC.public"; sourceTree = "<group>"; };
 		4303A4B015B3898D009D732A /* LR-B9BC.public */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "LR-B9BC.public"; sourceTree = "<group>"; };
 		4303A4B115B3898D009D732A /* LR-E9BC.public */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "LR-E9BC.public"; sourceTree = "<group>"; };
-		4303A4B615B3959D009D732A /* BuyTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BuyTemplate.png; sourceTree = "<group>"; };
 		43043CAF1B31AB3500472E3A /* LiveReload Snow Leopard Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "LiveReload Snow Leopard Info.plist"; sourceTree = "<group>"; };
 		43043CB31B32E51A00472E3A /* version_legacy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = version_legacy.h; path = Classes/Application/version_legacy.h; sourceTree = "<group>"; };
 		4304FC2B144B2BEB00D650DF /* NSDictionaryAndArray+SafeAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionaryAndArray+SafeAccess.h"; sourceTree = "<group>"; };
@@ -571,12 +512,6 @@
 		4310DE3C146DB588003091D1 /* ToolOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolOptions.m; sourceTree = "<group>"; };
 		4310DE3E146DB6A0003091D1 /* UIBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBuilder.h; sourceTree = "<group>"; };
 		4310DE3F146DB6A0003091D1 /* UIBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIBuilder.m; sourceTree = "<group>"; };
-		43146698146C5D2100DC075A /* ProjectPaneBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ProjectPaneBackground.png; sourceTree = "<group>"; };
-		4314669A146C689500DC075A /* FolderIcon64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FolderIcon64.png; sourceTree = "<group>"; };
-		4314669C146C884800DC075A /* WelcomePaneBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WelcomePaneBackground.png; sourceTree = "<group>"; };
-		4314669E146C9C0B00DC075A /* AddTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddTemplate.png; sourceTree = "<group>"; };
-		4314669F146C9C0B00DC075A /* RemoveTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RemoveTemplate.png; sourceTree = "<group>"; };
-		431466A2146CA23F00DC075A /* PlaceholderTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PlaceholderTemplate.png; sourceTree = "<group>"; };
 		431466A4146CA68500DC075A /* PassThruView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassThruView.h; sourceTree = "<group>"; };
 		431466A5146CA68500DC075A /* PassThruView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassThruView.m; sourceTree = "<group>"; };
 		431466A7146CA82200DC075A /* PassThruImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassThruImageView.h; sourceTree = "<group>"; };
@@ -623,7 +558,6 @@
 		43361D4F13C32C3D00C0E589 /* SASS.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SASS.lrplugin; path = Compilers/SASS.lrplugin; sourceTree = SOURCE_ROOT; };
 		4346F3A71450D8AD00B133F2 /* ImportGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImportGraph.h; sourceTree = "<group>"; };
 		4346F3A81450D8AD00B133F2 /* ImportGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImportGraph.m; sourceTree = "<group>"; };
-		4346F3AA1451012A00B133F2 /* StatusItemStateRotation3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemStateRotation3.png; sourceTree = "<group>"; };
 		4349AAF514D48DB5009350DA /* IcedCoffeeScript.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = IcedCoffeeScript.lrplugin; path = Compilers/IcedCoffeeScript.lrplugin; sourceTree = SOURCE_ROOT; };
 		434DB7EF1514F49400C62042 /* monitoring.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = monitoring.c; sourceTree = "<group>"; };
 		434DB7F01514F49400C62042 /* msg_proxy.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = msg_proxy.c; sourceTree = "<group>"; };
@@ -645,8 +579,6 @@
 		4351302E1ACD750E0073A0D4 /* LiveReload-Info-MAS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "LiveReload-Info-MAS.plist"; path = "/Users/andreyvit/dev/livereload/2/LiveReload/LiveReload-Info-MAS.plist"; sourceTree = "<absolute>"; };
 		4353196D1465B52D005FA59F /* ShitHappens.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShitHappens.h; sourceTree = "<group>"; };
 		4353196E1465B52D005FA59F /* ShitHappens.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShitHappens.m; sourceTree = "<group>"; };
-		4353197014668E7D005FA59F /* LRHelpTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRHelpTemplate.png; sourceTree = "<group>"; };
-		4353197114668E7D005FA59F /* LRSupportTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRSupportTemplate.png; sourceTree = "<group>"; };
 		43534038146CC7E600DD66B0 /* MonitoringSettingsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonitoringSettingsWindowController.h; sourceTree = "<group>"; };
 		43534039146CC7E600DD66B0 /* MonitoringSettingsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonitoringSettingsWindowController.m; sourceTree = "<group>"; };
 		4353403B146CC8A400DD66B0 /* MonitoringSettingsWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MonitoringSettingsWindowController.xib; sourceTree = "<group>"; };
@@ -675,7 +607,6 @@
 		436A654E1A92470400335BAD /* Analytics+SpecificEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Analytics+SpecificEvents.h"; sourceTree = "<group>"; };
 		436A654F1A92470400335BAD /* Analytics+SpecificEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Analytics+SpecificEvents.m"; sourceTree = "<group>"; };
 		43719FD31565FE5F004B0E0C /* backend */ = {isa = PBXFileReference; lastKnownFileType = folder; name = backend; path = ../interim/backend; sourceTree = "<group>"; };
-		4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TitleBarHelpTemplate.png; sourceTree = "<group>"; };
 		4378C8C91515205C003187D5 /* OldFSMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldFSMonitor.h; sourceTree = "<group>"; };
 		4378C8CA1515205C003187D5 /* OldFSMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldFSMonitor.m; sourceTree = "<group>"; };
 		4378C8CB1515205C003187D5 /* OldFSTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldFSTree.h; sourceTree = "<group>"; };
@@ -730,17 +661,9 @@
 		43F002CE146EC97B005D48A4 /* MainWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainWindow.m; sourceTree = "<group>"; };
 		43F002D0146F4135005D48A4 /* TerminalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TerminalView.h; sourceTree = "<group>"; };
 		43F002D1146F4135005D48A4 /* TerminalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TerminalView.m; sourceTree = "<group>"; };
-		43F002D3146F4144005D48A4 /* TerminalStripes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TerminalStripes.png; sourceTree = "<group>"; };
-		43F002E7146F4877005D48A4 /* TerminalBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TerminalBackground.png; sourceTree = "<group>"; };
-		43F002E9146F5382005D48A4 /* TerminalGlare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TerminalGlare.png; sourceTree = "<group>"; };
-		43F002EB146F5D57005D48A4 /* TerminalBackgroundSquare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TerminalBackgroundSquare.png; sourceTree = "<group>"; };
 		43F002F5146FF584005D48A4 /* TerminalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TerminalViewController.h; sourceTree = "<group>"; };
 		43F002F6146FF584005D48A4 /* TerminalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TerminalViewController.m; sourceTree = "<group>"; };
 		43F002F7146FF584005D48A4 /* TerminalViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TerminalViewController.xib; sourceTree = "<group>"; };
-		43F0030014700C96005D48A4 /* LRTerminalButtonOff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRTerminalButtonOff.png; sourceTree = "<group>"; };
-		43F0030114700C96005D48A4 /* LRTerminalButtonOffHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRTerminalButtonOffHighlight.png; sourceTree = "<group>"; };
-		43F0030214700C96005D48A4 /* LRTerminalButtonOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRTerminalButtonOn.png; sourceTree = "<group>"; };
-		43F0030314700C96005D48A4 /* LRTerminalButtonOnHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LRTerminalButtonOnHighlight.png; sourceTree = "<group>"; };
 		43F301D61477A67D0072F324 /* kvec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kvec.h; sourceTree = "<group>"; };
 		43F50BF51466F7A1004FD951 /* PostProcessingSettingsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostProcessingSettingsWindowController.h; sourceTree = "<group>"; };
 		43F50BF61466F7A1004FD951 /* PostProcessingSettingsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostProcessingSettingsWindowController.m; sourceTree = "<group>"; };
@@ -832,16 +755,6 @@
 		823DDEBE13F8DA3100529AD2 /* KeyWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyWindow.m; sourceTree = "<group>"; };
 		823DDEC213F8DA3100529AD2 /* StatusItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusItemView.h; sourceTree = "<group>"; };
 		823DDEC313F8DA3100529AD2 /* StatusItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusItemView.m; sourceTree = "<group>"; };
-		823DDF2313F8DA3F00529AD2 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
-		823DDF2413F8DA3F00529AD2 /* Icon-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-48.png"; sourceTree = "<group>"; };
-		823DDF2613F8DA3F00529AD2 /* preferences-box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "preferences-box.png"; sourceTree = "<group>"; };
-		823DDF2713F8DA3F00529AD2 /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
-		823DDF2913F8DA3F00529AD2 /* StatusItemActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemActive.png; sourceTree = "<group>"; };
-		823DDF2A13F8DA3F00529AD2 /* StatusItemDropTarget.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemDropTarget.png; sourceTree = "<group>"; };
-		823DDF2B13F8DA3F00529AD2 /* StatusItemHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemHighlighted.png; sourceTree = "<group>"; };
-		823DDF2C13F8DA3F00529AD2 /* StatusItemInactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemInactive.png; sourceTree = "<group>"; };
-		823DDF2D13F8DA3F00529AD2 /* StatusItemStateRotation1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemStateRotation1.png; sourceTree = "<group>"; };
-		823DDF2E13F8DA3F00529AD2 /* StatusItemStateRotation2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusItemStateRotation2.png; sourceTree = "<group>"; };
 		825235311428769E001C3486 /* SLIM.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SLIM.lrplugin; path = Compilers/SLIM.lrplugin; sourceTree = SOURCE_ROOT; };
 		8D1107310486CEB800E47090 /* LiveReload-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "LiveReload-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* LiveReload.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveReload.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -995,7 +908,6 @@
 			children = (
 				4379ADC9141D00CE008C836F /* livereload.js */,
 				43693F4015660A8700C453CC /* LiveReloadNodejs */,
-				823DDF2213F8DA3F00529AD2 /* Images */,
 				433617FE13C2E0C800C0E589 /* Compilers */,
 				43719FD31565FE5F004B0E0C /* backend */,
 				8D1107310486CEB800E47090 /* LiveReload-Info.plist */,
@@ -1456,50 +1368,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		823DDF2213F8DA3F00529AD2 /* Images */ = {
-			isa = PBXGroup;
-			children = (
-				4303A4B615B3959D009D732A /* BuyTemplate.png */,
-				43146698146C5D2100DC075A /* ProjectPaneBackground.png */,
-				4314669C146C884800DC075A /* WelcomePaneBackground.png */,
-				431466A2146CA23F00DC075A /* PlaceholderTemplate.png */,
-				4314669E146C9C0B00DC075A /* AddTemplate.png */,
-				4314669F146C9C0B00DC075A /* RemoveTemplate.png */,
-				4376A0E1146DF1C800338AD4 /* TitleBarHelpTemplate.png */,
-				4314669A146C689500DC075A /* FolderIcon64.png */,
-				4353197014668E7D005FA59F /* LRHelpTemplate.png */,
-				4353197114668E7D005FA59F /* LRSupportTemplate.png */,
-				823DDF2313F8DA3F00529AD2 /* background.png */,
-				823DDF2413F8DA3F00529AD2 /* Icon-48.png */,
-				823DDF2613F8DA3F00529AD2 /* preferences-box.png */,
-				823DDF2713F8DA3F00529AD2 /* settings.png */,
-				43F0030014700C96005D48A4 /* LRTerminalButtonOff.png */,
-				43F0030114700C96005D48A4 /* LRTerminalButtonOffHighlight.png */,
-				43F0030214700C96005D48A4 /* LRTerminalButtonOn.png */,
-				43F0030314700C96005D48A4 /* LRTerminalButtonOnHighlight.png */,
-				43F002D3146F4144005D48A4 /* TerminalStripes.png */,
-				43F002E9146F5382005D48A4 /* TerminalGlare.png */,
-				43F002E7146F4877005D48A4 /* TerminalBackground.png */,
-				43F002EB146F5D57005D48A4 /* TerminalBackgroundSquare.png */,
-				823DDF2813F8DA3F00529AD2 /* StatusItem */,
-			);
-			path = Images;
-			sourceTree = "<group>";
-		};
-		823DDF2813F8DA3F00529AD2 /* StatusItem */ = {
-			isa = PBXGroup;
-			children = (
-				823DDF2913F8DA3F00529AD2 /* StatusItemActive.png */,
-				823DDF2A13F8DA3F00529AD2 /* StatusItemDropTarget.png */,
-				823DDF2B13F8DA3F00529AD2 /* StatusItemHighlighted.png */,
-				823DDF2C13F8DA3F00529AD2 /* StatusItemInactive.png */,
-				823DDF2D13F8DA3F00529AD2 /* StatusItemStateRotation1.png */,
-				823DDF2E13F8DA3F00529AD2 /* StatusItemStateRotation2.png */,
-				4346F3AA1451012A00B133F2 /* StatusItemStateRotation3.png */,
-			);
-			path = StatusItem;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1706,44 +1574,16 @@
 				43DB18861B2550380042ABF5 /* TrialReminderViewController.xib in Resources */,
 				43512F6F1ACD750D0073A0D4 /* ToolOutputWindowController.xib in Resources */,
 				43512F701ACD750D0073A0D4 /* README in Resources */,
-				43512F711ACD750D0073A0D4 /* background.png in Resources */,
-				43512F721ACD750D0073A0D4 /* Icon-48.png in Resources */,
-				43512F731ACD750D0073A0D4 /* preferences-box.png in Resources */,
-				43512F741ACD750D0073A0D4 /* settings.png in Resources */,
-				43512F751ACD750D0073A0D4 /* StatusItemActive.png in Resources */,
-				43512F761ACD750D0073A0D4 /* StatusItemDropTarget.png in Resources */,
-				43512F771ACD750D0073A0D4 /* StatusItemHighlighted.png in Resources */,
-				43512F781ACD750D0073A0D4 /* StatusItemInactive.png in Resources */,
-				43512F791ACD750D0073A0D4 /* StatusItemStateRotation1.png in Resources */,
-				43512F7A1ACD750D0073A0D4 /* StatusItemStateRotation2.png in Resources */,
 				43512F7B1ACD750D0073A0D4 /* Eco.lrplugin in Resources */,
 				43512F7C1ACD750D0073A0D4 /* NewMainWindow.xib in Resources */,
 				4301E7251D7C1A6D00983420 /* Assets.xcassets in Resources */,
 				43512F7D1ACD750D0073A0D4 /* SLIM.lrplugin in Resources */,
-				43512F7E1ACD750D0073A0D4 /* StatusItemStateRotation3.png in Resources */,
-				43512F7F1ACD750D0073A0D4 /* LRHelpTemplate.png in Resources */,
-				43512F801ACD750D0073A0D4 /* LRSupportTemplate.png in Resources */,
 				43512F811ACD750D0073A0D4 /* PostProcessingSettingsWindowController.xib in Resources */,
 				43512F821ACD750D0073A0D4 /* CompilationSettingsWindowController.xib in Resources */,
-				43512F831ACD750D0073A0D4 /* ProjectPaneBackground.png in Resources */,
-				43512F841ACD750D0073A0D4 /* FolderIcon64.png in Resources */,
-				43512F851ACD750D0073A0D4 /* WelcomePaneBackground.png in Resources */,
-				43512F861ACD750D0073A0D4 /* AddTemplate.png in Resources */,
-				43512F871ACD750D0073A0D4 /* RemoveTemplate.png in Resources */,
-				43512F881ACD750D0073A0D4 /* PlaceholderTemplate.png in Resources */,
 				43512F891ACD750D0073A0D4 /* MonitoringSettingsWindowController.xib in Resources */,
-				43512F8A1ACD750D0073A0D4 /* TitleBarHelpTemplate.png in Resources */,
 				43DB18891B2550EA0042ABF5 /* AndreyTarantsov.jpg in Resources */,
-				43512F8B1ACD750D0073A0D4 /* TerminalStripes.png in Resources */,
 				435316A41B52652A00269A51 /* LiveReloadNodejs in Resources */,
-				43512F8C1ACD750D0073A0D4 /* TerminalBackground.png in Resources */,
-				43512F8D1ACD750D0073A0D4 /* TerminalGlare.png in Resources */,
-				43512F8E1ACD750D0073A0D4 /* TerminalBackgroundSquare.png in Resources */,
 				43512F8F1ACD750D0073A0D4 /* TerminalViewController.xib in Resources */,
-				43512F901ACD750D0073A0D4 /* LRTerminalButtonOff.png in Resources */,
-				43512F911ACD750D0073A0D4 /* LRTerminalButtonOffHighlight.png in Resources */,
-				43512F921ACD750D0073A0D4 /* LRTerminalButtonOn.png in Resources */,
-				43512F931ACD750D0073A0D4 /* LRTerminalButtonOnHighlight.png in Resources */,
 				43512F941ACD750D0073A0D4 /* IcedCoffeeScript.lrplugin in Resources */,
 				43512F951ACD750D0073A0D4 /* backend in Resources */,
 				43512F971ACD750D0073A0D4 /* LicenseCodeViewController.xib in Resources */,
@@ -1751,7 +1591,6 @@
 				43512F991ACD750D0073A0D4 /* LR-A9BC.public in Resources */,
 				43512F9A1ACD750D0073A0D4 /* LR-B9BC.public in Resources */,
 				43512F9B1ACD750D0073A0D4 /* LR-E9BC.public in Resources */,
-				43512F9C1ACD750D0073A0D4 /* BuyTemplate.png in Resources */,
 				43512F9D1ACD750D0073A0D4 /* TypeScript.lrplugin in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1774,43 +1613,15 @@
 				43DB18851B2550380042ABF5 /* TrialReminderViewController.xib in Resources */,
 				823DDEDC13F8DA3100529AD2 /* ToolOutputWindowController.xib in Resources */,
 				823DDF0C13F8DA3100529AD2 /* README in Resources */,
-				823DDF2F13F8DA3F00529AD2 /* background.png in Resources */,
-				823DDF3013F8DA3F00529AD2 /* Icon-48.png in Resources */,
-				823DDF3213F8DA3F00529AD2 /* preferences-box.png in Resources */,
-				823DDF3313F8DA3F00529AD2 /* settings.png in Resources */,
-				823DDF3413F8DA3F00529AD2 /* StatusItemActive.png in Resources */,
-				823DDF3513F8DA3F00529AD2 /* StatusItemDropTarget.png in Resources */,
-				823DDF3613F8DA3F00529AD2 /* StatusItemHighlighted.png in Resources */,
-				823DDF3713F8DA3F00529AD2 /* StatusItemInactive.png in Resources */,
-				823DDF3813F8DA3F00529AD2 /* StatusItemStateRotation1.png in Resources */,
-				823DDF3913F8DA3F00529AD2 /* StatusItemStateRotation2.png in Resources */,
 				43191846141A0D1C008457FF /* Eco.lrplugin in Resources */,
 				435BE042141B72A60008FF77 /* NewMainWindow.xib in Resources */,
 				4301E7241D7C1A6D00983420 /* Assets.xcassets in Resources */,
 				825235321428769E001C3486 /* SLIM.lrplugin in Resources */,
-				4346F3AB1451012A00B133F2 /* StatusItemStateRotation3.png in Resources */,
-				4353197214668E7D005FA59F /* LRHelpTemplate.png in Resources */,
-				4353197314668E7D005FA59F /* LRSupportTemplate.png in Resources */,
 				43F50BF91466FAB7004FD951 /* PostProcessingSettingsWindowController.xib in Resources */,
 				43F50C0114670AAF004FD951 /* CompilationSettingsWindowController.xib in Resources */,
-				43146699146C5D2100DC075A /* ProjectPaneBackground.png in Resources */,
-				4314669B146C689500DC075A /* FolderIcon64.png in Resources */,
-				4314669D146C884800DC075A /* WelcomePaneBackground.png in Resources */,
-				431466A0146C9C0B00DC075A /* AddTemplate.png in Resources */,
-				431466A1146C9C0B00DC075A /* RemoveTemplate.png in Resources */,
-				431466A3146CA23F00DC075A /* PlaceholderTemplate.png in Resources */,
 				4353403C146CC8A400DD66B0 /* MonitoringSettingsWindowController.xib in Resources */,
-				4376A0E2146DF1C800338AD4 /* TitleBarHelpTemplate.png in Resources */,
 				43DB18881B2550EA0042ABF5 /* AndreyTarantsov.jpg in Resources */,
-				43F002D4146F4144005D48A4 /* TerminalStripes.png in Resources */,
-				43F002E8146F4877005D48A4 /* TerminalBackground.png in Resources */,
-				43F002EA146F5382005D48A4 /* TerminalGlare.png in Resources */,
-				43F002EC146F5D57005D48A4 /* TerminalBackgroundSquare.png in Resources */,
 				43F002F9146FF584005D48A4 /* TerminalViewController.xib in Resources */,
-				43F0030414700C96005D48A4 /* LRTerminalButtonOff.png in Resources */,
-				43F0030514700C96005D48A4 /* LRTerminalButtonOffHighlight.png in Resources */,
-				43F0030614700C96005D48A4 /* LRTerminalButtonOn.png in Resources */,
-				43F0030714700C96005D48A4 /* LRTerminalButtonOnHighlight.png in Resources */,
 				4349AAF614D48DB5009350DA /* IcedCoffeeScript.lrplugin in Resources */,
 				43719FD41565FE5F004B0E0C /* backend in Resources */,
 				43693F4115660A8700C453CC /* LiveReloadNodejs in Resources */,
@@ -1819,7 +1630,6 @@
 				4303A4B215B3898D009D732A /* LR-A9BC.public in Resources */,
 				4303A4B315B3898E009D732A /* LR-B9BC.public in Resources */,
 				4303A4B415B3898E009D732A /* LR-E9BC.public in Resources */,
-				4303A4B715B3959D009D732A /* BuyTemplate.png in Resources */,
 				4383C6C017717C1E0023FB1D /* TypeScript.lrplugin in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

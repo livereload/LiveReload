@@ -61,7 +61,7 @@ void MyDrawNinePartImage(CGRect frame, NSImage *image, CGFloat topSlice, CGFloat
 - (id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        _stripeImage = [[NSImage imageNamed:@"TerminalStripes.png"] retain];
+        _stripeImage = [[NSImage imageNamed:@"TerminalStripes"] retain];
     }
     return self;
 }
@@ -136,8 +136,8 @@ static void on_console_message_added(event_name_t event, const char *message, Te
         [stripeView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
         [self addSubview:stripeView];
 
-        _backgroundImage = [[NSImage imageNamed:@"TerminalBackgroundSquare.png"] retain];
-        _glareImage = [[NSImage imageNamed:@"TerminalGlare.png"] retain];
+        _backgroundImage = [[NSImage imageNamed:@"TerminalBackgroundSquare"] retain];
+        _glareImage = [[NSImage imageNamed:@"TerminalGlare"] retain];
 
         eventbus_subscribe(console_message_added_event, (event_handler_t)on_console_message_added, self);
         [self update];
