@@ -1,11 +1,6 @@
 #import "Analytics.h"
 
-#if defined(LRLegacy) && (LRLegacy == 106)
-#define PADDLE_AVAILABLE 0
-#else
 #define PADDLE_AVAILABLE 1
-#endif
-
 #define PARSE_AVAILABLE 0
 #define FABRIC_AVAILABLE 0
 

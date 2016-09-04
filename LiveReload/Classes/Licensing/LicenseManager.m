@@ -1,10 +1,6 @@
 #import "LicenseManager.h"
 
-#if defined(LRLegacy)
-#define LICENSING_ENABLED 0
-#else
 #define LICENSING_ENABLED 1
-#endif
 
 #if LICENSING_ENABLED
 #import <CommonCrypto/CommonDigest.h>
