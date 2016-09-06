@@ -11,7 +11,7 @@
 
 #else
 
-#define LIVERELOAD_VERSION "2.3.82"
+#define LIVERELOAD_VERSION "2.3.84"
 
 #endif
 
