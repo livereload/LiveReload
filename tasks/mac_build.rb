@@ -79,14 +79,14 @@ class MacBuildTasks < BaseMacBuildTasks
       content = snippet + "\n" + File.read(versions_file)
       File.open(versions_file, 'w') { |f| f.write content } 
       
-      sh 'subl', versions_file
+      sh 'subl', versions_file rescue nil
 
       puts
       puts "To publish the beta site:"
       puts
       puts "    cd #{File.expand_path(SITE_DIR).sub(ENV['HOME'], '~')}"
       puts "    jekyll serve"
-      puts "    open http://0.0.0.0:4000/beta/"
+      puts "    open http://127.0.0.1:4000/beta/"
       puts "    s3_website ..."
       puts
     end
