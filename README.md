@@ -29,11 +29,17 @@ Build process:
 
     For a release build:
 
-    * Bump the version number, `rake version:update`, commit
-    * Run `rake mac:release` to produce and zip a build
+    * Bump the version number, `rake mac:propagate`, commit
+    * Run `rake mac:build` to produce and zip a build
     * Give it a bit of testing
-    * Run `rake mac:tag mac:upload` to tag a successful build and publish it on download.livereload.com
+    * Run `rake mac:upload` to publish the build on `download.livereload.com`.
     * Run `rake mac:publish` to add the version to the web site's data (then rebuild and publish the web site)
+
+
+Deleting shit after updating dependencies
+-----------------------------------------
+
+    rm -r LiveReload/Sparkle.framework/Versions/A/Resources/{de,es,fr,fr_CA,it,nl,ru,sv}.lproj
 
 
 Hacking tips
