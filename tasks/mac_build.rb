@@ -107,6 +107,11 @@ class MacBuildTasks < BaseMacBuildTasks
         sh 'xcodebuild clean'
         sh 'xcodebuild', '-target', @target
       end
+
+      puts
+      puts "Checking code signature after build."
+      sh 'spctl', '-a', '--verbose=4', mac_bundle_path
+
       Dir.chdir XCODE_RELEASE_DIR do
         rm_rf zip_name
         sh 'zip', '-9rXy', zip_name, @bundle_name
@@ -121,7 +126,7 @@ class MacBuildTasks < BaseMacBuildTasks
 
         puts
         puts "Checking code signature after unzipping."
-        sh 'spctl', '-a', @bundle_name
+        sh 'spctl', '-a', '--verbose=4', @bundle_name
       end
 
       tag!
