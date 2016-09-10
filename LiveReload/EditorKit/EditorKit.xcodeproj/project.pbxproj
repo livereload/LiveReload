@@ -1,0 +1,350 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		430019891BBDEA5600ECF2AF /* EditorKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 4300197A1BBDEA5600ECF2AF /* EditorKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4300198A1BBDEA5600ECF2AF /* EKCoda2Editor.h in Headers */ = {isa = PBXBuildFile; fileRef = 4300197B1BBDEA5600ECF2AF /* EKCoda2Editor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4300198B1BBDEA5600ECF2AF /* EKCoda2Editor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4300197C1BBDEA5600ECF2AF /* EKCoda2Editor.m */; settings = {ASSET_TAGS = (); }; };
+		4300198C1BBDEA5600ECF2AF /* EKEditor.h in Headers */ = {isa = PBXBuildFile; fileRef = 4300197D1BBDEA5600ECF2AF /* EKEditor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4300198D1BBDEA5600ECF2AF /* EKEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4300197E1BBDEA5600ECF2AF /* EKEditor.m */; settings = {ASSET_TAGS = (); }; };
+		4300198E1BBDEA5600ECF2AF /* EKGlobals.h in Headers */ = {isa = PBXBuildFile; fileRef = 4300197F1BBDEA5600ECF2AF /* EKGlobals.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4300198F1BBDEA5600ECF2AF /* EKGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 430019801BBDEA5600ECF2AF /* EKGlobals.m */; settings = {ASSET_TAGS = (); }; };
+		430019921BBDEA5600ECF2AF /* EKJumpRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 430019831BBDEA5600ECF2AF /* EKJumpRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		430019931BBDEA5600ECF2AF /* EKJumpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 430019841BBDEA5600ECF2AF /* EKJumpRequest.m */; settings = {ASSET_TAGS = (); }; };
+		430019941BBDEA5600ECF2AF /* EKSublimeText2Editor.h in Headers */ = {isa = PBXBuildFile; fileRef = 430019851BBDEA5600ECF2AF /* EKSublimeText2Editor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		430019951BBDEA5600ECF2AF /* EKSublimeText2Editor.m in Sources */ = {isa = PBXBuildFile; fileRef = 430019861BBDEA5600ECF2AF /* EKSublimeText2Editor.m */; settings = {ASSET_TAGS = (); }; };
+		430019961BBDEA5600ECF2AF /* EKSublimeText3Editor.h in Headers */ = {isa = PBXBuildFile; fileRef = 430019871BBDEA5600ECF2AF /* EKSublimeText3Editor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		430019971BBDEA5600ECF2AF /* EKSublimeText3Editor.m in Sources */ = {isa = PBXBuildFile; fileRef = 430019881BBDEA5600ECF2AF /* EKSublimeText3Editor.m */; settings = {ASSET_TAGS = (); }; };
+		430019A01BBDEC5C00ECF2AF /* ExpressiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4300199F1BBDEC5C00ECF2AF /* ExpressiveCocoa.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		430019681BBDE9E800ECF2AF /* EditorKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EditorKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4300197A1BBDEA5600ECF2AF /* EditorKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditorKit.h; sourceTree = "<group>"; };
+		4300197B1BBDEA5600ECF2AF /* EKCoda2Editor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EKCoda2Editor.h; sourceTree = "<group>"; };
+		4300197C1BBDEA5600ECF2AF /* EKCoda2Editor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EKCoda2Editor.m; sourceTree = "<group>"; };
+		4300197D1BBDEA5600ECF2AF /* EKEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EKEditor.h; sourceTree = "<group>"; };
+		4300197E1BBDEA5600ECF2AF /* EKEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EKEditor.m; sourceTree = "<group>"; };
+		4300197F1BBDEA5600ECF2AF /* EKGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EKGlobals.h; sourceTree = "<group>"; };
+		430019801BBDEA5600ECF2AF /* EKGlobals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EKGlobals.m; sourceTree = "<group>"; };
+		430019831BBDEA5600ECF2AF /* EKJumpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EKJumpRequest.h; sourceTree = "<group>"; };
+		430019841BBDEA5600ECF2AF /* EKJumpRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EKJumpRequest.m; sourceTree = "<group>"; };
+		430019851BBDEA5600ECF2AF /* EKSublimeText2Editor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EKSublimeText2Editor.h; sourceTree = "<group>"; };
+		430019861BBDEA5600ECF2AF /* EKSublimeText2Editor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EKSublimeText2Editor.m; sourceTree = "<group>"; };
+		430019871BBDEA5600ECF2AF /* EKSublimeText3Editor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EKSublimeText3Editor.h; sourceTree = "<group>"; };
+		430019881BBDEA5600ECF2AF /* EKSublimeText3Editor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EKSublimeText3Editor.m; sourceTree = "<group>"; };
+		430019991BBDEA5E00ECF2AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4300199F1BBDEC5C00ECF2AF /* ExpressiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ExpressiveCocoa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		430019641BBDE9E800ECF2AF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				430019A01BBDEC5C00ECF2AF /* ExpressiveCocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4300195E1BBDE9E800ECF2AF = {
+			isa = PBXGroup;
+			children = (
+				430019791BBDEA5600ECF2AF /* Source */,
+				430019981BBDEA5E00ECF2AF /* Metadata */,
+				4300199A1BBDEAC200ECF2AF /* Frameworks */,
+				430019691BBDE9E800ECF2AF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		430019691BBDE9E800ECF2AF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				430019681BBDE9E800ECF2AF /* EditorKit.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		430019791BBDEA5600ECF2AF /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				4300197A1BBDEA5600ECF2AF /* EditorKit.h */,
+				4300197F1BBDEA5600ECF2AF /* EKGlobals.h */,
+				430019801BBDEA5600ECF2AF /* EKGlobals.m */,
+				4300197D1BBDEA5600ECF2AF /* EKEditor.h */,
+				4300197E1BBDEA5600ECF2AF /* EKEditor.m */,
+				430019831BBDEA5600ECF2AF /* EKJumpRequest.h */,
+				430019841BBDEA5600ECF2AF /* EKJumpRequest.m */,
+				4300197B1BBDEA5600ECF2AF /* EKCoda2Editor.h */,
+				4300197C1BBDEA5600ECF2AF /* EKCoda2Editor.m */,
+				430019851BBDEA5600ECF2AF /* EKSublimeText2Editor.h */,
+				430019861BBDEA5600ECF2AF /* EKSublimeText2Editor.m */,
+				430019871BBDEA5600ECF2AF /* EKSublimeText3Editor.h */,
+				430019881BBDEA5600ECF2AF /* EKSublimeText3Editor.m */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		430019981BBDEA5E00ECF2AF /* Metadata */ = {
+			isa = PBXGroup;
+			children = (
+				430019991BBDEA5E00ECF2AF /* Info.plist */,
+			);
+			path = Metadata;
+			sourceTree = "<group>";
+		};
+		4300199A1BBDEAC200ECF2AF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4300199F1BBDEC5C00ECF2AF /* ExpressiveCocoa.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		430019651BBDE9E800ECF2AF /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				430019921BBDEA5600ECF2AF /* EKJumpRequest.h in Headers */,
+				430019891BBDEA5600ECF2AF /* EditorKit.h in Headers */,
+				430019941BBDEA5600ECF2AF /* EKSublimeText2Editor.h in Headers */,
+				430019961BBDEA5600ECF2AF /* EKSublimeText3Editor.h in Headers */,
+				4300198E1BBDEA5600ECF2AF /* EKGlobals.h in Headers */,
+				4300198A1BBDEA5600ECF2AF /* EKCoda2Editor.h in Headers */,
+				4300198C1BBDEA5600ECF2AF /* EKEditor.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		430019671BBDE9E800ECF2AF /* EditorKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 430019701BBDE9E800ECF2AF /* Build configuration list for PBXNativeTarget "EditorKit" */;
+			buildPhases = (
+				430019631BBDE9E800ECF2AF /* Sources */,
+				430019641BBDE9E800ECF2AF /* Frameworks */,
+				430019651BBDE9E800ECF2AF /* Headers */,
+				430019661BBDE9E800ECF2AF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EditorKit;
+			productName = EditorKit;
+			productReference = 430019681BBDE9E800ECF2AF /* EditorKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4300195F1BBDE9E800ECF2AF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = "Andrey Tarantsov";
+				TargetAttributes = {
+					430019671BBDE9E800ECF2AF = {
+						CreatedOnToolsVersion = 7.0;
+					};
+				};
+			};
+			buildConfigurationList = 430019621BBDE9E800ECF2AF /* Build configuration list for PBXProject "EditorKit" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 4300195E1BBDE9E800ECF2AF;
+			productRefGroup = 430019691BBDE9E800ECF2AF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				430019671BBDE9E800ECF2AF /* EditorKit */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		430019661BBDE9E800ECF2AF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		430019631BBDE9E800ECF2AF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4300198F1BBDEA5600ECF2AF /* EKGlobals.m in Sources */,
+				4300198D1BBDEA5600ECF2AF /* EKEditor.m in Sources */,
+				430019971BBDEA5600ECF2AF /* EKSublimeText3Editor.m in Sources */,
+				430019931BBDEA5600ECF2AF /* EKJumpRequest.m in Sources */,
+				430019951BBDEA5600ECF2AF /* EKSublimeText2Editor.m in Sources */,
+				4300198B1BBDEA5600ECF2AF /* EKCoda2Editor.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		4300196E1BBDE9E800ECF2AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		4300196F1BBDE9E800ECF2AF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		430019711BBDE9E800ECF2AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = Metadata/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tarantsov.EditorKit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		430019721BBDE9E800ECF2AF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = Metadata/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tarantsov.EditorKit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		430019621BBDE9E800ECF2AF /* Build configuration list for PBXProject "EditorKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4300196E1BBDE9E800ECF2AF /* Debug */,
+				4300196F1BBDE9E800ECF2AF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		430019701BBDE9E800ECF2AF /* Build configuration list for PBXNativeTarget "EditorKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				430019711BBDE9E800ECF2AF /* Debug */,
+				430019721BBDE9E800ECF2AF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4300195F1BBDE9E800ECF2AF /* Project object */;
+}
