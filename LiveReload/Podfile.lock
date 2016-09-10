@@ -1,0 +1,16 @@
+PODS:
+  - PromiseKit/CorePromise (3.0.0)
+  - PromiseKit/DietFoundation (3.0.0):
+    - PromiseKit/CorePromise
+  - PromiseKit/SystemConfiguration (3.0.0):
+    - PromiseKit/CorePromise
+
+DEPENDENCIES:
+  - PromiseKit/CorePromise
+  - PromiseKit/DietFoundation
+  - PromiseKit/SystemConfiguration
+
+SPEC CHECKSUMS:
+  PromiseKit: 665540a1eb43156446872dcf49ed7dee6ebbe13b
+
+COCOAPODS: 0.39.0
