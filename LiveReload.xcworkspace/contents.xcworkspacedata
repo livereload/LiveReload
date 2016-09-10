@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "container:LiveReload/LiveReload.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:LiveReload/PackageManagerKit/PackageManagerKit.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:LiveReload/ATVersionKit/ATVersionKit.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:LiveReload/ExpressiveCocoa/ExpressiveCocoa.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:LiveReload/ExpressiveCollections/ExpressiveCollections.xcodeproj">
+   </FileRef>
+</Workspace>

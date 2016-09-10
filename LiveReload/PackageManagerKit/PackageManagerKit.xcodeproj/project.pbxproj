@@ -1,0 +1,730 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		43669B261D83B7EF00620359 /* ChildTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43669B251D83B7EF00620359 /* ChildTask.swift */; };
+		43A6B7BE1BBC768200824E48 /* PackageManagerKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A6B7B31BBC768200824E48 /* PackageManagerKit.framework */; };
+		43A6B8181BBC76F100824E48 /* LRPackage.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A6B7CF1BBC76F100824E48 /* LRPackage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43A6B8191BBC76F100824E48 /* LRPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6B7D01BBC76F100824E48 /* LRPackage.m */; };
+		43A6B81A1BBC76F100824E48 /* LRPackageContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A6B7D11BBC76F100824E48 /* LRPackageContainer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43A6B81B1BBC76F100824E48 /* LRPackageContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6B7D21BBC76F100824E48 /* LRPackageContainer.m */; };
+		43A6B81C1BBC76F100824E48 /* LRPackageManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A6B7D31BBC76F100824E48 /* LRPackageManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43A6B81D1BBC76F200824E48 /* LRPackageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6B7D41BBC76F100824E48 /* LRPackageManager.m */; };
+		43A6B81E1BBC76F200824E48 /* LRPackageReference.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A6B7D51BBC76F100824E48 /* LRPackageReference.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43A6B81F1BBC76F200824E48 /* LRPackageReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6B7D61BBC76F100824E48 /* LRPackageReference.m */; };
+		43A6B8201BBC76F200824E48 /* LRPackageResolutionContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A6B7D71BBC76F100824E48 /* LRPackageResolutionContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43A6B8211BBC76F200824E48 /* LRPackageResolutionContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6B7D81BBC76F100824E48 /* LRPackageResolutionContext.m */; };
+		43A6B8221BBC76F200824E48 /* LRPackageSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A6B7D91BBC76F100824E48 /* LRPackageSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43A6B8231BBC76F200824E48 /* LRPackageSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6B7DA1BBC76F100824E48 /* LRPackageSet.m */; };
+		43A6B8241BBC76F200824E48 /* LRPackageType.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A6B7DB1BBC76F100824E48 /* LRPackageType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43A6B8251BBC76F200824E48 /* LRPackageType.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6B7DC1BBC76F100824E48 /* LRPackageType.m */; };
+		43A6B8261BBC76F200824E48 /* MissingRuntimeInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A6B7DE1BBC76F100824E48 /* MissingRuntimeInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43A6B8271BBC76F200824E48 /* MissingRuntimeInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6B7DF1BBC76F100824E48 /* MissingRuntimeInstance.m */; };
+		43A6B8281BBC76F200824E48 /* RuntimeContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A6B7E01BBC76F100824E48 /* RuntimeContainer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43A6B8291BBC76F200824E48 /* RuntimeContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6B7E11BBC76F100824E48 /* RuntimeContainer.m */; };
+		43A6B82A1BBC76F200824E48 /* RuntimeGlobals.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A6B7E21BBC76F100824E48 /* RuntimeGlobals.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43A6B82B1BBC76F200824E48 /* RuntimeGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6B7E31BBC76F100824E48 /* RuntimeGlobals.m */; };
+		43A6B82C1BBC76F200824E48 /* RuntimeInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A6B7E41BBC76F100824E48 /* RuntimeInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43A6B82D1BBC76F200824E48 /* RuntimeInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6B7E51BBC76F100824E48 /* RuntimeInstance.m */; };
+		43A6B82E1BBC76F200824E48 /* RuntimeObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A6B7E61BBC76F100824E48 /* RuntimeObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43A6B82F1BBC76F200824E48 /* RuntimeReference.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A6B7E71BBC76F100824E48 /* RuntimeReference.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43A6B8301BBC76F200824E48 /* RuntimeReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6B7E81BBC76F100824E48 /* RuntimeReference.m */; };
+		43A6B8311BBC76F200824E48 /* RuntimeRepository.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A6B7E91BBC76F100824E48 /* RuntimeRepository.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43A6B8321BBC76F200824E48 /* RuntimeRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6B7EA1BBC76F100824E48 /* RuntimeRepository.m */; };
+		43A6B8331BBC76F200824E48 /* NpmPackage.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A6B7EC1BBC76F100824E48 /* NpmPackage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43A6B8341BBC76F200824E48 /* NpmPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6B7ED1BBC76F100824E48 /* NpmPackage.m */; };
+		43A6B8351BBC76F200824E48 /* NpmPackageContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A6B7EE1BBC76F100824E48 /* NpmPackageContainer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43A6B8361BBC76F200824E48 /* NpmPackageContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6B7EF1BBC76F100824E48 /* NpmPackageContainer.m */; };
+		43A6B8371BBC76F200824E48 /* NpmPackageType.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A6B7F01BBC76F100824E48 /* NpmPackageType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43A6B8381BBC76F200824E48 /* NpmPackageType.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6B7F11BBC76F100824E48 /* NpmPackageType.m */; };
+		43A6B8391BBC76F200824E48 /* PackageManagerKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A6B7F21BBC76F100824E48 /* PackageManagerKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43A6B83E1BBC76F200824E48 /* GemPackage.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A6B7F91BBC76F100824E48 /* GemPackage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43A6B83F1BBC76F200824E48 /* GemPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6B7FA1BBC76F100824E48 /* GemPackage.m */; };
+		43A6B8401BBC76F200824E48 /* GemPackageContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A6B7FB1BBC76F100824E48 /* GemPackageContainer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43A6B8411BBC76F200824E48 /* GemPackageContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6B7FC1BBC76F100824E48 /* GemPackageContainer.m */; };
+		43A6B8421BBC76F200824E48 /* GemPackageType.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A6B7FD1BBC76F100824E48 /* GemPackageType.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43A6B8431BBC76F200824E48 /* GemPackageType.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6B7FE1BBC76F100824E48 /* GemPackageType.m */; };
+		43A6B8441BBC76F200824E48 /* GemVersion.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A6B7FF1BBC76F100824E48 /* GemVersion.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43A6B8451BBC76F200824E48 /* GemVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6B8001BBC76F100824E48 /* GemVersion.m */; };
+		43A6B8461BBC76F200824E48 /* GemVersionSpace.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A6B8011BBC76F100824E48 /* GemVersionSpace.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43A6B8471BBC76F200824E48 /* GemVersionSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6B8021BBC76F100824E48 /* GemVersionSpace.m */; };
+		43A6B8481BBC76F200824E48 /* CustomRubyInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A6B8041BBC76F100824E48 /* CustomRubyInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43A6B8491BBC76F200824E48 /* CustomRubyInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6B8051BBC76F100824E48 /* CustomRubyInstance.m */; };
+		43A6B84A1BBC76F200824E48 /* HomebrewContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A6B8061BBC76F100824E48 /* HomebrewContainer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43A6B84B1BBC76F200824E48 /* HomebrewContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6B8071BBC76F100824E48 /* HomebrewContainer.m */; };
+		43A6B84C1BBC76F200824E48 /* HomebrewRubyInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A6B8081BBC76F100824E48 /* HomebrewRubyInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43A6B84D1BBC76F200824E48 /* HomebrewRubyInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6B8091BBC76F100824E48 /* HomebrewRubyInstance.m */; };
+		43A6B84E1BBC76F200824E48 /* RbenvContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A6B80A1BBC76F100824E48 /* RbenvContainer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43A6B84F1BBC76F200824E48 /* RbenvContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6B80B1BBC76F100824E48 /* RbenvContainer.m */; };
+		43A6B8501BBC76F200824E48 /* RbenvRubyInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A6B80C1BBC76F100824E48 /* RbenvRubyInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43A6B8511BBC76F200824E48 /* RbenvRubyInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6B80D1BBC76F100824E48 /* RbenvRubyInstance.m */; };
+		43A6B8521BBC76F200824E48 /* RubyInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A6B80E1BBC76F100824E48 /* RubyInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43A6B8531BBC76F200824E48 /* RubyInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6B80F1BBC76F100824E48 /* RubyInstance.m */; };
+		43A6B8541BBC76F200824E48 /* RubyRuntimeRepository.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A6B8101BBC76F100824E48 /* RubyRuntimeRepository.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43A6B8551BBC76F200824E48 /* RubyRuntimeRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6B8111BBC76F100824E48 /* RubyRuntimeRepository.m */; };
+		43A6B8561BBC76F200824E48 /* RvmContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A6B8121BBC76F100824E48 /* RvmContainer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43A6B8571BBC76F200824E48 /* RvmContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6B8131BBC76F100824E48 /* RvmContainer.m */; };
+		43A6B8581BBC76F200824E48 /* RvmRubyInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A6B8141BBC76F100824E48 /* RvmRubyInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43A6B8591BBC76F200824E48 /* RvmRubyInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6B8151BBC76F100824E48 /* RvmRubyInstance.m */; };
+		43A6B85A1BBC76F200824E48 /* SystemRubyInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A6B8161BBC76F100824E48 /* SystemRubyInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		43A6B85B1BBC76F200824E48 /* SystemRubyInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6B8171BBC76F100824E48 /* SystemRubyInstance.m */; };
+		43A6B85E1BBC76F900824E48 /* PackageManagerKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6B85D1BBC76F900824E48 /* PackageManagerKitTests.m */; };
+		43A6B8641BBC789D00824E48 /* ATVersionKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A6B8631BBC789D00824E48 /* ATVersionKit.framework */; };
+		43A6B86B1BBC857600824E48 /* ExpressiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A6B86A1BBC857600824E48 /* ExpressiveCocoa.framework */; };
+		43A6B88E1BBC8FD000824E48 /* ExpressiveCollections.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A6B88D1BBC8FD000824E48 /* ExpressiveCollections.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		43A6B7BF1BBC768200824E48 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 43A6B7AA1BBC768200824E48 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 43A6B7B21BBC768200824E48;
+			remoteInfo = PackageManagerKit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		43669B251D83B7EF00620359 /* ChildTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChildTask.swift; sourceTree = "<group>"; };
+		43A6B7B31BBC768200824E48 /* PackageManagerKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PackageManagerKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		43A6B7BD1BBC768200824E48 /* PackageManagerKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PackageManagerKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		43A6B7CF1BBC76F100824E48 /* LRPackage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPackage.h; sourceTree = "<group>"; };
+		43A6B7D01BBC76F100824E48 /* LRPackage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPackage.m; sourceTree = "<group>"; };
+		43A6B7D11BBC76F100824E48 /* LRPackageContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPackageContainer.h; sourceTree = "<group>"; };
+		43A6B7D21BBC76F100824E48 /* LRPackageContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPackageContainer.m; sourceTree = "<group>"; };
+		43A6B7D31BBC76F100824E48 /* LRPackageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPackageManager.h; sourceTree = "<group>"; };
+		43A6B7D41BBC76F100824E48 /* LRPackageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPackageManager.m; sourceTree = "<group>"; };
+		43A6B7D51BBC76F100824E48 /* LRPackageReference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPackageReference.h; sourceTree = "<group>"; };
+		43A6B7D61BBC76F100824E48 /* LRPackageReference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPackageReference.m; sourceTree = "<group>"; };
+		43A6B7D71BBC76F100824E48 /* LRPackageResolutionContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPackageResolutionContext.h; sourceTree = "<group>"; };
+		43A6B7D81BBC76F100824E48 /* LRPackageResolutionContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPackageResolutionContext.m; sourceTree = "<group>"; };
+		43A6B7D91BBC76F100824E48 /* LRPackageSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPackageSet.h; sourceTree = "<group>"; };
+		43A6B7DA1BBC76F100824E48 /* LRPackageSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPackageSet.m; sourceTree = "<group>"; };
+		43A6B7DB1BBC76F100824E48 /* LRPackageType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LRPackageType.h; sourceTree = "<group>"; };
+		43A6B7DC1BBC76F100824E48 /* LRPackageType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LRPackageType.m; sourceTree = "<group>"; };
+		43A6B7DE1BBC76F100824E48 /* MissingRuntimeInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MissingRuntimeInstance.h; sourceTree = "<group>"; };
+		43A6B7DF1BBC76F100824E48 /* MissingRuntimeInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MissingRuntimeInstance.m; sourceTree = "<group>"; };
+		43A6B7E01BBC76F100824E48 /* RuntimeContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RuntimeContainer.h; sourceTree = "<group>"; };
+		43A6B7E11BBC76F100824E48 /* RuntimeContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RuntimeContainer.m; sourceTree = "<group>"; };
+		43A6B7E21BBC76F100824E48 /* RuntimeGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RuntimeGlobals.h; sourceTree = "<group>"; };
+		43A6B7E31BBC76F100824E48 /* RuntimeGlobals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RuntimeGlobals.m; sourceTree = "<group>"; };
+		43A6B7E41BBC76F100824E48 /* RuntimeInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RuntimeInstance.h; sourceTree = "<group>"; };
+		43A6B7E51BBC76F100824E48 /* RuntimeInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RuntimeInstance.m; sourceTree = "<group>"; };
+		43A6B7E61BBC76F100824E48 /* RuntimeObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RuntimeObject.h; sourceTree = "<group>"; };
+		43A6B7E71BBC76F100824E48 /* RuntimeReference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RuntimeReference.h; sourceTree = "<group>"; };
+		43A6B7E81BBC76F100824E48 /* RuntimeReference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RuntimeReference.m; sourceTree = "<group>"; };
+		43A6B7E91BBC76F100824E48 /* RuntimeRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RuntimeRepository.h; sourceTree = "<group>"; };
+		43A6B7EA1BBC76F100824E48 /* RuntimeRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RuntimeRepository.m; sourceTree = "<group>"; };
+		43A6B7EC1BBC76F100824E48 /* NpmPackage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NpmPackage.h; sourceTree = "<group>"; };
+		43A6B7ED1BBC76F100824E48 /* NpmPackage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NpmPackage.m; sourceTree = "<group>"; };
+		43A6B7EE1BBC76F100824E48 /* NpmPackageContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NpmPackageContainer.h; sourceTree = "<group>"; };
+		43A6B7EF1BBC76F100824E48 /* NpmPackageContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NpmPackageContainer.m; sourceTree = "<group>"; };
+		43A6B7F01BBC76F100824E48 /* NpmPackageType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NpmPackageType.h; sourceTree = "<group>"; };
+		43A6B7F11BBC76F100824E48 /* NpmPackageType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NpmPackageType.m; sourceTree = "<group>"; };
+		43A6B7F21BBC76F100824E48 /* PackageManagerKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PackageManagerKit.h; sourceTree = "<group>"; };
+		43A6B7F91BBC76F100824E48 /* GemPackage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GemPackage.h; sourceTree = "<group>"; };
+		43A6B7FA1BBC76F100824E48 /* GemPackage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GemPackage.m; sourceTree = "<group>"; };
+		43A6B7FB1BBC76F100824E48 /* GemPackageContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GemPackageContainer.h; sourceTree = "<group>"; };
+		43A6B7FC1BBC76F100824E48 /* GemPackageContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GemPackageContainer.m; sourceTree = "<group>"; };
+		43A6B7FD1BBC76F100824E48 /* GemPackageType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GemPackageType.h; sourceTree = "<group>"; };
+		43A6B7FE1BBC76F100824E48 /* GemPackageType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GemPackageType.m; sourceTree = "<group>"; };
+		43A6B7FF1BBC76F100824E48 /* GemVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GemVersion.h; sourceTree = "<group>"; };
+		43A6B8001BBC76F100824E48 /* GemVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GemVersion.m; sourceTree = "<group>"; };
+		43A6B8011BBC76F100824E48 /* GemVersionSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GemVersionSpace.h; sourceTree = "<group>"; };
+		43A6B8021BBC76F100824E48 /* GemVersionSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GemVersionSpace.m; sourceTree = "<group>"; };
+		43A6B8041BBC76F100824E48 /* CustomRubyInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomRubyInstance.h; sourceTree = "<group>"; };
+		43A6B8051BBC76F100824E48 /* CustomRubyInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomRubyInstance.m; sourceTree = "<group>"; };
+		43A6B8061BBC76F100824E48 /* HomebrewContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomebrewContainer.h; sourceTree = "<group>"; };
+		43A6B8071BBC76F100824E48 /* HomebrewContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomebrewContainer.m; sourceTree = "<group>"; };
+		43A6B8081BBC76F100824E48 /* HomebrewRubyInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomebrewRubyInstance.h; sourceTree = "<group>"; };
+		43A6B8091BBC76F100824E48 /* HomebrewRubyInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomebrewRubyInstance.m; sourceTree = "<group>"; };
+		43A6B80A1BBC76F100824E48 /* RbenvContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RbenvContainer.h; sourceTree = "<group>"; };
+		43A6B80B1BBC76F100824E48 /* RbenvContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RbenvContainer.m; sourceTree = "<group>"; };
+		43A6B80C1BBC76F100824E48 /* RbenvRubyInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RbenvRubyInstance.h; sourceTree = "<group>"; };
+		43A6B80D1BBC76F100824E48 /* RbenvRubyInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RbenvRubyInstance.m; sourceTree = "<group>"; };
+		43A6B80E1BBC76F100824E48 /* RubyInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RubyInstance.h; sourceTree = "<group>"; };
+		43A6B80F1BBC76F100824E48 /* RubyInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RubyInstance.m; sourceTree = "<group>"; };
+		43A6B8101BBC76F100824E48 /* RubyRuntimeRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RubyRuntimeRepository.h; sourceTree = "<group>"; };
+		43A6B8111BBC76F100824E48 /* RubyRuntimeRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RubyRuntimeRepository.m; sourceTree = "<group>"; };
+		43A6B8121BBC76F100824E48 /* RvmContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RvmContainer.h; sourceTree = "<group>"; };
+		43A6B8131BBC76F100824E48 /* RvmContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RvmContainer.m; sourceTree = "<group>"; };
+		43A6B8141BBC76F100824E48 /* RvmRubyInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RvmRubyInstance.h; sourceTree = "<group>"; };
+		43A6B8151BBC76F100824E48 /* RvmRubyInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RvmRubyInstance.m; sourceTree = "<group>"; };
+		43A6B8161BBC76F100824E48 /* SystemRubyInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemRubyInstance.h; sourceTree = "<group>"; };
+		43A6B8171BBC76F100824E48 /* SystemRubyInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemRubyInstance.m; sourceTree = "<group>"; };
+		43A6B85D1BBC76F900824E48 /* PackageManagerKitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PackageManagerKitTests.m; sourceTree = "<group>"; };
+		43A6B85F1BBC773100824E48 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		43A6B8611BBC773800824E48 /* Info-Tests.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Tests.plist"; sourceTree = "<group>"; };
+		43A6B8621BBC773800824E48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		43A6B8631BBC789D00824E48 /* ATVersionKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ATVersionKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		43A6B86A1BBC857600824E48 /* ExpressiveCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ExpressiveCocoa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		43A6B88D1BBC8FD000824E48 /* ExpressiveCollections.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ExpressiveCollections.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		43A6B7AF1BBC768200824E48 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				43A6B88E1BBC8FD000824E48 /* ExpressiveCollections.framework in Frameworks */,
+				43A6B86B1BBC857600824E48 /* ExpressiveCocoa.framework in Frameworks */,
+				43A6B8641BBC789D00824E48 /* ATVersionKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		43A6B7BA1BBC768200824E48 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				43A6B7BE1BBC768200824E48 /* PackageManagerKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		43A6B7A91BBC768200824E48 = {
+			isa = PBXGroup;
+			children = (
+				43A6B85F1BBC773100824E48 /* README.md */,
+				43A6B7CD1BBC76F100824E48 /* Source */,
+				43A6B85C1BBC76F900824E48 /* Tests */,
+				43A6B8601BBC773800824E48 /* Metadata */,
+				43A6B8691BBC856500824E48 /* Frameworks */,
+				43A6B7B41BBC768200824E48 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		43A6B7B41BBC768200824E48 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				43A6B7B31BBC768200824E48 /* PackageManagerKit.framework */,
+				43A6B7BD1BBC768200824E48 /* PackageManagerKitTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		43A6B7CD1BBC76F100824E48 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				43A6B7F21BBC76F100824E48 /* PackageManagerKit.h */,
+				43A6B7CE1BBC76F100824E48 /* GenericPackages */,
+				43A6B7DD1BBC76F100824E48 /* GenericRuntime */,
+				43A6B7EB1BBC76F100824E48 /* NodePackages */,
+				43A6B7F31BBC76F100824E48 /* PrivateUtilities */,
+				43A6B7F81BBC76F100824E48 /* RubyGemPackages */,
+				43A6B8031BBC76F100824E48 /* RubyRuntime */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		43A6B7CE1BBC76F100824E48 /* GenericPackages */ = {
+			isa = PBXGroup;
+			children = (
+				43A6B7CF1BBC76F100824E48 /* LRPackage.h */,
+				43A6B7D01BBC76F100824E48 /* LRPackage.m */,
+				43A6B7D11BBC76F100824E48 /* LRPackageContainer.h */,
+				43A6B7D21BBC76F100824E48 /* LRPackageContainer.m */,
+				43A6B7D31BBC76F100824E48 /* LRPackageManager.h */,
+				43A6B7D41BBC76F100824E48 /* LRPackageManager.m */,
+				43A6B7D51BBC76F100824E48 /* LRPackageReference.h */,
+				43A6B7D61BBC76F100824E48 /* LRPackageReference.m */,
+				43A6B7D71BBC76F100824E48 /* LRPackageResolutionContext.h */,
+				43A6B7D81BBC76F100824E48 /* LRPackageResolutionContext.m */,
+				43A6B7D91BBC76F100824E48 /* LRPackageSet.h */,
+				43A6B7DA1BBC76F100824E48 /* LRPackageSet.m */,
+				43A6B7DB1BBC76F100824E48 /* LRPackageType.h */,
+				43A6B7DC1BBC76F100824E48 /* LRPackageType.m */,
+			);
+			path = GenericPackages;
+			sourceTree = "<group>";
+		};
+		43A6B7DD1BBC76F100824E48 /* GenericRuntime */ = {
+			isa = PBXGroup;
+			children = (
+				43A6B7DE1BBC76F100824E48 /* MissingRuntimeInstance.h */,
+				43A6B7DF1BBC76F100824E48 /* MissingRuntimeInstance.m */,
+				43A6B7E01BBC76F100824E48 /* RuntimeContainer.h */,
+				43A6B7E11BBC76F100824E48 /* RuntimeContainer.m */,
+				43A6B7E21BBC76F100824E48 /* RuntimeGlobals.h */,
+				43A6B7E31BBC76F100824E48 /* RuntimeGlobals.m */,
+				43A6B7E41BBC76F100824E48 /* RuntimeInstance.h */,
+				43A6B7E51BBC76F100824E48 /* RuntimeInstance.m */,
+				43A6B7E61BBC76F100824E48 /* RuntimeObject.h */,
+				43A6B7E71BBC76F100824E48 /* RuntimeReference.h */,
+				43A6B7E81BBC76F100824E48 /* RuntimeReference.m */,
+				43A6B7E91BBC76F100824E48 /* RuntimeRepository.h */,
+				43A6B7EA1BBC76F100824E48 /* RuntimeRepository.m */,
+			);
+			path = GenericRuntime;
+			sourceTree = "<group>";
+		};
+		43A6B7EB1BBC76F100824E48 /* NodePackages */ = {
+			isa = PBXGroup;
+			children = (
+				43A6B7EC1BBC76F100824E48 /* NpmPackage.h */,
+				43A6B7ED1BBC76F100824E48 /* NpmPackage.m */,
+				43A6B7EE1BBC76F100824E48 /* NpmPackageContainer.h */,
+				43A6B7EF1BBC76F100824E48 /* NpmPackageContainer.m */,
+				43A6B7F01BBC76F100824E48 /* NpmPackageType.h */,
+				43A6B7F11BBC76F100824E48 /* NpmPackageType.m */,
+			);
+			path = NodePackages;
+			sourceTree = "<group>";
+		};
+		43A6B7F31BBC76F100824E48 /* PrivateUtilities */ = {
+			isa = PBXGroup;
+			children = (
+				43669B251D83B7EF00620359 /* ChildTask.swift */,
+			);
+			path = PrivateUtilities;
+			sourceTree = "<group>";
+		};
+		43A6B7F81BBC76F100824E48 /* RubyGemPackages */ = {
+			isa = PBXGroup;
+			children = (
+				43A6B7F91BBC76F100824E48 /* GemPackage.h */,
+				43A6B7FA1BBC76F100824E48 /* GemPackage.m */,
+				43A6B7FB1BBC76F100824E48 /* GemPackageContainer.h */,
+				43A6B7FC1BBC76F100824E48 /* GemPackageContainer.m */,
+				43A6B7FD1BBC76F100824E48 /* GemPackageType.h */,
+				43A6B7FE1BBC76F100824E48 /* GemPackageType.m */,
+				43A6B7FF1BBC76F100824E48 /* GemVersion.h */,
+				43A6B8001BBC76F100824E48 /* GemVersion.m */,
+				43A6B8011BBC76F100824E48 /* GemVersionSpace.h */,
+				43A6B8021BBC76F100824E48 /* GemVersionSpace.m */,
+			);
+			path = RubyGemPackages;
+			sourceTree = "<group>";
+		};
+		43A6B8031BBC76F100824E48 /* RubyRuntime */ = {
+			isa = PBXGroup;
+			children = (
+				43A6B8041BBC76F100824E48 /* CustomRubyInstance.h */,
+				43A6B8051BBC76F100824E48 /* CustomRubyInstance.m */,
+				43A6B8061BBC76F100824E48 /* HomebrewContainer.h */,
+				43A6B8071BBC76F100824E48 /* HomebrewContainer.m */,
+				43A6B8081BBC76F100824E48 /* HomebrewRubyInstance.h */,
+				43A6B8091BBC76F100824E48 /* HomebrewRubyInstance.m */,
+				43A6B80A1BBC76F100824E48 /* RbenvContainer.h */,
+				43A6B80B1BBC76F100824E48 /* RbenvContainer.m */,
+				43A6B80C1BBC76F100824E48 /* RbenvRubyInstance.h */,
+				43A6B80D1BBC76F100824E48 /* RbenvRubyInstance.m */,
+				43A6B80E1BBC76F100824E48 /* RubyInstance.h */,
+				43A6B80F1BBC76F100824E48 /* RubyInstance.m */,
+				43A6B8101BBC76F100824E48 /* RubyRuntimeRepository.h */,
+				43A6B8111BBC76F100824E48 /* RubyRuntimeRepository.m */,
+				43A6B8121BBC76F100824E48 /* RvmContainer.h */,
+				43A6B8131BBC76F100824E48 /* RvmContainer.m */,
+				43A6B8141BBC76F100824E48 /* RvmRubyInstance.h */,
+				43A6B8151BBC76F100824E48 /* RvmRubyInstance.m */,
+				43A6B8161BBC76F100824E48 /* SystemRubyInstance.h */,
+				43A6B8171BBC76F100824E48 /* SystemRubyInstance.m */,
+			);
+			path = RubyRuntime;
+			sourceTree = "<group>";
+		};
+		43A6B85C1BBC76F900824E48 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				43A6B85D1BBC76F900824E48 /* PackageManagerKitTests.m */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		43A6B8601BBC773800824E48 /* Metadata */ = {
+			isa = PBXGroup;
+			children = (
+				43A6B8611BBC773800824E48 /* Info-Tests.plist */,
+				43A6B8621BBC773800824E48 /* Info.plist */,
+			);
+			path = Metadata;
+			sourceTree = "<group>";
+		};
+		43A6B8691BBC856500824E48 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				43A6B8631BBC789D00824E48 /* ATVersionKit.framework */,
+				43A6B88D1BBC8FD000824E48 /* ExpressiveCollections.framework */,
+				43A6B86A1BBC857600824E48 /* ExpressiveCocoa.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		43A6B7B01BBC768200824E48 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				43A6B84A1BBC76F200824E48 /* HomebrewContainer.h in Headers */,
+				43A6B8521BBC76F200824E48 /* RubyInstance.h in Headers */,
+				43A6B82E1BBC76F200824E48 /* RuntimeObject.h in Headers */,
+				43A6B8441BBC76F200824E48 /* GemVersion.h in Headers */,
+				43A6B8331BBC76F200824E48 /* NpmPackage.h in Headers */,
+				43A6B8221BBC76F200824E48 /* LRPackageSet.h in Headers */,
+				43A6B82F1BBC76F200824E48 /* RuntimeReference.h in Headers */,
+				43A6B8391BBC76F200824E48 /* PackageManagerKit.h in Headers */,
+				43A6B8261BBC76F200824E48 /* MissingRuntimeInstance.h in Headers */,
+				43A6B8351BBC76F200824E48 /* NpmPackageContainer.h in Headers */,
+				43A6B85A1BBC76F200824E48 /* SystemRubyInstance.h in Headers */,
+				43A6B82C1BBC76F200824E48 /* RuntimeInstance.h in Headers */,
+				43A6B8561BBC76F200824E48 /* RvmContainer.h in Headers */,
+				43A6B8281BBC76F200824E48 /* RuntimeContainer.h in Headers */,
+				43A6B8371BBC76F200824E48 /* NpmPackageType.h in Headers */,
+				43A6B84E1BBC76F200824E48 /* RbenvContainer.h in Headers */,
+				43A6B8401BBC76F200824E48 /* GemPackageContainer.h in Headers */,
+				43A6B8501BBC76F200824E48 /* RbenvRubyInstance.h in Headers */,
+				43A6B8181BBC76F100824E48 /* LRPackage.h in Headers */,
+				43A6B8541BBC76F200824E48 /* RubyRuntimeRepository.h in Headers */,
+				43A6B81A1BBC76F100824E48 /* LRPackageContainer.h in Headers */,
+				43A6B8421BBC76F200824E48 /* GemPackageType.h in Headers */,
+				43A6B81C1BBC76F100824E48 /* LRPackageManager.h in Headers */,
+				43A6B8481BBC76F200824E48 /* CustomRubyInstance.h in Headers */,
+				43A6B8461BBC76F200824E48 /* GemVersionSpace.h in Headers */,
+				43A6B83E1BBC76F200824E48 /* GemPackage.h in Headers */,
+				43A6B82A1BBC76F200824E48 /* RuntimeGlobals.h in Headers */,
+				43A6B8201BBC76F200824E48 /* LRPackageResolutionContext.h in Headers */,
+				43A6B84C1BBC76F200824E48 /* HomebrewRubyInstance.h in Headers */,
+				43A6B8311BBC76F200824E48 /* RuntimeRepository.h in Headers */,
+				43A6B8581BBC76F200824E48 /* RvmRubyInstance.h in Headers */,
+				43A6B8241BBC76F200824E48 /* LRPackageType.h in Headers */,
+				43A6B81E1BBC76F200824E48 /* LRPackageReference.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		43A6B7B21BBC768200824E48 /* PackageManagerKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 43A6B7C71BBC768200824E48 /* Build configuration list for PBXNativeTarget "PackageManagerKit" */;
+			buildPhases = (
+				43A6B7AE1BBC768200824E48 /* Sources */,
+				43A6B7AF1BBC768200824E48 /* Frameworks */,
+				43A6B7B01BBC768200824E48 /* Headers */,
+				43A6B7B11BBC768200824E48 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PackageManagerKit;
+			productName = PackageManagerKit;
+			productReference = 43A6B7B31BBC768200824E48 /* PackageManagerKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		43A6B7BC1BBC768200824E48 /* PackageManagerKitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 43A6B7CA1BBC768200824E48 /* Build configuration list for PBXNativeTarget "PackageManagerKitTests" */;
+			buildPhases = (
+				43A6B7B91BBC768200824E48 /* Sources */,
+				43A6B7BA1BBC768200824E48 /* Frameworks */,
+				43A6B7BB1BBC768200824E48 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				43A6B7C01BBC768200824E48 /* PBXTargetDependency */,
+			);
+			name = PackageManagerKitTests;
+			productName = PackageManagerKitTests;
+			productReference = 43A6B7BD1BBC768200824E48 /* PackageManagerKitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		43A6B7AA1BBC768200824E48 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = "Andrey Tarantsov";
+				TargetAttributes = {
+					43A6B7B21BBC768200824E48 = {
+						CreatedOnToolsVersion = 7.0;
+					};
+					43A6B7BC1BBC768200824E48 = {
+						CreatedOnToolsVersion = 7.0;
+					};
+				};
+			};
+			buildConfigurationList = 43A6B7AD1BBC768200824E48 /* Build configuration list for PBXProject "PackageManagerKit" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 43A6B7A91BBC768200824E48;
+			productRefGroup = 43A6B7B41BBC768200824E48 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				43A6B7B21BBC768200824E48 /* PackageManagerKit */,
+				43A6B7BC1BBC768200824E48 /* PackageManagerKitTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		43A6B7B11BBC768200824E48 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		43A6B7BB1BBC768200824E48 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		43A6B7AE1BBC768200824E48 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				43A6B8341BBC76F200824E48 /* NpmPackage.m in Sources */,
+				43A6B8491BBC76F200824E48 /* CustomRubyInstance.m in Sources */,
+				43A6B81F1BBC76F200824E48 /* LRPackageReference.m in Sources */,
+				43A6B8451BBC76F200824E48 /* GemVersion.m in Sources */,
+				43A6B8531BBC76F200824E48 /* RubyInstance.m in Sources */,
+				43A6B84B1BBC76F200824E48 /* HomebrewContainer.m in Sources */,
+				43A6B82B1BBC76F200824E48 /* RuntimeGlobals.m in Sources */,
+				43A6B8511BBC76F200824E48 /* RbenvRubyInstance.m in Sources */,
+				43A6B8251BBC76F200824E48 /* LRPackageType.m in Sources */,
+				43A6B8381BBC76F200824E48 /* NpmPackageType.m in Sources */,
+				43A6B83F1BBC76F200824E48 /* GemPackage.m in Sources */,
+				43669B261D83B7EF00620359 /* ChildTask.swift in Sources */,
+				43A6B8231BBC76F200824E48 /* LRPackageSet.m in Sources */,
+				43A6B8301BBC76F200824E48 /* RuntimeReference.m in Sources */,
+				43A6B8321BBC76F200824E48 /* RuntimeRepository.m in Sources */,
+				43A6B84D1BBC76F200824E48 /* HomebrewRubyInstance.m in Sources */,
+				43A6B8291BBC76F200824E48 /* RuntimeContainer.m in Sources */,
+				43A6B84F1BBC76F200824E48 /* RbenvContainer.m in Sources */,
+				43A6B81D1BBC76F200824E48 /* LRPackageManager.m in Sources */,
+				43A6B8571BBC76F200824E48 /* RvmContainer.m in Sources */,
+				43A6B81B1BBC76F100824E48 /* LRPackageContainer.m in Sources */,
+				43A6B8211BBC76F200824E48 /* LRPackageResolutionContext.m in Sources */,
+				43A6B8431BBC76F200824E48 /* GemPackageType.m in Sources */,
+				43A6B8361BBC76F200824E48 /* NpmPackageContainer.m in Sources */,
+				43A6B8591BBC76F200824E48 /* RvmRubyInstance.m in Sources */,
+				43A6B8411BBC76F200824E48 /* GemPackageContainer.m in Sources */,
+				43A6B8271BBC76F200824E48 /* MissingRuntimeInstance.m in Sources */,
+				43A6B8551BBC76F200824E48 /* RubyRuntimeRepository.m in Sources */,
+				43A6B85B1BBC76F200824E48 /* SystemRubyInstance.m in Sources */,
+				43A6B8471BBC76F200824E48 /* GemVersionSpace.m in Sources */,
+				43A6B82D1BBC76F200824E48 /* RuntimeInstance.m in Sources */,
+				43A6B8191BBC76F100824E48 /* LRPackage.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		43A6B7B91BBC768200824E48 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				43A6B85E1BBC76F900824E48 /* PackageManagerKitTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		43A6B7C01BBC768200824E48 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 43A6B7B21BBC768200824E48 /* PackageManagerKit */;
+			targetProxy = 43A6B7BF1BBC768200824E48 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		43A6B7C51BBC768200824E48 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		43A6B7C61BBC768200824E48 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		43A6B7C81BBC768200824E48 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = Metadata/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tarantsov.PackageManagerKit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		43A6B7C91BBC768200824E48 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = Metadata/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tarantsov.PackageManagerKit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		43A6B7CB1BBC768200824E48 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Metadata/Info-Tests.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tarantsov.PackageManagerKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		43A6B7CC1BBC768200824E48 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "Metadata/Info-Tests.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tarantsov.PackageManagerKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		43A6B7AD1BBC768200824E48 /* Build configuration list for PBXProject "PackageManagerKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				43A6B7C51BBC768200824E48 /* Debug */,
+				43A6B7C61BBC768200824E48 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		43A6B7C71BBC768200824E48 /* Build configuration list for PBXNativeTarget "PackageManagerKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				43A6B7C81BBC768200824E48 /* Debug */,
+				43A6B7C91BBC768200824E48 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		43A6B7CA1BBC768200824E48 /* Build configuration list for PBXNativeTarget "PackageManagerKitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				43A6B7CB1BBC768200824E48 /* Debug */,
+				43A6B7CC1BBC768200824E48 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 43A6B7AA1BBC768200824E48 /* Project object */;
+}

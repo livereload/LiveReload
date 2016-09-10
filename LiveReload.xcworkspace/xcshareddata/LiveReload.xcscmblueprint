@@ -1,0 +1,37 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "1651DAA15251FAEBB2A2245AEFFCA5D945BCBDD2",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "3C1A383E145D38B512CE0000483682EE29E9433B" : 0,
+    "1651DAA15251FAEBB2A2245AEFFCA5D945BCBDD2" : 0,
+    "72534CDC1DFEC466646BB14E201AB844E3C99601" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "ED2E2418-6C1A-471E-B8D7-FE4D83C25819",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "3C1A383E145D38B512CE0000483682EE29E9433B" : "2\/LiveReload\/Compilers\/",
+    "1651DAA15251FAEBB2A2245AEFFCA5D945BCBDD2" : "2\/",
+    "72534CDC1DFEC466646BB14E201AB844E3C99601" : "2\/Shared\/libs\/fsmonitor\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "LiveReload",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "LiveReload.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:livereload\/LiveReload.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "1651DAA15251FAEBB2A2245AEFFCA5D945BCBDD2"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "git:\/\/github.com\/livereload\/livereload-plugins.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "3C1A383E145D38B512CE0000483682EE29E9433B"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "git:\/\/github.com\/andreyvit\/fsmonitor.c.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "72534CDC1DFEC466646BB14E201AB844E3C99601"
+    }
+  ]
+}
