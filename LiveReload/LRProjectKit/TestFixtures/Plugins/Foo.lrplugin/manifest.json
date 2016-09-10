@@ -1,0 +1,12 @@
+{
+    "actions": [
+        {
+            "type": "compile-file",
+            "id": "foo",
+            "name": "FOO",
+
+            "input": "*.foo",
+            "output": "*.bar"
+        }
+    ]
+}
