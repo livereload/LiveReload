@@ -246,6 +246,22 @@
 		435BE045141B87920008FF77 /* NewMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 435BE044141B87920008FF77 /* NewMainWindowController.m */; };
 		43669B311D83B94700620359 /* PackageManagerKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43669B301D83B94600620359 /* PackageManagerKit.framework */; };
 		43669B321D83B94700620359 /* PackageManagerKit.framework in Embed Internal Frameworks */ = {isa = PBXBuildFile; fileRef = 43669B301D83B94600620359 /* PackageManagerKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		43669B341D83BDCC00620359 /* LRActionKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43669B331D83BDCC00620359 /* LRActionKit.framework */; };
+		43669B351D83BDCC00620359 /* LRActionKit.framework in Embed Internal Frameworks */ = {isa = PBXBuildFile; fileRef = 43669B331D83BDCC00620359 /* LRActionKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		43669B371D83BDE800620359 /* ATVersionKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43669B361D83BDE800620359 /* ATVersionKit.framework */; };
+		43669B381D83BDE800620359 /* ATVersionKit.framework in Embed Internal Frameworks */ = {isa = PBXBuildFile; fileRef = 43669B361D83BDE800620359 /* ATVersionKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		43669B3A1D83BDE800620359 /* ExpressiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43669B391D83BDE800620359 /* ExpressiveCocoa.framework */; };
+		43669B3B1D83BDE800620359 /* ExpressiveCocoa.framework in Embed Internal Frameworks */ = {isa = PBXBuildFile; fileRef = 43669B391D83BDE800620359 /* ExpressiveCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		43669B3D1D83BDE800620359 /* ExpressiveCollections.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43669B3C1D83BDE800620359 /* ExpressiveCollections.framework */; };
+		43669B3E1D83BDE800620359 /* ExpressiveCollections.framework in Embed Internal Frameworks */ = {isa = PBXBuildFile; fileRef = 43669B3C1D83BDE800620359 /* ExpressiveCollections.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		43669B401D83BDE900620359 /* ExpressiveCasting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43669B3F1D83BDE800620359 /* ExpressiveCasting.framework */; };
+		43669B411D83BDE900620359 /* ExpressiveCasting.framework in Embed Internal Frameworks */ = {isa = PBXBuildFile; fileRef = 43669B3F1D83BDE800620359 /* ExpressiveCasting.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		43669B431D83BDE900620359 /* ExpressiveFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43669B421D83BDE900620359 /* ExpressiveFoundation.framework */; };
+		43669B441D83BDE900620359 /* ExpressiveFoundation.framework in Embed Internal Frameworks */ = {isa = PBXBuildFile; fileRef = 43669B421D83BDE900620359 /* ExpressiveFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		43669B461D83BDE900620359 /* ATPathSpec.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43669B451D83BDE900620359 /* ATPathSpec.framework */; };
+		43669B471D83BDE900620359 /* ATPathSpec.framework in Embed Internal Frameworks */ = {isa = PBXBuildFile; fileRef = 43669B451D83BDE900620359 /* ATPathSpec.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		43669B491D83BDE900620359 /* FSMonitoringKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43669B481D83BDE900620359 /* FSMonitoringKit.framework */; };
+		43669B4A1D83BDE900620359 /* FSMonitoringKit.framework in Embed Internal Frameworks */ = {isa = PBXBuildFile; fileRef = 43669B481D83BDE900620359 /* FSMonitoringKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		43693F4115660A8700C453CC /* LiveReloadNodejs in Resources */ = {isa = PBXBuildFile; fileRef = 43693F4015660A8700C453CC /* LiveReloadNodejs */; };
 		436A65331A923B9E00335BAD /* Paddle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65321A923B9E00335BAD /* Paddle.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		436A65341A923C9600335BAD /* Paddle.framework in Embed Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65321A923B9E00335BAD /* Paddle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -470,7 +486,15 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				43669B411D83BDE900620359 /* ExpressiveCasting.framework in Embed Internal Frameworks */,
+				43669B3B1D83BDE800620359 /* ExpressiveCocoa.framework in Embed Internal Frameworks */,
+				43669B4A1D83BDE900620359 /* FSMonitoringKit.framework in Embed Internal Frameworks */,
 				43669B321D83B94700620359 /* PackageManagerKit.framework in Embed Internal Frameworks */,
+				43669B441D83BDE900620359 /* ExpressiveFoundation.framework in Embed Internal Frameworks */,
+				43669B351D83BDCC00620359 /* LRActionKit.framework in Embed Internal Frameworks */,
+				43669B471D83BDE900620359 /* ATPathSpec.framework in Embed Internal Frameworks */,
+				43669B381D83BDE800620359 /* ATVersionKit.framework in Embed Internal Frameworks */,
+				43669B3E1D83BDE800620359 /* ExpressiveCollections.framework in Embed Internal Frameworks */,
 			);
 			name = "Embed Internal Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -596,6 +620,14 @@
 		435BE043141B87920008FF77 /* NewMainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewMainWindowController.h; sourceTree = "<group>"; };
 		435BE044141B87920008FF77 /* NewMainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewMainWindowController.m; sourceTree = "<group>"; };
 		43669B301D83B94600620359 /* PackageManagerKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PackageManagerKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		43669B331D83BDCC00620359 /* LRActionKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LRActionKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		43669B361D83BDE800620359 /* ATVersionKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ATVersionKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		43669B391D83BDE800620359 /* ExpressiveCocoa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ExpressiveCocoa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		43669B3C1D83BDE800620359 /* ExpressiveCollections.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ExpressiveCollections.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		43669B3F1D83BDE800620359 /* ExpressiveCasting.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ExpressiveCasting.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		43669B421D83BDE900620359 /* ExpressiveFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ExpressiveFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		43669B451D83BDE900620359 /* ATPathSpec.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ATPathSpec.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		43669B481D83BDE900620359 /* FSMonitoringKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FSMonitoringKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		43693F4015660A8700C453CC /* LiveReloadNodejs */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = LiveReloadNodejs; path = Resources/LiveReloadNodejs; sourceTree = "<group>"; };
 		436A65321A923B9E00335BAD /* Paddle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Paddle.framework; path = Vendor/Paddle/Paddle.framework; sourceTree = "<group>"; };
 		436A65391A923DC100335BAD /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -828,19 +860,27 @@
 			files = (
 				436A654A1A923FA900335BAD /* ApplicationServices.framework in Frameworks */,
 				436A65461A923DF200335BAD /* libz.dylib in Frameworks */,
+				43669B3D1D83BDE800620359 /* ExpressiveCollections.framework in Frameworks */,
+				43669B461D83BDE900620359 /* ATPathSpec.framework in Frameworks */,
 				436A65441A923DED00335BAD /* libsqlite3.dylib in Frameworks */,
+				43669B491D83BDE900620359 /* FSMonitoringKit.framework in Frameworks */,
 				436A65421A923DE500335BAD /* SystemConfiguration.framework in Frameworks */,
 				43669B311D83B94700620359 /* PackageManagerKit.framework in Frameworks */,
+				43669B341D83BDCC00620359 /* LRActionKit.framework in Frameworks */,
 				436A65401A923DDB00335BAD /* Security.framework in Frameworks */,
 				436A653E1A923DD000335BAD /* CoreLocation.framework in Frameworks */,
 				436A653C1A923DCB00335BAD /* CoreGraphics.framework in Frameworks */,
+				43669B401D83BDE900620359 /* ExpressiveCasting.framework in Frameworks */,
 				436A653A1A923DC100335BAD /* CFNetwork.framework in Frameworks */,
+				43669B3A1D83BDE800620359 /* ExpressiveCocoa.framework in Frameworks */,
 				43059222151E8FA400CC3F88 /* CoreServices.framework in Frameworks */,
 				43594AF413D3BB34004175B2 /* QuartzCore.framework in Frameworks */,
 				43361D4613C30D1400C0E589 /* libicucore.dylib in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				43669B431D83BDE900620359 /* ExpressiveFoundation.framework in Frameworks */,
 				436A65331A923B9E00335BAD /* Paddle.framework in Frameworks */,
 				430923DB1755C58A00400279 /* Sparkle.framework in Frameworks */,
+				43669B371D83BDE800620359 /* ATVersionKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -933,6 +973,14 @@
 			isa = PBXGroup;
 			children = (
 				43669B301D83B94600620359 /* PackageManagerKit.framework */,
+				43669B481D83BDE900620359 /* FSMonitoringKit.framework */,
+				43669B451D83BDE900620359 /* ATPathSpec.framework */,
+				43669B421D83BDE900620359 /* ExpressiveFoundation.framework */,
+				43669B3F1D83BDE800620359 /* ExpressiveCasting.framework */,
+				43669B3C1D83BDE800620359 /* ExpressiveCollections.framework */,
+				43669B391D83BDE800620359 /* ExpressiveCocoa.framework */,
+				43669B361D83BDE800620359 /* ATVersionKit.framework */,
+				43669B331D83BDCC00620359 /* LRActionKit.framework */,
 				436A65491A923FA900335BAD /* ApplicationServices.framework */,
 				436A65451A923DF200335BAD /* libz.dylib */,
 				436A65431A923DED00335BAD /* libsqlite3.dylib */,

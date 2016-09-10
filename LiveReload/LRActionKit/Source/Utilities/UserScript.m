@@ -1,0 +1,219 @@
+
+#import "UserScript.h"
+
+@import ExpressiveCocoa;
+@import FSMonitoringKit;
+
+
+NSString *const UserScriptManagerScriptsDidChangeNotification = @"UserScriptManagerScriptsDidChangeNotification";
+NSString *const UserScriptErrorDomain = @"com.livereload.LiveReload.UserScript";
+
+
+@interface UserScript ()
+
+- (id)initWithPath:(NSString *)path;
+
+@end
+
+
+@interface UserScriptManager () <FSMonitorDelegate>
+
+@end
+
+
+@implementation UserScript {
+    NSString *_path;
+}
+
+- (id)initWithPath:(NSString *)path {
+    self = [super init];
+    if (self) {
+        _path = [path copy];
+    }
+    return self;
+}
+
+- (NSString *)uniqueName {
+    return [_path lastPathComponent];
+}
+
+- (NSString *)friendlyName {
+    return [_path lastPathComponent];
+}
+
+- (NSString *)path {
+    return _path;
+}
+
+- (BOOL)exists {
+    return YES;
+}
+
+- (void)invokeForProjectAtPath:(NSString *)projectPath withModifiedFiles:(NSSet *)paths result:(id<UserScriptResult>)result completionHandler:(dispatch_block_t)completionHandler {
+    NSString *script = _path;
+    NSLog(@"Running post-processing script: %@", script);
+
+    NSArray *args = [[NSArray arrayWithObject:projectPath] arrayByAddingObjectsFromArray:[paths allObjects]];
+    
+    // TODO XXX
+//    console_printf("Post-proc exec: %s %s", str_collapse_paths([script UTF8String], [projectPath UTF8String]), str_collapse_paths([[args componentsJoinedByString:@" "] UTF8String], [projectPath UTF8String]));
+
+    id userScript;
+    NSError *error = nil;
+    NSURL *scriptURL = [NSURL fileURLWithPath:_path];
+    if (ATIsSandboxed()) {
+        if (ATIsUserScriptsFolderSupported()) {
+            userScript = [[NSUserUnixTask alloc] initWithURL:scriptURL error:&error];
+        } else {
+            userScript = nil; // TODO
+        }
+    } else {
+        userScript = [[ATPlainUnixTask alloc] initWithURL:scriptURL error:&error];
+    }
+
+    if (userScript == nil) {
+        [result completedWithInvocationError:[NSError errorWithDomain:UserScriptErrorDomain code:UserScriptErrorInvalidScript userInfo:nil]];
+        completionHandler();
+        return;
+    }
+
+    ATTaskOutputReader *outputReader = [[ATTaskOutputReader alloc] init];
+    [userScript setStandardOutput:outputReader.standardOutputPipe.fileHandleForWriting];
+    [userScript setStandardError:outputReader.standardErrorPipe.fileHandleForWriting];
+    [outputReader startReading];
+
+    [userScript executeWithArguments:args completionHandler:^(NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSString *output = [outputReader.standardOutputText stringByAppendingString:outputReader.standardErrorText];
+
+            if ([output length] > 0) {
+                // TODO XXX
+//                console_printf("\n%s\n\n", str_collapse_paths([output UTF8String], [projectPath UTF8String]));
+                NSLog(@"Post-processing output:\n%@\n", output);
+            }
+
+            if (error) {
+                if ([error.domain isEqualToString:NSCocoaErrorDomain] && error.code == NSFileReadNoPermissionError) {
+                    // TODO XXX
+//                    console_printf("Post-processor script not supported, please check executable bit.");
+                } else {
+                    // TODO XXX
+//                    console_printf("Post-processor failed.");
+                }
+                NSLog(@"Post-processor error: %@", [error description]);
+            }
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-retain-cycles"
+            [result addRawOutput:output withCompletionBlock:^{
+                [result completedWithInvocationError:error];
+                completionHandler();
+            }];
+            #pragma clang diagnostic pop
+        });
+    }];
+}
+
+@end
+
+
+@implementation MissingUserScript {
+    NSString *_name;
+}
+
+- (id)initWithName:(NSString *)name {
+    self = [super init];
+    if (self) {
+        _name = [name copy];
+    }
+    return self;
+}
+
+- (NSString *)uniqueName {
+    return _name;
+}
+
+- (NSString *)friendlyName {
+    return [NSString stringWithFormat:@"%@ (missing)", _name];
+}
+
+- (NSString *)path {
+    return nil;
+}
+
+- (BOOL)exists {
+    return NO;
+}
+
+- (void)invokeForProjectAtPath:(NSString *)projectPath withModifiedFiles:(NSSet *)paths result:(id<UserScriptResult>)result completionHandler:(dispatch_block_t)completionHandler {
+    [result completedWithInvocationError:[NSError errorWithDomain:UserScriptErrorDomain code:UserScriptErrorMissingScript userInfo:nil]];
+    completionHandler();
+}
+
+@end
+
+
+@implementation UserScriptManager {
+    FSMonitor *_monitor;
+}
+
+static UserScriptManager *sharedUserScriptManager = nil;
+
++ (UserScriptManager *)sharedUserScriptManager {
+    if (sharedUserScriptManager == nil) {
+        sharedUserScriptManager = [[UserScriptManager alloc] init];
+    }
+    return sharedUserScriptManager;
+}
+
+- (id)init {
+    self = [super init];
+    if (self) {
+        _monitor = [[FSMonitor alloc] initWithPath:ATUserScriptsDirectory()];
+        _monitor.delegate = self;
+        _monitor.running = YES;
+    }
+    return self;
+}
+
+- (NSArray *)userScripts {
+    NSError *error = nil;
+    NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:[NSURL fileURLWithPath:ATUserScriptsDirectory() isDirectory:YES] includingPropertiesForKeys:[NSArray array] options:NSDirectoryEnumerationSkipsHiddenFiles|NSDirectoryEnumerationSkipsPackageDescendants|NSDirectoryEnumerationSkipsSubdirectoryDescendants error:&error];
+    
+    NSMutableArray *result = [NSMutableArray array];
+    for (NSURL *pathUrl in files) {
+        NSDictionary *attrs = [pathUrl resourceValuesForKeys:@[NSURLIsRegularFileKey, NSURLIsExecutableKey] error:NULL];
+        if (![attrs[NSURLIsRegularFileKey] boolValue])
+            continue;
+        if (![attrs[NSURLIsExecutableKey] boolValue]) {
+            NSLog(@"Skipping non-executable script file: %@", pathUrl.path);
+            continue;
+        }
+        [result addObject:[[UserScript alloc] initWithPath:[pathUrl path]]];
+    }
+    return result;
+}
+
+- (void)revealUserScriptsFolderSelectingScript:(UserScript *)selectedScript {
+    NSString *path = ATUserScriptsDirectory();
+    if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        NSError *error = nil;
+        [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:[NSDictionary dictionary] error:&error];
+        if (error) {
+            NSAlert *alert = [NSAlert new];
+            alert.messageText = @"You need to create a Scripts folder yourself";
+            alert.informativeText = [NSString stringWithFormat:@"Sorry, Mac OS X 10.7 cannot create a scripts folder automatically. This app cannot do it either because of the sandbox. Please create folder %@ yourself, and try again.", path];
+            [alert addButtonWithTitle:@"OK"];
+            [alert addButtonWithTitle:@"No way!"];
+            [alert runModal];
+            return;
+        }
+    }
+    [[NSWorkspace sharedWorkspace] selectFile:selectedScript.path inFileViewerRootedAtPath:path];
+}
+
+- (void)fileSystemMonitor:(FSMonitor *)monitor detectedChange:(FSChange *)change {
+    [[NSNotificationCenter defaultCenter] postNotificationName:UserScriptManagerScriptsDidChangeNotification object:self];
+}
+
+@end

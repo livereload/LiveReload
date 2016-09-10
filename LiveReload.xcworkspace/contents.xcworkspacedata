@@ -16,4 +16,19 @@
    <FileRef
       location = "group:LiveReload/ExpressiveCollections/ExpressiveCollections.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:LiveReload/LRActionKit/LRActionKit.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:LiveReload/ExpressiveCasting/ExpressiveCasting.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:LiveReload/ExpressiveFoundation/ExpressiveFoundation.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:LiveReload/ATPathSpec/ATPathSpec.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:LiveReload/FSMonitoringKit/FSMonitoringKit.xcodeproj">
+   </FileRef>
 </Workspace>
