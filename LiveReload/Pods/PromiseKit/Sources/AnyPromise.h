@@ -10,6 +10,12 @@ typedef NS_ENUM(NSInteger, PMKCatchPolicy) {
     PMKCatchPolicyAllErrorsExceptCancellation
 };
 
+/**
+ This block lets you override the default dispatch queue for Promises.
+ 
+ By default this returns dispatch_get_main_queue()
+ */
+extern __nonnull dispatch_queue_t (^__nonnull PMKDefaultDispatchQueue)();
 
 /**
  @see AnyPromise.swift
@@ -154,7 +160,7 @@ typedef NS_ENUM(NSInteger, PMKCatchPolicy) {
  @param block The provided block is immediately executed, inside the block
  call `resolve` to resolve this promise and cause any attached handlers to
  execute. If you are wrapping a delegate-based system, we recommend
- instead to use: promiseWithResolver:
+ instead to use: initWithResolver:
 
  @return A new promise.
  
@@ -173,7 +179,7 @@ typedef NS_ENUM(NSInteger, PMKCatchPolicy) {
  prefer resolverWithBlock: as the resulting code is more elegant.
 
     PMKResolver resolve;
-    AnyPromise *promise = [AnyPromise promiseWithResolver:&resolve];
+    AnyPromise *promise = [[AnyPromise alloc] initWithResolver:&resolve];
 
     // later
     resolve(@"foo");
@@ -216,7 +222,7 @@ typedef void (^PMKBooleanAdapter)(BOOL, NSError * __nullable);
  provide this convenience adapter to make wrapping such systems more
  elegant.
 
-    return [PMKPromise promiseWithAdapter:^(PMKAdapter adapter){
+    return [PMKPromise promiseWithAdapterBlock:^(PMKAdapter adapter){
         PFQuery *query = [PFQuery …];
         [query findObjectsInBackgroundWithBlock:adapter];
     }];

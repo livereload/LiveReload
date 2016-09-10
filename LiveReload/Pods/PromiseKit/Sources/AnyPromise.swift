@@ -51,12 +51,30 @@ import Foundation.NSError
     }
 
     /**
+     - Returns: A new AnyPromise bound to a `Promise<String>`.
+     The two promises represent the same task, any changes to either will instantly reflect on both.
+     The value is converted to an NSString so Objective-C can use it.
+     */
+    convenience public init(bound: Promise<String>) {
+        self.init(bound: bound.then(on: zalgo) { NSString(string: $0) })
+    }
+
+    /**
      - Returns: A new AnyPromise bound to a `Promise<Int>`.
      The two promises represent the same task, any changes to either will instantly reflect on both.
      The value is converted to an NSNumber so Objective-C can use it.
     */
     convenience public init(bound: Promise<Int>) {
         self.init(bound: bound.then(on: zalgo) { NSNumber(integer: $0) })
+    }
+
+    /**
+     - Returns: A new AnyPromise bound to a `Promise<Bool>`.
+     The two promises represent the same task, any changes to either will instantly reflect on both.
+     The value is converted to an NSNumber so Objective-C can use it.
+     */
+    convenience public init(bound: Promise<Bool>) {
+        self.init(bound: bound.then(on: zalgo) { NSNumber(bool: $0) })
     }
 
     /**
@@ -141,7 +159,7 @@ import Foundation.NSError
     /**
      Continue a Promise<T> chain from an AnyPromise.
     */
-    public func then<T>(on q: dispatch_queue_t = dispatch_get_main_queue(), body: (AnyObject?) throws -> T) -> Promise<T> {
+    public func then<T>(on q: dispatch_queue_t = PMKDefaultDispatchQueue(), body: (AnyObject?) throws -> T) -> Promise<T> {
         return Promise(sealant: { resolve in
             pipe { object in
                 if let error = object as? NSError {
@@ -158,7 +176,7 @@ import Foundation.NSError
     /**
      Continue a Promise<T> chain from an AnyPromise.
     */
-    public func then(on q: dispatch_queue_t = dispatch_get_main_queue(), body: (AnyObject?) -> AnyPromise) -> Promise<AnyObject?> {
+    public func then(on q: dispatch_queue_t = PMKDefaultDispatchQueue(), body: (AnyObject?) -> AnyPromise) -> Promise<AnyObject?> {
         return Promise { fulfill, reject in
             pipe { object in
                 if let error = object as? NSError {
@@ -181,7 +199,7 @@ import Foundation.NSError
     /**
      Continue a Promise<T> chain from an AnyPromise.
     */
-    public func then<T>(on q: dispatch_queue_t = dispatch_get_main_queue(), body: (AnyObject?) -> Promise<T>) -> Promise<T> {
+    public func then<T>(on q: dispatch_queue_t = PMKDefaultDispatchQueue(), body: (AnyObject?) -> Promise<T>) -> Promise<T> {
         return Promise(sealant: { resolve in
             pipe { object in
                 if let error = object as? NSError {
@@ -193,6 +211,20 @@ import Foundation.NSError
                 }
             }
         })
+    }
+
+    /**
+     - Returns: downcasted (typed) `Promise<T>`.
+     Throws `CastingError.CastingAnyPromiseFailed(T)` if self's value cannot be downcasted to the given type.
+     Usage: `anyPromise.toPromise(T).then { (t: T) -> U in ... }`
+    */
+    public func toPromise<T>(type: T.Type) -> Promise<T> {
+        return self.then { (value: AnyObject?) -> T in
+            if let value = value as? T {
+                return value
+            }
+            throw CastingError.CastingAnyPromiseFailed(type)
+        }
     }
 
     private class State: UnsealedState<AnyObject?> {

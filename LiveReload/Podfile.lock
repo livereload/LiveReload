@@ -1,8 +1,8 @@
 PODS:
-  - PromiseKit/CorePromise (3.0.0)
-  - PromiseKit/DietFoundation (3.0.0):
+  - PromiseKit/CorePromise (3.5.1)
+  - PromiseKit/DietFoundation (3.5.1):
     - PromiseKit/CorePromise
-  - PromiseKit/SystemConfiguration (3.0.0):
+  - PromiseKit/SystemConfiguration (3.5.1):
     - PromiseKit/CorePromise
 
 DEPENDENCIES:
@@ -11,7 +11,7 @@ DEPENDENCIES:
   - PromiseKit/SystemConfiguration
 
 SPEC CHECKSUMS:
-  PromiseKit: 665540a1eb43156446872dcf49ed7dee6ebbe13b
+  PromiseKit: 99ea973444a4bff6c38ffb97fa1bb175e619bcf0
 
 PODFILE CHECKSUM: 0274fec155a4427aaf08f8e62cc1b8e747e489de
 
