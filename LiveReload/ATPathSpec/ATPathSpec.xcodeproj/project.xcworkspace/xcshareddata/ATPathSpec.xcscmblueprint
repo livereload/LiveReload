@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "1743CFF386F6C8BE4A1208C8D745E06CBE3B7576",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "1651DAA15251FAEBB2A2245AEFFCA5D945BCBDD2" : 0,
+    "1743CFF386F6C8BE4A1208C8D745E06CBE3B7576" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "C7292A97-B372-4279-8528-28A59B600B2F",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "1651DAA15251FAEBB2A2245AEFFCA5D945BCBDD2" : "",
+    "1743CFF386F6C8BE4A1208C8D745E06CBE3B7576" : "ATPathSpec\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "ATPathSpec",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "ATPathSpec.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:livereload\/LiveReload.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "1651DAA15251FAEBB2A2245AEFFCA5D945BCBDD2"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:andreyvit\/ATPathSpec.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "1743CFF386F6C8BE4A1208C8D745E06CBE3B7576"
+    }
+  ]
+}
