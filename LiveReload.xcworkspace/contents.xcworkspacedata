@@ -31,4 +31,16 @@
    <FileRef
       location = "group:LiveReload/FSMonitoringKit/FSMonitoringKit.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:LiveReload/LRProjectKit/LRProjectKit.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:LiveReload/Uniflow/Uniflow.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:LiveReload/LRExperiments/LRExperiments.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:LiveReload/Pods/Pods.xcodeproj">
+   </FileRef>
 </Workspace>

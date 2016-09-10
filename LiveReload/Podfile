@@ -1,7 +1,9 @@
 platform :osx, '10.10'
 use_frameworks!
 
-workspace 'LiveReload'
-xcodeproj 'LRExperiments/LRExperiments.xcodeproj'
+workspace 'LRExperiments'
+project 'LRExperiments/LRExperiments.xcodeproj'
 
-pod 'PromiseKit', :subspecs => %w(CorePromise DietFoundation SystemConfiguration)
+target 'LRExperiments' do
+    pod 'PromiseKit', :subspecs => %w(CorePromise DietFoundation SystemConfiguration)
+end
