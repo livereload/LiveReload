@@ -1,14 +1,17 @@
 import XCTest
 import ExpressiveFoundation
 @testable import LRProjectKit
+import Uniflow
 
 class PluginTests: XCTestCase {
 
+    var bus: Bus!
     var ws: Workspace!
 
     override func setUp() {
         super.setUp()
-        ws = Workspace()
+        bus = Bus()
+        ws = Workspace(bus: bus)
     }
 
     override func tearDown() {

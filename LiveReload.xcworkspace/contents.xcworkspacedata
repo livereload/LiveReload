@@ -32,6 +32,9 @@
       location = "group:LiveReload/FSMonitoringKit/FSMonitoringKit.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:LiveReload/EditorKit/EditorKit.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:LiveReload/LRProjectKit/LRProjectKit.xcodeproj">
    </FileRef>
    <FileRef

@@ -17,6 +17,6 @@ FOUNDATION_EXPORT const unsigned char EditorKitVersionString[];
 #import <EditorKit/EKGlobals.h>
 #import <EditorKit/EKEditor.h>
 #import <EditorKit/EKJumpRequest.h>
-#import <EditorKit/Coda2Editor.h>
-#import <EditorKit/SublimeText2Editor.h>
-#import <EditorKit/SublimeText3Editor.h>
+#import <EditorKit/EKCoda2Editor.h>
+#import <EditorKit/EKSublimeText2Editor.h>
+#import <EditorKit/EKSublimeText3Editor.h>

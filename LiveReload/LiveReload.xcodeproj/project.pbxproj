@@ -262,6 +262,14 @@
 		43669B471D83BDE900620359 /* ATPathSpec.framework in Embed Internal Frameworks */ = {isa = PBXBuildFile; fileRef = 43669B451D83BDE900620359 /* ATPathSpec.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		43669B491D83BDE900620359 /* FSMonitoringKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43669B481D83BDE900620359 /* FSMonitoringKit.framework */; };
 		43669B4A1D83BDE900620359 /* FSMonitoringKit.framework in Embed Internal Frameworks */ = {isa = PBXBuildFile; fileRef = 43669B481D83BDE900620359 /* FSMonitoringKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		43669B541D86869C00620359 /* EditorKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43669B531D86869B00620359 /* EditorKit.framework */; };
+		43669B551D86869C00620359 /* EditorKit.framework in Embed Internal Frameworks */ = {isa = PBXBuildFile; fileRef = 43669B531D86869B00620359 /* EditorKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		43669B571D8686AC00620359 /* Uniflow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43669B561D8686AC00620359 /* Uniflow.framework */; };
+		43669B581D8686AC00620359 /* Uniflow.framework in Embed Internal Frameworks */ = {isa = PBXBuildFile; fileRef = 43669B561D8686AC00620359 /* Uniflow.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		43669B5A1D8686BA00620359 /* LRProjectKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43669B591D8686BA00620359 /* LRProjectKit.framework */; };
+		43669B5B1D8686BA00620359 /* LRProjectKit.framework in Embed Internal Frameworks */ = {isa = PBXBuildFile; fileRef = 43669B591D8686BA00620359 /* LRProjectKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		43669B5D1D8686CB00620359 /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43669B5C1D8686CA00620359 /* PromiseKit.framework */; };
+		43669B5E1D8686CB00620359 /* PromiseKit.framework in Embed Internal Frameworks */ = {isa = PBXBuildFile; fileRef = 43669B5C1D8686CA00620359 /* PromiseKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		43693F4115660A8700C453CC /* LiveReloadNodejs in Resources */ = {isa = PBXBuildFile; fileRef = 43693F4015660A8700C453CC /* LiveReloadNodejs */; };
 		436A65331A923B9E00335BAD /* Paddle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65321A923B9E00335BAD /* Paddle.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		436A65341A923C9600335BAD /* Paddle.framework in Embed Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65321A923B9E00335BAD /* Paddle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -488,12 +496,16 @@
 			files = (
 				43669B411D83BDE900620359 /* ExpressiveCasting.framework in Embed Internal Frameworks */,
 				43669B3B1D83BDE800620359 /* ExpressiveCocoa.framework in Embed Internal Frameworks */,
+				43669B581D8686AC00620359 /* Uniflow.framework in Embed Internal Frameworks */,
 				43669B4A1D83BDE900620359 /* FSMonitoringKit.framework in Embed Internal Frameworks */,
 				43669B321D83B94700620359 /* PackageManagerKit.framework in Embed Internal Frameworks */,
 				43669B441D83BDE900620359 /* ExpressiveFoundation.framework in Embed Internal Frameworks */,
 				43669B351D83BDCC00620359 /* LRActionKit.framework in Embed Internal Frameworks */,
+				43669B5B1D8686BA00620359 /* LRProjectKit.framework in Embed Internal Frameworks */,
 				43669B471D83BDE900620359 /* ATPathSpec.framework in Embed Internal Frameworks */,
+				43669B5E1D8686CB00620359 /* PromiseKit.framework in Embed Internal Frameworks */,
 				43669B381D83BDE800620359 /* ATVersionKit.framework in Embed Internal Frameworks */,
+				43669B551D86869C00620359 /* EditorKit.framework in Embed Internal Frameworks */,
 				43669B3E1D83BDE800620359 /* ExpressiveCollections.framework in Embed Internal Frameworks */,
 			);
 			name = "Embed Internal Frameworks";
@@ -628,6 +640,10 @@
 		43669B421D83BDE900620359 /* ExpressiveFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ExpressiveFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		43669B451D83BDE900620359 /* ATPathSpec.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ATPathSpec.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		43669B481D83BDE900620359 /* FSMonitoringKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FSMonitoringKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		43669B531D86869B00620359 /* EditorKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = EditorKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		43669B561D8686AC00620359 /* Uniflow.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Uniflow.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		43669B591D8686BA00620359 /* LRProjectKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LRProjectKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		43669B5C1D8686CA00620359 /* PromiseKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PromiseKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		43693F4015660A8700C453CC /* LiveReloadNodejs */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = LiveReloadNodejs; path = Resources/LiveReloadNodejs; sourceTree = "<group>"; };
 		436A65321A923B9E00335BAD /* Paddle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Paddle.framework; path = Vendor/Paddle/Paddle.framework; sourceTree = "<group>"; };
 		436A65391A923DC100335BAD /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -864,15 +880,19 @@
 				43669B461D83BDE900620359 /* ATPathSpec.framework in Frameworks */,
 				436A65441A923DED00335BAD /* libsqlite3.dylib in Frameworks */,
 				43669B491D83BDE900620359 /* FSMonitoringKit.framework in Frameworks */,
+				43669B541D86869C00620359 /* EditorKit.framework in Frameworks */,
+				43669B571D8686AC00620359 /* Uniflow.framework in Frameworks */,
 				436A65421A923DE500335BAD /* SystemConfiguration.framework in Frameworks */,
 				43669B311D83B94700620359 /* PackageManagerKit.framework in Frameworks */,
 				43669B341D83BDCC00620359 /* LRActionKit.framework in Frameworks */,
 				436A65401A923DDB00335BAD /* Security.framework in Frameworks */,
+				43669B5D1D8686CB00620359 /* PromiseKit.framework in Frameworks */,
 				436A653E1A923DD000335BAD /* CoreLocation.framework in Frameworks */,
 				436A653C1A923DCB00335BAD /* CoreGraphics.framework in Frameworks */,
 				43669B401D83BDE900620359 /* ExpressiveCasting.framework in Frameworks */,
 				436A653A1A923DC100335BAD /* CFNetwork.framework in Frameworks */,
 				43669B3A1D83BDE800620359 /* ExpressiveCocoa.framework in Frameworks */,
+				43669B5A1D8686BA00620359 /* LRProjectKit.framework in Frameworks */,
 				43059222151E8FA400CC3F88 /* CoreServices.framework in Frameworks */,
 				43594AF413D3BB34004175B2 /* QuartzCore.framework in Frameworks */,
 				43361D4613C30D1400C0E589 /* libicucore.dylib in Frameworks */,
@@ -926,10 +946,8 @@
 			isa = PBXGroup;
 			children = (
 				4301E7231D7C1A6D00983420 /* Assets.xcassets */,
-				43059221151E8FA400CC3F88 /* CoreServices.framework */,
 				823DDE2D13F8DA3100529AD2 /* Classes */,
 				43C0368513CA191C00A01305 /* LiveReload.icns */,
-				43361D4513C30D1400C0E589 /* libicucore.dylib */,
 				43E77B1B1B3BF411001E7DF0 /* FSEventsFix */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -972,6 +990,10 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				43669B5C1D8686CA00620359 /* PromiseKit.framework */,
+				43669B591D8686BA00620359 /* LRProjectKit.framework */,
+				43669B561D8686AC00620359 /* Uniflow.framework */,
+				43669B531D86869B00620359 /* EditorKit.framework */,
 				43669B301D83B94600620359 /* PackageManagerKit.framework */,
 				43669B481D83BDE900620359 /* FSMonitoringKit.framework */,
 				43669B451D83BDE900620359 /* ATPathSpec.framework */,
@@ -984,10 +1006,12 @@
 				436A65491A923FA900335BAD /* ApplicationServices.framework */,
 				436A65451A923DF200335BAD /* libz.dylib */,
 				436A65431A923DED00335BAD /* libsqlite3.dylib */,
+				43361D4513C30D1400C0E589 /* libicucore.dylib */,
 				436A65411A923DE500335BAD /* SystemConfiguration.framework */,
 				436A653F1A923DDB00335BAD /* Security.framework */,
 				436A653D1A923DD000335BAD /* CoreLocation.framework */,
 				436A653B1A923DCB00335BAD /* CoreGraphics.framework */,
+				43059221151E8FA400CC3F88 /* CoreServices.framework */,
 				436A65391A923DC100335BAD /* CFNetwork.framework */,
 				436A65321A923B9E00335BAD /* Paddle.framework */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,

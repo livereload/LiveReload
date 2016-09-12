@@ -1,6 +1,7 @@
 import Foundation
 import ExpressiveFoundation
 import PromiseKit
+import EditorKit
 
 public protocol OperationContext {
 

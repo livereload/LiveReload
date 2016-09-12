@@ -1,7 +1,6 @@
 import Foundation
 import PackageManagerKit
 import LRActionKit
-import PromiseKit
 import Uniflow
 
 public class Workspace: PluginContext {
