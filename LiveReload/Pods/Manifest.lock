@@ -6,13 +6,13 @@ PODS:
     - PromiseKit/CorePromise
 
 DEPENDENCIES:
-  - PromiseKit/CorePromise
-  - PromiseKit/DietFoundation
-  - PromiseKit/SystemConfiguration
+  - PromiseKit/CorePromise (~> 3.5)
+  - PromiseKit/DietFoundation (~> 3.5)
+  - PromiseKit/SystemConfiguration (~> 3.5)
 
 SPEC CHECKSUMS:
   PromiseKit: 99ea973444a4bff6c38ffb97fa1bb175e619bcf0
 
-PODFILE CHECKSUM: 0274fec155a4427aaf08f8e62cc1b8e747e489de
+PODFILE CHECKSUM: 7b4f753f5ba0d8a35d056f58dc3065137674e564
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.1.0.rc.1
