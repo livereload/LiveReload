@@ -5,5 +5,13 @@ workspace 'LRExperiments'
 project 'LRExperiments/LRExperiments.xcodeproj'
 
 target 'LRExperiments' do
-    pod 'PromiseKit', :subspecs => %w(CorePromise DietFoundation SystemConfiguration)
+    pod 'PromiseKit', "~> 3.5", :subspecs => %w(CorePromise DietFoundation SystemConfiguration)
+end
+
+post_install do |installer|
+    installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+            config.build_settings['CONFIGURATION_BUILD_DIR'] = '$PODS_CONFIGURATION_BUILD_DIR'
+        end
+    end
 end
