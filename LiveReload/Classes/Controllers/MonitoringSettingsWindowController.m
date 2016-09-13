@@ -2,7 +2,6 @@
 #import "MonitoringSettingsWindowController.h"
 
 #import "Preferences.h"
-#import "RegexKitLite.h"
 
 
 @interface MonitoringSettingsWindowController () <NSTableViewDataSource, NSTableViewDelegate>

@@ -16,7 +16,6 @@ typedef enum {
 - (void)displayDockIconWhenAppHasWindowsWithDelegateClass:(Class)klass;
 
 @property(nonatomic) AppVisibilityMode visibilityMode;
-@property(nonatomic, readonly) BOOL visibilityModeRequiresRestartToApply;
 
 @property(nonatomic, readonly) BOOL menuBarIconVisible;
 

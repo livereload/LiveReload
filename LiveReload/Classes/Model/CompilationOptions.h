@@ -3,7 +3,6 @@
 
 
 @class Compiler;
-@class CompilerVersion;
 @class FileCompilationOptions;
 
 
@@ -17,7 +16,6 @@
     BOOL                   _enabled;
 
     NSArray               *_availableVersions;
-    CompilerVersion       *_version;
 }
 
 - (id)initWithCompiler:(Compiler *)compiler memento:(NSDictionary *)memento;
@@ -27,7 +25,6 @@
 - (NSDictionary *)memento;
 
 @property(nonatomic, readonly) NSArray *availableVersions;
-@property(nonatomic, retain) CompilerVersion *version;
 
 @property(nonatomic, getter=isEnabled) BOOL enabled;
 @property(nonatomic, readonly, getter=isActive) BOOL active; // YES if enabled or not optional

@@ -19,7 +19,6 @@
 
 #import "Stats.h"
 #import "ShitHappens.h"
-#import "VersionChecks.h"
 #import "LoginItemController.h"
 #import "DockIcon.h"
 #import "LicenseManager.h"

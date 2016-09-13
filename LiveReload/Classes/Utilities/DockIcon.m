@@ -5,15 +5,6 @@
 #import <CoreServices/CoreServices.h>
 
 
-static BOOL IsOSX107LionOrLater() {
-    SInt32 major = 0;
-    SInt32 minor = 0;
-    Gestalt(gestaltSystemVersionMajor, &major);
-    Gestalt(gestaltSystemVersionMinor, &minor);
-    return ((major == 10 && minor >= 7) || major >= 11);
-}
-
-
 #define DockStateChangeRateLimit 0.5
 #define DockIconVisibilityModeKey @"AppVisibilityMode"
 
@@ -40,11 +31,9 @@ static DockIcon *currentDockIcon;
     NSMutableSet     *_permanentMenuBarIconRequests;
 
     AppVisibilityMode _visibilityMode;
-    BOOL              _visibilityModeRequiresRestartToApply;
 }
 
 @synthesize visibilityMode=_visibilityMode;
-@synthesize visibilityModeRequiresRestartToApply=_visibilityModeRequiresRestartToApply;
 @synthesize menuBarIconVisible=_menuBarIconVisible;
 
 
@@ -95,7 +84,7 @@ static DockIcon *currentDockIcon;
 #pragma mark - Dock icon visibility
 
 - (BOOL)shouldDisplayDockIcon {
-    return (_visibilityMode == AppVisibilityModeDock) || (IsOSX107LionOrLater() && [self doesAppHaveAnySpecialWindowsOpen]);
+    return (_visibilityMode == AppVisibilityModeDock) || [self doesAppHaveAnySpecialWindowsOpen];
 }
 
 - (void)scheduleUpdateSoon {
@@ -147,12 +136,6 @@ static DockIcon *currentDockIcon;
 - (void)update {
     BOOL shouldBeVisible = [self shouldDisplayDockIcon];
     if (shouldBeVisible != _dockIconVisible) {
-        // before OS X 10.6, it is impossible to turn off the Dock icon once it is visible
-        if (_dockIconVisible && !shouldBeVisible && !IsOSX107LionOrLater()) {
-            _visibilityModeRequiresRestartToApply = YES;
-            return;
-        }
-
         // Workaround for a Dock bug noticed on 10.7.3: showing and hiding the icon rapidly
         // causes multiple icons to appear, and those extra icons won't disappear on quit.
         // A workaround is to limit the rate of transitions (once/0.4s seems enough,
@@ -185,10 +168,7 @@ static DockIcon *currentDockIcon;
 #pragma mark - Visibility mode
 
 - (AppVisibilityMode)defaultVisibilityMode {
-    if (IsOSX107LionOrLater())
-        return AppVisibilityModeMenuBar;
-    else
-        return AppVisibilityModeDock;
+    return AppVisibilityModeMenuBar;
 }
 
 - (void)loadVisibilityMode {
@@ -231,12 +211,9 @@ static DockIcon *currentDockIcon;
         _visibilityMode = visibilityMode;
         [self saveVisibilityMode];
 
-        BOOL prev = _visibilityModeRequiresRestartToApply;
         [self update];
 
-        if (_visibilityModeRequiresRestartToApply && !prev) {
-            [[NSAlert alertWithMessageText:@"Restart required" defaultButton:@"Okay" alternateButton:nil otherButton:nil informativeTextWithFormat:@"Please restart the app to apply changes to the Dock icon visibility."] runModal];
-        } else if (_visibilityMode == AppVisibilityModeMenuBar && IsOSX107LionOrLater()) {
+        if (_visibilityMode == AppVisibilityModeMenuBar) {
             static BOOL alreadyWarned = NO;
             if (!alreadyWarned) {
                 alreadyWarned = YES;

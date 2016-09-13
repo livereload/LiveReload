@@ -1,6 +1,3 @@
 [submodule "LiveReload/Compilers"]
 	path = LiveReload/Compilers
 	url = git://github.com/livereload/livereload-plugins.git
-[submodule "Shared/libs/fsmonitor"]
-	path = Shared/libs/fsmonitor
-	url = git://github.com/andreyvit/fsmonitor.c.git

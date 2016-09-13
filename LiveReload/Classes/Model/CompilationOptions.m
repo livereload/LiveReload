@@ -2,7 +2,6 @@
 #import "CompilationOptions.h"
 #import "FileCompilationOptions.h"
 #import "Compiler.h"
-#import "CompilerVersion.h"
 
 #import "ATFunctionalStyle.h"
 
@@ -10,7 +9,6 @@
 @implementation CompilationOptions
 
 @synthesize compiler=_compiler;
-@synthesize version=_version;
 @synthesize additionalArguments=_additionalArguments;
 @synthesize enabled=_enabled;
 
@@ -70,36 +68,6 @@
 
 - (NSDictionary *)memento {
     return [NSDictionary dictionaryWithObjectsAndKeys:_globalOptions, @"options", [_fileOptions dictionaryByMappingValuesToSelector:@selector(memento)], @"files", _additionalArguments, @"additionalArguments", [NSNumber numberWithBool:_enabled], @"enabled", [NSNumber numberWithBool:_enabled], @"enabled2", nil];
-}
-
-
-#pragma mark - Versions
-
-- (NSArray *)availableVersions {
-    if (_availableVersions == nil) {
-        _availableVersions = [[NSArray alloc] initWithObjects:
-                              [[[CompilerVersion alloc] initWithName:@"0.9"] autorelease],
-                              [[[CompilerVersion alloc] initWithName:@"1.0"] autorelease],
-                              [[[CompilerVersion alloc] initWithName:@"1.1"] autorelease],
-                              [[[CompilerVersion alloc] initWithName:@"1.2"] autorelease],
-                              nil];
-    }
-    return _availableVersions;
-}
-
-- (CompilerVersion *)version {
-    if (_version == nil) {
-        _version = [[self.availableVersions objectAtIndex:0] retain];
-    }
-    return _version;
-}
-
-- (void)setVersion:(CompilerVersion *)version {
-    if (_version != version) {
-        [_version release];
-        _version = [version retain];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
-    }
 }
 
 

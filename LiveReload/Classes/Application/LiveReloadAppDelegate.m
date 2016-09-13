@@ -14,7 +14,6 @@
 #import "PluginManager.h"
 
 #import "Stats.h"
-#import "NSWindowFlipper.h"
 #import "Preferences.h"
 
 #import "Analytics.h"
@@ -23,7 +22,6 @@
 #import "FixUnixPath.h"
 #import "LicenseManager.h"
 #import "DockIcon.h"
-#import "VersionChecks.h"
 
 #ifndef APPSTORE
 #import "Sparkle/Sparkle.h"
