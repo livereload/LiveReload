@@ -29,6 +29,8 @@
 #import "Sparkle/Sparkle.h"
 #endif
 
+#import "LiveReload-Swift.h"
+
 
 void C_mainwnd__set_project_list(json_t *arg) {
     // TODO
@@ -128,6 +130,8 @@ void C_app__good_time_to_deliver_news(json_t *arg) {
 
     [Preferences initDefaults];
     [[PluginManager sharedPluginManager] reloadPlugins];
+    
+    [self initializeSwiftPartsOfApp];
     
 #ifndef APPSTORE
     [[SUUpdater sharedUpdater] setDelegate:self];

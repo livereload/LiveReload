@@ -270,6 +270,7 @@
 		43669B5B1D8686BA00620359 /* LRProjectKit.framework in Embed Internal Frameworks */ = {isa = PBXBuildFile; fileRef = 43669B591D8686BA00620359 /* LRProjectKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		43669B5D1D8686CB00620359 /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43669B5C1D8686CA00620359 /* PromiseKit.framework */; };
 		43669B5E1D8686CB00620359 /* PromiseKit.framework in Embed Internal Frameworks */ = {isa = PBXBuildFile; fileRef = 43669B5C1D8686CA00620359 /* PromiseKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		43669B611D88320700620359 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43669B601D88320700620359 /* AppDelegate.swift */; };
 		43693F4115660A8700C453CC /* LiveReloadNodejs in Resources */ = {isa = PBXBuildFile; fileRef = 43693F4015660A8700C453CC /* LiveReloadNodejs */; };
 		436A65331A923B9E00335BAD /* Paddle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65321A923B9E00335BAD /* Paddle.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		436A65341A923C9600335BAD /* Paddle.framework in Embed Third-Party Frameworks */ = {isa = PBXBuildFile; fileRef = 436A65321A923B9E00335BAD /* Paddle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -644,6 +645,8 @@
 		43669B561D8686AC00620359 /* Uniflow.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Uniflow.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		43669B591D8686BA00620359 /* LRProjectKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LRProjectKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		43669B5C1D8686CA00620359 /* PromiseKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PromiseKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		43669B5F1D88320700620359 /* LiveReload-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LiveReload-Bridging-Header.h"; sourceTree = "<group>"; };
+		43669B601D88320700620359 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		43693F4015660A8700C453CC /* LiveReloadNodejs */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = LiveReloadNodejs; path = Resources/LiveReloadNodejs; sourceTree = "<group>"; };
 		436A65321A923B9E00335BAD /* Paddle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Paddle.framework; path = Vendor/Paddle/Paddle.framework; sourceTree = "<group>"; };
 		436A65391A923DC100335BAD /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -1216,6 +1219,7 @@
 			children = (
 				823DDE2F13F8DA3100529AD2 /* LiveReloadAppDelegate.h */,
 				823DDE3013F8DA3100529AD2 /* LiveReloadAppDelegate.m */,
+				43669B601D88320700620359 /* AppDelegate.swift */,
 				435729151452267C00947B2E /* Stats.h */,
 				435729161452267C00947B2E /* Stats.m */,
 				4353196D1465B52D005FA59F /* ShitHappens.h */,
@@ -1232,6 +1236,7 @@
 				43DB18811B2550380042ABF5 /* TrialReminderViewController.m */,
 				43DB18821B2550380042ABF5 /* TrialReminderViewController.xib */,
 				43DB18871B2550EA0042ABF5 /* AndreyTarantsov.jpg */,
+				43669B5F1D88320700620359 /* LiveReload-Bridging-Header.h */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -1953,6 +1958,7 @@
 				823DDF1313F8DA3100529AD2 /* AuxWindow.m in Sources */,
 				823DDF1413F8DA3100529AD2 /* KeyWindow.m in Sources */,
 				823DDF1713F8DA3100529AD2 /* StatusItemView.m in Sources */,
+				43669B611D88320700620359 /* AppDelegate.swift in Sources */,
 				43DB18831B2550380042ABF5 /* TrialReminderViewController.m in Sources */,
 				435BE045141B87920008FF77 /* NewMainWindowController.m in Sources */,
 				821AFF0014270B5200B61760 /* BBEditEditor.m in Sources */,
@@ -2729,6 +2735,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.livereload.LiveReload;
 				PRODUCT_NAME = LiveReload;
 				PROVISIONING_PROFILE = "E8BEA48E-BF84-4412-A2F8-5CBFF35C4660";
+				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Application/LiveReload-Bridging-Header.h";
 			};
 			name = AppStore;
 		};
@@ -2755,6 +2762,8 @@
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_BUNDLE_IDENTIFIER = com.livereload.LiveReload;
 				PRODUCT_NAME = LiveReload;
+				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Application/LiveReload-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -2780,6 +2789,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.livereload.LiveReload;
 				PRODUCT_NAME = LiveReload;
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Classes/Application/LiveReload-Bridging-Header.h";
 			};
 			name = Release;
 		};
