@@ -1,6 +1,5 @@
 
 #import <Cocoa/Cocoa.h>
-#import "eventbus.h"
 
 
 @class FSMonitor;
@@ -20,9 +19,6 @@ extern NSString *ProjectNeedsSavingNotification;
 enum {
     ProjectUseCustomName = -1,
 };
-
-
-EVENTBUS_DECLARE_EVENT(project_fs_change_event);
 
 
 @interface Project : NSObject {

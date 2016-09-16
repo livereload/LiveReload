@@ -16,17 +16,27 @@ public class ActionSet: NSObject {
         super.init()
     }
 
-    public func addActions(newActions: [Action]) {
+    public func replaceActions(newActions: [Action]) {
+        let oldContextActionsByIdentifier = contextActionsByIdentifier
+
+        actions = []
+        contextActions = []
+        actionsByIdentifier = [:]
+        contextActionsByIdentifier = [:]
+        
         for action in newActions {
-            addAction(action)
+            addAction(action, reusing: oldContextActionsByIdentifier[action.identifier])
         }
     }
-
+ 
     public func addAction(action: Action) {
+    }
+
+    private func addAction(action: Action, reusing contextAction: LRContextAction?) {
         actions.append(action)
         actionsByIdentifier[action.identifier] = action
         
-        let contextAction = LRContextAction(action: action, project: project, resolutionContext: project.resolutionContext)
+        let contextAction = contextAction ?? LRContextAction(action: action, project: project, resolutionContext: project.resolutionContext)
         contextActions.append(contextAction)
         contextActionsByIdentifier[action.identifier] = contextAction
     }

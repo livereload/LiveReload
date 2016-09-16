@@ -11,9 +11,9 @@ public class Project: StdEmitterType, ProjectContext, Identifiable, Equatable {
 
     public let rootURL: NSURL
 
-    public var actionSet: ActionSet!
+    public private(set) var actionSet: ActionSet!
 
-    public var resolutionContext: LRPackageResolutionContext
+    public let resolutionContext: LRPackageResolutionContext
 
     public init(rootURL: NSURL) {
         self.rootURL = rootURL

@@ -4,8 +4,8 @@ import LRProjectKit
 import LRActionKit
 import ExpressiveFoundation
 
-private let bus = Bus()
-private let workspace = Workspace(bus: bus)
+let bus = Bus()
+let workspace = Workspace(bus: bus)
 private var o = Observation()
 
 extension LiveReloadAppDelegate {

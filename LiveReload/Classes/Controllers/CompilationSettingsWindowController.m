@@ -76,8 +76,6 @@ void compilable_file_free(compilable_file_t *file) {
 @end
 
 
-EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_event, didDetectChange)
-
 @implementation CompilationSettingsWindowController
 
 @synthesize rubyVersionsPopUpButton = _rubyVersionsPopUpButton;
@@ -100,13 +98,13 @@ EVENTBUS_OBJC_HANDLER(CompilationSettingsWindowController, project_fs_change_eve
 - (void)windowDidLoad {
     _outputPathsWindowHeight = _tabView.frame.size.height;
     [_project requestMonitoring:YES forKey:@"compilationSettings"];
-    EVENTBUS_OBJC_SUBSCRIBE(CompilationSettingsWindowController, project_fs_change_event);
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didDetectChange) name:ProjectDidDetectChangeNotification object:nil];
     [super windowDidLoad];
 }
 
 - (IBAction)dismiss:(id)sender {
     [_project requestMonitoring:NO forKey:@"compilationSettings"];
-    EVENTBUS_OBJC_UNSUBSCRIBE(CompilationSettingsWindowController, project_fs_change_event);
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:ProjectDidDetectChangeNotification object:nil];
     [super dismiss:sender];
 }
 

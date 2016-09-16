@@ -243,10 +243,14 @@ public class Rule : NSObject {
     private var _c_updateEffectiveVersion = Coalescence()
     private func _updateEffectiveVersion() {
         _c_updateEffectiveVersion.perform {
-            self.effectiveVersion = self._computeEffectiveVersion()
-            print("\(self) effectiveVersion = \(self.effectiveVersion)")
-            self.postNotification(LRRuleEffectiveVersionDidChangeNotification)
+            self.updateEffectiveVersionNow()
         }
+    }
+    
+    private func updateEffectiveVersionNow() {
+        effectiveVersion = _computeEffectiveVersion()
+        print("\(self) effectiveVersion = \(effectiveVersion)")
+        postNotification(LRRuleEffectiveVersionDidChangeNotification)
     }
 
     private func _initEffectiveVersion() {
