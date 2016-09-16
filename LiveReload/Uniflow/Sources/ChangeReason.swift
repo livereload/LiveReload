@@ -9,7 +9,7 @@ public enum ChangeReason {
 
     public func merge(other: ChangeReason) -> ChangeReason {
         switch (self, other) {
-        case (.UserInitiated(site: let s1), .UserInitiated(site: let s2)):
+        case (.UserInitiated(site: _), .UserInitiated(site: _)):
             return other
             
         case (.UserInitiated(_), _):

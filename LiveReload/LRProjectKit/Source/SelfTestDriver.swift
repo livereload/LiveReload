@@ -18,7 +18,7 @@ public class SelfTest {
 
     public init(directoryURL: NSURL, options: Options) {
         self.directoryURL = directoryURL
-        manifestURL = directoryURL.URLByAppendingPathComponent("livereload-test.json")
+        manifestURL = directoryURL.URLByAppendingPathComponent("livereload-test.json")!
         loadManifest()
     }
 

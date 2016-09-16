@@ -9,17 +9,17 @@
 /* Begin PBXBuildFile section */
 		430019891BBDEA5600ECF2AF /* EditorKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 4300197A1BBDEA5600ECF2AF /* EditorKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4300198A1BBDEA5600ECF2AF /* EKCoda2Editor.h in Headers */ = {isa = PBXBuildFile; fileRef = 4300197B1BBDEA5600ECF2AF /* EKCoda2Editor.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4300198B1BBDEA5600ECF2AF /* EKCoda2Editor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4300197C1BBDEA5600ECF2AF /* EKCoda2Editor.m */; settings = {ASSET_TAGS = (); }; };
+		4300198B1BBDEA5600ECF2AF /* EKCoda2Editor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4300197C1BBDEA5600ECF2AF /* EKCoda2Editor.m */; };
 		4300198C1BBDEA5600ECF2AF /* EKEditor.h in Headers */ = {isa = PBXBuildFile; fileRef = 4300197D1BBDEA5600ECF2AF /* EKEditor.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4300198D1BBDEA5600ECF2AF /* EKEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4300197E1BBDEA5600ECF2AF /* EKEditor.m */; settings = {ASSET_TAGS = (); }; };
+		4300198D1BBDEA5600ECF2AF /* EKEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4300197E1BBDEA5600ECF2AF /* EKEditor.m */; };
 		4300198E1BBDEA5600ECF2AF /* EKGlobals.h in Headers */ = {isa = PBXBuildFile; fileRef = 4300197F1BBDEA5600ECF2AF /* EKGlobals.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4300198F1BBDEA5600ECF2AF /* EKGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 430019801BBDEA5600ECF2AF /* EKGlobals.m */; settings = {ASSET_TAGS = (); }; };
+		4300198F1BBDEA5600ECF2AF /* EKGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 430019801BBDEA5600ECF2AF /* EKGlobals.m */; };
 		430019921BBDEA5600ECF2AF /* EKJumpRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 430019831BBDEA5600ECF2AF /* EKJumpRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		430019931BBDEA5600ECF2AF /* EKJumpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 430019841BBDEA5600ECF2AF /* EKJumpRequest.m */; settings = {ASSET_TAGS = (); }; };
+		430019931BBDEA5600ECF2AF /* EKJumpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 430019841BBDEA5600ECF2AF /* EKJumpRequest.m */; };
 		430019941BBDEA5600ECF2AF /* EKSublimeText2Editor.h in Headers */ = {isa = PBXBuildFile; fileRef = 430019851BBDEA5600ECF2AF /* EKSublimeText2Editor.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		430019951BBDEA5600ECF2AF /* EKSublimeText2Editor.m in Sources */ = {isa = PBXBuildFile; fileRef = 430019861BBDEA5600ECF2AF /* EKSublimeText2Editor.m */; settings = {ASSET_TAGS = (); }; };
+		430019951BBDEA5600ECF2AF /* EKSublimeText2Editor.m in Sources */ = {isa = PBXBuildFile; fileRef = 430019861BBDEA5600ECF2AF /* EKSublimeText2Editor.m */; };
 		430019961BBDEA5600ECF2AF /* EKSublimeText3Editor.h in Headers */ = {isa = PBXBuildFile; fileRef = 430019871BBDEA5600ECF2AF /* EKSublimeText3Editor.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		430019971BBDEA5600ECF2AF /* EKSublimeText3Editor.m in Sources */ = {isa = PBXBuildFile; fileRef = 430019881BBDEA5600ECF2AF /* EKSublimeText3Editor.m */; settings = {ASSET_TAGS = (); }; };
+		430019971BBDEA5600ECF2AF /* EKSublimeText3Editor.m in Sources */ = {isa = PBXBuildFile; fileRef = 430019881BBDEA5600ECF2AF /* EKSublimeText3Editor.m */; };
 		430019A01BBDEC5C00ECF2AF /* ExpressiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4300199F1BBDEC5C00ECF2AF /* ExpressiveCocoa.framework */; };
 /* End PBXBuildFile section */
 
@@ -152,11 +152,12 @@
 		4300195F1BBDE9E800ECF2AF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Andrey Tarantsov";
 				TargetAttributes = {
 					430019671BBDE9E800ECF2AF = {
 						CreatedOnToolsVersion = 7.0;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -217,8 +218,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
@@ -262,8 +265,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
@@ -302,6 +307,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tarantsov.EditorKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -320,6 +326,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tarantsov.EditorKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};

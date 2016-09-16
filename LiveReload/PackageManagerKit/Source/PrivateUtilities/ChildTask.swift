@@ -1,9 +1,9 @@
 import Foundation
 
-class ChildTask {
-    
-    public func foo() {
-        
-    }
-    
-}
+//class ChildTask {
+//    
+//    internal func foo() {
+//        
+//    }
+//    
+//}

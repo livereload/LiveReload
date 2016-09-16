@@ -2,6 +2,8 @@ import Foundation
 import LRProjectKit
 import LRActionKit
 import PackageManagerKit
+import ATPathSpec
+import ExpressiveFoundation
 
 public class NewProject: NSObject {
 
@@ -20,8 +22,9 @@ public class NewProject: NSObject {
     }
     
     public func compileFile(at path: String) -> Bool {
-        for action in actionSet.contextActions {
-        }
+//        for action in actionSet.contextActions {
+//        }
+
 //        for (Compiler *compiler in [PluginManager sharedPluginManager].compilers) {
 //            if (_compassDetected && [compiler.uniqueId isEqualToString:@"sass"])
 //            continue;
@@ -55,6 +58,10 @@ public class NewProject: NSObject {
     
     public func dispose() {
     }
+
+    private let _processing = ProcessingGroup()
+    
+    public var _listeners = EventListenerStorage()
     
 }
 
@@ -104,10 +111,6 @@ extension NewProject: ProjectContext {
     public var processing: Processable {
         return _processing
     }
-    
-    private let _processing = ProcessingGroup()
-    
-    public var _listeners = EventListenerStorage()
     
 }
 

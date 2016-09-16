@@ -7,21 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		43F4E51B1BB601BD004EFF5C /* ATVersionKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43F4E5101BB601BD004EFF5C /* ATVersionKit.framework */; settings = {ASSET_TAGS = (); }; };
+		43F4E51B1BB601BD004EFF5C /* ATVersionKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43F4E5101BB601BD004EFF5C /* ATVersionKit.framework */; };
 		43F4E5391BB7AE4D004EFF5C /* ATVersionKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 43F4E52B1BB7AE4D004EFF5C /* ATVersionKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		43F4E53A1BB7AE4D004EFF5C /* LRSemanticVersion.h in Headers */ = {isa = PBXBuildFile; fileRef = 43F4E52C1BB7AE4D004EFF5C /* LRSemanticVersion.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		43F4E53B1BB7AE4D004EFF5C /* LRSemanticVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F4E52D1BB7AE4D004EFF5C /* LRSemanticVersion.m */; settings = {ASSET_TAGS = (); }; };
+		43F4E53B1BB7AE4D004EFF5C /* LRSemanticVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F4E52D1BB7AE4D004EFF5C /* LRSemanticVersion.m */; };
 		43F4E53C1BB7AE4D004EFF5C /* LRSemanticVersionSpace.h in Headers */ = {isa = PBXBuildFile; fileRef = 43F4E52E1BB7AE4D004EFF5C /* LRSemanticVersionSpace.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		43F4E53D1BB7AE4D004EFF5C /* LRSemanticVersionSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F4E52F1BB7AE4D004EFF5C /* LRSemanticVersionSpace.m */; settings = {ASSET_TAGS = (); }; };
+		43F4E53D1BB7AE4D004EFF5C /* LRSemanticVersionSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F4E52F1BB7AE4D004EFF5C /* LRSemanticVersionSpace.m */; };
 		43F4E53E1BB7AE4D004EFF5C /* LRVersion.h in Headers */ = {isa = PBXBuildFile; fileRef = 43F4E5301BB7AE4D004EFF5C /* LRVersion.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		43F4E53F1BB7AE4D004EFF5C /* LRVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F4E5311BB7AE4D004EFF5C /* LRVersion.m */; settings = {ASSET_TAGS = (); }; };
+		43F4E53F1BB7AE4D004EFF5C /* LRVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F4E5311BB7AE4D004EFF5C /* LRVersion.m */; };
 		43F4E5401BB7AE4D004EFF5C /* LRVersionRange.h in Headers */ = {isa = PBXBuildFile; fileRef = 43F4E5321BB7AE4D004EFF5C /* LRVersionRange.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		43F4E5411BB7AE4D004EFF5C /* LRVersionRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F4E5331BB7AE4D004EFF5C /* LRVersionRange.m */; settings = {ASSET_TAGS = (); }; };
+		43F4E5411BB7AE4D004EFF5C /* LRVersionRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F4E5331BB7AE4D004EFF5C /* LRVersionRange.m */; };
 		43F4E5421BB7AE4D004EFF5C /* LRVersionSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 43F4E5341BB7AE4D004EFF5C /* LRVersionSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		43F4E5431BB7AE4D004EFF5C /* LRVersionSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F4E5351BB7AE4D004EFF5C /* LRVersionSet.m */; settings = {ASSET_TAGS = (); }; };
+		43F4E5431BB7AE4D004EFF5C /* LRVersionSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F4E5351BB7AE4D004EFF5C /* LRVersionSet.m */; };
 		43F4E5441BB7AE4D004EFF5C /* LRVersionSpace.h in Headers */ = {isa = PBXBuildFile; fileRef = 43F4E5361BB7AE4D004EFF5C /* LRVersionSpace.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		43F4E5451BB7AE4D004EFF5C /* LRVersionSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F4E5371BB7AE4D004EFF5C /* LRVersionSpace.m */; settings = {ASSET_TAGS = (); }; };
-		43F4E5491BB7AE85004EFF5C /* SemanticVersionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F4E5481BB7AE85004EFF5C /* SemanticVersionTests.swift */; settings = {ASSET_TAGS = (); }; };
+		43F4E5451BB7AE4D004EFF5C /* LRVersionSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F4E5371BB7AE4D004EFF5C /* LRVersionSpace.m */; };
+		43F4E5491BB7AE85004EFF5C /* SemanticVersionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F4E5481BB7AE85004EFF5C /* SemanticVersionTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -214,14 +214,16 @@
 		43F4E5071BB601BD004EFF5C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Andrey Tarantsov";
 				TargetAttributes = {
 					43F4E50F1BB601BD004EFF5C = {
 						CreatedOnToolsVersion = 7.0;
+						LastSwiftMigration = 0800;
 					};
 					43F4E5191BB601BD004EFF5C = {
 						CreatedOnToolsVersion = 7.0;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -306,8 +308,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
@@ -351,8 +355,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
@@ -371,6 +377,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -391,6 +398,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tarantsov.ATVersionKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -409,6 +417,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tarantsov.ATVersionKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};
@@ -420,6 +429,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tarantsov.ATVersionKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -431,6 +441,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tarantsov.ATVersionKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};

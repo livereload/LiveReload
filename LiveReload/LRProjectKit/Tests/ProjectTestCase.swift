@@ -32,11 +32,11 @@ class ProjectTestCase: XCTestCase {
         var containerDirectoryURL: NSURL
         switch source {
         case .Local:
-            containerDirectoryURL = fixturesDirectoryURL.URLByAppendingPathComponent("Projects", isDirectory: true)
+            containerDirectoryURL = fixturesDirectoryURL!.URLByAppendingPathComponent("Projects", isDirectory: true)!
         case .Integration:
-            containerDirectoryURL = testProjectsDirectoryURL
+            containerDirectoryURL = testProjectsDirectoryURL!
         }
-        let projectURL = containerDirectoryURL.URLByAppendingPathComponent(name, isDirectory: true)
+        let projectURL = containerDirectoryURL.URLByAppendingPathComponent(name, isDirectory: true)!
 
         project = Project(rootURL: projectURL)
         waitForProject()

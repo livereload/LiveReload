@@ -21,7 +21,7 @@ class PluginTests: XCTestCase {
 
     func testSimplePlugin() {
         let e = expectationWithDescription("ProcessableBatchDidFinish")
-        let plugin = Plugin(folderURL: fixturesDirectoryURL.URLByAppendingPathComponent("Plugins/Foo.lrplugin", isDirectory: true), context: ws)
+        let plugin = Plugin(folderURL: fixturesDirectoryURL!.URLByAppendingPathComponent("Plugins/Foo.lrplugin", isDirectory: true)!, context: ws)
         var o = Observation()
         o += plugin.subscribe { (event: ProcessableBatchDidFinish, sender) in
             e.fulfill()
@@ -46,7 +46,7 @@ class PluginTests: XCTestCase {
         let e = expectationWithDescription("ProcessableBatchDidFinish")
 
         let manager = PluginManager(context: ws)
-        manager.pluginContainerURLs = [fixturesDirectoryURL.URLByAppendingPathComponent("Plugins", isDirectory: true)]
+        manager.pluginContainerURLs = [fixturesDirectoryURL!.URLByAppendingPathComponent("Plugins", isDirectory: true)!]
 
         var o = Observation()
         o += manager.subscribe { (event: ProcessableBatchDidFinish, sender) in

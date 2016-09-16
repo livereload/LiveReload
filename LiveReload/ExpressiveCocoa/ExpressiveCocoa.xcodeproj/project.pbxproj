@@ -8,15 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		430019A31BBDEC8500ECF2AF /* NSAppleScript+ATInvokeHandlerWithArguments.h in Headers */ = {isa = PBXBuildFile; fileRef = 430019A11BBDEC8500ECF2AF /* NSAppleScript+ATInvokeHandlerWithArguments.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		430019A41BBDEC8500ECF2AF /* NSAppleScript+ATInvokeHandlerWithArguments.m in Sources */ = {isa = PBXBuildFile; fileRef = 430019A21BBDEC8500ECF2AF /* NSAppleScript+ATInvokeHandlerWithArguments.m */; settings = {ASSET_TAGS = (); }; };
+		430019A41BBDEC8500ECF2AF /* NSAppleScript+ATInvokeHandlerWithArguments.m in Sources */ = {isa = PBXBuildFile; fileRef = 430019A21BBDEC8500ECF2AF /* NSAppleScript+ATInvokeHandlerWithArguments.m */; };
 		43001A731BBDF23700ECF2AF /* P2CommandLine.h in Headers */ = {isa = PBXBuildFile; fileRef = 43001A711BBDF23700ECF2AF /* P2CommandLine.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		43001A741BBDF23700ECF2AF /* P2CommandLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 43001A721BBDF23700ECF2AF /* P2CommandLine.m */; settings = {ASSET_TAGS = (); }; };
+		43001A741BBDF23700ECF2AF /* P2CommandLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 43001A721BBDF23700ECF2AF /* P2CommandLine.m */; };
 		43A6B8671BBC854300824E48 /* ATGlobals.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A6B8651BBC854300824E48 /* ATGlobals.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		43A6B8681BBC854300824E48 /* ATGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6B8661BBC854300824E48 /* ATGlobals.m */; settings = {ASSET_TAGS = (); }; };
+		43A6B8681BBC854300824E48 /* ATGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6B8661BBC854300824E48 /* ATGlobals.m */; };
 		43A6B86E1BBC864A00824E48 /* ATChildTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A6B86C1BBC864A00824E48 /* ATChildTask.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		43A6B86F1BBC864A00824E48 /* ATChildTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6B86D1BBC864A00824E48 /* ATChildTask.m */; settings = {ASSET_TAGS = (); }; };
-		43D6A8FC1BB2A9B000296B03 /* ExpressiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D6A8F11BB2A9B000296B03 /* ExpressiveCocoa.framework */; settings = {ASSET_TAGS = (); }; };
-		43D6A90E1BB2A9E300296B03 /* ExpressiveCocoaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D6A90D1BB2A9E300296B03 /* ExpressiveCocoaTests.swift */; settings = {ASSET_TAGS = (); }; };
+		43A6B86F1BBC864A00824E48 /* ATChildTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A6B86D1BBC864A00824E48 /* ATChildTask.m */; };
+		43D6A8FC1BB2A9B000296B03 /* ExpressiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D6A8F11BB2A9B000296B03 /* ExpressiveCocoa.framework */; };
+		43D6A90E1BB2A9E300296B03 /* ExpressiveCocoaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D6A90D1BB2A9E300296B03 /* ExpressiveCocoaTests.swift */; };
 		43D6A9131BB2AA1C00296B03 /* ExpressiveCocoa.h in Headers */ = {isa = PBXBuildFile; fileRef = 43D6A9121BB2AA1C00296B03 /* ExpressiveCocoa.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
@@ -179,14 +179,16 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Andrey Tarantsov";
 				TargetAttributes = {
 					43D6A8F01BB2A9B000296B03 = {
 						CreatedOnToolsVersion = 7.0;
+						LastSwiftMigration = 0800;
 					};
 					43D6A8FA1BB2A9B000296B03 = {
 						CreatedOnToolsVersion = 7.0;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -269,8 +271,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
@@ -315,8 +319,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
@@ -335,6 +341,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -357,6 +364,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -376,6 +384,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tarantsov.ExpressiveCocoa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};
@@ -387,6 +396,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tarantsov.ExpressiveCocoaTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -398,6 +408,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tarantsov.ExpressiveCocoaTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};

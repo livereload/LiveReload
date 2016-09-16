@@ -149,7 +149,7 @@ public extension RangeReplaceableCollectionType where Index : BidirectionalIndex
             if try predicate(self[cur]) {
                 removeAtIndex(cur)
             }
-            --cur
+            cur = cur.predecessor()
         }
     }
 

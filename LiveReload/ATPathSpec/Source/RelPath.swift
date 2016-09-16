@@ -184,13 +184,13 @@ public extension RelPath {
             if #available(OSX 10.11, *) {
                 return NSURL(fileURLWithPath: s, isDirectory: isDirectory, relativeToURL: baseURL)
             } else {
-                return baseURL.URLByAppendingPathComponent(s, isDirectory: isDirectory)
+                return baseURL.URLByAppendingPathComponent(s, isDirectory: isDirectory)!
             }
         } else {
             if #available(OSX 10.11, *) {
                 return NSURL(fileURLWithPath: s, relativeToURL: baseURL)
             } else {
-                return baseURL.URLByAppendingPathComponent(s)
+                return baseURL.URLByAppendingPathComponent(s)!
             }
         }
     }
@@ -226,7 +226,7 @@ public extension RelPath {
     public var pathExtensionCandidates: [String] {
         if let c = lastComponent {
             var result: [String] = []
-            var range = Range(start: c.startIndex, end: c.endIndex)
+            var range = c.startIndex ..< c.endIndex
             while !range.isEmpty {
                 if let m = c.rangeOfCharacterFromSet(DOT_CHARSET, options: [.BackwardsSearch], range: range) {
                     let ext = c.substringFromIndex(m.startIndex.successor())

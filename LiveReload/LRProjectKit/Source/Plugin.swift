@@ -34,7 +34,7 @@ public class Plugin: ActionContainer, StdEmitterType {
     public init(folderURL: NSURL, context: PluginContext) {
         self.folderURL = folderURL
         self.context = context
-        manifestURL = folderURL.URLByAppendingPathComponent("manifest.json")
+        manifestURL = folderURL.URLByAppendingPathComponent("manifest.json")!
         log = EnvLog(origin: "\(folderURL.lastPathComponent!)")
         name = folderURL.URLByDeletingPathExtension!.lastPathComponent!
 
@@ -115,7 +115,7 @@ public class Plugin: ActionContainer, StdEmitterType {
             return nil
         }
 
-        let bundledPackagesURL = folderURL.URLByAppendingPathComponent(bundledPackagesFolderName)
+        let bundledPackagesURL = folderURL.URLByAppendingPathComponent(bundledPackagesFolderName)!
         guard bundledPackagesURL.checkIsAccessibleDirectory() else {
             return nil
         }

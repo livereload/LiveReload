@@ -365,7 +365,7 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
 
     ATPathSpecTokenType lastTokenType = ATPathSpecTokenTypeNone;
     ATPathSpecTokenType queuedTokenType = ATPathSpecTokenTypeNone;
-    NSRange queuedTokenRange;
+    NSRange queuedTokenRange = NSMakeRange(NSNotFound, 0);
     NSUInteger textTokenStart = 0;
     NSUInteger searchStart = textTokenStart;
     while (textTokenStart < len) {

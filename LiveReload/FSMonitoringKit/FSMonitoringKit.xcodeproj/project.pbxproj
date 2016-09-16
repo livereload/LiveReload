@@ -7,21 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		43D6A9A51BB44F1B00296B03 /* FSMonitoringKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D6A99A1BB44F1B00296B03 /* FSMonitoringKit.framework */; settings = {ASSET_TAGS = (); }; };
+		43D6A9A51BB44F1B00296B03 /* FSMonitoringKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D6A99A1BB44F1B00296B03 /* FSMonitoringKit.framework */; };
 		43F4E4D61BB5FA09004EFF5C /* FSChange.h in Headers */ = {isa = PBXBuildFile; fileRef = 43F4E4CB1BB5FA09004EFF5C /* FSChange.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		43F4E4D71BB5FA09004EFF5C /* FSChange.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F4E4CC1BB5FA09004EFF5C /* FSChange.m */; settings = {ASSET_TAGS = (); }; };
+		43F4E4D71BB5FA09004EFF5C /* FSChange.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F4E4CC1BB5FA09004EFF5C /* FSChange.m */; };
 		43F4E4D81BB5FA09004EFF5C /* FSMonitor.h in Headers */ = {isa = PBXBuildFile; fileRef = 43F4E4CD1BB5FA09004EFF5C /* FSMonitor.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		43F4E4D91BB5FA09004EFF5C /* FSMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F4E4CE1BB5FA09004EFF5C /* FSMonitor.m */; settings = {ASSET_TAGS = (); }; };
+		43F4E4D91BB5FA09004EFF5C /* FSMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F4E4CE1BB5FA09004EFF5C /* FSMonitor.m */; };
 		43F4E4DA1BB5FA09004EFF5C /* FSMonitoringKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 43F4E4CF1BB5FA09004EFF5C /* FSMonitoringKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		43F4E4DB1BB5FA09004EFF5C /* FSTree.h in Headers */ = {isa = PBXBuildFile; fileRef = 43F4E4D01BB5FA09004EFF5C /* FSTree.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		43F4E4DC1BB5FA09004EFF5C /* FSTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F4E4D11BB5FA09004EFF5C /* FSTree.m */; settings = {ASSET_TAGS = (); }; };
+		43F4E4DC1BB5FA09004EFF5C /* FSTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F4E4D11BB5FA09004EFF5C /* FSTree.m */; };
 		43F4E4DD1BB5FA09004EFF5C /* FSTreeDiffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 43F4E4D21BB5FA09004EFF5C /* FSTreeDiffer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		43F4E4DE1BB5FA09004EFF5C /* FSTreeDiffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F4E4D31BB5FA09004EFF5C /* FSTreeDiffer.m */; settings = {ASSET_TAGS = (); }; };
+		43F4E4DE1BB5FA09004EFF5C /* FSTreeDiffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F4E4D31BB5FA09004EFF5C /* FSTreeDiffer.m */; };
 		43F4E4DF1BB5FA09004EFF5C /* FSTreeFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 43F4E4D41BB5FA09004EFF5C /* FSTreeFilter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		43F4E4E01BB5FA09004EFF5C /* FSTreeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F4E4D51BB5FA09004EFF5C /* FSTreeFilter.m */; settings = {ASSET_TAGS = (); }; };
-		43F4E4E31BB5FA21004EFF5C /* FSMonitoringKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F4E4E21BB5FA21004EFF5C /* FSMonitoringKitTests.m */; settings = {ASSET_TAGS = (); }; };
-		43F4E4EB1BB5FAA8004EFF5C /* FSEventsFix.c in Sources */ = {isa = PBXBuildFile; fileRef = 43F4E4E81BB5FAA8004EFF5C /* FSEventsFix.c */; settings = {ASSET_TAGS = (); }; };
-		43F4E4EC1BB5FAA8004EFF5C /* FSEventsFix.h in Headers */ = {isa = PBXBuildFile; fileRef = 43F4E4E91BB5FAA8004EFF5C /* FSEventsFix.h */; settings = {ASSET_TAGS = (); }; };
+		43F4E4E01BB5FA09004EFF5C /* FSTreeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F4E4D51BB5FA09004EFF5C /* FSTreeFilter.m */; };
+		43F4E4E31BB5FA21004EFF5C /* FSMonitoringKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 43F4E4E21BB5FA21004EFF5C /* FSMonitoringKitTests.m */; };
+		43F4E4EB1BB5FAA8004EFF5C /* FSEventsFix.c in Sources */ = {isa = PBXBuildFile; fileRef = 43F4E4E81BB5FAA8004EFF5C /* FSEventsFix.c */; };
+		43F4E4EC1BB5FAA8004EFF5C /* FSEventsFix.h in Headers */ = {isa = PBXBuildFile; fileRef = 43F4E4E91BB5FAA8004EFF5C /* FSEventsFix.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -211,6 +211,7 @@
 				TargetAttributes = {
 					43D6A9991BB44F1B00296B03 = {
 						CreatedOnToolsVersion = 7.0;
+						LastSwiftMigration = 0800;
 					};
 					43D6A9A31BB44F1B00296B03 = {
 						CreatedOnToolsVersion = 7.0;
@@ -383,6 +384,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tarantsov.FSMonitoringKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -401,6 +403,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tarantsov.FSMonitoringKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};
