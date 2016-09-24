@@ -1,3 +1,4 @@
+@import FSMonitoringKit;
 
 #include "console.h"
 #include "stringutil.h"
@@ -10,7 +11,6 @@
 #import "RubyVersion.h"
 #import "ToolOptions.h"
 
-#import "OldFSTree.h"
 #import "RegexKitLite.h"
 #import "NSTask+OneLineTasksWithOutput.h"
 #import "NSArray+Substitutions.h"

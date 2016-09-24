@@ -1,12 +1,11 @@
+@import FSMonitoringKit;
+
 
 #import "ToolOutputWindowController.h"
 
 #import "PluginManager.h"
 
 #import "Project.h"
-#import "OldFSMonitor.h"
-#import "OldFSTreeFilter.h"
-#import "OldFSTree.h"
 #import "Preferences.h"
 #import "PluginManager.h"
 #import "Compiler.h"
@@ -302,40 +301,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     _monitor.running = NO;
 }
 
-- (void)checkBrokenPaths {
-    static NSMutableDictionary *lastReportedDatePerPath = nil;
-    static const NSTimeInterval ReportingInterval = 30;  // report again after 30 seconds
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        lastReportedDatePerPath = [NSMutableDictionary new];
-    });
-
-    if (_brokenPathReported)
-        return;
-    if (![[NSFileManager defaultManager] fileExistsAtPath:_path])
-        return; // don't report spurious messages for missing folders
-
-    NSArray *brokenPaths = [[_monitor obtainTree] brokenPaths];
-    
-    NSMutableArray *brokenPathsToReport = [NSMutableArray new];
-    NSDate *now = [NSDate date];
-    for (NSString *path in brokenPaths) {
-        NSDate *lastDate = lastReportedDatePerPath[path];
-        if ((lastDate == nil) || ([now timeIntervalSinceDate:lastDate] >= ReportingInterval)) {
-            lastReportedDatePerPath[path] = now;
-            [brokenPathsToReport addObject:path];
-        }
-    }
-    
-    if ([brokenPathsToReport count] > 0) {
-        NSInteger result = [[NSAlert alertWithMessageText:@"Folder Cannot Be Monitored" defaultButton:@"Read More" alternateButton:@"Ignore" otherButton:nil informativeTextWithFormat:@"The following %@ cannot be monitored because of OS X FSEvents bug:\n\n\t%@\n\nMore info and workaround instructions are available on our site.", [brokenPathsToReport count] > 0 ? @"folders" : @"folder", [[brokenPathsToReport componentsJoinedByString:@"\n\t"] stringByReplacingOccurrencesOfString:@"_!LR_BROKEN!_" withString:@"Broken"]] runModal];
-        if (result == NSAlertDefaultReturn) {
-            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://go.livereload.com/fsevents"]];
-        }
-        _brokenPathReported = YES;
-    }
-}
-
 - (BOOL)isFileImported:(NSString *)path {
     return [_importGraph hasReferencingPathsForPath:path];
 }
@@ -365,7 +330,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
             _monitor.running = shouldBeRunning;
             if (shouldBeRunning) {
                 [self rebuildImportGraph];
-                [self checkBrokenPaths];
             }
             [[NSNotificationCenter defaultCenter] postNotificationName:ProjectMonitoringStateDidChangeNotification object:self];
         }
@@ -420,9 +384,9 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 - (void)processChangeAtPath:(NSString *)relativePath {
     NSString *extension = [relativePath pathExtension];
     
-    if ([self compileFileAt:relativePath]) {
-        return;
-    }
+//    if ([self compileFileAt:relativePath]) {
+//        return;
+//    }
 
     BOOL compilerFound = NO;
     for (Compiler *compiler in [PluginManager sharedPluginManager].compilers) {
@@ -467,8 +431,8 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 }
 #endif
 
-- (void)fileSystemMonitor:(FSMonitor *)monitor detectedChangeAtPathes:(NSSet *)paths {
-    [_pendingChanges unionSet:paths];
+- (void)fileSystemMonitor:(FSMonitor *)monitor detectedChange:(FSChange *)change {
+    [_pendingChanges unionSet:change.changedFiles];
 
     if (!(_runningPostProcessor || (_lastPostProcessingRunDate > 0 && [NSDate timeIntervalSinceReferenceDate] < _lastPostProcessingRunDate + _postProcessingGracePeriod))) {
         _pendingPostProcessing = YES;

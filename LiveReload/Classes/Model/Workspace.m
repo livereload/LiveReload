@@ -102,7 +102,6 @@ void C_workspace__set_monitoring_enabled(json_t *arg) {
     NSParameterAssert(![_projects containsObject:project]);
     [_projects addObject:project];
     [project requestMonitoring:_monitoringEnabled forKey:ClientConnectedMonitoringKey];
-    [project checkBrokenPaths]; // in case we don't have monitoring enabled
     [self setNeedsSaving];
 }
 

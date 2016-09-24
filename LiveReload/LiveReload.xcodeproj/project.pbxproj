@@ -190,10 +190,6 @@
 		43512FFD1ACD750D0073A0D4 /* msg_router.c in Sources */ = {isa = PBXBuildFile; fileRef = 434DB7F21514F49400C62042 /* msg_router.c */; };
 		43512FFE1ACD750D0073A0D4 /* nodeapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 434DB7F41514F49500C62042 /* nodeapi.c */; };
 		435130051ACD750D0073A0D4 /* hex.c in Sources */ = {isa = PBXBuildFile; fileRef = 4317BD3F1A7F71A90054D32D /* hex.c */; };
-		435130061ACD750D0073A0D4 /* OldFSMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CA1515205C003187D5 /* OldFSMonitor.m */; };
-		435130071ACD750D0073A0D4 /* OldFSTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CC1515205C003187D5 /* OldFSTree.m */; };
-		435130081ACD750D0073A0D4 /* OldFSTreeDiffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CE1515205C003187D5 /* OldFSTreeDiffer.m */; };
-		435130091ACD750D0073A0D4 /* OldFSTreeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8D01515205C003187D5 /* OldFSTreeFilter.m */; };
 		4351300A1ACD750D0073A0D4 /* MASReceipt.m in Sources */ = {isa = PBXBuildFile; fileRef = 43059208151DF2DE00CC3F88 /* MASReceipt.m */; };
 		4351300C1ACD750D0073A0D4 /* DockIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 43059224151E90DE00CC3F88 /* DockIcon.m */; };
 		4351300D1ACD750D0073A0D4 /* LicenseCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 439A76AE15B28EF100E50057 /* LicenseCodeViewController.m */; };
@@ -264,10 +260,6 @@
 		436A654D1A92454900335BAD /* Analytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 436A654C1A92454900335BAD /* Analytics.m */; };
 		436A65501A92470400335BAD /* Analytics+SpecificEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 436A654F1A92470400335BAD /* Analytics+SpecificEvents.m */; };
 		43719FD41565FE5F004B0E0C /* backend in Resources */ = {isa = PBXBuildFile; fileRef = 43719FD31565FE5F004B0E0C /* backend */; };
-		4378C8D11515205C003187D5 /* OldFSMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CA1515205C003187D5 /* OldFSMonitor.m */; };
-		4378C8D21515205C003187D5 /* OldFSTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CC1515205C003187D5 /* OldFSTree.m */; };
-		4378C8D31515205C003187D5 /* OldFSTreeDiffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8CE1515205C003187D5 /* OldFSTreeDiffer.m */; };
-		4378C8D41515205C003187D5 /* OldFSTreeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4378C8D01515205C003187D5 /* OldFSTreeFilter.m */; };
 		4379ADCB141D1060008C836F /* livereload.js in Resources */ = {isa = PBXBuildFile; fileRef = 4379ADC9141D00CE008C836F /* livereload.js */; };
 		4383C6C017717C1E0023FB1D /* TypeScript.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 4383C6BF17717C1E0023FB1D /* TypeScript.lrplugin */; };
 		439A76B015B28EF100E50057 /* LicenseCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 439A76AE15B28EF100E50057 /* LicenseCodeViewController.m */; };
@@ -622,14 +614,6 @@
 		436A654E1A92470400335BAD /* Analytics+SpecificEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Analytics+SpecificEvents.h"; sourceTree = "<group>"; };
 		436A654F1A92470400335BAD /* Analytics+SpecificEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Analytics+SpecificEvents.m"; sourceTree = "<group>"; };
 		43719FD31565FE5F004B0E0C /* backend */ = {isa = PBXFileReference; lastKnownFileType = folder; name = backend; path = ../interim/backend; sourceTree = "<group>"; };
-		4378C8C91515205C003187D5 /* OldFSMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldFSMonitor.h; sourceTree = "<group>"; };
-		4378C8CA1515205C003187D5 /* OldFSMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldFSMonitor.m; sourceTree = "<group>"; };
-		4378C8CB1515205C003187D5 /* OldFSTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldFSTree.h; sourceTree = "<group>"; };
-		4378C8CC1515205C003187D5 /* OldFSTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldFSTree.m; sourceTree = "<group>"; };
-		4378C8CD1515205C003187D5 /* OldFSTreeDiffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldFSTreeDiffer.h; sourceTree = "<group>"; };
-		4378C8CE1515205C003187D5 /* OldFSTreeDiffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldFSTreeDiffer.m; sourceTree = "<group>"; };
-		4378C8CF1515205C003187D5 /* OldFSTreeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldFSTreeFilter.h; sourceTree = "<group>"; };
-		4378C8D01515205C003187D5 /* OldFSTreeFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldFSTreeFilter.m; sourceTree = "<group>"; };
 		4379ADC9141D00CE008C836F /* livereload.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = livereload.js; sourceTree = "<group>"; };
 		4383C6BF17717C1E0023FB1D /* TypeScript.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = TypeScript.lrplugin; path = Compilers/TypeScript.lrplugin; sourceTree = SOURCE_ROOT; };
 		439A76AD15B28EF100E50057 /* LicenseCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LicenseCodeViewController.h; sourceTree = "<group>"; };
@@ -1102,7 +1086,6 @@
 				823DDE4213F8DA3100529AD2 /* Editors */,
 				823DDE5313F8DA3100529AD2 /* JSON */,
 				823DDE6713F8DA3100529AD2 /* Model */,
-				823DDE7213F8DA3100529AD2 /* Monitoring */,
 				823DDE7B13F8DA3100529AD2 /* Plugins */,
 				823DDE8613F8DA3100529AD2 /* Preferences */,
 				823DDE9F13F8DA3100529AD2 /* Utilities */,
@@ -1228,21 +1211,6 @@
 				4346F3A81450D8AD00B133F2 /* ImportGraph.m */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		823DDE7213F8DA3100529AD2 /* Monitoring */ = {
-			isa = PBXGroup;
-			children = (
-				4378C8C91515205C003187D5 /* OldFSMonitor.h */,
-				4378C8CA1515205C003187D5 /* OldFSMonitor.m */,
-				4378C8CB1515205C003187D5 /* OldFSTree.h */,
-				4378C8CC1515205C003187D5 /* OldFSTree.m */,
-				4378C8CD1515205C003187D5 /* OldFSTreeDiffer.h */,
-				4378C8CE1515205C003187D5 /* OldFSTreeDiffer.m */,
-				4378C8CF1515205C003187D5 /* OldFSTreeFilter.h */,
-				4378C8D01515205C003187D5 /* OldFSTreeFilter.m */,
-			);
-			path = Monitoring;
 			sourceTree = "<group>";
 		};
 		823DDE7B13F8DA3100529AD2 /* Plugins */ = {
@@ -1744,10 +1712,6 @@
 				43512FFD1ACD750D0073A0D4 /* msg_router.c in Sources */,
 				43512FFE1ACD750D0073A0D4 /* nodeapi.c in Sources */,
 				435130051ACD750D0073A0D4 /* hex.c in Sources */,
-				435130061ACD750D0073A0D4 /* OldFSMonitor.m in Sources */,
-				435130071ACD750D0073A0D4 /* OldFSTree.m in Sources */,
-				435130081ACD750D0073A0D4 /* OldFSTreeDiffer.m in Sources */,
-				435130091ACD750D0073A0D4 /* OldFSTreeFilter.m in Sources */,
 				4351300A1ACD750D0073A0D4 /* MASReceipt.m in Sources */,
 				4351300C1ACD750D0073A0D4 /* DockIcon.m in Sources */,
 				4351300D1ACD750D0073A0D4 /* LicenseCodeViewController.m in Sources */,
@@ -1855,10 +1819,6 @@
 				434DB7F81514F49500C62042 /* msg_router.c in Sources */,
 				434DB7F91514F49500C62042 /* nodeapi.c in Sources */,
 				4317BD411A7F71A90054D32D /* hex.c in Sources */,
-				4378C8D11515205C003187D5 /* OldFSMonitor.m in Sources */,
-				4378C8D21515205C003187D5 /* OldFSTree.m in Sources */,
-				4378C8D31515205C003187D5 /* OldFSTreeDiffer.m in Sources */,
-				4378C8D41515205C003187D5 /* OldFSTreeFilter.m in Sources */,
 				43059209151DF2DE00CC3F88 /* MASReceipt.m in Sources */,
 				43059225151E90DE00CC3F88 /* DockIcon.m in Sources */,
 				439A76B015B28EF100E50057 /* LicenseCodeViewController.m in Sources */,

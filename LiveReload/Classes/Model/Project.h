@@ -54,8 +54,6 @@ enum {
     NSTimeInterval           _eventProcessingDelay;
     struct reload_session_t *_session;
 
-    BOOL                     _brokenPathReported;
-
     NSMutableArray          *_excludedFolderPaths;
     
     NSInteger                _numberOfPathComponentsToUseAsName;
@@ -114,8 +112,6 @@ enum {
 @property(nonatomic) BOOL postProcessingEnabled;
 
 @property(nonatomic, copy) NSString *rubyVersionIdentifier;
-
-- (void)checkBrokenPaths;
 
 - (NSArray *)filePathsImportingFileAtPath:(NSString *)path;
 - (BOOL)isFileImported:(NSString *)path;
