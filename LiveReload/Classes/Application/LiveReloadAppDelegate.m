@@ -29,6 +29,8 @@
 
 #import "LiveReload-Swift.h"
 
+#import "networking.h"
+
 
 void C_mainwnd__set_project_list(json_t *arg) {
     // TODO
@@ -154,6 +156,11 @@ void C_app__good_time_to_deliver_news(json_t *arg) {
     os_init();
     console_init();
     node_init();
+    
+    int v = (int)HelloWorld(100);
+    if (v != 142) {
+        @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:[NSString stringWithFormat:@"Hello World did not work"] userInfo:nil];
+    }
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
         [self considerShowingWindowOnAppStartup];
