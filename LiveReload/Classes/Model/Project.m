@@ -71,7 +71,48 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 @end
 
 
-@implementation Project
+@implementation Project {
+    NSString *_path;
+    
+    FSMonitor *_monitor;
+    
+    BOOL _clientsConnected;
+    BOOL                    _enabled;
+    
+    NSMutableSet            *_monitoringRequests;
+    
+    NSString                *_lastSelectedPane;
+    BOOL                     _dirty;
+    
+    NSString                *_postProcessingCommand;
+    BOOL                     _postProcessingEnabled;
+    NSTimeInterval           _lastPostProcessingRunDate;
+    NSTimeInterval           _postProcessingGracePeriod;
+    BOOL                     _runningPostProcessor;
+    
+    NSString                *_rubyVersionIdentifier;
+    
+    NSMutableDictionary     *_compilerOptions;
+    BOOL                     _compilationEnabled;
+    
+    ImportGraph             *_importGraph;
+    BOOL                     _compassDetected;
+    
+    BOOL                     _disableLiveRefresh;
+    BOOL                     _enableRemoteServerWorkflow;
+    NSTimeInterval           _fullPageReloadDelay;
+    NSTimeInterval           _eventProcessingDelay;
+    struct reload_session_t *_session;
+    
+    NSMutableArray          *_excludedFolderPaths;
+    
+    NSInteger                _numberOfPathComponentsToUseAsName;
+    NSString                *_customName;
+    
+    NSMutableSet            *_pendingChanges;
+    BOOL                     _pendingPostProcessing;
+    BOOL                     _processingChanges;
+}
 
 @synthesize path=_path;
 @synthesize dirty=_dirty;
