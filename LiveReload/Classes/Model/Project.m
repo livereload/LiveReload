@@ -112,6 +112,8 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     NSMutableSet            *_pendingChanges;
     BOOL                     _pendingPostProcessing;
     BOOL                     _processingChanges;
+    
+    NewProject              *_newProj;
 }
 
 @synthesize path=_path;
@@ -140,6 +142,8 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         _path = [[path stringByResolvingSymlinksInPath] copy];
         _enabled = YES;
         _session = reload_session_create(self);
+        
+        _newProj = [[NewProject alloc] initWithRootURL:[NSURL fileURLWithPath:_path isDirectory:YES] oldProject:self];
 
         _monitor = [[FSMonitor alloc] initWithPath:_path];
         _monitor.delegate = self;
@@ -425,9 +429,9 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 - (void)processChangeAtPath:(NSString *)relativePath {
     NSString *extension = [relativePath pathExtension];
     
-//    if ([self compileFileAt:relativePath]) {
-//        return;
-//    }
+    if ([_newProj compileFileAt:relativePath]) {
+        return;
+    }
 
     BOOL compilerFound = NO;
     for (Compiler *compiler in [PluginManager sharedPluginManager].compilers) {

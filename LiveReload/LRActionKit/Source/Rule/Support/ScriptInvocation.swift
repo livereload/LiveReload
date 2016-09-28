@@ -1,5 +1,6 @@
 import Foundation
 import PackageManagerKit
+import ExpressiveCocoa
 
 public class ScriptInvocationRule : Rule {
 
@@ -36,6 +37,8 @@ public class ScriptInvocationRule : Rule {
 }
 
 public class ScriptInvocationStep: NSObject {
+    
+    private var referenceCycle: AnyObject?
 
     private var substitutions: [String: [String]] = [:]
 
@@ -52,7 +55,7 @@ public class ScriptInvocationStep: NSObject {
     public private(set) var error: NSError?
 
     public var completionHandler: ((step: ScriptInvocationStep) -> Void)?
-    public var outputLineBlock: ((line: String) -> Void)?
+    public var outputLineBlock: (@convention(block) (line: String) -> Void)?
 
     public init(project: ProjectContext) {
         self.project = project
@@ -82,7 +85,7 @@ public class ScriptInvocationStep: NSObject {
         return files[key]
     }
 
-    func invoke() {
+    public func invoke() {
         let pm = ActionKitSingleton.sharedActionKit.packageManager
         let bundledContainers = pm.packageTypeNamed("gem")!.containers.filter { $0.containerType == .Bundled }
 
@@ -91,49 +94,71 @@ public class ScriptInvocationStep: NSObject {
         let env = NSMutableDictionary(dictionary: environment)
         addStringMultiValue("ruby", rubyInstance.launchArgumentsWithAdditionalRuntimeContainers(bundledContainers, environment: env))
         environment = env as NSDictionary as! [String: String]
-    }
+        
+        let cmdline = substituteArray(commandLine, substitutions)
 
-    //- (void)invoke {
-//    NSArray *bundledContainers = [[[ActionKitSingleton sharedActionKit].packageManager packageTypeNamed:@"gem"].containers filteredArrayUsingBlock:^BOOL(LRPackageContainer *container) {
-//        return container.containerType == LRPackageContainerTypeBundled;
-//    }];
-//
-//    RuntimeInstance *rubyInstance = _project.rubyInstanceForBuilding;
-//    [self addValue:[rubyInstance launchArgumentsWithAdditionalRuntimeContainers:bundledContainers environment:_environment] forSubstitutionKey:];
-//
-//    NSArray *cmdline = [_commandLine p2_arrayBySubstitutingValuesFromDictionary:_substitutions];
-//
-//    //    NSString *pwd = [[NSFileManager defaultManager] currentDirectoryPath];
-//    //    [[NSFileManager defaultManager] changeCurrentDirectoryPath:projectPath];
-//
-//    // TODO XXX
-////    console_printf("Exec: %s", str_collapse_paths([[cmdline quotedArgumentStringUsingBourneQuotingStyle] UTF8String], [_project.path UTF8String]));
-//    // TODO XXX: collapse project path
-//    NSLog(@"Exec: %@", [cmdline p2_quotedArgumentStringUsingBourneQuotingStyle]);
-//
-//    NSString *command = cmdline[0];
-//    NSArray *args = [cmdline subarrayWithRange:NSMakeRange(1, cmdline.count - 1)];
-//    NSMutableDictionary *options = [@{ATCurrentDirectoryPathKey: _project.path, ATEnvironmentVariablesKey: _environment} mutableCopy];
-//    if (_outputLineBlock) {
-//        options[ATStandardOutputLineBlockKey] = _outputLineBlock;
-//    }
-//    ATLaunchUnixTaskAndCaptureOutput([NSURL fileURLWithPath:command], args, ATLaunchUnixTaskAndCaptureOutputOptionsIgnoreSandbox|ATLaunchUnixTaskAndCaptureOutputOptionsMergeStdoutAndStderr, options, ^(NSString *outputText, NSString *stderrText, NSError *error) {
-//        _error = error;
-//        P2DisableARCRetainCyclesWarning()
-//        [_result addRawOutput:outputText withCompletionBlock:^{
-//            [_result completedWithInvocationError:error];
-//            self.finished = YES;
-//            if (self.completionHandler)
-//                self.completionHandler(self);
-//        }];
-//        P2ReenableWarning()
-//    });
-//}
-//
-//@end
+        //    //    NSString *pwd = [[NSFileManager defaultManager] currentDirectoryPath];
+        //    //    [[NSFileManager defaultManager] changeCurrentDirectoryPath:projectPath];
+
+        ////    console_printf("Exec: %s", str_collapse_paths([[cmdline quotedArgumentStringUsingBourneQuotingStyle] UTF8String], [_project.path UTF8String]));
+        //    // TODO XXX: collapse project path
+        NSLog("Exec: %@", cmdline)
+
+        let command = NSURL.fileURLWithPath(cmdline[0])
+        let args = Array(cmdline[1..<cmdline.count])
+        
+        var options: [String: AnyObject] = [:]
+        options[ATCurrentDirectoryPathKey] = project.rootURL.path
+        options[ATEnvironmentVariablesKey] = environment
+        if let outputLineBlock = outputLineBlock {
+            // <#todo#> TODO check if this cast is valid
+            options[ATStandardOutputLineBlockKey] = outputLineBlock as! AnyObject
+        }
+        
+        referenceCycle = self
+        ATLaunchUnixTaskAndCaptureOutput(command, args, [.IgnoreSandbox, .MergeStdoutAndStderr], options) { (outputText, stderrText, error) in
+            self.error = error
+            
+            let result = self.result!
+            
+            // <#todo#> TODO: implement result parsing
+//            result.addRawOutput(outputText, withCompletionBlock: {
+//                result.completedWithInvocationError(error)
+//                self.finished = true
+//                if let completionHandler = self.completionHandler {
+//                    completionHandler(step: self)
+//                }
+//            })
+            result.completedWithInvocationError(error)
+            self.finished = true
+            if let completionHandler = self.completionHandler {
+                self.referenceCycle = nil
+                completionHandler(step: self)
+            }
+        }
+    }
 
 }
 
-//
-//
-//typedef void (^ScriptInvocationOutputLineBlock)(NSString *line);
+private func substituteArray(items: [String], _ substitutions: [String: [String]]) -> [String] {
+    return items.flatMap { substituteItem($0, substitutions) }
+}
+
+private func substituteItem(item: String, _ substitutions: [String: [String]]) -> [String] {
+    if item.hasPrefix("$(") && item.hasSuffix(")") {
+        let p = item.rangeOfString("$(")!
+        let s = item.rangeOfString(")", options: .BackwardsSearch, range: nil, locale: nil)!
+        let key = item.substringWithRange(p.endIndex ..< s.startIndex)
+        if let values = substitutions[key] {
+            return values
+        } else {
+            return [item]
+        }
+    } else {
+        var result = item
+        for (key, value) in substitutions where value.count == 1 {
+            result = result.stringByReplacingOccurrencesOfString("$(" + key + ")", withString: value[0])
+        }
+        return [result]
+    }
+}

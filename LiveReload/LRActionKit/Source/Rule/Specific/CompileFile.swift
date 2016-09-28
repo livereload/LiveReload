@@ -65,15 +65,20 @@ public class CompileFileRule : ScriptInvocationRule {
     }
 
     public override func configureStep(step: ScriptInvocationStep, forFile file: ProjectFile) {
-        super.configureStep(step, forFile: file)
-
-        step.addFileValue("src", file)
-
         guard let destinationFile = destinationFileForSourceFile(file) else {
             return
         }
+        
+        configureStep(step, forFile: file, destinationFile: destinationFile)
+    }
+    
+    public func configureStep(step: ScriptInvocationStep, forFile file: ProjectFile, destinationFile: ProjectFile) {
+        super.configureStep(step, forFile: file)
+        
+        step.addFileValue("src", file)
+        
         step.addFileValue("dst", destinationFile)
-
+        
         let destinationFolderURL = destinationFile.absoluteURL.URLByDeletingLastPathComponent!
         if !destinationFolderURL.checkResourceIsReachableAndReturnError(nil) {
             try! NSFileManager.defaultManager().createDirectoryAtURL(destinationFolderURL, withIntermediateDirectories: true, attributes: nil)

@@ -21,7 +21,14 @@ enum {
 };
 
 
-@interface Project : NSObject
+@protocol OldProject <NSObject>
+
+@property(nonatomic, readonly, copy) NSString *rubyVersionIdentifier;
+
+@end
+
+
+@interface Project : NSObject <OldProject>
 
 - (id)initWithPath:(NSString *)path memento:(NSDictionary *)memento;
 

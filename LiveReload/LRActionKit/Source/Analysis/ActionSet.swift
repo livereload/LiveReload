@@ -29,9 +29,6 @@ public class ActionSet: NSObject {
         }
     }
  
-    public func addAction(action: Action) {
-    }
-
     private func addAction(action: Action, reusing contextAction: LRContextAction?) {
         actions.append(action)
         actionsByIdentifier[action.identifier] = action

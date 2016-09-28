@@ -5,6 +5,7 @@ import PackageManagerKit
 import ATPathSpec
 import ExpressiveFoundation
 
+@objc
 public class NewProject: NSObject {
 
     public let rootURL: NSURL
@@ -13,17 +14,77 @@ public class NewProject: NSObject {
     
     public let resolutionContext: LRPackageResolutionContext
     
-    public init(rootURL: NSURL) {
+    private var o = Observation()
+
+    private unowned var oldProject: OldProject
+    
+    public init(rootURL: NSURL, oldProject: OldProject) {
         self.rootURL = rootURL
+        self.oldProject = oldProject
         resolutionContext = LRPackageResolutionContext()
         super.init()
         
         actionSet = ActionSet(project: self)
+        
+        o += workspace.plugins.updating.subscribe(self, NewProject.onPluginsProcessingBatchDidFinish)
+        updateActions()
+    }
+    
+    private func onPluginsProcessingBatchDidFinish(event: ProcessableBatchDidFinish) {
+        updateActions()
+    }
+    
+    private func updateActions() {
+        let actions = workspace.plugins.plugins.flatMap { $0.actions }
+        actionSet.replaceActions(actions)
     }
     
     public func compileFile(at path: String) -> Bool {
-//        for action in actionSet.contextActions {
-//        }
+        // TODO: Compass
+        
+        let relPath = RelPath(path)
+
+        for action in actionSet.contextActions {
+            NSLog("%@", "Action \(action.action.identifier) has \(action.versions.count) versions:")
+            for version in action.versions {
+                NSLog("%@", "  - \(version.primaryVersion)")
+            }
+        }
+        
+        let suitableActions = actionSet.contextActions.filter { $0.action.combinedIntrinsicInputPathSpec.includes(relPath) && $0.action.ruleType == CompileFileRule.self }
+        
+        guard let action = suitableActions.first else {
+            return false
+        }
+        
+        // TODO: pick the right version!!!
+        guard let version = action.versions.first else {
+            return false
+        }
+        
+        let rule = action.newInstance(memento: [:]) as! CompileFileRule
+        rule.effectiveVersion = version
+        
+        let sourceFile = ProjectFile(path: relPath, project: self)
+        guard let destinationFile = rule.destinationFileForSourceFile(sourceFile) else {
+            return false
+        }
+
+        let result = LROperationResult()
+
+        let step = ScriptInvocationStep(project: self)
+        step.result = result
+
+        rule.configureStep(step, forFile: sourceFile, destinationFile: destinationFile)
+        
+        step.completionHandler = { step in
+            NSLog("DONE %@: %@ with result %@", rule.label, sourceFile.absolutePath, result)
+        }
+        
+        NSLog("%@: %@", rule.label, sourceFile.absolutePath)
+        step.invoke()
+        
+        return true
 
 //        for (Compiler *compiler in [PluginManager sharedPluginManager].compilers) {
 //            if (_compassDetected && [compiler.uniqueId isEqualToString:@"sass"])
@@ -53,7 +114,6 @@ public class NewProject: NSObject {
 //                }
 //            }
 //        }
-        return false
     }
     
     public func dispose() {
@@ -76,7 +136,7 @@ extension NewProject: ProjectContext {
     }
     
     public var rubyInstanceForBuilding: RuntimeInstance {
-        return RubyInstance(memento: nil, additionalInfo: nil)
+        return workspace.rubies.instanceIdentifiedBy("system")
     }
     
     public var disableLiveRefresh: Bool {
@@ -113,6 +173,7 @@ extension NewProject: ProjectContext {
     }
     
 }
+
 
 //
 //extension Project: ProjectContext {
