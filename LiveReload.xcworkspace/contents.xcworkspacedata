@@ -46,4 +46,7 @@
    <FileRef
       location = "group:LiveReload/Pods/Pods.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:LiveReload/MessageParsingKit/MessageParsingKit.xcodeproj">
+   </FileRef>
 </Workspace>
