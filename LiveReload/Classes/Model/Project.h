@@ -25,6 +25,10 @@ enum {
 
 @property(nonatomic, readonly, copy) NSString *rubyVersionIdentifier;
 
+@property(nonatomic, readonly) BOOL compilationEnabled;
+
+- (void)addFakeChangeForPath:(NSString *)path originalPath:(NSString *)originalPath;
+
 @end
 
 

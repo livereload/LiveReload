@@ -121,19 +121,13 @@ public class ScriptInvocationStep: NSObject {
             
             let result = self.result!
             
-            // <#todo#> TODO: implement result parsing
-//            result.addRawOutput(outputText, withCompletionBlock: {
-//                result.completedWithInvocationError(error)
-//                self.finished = true
-//                if let completionHandler = self.completionHandler {
-//                    completionHandler(step: self)
-//                }
-//            })
-            result.completedWithInvocationError(error)
-            self.finished = true
-            if let completionHandler = self.completionHandler {
-                self.referenceCycle = nil
-                completionHandler(step: self)
+            result.addRawOutput(outputText) {
+                result.completedWithInvocationError(error)
+                self.finished = true
+                if let completionHandler = self.completionHandler {
+                    self.referenceCycle = nil
+                    completionHandler(step: self)
+                }
             }
         }
     }

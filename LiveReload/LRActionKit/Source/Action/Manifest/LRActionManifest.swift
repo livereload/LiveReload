@@ -1,6 +1,7 @@
 import Foundation
 import ExpressiveCasting
 import ExpressiveCollections
+import MessageParsingKit
 
 public class LRActionManifest : LRManifestBasedObject {
 
@@ -11,8 +12,9 @@ public class LRActionManifest : LRManifestBasedObject {
 
     public let optionSpecs: [OptionSpec]
 
-    public let errorSpecs: [AnyObject]
-    public let warningSpecs: [AnyObject]
+    public let errorSpecs: [MessagePattern]
+    public let warningSpecs: [MessagePattern]
+    public let messageSpecs: [MessagePattern]
 
     public let commandLineSpec: [String]?
     
@@ -24,11 +26,12 @@ public class LRActionManifest : LRManifestBasedObject {
         let optionRegistry = ActionKitSingleton.sharedActionKit.optionRegistry
 
         errorSpecs = layers.map { layer in
-            ArrayValue(layer.manifest["errors"]) { $0 as AnyObject } ?? []
+            ArrayValue(layer.manifest["errors"]) { parseMessagePattern($0, severity: .Error) } ?? []
         }.flatten()
         warningSpecs = layers.map { layer in
-            ArrayValue(layer.manifest["warnings"]) { $0 as AnyObject } ?? []
+            ArrayValue(layer.manifest["warnings"]) { parseMessagePattern($0, severity: .Warning) } ?? []
         }.flatten()
+        messageSpecs = errorSpecs + warningSpecs
 
         optionSpecs = layers.map { layer -> [OptionSpec] in
             let specs = JSONObjectsArrayValue(layer.manifest["options"]) ?? []
@@ -51,4 +54,15 @@ public class LRActionManifest : LRManifestBasedObject {
         return optionSpecs.map { $0.newOption(rule: rule) }
     }
 
+}
+
+private func parseMessagePattern(spec: AnyObject, severity: MessageSeverity) -> MessagePattern? {
+    guard let spec = JSONObjectValue(spec) else {
+        return nil
+    }
+    guard let patternString: String = spec["pattern"]~~~ else {
+        return nil
+    }
+    let messageOverride: String? = spec["message"]~~~
+    return try? MessagePattern(patternString, severity: severity, messageOverride: messageOverride)
 }

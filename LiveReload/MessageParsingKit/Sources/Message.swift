@@ -1,6 +1,18 @@
 import Foundation
 
+public enum MessageSeverity {
+    
+    case Raw
+    
+    case Error
+    
+    case Warning
+    
+}
+
 public struct Message {
+    
+    public var severity: MessageSeverity
     
     public var text: String?
     
@@ -10,11 +22,17 @@ public struct Message {
     
     public var column: Int?
     
-    public init(text: String?) {
+    public var stack: String?
+    
+    public init(severity: MessageSeverity, text: String?, file: String? = nil, line: Int? = nil) {
+        self.severity = severity
         self.text = text
+        self.file = file
+        self.line = line
     }
     
-    public init(fieldValues: [MessageField: String]) {
+    public init(severity: MessageSeverity, fieldValues: [MessageField: String]) {
+        self.severity = severity
         self.text = fieldValues[.Message]
         self.file = fieldValues[.File]
         if let s = fieldValues[.Line], v = Int(s, radix: 10) {
@@ -22,6 +40,51 @@ public struct Message {
         }
         if let s = fieldValues[.Column], v = Int(s, radix: 10) {
             self.column = v
+        }
+    }
+    
+}
+
+extension Message: CustomStringConvertible {
+    
+    public var lineColumnDescription: String? {
+        if let line = line {
+            if let column = column {
+                return "\(line):\(column)"
+            } else {
+                return "\(line)"
+            }
+        } else {
+            return nil
+        }
+    }
+    
+    public var locationDescription: String? {
+        if let file = file {
+            if let loc = lineColumnDescription {
+                return "\(file):\(loc)"
+            } else {
+                return "\(file)"
+            }
+        } else if let loc = lineColumnDescription {
+            return "\(loc)"
+        } else {
+            return nil
+        }
+    }
+    
+    public var description: String {
+        let locationPart: String
+        if let loc = locationDescription {
+            locationPart = " in \(loc)"
+        } else {
+            locationPart = ""
+        }
+        
+        if let text = text {
+            return "\(severity)\(locationPart): \(text)"
+        } else {
+            return "\(severity)\(locationPart)"
         }
     }
     

@@ -8,6 +8,7 @@
 
 import Foundation
 import ExpressiveCasting
+import MessageParsingKit
 
 public class LROperationResult: NSObject, UserScriptResult {
 
@@ -26,7 +27,7 @@ public class LROperationResult: NSObject, UserScriptResult {
     public private(set) var messages: [LRMessage] = []
 
     public var errors: [LRMessage] {
-        return messages.filter { $0.severity == .Error }
+        return messages.filter { $0.severity == .Error || $0.severity == .Raw }
     }
 
     public var warnings: [LRMessage] {
@@ -43,7 +44,7 @@ public class LROperationResult: NSObject, UserScriptResult {
 
     public var defaultMessageFile: ProjectFile?
 
-    public var errorSyntaxManifest: JSONObject?
+    public var messageSpecs: [MessagePattern] = []
 
     public func addMessage(message: LRMessage) {
         if message.severity == .Error {
@@ -56,25 +57,9 @@ public class LROperationResult: NSObject, UserScriptResult {
         rawOutput += rawOutputChunk
 
         if !rawOutputChunk.isEmpty {
-            if let errorSyntaxManifest = errorSyntaxManifest {
-                let m: JSONObject = ["service": "msgparser", "command": "parse", "manifest": errorSyntaxManifest, "input": rawOutputChunk]
-                ActionKitSingleton.sharedActionKit.postMessage(m, completionBlock: { error, response in
-                    if let response = response {
-                        for message in JSONObjectsArrayValue(response["messages"]) ?? [] {
-//                            let type = message["type"]~~~ ?? ""
-                            let severityString = message["severity"]~~~ ?? ""
-                            let severity: LRMessageSeverity = (severityString == "error" ? .Error : .Warning)
-                            let text = message["message"]~~~ ?? ""
-                            let affectedFilePath = message["file"]~~~ ?? (self.defaultMessageFile?.absolutePath ?? "")
-                            let line = message["line"]~~~ ?? 0
-                            let column = message["column"]~~~ ?? 0
-                            let message = LRMessage(severity: severity, text: text, filePath: affectedFilePath, line: line, column: column)
-                            self.addMessage(message)
-                        }
-                    }
-                    completionBlock()
-                })
-                return
+            let (_, messages) = MessagePattern.parse(rawOutputChunk, using: messageSpecs)
+            for message in messages {
+                addMessage(LRMessage(message))
             }
         }
 
@@ -91,11 +76,9 @@ public class LROperationResult: NSObject, UserScriptResult {
         if failed && messages.isEmpty {
             if rawOutput.isEmpty {
                 let e = error?.localizedDescription ?? ""
-                addMessage(LRMessage(severity: .Error, text: "Cannot launch compiler: \(e)", filePath: defaultMessageFile?.path.pathString, line: 0, column: 0))
+                addMessage(LRMessage(Message(severity: .Error, text: "Cannot launch compiler: \(e)", file: defaultMessageFile?.path.pathString)))
             } else {
-                let m = LRMessage(severity: .Error, text: rawOutput, filePath: defaultMessageFile?.path.pathString, line: 0, column: 0)
-                m.rawOutput = rawOutput
-                addMessage(m)
+                addMessage(LRMessage(Message(severity: .Raw, text: rawOutput, file: defaultMessageFile?.path.pathString)))
             }
         }
 

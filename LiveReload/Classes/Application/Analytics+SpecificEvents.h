@@ -7,7 +7,7 @@
 
 + (void)trackPossibleBrowserRefreshForProject:(Project *)project;
 
-+ (void)trackCompilationWithCompilerNamed:(NSString *)compilerName forProject:(Project *)project;
++ (void)trackCompilationWithCompilerNamed:(NSString *)compilerName forProjectPath:(NSString *)projectPath;
 
 + (void)trackPostProcessing;
 

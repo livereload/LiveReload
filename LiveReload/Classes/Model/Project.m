@@ -446,7 +446,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
                 [[NSNotificationCenter defaultCenter] postNotificationName:ProjectWillBeginCompilationNotification object:self];
                 [self compile:relativePath under:_path with:compiler options:compilationOptions];
                 [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidEndCompilationNotification object:self];
-                [Analytics trackCompilationWithCompilerNamed:compiler.uniqueId forProject:self];
+                [Analytics trackCompilationWithCompilerNamed:compiler.uniqueId forProjectPath:self.path];
                 StatGroupIncrement(CompilerChangeCountStatGroup, compiler.uniqueId, 1);
                 StatGroupIncrement(CompilerChangeCountEnabledStatGroup, compiler.uniqueId, 1);
                 break;
@@ -466,6 +466,11 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     if (!compilerFound) {
         reload_session_add(_session, reload_request_create([[_path stringByAppendingPathComponent:relativePath] UTF8String], NULL));
     }
+}
+
+- (void)addFakeChangeForPath:(NSString *)path originalPath:(NSString *)originalPath {
+    reload_session_add(_session, reload_request_create([path UTF8String], [originalPath UTF8String]));
+    NSLog(@"Broadcasting a fake change in %@ instead of %@.", path, originalPath);
 }
 
 // I don't think this will ever be needed, but not throwing the code away yet

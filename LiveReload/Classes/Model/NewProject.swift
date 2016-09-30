@@ -42,7 +42,12 @@ public class NewProject: NSObject {
     public func compileFile(at path: String) -> Bool {
         // TODO: Compass
         
-        let relPath = RelPath(path)
+        let sourceRelPath = RelPath(path)
+        let sourceFile = ProjectFile(path: sourceRelPath, project: self)
+        
+        if !sourceFile.exists {
+            return true
+        }
 
         for action in actionSet.contextActions {
             NSLog("%@", "Action \(action.action.identifier) has \(action.versions.count) versions:")
@@ -51,10 +56,20 @@ public class NewProject: NSObject {
             }
         }
         
-        let suitableActions = actionSet.contextActions.filter { $0.action.combinedIntrinsicInputPathSpec.includes(relPath) && $0.action.ruleType == CompileFileRule.self }
-        
+        let suitableActions = actionSet.contextActions.filter { $0.action.combinedIntrinsicInputPathSpec.includes(sourceRelPath) && $0.action.ruleType == CompileFileRule.self }
+
         guard let action = suitableActions.first else {
             return false
+        }
+        
+        if !oldProject.compilationEnabled {
+            if let destinationRelPath = action.action.fakeChangeDestinationPathForSourceFile(sourceFile) {
+//            FileCompilationOptions *fileOptions = [self optionsForFileAtPath:relativePath in:compilationOptions];
+//            NSString *derivedName = fileOptions.destinationName;
+                oldProject.addFakeChangeForPath(destinationRelPath.pathString, originalPath: sourceFile.path.pathString)
+                StatGroupIncrement(CompilerChangeCountStatGroup, action.action.identifier, 1)
+            }
+            return true
         }
         
         // TODO: pick the right version!!!
@@ -65,7 +80,6 @@ public class NewProject: NSObject {
         let rule = action.newInstance(memento: [:]) as! CompileFileRule
         rule.effectiveVersion = version
         
-        let sourceFile = ProjectFile(path: relPath, project: self)
         guard let destinationFile = rule.destinationFileForSourceFile(sourceFile) else {
             return false
         }
@@ -78,42 +92,31 @@ public class NewProject: NSObject {
         rule.configureStep(step, forFile: sourceFile, destinationFile: destinationFile)
         
         step.completionHandler = { step in
-            NSLog("DONE %@: %@ with result %@", rule.label, sourceFile.absolutePath, result)
+            NSLog("DONE %@: %@ with result %@", rule.label, sourceFile.absolutePath, result.messages)
+            NSNotificationCenter.defaultCenter().postNotificationName(ProjectDidEndCompilationNotification, object: self.oldProject)
+            Analytics.trackCompilationWithCompilerNamed(action.action.identifier, forProjectPath: self.rootURL.path)
+            StatGroupIncrement(CompilerChangeCountStatGroup, action.action.identifier, 1)
+            StatGroupIncrement(CompilerChangeCountEnabledStatGroup, action.action.identifier, 1)
+            
+            self.displayMessages(result.messages)
         }
         
         NSLog("%@: %@", rule.label, sourceFile.absolutePath)
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(ProjectWillBeginCompilationNotification, object: oldProject)
         step.invoke()
         
         return true
-
-//        for (Compiler *compiler in [PluginManager sharedPluginManager].compilers) {
-//            if (_compassDetected && [compiler.uniqueId isEqualToString:@"sass"])
-//            continue;
-//            else if (!_compassDetected && [compiler.uniqueId isEqualToString:@"compass"])
-//            continue;
-//            if ([compiler canCompileFileNamed:relativePath extension:extension]) {
-//                compilerFound = YES;
-//                CompilationOptions *compilationOptions = [self optionsForCompiler:compiler create:YES];
-//                if (_compilationEnabled && compilationOptions.active) {
-//                    [[NSNotificationCenter defaultCenter] postNotificationName:ProjectWillBeginCompilationNotification object:self];
-//                    [self compile:relativePath under:_path with:compiler options:compilationOptions];
-//                    [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidEndCompilationNotification object:self];
-//                    [Analytics trackCompilationWithCompilerNamed:compiler.uniqueId forProject:self];
-//                    StatGroupIncrement(CompilerChangeCountStatGroup, compiler.uniqueId, 1);
-//                    StatGroupIncrement(CompilerChangeCountEnabledStatGroup, compiler.uniqueId, 1);
-//                    break;
-//                } else {
-//                    FileCompilationOptions *fileOptions = [self optionsForFileAtPath:relativePath in:compilationOptions];
-//                    NSString *derivedName = fileOptions.destinationName;
-//                    reload_session_add(_session, reload_request_create([derivedName UTF8String], [[_path stringByAppendingPathComponent:relativePath] UTF8String]));
-//                    NSLog(@"Broadcasting a fake change in %@ instead of %@ (compiler %@).", derivedName, relativePath, compiler.name);
-//                    StatGroupIncrement(CompilerChangeCountStatGroup, compiler.uniqueId, 1);
-//                    break;
-//                    //            } else if (compilationOptions.mode == CompilationModeDisabled) {
-//                    //                compilerFound = NO;
-//                }
-//            }
-//        }
+    }
+    
+    private func displayMessages(messages: [LRMessage]) {
+        let key = rootURL.path!
+        if let message = messages.first {
+            let output = ToolOutput(message: message)
+            ToolOutputWindowController(compilerOutput: output, key: key).show()
+        } else {
+            ToolOutputWindowController.hideOutputWindowWithKey(key)
+        }
     }
     
     public func dispose() {
@@ -170,6 +173,26 @@ extension NewProject: ProjectContext {
     
     public var processing: Processable {
         return _processing
+    }
+    
+}
+
+private extension ToolOutput {
+    
+    convenience init(message: LRMessage) {
+        let m = message.message
+
+        let type: ToolOutputType
+        switch m.severity {
+        case .Error:
+            type = .Error
+        case .Warning:
+            type = .Error
+        case .Raw:
+            type = .ErrorRaw
+        }
+        
+        self.init(compiler: nil, type: type, sourcePath: m.file, line: (m.line ?? 0), message: (m.text ?? ""), output: (m.text ?? ""))
     }
     
 }

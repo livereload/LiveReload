@@ -5,7 +5,7 @@
 @class Compiler;
 @class Project;
 
-enum ToolOutputType {
+typedef NS_ENUM(NSInteger, ToolOutputType) {
     ToolOutputTypeLog,
     ToolOutputTypeError,
     ToolOutputTypeErrorRaw
@@ -13,7 +13,7 @@ enum ToolOutputType {
 
 @interface ToolOutput : NSObject
 
-- (id)initWithCompiler:(Compiler *)compiler type:(enum ToolOutputType)type sourcePath:(NSString *)sourcePath line:(NSInteger)line message:(NSString *)message output:(NSString *)output;
+- (instancetype)initWithCompiler:(Compiler *)compiler type:(ToolOutputType)type sourcePath:(NSString *)sourcePath line:(NSInteger)line message:(NSString *)message output:(NSString *)output;
 
 @property (nonatomic, readonly, retain) Compiler *compiler;
 @property (nonatomic, retain) Project *project;

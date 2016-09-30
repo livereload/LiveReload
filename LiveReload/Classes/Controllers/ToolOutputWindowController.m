@@ -16,7 +16,7 @@ static ToolOutputWindowController *lastOutputController = nil;
 
 + (void)setLastOutputController:(ToolOutputWindowController *)controller;
 
-@property (nonatomic, assign) enum UnparsedErrorState state;
+//@property (nonatomic, assign) enum UnparsedErrorState state;
 @property (nonatomic, readonly) NSString *key;
 
 - (void)loadMessageForOutputType:(enum ToolOutputType)type;
@@ -26,16 +26,16 @@ static ToolOutputWindowController *lastOutputController = nil;
 - (void)updateJumpToErrorEditor;
 
 - (NSAttributedString *)prepareSpecialMessage:(NSString *)message url:(NSURL *)url;
-- (NSAttributedString *)prepareMessageForState:(enum UnparsedErrorState)state;
-- (NSURL *)errorReportURL;
-- (void)sendErrorReport;
+//- (NSAttributedString *)prepareMessageForState:(enum UnparsedErrorState)state;
+//- (NSURL *)errorReportURL;
+//- (void)sendErrorReport;
 
 @end
 
 @implementation ToolOutputWindowController
 
 @synthesize key = _key;
-@synthesize state = _state;
+//@synthesize state = _state;
 @synthesize fileNameLabel = _fileNameLabel;
 @synthesize lineNumberLabel = _lineNumberLabel;
 @synthesize unparsedNotificationView = _unparsedNotificationView;
@@ -220,11 +220,11 @@ static ToolOutputWindowController *lastOutputController = nil;
             [_messageView setString:_compilerOutput.message];
             _lineNumberLabel.textColor = [NSColor redColor];
             _lineNumberLabel.stringValue = @"Unparsed";
-            self.state = UnparsedErrorStateDefault;
+//            self.state = UnparsedErrorStateDefault;
             break;
     }
 
-    _fileNameLabel.stringValue = [_compilerOutput.sourcePath lastPathComponent];
+    _fileNameLabel.stringValue = [_compilerOutput.sourcePath lastPathComponent] ?: @"";
 
     [[_messageView layoutManager] glyphRangeForTextContainer:[_messageView textContainer]]; // forces layout manager to relayout container
     CGFloat windowHeightDelta = _messageView.frame.size.height - oldHeight;
@@ -335,115 +335,115 @@ static ToolOutputWindowController *lastOutputController = nil;
 
     [as appendAttributedString:[[[NSAttributedString alloc] initWithString:prefix] autorelease]];
 
-    [as appendAttributedString:[[[NSAttributedString alloc] initWithString:link attributes:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:NSSingleUnderlineStyle], NSUnderlineStyleAttributeName, url, NSLinkAttributeName, nil]] autorelease]];
+    [as appendAttributedString:[[[NSAttributedString alloc] initWithString:link attributes:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:NSUnderlineStyleSingle], NSUnderlineStyleAttributeName, url, NSLinkAttributeName, nil]] autorelease]];
 
     [as appendAttributedString:[[[NSAttributedString alloc] initWithString:suffix] autorelease]];
 
     return as;
 }
 
-- (NSAttributedString *)prepareMessageForState:(enum UnparsedErrorState)state {
-    NSString * message;
-    NSMutableAttributedString * resultString;
-    NSRange range;
-    switch (state) {
-        case UnparsedErrorStateDefault:
-            message = @"LiveReload failed to parse this error message. Please submit the message to our server for analysis.";
-            range = [message rangeOfString:@"submit the message"];
-            resultString = [[[NSMutableAttributedString alloc] initWithString: message] autorelease];
+//- (NSAttributedString *)prepareMessageForState:(enum UnparsedErrorState)state {
+//    NSString * message;
+//    NSMutableAttributedString * resultString;
+//    NSRange range;
+//    switch (state) {
+//        case UnparsedErrorStateDefault:
+//            message = @"LiveReload failed to parse this error message. Please submit the message to our server for analysis.";
+//            range = [message rangeOfString:@"submit the message"];
+//            resultString = [[[NSMutableAttributedString alloc] initWithString: message] autorelease];
+//
+//            [resultString beginEditing];
+//            [resultString addAttribute:NSLinkAttributeName value:[[self errorReportURL] absoluteString] range:range];
+//            [resultString endEditing];
+//            break;
+//
+//        case UnparsedErrorStateConnecting :
+//            message = @"Sending the error message to livereload.com…";
+//            resultString = [[[NSMutableAttributedString alloc] initWithString:message] autorelease];
+//            break;
+//
+//        case UnparsedErrorStateFail :
+//            message = @"Failed to send the message to livereload.com. Retry";
+//            range = [message rangeOfString:@"Retry"];
+//            resultString = [[[NSMutableAttributedString alloc] initWithString: message] autorelease];
+//
+//            [resultString beginEditing];
+//            [resultString addAttribute:NSLinkAttributeName value:[[self errorReportURL] absoluteString] range:range];
+//            [resultString endEditing];
+//            break;
+//
+//        case UnparsedErrorStateSuccess :
+//            message = @"The error message has been sent for analysis. Thanks!";
+//            resultString = [[[NSMutableAttributedString alloc] initWithString:message] autorelease];
+//            break;
+//
+//        default: return nil;
+//    }
+//    return resultString;
+//}
 
-            [resultString beginEditing];
-            [resultString addAttribute:NSLinkAttributeName value:[[self errorReportURL] absoluteString] range:range];
-            [resultString endEditing];
-            break;
+//- (NSURL *)errorReportURL {
+//    NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+//    NSString *internalVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+//    return [NSURL URLWithString:[NSString stringWithFormat:@"http://livereload.com/api/submit-error-message.php?v=%@&iv=%@&compiler=%@",
+//                                 [version stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
+//                                 [internalVersion stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
+//                                 _compilerOutput.compiler.name]];
+//}
+//
+//- (void)sendErrorReport {
+//    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:[self errorReportURL] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval: 60.0];
+//    [request setHTTPMethod:@"POST"];
+//    [request setHTTPBody:[_compilerOutput.output dataUsingEncoding:NSUTF8StringEncoding]];
+//    [NSURLConnection connectionWithRequest:request delegate:self];
+//}
 
-        case UnparsedErrorStateConnecting :
-            message = @"Sending the error message to livereload.com…";
-            resultString = [[[NSMutableAttributedString alloc] initWithString:message] autorelease];
-            break;
-
-        case UnparsedErrorStateFail :
-            message = @"Failed to send the message to livereload.com. Retry";
-            range = [message rangeOfString:@"Retry"];
-            resultString = [[[NSMutableAttributedString alloc] initWithString: message] autorelease];
-
-            [resultString beginEditing];
-            [resultString addAttribute:NSLinkAttributeName value:[[self errorReportURL] absoluteString] range:range];
-            [resultString endEditing];
-            break;
-
-        case UnparsedErrorStateSuccess :
-            message = @"The error message has been sent for analysis. Thanks!";
-            resultString = [[[NSMutableAttributedString alloc] initWithString:message] autorelease];
-            break;
-
-        default: return nil;
-    }
-    return resultString;
-}
-
-- (NSURL *)errorReportURL {
-    NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
-    NSString *internalVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
-    return [NSURL URLWithString:[NSString stringWithFormat:@"http://livereload.com/api/submit-error-message.php?v=%@&iv=%@&compiler=%@",
-                                 [version stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
-                                 [internalVersion stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
-                                 _compilerOutput.compiler.name]];
-}
-
-- (void)sendErrorReport {
-    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:[self errorReportURL] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval: 60.0];
-    [request setHTTPMethod:@"POST"];
-    [request setHTTPBody:[_compilerOutput.output dataUsingEncoding:NSUTF8StringEncoding]];
-    [NSURLConnection connectionWithRequest:request delegate:self];
-}
-
-- (void)setState:(enum UnparsedErrorState)state {
-    _state = state;
-    [[_unparsedNotificationView textStorage] setAttributedString:[self prepareMessageForState:state]];
-}
+//- (void)setState:(enum UnparsedErrorState)state {
+//    _state = state;
+//    [[_unparsedNotificationView textStorage] setAttributedString:[self prepareMessageForState:state]];
+//}
 
 #pragma mark -
 #pragma mark NSTextViewDelegate
 - (BOOL)textView:(NSTextView *)textView clickedOnLink:(id)link {
     if (_specialMessageURL)
         return NO;
-    if ( textView == _unparsedNotificationView ) {
-        self.state = UnparsedErrorStateConnecting;
-        [self sendErrorReport];
-        return YES;
-    }
+//    if ( textView == _unparsedNotificationView ) {
+//        self.state = UnparsedErrorStateConnecting;
+//        [self sendErrorReport];
+//        return YES;
+//    }
     return NO;
 }
 
-#pragma mark -
-#pragma mark NSURLConnectionDelegate
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-    _submissionResponseBody = [[NSMutableData alloc] init];
-    _submissionResponseCode = httpResponse.statusCode;
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    [_submissionResponseBody appendData:data];
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    NSString *responseString = [[[NSString alloc] initWithData:_submissionResponseBody encoding:NSUTF8StringEncoding] autorelease];
-    if (_submissionResponseCode == 200 && [responseString isEqualToString:@"OK."]) {
-        NSLog(@"Unparsable log submittion succeeded!");
-        self.state = UnparsedErrorStateSuccess;
-    } else {
-        NSLog(@"Unparsable log submission failed with HTTP response code %ld, body:\n%@", (long)_submissionResponseCode, responseString);
-        self.state = UnparsedErrorStateFail;
-    }
-    [_submissionResponseBody release], _submissionResponseBody = nil;
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    self.state = UnparsedErrorStateFail;
-    NSLog(@"Unparsable log submission failed with error: %@", [error localizedDescription]);
-    [_submissionResponseBody release], _submissionResponseBody = nil;
-}
+//#pragma mark -
+//#pragma mark NSURLConnectionDelegate
+//- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+//    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+//    _submissionResponseBody = [[NSMutableData alloc] init];
+//    _submissionResponseCode = httpResponse.statusCode;
+//}
+//
+//- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+//    [_submissionResponseBody appendData:data];
+//}
+//
+//- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+//    NSString *responseString = [[[NSString alloc] initWithData:_submissionResponseBody encoding:NSUTF8StringEncoding] autorelease];
+//    if (_submissionResponseCode == 200 && [responseString isEqualToString:@"OK."]) {
+//        NSLog(@"Unparsable log submittion succeeded!");
+//        self.state = UnparsedErrorStateSuccess;
+//    } else {
+//        NSLog(@"Unparsable log submission failed with HTTP response code %ld, body:\n%@", (long)_submissionResponseCode, responseString);
+//        self.state = UnparsedErrorStateFail;
+//    }
+//    [_submissionResponseBody release], _submissionResponseBody = nil;
+//}
+//
+//- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+//    self.state = UnparsedErrorStateFail;
+//    NSLog(@"Unparsable log submission failed with error: %@", [error localizedDescription]);
+//    [_submissionResponseBody release], _submissionResponseBody = nil;
+//}
 
 @end

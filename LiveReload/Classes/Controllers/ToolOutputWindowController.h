@@ -6,19 +6,19 @@
 @class Editor;
 
 
-enum UnparsedErrorState {
-    UnparsedErrorStateNone,
-    UnparsedErrorStateDefault,
-    UnparsedErrorStateConnecting,
-    UnparsedErrorStateFail,
-    UnparsedErrorStateSuccess
-};
+//enum UnparsedErrorState {
+//    UnparsedErrorStateNone,
+//    UnparsedErrorStateDefault,
+//    UnparsedErrorStateConnecting,
+//    UnparsedErrorStateFail,
+//    UnparsedErrorStateSuccess
+//};
 
 
 @interface ToolOutputWindowController : NSWindowController {
     ToolOutput            *_compilerOutput;
     NSString              *_key;
-    enum UnparsedErrorState _state;
+//    enum UnparsedErrorState _state;
 
     NSTextField           *_fileNameLabel;
     NSTextField           *_lineNumberLabel;

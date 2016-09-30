@@ -307,7 +307,7 @@ public class Rule : NSObject {
 
     public func configureResult(result: LROperationResult) {
         if let eff = effectiveVersion {
-            result.errorSyntaxManifest = ["errors": eff.manifest.errorSpecs, "warnings": eff.manifest.warningSpecs]
+            result.messageSpecs = eff.manifest.messageSpecs
         }
     }
 

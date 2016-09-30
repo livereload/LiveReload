@@ -1,26 +1,20 @@
-
 import Foundation
+import MessageParsingKit
 
 public class LRMessage : NSObject {
-    public let severity : LRMessageSeverity;
-    public let text : String;
-    public let filePath : String?;
-    public let line: Int;
-    public let column: Int;
+    
+    public let message: Message
 
-    public var stack : String = "";
-    public var rawOutput : String = "";
-
-    public init(severity: LRMessageSeverity, text: String, filePath: String?, line: Int, column: Int) {
-        self.severity = severity;
-        self.text = text;
-        self.filePath = filePath;
-        self.line = line;
-        self.column = column;
+    public init(_ message: Message) {
+        self.message = message
     }
 
     public override var description : String {
-        let severityMessage = (severity == LRMessageSeverity.Error ? "Error" : "Warning")
-        return "\(severityMessage) in \(filePath):\(line):\(column): \(text)"
+        return message.description
     }
+    
+    public var severity: MessageSeverity {
+        return message.severity
+    }
+
 }

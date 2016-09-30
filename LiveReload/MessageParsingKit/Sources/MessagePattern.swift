@@ -4,11 +4,41 @@ private let escapeSymbol = "\u{241B}"
 
 private let fieldRegexp = try! NSRegularExpression(pattern: "\\(\\( ([\\w-]+) (?: : (.*?) )? \\)\\)", options: [.AllowCommentsAndWhitespace, .DotMatchesLineSeparators])
 
+private let ansiEscapeRegexp: NSRegularExpression = {
+    // two-byte sequence: ESC <trailer>, where <trailer> is ASCII 64 to 95 (@ to _), except for [
+    let twoByte = "\u{1b} [@A-Z\\\\\\]^_]"
+    
+    // multi-byte sequence that starts with CSI, Control Sequence Introducer
+    
+    // two-character CSI -- ESC [
+    let twoCharCSI = "\u{1b} \\["
+    // single-character CSI (less often used, but valid)
+    let singleCharCSI = "\u{9b}"
+    let csi = "(?: \(twoCharCSI) | \(singleCharCSI) )"
+    
+    // multi-byte sequence terminator, ASCII 64 to 126 (@ to ~)
+    let terminator = "[@-~]"
+    
+    // multi-byte sequence that starts with CSI, followed by some arguments, followed by terminator
+    let multiByte = "\(csi) .*? \(terminator)"
+    
+    let pattern = "(?: \(twoByte) | \(multiByte) )+"
+    
+    return try! NSRegularExpression(pattern: pattern, options: [.AllowCommentsAndWhitespace])
+}()
+
+
+public typealias MessageParsingResult = (remainder: String, messages: [Message])
+
 public class MessagePattern {
     
     public static let escapeMatchingString = "<ESC>"
     
     public let patternString: String
+
+    public let severity: MessageSeverity
+
+    private let messageOverride: String?
 
     internal let processedPatternString: String
     
@@ -18,8 +48,10 @@ public class MessagePattern {
     
     private let groups: [MessageField: Int]
     
-    public init(_ patternString: String, messageOverridePattern: String? = nil) throws {
+    public init(_ patternString: String, severity: MessageSeverity, messageOverride: String? = nil) throws {
         self.patternString = patternString
+        self.severity = severity
+        self.messageOverride = messageOverride
         
         isMatchingEscapes = patternString.containsString(MessagePattern.escapeMatchingString)
         let escapeNormalizedPatternString = (isMatchingEscapes ? patternString.stringByReplacingOccurrencesOfString(MessagePattern.escapeMatchingString, withString: escapeSymbol) : patternString)
@@ -36,11 +68,14 @@ public class MessagePattern {
                 defaultRegexp = field.defaultRegexp
             } else {
                 // TODO: report invalid field
-                defaultRegexp = ".*"
+                defaultRegexp = ".*?"
             }
             group += 1
 
-            return "(" + defaultRegexp + ")"
+            let customRegexp = groupStrings[2] ?? "***"
+            let regexp = customRegexp.stringByReplacingOccurrencesOfString("***", withString: defaultRegexp)
+
+            return "(" + regexp + ")"
         }
         self.processedPatternString = processedPattern
         
@@ -49,12 +84,12 @@ public class MessagePattern {
         self.regexp = try NSRegularExpression(pattern: processedPattern, options: [])
     }
     
-    public func parse(text: String) -> (String, [Message]) {
+    public func parse(text: String) -> MessageParsingResult {
         let normalizedText: String
         if isMatchingEscapes {
-            normalizedText = text.stringByReplacingOccurrencesOfString(MessagePattern.escapeMatchingString, withString: escapeSymbol)
+            normalizedText = normalize(ansiEscapeRegexp.replace(in: text, withTemplate: escapeSymbol))
         } else {
-            normalizedText = text.stringByReplacingOccurrencesOfString(MessagePattern.escapeMatchingString, withString: "")
+            normalizedText = normalize(ansiEscapeRegexp.replace(in: text, withTemplate: ""))
         }
         
         var messages: [Message] = []
@@ -66,17 +101,47 @@ public class MessagePattern {
                     fieldValues[field] = s
                 }
             }
-            messages.append(Message(fieldValues: fieldValues))
+            
+            var message = Message(severity: severity, fieldValues: fieldValues)
+            if let messageOverride = messageOverride {
+                let originalText = message.text ?? ""
+                message.text = messageOverride.stringByReplacingOccurrencesOfString("***", withString: originalText)
+            }
+            
+            messages.append(message)
             
             return ""
+        }.stringByTrimmingCharactersInSet(.whitespaceAndNewlineCharacterSet())
+
+        return (remainder, messages)
+    }
+    
+    public static func parse(text: String, using patterns: [MessagePattern]) -> MessageParsingResult {
+        var text = text.stringByTrimmingCharactersInSet(.whitespaceAndNewlineCharacterSet())
+        
+        var messages: [Message] = []
+        
+        for pattern in patterns {
+            if text.isEmpty {
+                break
+            }
+            
+            let (remainder, messagesThisTime) = pattern.parse(text)
+            messages.appendContentsOf(messagesThisTime)
+            text = remainder
         }
         
-        return (remainder, messages)
+        return (text, messages)
     }
     
 }
 
 private extension NSRegularExpression {
+
+    func replace(in text: String, withTemplate template: String) -> String {
+        let bridged = text as NSString
+        return stringByReplacingMatchesInString(text, options: [], range: NSMakeRange(0, bridged.length), withTemplate: template)
+    }
     
     func replace(in text: String, options: NSMatchingOptions = [], @noescape escape: (String) -> String = identityEscape, @noescape using block: ([String?], NSTextCheckingResult, NSMatchingFlags) -> String) -> String {
         var resultingString: String = ""
@@ -116,4 +181,8 @@ private extension NSRegularExpression {
 
 private func identityEscape(v: String) -> String {
     return v
+}
+
+private func normalize(s: String) -> String {
+    return s.stringByTrimmingCharactersInSet(.whitespaceAndNewlineCharacterSet()) + "\n"
 }

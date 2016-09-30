@@ -39,11 +39,11 @@
     }
 }
 
-+ (void)trackCompilationWithCompilerNamed:(NSString *)compilerName forProject:(Project *)project {
++ (void)trackCompilationWithCompilerNamed:(NSString *)compilerName forProjectPath:(NSString *)projectPath {
     [Analytics trackEventNamed:@"compilation" parameters:@{@"compiler": compilerName}];
     [Analytics setFlagNamed:@"compilerUsed"];
     [Analytics incrementCounterNamed:@"compilations"];
-    [Analytics includeValue:project.path intoCountingSetNamed:@"activeProjects"];
+    [Analytics includeValue:projectPath intoCountingSetNamed:@"activeProjects"];
 }
 
 + (void)trackPostProcessing {
