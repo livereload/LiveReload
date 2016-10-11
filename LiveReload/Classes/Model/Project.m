@@ -9,10 +9,9 @@
 #import "Preferences.h"
 #import "PluginManager.h"
 #import "Compiler.h"
-#import "CompilationOptions.h"
+#import "ActionOptions.h"
 #import "FileCompilationOptions.h"
 #import "ImportGraph.h"
-#import "ToolOutput.h"
 
 #import "Stats.h"
 #import "RegexKitLite.h"
@@ -63,7 +62,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 - (void)updateFilter;
 - (void)handleCompilationOptionsEnablementChanged;
 
-- (void)updateImportGraphForPaths:(NSSet *)paths;
 - (void)rebuildImportGraph;
 
 - (void)processPendingChanges;
@@ -92,7 +90,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     
     NSString                *_rubyVersionIdentifier;
     
-    NSMutableDictionary     *_compilerOptions;
     BOOL                     _compilationEnabled;
     
     ImportGraph             *_importGraph;
@@ -150,23 +147,11 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFilter) name:PreferencesFilterSettingsChangedNotification object:nil];
         [self updateFilter];
 
-        _compilerOptions = [[NSMutableDictionary alloc] init];
         _monitoringRequests = [[NSMutableSet alloc] init];
 
         _lastSelectedPane = [[memento objectForKey:@"last_pane"] copy];
 
-        id raw = [memento objectForKey:@"compilers"];
-        if (raw) {
-            PluginManager *pluginManager = [PluginManager sharedPluginManager];
-            [raw enumerateKeysAndObjectsUsingBlock:^(id uniqueId, id compilerMemento, BOOL *stop) {
-                Compiler *compiler = [pluginManager compilerWithUniqueId:uniqueId];
-                if (compiler) {
-                    [_compilerOptions setObject:[[[CompilationOptions alloc] initWithCompiler:compiler memento:compilerMemento] autorelease] forKey:uniqueId];
-                } else {
-                    // TODO: save data for unknown compilers and re-add them when creating a memento
-                }
-            }];
-        }
+        [_newProj loadFromMemento:memento ?: [NSDictionary dictionary]];
 
         if ([memento objectForKey:@"compilationEnabled"]) {
             _compilationEnabled = [[memento objectForKey:@"compilationEnabled"] boolValue];
@@ -235,7 +220,6 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [_path release], _path = nil;
     [_monitor release], _monitor = nil;
-    [_compilerOptions release], _compilerOptions = nil;
     [_monitoringRequests release], _monitoringRequests = nil;
     [_postProcessingCommand release], _postProcessingCommand = nil;
     [_importGraph release], _importGraph = nil;
@@ -249,7 +233,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
 - (NSDictionary *)memento {
     NSMutableDictionary *memento = [NSMutableDictionary dictionary];
-    [memento setObject:[_compilerOptions dictionaryByMappingValuesToSelector:@selector(memento)] forKey:@"compilers"];
+    [memento setValuesForKeysWithDictionary:[_newProj updatedMemento]];
     if (_lastSelectedPane)
         [memento setObject:_lastSelectedPane forKey:@"last_pane"];
     if ([_postProcessingCommand length] > 0) {
@@ -381,12 +365,13 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     }
 }
 
+#if OLD_BUILD
 - (void)compile:(NSString *)relativePath under:(NSString *)rootPath with:(Compiler *)compiler options:(CompilationOptions *)compilationOptions {
     NSString *path = [rootPath stringByAppendingPathComponent:relativePath];
 
     if (![[NSFileManager defaultManager] fileExistsAtPath:path])
         return; // don't try to compile deleted files
-    FileCompilationOptions *fileOptions = [self optionsForFileAtPath:relativePath in:compilationOptions];
+    FileCompilationOptions *fileOptions = [self guessOptionsForFileAtPath:relativePath in:compilationOptions];
     if (fileOptions.destinationDirectory != nil || !compiler.needsOutputDirectory) {
         NSString *derivedName = fileOptions.destinationName;
         NSString *derivedPath = (compiler.needsOutputDirectory ? [fileOptions.destinationDirectory stringByAppendingPathComponent:derivedName] : [[path stringByDeletingLastPathComponent] stringByAppendingPathComponent:derivedName]);
@@ -404,6 +389,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         NSLog(@"Ignoring %@ because destination directory is not set.", relativePath);
     }
 }
+#endif
 
 - (void)broadcastPendingChanges {
     [[NSNotificationCenter defaultCenter] postNotificationName:ProjectDidDetectChangeNotification object:self];
@@ -434,6 +420,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     }
 
     BOOL compilerFound = NO;
+#if OLD_BUILD
     for (Compiler *compiler in [PluginManager sharedPluginManager].compilers) {
         if (_compassDetected && [compiler.uniqueId isEqualToString:@"sass"])
             continue;
@@ -451,7 +438,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
                 StatGroupIncrement(CompilerChangeCountEnabledStatGroup, compiler.uniqueId, 1);
                 break;
             } else {
-                FileCompilationOptions *fileOptions = [self optionsForFileAtPath:relativePath in:compilationOptions];
+                FileCompilationOptions *fileOptions = [self guessOptionsForFileAtPath:relativePath in:compilationOptions];
                 NSString *derivedName = fileOptions.destinationName;
                 reload_session_add(_session, reload_request_create([derivedName UTF8String], [[_path stringByAppendingPathComponent:relativePath] UTF8String]));
                 NSLog(@"Broadcasting a fake change in %@ instead of %@ (compiler %@).", derivedName, relativePath, compiler.name);
@@ -462,6 +449,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
             }
         }
     }
+#endif
 
     if (!compilerFound) {
         reload_session_add(_session, reload_request_create([[_path stringByAppendingPathComponent:relativePath] UTF8String], NULL));
@@ -498,7 +486,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
         default: console_printf("Changed: %s and %d others", [[pathes anyObject] UTF8String], pathes.count - 1); break;
     }
 
-    [self updateImportGraphForPaths:pathes];
+    [self analyzePaths:pathes];
 
 #ifdef AUTORESCAN_WORKAROUND_ENABLED
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(rescanRecentlyChangedPaths) object:nil];
@@ -614,14 +602,16 @@ fin:
 
 - (NSArray *)compilersInUse {
     FSTree *tree = [_monitor obtainTree];
-    return [[PluginManager sharedPluginManager].compilers filteredArrayUsingBlock:^BOOL(id value) {
-        Compiler *compiler = value;
-        if (_compassDetected && [compiler.uniqueId isEqualToString:@"sass"])
-            return NO;
-        else if (!_compassDetected && [compiler.uniqueId isEqualToString:@"compass"])
-            return NO;
-        return [compiler pathsOfSourceFilesInTree:tree].count > 0;
-    }];
+    // TODO FIXME
+//    return [[PluginManager sharedPluginManager].compilers filteredArrayUsingBlock:^BOOL(id value) {
+//        Compiler *compiler = value;
+//        if (_compassDetected && [compiler.uniqueId isEqualToString:@"sass"])
+//            return NO;
+//        else if (!_compassDetected && [compiler.uniqueId isEqualToString:@"compass"])
+//            return NO;
+//        return [compiler pathsOfSourceFilesInTree:tree].count > 0;
+//    }];
+    return @[];
 }
 
 
@@ -642,15 +632,16 @@ fin:
     }
 }
 
-- (CompilationOptions *)optionsForCompiler:(Compiler *)compiler create:(BOOL)create {
-    NSString *uniqueId = compiler.uniqueId;
-    CompilationOptions *options = [_compilerOptions objectForKey:uniqueId];
-    if (options == nil && create) {
-        options = [[[CompilationOptions alloc] initWithCompiler:compiler memento:nil] autorelease];
-        [_compilerOptions setObject:options forKey:uniqueId];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
-    }
-    return options;
+- (ActionOptions *)optionsForActionIdentifier:(NSString *)uniqueId create:(BOOL)create {
+    // TODO FIXME
+//    ActionOptions *options = [_compilerOptions objectForKey:uniqueId];
+//    if (options == nil && create) {
+//        options = [[[ActionOptions alloc] initWithCompiler:compiler memento:nil] autorelease];
+//        [_compilerOptions setObject:options forKey:uniqueId];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:self];
+//    }
+//    return options;
+    return nil;
 }
 
 - (id)enumerateParentFoldersFromFolder:(NSString *)folder with:(id(^)(NSString *folder, NSString *relativePath, BOOL *stop))block {
@@ -668,9 +659,11 @@ fin:
     return nil;
 }
 
-- (FileCompilationOptions *)optionsForFileAtPath:(NSString *)sourcePath in:(CompilationOptions *)compilationOptions {
+- (FileCompilationOptions *)guessOptionsForFileAtPath:(NSString *)sourcePath in:(ActionOptions *)compilationOptions {
     FileCompilationOptions *fileOptions = [compilationOptions optionsForFileAtPath:sourcePath create:YES];
 
+    // TODO FIXME
+#if 0
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
     FSTree *tree = self.tree;
@@ -778,6 +771,7 @@ fin:
     }
 skipGuessing:
     [pool drain];
+#endif
     return fileOptions;
 }
 
@@ -937,31 +931,41 @@ skipGuessing:
     [_importGraph setRereferencedPaths:referencedPaths forPath:relativePath];
 }
 
-- (void)updateImportGraphForPath:(NSString *)relativePath {
+- (void)analyzePath:(NSString *)relativePath {
     NSString *fullPath = [_path stringByAppendingPathComponent:relativePath];
-    if (![[NSFileManager defaultManager] fileExistsAtPath:fullPath]) {
-        [_importGraph removePath:relativePath collectingPathsToRecomputeInto:nil];
-        return;
-    }
-
-    if ([self isCompassConfigurationFile:relativePath]) {
-        [self scanCompassConfigurationFile:relativePath];
-    }
-
-    NSString *extension = [relativePath pathExtension];
-
-    for (Compiler *compiler in [PluginManager sharedPluginManager].compilers) {
-        if ([compiler.extensions containsObject:extension]) {
-//            CompilationOptions *compilationOptions = [self optionsForCompiler:compiler create:NO];
-            [self updateImportGraphForPath:relativePath compiler:compiler];
-            return;
+    BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:fullPath];
+    
+    if (exists) {
+        [self updateImportGraphForPath:relativePath];
+        
+        if ([self isCompassConfigurationFile:relativePath]) {
+            [self scanCompassConfigurationFile:relativePath];
         }
+    } else {
+        [self updateImportGraphForDeletedPath:relativePath];
     }
 }
 
-- (void)updateImportGraphForPaths:(NSSet *)paths {
+- (void)updateImportGraphForDeletedPath:(NSString *)relativePath {
+    [_importGraph removePath:relativePath collectingPathsToRecomputeInto:nil];
+}
+
+- (void)updateImportGraphForPath:(NSString *)relativePath {
+    // TODO FIXME
+//    NSString *extension = [relativePath pathExtension];
+//
+//    for (Compiler *compiler in [PluginManager sharedPluginManager].compilers) {
+//        if ([compiler.extensions containsObject:extension]) {
+////            CompilationOptions *compilationOptions = [self optionsForCompiler:compiler create:NO];
+//            [self updateImportGraphForPath:relativePath compiler:compiler];
+//            return;
+//        }
+//    }
+}
+
+- (void)analyzePaths:(NSSet *)paths {
     for (NSString *path in paths) {
-        [self updateImportGraphForPath:path];
+        [self analyzePath:path];
     }
     NSLog(@"Incremental import graph update finished. %@", _importGraph);
 }
@@ -977,19 +981,20 @@ skipGuessing:
             return YES;
         }
 
-        for (Compiler *compiler in [PluginManager sharedPluginManager].compilers) {
-            if ([compiler.extensions containsObject:extension]) {
-//                CompilationOptions *compilationOptions = [self optionsForCompiler:compiler create:NO];
-//                CompilationMode mode = compilationOptions.mode;
-                if (YES) { //mode == CompilationModeCompile || mode == CompilationModeMiddleware) {
-                    return YES;
-                }
-            }
-        }
+        // TODO FIXME
+//        for (Compiler *compiler in [PluginManager sharedPluginManager].compilers) {
+//            if ([compiler.extensions containsObject:extension]) {
+////                CompilationOptions *compilationOptions = [self optionsForCompiler:compiler create:NO];
+////                CompilationMode mode = compilationOptions.mode;
+//                if (YES) { //mode == CompilationModeCompile || mode == CompilationModeMiddleware) {
+//                    return YES;
+//                }
+//            }
+//        }
         return NO;
     }];
     for (NSString *path in paths) {
-        [self updateImportGraphForPath:path];
+        [self analyzePath:path];
     }
     NSLog(@"Full import graph rebuild finished. %@", _importGraph);
 }

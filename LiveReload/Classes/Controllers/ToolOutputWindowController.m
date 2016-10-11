@@ -1,13 +1,14 @@
 
 #import "ToolOutputWindowController.h"
 
-#import "ToolOutput.h"
 #import "Project.h"
 
 #import "EditorManager.h"
 #import "Editor.h"
 
 #import "Compiler.h"
+
+#import "LiveReload-Swift.h"
 
 
 static ToolOutputWindowController *lastOutputController = nil;
@@ -91,8 +92,8 @@ static ToolOutputWindowController *lastOutputController = nil;
     [_messageScroller setBorderType:NSNoBorder];
     [_messageScroller setDrawsBackground:NO];
 
-
-    [self loadMessageForOutputType:_compilerOutput.type];
+    // TODO FIXME
+//    [self loadMessageForOutputType:_compilerOutput.type];
 
     // add the gears icon to the action button
     NSMenuItem *menuItem = [[[NSMenuItem alloc] initWithTitle:@"" action:nil keyEquivalent:@""] autorelease];
@@ -189,52 +190,54 @@ static ToolOutputWindowController *lastOutputController = nil;
     [self autorelease];
 }
 #pragma mark -
-- (void)loadMessageForOutputType:(enum ToolOutputType)type {
-    if ([_compilerOutput.output rangeOfString:@"Nothing to compile. If you're trying to start a new project, you have left off the directory argument"].location != NSNotFound) {
-        NSString *message = @"LiveReload knowledge base _[has an article about this error]_.";
-        NSURL *url = [NSURL URLWithString:@"http://go.livereload.com/err/compass-nothing-to-compile"];
-        [_unparsedNotificationView textStorage].attributedString = [self prepareSpecialMessage:message url:url];
 
-        if (type == ToolOutputTypeErrorRaw)
-            type = ToolOutputTypeError;
-        _specialMessageURL = [url retain];
-    } else if (type != ToolOutputTypeErrorRaw) {
-        [self hideUnparsedNotificationView];
-    }
-
-    CGFloat maxHeight = [[[self window] screen] frame].size.height / 2;
-    CGFloat oldHeight = _messageScroller.frame.size.height;
-
-    switch (type) {
-        case ToolOutputTypeLog :
-            [_messageView setString:_compilerOutput.output];
-            _lineNumberLabel.textColor = [NSColor blackColor];
-            _lineNumberLabel.stringValue = (_compilerOutput.line ? [NSString stringWithFormat:@"%ld", (long)_compilerOutput.line] : @"");
-            break;
-        case ToolOutputTypeError :
-            [_messageView setString:_compilerOutput.message];
-            _lineNumberLabel.textColor = [NSColor blackColor];
-            _lineNumberLabel.stringValue = (_compilerOutput.line ? [NSString stringWithFormat:@"%ld", (long)_compilerOutput.line] : @"");
-            break;
-        case ToolOutputTypeErrorRaw :
-            [_messageView setString:_compilerOutput.message];
-            _lineNumberLabel.textColor = [NSColor redColor];
-            _lineNumberLabel.stringValue = @"Unparsed";
-//            self.state = UnparsedErrorStateDefault;
-            break;
-    }
-
-    _fileNameLabel.stringValue = [_compilerOutput.sourcePath lastPathComponent] ?: @"";
-
-    [[_messageView layoutManager] glyphRangeForTextContainer:[_messageView textContainer]]; // forces layout manager to relayout container
-    CGFloat windowHeightDelta = _messageView.frame.size.height - oldHeight;
-
-    NSRect windowFrame = self.window.frame;
-    CGFloat finalDelta = MIN(windowFrame.size.height + windowHeightDelta, maxHeight) - windowFrame.size.height;
-    windowFrame.size.height += finalDelta;
-    windowFrame.origin.y -= finalDelta;
-    [self.window setFrame:windowFrame display:YES];
-}
+// TODO FIXME
+//- (void)loadMessageForOutputType:(enum ToolOutputType)type {
+//    if ([_compilerOutput.output rangeOfString:@"Nothing to compile. If you're trying to start a new project, you have left off the directory argument"].location != NSNotFound) {
+//        NSString *message = @"LiveReload knowledge base _[has an article about this error]_.";
+//        NSURL *url = [NSURL URLWithString:@"http://go.livereload.com/err/compass-nothing-to-compile"];
+//        [_unparsedNotificationView textStorage].attributedString = [self prepareSpecialMessage:message url:url];
+//
+//        if (type == ToolOutputTypeErrorRaw)
+//            type = ToolOutputTypeError;
+//        _specialMessageURL = [url retain];
+//    } else if (type != ToolOutputTypeErrorRaw) {
+//        [self hideUnparsedNotificationView];
+//    }
+//
+//    CGFloat maxHeight = [[[self window] screen] frame].size.height / 2;
+//    CGFloat oldHeight = _messageScroller.frame.size.height;
+//
+//    switch (type) {
+//        case ToolOutputTypeLog :
+//            [_messageView setString:_compilerOutput.output];
+//            _lineNumberLabel.textColor = [NSColor blackColor];
+//            _lineNumberLabel.stringValue = (_compilerOutput.line ? [NSString stringWithFormat:@"%ld", (long)_compilerOutput.line] : @"");
+//            break;
+//        case ToolOutputTypeError :
+//            [_messageView setString:_compilerOutput.message];
+//            _lineNumberLabel.textColor = [NSColor blackColor];
+//            _lineNumberLabel.stringValue = (_compilerOutput.line ? [NSString stringWithFormat:@"%ld", (long)_compilerOutput.line] : @"");
+//            break;
+//        case ToolOutputTypeErrorRaw :
+//            [_messageView setString:_compilerOutput.message];
+//            _lineNumberLabel.textColor = [NSColor redColor];
+//            _lineNumberLabel.stringValue = @"Unparsed";
+////            self.state = UnparsedErrorStateDefault;
+//            break;
+//    }
+//
+//    _fileNameLabel.stringValue = [_compilerOutput.sourcePath lastPathComponent] ?: @"";
+//
+//    [[_messageView layoutManager] glyphRangeForTextContainer:[_messageView textContainer]]; // forces layout manager to relayout container
+//    CGFloat windowHeightDelta = _messageView.frame.size.height - oldHeight;
+//
+//    NSRect windowFrame = self.window.frame;
+//    CGFloat finalDelta = MIN(windowFrame.size.height + windowHeightDelta, maxHeight) - windowFrame.size.height;
+//    windowFrame.size.height += finalDelta;
+//    windowFrame.origin.y -= finalDelta;
+//    [self.window setFrame:windowFrame display:YES];
+//}
 
 - (void)hideUnparsedNotificationView {
     if ([_unparsedNotificationView isHidden] == NO ) {
@@ -257,7 +260,8 @@ static ToolOutputWindowController *lastOutputController = nil;
 
 - (IBAction)showCompilationLog:(id)sender {
     [self.showOutputMenuItem setEnabled:NO];
-    [self loadMessageForOutputType:ToolOutputTypeLog];
+    // TODO FIXME
+//    [self loadMessageForOutputType:ToolOutputTypeLog];
 }
 
 #pragma mark -
@@ -295,9 +299,10 @@ static ToolOutputWindowController *lastOutputController = nil;
         return;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.05 * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void){
         // TODO: check for success before hiding!
-        if (![_editor jumpToFile:_compilerOutput.sourcePath line:_compilerOutput.line]) {
-            NSLog(@"Failed to jump to the error position.");
-        }
+        // TODO FIXME
+//        if (![_editor jumpToFile:_compilerOutput.sourcePath line:_compilerOutput.line]) {
+//            NSLog(@"Failed to jump to the error position.");
+//        }
     });
     [self hide:NO];
 }
@@ -307,9 +312,10 @@ static ToolOutputWindowController *lastOutputController = nil;
 
 - (IBAction)revealInFinder:(id)sender {
     NSString *root = nil;
-    if ([_compilerOutput.project isPathInsideProject:_compilerOutput.sourcePath]) {
-        root = _compilerOutput.project.path;
-    }
+    // TODO FIXME
+//    if ([_compilerOutput.project isPathInsideProject:_compilerOutput.sourcePath]) {
+//        root = _compilerOutput.project.path;
+//    }
     [[NSWorkspace sharedWorkspace] selectFile:_compilerOutput.sourcePath inFileViewerRootedAtPath:root];
 }
 

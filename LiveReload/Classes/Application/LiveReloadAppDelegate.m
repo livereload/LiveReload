@@ -7,7 +7,7 @@
 #import "LiveReloadAppDelegate.h"
 #import "Project.h"
 #import "Workspace.h"
-#import "CompilationOptions.h"
+#import "ActionOptions.h"
 #import "StatusItemController.h"
 #import "NewMainWindowController.h"
 #import "LoginItemController.h"
@@ -129,7 +129,6 @@ void C_app__good_time_to_deliver_news(json_t *arg) {
     }
 
     [Preferences initDefaults];
-    [[PluginManager sharedPluginManager] reloadPlugins];
     
     [self initializeSwiftPartsOfApp];
     
@@ -320,33 +319,34 @@ void C_app__good_time_to_deliver_news(json_t *arg) {
         NSString *path = [[[params objectForKey:@"path"] stringByExpandingTildeInPath] stringByStandardizingPath];
         BOOL isDir = NO;
         if (path && [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir] && isDir) {
+            // TODO FIXME
             Project *project = [[Workspace sharedWorkspace] projectWithPath:path create:YES];
 
-            NSMutableSet *compilerIds = [NSMutableSet set];
-            [params enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-                NSString *prefix = @"compiler-";
-                if ([key length] > [prefix length] && [[key substringToIndex:[prefix length]] isEqualToString:prefix]) {
-                    NSString *compilerId = [key substringFromIndex:[prefix length]];
-                    NSRange r = [compilerId rangeOfString:@"-" options:NSBackwardsSearch];
-                    if (r.length > 0) {
-                        compilerId = [compilerId substringToIndex:r.location];
-                        [compilerIds addObject:compilerId];
-                    }
-                }
-            }];
-
-            for (NSString *compilerId in compilerIds) {
-                Compiler *compiler = [[PluginManager sharedPluginManager] compilerWithUniqueId:compilerId];
-                if (compiler) {
-                    NSString *mode = [params objectForKey:[NSString stringWithFormat:@"compiler-%@-mode", compilerId]];
-                    if ([mode length] > 0) {
-//                        CompilationOptions *options = [project optionsForCompiler:compiler create:YES];
-//                        options.mode = CompilationModeFromNSString(mode);
-                    }
-                } else {
-                    NSLog(@"Ignoring options for unknown compiler: '%@'", compilerId);
-                }
-            }
+//            NSMutableSet *compilerIds = [NSMutableSet set];
+//            [params enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+//                NSString *prefix = @"compiler-";
+//                if ([key length] > [prefix length] && [[key substringToIndex:[prefix length]] isEqualToString:prefix]) {
+//                    NSString *compilerId = [key substringFromIndex:[prefix length]];
+//                    NSRange r = [compilerId rangeOfString:@"-" options:NSBackwardsSearch];
+//                    if (r.length > 0) {
+//                        compilerId = [compilerId substringToIndex:r.location];
+//                        [compilerIds addObject:compilerId];
+//                    }
+//                }
+//            }];
+//
+//            for (NSString *compilerId in compilerIds) {
+//                Compiler *compiler = [[PluginManager sharedPluginManager] compilerWithUniqueId:compilerId];
+//                if (compiler) {
+//                    NSString *mode = [params objectForKey:[NSString stringWithFormat:@"compiler-%@-mode", compilerId]];
+//                    if ([mode length] > 0) {
+////                        CompilationOptions *options = [project optionsForCompiler:compiler create:YES];
+////                        options.mode = CompilationModeFromNSString(mode);
+//                    }
+//                } else {
+//                    NSLog(@"Ignoring options for unknown compiler: '%@'", compilerId);
+//                }
+//            }
 
             [self projectAdded:project];
         } else {

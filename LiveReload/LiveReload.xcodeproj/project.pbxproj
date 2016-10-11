@@ -125,7 +125,7 @@
 		43512FAD1ACD750D0073A0D4 /* SublimeText2Editor.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE5013F8DA3100529AD2 /* SublimeText2Editor.m */; };
 		43512FAE1ACD750D0073A0D4 /* TextMateEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE5213F8DA3100529AD2 /* TextMateEditor.m */; };
 		43512FAF1ACD750D0073A0D4 /* NSObject+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE5613F8DA3100529AD2 /* NSObject+JSON.m */; };
-		43512FB91ACD750D0073A0D4 /* CompilationOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE6B13F8DA3100529AD2 /* CompilationOptions.m */; };
+		43512FB91ACD750D0073A0D4 /* ActionOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE6B13F8DA3100529AD2 /* ActionOptions.m */; };
 		43512FBA1ACD750D0073A0D4 /* FileCompilationOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE6D13F8DA3100529AD2 /* FileCompilationOptions.m */; };
 		43512FBB1ACD750D0073A0D4 /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE6F13F8DA3100529AD2 /* Project.m */; };
 		43512FBC1ACD750D0073A0D4 /* Workspace.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE7113F8DA3100529AD2 /* Workspace.m */; };
@@ -134,7 +134,6 @@
 		43512FC01ACD750D0073A0D4 /* Plugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE8113F8DA3100529AD2 /* Plugin.m */; };
 		43512FC11ACD750D0073A0D4 /* bloom.c in Sources */ = {isa = PBXBuildFile; fileRef = 4317BD3B1A7F6AB80054D32D /* bloom.c */; };
 		43512FC21ACD750D0073A0D4 /* PluginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE8313F8DA3100529AD2 /* PluginManager.m */; };
-		43512FC31ACD750D0073A0D4 /* ToolOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE8513F8DA3100529AD2 /* ToolOutput.m */; };
 		43512FC41ACD750D0073A0D4 /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE8813F8DA3100529AD2 /* Preferences.m */; };
 		43512FC51ACD750D0073A0D4 /* ATFunctionalStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEA113F8DA3100529AD2 /* ATFunctionalStyle.m */; };
 		43512FC61ACD750D0073A0D4 /* LoginItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEA313F8DA3100529AD2 /* LoginItemController.m */; };
@@ -268,6 +267,7 @@
 		439A76B615B28F8C00E50057 /* LicenseCodeWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 439A76B515B28F8C00E50057 /* LicenseCodeWindowController.xib */; };
 		439C093313ADCBDD00119233 /* monitoring.plist in Resources */ = {isa = PBXBuildFile; fileRef = 439C093213ADCBDD00119233 /* monitoring.plist */; };
 		43BD2D671D967BA300E9DF81 /* networking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BD2D661D967BA300E9DF81 /* networking.a */; };
+		43BD71BF1DA8F7BF007317E6 /* ToolOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BD71BE1DA8F7BF007317E6 /* ToolOutput.swift */; };
 		43C0368613CA191D00A01305 /* LiveReload.icns in Resources */ = {isa = PBXBuildFile; fileRef = 43C0368513CA191C00A01305 /* LiveReload.icns */; };
 		43C3D04E15B37B1500BCD2E8 /* LicenseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C3D04D15B37B1500BCD2E8 /* LicenseManager.m */; };
 		43D209691A810D5500D47F2B /* licensing_check.c in Sources */ = {isa = PBXBuildFile; fileRef = 43D209651A80FFD200D47F2B /* licensing_check.c */; };
@@ -317,14 +317,13 @@
 		823DDEE313F8DA3100529AD2 /* SublimeText2Editor.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE5013F8DA3100529AD2 /* SublimeText2Editor.m */; };
 		823DDEE413F8DA3100529AD2 /* TextMateEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE5213F8DA3100529AD2 /* TextMateEditor.m */; };
 		823DDEE513F8DA3100529AD2 /* NSObject+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE5613F8DA3100529AD2 /* NSObject+JSON.m */; };
-		823DDEEF13F8DA3100529AD2 /* CompilationOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE6B13F8DA3100529AD2 /* CompilationOptions.m */; };
+		823DDEEF13F8DA3100529AD2 /* ActionOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE6B13F8DA3100529AD2 /* ActionOptions.m */; };
 		823DDEF013F8DA3100529AD2 /* FileCompilationOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE6D13F8DA3100529AD2 /* FileCompilationOptions.m */; };
 		823DDEF113F8DA3100529AD2 /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE6F13F8DA3100529AD2 /* Project.m */; };
 		823DDEF213F8DA3100529AD2 /* Workspace.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE7113F8DA3100529AD2 /* Workspace.m */; };
 		823DDEF713F8DA3100529AD2 /* Compiler.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE7D13F8DA3100529AD2 /* Compiler.m */; };
 		823DDEF913F8DA3100529AD2 /* Plugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE8113F8DA3100529AD2 /* Plugin.m */; };
 		823DDEFA13F8DA3100529AD2 /* PluginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE8313F8DA3100529AD2 /* PluginManager.m */; };
-		823DDEFB13F8DA3100529AD2 /* ToolOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE8513F8DA3100529AD2 /* ToolOutput.m */; };
 		823DDEFC13F8DA3100529AD2 /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDE8813F8DA3100529AD2 /* Preferences.m */; };
 		823DDF0613F8DA3100529AD2 /* ATFunctionalStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEA113F8DA3100529AD2 /* ATFunctionalStyle.m */; };
 		823DDF0713F8DA3100529AD2 /* LoginItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 823DDEA313F8DA3100529AD2 /* LoginItemController.m */; };
@@ -627,6 +626,7 @@
 		43A265E613DCEAE600704BF6 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		43BD2D651D967B9D00E9DF81 /* networking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = networking.h; path = networking/networking.h; sourceTree = "<group>"; };
 		43BD2D661D967BA300E9DF81 /* networking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = networking.a; path = networking/networking.a; sourceTree = "<group>"; };
+		43BD71BE1DA8F7BF007317E6 /* ToolOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolOutput.swift; sourceTree = "<group>"; };
 		43C0368513CA191C00A01305 /* LiveReload.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LiveReload.icns; sourceTree = "<group>"; };
 		43C3D04C15B37B1500BCD2E8 /* LicenseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LicenseManager.h; sourceTree = "<group>"; };
 		43C3D04D15B37B1500BCD2E8 /* LicenseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LicenseManager.m; sourceTree = "<group>"; };
@@ -701,8 +701,8 @@
 		823DDE5213F8DA3100529AD2 /* TextMateEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextMateEditor.m; sourceTree = "<group>"; };
 		823DDE5513F8DA3100529AD2 /* NSObject+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+JSON.h"; sourceTree = "<group>"; };
 		823DDE5613F8DA3100529AD2 /* NSObject+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+JSON.m"; sourceTree = "<group>"; };
-		823DDE6A13F8DA3100529AD2 /* CompilationOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompilationOptions.h; sourceTree = "<group>"; };
-		823DDE6B13F8DA3100529AD2 /* CompilationOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompilationOptions.m; sourceTree = "<group>"; };
+		823DDE6A13F8DA3100529AD2 /* ActionOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionOptions.h; sourceTree = "<group>"; };
+		823DDE6B13F8DA3100529AD2 /* ActionOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionOptions.m; sourceTree = "<group>"; };
 		823DDE6C13F8DA3100529AD2 /* FileCompilationOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileCompilationOptions.h; sourceTree = "<group>"; };
 		823DDE6D13F8DA3100529AD2 /* FileCompilationOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileCompilationOptions.m; sourceTree = "<group>"; };
 		823DDE6E13F8DA3100529AD2 /* Project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Project.h; sourceTree = "<group>"; };
@@ -715,8 +715,6 @@
 		823DDE8113F8DA3100529AD2 /* Plugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Plugin.m; sourceTree = "<group>"; };
 		823DDE8213F8DA3100529AD2 /* PluginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PluginManager.h; sourceTree = "<group>"; };
 		823DDE8313F8DA3100529AD2 /* PluginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PluginManager.m; sourceTree = "<group>"; };
-		823DDE8413F8DA3100529AD2 /* ToolOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolOutput.h; sourceTree = "<group>"; };
-		823DDE8513F8DA3100529AD2 /* ToolOutput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolOutput.m; sourceTree = "<group>"; };
 		823DDE8713F8DA3100529AD2 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
 		823DDE8813F8DA3100529AD2 /* Preferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Preferences.m; sourceTree = "<group>"; };
 		823DDEA013F8DA3100529AD2 /* ATFunctionalStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATFunctionalStyle.h; sourceTree = "<group>"; };
@@ -1204,8 +1202,8 @@
 		823DDE6713F8DA3100529AD2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				823DDE6A13F8DA3100529AD2 /* CompilationOptions.h */,
-				823DDE6B13F8DA3100529AD2 /* CompilationOptions.m */,
+				823DDE6A13F8DA3100529AD2 /* ActionOptions.h */,
+				823DDE6B13F8DA3100529AD2 /* ActionOptions.m */,
 				823DDE6C13F8DA3100529AD2 /* FileCompilationOptions.h */,
 				823DDE6D13F8DA3100529AD2 /* FileCompilationOptions.m */,
 				823DDE6E13F8DA3100529AD2 /* Project.h */,
@@ -1228,8 +1226,7 @@
 				823DDE8113F8DA3100529AD2 /* Plugin.m */,
 				823DDE8213F8DA3100529AD2 /* PluginManager.h */,
 				823DDE8313F8DA3100529AD2 /* PluginManager.m */,
-				823DDE8413F8DA3100529AD2 /* ToolOutput.h */,
-				823DDE8513F8DA3100529AD2 /* ToolOutput.m */,
+				43BD71BE1DA8F7BF007317E6 /* ToolOutput.swift */,
 				43534040146D161900DD66B0 /* RubyVersion.h */,
 				43534041146D161900DD66B0 /* RubyVersion.m */,
 				4310DE3B146DB588003091D1 /* ToolOptions.h */,
@@ -1652,7 +1649,7 @@
 				43512FAD1ACD750D0073A0D4 /* SublimeText2Editor.m in Sources */,
 				43512FAE1ACD750D0073A0D4 /* TextMateEditor.m in Sources */,
 				43512FAF1ACD750D0073A0D4 /* NSObject+JSON.m in Sources */,
-				43512FB91ACD750D0073A0D4 /* CompilationOptions.m in Sources */,
+				43512FB91ACD750D0073A0D4 /* ActionOptions.m in Sources */,
 				43512FBA1ACD750D0073A0D4 /* FileCompilationOptions.m in Sources */,
 				43512FBB1ACD750D0073A0D4 /* Project.m in Sources */,
 				43512FBC1ACD750D0073A0D4 /* Workspace.m in Sources */,
@@ -1661,7 +1658,6 @@
 				43512FC01ACD750D0073A0D4 /* Plugin.m in Sources */,
 				43512FC11ACD750D0073A0D4 /* bloom.c in Sources */,
 				43512FC21ACD750D0073A0D4 /* PluginManager.m in Sources */,
-				43512FC31ACD750D0073A0D4 /* ToolOutput.m in Sources */,
 				43512FC41ACD750D0073A0D4 /* Preferences.m in Sources */,
 				43512FC51ACD750D0073A0D4 /* ATFunctionalStyle.m in Sources */,
 				43512FC61ACD750D0073A0D4 /* LoginItemController.m in Sources */,
@@ -1757,7 +1753,7 @@
 				823DDEE313F8DA3100529AD2 /* SublimeText2Editor.m in Sources */,
 				823DDEE413F8DA3100529AD2 /* TextMateEditor.m in Sources */,
 				823DDEE513F8DA3100529AD2 /* NSObject+JSON.m in Sources */,
-				823DDEEF13F8DA3100529AD2 /* CompilationOptions.m in Sources */,
+				823DDEEF13F8DA3100529AD2 /* ActionOptions.m in Sources */,
 				823DDEF013F8DA3100529AD2 /* FileCompilationOptions.m in Sources */,
 				823DDEF113F8DA3100529AD2 /* Project.m in Sources */,
 				823DDEF213F8DA3100529AD2 /* Workspace.m in Sources */,
@@ -1766,13 +1762,13 @@
 				823DDEF913F8DA3100529AD2 /* Plugin.m in Sources */,
 				4317BD3D1A7F6AB80054D32D /* bloom.c in Sources */,
 				823DDEFA13F8DA3100529AD2 /* PluginManager.m in Sources */,
-				823DDEFB13F8DA3100529AD2 /* ToolOutput.m in Sources */,
 				823DDEFC13F8DA3100529AD2 /* Preferences.m in Sources */,
 				823DDF0613F8DA3100529AD2 /* ATFunctionalStyle.m in Sources */,
 				823DDF0713F8DA3100529AD2 /* LoginItemController.m in Sources */,
 				823DDF0913F8DA3100529AD2 /* MD5OfFile.m in Sources */,
 				823DDF0D13F8DA3100529AD2 /* NSArray+Substitutions.m in Sources */,
 				823DDF0E13F8DA3100529AD2 /* NSString+SeparatingIntoComponents.m in Sources */,
+				43BD71BF1DA8F7BF007317E6 /* ToolOutput.swift in Sources */,
 				823DDF0F13F8DA3100529AD2 /* NSTask+OneLineTasksWithOutput.m in Sources */,
 				823DDF1113F8DA3100529AD2 /* RegexKitLite.m in Sources */,
 				823DDF1313F8DA3100529AD2 /* AuxWindow.m in Sources */,

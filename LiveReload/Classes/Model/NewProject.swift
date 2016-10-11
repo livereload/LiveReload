@@ -4,6 +4,7 @@ import LRActionKit
 import PackageManagerKit
 import ATPathSpec
 import ExpressiveFoundation
+import ExpressiveCasting
 
 @objc
 public class NewProject: NSObject {
@@ -18,6 +19,10 @@ public class NewProject: NSObject {
 
     private unowned var oldProject: OldProject
     
+    private var actionOptionsMemento: [String: AnyObject] = [:]
+    
+    private var actionOptions: [String: ActionOptions] = [:]
+    
     public init(rootURL: NSURL, oldProject: OldProject) {
         self.rootURL = rootURL
         self.oldProject = oldProject
@@ -30,6 +35,17 @@ public class NewProject: NSObject {
         updateActions()
     }
     
+    public func load(fromMemento memento: [String: AnyObject]) {
+        actionOptionsMemento = JSONObjectValue(memento["compilers"]) ?? [:]
+    }
+    
+    public func updatedMemento() -> [String: AnyObject] {
+        // TODO: update actionOptionsMemento
+        return [
+            "compilers": actionOptionsMemento,
+        ]
+    }
+    
     private func onPluginsProcessingBatchDidFinish(event: ProcessableBatchDidFinish) {
         updateActions()
     }
@@ -37,6 +53,17 @@ public class NewProject: NSObject {
     private func updateActions() {
         let actions = workspace.plugins.plugins.flatMap { $0.actions }
         actionSet.replaceActions(actions)
+    }
+    
+    public func actionOptions(forActionIdentifier identifier: String) -> ActionOptions? {
+        if let ao = actionOptions[identifier] {
+            return ao
+        } else {
+            let memento = JSONObjectValue(actionOptionsMemento[identifier]) ?? [:]
+            let ao = ActionOptions(actionIdentifier: identifier, memento: memento)
+            actionOptions[identifier] = ao
+            return ao
+        }
     }
     
     public func compileFile(at path: String) -> Bool {
@@ -98,7 +125,7 @@ public class NewProject: NSObject {
             StatGroupIncrement(CompilerChangeCountStatGroup, action.action.identifier, 1)
             StatGroupIncrement(CompilerChangeCountEnabledStatGroup, action.action.identifier, 1)
             
-            self.displayMessages(result.messages)
+            self.displayMessages(result.messages, forAction: action.action)
         }
         
         NSLog("%@: %@", rule.label, sourceFile.absolutePath)
@@ -109,10 +136,10 @@ public class NewProject: NSObject {
         return true
     }
     
-    private func displayMessages(messages: [LRMessage]) {
+    private func displayMessages(messages: [LRMessage], forAction action: Action) {
         let key = rootURL.path!
         if let message = messages.first {
-            let output = ToolOutput(message: message)
+            let output = ToolOutput(message: message, action: action)
             ToolOutputWindowController(compilerOutput: output, key: key).show()
         } else {
             ToolOutputWindowController.hideOutputWindowWithKey(key)
@@ -179,7 +206,7 @@ extension NewProject: ProjectContext {
 
 private extension ToolOutput {
     
-    convenience init(message: LRMessage) {
+    convenience init(message: LRMessage, action: Action) {
         let m = message.message
 
         let type: ToolOutputType
@@ -192,7 +219,9 @@ private extension ToolOutput {
             type = .ErrorRaw
         }
         
-        self.init(compiler: nil, type: type, sourcePath: m.file, line: (m.line ?? 0), message: (m.text ?? ""), output: (m.text ?? ""))
+        let line = m.line ?? 0
+        let text = m.text ?? ""
+        self.init(action: action, type: type, sourcePath: m.file, line: line, message: text, output: text)
     }
     
 }

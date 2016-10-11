@@ -3,7 +3,6 @@
 
 #import "Compiler.h"
 #import "Project.h"
-#import "CompilationOptions.h"
 #import "UIBuilder.h"
 
 #import "NSArray+Substitutions.h"
@@ -106,13 +105,15 @@ Class ToolOptionClassByType(NSString *type) {
 #pragma mark - Values
 
 - (id)storedValue {
-    CompilationOptions *options = [_project optionsForCompiler:_compiler create:NO];
-    return [options valueForOptionIdentifier:_identifier];
+    // TODO FIXME
+//    CompilationOptions *options = [_project optionsForCompiler:_compiler create:NO];
+//    return [options valueForOptionIdentifier:_identifier];
 }
 
 - (void)setStoredValue:(id)value {
-    CompilationOptions *options = [_project optionsForCompiler:_compiler create:YES];
-    [options setValue:value forOptionIdentifier:_identifier];
+    // TODO FIXME
+//    CompilationOptions *options = [_project optionsForCompiler:_compiler create:YES];
+//    [options setValue:value forOptionIdentifier:_identifier];
 }
 
 - (id)currentValue {
@@ -233,11 +234,12 @@ Class ToolOptionClassByType(NSString *type) {
 }
 
 - (void)renderControlWithBuilder:(UIBuilder *)builder {
-    CompilationOptions *options = [_project optionsForCompiler:_compiler create:YES];
-    _view = [[builder addCheckboxWithTitle:@"Enabled"] retain];
-    [_view setTarget:self];
-    [_view setAction:@selector(checkBoxClicked:)];
-    _view.state = options.enabled ? NSOnState : NSOffState;
+    // TODO FIXME
+//    CompilationOptions *options = [_project optionsForCompiler:_compiler create:YES];
+//    _view = [[builder addCheckboxWithTitle:@"Enabled"] retain];
+//    [_view setTarget:self];
+//    [_view setAction:@selector(checkBoxClicked:)];
+//    _view.state = options.enabled ? NSOnState : NSOffState;
 }
 
 - (IBAction)checkBoxClicked:(id)sender {
@@ -245,8 +247,9 @@ Class ToolOptionClassByType(NSString *type) {
 }
 
 - (void)save {
-    CompilationOptions *options = [_project optionsForCompiler:_compiler create:YES];
-    options.enabled = (_view.state == NSOnState);
+    // TODO FIXME
+//    CompilationOptions *options = [_project optionsForCompiler:_compiler create:YES];
+//    options.enabled = (_view.state == NSOnState);
 }
 
 @end

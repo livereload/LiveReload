@@ -4,8 +4,7 @@
 
 @class FSMonitor;
 @class FSTree;
-@class Compiler;
-@class CompilationOptions;
+@class ActionOptions;
 @class FileCompilationOptions;
 @class ImportGraph;
 
@@ -61,9 +60,10 @@ enum {
 
 @property(nonatomic, readonly) NSArray *compilersInUse;
 
-- (CompilationOptions *)optionsForCompiler:(Compiler *)compiler create:(BOOL)create;
+// TODO FIXME
+//- (ActionOptions *)optionsForCompiler:(Compiler *)compiler create:(BOOL)create;
 
-- (FileCompilationOptions *)optionsForFileAtPath:(NSString *)sourcePath in:(CompilationOptions *)compilationOptions;
+- (FileCompilationOptions *)guessOptionsForFileAtPath:(NSString *)sourcePath in:(ActionOptions *)compilationOptions;
 
 - (void)ceaseAllMonitoring;
 - (void)requestMonitoring:(BOOL)monitoringEnabled forKey:(NSString *)key;

@@ -1,24 +1,23 @@
 
-#import "CompilationOptions.h"
+#import "ActionOptions.h"
 #import "FileCompilationOptions.h"
 #import "Compiler.h"
 
 #import "ATFunctionalStyle.h"
 
 
-@implementation CompilationOptions
+@implementation ActionOptions
 
-@synthesize compiler=_compiler;
 @synthesize additionalArguments=_additionalArguments;
 @synthesize enabled=_enabled;
 
 
 #pragma mark init/dealloc
 
-- (id)initWithCompiler:(Compiler *)compiler memento:(NSDictionary *)memento {
+- (id)initWithActionIdentifier:(NSString *)actionIdentifier memento:(NSDictionary *)memento {
     self = [super init];
     if (self) {
-        _compiler = [compiler retain];
+        _actionIdentifier = [actionIdentifier copy];
         _globalOptions = [[NSMutableDictionary alloc] init];
         _fileOptions = [[NSMutableDictionary alloc] init];
 
@@ -44,8 +43,6 @@
         raw = [memento objectForKey:@"enabled2"];
         if (raw) {
             _enabled = [raw boolValue];
-        } else if (!_compiler.optional) {
-            _enabled = YES;
         } else if (!!(raw = [memento objectForKey:@"enabled"])) {
             _enabled = [raw boolValue];
         } else {
@@ -56,7 +53,7 @@
 }
 
 - (void)dealloc {
-    [_compiler release], _compiler = nil;
+    [_actionIdentifier release], _actionIdentifier = nil;
     [_additionalArguments release], _additionalArguments = nil;
     [_globalOptions release], _globalOptions = nil;
     [_fileOptions release], _fileOptions = nil;

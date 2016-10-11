@@ -5,7 +5,6 @@
 #import "Compiler.h"
 #import "RubyVersion.h"
 #import "ToolOptions.h"
-#import "CompilationOptions.h"
 #import "FileCompilationOptions.h"
 #import "Project.h"
 
@@ -123,21 +122,23 @@ void compilable_file_free(compilable_file_t *file) {
     if (!*isFirstCompiler)
         [builder addVisualBreak];
     *isFirstCompiler = NO;
+    
+    // TODO FIXME
 
-    BOOL isFirst = YES;
-    for (ToolOption *option in options) {
-        [option renderWithBuilder:builder];
-
-        if (isFirst && !builder.labelAdded) {
-            [builder addLabel:[NSString stringWithFormat:@"%@:", compiler.name]];
-        }
-        isFirst = NO;
-    }
-
-    if (isFirst) {
-        [builder addRightLabel:@"No options for this compiler"];
-        [builder addLabel:[NSString stringWithFormat:@"%@:", compiler.name]];
-    }
+//    BOOL isFirst = YES;
+//    for (ToolOption *option in options) {
+//        [option renderWithBuilder:builder];
+//
+//        if (isFirst && !builder.labelAdded) {
+//            [builder addLabel:[NSString stringWithFormat:@"%@:", compiler.name]];
+//        }
+//        isFirst = NO;
+//    }
+//
+//    if (isFirst) {
+//        [builder addRightLabel:@"No options for this compiler"];
+//        [builder addLabel:[NSString stringWithFormat:@"%@:", compiler.name]];
+//    }
 }
 
 
@@ -319,21 +320,22 @@ void compilable_file_free(compilable_file_t *file) {
     kv_init(_fileList);
 
     FSTree *tree = _project.tree;
-    for (Compiler *compiler in _project.compilersInUse) {
-        CompilationOptions *options = [_project optionsForCompiler:compiler create:YES];
-
-        for (NSString *path in [compiler pathsOfSourceFilesInTree:tree]) {
-            FileCompilationOptions *fileOptions = [_project optionsForFileAtPath
-              :path in:options];
-
-            compilable_file_t *file = malloc(sizeof(compilable_file_t));
-            file->next = NULL;
-            file->compiler = compiler;
-            file->source_path = strdup([path UTF8String]);
-            file->file_options = [fileOptions retain];
-            kv_push(compilable_file_t *, _fileList, file);
-        }
-    }
+    // TODO FIXME
+//    for (Compiler *compiler in _project.compilersInUse) {
+//        CompilationOptions *options = [_project optionsForCompiler:compiler create:YES];
+//
+//        for (NSString *path in [compiler pathsOfSourceFilesInTree:tree]) {
+//            FileCompilationOptions *fileOptions = [_project guessOptionsForFileAtPath
+//              :path in:options];
+//
+//            compilable_file_t *file = malloc(sizeof(compilable_file_t));
+//            file->next = NULL;
+//            file->compiler = compiler;
+//            file->source_path = strdup([path UTF8String]);
+//            file->file_options = [fileOptions retain];
+//            kv_push(compilable_file_t *, _fileList, file);
+//        }
+//    }
 
     [self updateOutputPathsButtonStates];
     [self updateApplyMaskButton];

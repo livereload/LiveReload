@@ -6,9 +6,9 @@
 @class FileCompilationOptions;
 
 
-@interface CompilationOptions : NSObject {
+@interface ActionOptions : NSObject {
 @private
-    Compiler              *_compiler;
+    NSString              *_actionIdentifier;
     NSMutableDictionary   *_globalOptions;
     NSArray               *_includeDirectories;
     NSMutableDictionary   *_fileOptions; // NSString to FileCompilationOptions
@@ -18,9 +18,7 @@
     NSArray               *_availableVersions;
 }
 
-- (id)initWithCompiler:(Compiler *)compiler memento:(NSDictionary *)memento;
-
-@property(nonatomic, readonly) Compiler *compiler;
+- (id)initWithActionIdentifier:(NSString *)actionIdentifier memento:(NSDictionary *)memento;
 
 - (NSDictionary *)memento;
 

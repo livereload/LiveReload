@@ -2,6 +2,8 @@
 #import "Preferences.h"
 #import "PluginManager.h"
 
+@import PackageManagerKit;
+
 
 #define AdditionalExtensionsKey @"additionalExtensions"
 #define AutoreloadJavascriptKey @"autoreloadJavascript"
@@ -77,7 +79,8 @@ NSString *PreferencesFilterSettingsChangedNotification = @"PreferencesFilterSett
     [_builtInExtensions release], _builtInExtensions = [[_builtinMonitoringSettings objectForKey:@"extensions"] retain];
     NSMutableSet *extensions = [NSMutableSet setWithArray:_builtInExtensions];
     [extensions unionSet:[NSSet setWithArray:self.additionalExtensions]];
-    [extensions addObjectsFromArray:[PluginManager sharedPluginManager].compilerSourceExtensions];
+    // TODO FIXME
+//    [extensions addObjectsFromArray:[PluginManager sharedPluginManager].compilerSourceExtensions];
     self.allExtensions = extensions;
     self.excludedNames = [NSSet setWithArray:[_builtinMonitoringSettings objectForKey:@"excludedNames"]];
 }
