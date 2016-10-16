@@ -773,6 +773,10 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
     return YES;
 }
 
+- (ATPathSpecStats)statistics {
+    abort();
+}
+
 + (NSString *)describeTokensInString:(NSString *)string withSyntaxOptions:(ATPathSpecSyntaxOptions)options {
     NSMutableArray *description = [NSMutableArray new];
     [self enumerateTokensInString:string withSyntaxOptions:options usingBlock:^(ATPathSpecTokenType type, NSRange range, NSString *decoded) {
@@ -809,6 +813,13 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
 
 - (BOOL)isNonEmpty {
     return NO;
+}
+
+- (ATPathSpecStats)statistics {
+    return (ATPathSpecStats){
+        numberOfIncludedMasks: 0,
+        numberOfExcludedMasks: 0,
+    };
 }
 
 @end
@@ -861,6 +872,13 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
 
 - (BOOL)isComplexExpression {
     return NO;
+}
+
+- (ATPathSpecStats)statistics {
+    return (ATPathSpecStats){
+        numberOfIncludedMasks: 1,
+        numberOfExcludedMasks: 0,
+    };
 }
 
 @end
@@ -938,6 +956,13 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
     return _masks.count > 0;
 }
 
+- (ATPathSpecStats)statistics {
+    return (ATPathSpecStats){
+        numberOfIncludedMasks: 1,
+        numberOfExcludedMasks: 0,
+    };
+}
+
 @end
 
 
@@ -977,6 +1002,14 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
     return [@"!" stringByAppendingString:[_spec parenthesizedStringRepresentationWithSyntaxOptions:options]];
 }
 
+- (ATPathSpecStats)statistics {
+    ATPathSpecStats cs = [_spec statistics];
+    return (ATPathSpecStats){
+        numberOfIncludedMasks: cs.numberOfExcludedMasks,
+        numberOfExcludedMasks: cs.numberOfIncludedMasks,
+    };
+}
+
 @end
 
 
@@ -1013,6 +1046,19 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
         [strings addObject:[spec parenthesizedStringRepresentationWithSyntaxOptions:options]];
     }
     return [strings componentsJoinedByString:@" | "];
+}
+
+- (ATPathSpecStats)statistics {
+    ATPathSpecStats s = {
+        numberOfIncludedMasks: 0,
+        numberOfExcludedMasks: 0,
+    };
+    for (ATPathSpec *spec in _specs) {
+        ATPathSpecStats cs = [spec statistics];
+        s.numberOfIncludedMasks += cs.numberOfIncludedMasks;
+        s.numberOfExcludedMasks += cs.numberOfExcludedMasks;
+    }
+    return s;
 }
 
 @end
@@ -1086,6 +1132,19 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
         [strings addObject:[spec parenthesizedStringRepresentationWithSyntaxOptions:options]];
     }
     return [strings componentsJoinedByString:@" & "];
+}
+
+- (ATPathSpecStats)statistics {
+    ATPathSpecStats s = {
+        numberOfIncludedMasks: 0,
+        numberOfExcludedMasks: 0,
+    };
+    for (ATPathSpec *spec in _specs) {
+        ATPathSpecStats cs = [spec statistics];
+        s.numberOfIncludedMasks += cs.numberOfIncludedMasks;
+        s.numberOfExcludedMasks += cs.numberOfExcludedMasks;
+    }
+    return s;
 }
 
 @end

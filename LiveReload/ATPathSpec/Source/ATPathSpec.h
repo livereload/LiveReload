@@ -75,6 +75,30 @@ extern NSString *const ATPathSpecMatchInfoMatchedStaticName;
 @end
 
 
+@interface ATLiteralMask : ATMask
+
+- (id)initWithName:(NSString *)name;
+
+@property(nonatomic, readonly) NSString *name;
+
+@end
+
+
+@interface ATSuffixMask : ATMask
+
+- (id)initWithSuffix:(NSString *)suffix;
+
+@property(nonatomic, readonly) NSString *suffix;
+
+@end
+
+
+typedef struct {
+    NSInteger numberOfIncludedMasks;
+    NSInteger numberOfExcludedMasks;
+} ATPathSpecStats;
+
+
 @interface ATPathSpec : NSObject
 
 + (ATPathSpec *)pathSpecWithString:(NSString *)string syntaxOptions:(ATPathSpecSyntaxOptions)options;
@@ -100,6 +124,8 @@ extern NSString *const ATPathSpecMatchInfoMatchedStaticName;
 - (NSString *)description; // gives a string representation in Extended syntax
 
 - (BOOL)isNonEmpty;
+
+- (ATPathSpecStats)statistics;
 
 + (NSString *)describeTokensInString:(NSString *)string withSyntaxOptions:(ATPathSpecSyntaxOptions)options;  // for tests and debugging
 

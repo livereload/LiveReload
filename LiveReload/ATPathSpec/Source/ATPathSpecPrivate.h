@@ -12,24 +12,6 @@ NSString *ATPathSpecSyntaxOptions_UnquoteIfNeeded(NSString *string, ATPathSpecSy
 #pragma mark -
 
 
-@interface ATLiteralMask : ATMask
-
-- (id)initWithName:(NSString *)name;
-
-@property(nonatomic, readonly) NSString *name;
-
-@end
-
-
-@interface ATSuffixMask : ATMask
-
-- (id)initWithSuffix:(NSString *)suffix;
-
-@property(nonatomic, readonly) NSString *suffix;
-
-@end
-
-
 @interface ATPatternMask : ATMask
 
 - (id)initWithPattern:(NSString *)pattern syntaxOptions:(ATPathSpecSyntaxOptions)options;

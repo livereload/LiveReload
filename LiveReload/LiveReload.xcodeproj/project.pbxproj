@@ -57,6 +57,7 @@
 		4317BD781A7F92960054D32D /* hex.c in Sources */ = {isa = PBXBuildFile; fileRef = 4317BD3F1A7F71A90054D32D /* hex.c */; };
 		4317BD791A7F92980054D32D /* licensing_core.c in Sources */ = {isa = PBXBuildFile; fileRef = 4317BD281A7F57AB0054D32D /* licensing_core.c */; };
 		43191846141A0D1C008457FF /* Eco.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43191845141A0D1C008457FF /* Eco.lrplugin */; };
+		4320D5611DB0B13800247CDA /* ActionOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4320D5601DB0B13800247CDA /* ActionOptions.swift */; };
 		432A6D961476269C00144F97 /* reload_request.c in Sources */ = {isa = PBXBuildFile; fileRef = 432A6D951476269C00144F97 /* reload_request.c */; };
 		432A6D99147627F800144F97 /* communication.c in Sources */ = {isa = PBXBuildFile; fileRef = 432A6D98147627F800144F97 /* communication.c */; };
 		432A6DAB147636F700144F97 /* dump.c in Sources */ = {isa = PBXBuildFile; fileRef = 432A6D9B147636F700144F97 /* dump.c */; };
@@ -527,6 +528,7 @@
 		4317BD5C1A7F91E70054D32D /* LRLicenseVerify */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LRLicenseVerify; sourceTree = BUILT_PRODUCTS_DIR; };
 		4317BD6E1A7F92850054D32D /* LRLicenseCollision */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LRLicenseCollision; sourceTree = BUILT_PRODUCTS_DIR; };
 		43191845141A0D1C008457FF /* Eco.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Eco.lrplugin; path = Compilers/Eco.lrplugin; sourceTree = SOURCE_ROOT; };
+		4320D5601DB0B13800247CDA /* ActionOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionOptions.swift; sourceTree = "<group>"; };
 		432A6D921476192300144F97 /* sglib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sglib.h; sourceTree = "<group>"; };
 		432A6D93147622A600144F97 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
 		432A6D941476269400144F97 /* reload_request.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = reload_request.h; sourceTree = "<group>"; };
@@ -1204,6 +1206,7 @@
 			children = (
 				823DDE6A13F8DA3100529AD2 /* ActionOptions.h */,
 				823DDE6B13F8DA3100529AD2 /* ActionOptions.m */,
+				4320D5601DB0B13800247CDA /* ActionOptions.swift */,
 				823DDE6C13F8DA3100529AD2 /* FileCompilationOptions.h */,
 				823DDE6D13F8DA3100529AD2 /* FileCompilationOptions.m */,
 				823DDE6E13F8DA3100529AD2 /* Project.h */,
@@ -1737,6 +1740,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4320D5611DB0B13800247CDA /* ActionOptions.swift in Sources */,
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				43D209691A810D5500D47F2B /* licensing_check.c in Sources */,
 				823DDED313F8DA3100529AD2 /* LiveReloadAppDelegate.m in Sources */,

@@ -15,6 +15,8 @@ public class NewProject: NSObject {
     
     public let resolutionContext: LRPackageResolutionContext
     
+    public weak var delegate: NewProjectDelegate?
+    
     private var o = Observation()
 
     private unowned var oldProject: OldProject
@@ -22,6 +24,8 @@ public class NewProject: NSObject {
     private var actionOptionsMemento: [String: AnyObject] = [:]
     
     private var actionOptions: [String: ActionOptions] = [:]
+    
+    public private(set) var monitoringPathSpec = ATPathSpec.emptyPathSpec()
     
     public init(rootURL: NSURL, oldProject: OldProject) {
         self.rootURL = rootURL
@@ -53,6 +57,23 @@ public class NewProject: NSObject {
     private func updateActions() {
         let actions = workspace.plugins.plugins.flatMap { $0.actions }
         actionSet.replaceActions(actions)
+        
+        let pref = Preferences.sharedPreferences()
+        
+        var specs: [ATPathSpec] = []
+        for ext in pref.builtInExtensions {
+            specs.append(ATPathSpec(matchingNameMask: ATSuffixMask(suffix: ".\(ext)"), type: .File, syntaxOptions: .FlavorLiteral))
+        }
+        for ext in pref.additionalExtensions {
+            specs.append(ATPathSpec(matchingNameMask: ATSuffixMask(suffix: ".\(ext)"), type: .File, syntaxOptions: .FlavorLiteral))
+        }
+        for action in actionSet.actions {
+            specs.append(action.combinedIntrinsicInputPathSpec)
+        }
+        
+        monitoringPathSpec = ATPathSpec(matchingUnionOf: specs)
+        
+        delegate?.actionsDidChange()
     }
     
     public func actionOptions(forActionIdentifier identifier: String) -> ActionOptions? {
@@ -226,6 +247,14 @@ private extension ToolOutput {
     
 }
 
+// MARK: - Delegate
+
+@objc
+public protocol NewProjectDelegate: NSObjectProtocol {
+    
+    func actionsDidChange()
+    
+}
 
 //
 //extension Project: ProjectContext {

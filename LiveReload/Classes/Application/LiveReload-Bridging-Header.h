@@ -6,3 +6,4 @@
 #import "Project.h"
 #import "ToolOutputWindowController.h"
 #import "ActionOptions.h"
+#import "Preferences.h"

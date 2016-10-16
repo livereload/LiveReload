@@ -32,14 +32,19 @@
         }
     }
 
+    if ([_excludedNames containsObject:name]) {
+        return NO;
+    }
+
+    if (_spec) {
+        return YES;
+    }
+
     if (_enabledExtensions && !isDirectory) {
         NSString *extension = [name pathExtension];
         if (![_enabledExtensions containsObject:extension]) {
             return NO;
         }
-    }
-    if ([_excludedNames containsObject:name]) {
-        return NO;
     }
     return YES;
 }
@@ -47,7 +52,17 @@
 - (BOOL)acceptsFile:(NSString *)relativePath isDirectory:(BOOL)isDirectory {
     if ([_excludedPaths containsObject:relativePath])
         return NO;
-    return YES;
+    
+    if (_spec) {
+        ATPathSpecMatchResult result = [_spec matchResultForPath:relativePath type:(isDirectory ? ATPathSpecEntryTypeFolder : ATPathSpecEntryTypeFile) matchInfo:NULL];
+        if (isDirectory) {
+            return (result != ATPathSpecMatchResultExcluded);
+        } else {
+            return (result == ATPathSpecMatchResultMatched);
+        }
+    } else {
+        return YES;
+    }
 }
 
 @end

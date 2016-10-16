@@ -256,7 +256,9 @@ void C_mainwnd__set_change_count(json_t *arg) {
     _nameTextField.stringValue = [_selectedProject.displayPath lastPathComponent];
     _pathTextField.stringValue = [_selectedProject.displayPath stringByDeletingLastPathComponent];
 //    [self styleLabel:_pathTextField color:[self headerLabelColor] shadow:[self subtleWhiteShadow] text:[_selectedProject.displayPath stringByDeletingLastPathComponent]];
-    _monitoringSummaryLabelField.stringValue = [NSString stringWithFormat:@"Monitoring %lu file extensions.", (unsigned long)[Preferences sharedPreferences].allExtensions.count];
+    
+    // TODO FIXME
+//    _monitoringSummaryLabelField.stringValue = [NSString stringWithFormat:@"Monitoring %lu file extensions.", (unsigned long)[Preferences sharedPreferences].allExtensions.count];
     [_compilerEnabledCheckBox setState:_selectedProject.compilationEnabled ? NSOnState : NSOffState];
     [_postProcessingEnabledCheckBox setState:_selectedProject.postProcessingEnabled ? NSOnState : NSOffState];
 

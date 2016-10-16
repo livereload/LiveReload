@@ -1,4 +1,5 @@
 @import FSMonitoringKit;
+@import ATPathSpec;
 
 
 #import "ToolOutputWindowController.h"
@@ -57,7 +58,7 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
 
 
 
-@interface Project () <FSMonitorDelegate>
+@interface Project () <FSMonitorDelegate, NewProjectDelegate>
 
 - (void)updateFilter;
 - (void)handleCompilationOptionsEnablementChanged;
@@ -312,13 +313,16 @@ BOOL MatchLastPathTwoComponents(NSString *path, NSString *secondToLastComponent,
     // the excludedNames list.
     FSTreeFilter *filter = _monitor.filter;
     NSSet *excludedPaths = [NSSet setWithArray:_excludedFolderPaths];
-    if (filter.ignoreHiddenFiles != NO || ![filter.enabledExtensions isEqualToSet:[Preferences sharedPreferences].allExtensions] || ![filter.excludedNames isEqualToSet:[Preferences sharedPreferences].excludedNames] || ![filter.excludedPaths isEqualToSet:excludedPaths]) {
-        filter.ignoreHiddenFiles = NO;
-        filter.enabledExtensions = [Preferences sharedPreferences].allExtensions;
-        filter.excludedNames = [Preferences sharedPreferences].excludedNames;
-        filter.excludedPaths = excludedPaths;
-        [_monitor filterUpdated];
-    }
+    ATPathSpec *spec = _newProj.monitoringPathSpec;
+    
+    filter.spec = spec;
+    filter.ignoreHiddenFiles = NO;
+    filter.excludedNames = [Preferences sharedPreferences].excludedNames;
+    filter.excludedPaths = excludedPaths;
+    [_monitor filterUpdated];
+    // TODO: don't restart monitoring if nothing has actually changed
+//    if (filter.ignoreHiddenFiles != NO || ![filter.enabledExtensions isEqualToSet:[Preferences sharedPreferences].allExtensions] || ![filter.excludedNames isEqualToSet:[Preferences sharedPreferences].excludedNames] || ![filter.excludedPaths isEqualToSet:excludedPaths]) {
+//    }
 }
 
 
@@ -1059,5 +1063,11 @@ skipGuessing:
     }
 }
 
+
+#pragma mark - New Project delegate
+
+- (void)actionsDidChange {
+    [self updateFilter];
+}
 
 @end
