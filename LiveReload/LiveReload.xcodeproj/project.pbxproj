@@ -267,7 +267,7 @@
 		439A76B415B28F4300E50057 /* LicenseCodeWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 439A76B315B28F4300E50057 /* LicenseCodeWindowController.m */; };
 		439A76B615B28F8C00E50057 /* LicenseCodeWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 439A76B515B28F8C00E50057 /* LicenseCodeWindowController.xib */; };
 		439C093313ADCBDD00119233 /* monitoring.plist in Resources */ = {isa = PBXBuildFile; fileRef = 439C093213ADCBDD00119233 /* monitoring.plist */; };
-		43BD2D671D967BA300E9DF81 /* networking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BD2D661D967BA300E9DF81 /* networking.a */; };
+		43BD2D671D967BA300E9DF81 /* livereloadhelper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BD2D661D967BA300E9DF81 /* livereloadhelper.a */; };
 		43BD71BF1DA8F7BF007317E6 /* ToolOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BD71BE1DA8F7BF007317E6 /* ToolOutput.swift */; };
 		43C0368613CA191D00A01305 /* LiveReload.icns in Resources */ = {isa = PBXBuildFile; fileRef = 43C0368513CA191C00A01305 /* LiveReload.icns */; };
 		43C3D04E15B37B1500BCD2E8 /* LicenseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C3D04D15B37B1500BCD2E8 /* LicenseManager.m */; };
@@ -626,8 +626,8 @@
 		439A76B515B28F8C00E50057 /* LicenseCodeWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LicenseCodeWindowController.xib; sourceTree = "<group>"; };
 		439C093213ADCBDD00119233 /* monitoring.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = monitoring.plist; sourceTree = "<group>"; };
 		43A265E613DCEAE600704BF6 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
-		43BD2D651D967B9D00E9DF81 /* networking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = networking.h; path = networking/networking.h; sourceTree = "<group>"; };
-		43BD2D661D967BA300E9DF81 /* networking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = networking.a; path = networking/networking.a; sourceTree = "<group>"; };
+		43BD2D651D967B9D00E9DF81 /* livereloadhelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = livereloadhelper.h; path = go/src/livereloadhelper/livereloadhelper.h; sourceTree = "<group>"; };
+		43BD2D661D967BA300E9DF81 /* livereloadhelper.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = livereloadhelper.a; path = go/src/livereloadhelper/livereloadhelper.a; sourceTree = "<group>"; };
 		43BD71BE1DA8F7BF007317E6 /* ToolOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolOutput.swift; sourceTree = "<group>"; };
 		43C0368513CA191C00A01305 /* LiveReload.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = LiveReload.icns; sourceTree = "<group>"; };
 		43C3D04C15B37B1500BCD2E8 /* LicenseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LicenseManager.h; sourceTree = "<group>"; };
@@ -833,7 +833,7 @@
 				436A65331A923B9E00335BAD /* Paddle.framework in Frameworks */,
 				430923DB1755C58A00400279 /* Sparkle.framework in Frameworks */,
 				43669B371D83BDE800620359 /* ATVersionKit.framework in Frameworks */,
-				43BD2D671D967BA300E9DF81 /* networking.a in Frameworks */,
+				43BD2D671D967BA300E9DF81 /* livereloadhelper.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -892,8 +892,8 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				43BD2D651D967B9D00E9DF81 /* networking.h */,
-				43BD2D661D967BA300E9DF81 /* networking.a */,
+				43BD2D651D967B9D00E9DF81 /* livereloadhelper.h */,
+				43BD2D661D967BA300E9DF81 /* livereloadhelper.a */,
 				256AC3F00F4B6AF500CF3369 /* LiveReload_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);

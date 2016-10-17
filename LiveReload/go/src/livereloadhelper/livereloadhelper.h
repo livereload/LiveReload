@@ -1,6 +1,6 @@
 /* Created by "go tool cgo" - DO NOT EDIT. */
 
-/* package _/Users/andreyvit/dev/livereload/2/LiveReload/networking */
+/* package livereloadhelper */
 
 /* Start of preamble from import "C" comments.  */
 
