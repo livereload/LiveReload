@@ -25,7 +25,7 @@ type Conn struct {
 	// Recv is a channel to receive incoming messages on. If not initialized, will be set to a new buffered channel by Start.
 	Recv chan interface{}
 
-	// shutdown is an internal channel used to initiate closing of the connections.
+	// shutdown is an internal channel used to initiate termination of the web socket connection.
 	shutdown chan struct{}
 
 	wg sync.WaitGroup
@@ -42,7 +42,7 @@ func (c *Conn) Start() {
 		c.Recv = make(chan interface{}, 1)
 	}
 
-	c.shutdown = make(chan struct{})
+	c.shutdown = make(chan struct{}, 1)
 
 	log.Printf("ws-conn-%04d: started", c.ID)
 
@@ -52,7 +52,13 @@ func (c *Conn) Start() {
 }
 
 func (c *Conn) Close() {
-	close(c.shutdown)
+	// cannot just close the channel because we might try to do this multiple times
+	select {
+	case c.shutdown <- struct{}{}:
+		// ok
+	default:
+		// already done
+	}
 }
 
 // Wait sleeps until the connection has been teared down. Returns the error(s) encountered during the lifecycle of the connection. (May be a multierror if multiple simultaneous errors were encountered before the connection had been teared down completely.)
@@ -68,16 +74,16 @@ func (c *Conn) receiveLoop() {
 		err := websocket.JSON.Receive(c.WSConn, &msg)
 		if err == io.EOF {
 			log.Printf("ws-conn-%04d: received EOF", c.ID)
-			close(c.shutdown)
+			c.Close()
 			break
 		} else if isUseOfClosed(err) {
 			log.Printf("ws-conn-%04d: detected a closed connection", c.ID)
-			close(c.shutdown)
+			c.Close()
 			break
 		} else if err != nil {
 			log.Printf("ws-conn-%04d: receive error: %#v", c.ID, err)
 			c.errors.Push(errors.Wrap(err, "receive error"))
-			close(c.shutdown)
+			c.Close()
 			break
 		}
 		c.Recv <- msg
@@ -99,7 +105,7 @@ func (c *Conn) sendLoop() {
 					log.Printf("ws-conn-%04d: send error: %v", c.ID, err)
 					c.errors.Push(errors.Wrap(err, "send error"))
 				}
-				close(c.shutdown)
+				c.Close()
 				sendc = nil // stop sending messages after an error
 			}
 			log.Printf("ws-conn-%04d: sent: %#v", c.ID, msg)
@@ -114,7 +120,7 @@ func (c *Conn) sendLoop() {
 			return
 
 		case <-c.Done:
-			close(c.shutdown)
+			c.Close()
 		}
 	}
 }

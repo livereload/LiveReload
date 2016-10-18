@@ -56,16 +56,20 @@ func (s *Server) Wait() error {
 	return s.hs.Wait()
 }
 
+func (s *Server) Stop() {
+	err := s.hs.Stop()
+	if err != nil {
+		log.Printf("ERROR: Failed to gracefully stop the HTTP server: %v", err)
+	}
+}
+
 func (s *Server) shutdownOn(done <-chan struct{}) {
 	if done == nil {
 		return
 	}
 
 	<-done
-	err := s.hs.Stop()
-	if err != nil {
-		log.Printf("ERROR: Failed to gracefully stop the HTTP server: %v", err)
-	}
+	s.Stop()
 }
 
 func (s *Server) handleConnection(ws *websocket.Conn) {
@@ -98,6 +102,11 @@ func (s *Server) handleConnection(ws *websocket.Conn) {
 func (s *Server) handleMessages(c *Conn) {
 	for msg := range c.Recv {
 		log.Printf("TODO: handle message: %+v", msg)
+		if str, ok := msg.(string); ok {
+			if str == "stop" {
+				s.Stop()
+			}
+		}
 	}
 
 	c.Wait()
