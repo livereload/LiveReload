@@ -70,8 +70,12 @@ func (c *Conn) receiveLoop() {
 			log.Printf("ws-conn-%04d: received EOF", c.ID)
 			close(c.shutdown)
 			break
+		} else if isUseOfClosed(err) {
+			log.Printf("ws-conn-%04d: detected a closed connection", c.ID)
+			close(c.shutdown)
+			break
 		} else if err != nil {
-			log.Printf("ws-conn-%04d: receive error: %v", c.ID, err)
+			log.Printf("ws-conn-%04d: receive error: %#v", c.ID, err)
 			c.errors.Push(errors.Wrap(err, "receive error"))
 			close(c.shutdown)
 			break
@@ -91,8 +95,10 @@ func (c *Conn) sendLoop() {
 		case msg := <-sendc:
 			err := websocket.JSON.Send(c.WSConn, msg)
 			if err != nil {
-				log.Printf("ws-conn-%04d: send error: %v", c.ID, err)
-				c.errors.Push(errors.Wrap(err, "send error"))
+				if !isUseOfClosed(err) {
+					log.Printf("ws-conn-%04d: send error: %v", c.ID, err)
+					c.errors.Push(errors.Wrap(err, "send error"))
+				}
 				close(c.shutdown)
 				sendc = nil // stop sending messages after an error
 			}
@@ -100,7 +106,7 @@ func (c *Conn) sendLoop() {
 
 		case <-c.shutdown:
 			err := c.WSConn.Close()
-			if err != nil {
+			if err != nil && !isUseOfClosed(err) {
 				log.Printf("ws-conn-%04d: close error: %v", c.ID, err)
 				c.errors.Push(errors.Wrap(err, "close error"))
 			}
