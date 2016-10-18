@@ -1,0 +1,4 @@
+/src/*
+!/src/livereloadhelper
+/bin/
+/pkg/
