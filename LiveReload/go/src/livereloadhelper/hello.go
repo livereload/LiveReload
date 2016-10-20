@@ -1,5 +1,7 @@
 package main
 
+//go:generate go-bindata -prefix res/ res
+
 import "C"
 
 import (
@@ -15,6 +17,7 @@ func HelloWorld(v int) int {
 
 //export StartServer
 func StartServer() {
+	srv.LiveReloadJS = MustAsset("livereload.js")
 	srv.Start()
 }
 

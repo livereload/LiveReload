@@ -1,5 +1,7 @@
 package main
 
+//go:generate go-bindata -prefix ../../res/ ../../res
+
 import (
 	"flag"
 	"log"
@@ -15,6 +17,7 @@ func main() {
 	flag.IntVar(&srv.Port, "p", server.DefaultPort, "TCP port to listen on")
 	flag.Parse()
 
+	srv.LiveReloadJS = MustAsset("livereload.js")
 	srv.Start()
 	log.Printf("Server is running.")
 

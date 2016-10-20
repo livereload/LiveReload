@@ -21,8 +21,9 @@ const DefaultPort = 35729
 var ErrProtocolViolation = errors.New("protocol violation")
 
 type Server struct {
-	Context context.Context
-	Port    int
+	Context      context.Context
+	Port         int
+	LiveReloadJS []byte
 
 	hs httpdown.Server
 
@@ -218,4 +219,6 @@ func (s *Server) AwaitStatusChange(lastv int) Status {
 }
 
 func (s *Server) serveLiveReloadJS(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/javascript")
+	w.Write(s.LiveReloadJS)
 }
