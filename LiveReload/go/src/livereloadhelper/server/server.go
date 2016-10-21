@@ -18,7 +18,10 @@ import (
 
 const DefaultPort = 35729
 
+var supportedProtocols = []string{pr.ConnCheckV1String, pr.MonitoringV7String}
+
 var ErrProtocolViolation = errors.New("protocol violation")
+var ErrNoCommonProtocols = errors.New("no common protocols supported")
 
 type Server struct {
 	Context      context.Context
@@ -42,6 +45,7 @@ type Status struct {
 
 type Conn struct {
 	wsconn.Conn
+	protocols pr.Protocols
 }
 
 func (s *Server) Start() {
@@ -114,9 +118,14 @@ func (s *Server) handleConnection(ws *websocket.Conn) {
 
 			if !handshaked {
 				if msg.Command == pr.CmdHello {
+					c.protocols = pr.Negotiate(msg.Protocols, supportedProtocols)
+					if c.protocols.ConnCheck == 0 && c.protocols.Monitoring == 0 {
+						c.Fail(ErrNoCommonProtocols)
+						break
+					}
 					c.MustSend(pr.Message{
 						Command:   pr.CmdHello,
-						Protocols: []string{pr.ProtoConnCheck1},
+						Protocols: supportedProtocols,
 					})
 					handshaked = true
 				} else {
