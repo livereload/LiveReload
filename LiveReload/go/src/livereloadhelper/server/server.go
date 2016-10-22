@@ -34,13 +34,13 @@ type Server struct {
 	previd int
 	conns  map[int]*Conn
 
-	v    int
+	v    uint64
 	cond *sync.Cond
 }
 
 type Status struct {
 	Conns int
-	V     int
+	V     uint64
 }
 
 type Conn struct {
@@ -54,6 +54,9 @@ func (s *Server) Start() {
 	}
 	if s.Port == 0 {
 		s.Port = DefaultPort
+	}
+	if s.v == 0 {
+		s.v = 1
 	}
 
 	mux := http.NewServeMux()
@@ -108,11 +111,12 @@ func (s *Server) handleConnection(ws *websocket.Conn) {
 
 	var handshaked bool
 
+loop:
 	for {
 		select {
 		case msg_, ok := <-c.Recv:
 			if !ok {
-				break
+				break loop
 			}
 			msg := msg_.(pr.Message)
 
@@ -182,18 +186,12 @@ func (s *Server) tearDownConnection(c *Conn) {
 	s.notifyChange()
 }
 
-func (s *Server) broadcast(msg interface{}) {
+func (s *Server) broadcast(f func(c *Conn)) {
 	s.mut.Lock()
 	defer s.mut.Unlock()
 
 	for _, c := range s.conns {
-		select {
-		case c.Send <- msg:
-			// ok
-		default:
-			// cannot send message, tear down
-			c.Close()
-		}
+		f(c)
 	}
 }
 
@@ -216,7 +214,7 @@ func (s *Server) Status() Status {
 	return s.status()
 }
 
-func (s *Server) AwaitStatusChange(lastv int) Status {
+func (s *Server) AwaitStatusChange(lastv uint64) Status {
 	s.mut.Lock()
 	defer s.mut.Unlock()
 

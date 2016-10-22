@@ -14,7 +14,7 @@ type Message struct {
 	Path        string `json:"path,omitempty"`
 	OrigPath    string `json:"originalPath,omitempty"`
 	OverrideURL string `json:"overrideURL,omitempty"`
-	LiveCSS     bool   `json:"liveCSS,omitempty"`
+	LiveCSS     *bool  `json:"liveCSS,omitempty"`
 
 	// for CmdInfo
 	URL     string                            `json:"url,omitempty"`
@@ -52,7 +52,7 @@ func Negotiate(remote, local []string) Protocols {
 		p.ConnCheck = ConnCheckV1
 	}
 	if try(remote, local, MonitoringV7String) {
-		p.ConnCheck = MonitoringV7
+		p.Monitoring = MonitoringV7
 	}
 	return p
 }

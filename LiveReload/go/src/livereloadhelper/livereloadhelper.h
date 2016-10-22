@@ -5,6 +5,10 @@
 /* Start of preamble from import "C" comments.  */
 
 
+#line 5 "/Users/andreyvit/dev/livereload/2/LiveReload/go/src/livereloadhelper/public.go"
+
+typedef void (*LRNetwStatusCallback)(int conns);
+
 
 
 /* End of preamble from import "C" comments.  */
@@ -52,7 +56,11 @@ extern "C" {
 #endif
 
 
-extern GoInt HelloWorld(GoInt p0);
+extern void LRNetwStart(GoUintptr p0);
+
+extern void LRNetwReload(char* p0, char* p1, char* p2, GoUint8 p3);
+
+extern void LRNetwWaitExit();
 
 #ifdef __cplusplus
 }

@@ -1,18 +1,25 @@
 src=$(wildcard *.go)
 
-.PHONY: clean all test build
+.PHONY: clean all test build build-example run-example
 
 all: test build
 
 
 ##### build
 
-build: livereloadhelper.a
-
-livereloadhelper.a: $(src)
+build:
 	go build -buildmode=c-archive
 
 .SECONDARY: livereloadhelper.h
+
+
+##### example
+
+build-example: build
+	$(MAKE) -C cmd/livereloadcserver build
+
+run-example: build-example
+	cmd/livereloadcserver/server
 
 
 ##### others
