@@ -71,6 +71,7 @@
 		432A6DB3147636F700144F97 /* utf.c in Sources */ = {isa = PBXBuildFile; fileRef = 432A6DA8147636F700144F97 /* utf.c */; };
 		432A6DB4147636F700144F97 /* value.c in Sources */ = {isa = PBXBuildFile; fileRef = 432A6DAA147636F700144F97 /* value.c */; };
 		432F8C361D89245B008CEBDE /* NewProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432F8C351D89245B008CEBDE /* NewProject.swift */; };
+		43349A441DBDAFC000BE03DE /* ReloadSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43349A431DBDAFC000BE03DE /* ReloadSession.swift */; };
 		43361D2F13C2E0E500C0E589 /* Stylus.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43361D2E13C2E0E500C0E589 /* Stylus.lrplugin */; };
 		43361D4613C30D1400C0E589 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43361D4513C30D1400C0E589 /* libicucore.dylib */; };
 		43361D4A13C319FC00C0E589 /* Jade.lrplugin in Resources */ = {isa = PBXBuildFile; fileRef = 43361D4913C319FC00C0E589 /* Jade.lrplugin */; };
@@ -552,6 +553,7 @@
 		432A6DA9147636F700144F97 /* utf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utf.h; sourceTree = "<group>"; };
 		432A6DAA147636F700144F97 /* value.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = value.c; sourceTree = "<group>"; };
 		432F8C351D89245B008CEBDE /* NewProject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewProject.swift; sourceTree = "<group>"; };
+		43349A431DBDAFC000BE03DE /* ReloadSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReloadSession.swift; sourceTree = "<group>"; };
 		43361D2E13C2E0E500C0E589 /* Stylus.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Stylus.lrplugin; path = Compilers/Stylus.lrplugin; sourceTree = SOURCE_ROOT; };
 		43361D4513C30D1400C0E589 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		43361D4913C319FC00C0E589 /* Jade.lrplugin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Jade.lrplugin; path = Compilers/Jade.lrplugin; sourceTree = SOURCE_ROOT; };
@@ -1211,6 +1213,7 @@
 				823DDE6D13F8DA3100529AD2 /* FileCompilationOptions.m */,
 				823DDE6E13F8DA3100529AD2 /* Project.h */,
 				823DDE6F13F8DA3100529AD2 /* Project.m */,
+				43349A431DBDAFC000BE03DE /* ReloadSession.swift */,
 				432F8C351D89245B008CEBDE /* NewProject.swift */,
 				823DDE7013F8DA3100529AD2 /* Workspace.h */,
 				823DDE7113F8DA3100529AD2 /* Workspace.m */,
@@ -1762,6 +1765,7 @@
 				823DDEF113F8DA3100529AD2 /* Project.m in Sources */,
 				823DDEF213F8DA3100529AD2 /* Workspace.m in Sources */,
 				823DDEF713F8DA3100529AD2 /* Compiler.m in Sources */,
+				43349A441DBDAFC000BE03DE /* ReloadSession.swift in Sources */,
 				436A654D1A92454900335BAD /* Analytics.m in Sources */,
 				823DDEF913F8DA3100529AD2 /* Plugin.m in Sources */,
 				4317BD3D1A7F6AB80054D32D /* bloom.c in Sources */,
